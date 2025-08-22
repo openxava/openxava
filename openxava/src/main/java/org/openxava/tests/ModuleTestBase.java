@@ -2511,7 +2511,6 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 			}
 		}
-		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] labels=" + labels); // tmr
 
 		// 4) For each label, select it so the hidden input receives the key, read it, then reopen the menu
 		for (String label : labels) {
@@ -2523,24 +2522,12 @@ abstract public class ModuleTestBase extends TestCase {
 				if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
 			}
 			if (visibleMenu == null) {
-				// reopen
-				// tmr ini
-				// TMR ME QUEDÉ POR AQUÍ. CON LO DE ABAJO EL testReferencesAsDescriptionListUsesFilterOfDefaultTab() DE Product2Test
-				// TMR   FUNCIONA. ESTO FALLA POR EL ONCHANGE. ¿HACERLO SOLO CUANDO HAYA ONCHANGE? ¿EJECUTAR TODOS LOS ONCHANGES ES BUENA IDEA?
-				// TMR   DEBERÍA CRONOMETRAR ESTO
-				// TMR   ¿BUSCAR OTRA SOLUCIÓN? CÓMO PREGUNTAR AL SERVIDOR POR LAS CLAVES. ¿HACERLO SOLO CUANDO ONCHANGES?
-				// TMR   LO ÚLTIMO QUE DESCUBRÍ ES QUE editorContainer.isAttachedToPage() ES FALSE A VECES
-				Thread.sleep(400);
-				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isAttachedToPage()=" + editorContainer.isAttachedToPage()); // tmr
-				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isDisplayed()=" + editorContainer.isDisplayed()); // tmr
-				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isHidden()=" + editorContainer.isHidden()); // tmr
-				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isValid()=" + editorContainer.isValid()); // tmr
-				
-				// TMR editorContainer TIENE class=" xava_onchange"
-				editorContainer = getElementById("reference_editor_" + referenceName);
-				
-				dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");				
-				// tmr fin
+                String ecClass = editorContainer.getAttribute("class");
+                if (ecClass != null && ecClass.contains("xava_onchange")) {
+                    Thread.sleep(400);
+                    editorContainer = getElementById("reference_editor_" + referenceName);                    
+                    dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");                
+                }
 				dropdownButtons.get(0).click();
 				Thread.sleep(400);
 				menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
@@ -2575,18 +2562,9 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 		}
 		catch (Exception ignore) { }
-
-		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] validValues=" + validValues); // tmr
 		long cuesta = System.currentTimeMillis() - ini; // tmr
 		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] cuesta=" + cuesta); // tmr
 		return validValues;
-	}
-
-	
-	private void nextTokens(StringTokenizer st, int count) { 
-		for (int i=0; i<count; i++) {
-			if (st.hasMoreTokens()) st.nextToken();
-		}
 	}
 	
 	protected void assertValidValuesCount(String name, int count) throws Exception {

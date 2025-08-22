@@ -110,10 +110,10 @@ openxava.addEditorInitFunction(function() {
 				// $input.data("lastTerm", null);
 			},
 			source: function( request, response ) {
-				
-				var input = $(this)[0]["element"];
-				// Always use on-demand loading for better performance
-				var propertyKey = $(input).next().attr("id");
+                
+                var input = $(this)[0]["element"];
+                // Always use on-demand loading for better performance
+                var propertyKey = $(input).next().attr("id");
 					var viewObject = $(input).data("view-object") || "xava_view";
 					var limit = 60; // Max items per page
 					var offset = 0; // Initial offset for pagination
