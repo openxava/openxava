@@ -2479,7 +2479,8 @@ abstract public class ModuleTestBase extends TestCase {
 		}		
 	}
 	
-	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception { 
+	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception {
+		long ini = System.currentTimeMillis(); // tmr
 		// 1) Locate the editor container and the button to open the menu
 		String referenceName = name.contains(".") ? name.substring(0, name.indexOf(".")) : name;
 		HtmlElement editorContainer = getElementById("reference_editor_" + referenceName);
@@ -2528,22 +2529,27 @@ abstract public class ModuleTestBase extends TestCase {
 				// TMR   FUNCIONA. ESTO FALLA POR EL ONCHANGE. ¿HACERLO SOLO CUANDO HAYA ONCHANGE? ¿EJECUTAR TODOS LOS ONCHANGES ES BUENA IDEA?
 				// TMR   DEBERÍA CRONOMETRAR ESTO
 				// TMR   ¿BUSCAR OTRA SOLUCIÓN? CÓMO PREGUNTAR AL SERVIDOR POR LAS CLAVES. ¿HACERLO SOLO CUANDO ONCHANGES?
+				// TMR   LO ÚLTIMO QUE DESCUBRÍ ES QUE editorContainer.isAttachedToPage() ES FALSE A VECES
 				Thread.sleep(400);
+				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isAttachedToPage()=" + editorContainer.isAttachedToPage()); // tmr
+				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isDisplayed()=" + editorContainer.isDisplayed()); // tmr
+				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isHidden()=" + editorContainer.isHidden()); // tmr
+				System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] editorContainer.isValid()=" + editorContainer.isValid()); // tmr
+				
+				// TMR editorContainer TIENE class=" xava_onchange"
 				editorContainer = getElementById("reference_editor_" + referenceName);
+				
 				dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");				
 				// tmr fin
 				dropdownButtons.get(0).click();
 				Thread.sleep(400);
 				menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
 				for (HtmlElement menu : menus) {
-					System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] menu.asXml()=" + menu.asXml()); // tmr
 					String style = menu.getAttribute("style");
 					if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
 				}
 			}
 			
-			System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] label=" + label + ", visibleMenu=" + visibleMenu); // tmr
-
 			if (visibleMenu != null) {
 				// Find the item with the exact label and click to select
 				String xpath = ".//div[contains(@class,'ui-menu-item-wrapper') and normalize-space(text())='" + label.replace("'", "&apos;") + "']";
@@ -2571,6 +2577,8 @@ abstract public class ModuleTestBase extends TestCase {
 		catch (Exception ignore) { }
 
 		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] validValues=" + validValues); // tmr
+		long cuesta = System.currentTimeMillis() - ini; // tmr
+		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] cuesta=" + cuesta); // tmr
 		return validValues;
 	}
 
