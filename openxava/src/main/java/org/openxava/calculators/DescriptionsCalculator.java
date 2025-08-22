@@ -1,9 +1,10 @@
 package org.openxava.calculators;
 
 import java.util.*;
+import java.util.Collections;
 
-import javax.swing.table.*;
 import javax.swing.event.*;
+import javax.swing.table.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
@@ -12,7 +13,7 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
-import org.openxava.web.DescriptionsLists;
+import org.openxava.web.*;
 
 /**
  * It obtain a description collection. <p>
@@ -392,7 +393,10 @@ public class DescriptionsCalculator implements ICalculator {
  
  		String order = "";
  		if (hasOrder()) {
- 			order = " ORDER BY " + getOrder(); 
+ 			order = " ORDER BY " + Strings.wrapVariables(getOrder()); 
+ 		}
+ 		else if (!isOrderByKey()) {
+ 			order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
  		}
  
  		Object [] key = null;

@@ -1063,4 +1063,40 @@ public class Strings {
         return variables;
 	}
 	
+	/**
+	 * Wrap each variables in the list with ${}. <p>
+	 * 
+	 * So, if you have "${number}, ${name},${customer}"
+	 * you get "${number}, ${name},${customer}".
+	 * 
+	 * @param listOfVariable  List of comma separate variable names.
+	 * @return List with the variables wrapped, it never will be null.
+	 * @since 7.6
+	 */	
+	public static String wrapVariables(String listOfVariables) { // tmr En changelog
+	    if (listOfVariables == null) {
+	        return "";
+	    }
+
+	    String[] parts = listOfVariables.split(",");
+	    StringBuilder result = new StringBuilder();
+
+	    for (int i = 0; i < parts.length; i++) {
+	        String field = parts[i].trim();
+
+	        if (i > 0) {
+	            result.append(", ");
+	        }
+
+	        if (field.startsWith("${") && field.endsWith("}")) {
+	            // Already wrapped
+	            result.append(field);
+	        } else {
+	            result.append("${").append(field).append("}");
+	        }
+	    }
+
+	    return result.toString();
+	}
+
 }
