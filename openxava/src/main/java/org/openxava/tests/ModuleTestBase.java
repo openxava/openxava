@@ -2510,6 +2510,7 @@ abstract public class ModuleTestBase extends TestCase {
 				}
 			}
 		}
+		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] labels=" + labels); // tmr
 
 		// 4) For each label, select it so the hidden input receives the key, read it, then reopen the menu
 		for (String label : labels) {
@@ -2522,14 +2523,26 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 			if (visibleMenu == null) {
 				// reopen
+				// tmr ini
+				// TMR ME QUEDÉ POR AQUÍ. CON LO DE ABAJO EL testReferencesAsDescriptionListUsesFilterOfDefaultTab() DE Product2Test
+				// TMR   FUNCIONA. ESTO FALLA POR EL ONCHANGE. ¿HACERLO SOLO CUANDO HAYA ONCHANGE? ¿EJECUTAR TODOS LOS ONCHANGES ES BUENA IDEA?
+				// TMR   DEBERÍA CRONOMETRAR ESTO
+				// TMR   ¿BUSCAR OTRA SOLUCIÓN? CÓMO PREGUNTAR AL SERVIDOR POR LAS CLAVES. ¿HACERLO SOLO CUANDO ONCHANGES?
+				Thread.sleep(400);
+				editorContainer = getElementById("reference_editor_" + referenceName);
+				dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");				
+				// tmr fin
 				dropdownButtons.get(0).click();
 				Thread.sleep(400);
 				menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
 				for (HtmlElement menu : menus) {
+					System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] menu.asXml()=" + menu.asXml()); // tmr
 					String style = menu.getAttribute("style");
 					if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
 				}
 			}
+			
+			System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] label=" + label + ", visibleMenu=" + visibleMenu); // tmr
 
 			if (visibleMenu != null) {
 				// Find the item with the exact label and click to select
@@ -2557,6 +2570,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		catch (Exception ignore) { }
 
+		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] validValues=" + validValues); // tmr
 		return validValues;
 	}
 
