@@ -14,6 +14,8 @@ import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.html.*;
 import org.htmlunit.javascript.*;
 import org.htmlunit.javascript.host.event.*;
+import org.htmlunit.corejs.javascript.NativeArray;
+import org.htmlunit.corejs.javascript.NativeObject;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
@@ -23,12 +25,12 @@ import org.openxava.tab.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.web.Ids;
+import org.openxava.web.DescriptionsLists;
 import org.openxava.view.meta.*;
-import org.openxava.web.*;
 import org.xml.sax.*;
 
 import junit.framework.*;
-
 
 /**
  * Base class for creating a junit test that runs against an OpenXava module. <p>
@@ -323,7 +325,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlInput getInputByName(String name) { 
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlInput) {
@@ -337,7 +339,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlSelect getSelectByName(String name) {  
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlSelect) {
@@ -351,7 +353,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlTextArea getTextAreaByName(String name) {  
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlTextArea) {
@@ -1890,8 +1892,8 @@ abstract public class ModuleTestBase extends TestCase {
 
 	/**
 	 *
-	 * @since 4.1
-	 */
+	 * @since 4.3
+	 */	
 	protected void assertTotalInCollection(String collection, String name, String total) throws Exception { 
 		int column = getPropertiesList(collection).indexOf(name);
 		assertTotalInCollection(collection, column, total);
@@ -2029,7 +2031,7 @@ abstract public class ModuleTestBase extends TestCase {
 			uncheckRow(Tab.COLLECTION_PREFIX + collection.replace('.', '_') + "_selected", row);
 		}
 		else {		
-			uncheckRow(collection + ".__SELECTED__", row);
+			uncheckRow(collection + ".__SELECTED__", row); 
 		}
 	}
 	
@@ -2485,75 +2487,72 @@ abstract public class ModuleTestBase extends TestCase {
 		String referenceName = name.contains(".") ? name.substring(0, name.indexOf(".")) : name;
 		HtmlElement editorContainer = getElementById("reference_editor_" + referenceName);
 
+		// TMR ME QUEDÉ POR AQUÍ: LA NUEVA IMPLEMENTACIÓN FUNCIONA Y ES MÁS RÁPIDA
+		// TMR   QUIZÁS PODRÍA ELIMINAR dropdownButtons, PORQUE PARECE QUE EL JS Y AL ABRE
+		// TMR   PODRÍA PROBAR QUITAR TAMBIÉN LO DE CERRAR EL COMBO CADA VEZ
+		// TMR   COMPROBAR QUE NO SE LANZAN LOS EVENTOS AL CAMBIAR Y QUITAR EL PRINT DE LA ACCIÓN AL CAMBIAR
 		List<HtmlElement> dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");
 		if (dropdownButtons.isEmpty()) {
 			fail(XavaResources.getString("dropdown_button_not_found", name));
 		}
 
-		// 2) Open the menu and wait for it to load
-		dropdownButtons.get(0).click();
-		Thread.sleep(700);
+		// 2) Open the menu via JS only (avoid clicking icon to prevent duplicate searches)
+		// Clear previous accumulated items to avoid duplicates, then trigger a search
+		try {
+			String clearAndOpenJs =
+				"(function(){" +
+				"  var id='" + decorateId(name) + "';" +
+				"  var hidden = document.getElementsByName(id)[0] || document.getElementById(id);" +
+				"  if(!hidden) return;" +
+				"  var input = hidden.previousElementSibling;" +
+				"  if(!input) return;" +
+				"  if (window.jQuery){ var $in=jQuery(input); $in.data('allItems', []); $in.data('hasMoreItems', true); $in.data('loadingMore', false);}" +
+				"  if (window.descriptionsEditor) descriptionsEditor.open(id);" +
+				"})();";
+			page.executeJavaScript(clearAndOpenJs);
+		} catch (Exception ignore) { }
+		client.waitForBackgroundJavaScriptStartingBefore(1500);
+		try { Thread.sleep(200); } catch (InterruptedException ie) { }
 
-		// 3) Get the visible menu and capture all displayed labels (descriptions)
-		List<HtmlElement> autocompleteMenus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
 		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
-		List<String> labels = new ArrayList<String>();
-		if (!autocompleteMenus.isEmpty()) {
-			HtmlElement visibleMenu = null;
-			for (HtmlElement menu : autocompleteMenus) {
-				String style = menu.getAttribute("style");
-				if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
-			}
-			if (visibleMenu != null) {
-				List<HtmlElement> menuItems = visibleMenu.getByXPath(".//li[contains(@class, 'ui-menu-item')]/div[contains(@class,'ui-menu-item-wrapper')]");
-				for (HtmlElement wrapper : menuItems) {
-					labels.add(wrapper.getTextContent().trim());
+		String decoratedId = decorateId(name);
+		// 3) Read jQuery data('allItems') directly from the visible input
+		String js =
+			"(function(){" +
+			"  var id='" + decoratedId + "';" +
+			"  var hidden = document.getElementsByName(id)[0] || document.getElementById(id);" +
+			"  if(!hidden) return [];" +
+			"  var input = hidden.previousElementSibling;" +
+			"  if(!input) return [];" +
+			"  var $in = (window.jQuery)? jQuery(input): null;" +
+			"  var items = $in ? ($in.data('allItems') || []) : [];" +
+			"  return items;" +
+			"})();";
+
+		ScriptResult result = page.executeJavaScript(js);
+		Object jsResult = result.getJavaScriptResult();
+		if (jsResult instanceof NativeArray) {
+			NativeArray arr = (NativeArray) jsResult;
+			long len = arr.getLength();
+			// Deduplicate by key while preserving order
+			LinkedHashMap<String, KeyAndDescription> byKey = new LinkedHashMap<String, KeyAndDescription>();
+			for (int i = 0; i < len; i++) {
+				Object it = arr.get(i, arr);
+				if (it instanceof NativeObject) {
+					NativeObject obj = (NativeObject) it;
+					Object key = obj.get("value", obj);
+					Object label = obj.get("label", obj);
+					String skey = key == null ? null : key.toString();
+					String slabel = label == null ? "" : label.toString();
+					if (skey != null && !byKey.containsKey(skey)) {
+						byKey.put(skey, new KeyAndDescription(skey, slabel));
+					}
 				}
 			}
+			validValues.addAll(byKey.values());
 		}
 
-		// 4) For each label, select it so the hidden input receives the key, read it, then reopen the menu
-		for (String label : labels) {
-			// If the menu is not visible, open it again
-			List<HtmlElement> menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
-			HtmlElement visibleMenu = null;
-			for (HtmlElement menu : menus) {
-				String style = menu.getAttribute("style");
-				if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
-			}
-			if (visibleMenu == null) {
-                String ecClass = editorContainer.getAttribute("class");
-                if (ecClass != null && ecClass.contains("xava_onchange")) {
-                    Thread.sleep(400);
-                    editorContainer = getElementById("reference_editor_" + referenceName);                    
-                    dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");                
-                }
-				dropdownButtons.get(0).click();
-				Thread.sleep(400);
-				menus = page.getByXPath("//ul[contains(@class, 'ui-autocomplete')]");
-				for (HtmlElement menu : menus) {
-					String style = menu.getAttribute("style");
-					if (style == null || !style.contains("display: none")) { visibleMenu = menu; break; }
-				}
-			}
-			
-			if (visibleMenu != null) {
-				// Find the item with the exact label and click to select
-				String xpath = ".//div[contains(@class,'ui-menu-item-wrapper') and normalize-space(text())='" + label.replace("'", "&apos;") + "']";
-				List<HtmlElement> candidates = visibleMenu.getByXPath(xpath);
-				if (!candidates.isEmpty()) {
-					candidates.get(0).click(); // select the item -> it fills the hidden input with the key
-					Thread.sleep(200);
-					// Read the key from the field's hidden input
-					HtmlInput hidden = getForm().getInputByName(decorateId(name));
-					String key = hidden.getValueAttribute();
-					validValues.add(new KeyAndDescription(key, label));
-				}
-			}
-		}
-
-
-		// 5) Close the descriptions editor so it's ready for the next time
+		// 4) Close the descriptions editor so it's ready for the next time
 		try {
 			List<HtmlElement> closeButtons = editorContainer.getByXPath(".//a[contains(@class,'xava_descriptions_editor_close')]");
 			if (!closeButtons.isEmpty()) {
@@ -2562,6 +2561,7 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 		}
 		catch (Exception ignore) { }
+		System.out.println("ModuleTestBase.getValidValuesWithUIAutocomplete() validValues=" + validValues); // tmr
 		long cuesta = System.currentTimeMillis() - ini; // tmr
 		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] cuesta=" + cuesta); // tmr
 		return validValues;
