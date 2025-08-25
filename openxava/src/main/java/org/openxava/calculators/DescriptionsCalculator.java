@@ -177,20 +177,28 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public KeyAndDescription findDescriptionByKey(Object key) throws Exception {
 		if (key == null || conditionHasArguments() && !hasParameters()) return null;
-		
+
 		// Create a temporary condition to find the specific key
 		String originalCondition = getCondition();
+		Collection originalParameters = getParameters();
 		String keyCondition = buildKeyCondition(key);
+		if (log.isDebugEnabled()) {
+			log.debug("DescriptionsCalculator.findDescriptionByKey key='" + key + "' builtCondition=" + keyCondition
+				+ ", model=" + getModel() + ", keyProperties=" + getKeyProperties() + ", descriptionProperties=" + getDescriptionProperties());
+		}
 		
 		try {
-			// Temporarily modify condition to find specific key
-			if (Is.emptyString(originalCondition)) {
-				setCondition(keyCondition);
-			} else {
-				setCondition("(" + originalCondition + ") AND (" + keyCondition + ")");
-			}
+			// Temporarily set ONLY the key condition to ensure the selected item is found
+			// even if it does not match the current filter/condition
+			setCondition(keyCondition);
+			// Also ensure there are no stray parameters to bind
+			setParameters(null);
 			
 			Collection results = executeQueryPaginatedCollection(1, 0, null);
+			if (log.isDebugEnabled()) {
+				int size = 0; try { size = results==null?0:results.size(); } catch(Exception ignore) {}
+				log.debug("DescriptionsCalculator.findDescriptionByKey results size=" + size);
+			}
 			if (results != null && !results.isEmpty()) {
 				return (KeyAndDescription) results.iterator().next();
 			}
@@ -198,19 +206,41 @@ public class DescriptionsCalculator implements ICalculator {
 		} finally {
 			// Restore original condition
 			setCondition(originalCondition);
+			// Restore original parameters
+			setParameters(originalParameters);
 		}
 	}
 	
 	private String buildKeyCondition(Object key) {
         try {
-            // Always parse using DescriptionsLists (uses WebEditors under the hood)
-            Map<String, Object> values = new HashMap<String, Object>();
-            DescriptionsLists.fillReferenceValues(values, getMetaModel(), key == null ? null : key.toString());
+            String keyStr = key == null ? null : key.toString();
+            String[] parts;
+            if (keyStr != null && keyStr.startsWith("[")) {
+                // Expect format: "[.v1.v2.]"
+                int len = keyStr.length();
+                // Defensive: ensure closing .]
+                if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
+                    String inner = keyStr.substring(2, len - 2); // between "[." and ".]"
+                    parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
+                } else {
+                    // Not perfectly bracketed; strip brackets if present and split by '.'
+                    String trimmed = keyStr.replace("[", "").replace("]", "");
+                    parts = trimmed.isEmpty() ? new String[0] : trimmed.split("\\.");
+                }
+            } else {
+                // Simple value or non-bracketed composite (rare). Treat entire string as first part.
+                parts = new String[] { keyStr };
+            }
+
             StringBuilder condition = new StringBuilder();
-            for (String propertyName : getMetaModel().getAllKeyPropertiesNames()) {
+            int idx = 0;
+            for (Object kpObj : getKeyPropertiesCollection()) {
+                String propertyName = String.valueOf(kpObj);
                 MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-                Object value = values == null ? null : values.get(propertyName);
-                appendConditionPart(condition, propertyName, p, value);
+                String token = (parts != null && idx < parts.length) ? parts[idx] : null;
+                Object parsed = token == null ? null : p.parse(token);
+                appendConditionPart(condition, propertyName, p, parsed);
+                idx++;
             }
             return condition.toString();
         }
@@ -258,6 +288,25 @@ public class DescriptionsCalculator implements ICalculator {
         String v = String.valueOf(parsed);
         String escaped = v.replace("'", "''");
         return "'" + escaped + "'";
+    }
+
+    /**
+     * Returns true if the given value can be parsed to the MetaProperty type.
+     * Used to detect which key block (first or duplicated) corresponds to the
+     * configured editor key properties (e.g., number) instead of a technical OID.
+     */
+    private boolean isParsable(MetaProperty mp, Object value) {
+        if (value == null) return false;
+        try {
+            Object parsed = mp.parse(String.valueOf(value));
+            if (parsed == null) return false;
+            Class<?> expected = mp.getType();
+            if (expected != null && expected.isInstance(parsed)) return true;
+            // As a fallback, accept the raw value if already matches expected
+            return expected != null && expected.isInstance(value);
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     
@@ -369,128 +418,151 @@ public class DescriptionsCalculator implements ICalculator {
 
 	
 	private Collection executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
- 		// Build tab with chunk size to avoid loading everything
- 		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
- 		if (chunkSize <= 0) chunkSize = 50; // sane default
- 		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
- 
- 		String condition = "";
- 		if (hasCondition()) {
- 			condition = getCondition(); 
- 		}
- 
- 		// Add search condition if provided
- 		if (!Is.emptyString(searchTerm)) {
- 			String searchCondition = buildSearchCondition(searchTerm);
- 			if (!Is.emptyString(searchCondition)) {
- 				if (Is.emptyString(condition)) {
- 					condition = searchCondition;
- 				} else {
- 					condition = "(" + condition + ") AND (" + searchCondition + ")";
- 				}
- 			}
- 		}
- 
- 		String order = "";
- 		if (hasOrder()) {
- 			order = " ORDER BY " + Strings.wrapVariables(getOrder()); 
- 		}
- 		else if (!isOrderByKey()) {
- 			order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
- 		}
- 
- 		Object [] key = null;
- 		if (hasParameters()) {
- 			key = new Object[getParameters().size()];
- 			Iterator it = getParameters().iterator();
- 			for (int i=0; i<key.length; i++) { 
- 				key[i] = it.next();
- 				if (key[i] == null) return Collections.EMPTY_LIST;
- 			}
- 		}
- 
- 		tab.search(condition + order, key);
- 
- 		try {
- 			DataChunk firstChunk = tab.nextChunk();
- 			List result = new ArrayList();
- 			List chunkData = firstChunk == null ? Collections.EMPTY_LIST : firstChunk.getData();
- 
- 			int startIndex = Math.min(Math.max(0, offset), chunkData.size());
- 			int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
- 
- 			for (int i = startIndex; i < endIndex; i++) {
-				Object[] row = (Object[]) chunkData.get(i);
-				// DEBUG: Print the entire row to inspect column order and duplicates
-				System.out.println("DEBUG DescriptionsCalculator row=" + java.util.Arrays.toString(row)); // tmr
-				  
-				KeyAndDescription el = new KeyAndDescription();
+		// Build tab with chunk size to avoid loading everything
+		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
+		if (chunkSize <= 0) chunkSize = 50; // sane default
+		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
 
-				int iKey = 0;
-				if (isMultipleKey()) {
-					Iterator itKeyNames = getKeyPropertiesCollection().iterator();
-					Map keyMap = new HashMap();
-					boolean isNull = true;
-					while (itKeyNames.hasNext()) {
-						String name = (String) itKeyNames.next();
-						Object v = row[iKey++];
-						keyMap.put(name, v);
-						if (v != null) isNull = false;
-					}
-					if (isNull) {
-						el.setKey(null);
-					} else {
-						el.setKey(getMetaModel().toString(keyMap));
-					}
+		String condition = "";
+		if (hasCondition()) {
+			condition = getCondition(); 
+		}
+
+		// Add search condition if provided
+		if (!Is.emptyString(searchTerm)) {
+			String searchCondition = buildSearchCondition(searchTerm);
+			if (!Is.emptyString(searchCondition)) {
+				if (Is.emptyString(condition)) {
+					condition = searchCondition;
 				} else {
-					el.setKey(row[iKey++]);
+					condition = "(" + condition + ") AND (" + searchCondition + ")";
 				}
- 
- 				StringBuilder value = new StringBuilder();
-				String descPropsStr = getDescriptionProperties();
+			}
+		}
 
-				String keyPropsStr = getKeyProperties();
-				String[] keyProps = keyPropsStr.split(",");
+		String order = "";
+		if (hasOrder()) {
+			order = " ORDER BY " + Strings.wrapVariables(getOrder()); 
+		}
+		else if (!isOrderByKey()) {
+			order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
+		}
 
-				// Always build description from description columns using dynamic layout detection
-				String[] descProps = Is.emptyString(descPropsStr) ? new String[0] : descPropsStr.split(",");
-				int descStart = keyProps.length; // default layout A: [key(s), desc(s), extra...]
-				// Detect layout B: [key(s), key(s) DUP, desc(s), key(s) DUP, extra...]
-				if (row.length >= (keyProps.length * 2) + descProps.length) {
-					boolean duplicatedKeysBlock = true;
-					for (int k = 0; k < keyProps.length; k++) {
-						Object a = row[k];
-						Object b = row[k + keyProps.length];
-						if (!(a == null ? b == null : a.equals(b))) { duplicatedKeysBlock = false; break; }
+		Object [] key = null;
+		if (hasParameters()) {
+			key = new Object[getParameters().size()];
+			Iterator it = getParameters().iterator();
+			for (int i=0; i<key.length; i++) { 
+				key[i] = it.next();
+				if (key[i] == null) return Collections.EMPTY_LIST;
+			}
+		}
+
+		tab.search(condition + order, key);
+
+		DataChunk firstChunk = tab.nextChunk();
+		List result = new ArrayList();
+		List chunkData = firstChunk == null ? Collections.EMPTY_LIST : firstChunk.getData();
+
+		int startIndex = Math.min(Math.max(0, offset), chunkData.size());
+		int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
+
+		// Pre-calc counts
+		Collection keyPropsCol = getKeyPropertiesCollection();
+		int keyCount = keyPropsCol.size();
+		String descPropsStr = getDescriptionProperties();
+		int descCount = Is.emptyString(descPropsStr) ? 0 : descPropsStr.split(",").length;
+
+		// Retrieve MetaTab properties order and count to compute baseOffset
+		java.util.List propsOrder;
+		try { propsOrder = new java.util.ArrayList(getMetaTab().getPropertiesNames()); } catch (Exception ignore) { propsOrder = java.util.Collections.EMPTY_LIST; }
+		int propsCountTotal = propsOrder.size();
+
+		for (int i = startIndex; i < endIndex; i++) {
+			Object[] row = (Object[]) chunkData.get(i);
+
+			// Compute baseOffset for potential leading technical column(s) (e.g., oid)
+			int baseOffset = (propsCountTotal > 0) ? Math.max(0, row.length - propsCountTotal) : 0; // usually 0 or 1
+
+			// Prepare sequences
+			java.util.List<String> keySeq = new java.util.ArrayList<>();
+			for (Object kp : keyPropsCol) keySeq.add(String.valueOf(kp));
+			java.util.List<String> descSeq = new java.util.ArrayList<>();
+			if (!Is.emptyString(descPropsStr)) { for (String d : descPropsStr.split(",")) descSeq.add(d.trim()); }
+
+			// Find key block occurrences and pick the last one (closest to the end)
+			int keyStartRel = 0;
+			if (!propsOrder.isEmpty() && !keySeq.isEmpty()) {
+				for (int s = 0; s + keySeq.size() <= propsOrder.size(); s++) {
+					boolean match = true;
+					for (int j = 0; j < keySeq.size(); j++) {
+						if (!String.valueOf(propsOrder.get(s + j)).equals(String.valueOf(keySeq.get(j)))) { match = false; break; }
 					}
-					if (duplicatedKeysBlock) descStart = keyProps.length * 2;
+					if (match) keyStartRel = s; // keep last
 				}
-				for (int j = 0; j < descProps.length; j++) {
-					int colIndex = descStart + j;
-					if (colIndex >= 0 && colIndex < row.length) {
-						Object d = row[colIndex];
-						if (d != null) {
-							if (value.length() > 0) value.append(" - ");
-							value.append(String.valueOf(d).trim());
+			}
+			int iKey = baseOffset + keyStartRel;
+
+			KeyAndDescription el = new KeyAndDescription();
+
+			if (isMultipleKey()) {
+				// Build composite key string in the format: "[.v1.v2.]"
+				StringBuilder ksb = new StringBuilder();
+				ksb.append("[.");
+				int idx = iKey;
+				int p = 0;
+				for (Object kpObj : getKeyPropertiesCollection()) {
+					Object kv = idx < row.length ? row[idx] : null;
+					if (p > 0) ksb.append('.');
+					ksb.append(kv == null ? "" : String.valueOf(kv));
+					idx++;
+					p++;
+				}
+				ksb.append(".]");
+				String compositeKey = ksb.toString();
+				el.setKey(compositeKey);
+			} else {
+				// Simple key is at iKey
+				Object simpleKey = iKey < row.length ? row[iKey] : null;
+				el.setKey(simpleKey);
+			}
+
+			// Build description from the first contiguous occurrence of descriptionProperties
+			StringBuilder sb = new StringBuilder();
+			if (!descSeq.isEmpty()) {
+				int descStartRel = -1;
+				if (!propsOrder.isEmpty()) {
+					for (int s = 0; s + descSeq.size() <= propsOrder.size(); s++) {
+						boolean match = true;
+						for (int j = 0; j < descSeq.size(); j++) {
+							if (!String.valueOf(propsOrder.get(s + j)).equals(String.valueOf(descSeq.get(j)))) { match = false; break; }
 						}
+						if (match) { descStartRel = s; break; }
 					}
 				}
-				// If descriptionProperties equals keyProperties, we want the key to be the description too
-				if (!Is.emptyString(descPropsStr) && descPropsStr.equals(getKeyProperties())) {
-					el.setKey(value.toString());
+				for (int j = 0; j < descSeq.size(); j++) {
+					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
+					if (col < 0 || col >= row.length) continue;
+					Object v = row[col];
+					if (v != null) {
+						if (sb.length() > 0) sb.append(' ');
+						sb.append(String.valueOf(v));
+					}
 				}
- 
- 				el.setDescription(value.toString());
- 				el.setShowCode(keyProps.length > 1);
- 				if (el.getKey() != null) result.add(el);
- 			}
- 
- 			return result;
- 		}
- 		catch (Exception e) {
- 			return Collections.EMPTY_LIST;
- 		}
- 	}
+			}
+			String descStr = sb.toString();
+			el.setDescription(descStr);
+
+			if (log.isDebugEnabled()) {
+				log.debug("DescriptionsCalculator row mapped: iKeyStart=" + iKey + 
+					", key=" + el.getKey() + ", desc='" + descStr + "'");
+			}
+
+			result.add(el);
+		}
+
+		return result;
+	}
  
   
   private int executeQueryCount() throws Exception {

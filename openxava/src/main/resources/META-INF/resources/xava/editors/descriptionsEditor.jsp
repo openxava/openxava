@@ -116,7 +116,45 @@ if (calculator == null) {
 	String orderByKey = request.getParameter("orderByKey");
 	if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
 	calculator.setOrderByKey(orderByKey);
-	request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+    request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+}
+
+// Ensure configuration is present even if calculator existed already
+// This mirrors the DWR behavior and guarantees proper key parsing on reload
+{
+    String condParam = request.getParameter("condition");
+    if (condParam == null) condParam = request.getParameter("condicion");
+    if (!Is.emptyString(condParam)) calculator.setCondition(condParam);
+
+    String orderParam = request.getParameter("order");
+    if (orderParam == null) orderParam = request.getParameter("orden");
+    if (!Is.emptyString(orderParam)) calculator.setOrder(orderParam);
+
+    calculator.setUseConvertersInKeys(true);
+
+    String modelParam = request.getParameter("model");
+    if (modelParam == null) modelParam = request.getParameter("modelo");
+    if (!Is.emptyString(modelParam)) calculator.setModel(modelParam);
+
+    String kpParam = request.getParameter("keyProperty");
+    if (kpParam == null) kpParam = request.getParameter("propiedadClave");
+    if (!Is.emptyString(kpParam)) calculator.setKeyProperty(kpParam);
+
+    String kpsParam = request.getParameter("keyProperties");
+    if (kpsParam == null) kpsParam = request.getParameter("propiedadesClave");
+    if (!Is.emptyString(kpsParam)) calculator.setKeyProperties(kpsParam);
+
+    String dpParam = request.getParameter("descriptionProperty");
+    if (dpParam == null) dpParam = request.getParameter("propiedadDescripcion");
+    if (!Is.emptyString(dpParam)) calculator.setDescriptionProperty(dpParam);
+
+    String dpsParam = request.getParameter("descriptionProperties");
+    if (dpsParam == null) dpsParam = request.getParameter("propiedadesDescripcion");
+    if (!Is.emptyString(dpsParam)) calculator.setDescriptionProperties(dpsParam);
+
+    String obkParam = request.getParameter("orderByKey");
+    if (obkParam == null) obkParam = request.getParameter("ordenadoPorClave");
+    if (!Is.emptyString(obkParam)) calculator.setOrderByKey(obkParam);
 }
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
 	java.util.Iterator it = null;
