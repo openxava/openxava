@@ -1,9 +1,9 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Probar Product2.
-- Probar Product.
 - DescriptionsListTest falla, arreglarlo.
+- Lanzar Product2Test.
+- Probar Product.
 - Posibles optimizaciones:
     - Comprobar que antes de abrir el combo, solo dibujando la vista, no hace ninguna consulta (innecesaria).
     - No recargar al abrir y cerrar.

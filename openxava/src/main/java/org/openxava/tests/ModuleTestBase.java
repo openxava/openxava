@@ -2482,21 +2482,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception {
-		long ini = System.currentTimeMillis(); // tmr
-		// 1) Locate the editor container and the button to open the menu
-		String referenceName = name.contains(".") ? name.substring(0, name.indexOf(".")) : name;
-		HtmlElement editorContainer = getElementById("reference_editor_" + referenceName);
-
-		// TMR ME QUEDÉ POR AQUÍ: LA NUEVA IMPLEMENTACIÓN FUNCIONA Y ES MÁS RÁPIDA
-		// TMR   QUIZÁS PODRÍA ELIMINAR dropdownButtons, PORQUE PARECE QUE EL JS Y AL ABRE
-		// TMR   PODRÍA PROBAR QUITAR TAMBIÉN LO DE CERRAR EL COMBO CADA VEZ
-		// TMR   COMPROBAR QUE NO SE LANZAN LOS EVENTOS AL CAMBIAR Y QUITAR EL PRINT DE LA ACCIÓN AL CAMBIAR
-		List<HtmlElement> dropdownButtons = editorContainer.getByXPath(".//i[contains(@class, 'mdi-menu-down')]");
-		if (dropdownButtons.isEmpty()) {
-			fail(XavaResources.getString("dropdown_button_not_found", name));
-		}
-
-		// 2) Open the menu via JS only (avoid clicking icon to prevent duplicate searches)
+		// 1) Open the menu via JS only (avoid clicking icon to prevent duplicate searches)
 		// Clear previous accumulated items to avoid duplicates, then trigger a search
 		try {
 			String clearAndOpenJs =
@@ -2516,7 +2502,7 @@ abstract public class ModuleTestBase extends TestCase {
 
 		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
 		String decoratedId = decorateId(name);
-		// 3) Read jQuery data('allItems') directly from the visible input
+		// 2) Read jQuery data('allItems') directly from the visible input
 		String js =
 			"(function(){" +
 			"  var id='" + decoratedId + "';" +
@@ -2551,19 +2537,6 @@ abstract public class ModuleTestBase extends TestCase {
 			}
 			validValues.addAll(byKey.values());
 		}
-
-		// 4) Close the descriptions editor so it's ready for the next time
-		try {
-			List<HtmlElement> closeButtons = editorContainer.getByXPath(".//a[contains(@class,'xava_descriptions_editor_close')]");
-			if (!closeButtons.isEmpty()) {
-				closeButtons.get(0).click();
-				Thread.sleep(200);
-			}
-		}
-		catch (Exception ignore) { }
-		System.out.println("ModuleTestBase.getValidValuesWithUIAutocomplete() validValues=" + validValues); // tmr
-		long cuesta = System.currentTimeMillis() - ini; // tmr
-		System.out.println("[ModuleTestBase.getValidValuesWithUIAutocomplete] cuesta=" + cuesta); // tmr
 		return validValues;
 	}
 	
