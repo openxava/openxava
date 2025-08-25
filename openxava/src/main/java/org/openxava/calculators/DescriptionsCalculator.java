@@ -421,6 +421,9 @@ public class DescriptionsCalculator implements ICalculator {
  
  			for (int i = startIndex; i < endIndex; i++) {
 				Object[] row = (Object[]) chunkData.get(i);
+				// DEBUG: Print the entire row to inspect column order and duplicates
+				System.out.println("DEBUG DescriptionsCalculator row=" + java.util.Arrays.toString(row)); // tmr
+				  
 				KeyAndDescription el = new KeyAndDescription();
 
 				int iKey = 0;
@@ -449,29 +452,32 @@ public class DescriptionsCalculator implements ICalculator {
 				String keyPropsStr = getKeyProperties();
 				String[] keyProps = keyPropsStr.split(",");
 
-				if (Is.emptyString(descPropsStr) || descPropsStr.equals(getKeyProperties())) {
-					// When description properties are same as key properties, use key value as description
-					if (el.getKey() != null) {
-						value.append(String.valueOf(el.getKey()).trim());
+				// Always build description from description columns using dynamic layout detection
+				String[] descProps = Is.emptyString(descPropsStr) ? new String[0] : descPropsStr.split(",");
+				int descStart = keyProps.length; // default layout A: [key(s), desc(s), extra...]
+				// Detect layout B: [key(s), key(s) DUP, desc(s), key(s) DUP, extra...]
+				if (row.length >= (keyProps.length * 2) + descProps.length) {
+					boolean duplicatedKeysBlock = true;
+					for (int k = 0; k < keyProps.length; k++) {
+						Object a = row[k];
+						Object b = row[k + keyProps.length];
+						if (!(a == null ? b == null : a.equals(b))) { duplicatedKeysBlock = false; break; }
 					}
-				} else {
-					// Description properties are different from key properties
-					// Based on debug output: SELECT e.number, e.number, e.description, e.number
-					// Structure: [key, key_duplicate, description, key_duplicate]
-					String[] descProps = descPropsStr.split(",");
-					
-					for (int j = 0; j < descProps.length; j++) {
-						// Description columns are at positions: keyCount + keyCount + j
-						// Structure: [key, key_dup, desc, key_dup] -> desc at position 2
-						int colIndex = keyProps.length + keyProps.length + j;
-						if (colIndex >= 0 && colIndex < row.length) {
-							Object d = row[colIndex];
-							if (d != null) {
-								if (value.length() > 0) value.append(" - ");
-								value.append(String.valueOf(d).trim());
-							}
+					if (duplicatedKeysBlock) descStart = keyProps.length * 2;
+				}
+				for (int j = 0; j < descProps.length; j++) {
+					int colIndex = descStart + j;
+					if (colIndex >= 0 && colIndex < row.length) {
+						Object d = row[colIndex];
+						if (d != null) {
+							if (value.length() > 0) value.append(" - ");
+							value.append(String.valueOf(d).trim());
 						}
 					}
+				}
+				// If descriptionProperties equals keyProperties, we want the key to be the description too
+				if (!Is.emptyString(descPropsStr) && descPropsStr.equals(getKeyProperties())) {
+					el.setKey(value.toString());
 				}
  
  				el.setDescription(value.toString());
