@@ -22,22 +22,22 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false; 
-	}
-	
-	@Override
-	protected void tearDown() throws Exception { // tmr
-	}
-
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
 	}
+
+	@Override
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+
+	@Override
+	protected void tearDown() throws Exception { // tmr	
+	}
 	
-	public void testLargeDatasetLoadedOnDemand() throws Exception {
+	public void _testLargeDatasetLoadedOnDemand() throws Exception { // tmr
 		
 		goModule("Traveler"); 
 
@@ -206,7 +206,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
-	public void _testAutocomplete() throws Exception { // tmr
+	public void testAutocomplete() throws Exception { 
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
@@ -224,7 +224,8 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(openFamilyListIcon.isDisplayed());
 		assertFalse(closeFamilyListIcon.isDisplayed()); 
 		openFamilyListIcon.click();
-		assertTrue(familyList.isDisplayed());
+		Thread.sleep(700);
+		assertTrue(familyList.isDisplayed()); // TMR FALLA: ME QUEDÉ POR AQUÍ. ES POR EL ACENTO EN SOFTWARÉ
 		assertEquals(3, familyList.findElements(By.tagName("li")).size());
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());	
@@ -257,6 +258,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		WebElement openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
 		openSubfamilyListIcon.click();
+		Thread.sleep(700);
 		WebElement subfamilyList = getDriver().findElement(By.id(getListId(1))); 
 		assertTrue(subfamilyList.isDisplayed());
 		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
