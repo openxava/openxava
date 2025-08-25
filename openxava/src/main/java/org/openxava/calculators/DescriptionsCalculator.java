@@ -13,7 +13,6 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
-import org.openxava.web.*;
 
 /**
  * It obtain a description collection. <p>
@@ -181,17 +180,22 @@ public class DescriptionsCalculator implements ICalculator {
 		// Create a temporary condition to find the specific key
 		String originalCondition = getCondition();
 		Collection originalParameters = getParameters();
-		String keyCondition = buildKeyCondition(key);
+		        String keyCondition = buildKeyCondition(key);
+        if (Is.emptyString(keyCondition)) {
+            // Safety net: if MetaModel-based build produced empty (e.g. business key not in PK),
+            // fall back to calculator keyProperties order also for simple keys
+            String calcCond = buildKeyConditionByCalculatorOrder(key);
+            if (!Is.emptyString(calcCond)) keyCondition = calcCond;
+        }
 		if (log.isDebugEnabled()) {
 			log.debug("DescriptionsCalculator.findDescriptionByKey key='" + key + "' builtCondition=" + keyCondition
 				+ ", model=" + getModel() + ", keyProperties=" + getKeyProperties() + ", descriptionProperties=" + getDescriptionProperties());
 		}
 		
 		try {
-			// Temporarily set ONLY the key condition to ensure the selected item is found
-			// even if it does not match the current filter/condition
+			// Apply only key condition for exact match search (ignore original filters)
 			setCondition(keyCondition);
-			// Also ensure there are no stray parameters to bind
+			// Clear parameters for this search
 			setParameters(null);
 			
 			Collection results = executeQueryPaginatedCollection(1, 0, null);
@@ -200,7 +204,25 @@ public class DescriptionsCalculator implements ICalculator {
 				log.debug("DescriptionsCalculator.findDescriptionByKey results size=" + size);
 			}
 			if (results != null && !results.isEmpty()) {
-				return (KeyAndDescription) results.iterator().next();
+				KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
+				// Normalize the key to the incoming one so UI selection matches exactly
+				kd.setKey(key);
+				return kd;
+			}
+
+			// Fallback: try with calculator keyProperties order (stereotypes may serialize like this)
+			String altKeyCondition = buildKeyConditionByCalculatorOrder(key);
+			if (!Is.emptyString(altKeyCondition) && !altKeyCondition.equals(keyCondition)) {
+				if (log.isDebugEnabled()) log.debug("DescriptionsCalculator.findDescriptionByKey retrying with calculator order condition= " + altKeyCondition);
+				// Again, only key condition
+				setCondition(altKeyCondition);
+				setParameters(null);
+				results = executeQueryPaginatedCollection(1, 0, null);
+				if (results != null && !results.isEmpty()) {
+					KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
+					kd.setKey(key);
+					return kd;
+				}
 			}
 			return null;
 		} finally {
@@ -210,46 +232,119 @@ public class DescriptionsCalculator implements ICalculator {
 			setParameters(originalParameters);
 		}
 	}
-	
-	private String buildKeyCondition(Object key) {
-        try {
-            String keyStr = key == null ? null : key.toString();
-            String[] parts;
-            if (keyStr != null && keyStr.startsWith("[")) {
-                // Expect format: "[.v1.v2.]"
-                int len = keyStr.length();
-                // Defensive: ensure closing .]
-                if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
-                    String inner = keyStr.substring(2, len - 2); // between "[." and ".]"
-                    parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
-                } else {
-                    // Not perfectly bracketed; strip brackets if present and split by '.'
-                    String trimmed = keyStr.replace("[", "").replace("]", "");
-                    parts = trimmed.isEmpty() ? new String[0] : trimmed.split("\\.");
-                }
-            } else {
-                // Simple value or non-bracketed composite (rare). Treat entire string as first part.
-                parts = new String[] { keyStr };
-            }
 
-            StringBuilder condition = new StringBuilder();
-            int idx = 0;
-            for (Object kpObj : getKeyPropertiesCollection()) {
-                String propertyName = String.valueOf(kpObj);
-                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-                String token = (parts != null && idx < parts.length) ? parts[idx] : null;
-                Object parsed = token == null ? null : p.parse(token);
-                appendConditionPart(condition, propertyName, p, parsed);
-                idx++;
-            }
-            return condition.toString();
-        }
-        catch (Exception ex) {
-            // Fallback to previous (simplistic) behavior if anything goes wrong
-            return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
-                + " = '" + (key==null?"":key.toString()) + "'";
-        }
-    }
+	/**
+	 * Builds a key condition using MetaModel key property order, but only
+	 * including the properties configured for this calculator.
+	 */
+	private String buildKeyCondition(Object key) {
+	    try {
+	        String keyStr = key == null ? null : key.toString();
+	        String[] parts;
+	        if (keyStr != null && keyStr.startsWith("[")) {
+	            int len = keyStr.length();
+	            if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
+	                String inner = keyStr.substring(2, len - 2); // between "[." and ".]"
+	                parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
+	            } else {
+	                parts = new String[] { keyStr };
+	            }
+	        } else {
+	            parts = new String[] { keyStr };
+	        }
+
+	        // Explicit simple-key handling: build using calculator key property directly
+	        if (!isMultipleKey()) {
+	            String propertyName = !Is.emptyString(getKeyProperty()) ? getKeyProperty() : null;
+	            if (Is.emptyString(propertyName)) {
+	                java.util.Iterator it = getKeyPropertiesCollection().iterator();
+	                if (it.hasNext()) propertyName = String.valueOf(it.next());
+	            }
+	            if (!Is.emptyString(propertyName)) {
+	                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+	                String token = (parts != null && parts.length > 0) ? parts[0] : null;
+	                Object parsed = token == null ? null : p.parse(token);
+	                StringBuilder condition = new StringBuilder();
+	                appendConditionPart(condition, propertyName, p, parsed);
+	                return condition.toString();
+	            }
+	        }
+
+	        StringBuilder condition = new StringBuilder();
+	        int idx = 0;
+	        java.util.Set<String> calcKeys = new java.util.HashSet<>();
+	        for (Object k : getKeyPropertiesCollection()) calcKeys.add(String.valueOf(k));
+	        int appended = 0;
+	        for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
+	            String propertyName = String.valueOf(on);
+	            if (!calcKeys.contains(propertyName)) continue;
+	            MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+	            String token = (parts != null && idx < parts.length) ? parts[idx] : null;
+	            Object parsed = token == null ? null : p.parse(token);
+	            appendConditionPart(condition, propertyName, p, parsed);
+	            idx++;
+	            appended++;
+	        }
+	        // Fallback: if none of the MetaModel key properties matched calculator keys (business key not in PK),
+	        // build condition directly from calculator keyProperties order
+	        if (appended == 0 && !calcKeys.isEmpty()) {
+	            condition.setLength(0);
+	            idx = 0;
+	            for (Object k : getKeyPropertiesCollection()) {
+	                String propertyName = String.valueOf(k);
+	                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+	                String token = (parts != null && idx < parts.length) ? parts[idx] : null;
+	                Object parsed = token == null ? null : p.parse(token);
+	                appendConditionPart(condition, propertyName, p, parsed);
+	                idx++;
+	            }
+	        }
+	        return condition.toString();
+	    }
+	    catch (Exception ex) {
+	        return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
+	            + " = '" + (key==null?"":key.toString()) + "'";
+	    }
+	}
+
+	/**
+	 * Builds a key condition using the calculator's configured keyProperties order.
+	 * Useful as a fallback for stereotype-based keys whose serialization order
+	 * may follow editor configuration instead of MetaModel order.
+	 */
+	private String buildKeyConditionByCalculatorOrder(Object key) {
+	    try {
+	        String keyStr = key == null ? null : key.toString();
+	        String[] parts;
+	        if (keyStr != null && keyStr.startsWith("[")) {
+	            int len = keyStr.length();
+	            if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
+	                String inner = keyStr.substring(2, len - 2);
+	                parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
+	            } else {
+	                parts = new String[] { keyStr };
+	            }
+	        } else {
+	            parts = new String[] { keyStr };
+	        }
+
+	        StringBuilder condition = new StringBuilder();
+	        int idx = 0;
+	        for (Object k : getKeyPropertiesCollection()) {
+	            String propertyName = String.valueOf(k);
+	            MetaProperty p = getMetaModel().getMetaProperty(propertyName);
+	            String token = (parts != null && idx < parts.length) ? parts[idx] : null;
+	            Object parsed = token == null ? null : p.parse(token);
+	            appendConditionPart(condition, propertyName, p, parsed);
+	            idx++;
+	        }
+	        return condition.toString();
+	    }
+	    catch (Exception ex) {
+	        return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
+	            + " = '" + (key==null?"":key.toString()) + "'";
+	    }
+	}
 
     /**
      * Appends a single property condition into the builder, using proper
@@ -467,11 +562,9 @@ public class DescriptionsCalculator implements ICalculator {
 		int startIndex = Math.min(Math.max(0, offset), chunkData.size());
 		int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
 
-		// Pre-calc counts
+		// Pre-calc
 		Collection keyPropsCol = getKeyPropertiesCollection();
-		int keyCount = keyPropsCol.size();
 		String descPropsStr = getDescriptionProperties();
-		int descCount = Is.emptyString(descPropsStr) ? 0 : descPropsStr.split(",").length;
 
 		// Retrieve MetaTab properties order and count to compute baseOffset
 		java.util.List propsOrder;
@@ -490,32 +583,63 @@ public class DescriptionsCalculator implements ICalculator {
 			java.util.List<String> descSeq = new java.util.ArrayList<>();
 			if (!Is.emptyString(descPropsStr)) { for (String d : descPropsStr.split(",")) descSeq.add(d.trim()); }
 
-			// Find key block occurrences and pick the last one (closest to the end)
+			// Find key block occurrences and pick the best candidate using parsability
 			int keyStartRel = 0;
 			if (!propsOrder.isEmpty() && !keySeq.isEmpty()) {
+				java.util.List<Integer> starts = new java.util.ArrayList<>();
+				int bestStart = -1;
+				int bestScore = -1;
 				for (int s = 0; s + keySeq.size() <= propsOrder.size(); s++) {
 					boolean match = true;
 					for (int j = 0; j < keySeq.size(); j++) {
 						if (!String.valueOf(propsOrder.get(s + j)).equals(String.valueOf(keySeq.get(j)))) { match = false; break; }
 					}
-					if (match) keyStartRel = s; // keep last
+					if (!match) continue;
+					starts.add(s);
+					// Score this candidate: how many values parse to their MetaProperty types
+					int score = 0;
+					for (int j = 0; j < keySeq.size(); j++) {
+						String pname = String.valueOf(propsOrder.get(s + j));
+						MetaProperty mp = getMetaModel().getMetaProperty(pname);
+						int col = baseOffset + s + j;
+						Object v = col < row.length ? row[col] : null;
+						if (isParsable(mp, v)) score++;
+					}
+					if (score > bestScore) { bestScore = score; bestStart = s; }
 				}
+				// Heuristic only for composite keys: if there are two consecutive key blocks (duplicate sequence), pick the second one
+				if (keySeq.size() > 1) {
+					for (int i2 = 0; i2 + 1 < starts.size(); i2++) {
+						if (starts.get(i2 + 1) == starts.get(i2) + keySeq.size()) { bestStart = starts.get(i2 + 1); }
+					}
+				}
+				if (bestStart >= 0) keyStartRel = bestStart; // otherwise keep default 0
 			}
 			int iKey = baseOffset + keyStartRel;
 
 			KeyAndDescription el = new KeyAndDescription();
 
 			if (isMultipleKey()) {
-				// Build composite key string in the format: "[.v1.v2.]"
+				// Build composite key string in the format: "[.v1.v2.]" following MetaModel key order (toKeyString order)
 				StringBuilder ksb = new StringBuilder();
 				ksb.append("[.");
-				int idx = iKey;
+				// Map key block names -> values from the detected contiguous block (propsOrder)
+				java.util.Map<String, Object> keyValuesByName = new java.util.HashMap<>();
+				int blockLen = keySeq.size();
+				for (int j = 0; j < blockLen; j++) {
+					String pname = String.valueOf(propsOrder.get(keyStartRel + j));
+					int col = baseOffset + keyStartRel + j;
+					Object kv = col < row.length ? row[col] : null;
+					keyValuesByName.put(pname, kv);
+				}
+				// Emit in MetaModel.getAllKeyPropertiesNames() order to match toKeyString() and tests
 				int p = 0;
-				for (Object kpObj : getKeyPropertiesCollection()) {
-					Object kv = idx < row.length ? row[idx] : null;
+				for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
+					String pname = String.valueOf(on);
+					if (!keyValuesByName.containsKey(pname)) continue;
+					Object kv = keyValuesByName.get(pname);
 					if (p > 0) ksb.append('.');
 					ksb.append(kv == null ? "" : String.valueOf(kv));
-					idx++;
 					p++;
 				}
 				ksb.append(".]");

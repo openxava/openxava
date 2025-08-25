@@ -1,8 +1,7 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Probar Product.
-- Lanzar Product2 y DescriptionsListTest(completo.
+- Probar DescriptionsListTest completo.
 - Posibles optimizaciones:
     - Comprobar que antes de abrir el combo, solo dibujando la vista, no hace ninguna consulta (innecesaria).
     - No recargar al abrir y cerrar.
@@ -11,7 +10,7 @@ Pending for @DescriptionsList for large datasets
 - Buscar tmrs and todos.
 - Refactorizar.
 - Quitar prints.         
-- Lanzar Product2Test y DescriptionsListTest.
+- Lanzar Product2Test, ProductTest y DescriptionsListTest.
 - Suite completa.
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
