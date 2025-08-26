@@ -217,9 +217,15 @@ public class Descriptions extends DWRBase {
             // Process results (filtering already done in calculator when needed)
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
-                // Asegurarse de que showCode sea false para evitar que se muestre el código en la UI
+                // Ensure that showCode is false so the code is not displayed in the UI
                 kd.setShowCode(false);
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
+                // Encode diacritics (accents, ñ, ü) as HTML entities to avoid client issues
+                System.out.println("Descriptions.getSuggestions() label>" + label); // tmr
+                System.out.println("labelCodes> " + toCodePoints(label)); // tmr
+                label = encodeAccentsToHtmlEntities(label);
+                System.out.println("Descriptions.getSuggestions() label<" + label); // tmr
+                System.out.println("labelCodes< " + toCodePoints(label)); // tmr
                 
                 // No additional filtering needed - calculator already filtered if term was provided
                 Map<String, String> item = new HashMap<>(2);
@@ -257,6 +263,46 @@ public class Descriptions extends DWRBase {
     private static int sanitizeLimit(int limit) {
         if (limit <= 0) return 60;
         return Math.min(limit, 100);
+    }
+
+    /** Returns the string code points in decimal and hex for debugging. */
+    private static String toCodePoints(String s) {
+        if (s == null) return "";
+        StringBuilder dec = new StringBuilder();
+        StringBuilder hex = new StringBuilder();
+        for (int i = 0; i < s.length(); ) {
+            int cp = s.codePointAt(i);
+            if (dec.length() > 0) { dec.append(' '); hex.append(' '); }
+            dec.append(cp);
+            hex.append(String.format("U+%04X", cp));
+            i += Character.charCount(cp);
+        }
+        return "dec=[" + dec + "] hex=[" + hex + "]";
+    }
+
+    /**
+     * Converts accented vowels and ñ/Ñ/ü/Ü to HTML entities. Keeps NFC normalization.
+     * Example: "SOFTWARÉ" -> "SOFTWAR&amp;Eacute;".
+     */
+    private static String encodeAccentsToHtmlEntities(String s) {
+        if (s == null) return "";
+        // Normalize to NFC to work with precomposed characters
+        s = Normalizer.normalize(s, Normalizer.Form.NFC);
+        return s
+            .replace("\u00E1", "&aacute;") // á
+            .replace("\u00C1", "&Aacute;") // Á
+            .replace("\u00E9", "&eacute;") // é
+            .replace("\u00C9", "&Eacute;") // É
+            .replace("\u00ED", "&iacute;") // í
+            .replace("\u00CD", "&Iacute;") // Í
+            .replace("\u00F3", "&oacute;") // ó
+            .replace("\u00D3", "&Oacute;") // Ó
+            .replace("\u00FA", "&uacute;") // ú
+            .replace("\u00DA", "&Uacute;") // Ú
+            .replace("\u00F1", "&ntilde;") // ñ
+            .replace("\u00D1", "&Ntilde;") // Ñ
+            .replace("\u00FC", "&uuml;") // ü
+            .replace("\u00DC", "&Uuml;"); // Ü
     }
 
     private static String normalize(String s) throws UnsupportedEncodingException {
