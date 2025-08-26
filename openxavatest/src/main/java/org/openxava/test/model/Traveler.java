@@ -12,7 +12,10 @@ import lombok.*;
  * @author Javier Paniza
  */
 @Entity @Getter @Setter
-@Tab(defaultOrder = "name")
+@View(members = "name; lastJourney; nextJourney")
+@View(name = "Slow", members = "name; slowJourney")
+@Tab(defaultOrder = "name", properties="name, lastJourney.name, lastJourney.description, nextJourney.name, nextJourney.description")
+@Tab(name="Slow", properties="name, slowJourney.name")
 public class Traveler extends Identifiable {
 
     @Column(length = 50) @Required
@@ -24,6 +27,10 @@ public class Traveler extends Identifiable {
 
     @DescriptionsList(orderByKey = true, descriptionProperties = "name") 
     @ManyToOne(fetch = FetchType.LAZY)
-    Journey nextJourney;    
+    Journey nextJourney;
+
+    @DescriptionsList(orderByKey = true, descriptionProperties = "ultraSlowName")
+    @ManyToOne(fetch = FetchType.LAZY)
+    Journey slowJourney;  // TMR ME QUEDÉ POR AQUÍ: PARA HACER UN TEST QUE VERIFIQUE NO CARGA ELEMENTOS AL PULSAR NEW  
 
 }

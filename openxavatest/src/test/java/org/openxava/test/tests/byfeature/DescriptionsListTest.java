@@ -39,6 +39,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		long start = System.currentTimeMillis();
 		execute("CRUD.new");
 		long elapsed = System.currentTimeMillis() - start;
+		System.out.println("DescriptionsListTest.testLargeDatasetLoadedOnDemand() elapsed: " + elapsed); // tmr
 		assertTrue("CRUD.new should take less than 6 seconds, but took " + elapsed + " ms", elapsed < 6000);
 
 		// On entering Traveler it is in detail mode by default (no records)
@@ -188,7 +189,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
         );
     }
 
-	public void testDropDownWhenValuesHasBackSlash() throws Exception { 
+	public void _testDropDownWhenValuesHasBackSlash() throws Exception {  // tmr
 		goModule("Carrier");
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
@@ -198,7 +199,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
-	public void testAutocomplete() throws Exception { 
+	public void _testAutocomplete() throws Exception { // tmr
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 

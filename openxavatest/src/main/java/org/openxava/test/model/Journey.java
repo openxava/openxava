@@ -39,7 +39,26 @@ public class Journey {
 				}
 				catch (NumberFormatException ignore) {
 					// Not a number, ignore
-				} 
+				}
+				catch (InterruptedException e) {
+				}
+			}
+		}
+		return name;
+	}
+
+	public String getUltraSlowName() { // Even slower than getSlowName() to stress on-demand fetch
+		if (name != null) {
+			String[] parts = name.trim().split("\\s+");
+			if (parts.length >= 2) {
+				try {
+					int n = Integer.parseInt(parts[1]);
+					System.out.println("Journey.getUltraSlowName() n=" + n);
+					Thread.sleep(200); // So even the first 30 items take 6 seconds to load
+				}
+				catch (NumberFormatException ignore) {
+					// Not a number, ignore
+				}
 				catch (InterruptedException e) {
 				}
 			}
