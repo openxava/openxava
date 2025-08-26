@@ -28,16 +28,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		XPersistence.setPersistenceUnit("junit");
 	}
 
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-
-	@Override
-	protected void tearDown() throws Exception { // tmr	
-	}
-	
-	public void _testLargeDatasetLoadedOnDemand() throws Exception { // tmr
+	public void testLargeDatasetLoadedOnDemand() throws Exception { 
 		
 		goModule("Traveler"); 
 
@@ -202,11 +193,12 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
 		drivingLicense.click();
+		Thread.sleep(200);
 		WebElement dropDown = getDriver().findElement(By.cssSelector("ul.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front"));
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
-	public void _testAutocomplete() throws Exception { // tmr
+	public void testAutocomplete() throws Exception { 
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 

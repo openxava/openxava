@@ -220,8 +220,8 @@ public class Descriptions extends DWRBase {
                 // Ensure that showCode is false so the code is not displayed in the UI
                 kd.setShowCode(false);
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
-                // Encode diacritics (accents, ñ, ü) as HTML entities to avoid client issues
-                label = encodeAccentsToHtmlEntities(label);
+                // Encode to transport-safe U+XXXX sequences for diacritics, non-ASCII and backslash
+                label = encodeToUPlusCodes(label);
                 
                 // No additional filtering needed - calculator already filtered if term was provided
                 Map<String, String> item = new HashMap<>(2);
@@ -261,35 +261,22 @@ public class Descriptions extends DWRBase {
         return Math.min(limit, 100);
     }
 
-    /** Returns the string code points in decimal and hex for debugging. */
-    private static String toCodePoints(String s) {
-        if (s == null) return "";
-        StringBuilder dec = new StringBuilder();
-        StringBuilder hex = new StringBuilder();
-        for (int i = 0; i < s.length(); ) {
-            int cp = s.codePointAt(i);
-            if (dec.length() > 0) { dec.append(' '); hex.append(' '); }
-            dec.append(cp);
-            hex.append(String.format("U+%04X", cp));
-            i += Character.charCount(cp);
-        }
-        return "dec=[" + dec + "] hex=[" + hex + "]";
-    }
 
     /**
-     * Normalization approach: replace accented characters with their code string.
+     * Encodes text to transport-safe "U+XXXX" sequences.
      * - Normalize to NFD so accents become combining marks.
-     * - Replace any combining mark (U+0300–U+036F) or any non-ASCII code point (>= 0x80)
-     *   with "U+XXXX" (uppercase hex), keeping plain ASCII as-is.
+     * - Replace any combining mark (U+0300–U+036F), any non-ASCII code point (>= 0x80),
+     *   and the ASCII backslash (U+005C) with "U+XXXX" (uppercase hex), keeping other ASCII as-is.
+     * Intended to avoid client/DWR/JSON issues; the client converts back to characters.
      */
-    private static String encodeAccentsToHtmlEntities(String s) {
+    private static String encodeToUPlusCodes(String s) {
         if (s == null) return "";
         String nfd = Normalizer.normalize(s, Normalizer.Form.NFD);
         StringBuilder out = new StringBuilder(nfd.length() * 2);
         for (int i = 0; i < nfd.length(); ) {
             int cp = nfd.codePointAt(i);
             boolean isCombining = (cp >= 0x0300 && cp <= 0x036F);
-            if (isCombining || cp >= 0x80) {
+            if (isCombining || cp >= 0x80 || cp == 0x5C) { // also encode backslash
                 out.append(String.format("U+%04X", cp));
             } else {
                 out.appendCodePoint(cp);
