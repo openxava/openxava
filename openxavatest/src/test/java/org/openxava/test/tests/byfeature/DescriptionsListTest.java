@@ -225,7 +225,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(closeFamilyListIcon.isDisplayed()); 
 		openFamilyListIcon.click();
 		Thread.sleep(700);
-		assertTrue(familyList.isDisplayed()); // TMR FALLA: ME QUEDÉ POR AQUÍ. ES POR EL ACENTO EN SOFTWARÉ
+		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.findElements(By.tagName("li")).size());
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());	
@@ -249,7 +249,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		
 		List<WebElement> familyListChildren = familyList.findElements(By.tagName("li")); 
-		assertEquals(2, familyListChildren.size()); 
+		assertEquals(2, familyListChildren.size()); // TMR FALLA: ME QUEDÉ POR AQUÍ. "WARE" NO INCLUYE "SOFTWARÉ"
 		assertEquals("SOFTWARÉ", familyListChildren.get(0).getText()); 
 		assertEquals("HARDWARE", familyListChildren.get(1).getText());
 		

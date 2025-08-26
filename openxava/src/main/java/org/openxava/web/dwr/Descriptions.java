@@ -243,7 +243,7 @@ public class Descriptions extends DWRBase {
             return out;
         }
         catch (Exception ex) {
-            log.warn("Error getting descriptions suggestions", ex);
+            log.warn("Error getting descriptions suggestions", ex); // tmr i18n
             // Return empty list on error to keep client stable
         }
         finally {
