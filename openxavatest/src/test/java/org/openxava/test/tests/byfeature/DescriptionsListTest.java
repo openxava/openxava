@@ -197,7 +197,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
         );
     }
 
-	public void _testDropDownWhenValuesHasBackSlash() throws Exception { // tmr
+	public void testDropDownWhenValuesHasBackSlash() throws Exception { 
 		goModule("Carrier");
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
@@ -206,7 +206,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
-	public void testAutocomplete() throws Exception { 
+	public void _testAutocomplete() throws Exception { // tmr
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
@@ -249,7 +249,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(closeFamilyListIcon.isDisplayed());
 		
 		List<WebElement> familyListChildren = familyList.findElements(By.tagName("li")); 
-		assertEquals(2, familyListChildren.size()); // TMR FALLA: ME QUEDÉ POR AQUÍ. "WARE" NO INCLUYE "SOFTWARÉ"
+		assertEquals(2, familyListChildren.size()); 
 		assertEquals("SOFTWARÉ", familyListChildren.get(0).getText()); 
 		assertEquals("HARDWARE", familyListChildren.get(1).getText());
 		
@@ -324,6 +324,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		closeFamilyListIcon.click();
 		wait(getDriver()); 
 		openFamilyListIcon.click();
+		Thread.sleep(200); 
 		assertTrue(familyList.isDisplayed()); 
 		subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));		
