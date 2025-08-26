@@ -1,6 +1,7 @@
 package org.openxava.calculators;
 
 import java.util.*;
+import java.text.Normalizer;
 import java.util.Collections;
 
 import javax.swing.event.*;
@@ -675,7 +676,9 @@ public class DescriptionsCalculator implements ICalculator {
 				}
 			}
 			String descStr = sb.toString();
-			el.setDescription(descStr);
+            // Ensure composed form so comparisons/tests match (e.g., E + \u0301 -> É)
+            try { descStr = Normalizer.normalize(descStr, Normalizer.Form.NFC); } catch (Throwable ignore) {}
+            el.setDescription(descStr);
 
 			if (log.isDebugEnabled()) {
 				log.debug("DescriptionsCalculator row mapped: iKeyStart=" + iKey + 

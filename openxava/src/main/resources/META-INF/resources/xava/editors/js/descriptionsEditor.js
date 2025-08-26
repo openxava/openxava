@@ -236,6 +236,9 @@ openxava.addEditorInitFunction(function() {
 											var copy = $.extend({}, it);
 											copy.label = descriptionsEditor._convertUPlusToBackslashU(copy.label);
 											copy.label = descriptionsEditor._decodeUnicodeEscapes(copy.label);
+											if (copy.label && typeof copy.label.normalize === 'function') {
+												copy.label = copy.label.normalize('NFC');
+											}
 											return copy;
 										}
 										return it;
