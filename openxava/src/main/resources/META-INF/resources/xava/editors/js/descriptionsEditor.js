@@ -229,6 +229,19 @@ openxava.addEditorInitFunction(function() {
 									items = [];
 								}
 								
+								// Convert label occurrences of "U+XXXX" to literal "\\uXXXX" only for labels
+								if ($.isArray(items)) {
+									items = items.map(function(it){
+										if (it && typeof it.label === 'string') {
+											var copy = $.extend({}, it);
+											copy.label = descriptionsEditor._convertUPlusToBackslashU(copy.label);
+											copy.label = descriptionsEditor._decodeUnicodeEscapes(copy.label);
+											return copy;
+										}
+										return it;
+									});
+								}
+								
 								// Accumulate items for pagination
 								var allItems = $(input).data("allItems") || [];
 								
@@ -290,6 +303,35 @@ descriptionsEditor.executeOnChange = function(element) {
 
 descriptionsEditor.removeAccents = function(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+
+// Convert occurrences like "U+00C9" into a literal "\u00C9" (do not decode to a character)
+descriptionsEditor._convertUPlusToBackslashU = function(s) {
+    if (typeof s !== 'string') return s;
+    return s.replace(/U\+([0-9A-Fa-f]{4,6})/g, function(_, hex){ return "\\u" + hex.toUpperCase(); });
+}
+
+// Decode sequences like "\u00C9" or "\u{1F600}" into actual Unicode characters
+descriptionsEditor._decodeUnicodeEscapes = function(s) {
+    if (typeof s !== 'string') return s;
+    // Replace literal backslash-u sequences with actual characters
+    // \u{XXXXX} form (ES6)
+    var out = s.replace(/\\u\{([0-9A-Fa-f]+)\}/g, function(_, hex){
+        try { return String.fromCodePoint(parseInt(hex, 16)); } catch(e2) { return _; }
+    });
+    // \uXXXX form
+    out = out.replace(/\\u([0-9A-Fa-f]{4})/g, function(_, hex){
+        try { return String.fromCharCode(parseInt(hex, 16)); } catch(e3) { return _; }
+    });
+    // Also handle double-escaped sequences "\\\\uXXXX" and "\\\\u{...}" by first collapsing to single backslash then decoding again
+    out = out.replace(/\\\\u\{([0-9A-Fa-f]+)\}/g, function(_, hex){
+        try { return String.fromCodePoint(parseInt(hex, 16)); } catch(e4) { return _; }
+    });
+    out = out.replace(/\\\\u([0-9A-Fa-f]{4})/g, function(_, hex){
+        try { return String.fromCharCode(parseInt(hex, 16)); } catch(e5) { return _; }
+    });
+    return out;
 }
 
 

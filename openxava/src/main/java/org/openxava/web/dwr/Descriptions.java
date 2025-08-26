@@ -221,11 +221,7 @@ public class Descriptions extends DWRBase {
                 kd.setShowCode(false);
                 String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
                 // Encode diacritics (accents, ñ, ü) as HTML entities to avoid client issues
-                System.out.println("Descriptions.getSuggestions() label>" + label); // tmr
-                System.out.println("labelCodes> " + toCodePoints(label)); // tmr
                 label = encodeAccentsToHtmlEntities(label);
-                System.out.println("Descriptions.getSuggestions() label<" + label); // tmr
-                System.out.println("labelCodes< " + toCodePoints(label)); // tmr
                 
                 // No additional filtering needed - calculator already filtered if term was provided
                 Map<String, String> item = new HashMap<>(2);
@@ -281,28 +277,26 @@ public class Descriptions extends DWRBase {
     }
 
     /**
-     * Converts accented vowels and ñ/Ñ/ü/Ü to HTML entities. Keeps NFC normalization.
-     * Example: "SOFTWARÉ" -> "SOFTWAR&amp;Eacute;".
+     * Normalization approach: replace accented characters with their code string.
+     * - Normalize to NFD so accents become combining marks.
+     * - Replace any combining mark (U+0300–U+036F) or any non-ASCII code point (>= 0x80)
+     *   with "U+XXXX" (uppercase hex), keeping plain ASCII as-is.
      */
     private static String encodeAccentsToHtmlEntities(String s) {
         if (s == null) return "";
-        // Normalize to NFC to work with precomposed characters
-        s = Normalizer.normalize(s, Normalizer.Form.NFC);
-        return s
-            .replace("\u00E1", "&aacute;") // á
-            .replace("\u00C1", "&Aacute;") // Á
-            .replace("\u00E9", "&eacute;") // é
-            .replace("\u00C9", "&Eacute;") // É
-            .replace("\u00ED", "&iacute;") // í
-            .replace("\u00CD", "&Iacute;") // Í
-            .replace("\u00F3", "&oacute;") // ó
-            .replace("\u00D3", "&Oacute;") // Ó
-            .replace("\u00FA", "&uacute;") // ú
-            .replace("\u00DA", "&Uacute;") // Ú
-            .replace("\u00F1", "&ntilde;") // ñ
-            .replace("\u00D1", "&Ntilde;") // Ñ
-            .replace("\u00FC", "&uuml;") // ü
-            .replace("\u00DC", "&Uuml;"); // Ü
+        String nfd = Normalizer.normalize(s, Normalizer.Form.NFD);
+        StringBuilder out = new StringBuilder(nfd.length() * 2);
+        for (int i = 0; i < nfd.length(); ) {
+            int cp = nfd.codePointAt(i);
+            boolean isCombining = (cp >= 0x0300 && cp <= 0x036F);
+            if (isCombining || cp >= 0x80) {
+                out.append(String.format("U+%04X", cp));
+            } else {
+                out.appendCodePoint(cp);
+            }
+            i += Character.charCount(cp);
+        }
+        return out.toString();
     }
 
     private static String normalize(String s) throws UnsupportedEncodingException {
