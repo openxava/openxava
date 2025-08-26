@@ -1025,14 +1025,14 @@ public class DescriptionsCalculator implements ICalculator {
 	 * 
 	 * @param searchTerm The term to search for
 	 * @return SQL condition string for filtering, or empty if properties are calculated
-	 */
-	private String buildSearchCondition(String searchTerm) {
-		if (searchTerm == null || searchTerm.trim().isEmpty()) {
-			return "";
-		}
-		
-		// Get description properties to build the search condition
-		String descriptionProperties = getDescriptionProperties();
+	    */
+    private String buildSearchCondition(String searchTerm) {
+        if (searchTerm == null || searchTerm.trim().isEmpty()) {
+            return "";
+        }
+        
+        // Get description properties to build the search condition
+        String descriptionProperties = getDescriptionProperties();
 		if (Is.emptyString(descriptionProperties)) {
 			return "";
 		}
@@ -1043,23 +1043,45 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 		
 		// Build LIKE condition for each description property
-		StringBuilder condition = new StringBuilder();
-		String[] properties = descriptionProperties.split(",");
-		
-		for (int i = 0; i < properties.length; i++) {
-			if (i > 0) {
-				condition.append(" OR ");
-			}
-			String property = properties[i].trim();
-			// Use UPPER for case-insensitive search and ${} for OpenXava property substitution
-			condition.append("UPPER(${").append(property).append("}) LIKE UPPER('%").append(searchTerm.replace("'", "''")).append("%')");
-		}
-		
-		if (properties.length > 1) {
-			return "(" + condition.toString() + ")";
-		} else {
-			return condition.toString();
-		}
-	}
+		        // Normalize parameter according to preferences (remove accents, optional upper)
+        String value = searchTerm.trim();
+        if (XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions()) {
+            value = Strings.removeAccents(value);
+        }
+        if (XavaPreferences.getInstance().isToUpperForStringArgumentsInConditions()) {
+            value = value.toUpperCase();
+        }
+        String like = "%" + value.replace("'", "''") + "%";
+
+        // Build condition using translateSQLFunction for the column side when configured
+        StringBuilder condition = new StringBuilder();
+        String[] properties = descriptionProperties.split(",");
+        boolean ignoreAccents = XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions();
+        boolean toUpper = XavaPreferences.getInstance().isToUpperForStringArgumentsInConditions();
+
+        for (int i = 0; i < properties.length; i++) {
+            if (i > 0) condition.append(" OR ");
+            String property = properties[i].trim();
+            String columnExpr = "${" + property + "}";
+            try {
+                if (ignoreAccents) {
+                    // Apply DB-side accent normalization like list mode
+                    columnExpr = getMetaModel().getMetaComponent().getEntityMapping().translateSQLFunction(columnExpr);
+                }
+            } catch (Exception ex) {
+                // If mapping is not available for some reason, fallback to raw column
+            }
+            if (toUpper) {
+                columnExpr = "upper(" + columnExpr + ")";
+            }
+            condition.append(columnExpr).append(" LIKE '").append(like).append("'");
+        }
+
+        if (properties.length > 1) {
+            return "(" + condition.toString() + ")";
+        } else {
+            return condition.toString();
+        }
+    }
 
 }
