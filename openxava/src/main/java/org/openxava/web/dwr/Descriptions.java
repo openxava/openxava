@@ -61,45 +61,10 @@ public class Descriptions extends DWRBase {
 
             // tmr Un id encriptado, uuid o algo así
             String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
-            System.out.println("[Descriptions.getSuggestions] descriptionsCalculatorKey=" + descriptionsCalculatorKey); // tmr
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
-            System.out.println("[Descriptions.getSuggestions] calculator=" + calculator); // tmr
             if (calculator == null) {
             	throw new XavaException("No hay calculador"); // tmr i18n
-            	/* tmr
-                calculator = new DescriptionsCalculator();
-                calculator.setCondition(condition);
-                calculator.setOrder(order);
-                calculator.setOrderByKey(orderByKey);
-
-                // Mandatory model and key/description configuration from client
-                if (Is.emptyString(model)) model = view.getModelName();
-                calculator.setModel(model);
-                calculator.setKeyProperty(nvl(keyProperty, null));
-                calculator.setKeyProperties(nvl(keyProperties, null));
-                calculator.setDescriptionProperty(nvl(descriptionProperty, null));
-                calculator.setDescriptionProperties(nvl(descriptionProperties, null));
-                calculator.setUseConvertersInKeys(true);
-
-                request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
-                */
             }
-
-            /* tmr
-            // Ensure mandatory configuration is present even if calculator existed
-            if (!Is.emptyString(condition)) calculator.setCondition(condition);
-            if (!Is.emptyString(order)) calculator.setOrder(order);
-            if (!Is.emptyString(orderByKey)) calculator.setOrderByKey(orderByKey);
-            if (Is.emptyString(calculator.getModel())) {
-                if (Is.emptyString(model)) model = view.getModelName();
-                calculator.setModel(model);
-            }
-            if (Is.emptyString(calculator.getKeyProperty())) calculator.setKeyProperty(nvl(keyProperty, null));
-            if (Is.emptyString(calculator.getKeyProperties())) calculator.setKeyProperties(nvl(keyProperties, null));
-            if (Is.emptyString(calculator.getDescriptionProperty())) calculator.setDescriptionProperty(nvl(descriptionProperty, null));
-            if (Is.emptyString(calculator.getDescriptionProperties())) calculator.setDescriptionProperties(nvl(descriptionProperties, null));
-            calculator.setUseConvertersInKeys(true);
-            */
 
             // Filter (IFilter) like in JSP // tmr Quitar código duplicado con JSP
             IFilter filter = null;

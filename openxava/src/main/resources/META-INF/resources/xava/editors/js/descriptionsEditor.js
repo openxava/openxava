@@ -118,7 +118,7 @@ openxava.addEditorInitFunction(function() {
 					var limit = 60; // Max items per page
 					var offset = 0; // Initial offset for pagination
 					var condition = $(input).data("condition") || "";
-					var orderByKey = $(input).data("orderbykey") || $(input).data("ordenadoporclave") || "";
+					var orderByKey = $(input).data("orderbykey");
 					var order = $(input).data("order") || $(input).data("orden") || "";
 					var filter = $(input).data("filter") || $(input).data("filtro") || "";
 					var descriptionsFormatter = $(input).data("descriptionsformatter") || $(input).data("formateadordescripciones") || "";
