@@ -2,7 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Refactorizar.
-    - Descriptions.
     - DescriptionsCalculator.
 - Quitar prints.         
 - Lanzar Product2Test, ProductTest y DescriptionsListTest.

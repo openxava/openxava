@@ -16,6 +16,7 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 
 /**
+ * TMR ME QUEDÉ POR AQUÍ: REFACTORIZANDO. CREO QUE YA ESTÁ TODO, FALTA REVISARLA.
  * It obtain a description collection. <p>
  * 
  * Use tab infrastructure for it, so you can make that this execute
@@ -34,14 +35,14 @@ public class DescriptionsCalculator implements ICalculator {
 	private String descriptionProperties;
 	private String condition;
 	private String order;
-	private Collection parameters;
+	private Collection<?> parameters;
 	private String model;
 	private String componentName;
 	private String aggregateName;
 	private transient MetaModel metaModel;
 	private boolean orderByKey = false;
 	private boolean useConvertersInKeys = false;
-	private Collection keyPropertiesCollection;
+	private Collection<String> keyPropertiesCollection;
 	private MetaTab metaTab;
 	private int hiddenPropertiesCount; 
 	private boolean distinct = false;   
@@ -52,24 +53,9 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public Object calculate() throws Exception {
 		// Use paginated loading with a reasonable limit for compatibility
-		return getDescriptionsPaginated(10000, 0);
+		return getDescriptions(10000, 0);
 	}
 	
-	private void checkPreconditions() throws XavaException {
-		if (Is.emptyString(getModel())) {
-			throw new XavaException("descriptions_calculator_model_required", getClass().getName());
-		}
-		if (Is.emptyString(getKeyProperties())) {
-			throw new XavaException("descriptions_calculator_keyProperty_required", getClass().getName());
-		}
-		if (Is.emptyString(getDescriptionProperties())) {
-			throw new XavaException("descriptions_calculator_descriptionProperty_required", getClass().getName());
-		}				
-	}
-	
-	
-	
-
 	private MetaModel getMetaModel() throws XavaException {
 		if (metaModel == null) {
 			if (isAggregate()) {
@@ -87,34 +73,32 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 			
 	/**
-	 * Returns descriptions using on-demand loading. This method is deprecated.
-	 * Use getDescriptionsPaginated() instead for better performance with large datasets.
-	 * 
+	 * Returns descriptions using on-demand loading with a default pagination window.
+	 *
 	 * @return Collection of <tt>KeyAndDescription</tt>. Not null.
-	 * @deprecated Use getDescriptionsPaginated() instead
 	 */
-	public Collection getDescriptions() throws Exception {	
-		if (conditionHasArguments() && !hasParameters()) return Collections.EMPTY_LIST;
+	public Collection<KeyAndDescription> getDescriptions() throws Exception { 
+		if (conditionHasArguments() && !hasParameters()) return Collections.emptyList();
 		// Use paginated loading with a large limit to maintain compatibility
-		return getDescriptionsPaginated(10000, 0);
+		return getDescriptions(10000, 0);
 	}
 	
 	/**
 	 * Returns a paginated collection of descriptions with database-level LIMIT and OFFSET.
 	 * This method bypasses cache to ensure fresh data for pagination.
 	 * 
-	 * @param limit Maximum number of results to return
-	 * @param offset Number of results to skip
+	 * @param limit Maximum number of records to return
+	 * @param offset Number of records to skip
 	 * @return Collection of <tt>KeyAndDescription</tt>. Not null.
 	 * @since 7.6
 	 */
-	public Collection getDescriptionsPaginated(int limit, int offset) throws Exception {
-		return executeQueryPaginatedCollection(limit, offset, null);
+	public Collection<KeyAndDescription> getDescriptions(int limit, int offset) throws Exception {
+		return getDescriptions(limit, offset, null);
 	}
 	
 	/**
-	 * Gets descriptions with filtering and pagination.
-	 * Uses database-level filtering for regular properties, or in-memory filtering for calculated properties.
+	 * Returns a paginated collection of descriptions with database-level LIMIT and OFFSET.
+	 * This method bypasses cache to ensure fresh data for pagination.
 	 * 
 	 * @param limit Maximum number of records to return
 	 * @param offset Number of records to skip
@@ -122,36 +106,7 @@ public class DescriptionsCalculator implements ICalculator {
 	 * @return Collection of KeyAndDescription objects matching the search term
 	 * @throws Exception if there's an error executing the query
 	 */
-	public Collection getDescriptionsPaginatedWithSearch(int limit, int offset, String searchTerm) throws Exception {
-		// Check if we have calculated properties that require in-memory filtering
-		boolean hasCalculated = hasCalculatedDescriptionProperties();
-		System.out.println("DEBUG: hasCalculatedDescriptionProperties: " + hasCalculated);
-		
-		if (hasCalculated) {
-			// For calculated properties, load a larger batch and filter in memory
-			int batchSize = Math.min(1000, Math.max(limit * 10, 100));
-			System.out.println("DEBUG: Loading " + batchSize + " records for in-memory filtering");
-			Collection allDescriptions = executeQueryPaginatedCollection(batchSize, 0, null);
-			System.out.println("DEBUG: executeQueryPaginatedCollection returned: " + (allDescriptions == null ? "null" : allDescriptions.size() + " items"));
-			
-			try {
-				System.out.println("DEBUG: About to call filterDescriptionsInMemory...");
-				Collection result = filterDescriptionsInMemory(allDescriptions, searchTerm, limit, offset);
-				System.out.println("DEBUG: filterDescriptionsInMemory returned: " + (result == null ? "null" : result.size() + " items"));
-				return result;
-			} catch (Exception e) {
-				System.out.println("DEBUG: Exception in filterDescriptionsInMemory: " + e.getMessage());
-				e.printStackTrace();
-				return Collections.EMPTY_LIST;
-			}
-		} else {
-			// For regular properties, use database-level filtering
-			System.out.println("DEBUG: Using database-level filtering");
-			return executeQueryPaginatedCollection(limit, offset, searchTerm);
-		}
-	}
-	
-	public Collection getDescriptionsPaginated(int limit, int offset, String searchTerm) throws Exception {
+	public Collection<KeyAndDescription> getDescriptions(int limit, int offset, String searchTerm) throws Exception {
 		return executeQueryPaginatedCollection(limit, offset, searchTerm);
 	}
 	
@@ -180,7 +135,7 @@ public class DescriptionsCalculator implements ICalculator {
 
 		// Create a temporary condition to find the specific key
 		String originalCondition = getCondition();
-		Collection originalParameters = getParameters();
+		Collection<?> originalParameters = getParameters();
 		        String keyCondition = buildKeyCondition(key);
         if (Is.emptyString(keyCondition)) {
             // Safety net: if MetaModel-based build produced empty (e.g. business key not in PK),
@@ -199,7 +154,7 @@ public class DescriptionsCalculator implements ICalculator {
 			// Clear parameters for this search
 			setParameters(null);
 			
-			Collection results = executeQueryPaginatedCollection(1, 0, null);
+			Collection<KeyAndDescription> results = executeQueryPaginatedCollection(1, 0, null);
 			if (log.isDebugEnabled()) {
 				int size = 0; try { size = results==null?0:results.size(); } catch(Exception ignore) {}
 				log.debug("DescriptionsCalculator.findDescriptionByKey results size=" + size);
@@ -412,14 +367,14 @@ public class DescriptionsCalculator implements ICalculator {
 	 * 
 	 * It is used to display the item that was previously selected and no longer satisfies the condition.
 	 */
-	public Collection getDescriptionsWithSelected(String fvalue) throws Exception {
+	public Collection<KeyAndDescription> getDescriptionsWithSelected(String fvalue) throws Exception {
 		// Try to find the specific item first
 		KeyAndDescription selected = findDescriptionByKey(fvalue);
 		if (selected != null) {
 			List<KeyAndDescription> result = new ArrayList<>();
 			result.add(selected);
 			// Add some additional items for context
-			Collection additional = getDescriptionsPaginated(50, 0);
+			Collection<KeyAndDescription> additional = getDescriptions(50, 0);
 			for (Object item : additional) {
 				KeyAndDescription kd = (KeyAndDescription) item;
 				if (!kd.getKey().toString().equals(fvalue)) {
@@ -429,7 +384,7 @@ public class DescriptionsCalculator implements ICalculator {
 			return result;
 		}
 		// Fallback to regular paginated loading
-		return getDescriptionsPaginated(100, 0);
+		return getDescriptions(100, 0);
 	}
 
 	private boolean conditionHasArguments() {
@@ -450,9 +405,9 @@ public class DescriptionsCalculator implements ICalculator {
 		return descriptionProperty;
 	}
 	
-	private Collection getKeyPropertiesCollection() {
+	private Collection<String> getKeyPropertiesCollection() {
 		if (keyPropertiesCollection == null) {
-			keyPropertiesCollection = new ArrayList();
+			keyPropertiesCollection = new ArrayList<>();
 			String source = Is.emptyString(keyProperty)?keyProperties:keyProperty;
 			StringTokenizer st = new StringTokenizer(source, ",;");
 			while (st.hasMoreElements()) {
@@ -488,8 +443,8 @@ public class DescriptionsCalculator implements ICalculator {
 		return metaTab;
 	}
 	
-	private Collection createConditionAndOrderProperties() { 
-		Set result = new HashSet();
+	private Collection<String> createConditionAndOrderProperties() { 
+		Set<String> result = new HashSet<>();
 		if (hasCondition()) {
 			extractPropertiesFromSentences(result, getCondition());
 		}
@@ -499,7 +454,7 @@ public class DescriptionsCalculator implements ICalculator {
 		return result;
 	}
 	
-	private void extractPropertiesFromSentences(Set result, String sentence) { 		
+	private void extractPropertiesFromSentences(Set<String> result, String sentence) { 		
 		int i = sentence.indexOf("${");
 		int f = 0;
 		while (i >= 0) {
@@ -513,7 +468,7 @@ public class DescriptionsCalculator implements ICalculator {
 	
 
 	
-	private Collection executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
+	private Collection<KeyAndDescription> executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
 		// Build tab with chunk size to avoid loading everything
 		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
 		if (chunkSize <= 0) chunkSize = 50; // sane default
@@ -550,26 +505,26 @@ public class DescriptionsCalculator implements ICalculator {
 			Iterator it = getParameters().iterator();
 			for (int i=0; i<key.length; i++) { 
 				key[i] = it.next();
-				if (key[i] == null) return Collections.EMPTY_LIST;
+				if (key[i] == null) return Collections.emptyList();
 			}
 		}
 
 		tab.search(condition + order, key);
 
 		DataChunk firstChunk = tab.nextChunk();
-		List result = new ArrayList();
-		List chunkData = firstChunk == null ? Collections.EMPTY_LIST : firstChunk.getData();
+		List<KeyAndDescription> result = new ArrayList<>();
+		List chunkData = firstChunk == null ? Collections.emptyList() : firstChunk.getData();
 
 		int startIndex = Math.min(Math.max(0, offset), chunkData.size());
 		int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
 
 		// Pre-calc
-		Collection keyPropsCol = getKeyPropertiesCollection();
+		Collection<String> keyPropsCol = getKeyPropertiesCollection();
 		String descPropsStr = getDescriptionProperties();
 
 		// Retrieve MetaTab properties order and count to compute baseOffset
 		java.util.List propsOrder;
-		try { propsOrder = new java.util.ArrayList(getMetaTab().getPropertiesNames()); } catch (Exception ignore) { propsOrder = java.util.Collections.EMPTY_LIST; }
+		try { propsOrder = new java.util.ArrayList(getMetaTab().getPropertiesNames()); } catch (Exception ignore) { propsOrder = java.util.Collections.emptyList(); }
 		int propsCountTotal = propsOrder.size();
 
 		for (int i = startIndex; i < endIndex; i++) {
@@ -751,15 +706,15 @@ public class DescriptionsCalculator implements ICalculator {
 	public boolean hasParameters() {
 		return parameters != null && !parameters.isEmpty();
 	}
-	public Collection getParameters() {
+	public Collection<?> getParameters() {
 		return parameters;
 	}
 
-	public void setParameters(Collection parameters) {
+	public void setParameters(Collection<?> parameters) {
 		this.parameters = parameters;		
 	}
 	
-	public void setParameters(Collection parameters, IFilter filter) throws FilterException {
+	public void setParameters(Collection<?> parameters, IFilter filter) throws FilterException {
 		if (filter != null) {
 			Object [] param = parameters==null?null:parameters.toArray();			
 			param = (Object []) filter.filter(param);
@@ -953,27 +908,21 @@ public class DescriptionsCalculator implements ICalculator {
 	 * @param offset Number of results to skip
 	 * @return Filtered and paginated collection
 	 */
-	private Collection filterDescriptionsInMemory(Collection descriptions, String searchTerm, int limit, int offset) {
+	private Collection<KeyAndDescription> filterDescriptionsInMemory(Collection<KeyAndDescription> descriptions, String searchTerm, int limit, int offset) {
 		if (descriptions == null || descriptions.isEmpty()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		
-		List filteredResults = new ArrayList();
+		List<KeyAndDescription> filteredResults = new ArrayList<>();
 		String normalizedSearchTerm = searchTerm.toLowerCase().trim();
 		
 		// Filter descriptions that contain the search term
-		Iterator it = descriptions.iterator();
-		while (it.hasNext()) {
-			Object next = it.next();
-			
-			if (next instanceof KeyAndDescription) {
-				KeyAndDescription item = (KeyAndDescription) next;
-				Object descObj = item.getDescription();
-				if (descObj != null) {
-					String description = String.valueOf(descObj);
-					if (description.toLowerCase().contains(normalizedSearchTerm)) {
-						filteredResults.add(item);
-					}
+		for (KeyAndDescription item : descriptions) {
+			Object descObj = item.getDescription();
+			if (descObj != null) {
+				String description = String.valueOf(descObj);
+				if (description.toLowerCase().contains(normalizedSearchTerm)) {
+					filteredResults.add(item);
 				}
 			}
 		}
@@ -983,7 +932,7 @@ public class DescriptionsCalculator implements ICalculator {
 		int endIndex = Math.min(startIndex + limit, filteredResults.size());
 		
 		if (startIndex >= filteredResults.size()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		
 		return filteredResults.subList(startIndex, endIndex);

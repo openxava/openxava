@@ -14,6 +14,9 @@ import org.openxava.formatters.*;
 /**
  * DWR endpoint to fetch descriptions incrementally for @DescriptionsList.
  * Keeps compatibility with server-side filtering/formatting used by descriptionsEditor.jsp
+ * 
+ * @since 7.6
+ * @author Javier Paniza
  */
 public class Descriptions extends DWRBase {
 
@@ -60,10 +63,10 @@ public class Descriptions extends DWRBase {
             
             Collection descriptions;
             if (qt.isEmpty()) {
-                descriptions = calculator.getDescriptionsPaginated(max, offset);
+                descriptions = calculator.getDescriptions(max, offset);
             } else {
                 // Use database-level filtering with search term
-                descriptions = calculator.getDescriptionsPaginatedWithSearch(max, offset, qt);
+                descriptions = calculator.getDescriptions(max, offset, qt);
             }
             
             if (log.isDebugEnabled()) {
