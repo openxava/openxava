@@ -1066,14 +1066,14 @@ public class Strings {
 	/**
 	 * Wrap each variables in the list with ${}. <p>
 	 * 
-	 * So, if you have "${number}, ${name},${customer}"
-	 * you get "${number}, ${name},${customer}".
+	 * So, if you have "number, name, customer"
+	 * you get "${number}, ${name}, ${customer}".
 	 * 
 	 * @param listOfVariable  List of comma separate variable names.
 	 * @return List with the variables wrapped, it never will be null.
 	 * @since 7.6
 	 */	
-	public static String wrapVariables(String listOfVariables) { // tmr En changelog
+	public static String wrapVariables(String listOfVariables) { 
 	    if (listOfVariables == null) {
 	        return "";
 	    }

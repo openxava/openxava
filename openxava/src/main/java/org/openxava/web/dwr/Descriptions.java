@@ -22,31 +22,26 @@ public class Descriptions extends DWRBase {
     /**
      * Returns up to "limit" suggestions filtered by "term" for the given property in the current view/module.
      */
-    // tmr Quitar argumentos
-    public List<Map<String, String>> getSuggestions(
+    public List<Map<String, String>> getDescriptions(
             HttpServletRequest request, HttpServletResponse response,
             String application, String module,
-            String propertyKey, String viewObject,
+            String propertyKey,
             String term, int limit,
             int offset
     ) {
-        List<Map<String, String>> out = new ArrayList<>();
-        System.out.println("Descriptions.getSuggestions() propertyKey=" + propertyKey); // tmr
+        List<Map<String, String>> out = new ArrayList<>();        
         try {
             initRequest(request, response, application, module);
-            
+
             // Set application and module parameters for filters that expect them in request
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
-
-            // View name kept for potential future needs
-            viewObject = (Is.emptyString(viewObject) ? "xava_view" : viewObject); // tmr Quitar
 
             // Prepare calculator key (must match descriptionsEditor.jsp)
             String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
             if (calculator == null) {
-                throw new XavaException("No hay calculador"); // tmr i18n
+                throw new XavaException("descriptions_calculator_not_found", descriptionsCalculatorKey); 
             }
 
             // No filter/formatter/parameters accepted via DWR for security; use the preconfigured calculator from JSP
@@ -56,7 +51,7 @@ public class Descriptions extends DWRBase {
 
             // Log effective configuration
             if (log.isDebugEnabled()) {
-                log.debug("Descriptions.getSuggestions term='" + term + "', limit=" + limit + ", offset=" + offset);
+                log.debug("Descriptions.getDescriptions term='" + term + "', limit=" + limit + ", offset=" + offset);
             }
 
             // Get descriptions using database-level pagination
@@ -74,7 +69,7 @@ public class Descriptions extends DWRBase {
             if (log.isDebugEnabled()) {
                 int size = 0;
                 try { size = descriptions==null?0:descriptions.size(); } catch(Exception ignore) {}
-                log.debug("Descriptions.getSuggestions paginated descriptions size=" + size + ", term='" + term + "', limit=" + max + ", offset=" + offset);
+                log.debug("Descriptions.getDescriptions paginated descriptions size=" + size + ", term='" + term + "', limit=" + max + ", offset=" + offset);
             }
 
             int count = 0;
@@ -106,16 +101,19 @@ public class Descriptions extends DWRBase {
             out = simpleItems;
             
             if (log.isDebugEnabled()) {
-                log.debug("Descriptions.getSuggestions returning " + out.size() + " filtered items");
+                log.debug("Descriptions.getDescriptions returning " + out.size() + " filtered items");
             }
             
             return out;
         }
         catch (Exception ex) {
-            log.warn("Error getting descriptions suggestions", ex); // tmr i18n
-            // Return empty list on error to keep client stable
-            // tmr Devolver una entrada con la cadena ERROR, para que el usuario sepa que algo no hay ido bien
-            // tmr   sino puede pensar que simplemente no hay datos.
+            log.error(XavaResources.getString("getting_descriptions_error"), ex); 
+            // Return a single entry labeled "ERROR" so user notices the problem
+            Map<String, String> errorItem = new HashMap<>(2);
+            errorItem.put("label", "ERROR");
+            errorItem.put("value", "");
+            errorItem.put("position", "0");
+            out.add(errorItem);
         }
         finally {
             cleanRequest();

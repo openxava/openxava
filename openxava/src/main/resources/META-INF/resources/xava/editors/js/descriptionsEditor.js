@@ -114,7 +114,6 @@ openxava.addEditorInitFunction(function() {
                 var input = $(this)[0]["element"];
                 // Always use on-demand loading for better performance
                 var propertyKey = $(input).next().attr("id");
-                    var viewObject = $(input).data("view-object") || "xava_view";
                     var limit = 60; // Max items per page
                     var offset = 0; // Initial offset for pagination
 
@@ -131,15 +130,15 @@ openxava.addEditorInitFunction(function() {
 					}
 					
 					// Check DWR availability
-					if (typeof Descriptions === 'undefined' || !Descriptions.getSuggestions) {
+					if (typeof Descriptions === 'undefined' || !Descriptions.getDescriptions) {
 						console.warn("DWR Descriptions not available, using empty list");
 						response([]);
 						return;
 					}
 					
-					Descriptions.getSuggestions(
+					Descriptions.getDescriptions(
 						openxava.lastApplication, openxava.lastModule,
-						propertyKey, viewObject,
+						propertyKey,
 						request.term, limit,
 						offset,
 						function(items) { 
@@ -155,7 +154,7 @@ openxava.addEditorInitFunction(function() {
 							}
 							
 							if (window.DEBUG_DESCRIPTIONS) {
-								console.log('Descriptions.getSuggestions response for', {
+								console.log('Descriptions.getDescriptions response for', {
 									term: request.term,
 									limit: limit
 								});
@@ -206,7 +205,7 @@ openxava.addEditorInitFunction(function() {
 								
 								// Ensure items is an array
 								if (!$.isArray(items)) {
-									console.error("Incorrect items format from Descriptions.getSuggestions");
+									console.error("Incorrect items format from Descriptions.getDescriptions");
 									items = [];
 								}
 								

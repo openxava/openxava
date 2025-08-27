@@ -1,8 +1,8 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Buscar tmrs and todos.
 - Refactorizar.
+    - descriptionsEditor.js TODOs.
 - Quitar prints.         
 - Lanzar Product2Test, ProductTest y DescriptionsListTest.
 - Suite completa.
@@ -10,5 +10,6 @@ Pending for @DescriptionsList for large datasets
     - Comparar 7.5 con 7.6.
 - Documentar.
 	- Indicar que en los comparadores de las lista solo se cargan hasta 200 elementos.
+    - Nuevo Strings.wrapVariables() en changelog.
 - Borrar este archivo.
  
