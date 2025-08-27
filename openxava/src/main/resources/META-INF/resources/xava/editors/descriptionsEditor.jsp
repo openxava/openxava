@@ -34,7 +34,10 @@ String orderForId = request.getParameter("order");
 if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
-String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator"; 
+String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
+// TMR ME QUED� POR AQUÍ: EL descriptionsCalculatorKey NO COINCIDE POR UN BOOLEAN EXTRA, POR ESO NO LO ENCUENTRA EN EL SERVIDOR
+// TMR  VERIFICAR EL CACHÉ DEL DescriptionsCalculator PARA VER SI MERECE LA PENA GUARDARLO MÁS O MENOS TIEMPO
+System.out.println("[descriptionsEditor.jsp] descriptionsCalculatorKey=" + descriptionsCalculatorKey); 
 DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
 
 IFilter filter = null;

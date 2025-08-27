@@ -28,7 +28,8 @@ public class Descriptions extends DWRBase {
     /**
      * Returns up to "limit" suggestions filtered by "term" for the given property in the current view/module.
      */
-    public List<Map<String, String>> getSuggestions(
+    // tmr Quitar argumentos
+    public List<Map<String, String>> getSuggestions( // tmr  ¿Este nombre?
             HttpServletRequest request, HttpServletResponse response,
             String application, String module,
             String propertyKey, String viewObject,
@@ -58,9 +59,14 @@ public class Descriptions extends DWRBase {
             String orderByKeyForId = Is.emptyString(orderByKey) ? "" : "." + orderByKey;
             String orderForId = Is.emptyString(order) ? "" : "." + order;
 
+            // tmr Un id encriptado, uuid o algo así
             String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
+            System.out.println("[Descriptions.getSuggestions] descriptionsCalculatorKey=" + descriptionsCalculatorKey); // tmr
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
+            System.out.println("[Descriptions.getSuggestions] calculator=" + calculator); // tmr
             if (calculator == null) {
+            	throw new XavaException("No hay calculador"); // tmr i18n
+            	/* tmr
                 calculator = new DescriptionsCalculator();
                 calculator.setCondition(condition);
                 calculator.setOrder(order);
@@ -76,8 +82,10 @@ public class Descriptions extends DWRBase {
                 calculator.setUseConvertersInKeys(true);
 
                 request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+                */
             }
 
+            /* tmr
             // Ensure mandatory configuration is present even if calculator existed
             if (!Is.emptyString(condition)) calculator.setCondition(condition);
             if (!Is.emptyString(order)) calculator.setOrder(order);
@@ -91,8 +99,9 @@ public class Descriptions extends DWRBase {
             if (Is.emptyString(calculator.getDescriptionProperty())) calculator.setDescriptionProperty(nvl(descriptionProperty, null));
             if (Is.emptyString(calculator.getDescriptionProperties())) calculator.setDescriptionProperties(nvl(descriptionProperties, null));
             calculator.setUseConvertersInKeys(true);
+            */
 
-            // Filter (IFilter) like in JSP
+            // Filter (IFilter) like in JSP // tmr Quitar código duplicado con JSP
             IFilter filter = null;
             if (!Is.emptyString(filterClass)) {
                 String filterKey = propertyKey + ".filter";
@@ -111,7 +120,7 @@ public class Descriptions extends DWRBase {
                 }
             }
 
-            // Formatter (IFormatter) like in JSP
+            // Formatter (IFormatter) like in JSP // tmr Quitar código duplicado con JSP
             IFormatter formatter = null;
             if (!Is.emptyString(descriptionsFormatterClass)) {
                 String descriptionsFormatterKey = propertyKey + ".descriptionsFormatter";
@@ -127,7 +136,7 @@ public class Descriptions extends DWRBase {
                 }
             }
 
-            // Parameter values (dependent filters), same logic as JSP
+            // Parameter values (dependent filters), same logic as JSP // tmr Quitar código duplicado con JSP
             if (!Is.emptyString(parameterValuesStereotypes) || !Is.emptyString(parameterValuesProperties)) {
                 java.util.List p = new java.util.ArrayList();
                 java.util.Iterator it = null;
@@ -176,6 +185,7 @@ public class Descriptions extends DWRBase {
                     calculator.setParameters(null, null);
                 }
             }
+            
 
             // Log effective configuration
             if (log.isDebugEnabled()) {
@@ -245,6 +255,8 @@ public class Descriptions extends DWRBase {
         catch (Exception ex) {
             log.warn("Error getting descriptions suggestions", ex); // tmr i18n
             // Return empty list on error to keep client stable
+            // tmr Devolver una entrada con la cadena ERROR, para que el usuario sepa que algo no hay ido bien
+            // tmr   sino puede pensar que simplemente no hay datos.
         }
         finally {
             cleanRequest();
