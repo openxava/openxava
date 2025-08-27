@@ -47,7 +47,10 @@ public class Journey {
 		return name;
 	}
 
-	public String getUltraSlowName() { // Even slower than getSlowName() to stress on-demand fetch
+	// Always slow even with the first elements, to test a case. 
+	// Currently +12 seconds, but never less than 2 seconds (DescriptionsListTest.testLargeDatasetLoadedOnDemand()).
+	// You can test it is slow, opening the combo in SlowTraveler.
+	public String getUltraSlowName() { 
 		if (name != null) {
 			String[] parts = name.trim().split("\\s+");
 			if (parts.length >= 2) {

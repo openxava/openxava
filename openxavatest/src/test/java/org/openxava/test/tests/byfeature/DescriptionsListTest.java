@@ -22,6 +22,13 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+	
+	protected void tearDown() throws Exception { // tmr
+	}
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
@@ -29,18 +36,12 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	}
 
 	public void testLargeDatasetLoadedOnDemand() throws Exception { 
-		
 		goModule("Traveler"); 
 
 		// Verify filter SELECT is limited to 200 entries before CRUD.new
 		verifyFilterSelectLimitedTo200Entries();
 
-		// On demand server side fetch. If it takes more than 7 seconds, all the records have been loaded
-		long start = System.currentTimeMillis();
 		execute("CRUD.new");
-		long elapsed = System.currentTimeMillis() - start;
-		System.out.println("DescriptionsListTest.testLargeDatasetLoadedOnDemand() elapsed: " + elapsed); // tmr
-		assertTrue("CRUD.new should take less than 6 seconds, but took " + elapsed + " ms", elapsed < 6000);
 
 		// On entering Traveler it is in detail mode by default (no records)
 		// Verify that no autocomplete option items are loaded yet
@@ -51,7 +52,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement lastJourneyEditor = getDriver().findElement(By.id("ox_openxavatest_Traveler__reference_editor_lastJourney"));
 		WebElement openIcon = lastJourneyEditor.findElement(By.className("mdi-menu-down"));
 		openIcon.click();
-		Thread.sleep(700); // wait for the first page to load
+		Thread.sleep(700); // Wait for the first page to load, never more than 6 seconds, because it only reads the 60 first elements in server
 
 		// Now options should be loaded on demand (first page size expected: 60)
 		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
@@ -156,10 +157,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertValueInList(0, 3, "JORNEY 241");
 
 		// Open first row detail and verify both lastJourney and nextJourney values, and that combo has 0 loaded items
-		start = System.currentTimeMillis();
 		execute("List.viewDetail", "row=0");
-		elapsed = System.currentTimeMillis() - start;
-		assertTrue("List.viewDetail take less than 6 seconds, but took " + elapsed + " ms", elapsed < 6000);
 
 		WebElement lastJourneyTextField = getDescriptionsListTextField("lastJourney");
 		assertEquals("JORNEY 224", lastJourneyTextField.getAttribute("value"));
@@ -172,6 +170,20 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		// Reset data
 		execute("CRUD.delete");
 		assertNoErrors();
+		
+		// Not do the query in the server if the combo is not opened
+		// 2 seconds for the case the system is slow, in the current implementation loading 60 elements
+		// takes +12 seconds. You can verify it manually opening the combo.
+		goModule("SlowTraveler");
+		long start = System.currentTimeMillis();
+		execute("List.viewDetail", "row=0");
+		long elapsed = System.currentTimeMillis() - start;		
+		assertTrue("List.viewDetail take less than 2 seconds, but took " + elapsed + " ms", elapsed < 2000);	
+		
+		start = System.currentTimeMillis();
+		execute("CRUD.new");
+		elapsed = System.currentTimeMillis() - start;
+		assertTrue("CRUD.new should take less than 2 seconds, but took " + elapsed + " ms", elapsed < 2000);	
 	}
 
     // --- Helpers ---

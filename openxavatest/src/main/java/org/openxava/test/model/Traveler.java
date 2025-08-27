@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;
+
 import lombok.*;
 
 /**
@@ -13,7 +14,7 @@ import lombok.*;
  */
 @Entity @Getter @Setter
 @View(members = "name; lastJourney; nextJourney")
-@View(name = "Slow", members = "name; slowJourney")
+@View(name = "Slow", members = "name; slowJourney") // Always slowName to test a case
 @Tab(defaultOrder = "name", properties="name, lastJourney.name, lastJourney.description, nextJourney.name, nextJourney.description")
 @Tab(name="Slow", properties="name, slowJourney.name")
 public class Traveler extends Identifiable {
@@ -29,8 +30,8 @@ public class Traveler extends Identifiable {
     @ManyToOne(fetch = FetchType.LAZY)
     Journey nextJourney;
 
-    @DescriptionsList(orderByKey = true, descriptionProperties = "ultraSlowName")
+    @DescriptionsList(orderByKey = true, descriptionProperties = "ultraSlowName") // Always ultraSlowName to test a case 
     @ManyToOne(fetch = FetchType.LAZY)
-    Journey slowJourney;  // TMR ME QUEDÉ POR AQUÍ: PARA HACER UN TEST QUE VERIFIQUE NO CARGA ELEMENTOS AL PULSAR NEW  
+    Journey slowJourney;    
 
 }

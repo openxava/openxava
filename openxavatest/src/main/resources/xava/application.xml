@@ -31,6 +31,7 @@
 		<model name="Traveler"/>
 		<view name="Slow"/>
 		<tab name="Slow"/>
+		<controller name="Typical"/>
 	</module>
 	
 	<module name="ArtistSomeMembersReadOnly">
