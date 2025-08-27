@@ -22,13 +22,6 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-	
-	protected void tearDown() throws Exception { // tmr
-	}
-	
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
@@ -201,7 +194,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
         );
     }
 
-	public void _testDropDownWhenValuesHasBackSlash() throws Exception {  // tmr
+	public void testDropDownWhenValuesHasBackSlash() throws Exception { 
 		goModule("Carrier");
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
@@ -211,7 +204,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
-	public void _testAutocomplete() throws Exception { // tmr
+	public void testAutocomplete() throws Exception { 
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
@@ -309,6 +302,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		familyTextField.sendKeys("ware");
 		assertEquals("ware", familyTextField.getAttribute("value"));
 		familyTextField.sendKeys(Keys.TAB);
+		Thread.sleep(100); 
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
