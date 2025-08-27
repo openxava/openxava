@@ -8,14 +8,8 @@ import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
-import org.openxava.converters.*;
-import org.openxava.filters.*;
-import org.openxava.formatters.*;
-import org.openxava.mapping.*;
-import org.openxava.model.meta.*;
 import org.openxava.util.*;
-import org.openxava.view.View;
-import org.openxava.web.*;
+import org.openxava.formatters.*;
 
 /**
  * DWR endpoint to fetch descriptions incrementally for @DescriptionsList.
@@ -29,19 +23,15 @@ public class Descriptions extends DWRBase {
      * Returns up to "limit" suggestions filtered by "term" for the given property in the current view/module.
      */
     // tmr Quitar argumentos
-    public List<Map<String, String>> getSuggestions( // tmr  ¿Este nombre?
+    public List<Map<String, String>> getSuggestions(
             HttpServletRequest request, HttpServletResponse response,
             String application, String module,
             String propertyKey, String viewObject,
             String term, int limit,
-            String condition, String orderByKey, String order,
-            String filterClass, String descriptionsFormatterClass,
-            String parameterValuesProperties, String parameterValuesStereotypes,
-            String model, String keyProperty, String keyProperties,
-            String descriptionProperty, String descriptionProperties,
-            int offset // Pagination offset (new parameter)
+            int offset
     ) {
         List<Map<String, String>> out = new ArrayList<>();
+        System.out.println("Descriptions.getSuggestions() propertyKey=" + propertyKey); // tmr
         try {
             initRequest(request, response, application, module);
             
@@ -49,120 +39,24 @@ public class Descriptions extends DWRBase {
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
 
-            // View and style for potential parsing/formatting needs
-            viewObject = (Is.emptyString(viewObject) ? "xava_view" : viewObject);
-            View view = (View) getContext(request).get(application, module, viewObject);
+            // View name kept for potential future needs
+            viewObject = (Is.emptyString(viewObject) ? "xava_view" : viewObject); // tmr Quitar
 
-            // Prepare calculator (similar to descriptionsEditor.jsp)
-            String modelForId = "." + view.getModelName();
-            String conditionForId = Is.emptyString(condition) ? "" : "." + condition;
-            String orderByKeyForId = Is.emptyString(orderByKey) ? "" : "." + orderByKey;
-            String orderForId = Is.emptyString(order) ? "" : "." + order;
-
-            // tmr Un id encriptado, uuid o algo así
-            String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
+            // Prepare calculator key (must match descriptionsEditor.jsp)
+            String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
             if (calculator == null) {
-            	throw new XavaException("No hay calculador"); // tmr i18n
+                throw new XavaException("No hay calculador"); // tmr i18n
             }
 
-            // Filter (IFilter) like in JSP // tmr Quitar código duplicado con JSP
-            IFilter filter = null;
-            if (!Is.emptyString(filterClass)) {
-                String filterKey = propertyKey + ".filter";
-                filter = (IFilter) request.getSession().getAttribute(filterKey);
-                if (filter == null) {
-                    try {
-                        filter = (IFilter) Class.forName(filterClass).newInstance();
-                        request.getSession().setAttribute(filterKey, filter);
-                    }
-                    catch (Exception ex) {
-                        log.warn(XavaResources.getString("descriptionsEditor_filter_warning", propertyKey), ex);
-                    }
-                }
-                if (filter instanceof IRequestFilter) {
-                    ((IRequestFilter) filter).setRequest(request);
-                }
-            }
-
-            // Formatter (IFormatter) like in JSP // tmr Quitar código duplicado con JSP
-            IFormatter formatter = null;
-            if (!Is.emptyString(descriptionsFormatterClass)) {
-                String descriptionsFormatterKey = propertyKey + ".descriptionsFormatter";
-                formatter = (IFormatter) request.getSession().getAttribute(descriptionsFormatterKey);
-                if (formatter == null) {
-                    try {
-                        formatter = (IFormatter) Class.forName(descriptionsFormatterClass).newInstance();
-                        request.getSession().setAttribute(descriptionsFormatterKey, formatter);
-                    }
-                    catch (Exception ex) {
-                        log.warn(XavaResources.getString("descriptionsEditor_descriptions_formatter_warning", propertyKey), ex);
-                    }
-                }
-            }
-
-            // Parameter values (dependent filters), same logic as JSP // tmr Quitar código duplicado con JSP
-            if (!Is.emptyString(parameterValuesStereotypes) || !Is.emptyString(parameterValuesProperties)) {
-                java.util.List p = new java.util.ArrayList();
-                java.util.Iterator it = null;
-                if (!Is.emptyString(parameterValuesStereotypes)) {
-                    it = view.getPropertiesNamesFromStereotypesList(parameterValuesStereotypes).iterator();
-                }
-                else if (!Is.emptyString(parameterValuesProperties)) {
-                    it = java.util.Arrays.asList(parameterValuesProperties.split(",")).iterator();
-                }
-                while (it != null && it.hasNext()) {
-                    String propertyName = (String) it.next();
-                    Object parameterValue = view.getValue(propertyName);
-                    MetaProperty metaProperty = view.getMetaProperty(propertyName);
-                    try {
-                        if (WebEditors.mustToFormat(metaProperty, view.getViewName())) {
-                            String name = Ids.decorate(request, propertyName);
-                            request.setAttribute(name + ".value", parameterValue);
-                        }
-                        PropertyMapping mapping = metaProperty.getMapping();
-                        if (mapping != null) {
-                            IConverter converter = mapping.getConverter();
-                            if (converter != null) {
-                                parameterValue = converter.toDB(parameterValue);
-                            }
-                        }
-                    }
-                    catch (Exception ex) {
-                        // Ignore conversion problems here; just use raw value
-                    }
-                    p.add(parameterValue);
-                }
-                try {
-                    calculator.setParameters(p, filter);
-                } catch (FilterException ex) {
-                    // If filter fails due to missing context, continue without filtering
-                    log.warn("Filter failed in DWR context, continuing without filter: " + ex.getMessage());
-                    calculator.setParameters(p, null);
-                }
-            }
-            else if (filter != null) {
-                try {
-                    calculator.setParameters(null, filter);
-                } catch (FilterException ex) {
-                    // If filter fails due to missing context, continue without filtering
-                    log.warn("Filter failed in DWR context, continuing without filter: " + ex.getMessage());
-                    calculator.setParameters(null, null);
-                }
-            }
+            // No filter/formatter/parameters accepted via DWR for security; use the preconfigured calculator from JSP
+            // Retrieve preconfigured formatter from session (set by JSP) without accepting class names from client
+            IFormatter formatter = (IFormatter) request.getSession().getAttribute(propertyKey + ".descriptionsFormatter");
             
 
             // Log effective configuration
             if (log.isDebugEnabled()) {
-                log.debug("Descriptions.getSuggestions called with"
-                        + " term='" + term + "', limit=" + limit + ", offset=" + offset
-                        + ", model=" + (calculator==null?"":calculator.getModel())
-                        + ", keyProperty=" + (calculator==null?"":calculator.getKeyProperty())
-                        + ", keyProperties=" + (calculator==null?"":calculator.getKeyProperties())
-                        + ", descriptionProperty=" + (calculator==null?"":calculator.getDescriptionProperty())
-                        + ", descriptionProperties=" + (calculator==null?"":calculator.getDescriptionProperties())
-                        + ", condition=" + condition + ", orderByKey=" + orderByKey + ", order=" + order
-                );
+                log.debug("Descriptions.getSuggestions term='" + term + "', limit=" + limit + ", offset=" + offset);
             }
 
             // Get descriptions using database-level pagination

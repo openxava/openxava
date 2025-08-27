@@ -1,7 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Simplificar uso de DescriptionsCalculator en JSP y DWR. 
 - Buscar tmrs and todos.
 - Refactorizar.
 - Quitar prints.         

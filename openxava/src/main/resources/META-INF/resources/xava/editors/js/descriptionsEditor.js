@@ -114,21 +114,9 @@ openxava.addEditorInitFunction(function() {
                 var input = $(this)[0]["element"];
                 // Always use on-demand loading for better performance
                 var propertyKey = $(input).next().attr("id");
-					var viewObject = $(input).data("view-object") || "xava_view";
-					var limit = 60; // Max items per page
-					var offset = 0; // Initial offset for pagination
-					var condition = $(input).data("condition") || "";
-					var orderByKey = $(input).data("orderbykey");
-					var order = $(input).data("order") || $(input).data("orden") || "";
-					var filter = $(input).data("filter") || $(input).data("filtro") || "";
-					var descriptionsFormatter = $(input).data("descriptionsformatter") || $(input).data("formateadordescripciones") || "";
-					var parameterValuesProperties = $(input).data("parametervaluesproperties") || $(input).data("propiedadesvaloresparametros") || "";
-					var parameterValuesStereotypes = $(input).data("parametervaluesstereotypes") || $(input).data("estereotiposvaloresparametros") || "";
-					var model = $(input).data("model") || "";
-					var keyProperty = $(input).data("keyproperty") || "";
-					var keyProperties = $(input).data("keyproperties") || "";
-					var descriptionProperty = $(input).data("descriptionproperty") || "";
-					var descriptionProperties = $(input).data("descriptionproperties") || "";
+                    var viewObject = $(input).data("view-object") || "xava_view";
+                    var limit = 60; // Max items per page
+                    var offset = 0; // Initial offset for pagination
 
 					// TODO: Simplify code, reduce defensive branches
 					
@@ -149,36 +137,29 @@ openxava.addEditorInitFunction(function() {
 						return;
 					}
 					
-					Descriptions.getSuggestions( // TODO: Are all these parameters necessary?
+					Descriptions.getSuggestions(
 						openxava.lastApplication, openxava.lastModule,
 						propertyKey, viewObject,
 						request.term, limit,
-						condition, orderByKey, order,
-						filter, descriptionsFormatter,
-						parameterValuesProperties, parameterValuesStereotypes,
-						model, keyProperty, keyProperties,
-						descriptionProperty, descriptionProperties,
-						offset, // New pagination parameter
-							function(items) { 
-								// Enable debugging to inspect responses
-								window.DEBUG_DESCRIPTIONS = true;
-								
-								// Log raw response data
-								console.log('DWR response raw:', items);
-								console.log('DWR response type:', typeof items);
-								if (typeof items === 'string') {
-									console.log('DWR response string length:', items.length);
-									console.log('DWR response string first 100 chars:', items.substring(0, 100));
-								}
-								
-								if (window.DEBUG_DESCRIPTIONS) {
-									console.log('Descriptions.getSuggestions response for', {
-										term: request.term,
-										model: model, keyProperty: keyProperty, keyProperties: keyProperties,
-										descriptionProperty: descriptionProperty, descriptionProperties: descriptionProperties,
-										condition: condition, orderByKey: orderByKey, order: order, limit: limit
-									});
-								}
+						offset,
+						function(items) { 
+							// Enable debugging to inspect responses
+							window.DEBUG_DESCRIPTIONS = true;
+							
+							// Log raw response data
+							console.log('DWR response raw:', items);
+							console.log('DWR response type:', typeof items);
+							if (typeof items === 'string') {
+								console.log('DWR response string length:', items.length);
+								console.log('DWR response string first 100 chars:', items.substring(0, 100));
+							}
+							
+							if (window.DEBUG_DESCRIPTIONS) {
+								console.log('Descriptions.getSuggestions response for', {
+									term: request.term,
+									limit: limit
+								});
+							}
 							try {
 								// If it is a string (possible JSON), try to parse it
 								if (typeof items === 'string') {

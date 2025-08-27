@@ -34,11 +34,7 @@ String orderForId = request.getParameter("order");
 if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
-// TMR ME QUEDÉ POR AQUÍ
-// TMR  - NO HACE CACHÉ DE DATOS, POR LO QUE EL ID PUEDE SER MÁS SIMPLE ¿SINTETICO?
-// TMR  - SEGUIR USANDO OBJETO DE SESIÓN POR SEGURIDA, NO QUEREMOS PONER CONDICINES EN data- QUE SE PUEDAN CAMBIAR POR USUARIO
-// TMR  - QUITAR TODOS LOS data- NO NECESARIOS
-String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
+String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
 DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
 
 IFilter filter = null;
@@ -282,25 +278,8 @@ if (editable) {
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
     <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" title="<%=title%>" 
-		data-view-object="<%=viewObject%>"
-		data-limit="60"
-		data-condition="<%=calculator.getCondition()%>"
-		data-orderByKey="<%=request.getParameter("orderByKey")==null?"":request.getParameter("orderByKey")%>"
-		data-order="<%=request.getParameter("order")==null?"":request.getParameter("order")%>"
-		data-filter="<%=filterClass==null?"":filterClass%>"
-		data-descriptionsFormatter="<%=descriptionsFormatterClass==null?"":descriptionsFormatterClass%>"
-		data-parameterValuesProperties="<%=parameterValuesProperties==null?"":parameterValuesProperties%>"
-		data-parameterValuesStereotypes="<%=parameterValuesStereotypes==null?"":parameterValuesStereotypes%>"
-		data-model="<%=
-			(request.getParameter("model")!=null?request.getParameter("model"):
-			(request.getParameter("modelo")!=null?request.getParameter("modelo"):
-			(calculator.getModel()==null?"":calculator.getModel())))
-		%>"
-		data-keyProperty="<%=request.getParameter("keyProperty")==null?"":request.getParameter("keyProperty")%>"
-		data-keyProperties="<%=request.getParameter("keyProperties")==null?"":request.getParameter("keyProperties")%>"
-		data-descriptionProperty="<%=request.getParameter("descriptionProperty")==null?"":request.getParameter("descriptionProperty")%>"
-		data-descriptionProperties="<%=request.getParameter("descriptionProperties")==null?"":request.getParameter("descriptionProperties")%>"
-		value="<%=selectedDescription%>"/>
+        data-view-object="<%=viewObject%>"
+        value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="xava_descriptions_editor_open ox-layout-descriptions-editor-handler" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-down"></i></a> 		
