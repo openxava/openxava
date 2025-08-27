@@ -60,7 +60,6 @@ openxava.addEditorInitFunction(function() {
 				});
 			},
 			select: function(event, ui) {
-				console.log("[descriptionsEditor.js::select]");			
 				// Original behavior
 				$(event.target).val(ui.item.label);
 				$(event.target).next().val(ui.item.value);
@@ -73,7 +72,6 @@ openxava.addEditorInitFunction(function() {
 				event.preventDefault();
 			},            
 			change: function( event, ui ) {
-				console.log("[descriptionsEditor.js::change]");
 				if ($(event.target).val() === "" && $(event.target).next().val() !== "") {  
 					$(event.target).next().val("");
 					$(event.target).next().next().val("");
@@ -90,11 +88,8 @@ openxava.addEditorInitFunction(function() {
 				$(event.target).next().next().next().next().show();
 			},
 			close: function( event, ui ) {
-				console.log("[descriptionsEditor.js::close]");
 				$(event.target).next().next().next().next().hide();
 				$(event.target).next().next().next().show();
-				console.log("[descriptionsEditor.js::close] value=" + $(event.target).val());
-				console.log("[descriptionsEditor.js::close] hidden description=" + $(event.target).next().next().val());
 				if ($(event.target).val() !== $(event.target).next().next().val()) {
 					// To work clicking outside combo after mouse hover in plain view and dialog
 					if ($(event.target).val() === "") $(event.target).val("");
@@ -117,8 +112,6 @@ openxava.addEditorInitFunction(function() {
                     var limit = 60; // Max items per page
                     var offset = 0; // Initial offset for pagination
 
-					// TODO: Simplify code, reduce defensive branches
-					
 					// Reset offset when term changes (new search)
 					if (request.term !== $(input).data("lastTerm")) {
 						offset = 0;
@@ -142,114 +135,53 @@ openxava.addEditorInitFunction(function() {
 						request.term, limit,
 						offset,
 						function(items) { 
-							// Enable debugging to inspect responses
-							window.DEBUG_DESCRIPTIONS = true;
-							
-							// Log raw response data
-							console.log('DWR response raw:', items);
-							console.log('DWR response type:', typeof items);
+							// Normalize items into an array of {value,label,...}
+							var list = [];
 							if (typeof items === 'string') {
-								console.log('DWR response string length:', items.length);
-								console.log('DWR response string first 100 chars:', items.substring(0, 100));
+								// Server returns a JSON-like string with unquoted keys; fix and parse
+								var fixedJson = items
+									.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+									.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
+									.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
+								try {
+									list = JSON.parse(fixedJson);
+								} catch (e) {
+									console.error('Descriptions.getDescriptions parse error', e);
+									list = [];
+								}
+							} else if ($.isArray(items)) {
+								list = items;
+							} else {
+								list = [];
 							}
-							
-							if (window.DEBUG_DESCRIPTIONS) {
-								console.log('Descriptions.getDescriptions response for', {
-									term: request.term,
-									limit: limit
+
+							// Post-process labels (unicode handling)
+							if ($.isArray(list)) {
+								list = list.map(function(it){
+									if (it && typeof it.label === 'string') {
+										var copy = $.extend({}, it);
+										copy.label = descriptionsEditor._convertUPlusToBackslashU(copy.label);
+										copy.label = descriptionsEditor._decodeUnicodeEscapes(copy.label);
+										if (copy.label && typeof copy.label.normalize === 'function') copy.label = copy.label.normalize('NFC');
+										return copy;
+									}
+									return it;
 								});
 							}
-							try {
-								// If it is a string (possible JSON), try to parse it
-								if (typeof items === 'string') {
-									try { 
-										// Fix JSON format if single quotes are used instead of double quotes
-										var fixedJson = items
-											.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
-											.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
-											.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
-										console.log('Trying to parse fixed JSON:', fixedJson.substring(0, 100) + '...');
-										items = JSON.parse(fixedJson);
-										console.log('JSON parsed successfully');
-									} catch(e) { 
-										console.error('Error parsing JSON:', e);
-										// Fallback: manual extraction
-										try {
-											console.log('Trying manual data extraction');
-											// Extract label/value pairs manually with regex
-											var results = [];
-											var regex = /\{\s*value\s*:\s*"([^"]+)"\s*,\s*label\s*:\s*"([^"]+)"\s*\}/g;
-											var match;
-											while ((match = regex.exec(items)) !== null) {
-												results.push({
-													value: match[1],
-													label: match[2]
-												});
-											}
-											console.log('Manual extraction succeeded, found:', results.length);
-											items = results;
-										} catch(e2) {
-											console.error('Manual extraction failed:', e2);
-											items = []; // Last resort: empty list
-										}
-									}
-								}
-								
-								// If not an array, try to convert
-								if (!$.isArray(items)) {
-									try { 
-										items = Array.prototype.slice.call(items); 
-									}
-									catch(e) { items = []; }
-								}
-								
-								// Ensure items is an array
-								if (!$.isArray(items)) {
-									console.error("Incorrect items format from Descriptions.getDescriptions");
-									items = [];
-								}
-								
-								// Convert label occurrences of "U+XXXX" to literal "\\uXXXX" only for labels
-								if ($.isArray(items)) {
-									items = items.map(function(it){
-										if (it && typeof it.label === 'string') {
-											var copy = $.extend({}, it);
-											copy.label = descriptionsEditor._convertUPlusToBackslashU(copy.label);
-											copy.label = descriptionsEditor._decodeUnicodeEscapes(copy.label);
-											if (copy.label && typeof copy.label.normalize === 'function') {
-												copy.label = copy.label.normalize('NFC');
-											}
-											return copy;
-										}
-										return it;
-									});
-								}
-								
-								// Accumulate items for pagination
-								var allItems = $(input).data("allItems") || [];
-								
-								// Append new items to the accumulated list
-								if (items.length > 0) {
-									allItems = allItems.concat(items);
-									$(input).data("allItems", allItems);
-								}
-								
-								// Set whether more items are available
-								if (items.length >= limit) {
-									$(input).data("hasMoreItems", true);
-								} else {
-									$(input).data("hasMoreItems", false);
-								}
-								
-								// Reset loading flag
-								$(input).data("loadingMore", false);
-								
-								console.log("processed items:", items.length, "accumulated total:", allItems.length);
-								response(allItems);
-							} catch(e) { 
-								console.error('Error processing DWR response', e);
-								response([]); 
+
+							// Accumulate items for pagination
+							var allItems = $(input).data("allItems") || [];
+							if (list.length > 0) {
+								allItems = allItems.concat(list);
+								$(input).data("allItems", allItems);
 							}
+
+							// Set whether more items are available
+							$(input).data("hasMoreItems", list.length >= limit);
+
+							// Reset loading flag and respond
+							$(input).data("loadingMore", false);
+							response(allItems);
 						}
 					);
 			},
