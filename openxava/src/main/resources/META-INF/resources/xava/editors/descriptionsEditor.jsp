@@ -34,6 +34,10 @@ String orderForId = request.getParameter("order");
 if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
+// TMR ME QUEDÉ POR AQUÍ
+// TMR  - NO HACE CACHÉ DE DATOS, POR LO QUE EL ID PUEDE SER MÁS SIMPLE ¿SINTETICO?
+// TMR  - SEGUIR USANDO OBJETO DE SESIÓN POR SEGURIDA, NO QUEREMOS PONER CONDICINES EN data- QUE SE PUEDAN CAMBIAR POR USUARIO
+// TMR  - QUITAR TODOS LOS data- NO NECESARIOS
 String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator";
 DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
 
