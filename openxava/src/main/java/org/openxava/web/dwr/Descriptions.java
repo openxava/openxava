@@ -32,7 +32,6 @@ public class Descriptions extends DWRBase {
             String term, int limit,
             int offset
     ) {
-        System.out.println("Descriptions.getDescriptions() 10 term=" + term); // tmr
         List<Map<String, String>> out = new ArrayList<>();        
         try {
             initRequest(request, response, application, module);

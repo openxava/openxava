@@ -107,6 +107,8 @@ openxava.addEditorInitFunction(function() {
 			source: function( request, response ) {
                 
                 var input = $(this)[0]["element"];
+                // Capture the term for this specific request to detect stale responses
+                var currentTerm = request.term;
                 // Always use on-demand loading for better performance
                 var propertyKey = $(input).next().attr("id");
                     var limit = 60; // Max items per page
@@ -134,6 +136,12 @@ openxava.addEditorInitFunction(function() {
 						request.term, limit,
 						offset,
 						function(items) { 
+							// Discard stale responses: if user kept typing and lastTerm changed, ignore this callback
+							if (currentTerm !== $(input).data("lastTerm")) {
+								// Clear loading flag so infinite scroll can continue working
+								$(input).data("loadingMore", false);
+								return;
+							}
 							// Normalize items into an array of {value,label,...}
 							var list = [];
 							if (typeof items === 'string') {

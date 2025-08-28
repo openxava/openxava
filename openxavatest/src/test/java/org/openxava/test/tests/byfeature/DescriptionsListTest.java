@@ -87,7 +87,9 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		// Type filter '24' in the input and verify only the expected suggestions are shown
 		WebElement lastJourneyInput = lastJourneyEditor.findElement(By.className("ui-autocomplete-input"));
 		lastJourneyInput.clear();
-		lastJourneyInput.sendKeys("24");
+		lastJourneyInput.sendKeys("2");
+		Thread.sleep(300); // To simulate slow typing
+		lastJourneyInput.sendKeys("4"); // So 24
 		Thread.sleep(9000); // Given it's calculated property all the records are loaded in server to filter, so it costs
 		List<WebElement> filtered = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
 		List<String> filteredTexts = new java.util.ArrayList<>();
