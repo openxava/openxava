@@ -529,7 +529,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors(); 
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
-		assertValue("shipment.KEY", toKeyString(shipment)); 
+		assertValue("shipment.KEY", toKeyString(shipment)); // TMR ME QUEDÉ POR AQUÍ. FALLA.
 		assertDescriptionValue("shipment.KEY", shipment.getDescription());
 		// Restoring		
 		setValue("shipment.KEY", "");
