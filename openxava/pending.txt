@@ -7,5 +7,23 @@ Pending for @DescriptionsList for large datasets
 - Documentar.
 	- Indicar que en los comparadores de las lista solo se cargan hasta 200 elementos.
     - Nuevo Strings.wrapVariables() en changelog.
+    - Orden númerico cuando se concatenan propiedades: En changelog. ¿En migration?
+        Antes era (DeliveryInvoiceAsDecriptionsListTest.testFilterInDescriptionsList):
+
+			{"[.10.2004.]", "2004 10 Juanillo"},
+			{"[.11.2004.]", "2004 11 Carmelo"},
+			{"[.12.2004.]", "2004 12 Cuatrero"},
+			{"[.2.2004.]", "2004 2 Juanillo"},
+			{"[.9.2004.]", "2004 9 Javi"}
+
+        Y ahora es:
+
+			{"[.2.2004.]", "2004 2 Juanillo"},
+			{"[.9.2004.]", "2004 9 Javi"},
+			{"[.10.2004.]", "2004 10 Juanillo"},
+			{"[.11.2004.]", "2004 11 Carmelo"},
+			{"[.12.2004.]", "2004 12 Cuatrero"}
+
+            
 - Borrar este archivo.
  

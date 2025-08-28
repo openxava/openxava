@@ -544,13 +544,13 @@ public class DescriptionsCalculator implements ICalculator {
 			order = " ORDER BY " + Strings.wrapVariables(getOrder()); 
 		}
 		else {
-			// Default ordering: by description if filter-capable, otherwise by key if requested, or none
+			// Default ordering: by description when available unless explicit key ordering is requested
 			if (!isOrderByKey()) {
-				if (areAllFilterCapable(getDescriptionProperties())) {
-					order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
+				String descProps = getDescriptionProperties();
+				if (!Is.emptyString(descProps)) {
+					order = " ORDER BY " + Strings.wrapVariables(descProps);
 				} else {
-					// Do not order by non-filter-capable properties to avoid JPATabProvider translating to '0'
-					order = "";
+					order = " ORDER BY " + Strings.wrapVariables(getKeyProperties());
 				}
 			}
 			else {
