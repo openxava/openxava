@@ -16,7 +16,6 @@ import org.openxava.tab.meta.*;
 import org.openxava.util.*;
 
 /**
- * TMR ME QUEDÉ POR AQUÍ: REFACTORIZANDO. CREO QUE YA ESTÁ TODO, FALTA REVISARLA.
  * It obtain a description collection. <p>
  * 
  * Use tab infrastructure for it, so you can make that this execute
@@ -44,7 +43,6 @@ public class DescriptionsCalculator implements ICalculator {
 	private boolean useConvertersInKeys = false;
 	private Collection<String> keyPropertiesCollection;
 	private MetaTab metaTab;
-	private int hiddenPropertiesCount; 
 	private boolean distinct = false;   
 	
 	/**
@@ -432,11 +430,9 @@ public class DescriptionsCalculator implements ICalculator {
 			metaTab = new MetaTab();
 			metaTab.setMetaModel(getMetaModel());
 			StringBuffer extraProperties = new StringBuffer();
-			hiddenPropertiesCount = 0;
 			for (Iterator it = createConditionAndOrderProperties().iterator(); it.hasNext(); ) {
 				extraProperties.append(", ");
 				extraProperties.append(it.next());
-				hiddenPropertiesCount++;
 			}
 			metaTab.setPropertiesNames(getKeyProperties() + ", " +  getDescriptionProperties() + extraProperties); 
 		}
