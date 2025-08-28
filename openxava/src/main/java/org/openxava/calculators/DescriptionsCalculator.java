@@ -641,7 +641,8 @@ public class DescriptionsCalculator implements ICalculator {
 					Object v = row[col];
 					if (v != null) {
 						if (sb.length() > 0) sb.append(' ');
-						sb.append(String.valueOf(v));
+						// Trim to avoid padding from fixed-length CHAR columns
+						sb.append(String.valueOf(v).trim());
 					}
 				}
 			}
