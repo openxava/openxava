@@ -700,6 +700,16 @@ public class DescriptionsCalculator implements ICalculator {
             result.add(el);
         }
 
+		// Apply distinct semantics if requested: remove duplicates by key, keeping first occurrence
+		if (isDistinct() && !result.isEmpty()) {
+			java.util.LinkedHashMap<String, KeyAndDescription> unique = new java.util.LinkedHashMap<>();
+			for (KeyAndDescription kd : result) {
+				String k = kd.getKey() == null ? "" : kd.getKey().toString();
+				if (!unique.containsKey(k)) unique.put(k, kd);
+			}
+			return new java.util.ArrayList<>(unique.values());
+		}
+
 		return result;
 	}
  
