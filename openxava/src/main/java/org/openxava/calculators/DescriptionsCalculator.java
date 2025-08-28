@@ -468,6 +468,39 @@ public class DescriptionsCalculator implements ICalculator {
 		}		
 		return result;
 	}
+
+    // Checks if all properties in a CSV are filter-capable; ignores ASC/DESC suffixes
+    private boolean areAllFilterCapable(String propsCsv) {
+        if (Is.emptyString(propsCsv)) return true;
+        String[] tokens = propsCsv.split(",");
+        for (String t : tokens) {
+            String token = t == null ? "" : t.trim();
+            if (token.isEmpty()) continue;
+            // Strip optional ASC/DESC or other suffix after first whitespace
+            int ws = -1;
+            for (int j = 0; j < token.length(); j++) {
+                if (Character.isWhitespace(token.charAt(j))) { ws = j; break; }
+            }
+            String field = ws >= 0 ? token.substring(0, ws).trim() : token;
+            // If already wrapped like ${...} remove wrappers
+            if (field.startsWith("${") && field.endsWith("}")) {
+                field = field.substring(2, field.length() - 1);
+            }
+            if (!isFilterCapableSafe(field)) return false;
+        }
+        return true;
+    }
+
+    // Safe check mirroring JPATabProvider logic
+    private boolean isFilterCapableSafe(String property) {
+        try {
+            return getMetaModel().getMetaProperty(property).isFilterCapable();
+        }
+        catch (Exception ex) {
+            // Be conservative: avoid ordering if we are not sure
+            return false;
+        }
+    }
 	
 	private void extractPropertiesFromSentences(Set<String> result, String sentence) { 		
 		int i = sentence.indexOf("${");
@@ -510,8 +543,20 @@ public class DescriptionsCalculator implements ICalculator {
 		if (hasOrder()) {
 			order = " ORDER BY " + Strings.wrapVariables(getOrder()); 
 		}
-		else if (!isOrderByKey()) {
-			order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
+		else {
+			// Default ordering: by description if filter-capable, otherwise by key if requested, or none
+			if (!isOrderByKey()) {
+				if (areAllFilterCapable(getDescriptionProperties())) {
+					order = " ORDER BY " + Strings.wrapVariables(getDescriptionProperties());
+				} else {
+					// Do not order by non-filter-capable properties to avoid JPATabProvider translating to '0'
+					order = "";
+				}
+			}
+			else {
+				// Explicit order by key when requested
+				order = " ORDER BY " + Strings.wrapVariables(getKeyProperties());
+			}
 		}
 
 		Object [] key = null;
