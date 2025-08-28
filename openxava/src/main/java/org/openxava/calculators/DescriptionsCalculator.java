@@ -92,19 +92,47 @@ public class DescriptionsCalculator implements ICalculator {
 		return getDescriptions(limit, offset, null);
 	}
 	
-	/**
-	 * Returns a paginated collection of descriptions with database-level LIMIT and OFFSET.
-	 * This method bypasses cache to ensure fresh data for pagination.
-	 * 
-	 * @param limit Maximum number of records to return
-	 * @param offset Number of records to skip
-	 * @param searchTerm Term to search for in description properties
-	 * @return Collection of KeyAndDescription objects matching the search term
-	 * @throws Exception if there's an error executing the query
-	 */
-	public Collection<KeyAndDescription> getDescriptions(int limit, int offset, String searchTerm) throws Exception {
-		return executeQueryPaginatedCollection(limit, offset, searchTerm);
-	}
+	    /**
+     * Returns a paginated collection of descriptions with database-level LIMIT and OFFSET.
+     * This method bypasses cache to ensure fresh data for pagination.
+     * 
+     * @param limit Maximum number of records to return
+     * @param offset Number of records to skip
+     * @param searchTerm Term to search for in description properties
+     * @return Collection of KeyAndDescription objects matching the search term
+     * @throws Exception if there's an error executing the query
+     */
+    public Collection<KeyAndDescription> getDescriptions(int limit, int offset, String searchTerm) throws Exception {
+        // When searchTerm is empty, delegate directly
+        if (Is.emptyString(searchTerm)) {
+            return executeQueryPaginatedCollection(limit, offset, null);
+        }
+
+        // Try to build a DB-side search condition
+        String searchCond = buildSearchCondition(searchTerm);
+
+        // If we can filter in DB, do so
+        if (!Is.emptyString(searchCond)) {
+            return executeQueryPaginatedCollection(limit, offset, searchTerm);
+        }
+
+        // Otherwise, fall back to in-memory filtering (calculated description properties)
+        // Fetch a large unfiltered window to cover results beyond the first page
+        int window = Math.max(0, offset) + Math.max(0, limit);
+        int minScan = 20000; // high cap to avoid missing matches across pages
+        if (window < minScan) window = minScan;
+
+        Collection<KeyAndDescription> unfiltered = executeQueryPaginatedCollection(window, 0, null);
+
+        // Normalize term like in list mode: remove accents and lowercase
+        String normalized = searchTerm == null ? "" : searchTerm;
+        if (XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions()) {
+            normalized = Strings.removeAccents(normalized);
+        }
+        normalized = normalized.toLowerCase();
+
+        return filterDescriptionsInMemory(unfiltered, normalized, Math.max(0, limit), Math.max(0, offset));
+    }
 	
 	/**
 	 * Returns the total count of descriptions without loading the actual data.
@@ -898,12 +926,14 @@ public class DescriptionsCalculator implements ICalculator {
 		
 		List<KeyAndDescription> filteredResults = new ArrayList<>();
 		String normalizedSearchTerm = searchTerm.toLowerCase().trim();
+		boolean ignoreAccentsPref = XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions();
 		
 		// Filter descriptions that contain the search term
 		for (KeyAndDescription item : descriptions) {
 			Object descObj = item.getDescription();
 			if (descObj != null) {
 				String description = String.valueOf(descObj);
+				if (ignoreAccentsPref) description = Strings.removeAccents(description);
 				if (description.toLowerCase().contains(normalizedSearchTerm)) {
 					filteredResults.add(item);
 				}

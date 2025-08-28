@@ -27,7 +27,6 @@ public class Journey {
 	private String description;
 
 	public String getSlowName() { // To test on demand fetch in server side
-		/* tmr 
 		if (name != null) {
 			String[] parts = name.trim().split("\\s+");
 			if (parts.length >= 2) {
@@ -44,7 +43,6 @@ public class Journey {
 				}
 			}
 		}
-		*/
 		return name;
 	}
 
@@ -52,13 +50,11 @@ public class Journey {
 	// Currently +12 seconds, but never less than 2 seconds (DescriptionsListTest.testLargeDatasetLoadedOnDemand()).
 	// You can test it is slow, opening the combo in SlowTraveler.
 	public String getUltraSlowName() { 
-		/* tmr 
 		try {
 			Thread.sleep(200); // So even the first 30 items take 6 seconds to load
 		}
 		catch (InterruptedException e) {
 		}
-		*/
 		return name;
 	}
 

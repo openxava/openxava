@@ -95,7 +95,6 @@ public class Descriptions extends DWRBase {
             // Assign to the final result
             out = simpleItems;
             
-            System.out.println("Descriptions.getDescriptions() 999 out.size()=" + out.size()); // tmr
             return out;
         }
         catch (Exception ex) {

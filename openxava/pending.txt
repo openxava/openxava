@@ -1,7 +1,7 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Lanzar Product2Test, ProductTest y DescriptionsListTest.
+- Problema de tecleo lento.
 - Suite completa.
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
