@@ -81,7 +81,7 @@ calculator.setDescriptionProperties(descriptionProperties);
 calculator.setOrderByKey(true); 
 calculator.setDistinct(true); 
 
-java.util.Collection descriptions = calculator.getDescriptionsPaginated(200, 0); // It's not very usable to search in a combo of more than 200 items.
+java.util.Collection descriptions = calculator.getDescriptions(200, 0); // It's not very usable to search in a combo of more than 200 items.
 												// We don't use the @DescriptionsList editor because instead of searching in a large dataset in the combo
 												// typing just to do the search in the list afterward, it's better not to use then combo and searching
 												// directly in the list  

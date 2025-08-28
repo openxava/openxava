@@ -7,7 +7,6 @@ import java.util.Collections;
 import javax.swing.event.*;
 import javax.swing.table.*;
 
-import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.filters.*;
 import org.openxava.model.meta.*;
@@ -24,7 +23,6 @@ import org.openxava.util.*;
  * @author Javier Paniza
  */
 public class DescriptionsCalculator implements ICalculator {
-	private static Log log = LogFactory.getLog(DescriptionsCalculator.class);
 	
 	private static final long serialVersionUID = 3638931156760463239L;
 	
@@ -141,10 +139,6 @@ public class DescriptionsCalculator implements ICalculator {
             String calcCond = buildKeyConditionByCalculatorOrder(key);
             if (!Is.emptyString(calcCond)) keyCondition = calcCond;
         }
-		if (log.isDebugEnabled()) {
-			log.debug("DescriptionsCalculator.findDescriptionByKey key='" + key + "' builtCondition=" + keyCondition
-				+ ", model=" + getModel() + ", keyProperties=" + getKeyProperties() + ", descriptionProperties=" + getDescriptionProperties());
-		}
 		
 		try {
 			// Apply only key condition for exact match search (ignore original filters)
@@ -152,34 +146,31 @@ public class DescriptionsCalculator implements ICalculator {
 			// Clear parameters for this search
 			setParameters(null);
 			
-			Collection<KeyAndDescription> results = executeQueryPaginatedCollection(1, 0, null);
-			if (log.isDebugEnabled()) {
-				int size = 0; try { size = results==null?0:results.size(); } catch(Exception ignore) {}
-				log.debug("DescriptionsCalculator.findDescriptionByKey results size=" + size);
-			}
-			if (results != null && !results.isEmpty()) {
-				KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
-				// Normalize the key to the incoming one so UI selection matches exactly
-				kd.setKey(key);
-				return kd;
-			}
+			            Collection<KeyAndDescription> results = executeQueryPaginatedCollection(1, 0, null);
+            
+            if (results != null && !results.isEmpty()) {
+                KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
+                // Normalize the key to the incoming one so UI selection matches exactly
+                kd.setKey(key);
+                return kd;
+            }
 
-			// Fallback: try with calculator keyProperties order (stereotypes may serialize like this)
-			String altKeyCondition = buildKeyConditionByCalculatorOrder(key);
-			if (!Is.emptyString(altKeyCondition) && !altKeyCondition.equals(keyCondition)) {
-				if (log.isDebugEnabled()) log.debug("DescriptionsCalculator.findDescriptionByKey retrying with calculator order condition= " + altKeyCondition);
-				// Again, only key condition
-				setCondition(altKeyCondition);
-				setParameters(null);
-				results = executeQueryPaginatedCollection(1, 0, null);
-				if (results != null && !results.isEmpty()) {
-					KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
-					kd.setKey(key);
-					return kd;
-				}
-			}
-			return null;
-		} finally {
+            // Fallback: try with calculator keyProperties order (stereotypes may serialize like this)
+            String altKeyCondition = buildKeyConditionByCalculatorOrder(key);
+            if (!Is.emptyString(altKeyCondition) && !altKeyCondition.equals(keyCondition)) {
+                
+                // Again, only key condition
+                setCondition(altKeyCondition);
+                setParameters(null);
+                results = executeQueryPaginatedCollection(1, 0, null);
+                if (results != null && !results.isEmpty()) {
+                    KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
+                    kd.setKey(key);
+                    return kd;
+                }
+            }
+            return null;
+        } finally {
 			// Restore original condition
 			setCondition(originalCondition);
 			// Restore original parameters
@@ -631,13 +622,9 @@ public class DescriptionsCalculator implements ICalculator {
             try { descStr = Normalizer.normalize(descStr, Normalizer.Form.NFC); } catch (Throwable ignore) {}
             el.setDescription(descStr);
 
-			if (log.isDebugEnabled()) {
-				log.debug("DescriptionsCalculator row mapped: iKeyStart=" + iKey + 
-					", key=" + el.getKey() + ", desc='" + descStr + "'");
-			}
-
-			result.add(el);
-		}
+            
+            result.add(el);
+        }
 
 		return result;
 	}

@@ -26,7 +26,7 @@ openxava.addEditorInitFunction(function() {
 					
 					// If near the end and more items are available, load more
 					if (scrollTop >= triggerPoint && input.data("hasMoreItems") && !input.data("loadingMore")) {
-						console.log("Infinite scroll: loading more items...");
+						// removed debug log
 						
 						// Mark as loading to avoid duplicate loads
 						input.data("loadingMore", true);
@@ -123,11 +123,10 @@ openxava.addEditorInitFunction(function() {
 					}
 					
 					// Check DWR availability
-					if (typeof Descriptions === 'undefined' || !Descriptions.getDescriptions) {
-						console.warn("DWR Descriptions not available, using empty list");
-						response([]);
-						return;
-					}
+						if (typeof Descriptions === 'undefined' || !Descriptions.getDescriptions) {
+							response([]);
+							return;
+						}
 					
 					Descriptions.getDescriptions(
 						openxava.lastApplication, openxava.lastModule,
@@ -143,12 +142,11 @@ openxava.addEditorInitFunction(function() {
 									.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
 									.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
 									.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
-								try {
-									list = JSON.parse(fixedJson);
-								} catch (e) {
-									console.error('Descriptions.getDescriptions parse error', e);
-									list = [];
-								}
+									try {
+										list = JSON.parse(fixedJson);
+									} catch (e) {
+										list = [];
+									}
 							} else if ($.isArray(items)) {
 								list = items;
 							} else {

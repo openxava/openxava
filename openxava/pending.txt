@@ -1,7 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Quitar prints.         
 - Lanzar Product2Test, ProductTest y DescriptionsListTest.
 - Suite completa.
 - Prueba con tabla gigante real en MySQL.

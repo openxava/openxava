@@ -32,6 +32,7 @@ public class Descriptions extends DWRBase {
             String term, int limit,
             int offset
     ) {
+        System.out.println("Descriptions.getDescriptions() 10 term=" + term); // tmr
         List<Map<String, String>> out = new ArrayList<>();        
         try {
             initRequest(request, response, application, module);
@@ -52,11 +53,6 @@ public class Descriptions extends DWRBase {
             IFormatter formatter = (IFormatter) request.getSession().getAttribute(propertyKey + ".descriptionsFormatter");
             
 
-            // Log effective configuration
-            if (log.isDebugEnabled()) {
-                log.debug("Descriptions.getDescriptions term='" + term + "', limit=" + limit + ", offset=" + offset);
-            }
-
             // Get descriptions using database-level pagination
             int max = sanitizeLimit(limit);
             String qt = normalize(term);
@@ -69,11 +65,7 @@ public class Descriptions extends DWRBase {
                 descriptions = calculator.getDescriptions(max, offset, qt);
             }
             
-            if (log.isDebugEnabled()) {
-                int size = 0;
-                try { size = descriptions==null?0:descriptions.size(); } catch(Exception ignore) {}
-                log.debug("Descriptions.getDescriptions paginated descriptions size=" + size + ", term='" + term + "', limit=" + max + ", offset=" + offset);
-            }
+            // removed debug logging
 
             int count = 0;
             java.util.Iterator it = descriptions.iterator();
@@ -103,10 +95,7 @@ public class Descriptions extends DWRBase {
             // Assign to the final result
             out = simpleItems;
             
-            if (log.isDebugEnabled()) {
-                log.debug("Descriptions.getDescriptions returning " + out.size() + " filtered items");
-            }
-            
+            System.out.println("Descriptions.getDescriptions() 999 out.size()=" + out.size()); // tmr
             return out;
         }
         catch (Exception ex) {
