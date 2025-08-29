@@ -261,19 +261,45 @@ descriptionsEditor.is = function(input) {
 }
 
 descriptionsEditor.val = function(input, defaultValue) {
-	input.val(defaultValue);
-	var control = input.prev();	
-	var values = control.data('values');
-	var label = descriptionsEditor._getLabel(values, defaultValue);
-	control.val(label);
-	input.next().val(label);
-}  
+    // Set the hidden value first
+    input.val(defaultValue);
+    var control = input.prev();
 
-descriptionsEditor._getLabel = function(values, value) {
-	for (i in values) { // Arrays.find not supported by HtmlUnit
-	    if (values[i].value == value) {
-	        return values[i].label;
-	    }
-	}			
-	return "";
-}
+    // If no value, clear label fields and return
+    if (!defaultValue) {
+        control.val("");
+        input.next().val("");
+        return;
+    }
+
+    // Prefer server-side label retrieval via DWR
+    try {
+        var hasDwr = (typeof Descriptions !== 'undefined');
+        var hasGetDescription = hasDwr && (typeof Descriptions.getDescription === 'function');
+        if (hasGetDescription) {
+            var propertyKey = input.attr('id');
+            Descriptions.getDescription(
+                openxava.lastApplication,
+                openxava.lastModule,
+                propertyKey,
+                defaultValue,
+                function(label) {
+                    // Decode server-encoded label
+                    var lbl = label || "";
+                    lbl = descriptionsEditor._convertUPlusToBackslashU(lbl);
+                    lbl = descriptionsEditor._decodeUnicodeEscapes(lbl);
+                    if (lbl && typeof lbl.normalize === 'function') lbl = lbl.normalize('NFC');
+                    control.val(lbl);
+                    input.next().val(lbl);
+                }
+            );
+        } else {
+            // Fallback: clear labels if service not available
+            control.val("");
+            input.next().val("");
+        }
+    } catch (e) {
+        control.val("");
+        input.next().val("");
+    }
+}  

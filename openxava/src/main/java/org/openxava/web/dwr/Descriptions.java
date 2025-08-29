@@ -111,6 +111,53 @@ public class Descriptions extends DWRBase {
         return out;
     }
 
+    /**
+     * Returns the label (description) for a given key/value of a @DescriptionsList property.
+     * Uses the same preconfigured calculator and formatter stored in session by the JSP.
+     *
+     * @since 7.6
+     */
+    public String getDescription(
+            HttpServletRequest request, HttpServletResponse response,
+            String application, String module,
+            String propertyKey,
+            String value
+    ) {
+        try {
+            initRequest(request, response, application, module);
+
+            // Ensure filters can access application/module context
+            request.setAttribute("xava.application", application);
+            request.setAttribute("xava.module", module);
+
+            String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
+            DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
+            if (calculator == null) {
+                throw new XavaException("descriptions_calculator_not_found", descriptionsCalculatorKey);
+            }
+
+            IFormatter formatter = (IFormatter) request.getSession().getAttribute(propertyKey + ".descriptionsFormatter");
+
+            if (Is.emptyString(value)) return "";
+
+            KeyAndDescription kd = calculator.findDescriptionByKey(value);
+            if (kd == null) {
+                return "";
+            }
+
+            kd.setShowCode(false);
+            String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
+            return encodeToUPlusCodes(label);
+        }
+        catch (Exception ex) {
+            log.error(XavaResources.getString("getting_descriptions_error"), ex);
+            return "";
+        }
+        finally {
+            cleanRequest();
+        }
+    }
+
     // ---- helpers ----
 
     private static String nvl(String a, String b) { return Is.emptyString(a) ? (b == null ? "" : b) : a; }

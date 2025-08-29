@@ -68,9 +68,11 @@ public class ProductExpenses2Test extends ModuleTestBase {
 	    assertTrue(iconDown.isDisplayed());
 	    assertFalse(iconUp.isDisplayed());
 	    iconDown.click();
+		Thread.sleep(50); 
 	    assertFalse(iconDown.isDisplayed());
 	    assertTrue(iconUp.isDisplayed());	    
 	    iconUp.click();
+		Thread.sleep(50); 
 	    assertTrue(iconDown.isDisplayed());
 	    assertFalse(iconUp.isDisplayed());
 	}
