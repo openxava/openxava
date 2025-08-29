@@ -22,14 +22,14 @@ public class ProductExpensesTest extends ModuleTestBase {
 		String [][] invoiceValidValues = {
 			{ "", "" },
 			{ "[.1.2002.]", "2002 1" },
+			{ "[.2.2004.]", "2004 2" },
+			{ "[.9.2004.]", "2004 9" },
 			{ "[.10.2004.]", "2004 10" },
 			{ "[.11.2004.]", "2004 11" },
 			{ "[.12.2004.]", "2004 12" },
-			{ "[.2.2004.]", "2004 2" },
-			{ "[.9.2004.]", "2004 9" },
 			{ "[.14.2007.]", "2007 14" },
 			{ "[.1.2009.]", "2009 1" },
-			{ "[.1.2011.]", "2011 1" }			
+			{ "[.1.2011.]", "2011 1" }            
 		};		
 		assertValidValuesInCollection("expenses", 0, "invoice.KEY", invoiceValidValues); 
 		String [][] productValidValues = {
@@ -111,8 +111,12 @@ public class ProductExpensesTest extends ModuleTestBase {
 		HtmlElement handler = editor.getElementsByTagName("i").get(0);
 		assertCollectionRowCount("expenses", 0); 
 		handler.click();
+		// Wait a moment so the remote suggestions list has time to load
+		Thread.sleep(200);
 		HtmlElement combo = getHtmlPage().getHtmlElementById("ui-id-1");
-		((HtmlElement) combo.getFirstElementChild()).click();
+		// Click on the first suggestion item
+		HtmlElement firstItem = combo.getElementsByTagName("li").get(0);
+		firstItem.click();
 		assertCollectionRowCount("expenses", 1); 
 	}
 			
