@@ -2,7 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Suite completa.
-	- Product2EditableListTest
 	- ProductExpenses2Test
 	- ProductExpensesTest
 	- ProfileTest
@@ -11,6 +10,8 @@ Pending for @DescriptionsList for large datasets
 	- ShipmentChargeTest
 	- TransportCharge*Test
 	- VehicleTest	
+- tmr
+- Suite	
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.

@@ -1643,10 +1643,10 @@ abstract public class MetaModel extends MetaElement {
 	 * The string representation of models represented by this meta model, from
 	 * a map with its values. <p> 
 	 * 
-	 * @return null if the sent map is null
+	 * @return null if the sent map is null or empty
 	 */
 	public String toString(Map key) throws XavaException { 
-		if (key == null) return null;		
+		if (key == null || key.isEmpty()) return null; 
 		return toString(toPOJO(key));
 	}
 

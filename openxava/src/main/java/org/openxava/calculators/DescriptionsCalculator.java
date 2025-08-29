@@ -153,12 +153,15 @@ public class DescriptionsCalculator implements ICalculator {
 	 * @return KeyAndDescription if found, null otherwise
 	 * @since 7.6
 	 */
-	public KeyAndDescription findDescriptionByKey(Object key) throws Exception { // tmr ¿Este nombre?
-		System.out.println("[DescriptionsCalculator.findDescriptionByKey] model=" + getMetaModel().getName()); // tmr
-		System.out.println("[DescriptionsCalculator.findDescriptionByKey] key="+key); // tmr
-		if (key == null || conditionHasArguments() && !hasParameters()) return null;
+	public KeyAndDescription findDescriptionByKey(Object key) throws Exception { 
+		if (key == null || conditionHasArguments() && !hasParameters()) return null;		
 				
 		Map<String, Object> keyValues = DescriptionsLists.parseKeyValues(getMetaModel(), (String) key);
+		// If any of the parsed key values is null, the key is incomplete -> return null
+		if (keyValues == null) return null;
+		for (Object v : keyValues.values()) {
+			if (v == null) return null;
+		}
 		Collection<String> descriptionsPropertiesNames = Strings.toCollection(getDescriptionProperties());
 		Map<String, Map> descriptionsProperties = new HashMap<>();
 		for (String descriptionPropertyName: descriptionsPropertiesNames) {
@@ -171,30 +174,12 @@ public class DescriptionsCalculator implements ICalculator {
 			if (description.length() > 0) description.append(' ');
 			description.append(values.get(descriptionPropertyName));
 		}
-		System.out.println("[DescriptionsCalculator.findDescriptionByKey] description=" + description); // tmr
 		KeyAndDescription result = new KeyAndDescription();
 		result.setKey(key);
 		result.setDescription(description.toString());
 		return result;
 		
-	}
-	
-	// tmr Doc
-	public KeyAndDescription findKeyByDescription(String description) throws Exception { // tmr ¿Este nombre?
-		System.out.println("[DescriptionsCalculator.findKeyByDescription] getMetaModel().getName()=" + getMetaModel().getName()); // tmr
-		System.out.println("[DescriptionsCalculator.findKeyByDescription] description=" + description); // tmr
-		Map<String, Object> descriptionValues = new HashMap<>();
-		descriptionValues.put(getDescriptionProperty(), description);
-		Map keyProperties = new HashMap<>();
-		Map values = MapFacade.getValuesByAnyProperty(getMetaModel().getName(), descriptionValues, keyProperties);
-		System.out.println("[DescriptionsCalculator.findDescriptionByKey] values=" + values); // tmr
-		KeyAndDescription result = new KeyAndDescription();
-		result.setKey("");
-		result.setDescription(description);
-		return result;
-		
-	}
-	
+	}	
 
     /**
      * Returns true if the given value can be parsed to the MetaProperty type.

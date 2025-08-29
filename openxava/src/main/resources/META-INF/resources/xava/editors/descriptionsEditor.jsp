@@ -222,16 +222,6 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-System.out.println("[descriptionsEditor.jsp] propertyKey=" + propertyKey); // tmr
-System.out.println("[descriptionsEditor.jsp] fvalue=" + fvalue); // tmr
-/* tmr
-        java.util.Enumeration<String> attributeNames = request.getAttributeNames();
-        while (attributeNames.hasMoreElements()) {
-            String name = attributeNames.nextElement();
-            Object value = request.getAttribute(name);
-            System.out.println(name + " = " + value);
-        }
-*/
 // Always use on-demand loading for better performance
 
 java.util.Collection descriptions = null;
@@ -260,21 +250,6 @@ if (editable) {
 		String descriptionValue = request.getParameter("descriptionValue");
 		
 		// Find selected item if we have descriptions loaded
-		System.out.println("[descriptionsEditor.jsp] descriptionValue=" + descriptionValue); // tmr
-		/* tmr
-		if (descriptions != null) {
-			java.util.Iterator it = descriptions.iterator();
-			while (it.hasNext()) {
-				KeyAndDescription cl = (KeyAndDescription) it.next();
-				String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-				if (descriptionValue != null && descriptionValue.equals(description) || Is.equalAsString(fvalue, cl.getKey())) {
-					selectedDescription = description;
-					selectedKey = cl.getKey().toString();
-					break; // Found it, no need to continue
-				}
-			}
-		} 
-		*/
 		if (!Is.emptyString(descriptionValue)) {
 			selectedDescription = descriptionValue;
 			selectedKey = null;
@@ -304,6 +279,7 @@ if (editable) {
 	</span>
 	<% 	
 } else { 
+	// tmr ¿Se puede simplificar lo de abajo?
 	Object description = "";
 	java.util.Iterator it = descriptions.iterator();
 	while (it.hasNext()) {

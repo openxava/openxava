@@ -24,7 +24,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertEditableInList(2, "unitPrice");
 		
 		// @DescriptionsList with single key
-		assertValueInList(0, "family.description", "SOFTWARE"); // TMR ME QUEDÉ POR AQUÍ. FALLA. AHORA INCLUSO FALLA EL DETALLE DE Product2
+		assertValueInList(0, "family.description", "SOFTWARE"); 
 		assertValueInList(1, "family.description", "HARDWARE");
 		assertValueInList(2, "family.description", "SOFTWARE");
 		assertEditableInList(0, "family.description");
