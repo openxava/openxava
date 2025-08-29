@@ -2,11 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Suite completa.
-	- DeliveryTypeWithDeliveryTest
-	- DeliveryWithTypeAsViewTest
-	- FamilyXProductsReportTest
-	- InvoiceAddDeliveriesTest
-	- InvoiceFromDeliveriesTest
 	- Product2EditableListTest
 	- ProductExpenses2Test
 	- ProductExpensesTest
@@ -15,7 +10,7 @@ Pending for @DescriptionsList for large datasets
 	- ServiceExpensesTest
 	- ShipmentChargeTest
 	- TransportCharge*Test
-- VehicleTest
+	- VehicleTest	
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.
