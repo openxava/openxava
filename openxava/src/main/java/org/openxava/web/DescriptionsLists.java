@@ -1,18 +1,11 @@
 package org.openxava.web;
 
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.HashMap;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.model.meta.MetaReference;
-import org.openxava.util.Messages;
-import org.openxava.util.Strings;
+import org.openxava.model.meta.*;
+import org.openxava.util.*;
 
 /**
  * Created on 21/08/2009
@@ -51,7 +44,7 @@ public class DescriptionsLists {
 			String qualifier, String propertyPrefix, HttpServletRequest request, 
 			Messages errors, String viewName, boolean emptyIfNotBracketed) {
 		MetaModel metaModel = ref.getMetaModelReferenced();
-		Map<String, Object> parsed = parseCompositeKeyValues(metaModel, value, request, errors, viewName, emptyIfNotBracketed);
+		Map<String, Object> parsed = parseKeyValues(metaModel, value, request, errors, viewName, emptyIfNotBracketed);
 		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
 			MetaProperty p = metaModel.getMetaProperty(propertyName);
 			Object propertyValue = parsed.get(propertyName);
@@ -88,12 +81,14 @@ public class DescriptionsLists {
 	}
 
 	/**
-	 * Parses a composite key string using MetaModel key properties.
+	 * Parses a key string using MetaModel key properties. <p>
+	 * 
+	 * It can be a composite key like "[.1.4.]" or a simple key like "1".
 	 * Values are parsed via WebEditors.parse() to ensure consistency with editors.
 	 *
 	 * @since 7.6
 	 */
-	public static Map<String, Object> parseCompositeKeyValues(MetaModel metaModel, String value, 
+	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value, 
 			HttpServletRequest request, Messages errors, String viewName, boolean emptyIfNotBracketed) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (value == null) return result;
@@ -114,13 +109,15 @@ public class DescriptionsLists {
 	}
 
 	/**
-	 * Convenience overload to parse composite key values without providing request/view.
+	 * Convenience overload to parse composite key values without providing request/view. <p>
+	 * 
+	 * It can be a composite key like "[.1.4.]" or a simple key like "1".
 	 * Uses default behavior for Tab (wrap with brackets if needed).
 	 *
 	 * @since 7.6
 	 */
-	public static Map<String, Object> parseCompositeKeyValues(MetaModel metaModel, String value) {
-		return parseCompositeKeyValues(metaModel, value, null, new Messages(), null, false);
+	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value) {
+		return parseKeyValues(metaModel, value, null, new Messages(), null, false);
 	}
 
 	/**
@@ -130,6 +127,6 @@ public class DescriptionsLists {
 	 * @since 7.6
 	 */
 	public static void fillReferenceValues(Map<String, Object> values, MetaModel metaModel, String value) {
-		values.putAll(parseCompositeKeyValues(metaModel, value));
+		values.putAll(parseKeyValues(metaModel, value));
 	}
 }

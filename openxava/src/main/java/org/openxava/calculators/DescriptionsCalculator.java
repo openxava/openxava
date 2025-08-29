@@ -1,18 +1,17 @@
 package org.openxava.calculators;
 
+import java.text.*;
 import java.util.*;
-import java.text.Normalizer;
 import java.util.Collections;
-
-import javax.swing.event.*;
-import javax.swing.table.*;
 
 import org.openxava.component.*;
 import org.openxava.filters.*;
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.web.*;
 
 /**
  * It obtain a description collection. <p>
@@ -156,207 +155,26 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public KeyAndDescription findDescriptionByKey(Object key) throws Exception {
 		if (key == null || conditionHasArguments() && !hasParameters()) return null;
-
-		// Create a temporary condition to find the specific key
-		String originalCondition = getCondition();
-		Collection<?> originalParameters = getParameters();
-		        String keyCondition = buildKeyCondition(key);
-        if (Is.emptyString(keyCondition)) {
-            // Safety net: if MetaModel-based build produced empty (e.g. business key not in PK),
-            // fall back to calculator keyProperties order also for simple keys
-            String calcCond = buildKeyConditionByCalculatorOrder(key);
-            if (!Is.emptyString(calcCond)) keyCondition = calcCond;
-        }
-		
-		try {
-			// Apply only key condition for exact match search (ignore original filters)
-			setCondition(keyCondition);
-			// Clear parameters for this search
-			setParameters(null);
-			
-			            Collection<KeyAndDescription> results = executeQueryPaginatedCollection(1, 0, null);
-            
-            if (results != null && !results.isEmpty()) {
-                KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
-                // Normalize the key to the incoming one so UI selection matches exactly
-                kd.setKey(key);
-                return kd;
-            }
-
-            // Fallback: try with calculator keyProperties order (stereotypes may serialize like this)
-            String altKeyCondition = buildKeyConditionByCalculatorOrder(key);
-            if (!Is.emptyString(altKeyCondition) && !altKeyCondition.equals(keyCondition)) {
-                
-                // Again, only key condition
-                setCondition(altKeyCondition);
-                setParameters(null);
-                results = executeQueryPaginatedCollection(1, 0, null);
-                if (results != null && !results.isEmpty()) {
-                    KeyAndDescription kd = (KeyAndDescription) results.iterator().next();
-                    kd.setKey(key);
-                    return kd;
-                }
-            }
-            return null;
-        } finally {
-			// Restore original condition
-			setCondition(originalCondition);
-			// Restore original parameters
-			setParameters(originalParameters);
+				
+		Map<String, Object> keyValues = DescriptionsLists.parseKeyValues(getMetaModel(), (String) key);
+		Collection<String> descriptionsPropertiesNames = Strings.toCollection(getDescriptionProperties());
+		Map<String, Map> descriptionsProperties = new HashMap<>();
+		for (String descriptionPropertyName: descriptionsPropertiesNames) {
+			descriptionsProperties.put(descriptionPropertyName, null);
 		}
+		
+		Map values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
+		StringBuilder description = new StringBuilder();
+		for (String descriptionPropertyName: descriptionsPropertiesNames) {
+			if (description.length() > 0) description.append(' ');
+			description.append(values.get(descriptionPropertyName));
+		}
+		KeyAndDescription result = new KeyAndDescription();
+		result.setKey(key);
+		result.setDescription(description.toString());
+		return result;
+		
 	}
-
-	/**
-	 * Builds a key condition using MetaModel key property order, but only
-	 * including the properties configured for this calculator.
-	 */
-	private String buildKeyCondition(Object key) {
-	    try {
-	        String keyStr = key == null ? null : key.toString();
-	        String[] parts;
-	        if (keyStr != null && keyStr.startsWith("[")) {
-	            int len = keyStr.length();
-	            if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
-	                String inner = keyStr.substring(2, len - 2); // between "[." and ".]"
-	                parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
-	            } else {
-	                parts = new String[] { keyStr };
-	            }
-	        } else {
-	            parts = new String[] { keyStr };
-	        }
-
-	        // Explicit simple-key handling: build using calculator key property directly
-	        if (!isMultipleKey()) {
-	            String propertyName = !Is.emptyString(getKeyProperty()) ? getKeyProperty() : null;
-	            if (Is.emptyString(propertyName)) {
-	                java.util.Iterator it = getKeyPropertiesCollection().iterator();
-	                if (it.hasNext()) propertyName = String.valueOf(it.next());
-	            }
-	            if (!Is.emptyString(propertyName)) {
-	                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-	                String token = (parts != null && parts.length > 0) ? parts[0] : null;
-	                Object parsed = token == null ? null : p.parse(token);
-	                StringBuilder condition = new StringBuilder();
-	                appendConditionPart(condition, propertyName, p, parsed);
-	                return condition.toString();
-	            }
-	        }
-
-	        StringBuilder condition = new StringBuilder();
-	        int idx = 0;
-	        java.util.Set<String> calcKeys = new java.util.HashSet<>();
-	        for (Object k : getKeyPropertiesCollection()) calcKeys.add(String.valueOf(k));
-	        int appended = 0;
-	        for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
-	            String propertyName = String.valueOf(on);
-	            if (!calcKeys.contains(propertyName)) continue;
-	            MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-	            String token = (parts != null && idx < parts.length) ? parts[idx] : null;
-	            Object parsed = token == null ? null : p.parse(token);
-	            appendConditionPart(condition, propertyName, p, parsed);
-	            idx++;
-	            appended++;
-	        }
-	        // Fallback: if none of the MetaModel key properties matched calculator keys (business key not in PK),
-	        // build condition directly from calculator keyProperties order
-	        if (appended == 0 && !calcKeys.isEmpty()) {
-	            condition.setLength(0);
-	            idx = 0;
-	            for (Object k : getKeyPropertiesCollection()) {
-	                String propertyName = String.valueOf(k);
-	                MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-	                String token = (parts != null && idx < parts.length) ? parts[idx] : null;
-	                Object parsed = token == null ? null : p.parse(token);
-	                appendConditionPart(condition, propertyName, p, parsed);
-	                idx++;
-	            }
-	        }
-	        return condition.toString();
-	    }
-	    catch (Exception ex) {
-	        return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
-	            + " = '" + (key==null?"":key.toString()) + "'";
-	    }
-	}
-
-	/**
-	 * Builds a key condition using the calculator's configured keyProperties order.
-	 * Useful as a fallback for stereotype-based keys whose serialization order
-	 * may follow editor configuration instead of MetaModel order.
-	 */
-	private String buildKeyConditionByCalculatorOrder(Object key) {
-	    try {
-	        String keyStr = key == null ? null : key.toString();
-	        String[] parts;
-	        if (keyStr != null && keyStr.startsWith("[")) {
-	            int len = keyStr.length();
-	            if (len >= 3 && keyStr.endsWith("]") && keyStr.charAt(len - 2) == '.') {
-	                String inner = keyStr.substring(2, len - 2);
-	                parts = inner.isEmpty() ? new String[0] : inner.split("\\.");
-	            } else {
-	                parts = new String[] { keyStr };
-	            }
-	        } else {
-	            parts = new String[] { keyStr };
-	        }
-
-	        StringBuilder condition = new StringBuilder();
-	        int idx = 0;
-	        for (Object k : getKeyPropertiesCollection()) {
-	            String propertyName = String.valueOf(k);
-	            MetaProperty p = getMetaModel().getMetaProperty(propertyName);
-	            String token = (parts != null && idx < parts.length) ? parts[idx] : null;
-	            Object parsed = token == null ? null : p.parse(token);
-	            appendConditionPart(condition, propertyName, p, parsed);
-	            idx++;
-	        }
-	        return condition.toString();
-	    }
-	    catch (Exception ex) {
-	        return (isMultipleKey()? getKeyProperties().split(",")[0].trim(): getKeyProperty())
-	            + " = '" + (key==null?"":key.toString()) + "'";
-	    }
-	}
-
-    /**
-     * Appends a single property condition into the builder, using proper
-     * literal formatting depending on the MetaProperty type and supporting nulls.
-     */
-    private void appendConditionPart(StringBuilder condition, String propertyName, MetaProperty p, Object value) throws Exception {
-        if (condition.length() > 0) condition.append(" AND ");
-        if (value == null || (value instanceof String && ((String) value).length() == 0)) {
-            condition.append("${").append(propertyName).append("} is null");
-            return;
-        }
-        condition.append("${").append(propertyName).append("} = ").append(formatLiteralValue(p, value));
-    }
-
-    /**
-     * Formats a token value as an HQL literal based on property type.
-     * Numbers and booleans are unquoted; strings are single-quoted with escaping.
-     */
-    private String formatLiteralValue(MetaProperty p, Object parsed) throws Exception {
-        if (parsed == null) return "null"; // although we handle null/empty earlier
-
-        if (parsed instanceof java.lang.Boolean) {
-            return ((Boolean) parsed) ? "true" : "false";
-        }
-        if (parsed instanceof java.lang.Number) {
-            return parsed.toString(); // standard dot decimal
-        }
-        if (parsed instanceof java.util.Date) {
-            // Format as ISO timestamp literal
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String formatted = sdf.format((java.util.Date) parsed);
-            return "'" + formatted + "'";
-        }
-
-        // Default: quote as string and escape single quotes
-        String v = String.valueOf(parsed);
-        String escaped = v.replace("'", "''");
-        return "'" + escaped + "'";
-    }
 
     /**
      * Returns true if the given value can be parsed to the MetaProperty type.
@@ -468,39 +286,6 @@ public class DescriptionsCalculator implements ICalculator {
 		}		
 		return result;
 	}
-
-    // Checks if all properties in a CSV are filter-capable; ignores ASC/DESC suffixes
-    private boolean areAllFilterCapable(String propsCsv) {
-        if (Is.emptyString(propsCsv)) return true;
-        String[] tokens = propsCsv.split(",");
-        for (String t : tokens) {
-            String token = t == null ? "" : t.trim();
-            if (token.isEmpty()) continue;
-            // Strip optional ASC/DESC or other suffix after first whitespace
-            int ws = -1;
-            for (int j = 0; j < token.length(); j++) {
-                if (Character.isWhitespace(token.charAt(j))) { ws = j; break; }
-            }
-            String field = ws >= 0 ? token.substring(0, ws).trim() : token;
-            // If already wrapped like ${...} remove wrappers
-            if (field.startsWith("${") && field.endsWith("}")) {
-                field = field.substring(2, field.length() - 1);
-            }
-            if (!isFilterCapableSafe(field)) return false;
-        }
-        return true;
-    }
-
-    // Safe check mirroring JPATabProvider logic
-    private boolean isFilterCapableSafe(String property) {
-        try {
-            return getMetaModel().getMetaProperty(property).isFilterCapable();
-        }
-        catch (Exception ex) {
-            // Be conservative: avoid ordering if we are not sure
-            return false;
-        }
-    }
 	
 	private void extractPropertiesFromSentences(Set<String> result, String sentence) { 		
 		int i = sentence.indexOf("${");
@@ -513,9 +298,7 @@ public class DescriptionsCalculator implements ICalculator {
 			i = sentence.indexOf("${", f);
 		}
 	}
-	
-
-	
+		
 	private Collection<KeyAndDescription> executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
 		// Build tab with chunk size to avoid loading everything
 		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
@@ -873,97 +656,7 @@ public class DescriptionsCalculator implements ICalculator {
 	 */	
 	public void setDistinct(boolean distinct) {
 		this.distinct = distinct;
-	}
-	
-	/**
-	 * TableModel that wraps processed KeyAndDescription objects
-	 */
-	private static class KeyDescriptionTableModel implements TableModel {
-		private final List<KeyAndDescription> data;
-		
-		public KeyDescriptionTableModel(List<KeyAndDescription> data) {
-			this.data = data;
-		}
-		
-		@Override
-		public int getRowCount() {
-			return data.size();
-		}
-		
-		@Override
-		public int getColumnCount() {
-			return 2; // key and description
-		}
-		
-		@Override
-		public String getColumnName(int columnIndex) {
-			return columnIndex == 0 ? "key" : "description";
-		}
-		
-		@Override
-		public Class<?> getColumnClass(int columnIndex) {
-			return Object.class;
-		}
-		
-		@Override
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return false;
-		}
-		
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			if (rowIndex >= data.size()) return null;
-			KeyAndDescription item = data.get(rowIndex);
-			return columnIndex == 0 ? item.getKey() : item.getDescription();
-		}
-		
-		@Override
-		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-			// Not supported
-		}
-		
-		@Override
-		public void addTableModelListener(TableModelListener l) {
-			// Not supported
-		}
-		
-		@Override
-		public void removeTableModelListener(TableModelListener l) {
-			// Not supported
-		}
-	}
-	
-	/**
-	 * Empty TableModel for fallback cases
-	 */
-	private static class SimpleTableModel implements TableModel {
-		@Override
-		public int getRowCount() { return 0; }
-		
-		@Override
-		public int getColumnCount() { return 0; }
-		
-		@Override
-		public String getColumnName(int columnIndex) { return ""; }
-		
-		@Override
-		public Class<?> getColumnClass(int columnIndex) { return Object.class; }
-		
-		@Override
-		public boolean isCellEditable(int rowIndex, int columnIndex) { return false; }
-		
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) { return null; }
-		
-		@Override
-		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
-		
-		@Override
-		public void addTableModelListener(TableModelListener l) {}
-		
-		@Override
-		public void removeTableModelListener(TableModelListener l) {}
-	}
+	}	
 	
 	/**
 	 * Filters descriptions in memory for calculated properties.
