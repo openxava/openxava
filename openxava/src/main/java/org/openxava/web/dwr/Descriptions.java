@@ -209,7 +209,7 @@ public class Descriptions extends DWRBase {
         for (int i = 0; i < nfd.length(); ) {
             int cp = nfd.codePointAt(i);
             boolean isCombining = (cp >= 0x0300 && cp <= 0x036F);
-            if (isCombining || cp >= 0x80 || cp == 0x5C) { // also encode backslash
+            if (isCombining || cp >= 0x80 || cp == 0x5C || cp == 0x2F) { // also encode backslash and slash
                 out.append(String.format("U+%04X", cp));
             } else {
                 out.appendCodePoint(cp);

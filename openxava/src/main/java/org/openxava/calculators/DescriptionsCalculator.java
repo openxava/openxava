@@ -4,6 +4,7 @@ import java.text.*;
 import java.util.*;
 import java.util.Collections;
 
+import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.filters.*;
 import org.openxava.model.*;
@@ -24,6 +25,8 @@ import org.openxava.web.*;
 public class DescriptionsCalculator implements ICalculator {
 	
 	private static final long serialVersionUID = 3638931156760463239L;
+
+    private static final Log log = LogFactory.getLog(DescriptionsCalculator.class);
 	
 	private String keyProperty;
 	private String keyProperties;
@@ -472,17 +475,15 @@ public class DescriptionsCalculator implements ICalculator {
 					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
 					if (col < 0 || col >= row.length) continue;
 					Object v = row[col];
-					System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() col=" + col + " v=" + v); // tmr
-					// Format 'v' using WebEditors to see how it would be shown (debug only)
-					try {
-						String pname = descSeq.get(j);
+					// Format 'v' using WebEditors to see how it would be shown
+					String pname = descSeq.get(j);
+					try {						
 						MetaProperty mp = getMetaModel().getMetaProperty(pname);
 						String formatted = WebEditors.format(null, mp, v, new Messages(), "");
-						System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() formatted v=" + formatted); // tmr
 						v = formatted;
-					}
+					} 
 					catch (Exception ex) {
-						System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() formatting error: " + ex); // tmr
+						log.warn(XavaResources.getString("no_convert_to_string", pname, getMetaModel().getName()), ex);
 					}
 					if (v != null) {
 						if (sb.length() > 0) sb.append(' ');
