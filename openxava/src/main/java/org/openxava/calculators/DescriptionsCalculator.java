@@ -172,24 +172,7 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 		
 		Map values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
-		StringBuilder description = new StringBuilder();
-		for (String descriptionPropertyName: descriptionsPropertiesNames) {
-			Object v = values.get(descriptionPropertyName);
-			try {
-				MetaProperty mp = getMetaModel().getMetaProperty(descriptionPropertyName);
-				String formatted = WebEditors.format(null, mp, v, new Messages(), "");
-				v = formatted;
-			}
-			catch (Exception ex) {
-				log.warn(XavaResources.getString("no_convert_to_string", descriptionPropertyName, getMetaModel().getName()), ex);
-			}
-			if (v != null) {
-				if (description.length() > 0) description.append(' ');
-				description.append(String.valueOf(v).trim());
-			}
-		}
-		String descStr = description.toString();
-		try { descStr = Normalizer.normalize(descStr, Normalizer.Form.NFC); } catch (Throwable ignore) {}
+		String descStr = formatAndJoin(values, descriptionsPropertiesNames);
 		KeyAndDescription result = new KeyAndDescription();
 		result.setKey(key);
 		result.setDescription(descStr);
@@ -471,8 +454,8 @@ public class DescriptionsCalculator implements ICalculator {
 				el.setKey(simpleKey);
 			}
 
-			// Build description from the first contiguous occurrence of descriptionProperties
-			StringBuilder sb = new StringBuilder();
+			// Build description using a shared formatter to keep behavior consistent
+			String descStr;
 			if (!descSeq.isEmpty()) {
 				int descStartRel = -1;
 				if (!propsOrder.isEmpty()) {
@@ -484,31 +467,18 @@ public class DescriptionsCalculator implements ICalculator {
 						if (match) { descStartRel = s; break; }
 					}
 				}
+				java.util.Map<String, Object> valuesByProperty = new java.util.LinkedHashMap<>();
 				for (int j = 0; j < descSeq.size(); j++) {
-					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
-					if (col < 0 || col >= row.length) continue;
-					Object v = row[col];
-					// Format 'v' using WebEditors to see how it would be shown
 					String pname = descSeq.get(j);
-					try {						
-						MetaProperty mp = getMetaModel().getMetaProperty(pname);
-						String formatted = WebEditors.format(null, mp, v, new Messages(), "");
-						v = formatted;
-					} 
-					catch (Exception ex) {
-						log.warn(XavaResources.getString("no_convert_to_string", pname, getMetaModel().getName()), ex);
-					}
-					if (v != null) {
-						if (sb.length() > 0) sb.append(' ');
-						// Trim to avoid padding from fixed-length CHAR columns
-						sb.append(String.valueOf(v).trim());
-					}
+					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
+					Object v = (col < 0 || col >= row.length) ? null : row[col];
+					valuesByProperty.put(pname, v);
 				}
+				descStr = formatAndJoin(valuesByProperty, descSeq);
+			} else {
+				descStr = "";
 			}
-			String descStr = sb.toString();
-            // Ensure composed form so comparisons/tests match (e.g., E + \u0301 -> É)
-            try { descStr = Normalizer.normalize(descStr, Normalizer.Form.NFC); } catch (Throwable ignore) {}
-            el.setDescription(descStr);
+			el.setDescription(descStr);
 
             
             result.add(el);
@@ -763,6 +733,33 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 	}
 	
+	/**
+     * Formats and joins the given property values like they would be displayed in the UI.
+     * Uses WebEditors to format each property, trims each part, concatenates with a single space,
+     * and normalizes the final result to NFC to keep consistency across paths.
+     */
+    private String formatAndJoin(Map<?,?> valuesByProperty, Collection<String> propertyNames) {
+        if (propertyNames == null || propertyNames.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        for (String pname : propertyNames) {
+            Object v = valuesByProperty == null ? null : valuesByProperty.get(pname);
+            try {
+                MetaProperty mp = getMetaModel().getMetaProperty(pname);
+                String formatted = WebEditors.format(null, mp, v, new Messages(), "");
+                v = formatted;
+            } catch (Exception ex) {
+                log.warn(XavaResources.getString("no_convert_to_string", pname, getMetaModel().getName()), ex);
+            }
+            if (v != null) {
+                if (sb.length() > 0) sb.append(' ');
+                sb.append(String.valueOf(v).trim());
+            }
+        }
+        String out = sb.toString();
+        try { out = Normalizer.normalize(out, Normalizer.Form.NFC); } catch (Throwable ignore) {}
+        return out;
+    }
+
 	/**
 	 * Builds a search condition for filtering descriptions based on the search term.
 	 * This method constructs a LIKE condition for the description properties.
