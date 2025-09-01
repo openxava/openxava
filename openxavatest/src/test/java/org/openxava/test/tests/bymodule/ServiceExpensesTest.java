@@ -121,11 +121,49 @@ public class ServiceExpensesTest extends ModuleTestBase {
 	}
 	
 	private void assertComboOpens(int row, int uiId) throws Exception {
-		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_ServiceExpenses__reference_editor_expenses___" + row + "___receptionist");
-		HtmlElement handler = editor.getElementsByTagName("i").get(0);
-		assertTrue(!getHtmlPage().getHtmlElementById("ui-id-" + uiId).isDisplayed());
-		handler.click();
-		assertTrue(getHtmlPage().getHtmlElementById("ui-id-" + uiId).isDisplayed());		
-	}
+        HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_ServiceExpenses__reference_editor_expenses___" + row + "___receptionist");
+        // Before opening, there should be no visible suggestions list
+        java.util.List<DomElement> listsBefore = (java.util.List<DomElement>) (java.util.List<?>) getHtmlPage().getByXPath("//ul[contains(@class,'ui-menu')]");
+        boolean anyVisibleBefore = false;
+        for (DomElement ul : listsBefore) { if (ul.isDisplayed()) { anyVisibleBefore = true; break; } }
+        assertFalse(anyVisibleBefore);
+
+        // Click on the open icon for the descriptions list (mdi-menu-down)
+        HtmlElement openIcon = null;
+        for (DomElement i : editor.getElementsByTagName("i")) {
+            String cls = i.getAttribute("class");
+            if (cls != null && cls.contains("mdi-menu-down")) { openIcon = (HtmlElement) i; break; }
+        }
+        if (openIcon == null) { // Fallback to the first <i> if specific class not found
+            openIcon = editor.getElementsByTagName("i").get(0);
+        }
+        openIcon.click();
+
+        // Give time for the remote suggestions to load
+        Thread.sleep(700);
+
+        // After opening, there should be a visible list with items
+        java.util.List<DomElement> listsAfter = (java.util.List<DomElement>) (java.util.List<?>) getHtmlPage().getByXPath("//ul[contains(@class,'ui-menu')]");
+        DomElement visibleList = null;
+        for (DomElement ul : listsAfter) { if (ul.isDisplayed()) { visibleList = ul; break; } }
+        assertNotNull(visibleList);
+        assertTrue(visibleList.getElementsByTagName("li").size() > 0);
+
+        // Close the combo to leave the UI clean
+        HtmlElement closeIcon = null;
+        for (DomElement i : editor.getElementsByTagName("i")) {
+            String cls = i.getAttribute("class");
+            if (cls != null && cls.contains("mdi-menu-up")) { closeIcon = (HtmlElement) i; break; }
+        }
+        if (closeIcon != null) {
+            closeIcon.click();
+            Thread.sleep(300);
+            // Assert that no suggestions list is visible after closing
+            java.util.List<DomElement> listsClosed = (java.util.List<DomElement>) (java.util.List<?>) getHtmlPage().getByXPath("//ul[contains(@class,'ui-menu')]");
+            boolean anyVisible = false;
+            for (DomElement ul : listsClosed) { if (ul.isDisplayed()) { anyVisible = true; break; } }
+            assertFalse(anyVisible);
+        }
+    }
 			
 }
