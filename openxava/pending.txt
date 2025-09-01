@@ -2,7 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Suite completa.
-	- TransportCharge*Test
 	- VehicleTest	
 - ServiceExpenses falla al abrir el combo de la tercera fila, sale ERROR. 
 	- Si algún test restante lo verifica y se ha arreglado, todos amigos.

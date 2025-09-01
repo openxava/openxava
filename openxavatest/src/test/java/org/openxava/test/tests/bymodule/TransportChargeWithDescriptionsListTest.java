@@ -23,12 +23,12 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 		setValue("delivery.KEY", key);
 		String [][] deliveries = {
 			{ "", "" },
-			{ "[.2.2004.666.1.]", "DELIVERY JUNIT 666 2/22/04" },
-			{ "[.9.2004.666.1.]", "DELIVERY JUNIT 666 2/22/04" },
-			{ "[.10.2004.666.1.]", "DELIVERY JUNIT 666 2/22/04" },
-			{ "[.11.2004.666.1.]", "DELIVERY JUNIT 666 2/22/04" },
-			{ "[.12.2004.666.1.]", "DELIVERY JUNIT 666 2/22/04" },
-			{ "[.2.2004.777.2.]", "FOR TEST SEARCHING BY DESCRIPTION 6/23/06" }
+			{ "[.2.2004.666.1.]", "DELIVERY JUNIT 666 2/22/2004" },
+			{ "[.9.2004.666.1.]", "DELIVERY JUNIT 666 2/22/2004" },
+			{ "[.10.2004.666.1.]", "DELIVERY JUNIT 666 2/22/2004" },
+			{ "[.11.2004.666.1.]", "DELIVERY JUNIT 666 2/22/2004" },
+			{ "[.12.2004.666.1.]", "DELIVERY JUNIT 666 2/22/2004" },
+			{ "[.2.2004.777.2.]", "FOR TEST SEARCHING BY DESCRIPTION 6/23/2006" }
 		};
 		assertValidValues("delivery.KEY", deliveries);
 		setValue("amount", "324.28"); 
@@ -38,7 +38,7 @@ public class TransportChargeWithDescriptionsListTest extends ModuleTestBase {
 		assertListRowCount(1);
 		execute("List.viewDetail", "row=0");
 		assertValue("delivery.KEY", key);
-		assertDescriptionValue("delivery.KEY", "FOR TEST SEARCHING BY DESCRIPTION 6/23/06"); 
+		assertDescriptionValue("delivery.KEY", "FOR TEST SEARCHING BY DESCRIPTION 6/23/2006"); 
 		assertValue("amount", "324.28");
 		execute("CRUD.delete");
 		assertNoErrors();
