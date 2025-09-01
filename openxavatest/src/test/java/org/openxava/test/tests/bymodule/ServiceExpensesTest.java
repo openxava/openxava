@@ -147,7 +147,7 @@ public class ServiceExpensesTest extends ModuleTestBase {
         DomElement visibleList = null;
         for (DomElement ul : listsAfter) { if (ul.isDisplayed()) { visibleList = ul; break; } }
         assertNotNull(visibleList);
-        assertTrue(visibleList.getElementsByTagName("li").size() > 0);
+        assertTrue(visibleList.getElementsByTagName("li").size() > 1); // Because it could be "ERROR" that count as one entry
 
         // Close the combo to leave the UI clean
         HtmlElement closeIcon = null;

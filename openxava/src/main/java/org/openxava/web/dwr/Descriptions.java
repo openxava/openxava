@@ -52,8 +52,9 @@ public class Descriptions extends DWRBase {
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
 
-            // Prepare calculator key (must match descriptionsEditor.jsp)
-            String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
+            // Prepare calculator key (must match descriptionsEditor.jsp) using normalized propertyKey
+            String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
+            String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
             if (calculator == null) {
                 throw new XavaException("descriptions_calculator_not_found", descriptionsCalculatorKey); 
@@ -143,7 +144,8 @@ public class Descriptions extends DWRBase {
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
 
-            String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
+            String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\\\d+___", "___");
+            String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
             if (calculator == null) {
                 throw new XavaException("descriptions_calculator_not_found", descriptionsCalculatorKey);

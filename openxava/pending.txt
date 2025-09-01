@@ -1,10 +1,7 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- ServiceExpenses falla al abrir el combo de la tercera fila, sale ERROR. 
-	- Si algún test restante lo verifica y se ha arreglado, todos amigos.
-	- Si siguie fallando con añadir la comprobación de si hay más de una entrada en:
-		ServiceExpensesTest.assertComboOpens() ya tendríamos un test.
+- En Product2 falla al abrir subfamila sin escoger familia.
 - tmr
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.

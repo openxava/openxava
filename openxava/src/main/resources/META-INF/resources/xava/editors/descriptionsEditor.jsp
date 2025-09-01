@@ -20,6 +20,7 @@ viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObjec
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
 // modelForId is to have a different cache per model
+// tmr Quitar variables no usadas
 String modelForId = "." + view.getModelName(); 
 // conditionForId is to have a different cache per condition
 String conditionForId = request.getParameter("condition");
@@ -34,7 +35,8 @@ String orderForId = request.getParameter("order");
 if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
 orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
-String descriptionsCalculatorKey = "xava." + propertyKey + ".descriptionsCalculator";
+String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
+String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
 DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
 
 IFilter filter = null;
