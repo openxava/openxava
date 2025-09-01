@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
+import org.openxava.controller.ModuleManager;
 import org.openxava.util.*;
 import org.openxava.formatters.*;
 
@@ -21,6 +22,17 @@ import org.openxava.formatters.*;
 public class Descriptions extends DWRBase {
 
     private static final Log log = LogFactory.getLog(Descriptions.class);
+
+    @Override
+    protected void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
+        super.initRequest(request, response, application, module);
+        
+        // Ensure before-each-request actions are executed; throw if errors are produced
+        //   In this way all the custom initialization by request done in actions,
+        //   like schema settting, are executed, maintining compatilibity with previous
+        //   versions (7.5 and before) when data was filled at editor rendering time.
+        executeBeforeEachRequestActions(request, application, module);
+    }
 
     /**
      * Returns up to "limit" suggestions filtered by "term" for the given property in the current view/module.
@@ -125,6 +137,7 @@ public class Descriptions extends DWRBase {
     ) {
         try {
             initRequest(request, response, application, module);
+            
 
             // Ensure filters can access application/module context
             request.setAttribute("xava.application", application);
@@ -159,6 +172,20 @@ public class Descriptions extends DWRBase {
     }
 
     // ---- helpers ----
+
+    /** Executes before-each-request actions and throws if any error is produced. */
+    private void executeBeforeEachRequestActions(HttpServletRequest request, String application, String module) {
+        ModuleManager manager = (ModuleManager) getContext(request).get(application, module, "manager");
+        Messages errors = new Messages();
+        Messages messages = new Messages();
+        manager.executeBeforeEachRequestActions(request, errors, messages);
+        if (!errors.isEmpty()) {
+            // Prefer translated error strings if available
+            Collection<?> errs = errors.getStrings(request);
+            String detail = (errs == null || errs.isEmpty()) ? errors.toString() : errs.toString();
+            throw new XavaException(detail);
+        }
+    }
 
     private static String nvl(String a, String b) { return Is.emptyString(a) ? (b == null ? "" : b) : a; }
 
