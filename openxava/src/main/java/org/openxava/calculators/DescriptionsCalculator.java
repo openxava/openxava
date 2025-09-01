@@ -472,6 +472,18 @@ public class DescriptionsCalculator implements ICalculator {
 					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
 					if (col < 0 || col >= row.length) continue;
 					Object v = row[col];
+					System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() col=" + col + " v=" + v); // tmr
+					// Format 'v' using WebEditors to see how it would be shown (debug only)
+					try {
+						String pname = descSeq.get(j);
+						MetaProperty mp = getMetaModel().getMetaProperty(pname);
+						String formatted = WebEditors.format(null, mp, v, new Messages(), "");
+						System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() formatted v=" + formatted); // tmr
+						v = formatted;
+					}
+					catch (Exception ex) {
+						System.out.println("DescriptionsCalculator.executeQueryPaginatedCollection() formatting error: " + ex); // tmr
+					}
 					if (v != null) {
 						if (sb.length() > 0) sb.append(' ');
 						// Trim to avoid padding from fixed-length CHAR columns
