@@ -174,12 +174,25 @@ public class DescriptionsCalculator implements ICalculator {
 		Map values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
 		StringBuilder description = new StringBuilder();
 		for (String descriptionPropertyName: descriptionsPropertiesNames) {
-			if (description.length() > 0) description.append(' ');
-			description.append(values.get(descriptionPropertyName));
+			Object v = values.get(descriptionPropertyName);
+			try {
+				MetaProperty mp = getMetaModel().getMetaProperty(descriptionPropertyName);
+				String formatted = WebEditors.format(null, mp, v, new Messages(), "");
+				v = formatted;
+			}
+			catch (Exception ex) {
+				log.warn(XavaResources.getString("no_convert_to_string", descriptionPropertyName, getMetaModel().getName()), ex);
+			}
+			if (v != null) {
+				if (description.length() > 0) description.append(' ');
+				description.append(String.valueOf(v).trim());
+			}
 		}
+		String descStr = description.toString();
+		try { descStr = Normalizer.normalize(descStr, Normalizer.Form.NFC); } catch (Throwable ignore) {}
 		KeyAndDescription result = new KeyAndDescription();
 		result.setKey(key);
-		result.setDescription(description.toString());
+		result.setDescription(descStr);
 		return result;
 		
 	}	

@@ -33,6 +33,16 @@ Pending for @DescriptionsList for large datasets
 			{"[.11.2004.]", "2004 11 Carmelo"},
 			{"[.12.2004.]", "2004 12 Cuatrero"}
 
+    - Valores en combos formateados como en el resto de la aplicación, con el formateado del tipo/editor: En changelog. ¿En migration?
+        Antes era (TransportChargeWithDescriptionsListShowingReferenceViewTest.testCompositeKeyDescriptionsListWithShowReferenceView_assertFocusDescriptionsListComposityKey):
+
+			assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
+
+        Y ahora es:
+
+			assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
+		
+
 - Apuntar una tarea para probarlo con XavaPro. Probar a mano los combos con multiempresa.            
 - Borrar este archivo.
  
