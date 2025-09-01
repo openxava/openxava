@@ -1,13 +1,10 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Suite completa.
-	- VehicleTest	
 - ServiceExpenses falla al abrir el combo de la tercera fila, sale ERROR. 
 	- Si algún test restante lo verifica y se ha arreglado, todos amigos.
 	- Si siguie fallando con añadir la comprobación de si hay más de una entrada en:
 		ServiceExpensesTest.assertComboOpens() ya tendríamos un test.
-- TransportChargeWithDescriptionsListShowingReferenceView saca una excepción fea al entrar.	
 - tmr
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.
@@ -15,6 +12,8 @@ Pending for @DescriptionsList for large datasets
 - Documentar.
 	- Indicar que en los comparadores de las lista solo se cargan hasta 200 elementos.
     - Nuevo Strings.wrapVariables() en changelog.
+	- Nuevo XCollections.isEmptyOrZero() en changelog.
+	- Nuevo comportamiento de Is.empty() en changelog, ahora reconoce colecciones.
     - Orden númerico cuando se concatenan propiedades: En changelog. ¿En migration?
         Antes era (DeliveryInvoiceAsDecriptionsListTest.testFilterInDescriptionsList):
 

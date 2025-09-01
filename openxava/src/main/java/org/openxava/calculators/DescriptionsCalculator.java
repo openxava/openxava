@@ -158,7 +158,7 @@ public class DescriptionsCalculator implements ICalculator {
 	 */
 	public KeyAndDescription findDescriptionByKey(Object key) throws Exception { 
 		if (key == null || conditionHasArguments() && !hasParameters()) return null;		
-				
+
 		Map<String, Object> keyValues = DescriptionsLists.parseKeyValues(getMetaModel(), (String) key);
 		// If any of the parsed key values is null, the key is incomplete -> return null
 		if (keyValues == null) return null;
@@ -555,8 +555,8 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 
 	public boolean hasParameters() {
-		return parameters != null && !parameters.isEmpty();
-	}
+    return !XCollections.isEmptyOrZero(parameters);
+}
 	public Collection<?> getParameters() {
 		return parameters;
 	}

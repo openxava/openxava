@@ -101,7 +101,13 @@ public class DescriptionsLists {
 			Object propertyValue = null;
 			if (st.hasMoreTokens()) {
 				String stringPropertyValue = st.nextToken();
-				propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);
+				// If the token is the literal string "null" treat it as Java null
+				if ("null".equals(stringPropertyValue)) {
+					propertyValue = null;
+				}
+				else {
+					propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);
+				}
 			}
 			result.put(propertyName, propertyValue);
 		}
