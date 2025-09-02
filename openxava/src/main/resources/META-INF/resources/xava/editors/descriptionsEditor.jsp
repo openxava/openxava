@@ -19,21 +19,6 @@ String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
-// modelForId is to have a different cache per model
-// tmr Quitar variables no usadas
-String modelForId = "." + view.getModelName(); 
-// conditionForId is to have a different cache per condition
-String conditionForId = request.getParameter("condition");
-if (Is.emptyString(conditionForId)) conditionForId = request.getParameter("condicion");
-conditionForId = Is.emptyString(conditionForId)?"":"." + conditionForId;
-// orderByKeyForId is to have a different cache per orderByKey
-String orderByKeyForId = request.getParameter("orderByKey");
-if (Is.emptyString(orderByKeyForId)) orderByKeyForId = request.getParameter("ordenadoPorClave");
-orderByKeyForId = Is.emptyString(orderByKeyForId)?"":"." + orderByKeyForId;
-// orderForId is to have a different cache per order
-String orderForId = request.getParameter("order");
-if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
-orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
 String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
 String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
@@ -281,17 +266,15 @@ if (editable) {
 	</span>
 	<% 	
 } else { 
-	// tmr ¿Se puede simplificar lo de abajo?
-	Object description = "";
-	java.util.Iterator it = descriptions.iterator();
-	while (it.hasNext()) {
-		KeyAndDescription cl = (KeyAndDescription) it.next();
-		if (Is.equalAsString(fvalue, cl.getKey())) {							
-			description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-			break;
-		}
-	}	
-	if (label) {
+    Object description = "";
+    if (descriptions != null) {
+        java.util.Iterator it = descriptions.iterator();
+        if (it.hasNext()) {
+            KeyAndDescription cl = (KeyAndDescription) it.next();
+            description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
+        }
+    }
+    if (label) {
 %>
 
 <%

@@ -1,7 +1,8 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- tmr
+- Problema con esterotipos.
+- ProductTest, Product2Test y DescriptionsListTest.
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
