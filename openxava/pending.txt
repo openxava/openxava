@@ -1,7 +1,17 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Suite	(otra vez)
+- Suite:
+	- AJAXTest
+	- ColorTest
+	- CustomerRadioButtonTest
+	- CustomerSearchAsAggregateTest
+	- CustomerSomeMebersReadOnlyTest
+	- CustomerTest
+	- CustomerWithSectionTest
+	- FamilyTest
+	- ProductExpenses2Test
+	- SellerTest
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.
