@@ -1,7 +1,7 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Problema con esterotipos.
+- Orden incorrecto en filtro de lista.
 - ProductTest, Product2Test y DescriptionsListTest.
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.

@@ -22,7 +22,7 @@ String propertyKey = request.getParameter("propertyKey");
 
 String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
 String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
-DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
+DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
 
 IFilter filter = null;
 String filterClass=request.getParameter("filter");
@@ -36,8 +36,6 @@ if (!Is.emptyString(filterClass)) {
 			request.getSession().setAttribute(filterKey, filter);	
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
-			System.err.println(XavaResources.getString("descriptionsEditor_filter_warning", propertyKey));
 		}
 	}
 	if (filter instanceof IRequestFilter) {
@@ -60,8 +58,6 @@ if (descriptionsFormatterClass != null) {
 			request.getSession().setAttribute(descriptionsFormatterKey, formatter);	
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
-			System.err.println(XavaResources.getString("descriptionsEditor_descriptions_formatter_warning", propertyKey));
 		}
 	}
 }
@@ -143,6 +139,15 @@ if (calculator == null) {
     if (obkParam == null) obkParam = request.getParameter("ordenadoPorClave");
     if (!Is.emptyString(obkParam)) calculator.setOrderByKey(obkParam);
 }
+// Ensure filters expecting application/module see them in request attributes (as in DWR)
+{
+    String appParam = request.getParameter("application");
+    if (appParam == null) appParam = request.getParameter("aplicacion");
+    String moduleParam = request.getParameter("module");
+    if (moduleParam == null) moduleParam = request.getParameter("modulo");
+    if (appParam != null) request.setAttribute("xava.application", appParam);
+    if (moduleParam != null) request.setAttribute("xava.module", moduleParam);
+}
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
 	java.util.Iterator it = null;
 	if (parameterValuesStereotypes != null) {
@@ -209,6 +214,7 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
+//
 // Always use on-demand loading for better performance
 
 java.util.Collection descriptions = null;

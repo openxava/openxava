@@ -152,37 +152,62 @@ public class DescriptionsCalculator implements ICalculator {
 		return executeQueryCount();
 	}
 	
-	/**
-	 * Finds a specific description by key without loading all data.
-	 * Used in remote mode to get the selected item description.
-	 * 
-	 * @param key The key to search for
-	 * @return KeyAndDescription if found, null otherwise
-	 * @since 7.6
-	 */
-	public KeyAndDescription findDescriptionByKey(Object key) throws Exception { 
-		if (key == null || conditionHasArguments() && !hasParameters()) return null;		
-
-		Map<String, Object> keyValues = DescriptionsLists.parseKeyValues(getMetaModel(), (String) key);
-		// If any of the parsed key values is null, the key is incomplete -> return null
-		if (keyValues == null) return null;
-		for (Object v : keyValues.values()) {
-			if (v == null) return null;
-		}
+	    /**
+     * Finds a specific description by key without loading all data.
+     * Used in remote mode to get the selected item description.
+     * 
+     * @param key The key to search for
+     * @return KeyAndDescription if found, null otherwise
+     * @since 7.6
+     */
+    public KeyAndDescription findDescriptionByKey(Object key) throws Exception { 
+        if (key == null || conditionHasArguments() && !hasParameters()) {
+            return null;
+        }
+        // Parse using configured editor key properties when present; fallback to entity primary key order
+        Collection<String> cfgKeys = getKeyPropertiesCollection();
+        boolean useCfg = cfgKeys != null && !cfgKeys.isEmpty();
+        Map<String, Object> keyValues = useCfg
+            ? DescriptionsLists.parseKeyValues(getMetaModel(), cfgKeys, (String) key)
+            : DescriptionsLists.parseKeyValues(getMetaModel(), (String) key);
+        // If any of the parsed key values is null, the key is incomplete -> return null
+        if (keyValues == null) {
+            return null;
+        }
+        for (Object v : keyValues.values()) {
+            if (v == null) {
+                return null;
+            }
+        }
 		Collection<String> descriptionsPropertiesNames = Strings.toCollection(getDescriptionProperties());
 		Map<String, Map> descriptionsProperties = new HashMap<>();
 		for (String descriptionPropertyName: descriptionsPropertiesNames) {
 			descriptionsProperties.put(descriptionPropertyName, null);
 		}
-		
-		Map values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
+		// Decide lookup strategy: by primary key or by any property (stereotype keys)
+		boolean useAnyProperty = false;
+		if (useCfg) {
+			java.util.Set<String> cfgSet = new java.util.LinkedHashSet<>(cfgKeys);
+			java.util.Set<String> pkSet = new java.util.LinkedHashSet<>();
+			for (Object n : getMetaModel().getAllKeyPropertiesNames()) pkSet.add(String.valueOf(n));
+			useAnyProperty = !cfgSet.equals(pkSet); // if configured keys differ from PKs, search by any property
+		}
+		Map<String, Object> values;
+		if (useAnyProperty) {
+			values = MapFacade.getValuesByAnyProperty(getMetaModel().getName(), keyValues, descriptionsProperties);
+		}
+		else {
+			values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
+		}
 		String descStr = formatAndJoin(values, descriptionsPropertiesNames);
 		KeyAndDescription result = new KeyAndDescription();
 		result.setKey(key);
 		result.setDescription(descStr);
 		return result;
 		
-	}	
+    }
+
+    
 
     /**
      * Returns true if the given value can be parsed to the MetaProperty type.

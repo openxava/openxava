@@ -90,28 +90,8 @@ public class DescriptionsLists {
 	 */
 	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value, 
 			HttpServletRequest request, Messages errors, String viewName, boolean emptyIfNotBracketed) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		if (value == null) return result;
-		if (!value.startsWith("[")) {
-			value = emptyIfNotBracketed ? "" : "[." + value + ".]";
-		}
-		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
-		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
-			MetaProperty p = metaModel.getMetaProperty(propertyName);
-			Object propertyValue = null;
-			if (st.hasMoreTokens()) {
-				String stringPropertyValue = st.nextToken();
-				// If the token is the literal string "null" treat it as Java null
-				if ("null".equals(stringPropertyValue)) {
-					propertyValue = null;
-				}
-				else {
-					propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);
-				}
-			}
-			result.put(propertyName, propertyValue);
-		}
-		return result;
+		// Delegate to the generic overload using the MetaModel key properties
+		return parseKeyValues(metaModel, metaModel.getAllKeyPropertiesNames(), value, request, errors, viewName, emptyIfNotBracketed);
 	}
 
 	/**
@@ -125,6 +105,46 @@ public class DescriptionsLists {
 	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value) {
 		return parseKeyValues(metaModel, value, null, new Messages(), null, false);
 	}
+
+    /**
+     * Parses a key string using the given key property names instead of the MetaModel primary key.
+     * Reuses the same parsing logic to keep behavior consistent.
+     *
+     * @since 7.6
+     */
+    public static Map<String, Object> parseKeyValues(MetaModel metaModel, Collection<String> keyPropertiesNames, String value,
+            HttpServletRequest request, Messages errors, String viewName, boolean emptyIfNotBracketed) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (value == null) return result;
+        if (!value.startsWith("[")) {
+            value = emptyIfNotBracketed ? "" : "[." + value + ".]";
+        }
+        StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
+        for (String propertyName: keyPropertiesNames) {
+            MetaProperty p = metaModel.getMetaProperty(propertyName);
+            Object propertyValue = null;
+            if (st.hasMoreTokens()) {
+                String stringPropertyValue = st.nextToken();
+                if ("null".equals(stringPropertyValue)) {
+                    propertyValue = null;
+                }
+                else {
+                    propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);
+                }
+            }
+            result.put(propertyName, propertyValue);
+        }
+        return result;
+    }
+
+    /**
+     * Convenience overload to parse using provided key property names without request/view.
+     *
+     * @since 7.6
+     */
+    public static Map<String, Object> parseKeyValues(MetaModel metaModel, Collection<String> keyPropertiesNames, String value) {
+        return parseKeyValues(metaModel, keyPropertiesNames, value, null, new Messages(), null, false);
+    }
 
 	/**
 	 * Overload to fill a provided map with parsed key values using only MetaModel.
