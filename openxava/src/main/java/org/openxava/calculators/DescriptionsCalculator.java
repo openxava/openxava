@@ -105,6 +105,10 @@ public class DescriptionsCalculator implements ICalculator {
      * @throws Exception if there's an error executing the query
      */
     public Collection<KeyAndDescription> getDescriptions(int limit, int offset, String searchTerm) throws Exception {
+        // If condition has arguments but no parameters provided (dependent reference not set), return empty
+        if (conditionHasArguments() && !hasParameters()) {
+            return java.util.Collections.emptyList();
+        }
         // When searchTerm is empty, delegate directly
         if (Is.emptyString(searchTerm)) {
             return executeQueryPaginatedCollection(limit, offset, null);
@@ -304,10 +308,14 @@ public class DescriptionsCalculator implements ICalculator {
 	}
 		
 	private Collection<KeyAndDescription> executeQueryPaginatedCollection(int limit, int offset, String searchTerm) throws Exception {
-		// Build tab with chunk size to avoid loading everything
-		int chunkSize = Math.max(0, offset) + Math.max(0, limit);
-		if (chunkSize <= 0) chunkSize = 50; // sane default
-		EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
+        // Avoid running a query with unbound parameters
+        if (conditionHasArguments() && !hasParameters()) {
+            return java.util.Collections.emptyList();
+        }
+        // Build tab with chunk size to avoid loading everything
+        int chunkSize = Math.max(0, offset) + Math.max(0, limit);
+        if (chunkSize <= 0) chunkSize = 50; // sane default
+        EntityTab tab = EntityTabFactory.create(getMetaTab(), chunkSize);
 
 		String condition = "";
 		if (hasCondition()) {

@@ -1,7 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- En Product2 falla al abrir subfamila sin escoger familia.
 - tmr
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.
