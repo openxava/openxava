@@ -1,8 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Orden incorrecto en filtro de lista.
-- ProductTest, Product2Test y DescriptionsListTest.
 - Suite	(otra vez)
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
@@ -36,6 +34,8 @@ Pending for @DescriptionsList for large datasets
         Y ahora es:
 
 			assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
+	- DescriptionsList(orderByKey) tiene efecto en combos usados en el filtro de la lista. 
+		En changelog. En migration quizás no porque los combos de las lista no se suelen testear.
 		
 
 - Apuntar una tarea para probarlo con XavaPro. Probar a mano los combos con multiempresa.            

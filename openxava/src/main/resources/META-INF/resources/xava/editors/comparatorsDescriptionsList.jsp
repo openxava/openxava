@@ -14,6 +14,7 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.calculators.DescriptionsCalculator" %>
 <%@ page import="org.openxava.formatters.IFormatter" %>
+<%@ page import="org.openxava.util.Strings" %>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -78,14 +79,17 @@ calculator.setDescriptionProperty(descriptionProperty);
 String descriptionProperties = request.getParameter("descriptionProperties");
 if (descriptionProperties == null) descriptionProperties = request.getParameter("propiedadesDescripcion");
 calculator.setDescriptionProperties(descriptionProperties);
-calculator.setOrderByKey(true); 
+// Only override order by primary key when explicitly requested via orderByKey=true
+if ("true".equalsIgnoreCase(request.getParameter("orderByKey"))) {
+    calculator.setOrder(Strings.toString(metaTab.getMetaModel().getAllKeyPropertiesNames())); // Not calculator.setOrderByKey because the key could be a description property
+}
 calculator.setDistinct(true); 
 
 java.util.Collection descriptions = calculator.getDescriptions(200, 0); // It's not very usable to search in a combo of more than 200 items.
-												// We don't use the @DescriptionsList editor because instead of searching in a large dataset in the combo
-												// typing just to do the search in the list afterward, it's better not to use then combo and searching
-												// directly in the list  
-												// However, we cut on 200 items to prevent breaking the page with large datasets
+														// We don't use the @DescriptionsList editor because instead of searching in a large dataset in the combo
+														// typing just to do the search in the list afterward, it's better not to use then combo and searching
+														// directly in the list  
+														// However, we cut on 200 items to prevent breaking the page with large datasets
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 String collection = request.getParameter("collection"); 
 String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;

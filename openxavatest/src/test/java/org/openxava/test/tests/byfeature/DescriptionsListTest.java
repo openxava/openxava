@@ -377,7 +377,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertEquals("JORNEY 1", options.get(1).getText());
 		
 		// Penultimate option (201st, index 200) should be JORNEY 200
-		assertEquals("JORNEY 200", options.get(200).getText());
+		assertEquals("JORNEY 200", options.get(200).getText()); // Ordered by key because since 7.6 the order in list filter honors orderByKey in @DescriptionsList 
 		
 		// Last option should be "--- ETC ---"
 		assertEquals("", options.get(201).getAttribute("value"));
