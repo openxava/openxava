@@ -175,7 +175,7 @@ public class DescriptionsCalculator implements ICalculator {
             return null;
         }
         for (Object v : keyValues.values()) {
-            if (v == null) {
+            if (v == null) { 
                 return null;
             }
         }
@@ -203,11 +203,8 @@ public class DescriptionsCalculator implements ICalculator {
 		KeyAndDescription result = new KeyAndDescription();
 		result.setKey(key);
 		result.setDescription(descStr);
-		return result;
-		
-    }
-
-    
+		return result;		
+    }    
 
     /**
      * Returns true if the given value can be parsed to the MetaProperty type.
@@ -367,7 +364,7 @@ public class DescriptionsCalculator implements ICalculator {
 			// Default ordering: by description when available unless explicit key ordering is requested
 			if (!isOrderByKey()) {
 				String descProps = getDescriptionProperties();
-				if (!Is.emptyString(descProps)) {
+				if (!Is.emptyString(descProps) && !hasCalculatedDescriptionProperties()) {
 					order = " ORDER BY " + Strings.wrapVariables(descProps);
 				} else {
 					order = " ORDER BY " + Strings.wrapVariables(getKeyProperties());

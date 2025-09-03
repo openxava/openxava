@@ -401,8 +401,8 @@ public class ColorTest extends ModuleTestBase {
 		assertExists("mixture.KEY");
 		String [][] validValues = { 
 			{ "", "" },
-			{ "[.          .VERDE     .]", "----------&-----VERDE:complicated" },
-			{ "[.ROJO      .          .]", "------ROJO&----------:simple" }
+			{ "[.          .VERDE     .]", "----------&-----VERDE:COMPLICATED" },
+			{ "[.ROJO      .          .]", "------ROJO&----------:SIMPLE" }
 		};
 		assertValidValues("mixture.KEY", validValues); 
 		

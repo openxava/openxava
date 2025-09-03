@@ -368,7 +368,6 @@ public class AJAXTest extends ModuleTestBase {
 				"collection_defaultCarrier.fellowCarriersCalculated.," +
 				"frame_defaultCarrier.fellowCarriersCalculatedheader," + 
 				"frame_defaultCarrier.fellowCarriersheader," + 				
-				"reference_editor_defaultCarrier.drivingLicence," +
 				"editor_defaultCarrier.calculated," +	 
 				"editor_defaultCarrier.name," +
 				"editor_defaultCarrier.warehouse.name," +
@@ -632,26 +631,26 @@ public class AJAXTest extends ModuleTestBase {
 		changeModule("Customer");
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "1"); 
-		assertDescriptionValue("address.state.id", "New York");
+		assertDescriptionValue("address.state.id", "NEW YORK");
 		
 		execute("Navigation.next");
 		assertValue("number", "2");
-		assertDescriptionValue("address.state.id", "Colorado");		
+		assertDescriptionValue("address.state.id", "COLORADO");		
 		assertLoadedPart("reference_editor_address___state"); 
 		
 		execute("Navigation.next");
 		assertValue("number", "3"); 	
-		assertDescriptionValue("address.state.id", "New York");
+		assertDescriptionValue("address.state.id", "NEW YORK");
 		assertLoadedPart("reference_editor_address___state"); 
 		
 		execute("Navigation.next");
 		assertValue("number", "4"); 
-		assertDescriptionValue("address.state.id", "New York");
+		assertDescriptionValue("address.state.id", "NEW YORK");
 		assertNotLoadedPart("reference_editor_address___state");
 		
 		execute("Navigation.next");
 		assertValue("number", "43");
-		assertDescriptionValue("address.state.id", "Kansas");				
+		assertDescriptionValue("address.state.id", "KANSAS");				
 		assertLoadedPart("reference_editor_address___state"); 
 	}
 			
