@@ -217,25 +217,11 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 //
 // Always use on-demand loading for better performance
 
-java.util.Collection descriptions = null;
 String selectedDescription = "";
 String selectedKey = "";
 
 // Only load the selected item if there's a value
-if (!Is.emptyString(fvalue)) {
-	try {
-		KeyAndDescription selected = calculator.findDescriptionByKey(fvalue);
-		if (selected != null) {
-			descriptions = java.util.Collections.singletonList(selected);
-		} else {
-			descriptions = java.util.Collections.emptyList();
-		}
-	} catch (Exception e) {
-		descriptions = java.util.Collections.emptyList();
-	}
-} else {
-	descriptions = java.util.Collections.emptyList();
-}
+KeyAndDescription selectedItem = Is.emptyString(fvalue)?null:calculator.findDescriptionByKey(fvalue);
 
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
@@ -247,14 +233,10 @@ if (editable) {
 			selectedDescription = descriptionValue;
 			selectedKey = null;
 		}
-		else if (!Is.emptyString(fvalue)) {
-			// Find just the selected item by key
-			KeyAndDescription selectedItem = calculator.findDescriptionByKey(fvalue);
-			if (selectedItem != null) {
-				String description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
-				selectedDescription = description;
-				selectedKey = selectedItem.getKey().toString();
-			}
+		else if (selectedItem != null) {
+			String description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
+			selectedDescription = description;
+			selectedKey = selectedItem.getKey().toString();
 		}
 		
 		// Calculate max description length for input sizing
@@ -273,12 +255,8 @@ if (editable) {
 	<% 	
 } else { 
     Object description = "";
-    if (descriptions != null) {
-        java.util.Iterator it = descriptions.iterator();
-        if (it.hasNext()) {
-            KeyAndDescription cl = (KeyAndDescription) it.next();
-            description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-        }
+    if (selectedItem != null) {
+		description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
     }
     if (label) {
 %>
