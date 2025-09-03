@@ -152,7 +152,7 @@ public class DescriptionsCalculator implements ICalculator {
 		return executeQueryCount();
 	}
 	
-	    /**
+	/**
      * Finds a specific description by key without loading all data.
      * Used in remote mode to get the selected item description.
      * 
@@ -194,10 +194,11 @@ public class DescriptionsCalculator implements ICalculator {
 		}
 		Map<String, Object> values;
 		if (useAnyProperty) {
+			// MapFacade.getValuesByAnyProperty() does not do tracking by default, maybe an omission or bug in its part, but valid for this case
 			values = MapFacade.getValuesByAnyProperty(getMetaModel().getName(), keyValues, descriptionsProperties);
 		}
 		else {
-			values = MapFacade.getValues(getMetaModel().getName(), keyValues, descriptionsProperties);
+			values = MapFacade.getValuesNotTracking(getMetaModel().getName(), keyValues, descriptionsProperties);
 		}
 		String descStr = formatAndJoin(values, descriptionsPropertiesNames);
 		KeyAndDescription result = new KeyAndDescription();
