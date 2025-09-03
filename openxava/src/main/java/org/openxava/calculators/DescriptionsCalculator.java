@@ -4,6 +4,8 @@ import java.text.*;
 import java.util.*;
 import java.util.Collections;
 
+import javax.ejb.ObjectNotFoundException;
+
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.filters.*;
@@ -200,12 +202,20 @@ public class DescriptionsCalculator implements ICalculator {
 			useAnyProperty = !cfgSet.equals(pkSet); // if configured keys differ from PKs, search by any property
 		}
 		Map<String, Object> values;
-		if (useAnyProperty) {
-			// MapFacade.getValuesByAnyProperty() does not do tracking by default, maybe an omission or bug in its part, but valid for this case
-			values = MapFacade.getValuesByAnyProperty(getMetaModel().getName(), keyValues, descriptionsProperties);
+		try {
+			if (useAnyProperty) {
+				// MapFacade.getValuesByAnyProperty() does not do tracking by default, maybe an omission or bug in its part, but valid for this case
+				values = MapFacade.getValuesByAnyProperty(getMetaModel().getName(), keyValues, descriptionsProperties);
+			}
+			else {
+				values = MapFacade.getValuesNotTracking(getMetaModel().getName(), keyValues, descriptionsProperties);
+			}
 		}
-		else {
-			values = MapFacade.getValuesNotTracking(getMetaModel().getName(), keyValues, descriptionsProperties);
+		catch (ObjectNotFoundException ex) {
+			// Rare case because we filter the key to discards nulls, but it could be in some cases
+			// for example, an int field using a stereotype without a FK restriction that could 
+			// be 0 with no data in the other side
+			return null;
 		}
 		String descStr = formatAndJoin(values, descriptionsPropertiesNames);
 		KeyAndDescription result = new KeyAndDescription();
