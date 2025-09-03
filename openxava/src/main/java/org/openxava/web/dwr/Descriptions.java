@@ -143,8 +143,7 @@ public class Descriptions extends DWRBase {
             // Ensure filters can access application/module context
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
-
-            String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\\\d+___", "___");
+            String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
             String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
             DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
             if (calculator == null) {

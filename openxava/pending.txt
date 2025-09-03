@@ -2,7 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Suite:
-	- ProductExpenses2Test
 	- SellerTest
 - Probar bloqueo de calendario cuando no fecha en la lista. ¡¡¡HACERLO A LAS 14:00 COMO MÁXIMO!!!
 - tmrs
