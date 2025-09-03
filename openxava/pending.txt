@@ -2,8 +2,6 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Suite:
-	- CustomerSellerAsAggregateTest: ME QUEDÉ POR AQUÍ, CREO QUE ESTÁ ARREGLADO, PERO NO CORRE EL TEST UN PROBLEMA DE BLOQUEO DE WINDOWS 7
-	- CustomerSomeMebersReadOnlyTest
 	- CustomerTest
 	- CustomerWithSectionTest
 	- FamilyTest

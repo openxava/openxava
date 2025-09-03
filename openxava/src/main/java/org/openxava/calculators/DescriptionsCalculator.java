@@ -181,8 +181,15 @@ public class DescriptionsCalculator implements ICalculator {
         }
 		Collection<String> descriptionsPropertiesNames = Strings.toCollection(getDescriptionProperties());
 		Map<String, Map> descriptionsProperties = new HashMap<>();
+		boolean tree = false;
 		for (String descriptionPropertyName: descriptionsPropertiesNames) {
+			if (descriptionPropertyName.contains(".")) {
+				tree = true;
+			}
 			descriptionsProperties.put(descriptionPropertyName, null);
+		}
+		if (tree) {
+			descriptionsProperties = Maps.plainToTree(descriptionsProperties);	
 		}
 		// Decide lookup strategy: by primary key or by any property (stereotype keys)
 		boolean useAnyProperty = false;
@@ -773,7 +780,7 @@ public class DescriptionsCalculator implements ICalculator {
         if (propertyNames == null || propertyNames.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
         for (String pname : propertyNames) {
-            Object v = valuesByProperty == null ? null : valuesByProperty.get(pname);
+			Object v = Maps.getValueFromQualifiedName(valuesByProperty, pname);
             try {
                 MetaProperty mp = getMetaModel().getMetaProperty(pname);
                 String formatted = WebEditors.format(null, mp, v, new Messages(), "");
