@@ -2,30 +2,7 @@ Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
 - Documentar.
-	
-    - Orden númerico cuando se concatenan propiedades: En changelog. Ya está en migración.
-
-    - Valores en combos formateados como en el resto de la aplicación, con el formateado del tipo/editor: En changelog. En migration.
-    
-    	Marcar algún test, con comentario o en el nombre de test, indicando que se está probando la característica
-    	
-        Antes era (TransportChargeWithDescriptionsListShowingReferenceViewTest.testCompositeKeyDescriptionsListWithShowReferenceView_assertFocusDescriptionsListComposityKey):
-
-			assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
-
-        Y ahora es:
-
-			assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
-			
-		Antes era (AJAXTest.testDescriptionsList):
-			
-			assertDescriptionValue("address.state.id", "New York");
-			
-		Y ahora es:
-		
-			assertDescriptionValue("address.state.id", "NEW YORK");			
-			
-			
+				
 	- DescriptionsList(orderByKey) tiene efecto en combos usados en el filtro de la lista. 
 		En changelog. En migration quizás no porque los combos de las lista no se suelen testear.
 

@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-
+- @DescriptionsList values are formatted like in the rest of the application.
+- Numeric ordering for numeric parts when concatenating properties in @DescriptionsList.
 - Only up to 200 items are loaded in the combos used in list filters to avoid crashes with large datasets.
 - New Strings.wrapVariables() utility method.
 - New XCollections.isEmptyOrZero() helper to check for empty collections or with zero values.

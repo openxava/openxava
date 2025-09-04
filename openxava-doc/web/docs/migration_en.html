@@ -79,6 +79,21 @@ String [][] invoices = {
 };
 assertValidValues("invoice.KEY", invoices);
 </code></pre>
+      <h3>Formatted values in @DescriptionsList consistent with the application (for JUnit tests)</h3>
+      <p>Now the values shown by <i>@DescriptionsList</i> use the same formatting as the rest of the application
+        according to the property type/editor (for example, full-year dates or uppercase text). You do not need to
+        change application code; however, if your JUnit tests assert the displayed values, update them accordingly.</p>
+      <p>For example, update assertions like these:</p>
+      <pre><code class="java">// BEFORE (short year in formatted date)
+assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
+// AFTER (full year)
+assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
+
+// BEFORE (mixed case text)
+assertDescriptionValue("address.state.id", "New York");
+// AFTER (uppercase text)
+assertDescriptionValue("address.state.id", "NEW YORK");
+</code></pre>
       <h2>Migration from OpenXava 7.5.2 to OpenXava 7.5.3</h2>
       No issues.
       <h2>Migration from OpenXava 7.5.1 to OpenXava 7.5.2</h2>

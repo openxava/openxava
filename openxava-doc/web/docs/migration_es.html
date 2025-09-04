@@ -79,6 +79,22 @@ String [][] invoices = {
 };
 assertValidValues("invoice.KEY", invoices);
 </code></pre>
+        <h3>Valores formateados en @DescriptionsList coherentes con el resto de la aplicación (para pruebas JUnit)</h3>
+        <p>Ahora los valores mostrados por <i>@DescriptionsList</i> usan el mismo formateado que el resto de la aplicación
+          de acuerdo con el tipo/editor de la propiedad (por ejemplo, fechas con año completo o textos en mayúsculas).
+          No necesitas cambiar código de aplicación; sin embargo, si tus pruebas JUnit verifican los valores mostrados,
+          debes actualizarlas en consecuencia.</p>
+        <p>Por ejemplo, actualiza aserciones como estas:</p>
+        <pre><code class="java">// ANTES (año corto en la fecha formateada)
+assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
+// DESPUÉS (año completo)
+assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
+
+// ANTES (texto con mayúsculas y minúsculas)
+assertDescriptionValue("address.state.id", "New York");
+// DESPUÉS (texto en mayúsculas)
+assertDescriptionValue("address.state.id", "NEW YORK");
+</code></pre>
         <h2>Para migrar de OpenXava 7.5.2 a OpenXava 7.5.3</h2>
         No hay consideraciones.
         <h2>Para migrar de OpenXava 7.5.1 a OpenXava 7.5.2</h2>
