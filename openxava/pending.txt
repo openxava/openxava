@@ -5,39 +5,7 @@ Pending for @DescriptionsList for large datasets
     - Comparar 7.5 con 7.6.
 - Documentar.
 	
-    - Orden númerico cuando se concatenan propiedades: En changelog. ¿En migration?
-        Antes era (DeliveryInvoiceAsDecriptionsListTest.testFilterInDescriptionsList):
-
-			{"[.10.2004.]", "2004 10 Juanillo"},
-			{"[.11.2004.]", "2004 11 Carmelo"},
-			{"[.12.2004.]", "2004 12 Cuatrero"},
-			{"[.2.2004.]", "2004 2 Juanillo"},
-			{"[.9.2004.]", "2004 9 Javi"}
-
-        Y ahora es:
-
-			{"[.2.2004.]", "2004 2 Juanillo"},
-			{"[.9.2004.]", "2004 9 Javi"},
-			{"[.10.2004.]", "2004 10 Juanillo"},
-			{"[.11.2004.]", "2004 11 Carmelo"},
-			{"[.12.2004.]", "2004 12 Cuatrero"}
-
-		El código de test sería:
-
-		String [][] invoices = {
-			{"", ""},	
-			{"[.10.2004.]", "2004 10 Juanillo"},
-			{"[.11.2004.]", "2004 11 Carmelo"},
-			{"[.12.2004.]", "2004 12 Cuatrero"},
-			{"[.2.2004.]", "2004 2 Juanillo"},
-			{"[.9.2004.]", "2004 9 Javi"}
-		};
-		assertValidValues("invoice.KEY", invoices);					
-
-		El código de este ejemplo es:
-
-		@DescriptionsList(descriptionProperties = "year, number, customer.name")
-		Invoice invoice;	
+    - Orden númerico cuando se concatenan propiedades: En changelog. Ya está en migración.
 
     - Valores en combos formateados como en el resto de la aplicación, con el formateado del tipo/editor: En changelog. En migration.
     

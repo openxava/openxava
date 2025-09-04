@@ -45,6 +45,40 @@
       <div class="wiki" style="display: block;"><br>
       </div>
       <div class="wiki" style="display: block;">
+        <h2>Para migrar de OpenXava 7.5.3 a OpenXava 7.6</h2>
+        <h3>Orden numérico al concatenar propiedades en @DescriptionsList (para pruebas JUnit)</h3>
+        <p>Al usar <i>@DescriptionsList</i> con <i>descriptionProperties</i> que concatenan 
+          varias propiedades (por ejemplo, <i>year, number, customer.name</i>), las partes numéricas
+          ahora se ordenan numéricamente en lugar de lexicográficamente. Los usuarios verán el nuevo
+          orden en la UI. No necesitas cambiar ningún código de aplicación; solo 
+          actualizar tus pruebas JUnit si verifican los valores disponibles o su orden.</p>
+        <p>Por ejemplo, si tienes una referencia como esta:</p>
+        <pre><code class="java">@DescriptionsList(descriptionProperties = "year, number, customer.name")
+Invoice invoice;</code></pre>
+        <p>Deberías cambiar en tu prueba esto:</p>
+        <pre><code class="java">// ANTES: valores esperados usados en pruebas (orden lexicográfico para números)
+String [][] invoices = {
+    {"", ""},
+    {"[.10.2004.]", "2004 10 Juanillo"},
+    {"[.11.2004.]", "2004 11 Carmelo"},
+    {"[.12.2004.]", "2004 12 Cuatrero"},
+    {"[.2.2004.]",  "2004 2 Juanillo"},
+    {"[.9.2004.]",  "2004 9 Javi"}
+};
+assertValidValues("invoice.KEY", invoices);
+</code></pre>
+        <p>Por:</p>
+        <pre><code class="java">// DESPUÉS: actualiza los valores esperados para que coincidan con el orden numérico
+String [][] invoices = {
+    {"", ""},
+    {"[.2.2004.]",  "2004 2 Juanillo"},
+    {"[.9.2004.]",  "2004 9 Javi"},
+    {"[.10.2004.]", "2004 10 Juanillo"},
+    {"[.11.2004.]", "2004 11 Carmelo"},
+    {"[.12.2004.]", "2004 12 Cuatrero"}
+};
+assertValidValues("invoice.KEY", invoices);
+</code></pre>
         <h2>Para migrar de OpenXava 7.5.2 a OpenXava 7.5.3</h2>
         No hay consideraciones.
         <h2>Para migrar de OpenXava 7.5.1 a OpenXava 7.5.2</h2>
@@ -99,7 +133,7 @@ ldapPort=389</code></pre>
           vulnerabilidad en versiones anteriores a 6.2.0.Final. Aunque hemos
           probado que funciona bien sin necesidad de hacer cambios, puede que
           haya algún problema si usas <i>@SafeHtml</i> o Expression Language
-          for custom violations. Para más información puedes <a href="https://hibernate.org/validator/releases/6.2/#migrate"
+          for custom violations. Para más información puedes <a href="https://hibernate.org/validator/releases/6.2/#migrate"
             title="https://hibernate.org/validator/releases/6.2/#migrate">visitar
             la web oficial de hibernate.</a></p>
         <h2></h2>
