@@ -4,12 +4,7 @@ Pending for @DescriptionsList for large datasets
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.
-	- Indicar que en los comparadores de las lista solo se cargan hasta 200 elementos.
-    - Nuevo Strings.wrapVariables() en changelog.
-	- Nuevo XCollections.isEmptyOrZero() en changelog.
-	- Nuevo comportamiento de Is.empty() en changelog, ahora reconoce colecciones.
-	- No carga innecesariamente combos cuyo valor es vacío vía AJAX, en changelog.
-	- Nuevo MapFacade.getValuesNotTracking() en changelog.
+	
     - Orden númerico cuando se concatenan propiedades: En changelog. ¿En migration?
         Antes era (DeliveryInvoiceAsDecriptionsListTest.testFilterInDescriptionsList):
 
@@ -26,6 +21,23 @@ Pending for @DescriptionsList for large datasets
 			{"[.10.2004.]", "2004 10 Juanillo"},
 			{"[.11.2004.]", "2004 11 Carmelo"},
 			{"[.12.2004.]", "2004 12 Cuatrero"}
+
+		El código de test sería:
+
+		String [][] invoices = {
+			{"", ""},	
+			{"[.10.2004.]", "2004 10 Juanillo"},
+			{"[.11.2004.]", "2004 11 Carmelo"},
+			{"[.12.2004.]", "2004 12 Cuatrero"},
+			{"[.2.2004.]", "2004 2 Juanillo"},
+			{"[.9.2004.]", "2004 9 Javi"}
+		};
+		assertValidValues("invoice.KEY", invoices);					
+
+		El código de este ejemplo es:
+
+		@DescriptionsList(descriptionProperties = "year, number, customer.name")
+		Invoice invoice;	
 
     - Valores en combos formateados como en el resto de la aplicación, con el formateado del tipo/editor: En changelog. En migration.
     
@@ -50,6 +62,8 @@ Pending for @DescriptionsList for large datasets
 			
 	- DescriptionsList(orderByKey) tiene efecto en combos usados en el filtro de la lista. 
 		En changelog. En migration quizás no porque los combos de las lista no se suelen testear.
+
+	- Soporte de conjunto de datos grande, en changelog y documentación.	
 		
             
 - Borrar este archivo.
