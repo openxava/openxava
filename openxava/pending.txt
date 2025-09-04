@@ -1,9 +1,9 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Suite (otra vez)	
-	- EditableValidValuesTest
-	- DeliveryInvoiceAsDecriptionsList
+- Refactorizar
+- DescriptionsListTest, Product2Test y ProductTest.
+- Suite (otra vez):	
 - Prueba con tabla gigante real en MySQL.
     - Comparar 7.5 con 7.6.
 - Documentar.
