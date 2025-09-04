@@ -217,11 +217,11 @@ public class DescriptionsCalculator implements ICalculator {
 			// be 0 with no data in the other side
 			return null;
 		}
-		String descStr = formatAndJoin(values, descriptionsPropertiesNames);
-		KeyAndDescription result = new KeyAndDescription();
-		result.setKey(key);
-		result.setDescription(descStr);
-		return result;		
+		String description = formatAndJoin(values, descriptionsPropertiesNames);
+        KeyAndDescription result = new KeyAndDescription();
+        result.setKey(key);
+        result.setDescription(description);
+        return result;
     }    
 
     /**
@@ -229,12 +229,12 @@ public class DescriptionsCalculator implements ICalculator {
      * Used to detect which key block (first or duplicated) corresponds to the
      * configured editor key properties (e.g., number) instead of a technical OID.
      */
-    private boolean isParsable(MetaProperty mp, Object value) {
+    private boolean isParsable(MetaProperty metaProperty, Object value) {
         if (value == null) return false;
         try {
-            Object parsed = mp.parse(String.valueOf(value));
+            Object parsed = metaProperty.parse(String.valueOf(value));
             if (parsed == null) return false;
-            Class<?> expected = mp.getType();
+            Class<?> expected = metaProperty.getType();
             if (expected != null && expected.isInstance(parsed)) return true;
             // As a fallback, accept the raw value if already matches expected
             return expected != null && expected.isInstance(value);
@@ -413,51 +413,51 @@ public class DescriptionsCalculator implements ICalculator {
 		int startIndex = Math.min(Math.max(0, offset), chunkData.size());
 		int endIndex = Math.min(startIndex + Math.max(0, limit), chunkData.size());
 
-		// Pre-calc
-		Collection<String> keyPropsCol = getKeyPropertiesCollection();
-		String descPropsStr = getDescriptionProperties();
+		        // Pre-calc
+        Collection<String> keyProperties = getKeyPropertiesCollection();
+        String descriptionProperties = getDescriptionProperties();
 
-		// Retrieve MetaTab properties order and count to compute baseOffset
-		java.util.List propsOrder;
-		try { propsOrder = new java.util.ArrayList(getMetaTab().getPropertiesNames()); } catch (Exception ignore) { propsOrder = java.util.Collections.emptyList(); }
-		int propsCountTotal = propsOrder.size();
+        // Retrieve MetaTab properties order and count to compute baseOffset
+        java.util.List propertiesOrder;
+        try { propertiesOrder = new java.util.ArrayList(getMetaTab().getPropertiesNames()); } catch (Exception ignore) { propertiesOrder = java.util.Collections.emptyList(); }
+        int totalPropertiesCount = propertiesOrder.size();
 
 		for (int i = startIndex; i < endIndex; i++) {
 			Object[] row = (Object[]) chunkData.get(i);
 
 			// Compute baseOffset for potential leading technical column(s) (e.g., oid)
-			int baseOffset = (propsCountTotal > 0) ? Math.max(0, row.length - propsCountTotal) : 0; // usually 0 or 1
+			int baseOffset = (totalPropertiesCount > 0) ? Math.max(0, row.length - totalPropertiesCount) : 0; // usually 0 or 1
 
 			// Prepare sequences
-			java.util.List<String> keySeq = new java.util.ArrayList<>();
-			for (Object kp : keyPropsCol) keySeq.add(String.valueOf(kp));
-			java.util.List<String> descSeq = new java.util.ArrayList<>();
-			if (!Is.emptyString(descPropsStr)) { for (String d : descPropsStr.split(",")) descSeq.add(d.trim()); }
+			            java.util.List<String> keySeq = new java.util.ArrayList<>();
+            for (Object kp : keyProperties) keySeq.add(String.valueOf(kp));
+            java.util.List<String> descSeq = new java.util.ArrayList<>();
+            if (!Is.emptyString(descriptionProperties)) { for (String d : descriptionProperties.split(",")) descSeq.add(d.trim()); }
 
 			// Find key block occurrences and pick the best candidate using parsability
-			int keyStartRel = 0;
-			if (!propsOrder.isEmpty() && !keySeq.isEmpty()) {
-				java.util.List<Integer> starts = new java.util.ArrayList<>();
-				int bestStart = -1;
-				int bestScore = -1;
-				for (int s = 0; s + keySeq.size() <= propsOrder.size(); s++) {
-					boolean match = true;
-					for (int j = 0; j < keySeq.size(); j++) {
-						if (!String.valueOf(propsOrder.get(s + j)).equals(String.valueOf(keySeq.get(j)))) { match = false; break; }
-					}
-					if (!match) continue;
-					starts.add(s);
-					// Score this candidate: how many values parse to their MetaProperty types
-					int score = 0;
-					for (int j = 0; j < keySeq.size(); j++) {
-						String pname = String.valueOf(propsOrder.get(s + j));
-						MetaProperty mp = getMetaModel().getMetaProperty(pname);
-						int col = baseOffset + s + j;
-						Object v = col < row.length ? row[col] : null;
-						if (isParsable(mp, v)) score++;
-					}
-					if (score > bestScore) { bestScore = score; bestStart = s; }
-				}
+            int keyStartRel = 0;
+            if (!propertiesOrder.isEmpty() && !keySeq.isEmpty()) {
+                java.util.List<Integer> starts = new java.util.ArrayList<>();
+                int bestStart = -1;
+                int bestScore = -1;
+                for (int s = 0; s + keySeq.size() <= propertiesOrder.size(); s++) {
+                    boolean match = true;
+                    for (int j = 0; j < keySeq.size(); j++) {
+                        if (!String.valueOf(propertiesOrder.get(s + j)).equals(String.valueOf(keySeq.get(j)))) { match = false; break; }
+                    }
+                    if (!match) continue;
+                    starts.add(s);
+                    // Score this candidate: how many values parse to their MetaProperty types
+                    int score = 0;
+                    for (int j = 0; j < keySeq.size(); j++) {
+                        String propertyName = String.valueOf(propertiesOrder.get(s + j));
+                        MetaProperty metaProperty = getMetaModel().getMetaProperty(propertyName);
+                        int col = baseOffset + s + j;
+                        Object v = col < row.length ? row[col] : null;
+                        if (isParsable(metaProperty, v)) score++;
+                    }
+                    if (score > bestScore) { bestScore = score; bestStart = s; }
+                }
 				// Heuristic only for composite keys: if there are two consecutive key blocks (duplicate sequence), pick the second one
 				if (keySeq.size() > 1) {
 					for (int i2 = 0; i2 + 1 < starts.size(); i2++) {
@@ -470,68 +470,67 @@ public class DescriptionsCalculator implements ICalculator {
 
 			KeyAndDescription el = new KeyAndDescription();
 
-			if (isMultipleKey()) {
-				// Build composite key string in the format: "[.v1.v2.]" following MetaModel key order (toKeyString order)
-				StringBuilder ksb = new StringBuilder();
-				ksb.append("[.");
-				// Map key block names -> values from the detected contiguous block (propsOrder)
-				java.util.Map<String, Object> keyValuesByName = new java.util.HashMap<>();
-				int blockLen = keySeq.size();
-				for (int j = 0; j < blockLen; j++) {
-					String pname = String.valueOf(propsOrder.get(keyStartRel + j));
-					int col = baseOffset + keyStartRel + j;
-					Object kv = col < row.length ? row[col] : null;
-					keyValuesByName.put(pname, kv);
-				}
-				// Emit in MetaModel.getAllKeyPropertiesNames() order to match toKeyString() and tests
-				int p = 0;
-				for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
-					String pname = String.valueOf(on);
-					if (!keyValuesByName.containsKey(pname)) continue;
-					Object kv = keyValuesByName.get(pname);
-					if (p > 0) ksb.append('.');
-					ksb.append(kv == null ? "" : String.valueOf(kv));
-					p++;
-				}
-				ksb.append(".]");
-				String compositeKey = ksb.toString();
-				el.setKey(compositeKey);
-			} else {
-				// Simple key is at iKey
-				Object simpleKey = iKey < row.length ? row[iKey] : null;
-				el.setKey(simpleKey);
-			}
+            if (isMultipleKey()) {
+                // Build composite key string in the format: "[.v1.v2.]" following MetaModel key order (toKeyString order)
+                StringBuilder keyBuilder = new StringBuilder();
+                keyBuilder.append("[.");
+                // Map key block names -> values from the detected contiguous block (propertiesOrder)
+                java.util.Map<String, Object> keyValuesByName = new java.util.HashMap<>();
+                int blockLen = keySeq.size();
+                for (int j = 0; j < blockLen; j++) {
+                    String propertyName = String.valueOf(propertiesOrder.get(keyStartRel + j));
+                    int col = baseOffset + keyStartRel + j;
+                    Object keyValue = col < row.length ? row[col] : null;
+                    keyValuesByName.put(propertyName, keyValue);
+                }
+                // Emit in MetaModel.getAllKeyPropertiesNames() order to match toKeyString() and tests
+                int p = 0;
+                for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
+                    String propertyName = String.valueOf(on);
+                    if (!keyValuesByName.containsKey(propertyName)) continue;
+                    Object keyValue = keyValuesByName.get(propertyName);
+                    if (p > 0) keyBuilder.append('.');
+                    keyBuilder.append(keyValue == null ? "" : String.valueOf(keyValue));
+                    p++;
+                }
+                keyBuilder.append(".]");
+                String compositeKey = keyBuilder.toString();
+                el.setKey(compositeKey);
+            } else {
+                // Simple key is at iKey
+                Object simpleKey = iKey < row.length ? row[iKey] : null;
+                el.setKey(simpleKey);
+            }
 
 			// Build description using a shared formatter to keep behavior consistent
-			String descStr;
-			if (!descSeq.isEmpty()) {
-				int descStartRel = -1;
-				if (!propsOrder.isEmpty()) {
-					for (int s = 0; s + descSeq.size() <= propsOrder.size(); s++) {
-						boolean match = true;
-						for (int j = 0; j < descSeq.size(); j++) {
-							if (!String.valueOf(propsOrder.get(s + j)).equals(String.valueOf(descSeq.get(j)))) { match = false; break; }
-						}
-						if (match) { descStartRel = s; break; }
-					}
-				}
-				java.util.Map<String, Object> valuesByProperty = new java.util.LinkedHashMap<>();
-				for (int j = 0; j < descSeq.size(); j++) {
-					String pname = descSeq.get(j);
-					int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
-					Object v = (col < 0 || col >= row.length) ? null : row[col];
-					valuesByProperty.put(pname, v);
-				}
-				descStr = formatAndJoin(valuesByProperty, descSeq);
-			} else {
-				descStr = "";
-			}
-			el.setDescription(descStr);
+			            String description;
+            if (!descSeq.isEmpty()) {
+                int descStartRel = -1;
+                if (!propertiesOrder.isEmpty()) {
+                    for (int s = 0; s + descSeq.size() <= propertiesOrder.size(); s++) {
+                        boolean match = true;
+                        for (int j = 0; j < descSeq.size(); j++) {
+                            if (!String.valueOf(propertiesOrder.get(s + j)).equals(String.valueOf(descSeq.get(j)))) { match = false; break; }
+                        }
+                        if (match) { descStartRel = s; break; }
+                    }
+                }
+                java.util.Map<String, Object> valuesByProperty = new java.util.LinkedHashMap<>();
+                for (int j = 0; j < descSeq.size(); j++) {
+                    String propertyName = descSeq.get(j);
+                    int col = (descStartRel < 0 ? -1 : baseOffset + descStartRel + j);
+                    Object v = (col < 0 || col >= row.length) ? null : row[col];
+                    valuesByProperty.put(propertyName, v);
+                }
+                description = formatAndJoin(valuesByProperty, descSeq);
+            } else {
+                description = "";
+            }
+            el.setDescription(description);
 
             
             result.add(el);
         }
-
 		// Apply distinct semantics if requested: remove duplicates by key, keeping first occurrence
 		if (isDistinct() && !result.isEmpty()) {
 			java.util.LinkedHashMap<String, KeyAndDescription> unique = new java.util.LinkedHashMap<>();
