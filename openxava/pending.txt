@@ -3,9 +3,6 @@ Pending for @DescriptionsList for large datasets
 
 - Documentar.
 				
-	- DescriptionsList(orderByKey) tiene efecto en combos usados en el filtro de la lista. 
-		En changelog. En migration quizás no porque los combos de las lista no se suelen testear.
-
 	- Soporte de conjunto de datos grande, en changelog y documentación.	
 		
             

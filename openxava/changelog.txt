@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- The orderByKey option in @DescriptionsList now also applies to list filter combos. 
 - @DescriptionsList values are formatted like in the rest of the application.
 - Numeric ordering for numeric parts when concatenating properties in @DescriptionsList.
 - Only up to 200 items are loaded in the combos used in list filters to avoid crashes with large datasets.
