@@ -1,8 +1,6 @@
 Pending for @DescriptionsList for large datasets
 ------------------------------------------------
 
-- Prueba con tabla gigante real en MySQL.
-    - Comparar 7.5 con 7.6.
 - Documentar.
 	
     - Orden númerico cuando se concatenan propiedades: En changelog. Ya está en migración.
