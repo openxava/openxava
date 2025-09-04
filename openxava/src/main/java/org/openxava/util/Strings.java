@@ -981,6 +981,7 @@ public class Strings {
 	}
 	
 	/**
+	 * // TMR ME QUEDÉ POR AQUÍ: PARECE QUE HA QUITADO EL MÉTODO multiline()
 	 * Returns a String multiline platform independent. <p>
 	 * 
 	 * Remove the quotes from a sentence between quotes. <p>
