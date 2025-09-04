@@ -10277,8 +10277,11 @@ public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
 
           rel="nofollow">@DescriptionsList</a></em> podemos instruir a OpenXava
       para que visualice la referencia como una lista de descripciones
-      (actualmente como un combo). Esto puede ser práctico cuando hay pocos
-      valores y haya un nombre o descripción significativo. La sintaxis es:<br>
+      (actualmente como un combo). Esto puede ser práctico cuando haya un nombre o descripción significativo. 
+      Tradicionalmente ha funcionado bien con pocos valores, sin embargo a partir de la versión 7.6 su
+      implementación permite conjuntos de datos muy grandes, incluso de millones de registros con
+      un buen rendimiento.<br>
+      La sintaxis es:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
