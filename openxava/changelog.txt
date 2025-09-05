@@ -2,7 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - @DescriptionsList implementation supports very large datasets with good performance.
-- Improved performance when displaying objects with many @DescriptionsList references.
+- Improved performance when displaying entities with many @DescriptionsList references.
 - The orderByKey option in @DescriptionsList now also applies to list filter combos. 
 - @DescriptionsList values are formatted like in the rest of the application.
 - Numeric ordering for numeric parts when concatenating properties in @DescriptionsList.
