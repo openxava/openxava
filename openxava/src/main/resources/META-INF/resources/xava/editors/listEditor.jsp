@@ -175,7 +175,7 @@ while (it.hasNext()) {
 %>
 <span class="<%=style.getListOrderBy()%>">
 <%
-String icon = property.isNumber()?"mdi mdi-sort-numeric":"mdi mdi-sort-alphabetical";
+String icon = property.isNumber()?"mdi mdi-sort-numeric-variant":"mdi mdi-sort-alphabetical-variant";
 if (tab.isOrderAscending(property.getQualifiedName())) icon = style.getSortIndicator() + " mdi mdi-arrow-up-bold";
 else if (tab.isOrderDescending(property.getQualifiedName())) icon = style.getSortIndicator() + " mdi mdi-arrow-down-bold";
 else if (tab.isOrderAscending2(property.getQualifiedName())) icon = style.getSortIndicator2() + " mdi mdi-arrow-up-bold";
