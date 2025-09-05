@@ -981,9 +981,29 @@ public class Strings {
 	}
 	
 	/**
-	 * // TMR ME QUEDÉ POR AQUÍ: PARECE QUE HA QUITADO EL MÉTODO multiline()
 	 * Returns a String multiline platform independent. <p>
 	 * 
+	 * For example, 
+	 * <pre>
+	 * Strings.multiline("OpenXava", "AJAX Java Framework Web", "You only have to write the domain classes") -&gt;<br>
+	 * &nbsp;&nbsp;&nbsp;&nbsp;"OpenXava<br>
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AJAX Java Framework Web<br>
+	 * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You only have to write the domain classes"
+	 * </pre>
+	 * @param strings
+	 *        The array of String objects, entries not may be null
+	 * 
+	 * @since 5.7
+	 */
+	public static String multiline(String... strings) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < strings.length; i++) {
+			sb.append("%s%n");
+		}
+		return String.format(sb.substring(0, sb.length() - 2), (Object[]) strings);
+	}
+	
+	/**
 	 * Remove the quotes from a sentence between quotes. <p>
 	 * 
 	 * That is:
