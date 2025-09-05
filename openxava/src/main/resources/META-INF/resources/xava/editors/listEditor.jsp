@@ -98,7 +98,7 @@ if (grouping) action = null;
 	<% if (tab.isCustomizeAllowed()) { %>
 	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list <%=style.getActionImage()%>" 
 		title="<xava:message key='customize_list'/>" data-id="<%=id%>">
-		<i class="mdi mdi-settings"></i>
+		<i class="mdi mdi-cog"></i>
 	</a>
 	<% } %>
 	<% if (filter) { %> 

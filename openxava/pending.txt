@@ -1,28 +1,34 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Añadir iconos que faltan, apuntando para migración. ME QUEDÉ HACIENDO ESTE, EVALUANDO EL PDF
-- Revisar el caso de library-books (myReports), comparando con versión original. 
-- Revise all details in their migration
-- Migración a nivel de código, para evitar "migration". 
-	- ¿Para todos los de su guía? ¿Por qué no? Porque son desatinados o inexistentes.
-- Verify performance from America to Europe with a cleaned browser.
-- Revisar por qué no gira el icono de cargando.
+- Espaciado. La barra no sale igual.
+- Over sobre subcontrolador saca una esquinita. En Invoice > Imprimir
+- Revisar por quÃ© no gira el icono de cargando.
+- Invoice2 Nuevo en lÃ­nea sale descolocado.
+- Probar acciÃ³n con takes-long="true".
+- Subrayado de modos descolocado.
+- Manecilla de abrir y cerrar menÃº de mÃ³dulos chata.
+- Icono de mover columnas (la cruz) descolocado.
+- MigraciÃ³n a nivel de cÃ³digo, para evitar "migration". 
+	- Â¿Para todos los de su guÃ­a? 
+		- Â¿Por quÃ© no? Porque son desatinados o inexistentes.
+		- Pero podrÃ­a hacer primero mis conversiones y despuÃ©s las suyas.
 - Upgrade the ICON editor to include new icons.
 - Probar en Chrome y Firefox.
 - Suite.
-- Documentación:
+- DocumentaciÃ³n:
 	- Link to their new site in the doc: https://pictogrammers.com/library/mdi/
 	- Comprobar referencia a iconos renombrados.
-	- Migración:
-		- Icons that changes that affects our users:
-			- library-plus 	--> plus-box-multiple
-			- library-books --> file-table-box-multiple-outline (filmstrip-box era la sugerida)
-			- file-pdf 		--> file-pdf-box
+	- MigraciÃ³n:
+		- Icons changes:
+			- In stantard actions:
+				- library-plus 	--> plus-box-multiple
+				- library-books --> text-box-multiple (filmstrip-box era la sugerida)
+				- file-pdf 		--> file-table
+			- Other places:
+				- settings 		--> cog	
 		- Put a link to their migration guide in our migration guide.
 	- Changelog:
 		- Current Material Design Icons version, that is 4.9.95.
 		- We're going to update to 7.4.47.	
 - Borrar este archivo.
-
-

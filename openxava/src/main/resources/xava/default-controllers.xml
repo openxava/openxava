@@ -114,7 +114,7 @@ here that you want to override.
 		<action name="generatePdf" mode="list"
 			class="org.openxava.actions.GenerateReportAction"
 			image="pdf.gif"
-			icon="file-pdf-box"
+			icon="file-table"
 			keystroke="Control Alt P">
 			<set property="type" value="pdf"/>
 		</action>
@@ -135,7 +135,7 @@ here that you want to override.
 		<action name="myReports" mode="list"
 			class="org.openxava.actions.MyReportsAction"
 			image="reports.png"
-			icon="file-table-box-multiple-outline">	
+			icon="text-box-multiple">	
 		</action>
 		
 	</controller>
