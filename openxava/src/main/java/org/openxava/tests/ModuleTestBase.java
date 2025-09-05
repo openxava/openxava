@@ -1892,8 +1892,8 @@ abstract public class ModuleTestBase extends TestCase {
 
 	/**
 	 *
-	 * @since 4.3
-	 */	
+	 * @since 4.1
+	 */
 	protected void assertTotalInCollection(String collection, String name, String total) throws Exception { 
 		int column = getPropertiesList(collection).indexOf(name);
 		assertTotalInCollection(collection, column, total);
