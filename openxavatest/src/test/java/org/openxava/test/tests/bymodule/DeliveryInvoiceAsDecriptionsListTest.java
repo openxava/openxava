@@ -33,11 +33,11 @@ public class DeliveryInvoiceAsDecriptionsListTest extends ModuleTestBase {
 		execute("CRUD.new");
 		String [][] invoices2004 = {
 			{"", ""},	
+			{"[.2.2004.]", "2004 2 Juanillo"},
+			{"[.9.2004.]", "2004 9 Javi"},
 			{"[.10.2004.]", "2004 10 Juanillo"},
 			{"[.11.2004.]", "2004 11 Carmelo"},
-			{"[.12.2004.]", "2004 12 Cuatrero"},
-			{"[.2.2004.]", "2004 2 Juanillo"},
-			{"[.9.2004.]", "2004 9 Javi"}
+			{"[.12.2004.]", "2004 12 Cuatrero"}
 		};
 		assertValidValues("invoice.KEY", invoices2004);
 	}

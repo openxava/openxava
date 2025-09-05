@@ -14,6 +14,8 @@ import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.html.*;
 import org.htmlunit.javascript.*;
 import org.htmlunit.javascript.host.event.*;
+import org.htmlunit.corejs.javascript.NativeArray;
+import org.htmlunit.corejs.javascript.NativeObject;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
@@ -23,12 +25,12 @@ import org.openxava.tab.*;
 import org.openxava.tab.impl.*;
 import org.openxava.tab.meta.*;
 import org.openxava.util.*;
+import org.openxava.web.Ids;
+import org.openxava.web.DescriptionsLists;
 import org.openxava.view.meta.*;
-import org.openxava.web.*;
 import org.xml.sax.*;
 
 import junit.framework.*;
-
 
 /**
  * Base class for creating a junit test that runs against an OpenXava module. <p>
@@ -323,7 +325,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlInput getInputByName(String name) { 
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlInput) {
@@ -337,7 +339,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlSelect getSelectByName(String name) {  
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlSelect) {
@@ -351,7 +353,7 @@ abstract public class ModuleTestBase extends TestCase {
 	/*
 	 * This is needed because a bug of HtmlUnit 2.6/2.7, where to get values from
 	 * form fails in some circumstances. Though currently OX uses HtmlUnit 2.5
-	 */
+ */
 	private HtmlTextArea getTextAreaByName(String name) {  
 		HtmlElement el = page.getElementByName(name);
 		if (el instanceof HtmlTextArea) {
@@ -2029,7 +2031,7 @@ abstract public class ModuleTestBase extends TestCase {
 			uncheckRow(Tab.COLLECTION_PREFIX + collection.replace('.', '_') + "_selected", row);
 		}
 		else {		
-			uncheckRow(collection + ".__SELECTED__", row);
+			uncheckRow(collection + ".__SELECTED__", row); 
 		}
 	}
 	
@@ -2479,26 +2481,63 @@ abstract public class ModuleTestBase extends TestCase {
 		}		
 	}
 	
-	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception { 
-		HtmlElement textField = (HtmlElement) page.getHtmlElementById(decorateId(name)).getPreviousElementSibling();
-		String actualValues = textField.getAttribute("data-values");
-		StringTokenizer st = new StringTokenizer(actualValues, "\"");
-		nextTokens(st, 3); 
+	private List<KeyAndDescription> getValidValuesWithUIAutocomplete(String name) throws Exception {
+		// 1) Open the menu via JS only (avoid clicking icon to prevent duplicate searches)
+		// Clear previous accumulated items to avoid duplicates, then trigger a search
+		try {
+			String clearAndOpenJs =
+				"(function(){" +
+				"  var id='" + decorateId(name) + "';" +
+				"  var hidden = document.getElementsByName(id)[0] || document.getElementById(id);" +
+				"  if(!hidden) return;" +
+				"  var input = hidden.previousElementSibling;" +
+				"  if(!input) return;" +
+				"  if (window.jQuery){ var $in=jQuery(input); $in.data('allItems', []); $in.data('hasMoreItems', true); $in.data('loadingMore', false);}" +
+				"  if (window.descriptionsEditor) descriptionsEditor.open(id);" +
+				"})();";
+			page.executeJavaScript(clearAndOpenJs);
+		} catch (Exception ignore) { }
+		client.waitForBackgroundJavaScriptStartingBefore(1500);
+		try { Thread.sleep(200); } catch (InterruptedException ie) { }
+
 		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
-		while (st.hasMoreTokens()) {			
-			String description = st.nextToken();
-			nextTokens(st, 3); 
-			String key = st.nextToken();
-			nextTokens(st, 3); 
-			validValues.add(new KeyAndDescription(key, description));
+		String decoratedId = decorateId(name);
+		// 2) Read jQuery data('allItems') directly from the visible input
+		String js =
+			"(function(){" +
+			"  var id='" + decoratedId + "';" +
+			"  var hidden = document.getElementsByName(id)[0] || document.getElementById(id);" +
+			"  if(!hidden) return [];" +
+			"  var input = hidden.previousElementSibling;" +
+			"  if(!input) return [];" +
+			"  var $in = (window.jQuery)? jQuery(input): null;" +
+			"  var items = $in ? ($in.data('allItems') || []) : [];" +
+			"  return items;" +
+			"})();";
+
+		ScriptResult result = page.executeJavaScript(js);
+		Object jsResult = result.getJavaScriptResult();
+		if (jsResult instanceof NativeArray) {
+			NativeArray arr = (NativeArray) jsResult;
+			long len = arr.getLength();
+			// Deduplicate by key while preserving order
+			LinkedHashMap<String, KeyAndDescription> byKey = new LinkedHashMap<String, KeyAndDescription>();
+			for (int i = 0; i < len; i++) {
+				Object it = arr.get(i, arr);
+				if (it instanceof NativeObject) {
+					NativeObject obj = (NativeObject) it;
+					Object key = obj.get("value", obj);
+					Object label = obj.get("label", obj);
+					String skey = key == null ? null : key.toString();
+					String slabel = label == null ? "" : label.toString();
+					if (skey != null && !byKey.containsKey(skey)) {
+						byKey.put(skey, new KeyAndDescription(skey, slabel));
+					}
+				}
+			}
+			validValues.addAll(byKey.values());
 		}
 		return validValues;
-	}
-	
-	private void nextTokens(StringTokenizer st, int count) { 
-		for (int i=0; i<count; i++) {
-			if (st.hasMoreTokens()) st.nextToken();
-		}
 	}
 	
 	protected void assertValidValuesCount(String name, int count) throws Exception {

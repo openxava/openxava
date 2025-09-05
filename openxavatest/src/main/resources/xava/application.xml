@@ -27,6 +27,13 @@
 		<controller name="Typical"/> 
 	</module>
 	
+	<module name="SlowTraveler">
+		<model name="Traveler"/>
+		<view name="Slow"/>
+		<tab name="Slow"/>
+		<controller name="Typical"/>
+	</module>
+	
 	<module name="ArtistSomeMembersReadOnly">
 		<env-var name="XAVA_SEARCH_ACTION" value="ArtistSomeMembersReadOnly.search"/>
 		<model name="Artist"/>

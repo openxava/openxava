@@ -403,6 +403,53 @@ public class MapFacade {
 			throw new SystemException(ex);
 		}	
 	}
+	
+	/**
+	 * Obtain the specified values from entity/aggregate from a map with 
+	 * primary key values, not tracking the query. <p>
+	 * 
+	 * Most methods of MapFacade track the changes/queries (using AccessTracker), 
+	 * but the ones with "NotTracking" suffix do not.<br>
+	 * 
+	 * The <code>memberNames</code> parameter is a map to use a treelike structure.<br>
+	 * The property names are in key part. If it's a simple property the value
+	 * is null, otherwise it has a map with the same structure.<br>
+	 * For example, if we have a <code>Customer</tt> that references
+	 * to a <code>Seller</code>,
+	 * we can send a map with the next values:
+	 * <pre> 
+	 * { "number", null }
+	 * { "name", null }
+	 * { "seller", { {"number", null}, {"name", null} } }
+	 * </pre>
+	 * 
+	 * @since 7.6
+	 * @param modelName  OpenXava model name. Not null.
+	 * @param keyValues  Key values of object to find. Not null. <i>By value</i> semantics.
+	 * @param memberNames Member names to obtain its values. Not null. <i>By value</i> semantics.  
+	 * @return Map with entity values. Not null.
+	 * @exception ObjectNotFoundException  If object with this key does not exist 
+	 * @exception FinderException  Logic problem on find.	
+	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
+	 * @exception SystemException  System problem. Rollback transaction.
+	 */	
+	public static Map getValuesNotTracking(
+		String modelName,
+		Map keyValues,
+		Map memberNames)
+		throws FinderException, XavaException, SystemException 
+	{							
+		Assert.arg(modelName, keyValues, memberNames);		
+		if (keyValues.isEmpty()) {
+			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
+		}
+		try {
+			return getImpl().getValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
+		}
+		catch (RemoteException ex) {
+			throw new SystemException(ex);
+		}	
+	}
 
 	/**
 	 * Obtain the specified values from entity/aggregate searching it by any property. <p>
@@ -456,6 +503,8 @@ public class MapFacade {
 		Map memberNames)
 		throws FinderException, XavaException, SystemException 
 	{						
+		// WARNING! This method does no do tracking, maybe it is an omission or bug to solve in the future
+		//  but when we'll fix it, WE SHOULD MODIFY DescriptionsCalculator
 		Assert.arg(modelName, searchingValues, memberNames);		
 		if (searchingValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
@@ -467,7 +516,7 @@ public class MapFacade {
 			throw new SystemException(ex);
 		}			
 	}
-			
+				
 	/**
 	 * Obtain the values of the entity/aggregate from the own entity. <p> 
 	 * 
@@ -596,7 +645,8 @@ public class MapFacade {
 	/**
 	 * Set new values to a entity/aggregate that is found from its key values without tracking the changes. <p>
 	 * 
-	 * All methods of MapFacade track the changes (using AccessTracker), but this one.
+	 * Most methods of MapFacade track the changes/queries (using AccessTracker), 
+	 * but the ones with "NotTracking" suffix do not.
 	 * 
 	 * @since 5.9
 	 * @param modelName  OpenXava model name. Not null.

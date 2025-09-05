@@ -41,7 +41,11 @@
     <create creator="new" javascript="Tree">
       <param name="class" value="org.openxava.web.dwr.Tree"/>
     </create>
-        
+    
+    <create creator="new" javascript="Descriptions">
+      <param name="class" value="org.openxava.web.dwr.Descriptions"/>
+    </create>
+         
     <convert converter="bean" match="org.openxava.web.dwr.Result"/>    
     <convert converter="bean" match="org.openxava.web.dwr.StrokeAction"/>
         

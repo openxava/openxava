@@ -30,7 +30,7 @@ public class SelectSchemaTest extends ModuleTestBase {
 			{ "A0001", "COMPANY A ISSUE 1" }, 
 			{ "A0002", "COMPANY A ISSUE 2"} 
 		};		
-		assertValidValues("issue.id", issueCOMPANYA);
+		assertValidValues("issue.id", issueCOMPANYA); 
 		
 		// select second schema: COMPANYB
 		changeModule("SelectSchema");

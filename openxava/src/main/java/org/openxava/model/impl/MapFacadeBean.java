@@ -105,6 +105,25 @@ public class MapFacadeBean {
 			String modelName,
 			Map keyValues,
 			Map membersNames)
+			throws FinderException, XavaException, RemoteException {
+		return getValues(userInfo, modelName, keyValues, membersNames, true);
+	}
+	
+	public Map getValuesNotTracking(
+			UserInfo userInfo, 
+			String modelName,
+			Map keyValues,
+			Map membersNames)
+			throws FinderException, XavaException, RemoteException {
+		return getValues(userInfo, modelName, keyValues, membersNames, false);
+	}	
+	
+	private Map getValues(
+			UserInfo userInfo, 
+			String modelName,
+			Map keyValues,
+			Map membersNames,
+			boolean tracking)
 			throws FinderException, XavaException, RemoteException {		
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
@@ -114,7 +133,7 @@ public class MapFacadeBean {
 		try {		
 			beginTransaction(metaModel);
 			Map result = getValuesImpl(metaModel, keyValues, membersNames);
-			AccessTracker.consulted(modelName, keyValues); 
+			if (tracking) AccessTracker.consulted(modelName, keyValues); 
 			commitTransaction(metaModel);			
 			return result;
 		} 
@@ -156,7 +175,9 @@ public class MapFacadeBean {
 			String modelName,
 			Map searchingValues,
 			Map membersNames)
-			throws FinderException, XavaException, RemoteException {		
+			throws FinderException, XavaException, RemoteException {
+		// WARNING! This method does no do tracking, maybe it is an omission or bug to solve in the future
+		//  but when we'll fix it, WE SHOULD MODIFY DescriptionsCalculator		
 		Users.setCurrentUserInfo(userInfo);
 		searchingValues = Maps.recursiveClone(searchingValues); 
 		membersNames = Maps.recursiveClone(membersNames);

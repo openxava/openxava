@@ -10277,8 +10277,11 @@ public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
 
           rel="nofollow">@DescriptionsList</a></em> podemos instruir a OpenXava
       para que visualice la referencia como una lista de descripciones
-      (actualmente como un combo). Esto puede ser práctico cuando hay pocos
-      valores y haya un nombre o descripción significativo. La sintaxis es:<br>
+      (actualmente como un combo). Esto puede ser práctico cuando haya un nombre o descripción significativo. 
+      Tradicionalmente ha funcionado bien con pocos valores, sin embargo a partir de la versión 7.6 su
+      implementación permite conjuntos de datos muy grandes, incluso de millones de registros con
+      un buen rendimiento.<br>
+      La sintaxis es:<br>
       <style type="text/css"><!--
 /**
  * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
@@ -10522,7 +10525,10 @@ class="st0">"true|false"</span>,       <span class="co1">// 7 Nuevo en v5.5</spa
           Permite poner una lista de nombres de tabs entre comas. Si alguna de
           las propiedades de <em>descriptionProperties</em> se pone en alguno
           de esos tabs la propiedad se visualizará como una lista de
-          descripciones para seleccionar en la parte del filtro.</li>
+          descripciones para seleccionar en la parte del filtro.
+          A partir de <i>v7.6</i> solo se cargan hasta 200 elementos en los combos
+          para las <i>@DescriptionsList</i> usados en los filtros de las listas
+          para evitar colapsos con grandes conjuntos de datos.</li>
         <li><strong>notForTabs</strong> (opcional): <em>(Nuevo en v4m4)</em>
           Permite poner una lista de nombres de tabs entre comas. Si alguna de
           las propiedades de <em>descriptionProperties</em> se pone en alguno

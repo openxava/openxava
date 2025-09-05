@@ -53,10 +53,15 @@ public class Is {
 
 	
 	/**
-	 * Verifies if the sent object is <code>null</code> or empty string 
-	 * (if it's string) or 0 (if it's number) or empty Map. <p>
-	 * 
-	 * Since v5.9 it supports Java native arrays. 
+	 * Verifies if the sent object is null or a "neutral" value:
+	 * - Empty string
+	 * - Number zero (including BigDecimal ZERO)
+	 * - Empty-or-zero Map (see {@link Maps#isEmptyOrZero(Map)})
+	 * - Empty-or-zero Collection (see {@link XCollections#isEmptyOrZero(Collection)})
+	 * - Empty Java native array
+	 * <p>
+	 * Since v5.9 it supports Java native arrays.
+	 * Since v7.6 it supports collections.
 	 */
 	public final static boolean empty(Object object) {
 		if (object == null) return true;
@@ -64,6 +69,7 @@ public class Is {
 		if (object instanceof BigDecimal) return ZERO.compareTo((BigDecimal)object) == 0;
 		if (object instanceof Number) return ((Number) object).intValue() == 0;
 		if (object instanceof Map) return Maps.isEmptyOrZero((Map) object);
+		if (object instanceof Collection) return XCollections.isEmptyOrZero((Collection) object);
 		if (object.getClass().isArray()) return ArrayUtils.toString(object).equals("{}"); 
 		return false;
 	}

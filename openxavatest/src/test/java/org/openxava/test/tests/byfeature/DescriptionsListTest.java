@@ -5,8 +5,10 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
+ 
 
 /**
  * To test @DescriptionsList related issue with Selenium.
@@ -19,23 +21,192 @@ public class DescriptionsListTest extends WebDriverTestBase {
 	public DescriptionsListTest(String testName) {
 		super(testName);
 	}
-
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
 	}
-	
-	public void testDropDownWhenValuesHasBackSlash() throws Exception {
+
+	public void testLargeDatasetLoadedOnDemand() throws Exception { 
+		goModule("Traveler"); 
+
+		// Verify filter SELECT is limited to 200 entries before CRUD.new
+		verifyFilterSelectLimitedTo200Entries();
+
+		execute("CRUD.new");
+
+		// On entering Traveler it is in detail mode by default (no records)
+		// Verify that no autocomplete option items are loaded yet
+		List<WebElement> items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(0, items.size());
+
+		// Open lastJourney descriptions list
+		WebElement lastJourneyEditor = getDriver().findElement(By.id("ox_openxavatest_Traveler__reference_editor_lastJourney"));
+		WebElement openIcon = lastJourneyEditor.findElement(By.className("mdi-menu-down"));
+		openIcon.click();
+		Thread.sleep(700); // Wait for the first page to load, never more than 6 seconds, because it only reads the 60 first elements in server
+
+		// Now options should be loaded on demand (first page size expected: 60)
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(60, items.size());
+
+		// Close and reopen the list, it should still show 60 items
+		WebElement closeIcon = lastJourneyEditor.findElement(By.className("mdi-menu-up"));
+		closeIcon.click();
+		Thread.sleep(300); // wait for list to close
+		openIcon = lastJourneyEditor.findElement(By.className("mdi-menu-down"));
+		openIcon.click();
+		Thread.sleep(700); // wait for the first page to load again
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(60, items.size());
+
+		// Scroll to load next page and verify 120 items
+		WebElement list = getDriver().findElement(By.id(getListId(0)));
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
+		Thread.sleep(900); // wait for the next page to load
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(120, items.size());
+
+		// --- Incomplete simulation of mouse-wheel bug ---
+		// We mimic user interaction that previously exposed a wheel-related bug by:
+		// 1) Hovering a deep item (35) as a real user would (Actions + native events)
+		// 2) Forcing another lazy-load page via programmatic scrollTop change
+		// Note: This does not generate a real wheel event; it's a pragmatic approximation.
+		// Move to and then synthetically dispatch mouse events on a deeper list item (index 35)
+		WebElement itemToHover = items.get(65);
+		hoverLikeRealMouse(itemToHover);
+
+		// Then scroll again using the same working method to load next page and verify 90 items
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", list);
+		Thread.sleep(900); // wait for the next page (third) to load
+		items = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		assertEquals(180, items.size());
+		// --- End incomplete simulation block ---
+
+		// Type filter '24' in the input and verify only the expected suggestions are shown
+		WebElement lastJourneyInput = lastJourneyEditor.findElement(By.className("ui-autocomplete-input"));
+		lastJourneyInput.clear();
+		lastJourneyInput.sendKeys("2");
+		Thread.sleep(300); // To simulate slow typing
+		lastJourneyInput.sendKeys("4"); // So 24
+		Thread.sleep(9000); // Given it's calculated property all the records are loaded in server to filter, so it costs
+		List<WebElement> filtered = getDriver().findElements(By.cssSelector("li.ui-menu-item"));
+		List<String> filteredTexts = new java.util.ArrayList<>();
+		for (WebElement it : filtered) filteredTexts.add(it.getText());
+		List<String> expected = java.util.Arrays.asList(
+			"JORNEY 24",
+			"JORNEY 124",
+			"JORNEY 224",
+			"JORNEY 240",
+			"JORNEY 241"
+		);
+		assertEquals(expected, filteredTexts);
+
+		// Select one value from suggestions (JORNEY 224), set name, save, go to list and verify presence
+		for (WebElement opt : filtered) {
+			if ("JORNEY 224".equals(opt.getText())) { opt.click(); break; }
+		}
+		// Ensure input shows the chosen value
+		assertEquals("JORNEY 224", lastJourneyEditor.findElement(By.className("ui-autocomplete-input")).getAttribute("value"));
+
+		// Test filtering for nextJourney reference (uses persistent property 'name' instead of calculated 'slowName')
+		WebElement nextJourneyEditor = getDriver().findElement(By.id("ox_openxavatest_Traveler__reference_editor_nextJourney"));
+		WebElement nextJourneyOpenIcon = nextJourneyEditor.findElement(By.className("mdi-menu-down"));
+		nextJourneyOpenIcon.click();
+		Thread.sleep(700); // wait for the first page to load
+
+		// Type filter '24' in nextJourney input and verify filtering with persistent property
+		WebElement nextJourneyInput = nextJourneyEditor.findElement(By.className("ui-autocomplete-input"));
+		nextJourneyInput.clear();
+		nextJourneyInput.sendKeys("24");
+		Thread.sleep(1000); // Less time needed since it's filtering by persistent property, not calculated
+		WebElement nextJourneyList = getDriver().findElement(By.id(getListId(1))); // Get the second combo list (index 1)
+		List<WebElement> nextJourneyFiltered = nextJourneyList.findElements(By.tagName("li"));
+		List<String> nextJourneyFilteredTexts = new java.util.ArrayList<>();
+		for (WebElement it : nextJourneyFiltered) nextJourneyFilteredTexts.add(it.getText());
+		List<String> nextJourneyExpected = java.util.Arrays.asList(
+			"JORNEY 24",
+			"JORNEY 124", 
+			"JORNEY 224",
+			"JORNEY 240",
+			"JORNEY 241"
+		);
+		assertEquals(nextJourneyExpected, nextJourneyFilteredTexts);
+
+		// Select JORNEY 241 from nextJourney suggestions
+		for (WebElement opt : nextJourneyFiltered) {
+			if ("JORNEY 241".equals(opt.getText())) { opt.click(); break; }
+		}
+		// Ensure nextJourney input shows the chosen value
+		assertEquals("JORNEY 241", nextJourneyEditor.findElement(By.className("ui-autocomplete-input")).getAttribute("value"));
+
+		setValue("name", "YESICA");
+		execute("CRUD.save");
+		assertNoErrors();
+		execute("Mode.list");
+
+		// Verify in list view that YESICA, JORNEY 224 (lastJourney) and JORNEY 241 (nextJourney) appear
+		assertValueInList(0, 0, "YESICA");
+		assertValueInList(0, 1, "JORNEY 224");
+		assertValueInList(0, 3, "JORNEY 241");
+
+		// Open first row detail and verify both lastJourney and nextJourney values, and that combo has 0 loaded items
+		execute("List.viewDetail", "row=0");
+
+		WebElement lastJourneyTextField = getDescriptionsListTextField("lastJourney");
+		assertEquals("JORNEY 224", lastJourneyTextField.getAttribute("value"));
+		WebElement nextJourneyTextField = getDescriptionsListTextField("nextJourney");
+		assertEquals("JORNEY 241", nextJourneyTextField.getAttribute("value"));
+		WebElement listAfterDetail = getDriver().findElement(By.id(getListId(0)));
+		assertFalse(listAfterDetail.isDisplayed());
+		assertEquals(0, listAfterDetail.findElements(By.tagName("li")).size());
+
+		// Reset data
+		execute("CRUD.delete");
+		assertNoErrors();
+		
+		// Not do the query in the server if the combo is not opened
+		// 2 seconds for the case the system is slow, in the current implementation loading 60 elements
+		// takes +12 seconds. You can verify it manually opening the combo.
+		goModule("SlowTraveler");
+		long start = System.currentTimeMillis();
+		execute("List.viewDetail", "row=0");
+		long elapsed = System.currentTimeMillis() - start;		
+		assertTrue("List.viewDetail take less than 2 seconds, but took " + elapsed + " ms", elapsed < 2000);	
+		
+		start = System.currentTimeMillis();
+		execute("CRUD.new");
+		elapsed = System.currentTimeMillis() - start;
+		assertTrue("CRUD.new should take less than 2 seconds, but took " + elapsed + " ms", elapsed < 2000);	
+	}
+
+    // --- Helpers ---
+    private void hoverLikeRealMouse(WebElement element) throws InterruptedException {
+        // Position pointer with Actions, then dispatch native mouse events with coordinates
+        new Actions(getDriver()).moveToElement(element).perform();
+        Thread.sleep(150);
+        ((JavascriptExecutor) getDriver()).executeScript(
+            "(function(el){\n" +
+            "  const r = el.getBoundingClientRect();\n" +
+            "  const o = {bubbles:true, cancelable:true, view:window, clientX:r.left+r.width/2, clientY:r.top+r.height/2};\n" +
+            "  ['mouseover','mouseenter','mousemove'].forEach(t => el.dispatchEvent(new MouseEvent(t, o)));\n" +
+            "})(arguments[0]);\n",
+            element
+        );
+    }
+
+	public void testDropDownWhenValuesHasBackSlash() throws Exception { 
 		goModule("Carrier");
 		execute("CRUD.new");
 		WebElement drivingLicense = getDriver().findElement(By.cssSelector("i.mdi.mdi-menu-down"));
 		drivingLicense.click();
+		Thread.sleep(200);
 		WebElement dropDown = getDriver().findElement(By.cssSelector("ul.ui-menu.ui-widget.ui-widget-content.ui-autocomplete.ui-front"));
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
-	
-	public void testAutocomplete() throws Exception {
+
+	public void testAutocomplete() throws Exception { 
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
 
@@ -53,7 +224,8 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertTrue(openFamilyListIcon.isDisplayed());
 		assertFalse(closeFamilyListIcon.isDisplayed()); 
 		openFamilyListIcon.click();
-		assertTrue(familyList.isDisplayed());
+		Thread.sleep(700);
+		assertTrue(familyList.isDisplayed()); 
 		assertEquals(3, familyList.findElements(By.tagName("li")).size());
 		assertFalse(openFamilyListIcon.isDisplayed());
 		assertTrue(closeFamilyListIcon.isDisplayed());	
@@ -86,6 +258,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		WebElement subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		WebElement openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
 		openSubfamilyListIcon.click();
+		Thread.sleep(700);
 		WebElement subfamilyList = getDriver().findElement(By.id(getListId(1))); 
 		assertTrue(subfamilyList.isDisplayed());
 		List<WebElement> subfamilyListChildren = subfamilyList.findElements(By.tagName("li")); 
@@ -131,6 +304,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		familyTextField.sendKeys("ware");
 		assertEquals("ware", familyTextField.getAttribute("value"));
 		familyTextField.sendKeys(Keys.TAB);
+		Thread.sleep(100); 
 		assertEquals("", familyTextField.getAttribute("value")); 
 		
 		execute("CRUD.new");
@@ -151,6 +325,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		closeFamilyListIcon.click();
 		wait(getDriver()); 
 		openFamilyListIcon.click();
+		Thread.sleep(200); 
 		assertTrue(familyList.isDisplayed()); 
 		subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
 		openSubfamilyListIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));		
@@ -186,6 +361,29 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		XPersistence.commit();
 	}
 	
+	private void verifyFilterSelectLimitedTo200Entries() throws Exception {
+		// Find the SELECT element for the filter
+		WebElement filterSelect = getDriver().findElement(By.name("ox_openxavatest_Traveler__conditionValue___3"));
+		List<WebElement> options = filterSelect.findElements(By.tagName("option"));
+		
+		// Should have 202 entries: 1 empty + 200 JORNEY entries + 1 ETC entry
+		assertEquals("Filter SELECT should have exactly 202 entries", 202, options.size());
+		
+		// First option should be empty
+		assertEquals("", options.get(0).getAttribute("value"));
+		assertEquals("", options.get(0).getText());
+		
+		// Second option should be JORNEY 1
+		assertEquals("JORNEY 1", options.get(1).getText());
+		
+		// Penultimate option (201st, index 200) should be JORNEY 200
+		assertEquals("JORNEY 200", options.get(200).getText()); // Ordered by key because since 7.6 the order in list filter honors orderByKey in @DescriptionsList 
+		
+		// Last option should be "--- ETC ---"
+		assertEquals("", options.get(201).getAttribute("value"));
+		assertEquals("--- ETC ---", options.get(201).getText());
+	}
+
 	private WebElement getDescriptionsListTextField(String reference) {
 		WebElement referenceEditor = getDriver().findElement(By.id("ox_openxavatest_" + getModule() + "__reference_editor_" + reference));
 		return referenceEditor.findElement(By.className("ui-autocomplete-input"));

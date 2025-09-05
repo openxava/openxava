@@ -19,23 +19,10 @@ String viewObject = request.getParameter("viewObject");
 viewObject = (viewObject == null || viewObject.equals(""))?"xava_view":viewObject;
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, viewObject);
 String propertyKey = request.getParameter("propertyKey");
-//modelForId is for have a different cache for each condition
-String modelForId = "." + view.getModelName(); 
-// conditionForId is for have a different cache for each condition
-String conditionForId = request.getParameter("condition");
-if (Is.emptyString(conditionForId)) conditionForId = request.getParameter("condicion");
-conditionForId = Is.emptyString(conditionForId)?"":"." + conditionForId;
-// orderByKeyForId is for have a different cache for each orderByKey
-String orderByKeyForId = request.getParameter("orderByKey");
-if (Is.emptyString(orderByKeyForId)) orderByKeyForId = request.getParameter("ordenadoPorClave");
-orderByKeyForId = Is.emptyString(orderByKeyForId)?"":"." + orderByKeyForId;
-//orderForId is for have a different cache for each order
-String orderForId = request.getParameter("order");
-if (Is.emptyString(orderForId)) orderForId = request.getParameter("orden");
-orderForId = Is.emptyString(orderForId)?"":"." + orderForId;
 
-String descriptionsCalculatorKey = propertyKey + modelForId + conditionForId + orderByKeyForId + orderForId + ".descriptionsCalculator"; 
-DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);	
+String normalizedPropertyKey = propertyKey == null ? "" : propertyKey.replaceAll("___\\d+___", "___");
+String descriptionsCalculatorKey = "xava." + normalizedPropertyKey + ".descriptionsCalculator";
+DescriptionsCalculator calculator = (DescriptionsCalculator) request.getSession().getAttribute(descriptionsCalculatorKey);
 
 IFilter filter = null;
 String filterClass=request.getParameter("filter");
@@ -49,8 +36,6 @@ if (!Is.emptyString(filterClass)) {
 			request.getSession().setAttribute(filterKey, filter);	
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
-			System.err.println(XavaResources.getString("descriptionsEditor_filter_warning", propertyKey));
 		}
 	}
 	if (filter instanceof IRequestFilter) {
@@ -73,8 +58,6 @@ if (descriptionsFormatterClass != null) {
 			request.getSession().setAttribute(descriptionsFormatterKey, formatter);	
 		}
 		catch (Exception ex) {
-			ex.printStackTrace();
-			System.err.println(XavaResources.getString("descriptionsEditor_descriptions_formatter_warning", propertyKey));
 		}
 	}
 }
@@ -116,7 +99,54 @@ if (calculator == null) {
 	String orderByKey = request.getParameter("orderByKey");
 	if (orderByKey == null) orderByKey = request.getParameter("ordenadoPorClave");
 	calculator.setOrderByKey(orderByKey);
-	request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+    request.getSession().setAttribute(descriptionsCalculatorKey, calculator);
+}
+
+// Ensure configuration is present even if calculator existed already
+// This mirrors the DWR behavior and guarantees proper key parsing on reload
+{
+    String condParam = request.getParameter("condition");
+    if (condParam == null) condParam = request.getParameter("condicion");
+    if (!Is.emptyString(condParam)) calculator.setCondition(condParam);
+
+    String orderParam = request.getParameter("order");
+    if (orderParam == null) orderParam = request.getParameter("orden");
+    if (!Is.emptyString(orderParam)) calculator.setOrder(orderParam);
+
+    calculator.setUseConvertersInKeys(true);
+
+    String modelParam = request.getParameter("model");
+    if (modelParam == null) modelParam = request.getParameter("modelo");
+    if (!Is.emptyString(modelParam)) calculator.setModel(modelParam);
+
+    String kpParam = request.getParameter("keyProperty");
+    if (kpParam == null) kpParam = request.getParameter("propiedadClave");
+    if (!Is.emptyString(kpParam)) calculator.setKeyProperty(kpParam);
+
+    String kpsParam = request.getParameter("keyProperties");
+    if (kpsParam == null) kpsParam = request.getParameter("propiedadesClave");
+    if (!Is.emptyString(kpsParam)) calculator.setKeyProperties(kpsParam);
+
+    String dpParam = request.getParameter("descriptionProperty");
+    if (dpParam == null) dpParam = request.getParameter("propiedadDescripcion");
+    if (!Is.emptyString(dpParam)) calculator.setDescriptionProperty(dpParam);
+
+    String dpsParam = request.getParameter("descriptionProperties");
+    if (dpsParam == null) dpsParam = request.getParameter("propiedadesDescripcion");
+    if (!Is.emptyString(dpsParam)) calculator.setDescriptionProperties(dpsParam);
+
+    String obkParam = request.getParameter("orderByKey");
+    if (obkParam == null) obkParam = request.getParameter("ordenadoPorClave");
+    if (!Is.emptyString(obkParam)) calculator.setOrderByKey(obkParam);
+}
+// Ensure filters expecting application/module see them in request attributes (as in DWR)
+{
+    String appParam = request.getParameter("application");
+    if (appParam == null) appParam = request.getParameter("aplicacion");
+    String moduleParam = request.getParameter("module");
+    if (moduleParam == null) moduleParam = request.getParameter("modulo");
+    if (appParam != null) request.setAttribute("xava.application", appParam);
+    if (moduleParam != null) request.setAttribute("xava.module", moduleParam);
 }
 if (parameterValuesStereotypes != null || parameterValuesProperties != null) {	
 	java.util.Iterator it = null;
@@ -184,48 +214,39 @@ try {
     title = "";
 }
 String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
-java.util.Collection descriptions = calculator.getDescriptions();
-if (calculator.getCondition() != null && !fvalue.isEmpty()) {
-	String condition = request.getParameter("condition");
-	descriptions = calculator.getDescriptionsWithSelected(fvalue);
-	calculator.setCondition(condition);
-}
+//
+// Always use on-demand loading for better performance
+
+String selectedDescription = "";
+String selectedKey = "";
+
+// Only load the selected item if there's a value
+KeyAndDescription selectedItem = Is.emptyString(fvalue)?null:calculator.findDescriptionByKey(fvalue);
 
 boolean editable = "true".equals(request.getParameter("editable"));
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 if (editable) {		
 		String descriptionValue = request.getParameter("descriptionValue");
-		java.util.Iterator it = descriptions.iterator();
-		String selectedDescription = "";
-		String selectedKey = "";
-		StringBuffer values = new StringBuffer("[");
-		int maxDescriptionLength = 0;
-		while (it.hasNext()) {
-			KeyAndDescription cl = (KeyAndDescription) it.next();	
-			String selected = "";
-			String description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-			if (description.length() > maxDescriptionLength) maxDescriptionLength = description.length();
-			if (descriptionValue != null && descriptionValue.equals(description) || Is.equalAsString(fvalue, cl.getKey())) {
-				selected = "selected"; 
-				selectedDescription = description;
-				selectedKey = cl.getKey().toString();			
-			} 
-			values.append("{\"label\":\""); 
-			values.append(description.replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
-			values.append("\",\"value\":\""); 
-			values.append(cl.getKey().toString().replace("\\","\\\\").replaceAll("'", "&apos;").replaceAll("\"", "&Prime;")); 
-			values.append("\"}");
-			if (it.hasNext()) values.append(",");
-		} 
-		values.append("]");
-		String browser = request.getHeader("user-agent");
-		maxDescriptionLength += 5;
+		
+		// Find selected item if we have descriptions loaded
+		if (!Is.emptyString(descriptionValue)) {
+			selectedDescription = descriptionValue;
+			selectedKey = null;
+		}
+		else if (selectedItem != null) {
+			String description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
+			selectedDescription = description;
+			selectedKey = selectedItem.getKey().toString();
+		}
+		
+		// Calculate max description length for input sizing
+		int maxDescriptionLength = Math.max((selectedDescription==null?0:selectedDescription.length()) + 5, 30);
 		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 
 	%>
 	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
 	<%-- The JavaScript code depends on the order of the next elements --%>
     <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" title="<%=title%>" 
-		data-values='<%=values%>' value="<%=selectedDescription%>"/>
+        value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
 	<a class="xava_descriptions_editor_open ox-layout-descriptions-editor-handler" data-property-key='<%=propertyKey%>'><i class="mdi mdi-menu-down"></i></a> 		
@@ -233,16 +254,11 @@ if (editable) {
 	</span>
 	<% 	
 } else { 
-	Object description = "";
-	java.util.Iterator it = descriptions.iterator();
-	while (it.hasNext()) {
-		KeyAndDescription cl = (KeyAndDescription) it.next();
-		if (Is.equalAsString(fvalue, cl.getKey())) {							
-			description = formatter==null?cl.getDescription().toString():formatter.format(request, cl.getDescription());
-			break;
-		}
-	}	
-	if (label) {
+    Object description = "";
+    if (selectedItem != null) {
+		description = formatter==null?selectedItem.getDescription().toString():formatter.format(request, selectedItem.getDescription());
+    }
+    if (label) {
 %>
 
 <%

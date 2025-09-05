@@ -1021,7 +1021,7 @@ public class Strings {
 		if (!(sentence.startsWith("\"") && sentence.endsWith("\""))) return sentence;
 		return sentence.substring(1, sentence.length() - 1);
 	}
-	
+
 	/**
 	 * Extract variables names inside ${} from a text. <p>
 	 * 
@@ -1031,7 +1031,7 @@ public class Strings {
 	 * @param text  Text to examine, can be null.
 	 * @return The collection with the variable names, it never will be null.
 	 * @since 6.5.1
-	 */
+	 */	
 	public static Collection<String> extractVariables(String text) { 
 		return extractVariables(text, "${", "}");
 	}
@@ -1052,15 +1052,65 @@ public class Strings {
 	public static Collection<String> extractVariables(String text, String startDelimiter, String endDelimiter) { 
 		if (text == null) return Collections.emptyList();
 		// Pattern.compile is to slow, so we use a simple algorithm
-        Collection<String> variables = new ArrayList<>();
-        int i = text.indexOf(startDelimiter);
-        int f = text.indexOf(endDelimiter);
-        while (i >= 0 && f >= 0) {
-        	variables.add(text.substring(i+2, f));
-            i = text.indexOf(startDelimiter, f);
-            f = text.indexOf(endDelimiter, f+1);
-        }
-        return variables;
+		Collection<String> variables = new ArrayList<>();
+		int i = text.indexOf(startDelimiter);
+		int f = text.indexOf(endDelimiter);
+		while (i >= 0 && f >= 0) {
+			variables.add(text.substring(i+startDelimiter.length(), f));
+			i = text.indexOf(startDelimiter, f);
+			f = text.indexOf(endDelimiter, f+1);
+		}
+		return variables;
 	}
-	
+
+	/**
+	 * Wrap each variable name in the list with ${}, preserving optional suffixes, like ASC/DESC. <p>
+	 *
+	 * Examples:
+	 * - "number, name" -> "${number}, ${name}"
+	 * - "number desc" -> "${number} desc"
+	 * - "${number} desc" -> "${number} desc" (left intact)
+	 * - "customer.name, ${code} asc" -> "${customer.name}, ${code} asc"
+	 *
+	 * @param listOfVariables List of comma-separated variable names, optionally with a suffix like ASC/DESC
+	 * @return The list with each variable wrapped; never null
+	 * @since 7.6
+	 */
+	public static String wrapVariables(String listOfVariables) {
+		if (listOfVariables == null) return "";
+
+		String[] parts = listOfVariables.split(",");
+		StringBuilder result = new StringBuilder();
+
+		for (int i = 0; i < parts.length; i++) {
+			String token = parts[i] == null ? "" : parts[i].trim();
+			if (token.length() == 0) continue; // skip empties gracefully
+
+			// Split into field and optional suffix (e.g., ASC/DESC)
+			String field = token;
+			String suffix = "";
+			int ws = -1;
+			for (int j = 0; j < token.length(); j++) {
+				if (Character.isWhitespace(token.charAt(j))) { ws = j; break; }
+			}
+			if (ws >= 0) {
+				field = token.substring(0, ws).trim();
+				suffix = token.substring(ws).trim(); // may be "asc" / "desc" (any case)
+			}
+
+			// If field already wrapped like ${...} leave it as-is; otherwise wrap it
+			String wrappedField = (field.startsWith("${") && field.endsWith("}"))
+				? field
+				: ("${" + field + "}");
+
+			if (result.length() > 0) result.append(", ");
+			result.append(wrappedField);
+			if (!Is.emptyString(suffix)) {
+				result.append(' ').append(suffix);
+			}
+		}
+
+		return result.toString();
+	}
+
 }

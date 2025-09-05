@@ -24,7 +24,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertNoEditable("delivery.date");
 		assertEditable("amount");
 		assertValue("delivery.KEY", "[.2.2004.666.1.]");
-		assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
+		assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
 		assertValue("delivery.invoice.year", "2004");
 		assertValue("delivery.type.number", "1");
 		assertValue("delivery.date", "2/22/2004");
@@ -60,7 +60,7 @@ public class TransportChargeWithDescriptionsListShowingReferenceViewTest extends
 		assertValueInList(2, 3, "799.00");
 		execute("List.viewDetail", "row=2");
 		assertValue("delivery.KEY", "[.2.2004.777.2.]");
-		assertDescriptionValue("delivery.KEY", "FOR TEST SEARCHING BY DESCRIPTION 6/23/06");
+		assertDescriptionValue("delivery.KEY", "FOR TEST SEARCHING BY DESCRIPTION 6/23/2006");
 		assertValue("delivery.invoice.year", "2004");
 		assertValue("delivery.invoice.date", "1/4/2004"); 
 		assertValue("delivery.type.number", "2");

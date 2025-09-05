@@ -1,10 +1,7 @@
 package org.openxava.test.model;
 
-import java.util.*;
-
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -12,6 +9,8 @@ import org.openxava.annotations.*;
  * @author Javier Paniza
  */
 
+@Tab(properties="name, averageSpeed.speed, description")
+@View(members="name; averageSpeed; description")
 @Entity
 public class Journey {
 	
@@ -26,6 +25,39 @@ public class Journey {
 		
 	@Column(length=40)
 	private String description;
+
+	public String getSlowName() { // To test on demand fetch in server side
+		if (name != null) {
+			String[] parts = name.trim().split("\\s+");
+			if (parts.length >= 2) {
+				try {
+					int n = Integer.parseInt(parts[1]);
+					if (n > 180) {
+						Thread.sleep(100);
+					}
+				}
+				catch (NumberFormatException ignore) {
+					// Not a number, ignore
+				}
+				catch (InterruptedException e) {
+				}
+			}
+		}
+		return name;
+	}
+
+	// Always slow even with the first elements, to test a case. 
+	// Currently +12 seconds, but never less than 2 seconds (DescriptionsListTest.testLargeDatasetLoadedOnDemand()).
+	// You can test it is slow, opening the combo in SlowTraveler.
+	public String getUltraSlowName() { 
+		try {
+			Thread.sleep(200); // So even the first 30 items take 6 seconds to load
+		}
+		catch (InterruptedException e) {
+		}
+		return name;
+	}
+
 	
 	@PrePersist
 	private void generateOid() { 
@@ -63,5 +95,5 @@ public class Journey {
 	public void setAverageSpeed(AverageSpeed averageSpeed) {
 		this.averageSpeed = averageSpeed;
 	}
-	
+		
 }

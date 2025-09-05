@@ -120,5 +120,36 @@ public class XCollections {
 		Object fromValue = list.remove(from);		
 		list.add(to, fromValue);			
 	}
-	
+
+    /**
+     * It's empty if is null, without elements, with null elements or
+     * elements with neutral value (empty strings, collections, nulls or zeroes).
+     * Mirrors {@link Maps#isEmptyOrZero(Map)} semantics for collections.
+     *
+     * Numeric values with value 0 are considered empty.
+     *
+     * @param values Can be null.
+     * @since 7.6
+     */
+    public static boolean isEmptyOrZero(Collection values) {
+        if (values == null) return true;
+        if (values.size() == 0) return true;
+        for (Object value : values) {
+            if (value instanceof String) {
+                if (!((String) value).trim().equals("")) return false;
+            }
+            else if (value instanceof Number) {
+                if (((Number) value).intValue() != 0) return false;
+            }
+            else if (value instanceof Map) {
+                if (!Maps.isEmptyOrZero((Map) value)) return false;
+            }
+            else if (value instanceof Collection) {
+                if (!XCollections.isEmptyOrZero((Collection) value)) return false;
+            }
+            else if (value != null) return false;
+        }
+        return true;
+    }
+
 }

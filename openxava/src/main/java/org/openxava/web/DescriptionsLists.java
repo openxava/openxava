@@ -1,17 +1,11 @@
 package org.openxava.web;
 
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
-import org.openxava.model.meta.MetaModel;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.model.meta.MetaReference;
-import org.openxava.util.Messages;
-import org.openxava.util.Strings;
+import org.openxava.model.meta.*;
+import org.openxava.util.*;
 
 /**
  * Created on 21/08/2009
@@ -49,29 +43,18 @@ public class DescriptionsLists {
 	public static void fillReferenceValues(Map referenceValues, MetaReference ref, String value, 
 			String qualifier, String propertyPrefix, HttpServletRequest request, 
 			Messages errors, String viewName, boolean emptyIfNotBracketed) {
-		
 		MetaModel metaModel = ref.getMetaModelReferenced();
-		if (!value.startsWith("[")) {
-			value = emptyIfNotBracketed ? "" : "[." + value + ".]";
-		}
-		StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
-		
+		Map<String, Object> parsed = parseKeyValues(metaModel, value, request, errors, viewName, emptyIfNotBracketed);
 		for (String propertyName: metaModel.getAllKeyPropertiesNames()) {
-			MetaProperty p = metaModel.getMetaProperty(propertyName);			 								
-			Object propertyValue = null;
-			
-			if (st.hasMoreTokens()) { // if not then null is assumed. This is a case of empty value
-				String stringPropertyValue = st.nextToken();
-				propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);								
-			}			
-			
-			if (WebEditors.mustToFormat(p, viewName)) {				
-				if (qualifier != null) { 
-					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value"; 
+			MetaProperty p = metaModel.getMetaProperty(propertyName);
+			Object propertyValue = parsed.get(propertyName);
+			if (WebEditors.mustToFormat(p, viewName)) {
+				if (qualifier != null) {
+					String valueKey = qualifier + "." + ref.getName() + "." + propertyName + ".value";
 					request.setAttribute(valueKey, propertyValue);
 				}
 				referenceValues.put(propertyPrefix==null?propertyName:propertyPrefix + propertyName, propertyValue);
-			}								
+			}
 		}
 	}
 	
@@ -95,5 +78,81 @@ public class DescriptionsLists {
 		// By default, use the Tab behavior (wrap with brackets)
 		fillReferenceValues(referenceValues, ref, value, qualifier, propertyPrefix, 
 			request, errors, viewName, false);
+	}
+
+	/**
+	 * Parses a key string using MetaModel key properties. <p>
+	 * 
+	 * It can be a composite key like "[.1.4.]" or a simple key like "1".
+	 * Values are parsed via WebEditors.parse() to ensure consistency with editors.
+	 *
+	 * @since 7.6
+	 */
+	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value, 
+			HttpServletRequest request, Messages errors, String viewName, boolean emptyIfNotBracketed) {
+		// Delegate to the generic overload using the MetaModel key properties
+		return parseKeyValues(metaModel, metaModel.getAllKeyPropertiesNames(), value, request, errors, viewName, emptyIfNotBracketed);
+	}
+
+	/**
+	 * Convenience overload to parse composite key values without providing request/view. <p>
+	 * 
+	 * It can be a composite key like "[.1.4.]" or a simple key like "1".
+	 * Uses default behavior for Tab (wrap with brackets if needed).
+	 *
+	 * @since 7.6
+	 */
+	public static Map<String, Object> parseKeyValues(MetaModel metaModel, String value) {
+		return parseKeyValues(metaModel, value, null, new Messages(), null, false);
+	}
+
+    /**
+     * Parses a key string using the given key property names instead of the MetaModel primary key.
+     * Reuses the same parsing logic to keep behavior consistent.
+     *
+     * @since 7.6
+     */
+    public static Map<String, Object> parseKeyValues(MetaModel metaModel, Collection<String> keyPropertiesNames, String value,
+            HttpServletRequest request, Messages errors, String viewName, boolean emptyIfNotBracketed) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (value == null) return result;
+        if (!value.startsWith("[")) {
+            value = emptyIfNotBracketed ? "" : "[." + value + ".]";
+        }
+        StringTokenizer st = new StringTokenizer(Strings.change(value, "..", ". ."), "[.]");
+        for (String propertyName: keyPropertiesNames) {
+            MetaProperty p = metaModel.getMetaProperty(propertyName);
+            Object propertyValue = null;
+            if (st.hasMoreTokens()) {
+                String stringPropertyValue = st.nextToken();
+                if ("null".equals(stringPropertyValue)) {
+                    propertyValue = null;
+                }
+                else {
+                    propertyValue = WebEditors.parse(request, p, stringPropertyValue, errors, viewName);
+                }
+            }
+            result.put(propertyName, propertyValue);
+        }
+        return result;
+    }
+
+    /**
+     * Convenience overload to parse using provided key property names without request/view.
+     *
+     * @since 7.6
+     */
+    public static Map<String, Object> parseKeyValues(MetaModel metaModel, Collection<String> keyPropertiesNames, String value) {
+        return parseKeyValues(metaModel, keyPropertiesNames, value, null, new Messages(), null, false);
+    }
+
+	/**
+	 * Overload to fill a provided map with parsed key values using only MetaModel.
+	 * Delegates to parseCompositeKeyValues to avoid duplicating parsing logic.
+	 *
+	 * @since 7.6
+	 */
+	public static void fillReferenceValues(Map<String, Object> values, MetaModel metaModel, String value) {
+		values.putAll(parseKeyValues(metaModel, value));
 	}
 }

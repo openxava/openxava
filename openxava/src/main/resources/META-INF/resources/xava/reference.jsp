@@ -109,9 +109,8 @@ else {
 		}
 	}
 	if (!composite) { 
-		String key = ref.getMetaModelReferenced().toString(values); 
-		String fvalue = key==null?"0":key;
-		request.setAttribute(propertyKey + ".fvalue", fvalue);
+		String key = ref.getMetaModelReferenced().toString(values);
+		request.setAttribute(propertyKey + ".fvalue", key); 
 	}
 	keyProperties = sb.toString();
 }

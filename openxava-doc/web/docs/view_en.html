@@ -10253,9 +10253,11 @@ public class UpdateWarehouseFromReferenceAction extends UpdateAction {
       With <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DescriptionsList.html"
 
           rel="nofollow">@DescriptionsList</a></em> you can instruct OpenXava to
-      visualize references as a descriptions list (actually a combo). This can
-      be useful, if there are only a few elements and these elements have a
-      significant name or description.<br>
+      visualize references as a descriptions list (actually a combo). This can be 
+      practical when there is a meaningful name or description. Traditionally, it 
+      has worked well with few values; however, starting with version 7.6, its 
+      implementation supports very large datasets—even millions of records—with 
+      good performance.<br>
       The syntax is:<br>
       <style type="text/css"><!--
 /**
@@ -10501,7 +10503,10 @@ class="st0">"true|false"</span>,      <span class="co1">// 7 New in v5.5</span>
         <li><strong>forTabs</strong> (optional): <em>(New in v4m4)</em> Allows
           to specify multiple tab names separated by commas. If any of the
           properties from <em>descriptionProperties</em> is in any of these
-          tabs the filter part will be shown with a description list.</li>
+          tabs the filter part will be shown with a description list.
+          Starting from <i>v7.6</i>, only up to 200 items are loaded in the combos
+          for the <i>@DescriptionsList</i> used in list filters
+          to avoid crashes with large data sets.</li>
         <li><strong>notForTabs</strong> (optional): <em>(New in v4m4)</em>
           Allows to specify multiple tab names separated by commas. If any of
           the properties from <em>descriptionProperties</em> is in any of these
