@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Manecilla de abrir y cerrar menú de módulos chata.
 - Icono de mover columnas (la cruz) descolocado.
 - Color verde en icono para abrir combo en la lista (Product2EditableList)
 - Migración a nivel de código, para evitar "migration". 
@@ -29,4 +28,5 @@ Pending Material Design Icons upgrade
 		- Current Material Design Icons version, that is 4.9.95.
 		- We're going to update to 7.4.47.	
 		- Fix: Imágenes en acciones de colección salen descolocadas (alienadas arriba).
+		- Asidor para abrir y cerrar menú de módulos es transparente.
 - Borrar este archivo.

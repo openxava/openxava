@@ -2922,8 +2922,9 @@ div[id$="_Index__view"] .ox-list-title {
 	top: 50%;
 	background: var(--module-list-hide-show-background);	
     border-radius: 100px;
-    padding: 3px;
+    padding: 9px 3px 6px 3px;
     z-index: 1; 
+	opacity: 0.6;
 }
 
 #modules_list_hide {
