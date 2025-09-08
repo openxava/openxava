@@ -5,9 +5,9 @@ Pending Material Design Icons upgrade
 - Revisar por qué no gira el icono de cargando.
 - Invoice2 Nuevo en línea sale descolocado.
 - Probar acción con takes-long="true".
-- Subrayado de modos descolocado.
 - Manecilla de abrir y cerrar menú de módulos chata.
 - Icono de mover columnas (la cruz) descolocado.
+- Color verde en icono para abrir combo en la lista (Product2EditableList)
 - Migración a nivel de código, para evitar "migration". 
 	- ¿Para todos los de su guía? 
 		- ¿Por qué no? Porque son desatinados o inexistentes.
@@ -27,6 +27,7 @@ Pending Material Design Icons upgrade
 			- Other places:
 				- settings 		--> cog	
 		- Put a link to their migration guide in our migration guide.
+		- Puede que sean necesarios cambios en padding y margin.
 	- Changelog:
 		- Current Material Design Icons version, that is 4.9.95.
 		- We're going to update to 7.4.47.	
