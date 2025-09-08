@@ -1,12 +1,10 @@
 package org.openxava.controller.meta;
 
-
 import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
-
 
 public class MetaController extends MetaElement {
 	private static Log log = LogFactory.getLog(MetaController.class);
@@ -351,7 +349,7 @@ public class MetaController extends MetaElement {
 	}
 
 	public String getIcon() {
-		return icon;
+		return MdiIconMapper.map(icon);
 	}
 
 	public void setIcon(String icon) {

@@ -33,7 +33,8 @@ public abstract class MetaControllerElement extends MetaElement{
 	}
 	
 	public String getIcon() {
-		return icon;
+		// Map legacy icon names to current ones transparently
+		return MdiIconMapper.map(icon);
 	}
 	
 	public void setIcon(String icon) {
