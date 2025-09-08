@@ -965,10 +965,14 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	padding: 6px 4px 6px 6px; 
 }
 
-.ox-button-bar .ox-button-bar-button a img {
+.ox-button-bar .ox-button-bar-button a img, 
+.ox-collection-list-actions .ox-button-bar-button a img {
 	vertical-align: text-top;  
-	padding-left: 7px;
 	max-height: 16px;
+} 
+
+.ox-button-bar .ox-button-bar-button a img {
+	padding-left: 7px;
 } 
 
 .ox-button-bar > div:first-child > span:first-child {

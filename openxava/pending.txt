@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Invoice2 Nuevo en línea sale descolocado.
 - Manecilla de abrir y cerrar menú de módulos chata.
 - Icono de mover columnas (la cruz) descolocado.
 - Color verde en icono para abrir combo en la lista (Product2EditableList)
@@ -9,6 +8,8 @@ Pending Material Design Icons upgrade
 	- ¿Para todos los de su guía? 
 		- ¿Por qué no? Porque son desatinados o inexistentes.
 		- Pero podría hacer primero mis conversiones y después las suyas.
+	- Corporation: Nuevo en colección de empleado no tiene icono. ¿Se arregla con esto?
+	- ¿Se puede testear automáticamente?
 - Upgrade the ICON editor to include new icons.
 - Suite.
 - Documentación:
@@ -27,4 +28,5 @@ Pending Material Design Icons upgrade
 	- Changelog:
 		- Current Material Design Icons version, that is 4.9.95.
 		- We're going to update to 7.4.47.	
+		- Fix: Imágenes en acciones de colección salen descolocadas (alienadas arriba).
 - Borrar este archivo.
