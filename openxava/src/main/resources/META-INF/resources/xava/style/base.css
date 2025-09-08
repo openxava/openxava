@@ -1139,7 +1139,7 @@ i.module-loading  {
 .ox-button-bar .ox-button-bar-button a:hover, 
 .ox-collection-list-actions .ox-button-bar-button a:hover, 
 .ox-subcontroller-select a, .ox-list-formats i:hover,
-.ox-button-bar a:hover i, .ox-collection-list-actions a:hover i {   
+.ox-collection-list-actions a:hover i {   
 	color: var(--button-bar-button-hover-color);
 	background: var(--button-bar-button-hover-background);
 	border-color: var(--button-bar-button-hover-border);

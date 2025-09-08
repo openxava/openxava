@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Over sobre subcontrolador saca una esquinita. En Invoice > Imprimir
 - Revisar por qué no gira el icono de cargando.
 - Invoice2 Nuevo en línea sale descolocado.
 - Probar acción con takes-long="true".
