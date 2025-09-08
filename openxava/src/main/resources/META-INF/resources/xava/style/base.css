@@ -2060,6 +2060,7 @@ div.ox-subcontroller table{
 .ox-resize-columns .xava_handle {
 	position: absolute;
 	left: 0;
+	padding-top: 0;
 	color: var(--customize-controls-column-icon-color);
 	background: var(--customize-controls-color);
 	background:linear-gradient(to right, var(--customize-controls-color), transparent);

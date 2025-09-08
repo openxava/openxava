@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Icono de mover columnas (la cruz) descolocado.
 - Color verde en icono para abrir combo en la lista (Product2EditableList)
 - Migración a nivel de código, para evitar "migration". 
 	- ¿Para todos los de su guía? 
