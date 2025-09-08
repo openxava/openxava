@@ -361,6 +361,9 @@ input[type="checkbox"] {
 
 .spin:before {
 	animation: spin 1s infinite linear;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: top;
 }
 
 @keyframes spin {
@@ -383,9 +386,11 @@ input[type="checkbox"] {
 }
 
 #xava_processing_layer i {
-	margin: 20px 40px 0px 40px;
-	font-size: 600%;
-	color: var(--xava-processing-layer-color);
+    margin: 20px 40px 0px 40px;
+    font-size: 600%;
+    color: var(--xava-processing-layer-color);
+    display: inline-block;
+    line-height: 1;
 }
 
 #theme_chooser {

@@ -208,7 +208,7 @@ if (manager.isResetFormPostNeeded()) {
 			
 	<%-- Layer for progress bar --%>
 	<div id='xava_processing_layer'>
-		<%=XavaResources.getString(request, "processing")%><br/>
+		<div><%=XavaResources.getString(request, "processing")%></div>
 		<i class="mdi mdi-cog spin"></i>
 	</div>	
 	<%=style.getCoreStartDecoration()%>

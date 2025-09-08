@@ -2,7 +2,6 @@ Pending Material Design Icons upgrade
 -------------------------------------
 
 - Invoice2 Nuevo en línea sale descolocado.
-- Probar acción con takes-long="true".
 - Manecilla de abrir y cerrar menú de módulos chata.
 - Icono de mover columnas (la cruz) descolocado.
 - Color verde en icono para abrir combo en la lista (Product2EditableList)
@@ -11,7 +10,6 @@ Pending Material Design Icons upgrade
 		- ¿Por qué no? Porque son desatinados o inexistentes.
 		- Pero podría hacer primero mis conversiones y después las suyas.
 - Upgrade the ICON editor to include new icons.
-- Probar en Chrome y Firefox.
 - Suite.
 - Documentación:
 	- Link to their new site in the doc: https://pictogrammers.com/library/mdi/
