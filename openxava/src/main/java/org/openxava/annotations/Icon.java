@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * A field that display an icon, the user can change the icon. <p>
  * 
- * The icon is stored as an id from <a href="https://materialdesignicons.com/">Material Design Icons</a><br>
+ * The icon is stored as an id from <a href="https://pictogrammers.com/library/mdi/">Material Design Icons</a><br>
  *  
  * The user can change the icon with a dialog to choose among all available icons.<br>
  * 

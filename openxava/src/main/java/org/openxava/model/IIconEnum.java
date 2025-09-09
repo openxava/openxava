@@ -21,7 +21,7 @@ package org.openxava.model;
 	};
  * </pre>
  * Just make your enum to implement IIconEnum that forces you to have a getIcon() method. 
- * This method has to return an icon id from <a href="https://materialdesignicons.com/">Material Design Icons</a>. 
+ * This method has to return an icon id from <a href="https://pictogrammers.com/library/mdi/">Material Design Icons</a>. 
  * OpenXava can use these icons in several parts of the UI.
  * 
  * @since 6.3
@@ -30,7 +30,7 @@ package org.openxava.model;
 public interface IIconEnum {
 	
 	/**
-	 * Icon id from <a href="https://materialdesignicons.com/">Material Design Icons</a>.
+	 * Icon id from <a href="https://pictogrammers.com/library/mdi/">Material Design Icons</a>.
 	 */
 	String getIcon();
 
