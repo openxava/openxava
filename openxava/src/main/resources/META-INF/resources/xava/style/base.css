@@ -2514,6 +2514,10 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	padding: 10px;
 	color: var(--icons-list-i-color);
 	border-radius: 5px;
+	display: inline-block; 
+	line-height: 1; 
+	vertical-align: top; 
+	margin-bottom: 6px; 
 }
 
 .ox-icon-in-list i {

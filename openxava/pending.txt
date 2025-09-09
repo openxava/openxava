@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Upgrade the ICON editor to include new icons.
 - Suite.
 - Documentación:
 	- Link to their new site in the doc: https://pictogrammers.com/library/mdi/
@@ -21,4 +20,5 @@ Pending Material Design Icons upgrade
 		- We're going to update to 7.4.47.	
 		- Fix: Imágenes en acciones de colección salen descolocadas (alienadas arriba).
 		- Asidor para abrir y cerrar menú de módulos es transparente.
+		- ICON editor to include new icons.
 - Borrar este archivo.
