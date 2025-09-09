@@ -1,4 +1,4 @@
-<?xml version = "1.0" encoding = "ISO-8859-1"?>
+﻿<?xml version = "1.0" encoding = "ISO-8859-1"?>
 
 <!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
 
@@ -27,7 +27,7 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     <!-- Controller:
     <controller name="Teacher">
     	<extends controller="Typical"/>
-    	<action name="new" icon="library-plus" keystroke="Control N"
+    	<action name="new" icon="plus-box-multiple" keystroke="Control N"
         	class="actions.CreateTeacher">
     	</action>
 	</controller>    

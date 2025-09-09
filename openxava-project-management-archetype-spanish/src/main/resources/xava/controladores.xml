@@ -27,14 +27,14 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     <!-- Controlador:
     <controlador nombre="Profesor">
         <hereda-de controlador="Typical"/>
-        <accion nombre="new" icono="library-plus" atajo-de-teclado="Control N" 
+        <accion nombre="new" icono="plus-box-multiple" atajo-de-teclado="Control N" 
                 clase="acciones.CrearProfesor"/>        
     </controlador>
     -->
     
     <controlador nombre="IncidenciasVersion">
     	<accion nombre="new" oculta="true"
-			icono="library-plus"
+			icono="plus-box-multiple"
 			clase="com.tuempresa.tuaplicacion.acciones.CrearNuevaIncidenciaEnVersion"/>
 	</controlador>
     
@@ -44,7 +44,7 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 		<accion nombre="new" 
 			clase="com.tuempresa.tuaplicacion.acciones.CrearNuevaIncidenciaDesdeMiCalendario"
 			imagen="new.gif"
-			icono="library-plus"
+			icono="plus-box-multiple"
 			atajo-de-teclado="Control N"
 			pierde-datos-cambiados="true">
 			<poner propiedad="restoreModel" valor="true"/>						

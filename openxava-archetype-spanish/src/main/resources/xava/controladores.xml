@@ -27,7 +27,7 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     <!-- Controlador:
     <controlador nombre="Profesor">
         <hereda-de controlador="Typical"/>
-        <accion nombre="new" icono="library-plus" atajo-de-teclado="Control N" 
+        <accion nombre="new" icono="plus-box-multiple" atajo-de-teclado="Control N" 
                 clase="acciones.CrearProfesor"/>        
     </controlador>
     -->
