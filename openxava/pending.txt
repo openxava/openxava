@@ -1,7 +1,6 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Suite. 
 - Actualizar invoicedemo y arquetipos donde se use @LargeDisplay
 - Documentación:
 	- Comprobar los usos en @LargeDisplay.
