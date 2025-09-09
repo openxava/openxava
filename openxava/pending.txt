@@ -1,16 +1,13 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Conversión automática de @LargeDisplay.
-	- TMR ME QUEDÉ POR AQUÍ, DEBERÍA PROBAR LOS DASHBOARDS
-	- Prueba automática.
 - Suite. 
 - Actualizar invoicedemo y arquetipos donde se use @LargeDisplay
 - Documentación:
 	- Comprobar los usos en @LargeDisplay.
 	- Comprobar referencia a iconos renombrados.
 	- Migración:
-		- Icons changes: No hace falta porque es automático.
+		- Icons changes: No hace falta porque es automático para @Icon, @LargeDisplay y acciones en controladores.xml.
 			- In stantard actions:
 				- library-plus 	--> plus-box-multiple
 				- library-books --> text-box-multiple (filmstrip-box era la sugerida)
