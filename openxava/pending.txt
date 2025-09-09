@@ -1,20 +1,13 @@
 Pending Material Design Icons upgrade
 -------------------------------------
 
-- Migración a nivel de código, para evitar "migration". 
-	- ¿Para todos los de su guía? 
-		- ¿Por qué no? Porque son desatinados o inexistentes.
-		- Pero podría hacer primero mis conversiones y después las suyas.
-	- Event: Un ejemplo para reproducir
-	- Corporation: Nuevo en colección de empleado no tiene icono. ¿Se arregla con esto?
-	- ¿Se puede testear automáticamente?
 - Upgrade the ICON editor to include new icons.
 - Suite.
 - Documentación:
 	- Link to their new site in the doc: https://pictogrammers.com/library/mdi/
 	- Comprobar referencia a iconos renombrados.
 	- Migración:
-		- Icons changes:
+		- Icons changes: No hace falta porque es automático.
 			- In stantard actions:
 				- library-plus 	--> plus-box-multiple
 				- library-books --> text-box-multiple (filmstrip-box era la sugerida)

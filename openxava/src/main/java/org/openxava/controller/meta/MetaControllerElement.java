@@ -33,9 +33,9 @@ public abstract class MetaControllerElement extends MetaElement{
 	}
 	
 	public String getIcon() {
-		// Map legacy icon names to current ones transparently
-		return MdiIconMapper.map(icon);
-	}
+        // Map legacy icon names to current ones transparently
+        return MDIIconMapper.map(icon);
+    }
 	
 	public void setIcon(String icon) {
 		this.icon = icon;

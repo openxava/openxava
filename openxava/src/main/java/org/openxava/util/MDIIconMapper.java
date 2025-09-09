@@ -18,14 +18,14 @@ import java.util.Properties;
  *
  * If no mapping is found for a given icon, the original name is returned.
  *
- * @author Javier Paniza / Cascade
- * @since 7.5
+ * @author Javier Paniza
+ * @since 7.6
  */
-public final class MdiIconMapper {
+public final class MDIIconMapper {
 
     private static volatile Map<String, String> MAP;
 
-    private MdiIconMapper() {
+    private MDIIconMapper() {
     }
 
     /**
@@ -42,7 +42,7 @@ public final class MdiIconMapper {
 
     private static void ensureLoaded() {
         if (MAP != null) return;
-        synchronized (MdiIconMapper.class) {
+        synchronized (MDIIconMapper.class) {
             if (MAP != null) return;
             MAP = loadMapping();
         }
@@ -51,7 +51,7 @@ public final class MdiIconMapper {
     private static Map<String, String> loadMapping() {
         // Load from classpath so applications can override by providing their own resource
         String resource = "/xava-mdi-icon-mapping.properties";
-        try (InputStream in = MdiIconMapper.class.getResourceAsStream(resource)) {
+        try (InputStream in = MDIIconMapper.class.getResourceAsStream(resource)) {
             if (in == null) {
                 return Collections.emptyMap();
             }

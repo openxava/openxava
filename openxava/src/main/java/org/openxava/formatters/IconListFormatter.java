@@ -14,7 +14,7 @@ public class IconListFormatter extends BaseFormatter  {
 		if (object == null) return "";
 		Style style = (Style) request.getAttribute("style"); 
 		String icon = object.toString();
-		icon = MdiIconMapper.map(icon);
+		icon = MDIIconMapper.map(icon);
 		return "<span class='" + style.getIconInList() + "'><i class='mdi mdi-" + icon + "'></i></span>";
 	}
 

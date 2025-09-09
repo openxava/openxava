@@ -349,7 +349,7 @@ public class MetaController extends MetaElement {
 	}
 
 	public String getIcon() {
-		return MdiIconMapper.map(icon);
+		return MDIIconMapper.map(icon);
 	}
 
 	public void setIcon(String icon) {
