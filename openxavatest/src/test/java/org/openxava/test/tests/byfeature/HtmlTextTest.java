@@ -16,7 +16,7 @@ public class HtmlTextTest extends WebDriverTestBase {
 	
 	public void testEditLinkFromDialog() throws Exception {
 		goModule("IncidentActivity");
-		WebElement createNewIncidentButton = getDriver().findElement(By.cssSelector(".ox-image-link .mdi-library-plus"));
+		WebElement createNewIncidentButton = getDriver().findElement(By.cssSelector(".ox-image-link .mdi-plus-box-multiple"));
 		createNewIncidentButton.click();
 		wait(getDriver());
 		

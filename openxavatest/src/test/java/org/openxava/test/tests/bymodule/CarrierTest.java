@@ -568,7 +568,7 @@ public class CarrierTest extends CarrierTestBase {
 		assertEquals("ox-frame-title", frameHeader.getAttribute("class"));
 		String actionsXml = frameHeader.asXml();
 		assertTrue(actionsXml.contains("<i class=\"mdi mdi-magnify"));
-		assertTrue(actionsXml.contains("<i class=\"mdi mdi-library-plus"));
+		assertTrue(actionsXml.contains("<i class=\"mdi mdi-plus-box-multiple"));
 		assertTrue(actionsXml.contains("images/create_new.gif"));
 	}
 	
