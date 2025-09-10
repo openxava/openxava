@@ -2,7 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 
-TMR ME QUEDÉ PARA LANZAR LA SUITE OTRA VEZ
+TMR FALTA LANZAR LA SUITE CON JAVA 8
 - Hay 3 vulnerabilidades, 2 de ellas altas.
 - commons-validator 1.10.0
 - commons-fileupload 1.6.0
@@ -16,7 +16,7 @@ TMR ME QUEDÉ PARA LANZAR LA SUITE OTRA VEZ
 - Tomcat 9.0.109
 - log4j 2.25.1
 - json 20250517
-- commons-lang eliminada. Añadimos (ya existía, de forma transitiva) Commons Lang 3 3.18.0. EN MIGRACIÓN.
+- commons-lang eliminada. Aï¿½adimos (ya existï¿½a, de forma transitiva) Commons Lang 3 3.18.0. EN MIGRACIï¿½N.
 PROBAR PRUEBA MANUALES JASPERREPORTS
 
 - Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.

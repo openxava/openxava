@@ -207,11 +207,11 @@ abstract public class ModuleTestBase extends TestCase {
 			else if (input instanceof HtmlHiddenInput) {
 				input.setValue(value);
 				DomElement previousElement = input.getPreviousElementSibling();
-				if (previousElement instanceof HtmlInput && previousElement.hasAttribute("data-values")) { // It's an autocomplete
+				if (previousElement instanceof HtmlInput && previousElement.getAttribute("class") != null && previousElement.getAttribute("class").contains("ui-autocomplete-input")) { // It's an autocomplete
 					HtmlInput autocomplete = (HtmlInput) previousElement;
 					autocomplete.setValue("Some things"); // A trick to avoid that JavaScript reset the real value
 					((HtmlInput) input.getNextElementSibling()).setValue("Some things"); // A trick to avoid that JavaScript reset the real value
-				}				
+				}
 			}
 			else {
 				input.setValue(value);				
@@ -2498,7 +2498,7 @@ abstract public class ModuleTestBase extends TestCase {
 			page.executeJavaScript(clearAndOpenJs);
 		} catch (Exception ignore) { }
 		client.waitForBackgroundJavaScriptStartingBefore(1500);
-		try { Thread.sleep(200); } catch (InterruptedException ie) { }
+		try { Thread.sleep(200); } catch (InterruptedException ie) { }		
 
 		List<KeyAndDescription> validValues = new ArrayList<KeyAndDescription>();
 		String decoratedId = decorateId(name);
