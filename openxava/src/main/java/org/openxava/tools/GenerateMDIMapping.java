@@ -1,23 +1,11 @@
 package org.openxava.tools;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.*;
+import java.net.*;
+import java.nio.charset.*;
+import java.nio.file.*;
+import java.util.*;
+import java.util.regex.*;
 
 /**
  * Utility to fetch the official MDI Upgrade Guide and update
@@ -30,10 +18,10 @@ import java.util.regex.Pattern;
  * - New pairs are appended (alphabetically) under the existing content,
  *   preserving the header.
  *
- * @author Cascade
+ * @author Javier Paniza
  * @since 7.6
  */
-class GenerateMdiMapping {
+class GenerateMDIMapping {
 
     private static final String UPGRADE_URL = "https://pictogrammers.com/docs/library/mdi/releases/upgrade/";
     private static final Path MAPPING_PATH = Paths.get("src/main/resources/xava-mdi-icon-mapping.properties");
