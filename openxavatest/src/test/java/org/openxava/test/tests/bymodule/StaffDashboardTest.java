@@ -14,7 +14,7 @@ public class StaffDashboardTest extends ModuleTestBase {
 		super(testName, "StaffDashboard");		
 	}
 			
-	public void testInitModelWithNewInstance_simpleList() throws Exception { 
+	public void testInitModelWithNewInstance_simpleList_largeDisplayIconMapping() throws Exception { 
 		// Init model with new instance
 		assertValue("staffCount", "223");
 		
@@ -29,6 +29,15 @@ public class StaffDashboardTest extends ModuleTestBase {
 		
 		assertNoAction("Collection.add");
 		assertNoAction("Collection.edit");
-	}
+        
+        assertLargeDisplayIconMapping();
+    }
+
+    private void assertLargeDisplayIconMapping() {
+        // Verify that the expected Material Design Icon is rendered in the LargeDisplay for 'menPercentage'
+        HtmlElement menPercentageEditor = (HtmlElement) getHtmlPage().getElementById("ox_openxavatest_StaffDashboard__editor_menPercentage");
+        assertNotNull(menPercentageEditor);
+        assertTrue(menPercentageEditor.asXml().contains("<i class=\"mdi mdi-face-man\""));
+    }
 					
 }

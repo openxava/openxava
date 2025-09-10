@@ -3,6 +3,7 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.util.Is" %>
 <%@ page import="org.openxava.util.Moneys" %>
+<%@ page import="org.openxava.util.MDIIconMapper" %>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 
@@ -24,6 +25,7 @@ if (Is.emptyStringAll(prefix, suffix)) {
 	}
 }
 String icon = request.getParameter("icon");
+icon = MDIIconMapper.map(icon);
 String iconHTML = Is.emptyString(icon)?"":"<i class='mdi mdi-" + icon + "'></i>";
 Object value = request.getAttribute(propertyKey + ".value");
 String negativeClass = "";
@@ -35,4 +37,3 @@ if (value instanceof Number) {
 <div id="<xava:id name='<%="label_" + view.getPropertyPrefix() + p.getName()%>'/>" class="ox-large-display-label"><%=label%></div>
 <div class="ox-large-display ox-frame <%=negativeClass%>"><%=iconHTML%><span class="ox-large-display-prefix"><%=prefix%></span><span class="ox-large-display-value"><%=fvalue%></span><span class="ox-large-display-suffix"><%=suffix%></span></div>
 <input type="hidden" name="<%=propertyKey%>" value="<%=fvalue%>">
-

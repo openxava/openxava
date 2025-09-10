@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+
+- Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
+- The @Icon editor now includes 7447 icons, 2500 more than before.
+- The handle to open/close the left modules menu is now transparent.
+- Fix: Images (GIF/PNG) for collection actions were misaligned, appearing at the top.
 - @DescriptionsList implementation supports very large datasets with good performance.
 - Improved performance when displaying entities with many @DescriptionsList references.
 - The orderByKey option in @DescriptionsList now also applies to list filter combos. 

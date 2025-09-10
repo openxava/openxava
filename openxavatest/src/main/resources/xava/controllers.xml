@@ -1631,6 +1631,7 @@
 		<extends controller="Typical"/>
 		<action name="changeTab" mode="list"
 			class="org.openxava.test.actions.ChangeTabNameAction"/>
+		<!-- DON'T CHANGE THE ICON NAME FOR new, to do a test -->	
 		<action name="new"
 			class="org.openxava.test.actions.ObtainDateNewAction"
 			image="new.gif"

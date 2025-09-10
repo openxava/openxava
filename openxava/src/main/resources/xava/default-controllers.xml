@@ -59,7 +59,7 @@ here that you want to override.
 		<action  name="new" 
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			keystroke="Control N"
 			loses-changed-data="true">
 			<set property="restoreModel" value="true"/>			
@@ -114,7 +114,7 @@ here that you want to override.
 		<action name="generatePdf" mode="list"
 			class="org.openxava.actions.GenerateReportAction"
 			image="pdf.gif"
-			icon="file-pdf"
+			icon="file-table"
 			keystroke="Control Alt P">
 			<set property="type" value="pdf"/>
 		</action>
@@ -135,7 +135,7 @@ here that you want to override.
 		<action name="myReports" mode="list"
 			class="org.openxava.actions.MyReportsAction"
 			image="reports.png"
-			icon="library-books">	
+			icon="text-box-multiple">	
 		</action>
 		
 	</controller>
@@ -208,7 +208,7 @@ here that you want to override.
 			image="edit.gif"/>					
 		<action name="createNew" hidden="true"
 			class="org.openxava.actions.CreateNewMyReportAction"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			image="create_new.gif"/>			
 		<action name="remove" hidden="true" confirm="true"
 			class="org.openxava.actions.RemoveMyReportAction"
@@ -249,7 +249,7 @@ here that you want to override.
 		<action name="new" on-init="true"
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			keystroke="Control N">
 			<set property="restoreModel" value="true"/>			
 		</action>		
@@ -576,7 +576,7 @@ here that you want to override.
 			image="search.gif"/>
 		<action name="createNew" 
 			class="org.openxava.actions.CreateNewFromReferenceAction"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			image="create_new.gif"/>
 		<action name="modify" 
 			class="org.openxava.actions.ModifyFromReferenceAction"
@@ -637,7 +637,7 @@ here that you want to override.
 	<controller name="Collection">
 		
 		<action name="new" image="create_new.gif"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			class="org.openxava.actions.CreateNewElementInCollectionAction"/>							
 			
 		<action name="add" image="create_new.gif"
@@ -746,7 +746,7 @@ here that you want to override.
 	in your @ManyToMany collection
 	 -->
 	<controller name="ManyToMany">		
-		<action name="new" image="new.gif" hidden="true" icon="library-plus"
+		<action name="new" image="new.gif" hidden="true" icon="plus-box-multiple"
 			class="org.openxava.actions.CreateNewElementInManyToManyCollectionAction"/>
 	
 		<action name="edit" image="edit.gif" hidden="true" icon="eye" 
@@ -820,7 +820,7 @@ here that you want to override.
 	<!-- This controller integrates Treeview behavior to OpenXava -->	
 	<controller name="TreeView">
 		<action name="new" mode="list" image="create_new.gif"
-			icon="library-plus"
+			icon="plus-box-multiple"
 			class="org.openxava.actions.NewTreeViewItemAction">
 		</action>
 		<action name="save" class="org.openxava.actions.SaveElementInTreeViewAction" 

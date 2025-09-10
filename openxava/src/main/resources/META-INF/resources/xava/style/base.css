@@ -359,8 +359,11 @@ input[type="checkbox"] {
 	vertical-align: middle;
 }  
 
-.spin {
+.spin:before {
 	animation: spin 1s infinite linear;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: top;
 }
 
 @keyframes spin {
@@ -383,9 +386,11 @@ input[type="checkbox"] {
 }
 
 #xava_processing_layer i {
-	margin: 20px 40px 0px 40px;
-	font-size: 600%;
-	color: var(--xava-processing-layer-color);
+    margin: 20px 40px 0px 40px;
+    font-size: 600%;
+    color: var(--xava-processing-layer-color);
+    display: inline-block;
+    line-height: 1;
 }
 
 #theme_chooser {
@@ -741,7 +746,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 
 .ox-web-url a {
 	position: relative; 
-	right: 25px;" 
+	right: 25px;
 }
 
 .flatpickr-day.selected {
@@ -960,10 +965,14 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	padding: 6px 4px 6px 6px; 
 }
 
-.ox-button-bar .ox-button-bar-button a img {
+.ox-button-bar .ox-button-bar-button a img, 
+.ox-collection-list-actions .ox-button-bar-button a img {
 	vertical-align: text-top;  
-	padding-left: 7px;
 	max-height: 16px;
+} 
+
+.ox-button-bar .ox-button-bar-button a img {
+	padding-left: 7px;
 } 
 
 .ox-button-bar > div:first-child > span:first-child {
@@ -1055,7 +1064,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	margin-left: 0;
 }
 
-.ox-list-header a, .ui-widget-content .ox-list-header a, .ox-customize-controls .mdi-sort-numeric, .ox-customize-controls .mdi-sort-alphabetical,
+.ox-list-header a, .ui-widget-content .ox-list-header a, .ox-customize-controls .mdi-sort-numeric-variant, .ox-customize-controls .mdi-sort-alphabetical-variant,
 .ox-customize-controls .mdi-filter, .ox-customize-controls .mdi-filter-remove, 
 .ox-collection-list-actions .ox-button-bar-button a, .ox-collection-list-actions .ox-button-bar-button i,
 i, .ox-icon i.mdi-close-circle,
@@ -1139,7 +1148,7 @@ i.module-loading  {
 .ox-button-bar .ox-button-bar-button a:hover, 
 .ox-collection-list-actions .ox-button-bar-button a:hover, 
 .ox-subcontroller-select a, .ox-list-formats i:hover,
-.ox-button-bar a:hover i, .ox-collection-list-actions a:hover i {   
+.ox-collection-list-actions a:hover i {   
 	color: var(--button-bar-button-hover-color);
 	background: var(--button-bar-button-hover-background);
 	border-color: var(--button-bar-button-hover-border);
@@ -1148,8 +1157,8 @@ i.module-loading  {
 i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 .ox-list-header a:hover, .ox-list-header a:hover i,
 .ox-image-link:hover i, .ox-page-navigation:hover,
-.ox-customize-controls .mdi-sort-numeric:hover, .ox-customize-controls a:hover .mdi-sort-numeric, 
-.ox-customize-controls .mdi-sort-alphabetical:hover, .ox-customize-controls a:hover .mdi-sort-alphabetical,
+.ox-customize-controls .mdi-sort-numeric-variant:hover, .ox-customize-controls a:hover .mdi-sort-numeric-variant, 
+.ox-customize-controls .mdi-sort-alphabetical-variant:hover, .ox-customize-controls a:hover .mdi-sort-alphabetical-variant,
 .ox-customize-controls .mdi-filter:hover, 
 .ox-customize-controls .mdi-filter-remove:hover,
 .ox-charts .ox-element-collection .ox-image-link:hover i {            
@@ -1167,6 +1176,10 @@ i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 
 i {
 	vertical-align: -2px;  
+}
+
+i.mdi {
+	line-height: 18.2px;
 }
 
 .mdi-border-color {
@@ -1316,14 +1329,13 @@ tr.ox-list-odd, tr.ox-list-pair {
 }
 
 .ox-list-formats {
-	margin-top: -9px;
 	margin-right: 5px; 
 }
 
 .ox-list-formats i {
 	color: var(--list-formats-color);
 	font-size: 200%;
-	padding: 5px;
+	padding: 5px 5px 0px 5px;
 }
 
 .ox-list-formats a:hover i  {
@@ -2048,6 +2060,7 @@ div.ox-subcontroller table{
 .ox-resize-columns .xava_handle {
 	position: absolute;
 	left: 0;
+	padding-top: 0;
 	color: var(--customize-controls-column-icon-color);
 	background: var(--customize-controls-color);
 	background:linear-gradient(to right, var(--customize-controls-color), transparent);
@@ -2501,6 +2514,10 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	padding: 10px;
 	color: var(--icons-list-i-color);
 	border-radius: 5px;
+	display: inline-block; 
+	line-height: 1; 
+	vertical-align: top; 
+	margin-bottom: 6px; 
 }
 
 .ox-icon-in-list i {
@@ -2910,8 +2927,9 @@ div[id$="_Index__view"] .ox-list-title {
 	top: 50%;
 	background: var(--module-list-hide-show-background);	
     border-radius: 100px;
-    padding: 3px;
+    padding: 9px 3px 6px 3px;
     z-index: 1; 
+	opacity: 0.6;
 }
 
 #modules_list_hide {

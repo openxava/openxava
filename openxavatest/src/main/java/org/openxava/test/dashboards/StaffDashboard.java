@@ -36,7 +36,7 @@ public class StaffDashboard {
 		return 37; 
 	}
 		
-	@LargeDisplay(suffix="%", icon="face")
+	@LargeDisplay(suffix="%", icon="face") // Always "face" icon to test a case with icon mapping
 	public BigDecimal getMenPercentage() {
 		// Instead of return an ad hoc number write your own logic
 		// with JPA queries and Java to obtain the returned value
