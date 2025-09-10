@@ -6,6 +6,7 @@ import java.util.stream.*;
 import org.apache.commons.lang3.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.Strings;
 import org.openxava.view.*;
 
 /**

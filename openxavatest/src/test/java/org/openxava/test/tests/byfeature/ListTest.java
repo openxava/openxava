@@ -36,7 +36,7 @@ public class ListTest extends WebDriverTestBase {
 		assertDefaultColumnWidthsForCalculatedCollection();
 
 		goModule("CustomerWithSection");
-		assertCustomizeList();
+		assertCustomizeList(); // TMR FALLA
 		assertCustomizeList_addAndResetModule(); 
 		
 		goModule("Invoice");

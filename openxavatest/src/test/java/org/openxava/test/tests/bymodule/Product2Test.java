@@ -37,7 +37,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		assertAction("FamilyProductsReport.generateExcel");
 		setValue("subfamily.number", "2");
 		execute("FamilyProductsReport.generateExcel");  
-		assertNoErrors();
+		assertNoErrors(); // TMR FALLA
 		assertContentTypeForPopup("application/vnd.ms-excel"); 
 		assertDialog(); 
 		assertNoAction("Product2.reportBySubfamily");
@@ -332,7 +332,7 @@ public class Product2Test extends EmailNotificationsTestBase {
 		setValue("subfamily.number", "3");
 		execute("Reference.modify", "model=Subfamily2,keyProperty=subfamily.number");
 		assertDialog();
-		execute("Collection.add", "viewObject=xava_view_productsValues");
+		execute("Collection.add", "viewObject=xava_view_productsValues"); // TMR FALLA
 		assertDialog();
 		assertListRowCount(7);
 		closeDialog();

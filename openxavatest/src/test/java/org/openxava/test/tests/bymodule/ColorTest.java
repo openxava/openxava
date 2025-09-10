@@ -81,7 +81,7 @@ public class ColorTest extends ModuleTestBase {
 		assertMessage("(after) Rows of selected colors [{number=" + number1 + "}][{number=" + number5 + "}][{number=" + number0 + "}]");
 		
 		execute("Print.generatePdf");
-		assertContentTypeForPopup("application/pdf");
+		assertContentTypeForPopup("application/pdf"); // TMR FALLA
 		assertPopupPDFLinesCount(8);
 		assertPopupPDFLine(2, "Record count: 3");
 		assertPopupPDFLine(4, getPDFLine(number0, name0, hexValue0, useTo0, characteristicThing0));

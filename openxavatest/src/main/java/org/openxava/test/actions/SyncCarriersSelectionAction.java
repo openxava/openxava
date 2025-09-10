@@ -2,7 +2,7 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import org.apache.commons.lang.*;
+import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.tab.*;

@@ -12,6 +12,7 @@ import org.openxava.jpa.*;
 import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
+import org.openxava.util.Strings;
 
 /** 
  * An <code>ITabProvider</code> that obtain data via JPA. <p>

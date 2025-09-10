@@ -62,7 +62,7 @@ public class Color2Test extends ModuleTestBase {
 		closeDialog();
 		
 		execute("MyReport.generatePdf"); 
-		assertPopupPDFLinesCount(6);  
+		assertPopupPDFLinesCount(6); // TMR FALLA 
 		assertPopupPDFLine(4, "0 ROJO FF0000 RED CAR 3 PLACES CAR");
 		
 		execute("ExtendedPrint.myReports");

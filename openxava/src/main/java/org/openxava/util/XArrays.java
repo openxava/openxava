@@ -2,7 +2,7 @@ package org.openxava.util;
 
 import java.util.*;
 
-import org.apache.commons.lang.*;
+import org.apache.commons.lang3.*;
 
 
 

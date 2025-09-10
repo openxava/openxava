@@ -80,7 +80,7 @@ public class ProductTest extends ModuleTestBase {
 	*/
 	
 	
-	public void testSumInMyReport() throws Exception { 
+	public void testSumInMyReport() throws Exception { // TMR FALLA
 		execute("ExtendedPrint.myReports");
 		
 		assertValueInCollection("columns", 0, 0, "Number");		
@@ -105,7 +105,7 @@ public class ProductTest extends ModuleTestBase {
 		execute("MyReport.saveColumn");
 		assertValueInCollection("columns", 2, 4, "Sum"); 
 		execute("MyReport.generatePdf");
-		assertPopupPDFLinesCount(13); // There are 7 products 
+		assertPopupPDFLinesCount(13); // There are 7 products // TMR FALLA
 		assertPopupPDFLine(11, "629.00"); // The sum of the 7 product, if the price of some product has been changed you have to change this value
 
 		execute("ExtendedPrint.myReports");

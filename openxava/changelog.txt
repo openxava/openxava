@@ -1,6 +1,21 @@
 Change Log for OpenXava project
 ===============================
 
+- Hay 3 vulnerabilidades, 2 de ellas altas.
+- commons-validator 1.10.0
+- commons-fileupload 1.6.0
+- commons-io 2.18.0
+- jasperreports 6.21.5
+- groovy 4.0.28
+- jsoup 1.21.2
+- htmlunit 4.16.0
+- jakarta.mail 1.6.8
+- lombok 1.18.40
+- Tomcat 9.0.109
+- log4j 2.25.1
+- json 20250517
+- commons-lang eliminada. Añadimos (ya existía, de forma transitiva) Commons Lang 3 3.18.0. EN MIGRACIÓN.
+PROBAR PRUEBA MANUALES JASPERREPORTS
 
 - Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
 - The @Icon editor now includes 7447 icons, 2500 more than before.

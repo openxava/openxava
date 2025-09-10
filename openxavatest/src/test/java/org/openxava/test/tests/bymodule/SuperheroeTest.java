@@ -55,7 +55,7 @@ public class SuperheroeTest extends ModuleTestBase {
 		
 		selectListConfiguration("Ordered by name descending");
 		execute("Print.generatePdf");
-		assertPopupPDFLine(1, "Superheroe report - Ordered by name descending");
+		assertPopupPDFLine(1, "Superheroe report - Ordered by name descending"); // TMR FALLA
 		
 		selectListConfiguration("All");
 		execute("Print.generatePdf");

@@ -14,7 +14,7 @@ public class Movie3Test extends MovieBaseTest {
 	
 	public void testShowFileNameForFileAnnotationWhenPrint() throws Exception {
 		execute("Print.generatePdf");
-		assertContentTypeForPopup("application/pdf"); 
+		assertContentTypeForPopup("application/pdf"); // TMR FALLA
 		assertPopupPDFLine(4, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer.webm");
 		assertPopupPDFLine(5, "GATTACA gattaca-trailer.png");
 

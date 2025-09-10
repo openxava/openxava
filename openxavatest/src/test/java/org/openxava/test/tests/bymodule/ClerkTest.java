@@ -79,7 +79,7 @@ public class ClerkTest extends ModuleTestBase {
 		
 		// Asserting that java.sql.Time works in JasperReport
 		execute("Print.generatePdf"); 		
-		assertContentTypeForPopup("application/pdf");			
+		assertContentTypeForPopup("application/pdf"); // TMR FALLA			
 	}
 	
 	private void assertSize(String property, String expectedSize) {

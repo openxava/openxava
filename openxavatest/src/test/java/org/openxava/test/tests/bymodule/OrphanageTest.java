@@ -22,7 +22,7 @@ public class OrphanageTest extends ModuleTestBase {
 		assertCollectionColumnCount("orphans", 1); 
 		execute("Print.generatePdf", "viewObject=xava_view_orphanage_orphans"); 
 		assertNoErrors();
-		assertContentTypeForPopup("application/pdf"); 
+		assertContentTypeForPopup("application/pdf"); // TMR FALLA
 		assertPopupPDFLinesCount(7);
 		assertPopupPDFLine(1, "Orphans of Orphanage: EL INTERNADO");
 		assertPopupPDFLine(3, "Name"); 

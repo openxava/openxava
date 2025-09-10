@@ -6,7 +6,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import org.apache.commons.lang.*;
+import org.apache.commons.lang3.*;
 import org.htmlunit.*;
 import org.htmlunit.html.*;
 import org.openxava.controller.*;
