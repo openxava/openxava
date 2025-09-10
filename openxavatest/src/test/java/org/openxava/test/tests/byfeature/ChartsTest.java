@@ -1,7 +1,6 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
-
 import org.openqa.selenium.*;
 /**
  * To test charts related issues with Seleniumx.
@@ -15,7 +14,7 @@ public class ChartsTest extends WebDriverTestBase {
 	}
 	
 	public void testCharts() throws Exception {
-		goModule("Invoice"); // TMR FALLA
+		goModule("Invoice");
 		assertOneBarByEachRow(); 
 		moveToListView();
 		

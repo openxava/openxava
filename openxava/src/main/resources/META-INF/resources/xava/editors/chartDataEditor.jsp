@@ -11,7 +11,7 @@
 <%@ page import="java.util.Map" %>
 
 <%@ page import="org.apache.commons.beanutils.PropertyUtils" %>
-<%@ page import="org.apache.commons.lang.ArrayUtils" %>
+<%@ page import="org.apache.commons.lang3.ArrayUtils" %>
 
 <%@ page import="org.openxava.model.MapFacade" %>
 <%@ page import="org.openxava.model.meta.MetaProperty" %>

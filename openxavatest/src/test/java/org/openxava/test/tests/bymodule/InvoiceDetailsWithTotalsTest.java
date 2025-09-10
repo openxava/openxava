@@ -45,7 +45,7 @@ public class InvoiceDetailsWithTotalsTest extends CustomizeListTestBase {
 		assertTotalInCollection("details", 2, 3, "2,900.00");
 		
 		execute("Print.generatePdf", "viewObject=xava_view_details"); 
-		assertContentTypeForPopup("application/pdf"); // TMR FALLA
+		assertContentTypeForPopup("application/pdf");
 		
 		removeColumn("details", 3);
 		assertTotalInCollection("details", "deliveryDate", "12/15/2010");			

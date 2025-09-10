@@ -34,7 +34,7 @@ public class SocialNetworkTest extends ModuleTestBase {
 		
 		execute("Mode.list");
 		execute("Print.generatePdf");
-		assertPopupPDFLine(4, "LA RED \"L'HORTA\""); // TMR FALLA		
+		assertPopupPDFLine(4, "LA RED \"L'HORTA\"");		
 	}
 		
 }

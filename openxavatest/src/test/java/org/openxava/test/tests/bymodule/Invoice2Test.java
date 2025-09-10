@@ -95,7 +95,7 @@ public class Invoice2Test extends ModuleTestBase {
 	public void testChangingModuleInChartsFormat() throws Exception {  
 		// Only fails in this order from starting module. Don't merge with other test.
 		execute("ListFormat.select", "editor=Charts");
-		assertChartEditor(); // TMR FALLA
+		assertChartEditor();
 		changeModule("ServiceInvoice");
 		execute("ListFormat.select", "editor=Charts");
 		changeModule("Invoice2");
@@ -108,7 +108,7 @@ public class Invoice2Test extends ModuleTestBase {
 		execute("ListFormat.select", "editor=Charts");
 		execute("Chart.selectType", "chartType=PIE");
 		selectGroupBy("Group by year");
-		assertChartEditor(); // TMR FALLA
+		assertChartEditor(); 
 		setValueInCollection("columns", 0, "name", Tab.GROUP_COUNT_PROPERTY); 
 		assertChartEditor();
 		execute("ListFormat.select", "editor=List");

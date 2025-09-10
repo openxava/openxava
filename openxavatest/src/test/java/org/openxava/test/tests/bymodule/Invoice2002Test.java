@@ -30,7 +30,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 	
 	public void testGeneratePdfWithFilter() throws Exception {
 		execute("Print.generatePdf"); 		
-		assertContentTypeForPopup("application/pdf"); // TMR FALLA		
+		assertContentTypeForPopup("application/pdf"); 		
 	}
 	
 	public void testGenerateExcelWithFilterCSV() throws Exception { 

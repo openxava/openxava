@@ -24,7 +24,7 @@ public class DiscussionTest extends WebDriverTestBase {
 	}
 	
 	public void testCommentButtonsNotRespondAfterFocusOnCommentAsFirstActionInDialog() throws Exception { 
-		goModule("IncidentActivity"); // TMR FALLA
+		goModule("IncidentActivity"); 
 		execute("Reference.createNew", "model=Incident,keyProperty=incident.id");
 		wait(getDriver(), By.className("tox-edit-area")); 
 		scrollToBottom();

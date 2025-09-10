@@ -563,7 +563,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("columns", 2, 2, "5/28/07");
 		
 		execute("MyReport.generatePdf");				
-		assertPopupPDFLinesCount(6);  // TMR FALLA
+		assertPopupPDFLinesCount(6);  
 		assertTrue(getPopupPDFLine(4).startsWith("2007 14"));
 		
 		execute("ExtendedPrint.myReports");
@@ -883,7 +883,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");
 		execute("Print.generatePdf", "viewObject=xava_view_section1_details"); 
-		assertContentTypeForPopup("application/pdf"); // TMR FALLA
+		assertContentTypeForPopup("application/pdf");
 	}
 	
 	public void testSearchByPropertyWithConverterInDetailMode() throws Exception {
@@ -2199,7 +2199,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertChartTypeLink("PIE");
 		assertValue("xColumn", "year");
 		assertValidValueExists("xColumn", OnChangeChartColumnNameAction.SHOW_MORE, "[SHOW MORE...]"); 
-		assertChartDisplayed(); // TMR FALLA
+		assertChartDisplayed(); 
 
 		reload(); 
 		assertChartDisplayed();
