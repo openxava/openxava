@@ -46,6 +46,27 @@
       </div>
       <div class="wiki" style="display: block;">
         <h2>Para migrar de OpenXava 7.5.3 a OpenXava 7.6</h2>
+        
+		<h3>Librería de iconos actualizada a la última versión</h3>
+		
+		<p>Material Design Icons ha sido actualizada desde la versión 4.9.95 a la 7.4.47. En la nueva
+		versión se han eliminado iconos y se han renombrado los existentes. Además, también ha
+		cambiado el espaciado en su CSS, lo que hace que los iconos puedan aparecer desajustados.</p>
+		
+		<p><b>No tienes que hacer ningún cambio</b> en tu aplicación OpenXava porque hemos añadido un mecanismo
+		automático de mapeo de iconos para que las acciones en <i>controladores.xml</i>, las propiedades 
+		<i>@LargeDisplay</i> e <i>@Icon</i> puedan trabajar con los antiguos nombres de icono. Además, hemos ajustado 
+		todos los espaciados para que todo funcione como antes. </p>
+		
+		<p>Sin embargo, si tienes una vista personalizada o un editor propio donde en tu HTML usas directamente
+		iconos de Material Design Icons, sí tendrás que revisarlos para adaptarlos. Por ejemplo, cambiando
+		<i>library-plus</i> por <i>plus-box-multiple</i>, <i>library-books</i> por <i>text-box-multiple</i>,  
+		<i>file-pdf</i> por <i>file-table</i> o <i>settings</i> por <i>cog</i>. En la 
+		<a href="https://pictogrammers.com/docs/library/mdi/releases/upgrade/">
+		guía de migración de Material Design Icons</a> tienes una lista completa de los cambios. Además, puede
+		que tengas que ajustar tu CSS si algún icono aparece desplazado.</p>
+
+        
         <h3>Orden numérico al concatenar propiedades en @DescriptionsList (para pruebas JUnit)</h3>
         <p>Al usar <i>@DescriptionsList</i> con <i>descriptionProperties</i> que concatenan 
           varias propiedades (por ejemplo, <i>year, number, customer.name</i>), las partes numéricas
@@ -597,7 +618,7 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>

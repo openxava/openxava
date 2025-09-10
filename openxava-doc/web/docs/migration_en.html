@@ -46,6 +46,25 @@
     </div>
       <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 7.5.3 to OpenXava 7.6</h2>
+      <h3>Icon library updated to the latest version</h3>
+
+		<p>Material Design Icons has been updated from version 4.9.95 to 7.4.47. In the new
+		version, some icons have been removed and others renamed. In addition, the spacing in its CSS 
+		has also changed, which may cause icons to appear misaligned.</p>
+		
+		<p><b>You don't need to make any changes</b> in your OpenXava application because we have added an automatic 
+		icon mapping mechanism so that the actions in <i>controllers.xml</i>, as well as the 
+		<i>@LargeDisplay</i> and <i>@Icon</i> properties, can still work with the old icon names. 
+		We have also adjusted all the spacing so that everything works as before.</p>
+		
+		<p>However, if you have a custom view or your own editor where your HTML directly uses
+		Material Design Icons, you will need to review and adapt them. For example, changing
+		<i>library-plus</i> to <i>plus-box-multiple</i>, <i>library-books</i> to <i>text-box-multiple</i>,  
+		<i>file-pdf</i> to <i>file-table</i>, or <i>settings</i> to <i>cog</i>. The 
+		<a href="https://pictogrammers.com/docs/library/mdi/releases/upgrade/">
+		Material Design Icons migration guide</a> contains a complete list of the changes. You may also 
+		need to adjust your CSS if an icon appears misaligned.</p>
+      
       <h3>Numeric ordering when concatenating properties in @DescriptionsList (for JUnit tests)</h3>
       <p>When using <i>@DescriptionsList</i> with <i>descriptionProperties</i> that concatenate 
         several properties (for example, <i>year, number, customer.name</i>), numeric
