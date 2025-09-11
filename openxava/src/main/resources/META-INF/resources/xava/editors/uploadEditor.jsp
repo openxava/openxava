@@ -41,31 +41,35 @@ String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes 
 String maxFileSizeInKb = request.getParameter("maxFileSizeInKb");
 String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFileSizeInKb)?"":"data-max-file-size='" + maxFileSizeInKb + "KB'";
 %>
-<input id='<%=propertyKey%>' 
-	type="file" class="xava_upload<%=cssClass%>"
-	data-application="<%=applicationName%>" 
-	data-module="<%=module%>"
-	<%=accept%> 
-	<%=dataMultiple%>
-	<%=dataPreview%>
-	<%=dataFiles%> 
-	<%=dataEmpty%>
-	<%=dataEditable%>
-	<%=dataFileSizeInKb%> 
-/> 
+<div class="ox-upload-editor-box">
+    <input id='<%=propertyKey%>' 
+        type="file" class="xava_upload<%=cssClass%>"
+        data-application="<%=applicationName%>" 
+        data-module="<%=module%>"
+        <%=accept%> 
+        <%=dataMultiple%>
+        <%=dataPreview%>
+        <%=dataFiles%> 
+        <%=dataEmpty%>
+        <%=dataEditable%>
+        <%=dataFileSizeInKb%> 
+    />
 
-<input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
+    <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
 
-<% if (cssClass.contains("ox-files") && filesIds != null && !"".equals(filesIds)) { %>
-<div class="ox-download-all">
-    <a href="#"
-       class="ox-download-all-link"
-       data-application="<%=applicationName%>"
-       data-module="<%=module%>"
-       data-property-key="<%=propertyKey%>">
-        <%=XavaResources.getString(request, "download_all")%>
-    </a>
+    <% if (cssClass.contains("ox-files") && filesIds != null && !"".equals(filesIds)) { %>
+    <div class="ox-download-all" title="<%=XavaResources.getString(request, "download_all")%>">
+        <a href="#"
+           class="ox-download-all-link"
+           aria-label="<%=XavaResources.getString(request, "download_all")%>"
+           data-application="<%=applicationName%>"
+           data-module="<%=module%>"
+           data-property-key="<%=propertyKey%>">
+            <i class="mdi mdi-download" aria-hidden="true"></i>
+        </a>
+        
+    </div>
+    <% } %>
 </div>
-<% } %>
 
 <jsp:include page="filePondTranslation.jsp"/>	

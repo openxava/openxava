@@ -120,7 +120,7 @@ openxava.addEditorInitFunction(function() {
     });
     // Delegated handler for "Download all" to comply with CSP (no inline onclick)
     $(document)
-        .off('click.oxDownloadAll', '.ox-download-all-link') // tmr ¿Este nombre para la clase?
+        .off('click.oxDownloadAll', '.ox-download-all-link') 
         .on('click.oxDownloadAll', '.ox-download-all-link', function (e) {
             e.preventDefault();
             const $a = $(this);
