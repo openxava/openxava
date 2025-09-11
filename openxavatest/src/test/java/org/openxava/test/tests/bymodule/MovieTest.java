@@ -103,6 +103,8 @@ public class MovieTest extends MovieBaseTest {
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: NEW FILES ADDED --> Corporation.html</li></ul>",
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
 		);
+
+		// TMR ME QUEDÉ POR AQUÍ: PARA HACER EL TEST. ¿MODIFICAR ALGO EN MANUALTEST? PASAR MANUALTEST
 	}
 	
 	private int indexOfFile(String property, String fileName) throws Exception { 

@@ -82,13 +82,7 @@ public class ZipFilesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String application = request.getParameter("application");
-        String module = request.getParameter("module");
         try {
-            Requests.init(request, application, module);
-            ModuleManager manager = getManager(request);
-            manager.executeBeforeEachRequestActions(request, new Messages(), new Messages());
-
             Schemas.setDefaultSchema(request);
 
             String propertyKey = request.getParameter("propertyKey");
@@ -131,14 +125,6 @@ public class ZipFilesServlet extends HttpServlet {
         catch (Exception ex) {
             log.error(XavaResources.getString("zip_download_error"), ex);
             throw new ServletException(XavaResources.getString("zip_download_error"));
-        }
-        finally {
-            try {
-                ModuleManager.commit();
-            }
-            finally {
-                Requests.clean();
-            }
         }
     }
 
