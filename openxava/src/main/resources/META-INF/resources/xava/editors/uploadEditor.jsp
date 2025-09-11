@@ -1,6 +1,7 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.util.Is" %>
 <%@ page import="org.openxava.util.XavaException" %>
+<%@ page import="org.openxava.util.XavaResources" %>
 <%@ page import="org.openxava.web.editors.IUploadFilesIdsProvider" %>
 
 <%
@@ -54,5 +55,17 @@ String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFile
 /> 
 
 <input type="hidden" name="<%=propertyKey%>" value="<%=value%>">
+
+<% if (cssClass.contains("ox-files") && filesIds != null && !"".equals(filesIds)) { %>
+<div class="ox-download-all">
+    <a href="#"
+       class="ox-download-all-link"
+       data-application="<%=applicationName%>"
+       data-module="<%=module%>"
+       data-property-key="<%=propertyKey%>">
+        <%=XavaResources.getString(request, "download_all")%>
+    </a>
+</div>
+<% } %>
 
 <jsp:include page="filePondTranslation.jsp"/>	
