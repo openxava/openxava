@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 3 of the OpenXava course with AI available in the documentation with video.
 - Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Commons Validator upgraded to 1.10.0.
 - Commons FileUpload upgraded to 1.6.0.

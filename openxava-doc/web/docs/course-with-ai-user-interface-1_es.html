@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Curso con IA - Lección 3: Interfaz de usuario (parte 1) - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Curso con IA - Lección 3: Interfaz de usuario (parte 1)</h1>
+        <p>Esta es la tercera lección de un curso donde estamos creando una aplicación
+          de gestión de pólizas de seguro de automóviles usando OpenXava e
+          inteligencia artificial.</p>
+        <h2>Video</h2>
+        <p>En esta tercera lección empezamos a refinar la interfaz de usuario por defecto generada por OpenXava, haciéndola más simple y limpia. Lo hacemos dando instrucciones a Windsurf, en inglés, sin usar términos técnicos de Java ni de OpenXava.</p>
+        <p><a href="https://youtu.be/4tOGSxbsgq4" target="_blank"><img src="files/course-with-ai_es030.png"
+              title="course-with-ai-030"></a></p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      
+        <h2>Código</h2>
+        <p>Si sigues el curso no tienes que escribir ningún código, lo escribirá
+          la IA por ti. Y tu código no tiene que ser exactamente como el del
+          video. Sin embargo, tienes el código generado en este video en <b><a
+              href="https://github.com/openxava/ai-course/tree/lesson-3">un
+              repositorio GitHub</a></b>, por si te resulta interesante
+          examinarlo.</p>
+        <h2>Transcripción</h2>
+        
+        <h3>Introducción</h3>
+        <p>Hola, soy Mónica. En esta tercera lección vamos a refinar la interfaz de usuario de nuestra aplicación OpenXava. El objetivo es hacerla más simple y limpia usando Windsurf, nuestro IDE con IA, dándole instrucciones claras en un lenguaje sencillo.</p>
+        
+        <h3>Revisión de la interfaz actual</h3>
+        <p>Empezamos revisando el estado actual de la aplicación. El módulo de Cliente está bastante bien, así que lo dejamos como está. En Póliza, los datos de abajo son razonables, pero la visualización del cliente es excesiva: muestra absolutamente toda su información, incluso una lista de pólizas. En Vehículo ocurre algo parecido: la vista es demasiado compleja porque la referencia a Póliza muestra la póliza completa, con listas de vehículos y siniestros que no están directamente relacionados con el vehículo. En Siniestro pasa lo mismo. La conclusión es clara: si simplificamos cómo se muestran las referencias a Póliza y Cliente, la interfaz quedará mucho más limpia.</p>
+        
+        <h3>Pedir a la IA simplificar las vistas</h3>
+        <p>Le pedimos a Windsurf que simplifique las vistas usando un lenguaje natural, sin términos técnicos de OpenXava. Explicamos que la interfaz es demasiado compleja porque las referencias a Póliza y Cliente muestran demasiados datos, y le pedimos amablemente que lo arregle mostrando solo lo mínimo necesario.</p>
+        
+        <h3>Análisis de la IA y generación de código</h3>
+        <p>Todo ocurre en tiempo real. Windsurf analiza nuestras entidades Java y propone la solución: usar <code>@ReferenceView</code> para apuntar a una vista más simple que <em>Complete</em>. Luego edita el código: modifica <em>Policy</em> y añade una vista <em>Simple</em> en <em>Customer</em>. También edita <em>Claim</em> para usar la vista <em>Simple</em> en la referencia a <em>Policy</em>. Al terminar, nos presenta un resumen claro de los cambios.</p>
+        
+        <h3>Primeros resultados en la aplicación</h3>
+        <p>Aceptamos el código y vamos al navegador. En el módulo de Póliza, el Cliente embebido ahora muestra solo nombre y apellidos. Todo se ve limpio y claro. En Siniestro, la referencia a Póliza es simple y el resto del formulario también es directo. Quizá mostrar solo el número de póliza es un poco escaso, aunque podemos pulsar Editar para ver la póliza completa en un diálogo. En Vehículo, la referencia a Póliza es más sencilla porque el Cliente dentro ahora es mínimo, pero se sigue mostrando toda la información de la póliza, así que este módulo no ha mejorado tanto como los demás.</p>
+        
+        <h3>Ajuste fino del resultado</h3>
+        <p>Agradecemos a la IA su trabajo y pedimos dos ajustes: en Siniestro, que la referencia a Póliza muestre también el cliente, de lo contrario el cliente no se ve en ningún sitio; y en Vehículo, que no muestre todos los datos de la póliza.</p>
+        
+        <h3>Segunda ronda de cambios</h3>
+        <p>Windsurf analiza de nuevo el código y decide crear una vista nueva en <em>Policy</em> que incluya el cliente. Edita <em>Claim</em> para usar esa nueva vista en la referencia a <em>Policy</em>, y luego actualiza <em>Vehicle</em> con el mismo propósito. Aceptamos el código y probamos de nuevo. Ahora, tanto en Vehículo como en Siniestro, la póliza se muestra con el número y los datos básicos del cliente. Los formularios tienen mejor aspecto en general.</p>
+        
+        <h3>Revisión del código con control de versiones</h3>
+        <p>Revisamos el código modificado con el sistema de control de versiones. En <em>Claim</em> vemos una nueva vista <em>Simple</em> y que en la referencia a póliza se usa <em>WithCustomer</em> en lugar de <em>Complete</em>. En <em>Customer</em> se ha añadido una vista <em>Simple</em> con nombre y apellidos. En <em>Policy</em> hay dos vistas nuevas: <em>Simple</em>, con solo el número de póliza, y <em>WithCustomer</em>, que además incluye el cliente; la referencia a cliente usa la vista <em>Simple</em>. Por último, en <em>Vehicle</em> hay una vista <em>Simple</em> y la referencia a póliza usa <em>WithCustomer</em>. Revisar los cambios es importante: si no conocemos OpenXava, tenemos la oportunidad de aprender; y si ya lo conocemos, mantenemos el control sobre nuestro código.</p>
+        
+        <h3>Conclusión</h3>
+        <p>En pocos minutos y con un poco de inteligencia artificial, nuestra aplicación OpenXava tiene una interfaz mucho mejor. Lo hemos logrado sin escribir código y sin usar términos técnicos de OpenXava: hemos pedido el qué, no el cómo. En la siguiente parte continuaremos refinando la interfaz de usuario y podrás aprender cosas nuevas.</p>
+        
+        <h3>Próxima lección</h3>
+        <p>Nos vemos en el próximo video, parte 2, donde seguiremos mejorando la interfaz de usuario de nuestra aplicación OpenXava.</p>
+      </div>    
+  </body>
+</html>
