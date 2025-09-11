@@ -1,9 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-TMR ME QUEDÉ PROBAR PRUEBA MANUALES JASPERREPORTS
-TMR FALTA MIGRATION PARA LO DE Commons Lang
-
 - Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Commons Validator upgraded to 1.10.0.
 - Commons FileUpload upgraded to 1.6.0.
