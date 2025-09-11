@@ -64,8 +64,25 @@
 		<a href="https://pictogrammers.com/docs/library/mdi/releases/upgrade/">
 		Material Design Icons migration guide</a> contains a complete list of the changes. You may also 
 		need to adjust your CSS if an icon appears misaligned.</p>
-      
-      <h3>Numeric ordering when concatenating properties in @DescriptionsList (for JUnit tests)</h3>
+
+		<h3>Commons Lang 2.x removed (Commons Lang 3 remains)</h3>
+		<p>OpenXava has removed Commons Lang 2.x. <i>Commons Lang 3</i> has always been included and remains.
+		If your application used Commons Lang 2.x utilities, in most cases you only need to change the
+		package in your <i>imports</i> from <i>org.apache.commons.lang</i> to <i>org.apache.commons.lang3</i>.
+		It will usually compile and work the same. If you face any small API change, please consult the
+		<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html" target="_blank">Commons Lang 3 documentation</a>.</p>
+
+		<pre><code class="java">// Before (Commons Lang 2.x)
+import org.apache.commons.lang.StringUtils;
+
+// After (Commons Lang 3)
+import org.apache.commons.lang3.StringUtils;
+
+// The rest of the code usually remains the same
+boolean blank = StringUtils.isBlank(s);
+</code></pre>
+
+		<h3>Numeric ordering when concatenating properties in @DescriptionsList (for JUnit tests)</h3>
       <p>When using <i>@DescriptionsList</i> with <i>descriptionProperties</i> that concatenate 
         several properties (for example, <i>year, number, customer.name</i>), numeric
         parts are now ordered numerically instead of lexicographically. Users will see 

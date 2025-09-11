@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.*;
 
-import org.apache.commons.lang.*;
+import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;

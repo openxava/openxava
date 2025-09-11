@@ -66,8 +66,24 @@
 		guía de migración de Material Design Icons</a> tienes una lista completa de los cambios. Además, puede
 		que tengas que ajustar tu CSS si algún icono aparece desplazado.</p>
 
-        
-        <h3>Orden numérico al concatenar propiedades en @DescriptionsList (para pruebas JUnit)</h3>
+		<h3>Se ha quitado Commons Lang 2.x (se mantiene Commons Lang 3)</h3>
+		<p>OpenXava ha eliminado Commons Lang 2.x. <i>Commons Lang 3</i> ya estaba incluido desde siempre y se mantiene.
+		Si tu aplicación usaba utilidades de Commons Lang 2.x, en la mayoría de los casos basta con cambiar el paquete
+		en los <i>imports</i> de <i>org.apache.commons.lang</i> a <i>org.apache.commons.lang3</i>.
+		Normalmente compilará y funcionará igual. Si te encuentras algún pequeño cambio de API, consulta la
+		<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html" target="_blank">documentación de Commons Lang 3</a>.</p>
+
+		<pre><code class="java">// Antes (Commons Lang 2.x)
+import org.apache.commons.lang.StringUtils;
+
+// Después (Commons Lang 3)
+import org.apache.commons.lang3.StringUtils;
+
+// El resto del código suele mantenerse igual
+boolean blank = StringUtils.isBlank(s);
+</code></pre>
+
+		<h3>Orden numérico al concatenar propiedades en @DescriptionsList (para pruebas JUnit)</h3>
         <p>Al usar <i>@DescriptionsList</i> con <i>descriptionProperties</i> que concatenan 
           varias propiedades (por ejemplo, <i>year, number, customer.name</i>), las partes numéricas
           ahora se ordenan numéricamente en lugar de lexicográficamente. Los usuarios verán el nuevo

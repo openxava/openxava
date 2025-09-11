@@ -107,7 +107,7 @@ private int [] tightenWidths(List metaProperties, int [] widths) {
 	}		
 	if (total > MAX_CHARACTERS_PER_ROW) {
 		metaProperties.remove(metaProperties.size() - 1);
-		widths = org.apache.commons.lang.ArrayUtils.remove(originalWidths, originalWidths.length - 1);
+		widths = org.apache.commons.lang3.ArrayUtils.remove(originalWidths, originalWidths.length - 1);
 		return tightenWidths(metaProperties, widths);
 	}
 	return widths;

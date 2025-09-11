@@ -1,7 +1,22 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
+- Commons Validator upgraded to 1.10.0.
+- Commons FileUpload upgraded to 1.6.0.
+- Commons IO upgraded to 2.18.0.
+- JasperReports upgraded to 6.21.5.
+- Groovy upgraded to 4.0.28.
+- JSoup upgraded to 1.21.2.
+- HtmlUnit upgraded to 4.16.0.
+- Jakarta Mail upgraded to 1.6.8.
+- Lombok upgraded to 1.18.40.
+- Log4j upgraded to 2.25.1.
+- Json upgraded to 20250517.
+- Commons Lang3 upgraded to 3.18.0.
+- Commons Lang removed as dependency because of security vulnerabilities.
+- Embedded Tomcat used in development upgraded to 9.0.109.
+- Driver version in doc/new projects upgraded for MySQL, Oracle, AS/400, MS SQL Server, Informix & Firebird.
 - Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
 - The @Icon editor now includes 7447 icons, 2500 more than before.
 - The handle to open/close the left modules menu is now transparent.
