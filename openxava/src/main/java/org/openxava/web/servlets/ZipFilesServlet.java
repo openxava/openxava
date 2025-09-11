@@ -25,7 +25,7 @@ import org.openxava.web.Requests;
 import org.openxava.view.View;
 import org.openxava.web.editors.AttachedFile;
 import org.openxava.web.editors.FilePersistorFactory;
-import org.openxava.jpa.XPersistence;
+import org.openxava.web.Schemas;
 
 /**
  * Servlet to download all files of a {@code @Files} property as a single ZIP.
@@ -89,7 +89,7 @@ public class ZipFilesServlet extends HttpServlet {
             ModuleManager manager = getManager(request);
             manager.executeBeforeEachRequestActions(request, new Messages(), new Messages());
 
-            setDefaultSchema(request);
+            Schemas.setDefaultSchema(request);
 
             String propertyKey = request.getParameter("propertyKey");
             String property = Ids.undecorate(propertyKey);
@@ -188,14 +188,4 @@ public class ZipFilesServlet extends HttpServlet {
         return candidate;
     }
 
-    private void setDefaultSchema(HttpServletRequest request) { // tmr ¿Esto está en otra parte? En ese caso DRY
-        String organization = (String) request.getSession().getAttribute("naviox.organization");
-        if (!Is.emptyString(organization)) {
-            XPersistence.setDefaultSchema(organization);
-            return;
-        }
-        ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-        String defaultSchema = (String) context.get(request, "xava_defaultSchema");
-        if (!Is.emptyString(defaultSchema)) XPersistence.setDefaultSchema(defaultSchema);
-    }
 }

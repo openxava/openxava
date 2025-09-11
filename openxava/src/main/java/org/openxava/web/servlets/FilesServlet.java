@@ -8,10 +8,9 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.controller.*;
-import org.openxava.jpa.*;
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
+import org.openxava.web.Schemas;
 /**
  * 
  * @author Javier Paniza
@@ -32,7 +31,7 @@ public class FilesServlet extends HttpServlet {
 			String fileId = (String) request.getParameter("fileId");
 			
 			if (!Is.emptyString(fileId)) {
-				setDefaultSchema(request);
+				Schemas.setDefaultSchema(request);
 				AttachedFile file = FilePersistorFactory.getInstance().find(fileId);
 				
 				String mime = URLConnection.guessContentTypeFromName(file.getName());
@@ -48,16 +47,5 @@ public class FilesServlet extends HttpServlet {
 			log.error(ex.getMessage(), ex);
 			throw new ServletException(XavaResources.getString("attached_file_error"));
 		}
-	}
-	
-	private void setDefaultSchema(HttpServletRequest request) {
-		String organization = (String) request.getSession().getAttribute("naviox.organization");
-		if (!Is.emptyString(organization)) { 
-			XPersistence.setDefaultSchema(organization);
-			return;
-		}
-		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
-		String defaultSchema = (String) context.get(request, "xava_defaultSchema");
-		if (!Is.emptyString(defaultSchema)) XPersistence.setDefaultSchema(defaultSchema);
 	}
 }
