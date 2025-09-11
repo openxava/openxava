@@ -16,14 +16,7 @@ Change Log for OpenXava project
 - Commons Lang3 upgraded to 3.18.0.
 - Commons Lang removed as dependency because of security vulnerabilities.
 - Embedded Tomcat used in development upgraded to 9.0.109.
-
-- MySQL upgraded to 9.4.0
-- Oracle upgraded to 23.9.0.25.07
-- AS/400 upgraded to 21.0.5
-- Microsoft SQL Server upgraded to 13.2.0.jre8
-- Informix upgraded to 15.0.0.2
-- Firebird/Jaybird upgraded to 5.0.9.java8
-
+- Driver version in doc/new projects upgraded for MySQL, Oracle, AS/400, MS SQL Server, Informix & Firebird.
 - Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
 - The @Icon editor now includes 7447 icons, 2500 more than before.
 - The handle to open/close the left modules menu is now transparent.
