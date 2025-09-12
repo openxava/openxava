@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Added a link in the @Files/@Stereotype("FILES") editor to download all files at once as a ZIP. 
 - Lesson 3 of the OpenXava course with AI available in the documentation with video.
 - Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Commons Validator upgraded to 1.10.0.

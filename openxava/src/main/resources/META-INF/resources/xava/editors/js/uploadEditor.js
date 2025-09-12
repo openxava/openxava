@@ -10,7 +10,7 @@ openxava.addEditorInitFunction(function() {
         var idSelector = "";
         var classSelector = "";
         const input = this;
-        const inputParent = input.parentElement; 
+        const inputParent = input.parentElement.parentElement;    
         
         if (FilePond.find(input) == null) {
             const pond = FilePond.create(input);
@@ -118,6 +118,20 @@ openxava.addEditorInitFunction(function() {
             }
         }
     });
+    // Delegated handler for "Download all" to comply with CSP (no inline onclick)
+    $(document)
+        .off('click.oxDownloadAll', '.ox-download-all-link') 
+        .on('click.oxDownloadAll', '.ox-download-all-link', function (e) {
+            e.preventDefault();
+            const $a = $(this);
+            const app = $a.data('application');
+            const module = $a.data('module');
+            const propertyKey = $a.data('propertyKey');
+            const windowId = $('#xava_window_id').val();
+            if (!app || !module || !propertyKey) return; // defensive
+            const url = `${openxava.contextPath}/xava/zipfiles?application=${encodeURIComponent(app)}&module=${encodeURIComponent(module)}&propertyKey=${encodeURIComponent(propertyKey)}&windowId=${encodeURIComponent(windowId || '')}`;
+            window.location = url;
+        });
 
 });
 

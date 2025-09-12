@@ -1,0 +1,37 @@
+.ox-filepond-read-only .filepond--drop-label, .ox-filepond-read-only .filepond--action-remove-item {
+	display: none;
+}
+
+/* Positioning wrapper for upload editor to host the top-right actions */
+.ox-upload-editor-box {
+    position: relative;
+}
+
+/* Top-right positioned download-all action */
+.ox-upload-editor-box .ox-download-all {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    z-index: 2;
+}
+
+.ox-upload-editor-box .ox-download-all .ox-download-all-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    color: rgba(0,0,0,0.54);
+    text-decoration: none;
+}
+
+.ox-upload-editor-box .ox-download-all .ox-download-all-link:hover {
+    background: rgba(0,0,0,0.06);
+    color: rgba(0,0,0,0.87);
+}
+
+.ox-upload-editor-box .ox-download-all .mdi {
+    font-size: 20px;
+    line-height: 1;
+}
