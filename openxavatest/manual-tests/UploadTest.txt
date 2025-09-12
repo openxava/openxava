@@ -54,6 +54,7 @@ GalleryImage: Product2 with Chrome and Firefox
 AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - In list a row shows a link to download (a regular file) the trailer and other a little image preview (an image).
 - Click on New.
+- No "Download all" icon in scripts.
 - Enter the title of a movie.
 - Upload in trailer a not-image file. It does not show the preview.
 - Click on the file. The file is downloaded with the correct file title. 
@@ -61,6 +62,7 @@ AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - Go list, edit your movie. The file must be there.
 - Click on the file. The file is downloaded with the correct file title. 
 - Delete the movie.
+- "Download all" icon present in top right corner of scripts.
 
 @File and @Files: Movie3 with Chrome and Firefox
 - Go to second record "GATTACA".

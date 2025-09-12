@@ -1,8 +1,6 @@
 Pendiente para descarga de un golpe en @File
 --------------------------------------------
 
-- ¿Modificar algo en test manual? 
-- Pasar test manual 
 - Suite.
 - ¿Modificar documentación?
 - Poner en changelog y borrar este archivo.
