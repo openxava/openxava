@@ -1,31 +1,21 @@
 package org.openxava.web.servlets;
 
-import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.*;
+import java.net.*;
 import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.util.zip.*;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openxava.controller.ModuleContext;
-import org.openxava.controller.ModuleManager;
-import org.openxava.model.meta.MetaProperty;
-import org.openxava.util.Is;
-import org.openxava.util.Messages;
-import org.openxava.util.XavaResources;
-import org.openxava.web.Ids;
-import org.openxava.web.Requests;
-import org.openxava.view.View;
-import org.openxava.web.editors.AttachedFile;
-import org.openxava.web.editors.FilePersistorFactory;
-import org.openxava.web.Schemas;
+import org.apache.commons.logging.*;
+import org.openxava.controller.*;
+import org.openxava.model.meta.*;
+import org.openxava.util.*;
+import org.openxava.view.*;
+import org.openxava.web.*;
+import org.openxava.web.editors.*;
 
 /**
  * Servlet to download all files of a {@code @Files} property as a single ZIP.

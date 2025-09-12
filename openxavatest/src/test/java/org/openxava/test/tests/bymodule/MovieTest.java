@@ -1,7 +1,9 @@
 package org.openxava.test.tests.bymodule;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.*;
+import java.util.zip.*;
 
 import org.htmlunit.*;
 import org.htmlunit.html.*;
@@ -104,7 +106,33 @@ public class MovieTest extends MovieBaseTest {
 			"MODIFIED: email=openxavatest1@getnada.com, user=admin, application=OpenXavaTest, module=Movie, permalink=http://localhost:8080" + getContextPath() + "modules/Movie?detail=ff80818145622499014562259e980003, changes=<ul><li data-property='scripts'><b>Scripts</b>: FILE REMOVED --> Corporation.html</li></ul>"
 		);
 
-		// TMR ME QUEDÉ POR AQUÍ: PARA HACER EL TEST. ¿MODIFICAR ALGO EN MANUALTEST? PASAR MANUALTEST
+		assertOneShotDownload();
+	}
+	
+	private void assertOneShotDownload() throws Exception {
+		HtmlElement editor = getHtmlPage().getHtmlElementById("ox_openxavatest_Movie__editor_scripts");
+		HtmlElement link = editor.getOneHtmlElementByAttribute("a", "class", "ox-download-all-link");
+		Page page = link.click();
+        WebResponse response = page.getWebResponse();
+
+        assertEquals("application/zip", response.getContentType());
+
+        String disposition = response.getResponseHeaderValue("Content-Disposition");
+        assertNotNull("Must have Content-Disposition", disposition);
+        assertTrue("Incorrect ZIP name: " + disposition,
+                disposition.contains("Movie_scripts.zip"));
+
+        Set<String> entries;
+        try (InputStream is = response.getContentAsStream()) {
+            entries = unzipEntryNames(is);
+        }
+
+        Set<String> expected = new HashSet<>();
+        expected.add("English script (v0.0.1)");
+        expected.add("Portuguese script (v0.1.1).odt");
+        expected.add("Spanish script (v1.0.0).pdf");
+
+        assertEquals("ZIP content not the expected one", expected, entries);		
 	}
 	
 	private int indexOfFile(String property, String fileName) throws Exception { 
@@ -112,7 +140,19 @@ public class MovieTest extends MovieBaseTest {
 		Collection<AttachedFile> files = FilePersistorFactory.getInstance().findLibrary((String) propertyValue);
 		return files.stream().map(AttachedFile::getName).collect(Collectors.toList()).indexOf(fileName);
 	}
-	
+
+    private Set<String> unzipEntryNames(InputStream is) throws IOException {
+        Set<String> names = new HashSet<>();
+        try (ZipInputStream zis = new ZipInputStream(is)) {
+            ZipEntry entry;
+            while ((entry = zis.getNextEntry()) != null) {
+                names.add(entry.getName());
+                zis.closeEntry();
+            }
+        }
+        return names;
+    }
+	 	
 	public void testGroupName() throws Exception {
 		String groupId = Strings.removeBlanks("data sheet");
 		
