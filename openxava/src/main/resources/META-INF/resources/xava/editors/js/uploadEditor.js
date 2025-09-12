@@ -10,7 +10,7 @@ openxava.addEditorInitFunction(function() {
         var idSelector = "";
         var classSelector = "";
         const input = this;
-        const inputParent = input.parentElement; 
+        const inputParent = input.parentElement.parentElement;    
         
         if (FilePond.find(input) == null) {
             const pond = FilePond.create(input);

@@ -1,6 +1,7 @@
 Pendiente para descarga de un golpe en @File
 --------------------------------------------
 
-- Suite.
+- Suite. TMR ME QUEDÉ POR AQUÍ. OTRA VEZ.
+- Prueba manuales.
 - ¿Modificar documentación?
 - Poner en changelog y borrar este archivo.

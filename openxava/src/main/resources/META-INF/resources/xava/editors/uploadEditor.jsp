@@ -41,7 +41,7 @@ String accept = Is.emptyString(acceptFileTypes)?"":"accept='" + acceptFileTypes 
 String maxFileSizeInKb = request.getParameter("maxFileSizeInKb");
 String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFileSizeInKb)?"":"data-max-file-size='" + maxFileSizeInKb + "KB'";
 %>
-<div class="ox-upload-editor-box">
+<div class="ox-upload-editor-box"> 
     <input id='<%=propertyKey%>' 
         type="file" class="xava_upload<%=cssClass%>"
         data-application="<%=applicationName%>" 
@@ -70,6 +70,6 @@ String dataFileSizeInKb = Is.emptyString(maxFileSizeInKb) || "-1".equals(maxFile
         
     </div>
     <% } %>
-</div>
+</div> 
 
 <jsp:include page="filePondTranslation.jsp"/>	
