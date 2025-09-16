@@ -92,6 +92,27 @@
 				<skipTests>true</skipTests>
 			</configuration>
 		</plugin>
+		
+ 		<!-- Ensure annotation processing (Lombok) works, especially on Java 25 
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <source>${maven.compiler.source}</source>
+                <target>${maven.compiler.target}</target>
+                <encoding>${project.build.sourceEncoding}</encoding>
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.40</version>
+                    </path>
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+        -->
+        
     </plugins>
   </build>
    

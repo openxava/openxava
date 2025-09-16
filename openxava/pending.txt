@@ -1,0 +1,8 @@
+Pending Java 25 TMR
+-------------------
+- Modify all archetypes to include Java 25 as option.
+	- Comentado, con un diciendo que es para Java 25 y que se debe actualizar la versión de Lombok.
+	- Un comentario en la parte de pom donde se pone la versión de Java, para que miren abajo.
+- Add an article in documentation.
+	- Indicar que hay que actualizar Lombok.
+- En changelog y borrar este archivo.	
