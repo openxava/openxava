@@ -1,28 +1,63 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Java 21 - OpenXava</title>
+    <title>Java 25 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <script src="highlight/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
-  <body>
+  <body class="wiki">
     <div class="wiki" id="content_view" style="display: block;">
       <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
-          / </span> Java 21 </h1>
+          / </span> Java 25 </h1>
       By default, OpenXava is compiled with Java 8, so you can use OpenXava with
-      Java 8, 11, 17, 21 or 25. OpenXava supports Java 21 since v7.2,
-      therefore you can compile and run your OpenXava applications with Java 21
+      Java 8, 11, 17 or 21. Moroever, since v7.6 OpenXava supports Java 25,
+      therefore you can compile and run your OpenXava applications with Java 25
       and enjoy their new features. </div>
-    <div class="wiki" style="display: block;">To use Java 21 in your application
+    <div class="wiki" style="display: block;">To use Java 25 in your application
       you have to change the compile level in the <i>pom.xml</i> of your
       project, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;maven.compiler.source&gt;21&lt;/maven.compiler.source&gt;
-&lt;maven.compiler.target&gt;21&lt;/maven.compiler.target&gt;
+      <pre><code class="xml">&lt;maven.compiler.source&gt;25&lt;/maven.compiler.source&gt;
+&lt;maven.compiler.target&gt;25&lt;/maven.compiler.target&gt;
 </code></pre> </div>
+<p>For Java 25 to recognize Lombok annotations you must add the following 
+plugin in the <i>build</i> section of your project's <i>pom.xml</i>:</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;finalName&gt;${artifactId}&lt;/finalName&gt;
+    &lt;plugins&gt;
+	
+        &lt;!-- For Java 25. Be sure to specify the same Lombok version you are using. --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.12.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+                &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+                &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
+                &lt;annotationProcessorPaths&gt;
+                    &lt;path&gt;
+                        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                        &lt;version&gt;1.18.40&lt;/version&gt;
+                    &lt;/path&gt;
+                &lt;/annotationProcessorPaths&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+	
+        ...
+		
+    &lt;/plugins&gt;		
+&lt;/build&gt;</code></pre>	
+<p>This is required even if the compilation level is not 25. The Lombok version 
+you specify must be the same one your project is using, usually the one 
+used by the OpenXava version. That’s why if you change your OpenXava version 
+you may need to adjust the Lombok version here. In projects created from v7.6 onwards, this 
+plugin is included by default in the <i>pom.xml</i>, although commented out.</p>
+<br>
     <div class="wiki" style="display: block;">The below instructions are for
       configuring OpenXava Studio to use Java 21. Obviously, you should have JDK
       21 installed on your computer. </div>
@@ -55,7 +90,7 @@
       title="eclipse-maven-package-java21-set-jre.png">
     <div class="wiki" style="display: block;">Now click on <i>Run</i> and your
       application will be compiled and packaged using Java 21. From now on, you
-      can use the <i>package21</i> configuration you have created to compile
+      can use the <i>compile21</i> configuration you have created to compile
       with Java 21.</div>
     <div class="wiki" style="display: block;">
       <h2>Configure to run with Java 21</h2>
