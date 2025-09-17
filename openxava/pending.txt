@@ -1,5 +1,0 @@
-Pending Java 25 TMR
--------------------
-- Add an article in documentation.	
-	- TMR PARTE INICIAL DE LA DOC HECHA. FALTA REVISAR EL RESTO Y CAMBIAR LOS PANTALLAZOS
-- En changelog y borrar este archivo.	

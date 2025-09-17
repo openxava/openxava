@@ -59,54 +59,54 @@
 	plugin se incluye por defecto en el <i>pom.xml</i>, aunque comentado.</p>
 	<br>
     <div class="wiki" style="display: block;">Las siguientes instrucciones son
-      para configurar OpenXava Studio para usar Java 21. Obviamente, deberías
-      tener instalado JDK 21 en tu ordenador. </div>
+      para configurar OpenXava Studio para usar Java 25. Obviamente, deberías
+      tener instalado JDK 25 en tu ordenador. </div>
     <div class="wiki" style="display: block;">
-      <h2>Añadir Java 21 a OpenXava Studio</h2>
+      <h2>Añadir Java 25 a OpenXava Studio</h2>
     </div>
     <div class="wiki" style="display: block;">El primer paso es indicar a
-      OpenXava Studio donde está instalado JDK 21. Para ello, ve a <i>Window
-        &gt; Preferences &gt; Java &gt; Installed JREs</i>, y allí agrega JDK 21
-      a la lista de <i>Installed JREs</i>:<img src="files/eclipse-installed-jres-java21.png"
-        alt="eclipse-installed-jres-java21.png" title="eclipse-installed-jres-java21.png">
+      OpenXava Studio donde está instalado JDK 25. Para ello, ve a <i>Window
+        &gt; Preferences &gt; Java &gt; Installed JREs</i>, y allí agrega JDK 25
+      a la lista de <i>Installed JREs</i>:<img src="files/eclipse-installed-jres-java25.png"
+        alt="eclipse-installed-jres-java25.png" title="eclipse-installed-jres-java25.png">
     </div>
     <div class="wiki" style="display: block;">No es necesario que lo marques
       como el JRE predeterminado.</div>
     <div class="wiki" style="display: block;">
-      <h2>Configurar para compilar con Java 21</h2>
+      <h2>Configurar para compilar con Java 25</h2>
     </div>
     <div class="wiki" style="display: block;">Deberías definir tu propia
       configuración de Maven para compilar, empaquetar o instalar tu aplicación
-      e indicar en esa configuración que vas a utilizar Java 21. Utiliza esa
+      e indicar en esa configuración que vas a utilizar Java 25. Utiliza esa
       configuración para compilar o empaquetar tu aplicación. Es decir, haz clic
       derecho en tu proyecto y elige <i>Run As &gt; Maven build...</i>, luego
       en el cuadro de diálogo crea una configuración para llamar al goal <i>package</i>
-      y llámala <i>tuproyecto package21</i> (por ejemplo), de esta manera:</div>
-    <img src="files/eclipse-maven-package-java21.png" alt="eclipse-maven-package-java21.png"
-      title="eclipse-maven-package-java21.png">
+      y llámala <i>tuproyecto package25</i> (por ejemplo), de esta manera:</div>
+    <img src="files/eclipse-maven-package-java25.png" alt="eclipse-maven-package-java25.png"
+      title="eclipse-maven-package-java25.png">
     <div class="wiki" style="display: block;">Luego, ve a la pestaña JRE y en la
-      opción <i>Alternate JRE</i>, elige el JDK 21 como JRE, de esta manera:</div>
-    <img src="files/eclipse-maven-package-java21-set-jre.png" alt="eclipse-maven-package-java21-set-jre.png"
-      title="eclipse-maven-package-java21-set-jre.png">
+      opción <i>Alternate JRE</i>, elige el JDK 25 como JRE, de esta manera:</div>
+    <img src="files/eclipse-maven-package-java25-set-jre.png" alt="eclipse-maven-package-java25-set-jre.png"
+      title="eclipse-maven-package-java25-set-jre.png">
     <div class="wiki" style="display: block;">Ahora haz clic en <i>Run</i> y tu
-      aplicación se compilará y empaquetará utilizando Java 21. A partir de este
-      momento, puedes usar la configuración <i>compile21</i> que has creado
-      para compilar con Java 21.</div>
+      aplicación se compilará y empaquetará utilizando Java 25. A partir de este
+      momento, puedes usar la configuración <i>package25</i> que has creado
+      para compilar con Java 25.</div>
     <div class="wiki" style="display: block;">
-      <h2>Configurar para ejecutar con Java 21</h2>
+      <h2>Configurar para ejecutar con Java 25</h2>
     </div>
     <div class="wiki" style="display: block;">Debes editar tu configuración de
-      ejecución para utilizar JDK 21 al ejecutar tu aplicación. Para ello, haz
+      ejecución para utilizar JDK 25 al ejecutar tu aplicación. Para ello, haz
       clic en la entrada del menú <i>Run Configuration...</i>:</div>
     <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
       title="eclipse-run-configurations.png">
     <div class="wiki" style="display: block;">Selecciona tu aplicación a la
       derecha, en la sección <i>Java Application</i>. Luego, ve a la pestaña
-      JRE y en <i>Alternate JRE</i> elige el JDK 21, de esta manera:</div>
-    <img src="files/eclipse-run-configuration-java21.png" alt="eclipse-run-configuration-java21.png"
-      title="eclipse-run-configuration-java21.png">
+      JRE y en <i>Alternate JRE</i> elige el JDK 25, de esta manera:</div>
+    <img src="files/eclipse-run-configuration-java25.png" alt="eclipse-run-configuration-java25.png"
+      title="eclipse-run-configuration-java25.png">
     <div class="wiki" style="display: block;">Haz clic en <i>Run</i>, y tu
-      aplicación se ejecutará utilizando Java 21.</div>
+      aplicación se ejecutará utilizando Java 25.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">Nota: Ten cuidado, porque si en
@@ -114,6 +114,6 @@
       este podría marcarse con errores. No te preocupes, simplemente haz clic
       derecho en tu proyecto y elige <i>Properties &gt; Java Build Path &gt;
         Libraries</i>. Allí, elimina la librería JRE de Java 18 y agrega la
-      librería de Java 21 con el botón <i>Add Library...</i>.</div>
+      librería de Java 25 con el botón <i>Add Library...</i>.</div>
   </body>
 </html>

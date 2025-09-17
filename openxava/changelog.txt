@@ -3,7 +3,8 @@ Change Log for OpenXava project
 
 - Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
 - @DescriptionsList implementation supports very large datasets with good performance.
-- Allows downloading all files at once as a ZIP in the @Files/@Stereotype("FILES") editor. 
+- Allows downloading all files at once as a ZIP in the @Files/@Stereotype("FILES") editor.
+- Java 25 support. 
 
 - Improved performance when displaying entities with many @DescriptionsList references.
 - The @Icon editor now includes 7447 icons, 2500 more than before.
