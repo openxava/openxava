@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Java 25 - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body class="wiki">
+    <div class="wiki" id="content_view" style="display: block;">
+      <h1> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span> Java 25 </h1>
+      By default, OpenXava is compiled with Java 8, so you can use OpenXava with
+      Java 8, 11, 17 or 21. Moroever, since v7.6 OpenXava supports Java 25,
+      therefore you can compile and run your OpenXava applications with Java 25
+      and enjoy their new features. </div>
+    <div class="wiki" style="display: block;">To use Java 25 in your application
+      you have to change the compile level in the <i>pom.xml</i> of your
+      project, thus:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="xml">&lt;maven.compiler.source&gt;25&lt;/maven.compiler.source&gt;
+&lt;maven.compiler.target&gt;25&lt;/maven.compiler.target&gt;
+</code></pre> </div>
+<p>For Java 25 to recognize Lombok annotations you must add the following 
+plugin in the <i>build</i> section of your project's <i>pom.xml</i>:</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;finalName&gt;${artifactId}&lt;/finalName&gt;
+    &lt;plugins&gt;
+	
+        &lt;!-- For Java 25. Be sure to specify the same Lombok version you are using. --&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.12.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+                &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+                &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
+                &lt;annotationProcessorPaths&gt;
+                    &lt;path&gt;
+                        &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                        &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                        &lt;version&gt;1.18.40&lt;/version&gt;
+                    &lt;/path&gt;
+                &lt;/annotationProcessorPaths&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+	
+        ...
+		
+    &lt;/plugins&gt;		
+&lt;/build&gt;</code></pre>	
+<p>This is required even if the compilation level is not 25. The Lombok version 
+you specify must be the same one your project is using, usually the one 
+used by the OpenXava version. That’s why if you change your OpenXava version 
+you may need to adjust the Lombok version here. In projects created from v7.6 onwards, this 
+plugin is included by default in the <i>pom.xml</i>, although commented out.</p>
+<br>
+    <div class="wiki" style="display: block;">The below instructions are for
+      configuring OpenXava Studio to use Java 25. Obviously, you should have JDK
+      25 installed on your computer. </div>
+    <div class="wiki" style="display: block;">
+      <h2>Add Java 25 to OpenXava Studio</h2>
+    </div>
+    <div class="wiki" style="display: block;">The first step is to indicate to
+      OpenXava Studio where the JDK 25 is installed. For that, go to <i>Window
+        &gt; Preferences &gt; Java &gt; Installed JREs</i>, and there add the
+      JDK 25 to the Installed JREs list:<img src="files/eclipse-installed-jres-java25.png"
+        alt="eclipse-installed-jres-java25.png" title="eclipse-installed-jres-java25.png">
+    </div>
+    <div class="wiki" style="display: block;">It's not needed that you mark it
+      as the defaul JRE.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Configure to compile with Java 25</h2>
+    </div>
+    <div class="wiki" style="display: block;">You should define your own Maven
+      configuration to compile, package or install your application and indicate
+      in that configuration that you're going to use Java 25. Use that
+      configuration for compile or package your application. That is, do a right
+      mouse click on your project, and choose <i>Run As &gt; Maven build...</i>,
+      then in the dialog create a configuration to call the goal <i>package</i>
+      and named it <i>yourproject package25</i> (for example), in this way:</div>
+    <img src="files/eclipse-maven-package-java25.png" alt="eclipse-maven-package-java25.png"
+      title="eclipse-maven-package-java25.png">
+    <div class="wiki" style="display: block;">The go to the JRE tab and in <i>Alternate
+        JRE</i> option, choose the JDK 25 as JRE, thus:</div>
+    <img src="files/eclipse-maven-package-java25-set-jre.png" alt="eclipse-maven-package-java25-set-jre.png"
+      title="eclipse-maven-package-java25-set-jre.png">
+    <div class="wiki" style="display: block;">Now click on <i>Run</i> and your
+      application will be compiled and packaged using Java 25. From now on, you
+      can use the <i>package25</i> configuration you have created to compile
+      with Java 25.</div>
+    <div class="wiki" style="display: block;">
+      <h2>Configure to run with Java 25</h2>
+    </div>
+    <div class="wiki" style="display: block;">You have to edit your run
+      configuration to use the JDK 25 to run your application. For that click on
+      the <i>Run Configuration...</i> menu entry:</div>
+    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
+      title="eclipse-run-configurations.png">
+    <div class="wiki" style="display: block;">Choose your application on the
+      right, on the Java Application section. Then go to the JRE tab and in <i>Alternate
+        JRE</i> choose the JDK 25, like this:</div>
+    <img src="files/eclipse-run-configuration-java25.png" alt="eclipse-run-configuration-java25.png"
+      title="eclipse-run-configuration-java25.png">
+    <div class="wiki" style="display: block;">Click on <i>Run</i>, and your
+      application will run using Java 25.</div>
+    <div class="wiki" style="display: block;"><br>
+    </div>
+    <div class="wiki" style="display: block;">Note: Beware, because if you do a
+      <i>Maven &gt; Upgrade Project</i> on your project at any moment, your
+      project will be marked with errors. Don't panic, just do a right click on
+      your project, and choose <i>Properties &gt; Java Build Path &gt;
+        Libraries</i>. There remove the Java 18 JRE library and add the Java 25
+      library, with the <i>Add Library...</i> button.</div>
+  </body>
+</html>
