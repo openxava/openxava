@@ -2308,14 +2308,13 @@ div.ox-subcontroller table{
 .ox-chart-type {
 	margin-left: -20px;
 	margin-right: -40px;
-	padding-left: 30px;
-	padding-right: 40px;
+	padding: 12px 40px 9px 30px;
 	background: var(--chart-type-background);
 }
 
 .ox-chart-type i { 
 	color: var(--chart-type-icon-color);
-	padding: 5px;
+	padding: 5px 5px 0px 5px;
 	font-size: 200%;   
 }
 
@@ -2352,7 +2351,7 @@ div.ox-subcontroller table{
 }
 
 .ox-charts .ox-element-collection i {
-	margin-right: -15px;
+	margin-right: -10px;
 }
 
 .ox-charts .ox-element-collection select {
