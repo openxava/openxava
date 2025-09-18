@@ -1,5 +1,21 @@
+.filepond--root {
+    margin-bottom: 0px;
+}
+
+.ox-frame .filepond--root {
+    margin-bottom: 7px;
+}
+
 .ox-filepond-read-only .filepond--drop-label, .ox-filepond-read-only .filepond--action-remove-item {
 	display: none;
+}
+
+.ox-upload-editor-box {
+  display: inline; 
+}
+
+.ox-upload-editor-box:has(> .ox-files) {
+  display: block; 
 }
 
 /* Positioning wrapper for upload editor to host the top-right actions */
