@@ -1,6 +1,53 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6 (2025-9-19)
+------------------------
+- Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
+- @DescriptionsList implementation supports very large datasets with good performance.
+- Allows downloading all files at once as a ZIP in the @Files/@Stereotype("FILES") editor.
+- Java 25 support. 
+- Improved performance when displaying entities with many @DescriptionsList references.
+- The @Icon editor now includes 7447 icons, 2500 more than before.
+- The handle to open/close the left modules menu is now transparent.
+- The orderByKey option in @DescriptionsList now also applies to list filter combos. 
+- @DescriptionsList values are formatted like in the rest of the application.
+- Numeric ordering for numeric parts when concatenating properties in @DescriptionsList.
+- Only up to 200 items are loaded in the combos used in list filters to avoid crashes with large datasets.
+- New Strings.wrapVariables() utility method.
+- New XCollections.isEmptyOrZero() helper to check for empty collections or with zero values.
+- Is.empty() enhanced to recognize and handle collections.
+- No longer loads combos via AJAX when the current value is empty.
+- New MapFacade.getValuesNotTracking() to obtain values without access tracking.
+- The Product module in invoicedemo has editable list mode.
+- setValueInList/assert(No)EditableInList methods in ModuleTestBase to test editable properties in lists.
+- New parameters value in xava:editor and descriptionValue in xava:descriptionsList taglibs. 
+- Public manageException() method in ModuleManager to use the exception management logic from custom code.
+- JavaScript functions openxava.showMessage() and openxava.showError() to show messages from custom JS code.
+- Messages.toString() uses the locale from the browser instead of from the server machine.
+- Some new common use labels to be used in applications.
+- New availableLanguages property in xava.properties to limit the languages available to the user.
+- Commons Validator upgraded to 1.10.0.
+- Commons FileUpload upgraded to 1.6.0.
+- Commons IO upgraded to 2.18.0.
+- JasperReports upgraded to 6.21.5.
+- Groovy upgraded to 4.0.28.
+- JSoup upgraded to 1.21.2.
+- HtmlUnit upgraded to 4.16.0.
+- Jakarta Mail upgraded to 1.6.8.
+- Lombok upgraded to 1.18.40.
+- Log4j upgraded to 2.25.1.
+- Json upgraded to 20250517.
+- Commons Lang3 upgraded to 3.18.0.
+- Commons Lang removed as a dependency because of security vulnerabilities.
+- Embedded Tomcat used in development upgraded to 9.0.109.
+- Driver version in doc/new projects upgraded for MySQL, Oracle, AS/400, MS SQL Server, Informix & Firebird.
+- Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
+- Documentation article on row-level security using @Tab's baseCondition and filter. 
+- Lesson 3 of the OpenXava course with AI available in the documentation with video.
+- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
+- Fix: Images (GIF/PNG) for collection actions were misaligned, appearing at the top.
+
 OpenXava 7.5.3 (2025-6-20)
 --------------------------
 - Some new common use labels to be used in applications.

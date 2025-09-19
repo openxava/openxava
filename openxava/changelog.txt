@@ -1,11 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6 (2025-9-19)
+------------------------
 - Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
 - @DescriptionsList implementation supports very large datasets with good performance.
 - Allows downloading all files at once as a ZIP in the @Files/@Stereotype("FILES") editor.
 - Java 25 support. 
-
 - Improved performance when displaying entities with many @DescriptionsList references.
 - The @Icon editor now includes 7447 icons, 2500 more than before.
 - The handle to open/close the left modules menu is now transparent.
@@ -26,7 +27,6 @@ Change Log for OpenXava project
 - Messages.toString() uses the locale from the browser instead of from the server machine.
 - Some new common use labels to be used in applications.
 - New availableLanguages property in xava.properties to limit the languages available to the user.
-
 - Commons Validator upgraded to 1.10.0.
 - Commons FileUpload upgraded to 1.6.0.
 - Commons IO upgraded to 2.18.0.
@@ -43,10 +43,8 @@ Change Log for OpenXava project
 - Embedded Tomcat used in development upgraded to 9.0.109.
 - Driver version in doc/new projects upgraded for MySQL, Oracle, AS/400, MS SQL Server, Informix & Firebird.
 - Material Design Icons upgraded from 4.9.95 to 7.4.47, now with 7447 icons available.
-
 - Documentation article on row-level security using @Tab's baseCondition and filter. 
 - Lesson 3 of the OpenXava course with AI available in the documentation with video.
-
 - Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Fix: Images (GIF/PNG) for collection actions were misaligned, appearing at the top.
 
