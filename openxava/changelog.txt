@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+TMR ME QUEDÉ PARA LANZAR LA SUITE CON JAVA 25
 - Fecha en Timestamp (pero también sin Timestamp) con servio.
 - Hora en Timestamp con servio.
 - LocalDateTime con servio.
