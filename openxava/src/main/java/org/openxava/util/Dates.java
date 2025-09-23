@@ -338,8 +338,7 @@ public class Dates {
 			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
 			if (!java9 && locale.toString().equals("es_US")) pattern = pattern.replace("M/d", "d/M"); 
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
-			System.out.println("Dates.getDateTimeFormat() pattern=" + pattern); // tmr
-			// TMR ME QUEDÉ POR AQUÍ. FALLA EN Event. CREO QUE LA SOLUCIÓN ESTÁ AQUÍ
+			pattern = pattern.replace("d. ", "d.").replace("M. ", "M."); // // In order Java 25 works like previous versions for Serbian
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
 				DateFormatSymbols symbols = new DateFormatSymbols(locale);
@@ -356,7 +355,6 @@ public class Dates {
 		String pattern = "";
 		if (df instanceof SimpleDateFormat) {
 	        pattern = ((SimpleDateFormat) df).toPattern();
-			System.out.println("Dates.getLocalDateTimeFormat() pattern=" + pattern); // tmr
 	    }
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, locale);
 		return formatter;
