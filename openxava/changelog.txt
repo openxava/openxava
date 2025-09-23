@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Fecha en Timestamp (pero también sin Timestamp) con servio.
+- Hora en Timestamp con servio.
+- LocalDateTime con servio.
+
 OpenXava 7.6 (2025-9-19)
 ------------------------
 - Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.
