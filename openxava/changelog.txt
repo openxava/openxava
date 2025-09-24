@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Inconsistent Serbian date format between Java 25 and earlier Java versions.
-- Fix: Incorrect time formatting for date/time types in Serbian with Java 25.
+- Fix: Inconsistent date format between Java 25 and earlier Java versions in some locales.
+- Fix: Incorrect time formatting for date/time types in some locales with Java 25.
 
 OpenXava 7.6 (2025-9-19)
 ------------------------
