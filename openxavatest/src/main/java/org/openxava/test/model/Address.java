@@ -12,6 +12,7 @@ import org.openxava.annotations.*;
 
 @Embeddable
 @Views ({
+	
 	@View( members =
 		"viewProperty;" +
 		"street, zipCode, Address.addFullAddress();" +		
@@ -20,6 +21,18 @@ import org.openxava.annotations.*;
 		"];" + // Don't remove the ; to test a case
 		"asString"
 	),
+	
+	// tmr ini
+	@View( name="CityWithGroup", members =
+		// TMR ME QUEDÉ POR AQUÍ: COMO ESTÁ FALLA. PODRÍA CONSIDERAR MARCOS SOLOS EN UNA FILA. MIRAR COMO FUNCIONA EN RAÍZ.
+		// Don't change the view members and layout, to test a case
+		"street;" +		
+		"city [" +
+		"	zipCode, city;" +
+		"]" + 
+		"state" 
+	),
+	// tmr fin
 	@View( name="StateAsForm" ),
 	@View( name="Demo", members = 
 		"street, zipCode;" +		

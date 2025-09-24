@@ -56,6 +56,13 @@ import lombok.*;
 		"vatPercentage, vat;" +
 		"total"	
 	),
+	// tmr ini
+	@View(name="CityWithGroup", members=
+		"year, number, date;" +		
+		"customer;" +		
+		"details"			
+	),	
+	// tmr fin
 	@View(name="CalculatedDetailsInSection", members=
 		"year, number, date, paid;" + 
 		"customer { customer }" + 		
@@ -275,7 +282,8 @@ public class Invoice {
 		@ReferenceView(forViews="CustomerAsAggregateWithDeliveryPlaces", value="SimpleWithDeliveryPlaces"),
 		@ReferenceView(forViews="DetailsWithTotals, CalculatedDetails, DetailsWithVatPercentage, CalculatedDetailsWithVatPercentage", value="Simplest"),  
 		@ReferenceView(forViews="NoSections", value="SimpleWithCity"),
-		@ReferenceView(forViews="CustomerOnlyAddress", value="OnlyAddress") 
+		@ReferenceView(forViews="CustomerOnlyAddress", value="OnlyAddress"),
+		@ReferenceView(forViews="CityWithGroup", value="CityWithGroup") // tmr		
 	})
 	@AsEmbedded(forViews="CustomerAsAggregateWithDeliveryPlaces")
 	@NoFrame(forViews="CustomerNoFrame") 
