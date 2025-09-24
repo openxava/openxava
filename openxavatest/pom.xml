@@ -10,9 +10,8 @@
   <properties>
     <openxava.version>7.6.1-SNAPSHOT</openxava.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<!-- tmr Poner Java 11 cuanto terminemos -->
-    <maven.compiler.source>25</maven.compiler.source> 
-    <maven.compiler.target>25</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source> 
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -94,8 +93,7 @@
 			</configuration>
 		</plugin>
 		
- 		<!-- Ensure annotation processing (Lombok) works, especially on Java 25 -->
-		<!-- tmr Volver a comentar cuando se solucione el problema -->
+ 		<!-- Ensure annotation processing (Lombok) works, especially on Java 25 
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -113,7 +111,7 @@
                 </annotationProcessorPaths>
             </configuration>
         </plugin>
-        
+        -->
         
     </plugins>
   </build>
