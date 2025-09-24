@@ -11,6 +11,8 @@ import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
+import org.junit.After;
+import org.junit.Before;
 
 import junit.framework.*;
 /**
@@ -24,6 +26,10 @@ abstract public class WebDriverTestBase extends TestCase {
         super(testName);
     }
     
+    public WebDriverTestBase() {
+        super();
+    }
+    
     private boolean headless = true; 
     private String module;
     private WebDriver driver;
@@ -32,10 +38,12 @@ abstract public class WebDriverTestBase extends TestCase {
         return "en";
     }
     
+    @Before
     protected void setUp() throws Exception { 
     	driver = null;
     }
 
+    @After
     protected void tearDown() throws Exception {
         if (driver != null) driver.quit();
     }

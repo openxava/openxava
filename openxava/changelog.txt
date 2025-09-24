@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Inconsistent date format between Java 25 and earlier Java versions in some locales.
+- Fix: Incorrect time formatting for date/time types in some locales with Java 25.
+
 OpenXava 7.6 (2025-9-19)
 ------------------------
 - Data can be edited directly in list mode, without entering detail view, with editableProperties in @Tab.

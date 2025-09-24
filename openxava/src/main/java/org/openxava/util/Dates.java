@@ -338,6 +338,7 @@ public class Dates {
 			if (java9) pattern = pattern.replace(", ", " ").replace((char) 8239, (char) 32);
 			if (!java9 && locale.toString().equals("es_US")) pattern = pattern.replace("M/d", "d/M"); 
 			if (fourDigitsForYear && !pattern.contains("yyyy")) pattern = pattern.replace("yy", "yyyy");
+			pattern = pattern.replace("d. ", "d.").replace("M. ", "M."); // // In order Java 25 works like previous versions for Serbian
 			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			if (java9) {
 				DateFormatSymbols symbols = new DateFormatSymbols(locale);
@@ -366,6 +367,7 @@ public class Dates {
 	 */
 	public static String getLocalizedDatePattern(Locale locale) { 
 		String pattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(FormatStyle.SHORT, null, IsoChronology.INSTANCE, locale);
+		pattern = pattern.replace(". ", "."); // In order Java 25 works like previous versions for Serbian
 		if (pattern.contains("yyyy")) return pattern;
 		return pattern.replace("yy", "yyyy");
 	}
@@ -625,6 +627,12 @@ public class Dates {
 				replaceAll("71", always4InYear?"Y":"y"). 	// year - 2 digit 		
 				replaceAll("1", "j"). 	// day - single digit
 				replaceAll("2", "n").	// month - ??? seems only double digit is supported by calendar
+				
+				// In order Java 25 works like previous versions for Serbian
+				replace("d. ", "d.").	
+				replace("m. ", "m.").	
+				replace("j. ", "d.").	
+				replace("n. ", "m.").	
 				
 				// Java 21 
 				replace((char) 8239, (char) 32) 
