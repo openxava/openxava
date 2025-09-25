@@ -12,6 +12,7 @@ import org.openxava.annotations.*;
 
 @Embeddable
 @Views ({
+	
 	@View( members =
 		"viewProperty;" +
 		"street, zipCode, Address.addFullAddress();" +		
@@ -19,6 +20,14 @@ import org.openxava.annotations.*;
 		"	city, state;" +
 		"];" + // Don't remove the ; to test a case
 		"asString"
+	),	
+	@View( name="CityWithGroup", members =
+		// Don't change the view members and layout, to test a case
+		"street;" +		
+		"city [" +
+		"	zipCode, city;" +
+		"]" + 
+		"state" 
 	),
 	@View( name="StateAsForm" ),
 	@View( name="Demo", members = 

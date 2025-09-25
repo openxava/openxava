@@ -935,6 +935,12 @@
 		<controller name="Typical"/>	
 	</module>
 	
+	<module name="CustomerCityWithGroup" folder="invoicing.variations">
+		<model name="Customer"/>
+		<view name="CityWithGroup"/>
+		<controller name="Typical"/>	
+	</module>
+	
 	<module name="InvoiceDetailsWithTotals" folder="invoicing.variations">
 		<model name="Invoice"/>
 		<view name="DetailsWithTotals"/>

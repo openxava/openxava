@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Frame wraps the next sibling frame when flowLayout is enabled in some circumstances.
+- Fix: Frame stays on the same row as plain properties when the framed element is placed before them.
 - Fix: Inconsistent date format between Java 25 and earlier Java versions in some locales.
 - Fix: Incorrect time formatting for date/time types in some locales with Java 25.
 

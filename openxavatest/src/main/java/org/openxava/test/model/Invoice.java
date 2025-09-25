@@ -275,7 +275,7 @@ public class Invoice {
 		@ReferenceView(forViews="CustomerAsAggregateWithDeliveryPlaces", value="SimpleWithDeliveryPlaces"),
 		@ReferenceView(forViews="DetailsWithTotals, CalculatedDetails, DetailsWithVatPercentage, CalculatedDetailsWithVatPercentage", value="Simplest"),  
 		@ReferenceView(forViews="NoSections", value="SimpleWithCity"),
-		@ReferenceView(forViews="CustomerOnlyAddress", value="OnlyAddress") 
+		@ReferenceView(forViews="CustomerOnlyAddress", value="OnlyAddress")
 	})
 	@AsEmbedded(forViews="CustomerAsAggregateWithDeliveryPlaces")
 	@NoFrame(forViews="CustomerNoFrame") 
