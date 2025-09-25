@@ -24,7 +24,6 @@ import org.openxava.annotations.*;
 	
 	// tmr ini
 	@View( name="CityWithGroup", members =
-		// TMR ME QUEDÉ POR AQUÍ: COMO ESTÁ FALLA. PODRÍA CONSIDERAR MARCOS SOLOS EN UNA FILA. MIRAR COMO FUNCIONA EN RAÍZ.
 		// Don't change the view members and layout, to test a case
 		"street;" +		
 		"city [" +

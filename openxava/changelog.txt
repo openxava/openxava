@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
-
+tmr Añadir bug calendario firefox
+tmr Añadir tarea probarlo XavaPro
 - Fix: Inconsistent date format between Java 25 and earlier Java versions in some locales.
 - Fix: Incorrect time formatting for date/time types in some locales with Java 25.
 

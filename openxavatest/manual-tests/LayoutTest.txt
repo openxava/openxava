@@ -13,7 +13,6 @@ at least the next cases:
 - Movie3: Button must be in the same row with @File and should be align vertically in the middle of the div.
 
 With flowLayout=true in xava.properties:
-tmr: Añadir InvoiceCityWithGroup o CustomerCityWithGroup(más simple). Probarlo todo, también probar el de style. Probar en XavaPro
 - Customer: The icon of 'Web site' property must be on right, inside the field.
 - Customer: Seller group must have all the properties well aligned. 
 	The number and name of customer must be placed in one line or two when resized. 

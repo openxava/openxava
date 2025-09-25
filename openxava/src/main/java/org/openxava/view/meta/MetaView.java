@@ -212,11 +212,12 @@ public class MetaView extends MetaElement implements Cloneable {
 					}
 					member = modify(member);
 					addExtraSeparatorIfNeeded((List)metaMembers, member);
-					metaMembers.add(member);					
+					metaMembers.add(member);
 				}
 			}
 			metaMembers = Collections.unmodifiableCollection(metaMembers);						
 		}
+		
 		if (countDuplicatedProperties == 1 && accumulateDuplicatedProperties) {
 			accumulateDuplicatedProperties = false;
 			countDuplicatedProperties = 0;
@@ -228,19 +229,29 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	private void addExtraSeparatorIfNeeded(List<MetaMember> metaMembers, MetaMember member) {
-		// We add an extra separtor if we find a reference with frame after a simple field
+		// Ensure framed members are on their own line. A framed member is any non-simple member,
+		// except a MetaReference with descriptions list or a MetaReference whose view has frame=false.
+		// 1) simple field, framed member -> add separator before the framed member
+		// 2) framed member, simple field -> add separator before the simple field
 		if (metaMembers.isEmpty()) return;
-		if (!(member instanceof MetaReference)) return;
 		Object lastMember = XCollections.last(metaMembers);
 		if (lastMember == PropertiesSeparator.INSTANCE) return;
-		if (!isDisplayedAsSimpleField(lastMember)) return;		
-		MetaReference ref = (MetaReference) member;
-		MetaReferenceView refView = getMetaReferenceView(ref);
-		if (refView != null) {
-			if (refView.getMetaDescriptionsList() != null) return;
-			if (!refView.isFrame()) return;
+
+		boolean lastIsFramed = isFramed(lastMember);
+		boolean currentIsFramed = isFramed(member);
+		boolean lastIsSimple = isDisplayedAsSimpleField(lastMember);
+		boolean currentIsSimple = isDisplayedAsSimpleField(member);
+
+		// Case 1: simple then framed
+		if (lastIsSimple && currentIsFramed) {
+			metaMembers.add(PropertiesSeparator.INSTANCE);
+			return;
 		}
-		metaMembers.add(PropertiesSeparator.INSTANCE);
+
+		// Case 2: framed then simple
+		if (lastIsFramed && currentIsSimple) {
+			metaMembers.add(PropertiesSeparator.INSTANCE);
+		}
 	}
 
 	private boolean isDisplayedAsSimpleField(Object member) {
@@ -250,6 +261,20 @@ public class MetaView extends MetaElement implements Cloneable {
 			return getMetaDescriptionList(ref) != null;
 		}
 		return false;
+	}
+
+	private boolean isFramed(Object member) {
+		// Simple fields are not framed
+		if (isDisplayedAsSimpleField(member)) return false;
+		if (member instanceof MetaReference) {
+			MetaReference ref = (MetaReference) member;
+			MetaReferenceView refView = getMetaReferenceView(ref);
+			if (refView == null) return false; // No explicit reference view: do not force a separator
+			if (refView.getMetaDescriptionsList() != null) return false; // descriptions list behaves as simple
+			return refView.isFrame();
+		}
+		// Any other non-simple member (groups, sections, etc.) is considered framed
+		return true;
 	}
 
 	private MetaMember modify(MetaMember member) throws XavaException {
