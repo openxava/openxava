@@ -185,7 +185,7 @@ import org.openxava.test.actions.*;
 
 @View( name="Intermediate", members="number")
 
-@View( name="CityWithGroup", members="number, name; address; deliveryPlaces") // tmr
+@View( name="CityWithGroup", members="number, name; address; deliveryPlaces") 
 
 @View( name="SellerAsDescriptionsListShowingReferenceView", members= "number; name; type; seller" )
 	
@@ -314,7 +314,7 @@ public class Customer implements IWithName {
 	@ReferenceView(forViews="SimpleStateAsForm", value="StateAsForm")
 	@ReferenceView(forViews="Demo", value="Demo")
 	@ReferenceView(forViews="OnlyAddress", value="Demo")
-	@ReferenceView(forViews="CityWithGroup", value="CityWithGroup") // tmr
+	@ReferenceView(forViews="CityWithGroup", value="CityWithGroup") 
 	private Address address;	
 	
 	@Transient @Column(length=50)

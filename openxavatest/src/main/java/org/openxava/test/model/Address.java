@@ -20,9 +20,7 @@ import org.openxava.annotations.*;
 		"	city, state;" +
 		"];" + // Don't remove the ; to test a case
 		"asString"
-	),
-	
-	// tmr ini
+	),	
 	@View( name="CityWithGroup", members =
 		// Don't change the view members and layout, to test a case
 		"street;" +		
@@ -31,7 +29,6 @@ import org.openxava.annotations.*;
 		"]" + 
 		"state" 
 	),
-	// tmr fin
 	@View( name="StateAsForm" ),
 	@View( name="Demo", members = 
 		"street, zipCode;" +		
