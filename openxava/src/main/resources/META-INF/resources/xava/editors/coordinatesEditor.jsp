@@ -1,4 +1,4 @@
 <jsp:include page="textEditor.jsp"/>
 
-<div class="xava_coordinates"/> 
+<div class="xava_coordinates"></div>
 	
