@@ -15,7 +15,7 @@ import org.openxava.test.actions.*;
 @Entity
 @Tab(properties="code, name, state.fullNameWithFormula")
 @View(members="state, stateCondition; code; name; location")
-@View(name="Map", members="state, code; name; location; map") 
+@View(name="Map", members="state, code; name; location; calculatedData [ map ]") 
 public class City {
 	
 	@Id 
