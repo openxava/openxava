@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Fix: Date icon is displaced in date fields on Firefox when flowLayout is enabled.
 - Fix: A frame placed just after a @Coordinates property is incorrectly put inside the @Coordinates frame.
 - Fix: A frame wraps the next sibling when flowLayout=true and plain properties follow a frame.
 - Fix: Frame stays on the same row as plain properties when the framed element is placed before them.

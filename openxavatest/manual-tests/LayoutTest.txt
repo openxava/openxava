@@ -24,6 +24,7 @@ With flowLayout=true in xava.properties:
 	Data 2 frame must be aligned with Remarks and Photos frames on right.
 - Product2: All properties well aligned, including the descriptionsLists.
 - Movie3WithSection: The @Files property is shown and fill all the section width.
+- Invoice with Firefox: Date icon inside textfield.
 - Invoice: In Amounts section the fields are in one row (when enough space), nicely aligned.	
 - CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right.
 - Warehouse: Simple, one field below other.
