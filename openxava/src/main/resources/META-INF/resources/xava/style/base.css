@@ -2781,7 +2781,8 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--reference-search-icon-color);
 	background: var(--reference-search-icon-background);
 	border-radius: 30px;
-	padding-bottom: 2px;
+	padding-top: 2px;
+	padding-bottom: 1px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
