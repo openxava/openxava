@@ -31,4 +31,8 @@ With flowLayout=true in xava.properties:
 - WarehouseInGroup: Simple, one field below other, inside the group frame.
 - WarehouseInSection: Simple, one field below other, inside the section.
 - CustomerAddress: Simple, one field below other, inside the embeddable frame. 
+- WorkCost: 
+	Browser narrow hidding module menu: collections inside frames and frames filling all space.
+	Open modules menu: collections inside frames and frames filling all space.
+	Wide the browser: collections inside frames and frames filling all space.
 
