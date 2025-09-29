@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Frame not filling full space with flowLayout=true when module menu hidden, causing lists overflow.
 - Fix: Ugly oval search icon in references, now it is round again.
 - Fix: Date icon is displaced in date fields on Firefox when flowLayout is enabled.
 - Fix: A frame placed just after a @Coordinates property is incorrectly put inside the @Coordinates frame.
