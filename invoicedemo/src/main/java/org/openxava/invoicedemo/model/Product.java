@@ -9,8 +9,7 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-// TMR ME QUEDÉ POR AQUÍ: BUSCAR REPRODUCIR ESTO EN openxavatest
-// tmr @Tab(editableProperties = "description, unitPrice")
+@Tab(editableProperties = "description, unitPrice")
 public class Product {
 	
 	@Id @Column(length=9)
