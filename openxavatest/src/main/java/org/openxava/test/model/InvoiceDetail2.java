@@ -54,6 +54,7 @@ public class InvoiceDetail2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("SimpleWithFamily") 
+	@SearchListTab("Editable") 
 	private Product2 product;
 	
 	@Stereotype("MONEY") @Depends("unitPrice, quantity")

@@ -466,7 +466,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
-	public void testCollectionOrderedByAPropertyOfAReference_valueOfNestedRerenceInsideAnEmbeddedCollection() throws Exception {
+	public void testCollectionOrderedByAPropertyOfAReference_valueOfNestedRerenceInsideAnEmbeddedCollection_searchReferenceWithEditablePropertiesInTab() throws Exception {
 		execute("CRUD.new");
 		setValue("year", "2002"); 
 		setValue("number", "1");
@@ -482,7 +482,12 @@ public class Invoice2Test extends ModuleTestBase {
 		
 		execute("Collection.edit", "row=1,viewObject=xava_view_details");
 		assertValue("product.description", "IBM ESERVER ISERIES 270"); 
-		assertValue("product.family.description", "HARDWARE");		
+		assertValue("product.family.description", "HARDWARE");	
+		
+		execute("Reference.search", "keyProperty=product.number");
+		assertLabelInList(3, "Unit price"); // To verify list is shown
+		assertLabelInList(5, "Extended description"); // and we're using "Editable" tab
+		assertNoEditableInList(0, 3); // By now in search lists we don't enable editable properties. If we enable it we should test XavaPro security too
 	}
 	
 	public void testMinSizeForCollections() throws Exception {

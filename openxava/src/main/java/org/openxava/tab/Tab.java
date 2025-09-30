@@ -3233,6 +3233,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public boolean isPropertyEditable(String propertyName) {
 		try {
+			if (getModuleManager(getRequest()).getDialogLevel() > 0) return false; // Editable properties are only for main list of modules, not for searching references
 			return getMetaTab().isPropertyEditable(propertyName);
 		} catch (Exception e) {
 			log.error(XavaResources.getString("error_checking_property_editable", propertyName), e);
