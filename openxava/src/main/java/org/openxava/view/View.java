@@ -2615,7 +2615,6 @@ public class View implements java.io.Serializable {
 	 * Set the default values in the empty fields.  
 	 */
 	private void calculateDefaultValues(boolean firstLevel) throws XavaException {
-		// TMR ME QUEDÉ POR AQUÍ. DEBERÍA DEPURAR LA ACCIÓN QUE SACA EL DIÁLOGO, POR SI ESTÁ AHÍ LA DIFERNEICA
 		if (firstLevel) { 
 			getRoot().registeringExecutedActions = true;
 		}
@@ -2629,7 +2628,6 @@ public class View implements java.io.Serializable {
 				Collection alreadyPut = new ArrayList();				
 				while (it.hasNext()) {
 					MetaProperty p = (MetaProperty) it.next();
-					System.out.println("View.calculateDefaultValues() p.getName()=" + p.getName()); // tmr
 					if (p.hasCalculatorDefaultValueOnCreate()) continue;  
 					if (membersNames.containsKey(p.getName()) || isTotalPropertyInAnyCollection(p.getName())) { 
 						try {
@@ -2654,7 +2652,6 @@ public class View implements java.io.Serializable {
 					boolean hasNext = itAlreadyPut.hasNext(); 
 					while (hasNext) {												 
 						String propertyName = (String) itAlreadyPut.next();
-						System.out.println("View.calculateDefaultValues() propertyName=" + propertyName); // tmr
 						try {
 							hasToSearchOnChangeIfSubview = false;
 							propertyChanged(propertyName);
@@ -2672,13 +2669,11 @@ public class View implements java.io.Serializable {
 				Iterator itOnChangeProperties = getMetaView().getPropertiesNamesThrowOnChange().iterator();			
 				while (itOnChangeProperties.hasNext()) {
 					String propertyName = (String) itOnChangeProperties.next();
-					System.out.println("View.calculateDefaultValues() propertyName.onchange=" + propertyName); // tmr
 					propertyChanged(propertyName);
 				}		
 			} 
 					
 			// Subviews		
-			System.out.println("View.calculateDefaultValues() Subviews"); // tmr
 			Iterator itSubviews = getSubviews().values().iterator();			
 			while (itSubviews.hasNext()) {
 				View subview = (View) itSubviews.next();
@@ -2692,8 +2687,7 @@ public class View implements java.io.Serializable {
 				}
 			}			
 								
-			// Groups	
-			System.out.println("View.calculateDefaultValues() Groups"); // tmr
+			// Groups		
 			Iterator itGroups = getGroupsViews().values().iterator();			
 			while (itGroups.hasNext()) {
 				View group = (View) itGroups.next(); 
@@ -2701,7 +2695,6 @@ public class View implements java.io.Serializable {
 			}			
 					
 			// Sections		
-			System.out.println("View.calculateDefaultValues() Sections"); // tmr
 			if (hasSections()) {
 				for (int i = 0; i < getSections().size(); i++) {
 					getSectionView(i).calculateDefaultValues(false);
@@ -2716,7 +2709,6 @@ public class View implements java.io.Serializable {
 				Collection alreadyPut = new ArrayList();						
 				while (it.hasNext()) {
 					MetaReference ref = (MetaReference) it.next();
-					System.out.println("View.calculateDefaultValues() Reference=" + ref.getName()); // tmr
 					if (membersNames.containsKey(ref.getName())) {
 						try {							
 							if (!ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) { // This way to avoid calculated dependend ones
@@ -2749,7 +2741,6 @@ public class View implements java.io.Serializable {
 					boolean hasNext = itAlreadyPut.hasNext(); 
 					while (hasNext) {
 						String propertyName = (String) itAlreadyPut.next();										
-						System.out.println("View.calculateDefaultValues() propertyChanged() propertyName.already=" + propertyName); // tmr
 						try {
 							hasToSearchOnChangeIfSubview = false;
 							propertyChanged(propertyName);
@@ -3647,7 +3638,6 @@ public class View implements java.io.Serializable {
 				moveViewValuesToCollectionValues();
 			}
 
-			System.out.println("View(" + getModelName() + ").tryPropertyChanged() changedPropertyQualifiedName=" + changedPropertyQualifiedName); // tmr
 			if (hasToSearchOnChangeIfSubview && !isFirstLevel() && isRepresentsEntityReference() && !isGroup() && !displayAsDescriptionsList() && 
 					( 	
 					(getLastPropertyKeyName().equals(changedProperty.getName()) && getMetaPropertiesIncludingGroups().contains(changedProperty)) || // Visible keys
@@ -3658,9 +3648,7 @@ public class View implements java.io.Serializable {
 				) {
 				if (!searchingObject) { // To avoid recursive infinite loops
 					try {
-						System.out.println("View.tryPropertyChanged() searchingObject..."); // tmr
 						searchingObject = true;												
-						if (true) throw new RuntimeException("KASKO"); // tmr
 						IOnChangePropertyAction action = getParent().getMetaView().createOnChangeSearchAction(getMemberName());
 						executeOnChangeAction(changedPropertyQualifiedName, action);
 						// If the changed property is not the key, for example, if we have a hidden

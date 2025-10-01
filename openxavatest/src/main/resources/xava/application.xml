@@ -680,7 +680,13 @@
 		<model name="Seller"/>
 		<view name="CustomersAsAggregate"/>
 		<controller name="Typical"/>		
-	</module>	
+	</module>
+	
+	<module name="SellerWithLevelNoDescriptionsList" folder="invoicing.variations">
+		<model name="Seller"/>
+		<view name="LevelNoDescriptionsList"/>
+		<controller name="Typical"/>		
+	</module>		
 	
 	<module name="CustomerSimple" folder="invoicing.variations">	
 		<model name="Customer"/>

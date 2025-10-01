@@ -5,6 +5,7 @@ import java.util.*;
 import javax.inject.*;
 
 import org.openxava.tab.*;
+import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
 
@@ -21,6 +22,10 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 	private String nextAction; 
 	
 	public void execute() throws Exception {
+		if (isNewValueEmpty()) {
+			getView().clear();
+			return; 
+		}
 		MetaReferenceView metaReferenceView = getView().getRoot().getMetaView().getMetaReferenceViewFor(getView().getMemberName());
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
@@ -44,6 +49,15 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 			}
 		}
 		
+	}
+
+	private boolean isNewValueEmpty() {
+		Object value = getNewValue();
+		if (value == null) return true;
+		if (value instanceof String) {
+			return Is.emptyString((String)value);
+		}
+		return false;
 	}
 
 	public String getNextAction() throws Exception {
