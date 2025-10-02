@@ -3,7 +3,7 @@ package org.openxava.actions;
 /**
  * Base action for actions executed when a collection element is selected or unselected. <p>  
  * 
- * This type of action is defined using {link org.openxava.annoations.OnSelectElementAction} 
+ * This type of action is defined using {link org.openxava.annotations.OnSelectElementAction} 
  * annotation, or its XML counterpart <code>on-select-element-action</code>.<br>
  * This is a convenience class, if you want you can extend directly from
  * {link CollectionBaseAction} and add the properties <code>row</code> and <code>selected</code>

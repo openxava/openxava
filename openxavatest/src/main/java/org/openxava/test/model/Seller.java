@@ -54,6 +54,7 @@ public class Seller {
 	@OnChange(org.openxava.test.actions.OnChangeVoidAction.class)
 	@SearchListCondition(value="${id}<'C'", forViews="SearchListCondition")
 	@SearchListCondition(value="", forViews="SearchListConditionBlank")
+	@SearchListTab(forViews="LevelNoDescriptionsList", value="Seniors") 
 	private SellerLevel level;
 
 	@AsEmbedded(forViews="CustomersAsAggregate")

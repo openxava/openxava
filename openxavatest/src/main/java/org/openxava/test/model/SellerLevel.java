@@ -10,6 +10,7 @@ import org.openxava.annotations.*;
  */
 
 @Entity
+@Tab(name="Seniors", baseCondition = "${description} like '%SENIOR%'") 
 public class SellerLevel {
 	
 	@Id	@Column(length=1) @Required 
