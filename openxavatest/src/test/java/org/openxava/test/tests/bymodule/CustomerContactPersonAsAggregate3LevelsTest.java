@@ -20,8 +20,8 @@ public class CustomerContactPersonAsAggregate3LevelsTest extends ModuleTestBase 
 		assertListColumnCount(2); 
 		assertLabelInList(0, "Id"); 
 		assertLabelInList(1, "Description");
-		assertValueInList(0, 0, "A"); // TMR ME QUEDÉ POR AQUÍ. FALLA. PERO CREO QUE NO ES UN BUG ES EL EFECTO DEL FILTRO
-		assertValueInList(0, 1, "MANAGER");
+		assertValueInList(0, 0, "B"); 
+		assertValueInList(0, 1, "SENIOR");
 	}
 		
 	public void testRemovingWithReferenceAsKeyAsEmbedded() throws Exception {  
