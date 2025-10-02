@@ -33,7 +33,7 @@
 .fc-daygrid-day-bg::before {
   display: block;
   font-family: 'Material Design Icons';
-  content: "\F419";
+  content: "\F0419";
   padding: 7px 0px 0px 7px;
   position: absolute;
   bottom: 5px;
@@ -44,7 +44,7 @@
 }
 
 .fc-daygrid-day-bg:hover::before {
-  content: "\F417";
+  content: "\F0417";
   opacity: 1;
 }
 
