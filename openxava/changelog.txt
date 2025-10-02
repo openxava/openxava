@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Icon for adding new record from day cell in calendar list format is not visible.
 - Fix: @OnChange in a reference whose search @Tab has a baseCondition shows the search dialog automatically.
 - Fix: Module breaks when searching a reference with a dialog whose @Tab has editable properties.
 - Fix: Frame not filling full space with flowLayout=true when module menu hidden, causing lists overflow.
