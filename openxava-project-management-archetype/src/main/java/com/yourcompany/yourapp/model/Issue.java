@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.annotations.*;
+import org.openxava.annotations.Files;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
