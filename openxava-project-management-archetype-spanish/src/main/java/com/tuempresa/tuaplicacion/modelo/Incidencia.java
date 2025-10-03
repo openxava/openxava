@@ -7,13 +7,19 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.annotations.*;
+import org.openxava.annotations.Files;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
+import org.openxava.util.*;
 import org.openxava.web.editors.*;
+import org.quartz.*;
+import org.quartz.impl.*;
 
 import com.tuempresa.tuaplicacion.calculadores.*;
+import com.tuempresa.tuaplicacion.tareas.*;
 
 import lombok.*;
 
@@ -38,6 +44,8 @@ import lombok.*;
 	baseCondition = "${asignadoA.trabajador.nombreUsuario} = ?", 
 	filter=org.openxava.filters.UserFilter.class)
 public class Incidencia extends Identifiable {
+	
+	private static final Log log = LogFactory.getLog(Incidencia.class);
 
 	@Column(length=100) @Required
 	String titulo;
@@ -61,7 +69,54 @@ public class Incidencia extends Identifiable {
 	String creadoPor;
 
 	LocalDate planificadoPara;
+	public void setPlannedFor(LocalDate planificadoPara) {
+		if (Is.equal(this.planificadoPara, planificadoPara)) return;
+		if (this.planificadoPara != null) quitarRecordatorio();
+		this.planificadoPara = planificadoPara;
+		planificarRecordatorio();		
+	}	
 	
+	private void planificarRecordatorio() {
+		try {
+			if (planificadoPara == null) return;
+			if (getId() == null) return;
+			JobDataMap datosTarea = new JobDataMap();
+			datosTarea.put("incidencia.id", getId());
+			datosTarea.put("esquema", XPersistence.getDefaultSchema());
+	        JobDetail tarea = JobBuilder.newJob(TareaRecordatorioIncidenciaPlanificada.class)
+	            .withIdentity(getId(), "recordatoriosIncidencias")
+	            .usingJobData(datosTarea)	
+	            .build();
+
+			LocalDateTime fechaHora = planificadoPara.atStartOfDay();	    
+			Date fecha = Date.from(fechaHora.atZone(ZoneId.systemDefault()).toInstant());	        			
+		
+			Trigger momento = TriggerBuilder.newTrigger()
+				.withIdentity(getId(), "recordatoriosIncidencias")
+				.startAt(fecha)  
+				.build();
+
+			StdSchedulerFactory.getDefaultScheduler().scheduleJob(tarea, momento);
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("error_planificar_recordatorio_incidencia", getId()), ex);
+		}
+	}	
+	
+	private void quitarRecordatorio() {
+		try {
+			StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "recordatoriosIncidencias"));
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("error_eliminar_planificacion_recordatorio_incidencia", getId()), ex);
+		}		
+	}
+	
+	@PostPersist
+	private void planificarRecordatorioSiNecesario() {
+		if (planificadoPara != null) planificarRecordatorio();
+	}
+
 	@ReadOnly 
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class) 
 	LocalDate creadoEl;
@@ -116,5 +171,9 @@ public class Incidencia extends Identifiable {
 		query.setParameter("titulo", titulo);
 		List<Incidencia> incidencias = query.getResultList();
 		return incidencias.isEmpty() ? null : incidencias.get(0);
+	}
+
+	public static Incidencia findById(String id) {
+		return XPersistence.getManager().find(Incidencia.class, id);
 	}
 }
