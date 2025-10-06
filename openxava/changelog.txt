@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Project Management archetype now uses Quartz for scheduling email reminders for planned issues.
 - Fix: Icon for adding new record from day cell in calendar list format is not visible.
 - Fix: @OnChange in a reference whose search @Tab has a baseCondition shows the search dialog automatically.
 - Fix: Module breaks when searching a reference with a dialog whose @Tab has editable properties.

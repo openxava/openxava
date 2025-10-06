@@ -7,13 +7,19 @@ import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import org.apache.commons.logging.*;
 import org.openxava.annotations.*;
+import org.openxava.annotations.Files;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.*;
+import org.openxava.util.*;
 import org.openxava.web.editors.*;
+import org.quartz.*;
+import org.quartz.impl.*;
 
 import com.yourcompany.yourapp.calculators.*;
+import com.yourcompany.yourapp.jobs.*;
 
 import lombok.*;
 
@@ -38,6 +44,8 @@ import lombok.*;
 	baseCondition = "${assignedTo.worker.userName} = ?", 
 	filter=org.openxava.filters.UserFilter.class)
 public class Issue extends Identifiable {
+	
+	private static final Log log = LogFactory.getLog(Issue.class);
 
 	@Column(length=100) @Required
 	String title;
@@ -61,6 +69,53 @@ public class Issue extends Identifiable {
 	String createdBy;
 	
 	LocalDate plannedFor;
+	public void setPlannedFor(LocalDate plannedFor) {
+		if (Is.equal(this.plannedFor, plannedFor)) return;
+		if (this.plannedFor != null) unplanReminder();
+		this.plannedFor = plannedFor;
+		planReminder();		
+	}
+	
+	private void planReminder() {
+		try {
+			if (plannedFor == null) return;
+			if (getId() == null) return;
+			JobDataMap jobDataMap = new JobDataMap();
+			jobDataMap.put("issue.id", getId());
+			jobDataMap.put("schema", XPersistence.getDefaultSchema());
+	        JobDetail job = JobBuilder.newJob(PlannedIssueReminderJob.class)
+	            .withIdentity(getId(), "issueReminders")
+	            .usingJobData(jobDataMap)	
+	            .build();
+
+			LocalDateTime localDateTime = plannedFor.atStartOfDay();	    
+			Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());	        			
+		
+			Trigger trigger = TriggerBuilder.newTrigger()
+				.withIdentity(getId(), "issueReminders")
+				.startAt(date)  
+				.build();
+
+			StdSchedulerFactory.getDefaultScheduler().scheduleJob(job, trigger);
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("plan_issue_error", getId()), ex);
+		}
+	}
+	
+	private void unplanReminder() {
+		try {
+			StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "issueReminders"));
+		}
+		catch (Exception ex) {
+			log.error(XavaResources.getString("unplan_issue_error", getId()), ex);
+		}		
+	}
+	
+	@PostPersist
+	private void planReminderIfNeeded() {
+		if (plannedFor != null) planReminder();
+	}
 	
 	@ReadOnly 
 	@DefaultValueCalculator(CurrentLocalDateCalculator.class) 
@@ -122,6 +177,16 @@ public class Issue extends Identifiable {
 		
 		List<Issue> issues = query.getResultList();
 		return issues.isEmpty() ? null : issues.get(0);
+	}
+
+	/**
+	 * Finds an Issue by its id.
+	 * 
+	 * @param id The id of the issue to find
+	 * @return The Issue with the specified id, or null if not found
+	 */
+	public static Issue findById(String id) {  
+		return XPersistence.getManager().find(Issue.class, id);
 	}
 
 }
