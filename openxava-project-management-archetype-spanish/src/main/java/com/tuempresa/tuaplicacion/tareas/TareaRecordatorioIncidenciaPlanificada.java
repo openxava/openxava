@@ -48,15 +48,13 @@ public class TareaRecordatorioIncidenciaPlanificada implements Job {
     			return;
     		}
     		
-    		// TMR ME QUEDÉ POR AQUÍ: FALTA PONER EN ESPAÑOL LAS VARIABLES DE ABAJO
-    		// TMR YA ESTÁ TODO, SOLO FALTA PROBARLO. EL DE INGLÉS YA ESTÁ PROBADO.
-    		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
-    		String formattedDate = incidencia.getPlanificadoPara().format(formatter);
+    		DateTimeFormatter formateador = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM);
+    		String fechaFormateada = incidencia.getPlanificadoPara().format(formateador);
     		
-    		String subject = XavaResources.getString("asunto_recordatorio_incidencia_planificada", incidencia.getTitulo(), formattedDate);
-    		String content = XavaResources.getString("contenido_recordatorio_incidencia_planificada", incidencia.getTitulo(), incidencia.getDescripcion(), formattedDate);
+    		String asunto = XavaResources.getString("asunto_recordatorio_incidencia_planificada", incidencia.getTitulo(), fechaFormateada);
+    		String contenido = XavaResources.getString("contenido_recordatorio_incidencia_planificada", incidencia.getTitulo(), incidencia.getDescripcion(), fechaFormateada);
     		
-    		Emails.send(correoElectronicoTrabajador, subject, content);
+    		Emails.send(correoElectronicoTrabajador, asunto, contenido);
     	}
     	catch (Exception ex) {
     		log.error(XavaResources.getString("error_recordatorio_incidencia_planificada", idIncidencia, correoElectronicoTrabajador), ex);
