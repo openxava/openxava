@@ -78,7 +78,7 @@ public class XavaPreferences {
 	}
 
 	public int getSMTPPort() {
-		String defaultPort = isSMTPStartTLSEnable() ? "587" : "25"; // tmr En changelog, ¿cambiar doc?
+		String defaultPort = isSMTPStartTLSEnable() ? "587" : "25"; 
 		String port = getProperties().getProperty("smtpPort", defaultPort);
 		return Integer.parseInt(port);
 	}
