@@ -211,6 +211,11 @@ public class Emails {
         mailUser = XavaPreferences.getInstance().getSMTPUserID();
         mailUserPassword = XavaPreferences.getInstance().getSMTPUserPassword();
         
+        if (Is.empty(smtpHost) || Is.empty(mailUser) || Is.empty(mailUserPassword)) {
+        	log.error(XavaResources.getString("smtp_configuration_incomplete_log"));
+        	throw new XavaException("smtp_configuration_incomplete");
+        }
+        
         java.util.Properties props = new java.util.Properties();
         props.put("mail.smtp.host", smtpHost);
         props.put("mail.smtp.port", "" + smtpPort);
