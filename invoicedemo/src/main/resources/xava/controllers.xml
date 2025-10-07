@@ -21,5 +21,13 @@
     	</action>
 	</controller>    
     -->
+    
+    <controller name="Invoice">
+    	<extends controller="Typical"/>
+    	<action name="printInvoice"
+    		class="org.openxava.invoicedemo.actions.PrintInvoiceAction"
+    		mode="detail"
+    		icon="printer"/>
+	</controller>
         
 </controllers>
