@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved @SimpleList documentation to indicate how to customize the look and feel with CSS.
 - Email configuration in xava.properties for archetypes is now for Gmail and commented out by default.
 - Property smtpPort in xava.properties now has a default value (587 for TLS, 25 otherwise).
 - Fix: Misleading exceptions when SMTP properties in xava.properties are missing.
