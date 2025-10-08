@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
+	<parameter name="year" class="java.lang.Integer"/>
+	<parameter name="number" class="java.lang.Integer"/>
+	<parameter name="date" class="java.util.Date"/>
+	<parameter name="customerNumber" class="java.lang.Integer"/>
+	<parameter name="customerName" class="java.lang.String"/>
+	<parameter name="customerAddress" class="java.lang.String"/>
+	<parameter name="customerCity" class="java.lang.String"/>
+	<parameter name="customerCountry" class="java.lang.String"/>
+	<parameter name="vatPercentage" class="java.lang.Integer"/>
+	<parameter name="vat" class="java.math.BigDecimal"/>
+	<parameter name="total" class="java.math.BigDecimal"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="product.number" class="java.lang.Integer"/>
+	<field name="product.description" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="unitPrice" class="java.math.BigDecimal"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="160" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="40" uuid="b1c2d3e4-f5a6-7890-bcde-f12345678901"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="50" width="155" height="25" uuid="c2d3e4f5-a6b7-8901-cdef-123456789012"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Invoice: " + $P{year} + "/" + $P{number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="75" width="155" height="25" uuid="d3e4f5a6-b7c8-9012-def1-234567890123"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Date: " + new org.openxava.formatters.DateFormatter().format(null, $P{date})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="20" uuid="e4f5a6b7-c8d9-0123-ef12-345678901234"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Customer:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="70" width="300" height="20" uuid="f5a6b7c8-d9e0-1234-f123-456789012345"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Number: " + $P{customerNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="90" width="300" height="20" uuid="a6b7c8d9-e0f1-2345-1234-567890123456"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="110" width="300" height="15" uuid="b7c8d9e0-f1a2-3456-2345-678901234567"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="125" width="300" height="15" uuid="c8d9e0f1-a2b3-4567-3456-789012345678"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerCity}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="140" width="300" height="15" uuid="d9e0f1a2-b3c4-5678-4567-890123456789"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{customerCountry}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="30" uuid="e0f1a2b3-c4d5-6789-5678-901234567890"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="0" width="240" height="30" uuid="f1a2b3c4-d5e6-7890-6789-012345678901"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="60" height="30" uuid="a2b3c4d5-e6f7-8901-7890-123456789012"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="95" height="30" uuid="b3c4d5e6-f7a8-9012-8901-234567890123"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="30" uuid="c4d5e6f7-a8b9-0123-9012-345678901234"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="60" height="25" uuid="d5e6f7a8-b9c0-1234-0123-456789012345"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product.number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="0" width="240" height="25" uuid="e6f7a8b9-c0d1-2345-1234-567890123456"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product.description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="60" height="25" uuid="f7a8b9c0-d1e2-3456-2345-678901234567"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="360" y="0" width="95" height="25" uuid="a8b9c0d1-e2f3-4567-3456-789012345678"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitPrice}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="0" width="100" height="25" uuid="b9c0d1e2-f3a4-5678-4567-890123456789"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="120" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="c0d1e2f3-a4b5-6789-5678-901234567890"/>
+			</line>
+			<staticText>
+				<reportElement x="355" y="10" width="100" height="25" uuid="d1e2f3a4-b5c6-7890-6789-012345678901"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[VAT Rate:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="10" width="100" height="25" uuid="e2f3a4b5-c6d7-8901-7890-123456789012"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vatPercentage} + "%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="35" width="100" height="25" uuid="f3a4b5c6-d7e8-9012-8901-234567890123"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[VAT:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="35" width="100" height="25" uuid="a4b5c6d7-e8f9-0123-9012-345678901234"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="355" y="60" width="100" height="30" uuid="b5c6d7e8-f9a0-1234-0123-456789012345"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="455" y="60" width="100" height="30" uuid="c6d7e8f9-a0b1-2345-1234-567890123456"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="95" width="555" height="25" uuid="d7e8f9a0-b1c2-3456-2345-678901234567"/>
+				<textElement verticalAlignment="Top">
+					<font size="9" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{remarks} != null ? "Remarks: " + $P{remarks} : ""]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>
