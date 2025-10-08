@@ -1,7 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Print action in detail mode of Invoice module to generate a PDF of the invoice in invoicedemo.
+- New print action in detail mode of Invoice module to generate a PDF of the invoice in invoicedemo.
 - JUnit automated tests included in invoicedemo project.
 - Improved @SimpleList documentation to indicate how to customize the look and feel with CSS.
 - Email configuration in xava.properties for archetypes is now for Gmail and commented out by default.
