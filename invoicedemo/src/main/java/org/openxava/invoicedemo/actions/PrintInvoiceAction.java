@@ -3,9 +3,9 @@ package org.openxava.invoicedemo.actions;
 import java.util.*;
 
 import org.openxava.actions.*;
-import org.openxava.jpa.*;
-
 import org.openxava.invoicedemo.model.*;
+import org.openxava.jpa.*;
+import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;
@@ -26,7 +26,9 @@ public class PrintInvoiceAction extends JasperReportBaseAction {
 
 	@Override
 	protected Map<String, Object> getParameters() throws Exception {
+		// We don't need to validate the data because we use available-on-new="false" for print action
 		Map<String, Object> parameters = new HashMap<>();
+		parameters.put(JRParameter.REPORT_LOCALE, Locales.getCurrent()); // To use browser locale to format number, instead of server locale
 		parameters.put("year", getInvoice().getYear());
 		parameters.put("number", getInvoice().getNumber());
 		parameters.put("date", getInvoice().getDate());

@@ -24,7 +24,7 @@
     
     <controller name="Invoice">
     	<extends controller="Typical"/>
-    	<action name="printInvoice"
+    	<action name="print" available-on-new="false"
     		class="org.openxava.invoicedemo.actions.PrintInvoiceAction"
     		mode="detail"
     		icon="printer"/>

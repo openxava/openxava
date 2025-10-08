@@ -44,7 +44,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Date: " + new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date: " + new org.openxava.formatters.DateFormatter().format(null, $P{date})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="50" width="100" height="20" uuid="e4f5a6b7-c8d9-0123-ef12-345678901234"/>

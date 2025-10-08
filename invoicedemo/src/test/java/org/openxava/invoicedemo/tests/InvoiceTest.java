@@ -91,4 +91,25 @@ public class InvoiceTest extends ModuleTestBase {
 		assertMessage("Invoice deleted successfully");
 	}	
 	
+	public void testPrint() throws Exception{
+		execute("List.viewDetail", "row=0");
+		execute("Invoice.print");
+		assertContentTypeForPopup("application/pdf");
+		assertPopupPDFLine( 0, "INVOICE");
+		assertPopupPDFLine( 1, "Invoice: 2020/1");
+		assertPopupPDFLine( 2, "Date: 8/13/2020");
+		assertPopupPDFLine( 3, "Customer:");
+		assertPopupPDFLine( 4, "Number: 5");
+		assertPopupPDFLine( 5, "Bill Gates");
+		assertPopupPDFLine( 6, "Avenue Mortheast");
+		assertPopupPDFLine( 7, "Medina");
+		assertPopupPDFLine( 8, "United States");
+		assertPopupPDFLine( 9, "Number Description Quantity Unit Price Amount");
+		assertPopupPDFLine(10, "1 Learn OpenXava by example 3 19.00 57.00");
+		assertPopupPDFLine(11, "3 XavaPro Professional 10 499.00 4,990.00");
+		assertPopupPDFLine(12, "VAT Rate: 21%");
+		assertPopupPDFLine(13, "VAT: 1,059.87");
+		assertPopupPDFLine(14, "TOTAL: 6,106.87");	
+	}
+	
 }
