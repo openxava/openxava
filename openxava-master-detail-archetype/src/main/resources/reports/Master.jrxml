@@ -2,12 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Master" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
 	<parameter name="year" class="java.lang.Integer"/>
 	<parameter name="number" class="java.lang.Integer"/>
-	<parameter name="date" class="java.util.Date"/>
-	<parameter name="customerNumber" class="java.lang.Integer"/>
-	<parameter name="customerName" class="java.lang.String"/>
-	<parameter name="customerAddress" class="java.lang.String"/>
-	<parameter name="customerCity" class="java.lang.String"/>
-	<parameter name="customerCountry" class="java.lang.String"/>
+	<parameter name="date" class="java.time.LocalDate"/>
+	<parameter name="personNumber" class="java.lang.Integer"/>
+	<parameter name="personName" class="java.lang.String"/>
+	<parameter name="personAddress" class="java.lang.String"/>
+	<parameter name="personCity" class="java.lang.String"/>
+	<parameter name="personCountry" class="java.lang.String"/>
 	<parameter name="taxPercentage" class="java.lang.Integer"/>
 	<parameter name="tax" class="java.math.BigDecimal"/>
 	<parameter name="total" class="java.math.BigDecimal"/>
@@ -15,8 +15,8 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="product.number" class="java.lang.Integer"/>
-	<field name="product.description" class="java.lang.String"/>
+	<field name="item.number" class="java.lang.Integer"/>
+	<field name="item.description" class="java.lang.String"/>
 	<field name="quantity" class="java.lang.Integer"/>
 	<field name="unitPrice" class="java.math.BigDecimal"/>
 	<field name="amount" class="java.math.BigDecimal"/>
@@ -44,49 +44,49 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Date: " + new org.openxava.formatters.DateFormatter().format(null, $P{date})]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Date: " + new org.openxava.formatters.LocalDateFormatter().format(null, $P{date})]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="50" width="100" height="20" uuid="e4f5a6b7-c8d9-0123-ef12-345678901234"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Customer:]]></text>
+				<text><![CDATA[Person:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="70" width="300" height="20" uuid="f5a6b7c8-d9e0-1234-f123-456789012345"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Number: " + $P{customerNumber}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Number: " + $P{personNumber}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="90" width="300" height="20" uuid="a6b7c8d9-e0f1-2345-1234-567890123456"/>
 				<textElement verticalAlignment="Middle">
 					<font size="11" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{customerName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{personName}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="110" width="300" height="15" uuid="b7c8d9e0-f1a2-3456-2345-678901234567"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{customerAddress}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{personAddress}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="125" width="300" height="15" uuid="c8d9e0f1-a2b3-4567-3456-789012345678"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{customerCity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{personCity}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="140" width="300" height="15" uuid="d9e0f1a2-b3c4-5678-4567-890123456789"/>
 				<textElement verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{customerCountry}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{personCountry}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -160,7 +160,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{product.number}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{item.number}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="60" y="0" width="240" height="25" uuid="e6f7a8b9-c0d1-2345-1234-567890123456"/>
@@ -168,7 +168,7 @@
 					<font size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{product.description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{item.description}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="300" y="0" width="60" height="25" uuid="f7a8b9c0-d1e2-3456-2345-678901234567"/>

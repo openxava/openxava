@@ -9,6 +9,7 @@ public class PersonTest extends ModuleTestBase {
 	}
 	
 	public void testCreateReadUpdateDelete() throws Exception {
+		login("admin", "admin");
 		// Create
 		execute("CRUD.new");
 		setValue("number", "99999");

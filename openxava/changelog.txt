@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+tmr Poner base de datos de prueba en arqutipos con feature.
+tmr Hacer que invoicedemo use LocalDate.
+
 - New print action in detail mode of Invoice module to generate a PDF of the invoice in invoicedemo.
 - JUnit automated tests included in invoicedemo project.
 - Improved @SimpleList documentation to indicate how to customize the look and feel with CSS.

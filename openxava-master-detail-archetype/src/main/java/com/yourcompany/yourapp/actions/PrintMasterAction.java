@@ -33,11 +33,11 @@ public class PrintMasterAction extends JasperReportBaseAction {
 		parameters.put("year", getMaster().getYear());
 		parameters.put("number", getMaster().getNumber());
 		parameters.put("date", getMaster().getDate());
-		parameters.put("customerNumber", getMaster().getPerson().getNumber());
-		parameters.put("customerName", getMaster().getPerson().getName());
-		parameters.put("customerAddress", getMaster().getPerson().getAddress());
-		parameters.put("customerCity", getMaster().getPerson().getCity());
-		parameters.put("customerCountry", getMaster().getPerson().getCountry());
+		parameters.put("personNumber", getMaster().getPerson().getNumber());
+		parameters.put("personName", getMaster().getPerson().getName());
+		parameters.put("personAddress", getMaster().getPerson().getAddress());
+		parameters.put("personCity", getMaster().getPerson().getCity());
+		parameters.put("personCountry", getMaster().getPerson().getCountry());
 		parameters.put("taxPercentage", getMaster().getTaxPercentage());
 		parameters.put("tax", getMaster().getTax());
 		parameters.put("total", getMaster().getTotal());
