@@ -47,7 +47,7 @@
         <include>**/*.css</include>
       </includes>
     </fileSet>
-    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+    <fileSet filtered="true" packaged="true" encoding="ISO-8859-1">
       <directory>src/test/java</directory>
       <includes>
         <include>**/*.java</include>
