@@ -1,4 +1,4 @@
-﻿<?xml version = "1.0" encoding = "ISO-8859-1"?>
+<?xml version = "1.0" encoding = "ISO-8859-1"?>
 
 <!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
 
@@ -32,5 +32,14 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     	</action>
 	</controller>    
     -->
+    
+    <controller name="Master">
+    	<extends controller="Typical"/>
+    	<action name="print" available-on-new="false"
+    		class="com.yourcompany.yourapp.actions.PrintMasterAction"
+    		mode="detail"
+    		icon="printer"/>
+	</controller>
+    
     
 </controllers>

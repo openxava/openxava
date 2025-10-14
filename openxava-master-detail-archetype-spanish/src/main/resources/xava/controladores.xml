@@ -32,4 +32,13 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     </controlador>
     -->
     
+    <controlador nombre="Maestro">
+        <hereda-de controlador="Typical"/>
+        <accion nombre="imprimir" disponible-en-nuevo="false"
+            clase="com.tuempresa.tuaplicacion.acciones.ImprimirMaestro"
+            modo="detail"
+            icono="printer"/>
+    </controlador>
+    
 </controladores>
+
