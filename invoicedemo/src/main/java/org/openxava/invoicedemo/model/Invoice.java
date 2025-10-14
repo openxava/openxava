@@ -1,6 +1,7 @@
 package org.openxava.invoicedemo.model;
 
 import java.math.*;
+import java.time.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -28,8 +29,8 @@ public class Invoice extends Identifiable {
 	@Column(length=6) @Required
 	int number;
 	
-	@Required @DefaultValueCalculator(CurrentDateCalculator.class) 
-	Date date;
+	@Required @DefaultValueCalculator(CurrentLocalDateCalculator.class) 
+	LocalDate date;
 	
 	@Column(length=2) @Required
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
