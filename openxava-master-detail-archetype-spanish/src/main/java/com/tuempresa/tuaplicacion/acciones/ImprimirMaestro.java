@@ -11,7 +11,7 @@ import com.tuempresa.tuaplicacion.modelo.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;
 
-public class ImprimirMaestroAccion extends JasperReportBaseAction {
+public class ImprimirMaestro extends JasperReportBaseAction {
 
 	private Maestro maestro;
 	

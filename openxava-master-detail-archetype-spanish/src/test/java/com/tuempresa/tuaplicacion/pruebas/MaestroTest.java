@@ -99,7 +99,7 @@ public class MaestroTest extends ModuleTestBase {
         assertContentTypeForPopup("application/pdf");
         assertPopupPDFLine( 0, "MAESTRO");
         assertPopupPDFLine( 1, "Maestro: 2020/1");
-        assertPopupPDFLine( 2, "Fecha: 8/13/2020");
+        assertPopupPDFLine( 2, "Fecha: 13/08/2020");
         assertPopupPDFLine( 3, "Persona:");
         assertPopupPDFLine( 4, "Número: 5");
         assertPopupPDFLine( 5, "Bill Gates");
@@ -110,7 +110,7 @@ public class MaestroTest extends ModuleTestBase {
         assertPopupPDFLine(10, "1 Aprende OpenXava con ejemplos 3 19,00 57,00");
         assertPopupPDFLine(11, "3 XavaPro Profesional 10 499,00 4.990,00");
         assertPopupPDFLine(12, "IVA %: 21%");
-        assertPopupPDFLine(13, "IVA: 1,059.87");
-        assertPopupPDFLine(14, "TOTAL: 6,106.87");
+        assertPopupPDFLine(13, "IVA: 1.059,87");
+        assertPopupPDFLine(14, "TOTAL: 6.106,87");
     }
 }
