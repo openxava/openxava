@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+Tomcat a 9.0.110
+Log4j a 2.25.2
+TMR FALTAN LOS CONTROLADORES JDBC
+
 - Master-Detail archetypes include JUnit automated tests.
 - Master-Detail archetypes have a print action to generate a PDF of a master record from detail mode.
 - Master-Detail archetypes include a database populated with sample data.
