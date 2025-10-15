@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Log4j upgraded to 2.25.2.
+- Embedded Tomcat used in development upgraded to 9.0.110.
+- Driver version in doc/new projects upgraded for PostgreSQL, AS/400, MS SQL Server, and Firebird.
 - Master-Detail archetypes include JUnit automated tests.
 - Master-Detail archetypes have a print action to generate a PDF of a master record from detail mode.
 - Master-Detail archetypes include a database populated with sample data.
