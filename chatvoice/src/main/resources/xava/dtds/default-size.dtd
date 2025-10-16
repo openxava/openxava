@@ -1,0 +1,23 @@
+<!ELEMENT default-size (for-stereotype|for-type|for-annotation)+> 
+
+<!ELEMENT for-stereotype EMPTY>
+<!ATTLIST for-stereotype
+ name CDATA #REQUIRED
+ size CDATA #REQUIRED
+ scale CDATA #IMPLIED
+>
+
+<!ELEMENT for-type EMPTY>
+<!ATTLIST for-type
+ class CDATA #REQUIRED
+ size CDATA #REQUIRED
+ scale CDATA #IMPLIED
+>
+
+<!ELEMENT for-annotation EMPTY>
+<!ATTLIST for-annotation
+ class CDATA #REQUIRED
+ size CDATA #REQUIRED
+ scale CDATA #IMPLIED
+>
+

@@ -1,0 +1,9 @@
+<!ELEMENT stereotype-type-default (for*)>
+
+<!ELEMENT for EMPTY>
+<!ATTLIST for
+ stereotype CDATA #REQUIRED
+ type CDATA #REQUIRED
+>
+
+
