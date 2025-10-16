@@ -1,12 +1,17 @@
 package org.openxava.chatvoice.actions;
 
 import org.openxava.actions.*;
+import org.openxava.chatvoice.tools.CustomerTools;
 import org.openxava.util.*;
 
-import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.service.AiServices;
 
 public class SendAction extends ViewBaseAction {
+	
+	interface Assistant {
+		String chat(String userMessage);
+	}
 
 	@Override
 	public void execute() throws Exception {
@@ -30,14 +35,20 @@ public class SendAction extends ViewBaseAction {
 		}
 		
 		// Crear modelo de chat de OpenAI
-		ChatModel model = OpenAiChatModel.builder()
+		var model = OpenAiChatModel.builder()
 			.baseUrl("http://langchain4j.dev/demo/openai/v1")
 			.apiKey(apiKey)
 			.modelName("gpt-4o-mini") // Modelo más económico y rápido
 			.build();
 		
-		// Procesar el mensaje con OpenAI
-		String response = model.chat(message);
+		// Crear asistente con tools
+		Assistant assistant = AiServices.builder(Assistant.class)
+			.chatModel(model)
+			.tools(new CustomerTools())
+			.build();
+		
+		// Procesar el mensaje con el asistente
+		String response = assistant.chat(message);
 		
 		// Establecer la respuesta en la vista
 		getView().setValue("response", response);
