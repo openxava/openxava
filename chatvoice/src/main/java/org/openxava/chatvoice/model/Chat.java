@@ -1,5 +1,8 @@
 package org.openxava.chatvoice.model;
 
+import javax.persistence.Column;
+
+import org.hibernate.validator.constraints.Length;
 import org.openxava.annotations.*;
 
 import lombok.*;
@@ -10,7 +13,12 @@ import lombok.*;
 @Getter @Setter
 public class Chat {
 	
-	@TextArea
+	@LabelFormat(LabelFormatType.SMALL) 
+	@Column(length = 200)
 	String message;
+
+	@Label
+	@LabelFormat(LabelFormatType.NO_LABEL) 
+	String response;
 	
 }

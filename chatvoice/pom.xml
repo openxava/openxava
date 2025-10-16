@@ -9,6 +9,7 @@
 
 	<properties>
 		<openxava.version>7.6.1-SNAPSHOT</openxava.version>
+		<langchain4j.version>1.7.1</langchain4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
 		<!-- For Java 25 you have to uncomment the annotation processor plugin in build section below -->
@@ -21,6 +22,18 @@
 			<groupId>org.openxava</groupId>
 			<artifactId>openxava</artifactId>
 			<version>${openxava.version}</version>
+		</dependency>
+		
+		<!-- LangChain4j dependencies -->
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j</artifactId>
+			<version>${langchain4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>dev.langchain4j</groupId>
+			<artifactId>langchain4j-open-ai</artifactId>
+			<version>${langchain4j.version}</version>
 		</dependency>
 		
 		<!-- 
