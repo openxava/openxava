@@ -48,7 +48,7 @@ h1 #doc {
 .wiki h5 { font-weight: normal; padding: 5px 0 0 0; margin: 0; font-size: 1.033em; }
 .wiki h6 { font-weight: normal; padding: 5px 0 0 0; margin: 0; font-size: 1.0em; }
 .wiki table { border-collapse: collapse; margin: 10px 1px; font-size: 13px; }
-.wiki p { margin: 0; padding: 0; padding: 5px 0; }
+.wiki p { margin: 0; padding: 0; padding: 3px 0; }
 .wiki td { border: 1px solid #DDD; vertical-align: top; min-width: 5px; min-height: 20px; }
 .wiki th { min-width: 5px; min-height: 20px; }
 .wiki #toc { border: 1px solid #DCDCDC; background: #F3F3F3; padding: 6px; margin: 0 0 10px 10px; width: 30%; float: right; clear: right; border-radius: 6px; }
