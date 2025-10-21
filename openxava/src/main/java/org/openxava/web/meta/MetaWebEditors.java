@@ -373,7 +373,7 @@ public class MetaWebEditors {
 			if (editor.hasHasSet() && !"List".equals(editor.getName())) {
 				List<MetaProperty> mpList = new ArrayList<>(tab.getMetaModel().getMetaProperties());
 				for (MetaProperty mp : mpList) {
-					if (mp.isHidden()) continue; // tmr En changelog como bug y feature. Cambiar doc
+					if (mp.isHidden()) continue; 
 					if (editor.stereotypeMatches(mp) ||
 							editor.annotationMatches(editor, mp) ||
 							editor.typeMatches(mp)) {

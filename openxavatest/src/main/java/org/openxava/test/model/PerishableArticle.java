@@ -13,7 +13,7 @@ import org.openxava.annotations.Hidden;
 @Entity
 public class PerishableArticle extends Article {
 	
-	@Hidden // tmr
+	@Hidden 
 	private Date expirationDate;
 
 	public Date getExpirationDate() {

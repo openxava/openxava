@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.
+- Fix: Calendar list format option shown for hidden dates, breaking the module when chosen.
+
 OpenXava 7.6.1 (2025-10-17)
 ---------------------------
 - Project Management archetypes now use Quartz for scheduling email reminders for planned issues.
