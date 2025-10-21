@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.openxava.annotations.Hidden;
+
 /**
  * 
  * @author Javier Paniza
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @Entity
 public class PerishableArticle extends Article {
 	
+	@Hidden 
 	private Date expirationDate;
 
 	public Date getExpirationDate() {
