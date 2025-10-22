@@ -47,6 +47,8 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 					valuesForSearchByAnyProperty = getValuesForSearchByAnyProperty();
 					getView().clear();
 					values = MapFacade.getValuesByAnyProperty(getModelName(), valuesForSearchByAnyProperty, getMemberNames());
+					Map keyValues = getView().getMetaModel().extractKeyValues(values);
+					verifyExistsInTab(keyValues);
 				}
 				catch (ObjectNotFoundException ex) {
 					// This is for the case of key with 0 as valid value
@@ -55,19 +57,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 				}
 			}
 			else {
-				if (isSimpleMap(keys) 
-						&& tab.getModelName() != null 
-						&& !tab.getMetaTab().getBaseCondition().isEmpty() 
-						&& tab.getModelName().equals(getView().getModelName())) {
-					Map.Entry keysEntry = (Map.Entry) keys.entrySet().iterator().next();
-					Tab tab2 = tab.clone();
-					tab2.addProperty(0, keysEntry.getKey().toString());
-					tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue());
-					if (tab2.getTotalSize() == 0) {
-						getView().clear();
-						throw new ObjectNotFoundException();
-					}
-				}
+				verifyExistsInTab(keys);
 				getView().clear();
 				values = MapFacade.getValues(getModelName(), keys, getMemberNames());
 			}
@@ -82,6 +72,24 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		catch (Exception ex) {
 			log.error(ex.getMessage(),ex);
 			addError("system_error");			
+		}
+	}
+
+	private void verifyExistsInTab(Map keys) throws ObjectNotFoundException {
+		if (tab.getModelName() != null 
+			&& !tab.getMetaTab().getBaseCondition().isEmpty() 
+			&& tab.getModelName().equals(getView().getModelName())) {
+			Tab tab2 = tab.clone();
+			int i = 0;
+			for (Object okeysEntry: keys.entrySet()) {
+				Map.Entry keysEntry = (Map.Entry) okeysEntry;
+				tab2.addProperty(i++, keysEntry.getKey().toString());
+				tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue());
+			}
+			if (tab2.getTotalSize() == 0) {
+				getView().clear();
+				throw new ObjectNotFoundException();
+			}
 		}
 	}
 	
@@ -159,24 +167,5 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}		
 		return "'" + sb.toString().trim() + "'";
 	}
-    
-    public static boolean isSimpleMap(Map<String, Object> map) {
-    	if (map.size() != 1) {
-            return false;
-        }
-        for (Object value : map.values()) {
-            if (value instanceof Map) {
-                return false;
-            } else if (value instanceof Object[]) {
-                Object[] array = (Object[]) value;
-                for (Object element : array) {
-                    if (element instanceof Map) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-	
+    	
 }

@@ -18,16 +18,6 @@ public class CustomerFromAlaskaTest extends ModuleTestBase {
 		assertListRowCount(1);
 		assertValueInList(0, "number", "43"); 
 		assertValueInList(0, "name", "Gonzalo Gonzalez");
-
-		// tmr Cambiar nombre de método
-		// TMR ME QUEDÉ POR AQUÍ: CONSIDERAR HACERLO EN Product6, PORQUE ME AHORRO UN NEW
-		execute("CRUD.new");
-		setValue("type", "STEADY");
-		setValue("name", "Javi");
-		setValue("relationWithSeller", "");
-		execute("CRUD.refresh");
-		assertValue("number", "1");
-		
 	}
 			
 }
