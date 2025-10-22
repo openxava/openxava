@@ -44,7 +44,7 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		assertListTitle("The little invoices of 2002"); 
 	}
 	
-	public void testCustomizeListWithFilterAndBaseCondition() throws Exception {
+	public void testCustomizeListWithFilterAndBaseCondition_refreshCannotAccessDataNoInTab() throws Exception {
 		assertValueInList(0, 0, "2002"); 
 		moveColumn(0, 1); 
 		assertValueInList(0, 1, "2002"); 
@@ -53,6 +53,14 @@ public class Invoice2002Test extends CustomizeListTestBase {
 		// Restoring
 		execute("List.addColumns");
 		execute("AddColumns.restoreDefault"); 
+		
+		execute("CRUD.new");
+		setValue("year", "");
+		setValue("date", "1/4/2004");
+		execute("CRUD.refresh");
+		assertValue("year", "");
+		assertValue("number", "");
+		assertError("Object of type Invoice does not exists with key Date:1/4/2004, Paid:No"); // Not matter the exact message, enough with a correct "not found" message
 	}
 
 	public void testFilterWithConverterAndFilter() throws Exception {
