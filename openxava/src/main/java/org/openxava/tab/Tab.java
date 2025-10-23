@@ -1784,9 +1784,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 		StringBuffer condition = new StringBuffer();
 		boolean needsOr = false;
 		for (MetaProperty property: getMetaPropertiesNotCalculated()) {
-			if (needsOr) condition.append(" or ");
-			needsOr = false;
 			if (property.getType().equals(String.class)) {
+				if (needsOr) condition.append(" or ");
 				condition.append("upper(${");
 				condition.append(property.getQualifiedName());
 				condition.append("}) like '%");
@@ -1796,6 +1795,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			}
 			else if (property.isNumber()) {
 				if (NumberUtils.isCreatable(content)) {
+					if (needsOr) condition.append(" or ");
 					condition.append("${");
 					condition.append(property.getQualifiedName());
 					condition.append("} = ");
@@ -1805,6 +1805,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			}
 			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
 				if (property.getLabel().toUpperCase().contains(content.toUpperCase())) {
+					if (needsOr) condition.append(" or ");
 					condition.append("${");
 					condition.append(property.getQualifiedName());
 					condition.append("} = true");
@@ -1815,6 +1816,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 				
 				try {
 					Object date = property.parse(content);
+					if (needsOr) condition.append(" or ");
 					condition.append("${");
 					condition.append(property.getQualifiedName());
 					condition.append("} = '");
@@ -1826,6 +1828,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 				}
 			}
 			else {
+				if (needsOr) condition.append(" or ");
 				condition.append("${");
 				condition.append(property.getQualifiedName());
 				condition.append("} = ");
