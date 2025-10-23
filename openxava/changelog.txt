@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
 - Fix: Tab.filterByContentInAnyProperty() fails when only one of several properties is a string.
 - Fix: Search filling non-ID fields and clicking Refresh could show records not in list.
 - The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.

@@ -97,6 +97,7 @@
         <div style="margin-left: 3em;"><a href="#adapting-invoicetest">Adapting InvoiceTest</a></div>
         <div style="margin-left: 3em;"><a href="#testing-the-addaction">Testing the @AddAction</a></div>
         <div style="margin-left: 3em;"><a href="#testing-the-action-to-add-elements-to-the-collection">Testing the action to add elements to the collection</a></div>
+        <div style="margin-left: 2em;"><a href="#junit4-support">JUnit 4 support (since v7.6.2)</a></div>
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       Good testing is the most important part of software development. It does not matter how beautiful, or fast, or high-tech your application is, if it crashes, you leave a poor impression and, crucially, your customer can lose valuable data.<br>
@@ -182,6 +183,9 @@ public class CustomerTest extends ModuleTestBase { // Must extend from ModuleTes
       In <em>execute()</em> you must specify the qualified name of the action, that means <em>ControllerName.actionName</em>. How can you know it? Simple, put your mouse over an action link, and you will see in the status bar of your browser a JavaScript code that includes the qualified action name:<br>
       <img src="files/testing_en020.png" alt="testing_en020.png" title="testing_en020.png"><br>
       Now, you know how to create a test for testing the basic CRUD operations of a module. It's not required to write an exhaustive test at first. Just test the basic things, those that you usually test using the browser. Your test will naturally grows with your application and as the user feedback grows.<br>
+      <br>
+      <strong>Note:</strong> Since version 7.6.2, you can also write tests using <a href="#junit4-support">JUnit 4 style</a> with annotations.<br>
+      <br>
       Let's learn how to execute your test from OpenXava Studio.<br>
       <h3 id="toc4"><a name="Lesson 3: Automated testing-ModuleTestBase for testing the modules-Executing the tests from OpenXava Studio"></a>Executing the tests from OpenXava Studio</h3>
       As mentioned earlier, JUnit is integrated into OpenXava Studio, so running your tests is plain vanilla. In order your test works your application must be running, if not start it first. Then run the test with the mouse over the test class, and with the right button choose <em>Run As &gt; JUnit Test</em>:<br>
@@ -1729,6 +1733,67 @@ protected void assertValueInAllRows(int column, String value) throws Exception {
     execute("CRUD.save");
     }</code>
 </pre> We have finished the test code. Now it's time to execute all the tests for your project. They must be green.</div>
+      </div>
+      <h2 id="junit4-support">JUnit 4 support (since v7.6.2)</h2>
+      <div class="wiki" style="display: block;">
+        Since OpenXava 7.6.2, you can write your tests using JUnit 4 style with annotations instead of the traditional JUnit 3 style. This allows you to use modern JUnit features like <code>@Test</code>, <code>@Before</code>, and <code>@After</code> annotations.<br>
+        <br>
+        The <em>ModuleTestBase</em> class has been enhanced to support both JUnit 3 and JUnit 4 styles, so you can migrate your tests gradually. Here's an example of a test written in JUnit 4 style:
+      </div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.yourcompany.invoicing.tests;
+
+import org.junit.*;
+import org.openxava.tests.*;
+
+public class CustomerTest extends ModuleTestBase {
+
+    public CustomerTest() {
+        super("Customer"); // No test name needed for JUnit 4
+    }
+
+    @Test // Use @Test annotation instead of naming convention
+    public void testCreateReadUpdateDelete() throws Exception {
+        login("admin", "admin");
+
+        // Create
+        execute("CRUD.new");
+        setValue("number", "77");
+        setValue("name", "JUNIT Customer");
+        setValue("address.street", "JUNIT Street");
+        setValue("address.zipCode", "77555");
+        setValue("address.city", "The JUNIT city");
+        setValue("address.state", "The JUNIT state");
+        execute("CRUD.save");
+        assertNoErrors();
+
+        // Read
+        setValue("number", "77");
+        execute("CRUD.refresh");
+        assertValue("number", "77");
+        assertValue("name", "JUNIT Customer");
+
+        // Delete
+        execute("CRUD.delete");
+        assertMessage("Customer deleted successfully");
+    }
+
+    @Test
+    public void testAnotherFeature() throws Exception {
+        // Another test method
+    }
+}
+</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">
+        The main differences from JUnit 3 style are:
+        <ul>
+          <li><strong>Constructor:</strong> Use <code>super("ModuleName")</code> instead of <code>super(testName, "ApplicationName", "ModuleName")</code>. The test name parameter is not needed.</li>
+          <li><strong>Test methods:</strong> Annotate test methods with <code>@Test</code> instead of relying on the <code>test</code> prefix naming convention (although the prefix still works).</li>
+          <li><strong>Setup and teardown:</strong> The <code>setUp()</code> and <code>tearDown()</code> methods are automatically called thanks to <code>@Before</code> and <code>@After</code> annotations in <em>ModuleTestBase</em>. You can still override them if needed.</li>
+          <li><strong>Import:</strong> Add <code>import org.junit.*;</code> to use JUnit 4 annotations.</li>
+        </ul>
+        Both JUnit 3 and JUnit 4 styles can coexist in the same project, allowing you to migrate your tests gradually as needed.<br>
       </div>
       <h2 id="summary">Summary</h2>
       You have automated the tests for all the functionality of your application. This test code seems to be more verbose and boring than the real application code. But remember, the test code is the most valuable asset you have. Right now you may not believe me, but try to do tests and once they save your life, you will not develop without test code any more.<br>
