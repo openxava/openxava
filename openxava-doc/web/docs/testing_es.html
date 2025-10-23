@@ -98,6 +98,7 @@
         <div style="margin-left: 3em;"><a href="#adaptar-pruebafactura">Adaptar PruebaFactura</a></div>
         <div style="margin-left: 3em;"><a href="#probar-addaction">Probar @AddAction</a></div>
         <div style="margin-left: 3em;"><a href="#probar-la-accion-para-anadir-elementos-a-la-coleccion">Probar la acción para añadir elementos a la colección</a></div>
+        <div style="margin-left: 2em;"><a href="#soporte-junit4">Soporte para JUnit 4 (desde v7.6.2)</a></div>
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
       </div>
       Las pruebas son la parte más importante del desarrollo de software. No importa cuan bonita, rápida o tecnológicamente avanzada sea tu aplicación, si falla, darás una impresión muy pobre.<br>
@@ -181,6 +182,9 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       En <em>execute()</em> tienes que especificar el nombre calificado de la acción, esto quiere decir <em>NombreControlador.nombreAccion</em>. ¿Cómo puedes saber el nombre de la acción? Pasea tu ratón sobre el vínculo de la acción y verás en la barra inferior de tu navegador un código JavaScript que incluye el nombre calificado de la acción:<br>
       <img src="files/testing_es020.png" alt="testing_es020.png" title="testing_es020.png"><br>
       Ahora ya sabes como crear una prueba para probar las operaciones de mantenimiento básicas de un módulo. No es necesario escribir una prueba demasiado exhaustiva al principio. Simplemente prueba las cosas básicas, aquellas cosas que normalmente probarías con un navegador. Tu prueba crecerá de forma natural a medida que tu aplicación crezca y los usuarios vayan encontrando fallos.<br>
+      <br>
+      <strong>Nota:</strong> Desde la versión 7.6.2, también puedes escribir pruebas usando el <a href="#soporte-junit4">estilo JUnit 4</a> con anotaciones.<br>
+      <br>
       Aprendamos como ejecutar tu prueba desde OpenXava Studio.<br>
       <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio"></a>Ejecutar las pruebas desde OpenXava Studio</h3>
       JUnit está integrado dentro del OpenXava Studio, por eso ejecutar tus pruebas es más fácil que quitarle un caramelo a un niño. Para que la prueba funcione tu aplicación tiene que estar ejecutándose, si no es el caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run As &gt; JUnit Test</em>:<br>
@@ -1716,6 +1720,67 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     execute("CRUD.save");
 }</code>
 </pre>Hemos finalizado el código de las pruebas automáticas. Ahora puedes ejecutar todas las pruebas de tu proyecto. Han de salir en color verde.</div>
+      </div>
+      <h2 id="soporte-junit4">Soporte para JUnit 4 (desde v7.6.2)</h2>
+      <div class="wiki" style="display: block;">
+        Desde OpenXava 7.6.2, puedes escribir tus pruebas usando el estilo JUnit 4 con anotaciones en lugar del estilo tradicional de JUnit 3. Esto te permite usar características modernas de JUnit como las anotaciones <code>@Test</code>, <code>@Before</code> y <code>@After</code>.<br>
+        <br>
+        La clase <em>ModuleTestBase</em> ha sido mejorada para soportar tanto el estilo JUnit 3 como JUnit 4, por lo que puedes migrar tus pruebas gradualmente. Aquí tienes un ejemplo de una prueba escrita en estilo JUnit 4:
+      </div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+
+import org.junit.*;
+import org.openxava.tests.*;
+
+public class PruebaCliente extends ModuleTestBase {
+
+    public PruebaCliente() {
+        super("Cliente"); // No se necesita el nombre de la prueba para JUnit 4
+    }
+
+    @Test // Usa la anotación @Test en lugar de la convención de nombres
+    public void testCrearLeerActualizarBorrar() throws Exception {
+        login("admin", "admin");
+
+        // Crear
+        execute("CRUD.new");
+        setValue("numero", "77");
+        setValue("nombre", "Cliente JUNIT");
+        setValue("direccion.calle", "Calle JUNIT");
+        setValue("direccion.codigoPostal", "77555");
+        setValue("direccion.poblacion", "Población JUNIT");
+        setValue("direccion.provincia", "Provincia JUNIT");
+        execute("CRUD.save");
+        assertNoErrors();
+
+        // Leer
+        setValue("numero", "77");
+        execute("CRUD.refresh");
+        assertValue("numero", "77");
+        assertValue("nombre", "Cliente JUNIT");
+
+        // Borrar
+        execute("CRUD.delete");
+        assertMessage("Cliente borrado satisfactoriamente");
+    }
+
+    @Test
+    public void testOtraFuncionalidad() throws Exception {
+        // Otro método de prueba
+    }
+}
+</code></pre>
+      </div>
+      <div class="wiki" style="display: block;">
+        Las principales diferencias con el estilo JUnit 3 son:
+        <ul>
+          <li><strong>Constructor:</strong> Usa <code>super("NombreModulo")</code> en lugar de <code>super(nombrePrueba, "NombreAplicacion", "NombreModulo")</code>. No se necesita el parámetro del nombre de la prueba.</li>
+          <li><strong>Métodos de prueba:</strong> Anota los métodos de prueba con <code>@Test</code> en lugar de depender de la convención de nombres con el prefijo <code>test</code> (aunque el prefijo sigue funcionando).</li>
+          <li><strong>Setup y teardown:</strong> Los métodos <code>setUp()</code> y <code>tearDown()</code> se llaman automáticamente gracias a las anotaciones <code>@Before</code> y <code>@After</code> en <em>ModuleTestBase</em>. Puedes seguir sobrescribiéndolos si lo necesitas.</li>
+          <li><strong>Import:</strong> Añade <code>import org.junit.*;</code> para usar las anotaciones de JUnit 4.</li>
+        </ul>
+        Ambos estilos, JUnit 3 y JUnit 4, pueden coexistir en el mismo proyecto, permitiéndote migrar tus pruebas gradualmente según sea necesario.<br>
       </div>
       <h2 id="resumen">Resumen</h2>
       Has automatizado las pruebas de toda la funcionalidad de tu aplicación. Puede parecer que este código de prueba es mucho más largo y aburrido que el código real de la aplicación. Pero recuerda, el código de prueba es el tesoro más valioso que tienes. Quizás ahora no me creas, pero trata de hacer pruebas JUnit y una vez te hayan salvado la vida, ya no podrás desarrollar sin pruebas automáticas nunca más.<br>
