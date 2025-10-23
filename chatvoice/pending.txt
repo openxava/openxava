@@ -1,0 +1,33 @@
+Pending Chat AI
+---------------
+
+M1
+- Acceder a todos los datos.
+
+M2
+- Trabajar con tablas grandes.
+
+M3
+- No poder acceder a datos no disponibles en el tab.
+- No poder acceder a datos de módulos no disponibles.
+
+M4
+- Chat en cada módulo
+
+M5
+- Poder filtrar en la lista.
+
+M6
+- Modificar y borrar, mediante el módulo.
+
+Principios
+- El usuario no debería poder acceder a datos con el chat a los que no pueda acceder desde la applicación.
+
+Por resolver
+- Validaciones
+- DataSets grandes
+- Respetar IFilter de tabs
+- No recuerda la conversación
+- ¿Cómo confirmar cambio y borrado de datos?
+- Si pido que borre y la lógica de borra no borra de verdad, ¿qué hago?
+- No acceder a campos no permitidos.
