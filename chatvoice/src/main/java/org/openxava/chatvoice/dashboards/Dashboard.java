@@ -9,53 +9,53 @@ import org.openxava.annotations.*;
 import org.openxava.jpa.*;
 
 @View(members=
-	"numberOfMasters, numberOfPeople, totalSum; " +
+	"numberOfInvoices, numberOfCustomers, totalSum; " +
 	"evolution;" +
-	"topPeople, topYears"
+	"topCustomers, topYears"
 )
 public class Dashboard {
 	
 	@Money
 	@LargeDisplay(icon="cash")
 	public BigDecimal getTotalSum() { 
-		return (BigDecimal) XPersistence.getManager().createQuery("select sum(m.total) from Master m").getSingleResult();
+		return (BigDecimal) XPersistence.getManager().createQuery("select sum(i.total) from Invoice i").getSingleResult();
 	}
 	
 	@LargeDisplay(icon="animation")
-	public long getNumberOfMasters() { 		
-		return count("Master"); 
+	public long getNumberOfInvoices() { 		
+		return count("Invoice"); 
 	}
 		
 	@LargeDisplay(icon="account-group")
-	public long getNumberOfPeople() { 
-		return count("Person");
+	public long getNumberOfCustomers() { 
+		return count("Customer");
 	}
 	
 	@Chart
 	public Collection<PerYear> getEvolution() { 
-		String jpql = "select new org.openxava.chatvoice.dashboards.PerYear(m.year, sum(m.total), sum(m.tax)) " +
-			"from Master m " +
-			"group by m.year " +
-			"order by m.year asc";
+		String jpql = "select new org.openxava.chatvoice.dashboards.PerYear(i.year, sum(i.total), sum(i.tax)) " +
+			"from Invoice i " +
+			"group by i.year " +
+			"order by i.year asc";
 		TypedQuery<PerYear> query = XPersistence.getManager().createQuery(jpql, PerYear.class);
 		return query.getResultList();
 	}
 	
 	@SimpleList 
-	public Collection<PerPerson> getTopPeople() { 
-		String jpql = "select new org.openxava.chatvoice.dashboards.PerPerson(m.person.name, sum(m.total) as amount) " +
-			"from Master m " +
-			"group by m.person.number, amount " +
+	public Collection<PerCustomer> getTopCustomers() { 
+		String jpql = "select new org.openxava.chatvoice.dashboards.PerCustomer(i.customer.name, sum(i.total) as amount) " +
+			"from Invoice i " +
+			"group by i.customer.number, amount " +
 			"order by amount desc";
-		TypedQuery<PerPerson> query = XPersistence.getManager().createQuery(jpql, PerPerson.class).setMaxResults(5);
+		TypedQuery<PerCustomer> query = XPersistence.getManager().createQuery(jpql, PerCustomer.class).setMaxResults(5);
 		return query.getResultList();
 	}
 	
 	@SimpleList @ListProperties("year, total")
 	public Collection<PerYear> getTopYears() { 
-		String jpql = "select new org.openxava.chatvoice.dashboards.PerYear(m.year, sum(m.total) as amount, sum(m.tax)) " +
-			"from Master m " +
-			"group by m.year " +
+		String jpql = "select new org.openxava.chatvoice.dashboards.PerYear(i.year, sum(i.total) as amount, sum(i.tax)) " +
+			"from Invoice i " +
+			"group by i.year " +
 			"order by amount desc";
 		TypedQuery<PerYear> query = XPersistence.getManager().createQuery(jpql, PerYear.class).setMaxResults(5);
 		return query.getResultList();

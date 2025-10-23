@@ -5,7 +5,7 @@ import java.math.*;
 import lombok.*;
 
 @Getter @Setter @AllArgsConstructor 
-public class PerPerson {
+public class PerCustomer {
 	
 	String name;
 	

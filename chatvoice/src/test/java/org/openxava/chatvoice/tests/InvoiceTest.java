@@ -2,29 +2,28 @@ package org.openxava.chatvoice.tests;
 
 import org.openxava.tests.*;
 
-public class MasterTest extends ModuleTestBase {
+public class InvoiceTest extends ModuleTestBase {
 	
-	public MasterTest(String testName) {
-		super(testName, "Master");
+	public InvoiceTest(String testName) {
+		super(testName, "Invoice");
 	}
 	
 	public void testCreateReadUpdateDelete() throws Exception {
-		login("admin", "admin");
 		// Create
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
-		setValue("person.number", "1"); // Wim Mertens
+		setValue("customer.number", "1"); // Wim Mertens
 		
 		// Add first detail
 		assertCollectionRowCount("details", 0);
-		setValueInCollection("details", 0, "item.number", "1"); // Learn OpenXava by example
+		setValueInCollection("details", 0, "product.number", "1"); // Learn OpenXava by example
 		assertValueInCollection("details", 0, "unitPrice", "19.00");
 		setValueInCollection("details", 0, "quantity", "5");
 		assertValueInCollection("details", 0, "amount", "95.00");
 		
 		// Add second detail
-		setValueInCollection("details", 1, "item.number", "2"); // Aprende OpenXava con ejemplos
+		setValueInCollection("details", 1, "product.number", "2"); // Aprende OpenXava con ejemplos
 		assertValueInCollection("details", 1, "unitPrice", "19.00");
 		setValueInCollection("details", 1, "quantity", "3");
 		assertValueInCollection("details", 1, "amount", "57.00");
@@ -39,9 +38,9 @@ public class MasterTest extends ModuleTestBase {
 		
 		execute("CRUD.save");
 		assertNoErrors();
-		assertMessage("Master created successfully");
+		assertMessage("Invoice created successfully");
 		
-		// Read - search for the created master
+		// Read - search for the created invoice
 		execute("Mode.list");
 		execute("CRUD.new");
 		setValue("year", "2026");
@@ -50,7 +49,7 @@ public class MasterTest extends ModuleTestBase {
 		assertNoErrors();
 		assertValue("year", "2026");
 		assertValue("number", "99999");
-		assertValue("person.number", "1");
+		assertValue("customer.number", "1");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, "quantity", "5");
 		assertValueInCollection("details", 1, "quantity", "3");
@@ -67,7 +66,7 @@ public class MasterTest extends ModuleTestBase {
 		
 		execute("CRUD.save");
 		assertNoErrors();
-		assertMessage("Master modified successfully");
+		assertMessage("Invoice modified successfully");
 		
 		// Verify the modification using list
 		execute("Mode.list");
@@ -89,18 +88,17 @@ public class MasterTest extends ModuleTestBase {
 		
 		// Delete
 		execute("CRUD.delete");
-		assertMessage("Master deleted successfully");
+		assertMessage("Invoice deleted successfully");
 	}	
 	
 	public void testPrint() throws Exception{
-		login("admin", "admin");
 		execute("List.viewDetail", "row=0");
-		execute("Master.print");
+		execute("Invoice.print");
 		assertContentTypeForPopup("application/pdf");
-		assertPopupPDFLine( 0, "MASTER");
-		assertPopupPDFLine( 1, "Master: 2020/1");
+		assertPopupPDFLine( 0, "INVOICE");
+		assertPopupPDFLine( 1, "Invoice: 2020/1");
 		assertPopupPDFLine( 2, "Date: 8/13/2020");
-		assertPopupPDFLine( 3, "Person:");
+		assertPopupPDFLine( 3, "Customer:");
 		assertPopupPDFLine( 4, "Number: 5");
 		assertPopupPDFLine( 5, "Bill Gates");
 		assertPopupPDFLine( 6, "Avenue Mortheast");

@@ -33,10 +33,10 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
 	</controller>    
     -->
     
-    <controller name="Master">
+    <controller name="Invoice">
     	<extends controller="Typical"/>
     	<action name="print" available-on-new="false"
-    		class="org.openxava.chatvoice.actions.PrintMasterAction"
+    		class="org.openxava.chatvoice.actions.PrintInvoiceAction"
     		mode="detail"
     		icon="printer"/>
 	</controller>

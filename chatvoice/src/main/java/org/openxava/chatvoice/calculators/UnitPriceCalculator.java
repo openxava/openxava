@@ -14,7 +14,7 @@ public class UnitPriceCalculator implements ICalculator {
 	int number;  
 
 	public Object calculate() throws Exception {
-		return getManager().find(Item.class, number).getUnitPrice();  
+		return getManager().find(Product.class, number).getUnitPrice();  
 	}
 
 }

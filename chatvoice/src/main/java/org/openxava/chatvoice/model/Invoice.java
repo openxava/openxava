@@ -12,22 +12,15 @@ import org.openxava.model.*;
 
 import lombok.*;
 
-// RENAME THIS CLASS AS Invoice, PurchaseOrder, WorkOrder, Delivery, Account, Shipment, etc.
-
-// YOU CAN RENAME THE MEMBERS BELOW AT YOUR CONVENIENCE, 
-// FOR EXAMPLE Person person BY Customer customer,
-// BUT CHANGE ALL REFERENCES IN ALL CODE USING SEARCH AND REPLACE FOR THE PROJECT. 
-// DON'T USE REFACTOR > RENAME FOR MEMBERS BECAUSE IT DOESN'T CHANGE THE ANNOTATIONS CONTENT.
-
 @Entity @Getter @Setter
 @View(members=
 	"year, number, date;" +
-	"person;" +
+	"customer;" +
 	"details { details };" +
 	"remarks { remarks }"
 )
-@Tab(properties="year, number, date, person.name, total, remarks")
-public class Master extends Identifiable {
+@Tab(properties="year, number, date, customer.name, total, remarks")
+public class Invoice extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
 	@Column(length=4) @Required
@@ -45,10 +38,10 @@ public class Master extends Identifiable {
 	
 	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	Person person;
+	Customer customer;
 	
 	@ElementCollection @OrderColumn
-	@ListProperties("item.number, item.description, unitPrice, quantity, amount+[master.taxPercentage, master.tax, master.total]") 
+	@ListProperties("product.number, product.description, unitPrice, quantity, amount+[invoice.taxPercentage, invoice.tax, invoice.total]") 
 	List<Detail> details;
 	
 	@HtmlText

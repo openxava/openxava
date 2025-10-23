@@ -21,14 +21,14 @@ import lombok.*;
 public class Detail {
 		
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	Item item;
+	Product product;
 
 	@Required 
 	@DefaultValueCalculator(  
 		value=UnitPriceCalculator.class,
 		properties=@PropertyValue(
 			name="number",
-			from="item.number")
+			from="product.number")
 	)
 	BigDecimal unitPrice;
 		
