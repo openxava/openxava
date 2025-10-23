@@ -30,6 +30,8 @@ import org.openxava.web.DescriptionsLists;
 import org.openxava.view.meta.*;
 import org.xml.sax.*;
 
+import org.junit.*;
+
 import junit.framework.*;
 
 /**
@@ -112,7 +114,20 @@ abstract public class ModuleTestBase extends TestCase {
 			module);
 	}
 	
+	/**
+	 * Constructor for JUnit 4 style tests. <p>
+	 * 
+	 * The module must be set in the subclass constructor by calling the
+	 * appropriate constructor with module parameter.<br>
+	 * 
+	 * @since 7.6.2
+	 */
+	public ModuleTestBase(String module) {
+		this("", module);
+	}
 	
+	
+	@Before
 	protected void setUp() throws Exception {
 		locale = null;
 		XPersistence.reset(); 
@@ -132,6 +147,7 @@ abstract public class ModuleTestBase extends TestCase {
 		return utilClient;
 	}
 	
+	@After
 	protected void tearDown() throws Exception {
 		XPersistence.commit();
 		client.close(); 

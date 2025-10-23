@@ -9,6 +9,7 @@ import javax.persistence.*;
 import org.apache.commons.lang3.*;
 import org.htmlunit.*;
 import org.htmlunit.html.*;
+import org.junit.*;
 import org.openxava.controller.*;
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
@@ -23,10 +24,11 @@ public class ApplicantTest extends ModuleTestBase {
 	private boolean modulesLimit = true;
 	private boolean moduleURLOnRoot = false; 
 	
-	public ApplicantTest(String testName) {
-		super(testName, "Applicant");		
+	public ApplicantTest() {
+		super("Applicant");
 	}
-			
+	
+	@Test
 	public void testCancelAddColumnsFromSearhReference_changeListConfigurationFromSearchReference() throws Exception { 
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=skill.description");
@@ -56,6 +58,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("List.filter");		
 	}
 	
+	@Test
 	public void testGetEntityWithEmptyReferences_duplicateActionsNotAdded_keepAddedActionAfterCloseDialog_noPermalinkForNoModuleModel() throws Exception { // noPermalinkForNoModuleModel   		
 		assertListRowCount(1);
 		execute("CRUD.new");
@@ -98,6 +101,7 @@ public class ApplicantTest extends ModuleTestBase {
 		}
 	}
 	
+	@Test
 	public void testModulesOnTop() throws Exception {
 		modulesLimit = false;
 		resetModule();		
@@ -140,6 +144,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals("Articles", selectedElements.get(0).asNormalizedText());	
 	}
 	
+	@Test
 	public void testModulesMenu_help() throws Exception { 
 		modulesLimit = false;
 		resetModule();
@@ -182,6 +187,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertHelp("en"); 
 	}
 	
+	@Test
 	public void testChangeLocaleAffectsMenu_assertCSSInLatestVersionAndIcons() throws Exception {  
 		modulesLimit = false;
 		resetModule();
@@ -223,6 +229,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertEquals(expectedName, moduleName.asNormalizedText());
 	}	
 	
+	@Test
 	public void testPolymorphicReferenceFromBaseClass_savingTwiceWithNoRefreshAfterAndHiddenKey_showHideButtons_labelsPut() throws Exception {  
 		// Polymorphic reference from base class
 		execute("List.viewDetail", "row=0");
@@ -265,6 +272,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("Applicant.hideButtons");
 	}
 	
+	@Test
 	public void testHtmlHeadNotDuplicated_excludedActionsInControllers_emails() throws Exception {  
 		String html = getHtmlPage().getWebResponse().getContentAsString();
 		assertEquals(1, StringUtils.countMatches(html, "<head>"));
@@ -280,6 +288,7 @@ public class ApplicantTest extends ModuleTestBase {
 		assertAction("CRUD.refresh"); // In order to test that the UI is not broken
 	}
 	
+	@Test
 	public void testListCustomizationWithTabDefaultOrder_tabAnnotationEditorAddedToTabsDefaultValuesXML() throws Exception {   
 		assertAction("ListFormat.select", "editor=List"); 
 		assertAction("ListFormat.select", "editor=Cards"); 

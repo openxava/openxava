@@ -17,6 +17,8 @@ public class PermalinkTest extends WebDriverTestBase {
 		getDriver().get("http://localhost:8080/openxavatest/m/CustomerLessThanFour?detail=4");
 		wait(getDriver());
 		assertFalse(getValue("number").equals("4"));
+
+		
 	}
 		
 }

@@ -18,7 +18,7 @@
         the <i>openxava.version</i> property to point to the latest OpenXava
         version, thus:</p>
       <pre><code class="xml">&lt;properties&gt;
-    &lt;openxava.version&gt;7.6&lt;/openxava.version&gt;
+    &lt;openxava.version&gt;7.6.1&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
 </code></pre>
@@ -44,35 +44,37 @@
       below to adapt your code.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-      <div class="wiki" style="display: block;">
+    <div class="wiki" style="display: block;">
+      <h2>Migration from OpenXava 7.6 to OpenXava 7.6.1</h2>
+      No issues.
       <h2>Migration from OpenXava 7.5.3 to OpenXava 7.6</h2>
       <h3>Icon library updated to the latest version</h3>
-
-		<p>Material Design Icons has been updated from version 4.9.95 to 7.4.47. In the new
-		version, some icons have been removed and others renamed. In addition, the spacing in its CSS 
-		has also changed, which may cause icons to appear misaligned.</p>
-		
-		<p><b>You don't need to make any changes</b> in your OpenXava application because we have added an automatic 
-		icon mapping mechanism so that the actions in <i>controllers.xml</i>, as well as the 
-		<i>@LargeDisplay</i> and <i>@Icon</i> properties, can still work with the old icon names. 
-		We have also adjusted all the spacing so that everything works as before.</p>
-		
-		<p>However, if you have a custom view or your own editor where your HTML directly uses
-		Material Design Icons, you will need to review and adapt them. For example, changing
-		<i>library-plus</i> to <i>plus-box-multiple</i>, <i>library-books</i> to <i>text-box-multiple</i>,  
-		<i>file-pdf</i> to <i>file-table</i>, or <i>settings</i> to <i>cog</i>. The 
-		<a href="https://pictogrammers.com/docs/library/mdi/releases/upgrade/">
-		Material Design Icons migration guide</a> contains a complete list of the changes. You may also 
-		need to adjust your CSS if an icon appears misaligned.</p>
-
-		<h3>Commons Lang 2.x removed (Commons Lang 3 remains)</h3>
-		<p>OpenXava has removed Commons Lang 2.x. <i>Commons Lang 3</i> has always been included and remains.
-		If your application used Commons Lang 2.x utilities, in most cases you only need to change the
-		package in your <i>imports</i> from <i>org.apache.commons.lang</i> to <i>org.apache.commons.lang3</i>.
-		It will usually compile and work the same. If you face any small API change, please consult the
-		<a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html" target="_blank">Commons Lang 3 documentation</a>.</p>
-
-		<pre><code class="java">// Before (Commons Lang 2.x)
+      <p>Material Design Icons has been updated from version 4.9.95 to 7.4.47.
+        In the new version, some icons have been removed and others renamed. In
+        addition, the spacing in its CSS has also changed, which may cause icons
+        to appear misaligned.</p>
+      <p><b>You don't need to make any changes</b> in your OpenXava application
+        because we have added an automatic icon mapping mechanism so that the
+        actions in <i>controllers.xml</i>, as well as the <i>@LargeDisplay</i>
+        and <i>@Icon</i> properties, can still work with the old icon names. We
+        have also adjusted all the spacing so that everything works as before.</p>
+      <p>However, if you have a custom view or your own editor where your HTML
+        directly uses Material Design Icons, you will need to review and adapt
+        them. For example, changing <i>library-plus</i> to <i>plus-box-multiple</i>,
+        <i>library-books</i> to <i>text-box-multiple</i>, <i>file-pdf</i> to <i>file-table</i>,
+        or <i>settings</i> to <i>cog</i>. The <a href="https://pictogrammers.com/docs/library/mdi/releases/upgrade/">
+          Material Design Icons migration guide</a> contains a complete list of
+        the changes. You may also need to adjust your CSS if an icon appears
+        misaligned.</p>
+      <h3>Commons Lang 2.x removed (Commons Lang 3 remains)</h3>
+      <p>OpenXava has removed Commons Lang 2.x. <i>Commons Lang 3</i> has
+        always been included and remains. If your application used Commons Lang
+        2.x utilities, in most cases you only need to change the package in your
+        <i>imports</i> from <i>org.apache.commons.lang</i> to <i>org.apache.commons.lang3</i>.
+        It will usually compile and work the same. If you face any small API
+        change, please consult the <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html"
+          target="_blank">Commons Lang 3 documentation</a>.</p>
+      <pre><code class="java">// Before (Commons Lang 2.x)
 import org.apache.commons.lang.StringUtils;
 
 // After (Commons Lang 3)
@@ -81,13 +83,14 @@ import org.apache.commons.lang3.StringUtils;
 // The rest of the code usually remains the same
 boolean blank = StringUtils.isBlank(s);
 </code></pre>
-
-		<h3>Numeric ordering when concatenating properties in @DescriptionsList (for JUnit tests)</h3>
-      <p>When using <i>@DescriptionsList</i> with <i>descriptionProperties</i> that concatenate 
-        several properties (for example, <i>year, number, customer.name</i>), numeric
-        parts are now ordered numerically instead of lexicographically. Users will see 
-        the new order in the UI. You do not need to change any application code; only 
-        update your JUnit tests if they assert the available values or their order.</p>
+      <h3>Numeric ordering when concatenating properties in @DescriptionsList
+        (for JUnit tests)</h3>
+      <p>When using <i>@DescriptionsList</i> with <i>descriptionProperties</i>
+        that concatenate several properties (for example, <i>year, number,
+          customer.name</i>), numeric parts are now ordered numerically instead
+        of lexicographically. Users will see the new order in the UI. You do not
+        need to change any application code; only update your JUnit tests if
+        they assert the available values or their order.</p>
       <p>For example, if you have a reference like this:</p>
       <pre><code class="java">@DescriptionsList(descriptionProperties = "year, number, customer.name")
 Invoice invoice;</code></pre>
@@ -115,10 +118,13 @@ String [][] invoices = {
 };
 assertValidValues("invoice.KEY", invoices);
 </code></pre>
-      <h3>Formatted values in @DescriptionsList consistent with the application (for JUnit tests)</h3>
-      <p>Now the values shown by <i>@DescriptionsList</i> use the same formatting as the rest of the application
-        according to the property type/editor (for example, full-year dates or uppercase text). You do not need to
-        change application code; however, if your JUnit tests assert the displayed values, update them accordingly.</p>
+      <h3>Formatted values in @DescriptionsList consistent with the application
+        (for JUnit tests)</h3>
+      <p>Now the values shown by <i>@DescriptionsList</i> use the same
+        formatting as the rest of the application according to the property
+        type/editor (for example, full-year dates or uppercase text). You do not
+        need to change application code; however, if your JUnit tests assert the
+        displayed values, update them accordingly.</p>
       <p>For example, update assertions like these:</p>
       <pre><code class="java">// BEFORE (short year in formatted date)
 assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
@@ -180,7 +186,7 @@ ldapPort=389</code></pre>
         vulnerability in versions prior to 6.2.0.Final. While testing indicates
         it works smoothly without additional changes, there may be issues if you
         use <i>@SafeHtml</i> or Expression Language for custom violations. For
-        more details, you can <a href="https://hibernate.org/validator/releases/6.2/#migrate"
+        more details, you can <a href="https://hibernate.org/validator/releases/6.2/#migrate"
           title="https://hibernate.org/validator/releases/6.2/#migrate">visit
           Hibernate's official website</a>.</p>
     </div>
@@ -632,8 +638,7 @@ reload(); // ...you have to add this line
       module, search for the <i>Admin</i> folder in the list, and select it. In
       the <i>Admin</i> detail, click to add a new module, search for SSO, and
       add it:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
-
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_en.png"
         alt=""><br>
       <h2>Migration from OpenXava 7.0.5 to OpenXava 7.0.6</h2>
       <h3>@Column(length=x) with no scale is no longer scale=2 by default</h3>
@@ -728,8 +733,7 @@ assertValidValues("descriptionsListValue", validValues);
       <p>The easier way to migrate to Maven is creating a new project using
         OpenXava 7.0, and then copying the source code and resources from your
         current project to the new one. So, first create a new OpenXava project
-        using Openxava Studio 7, for that you can follow the instructions in <a
-
+        using Openxava Studio 7, for that you can follow the instructions in <a
           href="getting-started_en.html">Getting started guide</a>.</p>
       <p>The next step is to copy all your source code and resources from the
         old project to the corresponding folder in the new project, as
@@ -1070,8 +1074,7 @@ assertEquals("Unit price: 0.00, Unit price in pesetas: 0"), card.asNormalizedTex
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
     deleteLink.getHrefAttribute());
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
-
+    <div class="wiki" style="display: block;">Note as we changed 145 by 8216. <a
         href="http://www.alanwood.net/demos/ansi.html">Look at this table</a> to
       know the mapping between ANSI and UNICODE.</div>
     <div class="wiki" style="display: block;">Now in <i>@HtmlText</i> or <i>@Stereotype("HTML_TEXT")</i>
