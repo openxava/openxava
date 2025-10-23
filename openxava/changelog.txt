@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Bad alignment of @DescriptionList combos with flowLayout=true.
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
 - Fix: Tab.filterByContentInAnyProperty() fails when only one of several properties is a string.
 - Fix: Search filling non-ID fields and clicking Refresh could show records not in list.
