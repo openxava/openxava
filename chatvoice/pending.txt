@@ -2,17 +2,24 @@ Pending Chat AI
 ---------------
 
 M1
-- Acceder a todos los datos.
+- Acceder a todos los datos mediante el tab.
 
 M2
-- Trabajar con tablas grandes.
+- Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
+- ¿Usar baseCondition?
+- ¿Probar con una tabla inmensa?
 
 M3
 - No poder acceder a datos no disponibles en el tab.
 - No poder acceder a datos de módulos no disponibles.
 
 M4
-- Chat en cada módulo
+- Impersonalizar.
+
+M4
+- Chat en cada módulo.
+- Estética del chart profesional.
+- Que recuerde conversación.
 
 M5
 - Poder filtrar en la lista.
@@ -22,6 +29,9 @@ M6
 
 Principios
 - El usuario no debería poder acceder a datos con el chat a los que no pueda acceder desde la applicación.
+- Impersonalizar los datos, para permitir el uso en empresas sería con configuración simple.
+- El chat tiene que ofrecer datos en lenguage natural, sin necesidad de abrir un módulo.
+- El chat debe permitir abrir y manipular módulos.
 
 Por resolver
 - Validaciones
