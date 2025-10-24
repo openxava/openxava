@@ -1,7 +1,7 @@
 package org.openxava.chatvoice.actions;
 
 import org.openxava.actions.*;
-import org.openxava.chatvoice.tools.CustomerTools;
+import org.openxava.chatvoice.tools.EntityTools;
 import org.openxava.util.*;
 
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -41,10 +41,10 @@ public class SendAction extends ViewBaseAction {
 			.modelName("gpt-4o-mini") // Modelo más económico y rápido
 			.build();
 		
-		// Crear asistente con tools
+		// Crear asistente con tools genéricos que funcionan con cualquier módulo
 		Assistant assistant = AiServices.builder(Assistant.class)
 			.chatModel(model)
-			.tools(new CustomerTools(getContext(), getRequest().getSession()))
+			.tools(new EntityTools(getContext(), getRequest().getSession(), getRequest(), "chatvoice"))
 			.build();
 		
 		// Procesar el mensaje con el asistente

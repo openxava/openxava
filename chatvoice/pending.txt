@@ -2,9 +2,10 @@ Pending Chat AI
 ---------------
 
 M1
-- Acceder a todos los datos mediante el tab.
+* Acceder a todos los datos mediante el tab.
 - ¿Qué ocurre si el usuario acaba de hacer un filtro en el módulo?
 - ¿Qué ocurre si el preogunta por una propiedad no visualizada en el tab?
+- Deberiamos excluir los módulos transitorios de la lista de entidades.
 
 M2
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
@@ -16,17 +17,21 @@ M3
 - No poder acceder a datos de módulos no disponibles.
 
 M4
+- Preguntar por información de colecciones @ElementCollection.
+- Preguntar por información de colecciones @ElementCollection.
+
+M5
 - Impersonalizar.
 
-M4
+M6
 - Chat en cada módulo.
 - Estética del chart profesional.
 - Que recuerde conversación.
 
-M5
+M7
 - Poder filtrar en la lista.
 
-M6
+M8
 - Modificar y borrar, mediante el módulo.
 
 Principios

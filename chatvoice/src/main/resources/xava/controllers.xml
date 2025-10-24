@@ -45,9 +45,6 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     	<action name="send"
     		class="org.openxava.chatvoice.actions.SendAction"
     		icon="send"/>
-    	<action name="showCustomerCount"
-    		class="org.openxava.chatvoice.actions.ShowCustomerCountAction"
-    		icon="information"/>
 	</controller>
     
     
