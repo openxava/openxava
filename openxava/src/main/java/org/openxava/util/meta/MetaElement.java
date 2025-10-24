@@ -13,7 +13,7 @@ import org.openxava.util.*;
 abstract public class MetaElement implements java.io.Serializable {
 	private String description;
 	private java.lang.String name;
-	private String label;
+	private String elementLabel; // Used for label property, but other name so GSON be happy
 	private String placeholder;
 
 	protected boolean has18nLabel() {		
@@ -51,8 +51,8 @@ abstract public class MetaElement implements java.io.Serializable {
 	 */
 	protected String getLabel(Locale locale, String id) {
 		if (id == null) return "";
-		if (Is.emptyString(label)) label = Strings.javaIdentifierToNaturalLabel(getName());
-		String result = Labels.get(id, locale, label).trim();
+		if (Is.emptyString(elementLabel)) elementLabel = Strings.javaIdentifierToNaturalLabel(getName());
+		String result = Labels.get(id, locale, elementLabel).trim();
 		return filterApostrophes(result);
 	}
 	
@@ -72,7 +72,7 @@ abstract public class MetaElement implements java.io.Serializable {
 	}
 	
 	public void setLabel(String newLabel) {
-		label = newLabel;
+		elementLabel = newLabel;
 	}
 	
 	public void setName(java.lang.String newName) {

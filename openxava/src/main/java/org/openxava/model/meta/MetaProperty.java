@@ -53,14 +53,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	private PropertyMapping mapping;
 	private DateFormat timeFormat = new SimpleDateFormat("HH:mm"); // 24 hours for all locales
 	private String requiredMessage = "required";
-	private String label;
+	private String propertyLabel; // Used for label property, but other name so GSON be happy
 	private String qualifiedLabel;
 	private String calculation; 
 	private Set<String> propertiesNamesUsedForCalculation; 
 	
 	public void setLabel(String newLabel) {
 		super.setLabel(newLabel);
-		label = newLabel;
+		propertyLabel = newLabel;
 	}
 		
 	public void addValidValue(Object validValue) {
@@ -132,7 +132,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		if (!Is.emptyString(qualifiedLabel)) return qualifiedLabel;
 		String labelId = getId();
 		boolean tabReferenceLabel = isTabReferenceLabel(labelId);
-		if (!Is.emptyString(label) && !tabReferenceLabel) return label;
+		if (!Is.emptyString(propertyLabel) && !tabReferenceLabel) return propertyLabel;
 		if (Labels.existsExact(labelId, locale)) {
 			return getLabel(locale);
 		}
