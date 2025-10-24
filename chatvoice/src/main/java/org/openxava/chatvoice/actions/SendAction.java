@@ -44,7 +44,7 @@ public class SendAction extends ViewBaseAction {
 		// Crear asistente con tools
 		Assistant assistant = AiServices.builder(Assistant.class)
 			.chatModel(model)
-			.tools(new CustomerTools())
+			.tools(new CustomerTools(getContext(), getRequest().getSession()))
 			.build();
 		
 		// Procesar el mensaje con el asistente

@@ -3,6 +3,8 @@ Pending Chat AI
 
 M1
 - Acceder a todos los datos mediante el tab.
+- ¿Qué ocurre si el usuario acaba de hacer un filtro en el módulo?
+- ¿Qué ocurre si el preogunta por una propiedad no visualizada en el tab?
 
 M2
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.

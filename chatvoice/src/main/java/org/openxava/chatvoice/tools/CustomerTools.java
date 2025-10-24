@@ -1,7 +1,10 @@
 package org.openxava.chatvoice.tools;
 
 import java.util.*;
-import javax.persistence.*;
+import javax.servlet.http.HttpSession;
+
+import org.openxava.controller.*;
+import org.openxava.tab.Tab;
 
 import dev.langchain4j.agent.tool.Tool;
 
@@ -10,6 +13,20 @@ import dev.langchain4j.agent.tool.Tool;
  */
 public class CustomerTools {
 	
+	private ModuleContext context;
+	private HttpSession session;
+	
+	/**
+	 * Constructor that receives the ModuleContext and HttpSession from the action
+	 * 
+	 * @param context The ModuleContext to access session and application context
+	 * @param session The HttpSession to assign to the manager
+	 */
+	public CustomerTools(ModuleContext context, HttpSession session) {
+		this.context = context;
+		this.session = session;
+	}
+	
 	/**
 	 * Returns the total number of customers in the database
 	 * 
@@ -17,94 +34,72 @@ public class CustomerTools {
 	 */
 	@Tool("Get the total number of customers in the database")
 	public long getCustomerCount() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-		EntityManager em = emf.createEntityManager();
 		try {
-			Long count = em.createQuery("SELECT COUNT(c) FROM Customer c", Long.class)
-					.getSingleResult();
-			return count != null ? count : 0L;
+			return getCustomerTab().getTotalSize();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
 	/**
-	 * Returns all customers from the database
+	 * Gets the Customer tab from the context and initializes it if necessary
+	 * 
+	 * @return The Customer Tab or null if not found
+	 */
+	private Tab getCustomerTab() {
+		Tab customerTab = (Tab) context.get("chatvoice", "Customer", "xava_tab");
+		if (customerTab != null) {
+			if (customerTab.getModelName() == null) {
+				// Este código está en execute.jsp también, ¿refactorizar?
+				ModuleManager manager = (ModuleManager) context.get("chatvoice", "Customer", "manager", "org.openxava.controller.ModuleManager");
+				manager.setSession(session);
+				manager.setApplicationName("chatvoice");
+				manager.setModuleName("Customer");
+				customerTab.setModelName(manager.getModelName());
+				if (customerTab.getTabName() == null) { 
+					customerTab.setTabName(manager.getTabName());
+				}
+			}
+		}
+		return customerTab;
+	}
+	
+	/**
+	 * Returns all customers from the database using the Tab
 	 * 
 	 * @return A list of all customers with their details
 	 */
 	@Tool("Get all customers from the database")
 	public List<Map<String, Object>> getAllCustomers() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-		EntityManager em = emf.createEntityManager();
 		try {
-			List<Object[]> results = em.createQuery(
-					"SELECT c.number, c.name, c.address, c.city, c.country FROM Customer c", 
-					Object[].class)
-					.getResultList();
-			
+			Tab customerTab = getCustomerTab();
 			List<Map<String, Object>> customers = new ArrayList<>();
-			for (Object[] row : results) {
+			
+			// Obtener el TableModel del Tab
+			javax.swing.table.TableModel tableModel = customerTab.getTableModel();
+			
+			int columnCount = tableModel.getColumnCount();
+			int rowCount = tableModel.getRowCount();
+			
+			// Iterar sobre todas las filas
+			for (int row = 0; row < rowCount; row++) {
 				Map<String, Object> customer = new HashMap<>();
-				customer.put("number", row[0]);
-				customer.put("name", row[1]);
-				customer.put("address", row[2]);
-				customer.put("city", row[3]);
-				customer.put("country", row[4]);
+				
+				// Obtener todas las columnas disponibles
+				for (int col = 0; col < columnCount; col++) {
+					String columnName = tableModel.getColumnName(col);
+					Object value = tableModel.getValueAt(row, col);
+					customer.put(columnName, value);
+				}
+				
 				customers.add(customer);
 			}
+			
 			return customers;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
-		} finally {
-			em.close();
-			emf.close();
-		}
-	}
-	
-	/**
-	 * Modifies a specific field of a customer
-	 * 
-	 * @param customerNumber The customer number (ID)
-	 * @param fieldName The name of the field to modify (name, address, city, country)
-	 * @param newValue The new value for the field
-	 * @return A message indicating success or failure
-	 */
-	@Tool("Modify a specific field of a customer by customer number")
-	public String modifyCustomerField(int customerNumber, String fieldName, String newValue) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
-		EntityManager em = emf.createEntityManager();
-		try {
-			em.getTransaction().begin();
-			
-			Query query = em.createQuery(
-					"UPDATE Customer c SET c." + fieldName + " = :newValue WHERE c.number = :number");
-			query.setParameter("newValue", newValue);
-			query.setParameter("number", customerNumber);
-			
-			int updatedCount = query.executeUpdate();
-			
-			em.getTransaction().commit();
-			
-			if (updatedCount > 0) {
-				return "Successfully updated " + fieldName + " to '" + newValue + "' for customer " + customerNumber;
-			} else {
-				return "Customer with number " + customerNumber + " not found";
-			}
-		} catch (Exception ex) {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-			ex.printStackTrace();
-			throw ex;
-		} finally {
-			em.close();
-			emf.close();
 		}
 	}
 	
