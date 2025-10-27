@@ -25,17 +25,57 @@ public class GsonTest {
     @Test
     public void testMetaComponentToFromJSON() {
         MetaComponent metaComponent = MetaComponent.get("Product");
-        
-        // TMR ME QUEDÉ POR AQUÍ: FALLA CON UN STACKOVERFLOW, POR LAS REFERENCIAS CIRCULARES EN LA METADATA
 
-        // Configure Gson
+        // Configure Gson with exclusion strategy to avoid circular references
         Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
                 .setPrettyPrinting()
                 .addSerializationExclusionStrategy(new ExclusionStrategy() {
                     @Override
                     public boolean shouldSkipField(FieldAttributes f) {
-                        return f.getDeclaredClass() == Class.class;
+                        String fieldName = f.getName();
+                        Class<?> fieldType = f.getDeclaredClass();
+                        String declaringClassName = f.getDeclaringClass().getSimpleName();
+                        
+                        // Skip Class fields
+                        if (fieldType == Class.class) {
+                            return true;
+                        }
+                        
+                        // Skip Log instances
+                        if (org.apache.commons.logging.Log.class.isAssignableFrom(fieldType)) {
+                            return true;
+                        }
+                        
+                        // Skip Format instances (DecimalFormat, DateFormat, etc.) to avoid duplicate field issues
+                        if (java.text.Format.class.isAssignableFrom(fieldType)) {
+                            return true;
+                        }
+                        
+                        // Skip IPersistenceProvider
+                        if ("persistenceProvider".equals(fieldName)) {
+                            return true;
+                        }
+                        
+                        // Skip parent reference fields that create circular references
+                        if ("metaComponent".equals(fieldName) || 
+                            "metaModel".equals(fieldName) ||
+                            "metaView".equals(fieldName) ||
+                            "metaTab".equals(fieldName) ||
+                            "container".equals(fieldName) ||
+                            "parent".equals(fieldName) ||
+                            "modelMapping".equals(fieldName) ||
+                            "metaViewParent".equals(fieldName)) {
+                            return true;
+                        }
+                        
+                        // Skip Maps that contain circular references in ModelMapping
+                        if ("ModelMapping".equals(declaringClassName) && 
+                            ("propertyMappings".equals(fieldName) || 
+                             "referenceMappings".equals(fieldName))) {
+                            return true;
+                        }
+                        
+                        return false;
                     }
 
                     @Override
@@ -52,13 +92,11 @@ public class GsonTest {
         try {
             // Serialize MetaComponent to JSON
             json = gson.toJson(metaComponent);
-            System.out.println("Generated JSON:\n" + json);
 
             // Deserialize JSON back to MetaComponent
             parsed = gson.fromJson(json, MetaComponent.class);
         } catch (Exception ex) {
             exception = ex;
-            ex.printStackTrace();
         }
 
         // Verify Gson did not throw any exception
