@@ -20,20 +20,20 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	private String labelId;
 	private String qualifiedName;
 	
-	private String label;
+	private String memberLabel; // Used for label property, but other name so GSON be happy
 	private Collection<String> propertyNamesThatIDepend; 
 	private boolean _transient; 
 	
 	public String getLabel(Locale locale) {
-		if (Is.emptyString(label)) return super.getLabel(locale);
-		String labelId = Strings.naturalLabelToIdentifier(label);
+		if (Is.emptyString(memberLabel)) return super.getLabel(locale);
+		String labelId = Strings.naturalLabelToIdentifier(memberLabel);
 		if (Labels.exists(labelId, locale)) return super.getLabel(locale, labelId);
-		return label;
+		return memberLabel;
 	}
 		
 	public void setLabel(String newLabel) {
 		super.setLabel(newLabel);
-		label = newLabel;
+		memberLabel = newLabel;
 	}
 	
 	/** @since 5.6 */
