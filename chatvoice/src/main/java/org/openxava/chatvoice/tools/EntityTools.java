@@ -149,6 +149,7 @@ public class EntityTools {
 			if (tab.getTabName() == null) { 
 				tab.setTabName(manager.getTabName());
 			}
+			tab.setPropertiesNames("*");
 		}
 		return tab;
 	}

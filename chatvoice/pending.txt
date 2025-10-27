@@ -1,38 +1,23 @@
 Pending Chat AI
 ---------------
 
-M1
-* Acceder a todos los datos mediante el tab.
-* ¿Qué ocurre si el usuario acaba de hacer un filtro en el módulo?
-- ¿Qué ocurre si el preogunta por una propiedad no visualizada en el tab?
-- ¿Reconoce los datos nuevos, modificados o eliminados?
-- Deberiamos excluir los módulos transitorios de la lista de entidades.
 
-M2
+* Acceder a todos los datos mediante el tab.
+* Filtro en el módulo por el usuario no afectan a los resultado del chat.
+* Propiedad no visualizada en el tab son reconocidas.
+- Reconocer datos nuevos, modificados o eliminados
+- Deberiamos excluir los módulos transitorios de la lista de entidades.
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?
 - ¿Probar con una tabla inmensa?
-
-M3
 - No poder acceder a datos no disponibles en el tab. Probar con IFilter.
 - No poder acceder a datos de módulos no disponibles.
-
-M4
 - Preguntar por información de colecciones @ElementCollection.
-- Preguntar por información de colecciones @ElementCollection.
-
-M5
 - Impersonalizar.
-
-M6
 - Chat en cada módulo.
 - Estética del chart profesional.
 - Que recuerde conversación.
-
-M7
 - Poder filtrar en la lista.
-
-M8
 - Modificar y borrar, mediante el módulo.
 
 Principios
