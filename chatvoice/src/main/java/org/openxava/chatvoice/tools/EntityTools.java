@@ -23,6 +23,7 @@ public class EntityTools {
 	private HttpSession session;
 	private HttpServletRequest request;
 	private String application;
+	private Map<String, Tab> tabs = new HashMap<>();
 	
 	/**
 	 * Constructor that receives the ModuleContext, HttpSession, HttpServletRequest and application name.
@@ -107,10 +108,9 @@ public class EntityTools {
 			javax.swing.table.TableModel tableModel = tab.getTableModel();
 			
 			int columnCount = tableModel.getColumnCount();
-			int rowCount = tableModel.getRowCount();
 			
 			// Iterate over all rows
-			for (int row = 0; row < rowCount; row++) {
+			for (int row = 0; row < tableModel.getRowCount(); row++) {
 				Map<String, Object> record = new HashMap<>();
 				
 				// Get all available columns
@@ -132,14 +132,15 @@ public class EntityTools {
 	}
 	
 	/**
-	 * Gets a Tab from the context and initializes it if necessary.
+	 * Gets a Tab from the private map and creates it if it doesn't exist.
 	 * 
 	 * @param module The module name
-	 * @return The Tab or null if not found
+	 * @return The Tab
 	 */
 	private Tab getTab(String module) {
-		Tab tab = (Tab) context.get(application, module, "xava_chatTab");
-		if (tab.getModelName() == null) {
+		Tab tab = tabs.get(module);
+		if (tab == null) {
+			tab = new Tab();
 			// This code is also in execute.jsp, should we refactor?
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
@@ -150,6 +151,7 @@ public class EntityTools {
 				tab.setTabName(manager.getTabName());
 			}
 			tab.setPropertiesNames("*");
+			tabs.put(module, tab);
 		}
 		return tab;
 	}
