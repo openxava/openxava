@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.openxava.controller.*;
 import org.openxava.tab.Tab;
 import org.openxava.application.meta.MetaModule;
+import org.openxava.component.MetaComponent;
 import com.openxava.naviox.Modules;
 
 import dev.langchain4j.agent.tool.Tool;
@@ -61,6 +62,19 @@ public class EntityTools {
 			List<String> entityNames = new ArrayList<>();
 			List<MetaModule> allModules = modules.getAll(request);
 			for (MetaModule module : allModules) {
+				// Exclude transient modules
+				try {
+					String modelName = module.getModelName();
+					if (modelName != null) {
+						MetaComponent component = MetaComponent.get(modelName);
+						if (component.isTransient()) {
+							continue; // Skip transient entities
+						}
+					}
+				} catch (Exception ex) {
+					// If we can't get the component, skip this module
+					continue;
+				}
 				entityNames.add(module.getName());
 			}
 			

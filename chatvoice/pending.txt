@@ -6,7 +6,7 @@ Pending Chat AI
 * Filtro en el módulo por el usuario no afectan a los resultado del chat.
 * Propiedad no visualizada en el tab son reconocidas.
 * Reconocer datos nuevos, modificados o eliminados.
-- Deberiamos excluir los módulos transitorios de la lista de entidades.
+* Deberiamos excluir los módulos transitorios de la lista de entidades.
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?
 - ¿Probar con una tabla inmensa?
