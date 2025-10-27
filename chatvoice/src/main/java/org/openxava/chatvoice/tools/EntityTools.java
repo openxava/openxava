@@ -138,18 +138,16 @@ public class EntityTools {
 	 * @return The Tab or null if not found
 	 */
 	private Tab getTab(String module) {
-		Tab tab = (Tab) context.get(application, module, "xava_tab");
-		if (tab != null) {
-			if (tab.getModelName() == null) {
-				// This code is also in execute.jsp, should we refactor?
-				ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
-				manager.setSession(session);
-				manager.setApplicationName(application);
-				manager.setModuleName(module);
-				tab.setModelName(manager.getModelName());
-				if (tab.getTabName() == null) { 
-					tab.setTabName(manager.getTabName());
-				}
+		Tab tab = (Tab) context.get(application, module, "xava_chatTab");
+		if (tab.getModelName() == null) {
+			// This code is also in execute.jsp, should we refactor?
+			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
+			manager.setSession(session);
+			manager.setApplicationName(application);
+			manager.setModuleName(module);
+			tab.setModelName(manager.getModelName());
+			if (tab.getTabName() == null) { 
+				tab.setTabName(manager.getTabName());
 			}
 		}
 		return tab;
