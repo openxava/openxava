@@ -75,7 +75,7 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 		}
 	}
 
-	private void verifyExistsInTab(Map keys) throws ObjectNotFoundException {
+	private void verifyExistsInTab(Map keys) throws ObjectNotFoundException { 
 		if (tab.getModelName() != null 
 			&& !tab.getMetaTab().getBaseCondition().isEmpty() 
 			&& tab.getModelName().equals(getView().getModelName())) {

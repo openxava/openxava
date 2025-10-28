@@ -39,7 +39,7 @@ import org.openxava.web.*;
 
 public class Tab implements java.io.Serializable, Cloneable { 
 	
-	public class Configuration implements java.io.Serializable, Comparable { 
+	public class Configuration implements java.io.Serializable, Comparable, Cloneable { 
 		
 		final private int COLLECTION_ID = "__COLLECTION__".hashCode();
 							
@@ -368,6 +368,29 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 		public void setWeight(long weight) {
 			this.weight = weight;
+		}
+		
+		@Override
+		public Configuration clone() {
+			try {
+				Configuration clone = (Configuration) super.clone();
+				
+				// Deep copy of arrays to avoid sharing references
+				if (this.conditionComparators != null) {
+					clone.conditionComparators = this.conditionComparators.clone();
+				}
+				if (this.conditionValues != null) {
+					clone.conditionValues = this.conditionValues.clone();
+				}
+				if (this.conditionValuesTo != null) {
+					clone.conditionValuesTo = this.conditionValuesTo.clone();
+				}
+				
+				return clone;
+			}
+			catch (CloneNotSupportedException ex) {
+				throw new RuntimeException(ex); // Never
+			}
 		}
 		
 	}
@@ -3194,7 +3217,41 @@ public class Tab implements java.io.Serializable, Cloneable {
 		try {
 			Tab clone =  (Tab) super.clone();
 			clone.cancelSavingPreferences = true;
-			clone.metaTabCloned = false; 
+			clone.metaTabCloned = false;
+			
+			// Deep copy of arrays to avoid sharing references
+			if (this.conditionComparators != null) {
+				clone.conditionComparators = this.conditionComparators.clone();
+			}
+			if (this.conditionValues != null) {
+				clone.conditionValues = this.conditionValues.clone();
+			}
+			if (this.conditionValuesTo != null) {
+				clone.conditionValuesTo = this.conditionValuesTo.clone();
+			}
+			if (this.filterConditionValues != null) {
+				clone.filterConditionValues = this.filterConditionValues.clone();
+			}
+			if (this.conditionComparatorsToWhere != null) {
+				clone.conditionComparatorsToWhere = this.conditionComparatorsToWhere.clone();
+			}
+			if (this.conditionValuesToWhere != null) {
+				clone.conditionValuesToWhere = this.conditionValuesToWhere.clone();
+			}
+			
+			// Deep copy of Configuration object
+			if (this.configuration != null) {
+				clone.configuration = this.configuration.clone();
+			}
+			
+			// Deep copy of configurations map
+			if (this.configurations != null) {
+				clone.configurations = new HashMap<Integer, Configuration>();
+				for (Map.Entry<Integer, Configuration> entry : this.configurations.entrySet()) {
+					clone.configurations.put(entry.getKey(), entry.getValue().clone());
+				}
+			}
+			
 			return clone;
 		}
 		catch (CloneNotSupportedException ex) {
