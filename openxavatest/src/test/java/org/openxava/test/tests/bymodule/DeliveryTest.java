@@ -1245,6 +1245,10 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum() throws Exception {   
+		assertListColumnCount(13);
+		assertLabelInList(0, getName());
+		// tmr ME QUEDÉ HACIENDO ESTO...
+		
 		int quantity = getListRowCount();
 		assertTrue("For this test is needed at least one created delivery", quantity > 0);
 		Collection values = new ArrayList();
@@ -1276,6 +1280,10 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValuesInList(0, "", "4");
 		assertValuesInList(1, "Nachional", "2");
 		assertValuesInList(2, "Lokal", "1");
+
+		// tmr Poner aquí el test
+		// tmr Solo comprobar que se conservan las columnas originales,
+		// tmr   no es neceario que se guarde la configuración para la lista agrupada (de momento)
 	}
 	 
 	public void testSetValueAgainstPropertiesOfSectionsHiddenAndShowed() throws Exception {
