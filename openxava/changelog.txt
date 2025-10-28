@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Collection border not clearly visible in light themes.
 - Fix: Gson throwing 'multiple JSON fields' exception when serializing OpenXava metadata.
 - Fix: Bad alignment of @DescriptionList combos with flowLayout=true.
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.

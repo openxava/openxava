@@ -22,12 +22,12 @@
 	--list-formats-hover-color: var(--my-gray);
 	
 	/* Backgrounds & labels */
-	--background: rgb(251, 251, 251);
+	--background: rgb(247, 247, 247);
 	--color: var(--my-black);
 	
 	/* Frames */
 	--frame-background: var(--my-transparent-lightgray);
-	
+
 	/* Actions */
 	--action-color: var(--my-gray);
 	--action-hover-color: var(--my-black);  
@@ -37,4 +37,5 @@
 	/* Editors */
 	--required-editor-border: gray;
 	--calendar-selected-day: gray; 
+	
 }
