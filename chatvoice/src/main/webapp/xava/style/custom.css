@@ -12,3 +12,16 @@ Put here your own style
 [id$="_Dashboard__editor_totalSum"] .ox-large-display {
     width: 307px;
 }
+
+#ox_chatvoice_Chat__view .ox-frame-title {
+    display: none;
+    
+}
+
+#ox_chatvoice_Chat__view {
+}
+
+#ox_chatvoice_Chat__view .ox-frame {
+    background: transparent;
+  
+}

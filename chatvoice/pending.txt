@@ -26,6 +26,13 @@ Principios
 - El chat tiene que ofrecer datos en lenguage natural, sin necesidad de abrir un módulo.
 - El chat debe permitir abrir y manipular módulos.
 
+Cuestiones
+- ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación?
+    - No hacerlo haría el código más sencillo. Podría prescindir de la anotación @Chat.
+    - Podríamos esperar a que alguien lo pidiera.
+    - A lo mejor no hay un uso común práctico y si lo hay ni es como pienso.
+    - Quizás pidan implementar la lógica del chat que vamos a poner, en lugar de ponerlo como un formulario.
+
 Por resolver
 - Validaciones
 - DataSets grandes

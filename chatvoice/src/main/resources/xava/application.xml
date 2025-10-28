@@ -27,8 +27,6 @@
 	
 	<module name="Chat">
 		<model name="Chat"/>
-		<controller name="InitModelWithNewInstance"/>
-		<controller name="Chat"/>
 	</module>
 	
 </application>

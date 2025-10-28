@@ -1,9 +1,7 @@
 package org.openxava.chatvoice.model;
 
-import javax.persistence.Column;
-
-import org.hibernate.validator.constraints.Length;
-import org.openxava.annotations.*;
+import org.openxava.annotations.LabelFormat;
+import org.openxava.annotations.LabelFormatType;
 
 import lombok.*;
 
@@ -13,12 +11,16 @@ import lombok.*;
 @Getter @Setter
 public class Chat {
 	
-	@LabelFormat(LabelFormatType.SMALL) 
-	@Column(length = 200)
-	String message;
+	// @LabelFormat(LabelFormatType.SMALL) 
+	// @Column(length = 200)
+	// String message;
 
-	@Label
-	@LabelFormat(LabelFormatType.NO_LABEL) 
-	String response;
+	// @Label
+	// @LabelFormat(LabelFormatType.NO_LABEL) 
+	// String response;
+	
+	@org.openxava.chatvoice.annotations.Chat
+	@LabelFormat(LabelFormatType.NO_LABEL)
+	String chat;
 	
 }
