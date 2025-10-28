@@ -7,6 +7,8 @@ Pending Chat AI
 * Propiedad no visualizada en el tab son reconocidas.
 * Reconocer datos nuevos, modificados o eliminados.
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
+- Estética del chart profesional.
+- Que recuerde conversación.
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?
 - ¿Probar con una tabla inmensa?
@@ -15,8 +17,6 @@ Pending Chat AI
 - Preguntar por información de colecciones @ElementCollection.
 - Impersonalizar.
 - Chat en cada módulo.
-- Estética del chart profesional.
-- Que recuerde conversación.
 - Poder filtrar en la lista.
 - Modificar y borrar, mediante el módulo.
 
