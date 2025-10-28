@@ -32,6 +32,8 @@ Cuestiones
     - Podríamos esperar a que alguien lo pidiera.
     - A lo mejor no hay un uso común práctico y si lo hay ni es como pienso.
     - Quizás pidan implementar la lógica del chat que vamos a poner, en lugar de ponerlo como un formulario.
+    - Una propiedad con un chat puede ser raro, pero un módulo con chat no tanto, y quizas @Chat en una entidades  
+        es más natural que un JSP en application.xml que tienes que saber donde está.
 
 Por resolver
 - Validaciones
