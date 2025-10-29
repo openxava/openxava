@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Adding/removing/moving columns in a 'grouped by' list modifies the columns of the original list.
 - Fix: List with baseCondition shows extra conditions or columns after consulting a record in detail mode.
 - Fix: Collection border not clearly visible in light themes.
 - Fix: Gson throwing 'multiple JSON fields' exception when serializing OpenXava metadata.

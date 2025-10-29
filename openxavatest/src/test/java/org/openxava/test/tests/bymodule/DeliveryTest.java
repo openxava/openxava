@@ -1290,7 +1290,7 @@ public class DeliveryTest extends CustomizeListTestBase {
 	}
 	
 	@Test
-	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum() throws Exception {   	
+	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum_keepOriginalColumnAfterCustomizingGroupedList() throws Exception {   	
 		int quantity = getListRowCount();
 		assertTrue("For this test is needed at least one created delivery", quantity > 0);
 		Collection values = new ArrayList();
@@ -1323,7 +1323,6 @@ public class DeliveryTest extends CustomizeListTestBase {
 		assertValuesInList(1, "Nachional", "2");
 		assertValuesInList(2, "Lokal", "1");
 
-		// tmr Cambiar nombre del test
 		assertListColumnCount(2);
 		assertLabelInList(0, "Distance");
 		assertLabelInList(1, "Record count");
