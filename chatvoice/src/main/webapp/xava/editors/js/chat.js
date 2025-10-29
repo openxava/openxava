@@ -48,7 +48,7 @@ chatEditor.updateSendButton = function(input, button) {
 };
 
 chatEditor.hideWelcome = function(container) {
-	container.find('.ox-chat-welcome').hide();
+	$('.ox-chat-welcome').hide();
 };
 
 chatEditor.createMessage = function(text, isUser) {
@@ -81,6 +81,7 @@ chatEditor.scrollToBottom = function(container) {
 
 chatEditor.sendMessage = function(container, input, button, text) {
 	chatEditor.hideWelcome(container);
+	$('.ox-chat-center-content').addClass('has-messages');
 	
 	var userMessage = chatEditor.createMessage(text, true);
 	container.append(userMessage);
