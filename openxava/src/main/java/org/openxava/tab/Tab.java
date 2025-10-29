@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.Collections;
 import java.util.prefs.*;
 import java.util.stream.*;
+import java.util.function.*;
 
 import javax.servlet.http.*;
 
@@ -1676,8 +1677,69 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public String getGroupBy() { 
 		return groupBy==null?"":groupBy;
 	}
-	
-	
+
+	private boolean isGrouping() {
+		return !Is.emptyString(groupBy);
+	}
+
+	// Centralized workflow for property changes that may update configuration
+	private void applyPropertyChange(Runnable metaChange, Consumer<Configuration> configAdjuster, boolean applyConfig) {
+		cloneMetaTab();
+		metaChange.run();
+		resetAfterChangeProperties();
+		if (isGrouping()) return; // Do not persist configuration while grouped
+		if (configuration == null) saveConfiguration();
+		if (configAdjuster != null) configAdjuster.accept(configuration);
+		configuration.setPropertiesNames(getPropertiesNamesAsString());
+		if (applyConfig) applyConfiguration();
+		if (configuration.isAll() || configuration.hasCustomName()) {
+			saveConfigurationPreferences(false);
+		}
+	}
+
+	// Small config adjusters to reuse
+	private Consumer<Configuration> insertAt(int index) {
+		return conf -> {
+			conf.setConditionValues(insertEmptyString(conf.getConditionValues(), index));
+			conf.setConditionValuesTo(insertEmptyString(conf.getConditionValuesTo(), index));
+			conf.setConditionComparators(insertEmptyString(conf.getConditionComparators(), index));
+		};
+	}
+
+	private Consumer<Configuration> growTo(int size) {
+		return conf -> {
+			conf.setConditionValues(growWithEmptyStrings(conf.getConditionValues(), size));
+			conf.setConditionValuesTo(growWithEmptyStrings(conf.getConditionValuesTo(), size));
+			conf.setConditionComparators(growWithEmptyStrings(conf.getConditionComparators(), size));
+		};
+	}
+
+	private Consumer<Configuration> removeAt(int idx) {
+		return conf -> {
+			if (idx >= 0) {
+				conf.setConditionValues(remove(conf.getConditionValues(), idx));
+				conf.setConditionValuesTo(remove(conf.getConditionValuesTo(), idx));
+				conf.setConditionComparators(remove(conf.getConditionComparators(), idx));
+			}
+		};
+	}
+
+	private Consumer<Configuration> moveNotCalculated(int fromIdx, int toIdx) {
+		return conf -> {
+			move(conf.getConditionValues(), fromIdx, toIdx);
+			move(conf.getConditionValuesTo(), fromIdx, toIdx);
+			move(conf.getConditionComparators(), fromIdx, toIdx);
+		};
+	}
+
+	private Consumer<Configuration> setConditionArrays(String[] values, String[] valuesTo, String[] comparators) {
+		return conf -> {
+			conf.setConditionValues(values);
+			conf.setConditionValuesTo(valuesTo);
+			conf.setConditionComparators(comparators);
+		};
+	}
+
 	private Collection<MetaProperty> getMetaPropertiesBeforeGrouping() {
 		return metaPropertiesBeforeGrouping == null?getMetaProperties():metaPropertiesBeforeGrouping;
 	}
@@ -2239,18 +2301,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	public void addProperty(int index, String propertyName) throws XavaException {
-		cloneMetaTab();
-		getMetaTab().addProperty(index, propertyName);
-		resetAfterChangeProperties();
-		if (configuration == null) saveConfiguration();
-		configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), index)); 
-		configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), index));
-		configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), index));
-		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		applyConfiguration(); 
-		if (configuration.isAll() || configuration.hasCustomName()) { 
-			saveConfigurationPreferences(false);
-		} 
+		applyPropertyChange(
+			() -> getMetaTab().addProperty(index, propertyName),
+			insertAt(index),
+			true
+		);
 	}
 	
 	
@@ -2261,26 +2316,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @since 7.1
 	 */
 	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException {
-		cloneMetaTab();
-		configuration.setConditionValues(conditionValues);
-		configuration.setConditionValuesTo(conditionValuesTo);
-		configuration.setConditionComparators(conditionComparators);
-		
-		for (int i = 0; i < propertiesName.size(); i++) {
-			getMetaTab().addProperty(i, propertiesName.get(i));
-			resetAfterChangeProperties();
-			if (configuration == null) saveConfiguration();
-			configuration.setConditionValues(insertEmptyString(configuration.getConditionValues(), i)); 
-			configuration.setConditionValuesTo(insertEmptyString(configuration.getConditionValuesTo(), i));
-			configuration.setConditionComparators(insertEmptyString(configuration.getConditionComparators(), i));
-			configuration.setPropertiesNames(getPropertiesNamesAsString());
-			applyConfiguration(); 
-			if (configuration.isAll() || configuration.hasCustomName()) { 
-				saveConfigurationPreferences(false);
-			} 
-		}
-		
-
+		// Build meta change and a combined config adjuster
+		Runnable metaChange = () -> {
+			for (int i = 0; i < propertiesName.size(); i++) {
+				getMetaTab().addProperty(i, propertiesName.get(i));
+			}
+		};
+		Consumer<Configuration> adjuster = conf -> {
+			setConditionArrays(conditionValues, conditionValuesTo, conditionComparators).accept(conf);
+			for (int i = 0; i < propertiesName.size(); i++) {
+				insertAt(i).accept(conf);
+			}
+		};
+		applyPropertyChange(metaChange, adjuster, true);
 	}
 	
 	private String [] growWithEmptyStrings(String [] original, int size) { 
@@ -2306,21 +2354,16 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	public void addProperties(Collection properties) throws XavaException {
-		cloneMetaTab();
-		for (Iterator it=properties.iterator(); it.hasNext();) {
-			getMetaTab().addProperty((String)it.next());
-		}		
-		resetAfterChangeProperties();
-		if (configuration == null) saveConfiguration();
-		int size = getMetaPropertiesNotCalculated().size(); 
-		configuration.setConditionValues(growWithEmptyStrings(configuration.getConditionValues(), size)); 
-		configuration.setConditionValuesTo(growWithEmptyStrings(configuration.getConditionValuesTo(), size));
-		configuration.setConditionComparators(growWithEmptyStrings(configuration.getConditionComparators(), size));
-		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		applyConfiguration();
-		if (configuration.isAll() || configuration.hasCustomName()) { 
-			saveConfigurationPreferences(false);
-		}
+		Runnable metaChange = () -> {
+			for (Iterator it=properties.iterator(); it.hasNext();) {
+				getMetaTab().addProperty((String) it.next());
+			}
+		};
+		Consumer<Configuration> adjuster = conf -> {
+			int size = getMetaPropertiesNotCalculated().size();
+			growTo(size).accept(conf);
+		};
+		applyPropertyChange(metaChange, adjuster, true);
 	}
 	
 		
@@ -2342,20 +2385,12 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}	
 
 	public void removeProperty(String propertyName) throws XavaException {
-		int idx = indexOf(getMetaPropertiesNotCalculated(), propertyName); 
-		cloneMetaTab();
-		getMetaTab().removeProperty(propertyName);
-		resetAfterChangeProperties();
-		if (configuration == null) saveConfiguration();
-		if (idx >= 0) {
-			configuration.setConditionValues(remove(configuration.getConditionValues(), idx)); 
-			configuration.setConditionValuesTo(remove(configuration.getConditionValuesTo(), idx));
-			configuration.setConditionComparators(remove(configuration.getConditionComparators(), idx));
-		}
-		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		if (configuration.isAll() || configuration.hasCustomName()) { 
-			saveConfigurationPreferences(false);
-		} 
+		int idx = indexOf(getMetaPropertiesNotCalculated(), propertyName);
+		applyPropertyChange(
+			() -> getMetaTab().removeProperty(propertyName),
+			removeAt(idx),
+			false
+		);
 	}
 	
 	private String [] remove(String [] array, int idx) {  
@@ -2379,18 +2414,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public void moveProperty(int from, int to) {
 		int fromForNotCalculatedProperties = toIndexForNotCalculatedProperties(from);
 		int toForNotCalculatedProperties = toIndexForNotCalculatedProperties(to);
-		cloneMetaTab();		
-		getMetaTab().moveProperty(from, to);		
-		resetAfterChangeProperties();
-		if (configuration == null) saveConfiguration(); 
-		move(configuration.getConditionValues(), fromForNotCalculatedProperties, toForNotCalculatedProperties); 
-		move(configuration.getConditionValuesTo(), fromForNotCalculatedProperties, toForNotCalculatedProperties); 
-		move(configuration.getConditionComparators(), fromForNotCalculatedProperties, toForNotCalculatedProperties);
-		
-		configuration.setPropertiesNames(getPropertiesNamesAsString());
-		if (configuration.isAll() || configuration.hasCustomName()) { 
-			saveConfigurationPreferences(false);
-		} 
+		applyPropertyChange(
+			() -> getMetaTab().moveProperty(from, to),
+			moveNotCalculated(fromForNotCalculatedProperties, toForNotCalculatedProperties),
+			false
+		);
 	}
 	
 	private void move(Object [] array, int from, int to) { 
