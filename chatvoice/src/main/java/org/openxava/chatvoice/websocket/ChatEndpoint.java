@@ -26,18 +26,9 @@ public class ChatEndpoint {
 	private static final Log log = LogFactory.getLog(ChatEndpoint.class);
 	private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
 	
-	static {
-		System.out.println("ChatEndpoint class loaded!");
-	}
-	
-	public ChatEndpoint() {
-		System.out.println("ChatEndpoint instance created!");
-	}
-	
 	@OnOpen
 	public void onOpen(Session session) {
 		sessions.add(session);
-		System.out.println("WebSocket opened: " + session.getId());
 		log.info("WebSocket opened: " + session.getId());
 	}
 	
