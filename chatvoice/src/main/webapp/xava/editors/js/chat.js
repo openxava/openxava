@@ -94,11 +94,53 @@ chatEditor.sendMessage = function(container, input, button, text) {
 	container.append(typingIndicator);
 	chatEditor.scrollToBottom(container);
 	
-	setTimeout(function() {
-		$('#typingIndicator').remove();
+	// Send message via WebSocket
+	chatEditor.sendViaWebSocket(text);
+};
+
+chatEditor.getWebSocket = function() {
+	if (!chatEditor.ws || chatEditor.ws.readyState === WebSocket.CLOSED) {
+		var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+		var wsUrl = protocol + '//' + window.location.host + openxava.contextPath + '/chat-ws';
 		
-		var assistantMessage = chatEditor.createMessage(text, false);
-		container.append(assistantMessage);
-		chatEditor.scrollToBottom(container);
-	}, 500 + Math.random() * 1000);
+		chatEditor.ws = new WebSocket(wsUrl);
+		
+		chatEditor.ws.onopen = function() {
+			console.log('WebSocket connected');
+		};
+		
+		chatEditor.ws.onmessage = function(event) {
+			$('#typingIndicator').remove();
+			
+			var assistantMessage = chatEditor.createMessage(event.data, false);
+			$('#chatMessages').append(assistantMessage);
+			chatEditor.scrollToBottom($('#chatMessages'));
+		};
+		
+		chatEditor.ws.onerror = function(error) {
+			console.error('WebSocket error:', error);
+			$('#typingIndicator').remove();
+			alert('Error connecting to chat service');
+		};
+		
+		chatEditor.ws.onclose = function() {
+			console.log('WebSocket closed');
+		};
+	}
+	return chatEditor.ws;
+};
+
+chatEditor.sendViaWebSocket = function(message) {
+	var ws = chatEditor.getWebSocket();
+	
+	if (ws.readyState === WebSocket.OPEN) {
+		ws.send(message);
+	} else if (ws.readyState === WebSocket.CONNECTING) {
+		// Wait for connection to open
+		ws.addEventListener('open', function() {
+			ws.send(message);
+		}, { once: true });
+	} else {
+		alert('Cannot send message: WebSocket is not connected');
+	}
 };

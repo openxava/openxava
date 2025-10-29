@@ -36,6 +36,22 @@
 			<version>${langchain4j.version}</version>
 		</dependency>
 		
+		<!-- WebSocket API -->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Tomcat Embedded WebSocket (for embedded Tomcat) -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-websocket</artifactId>
+			<version>9.0.110</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- 
 		To access to your database uncomment the corresponding entry 
 		from the below dependencies. If you don't find yours, look in
