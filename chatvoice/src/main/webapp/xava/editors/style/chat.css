@@ -2,8 +2,7 @@
 .ox-chat-container {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
-	min-height: 500px;
+	min-height: calc(100vh - 140px);
 	background-color: var(--background);
 	color: var(--color);
 	position: relative;
