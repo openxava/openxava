@@ -53,24 +53,22 @@ chatEditor.hideWelcome = function(container) {
 
 chatEditor.createMessage = function(text, isUser) {
 	var messageDiv = $('<div>').addClass('ox-chat-message').addClass(isUser ? 'user' : 'assistant');
-	var avatar = $('<div>').addClass('ox-chat-message-avatar').text(isUser ? 'U' : 'AI');
 	var content = $('<div>').addClass('ox-chat-message-content');
 	var p = $('<p>').text(text);
 	
 	content.append(p);
-	messageDiv.append(avatar).append(content);
+	messageDiv.append(content);
 	
 	return messageDiv;
 };
 
 chatEditor.createTypingIndicator = function() {
 	var messageDiv = $('<div>').addClass('ox-chat-message assistant').attr('id', 'typingIndicator');
-	var avatar = $('<div>').addClass('ox-chat-message-avatar').text('AI');
 	var content = $('<div>').addClass('ox-chat-message-content');
 	var typing = $('<div>').addClass('ox-chat-typing').html('<span></span><span></span><span></span>');
 	
 	content.append(typing);
-	messageDiv.append(avatar).append(content);
+	messageDiv.append(content);
 	
 	return messageDiv;
 };
