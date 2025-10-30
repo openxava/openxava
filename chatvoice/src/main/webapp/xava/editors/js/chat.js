@@ -4,6 +4,7 @@ openxava.addEditorInitFunction(function() {
 	var chatMessages = $('#chatMessages');
 	var chatInput = $('#chatInput');
 	var chatSendBtn = $('#chatSendBtn');
+	var chatNewConversationBtn = $('#chatNewConversationBtn');
 	
 	if (chatMessages.length === 0 || chatInput.length === 0 || chatSendBtn.length === 0) {
 		return;
@@ -32,6 +33,11 @@ openxava.addEditorInitFunction(function() {
 		}
 	});
 	
+	chatNewConversationBtn.off('click').on('click', function(e) {
+		e.preventDefault();
+		chatEditor.newConversation(chatMessages, chatInput);
+	});
+	
 	chatEditor.updateSendButton(chatInput, chatSendBtn);
 	chatInput.focus();
 });
@@ -49,6 +55,12 @@ chatEditor.updateSendButton = function(input, button) {
 
 chatEditor.hideWelcome = function(container) {
 	$('.ox-chat-welcome').hide();
+	$('.ox-chat-header').removeClass('hidden');
+};
+
+chatEditor.showWelcome = function() {
+	$('.ox-chat-welcome').show();
+	$('.ox-chat-header').addClass('hidden');
 };
 
 chatEditor.createMessage = function(text, isUser) {
@@ -149,5 +161,25 @@ chatEditor.sendViaWebSocket = function(message) {
 		}, { once: true });
 	} else {
 		alert('Cannot send message: WebSocket is not connected');
+	}
+};
+
+chatEditor.newConversation = function(container, input) {
+	// Limpiar todos los mensajes del UI
+	container.empty();
+	
+	// Mostrar el mensaje de bienvenida y ocultar el header
+	chatEditor.showWelcome();
+	$('.ox-chat-center-content').removeClass('has-messages');
+	
+	// Limpiar el input
+	input.val('');
+	input.css('height', 'auto');
+	input.focus();
+	
+	// Cerrar el WebSocket actual para forzar nueva sesión con memoria limpia
+	if (chatEditor.ws && chatEditor.ws.readyState === WebSocket.OPEN) {
+		chatEditor.ws.close();
+		chatEditor.ws = null;
 	}
 };

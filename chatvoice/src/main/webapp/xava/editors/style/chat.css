@@ -9,10 +9,29 @@
 	overflow: hidden;
 }
 
+/* Header del chat */
+.ox-chat-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 0 20px;
+	z-index: 10;
+	background-color: var(--background);
+}
+
+.ox-chat-header.hidden {
+	display: none;
+}
+
 /* Área de mensajes */
 .ox-chat-messages {
 	position: absolute;
-	top: 0;
+	top: 50px;
 	left: 0;
 	right: 0;
 	bottom: 0;

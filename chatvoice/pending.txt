@@ -10,7 +10,7 @@ Pending Chat AI
 * Estética del chat profesional.
 * Markdown.
 * Que recuerde conversación.
-- Botón nueva conversación.
+* Botón nueva conversación.
 - ¿Demo?
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?

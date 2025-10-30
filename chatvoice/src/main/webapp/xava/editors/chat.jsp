@@ -1,6 +1,15 @@
 <%@ include file="../imports.jsp"%>
 
 <div class="ox-chat-container">
+    <div class="ox-chat-header ox-collection-list-actions hidden"> 
+        <span class="ox-button-bar-button">
+            <a id="chatNewConversationBtn" class="xava_action" title="<xava:message key='chat_new_conversation'/>">
+                <i class="mdi mdi-chat-plus"></i>
+                <span class="ox-action-label"><xava:message key="chat_new_conversation"/></span>
+            </a>
+        </span>
+    </div>
+    
     <div class="ox-chat-messages" id="chatMessages">
     </div>
     
