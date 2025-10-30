@@ -2,7 +2,9 @@ package org.openxava.chatvoice.websocket;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -22,6 +24,8 @@ import org.openxava.chatvoice.tools.EntityTools;
 import org.openxava.controller.ModuleContext;
 import org.openxava.util.Is;
 
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
 
@@ -39,6 +43,8 @@ public class ChatEndpoint {
 	
 	private static final Log log = LogFactory.getLog(ChatEndpoint.class);
 	private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
+	private static Map<String, ChatMemory> chatMemories = Collections.synchronizedMap(new HashMap<>());
+	private static Map<String, Assistant> assistants = Collections.synchronizedMap(new HashMap<>());
 	private HttpSession httpSession;
 	private static final Parser markdownParser = Parser.builder().build();
 	private static final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
@@ -60,32 +66,45 @@ public class ChatEndpoint {
 				return;
 			}
 			
-			// Obtener API key desde xava.properties
-			String apiKey = System.getProperty("openai.apiKey");
-			apiKey = "demo"; // tmr
-			if (Is.emptyString(apiKey)) {
-				apiKey = System.getenv("OPENAI_API_KEY");
+			// Obtener o crear el asistente para esta sesión
+			String sessionId = session.getId();
+			Assistant assistant = assistants.get(sessionId);
+			
+			if (assistant == null) {
+				// Obtener API key desde xava.properties
+				String apiKey = System.getProperty("openai.apiKey");
+				apiKey = "demo"; // tmr
+				if (Is.emptyString(apiKey)) {
+					apiKey = System.getenv("OPENAI_API_KEY");
+				}
+				if (Is.emptyString(apiKey)) {
+					session.getBasicRemote().sendText("Error: OpenAI API key not configured");
+					return;
+				}
+				
+				// Crear modelo de chat de OpenAI
+				var model = OpenAiChatModel.builder()
+					.baseUrl("http://langchain4j.dev/demo/openai/v1")
+					.apiKey(apiKey)
+					.modelName("gpt-4o-mini")
+					.build();
+				
+				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)
+				ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
+				chatMemories.put(sessionId, chatMemory);
+				
+				// Crear asistente con tools genéricos y memoria
+				ModuleContext context = new ModuleContext();
+				assistant = AiServices.builder(Assistant.class)
+					.chatModel(model)
+					.chatMemory(chatMemory)
+					.tools(new EntityTools(context, httpSession, "chatvoice"))
+					.build();
+				
+				assistants.put(sessionId, assistant);
 			}
-			if (Is.emptyString(apiKey)) {
-				session.getBasicRemote().sendText("Error: OpenAI API key not configured");
-				return;
-			}
 			
-			// Crear modelo de chat de OpenAI
-			var model = OpenAiChatModel.builder()
-				.baseUrl("http://langchain4j.dev/demo/openai/v1")
-				.apiKey(apiKey)
-				.modelName("gpt-4o-mini")
-				.build();
-			
-			// Crear asistente con tools genéricos
-			ModuleContext context = new ModuleContext();
-			Assistant assistant = AiServices.builder(Assistant.class)
-				.chatModel(model)
-				.tools(new EntityTools(context, httpSession, "chatvoice"))
-				.build();
-			
-			// Procesar el mensaje con el asistente
+			// Procesar el mensaje con el asistente (que tiene memoria)
 			String response = assistant.chat(message);
 			
 			// Convertir markdown a HTML
@@ -108,8 +127,12 @@ public class ChatEndpoint {
 	
 	@OnClose
 	public void onClose(Session session) {
+		String sessionId = session.getId();
 		sessions.remove(session);
-		log.info("WebSocket closed: " + session.getId());
+		// Limpiar memoria y asistente de esta sesión
+		chatMemories.remove(sessionId);
+		assistants.remove(sessionId);
+		log.info("WebSocket closed: " + sessionId);
 	}
 	
 	@OnError

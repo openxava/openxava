@@ -9,7 +9,7 @@ Pending Chat AI
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
 * Estética del chat profesional.
 * Markdown.
-- Que recuerde conversación.
+* Que recuerde conversación.
 - Botón nueva conversación.
 - ¿Demo?
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
