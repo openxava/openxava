@@ -8,8 +8,8 @@ Pending Chat AI
 * Reconocer datos nuevos, modificados o eliminados.
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
 - Estética del chart profesional.
-- Que recuerde conversación.
 - Markdown.
+- Que recuerde conversación.
 - Botón nueva conversación.
 - ¿Demo?
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.

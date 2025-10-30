@@ -1,7 +1,6 @@
 package org.openxava.chatvoice.tools;
 
 import java.util.*;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
@@ -22,22 +21,19 @@ public class EntityTools {
 	
 	private ModuleContext context;
 	private HttpSession session;
-	private HttpServletRequest request;
 	private String application;
 	private Map<String, Tab> tabs = new HashMap<>();
 	
 	/**
-	 * Constructor that receives the ModuleContext, HttpSession, HttpServletRequest and application name.
+	 * Constructor that receives the ModuleContext, HttpSession and application name.
 	 * 
 	 * @param context The ModuleContext to access session and application context
 	 * @param session The HttpSession to assign to the manager
-	 * @param request The HttpServletRequest to get modules with security
 	 * @param application The application name
 	 */
-	public EntityTools(ModuleContext context, HttpSession session, HttpServletRequest request, String application) {
+	public EntityTools(ModuleContext context, HttpSession session, String application) {
 		this.context = context;
 		this.session = session;
-		this.request = request;
 		this.application = application;
 	}
 	
@@ -60,7 +56,7 @@ public class EntityTools {
 			
 			// Get all modules respecting user security
 			List<String> entityNames = new ArrayList<>();
-			List<MetaModule> allModules = modules.getAll(request);
+			List<MetaModule> allModules = modules.getAll(null);
 			for (MetaModule module : allModules) {
 				// Exclude transient modules
 				try {

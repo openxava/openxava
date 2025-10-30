@@ -39,13 +39,6 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     		class="org.openxava.chatvoice.actions.PrintInvoiceAction"
     		mode="detail"
     		icon="printer"/>
-	</controller>
-    
-    <controller name="Chat">
-    	<action name="send"
-    		class="org.openxava.chatvoice.actions.SendAction"
-    		icon="send"/>
-	</controller>
-    
+	</controller>    
     
 </controllers>

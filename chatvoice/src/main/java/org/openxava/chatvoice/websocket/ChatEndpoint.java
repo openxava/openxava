@@ -78,7 +78,7 @@ public class ChatEndpoint {
 			ModuleContext context = new ModuleContext();
 			Assistant assistant = AiServices.builder(Assistant.class)
 				.chatModel(model)
-				.tools(new EntityTools(context, httpSession, null, "chatvoice"))
+				.tools(new EntityTools(context, httpSession, "chatvoice"))
 				.build();
 			
 			// Procesar el mensaje con el asistente
