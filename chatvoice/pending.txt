@@ -7,7 +7,7 @@ Pending Chat AI
 * Propiedad no visualizada en el tab son reconocidas.
 * Reconocer datos nuevos, modificados o eliminados.
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
-- Estética del chart profesional.
+* Estética del chat profesional.
 - Markdown.
 - Que recuerde conversación.
 - Botón nueva conversación.
