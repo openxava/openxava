@@ -52,6 +52,13 @@
 			<scope>provided</scope>
 		</dependency>
 		
+		<!-- Markdown to HTML conversion -->
+		<dependency>
+			<groupId>org.commonmark</groupId>
+			<artifactId>commonmark</artifactId>
+			<version>0.24.0</version>
+		</dependency>
+		
 		<!-- 
 		To access to your database uncomment the corresponding entry 
 		from the below dependencies. If you don't find yours, look in

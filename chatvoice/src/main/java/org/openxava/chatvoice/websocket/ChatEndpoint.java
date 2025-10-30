@@ -16,6 +16,8 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.openxava.chatvoice.tools.EntityTools;
 import org.openxava.controller.ModuleContext;
 import org.openxava.util.Is;
@@ -38,6 +40,8 @@ public class ChatEndpoint {
 	private static final Log log = LogFactory.getLog(ChatEndpoint.class);
 	private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
 	private HttpSession httpSession;
+	private static final Parser markdownParser = Parser.builder().build();
+	private static final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config) {
@@ -84,8 +88,11 @@ public class ChatEndpoint {
 			// Procesar el mensaje con el asistente
 			String response = assistant.chat(message);
 			
+			// Convertir markdown a HTML
+			String htmlResponse = markdownToHtml(response);
+			
 			// Send response back to client
-			session.getBasicRemote().sendText(response);
+			session.getBasicRemote().sendText(htmlResponse);
 			
 		} catch (IOException e) {
 			log.error("Error sending message", e);
@@ -108,6 +115,14 @@ public class ChatEndpoint {
 	@OnError
 	public void onError(Session session, Throwable throwable) {
 		log.error("WebSocket error for session " + session.getId(), throwable);
+	}
+	
+	/**
+	 * Convierte markdown a HTML usando commonmark.
+	 */
+	private String markdownToHtml(String markdown) {
+		var document = markdownParser.parse(markdown);
+		return htmlRenderer.render(document);
 	}
 	
 }

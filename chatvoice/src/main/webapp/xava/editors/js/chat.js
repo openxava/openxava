@@ -54,9 +54,16 @@ chatEditor.hideWelcome = function(container) {
 chatEditor.createMessage = function(text, isUser) {
 	var messageDiv = $('<div>').addClass('ox-chat-message').addClass(isUser ? 'user' : 'assistant');
 	var content = $('<div>').addClass('ox-chat-message-content');
-	var p = $('<p>').text(text);
 	
-	content.append(p);
+	if (isUser) {
+		// Mensajes del usuario como texto plano
+		var p = $('<p>').text(text);
+		content.append(p);
+	} else {
+		// Mensajes del asistente con HTML ya procesado desde el servidor
+		content.html(text);
+	}
+	
 	messageDiv.append(content);
 	
 	return messageDiv;

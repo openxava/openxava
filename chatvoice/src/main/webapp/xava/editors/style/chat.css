@@ -129,6 +129,110 @@
 	margin-bottom: 0;
 }
 
+/* Estilos para markdown */
+.ox-chat-message-content strong {
+	font-weight: 600;
+	color: var(--color);
+}
+
+.ox-chat-message-content em {
+	font-style: italic;
+}
+
+.ox-chat-message-content ul,
+.ox-chat-message-content ol {
+	margin: 8px 0;
+	padding-left: 24px;
+}
+
+.ox-chat-message-content li {
+	margin: 4px 0;
+	line-height: 1.6;
+}
+
+.ox-chat-message-content code {
+	background-color: var(--frame-background);
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-family: 'Courier New', monospace;
+	font-size: 14px;
+}
+
+.ox-chat-message-content pre {
+	background-color: var(--frame-background);
+	padding: 12px;
+	border-radius: 8px;
+	overflow-x: auto;
+	margin: 8px 0;
+}
+
+.ox-chat-message-content pre code {
+	background-color: transparent;
+	padding: 0;
+}
+
+.ox-chat-message-content h1,
+.ox-chat-message-content h2,
+.ox-chat-message-content h3,
+.ox-chat-message-content h4,
+.ox-chat-message-content h5,
+.ox-chat-message-content h6 {
+	margin: 16px 0 8px 0;
+	font-weight: 600;
+	color: var(--color);
+}
+
+.ox-chat-message-content h1:first-child,
+.ox-chat-message-content h2:first-child,
+.ox-chat-message-content h3:first-child,
+.ox-chat-message-content h4:first-child,
+.ox-chat-message-content h5:first-child,
+.ox-chat-message-content h6:first-child {
+	margin-top: 0;
+}
+
+.ox-chat-message-content blockquote {
+	border-left: 3px solid var(--action-color);
+	padding-left: 12px;
+	margin: 8px 0;
+	color: var(--color);
+	opacity: 0.8;
+}
+
+.ox-chat-message-content a {
+	color: var(--action-color);
+	text-decoration: none;
+}
+
+.ox-chat-message-content a:hover {
+	color: var(--action-hover-color);
+	text-decoration: underline;
+}
+
+.ox-chat-message-content hr {
+	border: none;
+	border-top: 1px solid var(--input-border);
+	margin: 16px 0;
+}
+
+.ox-chat-message-content table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 8px 0;
+}
+
+.ox-chat-message-content table th,
+.ox-chat-message-content table td {
+	border: 1px solid var(--input-border);
+	padding: 8px;
+	text-align: left;
+}
+
+.ox-chat-message-content table th {
+	background-color: var(--frame-background);
+	font-weight: 600;
+}
+
 /* Área de input */
 .ox-chat-input-container {
 	padding: 20px 0;

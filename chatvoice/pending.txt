@@ -8,7 +8,7 @@ Pending Chat AI
 * Reconocer datos nuevos, modificados o eliminados.
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
 * Estética del chat profesional.
-- Markdown.
+* Markdown.
 - Que recuerde conversación.
 - Botón nueva conversación.
 - ¿Demo?
