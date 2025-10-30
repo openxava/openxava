@@ -9,6 +9,9 @@ Pending Chat AI
 * Deberiamos excluir los módulos transitorios de la lista de entidades.
 - Estética del chart profesional.
 - Que recuerde conversación.
+- Markdown.
+- Botón nueva conversación.
+- ¿Demo?
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?
 - ¿Probar con una tabla inmensa?
