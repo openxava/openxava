@@ -21,14 +21,13 @@ public class Ledger {
 	private Integer oid;
 
     @ManyToOne( fetch=FetchType.LAZY) 
-    @DescriptionsList @NoCreate @NoModify
+    @DescriptionsList
     @DefaultValueCalculator(CurrentLedgerPeriodCalculator.class) 
     LedgerPeriod period;
 
     @Column(length=6)
-    @ReadOnly
     @DefaultValueCalculator(value=NextNumberForLedgerPeriodCalculator.class,
-   		properties=@PropertyValue(name="year", value="14")
+   		properties=@PropertyValue(name="periodId", from="period.id")
     )
     int number;
 

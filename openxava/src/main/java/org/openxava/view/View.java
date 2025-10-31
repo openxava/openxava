@@ -2714,10 +2714,15 @@ public class View implements java.io.Serializable {
 							if (!ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) { // This way to avoid calculated dependend ones
 								Object value = ref.getDefaultValueCalculator().calculate();
 								MetaModel referencedModel = ref.getMetaModelReferenced();								
-								if (referencedModel.getPOJOClass().isInstance(value)) { 																								
+								if (referencedModel.getPOJOClass().isInstance(value)) { 
 									Map values = referencedModel.toMap(value);
-									trySetValue(ref.getName(), values); 
-									alreadyPut.addAll(referencedModel.getAllKeyPropertiesNames());									
+									trySetValue(ref.getName(), values);									
+									alreadyPut.addAll(
+									    referencedModel.getAllKeyPropertiesNames()
+									        .stream()
+									        .map(name -> ref.getName() + "." + name)
+									        .collect(Collectors.toList())
+									);								
 								}
 								else {
 									Collection keys = referencedModel.getAllKeyPropertiesNames();
@@ -2735,7 +2740,7 @@ public class View implements java.io.Serializable {
 							getErrors().add("calculate_default_value_error", ref.getName());
 						}				 
 					}
-				}				
+				}	
 				if (!alreadyPut.isEmpty()) { 
 					Iterator itAlreadyPut = alreadyPut.iterator();
 					boolean hasNext = itAlreadyPut.hasNext(); 
