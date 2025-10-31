@@ -4,11 +4,11 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>chatvoice</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>7.7-M1</version>
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.6.2-SNAPSHOT</openxava.version>
+		<openxava.version>7.6.1</openxava.version>
 		<langchain4j.version>1.7.1</langchain4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->

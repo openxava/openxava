@@ -1,7 +1,7 @@
 Pending Chat AI
 ---------------
 
-
+M1
 * Acceder a todos los datos mediante el tab.
 * Filtro en el módulo por el usuario no afectan a los resultado del chat.
 * Propiedad no visualizada en el tab son reconocidas.
@@ -11,7 +11,8 @@ Pending Chat AI
 * Markdown.
 * Que recuerde conversación.
 * Botón nueva conversación.
-- ¿Demo?
+
+M2
 - Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 - ¿Usar baseCondition?
 - ¿Probar con una tabla inmensa?
