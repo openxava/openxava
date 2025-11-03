@@ -22,9 +22,9 @@
       <p>You can copy the code used in the video here:</p>
       <p>First, add the Quartz dependency to your <em>pom.xml</em> file:</p>
         <pre><code class="xml">&lt;dependency&gt;
-	&lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
-	&lt;artifactId&gt;quartz&lt;/artifactId&gt;
-	&lt;version&gt;2.3.2&lt;/version&gt;
+    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
+    &lt;artifactId&gt;quartz&lt;/artifactId&gt;
+    &lt;version&gt;2.3.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
       <p>Create the web listener in <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
         <pre><code class="java">package com.yourcompany.projects.web;
@@ -38,24 +38,24 @@ import org.quartz.impl.*;
 
 @WebListener
 public class QuartzSchedulerListener implements ServletContextListener {
-	
-	private static final Log log = LogFactory.getLog(QuartzSchedulerListener.class);
+    
+    private static final Log log = LogFactory.getLog(QuartzSchedulerListener.class);
 
     public void contextInitialized(ServletContextEvent sce) {
         try {
             StdSchedulerFactory.getDefaultScheduler().start();
         } 
         catch (Exception ex) {
-        	log.error(XavaResources.getString("quartz_scheduler_start_error"), ex);
+            log.error(XavaResources.getString("quartz_scheduler_start_error"), ex);
         }
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
         try {
-        	StdSchedulerFactory.getDefaultScheduler().shutdown();
+            StdSchedulerFactory.getDefaultScheduler().shutdown();
         } 
         catch (Exception ex) {
-        	log.error(XavaResources.getString("quartz_scheduler_stop_error"), ex);
+            log.error(XavaResources.getString("quartz_scheduler_stop_error"), ex);
         }
     }
     
@@ -71,73 +71,73 @@ import com.yourcompany.projects.model.*;
 
 public class PlannedIssueReminderJob implements Job {
 
-	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
-		try {
-			String issueId = context.getJobDetail().getJobDataMap().getString("issue.id");
-			Issue issue = XPersistence.getManager().find(Issue.class, issueId);
-    		String workerEmail = issue.getAssignedTo().getWorker().getEmail();
-    		
-			Emails.send(
-				workerEmail, 
-				"REMINDER: " + issue.getTitle(), 
-				issue.getDescription());
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			XPersistence.commit();
-		}
-		
-	}
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        try {
+            String issueId = context.getJobDetail().getJobDataMap().getString("issue.id");
+            Issue issue = XPersistence.getManager().find(Issue.class, issueId);
+            String workerEmail = issue.getAssignedTo().getWorker().getEmail();
+            
+            Emails.send(
+                workerEmail, 
+                "REMINDER: " + issue.getTitle(), 
+                issue.getDescription());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            XPersistence.commit();
+        }
+        
+    }
 
 }</code></pre>
       <p>Add the following methods to your <em>Issue</em> entity in the model package:</p>
-        <pre><code class="java">	public void setPlannedFor(LocalDate plannedFor) {
-		if (Is.equal(this.plannedFor, plannedFor)) return;
-		if (this.plannedFor != null) unplanReminder();
-		this.plannedFor = plannedFor;
-		planReminder();		
-	}
-	
-	private void planReminder() {
-		try {
-			if (plannedFor == null) return;
-			if (getId() == null) return;
-			JobDataMap jobDataMap = new JobDataMap();
-			jobDataMap.put("issue.id", getId());
-	        JobDetail job = JobBuilder.newJob(PlannedIssueReminderJob.class)
-	            .withIdentity(getId(), "issueReminders")
-	            .usingJobData(jobDataMap)	
-	            .build();
-	
-			LocalDateTime localDateTime = plannedFor.atStartOfDay();	    
-			Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-	        		
-			Trigger trigger = TriggerBuilder.newTrigger()
-				.withIdentity(getId(), "issueReminders")
-				.startAt(date)  
-				.build();
-	
-			StdSchedulerFactory.getDefaultScheduler().scheduleJob(job, trigger);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void unplanReminder() {
-		try {
-			StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "issueReminders"));
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}		
-	}
-	
-	@PostPersist
-	private void planReminderIfNeeded() {
-		if (plannedFor != null) planReminder();
-	}</code></pre>
+        <pre><code class="java">public void setPlannedFor(LocalDate plannedFor) {
+    if (Is.equal(this.plannedFor, plannedFor)) return;
+    if (this.plannedFor != null) unplanReminder();
+    this.plannedFor = plannedFor;
+    planReminder();      
+}
+
+private void planReminder() {
+    try {
+        if (plannedFor == null) return;
+        if (getId() == null) return;
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("issue.id", getId());
+        JobDetail job = JobBuilder.newJob(PlannedIssueReminderJob.class)
+            .withIdentity(getId(), "issueReminders")
+            .usingJobData(jobDataMap)  
+            .build();
+
+        LocalDateTime localDateTime = plannedFor.atStartOfDay();      
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+                
+        Trigger trigger = TriggerBuilder.newTrigger()
+            .withIdentity(getId(), "issueReminders")
+            .startAt(date)  
+            .build();
+
+        StdSchedulerFactory.getDefaultScheduler().scheduleJob(job, trigger);
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+private void unplanReminder() {
+    try {
+        StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "issueReminders"));
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }      
+}
+
+@PostPersist
+private void planReminderIfNeeded() {
+    if (plannedFor != null) planReminder();
+}</code></pre>
         <h2>Transcription</h2>
         <p>Hello, I'm Monica. In this video, you will learn to add a dashboard to
         your OpenXava application. It's very easy because you only need to write
