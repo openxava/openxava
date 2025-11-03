@@ -26,112 +26,118 @@
 	&lt;artifactId&gt;quartz&lt;/artifactId&gt;
 	&lt;version&gt;2.3.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
-      <p>In the <em>application.xml</em> file:</p>
-        <pre><code class="xml">&lt;module name="InvoiceDashboard"&gt;
-    &lt;model name="InvoiceDashboard"/&gt;
-    &lt;controller name="InitModelWithNewInstance"/&gt;
-&lt;/module&gt;</code></pre>
-        <p>In the<i><em> InvoiceDashboard.java</em></i> file:</p>
-        <pre><code class="java">import java.math.*;
-import java.util.*;
+      <p>Create the web listener in <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
+        <pre><code class="java">package com.yourcompany.projects.web;
 
-import javax.persistence.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
 
-import org.openxava.annotations.*;
-import org.openxava.jpa.*;</p>
-<p>@View(members="numberOfCustomers, numberOfInvoices, totalInvoiced; invoicingEvolution; topMonth")
-public class InvoiceDashboard {
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+import org.quartz.impl.*;
 
-	@LargeDisplay(icon="cash")
-	@Money
-	public BigDecimal getTotalInvoiced() {
-		BigDecimal total = (BigDecimal) XPersistence.getManager()
-				.createQuery("select sum(totalAmount) from Invoice").getSingleResult();
-		return total;
-	}
+@WebListener
+public class QuartzSchedulerListener implements ServletContextListener {
 	
-	@LargeDisplay(icon="account")
-	public String getNumberOfCustomers() { 
-		return XPersistence.getManager()
-				.createQuery("select count(distinct customer.number) from Invoice "
-						+ "where deleted = false")
-				.getSingleResult().toString();
-	}
-	
-	@LargeDisplay(icon="invoice")
-	public String getNumberOfInvoices() { 
-		return XPersistence.getManager()
-				.createQuery("select count(number) from Invoice "
-						+ "where deleted = false")
-				.getSingleResult().toString();
-	}
+	private static final Log log = LogFactory.getLog(QuartzSchedulerListener.class);
 
-	@Chart
-	public Collection&lt;InvoicedPerMonth&gt; getInvoicingEvolution() {
-		String jpql = "select new com.yourcompany.invoicing.dashboards.InvoicedPerMonth("
-				+ "MONTH(date), sum(totalAmount), sum(vat)) "
-				+ "from Invoice "
-				+ "where deleted = false "
-				+ "group by MONTH(date) "
-				+ "order by MONTH(date) asc";
-		TypedQuery&lt;InvoicedPerMonth&gt; query = XPersistence.getManager()
-				.createQuery(jpql, InvoicedPerMonth.class);
-		return query.getResultList();
-	}
-	
-	@SimpleList
-	@ListProperties("month, totalAmount")
-	public Collection&lt;InvoicedPerMonth&gt; getTopMonth() {
-		String jpql = "select new com.yourcompany.invoicing.dashboards.InvoicedPerMonth("
-				+ "MONTH(date), sum(totalAmount) as totalAmount, sum(vat)) "
-				+ "from Invoice "
-				+ "where deleted = false "
-				+ "group by MONTH(date) "
-				+ "order by totalAmount desc";
-		TypedQuery&lt;InvoicedPerMonth&gt; query = XPersistence.getManager()
-				.createQuery(jpql, InvoicedPerMonth.class)
-				.setMaxResults(5);
-		return query.getResultList();
-	}
-	
+    public void contextInitialized(ServletContextEvent sce) {
+        try {
+            StdSchedulerFactory.getDefaultScheduler().start();
+        } 
+        catch (Exception ex) {
+        	log.error(XavaResources.getString("quartz_scheduler_start_error"), ex);
+        }
+    }
+
+    public void contextDestroyed(ServletContextEvent sce) {
+        try {
+        	StdSchedulerFactory.getDefaultScheduler().shutdown();
+        } 
+        catch (Exception ex) {
+        	log.error(XavaResources.getString("quartz_scheduler_stop_error"), ex);
+        }
+    }
+    
 }</code></pre>
-        <p>In the <em>InvoicePerMonth.java</em> file:</p>
-        <pre><code class="java">import java.math.*;
+      <p>Create the job in <em>src/main/java/com/yourcompany/projects/jobs/PlannedIssueReminderJob.java</em>:</p>
+        <pre><code class="java">package com.yourcompany.projects.jobs;
 
-import lombok.*;</p>
-<p>@Getter @Setter @AllArgsConstructor
-public class InvoicedPerMonth {
+import org.openxava.jpa.*;
+import org.openxava.util.*;
+import org.quartz.*;
 
-	int month;
+import com.yourcompany.projects.model.*;
+
+public class PlannedIssueReminderJob implements Job {
+
+	@Override
+	public void execute(JobExecutionContext context) throws JobExecutionException {
+		try {
+			String issueId = context.getJobDetail().getJobDataMap().getString("issue.id");
+			Issue issue = XPersistence.getManager().find(Issue.class, issueId);
+    		String workerEmail = issue.getAssignedTo().getWorker().getEmail();
+    		
+			Emails.send(
+				workerEmail, 
+				"REMINDER: " + issue.getTitle(), 
+				issue.getDescription());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			XPersistence.commit();
+		}
+		
+	}
+
+}</code></pre>
+      <p>Add the following methods to your <em>Issue</em> entity in the model package:</p>
+        <pre><code class="java">	public void setPlannedFor(LocalDate plannedFor) {
+		if (Is.equal(this.plannedFor, plannedFor)) return;
+		if (this.plannedFor != null) unplanReminder();
+		this.plannedFor = plannedFor;
+		planReminder();		
+	}
 	
-	BigDecimal totalAmount;
+	private void planReminder() {
+		try {
+			if (plannedFor == null) return;
+			if (getId() == null) return;
+			JobDataMap jobDataMap = new JobDataMap();
+			jobDataMap.put("issue.id", getId());
+	        JobDetail job = JobBuilder.newJob(PlannedIssueReminderJob.class)
+	            .withIdentity(getId(), "issueReminders")
+	            .usingJobData(jobDataMap)	
+	            .build();
 	
-	BigDecimal vat;
+			LocalDateTime localDateTime = plannedFor.atStartOfDay();	    
+			Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+	        		
+			Trigger trigger = TriggerBuilder.newTrigger()
+				.withIdentity(getId(), "issueReminders")
+				.startAt(date)  
+				.build();
 	
-}
-</code></pre>
-        <p>In the <em>custom.css</em> file:</p>
-        <pre><code class="css">#ox_invoicing_InvoiceDashboard__editor_totalInvoiced .ox-large-display {
-    width: 505px;
-    margin-right: -5px;
-    padding-right: 0px;
-}
-
-#ox_invoicing_InvoiceDashboard__editor_numberOfCustomers .ox-large-display {
-    width: 300px;
-}
-
-#ox_invoicing_InvoiceDashboard__editor_numberOfInvoices .ox-large-display {
-    width: 300px;
-}
-
-#ox_invoicing_InvoiceDashboard__core .ox-view {
-    max-width: 1300px;
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</code></pre>
+			StdSchedulerFactory.getDefaultScheduler().scheduleJob(job, trigger);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void unplanReminder() {
+		try {
+			StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "issueReminders"));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	@PostPersist
+	private void planReminderIfNeeded() {
+		if (plannedFor != null) planReminder();
+	}</code></pre>
         <h2>Transcription</h2>
         <p>Hello, I'm Monica. In this video, you will learn to add a dashboard to
         your OpenXava application. It's very easy because you only need to write
