@@ -139,90 +139,30 @@ private void planReminderIfNeeded() {
     if (plannedFor != null) planReminder();
 }</code></pre>
         <h2>Transcription</h2>
-        <p>Hello, I'm Monica. In this video, you will learn to add a dashboard to
-        your OpenXava application. It's very easy because you only need to write
-        a simple Java class with getters that return the data you want to
-        display and a few annotations. The first step will be to create a
-        project using the Invoicing template, which is similar to the last
-        lesson of the OpenXava course. Then, you will learn to use the
-        annotations @LargeDisplay, @Chart, and @SimpleList. Finally, you will
-        adjust the dashboard view using CSS.</p>
-        <p>We create a new project in OpenXava. We assign a name to the project. In
-        the template, we select invoicing. Finish. Our first step is to create a
-        module manually. So we create a package called
-        com.yourcompany.invoicing.dashboards. And inside, we create a class
-        called InvoiceDashboard. We go to application.xml located in the folder
-        src/main/resources/xava. And we create a module with the name
-        InvoiceDashboard, which will use as a model the transient class we just
-        created. As a controller, we will use InitModelWithNewInstance. We save
-        it, and that's it. We do maven install and start the application. Here,
-        we have used the module name equal to the model, but you can use another
-        name if you wish. The controller we used has an action that instantiates
-        a model object and assigns it to the view so that the getters we will
-        create later are loaded. We log in with admin admin and go to the module
-        we created. Currently, our module is empty.</p>
-        <p>We are going to create a getter method that returns a static value and
-        displays it in our module. We add the @LargeDisplay annotation to tell
-        it to display it in this way. We save and restart the application. This
-        is how a LargeDisplay is displayed. If we go to the annotation, we can
-        see that it has several attributes we can use, for example, to define an
-        icon. We can also add a prefix, but in our case, it is unnecessary since
-        the @Money annotation does it automatically. We save and restart the
-        application. The money icon is due to the icon attribute, and as for the
-        @Money annotation, it adds the money symbol. OpenXava uses Material
-        Design Icons, so the icon names come from there. We are going to display
-        a value that we obtain from a JPA query, which would be the sum of the
-        total of all invoices.</p>
-        <p>We test it. Perfect. We add other methods to get the number of clients
-        who had an invoice and the number of invoices created. At this point, we
-        can define the order of how they are displayed in the view. In the @View
-        annotation, we put the property names separated by commas so they are
-        placed in the same row: NumberOfCustomers, NumberOfInvoices, and
-        TotalInvoiced. We test the change.</p>
-        <p>Now we are going to display a chart. And for this, we need to create an
-        auxiliary class, which we will call InvoicedPerMonth. We add the Lombok
-        annotations: @Getter, @Setter, and @AllArgsConstructor. Then, we declare
-        the properties to be used: month, totalAmount, and vat. We save it. This
-        method will return a collection so the Chart can work with the
-        information. In the JPA query of this method, there is something to keep
-        in mind: We must use all the properties of the auxiliary class in the
-        same order that we have declared them in the class, and the values to be
-        obtained must be of the same data type. By reading the query, it seems
-        like we are obtaining values for a collection of InvoicedPerMonth
-        objects with its constructor. Finally, we add the member to the @View
-        annotation and test it. Perfect.</p>
-        <p>Now we are going to display a non-editable list where the best-billed
-        months are shown. The query is similar to the one we did for the Chart.
-        We add the @SimpleList annotation. Here, we can use the @ListProperties
-        annotation to indicate which values to display in the list. Even though
-        we will not use vat, it must be in the query. Finally, we add the member
-        to the @View annotation and test it. This is how a SimpleList would
-        look.</p>
-        <p>Let's make some changes to the view using CSS. In Chrome, I press F12 to
-        use the developer tools. Clicking this icon will automatically locate
-        the element I select later. For example, this empty space. It marks an
-        element whose class is ox-detail, but this one doesn't interest us.
-        Instead, its parent, the div whose class is ox-view. This ox-view is
-        inside another div, which will help us later to locate the ox-view in
-        CSS. We select the ox-view div, and in style, I can simulate the CSS
-        change. We test with max-width. We add a top margin, which is to
-        separate a bit here. And we leave the right and left margin as auto.
-        Done. Now we are going to change the width of the LargeDisplay. We see
-        there is still a small space; this seems to have something to do with
-        the margin or padding, so we'll set it to 0px. There's still a bit left;
-        we'll fix it with -5px. Perfect. We go to the custom.css file located in
-        the folder src/main/webapp/xava/style. This is where we should put our
-        CSS. Since we have several elements with the same ox-large-display
-        class, we will use the parent span's id to identify it. As for the
-        ox-view, we will also use the id. Done. We do a maven install and
-        restart the application.</p>
-        <p>You can have more than one dashboard or many elements, so when you need
-        to organize them, you can use CSS to do it easily. Perfect, this is how
-        it would look. We have seen how to create your own dashboard, use
-        annotations like @LargeDisplay, @Chart, @SimpleList, and then customize
-        the view with CSS to adjust them. If you have any questions or issues,
-        you can ask us on the forum. You can also download the code for this
-        lesson via the repository link; both links are in the video description.
-        Bye.</p>
+        <p>Hi, I'm Alexandra. If you dare to stay with me for a few minutes, I'll show you how to schedule any Java logic to run exactly when you need it. We'll do it through a practical example using the Quartz library to schedule jobs. The example is an OpenXava application, however this tutorial is generic enough to use these instructions in any Java application.</p>
+        <p>We'll do it in the application you're seeing, a simple project management application. But the steps we're going to take to schedule jobs can be followed with any of your OpenXava applications, whatever they are. Even in Java applications that are not OpenXava. Let's see what we want to achieve.</p>
+        <p>Let's go to the "My Calendar" module. We're going to add a task for the 21st of next month. We type "Go to the beach". Scrolling down we notice that the planned date is October 21st and that the task is assigned to Alexandra. Perfect.</p>
+        <p>In the current implementation, when saving the task, all these fields are simply stored and the task will be displayed in the calendar as well as in the issues list. The functionality we want to add is that when the 21st arrives, Alexandra receives an email reminding her that she has to go to the beach. We will modify the code of our application so that using Quartz it does this. But before that, let's take a look at what Quartz is.</p>
+        <p>With your browser, go to quartz-scheduler.org, the official Quartz page. Here you have a detailed explanation of what Quartz is, as well as access to documentation, downloads, and its source code. Quartz is possibly the most popular Java library for scheduling jobs, and it's also open source. Let's go to the IDE and get to work.</p>
+        <p>The first step is to add Quartz as a dependency in our project. For that, we open the pom.xml. We go to the dependencies section. And we start adding one. For the groupId we put org.quartz-scheduler. For the artifactId, quartz; and for the version: 2 point 3 point 2. Remember to do a Maven Install so that the library is downloaded and included in your project. In case you don't want to type, in the video description you'll find a link to a page with the code snippets so you can copy them.</p>
+        <p>Now that we have Quartz included in our project we need to make the application start it. Quartz is a kind of service or daemon that must always be running. In a web application, as is the case with OpenXava applications, the best way to start and stop Quartz is by placing it in a web listener, this way, whenever the application starts, Quartz also starts. Let's write our listener.</p>
+        <p>First we will create a package to place our web listener inside. We use the new package option in OpenXava Studio. We call the package 'web'. Inside the package, we will click to create a new class. We will call the class QuartzSchedulerListener, for example. And here we have the skeleton of our class. Let's convert this skeleton into a web listener.</p>
+        <p>To do this, we have annotated the class with @WebListener and made it implement ServletContextListener. Thus, the class must have contextInitialized, which executes when the application starts, and contextDestroyed, which executes when it stops. In the contextInitialized method, we add the line: StdSchedulerFactory.getDefaultScheduler().start() And in contextDestroyed: StdSchedulerFactory.getDefaultScheduler().shutdown() In this simple way, Quartz starts when our application starts and stops when the application stops. We now have Quartz running, let's now give it some job.</p>
+        <p>Now comes a crucial part: the definition of the jobs. First, we will create a package that we will call 'jobs'. The foundation of Quartz is jobs. A job is an object that contains the Java logic that will be executed at a given time. If you are an OpenXava programmer, think of it as an OpenXava action, but instead of executing when the user clicks a button, it executes at a specific time on a specific day. Without further ado, let's define our job.</p>
+        <p>We create a class called PlannedIssueReminderJob. A good name because it's for reminding planned tasks. We make it implement Job, from the org.quartz package. This requires it to have an execute method. Which we implement, for now with a humble print statement. This way, the message "Sending email..." will be printed to the console every time the job runs. The job will run at the times it is scheduled for; we will see how to schedule it later. For now, we assume it will run on the day the worker is supposed to receive the reminder. But first, we need to make our job do something useful.</p>
+        <p>Let's remove the print statement and send a real email. For that, we will use Emails, a utility included in OpenXava. We add the import. We specify: the email account, the subject, and the body of the message. But of course, we want to send the email to the appropriate person and include the task description. Where can we get that from? Well, from the job's context.</p>
+        <p>The job context is the argument of the execute method, to which we give the name it deserves. Now we can access job-specific information with: context.getJobDetail().getJobDataMap() This map contains arbitrary data that was assigned to the job when it was created and scheduled. When creating the job, we will assign it the id of the task that needs to be remembered, so that from here we can access it.</p>
+        <p>To access the task, the issue, we use JPA with OpenXava's XPersistence utility. From the Issue entity, we will obtain the title, description, and the worker's email. We will modify the call to Emails to send the correct data. We use workerEmail for the email, use issue.getTitle for the subject, and issue.getDescription for the message body. As a final detail, since we are using XPersistence and are not in an OpenXava action, we have to explicitly commit. And with this, our job is ready for battle. Now let's schedule it.</p>
+        <p>I'm going to show you the ideal place to schedule our job. Let's go to the Issue entity and look for plannedFor, which is the planned date. It's true that we could schedule the job in the save action, but it's better to modify the entity. This way, the job will be scheduled whenever the date is changed, no matter from where - from the calendar, from the issue maintenance, from a web service, from anywhere.</p>
+        <p>Lombok generates a hidden setter that simply assigns the value to the field. What we will do is override this setter to execute our own logic when plannedFor is changed, thus taking the opportunity to schedule the reminder. This would be our setter. We add the import for Is. If the date being assigned and the one we have match, we do nothing. If there is a previous date, we need to remove the reminder. We assign the new date and schedule the corresponding reminder. In summary, when the planned date for a task is changed, we remove the previous reminder, if any, and add a reminder scheduled for the new date. We still need to implement planReminder and unplanReminder. Let's do it.</p>
+        <p>This is the planReminder method. We press Control S to add the imports and we'll examine the method. If it doesn't have a plannedFor date, we do nothing, obviously. If the current Issue doesn't have an id, we also do nothing. This happens when the Issue hasn't been saved yet and its id hasn't been generated, which occurs when creating a new Issue. For this case, we have a solution that we'll see later.</p>
+        <p>The next step is to create the job. Notice that we first create a jobDataMap which will contain the data that can later be read in the job via the context. This is where we assign the value to issue.id that we read from the job. The value is the id of the current Issue. Then we create the job specifying that it should use our PlannedIssueReminderJob. We assign it an identifier which will be the current issue's id within the group "issueReminders". We set the jobDataMap and that's it.</p>
+        <p>To schedule the job we need a date of type java.util.Date. For this, we use these two lines, where we obtain that date from plannedFor, which is a LocalDate. Now we create the trigger with TriggerBuilder.newTrigger(). We specify the same job id we defined above and the date. The trigger indicates the point in time when we want to execute the job. In our case, we use a specific moment, but recurring times can be scheduled cyclically by hour, day, week, month, etc., similar to a UNIX cron job. And now we can schedule our job by calling scheduleJob with the job and the trigger. It's not that difficult - we create a job, create a trigger, and schedule it. Our planReminder method is now finished, let's move on to unplanReminder.</p>
+        <p>The unplanReminder method is much easier, we simply call deleteJob specifying the job identifier and that's it. There's still one detail left. What happens when a value is assigned to plannedFor for an Issue that hasn't been saved yet and therefore doesn't have an id? We solve this with a JPA PostPersist method. Simply, if after creating a new Issue it sees that it has a plannedFor date, it schedules the reminder. Well, that's it.</p>
+        <p>Now when the 21st arrives, Alexandra will receive an email reminding her that she has to go to the beach, all thanks to Quartz and your hard work. Let's summarize what we've done. First: we defined the dependency in the pom. Second: we started Quartz in the web listener. Third: we defined the job. Fourth: we scheduled the job.</p>
+        <p>This is a link to an article in the OpenXava documentation where you'll find the code snippets we wrote in this tutorial. The link is also in the video description. However, there's a faster way to get the source code, and that is by creating a project using the Project Management template. In OpenXava Studio, use the New OpenXava Project option. There, for the template choose Project Management.</p>
+        <p>The created project will include Quartz with logic to schedule reminders very similar to what we've developed in this tutorial, but with some improvements to make it more professional. The first is that in the job, that is PlannedIssueReminderJob, it includes a series of validations to make it more robust. The second is that the email message uses a template obtained from the i18n files, so we have a more professional and multilingual wording. The third is that we send messages to the log when validations fail, and we also send exceptions to the log, all using internationalized messages. There's no printStackTrace. The fourth is that it supports multi-company. It takes into account the active company and sends it as data to the job. The fifth is without a doubt the most important one: persistence.</p>
+        <p>As it is now, if the power goes out and we restart the application, all reminders will be lost—a serious issue. It's possible to configure Quartz to store the job scheduling in the database, which is done in the quartz.properties file and by creating some tables. The application generated from the template already includes the database configured and ready to store the scheduled tasks. If you've followed the steps up to this point, you already have reminders working in your application. Congratulations.</p>
+        <p>If not, we encourage you to create a project using the Project Management template or also using the corresponding Maven archetype, try it out and review the code. If you have any issues with the video, don't hesitate to ask us in the forum. Bye.</p>
   </body>
 </html>

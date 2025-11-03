@@ -1,0 +1,168 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Programación de trabajos con Quartz - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <script src="highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Programación de trabajos con Quartz</h1>
+      <h2>Vídeo</h2>
+      <p>En este vídeo aprenderás a programar trabajos en tu aplicación OpenXava usando Quartz.</p>
+      <p><a href="https://youtu.be/H-bNCZquMsw" target="_blank"><img src="files/quartz_es010.png"
+
+              title="quartz_es010"></a> </p>
+      <p><strong>¿Algún problema con esta lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/">Pregunta
+              en el foro</a></strong></p>
+      <h2>Código</h2>
+      <p>Puedes copiar aquí el código usado en el vídeo:</p>
+      <p>Primero, añade la dependencia Quartz a tu archivo <em>pom.xml</em>:</p>
+        <pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
+    &lt;artifactId&gt;quartz&lt;/artifactId&gt;
+    &lt;version&gt;2.3.2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+      <p>Crea el web listener en <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
+        <pre><code class="java">package com.yourcompany.projects.web;
+
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+
+import org.apache.commons.logging.*;
+import org.openxava.util.*;
+import org.quartz.impl.*;
+
+@WebListener
+public class QuartzSchedulerListener implements ServletContextListener {
+    
+    private static final Log log = LogFactory.getLog(QuartzSchedulerListener.class);
+
+    public void contextInitialized(ServletContextEvent sce) {
+        try {
+            StdSchedulerFactory.getDefaultScheduler().start();
+        } 
+        catch (Exception ex) {
+            log.error(XavaResources.getString("quartz_scheduler_start_error"), ex);
+        }
+    }
+
+    public void contextDestroyed(ServletContextEvent sce) {
+        try {
+            StdSchedulerFactory.getDefaultScheduler().shutdown();
+        } 
+        catch (Exception ex) {
+            log.error(XavaResources.getString("quartz_scheduler_stop_error"), ex);
+        }
+    }
+    
+}</code></pre>
+      <p>Crea el trabajo en <em>src/main/java/com/yourcompany/projects/jobs/PlannedIssueReminderJob.java</em>:</p>
+        <pre><code class="java">package com.yourcompany.projects.jobs;
+
+import org.openxava.jpa.*;
+import org.openxava.util.*;
+import org.quartz.*;
+
+import com.yourcompany.projects.model.*;
+
+public class PlannedIssueReminderJob implements Job {
+
+    @Override
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        try {
+            String issueId = context.getJobDetail().getJobDataMap().getString("issue.id");
+            Issue issue = XPersistence.getManager().find(Issue.class, issueId);
+            String workerEmail = issue.getAssignedTo().getWorker().getEmail();
+            
+            Emails.send(
+                workerEmail, 
+                "RECORDATORIO: " + issue.getTitle(), 
+                issue.getDescription());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            XPersistence.commit();
+        }
+        
+    }
+
+}</code></pre>
+      <p>Añade los siguientes métodos a tu entidad <em>Issue</em> en el paquete model:</p>
+        <pre><code class="java">public void setPlannedFor(LocalDate plannedFor) {
+    if (Is.equal(this.plannedFor, plannedFor)) return;
+    if (this.plannedFor != null) unplanReminder();
+    this.plannedFor = plannedFor;
+    planReminder();      
+}
+
+private void planReminder() {
+    try {
+        if (plannedFor == null) return;
+        if (getId() == null) return;
+        JobDataMap jobDataMap = new JobDataMap();
+        jobDataMap.put("issue.id", getId());
+        JobDetail job = JobBuilder.newJob(PlannedIssueReminderJob.class)
+            .withIdentity(getId(), "issueReminders")
+            .usingJobData(jobDataMap)  
+            .build();
+
+        LocalDateTime localDateTime = plannedFor.atStartOfDay();      
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+                
+        Trigger trigger = TriggerBuilder.newTrigger()
+            .withIdentity(getId(), "issueReminders")
+            .startAt(date)  
+            .build();
+
+        StdSchedulerFactory.getDefaultScheduler().scheduleJob(job, trigger);
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+private void unplanReminder() {
+    try {
+        StdSchedulerFactory.getDefaultScheduler().deleteJob(new JobKey(getId(), "issueReminders"));
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }      
+}
+
+@PostPersist
+private void planReminderIfNeeded() {
+    if (plannedFor != null) planReminder();
+}</code></pre>
+        <h2>Transcripción</h2>
+        <p>Hola, soy Alexandra. Si te atreves a quedarte conmigo unos minutos, te voy a enseñar a planificar cualquier lógica Java para que se ejecute en el momento que necesites. Lo haremos mediante un ejemplo práctico usando la librería Quartz para planificar los trabajos. El ejemplo es una aplicación OpenXava, sin embargo este tutorial es suficientemente genérico para poder usar estas instrucciones en cualquier aplicación Java.</p>
+        <p>Lo haremos en la aplicación que estás viendo, una aplicación sencilla de gestión de proyectos. Pero los pasos que vamos a dar para planificar trabajos, los puedes seguir con cualquiera de tus aplicaciones OpenXava, sean de lo que sean. Incluso en aplicaciones Java que no sean OpenXava. Veamos lo que queremos conseguir.</p>
+        <p>Vayamos al módulo "Mi Calendario". Vamos a añadir una tarea para el día 21 del mes que viene. Ponemos "Ir a la playa". Al bajar más abajo notamos como la fecha de planificación es la del día 21 de octubre y que la tarea está asignada a Alexandra. Perfecto.</p>
+        <p>En la implementación actual al guardar la tarea, simplemente se guardan todos estos campos y la tarea se visualizará en el calendario y también en la lista de incidencias. La funcionalidad que queremos añadir es que cuando llegue el día 21, Alexandra reciba un correo electrónico recordándole que tiene que ir a la playa. Modificaremos el código de nuestra aplicación para que usando Quartz haga esto. Pero antes echemos un vistazo a que es eso de Quartz.</p>
+        <p>Con tu navegador ve a quartz-scheluder.org, la página oficial de Quartz. Aquí tienes una explicación detallada de lo que es Quartz además de acceso a documentación, descargas y su código fuente. Quartz es posiblemente la librería Java para planificar trabajos más popular y además es de código abierto. Vayamos al IDE y pongámonos manos a la obra.</p>
+        <p>El primer paso es añadir Quartz como dependencia en nuestro proyecto. Para eso abrimos el pom.xml. Nos vamos a la parte de las dependencias. Y empezamos a añadir una. Como groupId ponemos org.quartz-scheduler. Como artifactId, quartz; y como versión: 2 punto 3 punto 2. Recuerda hacer un Maven Install para que la librería se descargue y se incluya en tu proyecto. Por si no quieres teclear, en la descripción del video tienes un vínculo a una página con los trozos de código para que los puedas copiar.</p>
+        <p>Ahora que ya tenemos Quartz incluido en nuestra proyecto tenemos que hacer que la aplicación lo arranque. Quartz es una especie de servicio o demonio que tiene que estar funcionando siempre. En una aplicación web, como es el caso de las aplicaciones OpenXava, la mejor forma de arrancar y parar Quartz es poniéndolo en un web listener, de esta forma, siempre que se arranca la aplicación, se arranca también Quartz. Vamos a escribir nuestro listener.</p>
+        <p>Primero crearemos un paquete para poner dentro nuestro web listener. Usamos la opción new package de OpenXava Studio. Al paquete le llamamos web. Dentro del paquete pulsaremos para crear una nueva clase. A la clase la llamaremos QuartzSchedulerListener, por ejemplo. Y aquí tenemos el esqueleto de nuestra clase. Vamos a convertir este esqueleto en un web listener.</p>
+        <p>Para ello hemos anotado la clase con WebListener y hemos hecho que implemente ServletContextListener. Así la clase ha de tener contextInitialized, que se ejecuta al arrancar la aplicación y contextDestroyed que se ejecuta al pararla. En el método contextInitialized añadimos la línea: StdSchedulerFactory.getDefaultScheduler().start() Y en contextDestroyed: StdSchedulerFactory.getDefaultScheduler().shutdown() De esta forma tan sencilla Quartz se arranca al iniciar nuestra aplicación y se para al pararse la aplicación. Ya tenemos a Quartz funcionando, ahora vamos a darle trabajo.</p>
+        <p>Ahora viene una parte crucial: la definición de los jobs. Primero crearemos un paquete que vamos a llamar jobs. La base de Quarts son los jobs. Un job es un objeto que contiene la lógica Java que se ejecutará en un momento dado. Si eres programador OpenXava piensa que es como una acción OpenXava, pero en lugar de ejecutarse en el momento que el usuario pulsa un botón, se ejecuta a una hora determinada de un día determinado. Sin más dilación definamos nuestro job.</p>
+        <p>Creamos una clase llamada PlannedIssueReminderJob. Un buen nombre porque es para recordar las tareas planificadas. Hacemos que implemente job, del paquete org.quartz. Esto nos obliga a que tenga que tener un método execute. El cual implementamos, de momento con un humilde print. De esta forma el mensaje "Sending email..." se imprimirá en la consola cada vez que el job se ejecute. El job se ejecutará en los momentos en que esté planificado, más adelante veremos como se planifica. De momento asumimos que se ejecutará el día en que el trabajador tiene que recibir el recordatorio. Pero antes tenemos que hacer que nuestro job haga algo útil.</p>
+        <p>Vamos a quitar el print y enviar un correo electrónico de verdad. Para eso usaremos Emails, una utilidad incluida en OpenXava. Añadimos el import. Indicamos: la cuenta de correo, el asunto y el cuerpo del mensaje. Pero claro, queremos enviar el correo a la persona que le corresponda y con la descripción de la tarea incluida. ¿De donde podemos obtener eso? Pues bien, del contexto del job.</p>
+        <p>El contexto del job es el argumento del execute, al que le damos el nombre que se merece. Ahora ya podemos acceder a información específica del job, con: context.getJobDetail().getJobDataMap() Este mapa contiene datos arbitrarios que se han asignado al job en el momento en que se crea y planifica. Al crear el job le asignaremos el id de la tarea que hay que recordar, para que desde aquí podamos acceder a ella.</p>
+        <p>Para acceder a la tarea, el issue, usamos JotaPeA, con la utilidad XPersistence de OpenXava. A partir de la entidad Issue obtendremos el título, la descripción y el correo electrónico del trabajador. Modificaremos la llamada a Emails para enviar los datos correctos. Ponemos workerEmail para el correo, usamos issue getTitle para el asunto e issue getDescription para el cuerpo del mensaje. Como último detalle, dado que usamos XPersistence y no estamos en una acción OpenXava, tenemos que poner el commit, explicitamente. Y con esto ya tenemos nuestro job listo para la guerra. Ahora vamos a planificarlo.</p>
+        <p>Os voy a mostrar el sitio ideal donde hacer la planificación de nuestro trabajo. Vamos a la entidad Issue y allí buscamos plannedFor, que es la fecha de planificación. Es verdad que podríamos planificar el job en la acción de grabar, pero es mejor modificar la entidad. Así el trabajo se planificará siempre que se cambia la fecha, sea desde donde sea, desde el calendario, desde el mantenimiento de incidencia, desde un servicio web, desde donde sea.</p>
+        <p>Lombok genera un setter oculto que simplemente asigna el valor al campo. Lo que haremos será sobreescribir este setter para que ejecute nuestra propia lógica cuando se cambie plannedFor y así aprovechar para planificar el recordatorio. Este sería nuestro setter. Ponemos el import para Is. Si la fecha que asigna y la que tenemos coinciden, no hacemos nada. Si hay una fecha anterior tenemos que quitar el recordatorio. Asignamos la nueva fecha y planificamos el recordatorio correspondiente. En resumen, cuando se cambia la fecha planificada para una tarea, eliminamos el recordatorio anterior, si lo hay, y añadimos un recordatorio planificado para la nueva fecha. Nos queda implementar planReminder y un unplanReminder. Vamos a ello.</p>
+        <p>Este es el método planReminder. Pulsamos en Control S para que añada los imports y examinaremos el método. Si no tiene una fecha plannedFor no hacemos nada, obvio. Si el Issue actual no tiene id, tampoco hacemos nada. Esto sucede cuando el Issue todavía no se ha grabado y aún no se ha generado su id, lo que ocurre en la creación de un Issue nuevo. Para este caso tenemos una solución que veremos más adelante.</p>
+        <p>Lo siguiente es crear el job. Fijaos que primero creamos jobDataMap que contendrá los datos que después en el job se pueden leer medienta el contexto. Aquí es donde asignamos el valor a issue.id que leimos desde el job. El valor es el id del Issue actual. Depués creamos el job indicando que use nuestro PlannedIssueReminderJob. Le asignamos un identificador que será el id del issue actual dentro del grupo "issueReminders". Le ponemos el jobDataMap y listo.</p>
+        <p>Para planificar el job necesitamos una fecha de tipo java.util.Date. Para esto usamos estas dos líneas, donde obtenemos esa fecha a partir de plannedFor, que es una LocalDate. Ahora creamos el trigger con TriggerBuilder.newTrigger(). Indicamos el mismo id del job que hemos definido arriba y la fecha. El trigger indica el momento del tiempo en que queremos ejecutar el job. En nuestro caso usamos un momento concreto, pero se pueden planificar momento repetidos de forma cíclica por hora, día, semana, mes, etc. como se haría con un cron de UNIX. Y ya podemos planificar nuestro job, llamando a scheduleJob con el job y el trigger. No es tan dificil, creamos un job, creamos un trigger y lo planificamos. Nuestro método planReminder ya está terminado, vamos con el unplanReminder.</p>
+        <p>El método unplanReminder es mucho más fácil, tan solo llamamos deleteJob indicando el identificador del job y ya está. Todavía nos queda un detalle. ¿Qué ocurre cuando se asigna valor a plannedId a un Issue que todavía no está grabado y por tanto no tiene id? Esto lo resolvemos con un método PostPersist de JPA. Simplemente si después de crear un Issue nuevo ve que tiene fecha plannedFor planifica el recordatorio. Bueno, pues ya está todo.</p>
+        <p>Ahora cuando llegue el día 21 Alexandra recibirá un correo electrónico recordándole que tiene que ir a la playa, todo gracias a Quartz y a vuestro duro trabajo. Resumamos lo que hemos hecho. Primero: definimos la dependencia en el pom. Segundo: Arrancamos Quartz en el web listener. Tercero: Definimos el job. Cuarto: Planificamos el job.</p>
+        <p>Este es un vínculo a un artículo en la documentación de OpenXava donde tendréis los fragmentos de código que hemos escrito en este tutorial. El vínculo también está en la descripción del vídeo. Sin embargo, hay una forma más rápida de obtener el código fuente y es creando un proyecto usando la plantilla Project Management. En OpenXava Studio usa la opción New OpenXava Project. Allí, para plantilla escoge Project Management.</p>
+        <p>El proyecto creado incluirá Quartz con una lógica para planificar recordatorios muy parecida a la que hemos desarrollado en este tutorial, pero con algunas mejoras para hacerlo más profesional. La primera es que en el job, es decir PlannedIssueReminderJob, incluye una serie de validaciones para hacerlo más robusto. La segunda es que el mensaje de correo electrónico usa una plantilla que obtenemos de los archivos i18n, así tenemos una redacción más profesional y multilingüe. La tercera es que enviamos mensajes al log cuando fallan las validaciones y las excepciones también las enviamos al log, todo usando mensajes internacionalizados. No hay printStackTrace. La cuarta es que soporta multiempresa. Tiene en cuenta la empresa activa y la envía como dato al job. La quinta es sin duda la más importante, la persistencia.</p>
+        <p>Tal y como está ahora si se va la luz y volvemos a arrancar la aplicación, todos los recordatorios se habrán perdido, mal asunto. Es posible configurar Quartz para que guarde la planificación de los trabajos en la base de datos, esto se hace en el archivo quartz.properties y creando algunas tablas. La aplicación generada a partir de la plantilla contiene la base de datos ya configurada y lista para guardar lo planificado. Si has llegado hasta aquí siguiendo los pasos, ya tienes los recordatorios funcionando en tu aplicación. Enhorabuena.</p>
+        <p>Si no, te animamos a que crees un proyecto usando la plantilla Project Management o también usando el arquetipo de Maven correspondiente, lo pruebes y examines el código. Si tienes algún problema con el video no dudes en preguntarnos en el foro. Chao.</p>
+  </body>
+</html>
