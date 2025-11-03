@@ -862,6 +862,8 @@
 		<extends controller="Typical"/>
 		<action name="notEditableView" mode="detail"
 			class="org.openxava.test.actions.NotEditableViewAction" />
+		<action name="setFocusOnType" mode="detail"
+			class="org.openxava.test.actions.SetFocusOnTypeAction" />
 	</controller>
 		
 	<controller name="ProductFromInvoice">

@@ -779,6 +779,17 @@ input[type="radio"] {
 	vertical-align: middle;
 }
 
+input[type="radio"]:focus {
+  outline: 2px solid var(--input-focus-border);
+  outline-offset: 2px;
+}
+
+input[type="checkbox"]:focus {
+  outline: 2px solid var(--input-focus-border);
+  outline-offset: 2px;
+}
+
+
 .ox-frame .ox-list { 
 	border: 2px solid var(--list-background);
 }

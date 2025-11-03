@@ -1,6 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
 import org.openxava.tests.*;
+import org.junit.*;
 
 import org.htmlunit.html.*;
 
@@ -10,10 +11,11 @@ import org.htmlunit.html.*;
 
 public class CustomerRadioButtonTest extends ModuleTestBase {
 	
-	public CustomerRadioButtonTest(String testName) {
-		super(testName, "CustomerRadioButton");		
+	public CustomerRadioButtonTest() {
+		super("CustomerRadioButton");		
 	}
 	
+	@Test
 	public void testSelectTheLabelOnRadioButton_descriptionsListTooltip() throws Exception {
 		execute("CRUD.new");
 		
@@ -32,7 +34,8 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		assertValue("type", "2");	// special
 	}
 	
-	public void testEditorByView_radioButton_radioButtonNoEditable() throws Exception { 
+	@Test
+	public void testEditorByView_radioButton_radioButtonNoEditable_setFocusOnRadioButton() throws Exception { 
 		// Really editor by property-view must be tested visually
 		// and about radioButton we only test that it's possible to use in junit test,
 		// because behaves equals that a combo. Hence it's needed to test visually
@@ -64,6 +67,9 @@ public class CustomerRadioButtonTest extends ModuleTestBase {
 		
 		execute("CRUD.delete");
 		assertMessage("Customer deleted successfully"); 
+
+		execute("CustomerRadioButton.setFocusOnType");
+		assertFocusOn("type");		
 	}
 		
 }
