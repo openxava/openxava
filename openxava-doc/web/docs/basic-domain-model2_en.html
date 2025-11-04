@@ -101,7 +101,7 @@
     </div>
     <div class="wiki" style="display: block;"> We're going to write our <i>Invoice</i> entity with <i>year</i>, <i>number</i> and <i>date</i>. It would be nice to have default values for these properties, so the user does not have to type them. It's easy to do it using the <em>@DefaultValueCalculator</em> annotation. In this first version of <i>Invoice</i> you can see how we define default values for <em>year</em> and <em>date</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import java.time.*;
 import javax.persistence.*;
@@ -156,7 +156,7 @@ public class Invoice {
     <div class="wiki" style="display: block;">Packages are the way has Java to organize the code. You should change <i>com.yourcompany</i> by the domain of your organization, that is if you work for Google the package for calculators should be <i>com.google.invoicing.calculators</i>. </div>
     <div class="wiki" style="display: block;">Then create in it a <em>NextNumberForYearCalculator</em> class, with the next code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.calculators;
+      <pre><code class="language-java">package com.yourcompany.invoicing.calculators;
  
 import javax.persistence.*;
 import org.openxava.calculators.*;
@@ -184,7 +184,7 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
 
         class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(length=6)
+      <pre><code class="language-java">@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
     properties=@PropertyValue(name="year") // To inject the value of year from Invoice to
                                            // the calculator before calling to calculate()
@@ -202,7 +202,7 @@ int number;
       Now that we have all atomic properties ready to use it's time to add relationships with other entities. We'll begin adding a reference from <em>Invoice</em> to <em>Customer</em>, because an invoice without customer is not very useful. Before adding the customer <b>use the <em>Invoice</em> module to remove all the current invoices</b> because we're going to make the customer required, so the old data could fail.<br>
       Add the next code to the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
 Customer customer;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Nothing more is required. The <em>Invoice</em> module is now like this one:<br>
@@ -211,13 +211,13 @@ Customer customer;
       <h2 id="toc8"><a name="Modeling with Java-Basic domain model-Collection of dependent objects"></a>Collection of dependent objects</h2>
       Usually an invoice needs to have a couple of lines with the details of products, quantities, etc. These details are part of the invoice. They are not shared with other invoices, and when an invoice is deleted its details are also deleted. So, the more natural way of modeling the invoice details is to use a collection of embeddable objects. To do it with JPA, declare in <i>Invoice</i> a regular collection annotated with <em>@ElementCollection</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 Collection&lt;Detail&gt; details;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Using <em>@ElementCollection</em> when the invoice is removed its details are removed too. The details are not saved in the database until the invoice is saved and they are saved all at once.<br>
       In order to make this collection works you need to write the <em>Detail</em> class:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import lombok.*;
@@ -237,7 +237,7 @@ public class Detail {
       <img src="files/modeling_en090.png" alt="modeling_en090.png" title="modeling_en090.png"><br>
       This screenshot emphasizes that the properties to show by default in a collection are the plain ones, that is the properties of references are not included by default. This fact produces an ugly user interface for our collection of invoice details, because only the <i>quantity</i> property is shown. You can fix it using <em>@ListProperties</em>, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 @ListProperties("product.number, product.description, quantity")
 Collection&lt;Detail&gt; details;
 </code></pre> </div>
@@ -248,7 +248,7 @@ Collection&lt;Detail&gt; details;
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Now we realize that we don't like the <i>product.number</i> property's label, so we want to change this to: <i>Product Number</i>. To achieve this, we must go to the file <i>invoicing-labels_en.properties</i> that is located in the folder <i>invoicing/src/main/resources/i18n</i> and add the following line to overwrite the default label that OpenXava brings us:</span><span
 
         style="line-height: 1.5;"></span><br>
-      <pre><code class="java">product.number = Product Number</code></pre>
+      <pre><code class="language-java">product.number = Product Number</code></pre>
     </div>
     <div class="wiki" style="display: block;"><img src="files/modeling_en105.png"
 
@@ -256,7 +256,7 @@ Collection&lt;Detail&gt; details;
     <div class="wiki" style="display: block;"><br>
       This new label <i>product.number</i> will change in all modules that is used, in case that we want to use it only in collection details of Invoice entity, we should use the following label:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">//For this application we will use the previous label and not the following one<br>Invoice.details.product.number= Product Number</code></pre>
+        <pre><code class="language-java">//For this application we will use the previous label and not the following one<br>Invoice.details.product.number= Product Number</code></pre>
       </div>
     </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">In this way, we can customize the labels that OpenXava brings us or create our own labels.</span><span

@@ -23,13 +23,13 @@
       <h2>Code</h2>
       <p>You can copy the code used in the video here:</p>
       <p>First, add the Quartz dependency to your <em>pom.xml</em> file:</p>
-        <pre><code class="xml">&lt;dependency&gt;
+        <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
     &lt;artifactId&gt;quartz&lt;/artifactId&gt;
     &lt;version&gt;2.3.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
       <p>Create the web listener in <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
-        <pre><code class="java">package com.yourcompany.projects.web;
+        <pre><code class="language-java">package com.yourcompany.projects.web;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -63,7 +63,7 @@ public class QuartzSchedulerListener implements ServletContextListener {
     
 }</code></pre>
       <p>Create the job in <em>src/main/java/com/yourcompany/projects/jobs/PlannedIssueReminderJob.java</em>:</p>
-        <pre><code class="java">package com.yourcompany.projects.jobs;
+        <pre><code class="language-java">package com.yourcompany.projects.jobs;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
@@ -94,7 +94,7 @@ public class PlannedIssueReminderJob implements Job {
 
 }</code></pre>
       <p>Add the following methods to your <em>Issue</em> entity in the model package:</p>
-        <pre><code class="java">public void setPlannedFor(LocalDate plannedFor) {
+        <pre><code class="language-java">public void setPlannedFor(LocalDate plannedFor) {
     if (Is.equal(this.plannedFor, plannedFor)) return;
     if (this.plannedFor != null) unplanReminder();
     this.plannedFor = plannedFor;

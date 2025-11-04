@@ -97,13 +97,13 @@
 
         href="https://openlibrary.org/">openlibrary.org</a> el ISBN es conveniente, pero en otro proyecto, o incluso en otra entidad de tu actual proyecto, puede que no quieras hacer esa búsqueda. Necesitas hacer tu anotación más flexible.<br>
       La forma de añadir esta flexibilidad a tu anotación de validación es mediante los atributos. Por ejemplo, podemos añadir un atributo de búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si queremos buscar el ISBN en internet para validar o no. Para hacerlo, simplemente añade el atributo <em>buscar</em> al código de la anotación <i>ISBN</i> que se encuentra en el paquete de la carpeta <i>com.tuempresa.facturacion.anotaciones</i>, tal como muestra el siguiente código:<br>
-      <pre><code class="java">public @interface ISBN {
+      <pre><code class="language-java">public @interface ISBN {
     
     boolean buscar() default true; // Para (des)activar la búsqueda web al validar
     // ... el resto del código
 }
 </code></pre> Este nuevo atributo <em>buscar</em> puede leerse de la clase validador que se encuentra en la carpeta <i>com.tuempresa.facturacion.validadores</i>. Míra como modificarlo:<br>
-      <pre><code class="java">public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
+      <pre><code class="language-java">public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
     // ...
     private boolean buscar; // Almacena la opción buscar
  
@@ -120,7 +120,7 @@
 }
 </code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la anotación para inicializar el validador. En este caso simplemente almacenamos el valor de <em>isbn.buscar()</em> para preguntar por él en <i>isValid()</i>.<br>
       Ahora puedes escoger si quieres llamar a nuestro servicio REST o no para hacer la validación ISBN. Mira como:<br>
-      <pre><code class="java">public class Producto {<br>//...<br><br>@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
+      <pre><code class="language-java">public class Producto {<br>//...<br><br>@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
 private String isbn; <br><br>//...<br>}<br></code></pre>
       Ahora prueba la aplicación y verás que la validación no se ejecuta.</div>
     <div class="wiki" style="display: block;"><br>

@@ -97,7 +97,7 @@
 
         title="business-logic_es020.png"><br>
       La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em> que simplemente lee el precio del producto. Observa el código de este calculador:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
+      <pre><code class="language-java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
  
 import org.openxava.calculators.*;
 import com.tuempresa.facturacion.modelo.*;
@@ -121,7 +121,7 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
 </code></pre>
       <div class="wiki" style="display: block;">El siguiente paso es añadir la propiedad <em>precioPorUnidad</em>. Añade el siguiente código a la clase <em>Detalle</em>:<br>
       </div>
-      <pre><code class="java">@DefaultValueCalculator(
+      <pre><code class="language-java">@DefaultValueCalculator(
     value=CalculadorPrecioPorUnidad.class, // Esta clase calcula el valor inicial
     properties=@PropertyValue(
         name="numeroProducto", // La propiedad numeroProducto del calculador...
@@ -131,7 +131,7 @@ public class CalculadorPrecioPorUnidad implements ICalculator {
 BigDecimal precioPorUnidad; // Una propiedad persistente convencional
 </code></pre>De esta forma cuando el usuario escoge un producto el campo de precio unitario se rellena con el precio del producto, pero dado que es una propiedad persistente, el usuario puede cambiar este valor. Y si en el futuro el precio del producto cambiara este precio unitario de la línea de detalle no cambiaría.<br>
       Esto implica que has de adaptar la propiedad calculada <em>importe</em>:<br>
-      <pre><code class="java">@Money
+      <pre><code class="language-java">@Money
 @Depends("precioPorUnidad, cantidad") // precioPorUnidad en vez de producto.numero
 public BigDecimal getImporte() {
     if (precioPorUnidad == null) return BigDecimal.ZERO; // precioPorUnidad en vez de producto y producto.getPrecio()
@@ -139,7 +139,7 @@ public BigDecimal getImporte() {
 }
 </code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como fuente en lugar de <em>producto.precio</em>.<br>
       Finalmente, debemos editar la entidad <em>DocumentoComercial</em> y modificar la lista de propiedades de la colección para mostrar la nueva propiedad:<br>
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, importe") // precioPorUnidad añadida
 Collection&lt;Detalle&gt; detalles;
 </code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás observar el nuevo comportamiento al añadir líneas de detalle.</div>

@@ -114,7 +114,7 @@
       <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Now you are ready to write and execute SQLs.First, we set value for <i>pricePerUnit</i> column in all details: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT_DETAILS 
+      <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT_DETAILS 
 SET PRICEPERUNIT = (
     SELECT PRICE FROM PRODUCT 
     WHERE NUMBER = PRODUCT_NUMBER
@@ -122,12 +122,12 @@ SET PRICEPERUNIT = (
 </code></pre> </div>
     <div class="wiki" style="display: block;">Then we update the <i>vatPercentage</i> for all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
+      <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
 SET VATPERCENTAGE = 21
 </code></pre> </div>
     <div class="wiki" style="display: block;">Next, the updating of <i>vat</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
+      <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
 SET VAT = (
     SELECT SUM(PRICEPERUNIT * QUANTITY) * 0.21 
     FROM COMMERCIALDOCUMENT_DETAILS D 
@@ -136,7 +136,7 @@ SET VAT = (
 </code></pre> </div>
     <div class="wiki" style="display: block;">Finally, we update the <i>totalAmount</i> of all invoices:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sql">UPDATE COMMERCIALDOCUMENT
+      <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
 SET TOTALAMOUNT = (
     SELECT SUM(PRICEPERUNIT * QUANTITY) * 1.21 
     FROM COMMERCIALDOCUMENT_DETAILS D 

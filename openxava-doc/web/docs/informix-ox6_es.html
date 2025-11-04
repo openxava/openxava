@@ -32,7 +32,7 @@
       pueden variar). Descomprímelo para encontrar dentro un archivo llamado <i>setup.jar</i>,
       que has de ejecutar de esta manera:
       <div class="wiki" style="display: block;">
-        <pre><code class="shell">java -jar setup.jar</code></pre>
+        <pre><code class="language-shell">java -jar setup.jar</code></pre>
       </div>
       <div class="wiki" style="display: block;">Esto lanzará un asistente de
         instalación clásico. Síguelo, te copiara algunos archivos en una carpeta
@@ -81,7 +81,7 @@
       para ajustar la fuente de datos para que apunte a Informix, algo como
       esto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -102,7 +102,7 @@
       Sin embargo, sí que has de modificar la unidad de persistencia <i>junit</i>
       para que apunte a Informix:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit Informix --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit Informix --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

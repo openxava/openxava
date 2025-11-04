@@ -81,7 +81,7 @@
       Para entender bien algunos de los conceptos de las lecciones venideras,
       has de saber cómo funcionan las propiedades en Java. La forma estándar de
       definir una propiedad en Java es:
-      <pre><code class="java">// Propiedad
+      <pre><code class="language-java">// Propiedad
       
 private int cantidad; // Tiene un campo
 
@@ -106,18 +106,18 @@ public void setCantidad(int cantidad) { // Cambia el valor del campo
       código lleno de getters y setters que no aportan nada y hacen mucho ruido.
       Para resolver este problema usamos una librería llamada Lombok. Con Lombok
       puedes definir la propiedad <i>cantidad</i> de arriba de esta manera:
-      <pre><code class="java">@Getter @Setter // Genera un método getter y uno setter
+      <pre><code class="language-java">@Getter @Setter // Genera un método getter y uno setter
 int cantidad; 
 </code></pre><i>@Getter</i> y <i>@Setter</i> generan el getter y setter en el
       código compilado, por lo que cuando accedas a la propiedad has de usarlos,
       así:
-      <pre><code class="java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
+      <pre><code class="language-java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
 elObjeto.setCantidad(c + 10); // Nunca elObjeto.cantidad = c + 10
 </code></pre>Puedes declarar <i>@Getter</i> y <i>@Setter</i> a nivel de clase
       y así todos los campos tendrán getter y setter automáticamente. Y por
       supuesto, puedes escribir tu propio setter y getter si quieres usar tu
       propia lógica:
-      <pre><code class="java">// @Data // NUNCA USES @Data
+      <pre><code class="language-java">// @Data // NUNCA USES @Data
 @Getter @Setter
 public class Incidencia {
 

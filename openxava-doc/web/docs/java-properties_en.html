@@ -87,7 +87,7 @@
       In order to understand some concepts well in this lesson you have to know
       how properties work in Java. The standard way to define a property in Java
       is:
-      <pre><code class="java">// Property
+      <pre><code class="language-java">// Property
       
 private int quantity; // Has a field
 
@@ -113,17 +113,17 @@ public void setQuantity(int quantity) { // Changes the field value
       setters that really do not add value and make a lot of noise. To solve
       this problem we use a library called Lombok. With Lombok you can define
       the above <i>quantity</i> property in this way:
-      <pre><code class="java">@Getter @Setter // It generates a getter and a setter method
+      <pre><code class="language-java">@Getter @Setter // It generates a getter and a setter method
 int quantity; 
 </code></pre><i>@Getter</i> and <i>@Setter</i> generate the getter and the
       setter in the compiled code, so when you access the property you have to
       use them, thus:
-      <pre><code class="java">int q = theObject.getQuantity(); // Never int q = theObject.quantity 
+      <pre><code class="language-java">int q = theObject.getQuantity(); // Never int q = theObject.quantity 
 theObject.setQuantity(q + 10); // Never theObject.quantity = q + 10;      
 </code></pre>You can declare <i>@Getter</i> and <i>@Setter</i> at class level
       so all the fields have getter and setter automatically. And of course, you
       can write your own setter and getter if you want to use your own logic:
-      <pre><code class="java">// @Data // NEVER USE @Data
+      <pre><code class="language-java">// @Data // NEVER USE @Data
 @Getter @Setter
 public class Issue {
 

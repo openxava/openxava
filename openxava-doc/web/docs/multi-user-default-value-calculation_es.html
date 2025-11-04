@@ -99,7 +99,7 @@
       Hasta ahora estamos calculando el número para <em>Factura</em> y <em>Pedido</em> usando <em>@DefaultValueCalculator</em>. Éste calcula el valor por defecto en el momento que el usuario pulsa para crear una nueva <em>Factura</em> o <em>Pedido</em>. Por tanto, si varios usuarios pulsan en el botón <i>Nuevo</i> al mismo tiempo todos ellos obtendrán el mismo número. Esto no es apto para aplicaciones multiusuario. La forma correcta de generar un número único es generándolo justo en el momento de grabar.<br>
       Vamos a implementar la generación del número usando métodos de retrollamada JPA. JPA permite marcar cualquier método de tu clase para ser ejecutado en cualquier momento de su ciclo de vida. Indicaremos que justo antes de grabar un <em>DocumentoComercial</em> calcule su número. De paso mejoraremos el cálculo para tener una numeración diferente para <em>Pedido</em> y <em>Factura</em>.<br>
       Edita la entidad <em>DocumentoComercial</em> y añade el método <em>calcularNumero()</em>. Veamos el código:<br>
-      <pre><code class="java">@PrePersist // Ejecutado justo antes de grabar el objeto por primera vez
+      <pre><code class="language-java">@PrePersist // Ejecutado justo antes de grabar el objeto por primera vez
 private void calcularNumero() {
     Query query = XPersistence.getManager().createQuery(
         "select max(f.numero) from " +
@@ -113,7 +113,7 @@ private void calcularNumero() {
     <div class="wiki" style="display: block;">Este código es el mismo que el de <em>CalculadorSiguienteNumeroParaAnyo</em> pero usando <em>getClass().getSimpleName()</em> en lugar de "DocumentoComercial". El método <em>getSimpleName()</em> devuelve el nombre de la clase sin paquete, es decir, precisamente el nombre de la entidad. Será "Pedido" para <em>Pedido</em> y "Factura" para <em>Factura</em>. Así podremos obtener una numeración diferente para <em>Factura</em> y <em>Pedido</em>.<br>
       La especificación JPA establece que no puedes usar el API JPA dentro de un método de retrollamada. Por tanto, el método de arriba no es legal desde un punto de vista estricto. Pero, Hibernate (la implementación de JPA que OpenXava usa por defecto) te permite usarla en <em>@PrePersist</em>. Y dado que usar JPA es la forma más fácil de hacer este cálculo, nosotros lo usamos.<br>
       Ahora borra la clase <em>CalculadorSiguienteNumeroParaAnyo</em> de tu proyecto y modifica la propiedad <em>numero</em> de <em>DocumentoComercial</em> para que no la use:<br>
-      <pre><code class="java">@Column(length = 6)
+      <pre><code class="language-java">@Column(length = 6)
 //  @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class, // Quita esto
 //      properties=@PropertyValue(name="anyo")
 //  )

@@ -94,7 +94,7 @@
       <h2 id="toc11"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Using a Bean Validation from your entity"></a>Using
         a <em>Bean Validation</em> from your entity</h2>
       It is very easy. Just annotate your property, as you see in the next code:<br>
-      <pre><code class="java">@ISBN // This annotation indicates this property must be validated as an ISBN
+      <pre><code class="language-java">@ISBN // This annotation indicates this property must be validated as an ISBN
 String isbn;
 </code></pre> By merely adding <em>@ISBN</em> to your property, it will be
       validated before the entity is saved into the database. Great! The problem
@@ -104,7 +104,7 @@ String isbn;
       validation annotation in this section.<br>
       First of all, let's add a new <em>isbn</em> property to <em>Product</em>.
       Edit your <em>Product</em> class and add to it the code bellow:<br>
-      <pre><code class="java">@Column(length=13)
+      <pre><code class="language-java">@Column(length=13)
 String isbn;
 </code></pre> Try out your <em>Product</em> module with the browser. Yes, the <em>isbn</em>
       property is already there. Now, you can add the validation.<br>
@@ -120,7 +120,7 @@ String isbn;
     <img src="files/validation_en030.png" alt="validation_en030.png" title="validation_en030.png">
     <div class="wiki" style="display: block;"> Edit the code of your recently
       created ISBN annotation and leave it as in the next code:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.annotations; // In 'annotations' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.annotations; // In 'annotations' package
 
 import java.lang.annotation.*;
 import javax.validation.*;
@@ -140,7 +140,7 @@ public @interface ISBN { // A regular Java annotation definition
       its own message when he uses the annotation, although we provide one by
       default, "isbn_invalid", so we have to add the next entry into <em>invoicing-messages_en.properties</em>:
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">isbn_invalid=ISBN invalid or nonexistent
+        <pre><code class="language-properties">isbn_invalid=ISBN invalid or nonexistent
 </code></pre> </div>
     </div>
     <div class="wiki" style="display: block;">The <i>@Constraint</i> indicates
@@ -155,7 +155,7 @@ public @interface ISBN { // A regular Java annotation definition
       algorithms for email addresses, dates, URLs and so on. The <em>commons-validator.jar</em>
       is included by default in OpenXava projects, so you can use it without
       further configuration. The code for <em>ISBNValidator</em>:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
 import javax.validation.*;
  
@@ -188,7 +188,7 @@ public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; { 
       the ISBN validator from the Apache Commons Validator project.</div>
     <div class="wiki" style="display: block;"> <em>@ISBN</em> is ready to be
       used. Just annotate your isbn property with it. You can see how:<br>
-      <pre><code class="java">@Column(length=13) @ISBN
+      <pre><code class="language-java">@Column(length=13) @ISBN
 String isbn;
 </code></pre>In this case when you save the class the import for <i>@ISBN</i>
       is not added automatically. This is because there is another <i>@ISBN</i>

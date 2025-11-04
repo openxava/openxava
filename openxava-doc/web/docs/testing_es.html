@@ -149,7 +149,7 @@
       <h3 id="toc3"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-El+codigo+para+la+prueba"></a>El código para la prueba</h3>
       Crea un paquete nuevo llamado <em>com.tuempresa.facturacion.pruebas</em> y dentro de él una nueva clase llamada <em>PruebaCliente</em> con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -229,7 +229,7 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo. Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">...
+      <pre><code class="language-java">...
 setValue("numero", "77");
 // setValue("nombre", "Cliente JUNIT"); // Comenta esta línea
 setValue("direccion.viaPublica", "Calle JUNIT");
@@ -239,7 +239,7 @@ setValue("direccion.viaPublica", "Calle JUNIT");
       <img src="files/testing_es040.png" alt="testing_es040.png" title="testing_es040.png"><br>
       El assert culpable es <em>assertNoErrors()</em>, el cual además de fallar muestra en la consola los errores mostrados al usuario. Por eso, en la consola de ejecución de tu prueba verás un mensaje como este:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="plaintext">16-jul-2019 18:03 org.openxava.tests.ModuleTestBase assertNoMessages
+      <pre><code class="language-plaintext">16-jul-2019 18:03 org.openxava.tests.ModuleTestBase assertNoMessages
 SEVERE: Error unexpected: Es ogligado que Nombre en Cliente tenga valor
 </code></pre> </div>
     <div class="wiki" style="display: block;">El problema es claro. El cliente no se ha grabado porque el nombre es obligatorio y éste no se ha especificado.<br>
@@ -249,7 +249,7 @@ SEVERE: Error unexpected: Es ogligado que Nombre en Cliente tenga valor
       <h3 id="toc6"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Los+metodos+setUp()+y+tearDown()"></a>Los métodos setUp() y tearDown()</h3>
       Vamos a usar <em>PruebaProducto</em> para aprender como usar JPA para crear datos de prueba. Crearemos algunos productos antes de ejecutar cada prueba y los borraremos después. Veamos el código de <em>PruebaProducto</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import java.math.*;
 import com.tuempresa.facturacion.modelo.*;
@@ -292,7 +292,7 @@ public class PruebaProducto extends ModuleTestBase {
       <h3 id="toc7"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Crear+datos+con+JPA"></a>Crear datos con JPA</h3>
       El método <em>crearProductos()</em> es el responsable de crear los datos de prueba usando JPA. Examinémoslo:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void crearProductos() {
+      <pre><code class="language-java">private void crearProductos() {
     // Crear objetos Java
     autor = new Autor(); // Se crean objetos de Java convencionales
     autor.setNombre("JUNIT Author"); // Usamos setters como se suele hacer con Java
@@ -324,7 +324,7 @@ public class PruebaProducto extends ModuleTestBase {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Como puedes ver, primero creas los objetos al estilo convencional de Java. Fíjate que los asignamos a miembros de instancia, así puedes usarlos dentro de la prueba. Entonces, los marcas como persistentes, usando el método <em>persist()</em> del <em>EntityManager</em> de JPA. Para obtener el <em>PersistenceManager</em> solo has de escribir <em>getManager()</em> porque tienes un import estático arriba:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">import static org.openxava.jpa.XPersistence.*;
+      <pre><code class="language-java">import static org.openxava.jpa.XPersistence.*;
 ...
 getManager().persist(autor);
     // Gracias al static import de XPersistence es lo mismo que
@@ -338,7 +338,7 @@ XPersistence.commit();
       <h3 id="toc8"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Borrar+datos+con+JPA"></a>Borrar datos con JPA</h3>
       Después de que se ejecute la prueba borraremos los datos de prueba para dejar la base de datos limpia. Esto se hace en el método <em>borrarProductos()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void borrarProductos() { // Llamado desde tearDown()
+      <pre><code class="language-java">private void borrarProductos() { // Llamado desde tearDown()
                                  // por tanto ejecutado después de cada prueba
     borrar(producto1, producto2, autor, categoria); // borrar() borra
     commit(); // Confirma los cambios en la base de datos, en este caso borrando datos
@@ -352,7 +352,7 @@ private void borrar(Object ... entidades) { // Usamos argumentos varargs
 </code></pre> </div>
     <div class="wiki" style="display: block;">Es un simple bucle por todas las entidades usadas en la prueba, borrándolas. Para borrar una entidad con JPA has de usar el método <em>remove()</em>, aunque en este caso has de usar el método <em>merge()</em> también (1). Esto es porque no puedes borrar una entidad desasociada (<em>detached entity</em>). Al usar <em>commit()</em> en <em>crearProductos()</em> todas la entidades grabadas pasaron a ser entidades desasociadas, porque continúan siendo objetos Java válidos pero el contexto persistente (<em>persistent context</em>, la unión entre las entidades y la base de datos) se perdió en el <em>commit()</em>, por eso tienes que reasociarlas al nuevo contexto persistente. Este concepto es fácil de entender con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">getManager().persist(autor); // autor está asociado al contexto persistente actual
+      <pre><code class="language-java">getManager().persist(autor); // autor está asociado al contexto persistente actual
 commit(); // El contexto persistente actual se termina y autor pasa a estar desasociado
  
 getManager().remove(autor); // Falla porque autor está desasociado
@@ -364,7 +364,7 @@ getManager().remove(autor); // Funciona
       <h3 id="toc9"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Filtrar+datos+desde+modo+lista+en+una+prueba"></a>Filtrar datos desde modo lista en una prueba</h3>
       Ahora que ya sabes como crear y borrar datos para las pruebas, examinemos los métodos de prueba para tu módulo <em>Producto</em>. El primero es <em>testBorrarDesdeLista()</em> que selecciona una fila en el modo lista y pulsa en el botón <i>Borrar seleccionados</i>. Veamos su código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void testBorrarDesdeLista() throws Exception {
+      <pre><code class="language-java">public void testBorrarDesdeLista() throws Exception {
     login("admin", "admin");
     setConditionValues("", "JUNIT"); // Establece los valores para filtrar los datos
     setConditionComparators("=", "contains_comparator"); // Pone los comparadores para filtrar los datos
@@ -382,7 +382,7 @@ getManager().remove(autor); // Funciona
       <h3 id="toc10"><a name="Leccion+3:+Pruebas+automaticas-Crear+datos+de+prueba+usando+JPA-Usar+instancias+de+entidad+dentro+de+una+prueba"></a>Usar instancias de entidad dentro de una prueba</h3>
       La prueba que queda, <em>testSubirFotos()</em>, escoge un producto y sube fotos en él. Vamos a usar en la prueba una entidad creada en <em>crearProductos()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public void testSubirFotos() throws Exception { 
+      <pre><code class="language-java">public void testSubirFotos() throws Exception { 
 	login("admin", "admin");
  
 	// Buscar producto1
@@ -416,7 +416,7 @@ getManager().remove(autor); // Funciona
       A veces puedes simplificar la prueba usando una base de datos que contenga los datos necesarios para la prueba. Si no quieres probar la creación de datos desde el módulo, y no borras datos en la prueba, ésta puede ser una buena opción.<br>
       Por ejemplo, puedes probar <em>Autor</em> y <em>Categoria</em> con una prueba tan simple como esta:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -445,7 +445,7 @@ public class PruebaAutor extends ModuleTestBase {
     <div class="wiki" style="display: block;">Esta prueba verifica que el primer autor en la lista es “JAVIER CORCOBADO”, recuerda crearlo antes de ejecutar la prueba. Entonces va al detalle y confirma que tiene una colección llamada "productos" con 2 productos: “Arco iris de lágrimas” y “Ritmo de sangre”, antes de ejecutar la prueba créalos y asocialos a "JAVIER CORCOBADO". De paso, has aprendido como usar los métodos <em>assertValueInList()</em>, <em>assertValueInCollection()</em> y <em>assertCollectionRowCount()</em>.<br>
       Podemos usar la misma técnica para probar el módulo <em>Categoria</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import org.openxava.tests.*;
  
@@ -472,7 +472,7 @@ public class PruebaCategoria extends ModuleTestBase {
       <h3 id="toc13"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Dividir+la+prueba+en+varios+metodos"></a>Dividir la prueba en varios métodos</h3>
       La prueba para crear una factura está dividida en varios métodos:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import java.time.*;
 import java.time.format.*;<br>import javax.persistence.*;
@@ -525,7 +525,7 @@ public class PruebaFactura extends ModuleTestBase {
       <h3 id="toc14"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Verificar+valores+por+defecto"></a>Verificar valores por defecto</h3>
       Lo primero es verificar que los valores por defecto para una factura nueva son calculados correctamente. Esto se hace en el método <em>verificarValoresDefecto()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void verificarValoresDefecto() throws Exception {
+      <pre><code class="language-java">private void verificarValoresDefecto() throws Exception {
     execute("CRUD.new");
     assertValue("anyo", getAnyoActual());
     assertValue("numero", getNumero());
@@ -534,7 +534,7 @@ public class PruebaFactura extends ModuleTestBase {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Cuando el usuario pulsa en <i>Nuevo</i>, los campos año, número y fecha tienen que rellenarse con datos válidos. El método <em>verificarValoresDefecto()</em> precisamente comprueba esto. Usa varios métodos de utilidad para calcular los valores esperados:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private String getAnyoActual() { // Año actual en formato cadena
+      <pre><code class="language-java">private String getAnyoActual() { // Año actual en formato cadena
     return Integer.toString(LocalDate.now().getYear()); // La forma
                                             // típica de hacerlo con Java
 }
@@ -562,7 +562,7 @@ private String getNumero() { // El número de factura para una factura nueva
       <h3 id="toc15"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Entrada+de+datos"></a>Entrada de datos</h3>
       Ahora es el momento de <em>escogerCliente()</em> de la factura:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void escogerCliente() throws Exception {
+      <pre><code class="language-java">private void escogerCliente() throws Exception {
     setValue("cliente.numero", "1");
     assertValue("cliente.nombre", "JAVIER PANIZA"); // El cliente 1 debe de existir en la DB
 }
@@ -570,7 +570,7 @@ private String getNumero() { // El número de factura para una factura nueva
     <div class="wiki" style="display: block;">Al introducir el número de cliente el nombre del cliente se rellena con un valor apropiado. La prueba confía en que el cliente 1 con nombre "JAVIER PANIZA" existe, deberías crearlo antes de ejecutar la prueba. Ya hemos asociamos el cliente 1 con la factura actual.<br>
       Y ahora viene la parte más peliaguda de la prueba: añadir las líneas de detalle:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void anyadirDetalles() throws Exception {
+      <pre><code class="language-java">private void anyadirDetalles() throws Exception {
     assertCollectionRowCount("detalles", 0); // La colección esta vacía
  
     // Añadir una línea de detalle
@@ -591,13 +591,13 @@ private String getNumero() { // El número de factura para una factura nueva
     <div class="wiki" style="display: block;">Probar una colección es exactamente igual que probar cualquier otra parte de tu aplicación, solo has de seguir los mismos pasos que un usuario haría con el navegador. Tienes métodos como <em>setValueInCollection()</em>, <em>assertValueInCollection()</em> o <em>assertCollectionRowCount()</em> para trabajar con colecciones. Nota que estos métodos tienen el nombre de la colección como primer argumento y algunos reciben el número de fila siendo el 0 la primera fila. Recuerda añadir a la base de datos los productos 1 y 2 con sus correspondientes descripciones antes de ejecutar esta prueba.<br>
       Ahora que tenemos los detalles añadidos, vamos a llenar los datos restantes y grabar la factura. Los datos restantes se establecen en el método <em>ponerOtrasPropiedades()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void ponerOtrasPropiedades() throws Exception {
+      <pre><code class="language-java">private void ponerOtrasPropiedades() throws Exception {
     setValue("observaciones", "Esto es una prueba JUNIT");
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Aquí ponemos valor al campo <em>observaciones</em>. Y ahora estamos listos para grabar la factura:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void grabar() throws Exception {
+      <pre><code class="language-java">private void grabar() throws Exception {
     execute("CRUD.save");
     assertNoErrors();
     assertValue("cliente.numero", "");
@@ -609,7 +609,7 @@ private String getNumero() { // El número de factura para una factura nueva
       <h3 id="toc16"><a name="Leccion+3:+Pruebas+automaticas-Probar+colecciones-Verificar+los+datos"></a>Verificar los datos</h3>
       Ahora, buscamos la factura recién creada para verificar que ha sido grabada correctamente. Esto se hace en el método <em>verificarCreado()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void verificarCreado() throws Exception {
+      <pre><code class="language-java">private void verificarCreado() throws Exception {
     setValue("anyo", getAnyoActual()); // El año actual en el campo año
     setValue("numero", getNumero()); // El número de la factura usada en la prueba
     execute("CRUD.refresh"); // Carga la factura desde la base de datos
@@ -638,7 +638,7 @@ private String getNumero() { // El número de factura para una factura nueva
 </code></pre> </div>
     <div class="wiki" style="display: block;">Después de buscar la factura creada verificamos que los valores que hemos grabado están ahí. Si la prueba llega a este punto tu módulo <em>Factura</em> funciona bien. Solo nos queda borrar la factura creada para que la prueba se pueda ejecutar la siguiente vez. Hacemos esto en el método <em>borrar()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">private void borrar() throws Exception {
+      <pre><code class="language-java">private void borrar() throws Exception {
     execute("CRUD.delete");
     assertNoErrors();
 }
@@ -669,7 +669,7 @@ private String getNumero() { // El número de factura para una factura nueva
 
         title="inheritance_es100.png"><br>
       Primero renombra tu actual clase <em>PruebaFactura</em> a <em>PruebaDocumentoComercial</em>, y después haz los cambios indicados en el siguiente código:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 import java.time.*;
 import java.time.format.*;
@@ -730,7 +730,7 @@ abstract public class PruebaDocumentoComercial // Añade abstract a la definici�
       Ahora ya tienes una clase base lista para crear los módulos de prueba para <em>Pedido</em> y <em>Factura</em>. Hagámoslo sin más dilación.<br>
       <h3 id="toc16"><a name="Herencia-en-las-pruebas-JUnit-Prueba-base-abstracta-para-crear-pruebas-de-modulo-concretas"></a>Prueba base abstracta para crear pruebas de módulo concretas</h3>
       Crear tu primera versión para <em>PruebaFactura</em> y <em>PruebaPedido</em> es simplemente extender de <em>PruebaDocumentoComercial</em>. Nada más. Mira el código de <em>PruebaFactura</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 public class PruebaFactura extends PruebaDocumentoComercial {
  
@@ -740,7 +740,7 @@ public class PruebaFactura extends PruebaDocumentoComercial {
  
 }
 </code></pre> Y <em>PruebaPedido</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+      <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
  
 public class PruebaPedido extends PruebaDocumentoComercial {
  
@@ -753,7 +753,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
       <h3 id="toc17"><a name="Herencia-en-las-pruebas-JUnit-Anadir-nuevas-pruebas-a-las-pruebas-de-modulo-extendidas"></a>Añadir nuevas pruebas a las pruebas de módulo extendidas</h3>
       Hasta ahora hemos probado como crear una factura y un pedido. En esta sección probaremos como añadir pedidos a una factura en el módulo <em>Factura</em> y como establecer la factura a un pedido en el módulo <em>Pedido</em>.<br>
       Para probar como añadir un pedido a una factura añade el método <em>testAnyadirPedidos()</em> a <em>PruebaFactura</em>:<br>
-      <pre><code class="java">// Esta prueba confía en que al menos exista una factura y un pedido
+      <pre><code class="language-java">// Esta prueba confía en que al menos exista una factura y un pedido
 public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty(); // Esta prueba confía en que ya existen facturas
@@ -771,7 +771,7 @@ public void testAnyadirPedidos() throws Exception {
     assertCollectionRowCount("pedidos", 0); // El pedido ha sido borrado<br>&nbsp;}
 </code></pre> En este caso asumimos que hay al menos una factura y que la primera factura de la lista no tiene pedidos. Antes de ejecutar esta prueba, si no tienes facturas todavía, crea una sin pedidos, o si ya tienes facturas, asegúrate de que la primera no tiene pedidos.<br>
       Para probar como asignar una factura a un pedido añade el método <em>testPonerFactura()</em> a <em>PruebaPedido</em>:<br>
-      <pre><code class="java">public void testPonerFactura() throws Exception {
+      <pre><code class="language-java">public void testPonerFactura() throws Exception {
     login("admin", "admin");
     assertListNotEmpty(); // Esta prueba confía en que existen pedidos
     execute("List.viewDetail", "row=0"); // Va a modo detalle editando la primera factura
@@ -802,7 +802,7 @@ public void testAnyadirPedidos() throws Exception {
       Crear una nueva prueba para cada nuevo caso parece una buena idea desde un punto de vista estructural, pero en la mayoría de los casos no es práctico, porque de esa forma tu código de prueba crecerá muy rápido, y con el tiempo, ejecutar todas las pruebas supondrá muchísimo tiempo.<br>
       El enfoque más pragmático es modificar el código de prueba existente para cubrir todos los nuevos casos que hemos desarrollado. Hagámoslo de esta forma.<br>
       En nuestro caso, la mayoría del código de esta lección aplica a <em>DocumentoComercial</em>, por tanto vamos a modificar el método <em>testCrear()</em> de <em>PruebaDocumentoComercial</em> para ajustarlo a la nueva funcionalidad. Dejamos el método <em>testCrear()</em> tal como muestra el siguiente código:<br>
-      <pre><code class="java">public void testCrear() throws Exception {
+      <pre><code class="language-java">public void testCrear() throws Exception {
     login("admin", "admin");
     calcularNumero(); // Añadido para calcular primero el siguiente número de documento
     verificarValoresDefecto();
@@ -816,7 +816,7 @@ public void testAnyadirPedidos() throws Exception {
 }
 </code></pre> Como ves, añadimos una nueva línea, después de <em>login(...)</em>, para calcular el siguiente número de documento, y una llamada al nuevo método <em>verificarBeneficioEstimado()</em>.<br>
       Ahora nos conviene más calcular el siguiente número de documento al principio para usarlo en el resto de la prueba. Para hacer esto, cambia el viejo método <em>getNumero()</em> por los dos métodos mostrados en el siguiente código:<br>
-      <pre><code class="java">private void calcularNumero() {
+      <pre><code class="language-java">private void calcularNumero() {
     Query query = getManager().createQuery(
         "select max(f.numero) from " +
         modelo + // Cambiamos DocumentoComercial por una variable
@@ -831,7 +831,7 @@ private String getNumero() {
     return numero;
 }
 </code></pre> Anteriormente, teníamos solo <em>getNumero()</em> que calculaba y devolvía el número, ahora tenemos un método para calcular (<em>calcularNumero()</em>), y otro para devolver el resultado (<em>getNumero()</em>). Puedes notar que la lógica del cálculo tiene un pequeño cambio, en vez de usar “DocumentoComercial” como fuente de la consulta usamos <i>modelo</i>, una variable. Esto es así porque ahora la numeración para facturas y pedidos está separada. Llenamos esta variable, un campo de la clase de prueba, en el constructor, tal como muestra el siguiente código:<br>
-      <pre><code class="java">private String modelo; // Nombre del modelo para la condición. Puede ser 'Factura' o 'Pedido'
+      <pre><code class="language-java">private String modelo; // Nombre del modelo para la condición. Puede ser 'Factura' o 'Pedido'
  
 public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     super(nombrePrueba, "facturacion", nombreModulo);
@@ -841,7 +841,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
       Veamos el código que prueba la nueva funcionalidad.<br>
       <h3 id="toc12"><a name="Pruebas-JUnit-Verificar-valores-por-defecto-propiedades-calculadas-y-Calculation"></a>Verificar valores por defecto, propiedades calculadas y <i>@Calculation</i></h3>
       En esta lección hemos hecho algunas modificaciones en los valores por defecto. Ahora, el valor por defecto para <em>numero</em> ya no se calcula mediante un <em>@DefaultValueCalculator</em> en su lugar usamos un método de retrollamada JPA. Para probar este caso hemos de modificar el método <em>verificarValoresDefecto()</em> como ves en el siguiente código:<br>
-      <pre><code class="java">private void verificarValoresDefecto() throws Exception {
+      <pre><code class="language-java">private void verificarValoresDefecto() throws Exception {
     execute("CRUD.new");
     assertValue("anyo", getAnyoActual());
     // assertValue("numero", getNumero()); // Ahora el número no tiene valor inicial...
@@ -858,7 +858,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
           class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar @DefaultValueCalculator</a>) y las propiedades de importes del documento (sección <a
 
           class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades de total de una colección</a>). Entre las propiedades de total probamos <i>porcentajeIVA</i> cuyo valor por defecto se calcula leyendo de un archivo de propiedades. Todo esto lo probamos haciendo unas ligeras modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
-        <pre><code class="java">private void anyadirDetalles() throws Exception {
+        <pre><code class="language-java">private void anyadirDetalles() throws Exception {
     assertCollectionRowCount("detalles", 0);
 	<br>    // Antes de ejecutar esta prueba asegurate de que
     //   producto 1 tenga 19 como precio y 
@@ -900,7 +900,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         <h3 id="toc13"><a name="Pruebas-JUnit-Verificar-Formula"></a>Verificar <em>@Formula</em></h3>
         En la sección <a class="wiki_link" href="basic-business-logic_es.html#Logica-desde-la-base-de-datos-Formula">Lógica desde la base de datos</a> hemos creado una propiedad que usa <em>@Formula</em>, <em>beneficioEstimado</em>. Esta propiedad se muestra sólo en modo lista.<br>
         Obviamente, la forma más simple de probarlo es yendo a modo lista y verificando que el valor para esta propiedad es el esperado. En <em>testCrear()</em> llamamos a <em>verificarBeneficioEstimado()</em>. Veamos su código:<br>
-        <pre><code class="java">private void verificarBeneficioEstimado() throws Exception {
+        <pre><code class="language-java">private void verificarBeneficioEstimado() throws Exception {
     execute("Mode.list"); // Cambiar a modo lista
     setConditionValues(new String [] { // Filtra para ver en la lista solamente
         getAnyoActual(), getNumero() // el documento que acabamos de crear
@@ -912,7 +912,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     execute("List.viewDetail", "row=0"); // Va a modo detalle
 }
 </code></pre> Dado que ahora vamos a modo lista y después volvemos a detalles, hemos de hacer una pequeña modificación en el método <em>verificarCreado()</em>, que es ejecutado justo después de <em>verificarBeneficioEstimado()</em>. Veamos la modificación:<br>
-        <pre><code class="java">private void verificarCreado() throws Exception {
+        <pre><code class="language-java">private void verificarCreado() throws Exception {
     // setValue("anyo", getAnyoActual()); // Borramos estas líneas
     // setValue("numero", getNumero());  // para buscar el documento
     // execute("CRUD.refresh"); // porque ya lo hemos buscado desde el modo lista
@@ -923,7 +923,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         <h3><a name="Pruebas-JUnit-Probar-sincronizacion-de-propiedades-calculadas-y-persistentes"></a>Probar sincronización de propiedades calculadas y persistentes</h3>
         En la sección <a class="wiki_link" href="basic-business-logic_es.html#Metodos-de-retrollamadas-JPA-Sincronizar-propiedades-persistentes-y-calculadas">Sincronizar propiedades persistentes y calculadas</a> usamos métodos de retrollamada JPA en <em>Pedido</em> para tener una propiedad persistente, <em>diasEntrega</em><em></em>, sincronizada con una calculada, <em>diasEntregaEstimados</em>. La propiedad <em>diasEntrega</em> sólo se muestra en modo lista.<br>
         Ve a la clase <i>PruebaPedido</i> y añade un nuevo método <i>testDiasEntrega()</i>:<br>
-        <pre><code class="java">public void testDiasEntrega() throws Exception {
+        <pre><code class="language-java">public void testDiasEntrega() throws Exception {
     login("admin", "admin");
     assertListNotEmpty(); 
     execute("List.viewDetail", "row=0"); 
@@ -956,7 +956,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         <h3 id="toc17"><a name="Pruebas-JUnit-Probar-la-validacion-al-anadir-a-una-coleccion"></a>Probar la validación al añadir a una colección</h3>
         Recuerda que hemos refinado tu código para que el usuario no pueda asignar pedidos a una factura si los pedidos no están servidos. Después de esto, tu actual <em>testAnyadirPedidos()</em> de <em>PruebaFactura</em> puede fallar, porque trata de añadir el primer pedido y es posible que ese primer pedido no esté marcado como servido.<br>
         Modifiquemos la prueba para que funcione y también para comprobar la nueva funcionalidad de validación. Mira como:<br>
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
@@ -983,7 +983,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 }
 </code></pre> Hemos modificado la parte de la selección de pedidos a añadir, antes seleccionábamos el primero, no importaba si estaba servido o no. Ahora seleccionamos un pedido servido y otro no servido, de esta forma comprobamos que el pedido servido se añade y el no servido es rechazado.<br>
         La pieza que nos falta es la forma de seleccionar los pedidos. Esto es el trabajo del método <em>seleccionarPrimerPedidoConEntregadoIgual()</em>. Veámoslo:<br>
-        <pre><code class="java">private void seleccionarPrimerPedidoConEntregadoIgual(String valor) throws Exception {
+        <pre><code class="language-java">private void seleccionarPrimerPedidoConEntregadoIgual(String valor) throws Exception {
     int c = getListRowCount(); // El total de filas visualizadas en la lista
     for (int i = 0; i &lt; c; i++) {
         if (valor.equals(getValueInList(i, 12))) { // Obtenermos valor de la columna 'entregado'    
@@ -1002,7 +1002,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 
           class="wiki_link" href="validation_es.html#toc8">Validar al borrar con un método de retrollamada</a>. Allí modificamos la aplicación para impedir que un usuario borrara un pedido si éste tenía una factura asociada. Ahora probaremos este hecho.<br>
         Todo esto está en el <em>testPonerFactura()</em> de <i>PruebaPedido</i> mejorado que puedes ver a continuación:<br>
-        <pre><code class="java">public void testPonerFactura() throws Exception {
+        <pre><code class="language-java">public void testPonerFactura() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero"); // Establece el orden de la lista
@@ -1042,7 +1042,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 </code></pre> La prueba original solo buscaba una factura, ni siquiera intentaba grabar. Ahora, hemos añadido código al final para probar la grabación de un pedido marcado como servido y marcado como no servido, de esta forma comprobamos la validación. Después de eso, tratamos de borrar el pedido, el cual tiene una factura, así probamos también la validación al borrar. Antes de ejecutar esta prueba asegurate de que el primer pedido no esté entregado y no tenga factura.<br>
         <h3 id="toc19"><a name="Pruebas-JUnit-Probar-el-Bean-Validation-propio"></a>Probar el <em>Bean Validation</em> propio</h3>
         Solo nos queda probar tu <em>Bean Validation ISBN</em>, el cual usa un servicio REST para hacer la validación. Simplemente hemos de escribir una prueba que trate de asignar un ISBN incorrecto, uno inexistente y uno correcto a un producto, y ver que pasa. Para hacer esto añadamos un método <em>testValidarISBN()</em> a <em>PruebaProducto</em>.<br>
-        <pre><code class="java">public void testValidarISBN() throws Exception {
+        <pre><code class="language-java">public void testValidarISBN() throws Exception {
     login("admin", "admin");
  
     // Buscar producto1
@@ -1083,7 +1083,7 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
         <h3 id="toc21"><a name="Pruebas-JUnit-Probar-el-comportamiento-personalizado-para-borrar"></a>Probar el comportamiento personalizado para borrar</h3>
         No hemos de escribir una prueba para esto, porque el código actual de prueba ya comprueba esta funcionalidad de borrado. Generalmente, cuando cambias la implementación de cierta funcionalidad pero no su uso desde el punto de vista del usuario, como es nuestro caso, no necesitas añadir nuevas pruebas.<br>
         Ejecuta todas las prueba de tu aplicación y ajusta los detalles necesarios para que funcionen bien. Realmente, solo necesitarás cambiar “CRUD.delete” por “Facturacion.delete” y “CRUD.deleteSelected” por “Facturacion.deleteSelected” en algunas pruebas. El siguiente código resume los cambios que necesitas aplicar a tu código de pruebas.<br>
-        <pre><code class="java">// En el archivo PruebaCliente.java
+        <pre><code class="language-java">// En el archivo PruebaCliente.java
 public class PruebaCliente extends ModuleTestBase {
     ...
     public void testCrearLeerActualizarBorrar() throws Exception {
@@ -1143,7 +1143,7 @@ public class PruebaPedido extends PruebaDocumentoComercial {
           <li>Verificamos que las dos facturas restauradas están en la lista.</li>
         </ul>
         Puedes observar como empezamos en el módulo <em>Factura</em>. Además, seguramente te hayas dado cuenta de que la prueba para <em>Pedido</em> es exactamente igual. Por tanto, en vez de crear dos nuevas clases de prueba, <em>PruebaPapeleraPedido</em> y <em>PruebaPapeleraFactura</em>, simplemente añadiremos un método de prueba en la ya existente <em>PruebaDocumentoComercial</em>. Así, reutilizaremos el mismo código para probar <em>PedidoPapelera</em>, <em>PapeleraFactura</em> y la lógica personalizada de borrado. Añade el código del siguiente método <em>testPapelera()</em> a <em>PruebaDocumentoComercial</em>:<br>
-        <pre><code class="java">public void testPapelera() throws Exception {
+        <pre><code class="language-java">public void testPapelera() throws Exception {
     login("admin", "admin");
     confirmarSoloUnaPaginaEnLista(); // Sólo una página en la lista, es decir menos de 10 filas
  
@@ -1196,14 +1196,14 @@ public class PruebaPedido extends PruebaDocumentoComercial {
 }
 </code></pre> Como ves <em>testPapelera()</em> sigue los susodichos pasos. Fíjate como usando el método <i>changeModule()</i> de <i>ModuleTestBase</i> tu prueba puede cambiar a otro módulo. Usamos esto para cambiar al módulo papelera y volver atrás.<br>
         Aquí estamos utilizando algunos métodos auxiliares que has de añadir a <em>PruebaDocumentoComercial</em>. El primero es <em>confirmarSoloUnaPaginaEnLista()</em> que confirma que el modo lista es apropiado para ejecutar esta prueba. Mira su código:<br>
-        <pre><code class="java">private void confirmarSoloUnaPaginaEnLista() throws Exception {
+        <pre><code class="language-java">private void confirmarSoloUnaPaginaEnLista() throws Exception {
     assertListNotEmpty(); // De ModuleTestBase
     assertTrue("Debe tener menos de 10 filas para ejecutar esta prueba",
         getListRowCount() &lt; 10);
 }
 </code></pre> Necesitamos tener menos de 10 filas, porque el método <i>getListRowCount()</i> informa solo de las filas visualizadas, por tanto si tienes más de 10 filas (10 es el número de filas por página por defecto) no puedes aprovechar <i>getListRowCount()</i>, ya que siempre devolvería 10.<br>
         Los métodos restantes son para verificar que cierto pedido o factura está (o no está) en la lista. Míralos a continuación:<br>
-        <pre><code class="java">private void confirmarDocumentoNoEstaEnLista(String anyo, String numero)
+        <pre><code class="language-java">private void confirmarDocumentoNoEstaEnLista(String anyo, String numero)
     throws Exception
 {
     assertTrue(
@@ -1244,7 +1244,7 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
 
           title="business-logic-behavior_es010.png"><br>
         Ahora vamos a escribir la prueba para verificar que funciona justo de esta forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
-        <pre><code class="java">public void testCrearFacturaDesdePedido() throws Exception {
+        <pre><code class="language-java">public void testCrearFacturaDesdePedido() throws Exception {
     login("admin", "admin");
     
     // Buscar el pedido
@@ -1280,7 +1280,7 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
         Para ejecutarla es necesario escoger un pedido susceptible de ser facturado. Esto se hace en el método <i>buscarPedidoSusceptibleDeSerFacturado()</i> que vamos a examinar en la siguiente sección.
         <h3><a name="buscar-una-entidad-para-la-prueba-usando-el-modo-lista-y-jpa"></a>Buscar una entidad para la prueba usando el modo lista y JPA</h3>
         Para seleccionar un pedido adecuado para nuestra prueba usaremos JPA para determinar el año y número de ese pedido, y entonces usaremos el modo lista para seleccionar este pedido y editarlo en modo detalle. Aquí tienes los métodos para implementar esto:
-        <pre><code class="java">private void buscarPedidoSusceptibleDeSerFacturado() throws Exception {
+        <pre><code class="language-java">private void buscarPedidoSusceptibleDeSerFacturado() throws Exception {
     buscarPedidoUsandoLista("entregado = true and factura = null"); // Envía la condición,
 }                            // en este caso buscamos por un pedido entregado y sin factura
 
@@ -1307,7 +1307,7 @@ private Pedido buscarPedido(String condicion) {
     return pedidos.get(0);
 }
 </code></pre>Además necesitas añadir los siguiente imports a <i>PruebaPedido</i> para que te compile:
-        <pre><code class="java">import java.util.*;
+        <pre><code class="language-java">import java.util.*;
 import javax.persistence.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
@@ -1316,7 +1316,7 @@ import com.tuempresa.facturacion.modelo.*;
         Como puedes ver, combinar el modo lista con JPA es una herramienta muy útil en ciertas circunstancias. Usaremos los métodos <i>buscarPedidoUsandoLista()</i> y <i>buscarPedido()</i> en las siguientes pruebas.
         <h3><a name="probar-que-la-accion-se-oculta-cuando-no-aplica"></a>Probar que la acción se oculta cuando no aplica</h3>
         Recuerda que refinamos el módulo <i>Pedido</i> para que mostrara la acción para crear la factura sólo cuando el pedido visualizado fuese susceptible de ser facturado. Éste es el método de prueba para este caso, añádelo a <i>PruebaPedido</i>:
-        <pre><code class="java">public void testOcultaCrearFacturaDesdePedidoCuandoNoAplicable() throws Exception {
+        <pre><code class="language-java">public void testOcultaCrearFacturaDesdePedidoCuandoNoAplicable() throws Exception {
     login("admin", "admin");
     buscarPedidoUsandoLista(
         "entregado = true and factura &lt;&gt; null"); // Si el pedido ya tiene factura
@@ -1336,7 +1336,7 @@ import com.tuempresa.facturacion.modelo.*;
 
           title="business-logic-behavior_es030.png"><br>
         Escribamos una prueba para verificar que esto funciona justo de esta forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i> a la clase <i> PruebaPedido</i>:
-        <pre><code class="java">public void testCrearFacturaDesdePedidosSeleccionados() throws Exception {
+        <pre><code class="language-java">public void testCrearFacturaDesdePedidosSeleccionados() throws Exception {
     login("admin", "admin");
     verificarPedido(2021, 2, 1, "45.98"); // El pedido 2021/2 tiene 1 línea y 45,98 de importe base
     verificarPedido(2021, 4, 2, "98.01"); // El pedido 2021/4 tiene 2 líneas y 98,01 de importe base
@@ -1381,7 +1381,7 @@ import com.tuempresa.facturacion.modelo.*;
 }
 </code></pre> Esta prueba marca dos pedidos (1) y pulsa en el botón CREAR FACTURA DESDE LOS PEDIDOS SELECCIONADOS (2). Entonces verifica que se ha creado una nueva factura con el número correcto de líneas (3), importe total (4) y lista de pedidos (5). También verifica que las acciones GRABAR y CERRAR están disponibles (6) y usa el botón CERRAR para volver a la lista de pedidos (7).<br>
         Usamos <i>getFilaDocumentoEnLista()</i> y <i>confirmarDocumentoEstaEnLista()</i>, métodos de la clase base <i>PruebaDocumentoComercial</i>, que fueron definidos originalmente como privados, por lo tanto tenemos que redefinirlos como protegidos para poder utilizarlos desde <i>PruebaPedido</i>. Edita <i>PruebaDocumentoComercial</i> y haz los siguientes cambios:
-        <pre><code class="java">protected void confirmarDocumentoEstaEnLista(String anyo, String numero) ... // protected en lugar
+        <pre><code class="language-java">protected void confirmarDocumentoEstaEnLista(String anyo, String numero) ... // protected en lugar
 // private void confirmarDocumentoEstaEnLista(String anyo, String numero) ... // de private
 
 protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protected en lugar
@@ -1389,7 +1389,7 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
 </code></pre> El único detalle pendiente es el método <i>verificarPedido()</i> que veremos en la siguiente sección.
         <h3><a name="verificar-datos-de-prueba"></a>Verificar datos de prueba</h3>
         En la lección sobre pruebas automáticas aprendiste como confiar en datos existentes en la base de datos para tus pruebas. Obviamente, si tu base de datos se altera accidentalmente tus pruebas, aunque correctas, no pasarán. Por tanto, verificar los valores de la base de datos antes de ejecutar la prueba que confía en ellos es una buena práctica. En nuestro ejemplo lo hacemos llamando a <i>verificarPedido()</i> al principio. Veamos el contenido de <i>verificarPedido()</i> en <i>PruebaPedido</i>:
-        <pre><code class="java">private void verificarPedido(
+        <pre><code class="language-java">private void verificarPedido(
     int anyo, int numero, int cantidadDetalles, String importeTotal)
 {
     Pedido pedido = buscarPedido("anyo = " + anyo + " and numero=" + numero);
@@ -1405,7 +1405,7 @@ protected int getFilaDocumentoEnLista(String anyo, String numero) ... // protect
 </code></pre> Este método busca un pedido y verifica la cantidad de líneas, el importe total y si el pedido está entregado. Usar este método tiene la ventaja de que si los pedidos necesarios para la prueba no están en la base de datos con los valores correctos obtienes un mensaje preciso. Así, no derrocharás tu tiempo intentando adivinar que es lo que está mal. Esto es especialmente útil si la prueba no la está ejecutando el programador original. Por cierto, si te resulta dificil adaptar tus pedidos para que se ajusten a esta prueba (número de pedido, importe, número de líneas), puedes adaptar los valores en la prueba a tus pedidos actuales.<br>
         <h3><a name="probar-casos-excepcionales"></a>Probar casos excepcionales</h3>
         Dado que la acción para crear la factura se oculta si el pedido no está listo para ser facturado, no podemos probar el código para los casos excepcionales desde modo detalle. Sin embargo, en modo lista el usuario todavía tiene la opción de escoger cualquier pedido para facturar. Por tanto, intentaremos crear la factura desde la lista de pedidos para probar que los casos excepcionales se comportan correctamente. Añade el siguiente código a <i>PruebaPedido</i>:
-        <pre><code class="java">public void testExcepcionesCreandoFacturaDesdePedido() throws Exception {
+        <pre><code class="language-java">public void testExcepcionesCreandoFacturaDesdePedido() throws Exception {
     login("admin", "admin");
     confirmarExcepcionCreandoFacturaDesdePedido( // Confirma que cuando el pedido ya tiene (1)
         "entregado = true and factura &lt;&gt; null", // factura se produce el error correcto
@@ -1439,7 +1439,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
       <div class="wiki" style="display: block;"> Todavía tenemos la sana costumbre de hacer un poco de código de aplicación, y después un poco de código de pruebas. Y ahora es el tiempo de escribir el código de pruebas para las nuevas características añadidas en la sección <i>Referencias y colecciones</i>.
         <h3><a name="adaptar-pruebapedido"></a>Adaptar <i>PruebaPedido</i></h3>
         Si ejecutaras <i>PruebaPedido</i> ahora, no pasaría. Esto es porque nuestro código confía en ciertos detalles que han cambiado. Por lo tanto, hemos de modificar nuestro código de pruebas actual. Edita el método <i> testPonerFactura()</i> de <i>PruebaPedido</i> y aplica los siguientes cambios:
-        <pre><code class="java">public void testPonerFactura() throws Exception {
+        <pre><code class="language-java">public void testPonerFactura() throws Exception {
 
     ...
 
@@ -1461,7 +1461,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
     assertNoErrors();
 }
 </code></pre> Recuerda que anotamos la referencia <i>factura</i> en <i>Pedido</i> con <i>@SearchAction("Pedido.buscarFactura")</i>, por tanto hemos de modificar la prueba para llamar a <i>Pedido.buscarFactura</i> (1) en vez de a <i>Reference.search</i>. También añadimos <i>@SearchKey</i> a <i>anyo</i> y <i>numero</i> de <i>CommercialDocument</i>, por lo tanto nuestra prueba ha de indicar <i>anyo</i> tanto como <i>numero</i> para obtener (o en este caso borrar) una factura (2). Por causa de esto último también hemos de modificar <i> testCrearFacturaDesdePedido()</i> de <i>PruebaPedido</i> como se muestra:
-        <pre><code class="java">public void testCrearFacturaDesdePedido() throws Exception {
+        <pre><code class="language-java">public void testCrearFacturaDesdePedido() throws Exception {
 
     ...
 
@@ -1476,7 +1476,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
 </code></pre> Después de estos cambios <i>PruebaPedido</i> tiene que pasar. Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Pedido</i>.
         <h3><a name="probar-searchaction"></a>Probar <i>@SearchAction</i></h3>
         Hemos usado <i>@SearchAction</i> en la referencia <i>factura</i> de <i>Pedido</i> para mostrar en la lista de búsqueda solo facturas del cliente del pedido actual. Añade el siguiente método a <i>PruebaPedido</i> para probar esta funcionalidad :
-        <pre><code class="java">public void testBuscarFacturaDesdePedido() throws Exception {
+        <pre><code class="language-java">public void testBuscarFacturaDesdePedido() throws Exception {
     login("admin", "admin");      
     execute("CRUD.new");
     setValue("cliente.numero", "1"); // Si el cliente es 1...
@@ -1493,7 +1493,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
     confirmarClienteEnTodasFilas("2"); // ...sólo se muestran las facturas del cliente 2
 }
 </code></pre> La parte más peliaguda es verificar la lista de facturas, este es el trabajo <i>confirmarClienteEnTodasFilas()</i> en <i>PruebaPedido</i>:<br>
-        <pre><code class="java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+        <pre><code class="language-java">private void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) { // Un bucle por todas las filas
@@ -1506,7 +1506,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
 </code></pre> Consiste en un bucle por todas la filas verificando el número de cliente.
         <h3><a name="probar-onchangesearch"></a>Probar <i>@OnChangeSearch</i></h3>
         Hemos usado <i>@OnChangeSearch</i> en la referencia <i>factura</i> de <i>Pedido</i> para asignar automáticamente el cliente de la factura escogida al pedido actual cuando el usuario todavía no tiene cliente, o para verificar que el cliente de la factura y del pedido coinciden, si el pedido ya tiene cliente. Aquí se muestra el método de prueba en <i>PruebaPedido</i>:
-        <pre><code class="java">public void testAlCambiarFactura() throws Exception {
+        <pre><code class="language-java">public void testAlCambiarFactura() throws Exception {
     login("admin", "admin");
     execute("CRUD.new"); // Estamos creando un nuevo pedido
     assertValue("cliente.numero", ""); // por tanto no tiene cliente todavía
@@ -1545,7 +1545,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
 </code></pre> Aquí probamos que nuestra acción <i>@OnChangeSearch</i> rellene los datos del cliente (3) al escoger una factura (2), y que si el cliente ya está establecido se muestre un mensaje de error (4) y la factura se borre de la vista (5). Fíjate como la primera vez usamos la lista (1) para escoger la factura y la segunda lo hacemos tecleando el año y el número (3).
         <h3><a name="adaptar-pruebafactura"></a>Adaptar <i>PruebaFactura</i></h3>
         Como en el caso de <i>PruebaPedido</i>,<i> PruebaFactura</i> también falla. Has de hacer unos pequeños ajustes para que funcione. Edita <i>testAnyadirPedidos()</i> de <i>PruebaFactura</i> y aplica los siguiente cambios:
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
@@ -1569,14 +1569,14 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
     assertCollectionRowCount("pedidos", 0);
 }
 </code></pre> Ya no necesitamos el método <i>seleccionarPrimerPedidoConEntregadoIgual()</i>, por tanto podemos quitarlo de <i>PruebaFactura</i>:
-        <pre><code class="java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
+        <pre><code class="language-java">// Quita seleccionarPrimerPedidoConEntregadoIgual() de PruebaFactura
 // private void seleccionarPrimerPedidoConEntregadoIgual(String valor)
 // throws Exception { ... }
 </code></pre> Después de estos cambios <i>PruebaFactura</i> ha de funcionar. Sin embargo, todavía nos queda probar la nueva funcionalidad del módulo <i>Factura</i>.
         <h3><a name="probar-addaction"></a>Probar <i>@AddAction</i></h3>
         En esta lección anotamos la colección <i>pedidos</i> de <i>Factura</i> con <i>@AddAction</i> para refinar la lista de pedidos a ser añadidos a la colección. De esta forma solo los pedidos entregados del cliente de la factura actual y todavía sin facturar se mostraban. Vamos a probar esto, y al mismo tiempo, aprenderemos como refactorizar el código existente para poder reutilizarlo.&nbsp; <br>
         Primero queremos verificar que la lista para añadir pedidos solo contiene pedidos del cliente actual. El siguiente código muestra los cambios en <i> testAnyadirPedidos()</i> para conseguir esto:
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
@@ -1592,7 +1592,7 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
 
 }
 </code></pre> Ahora hemos de escribir el método <i>confirmarClienteEnTodasFilas()</i>. Pero, espera un momento, ya hemos escrito este método en <i>PruebaPedido</i>. Estamos en <i>PruebaFactura</i> por tanto no podemos llamar a este método. Por fortuna tanto <i>PruebaFactura</i> como <i>PruebaPedido</i> heredan de <i> PruebaDocumentoComercial</i>, por lo tanto sólo tenemos que subir el método a la clase madre. Para hacer esto copia el método <i>confirmarClienteEnTodasFilas()</i> desde <i> PruebaPedido</i> a <i>PruebaDocumentoComercial</i>, cambiando <i>private</i> por <i>protected</i>, tal como se muestra:
-        <pre><code class="java">abstract public class PruebaDocumentoComercial extends ModuleTestBase {
+        <pre><code class="language-java">abstract public class PruebaDocumentoComercial extends ModuleTestBase {
 
     protected void // Cambiamos de private a protected
         confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
@@ -1605,11 +1605,11 @@ private void confirmarExcepcionCreandoFacturaDesdePedido(
 	
 }
 </code></pre> Ahora puedes quitar el método <i>confirmarClienteEnTodasFilas()</i> de <i>PruebaPedido</i>:
-        <pre><code class="java">// Quita confirmarClienteEnTodasFilas() de PruebaPedido
+        <pre><code class="language-java">// Quita confirmarClienteEnTodasFilas() de PruebaPedido
 // private void confirmarClienteEnTodasFilas(String numeroCliente)
 //     throws Exception { ... }
 </code></pre> Después de estos cambios el método <i>testAnyadirPedidos()</i> compila y funciona. No solo queremos comprobar que la lista de pedidos son del cliente correcto, sino también que están entregados. Nuestro primer impulso es copiar y pegar <i>confirmarClienteEnTodasFilas()</i> para crear un método <i>confirmarEntregadoEnTodasFilas()</i>. Sin embargo, resistimos la tentación, y en vez de eso vamos a crear un método reutilizable. Primero, copiamos y pegamos <i>confirmarClienteEnTodasFilas()</i> como <i>confirmarValorEnTodasFilas()</i>. Aquí puedes ver estos dos métodos en <i>PruebaDocumentoComercial</i>:
-        <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+        <pre><code class="language-java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
     assertListNotEmpty();
     int c = getListRowCount();
     for (int i=0; i&lt;c; i++) { 
@@ -1634,11 +1634,11 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
     }
 }
 </code></pre> Puedes ver como con unas ligeras modificaciones hemos convertido en un método genérico para preguntar por el valor de cualquier columna, no solo por la del número de cliente. Ahora hemos de quitar el código redundante, puedes, bien quitar <i>confirmarClienteEnTodasFilas()</i> o bien reimplementarlo usando el nuevo método. El siguiente código en <i>PruebaDocumentoComercial</i> muestra la última opción:<br>
-        <pre><code class="java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
+        <pre><code class="language-java">protected void confirmarClienteEnTodasFilas(String numeroCliente) throws Exception {
     confirmarValorEnTodasFilas(3, numeroCliente); // Número de cliente está en la columna 3
 }
 </code></pre> Usemos <i>confirmarValorEnTodasFilas()</i> para verificar que la lista de pedidos contiene solo pedidos entregados. El siguiente código muestra la modificación necesaria en <i>testAnyadirPedidos()</i> de <i>PruebaFactura</i>.
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
@@ -1655,7 +1655,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 	
 }
 </code></pre> Además, queremos que solo los pedidos sin factura se muestren en la lista. Una forma sencilla de hacerlo es verificando que después de añadir un pedido a la factura actual, la lista de pedidos tenga una entrada menos. El siguiente código muestra los cambios necesarios en <i> testAnyadirPedidos()</i> de <i>PruebaFactura</i> para hacer esto:
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
 
     ...
 
@@ -1676,7 +1676,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 </code></pre> Con el código de esta sección hemos probado la <i>@AddAction</i> de la colección <i> pedidos</i>, y al mismo tiempo hemos visto como no es necesario crear código genérico desde el principio, porque no es difícil convertir el código concreto en genérico bajo demanda.
         <h3><a name="probar-la-accion-para-anadir-elementos-a-la-coleccion"></a>Probar la acción para añadir elementos a la colección</h3>
         En esta lección también aprendimos como refinar la acción para añadir pedidos a la factura, ahora es el momento de escribir su correspondiente código de prueba. Recuerda que esta acción copia las líneas de los pedidos seleccionados a la factura actual. El siguiente código muestra los cambios en <i> testAnyadirPedidos()</i> de <i>PruebaFactura</i> para probar nuestra acción personalizada para añadir pedidos:
-        <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+        <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
 
     ...
 
@@ -1711,7 +1711,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
 }</code>
 </pre>Primero, Verificamos que la factura para esta prueba no tiene detalles (1), después añadimos un pedido (2), tomando nota de su importe total (3), entonces verificamos que la factura actual tiene detalles (4) y que su importe total es el mismo que el del pedido añadido (5), por último borramos las filas que tiene detalles (6). Agregamos el siguiente código en la misma clase de PruebaFactura:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">protected void eliminarFilas() throws Exception {
+        <pre><code class="language-java">protected void eliminarFilas() throws Exception {
   // contamos la cantidad de filas que hay en la tabla, para este ejemplo debemos tener menos de 100 elementos en la tabla
   int contador = getHtmlPage().getElementById("ox_facturacion_Factura__detalles") // (1)
   .getChildElements().iterator().next().getChildElementCount()-7; //(2)
@@ -1731,7 +1731,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
       <div class="wiki" style="display: block;">Vamos a iterar la cantidad de veces como sea necesario usando el <i>contador</i>, pero esta vez pasaremos como parámetro el id de la primera fila <i>"ox_facturacion_Factura__detalles___0"</i> (3), el 0 es la enumeración de la fila pero como dijimos recién, al eliminar una fila, la de abajo sube, entonces basta con eliminar siempre la primera fila. Luego llegaremos al elemento donde tenga la funcion del botón (4) y es allí donde paramos y le haremos click (5).</div>
       <div class="wiki" style="display: block;">El método <i>testAnyadirPedidos()</i> está acabado. Éste es su código definitivo:
         <div class="wiki" style="display: block;">
-          <pre><code class="java">public void testAnyadirPedidos() throws Exception {
+          <pre><code class="language-java">public void testAnyadirPedidos() throws Exception {
     login("admin", "admin");
     assertListNotEmpty();
     execute("List.orderBy", "property=numero");
@@ -1778,7 +1778,7 @@ protected void confirmarValorEnTodasFilas(int columna, String valor) throws Exce
         La clase <em>ModuleTestBase</em> ha sido mejorada para soportar tanto el estilo JUnit 3 como JUnit 4, por lo que puedes migrar tus pruebas gradualmente. Aquí tienes un ejemplo de una prueba escrita en estilo JUnit 4:
       </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.facturacion.pruebas;
+        <pre><code class="language-java">package com.tuempresa.facturacion.pruebas;
 
 import org.junit.*;
 import org.openxava.tests.*;

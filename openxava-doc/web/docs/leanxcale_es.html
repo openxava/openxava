@@ -65,7 +65,7 @@
 
         title="getting-started_es130.png"><br>
       Copia el código siguiente en <i>Cliente</i>:
-      <pre><code class="java">package com.tuempresa.leanxcale.modelo;
+      <pre><code class="language-java">package com.tuempresa.leanxcale.modelo;
 import javax.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
@@ -85,7 +85,7 @@ public class Cliente {
 }</code></pre>
       <h3 id="toc6"><a name="configurar-openxava-para-leanxcale"></a>Configurar OpenXava para LeanXcale</h3>
       Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí añade las siguientes dependencias dentro de <i>&lt;dependencies&gt;</i>:
-      <pre><code class="xml">&lt;dependency&gt;
+      <pre><code class="language-xml">&lt;dependency&gt;
 	&lt;groupId&gt;com.leanxcale&lt;/groupId&gt;
 	&lt;artifactId&gt;qe-driver&lt;/artifactId&gt;
 	&lt;version&gt;1.9.4&lt;/version&gt;
@@ -97,7 +97,7 @@ public class Cliente {
 	&lt;version&gt;1.9.4&lt;/version&gt;
 &lt;/dependency&gt;<br></code></pre>
       En el mismo archivo añade el siguiente repositorio en <i>&lt;repositories&gt;</i>:
-      <pre><code class="xml">&lt;repository&gt;
+      <pre><code class="language-xml">&lt;repository&gt;
 	&lt;id&gt;maven-releases&lt;/id&gt;
 	&lt;url&gt;https://nexus.leanxcale.com/repository/maven-releases&lt;/url&gt;
 &lt;/repository&gt;</code></pre>
@@ -106,7 +106,7 @@ public class Cliente {
 
         title="leanxcale-configuration_es50.png">&nbsp; </div>
     <div class="wiki" style="display: block;"> Faltaría agregar una propiedad en <i>persistence.xml</i> ubicado en la carpeta <i>src/main/resources/META-INF</i>: <br>
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
       &lt;!-- ... --&gt;
       &lt;property name="hibernate.dialect" value="com.leanxcale.connector.hibernate.LxDialect"/&gt;
       &lt;property name="hibernate.globally_quoted_identifiers" value="true"/&gt;<br>&lt;/properties&gt;</code></pre>
@@ -118,7 +118,7 @@ public class Cliente {
 
         title="leanxcale-configuration_es70.png"><br>
       Luego edita el archivo <i>context.xml</i> ubicado en <i>src/main/webapp/MEFA-INF</i>:
-      <pre><code class="xml">&lt;Resource name="jdbc/facturacionDS" auth="Container" type="javax.sql.DataSource"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/facturacionDS" auth="Container" type="javax.sql.DataSource"
 	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	  username="app" password="app" 
 	  driverClassName="com.leanxcale.client.Driver"

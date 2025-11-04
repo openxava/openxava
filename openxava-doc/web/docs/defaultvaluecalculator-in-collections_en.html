@@ -110,7 +110,7 @@
 
           title="business-logic_en020.png"><br>
         The logic to calculate the initial value will be in <em>PricePerUnitCalculator</em>. It simply reads the price from the product. See the next code for this calculator:<br>
-        <pre><code class="java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
+        <pre><code class="language-java">package com.yourcompany.invoicing.calculators; // In 'calculators' package
 
 import org.openxava.calculators.*;
 import com.yourcompany.invoicing.model.*;
@@ -133,7 +133,7 @@ public class PricePerUnitCalculator implements ICalculator {
 </code></pre>
         <div class="wiki" style="display: block;">Then we add the property <em>pricePerUnit</em>. Add the next code to your <em>Detail</em> class:<br>
         </div>
-        <pre><code class="java">@DefaultValueCalculator(
+        <pre><code class="language-java">@DefaultValueCalculator(
     value=PricePerUnitCalculator.class, // This class calculates the initial value
     properties=@PropertyValue(
         name="productNumber", // The productNumber property of the calculator...
@@ -143,7 +143,7 @@ public class PricePerUnitCalculator implements ICalculator {
 BigDecimal pricePerUnit; // A regular persistent property
 </code></pre><em></em>In this way when the user chooses a product the price per unit field is filled with the price of that product but because it's a persistent property, the user can change it. And if in the future the price of the product changes this price per unit of the detail will not change.<br>
         This means that you have to adapt your amount calculated property:<br>
-        <pre><code class="java">@Money
+        <pre><code class="language-java">@Money
 @Depends("pricePerUnit, quantity") // pricePerUnit instead of product.number
 public BigDecimal getAmount() {
     if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit instead of product and product.getPrice()
@@ -151,7 +151,7 @@ public BigDecimal getAmount() {
 }
 </code></pre> The <em>getAmount()</em> method uses <em>pricePerUnit</em> as source instead of <em>product.price</em>.<br>
         Finally, we have to edit the <em>CommercialDocument</em> entity and modify the list of properties to show in the collection to show the new property:<br>
-        <pre><code class="java">@ElementCollection
+        <pre><code class="language-java">@ElementCollection
 @ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit added
 Collection&lt;Detail&gt; details;
 </code></pre> Try the <em>Order</em> and <em>Invoice</em> modules and observe the new behavior when adding details.</div>

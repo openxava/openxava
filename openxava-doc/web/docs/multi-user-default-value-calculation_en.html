@@ -114,7 +114,7 @@
       Until now we were calculating the <em>Invoice</em> and <em>Order</em> number using <em>@DefaultValueCalculator</em>. This calculates the default value when the user clicks to create a new <em>Invoice</em> or <em>Order</em>. So, if several users click on the <i>New</i> button at the same time all of them get the same number. This is not multiuser safe. The way to generate a unique number is by generating it just on save.<br>
       We are going to implement it using a JPA callback method. JPA allows you to mark any method of your class to be executed in any part of its life cycle. We'll indicate the calculation of the number just before the saving of the <em>CommercialDocument</em>. Using this approach we'll improve the number calculation for having a different numeration for <em>Order</em> and <em>Invoice</em>.<br>
       Edit the <em>CommercialDocument</em> entity and add the <em>calculateNumber()</em> method:<br>
-      <pre><code class="java">@PrePersist // Executed just before saving the object for the first time
+      <pre><code class="language-java">@PrePersist // Executed just before saving the object for the first time
 private void calculateNumber() throws Exception {
     Query query = XPersistence.getManager()
         .createQuery("select max(i.number) from " +
@@ -128,7 +128,7 @@ private void calculateNumber() throws Exception {
     <div class="wiki" style="display: block;">This code is the same as that of the <em>NextNumberForYearCalculator</em> but using <em>getClass().getSimpleName()</em> instead of “CommercialDocument”. The <em>getSimpleName()</em> method returns the name of the class without the package, i.e., just the entity name. It will be “Order” for <em>Order</em> and “Invoice” for <em>Invoice</em>. Thus we can get a different numeration for <em>Order</em> and <em>Invoice</em>.<br>
       JPA specification states that you should not use JPA API inside a JPA callback method. So the above method is not legal from a strict JPA viewpoint. But, Hibernate (the JPA implementation OpenXava uses by default) allows you to use it in <em>@PrePersist</em>. And since JPA is the easier way to do this calculation we use it in our practice.<br>
       Now you can delete the <em>NextNumberForYearCalculator</em> class from your project, and modify the number property of <em>CommercialDocument</em> to avoid using it:<br>
-      <pre><code class="java">@Column(length=6)
+      <pre><code class="language-java">@Column(length=6)
 // @DefaultValueCalculator(value=NextNumberForYearCalculator.class, // Remove this
 //     properties=@PropertyValue(name="year")
 // )

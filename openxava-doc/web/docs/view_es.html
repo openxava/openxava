@@ -2845,7 +2845,7 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"I
   en lugar de uno debajo del otro, si lo deseamos. Es decir, es posible disponer
   dos marcos en una misma fila. Para esto sólo tenemos que separarlos con coma en
    lugar de punto y coma, como se puede ver en este ejemplo:</p>
-  <pre><code class="java">@View( members= 
+  <pre><code class="language-java">@View( members= 
     "nombre;" +  
     "comercial, comercialAlternativo"
 )</code></pre>
@@ -2859,7 +2859,7 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"I
   como propiedades o referencia con <i>@DescriptionsList</i> y miembros que usen marcos como referencia,
   grupos y colecciones. En caso de declarlo así en <i>@View</i>, OpenXava mostrará los marcos en su propia línea.</p>  
 <p>Por ejemplo, si tenemos este código:</p>  
-<pre><code class="java">@View( members="nombre, comercial" )</code></pre>
+<pre><code class="language-java">@View( members="nombre, comercial" )</code></pre>
 <p>Donde indicamos que <i>nombre</i>, que es una propiedad plana, y <i>comercial</i>, que es una referencia, 
   se visualicen uno al lado del otro, ya que los separamos por coma. Al visualizarlo, 
   OpenXava acaba haciéndolo así:</p>
@@ -8171,7 +8171,7 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
       con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
       de esta forma:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@LargeDisplay 
+      <pre><code class="language-java">@LargeDisplay 
 int anyo;
 
 @Money @LargeDisplay 
@@ -8189,7 +8189,7 @@ BigDecimal descuento;
       especificar nosotros que sufijo o prefijo queremos, con los atributos <i>prefix</i>
       y <i>suffix</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@LargeDisplay(prefix="€") 
+      <pre><code class="language-java">@LargeDisplay(prefix="€") 
 BigDecimal sumaImportes;
 
 @LargeDisplay(suffix="%", icon="label-percent-outline") 
@@ -10080,7 +10080,7 @@ class="br0">)</span> <span class="co1">// ${this.} Nuevo en v7.4</span>
       de las colecciones <b>no funciona</b> con las referencias, por lo que no
       podemos definir un comportamiento propio para la acción de creación en una
       referencia concreta. Es decir, esto no se puede hacer:</div>
-    <pre><code class="java">// @NewAction("Transportista.crearAlmacen")  // NO PERMITIDO
+    <pre><code class="language-java">// @NewAction("Transportista.crearAlmacen")  // NO PERMITIDO
 @ManyToOne
 Almacen almacenPrincipal;
 </code></pre>
@@ -10097,7 +10097,7 @@ Almacen almacenPrincipal;
         ClienteCreation, ProductoCreation</i>, etc). Si OpenXava ve que existe
       un controlador así lo usa en vez del de por defecto para permitir crear un
       nuevo objeto desde una referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
-      <pre><code class="xml">&lt;!--
+      <pre><code class="language-xml">&lt;!--
 Dado que su nombre es AlmacenCreation (nombre modelo + Creation) es usado
 por defecto para crear desde referencia, en lugar de NewCreation.
 La acción 'new' se ejecuta automáticamente.
@@ -10118,7 +10118,7 @@ La acción 'new' se ejecuta automáticamente.
       necesitamos. La definimos como oculta, para que no se muestre como un
       botón al usuario. Este sería un ejemplo de implementación:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.acciones;
+      <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
@@ -10142,7 +10142,7 @@ public class CrearNuevoAlmacenDesdeReferencia extends NewAction {
       el botón <i>Crear</i> del diálogo. Esto sería un ejemplo de
       implementación:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.acciones;
+      <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
@@ -10183,7 +10183,7 @@ public class GuardarNuevoAlmacenDesdeReferencia extends SaveNewAction {
         no podemos definir un comportamiento propio para la acción de
         modificación en una referencia concreta. Es decir, esto no se puede
         hacer:</div>
-      <pre><code class="java">// @EditAction("Transportista.modificarAlmacen")  // NO PERMITIDO
+      <pre><code class="language-java">// @EditAction("Transportista.modificarAlmacen")  // NO PERMITIDO
 @ManyToOne
 Almacen almacenPrincipal;
 </code></pre>
@@ -10202,7 +10202,7 @@ Almacen almacenPrincipal;
         etc). Si OpenXava ve que existe un controlador así lo usa en vez del de
         por defecto para permitir modificar un objeto existente desde una
         referencia. Por ejemplo, podemos poner en nuestro <em>controladores.xml</em>:<br>
-        <pre><code class="xml">&lt;!-- 
+        <pre><code class="language-xml">&lt;!-- 
 Dado que su nombre es AlmacenModification (nombre modelo + Modification) es usado
 por defecto para modificar desde referencia, en lugar de Modification.
 La acción 'search' se ejecuta automáticamente.
@@ -10223,7 +10223,7 @@ La acción 'search' se ejecuta automáticamente.
         si lo necesitamos. La definimos como oculta, para que no se muestre como
         un botón al usuario. Este sería un ejemplo de implementación:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.acciones;
+        <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
@@ -10247,7 +10247,7 @@ public class ModificarAlmacenDesdeReferencia extends SearchByViewKeyAction {
         pulsar el botón <i>Actualizar</i> del diálogo. Esto sería un ejemplo de
         implementación:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.acciones;
+        <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
@@ -10969,7 +10969,7 @@ class="br0">)</span> @NoCreate <span class="co1">// 2</span>
         poner un ? por cada valor de la clave. Es decir, si tienes una entidad <i>Almacen</i>
         como esta:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@Entity @Getter @Setter
+        <pre><code class="language-java">@Entity @Getter @Setter
 @IdClass(AlmacenKey.class)
 public class Almacen {
 
@@ -10988,7 +10988,7 @@ public class Almacen {
         incluye <i>codigoZona</i> y <i>codigo</i>. Y en otra entidad tienes
         dos <i>@DescriptionsLists</i> como estos:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@ManyToOne
+        <pre><code class="language-java">@ManyToOne
 @DescriptionsList
 Warehouse almacenPrincipal;
 	
@@ -11010,7 +11010,7 @@ Carrier transportistaDefecto;
         sólo para clave múltiples, sino también para referencias con clave
         simple, mira:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@DescriptionsList(
+        <pre><code class="language-java">@DescriptionsList(
     depends="familia", 
     // condition="${familia.codigo} = ?" // Forma clásica
     condition="${familia} = ?" // A partir de v6.6.3
@@ -19369,12 +19369,12 @@ class="br0">)</span></pre>
       la colección como valores totales. Es decir, si definimos una de esta
       manera:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ListProperties("fechaEntrega[factura.fechaEntrega], cantidad, importe[factura.sumaImportes, factura.iva, factura.total]")
+      <pre><code class="language-java">@ListProperties("fechaEntrega[factura.fechaEntrega], cantidad, importe[factura.sumaImportes, factura.iva, factura.total]")
 </code></pre> </div>
     <div class="wiki" style="display: block;">Que incluyendo el código de las
       propiedades de total sería:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class Factura {
+      <pre><code class="language-java">public class Factura {
 
     ...
 	
@@ -19624,7 +19624,7 @@ class="br0">)</span></pre>
       también son persistente pero con <i>@Calculation</i> y <i>@ReadOnly</i>
       (no editable). Este es el código completo:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class CosteTrabajo  {
+      <pre><code class="language-java">public class CosteTrabajo  {
 
     ...
     
@@ -20281,7 +20281,7 @@ class="st0">"roles"</span>/<span class="sy0">&gt;</span>
       ellos hay que anotar la colección con <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"><i>@Chart</i></a>,
       de esta manera:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@OneToMany(mappedBy="empresa")
+      <pre><code class="language-java">@OneToMany(mappedBy="empresa")
 @Chart
 Collection&lt;Empleado&gt; empleados;
 </code></pre> </div>
@@ -20300,7 +20300,7 @@ Collection&lt;Empleado&gt; empleados;
       propiedades usando los atributos <i>labelProperties</i> y <i>dataProperties</i>
       de <i>@Chart</i>, de esta forma:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@OneToMany(mappedBy="empresa")
+      <pre><code class="language-java">@OneToMany(mappedBy="empresa")
 @Chart(labelProperties="nombre, apellidos", dataProperties="salario")
 Collection&lt;Empleado&gt; empleados;
 </code></pre> </div>
@@ -20332,7 +20332,7 @@ Collection&lt;Empleado&gt; empleados;
       entidades). Por lo tanto, normalmente es mejor usar una clase auxiliar
       para mostrar datos agregados o de resumen. Aquí hay un ejemplo: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Chart(type = ChartType.PIE)
+      <pre><code class="language-java">@Chart(type = ChartType.PIE)
 public Collection&lt;Proporcion&gt; getProporcionEmpleadosExternos() { 
     EntityManager em = XPersistence.getManager();
     
@@ -20364,7 +20364,7 @@ public Collection&lt;Proporcion&gt; getProporcionEmpleadosExternos() {
       clase simple que representa una proporción con una descripción y un valor:
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Data
+      <pre><code class="language-java">@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Proporcion {
@@ -20387,7 +20387,7 @@ public class Proporcion {
       paginación, sin ordenación, etc. Es decir, si anotamos nuestra colección
       con <i>@SimpleList</i>, de esta manera:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@OneToMany(mappedBy="padre")
+        <pre><code class="language-java">@OneToMany(mappedBy="padre")
 @SimpleList
 Collection&lt;RotacionPersonal&gt; rotacionPorAnyo;
 </code></pre> </div>

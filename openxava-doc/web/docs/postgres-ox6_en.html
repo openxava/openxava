@@ -71,7 +71,7 @@
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
       to adjust the datasource to point to PostgreSQL, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -91,7 +91,7 @@
       However, you have to modify the <i>junit</i> persistence unit to point to
       PostgreSQL. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit PostgreSQL --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit PostgreSQL --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

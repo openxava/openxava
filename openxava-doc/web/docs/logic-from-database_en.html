@@ -96,7 +96,7 @@
       If you don't like videos follow the instructions below.
       <h2 id="toc9"><a name="Lesson 5: Basic business logic-Database logic (@Formula)"></a>Database logic (<em>@Formula</em>)</h2>
       Another alternative to <i>@Calculation</i> or having calculated/persistent properties synchronized is the <em>@Formula</em> annotation. <em>@Formula</em> is a Hibernate extension to the JPA standard, that allows you to map a property to a SQL statement. For example, you can define <em>estimatedProfit</em> with <em>@Formula</em> in <i>CommercialDocument</i> as shown the next code:<br>
-      <pre><code class="java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // The calculation using SQL
+      <pre><code class="language-java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // The calculation using SQL
 @Setter(AccessLevel.NONE) // The setter is not generated, only the getter is needed
 @Money
 BigDecimal estimatedProfit; // A field, as in the persistent property case

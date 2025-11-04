@@ -94,7 +94,7 @@
       <h2 id="toc4"><a name="Alternativas-de-validacion-Validar-con-metodos-de-retrollamada-JPA"></a>Validar con métodos de retrollamada JPA</h2>
       Vamos a probar otra forma más sencilla de hacer esta validación, simplemente moviendo la lógica de validación desde la clase validador a la misma entidad <em>Pedido</em>, en este caso a un método <i>@PrePersist</i> y <i>@PreUpdate</i>.<br>
       Lo primero es eliminar la clase <em>ValidadorEntregadoParaEstarEnFactura</em> de tu proyecto. También quita la anotación <i>@EntityValidator</i> de tu entidad <em>Pedido</em>:<br>
-      <pre><code class="java">// @EntityValidator( // Eliminar '@EntityValidator'
+      <pre><code class="language-java">// @EntityValidator( // Eliminar '@EntityValidator'
 //    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class,
 //    properties= {
 //        @PropertyValue(name="anyo"),
@@ -104,7 +104,7 @@
 // })
 public class Pedido extends DocumentoComercial {
 </code></pre> Acabamos de eliminar la validación. Ahora, vamos a añadirla de nuevo, pero ahora dentro de la misma clase <em>Pedido</em>. Escribe el método <em>validar()</em> que se muestra a continuación dentro de tu clase <em>Pedido</em>:<br>
-      <pre><code class="java">@PrePersist @PreUpdate // Antes de crear o modificar
+      <pre><code class="language-java">@PrePersist @PreUpdate // Antes de crear o modificar
 private void validar() throws Exception {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
@@ -119,7 +119,7 @@ private void validar() throws Exception {
 </code></pre>Antes de grabar un pedido esta validación se ejecutará, si falla una <i>ValidationException</i> será lanzada. Esta excepción es del marco de validación Bean Validation, de esta forma OpenXava sabe que es una excepción de validación. Así con solo un método dentro de tu entidad tienes la validación hecha.
       <div class="wiki" style="display: block;">Sólo está permitido un método <i>@PrePersist</i> y un método <i>@PreUpdate</i> por entidad, por eso antes de ejecutar el código de arriba has de comentar las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i> que tenías en <i>recalcularDiasEntrega()</i>, de esta manera:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">// @PrePersist @PreUpdate // Comenta estas anotaciones
+        <pre><code class="language-java">// @PrePersist @PreUpdate // Comenta estas anotaciones
 private void recalcularDiasEntrega()() {
     setDiasEntrega(getDiasEntregaEstimados());
 }
@@ -131,7 +131,7 @@ private void recalcularDiasEntrega()() {
       Otra alternativa para hacer tu validación es poner tu lógica de validación dentro del método setter. Es un enfoque simple y llano. </div>
     <div class="wiki" style="display: block;">Para probarlo, primero vuelve a poner las anotaciones <i>@PrePersist</i> y <i>@PreUpdate</i> en el método <i>recalcularDiasEntrega(), </i>también quita el método <em>validar()</em> de tu entidad <em>Pedido</em>: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@PrePersist @PreUpdate // Añádelas de nuevo
+      <pre><code class="language-java">@PrePersist @PreUpdate // Añádelas de nuevo
 private void recalcularDiasEntrega() {
     setDiasEntrega(getDiasEntregaEstimados());
 }	
@@ -152,7 +152,7 @@ private void recalcularDiasEntrega() {
 // }    
 </code></pre> </div>
     <div class="wiki" style="display: block;">Después añade el método setter <em>setFactura()</em> a <i>Pedido</i>:<br>
-      <pre><code class="java">public void setFactura(Factura factura) {
+      <pre><code class="language-java">public void setFactura(Factura factura) {
     if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
         // La excepción de validación del entorno Bean Validation
         throw new javax.validation.ValidationException(
@@ -169,7 +169,7 @@ private void recalcularDiasEntrega() {
       Como opción final vamos a hacer la más breve. Consiste en poner tu lógica de validación dentro de un método booleano anotado con la anotación de Bean Validation <i>@AssertTrue</i>.<br>
       Para implementar esta alternativa primero quita el método <em>setFactura()</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">// Quita el método setter
+      <pre><code class="language-java">// Quita el método setter
 
 // public void setFactura(Factura factura) {
 //    if (factura != null &amp;&amp; !isEntregado()) { // La lógica de validación
@@ -185,7 +185,7 @@ private void recalcularDiasEntrega() {
 // }
 </code></pre> </div>
     <div class="wiki" style="display: block;">Después, añade <em>isEntregadoParaEstarEnFactura()</em> a tu entidad <em>Pedido</em>, como se muestra a continuación:<br>
-      <pre><code class="java">@AssertTrue(  // Antes de grabar confirma que el método devuelve true, si no lanza una excepción
+      <pre><code class="language-java">@AssertTrue(  // Antes de grabar confirma que el método devuelve true, si no lanza una excepción
     message="pedido_debe_estar_entregado" // Mensaje de error en caso retorne false
 )
 private boolean isEntregadoParaEstarEnFactura() { // ...
@@ -193,11 +193,11 @@ private boolean isEntregadoParaEstarEnFactura() { // ...
 }
 </code></pre> </div>
     <div class="wiki" style="display: block;">En las formas anteriores de validación nuestro mensaje de error era construído mediante dos argumentos, <em>anyo</em> y <em>numero</em>, que en nuestro archivo <em>i18n</em> son representados por <em>{0}/{1}</em> respectivamente. Para el caso de validación con <i>@AssertTrue</i> no podemos pasar estos dos argumentos para construir nuestro mensaje de error, sino que podemos declarar propiedades y propiedades calificadas del bean validado en la definición del mensaje, para eso cambia en <em>facturacion-messages_es.properties</em> la entrada:<br>
-      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
+      <pre><code class="language-properties">pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
 </code></pre> </div>
     <div class="wiki" style="display: block;">Por:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser añadido a una Factura
+      <pre><code class="language-properties">pedido_debe_estar_entregado=Pedido {anyo}/{numero} debe estar entregado para ser añadido a una Factura
 </code></pre> </div>
     <div class="wiki" style="display: block;">Fíjate que hemos cambiado <i>{0}/{1}</i> por <i>{anyo}/{numero}</i>. OpenXava llenará <em>{anyo}/{numero}</em> con los valores de <em>anyo</em> y <em>numero</em> que tenga el <em>Pedido</em> que está siendo actualizado y no cumple la condición de validación.<br>
       Esta es la forma más simple de validar, porque solo anotamos el método con la validación, y es el entorno Bean Validation el responsable de llamar este método al grabar y lanzar la excepción correspondiente si la validación no pasa.<br>

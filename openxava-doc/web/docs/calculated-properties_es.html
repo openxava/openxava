@@ -101,7 +101,7 @@
       </div>
       <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
       Quizás la lógica de negocio más simple que puedes añadir a tu aplicación es una propiedad calculada. Las propiedades que has usado hasta ahora son persistentes, es decir, cada propiedad se almacena en una columna de una tabla de la base de datos. Una propiedad calculada es una propiedad que no almacena su valor en la base de datos, sino que se calcula cada vez que se accede a la propiedad. Observa la diferencia entre una propiedad persistente y una calculada:<br>
-      <pre><code class="java">// Propiedad persistente
+      <pre><code class="language-java">// Propiedad persistente
 @Getter @Setter // Tiene getter y setter
 int cantidad; // Tiene un campo, por tanto es persistente
  
@@ -117,7 +117,7 @@ public int getImporte() { // No tiene campo, ni setter, solo un getter
 
         title="business-logic_es010.png"><br>
       Añadir esta funcionalidad a tu actual código es prácticamente añadir una propiedad calculada a <em>Detalle</em>. Simplemente añade el código siguiente a la clase <em>Detalle</em>:<br>
-      <pre><code class="java">@Money
+      <pre><code class="language-java">@Money
 @Depends("producto.numero, cantidad") // Cuando usuario cambie producto o cantidad
 public BigDecimal getImporte() { // esta propiedad se recalculará y se redibujará
     if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
@@ -125,7 +125,7 @@ public BigDecimal getImporte() { // esta propiedad se recalculará y se redibuja
 }
 </code></pre>Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em> y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos valores la propiedad se recalculará. Fíjate como en este caso usamos <i>producto</i> y no <i>getProducto()</i>, y <i>cantidad</i> en vez de <i>getCantidad()</i>, porque desde dentro de la clase sí que se puede acceder directamente a sus campos.<br>
       Ahora has de añadir esta nueva propiedad a la lista de propiedades mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad, importe") // importe añadida
 Collection&lt;Detalle&gt; detalles;
 </code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em> para ver la propiedad <em>importe</em> en acción.</div>

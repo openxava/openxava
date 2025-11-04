@@ -47,7 +47,7 @@
 	como filtro. Por ejemplo, si tenemos una entidad <i>Tarea</i> con una propiedad <i>usuario</i> que almacena 
 	el usuario que tiene asignada la tarea, podríamos definir el <i>@Tab</i> de esta forma:</p>
 	
-	<pre><code class="java">import org.openxava.filters.UserFilter;
+	<pre><code class="language-java">import org.openxava.filters.UserFilter;
 
 @Entity
 @Tab(filter=UserFilter.class, baseCondition="${usuario} = ?")
@@ -105,7 +105,7 @@ public class Tarea {
 	
 	<p>Si deseas que el campo de usuario sea visible en la interfaz pero no editable:</p>
 	
-	<pre><code class="java">@DefaultValueCalculator(CurrentUserCalculator.class)
+	<pre><code class="language-java">@DefaultValueCalculator(CurrentUserCalculator.class)
 @ReadOnly
 @Column(length=50, name="USERNAME")
 private String usuario;</code></pre>
@@ -120,13 +120,13 @@ private String usuario;</code></pre>
 	Recuerda importar la clase <i>CurrentUserCalculator</i>:
 	</p>
 	
-	<pre><code class="java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
+	<pre><code class="language-java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
 	
 	<h3>Opción 2: Usuario oculto</h3>
 	
 	<p>Si prefieres que el campo de usuario no sea visible en la interfaz:</p>
 	
-	<pre><code class="java">@Hidden
+	<pre><code class="language-java">@Hidden
 @Column(length=50, name="USERNAME")
 private String usuario;
 
@@ -151,7 +151,7 @@ public void asignarUsuarioActual() {
 	Recuerda importar la clase <i>Users</i> si utilizas la segunda opción:
 	</p>
 	
-	<pre><code class="java">import org.openxava.util.Users;</code></pre>
+	<pre><code class="language-java">import org.openxava.util.Users;</code></pre>
 	
 	<h2 id="restringir-datos-por-rol">Restringir datos por rol <em>(nuevo en v7.6)</em></h2>
 	
@@ -168,7 +168,7 @@ public void asignarUsuarioActual() {
 	
 	<h3>1. Define una propiedad para el rol en tu entidad</h3>
 	
-	<pre><code class="java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+	<pre><code class="language-java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
 private String rol;</code></pre>
 	
 	<p>
@@ -179,7 +179,7 @@ private String rol;</code></pre>
 	
 	<h3>2. Configura el filtro en la anotación @Tab</h3>
 	
-	<pre><code class="java">@Tab(baseCondition = "${rol} IN (?)",
+	<pre><code class="language-java">@Tab(baseCondition = "${rol} IN (?)",
     filter=com.openxava.naviox.filters.RolesFilter.class,
     properties="anyo, numero, fecha, cliente.numero, cliente.nombre, ...")</code></pre>
 	
@@ -212,7 +212,7 @@ private String rol;</code></pre>
 	Recuerda importar las clases necesarias:
 	</p>
 	
-	<pre><code class="java">import com.openxava.naviox.filters.RolesFilter; // Nota: paquete com.openxava.naviox, no org.openxava</code></pre>
+	<pre><code class="language-java">import com.openxava.naviox.filters.RolesFilter; // Nota: paquete com.openxava.naviox, no org.openxava</code></pre>
     
   </body>
 </html>

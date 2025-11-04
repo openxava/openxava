@@ -34,7 +34,7 @@
               target="_blank">descargar el proyecto de esta lección</a>.</strong>
           También puedes copiar el código que se usa en el video por aquí:</p>
         <p>En el archivo <em>PrintCustomerInvoicesAction.java</em>:</p>
-        <pre><code class="java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
 	
 	@Override
 	protected JRDataSource getDataSource() throws Exception {
@@ -58,8 +58,8 @@
 
 }<br></code></pre>
         <p></p>
-        <code class="xml"></code> En el archivo <em>controllers.xml</em>:<br>
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <code class="language-xml"></code> En el archivo <em>controllers.xml</em>:<br>
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	&lt;extends controller="Invoicing"/&gt;
 	&lt;action name="printCustomerInvoices"
 		class="com.yourcompany.invoicing.actions.PrintCustomerInvoicesAction"

@@ -19,7 +19,7 @@
       <h2 id="toc2"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Crear un proyecto nuevo</h2>
     </div>
     <div class="wiki" style="display: block;">Para crear un proyecto nuevo OpenXava desde la línea de órdenes usando Maven, ingresa los siguientes comandos en Windows, Linux o Mac:
-      <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=facturacion -DinteractiveMode=false
+      <pre><code class="language-sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype-spanish -DarchetypeVersion=RELEASE -DgroupId=com.tuempresa -DartifactId=facturacion -DinteractiveMode=false
 $ cd facturacion
 $ mvn package</code></pre>
     </div>
@@ -28,7 +28,7 @@ $ mvn package</code></pre>
       Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu aplicación. Empezaremos con una versión simplificada de <em>Cliente</em> con solo <em>numero</em> y <i>nombre</i>. </div>
     <div class="wiki" style="display: block;">Para esto debes crear un archivo <i>Cliente.java</i> dentro de la carpeta <i>src/main/java/com/tuempresa/facturacion/modelo</i> y escribir el código que se presenta abajo:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -55,11 +55,11 @@ public class Cliente {
     </div>
     <div class="wiki" style="display: block;">Ingresa los siguientes comandos, en Windows:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+        <pre><code class="language-java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
       </div>
       <div class="wiki" style="display: block;">En Linux o Mac:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+        <pre><code class="language-java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
       </div>
     </div>
     <div class="wiki" style="display: block;">Espera hasta que la consola muestre un mensaje diciendo "Aplicación iniciada", como este:</div>
@@ -94,7 +94,7 @@ public class Cliente {
       A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una clase y ya puedes ver el resultado en el navegador. </div>
     <div class="wiki" style="display: block;">Creamos una entidad <i>Producto</i> a partir de un nuevo archivo <i>Producto.java</i> en <i>src/main/java/com/tuempresa/facturacion/modelo</i> y escribe el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -114,11 +114,11 @@ public class Producto {
     <div class="wiki" style="display: block;">Ahora, ejecuta de nuevo la aplicación, no olvides compilar de nuevo:</div>
     <div class="wiki" style="display: block;">En Windows:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+        <pre><code class="language-java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/facturacion/WEB-INF/classes;target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
       </div>
       <div class="wiki" style="display: block;">En Linux o Mac:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
+        <pre><code class="language-java">$ mvn compile<br>$ java -cp "target/facturacion/WEB-INF/classes:target/facturacion/WEB-INF/lib/*" com.tuempresa.facturacion.run.facturacion</code></pre>
       </div>
     </div>
     <p> </p>

@@ -34,7 +34,7 @@
               target="_blank">download the project for this lesson</a></strong>.
           You can also copy the code used in the video here:</p>
         In <em>controllers.xml</em> file:
-        <pre><code class="xml">&lt;controller name="Invoice"&gt;
+        <pre><code class="language-xml">&lt;controller name="Invoice"&gt;
     &lt;extends controller="Invoicing"/&gt;
     &lt;action name="printInvoiceDetail"
         class="com.yourcompany.invoicing.actions.PrintInvoiceDetailAction"
@@ -42,7 +42,7 @@
 	icon="printer"/&gt;
 &lt;/controller&gt;
 </code></pre> In <em>PrintInvoiceDetailAction.java</em> file:<br>
-        <pre><code class="java">public class PrintInvoiceDetailAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintInvoiceDetailAction extends JasperReportBaseAction {
 
 	private Invoice invoice;
 	
@@ -83,7 +83,7 @@
 	
 }<br></code></pre>
         In <em>Invoice</em> class add the method:<br>
-        <pre><code class="java"> public static Invoice findByYearNumber(int year, int number) {
+        <pre><code class="language-java"> public static Invoice findByYearNumber(int year, int number) {
     Query query = XPersistence.getManager()
 	    .createQuery("from Invoice as i where i.year = :year and number = :number");
     query.setParameter("year", year);

@@ -104,7 +104,7 @@
       <div class="wiki" style="display: block;">
         <h2 id="toc1"><a name="Lesson 5: Basic business logic-Calculated properties"></a>Calculated properties</h2>
         Perhaps the most simple business logic you can add to your application is a calculated property. The properties you have used until now are persistent, i.e., each property is stored in a column in a table in the database. A calculated property is a property that does not store its value in the database but it's calculated any time the property is accessed. See the difference between a persistent and a calculated property.<br>
-        <pre><code class="java">// Persistent property
+        <pre><code class="language-java">// Persistent property
 @Getter @Setter // Has getter and setter
 int quantity; // Has a field, so it's persistent
  
@@ -120,7 +120,7 @@ public int getAmount() { // It has no field and no setter, only a getter
 
           title="business-logic_en010.png"><br>
         Adding this feature to your current code is practically adding a calculated property to <em>Detail</em>. Just add the next code to the <em>Detail</em> class:<br>
-        <pre><code class="java">@Money
+        <pre><code class="language-java">@Money
 @Depends("product.number, quantity")  // When the user changes product or quantity
 public BigDecimal getAmount() { // this property is recalculated and redisplayed
     if (product == null || product.getPrice() == null) return BigDecimal.ZERO;
@@ -128,7 +128,7 @@ public BigDecimal getAmount() { // this property is recalculated and redisplayed
 }
 </code></pre>Simply put the calculation in <em>getAmount()</em> and use <em>@Depends</em> to indicate to OpenXava that the <em>amount</em> property depends on <em>product.number</em> and <em>quantity</em>, thus each time the user changes any of these values the property will be recalculated. Note as we in this case we use <i>product</i> instead of <i>getProduct()</i> and <i>quantity</i> instead of <i>getQuantity()</i> because from inside the class you can access directly to its fields.<br>
         Now you have to add this new property to the <em>details</em> collection of <em>CommercialDocument</em>:<br>
-        <pre><code class="java">@ElementCollection
+        <pre><code class="language-java">@ElementCollection
 @ListProperties("product.number, product.description, quantity, amount") // amount added
 Collection&lt;Detail&gt; details;
 </code></pre> Nothing else is required. The mere addition of the getter and modifying the list properties is enough. Try the <em>Invoice</em> and <em>Order</em> modules to see the <em>amount</em> property in action.<br>

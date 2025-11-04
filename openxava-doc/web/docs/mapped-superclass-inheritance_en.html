@@ -101,14 +101,14 @@
       </div>
       <h2><a name="mapped-superclass"></a>Mapped superclass</h2>
       The <em>Author</em>, <em>Category</em> and <em>Invoice</em> classes have some common code, the <em>oid</em> field definition:<br>
-      <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+      <pre><code class="language-java">@Id @GeneratedValue(generator="system-uuid") @Hidden
 @GenericGenerator(name="system-uuid", strategy = "uuid")
 @Column(length=32)
 String oid;
 </code></pre> This code is just the same for all those classes. You know that copy and paste is a mortal sin, so we have to look for a solution to remove the code repetition, to avoid our way to hell.<br>
       An elegant solution for this situation is inheritance. JPA allows you to exploit the concept of inheritance. One of them is to inherit from a mapped superclass. A mapped superclass is a Java class with JPA mapping annotations, but it is not an entity itself. Its only goal is to be used as superclass for an entity. Let's use it, and you'll see its utility quickly.<br>
       First, we move this common piece of code to a class marked as <em>@MappedSuperclass</em>. We name it <em>Identifiable</em>:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -130,7 +130,7 @@ public class Identifiable {
       <h2 id="toc1"><a name="simplify-your-entities"></a>Simplify your entities</h2>
     </div>
     <div class="wiki" style="display: block;">Now you can define <em>Author</em>, <em>Category</em> and <em>Invoice</em> entities in a more succinct way. To see an example you have the new code for <em>Category</em> here:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import lombok.*;

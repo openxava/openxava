@@ -110,7 +110,7 @@
 
         title="inheritance_en010.png"><br>
       And with Java code:<br>
-      <pre><code class="java">@Entity
+      <pre><code class="language-java">@Entity
 public class Invoice {
  
     @OneToMany(mappedBy="invoice")
@@ -139,15 +139,15 @@ public class Order {
 
         title="inheritance_en030.png"><br>
       And here you have the same idea expressed with Java:<br>
-      <pre><code class="java">public class CommercialDocument { ... }
+      <pre><code class="language-java">public class CommercialDocument { ... }
 public class Order extends CommercialDocument { ... }
 public class Invoice extends CommercialDocument { ... }
 </code></pre> Let's start to refactor your current code. First, rename (using <em>Refactor &gt; Rename</em>) <em>Invoice</em> as <em>CommercialDocument</em>. Now, edit the <em>CommercialDocument</em> code to declare it as an abstract class, thus:<br>
-      <pre><code class="java">abstract public class CommercialDocument // We add the abstract modifier
+      <pre><code class="language-java">abstract public class CommercialDocument // We add the abstract modifier
 </code></pre> We want to create instances of <em>Invoice</em> and <em>Order</em>, but we do not want to create instances of <em>CommercialDocument</em> directly, so we declare it as abstract.<br>
       <h2><a name="invoice-refactored-to-use-inheritance"></a>Invoice refactored to use inheritance</h2>
       Now, you have to create the <em>Invoice</em> entity extending it from <em>CommercialDocument</em>. See the new <em>Invoice</em> code:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import lombok.*;
@@ -158,7 +158,7 @@ public class Invoice extends CommercialDocument {
 }
 </code></pre> <em>Invoice</em> now has very succinct code, indeed the body of the class is, by now, empty.<br>
       This new code requires a slightly different database schema, now invoices and orders will be stored in the same table (the CommercialDocument table) using a discriminator column. Therefore you need to remove the old tables executing the next SQL statements:<br>
-      <pre><code class="sql">DROP TABLE INVOICE_DETAILS;
+      <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
 DROP TABLE INVOICE;
 </code></pre> To execute these SQL statements, first make sure your application is running, then use the menu option <i>OpenXava &gt; Database Manager</i> of OpenXava Studio:<br>
       <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
@@ -170,7 +170,7 @@ DROP TABLE INVOICE;
     <div class="wiki" style="display: block;">If you use your own version of Eclipse or IntelliJ you can run the Database Manager executing the <i>runDBManager</i> Ant target of <i>OpenXava/build.xml</i>.<br>
       <h2><a name="creating-order-using-inheritance"></a>Creating Order using inheritance</h2>
       Thanks to <em>CommercialDocument</em> creating the <em>Order</em> entity is dead easy. See the code:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import lombok.*;
@@ -181,7 +181,7 @@ public class Order extends CommercialDocument {
 }
 </code></pre> After writing the above <em>Order</em> class, although it is empty by now, you can use the <em>Order</em> module from your browser. Yes, creating a new entity with a structure like <em>Invoice</em>, that is any commercial document entity, is very easy and rapid. You see how good use of inheritance is an elegant way to have simpler code.<br>
       <em>Order</em> module works perfectly, but it has a little problem. The new order number is calculated from the last invoice number, not from the last order number. This is because the calculator for the next number is read from the <em>Invoice</em> entity. An obvious solution is to move the <em>number</em> property definition from <em>CommercialDocument</em> to <em>Invoice</em> and <em>Order</em>. Although, we are not going to do it in this way, because in the next lesson we'll refine the way to calculate the next number, for now we simply do a little adjustment in the current code so that it does not fail. Edit the <em>NextNumberForYearCalculator</em> class and in the query change “Invoice” for “CommercialDocument”, leaving the <em>calculate()</em> method, in this way:<br>
-      <pre><code class="java">public Object calculate() throws Exception {
+      <pre><code class="language-java">public Object calculate() throws Exception {
     Query query = XPersistence.getManager().createQuery(
         "select max(i.number) from " +
         "CommercialDocument i " + // CommercialDocument instead of Invoice
@@ -193,7 +193,7 @@ public class Order extends CommercialDocument {
 </code></pre> Now we search for the maximum number of any commercial document of the year in order to calculate the new number, therefore the numbering is shared across all the commercial documents. We'll improve it in the next lesson for having separate numbering for invoices and orders and to have better support for a multiuser environment.<br>
       <h2><a name="naming-convention-and-inheritance"></a>Naming convention and inheritance</h2>
       Note that you do not need to change the name of any property of <em>Invoice</em> to do the refactoring. This is because we follow the next pragmatic principle: <em>Do not use the class name in member names</em>, e.g., inside an <em>Account</em> class do not use the “Account” word in any method or property:<br>
-      <pre><code class="java">public class Account { // We'll not use Account in member names
+      <pre><code class="language-java">public class Account { // We'll not use Account in member names
  
     private int accountNumber; // Bad, because it uses “account”
     private int number; // Good, it does not use “account”
@@ -209,7 +209,7 @@ public class Order extends CommercialDocument {
 
         title="inheritance_en010.png"><br>
       You only need to add a reference from <em>Order</em> to <em>Invoice</em>:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import lombok.*;
@@ -222,7 +222,7 @@ public class Order extends CommercialDocument {
  
 }
 </code></pre> Conversely in <em>Invoice</em> we add a collection of <em>Order</em> entities:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import java.util.*; 
 import javax.persistence.*;

@@ -40,7 +40,7 @@
       <p> Abre <em>application.properties</em> ubicado en <em>src/main/resources</em>,
         adáptalo a tu base de datos MySQL con tu URL, username, password y
         dialecto, recuerda tener levantado la base de datos MySQL.</p>
-      <pre><code class="xml">spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect</code></pre>
+      <pre><code class="language-xml">spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect</code></pre>
       <p><img src="files/springboot_010.png" alt=""></p>
       <ul>
         <li>Tener base de datos MySQL levantado<i></i></li>
@@ -50,7 +50,7 @@
       </ul>
       <p><img src="files/springboot_020.png" alt=""></p>
       <p>Crea algunos registros manualmente en MySQL, por ejemplo: </p>
-      <pre><code class="sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) <br>VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
+      <pre><code class="language-sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) <br>VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
       <p><img src="files/springboot_007.png" alt=""></p>
       <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
 
@@ -70,13 +70,13 @@
         <p><img src="files/springboot_030.png" alt=""></p>
         <p>Agrega el dialecto de MySQL8 en el archivo <i>persistence.xml</i>
           ubicado en <i>src/main/resources/META-INF</i>.</p>
-        <pre><code class="xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
+        <pre><code class="language-xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
         <p><img src="files/springboot_040.png" alt=""></p>
         <p>Configura el archivo <em>context.xml</em> de la carpeta <em>src/main/webapp/META-INF</em>,
           comenta el resource de HSQLDB, usa el de MySQL y configura la conexión
           a la base de datos usando tu URL, usuario y contraseña.</p>
         <p><img src="files/springboot_050.png" alt=""></p>
-        <code class="xml"> </code></div>
+        <code class="language-xml"> </code></div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Reemplazar application.properties y copiar archivos al
@@ -91,7 +91,7 @@
         a la base de datos (url, usuario, contraseña), las entidades y
         repositorios a leer, por ejemplo:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.example.openxava.spring.boot.example;
+        <pre><code class="language-java">package com.example.openxava.spring.boot.example;
 
 import java.util.Properties;
 
@@ -155,7 +155,7 @@ public class AppConfig {
         SpringBootServletInitializer</em> en <em>OpenxavaSpringBootExampleApplication</em>
       ubicado en el paquete <em>com.example.openxava.spring.boot.example</em>:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@SpringBootApplication
+        <pre><code class="language-java">@SpringBootApplication
 public class OpenxavaSpringBootExampleApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
@@ -169,7 +169,7 @@ public class OpenxavaSpringBootExampleApplication extends SpringBootServletIniti
         última versión disponible, desde 7.1.1) El <em>finalName</em> es
         opcional pero lo usaremos en este ejemplo:
         <div class="wiki" style="display: block;">
-          <pre><code class="xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
+          <pre><code class="language-xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
     ...
     &lt;dependency&gt;
         &lt;groupId&gt;org.openxava&lt;/groupId&gt;
@@ -222,7 +222,7 @@ public class OpenxavaSpringBootExampleApplication extends SpringBootServletIniti
           resolveremos momentáneamente en este ejemplo excluyendo una
           dependencia de esa librería, que no es recomendable hacerlo en
           producción:</p>
-        <pre><code class="xml">&lt;dependency&gt;
+        <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.openxava&lt;/groupId&gt;
     &lt;artifactId&gt;openxava&lt;/artifactId&gt;
     &lt;version&gt;7.1.1&lt;/version&gt;

@@ -68,7 +68,7 @@
       Eclipse y para producción edita <i>conf/context.xml</i> de tu Tomcat,
       para ajustar la fuente de datos para que apunte a MySQL, algo como esto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -86,7 +86,7 @@
       por <i>hibernate.default_catalog. </i>Si usas la propiedad <i>hibernate.dialect</i>
       quítala.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+        <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MiAplicacionDS&lt;/non-jta-data-source&gt;
 	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
@@ -104,7 +104,7 @@
     <div class="wiki" style="display: block;">Además, has de modificar la unidad
       de persistencia <i>junit</i> para que apunte a MySQL:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit MySQL --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

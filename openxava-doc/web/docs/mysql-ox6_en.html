@@ -69,7 +69,7 @@
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
       to adjust the datasource to point to MySQL, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -86,7 +86,7 @@
       you have to change the <i>hibernate.default_schema</i> property by <i>hibernate.default_catalog.</i>
       Also, if you use <i>hibernate.dialect</i> property just remove it.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+        <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MyAppDS&lt;/non-jta-data-source&gt;
 	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
@@ -104,7 +104,7 @@
     <div class="wiki" style="display: block;"> Morever, you have to modify the <i>junit</i>
       persistence unit to point to MySQL. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit MySQL --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

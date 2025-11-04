@@ -50,7 +50,7 @@
       </ul>
       <p><img src="files/springboot_020.png" alt=""></p>
       <p>Manually create some records in your MySQL database: </p>
-      <pre><code class="sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) <br>VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
+      <pre><code class="language-sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) <br>VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
       <p><img src="files/springboot_007.png" alt=""></p>
       <p>Verify that the services are working correctly <i><a href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
       <div class="wiki" style="display: block;">
@@ -67,14 +67,14 @@
         <p><img src="files/springboot_030.png" alt=""></p>
         <p>Add the MySQL8 dialect in the <i>persistence.xml</i> file located in
           <i>src/main/resources/META-INF</i>.</p>
-        <pre><code class="xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
+        <pre><code class="language-xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
         <p><img src="files/springboot_040.png" alt=""></p>
         <p>Configure the <em>context.xml</em> file in the <em>src/main/webapp/META-INF</em>
           folder. Comment out the HSQLDB resource and use the MySQL resource
           instead. Configure the database connection using your URL, username,
           and password.</p>
         <p><img src="files/springboot_050.png" alt=""></p>
-        <code class="xml"> </code></div>
+        <code class="language-xml"> </code></div>
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Replace application.properties and copy files to the
@@ -90,7 +90,7 @@
         connection configurations (URL, username, password), entities, and
         repositories to be scanned, for example:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.example.openxava.spring.boot.example;
+        <pre><code class="language-java">package com.example.openxava.spring.boot.example;
 
 import java.util.Properties;
 
@@ -157,7 +157,7 @@ public class AppConfig {
       in the <em>OpenxavaSpringBootExampleApplication</em> class located in the
       <em>com.example.openxava.spring.boot.example </em>package.
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@SpringBootApplication
+        <pre><code class="language-java">@SpringBootApplication
 public class OpenxavaSpringBootExampleApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws Exception {
@@ -171,7 +171,7 @@ public class OpenxavaSpringBootExampleApplication extends SpringBootServletIniti
         latest available version, from 7.1.1). The <em>finalName</em> is
         optional, but we will use it in this example.
         <div class="wiki" style="display: block;">
-          <pre><code class="xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
+          <pre><code class="language-xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
     ...
     &lt;dependency&gt;
         &lt;groupId&gt;org.openxava&lt;/groupId&gt;
@@ -225,7 +225,7 @@ public class OpenxavaSpringBootExampleApplication extends SpringBootServletIniti
           OpenXava. We will temporarily resolve this issue in this example by
           excluding a dependency from that library. However, it is not
           recommended to do this in a production environment.</p>
-        <pre><code class="xml">&lt;dependency&gt;
+        <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.openxava&lt;/groupId&gt;
     &lt;artifactId&gt;openxava&lt;/artifactId&gt;
     &lt;version&gt;7.1.1&lt;/version&gt;

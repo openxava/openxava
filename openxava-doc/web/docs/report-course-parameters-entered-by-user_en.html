@@ -31,7 +31,7 @@
           You can also copy the code used in the video here:</p>
         <p>In <em>CustomDateRange.java</em> file:<br>
         </p>
-        <pre><code class="java">@Getter @Setter
+        <pre><code class="language-java">@Getter @Setter
 public class CustomDateRange {
 
 	int customerNumber;
@@ -43,7 +43,7 @@ public class CustomDateRange {
 }</code></pre>
         <p>In <em>ShowCustomDateRangeDialogAction.java</em> file:<br>
         </p>
-        <pre><code class="java">public class ShowCustomDateRangeDialogAction extends ViewBaseAction {
+        <pre><code class="language-java">public class ShowCustomDateRangeDialogAction extends ViewBaseAction {
 
 	@Override
 	public void execute() throws Exception {
@@ -55,9 +55,9 @@ public class CustomDateRange {
 	}
 
 }</code></pre>
-        <code class="xml"></code> In <em>PrintCustomerInvoicesByDateRangeAction.java</em>
+        <code class="language-xml"></code> In <em>PrintCustomerInvoicesByDateRangeAction.java</em>
         file:<br>
-        <pre><code class="java">public class PrintCustomerInvoicesByDateRangeAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintCustomerInvoicesByDateRangeAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {
@@ -83,7 +83,7 @@ public class CustomDateRange {
 
 }</code></pre>
         In <em>controllers.xml</em> file:<br>
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	...
 	&lt;action name="printInvoicesByDateRange"
 		class="com.yourcompany.invoicing.actions.ShowCustomDateRangeDialogAction"

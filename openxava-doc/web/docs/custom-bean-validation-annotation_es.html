@@ -90,7 +90,7 @@
       <h2 id="toc11"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usar-un-Bean-Validation-en-tu-entidad"></a>Usar
         un <em>Bean Validation</em> en tu entidad</h2>
       Es superfácil. Simplemente anota tu propiedad como ves a continuación:<br>
-      <pre><code class="java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
+      <pre><code class="language-java">@ISBN // Esta anotación indica que esta propiedad tiene que validarse como un ISBN
 String isbn;
 </code></pre> Solo con añadir <em>@ISBN</em> a tu propiedad ésta será validada
       justo antes de que la entidad se grabe en la base de datos, ¡genial! El
@@ -101,7 +101,7 @@ String isbn;
       en esta sección.<br>
       Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
       Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
-      <pre><code class="java">@Column(length=13)
+      <pre><code class="language-java">@Column(length=13)
 String isbn;
 </code></pre> Ejecuta el módulo <em>Producto</em> con tu navegador. Sí, la
       propiedad <em>isbn</em> ya está ahí. Ahora, puedes añadir la validación.<br>
@@ -116,7 +116,7 @@ String isbn;
     <img src="files/validation_es030.png" alt="validation_es030.png" title="validation_es030.png">
     <div class="wiki" style="display: block;">Edita el código de tu recién
       creada anotación <em>ISBN</em> y déjala así:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
+      <pre><code class="language-java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
  
 import java.lang.annotation.*;
 import javax.validation.*;
@@ -138,7 +138,7 @@ public @interface ISBN {
       "isbn_invalido", por lo que hemos de añadir la siguiente entrada en
       facturacion-messages<em>_es.properties</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">isbn_invalido=ISBN inválido o inexistente
+      <pre><code class="language-properties">isbn_invalido=ISBN inválido o inexistente
 </code></pre> </div>
     <div class="wiki" style="display: block;"><i>@Constraint</i> indica la clase
       con la lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
@@ -153,7 +153,7 @@ public @interface ISBN {
       los proyectos OpenXava, por tanto lo puedes usar sin ninguna configuración
       adicional.<br>
       El código para <em>ValidadorISBN</em> lo puedes ver a continuación:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+      <pre><code class="language-java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
  
 import javax.validation.*;
  
@@ -186,7 +186,7 @@ public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
       a llamar al validador ISBN de Apache Commons Validator.<br>
       <em>@ISBN</em> está listo para usar. Para hacerlo anota tu propiedad <em>isbn</em>
       con él. Puedes ver cómo:<br>
-      <pre><code class="java">@Column(length=13) @ISBN
+      <pre><code class="language-java">@Column(length=13) @ISBN
 String isbn;
 </code></pre>En este caso cuando grabes la clase el import para <i>@ISBN</i> no
       se añade automáticamente. Esto es porque hay otra <i>@ISBN</i> disponible

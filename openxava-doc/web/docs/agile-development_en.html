@@ -108,7 +108,7 @@
     <div class="wiki" style="display: block;"> For example, once the user has looked at your application and starts to play with it, he takes into account that he works with books, music, software and so on. All these products have an author, and it would be useful to store the author, and see products by author.<br>
       Adding this new feature to your application is simple and rapid. First, create a new class for <em>Author</em>, with this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -130,7 +130,7 @@ public class Author {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Now, add the next code to the existing <em>Product</em> entity:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY)
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
 Author author;
 </code></pre> </div>
@@ -147,7 +147,7 @@ Author author;
     </div>
     <div class="wiki" style="display: block;">What if the user wants to choose an author and see all his products? Well. This is plain vanilla. You only have to make the relationship between <em>Product</em> and <em>Author</em> bidirectional. Go to the <em>Author</em> class and add the next code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@OneToMany(mappedBy="author")
+      <pre><code class="language-java">@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
 Collection&lt;Product&gt; products;
 </code></pre> </div>
@@ -156,7 +156,7 @@ Collection&lt;Product&gt; products;
     </div>
     <div class="wiki" style="display: block;">Yes, you added a new collection, restarted your application, refreshed your browser and there you get the full user interface to manage it. In this case the user can click on <em>Add</em> button to choose a book from a list of all existing books or click on <i>New</i> to enter the data to create a new book that will be added to the collection. Moreover, the author cannot be removed while he has books associated to him. You can define another behavior with cascade as REMOVE or ALL, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE) // DON'T ADD IT TO YOUR CODE
+      <pre><code class="language-java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE) // DON'T ADD IT TO YOUR CODE
 </code></pre> </div>
     <div class="wiki" style="display: block;">In this way only the <i>New</i> button to create new books are available, the <i>Add</i> button is not present. Moreover, when the author would be removed his books will be removed too. For the author/books case we don't want this behavior, but it can be useful in many cases where the <em>@ElementCollection</em> is not enough.<br>
       <h2 id="toc14"><a name="summary"></a>Summary</h2>

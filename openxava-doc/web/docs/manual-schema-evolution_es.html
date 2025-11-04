@@ -110,7 +110,7 @@
         <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
         Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos el valor para la columna <i>precioPorUnidad</i> en todos los detalles: </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL_DETALLES 
+        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL_DETALLES 
 SET PRECIOPORUNIDAD = (
     SELECT PRECIO FROM PRODUCTO 
     WHERE NUMERO = PRODUCTO_NUMERO
@@ -118,12 +118,12 @@ SET PRECIOPORUNIDAD = (
 </code></pre> </div>
       <div class="wiki" style="display: block;">Ahora actualizamos <i>porcentajeIVA</i> para todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
+        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
 SET PORCENTAJEIVA = 21
 </code></pre> </div>
       <div class="wiki" style="display: block;">Lo siguiente es actualizar <i>iva</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
+        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
 SET IVA = (
     SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 0.21 
     FROM DOCUMENTOCOMERCIAL_DETALLES D 
@@ -132,7 +132,7 @@ SET IVA = (
 </code></pre> </div>
       <div class="wiki" style="display: block;">Finalmente, actualizamos <i>importeTotal</i> en todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">UPDATE DOCUMENTOCOMERCIAL
+        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
 SET IMPORTETOTAL = (
     SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 1.21 
     FROM DOCUMENTOCOMERCIAL_DETALLES D 

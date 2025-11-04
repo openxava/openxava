@@ -107,10 +107,10 @@ style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Val
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a una factura si los pedidos no han sido entregados todavía. Es decir, solo los pedidos entregados pueden asociarse a una factura. Aprovecharemos la oportunidad para explorar diferentes formas de hacer esta validación.<br>
       <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir la propiedad entregado a Pedido</h2>
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>. La propiedad <em>entregado</em>:<br>
-      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+      <pre><code class="language-java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
 boolean entregado;
 </code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la vista. Modifica la vista <em>Pedido</em> como muestra el siguiente código:<br>
-      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+      <pre><code class="language-java">@View(extendsView="super.DEFAULT", 
     members=
         "diasEntregaEstimados, entregado, " + // Añade entregado
         "factura { factura }"
@@ -121,7 +121,7 @@ public class Pedido extends DocumentoComercial {
       <h2 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar con <em>@EntityValidator</em></h2>
       En tu aplicación actual el usuario puede añadir cualquier pedido que le plazca a una factura usando el módulo <em>Factura</em> y puede asignar una factura a cualquier pedido desde el módulo <em>Pedido</em>. Vamos a restringir esto. Solo los pedidos entregados podrán añadirse a una factura.<br>
       La primera alternativa que usaremos para implementar esta validación es mediante <i>@EntityValidator</i>. Esta anotación te permite asignar a tu entidad una clase con la lógica de validación deseada. Anotemos tu entidad <em>Pedido</em> tal como muestra el siguiente código:<br>
-      <pre><code class="java">@EntityValidator(
+      <pre><code class="language-java">@EntityValidator(
     value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
     properties= {
         @PropertyValue(name="anyo"), // El contenido de estas propiedades
@@ -131,7 +131,7 @@ public class Pedido extends DocumentoComercial {
 })
 public class Pedido extends DocumentoComercial {
 </code></pre><em></em>Cada vez que un objeto <em>Pedido</em> se crea o modifica un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em> es creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em> y <em>entregado</em> se rellenan con las propiedades del mismo nombre del objeto <em>Pedido</em>. Después de eso, el método <i>validate()</i> del validador se ejecuta. Escribamos el código del validador, primero crea el paquete <i>com.tuempresa.facturacion.validadores </i>y después pon en él esta clase:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+      <pre><code class="language-java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
  
 import com.tuempresa.facturacion.modelo.*;
 import org.openxava.util.*;
@@ -159,7 +159,7 @@ public class ValidadorEntregadoParaEstarEnFactura
 
 }
 </code></pre> La lógica de validación es extremadamente fácil, si una factura está presente y este pedido no está marcado como entregado, añadimos un mensaje de error, por tanto la validación fallará. Has de añadir el mensaje de error en el archivo <em>facturacion/src/main/resources/i18n/facturacion-messages_es.properties</em>. Tal como muestra a continuación:<br>
-      <pre><code class="properties"># Mensajes  para la aplicación Facturacion
+      <pre><code class="language-properties"># Mensajes  para la aplicación Facturacion
 pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
 </code></pre> Ahora puedes intentar añadir pedidos a una factura con la aplicación, verás como los pedidos no entregados son rechazados. Ve al módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y desde ahí pulsa en el botón <i>Añadir</i>:
       <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"

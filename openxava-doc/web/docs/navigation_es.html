@@ -323,12 +323,12 @@ class="re1">MiModuloInicial</span></pre>
         Si usas una versión anterior a la 6.3.2 edita <em>firstSteps.jsp</em>,
         localizado en <em>web/naviox</em>, quita todo su contenido y pon una
         redirección en él, así:</div>
-      <pre><code class="html">&lt;script&gt;window.location="MiModuloInicial"&lt;/script&gt;
+      <pre><code class="language-html">&lt;script&gt;window.location="MiModuloInicial"&lt;/script&gt;
 </code></pre>Incluso si usas una versión reciente de OpenXava puedes editar <i>firstSteps.jsp</i>
       en lugar de <i>initialModule</i> en <i>naviox.properties</i>, si quieres
       añadir cierta lógica para la selección del módulo inicial, de esta forma:
       <div class="wiki" style="display: block;">
-        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+        <pre><code class="language-html">&lt;%@include file="../xava/imports.jsp"%&gt;
         
 &lt;% String modulo = empiezaConFactura()?"Factura":"Pedido";%&gt;
 &lt;script &lt;xava:nonce/&gt;&gt;window.location="&lt;%=modulo%&gt;"&lt;/script&gt;

@@ -98,7 +98,7 @@
       <h2 id="toc6"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Calcular+valores+por+defecto"></a>Calcular valores por defecto</h2>
       Vamos a escribir nuestra entidad <i>Factura</i> con año, número y fecha. Estaría bien tener valores por defecto para estas propiedades, para que el usuario no tuviera que teclearlos. Esto es fácil de conseguir usando la anotación <em>@DefaultValueCalculator</em>. En esta primera versión de <i>Factura</i> puedes ver como definimos valores por defecto para <i>anyo</i> y <i><em><em>fecha</em></em></i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import java.time.*;
 import javax.persistence.*;
@@ -147,7 +147,7 @@ public class Factura {
       <div class="wiki" style="display: block;">Las paquetes son la forma que tiene Java de organizar el código. Deberías cambiar <i>com.tuempresa</i> por el dominio de tu organización, es decir si trabajas para Telefónica el paquete para los calculadores debería ser <i>es.telefonica.facturacion.calculadores</i>. </div>
       Ahora crea en él una clase <em>CalculadorSiguienteNumeroParaAnyo</em>, con el siguiente código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.calculadores;
+      <pre><code class="language-java">package com.tuempresa.facturacion.calculadores;
  
 import javax.persistence.*;
 import org.openxava.calculators.*;
@@ -176,7 +176,7 @@ public class CalculadorSiguienteNumeroParaAnyo
 
         class="wiki_link" href="jpa_es.html">apéndice B</a> sobre JPA. Ahora sólo queda anotar la propiedad <em>numero</em> en la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(length=6)
+      <pre><code class="language-java">@Column(length=6)
 @DefaultValueCalculator(value=CalculadorSiguienteNumeroParaAnyo.class,
     properties=@PropertyValue(name="anyo") // Para inyectar el valor de anyo de Factura
                                            // en el calculador antes de llamar a calculate()
@@ -194,7 +194,7 @@ int numero;
       Ahora que tenemos todas las propiedades atómicas listas para usar, es tiempo de añadir relaciones con otras entidades. Empezaremos añadiendo una referencia desde <em>Factura</em> a <em>Cliente</em>, porque una factura sin cliente no parece demasiado útil. Antes de añadir el cliente <b>usa el módulo <em>Factura</em> para borrar todas las facturas existentes</b>, porque vamos a hacer el cliente obligatorio y esto podría fallar con los datos existentes.<br>
       Añade el siguiente código a la entidad <em>Factura</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
 Cliente cliente;
 </code></pre> </div>
     <div class="wiki" style="display: block;">No hace falta más. El módulo <em>Factura</em> es así:<br>
@@ -203,7 +203,7 @@ Cliente cliente;
       <h2 id="toc8"><a name="Modelar+con+Java-Modelo+basico+del+dominio-Coleccion+de+objectos+dependientes"></a>Colección de objectos dependientes</h2>
       Usualmente una factura necesita tener varias líneas con productos, cantidades, etc. Estos detalles son parte de la factura, no son compartidos por otras facturas y cuando una factura se borra sus líneas de detalle son borradas con ella. Por tanto, la forma más natural de modelar los detalles de una factura es usando objetos incrustados. Para hacerlo con JPA declara una colección convencional en <i>Factura</i> y anótala con <em>@ElementCollection</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Usando </span><em><span
@@ -213,7 +213,7 @@ Collection&lt;Detalle&gt; detalles;
         style="line-height: 1.5;"> cuando la factura se borra sus líneas se borran también. Los detalles no se guardan en la base de datos hasta que la factura se guarde y se guardan todos al mismo tiempo.</span><br>
       Para que esta colección funcione necesitas escribir la clase <em>Detalle</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;
@@ -233,7 +233,7 @@ public class Detalle {
       <img src="files/modeling_es090.png" alt="modeling_es090.png" title="modeling_es090.png"><br>
       Este pantallazo enfatiza el hecho de que las propiedades a mostrar por defecto son las propiedades planas, es decir, las propiedades de las referencias no se incluyen por defecto. Esto produce una interfaz de usuario fea para nuestra colección de líneas de factura en nuestro caso, porque solo se muestra la propiedad <em>cantidad</em>. Puedes arreglarlo usando <em>@ListProperties</em>, así:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ElementCollection
+      <pre><code class="language-java">@ElementCollection
 @ListProperties("producto.numero, producto.descripcion, cantidad")
 Collection&lt;Detalle&gt; detalles;
 </code></pre> </div>
@@ -245,7 +245,7 @@ Collection&lt;Detalle&gt; detalles;
     <div class="wiki" style="display: block;"><br>
       Ahora deseamos cambiar la etiqueta de la propiedad <i>producto.numero</i> por otro que sea más corto: <i>N° de Producto</i>. Para lograr esto, debemos ir al archivo <i>invoicing-labels_es.properties</i> que se encuentra en la carpeta <i>invoicing/src/main/resources/i18n</i> y añadir la siguiente linea para sobrescribir la etiqueta por defecto que nos trae OpenXava:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">producto.numero = N° de Producto</code></pre>
+      <pre><code class="language-java">producto.numero = N° de Producto</code></pre>
     </div>
     <div class="wiki" style="display: block;"><span style="line-height: 0px; overflow: hidden;"><img
 
@@ -253,7 +253,7 @@ Collection&lt;Detalle&gt; detalles;
       </span></div>
     <div class="wiki" style="display: block;">Esta nueva etiqueta de<i> producto.numero</i> se cambiará en todos los módulos que se use, en caso que quisieramos aplicarlo solamente en colección detalles de la entidad Factura, deberíamos usar la siguiente etiqueta:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">//Para esta aplicación usaremos la etiqueta anterior y no la siguiente<br>Factura.detalles.producto.numero = N° de Producto</code></pre>
+      <pre><code class="language-java">//Para esta aplicación usaremos la etiqueta anterior y no la siguiente<br>Factura.detalles.producto.numero = N° de Producto</code></pre>
     </div>
     <div class="wiki" style="display: block;">De esta manera, podemos personalizar las etiquetas que trae OpenXava o crear nuestras propias etiquetas.</div>
     <div class="wiki" style="display: block;"><span style="line-height: 0px; overflow: hidden;"><br>

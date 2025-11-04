@@ -95,10 +95,10 @@
       We are going to enhance your code with this logic: if the orders are not delivered yet, then the user cannot assign them to an invoice. That is, only delivered orders can be associated with an invoice.<br>
       <h2 id="toc2"><a name="Lesson 6: Advanced validation-Validation alternatives-Adding delivered// property to //Order"></a>Adding <em>delivered</em> property to <em>Order</em></h2>
       First you have to add a new property to the <em>Order</em> entity. The <em>delivered</em> property:<br>
-      <pre><code class="java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+      <pre><code class="language-java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
 boolean delivered;
 </code></pre> Moreover it's necessary to add the <em>delivered</em> property to the view. Modify the <em>Order</em> view as shown in the following code:<br>
-      <pre><code class="java">@View(extendsView="super.DEFAULT", 
+      <pre><code class="language-java">@View(extendsView="super.DEFAULT", 
     members=
         "estimatedDeliveryDays, delivered," + // Add delivered
         "invoice { invoice }" 
@@ -109,7 +109,7 @@ public class Order extends CommercialDocument {
       <h2 id="toc3"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with @EntityValidator"></a>Validating with <em>@EntityValidator</em></h2>
       Up to now the user can add any order to any invoice from the <em>Invoice</em> module, and he can associate a particular invoice with any order from the <em>Order</em> module. We are going to restrict this: only delivered orders are allowed to be added to an invoice.<br>
       The first alternative to implement this validation is by using an <i>@EntityValidator</i>. This annotation allows you to assign the desired validation logic to your entity. Let's annotate the <em>Order</em> entity as show in following code:<br>
-      <pre><code class="java">@EntityValidator(
+      <pre><code class="language-java">@EntityValidator(
     value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class, // The class with the validation logic
     properties= {
         @PropertyValue(name="year"), // The content of these properties
@@ -120,7 +120,7 @@ public class Order extends CommercialDocument {
 )
 public class Order extends CommercialDocument {
 </code></pre><em></em>Every time an <em>Order</em> object is created or modified an object of type <em>DeliveredToBeInInvoiceValidator</em> is created. Then its properties <em>year</em>, <em>number</em>, <em>invoice</em> and <em>delivered</em> are initialized with the properties of the same name from the <em>Order</em> object. After that, the <i>validate()</i> method of the validator is executed. Let's write the validator code, first create the <i>com.yourcompany.invoicing.validators</i> package, then put the next class inside:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.validators; // In 'validators' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
 import com.yourcompany.invoicing.model.*;
 import org.openxava.util.*;
@@ -149,7 +149,7 @@ public class DeliveredToBeInInvoiceValidator
 
 }
 </code></pre> The validation logic is absolutely straightforward: if an invoice is present and this order is not marked as delivered we add an error message, so the validation will fail. You should add the error message in the <em>invoicing/src/main/resources/i18n/invoicing-messages_en.properties</em> file. As shown below:<br>
-      <pre><code class="properties"># Messages for the Invoicing application
+      <pre><code class="language-properties"># Messages for the Invoicing application
 order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
 </code></pre> Now you can try to add orders to an invoice with the application, you will see how the undelivered orders are rejected. Go to <i>Invoices</i> module, select the ORDERS tab of an invoice, and from there click on <i>Add</i> button:</div>
     <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"

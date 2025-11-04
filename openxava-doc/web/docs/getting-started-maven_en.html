@@ -18,17 +18,17 @@
     </div>
     <div class="wiki" style="display: block;"> First, you have to create a new OpenXava project from command line using Maven, type the next commands for Windows, Linux or Mac:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=invoicing -DinteractiveMode=false
+      <pre><code class="language-sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=invoicing -DinteractiveMode=false
 $ cd invoicing
 $ mvn package</code></pre>
       <h2 id="toc9"><a name="Lesson 1: Getting started-Creating your first entity"></a>Creating your first entity</h2>
       Developing the application is very easy. You only have to add entities in order to make your application grow. We start with a simple version of <em>Customer</em> with only <em>number</em> and <i>name</i>. </div>
     <div class="wiki" style="display: block;">You have to create a <i>Customer.java</i> file in the <i>folder src/main/java/com/yourcompany/invoicing/model </i>of this project, then write the code below:<code
 
-        class="java"></code></div>
+        class="language-java"></code></div>
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -52,10 +52,10 @@ public class Customer {
       <h2 id="toc10"><a name="Lesson 1: Getting started-Running the application"></a>Running the application</h2>
       Type the next commands, in Windows:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <pre><code class="language-java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       <div class="wiki" style="display: block;">In Linux o Mac:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+        <pre><code class="language-java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       </div>
     </div>
     <div class="wiki" style="display: block;">Wait until the console shows a message saying "Application started", like this:</div>
@@ -91,7 +91,7 @@ public class Customer {
     <div class="wiki" style="display: block;">Create a <i>Product.java</i> file in the folder <i>src/main/java/com/yourcompany/invoicing/model </i>of this project, then write the code below:<br>
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -111,10 +111,10 @@ public class Product {
     <div class="wiki" style="display: block;">Now, restart your application, don't forget to compile again, in Windows:<br>
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+      <pre><code class="language-java">c:\&gt; mvn compile<br>c:\&gt; java -cp "target/invoicing/WEB-INF/classes;target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       <div class="wiki" style="display: block;">In Linux o Mac:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
+        <pre><code class="language-java">$ mvn compile<br>$ java -cp "target/invoicing/WEB-INF/classes:target/invoicing/WEB-INF/lib/*" com.yourcompany.invoicing.run.invoicing</code></pre>
       </div>
     </div>
     <div class="wiki" style="display: block;"> To see your new entity in action open your browser and go to the URL:</div>

@@ -100,9 +100,9 @@
       Es conveniente para el usuario tener el campo <em>porcentajeIVA</em> lleno por defecto con un valor adecuado. Podrías usar un calculador (<em>@DefaultValueCalculator</em>) que devuelva un valor fijo, pero en ese caso cambiar el valor por defecto implica cambiar el código fuente. O podrías leer el valor por defecto de una base de datos (usando JPA desde tu calculador), pero en ese caso cambiar el valor por defecto implica actualizar la base de datos.<br>
       Otra opción es tener estos valores de configuración en un archivo de propiedades, un archivo plano con pares clave=valor. En este caso cambiar el valor por defecto de <em>porcentajeIVA</em> es tan simple como editar un archivo plano con un editor de texto.<br>
       Implementemos la opción del archivo de propiedades. Crea un archivo llamado <em>facturacion.properties</em> en la carpeta <em>facturacion/src/main/resources </em>con el siguiente contenido:<br>
-      <pre><code class="properties">porcentajeIVADefecto=21
+      <pre><code class="language-properties">porcentajeIVADefecto=21
 </code></pre> Aunque puedes usar la clase <em>java.util.Properties</em> de Java para leer este archivo preferimos usar una clase propia para leer estas propiedades. Vamos a llamar a esta clase <em>PreferenciasFacturacion</em> y la pondremos en un nuevo paquete llamado <em>com.tuempresa.facturacion.util</em>. Veamos el código:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.util; // En el paquete 'util'
+      <pre><code class="language-java">package com.tuempresa.facturacion.util; // En el paquete 'util'
  
 import java.io.*;
 import java.math.*;
@@ -143,7 +143,7 @@ public class PreferenciasFacturacion {
 }
 </code></pre> Como puedes ver <em>PreferenciasFacturacion</em> es una clase con un método estático, <em>getPorcentajeIVADefecto()</em>. La ventaja de usar esta clase en lugar de leer directamente del archivo de propiedades es que si cambias la forma en que se obtienen las preferencias, por ejemplo leyendo de una base de datos o de un directorio LDAP, solo has de cambiar esta clase en toda tu aplicación.<br>
       Puedes usar esta clase desde el calculador por defecto para la propiedad <em>porcentajeIVA</em>. Aquí tienes el código del calculador:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.calculadores; // En el paquete 'calculadores'
+      <pre><code class="language-java">package com.tuempresa.facturacion.calculadores; // En el paquete 'calculadores'
  
 import org.openxava.calculators.*; // Para usar 'ICalculator'
 import com.tuempresa.facturacion.util.*; // Para usar 'PreferenciasFacturacion'
@@ -155,7 +155,7 @@ public class CalculadorPorcentajeIVA implements ICalculator {
     }
 }
 </code></pre> Como ves, simplemente devuelve <em>porcentajeIVADefecto</em> de <em>PreferenciasFacturacion</em>. Ahora, ya puedes usar este calculador en la definición de la propiedad <em>porcentajeIVA</em> en <em>DocumentoComercial</em>. Mira el código:<br>
-      <pre><code class="java">@DefaultValueCalculator(CalculadorPorcentajeIVA.class)
+      <pre><code class="language-java">@DefaultValueCalculator(CalculadorPorcentajeIVA.class)
 BigDecimal porcentajeIVA;
 </code></pre> Con este código cuando el usuario pulsa para crear una nueva factura, el campo <em>porcentajeIVA</em> se rellenará con 21, o cualquier otro valor que hayas puesto en <em>facturacion.properties</em>.</div>
     <div class="wiki" style="display: block;">

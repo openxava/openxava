@@ -83,7 +83,7 @@
     </div>
     
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
+      <pre><code class="language-xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
 Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
 </code></pre>
     </div>
@@ -108,7 +108,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
     </div>
     
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
     ...  
     &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
     &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
@@ -119,7 +119,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
     <div class="wiki" style="display: block;">To:</div>
     
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
     ...  
     &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
     &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
@@ -174,7 +174,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
       <p>To use hot code reloading with Visual Studio Code you need to run the application with the JDK included 
          in OpenXava Studio 7 R4, so you'll need to download OpenXava Studio, even if it's just to use its JDK.<br>
          For Visual Studio Code to recognize your JDK add this to your user's <i>settings.json</i>:</p>
-      <pre><code class="json">"java.configuration.runtimes": [
+      <pre><code class="language-json">"java.configuration.runtimes": [
     {
         "name": "JavaSE-11",
         "path": "/home/youruser/openxava-studio-7-r4/studio/jre",
@@ -201,7 +201,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
          and you would like to see the results instantly when you change the library code too. For this case, 
          you can start your application indicating a list of extra classpaths. Edit your launcher class and 
          write something like this:</p>
-      <pre><code class="java">public static void main(String[] args) throws Exception {
+      <pre><code class="language-java">public static void main(String[] args) throws Exception {
     AppServer.run("yourapp", "../yourlib/target/classes"); 
 }
 </code></pre>

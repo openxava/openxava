@@ -31,14 +31,14 @@
               el proyecto de esta lección</a>.</strong> También puedes copiar el
           código que se usa en el video por aquí:</p>
         En el archivo <em>controllers.xml</em>:
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	&lt;action name="printAnnualSummary"
 		class="com.yourcompany.invoicing.actions.PrintAnnualSummaryAction"
 		mode="list"
 		icon="printer"/&gt;
 &lt;/controller&gt;
 </code></pre> En el archivo <em>PrintAnnualSummaryAction.java</em>:<br>
-        <pre><code class="java">public class PrintAnnualSummaryAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintAnnualSummaryAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {

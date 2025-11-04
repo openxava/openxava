@@ -101,12 +101,12 @@
       <h2><a name="Propiedades-calculadas-Propiedades-persistentes-con-Calculation"></a>Propiedades persistentes con <i>@Calculation</i></h2>
       A veces las propiedades calculadas no son la mejor opción. Imagínate que tienes una propiedad calculada en <em>Factura</em>, digamos <em>descuento</em>:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+        <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 public BigDecimal getDescuento() {
     return getImporte().multiply(new BigDecimal("0.10"));
 }
 </code></pre> Si necesitas procesar todas las facturas cuyo descuento sea mayor de 1000, has de escribir un código como el siguiente:<br>
-        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+        <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 Query query = getManager().createQuery("from Factura"); // Sin condición en la consulta
 for (Object o: query.getResultList()) { // Itera por todos los objetos
     Factura f = (Factura) o;
@@ -117,13 +117,13 @@ for (Object o: query.getResultList()) { // Itera por todos los objetos
 }
 </code></pre> No puedes usar una condición en la consulta para discriminar por <i>descuento</i>, porque <i>descuento</i> no está en la base de datos, está sólo en el objeto Java, por lo que has de instanciar todos y cada uno de los objetos para poder preguntar por el <i>descuento</i>. En algunos casos esta forma es una buena opción, pero si tienes una cantidad inmensa de facturas y sólo unas pocas tiene el <i>descuento</i> mayor de 1000, entonce tu proceso va a ser muy ineficiente. ¿Qué alternativas tenemos?<br>
         Nuestra alternativa es usar la anotación <em>@Calculation</em>. <em>@Calculation</em> es una anotación OpenXava que permite asociar un cálculo simple a una propiedad persistente. Puedes definir <em>descuento</em> con <em>@Calculation</em> como se muestra en el siguiente código:<br>
-        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+        <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 @ReadOnly
 @Calculation("importe * 0.10")
 BigDecimal descuento;
 </code></pre> Esto es una propiedad persistente convencional, es decir con una columna correspondiente en la base de datos, pero tiene un cálculo definido con <i>@Calculation</i>. En este caso el cálculo es <i>importe * 0.10</i>, de tal manera que cuando el usuario cambia <i>importe</i> en la interfaz de usuario <i>descuento</i> se recalcula instantaneamente. El valor recalculado se graba en la base de datos cuando el usuario pulsa en <i>Grabar</i>, como con cualquier otra propiedad persistente. También hemos anotado <i>descuento</i> con <i>@ReadOnly</i>, por lo que parece y se comporta como una propiedad calculada, aunque puedes omitir <i>@ReadOnly</i> y así el usuario podría modificar el valor calculado.</div>
       <div class="wiki" style="display: block;"> Lo más útil de las propiedades <em>@Calculation</em> es que se pueden usar en las condiciones, por lo que puedes reescribir el proceso de arriba como se muestra en el siguiente código:<br>
-        <pre><code class="java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
+        <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 Query query = getManager().createQuery("from Factura f where f.descuento &gt; :descuento"); // Condición permitida
 query.setParameter("descuento", new BigDecimal(1000));
 for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccionados
@@ -142,7 +142,7 @@ for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccio
 
         title="business-logic_es030.png"><br>
       Añade el siguiente código a la entidad <i>DocumentoComercial</i>:<br>
-      <pre><code class="java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
+      <pre><code class="language-java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
 BigDecimal porcentajeIVA;
    
 @ReadOnly
@@ -158,7 +158,7 @@ BigDecimal importeTotal;
       Ahora que ya has escrito las propiedades para los importes de <em>DocumentoComercial</em>, tienes que modificar la lista de propiedades de la colección <em>detalles</em> para mostrar las <a
 
         class="wiki_link" href="view_es.html#Vista-Personalizacion+de+coleccion-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades de total</a> de <em>DocumentoComercial</em>. Veámoslo:<br>
-      <pre><code class="java">abstract public class DocumentoComercial extends Identificable {
+      <pre><code class="language-java">abstract public class DocumentoComercial extends Identificable {
  
     @ElementCollection
     @ListProperties(

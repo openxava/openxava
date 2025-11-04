@@ -28,16 +28,16 @@
       <div class="wiki" style="display: block;">
         <h2>Código</h2>
         <p>Puedes copiar el código que se usa en el video desde aquí.</p>
-        <code class="xml"></code> En el archivo <em>application.xml</em> añade
+        <code class="language-xml"></code> En el archivo <em>application.xml</em> añade
         el siguiente módulo:<br>
-        <pre><code class="xml">&lt;module name="MyCalendar"&gt;
+        <pre><code class="language-xml">&lt;module name="MyCalendar"&gt;
     &lt;model name="Issue"/&gt;
     &lt;tab name="MyCalendar"/&gt;
     &lt;controller name="MyCalendar"/&gt;
 &lt;/module&gt;
-</code></pre> <code class="xml"></code> En el archivo <em>controllers.xml</em>
+</code></pre> <code class="language-xml"></code> En el archivo <em>controllers.xml</em>
         añade el siguiente controlador:<br>
-        <pre><code class="xml">&lt;controller name="MyCalendar"&gt;
+        <pre><code class="language-xml">&lt;controller name="MyCalendar"&gt;
     &lt;extends controller="CRUD"/&gt;
     &lt;action name="new" icon="library-plus" keystroke="Control N"
         class="com.yourcompany.projects.actions.NewIssueFromMyCalendarAction"&gt;
@@ -49,7 +49,7 @@
         keystroke="Control S"/&gt;
 &lt;/controller&gt;
 </code></pre>Crea la acción <i><em>NewIssueFromMyCalendarAction.java</em></i>:
-        <pre><code class="java">package com.yourcompany.projects.actions;
+        <pre><code class="language-java">package com.yourcompany.projects.actions;
 
 import org.openxava.actions.*;
 
@@ -73,7 +73,7 @@ public class NewIssueFromMyCalendarAction extends NewAction {
 
 }
 </code></pre> Crea la acción <i><em>SaveReturningToListAction.java</em></i>:
-        <pre><code class="java">package com.yourcompany.projects.actions;
+        <pre><code class="language-java">package com.yourcompany.projects.actions;
 
 import org.openxava.actions.*;
 
@@ -87,7 +87,7 @@ public class SaveReturningToListAction extends SaveAction  {
 }
 </code></pre>
         <p>En la entidad <em>Issue.java</em> añade el <i>@Tab MyCalendar</i>:</p>
-        <pre><code class="java">@Tab(name="MyCalendar", editors="Calendar",
+        <pre><code class="language-java">@Tab(name="MyCalendar", editors="Calendar",
     properties="title",
     baseCondition = "${createdBy} = ?",
     filter=org.openxava.filters.UserFilter.class)
@@ -95,7 +95,7 @@ public class Issue extends Identifiable {
 </code></pre>
         <p>También en la entidad <em>Issue.java</em> añade la propiedad <i>plannedFor</i>
           en el cuerpo de la clase y en <i>@View</i>:</p>
-        <pre><code class="java">@View(members=
+        <pre><code class="language-java">@View(members=
     "title, type;" +
     "description;" +
     "details [#" +
@@ -115,7 +115,7 @@ public class Issue extends Identifiable {
     LocalDate plannedFor; // Añadir plannedFor como atributo
 </code></pre>
         <p>En el archivo <em>custom.css</em>:</p>
-        <pre><code class="css">#ox_projects_MyCalendar__core .ox-list-title {
+        <pre><code class="language-css">#ox_projects_MyCalendar__core .ox-list-title {
     display: none;
 }
 

@@ -24,7 +24,7 @@
     <div class="wiki" style="display: block;">We assume you have already installed and running PostgreSQL.<br>
       <h2 id="toc1">Add JDBC driver for PostgreSQL to your project</h2>
       <p>Edit the <i>pom.xml</i> file in the root of your project, there add the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
-      <pre><code class="xml">&lt;dependency&gt;
+      <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
     &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
     &lt;version&gt;42.7.8&lt;/version&gt;
@@ -35,7 +35,7 @@
       <h2 id="toc1">Adjust your datasource definition</h2>
       Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to adjust the datasource to point to PostgreSQL, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
@@ -47,7 +47,7 @@
       <h2 id="toc1">Create schema manually</h2>
       <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">CREATE SCHEMA myappdb;<br></code></pre>
+        <pre><code class="language-sql">CREATE SCHEMA myappdb;<br></code></pre>
       </div>
       <div class="wiki" style="display: block;">This way, the tables will be created once the application is started.</div>
     </div>
@@ -58,7 +58,7 @@
 
         alt=""></div>
     <div class="wiki" style="display: block;">Or if you have Maven installed in your computer and you prefer to use command line:
-      <pre><code class="bash">$ cd myapp
+      <pre><code class="language-bash">$ cd myapp
 $ mvn install
 </code></pre>
       <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven build, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i> for goal.</p>

@@ -1526,7 +1526,7 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
       Here the code for <em>colorEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;%@page import="java.util.Iterator"%&gt;
+      <pre><code class="language-html">&lt;%@page import="java.util.Iterator"%&gt;
 &lt;%@page import="org.openxava.test.model.Color"%&gt;
 
 &lt;%
@@ -2362,7 +2362,7 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
       in v6 or older) folder of your project, maybe you need to create the <i>style</i>
       folder the first time:
       <div class="wiki" style="display: block;">
-        <pre><code class="css">.customer-card {
+        <pre><code class="language-css">.customer-card {
     border: 2px solid rgb(130, 143, 149); 
     display: inline-block; 
     padding: 10px; 
@@ -2547,7 +2547,7 @@ class="sc3"><span class="re2">&gt;</span></span>
       with that annotation the corresponding editor is used. For example, you
       can define an annotation like this one:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.annotations;
+      <pre><code class="language-java">package com.yourcompany.invoicing.annotations;
 
 import java.lang.annotation.*;
 
@@ -2565,7 +2565,7 @@ public @interface Colorful {
     <div class="wiki" style="display: block;">Then you annotate a property of
       your entity with your annotation, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Column(length=40) @Required
+      <pre><code class="language-java">@Column(length=40) @Required
 @Colorful(color="green") 
 String name;
 </code></pre> </div>
@@ -2574,7 +2574,7 @@ String name;
       one for <i>String</i> properties. For that, define your editor in <i>editors.xml</i>
       and assign it to your annotation using <i>for-annotation</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;editor name="Colorful" url="colorfulEditor.jsp"&gt;
+      <pre><code class="language-xml">&lt;editor name="Colorful" url="colorfulEditor.jsp"&gt;
     &lt;property name="background" value="yellow"/&gt; 
     &lt;for-annotation annotation="com.yourcompany.invoicing.annotations.Colorful"/&gt;
 &lt;/editor&gt;
@@ -2585,7 +2585,7 @@ String name;
       in the <i>src/main/webapp/xava/editors</i> (<i>web/xava/editors</i> in v6
       or older) folder of your project:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;%
+      <pre><code class="language-html">&lt;%
 String background = request.getParameter("background"); // Read property from editors.xml
 String color = request.getParameter("color"); // Read the attribute from the @Colorful annotation
 %&gt;
@@ -2605,7 +2605,7 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
       (<i>web/xava/editors/style</i> in v6 or older) folder of your project,
       maybe you need to create the <i>style</i> folder the first time: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="css">.colorful-color-black input { color: black; }
+      <pre><code class="language-css">.colorful-color-black input { color: black; }
 .colorful-background-black input { background: black; }
 .colorful-color-white input{ color: white; }
 .colorful-background-white input{ background: white; }
@@ -2631,7 +2631,7 @@ String color = request.getParameter("color"); // Read the attribute from the @Co
         allowing you to apply the annotation only to specific views. For
         example, the annotation <i>@Colorful</i> could be written like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.yourcompany.invoicing.annotations;
+        <pre><code class="language-java">package com.yourcompany.invoicing.annotations;
 
 import java.lang.annotation.*;
 
@@ -2669,7 +2669,7 @@ public @interface Colorful {
       <div class="wiki" style="display: block;">Then in your entity, you could
         use it like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@Column(length=40) @Required
+        <pre><code class="language-java">@Column(length=40) @Required
 @Colorful(forViews="Complete, Simple", color="green") 
 String name;
 </code></pre> </div>
@@ -2838,12 +2838,12 @@ before each AJAX request from OpenXava.
       For example, if you want to show a JavaScript alert when the user click on
       a button of your editor, and you have this code in you <i>myEditor.jsp</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;input class="my-editor" type="button" value="Say hello"/&gt;
+      <pre><code class="language-html">&lt;input class="my-editor" type="button" value="Say hello"/&gt;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Just add the next code in you <i>
         myEditor.js</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
 	
 	$(".my-editor").click(function() {
   		alert("Hello");
@@ -2871,16 +2871,16 @@ before each AJAX request from OpenXava.
       <h4>openxava.showMessage()</h4>
       This function displays an informational message using the same format used by an OpenXava application. It's useful when your editor needs to show a confirmation or information message from JavaScript without having to call the server.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.showMessage("Operation completed successfully");</code></pre>
+        <pre><code class="language-javascript">openxava.showMessage("Operation completed successfully");</code></pre>
       </div>
       <h4>openxava.showError()</h4>
       Similar to the previous function, but displays an error message with the standard OpenXava format. Useful for showing validation errors or other issues detected on the client side.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.showError("Could not complete the operation");</code></pre>
+        <pre><code class="language-javascript">openxava.showError("Could not complete the operation");</code></pre>
       </div>
       <p>Example of use in a custom editor:</p>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+        <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
     $(".my-save-button").click(function() {
         // Validation logic
         if (validData) {
@@ -3957,7 +3957,7 @@ class="sy0">=</span><span class="st0">"${customerName}"</span><span class="sy0">
       work, but since v7.1 you must add the <i>nonce</i> attribute using <i>&lt;xava:nonce
         /&gt;</i>, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+      <pre><code class="language-html">&lt;%@include file="../xava/imports.jsp"%&gt;
     
     ...
     

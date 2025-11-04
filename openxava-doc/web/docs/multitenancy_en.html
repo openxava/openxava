@@ -101,7 +101,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
     <div class="wiki" style="display: block;">First, add the <i>Organization</i>
       module to your <i>application.xml</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;module name="Organization"&gt;
+      <pre><code class="language-xml">&lt;module name="Organization"&gt;
     &lt;model name="Organization" /&gt;
     &lt;controller name="MyOrganization" /&gt;
 &lt;/module&gt;
@@ -109,7 +109,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
     <div class="wiki" style="display: block;">Then add your <i>MyOrganization</i>
       controller to your <i>controllers.xml</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;controller name="MyOrganization"&gt;
+      <pre><code class="language-xml">&lt;controller name="MyOrganization"&gt;
     &lt;extends controller="Organization"/&gt;
     &lt;action name="createNewOrganization" mode="detail" takes-long="true"
         class="com.yourcompany.yourapp.actions.CreateMyNewOrganizationAction"/&gt;
@@ -118,7 +118,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
     <div class="wiki" style="display: block;"> Finally, write the code for your
       <i>CreateMyNewOrganizationAction</i> action:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.yourapp.actions;
+      <pre><code class="language-java">package com.yourcompany.yourapp.actions;
 
 import com.openxava.naviox.actions.*;
 
@@ -224,7 +224,7 @@ public class CreateMyNewOrganizationAction extends CreateNewOrganizationAction {
       defined in <i>xava.properties</i> with the <i>themes</i> property, in
       this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
+      <pre><code class="language-properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
     </div>
     <div class="wiki" style="display: block;">Learn more about themes in the <a
         href="custom-style_en.html">visual style documentation</a>.</div>

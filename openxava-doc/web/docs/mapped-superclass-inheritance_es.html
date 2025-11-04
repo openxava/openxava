@@ -101,14 +101,14 @@
       </div>
       <h2 id="toc1"><a name="superclase-mapeada"></a>Superclase mapeada</h2>
       Las clases <em>Autor</em>, <em>Categoria</em> y <em>Factura</em> tienen algo de código en común. Este código es la definición del campo <em>oid</em>:<br>
-      <pre><code class="java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+      <pre><code class="language-java">@Id @GeneratedValue(generator="system-uuid") @Hidden
 @GenericGenerator(name="system-uuid", strategy = "uuid")
 @Column(length=32)
 String oid;
 </code></pre> Este código es exactamente el mismo para todas estas clases. Ya sabes que copiar y pegar es un pecado mortal, por eso tenemos que buscar una forma de quitar este código repetido y así evitar ir al infierno.<br>
       Una solución elegante en este caso es usar herencia. JPA permite varias formas de herencia. Una de ellas es heredar de una superclase mapeada. Una superclase mapeada es una clase Java con anotaciones de mapeo JPA, pero no es una entidad en sí. Su único objetivo es ser usada como clase base para definir entidades. Usemos una y verás su utilidad rápidamente.<br>
       Primero, movemos el código común a una clase marcada como <em>@MappedSuperclass</em>. La llamamos <em>Identificable</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -130,7 +130,7 @@ public class Identificable {
       <h2 id="toc1"><a name="simplificar-tus-entidades"></a>Simplificar tus entidades</h2>
     </div>
     <div class="wiki" style="display: block;">Ahora puedes definir las entidades <em>Autor, Categoria</em> y <em>Factura</em> de una manera más sucinta. Para ver un ejemplo aquí tienes el nuevo código para <em>Categoria</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;

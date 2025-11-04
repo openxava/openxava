@@ -1566,7 +1566,7 @@ class="st0">"Color"</span><span class="re2">/&gt;</span></span>
       Aquí tenemos el código para <em>colorEditor.jsp</em> en la carpeta <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html">&lt;%@page import="java.util.Iterator"%&gt;
+      <pre><code class="language-html">&lt;%@page import="java.util.Iterator"%&gt;
 &lt;%@page import="org.openxava.test.model.Color"%&gt;
 
 &lt;%
@@ -2414,7 +2414,7 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
       en v6 o anterior) de tu proyecto, puede que necesites crear la carpeta <i>style</i>
       la primera vez:
       <div class="wiki" style="display: block;">
-        <pre><code class="css">.ficha-cliente {
+        <pre><code class="language-css">.ficha-cliente {
     border: 2px solid rgb(130, 143, 149); 
     display: inline-block; 
     padding: 10px; 
@@ -2604,7 +2604,7 @@ class="sc3"><span class="re2">&gt;</span></span>
       colecciones) se anote con esa anotación se usará el editor
       correspondiente. Por ejemplo, puedes definir una anotación como esta:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.facturacion.anotaciones;
+        <pre><code class="language-java">package com.tuempresa.facturacion.anotaciones;
 
 import java.lang.annotation.*;
 
@@ -2622,7 +2622,7 @@ public @interface Colorido {
       <div class="wiki" style="display: block;">Ahora puedes anotar una
         propiedad de tu entidad con tu anotación, de esta forma:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@Column(length=40) @Required
+        <pre><code class="language-java">@Column(length=40) @Required
 @Colorido(color = "green") 
 String nombre;
 </code></pre> </div>
@@ -2632,7 +2632,7 @@ String nombre;
         define tu propio editor en <i>editores.xml</i> y asígnale tu anotación
         usando <i>para-anotacion</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;editor nombre="Colorido" url="coloridoEditor.jsp"&gt;
+        <pre><code class="language-xml">&lt;editor nombre="Colorido" url="coloridoEditor.jsp"&gt;
     &lt;propiedad nombre="fondo" valor="yellow"/&gt; 
     &lt;para-anotacion anotacion="com.tuempresa.facturacion.anotaciones.Colorido"/&gt;
 &lt;/editor&gt;
@@ -2643,7 +2643,7 @@ String nombre;
         de <i>coloridoEditor.jsp</i> en la carpeta <i>src/main/webapp/xava/editors</i>
         (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="html">&lt;%
+        <pre><code class="language-html">&lt;%
 String fondo = request.getParameter("fondo");
 String color = request.getParameter("color");
 %&gt;
@@ -2664,7 +2664,7 @@ String color = request.getParameter("color");
         en v6 o anterior) de tu proyecto, puede que necesites crear la carpeta <i>style</i>
         la primera vez:
         <div class="wiki" style="display: block;">
-          <pre><code class="css">.colorido-color-black input { color: black; }
+          <pre><code class="language-css">.colorido-color-black input { color: black; }
 .colorido-fondo-black input { background: black; }
 .colorido-color-white input{ color: white; }
 .colorido-fondo-white input{ background: white; }
@@ -2688,7 +2688,7 @@ String color = request.getParameter("color");
           lo que te permite aplicar la anotación sólo a unas vistas concretas.
           Por ejemplo, la anotación <i>@Colorido</i>, se podría escribir así:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">package com.tuempresa.facturacion.anotaciones;
+          <pre><code class="language-java">package com.tuempresa.facturacion.anotaciones;
 
 import java.lang.annotation.*;
 
@@ -2726,7 +2726,7 @@ public @interface Colorido {
         <div class="wiki" style="display: block;">Después en tu entidad podrías
           usarla de esta forma:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">@Column(length=40) @Required
+          <pre><code class="language-java">@Column(length=40) @Required
 @Colorido(forViews="Completa, Colorida", color = "green") 
 String nombre;
 </code></pre> </div>
@@ -2893,12 +2893,12 @@ antes de cada llamada AJAX de OpenXava.
           con un mensaje cuando el usuario pulse en un botón de tu editor, y
           tienes este código en tu <i>miEditor.jsp</i>: </p>
         <div class="wiki" style="display: block;">
-          <pre><code class="html">&lt;input class="mi-editor" type="button" value="Di hola"/&gt;
+          <pre><code class="language-html">&lt;input class="mi-editor" type="button" value="Di hola"/&gt;
 </code></pre> </div>
         <div class="wiki" style="display: block;">Simplemente añade el siguiente
           código en tu <i>miEditor.js</i>:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+          <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
 	
 	$(".mi-editor").click(function() {
   		alert("Hola");
@@ -2932,16 +2932,16 @@ antes de cada llamada AJAX de OpenXava.
       <h4>openxava.showMessage()</h4>
       Esta función muestra un mensaje informativo utilizando el mismo formato que usa una aplicación OpenXava. Es útil cuando tu editor necesita mostrar un mensaje de confirmación o información desde JavaScript sin necesidad de llamar al servidor.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.showMessage("Operación completada con éxito");</code></pre>
+        <pre><code class="language-javascript">openxava.showMessage("Operación completada con éxito");</code></pre>
       </div>
       <h4>openxava.showError()</h4>
       Similar a la función anterior, pero muestra un mensaje de error con el formato estándar de OpenXava. Útil para mostrar errores de validación u otros problemas detectados en el lado del cliente.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.showError("No se pudo completar la operación");</code></pre>
+        <pre><code class="language-javascript">openxava.showError("No se pudo completar la operación");</code></pre>
       </div>
       <p>Ejemplo de uso en un editor personalizado:</p>
       <div class="wiki" style="display: block;">
-        <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+        <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
     $(".mi-boton-guardar").click(function() {
         // Lógica de validación
         if (datosValidos) {
@@ -4024,7 +4024,7 @@ class="sy0">=</span><span class="st0">"${nombreCliente}"</span><span class="sy0"
         versión 7.1 debes agregar el atributo <i>nonce</i> usando <i>&lt;xava:nonce
           /&gt;</i>, de esta manera:
         <div class="wiki" style="display: block;">
-          <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+          <pre><code class="language-html">&lt;%@include file="../xava/imports.jsp"%&gt;
     
     ...
     

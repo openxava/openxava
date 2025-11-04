@@ -44,7 +44,7 @@
       Espera a que termine la ejecución.</div>
     <div class="wiki" style="display: block;">O si tienes Maven instalado en tu
       ordenador y prefieres usar la línea de órdenes:
-      <pre><code class="bash">$ cd facturacion
+      <pre><code class="language-bash">$ cd facturacion
 $ mvn package
 </code></pre> Después coge el archivo <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>)
       de la carpeta <i>target</i> de tu proyecto y cópialo en la carpeta <i>webapps</i>
@@ -63,13 +63,13 @@ $ mvn package
           </span>y pulsa INTRO, entonces:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
+      <pre><code class="language-shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
 cd tomcat-9.0.64\bin
 startup</code></pre>
     </div>
     <div class="wiki" style="display: block;">Con Linux/Mac:
       <div class="wiki" style="display: block;">
-        <pre><code class="shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+        <pre><code class="language-shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 cd tomcat-9.0.64/bin
 ./startup.sh</code></pre>
       </div>
@@ -90,7 +90,7 @@ cd tomcat-9.0.64/bin
       ejemplo, deberíamos editar <i>tomcat-9.0.64/conf/context.xml</i> y
       dejarlos de la siguiente manera:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+      <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
 &lt;!-- The contents of this file will be loaded for each web application --&gt;
 &lt;Context&gt;

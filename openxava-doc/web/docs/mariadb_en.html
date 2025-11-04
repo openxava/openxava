@@ -21,7 +21,7 @@
     <div class="wiki" style="display: block;">We assume you have already installed and running MariaDB 11 or later.<br>
       <h2 id="toc1">Add JDBC driver for MariaDB to your project</h2>
       <p>Edit the <i>pom.xml</i> file in the root of your project, there add the next dependency inside the <i>&lt;dependencies&gt;</i> part:</p>
-      <pre><code class="xml">&lt;dependency&gt;
+      <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.mariadb.jdbc&lt;/groupId&gt;
     &lt;artifactId&gt;mariadb-java-client&lt;/artifactId&gt;
     &lt;version&gt;3.1.4&lt;/version&gt;
@@ -32,7 +32,7 @@
       <h2 id="toc1">Adjust your datasource definition</h2>
       Edit <i>src/main/webapp/META-INF/context.xml</i> of your project and comment the HSQLDB section:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;!-- HSQLDB
+      <pre><code class="language-xml">&lt;!-- HSQLDB
     &lt;Resource name="jdbc/testDS" auth="Container" type="javax.sql.DataSource"
           maxTotal="20" maxIdle="5" maxWaitMillis="10000"
           username="sa" password=""
@@ -42,7 +42,7 @@
 </code></pre> </div>
     <div class="wiki" style="display: block;">when, to have add the datasource to point to MariaDB, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/myappDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/myappDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="20" maxIdle="5" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
@@ -54,7 +54,7 @@
       <h2 id="toc1">Create schema manually</h2>
       <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="sql">CREATE DATABASE myappdb;<br></code></pre>
+        <pre><code class="language-sql">CREATE DATABASE myappdb;<br></code></pre>
       </div>
       <div class="wiki" style="display: block;">This way, the tables will be created once the application is started.</div>
     </div>
@@ -63,7 +63,7 @@
       <p>After the changes you have to rebuild your project. In OpenXava Studio click with right mouse button on your project an choose <i>Run As &gt; Maven install</i>, thus:</p>
       <img src="files/run-as-maven-install.png" alt="">
       <p>Or if you have Maven installed in your computer and you prefer to use command line:</p>
-      <pre><code class="bash">$ cd myapp
+      <pre><code class="language-bash">$ cd myapp
 $ mvn install
 </code></pre>
       <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven build, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i> for goal.</p>

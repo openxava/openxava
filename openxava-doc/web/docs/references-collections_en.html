@@ -97,7 +97,7 @@
 
       title="references-collections_en010">
     <div class="wiki" style="display: block;"> Since this is business logic we are going to put it in the model layer, that is, in the entities. We'll do it adding a validation. Thus you'll get the effect of the above figure. You already know how to add this validation to your <i>Order </i>entity. It's just adding a method annotated with <i>@AssertTrue</i>:<br>
-      <pre><code class="java">public class Order {
+      <pre><code class="language-java">public class Order {
 
     ...
 
@@ -111,7 +111,7 @@
 }
 </code></pre>Also you have to add the message to <i>src/main/resources/i18n/invoicing-messages_en.properties</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">customer_order_invoice_must_match=The customer of the invoice and the order must match
+      <pre><code class="language-properties">customer_order_invoice_must_match=The customer of the invoice and the order must match
 </code></pre> </div>
     <div class="wiki" style="display: block;"> Here we verify that the customer of the invoice is the same as the customer of this order. This is enough to preserve the data integrity, but this validation alone is a poor option from the user viewpoint.
       <h3><a name="refining-action-for-searching-reference-with-list"></a>Refining action for searching reference with list</h3>
@@ -120,7 +120,7 @@
 
       title="references-collections_en020.png"><br>
     <div class="wiki" style="display: block;"> For defining our own search action for the invoice reference we will use the <i>@SearchAction</i> annotation. Here you have the needed modification in <i>Order</i> class:&nbsp;
-      <pre><code class="java">public class Order extends CommercialDocument {
+      <pre><code class="language-java">public class Order extends CommercialDocument {
 
     @ManyToOne
     @ReferenceView("NoCustomerNoOrders")
@@ -132,7 +132,7 @@
 	
 }
 </code></pre> In this simple way we define the action to execute when the user clicks on the flashlight button to search an invoice. The argument used for <i> @SearchAction</i>, <i>Order.searchInvoice</i>, is the qualified name of the action, that is the action <i>searchInvoice</i> of the controller <i>Order</i> as defined in <i> controllers.xml</i> file. Now we have to edit <i>controllers.xml</i> to add the definition of our new action:
-      <pre><code class="xml">&lt;controller name="Order"&gt;
+      <pre><code class="language-xml">&lt;controller name="Order"&gt;
 
     ...
 	
@@ -146,7 +146,7 @@
 	
 &lt;/controller&gt;
 </code></pre> Our action extends from <i>ReferenceSearchAction</i> as shown in the next code:
-      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import org.openxava.actions.*; // To use ReferenceSearchAction
 
@@ -171,7 +171,7 @@ public class SearchInvoiceFromOrderAction
 
         title="references-collections_en030.png"><br>
       Fortunately it's easy to indicate which fields we want to use to search from a user perspective. This is done by means of <i>@SearchKey</i> annotation. Just edit the <i>CommercialDocument</i> class (remember, the parent of <i>Order</i> and <i> Invoice</i>) and add that annotation to the <i>year</i> and <i>number</i> properties:
-      <pre><code class="java">abstract public class CommercialDocument extends Deletable {
+      <pre><code class="language-java">abstract public class CommercialDocument extends Deletable {
 
     @SearchKey // Add this annotation here
     @Column(length=4)
@@ -198,7 +198,7 @@ public class SearchInvoiceFromOrderAction
 
       title="references-collections_en050.png"><br>
     <div class="wiki" style="display: block;"> For defining this special behavior we have to add an <i>@OnChangeSearch</i> annotation in the the <i>invoice</i> reference of <i>Order</i>. <i>@OnChangeSearch</i> allows you to define your own action to do the search of the reference when its key changes in the user interface. You can see the modified reference here:
-      <pre><code class="java">public class Order extends CommercialDocument {
+      <pre><code class="language-java">public class Order extends CommercialDocument {
  
     @ManyToOne
     @ReferenceView("NoCustomerNoOrders") 
@@ -211,7 +211,7 @@ public class SearchInvoiceFromOrderAction
 	
 }	
 </code></pre> From now on when the user types a new year and number for the invoice, the logic of <i>OnChangeSearchInvoiceAction</i> will be executed. In this action you have to read the invoice data from database and update the user interface. This is the action code:
-      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import java.util.*;
 import org.openxava.actions.*; // To use OnChangeSearchAction
@@ -247,7 +247,7 @@ public class OnChangeSearchInvoiceAction
 </code></pre> Given the action extends from <i>OnChangeSearchAction</i> (1) and we use <i>super.execute() </i>(2) it behaves just in the standard way, that is, when the user types a year and number the invoice data is retrieved and fills the user interface. Afterwards, we use <i>getView()</i> (3) to obtain the key of the displayed invoice to find the corresponding entity using <i>MapFacade</i> (4). From inside an <i>OnChangeSearchAction</i> <i>getView()</i> returns the subview of the reference, and not the global view. Therefore, in this case <i>getView()</i> is the view of the invoice reference. This allows you to create more reusable <i>@OnChangeSearch</i> actions. Thus you have to write <i>getView().getRoot().getSubview("customer")</i> (5) to access to the customer view. <br>
       To implement the behavior visualized in the previous image, the action asks if there is no customer (<i>customberNumber == 0</i>) (6). If this is the case it fills the customer from the customer of the invoice. Otherwise it implements the logic from previous image verifying that the customer of the current order matches the customer of the retrieved invoice. <br>
       The last remaining detail is the message text. Add the next entry to the <i>invoicing-messages_en.properties</i> file of <i>src/main/resources/i18n</i> folder.
-      <pre><code class="properties">invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with customer Nº {2} of the current order
+      <pre><code class="language-properties">invoice_customer_not_match=Customer Nº {0} of invoice {1} does not match with customer Nº {2} of the current order
 </code></pre> One interesting thing about <i>@OnChangeSearch</i> is that it is also executed when the invoice is chosen from a list, because in this case the year and number of the invoice also changes. Hence, this is a centralized place to refine the logic for retrieving the reference and populating the view.
       <h2><a name="refining-collection-behavior"></a>Refining collection behavior</h2>
       We can refine collections in the same way we have refined references. This is very useful, because it allows us to improve the current behavior of the <i>Invoice </i>module. The user can only add an order to an invoice if the invoice and the orders belongs to the same customer. Moreover, the order must be delivered and must not have an invoice yet.
@@ -257,7 +257,7 @@ public class OnChangeSearchInvoiceAction
 
         title="references-collections_en60.png"><br>
       We will use the <i>@AddAction</i> annotation for defining our own action to show the list for adding orders. The following code shows the needed modification in <i>Invoice</i> class.
-      <pre><code class="java">public class Invoice extends CommercialDocument {
+      <pre><code class="language-java">public class Invoice extends CommercialDocument {
 
     @OneToMany(mappedBy="invoice")
     @CollectionView("NoCustomerNoInvoice")
@@ -269,7 +269,7 @@ public class OnChangeSearchInvoiceAction
 }
 </code></pre> In this simple way we define the action to execute when the user clicks on the button to add orders. The argument used for <i>@AddAction</i>, <i>Invoice.addOrders</i>, is the qualified name of the action, that is the action <i>addOrders</i> of the controller <i>Invoice</i> as defined in <i> controllers.xml</i> file. <br>
       Now we have to edit <i>controllers.xml</i> to add the <i>Invoice</i> controller (it does not exist yet) definition with our new action:
-      <pre><code class="xml">&lt;controller name="Invoice"&gt;
+      <pre><code class="language-xml">&lt;controller name="Invoice"&gt;
     &lt;extends controller="Invoicing"/&gt;
 
     &lt;action name="addOrders"
@@ -282,7 +282,7 @@ public class OnChangeSearchInvoiceAction
 
 &lt;/controller&gt;
 </code></pre>This is the action code:
-      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import org.openxava.actions.*; // To use GoAddElementsToCollectionAction
 
@@ -310,7 +310,7 @@ public class GoAddOrdersToInvoiceAction
 
         title="references-collections_en70.png"><br>
       Unfortunately, there is not an annotation to directly define this 'Add' action. However, that is not a very difficult task, we only have to refine the <i>@AddAction</i> instructing it to show our own controller, and in this controller we can put the actions we want. Given we already have defined our <i>@AddAction</i> in the previous section we only have to add a new method to the already existing <i>GoAddOrdersToInvoiceAction</i> class. Add the next <i>getNextController()</i> method to your action:
-      <pre><code class="java">public class GoAddOrdersToInvoiceAction ... {
+      <pre><code class="language-java">public class GoAddOrdersToInvoiceAction ... {
 
     ...
 
@@ -319,7 +319,7 @@ public class GoAddOrdersToInvoiceAction
     }                                // in the list of orders to add
 }
 </code></pre> By default the actions in the list of entities to add (the ADD and CANCEL buttons) are from the standard OpenXava controller <i>AddToCollection</i>. Overwriting <i>getNextController()</i> in our action allows us to define our own controller instead. Add the next definition in <i>controllers.xml</i> for our custom controller for adding elements:
-      <pre><code class="xml">&lt;controller name="AddOrdersToInvoice"&gt;
+      <pre><code class="language-xml">&lt;controller name="AddOrdersToInvoice"&gt;
     &lt;extends controller="AddToCollection" /&gt; &lt;!-- Extends from the standard controller --&gt;
 	
     &lt;!-- Overwrites the action to add --&gt;
@@ -328,7 +328,7 @@ public class GoAddOrdersToInvoiceAction
 		
 &lt;/controller&gt;
 </code></pre> In this way the action to add orders to the invoice is <i>AddOrdersToInvoiceAction</i>. Remember that the goal of our action is to add the orders to the invoice in the usual way, but also to copy the detail lines from those orders to the invoice. This is the code of the action:<br>
-      <pre><code class="java">package com.yourcompany.invoicing.actions; // In 'actions' package
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions; // In 'actions' package
 
 import java.rmi.*;
 import java.util.*;

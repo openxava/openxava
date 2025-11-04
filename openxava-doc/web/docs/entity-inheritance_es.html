@@ -110,7 +110,7 @@
 
         title="inheritance_es010.png"><br>
       Y con código Java:<br>
-      <pre><code class="java">@Entity
+      <pre><code class="language-java">@Entity
 public class Factura {
  
     @OneToMany(mappedBy="factura")
@@ -139,15 +139,15 @@ public class Pedido {
 
         title="inheritance_es030.png"><br>
       Y aquí tienes la misma idea expresada con Java:<br>
-      <pre><code class="java">public class DocumentoComercial { ... }
+      <pre><code class="language-java">public class DocumentoComercial { ... }
 public class Pedido extends DocumentoComercial { ... }
 public class Factura extends DocumentoComercial { ... }
 </code></pre> Empecemos a refactorizar el código actual. Primero, renombra (usando <em>Refactor &gt; Rename</em>) <em>Factura</em> como <em>DocumentoComercial</em>. Después, edita el código de <em>DocumentoComercial</em> para declararla como una clase abstracta, así:<br>
-      <pre><code class="java">abstract public class DocumentoComercial // Añadimos el modificador abstract
+      <pre><code class="language-java">abstract public class DocumentoComercial // Añadimos el modificador abstract
 </code></pre> Queremos crear instancias de <em>Factura</em> y <em>Pedido</em>, pero no queremos crear instancias de <em>DocumentoComercial</em> directamente, por eso la declaramos abstracta.<br>
       <h2 id="toc5"><a name="Herencia-de-entidades-Factura-refactorizada-para-usar-herencia"></a>Factura refactorizada para usar herencia</h2>
       Ahora, has de crear la entidad <em>Factura</em> extendiéndola de <em>DocumentoComercial</em>. Puedes ver el nuevo código de <em>Factura</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;
@@ -159,7 +159,7 @@ public class Factura extends DocumentoComercial {
 </code></pre> <em>Factura</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase está, por ahora, vacío.<br>
     </div>
     <div class="wiki" style="display: block;">Este nuevo código necesita un esquema de base de datos ligeramente diferente, ahora las facturas y los pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial) usando una columna discriminador. Por tanto has de borrar las viejas tablas ejecutando las siguientes sentencias SQL:<br>
-      <pre><code class="sql">DROP TABLE FACTURA_DETALLES;
+      <pre><code class="language-sql">DROP TABLE FACTURA_DETALLES;
 DROP TABLE FACTURA;
 </code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu aplicación se esté ejecutando, después usa la opción de menú <i>OpenXava &gt; Database Manager</i> de OpenXava Studio:<br>
       <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
@@ -171,7 +171,7 @@ DROP TABLE FACTURA;
     <div class="wiki" style="display: block;">Si usas tu propia versión de Eclipse o IntelliJ puedes ejecutar Database Manager ejecutando la tarea Ant <i>runDBManager</i> de <i>OpenXava/build.xml</i>.<br>
       <h2 id="toc6"><a name="Herencia-de-entidades-Crear-Pedido-usando-herencia"></a>Crear Pedido usando herencia</h2>
       Gracias a <em>DocumentoComercial</em> el código para <em>Pedido</em> es más sencillo que el mecanismo de un sonajero:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;
@@ -183,7 +183,7 @@ public class Pedido extends DocumentoComercial {
 </code></pre> Después de escribir la clase <em>Pedido</em>, aunque de momento esté vacía, ya puedes usar el módulo <em>Pedido</em> desde tu navegador. Sí, a partir de ahora crear una nueva entidad con una estructura parecida a <em>Factura</em>, es decir cualquier entidad para un documento comercial, es simple y rápido. Un buen uso de la herencia es una forma elegante de tener un código más simple.<br>
       El módulo <em>Pedido</em> funciona perfectamente, pero tiene un pequeño problema. El nuevo número de pedido lo calcula a partir del último número de factura, no de pedido. Esto es así porque el calculador para el siguiente número lee de la entidad <em>Factura</em>. Un solución obvia es mover la definición de la propiedad <em>numero</em> de <em>DocumentoComercial</em> a <em>Factura</em> y <em>Pedido</em>. Aunque, no lo vamos a hacer así, porque en la siguiente lección refinaremos la forma de calcular el número de documento, de momento simplemente haremos un pequeño ajuste en el código actual para que no falle. Edita la clase <em>CalculadorSiguienteNumeroParaAnyo</em> y en la consulta cambia “Factura” por “DocumentoComercial”, dejando el método <em>calculate()</em>, así:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public Object calculate() throws Exception {
+      <pre><code class="language-java">public Object calculate() throws Exception {
     Query query = XPersistence.getManager().createQuery(
         "select max(f.numero) from " +
         "DocumentoComercial f " + // DocumentoComercial en vez de Factura
@@ -195,7 +195,7 @@ public class Pedido extends DocumentoComercial {
 </code></pre> Ahora buscamos el número máximo de cualquier tipo de documento comercial del año para calcular el nuevo número, por lo tanto la numeración es compartida para todos los tipos de documentos. Esto lo mejoraremos en la siguiente lección para separar la numeración para facturas y pedidos; y para tener un mejor soporte de entornos multiusuario.<br>
       <h2 id="toc7"><a name="Herencia-de-entidades-Convencion-de-nombres-y-herencia"></a>Convención de nombres y herencia</h2>
       Fíjate que no has necesitado cambiar el nombre de ninguna propiedad de <em>Factura</em> para hacer la refactorización. Esto es por el siguiente principio práctico: <em>No uses el nombre de clase en los nombres de miembro</em>, por ejemplo, dentro de una clase <em>Cuenta</em> no uses la palabra “Cuenta” en ningún método o propiedad:<br>
-      <pre><code class="java">public class Cuenta { // No usaremos Cuenta en los nombres de los miembros
+      <pre><code class="language-java">public class Cuenta { // No usaremos Cuenta en los nombres de los miembros
  
     private int numeroCuenta; // Mal, porque usa “cuenta”
     private int numero; // Bien, no usa “cuenta”
@@ -211,7 +211,7 @@ public class Pedido extends DocumentoComercial {
 
         title="inheritance_es010.png"><br>
       Solo necesitas añadir una referencia desde <em>Pedido</em> a <em>Factura</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;
@@ -224,7 +224,7 @@ public class Pedido extends DocumentoComercial {
  
 }
 </code></pre> Por otra parte en <em>Factura</em> añadimos una colección de entidades <em>Pedido</em>:<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import java.util.*; 
 import javax.persistence.*;

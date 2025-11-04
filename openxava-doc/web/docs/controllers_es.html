@@ -2821,7 +2821,7 @@ class="sy0">;</span>
       y si es así, llama al método <em>isAvailable()</em>. Si el método devuelve <em>false</em>, la acción
       no se muestra.<br>
       Veamos un ejemplo de una acción de lista que solo está disponible para filas específicas dependiendo de su contenido. En este caso, la acción solo se mostrará para las filas donde el nombre del transportista no esté ya en mayúsculas:<br>
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.actions;
 
 import java.util.*;
 
@@ -5408,7 +5408,7 @@ class="br0"></span><span class="br0">)</span><span class="sy0">;</span>
       <div class="wiki" style="display: block;">El primer paso es crear una
         clase transitoria que incluya una propiedad de tipo <i>org.apache.commons.fileupload.FileItem</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.tuaplicacion.modelo;
+        <pre><code class="language-java">package com.tuempresa.tuaplicacion.modelo;
 
 import java.time.*;
 import org.apache.commons.fileupload.*;
@@ -5454,7 +5454,7 @@ public class MostrarFichero {
         en <i>aplicacion.xml</i> porque las clases transitorias no se reconocen
         como módulos automáticamente:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;modulo nombre="MostrarFichero"&gt;
+        <pre><code class="language-xml">&lt;modulo nombre="MostrarFichero"&gt;
 	&lt;modelo nombre="MostrarFichero"/&gt;
 	&lt;controlador nombre="MostrarFichero"/&gt;
 &lt;/modulo&gt;
@@ -5462,7 +5462,7 @@ public class MostrarFichero {
       <div class="wiki" style="display: block;">Después define el controlador
         con la acción para procesar el archivo. Añádelo en <i>controladores.xml</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;controlador nombre="MostrarFichero"&gt;
+        <pre><code class="language-xml">&lt;controlador nombre="MostrarFichero"&gt;
 	&lt;accion nombre="mostrarFichero"
 		clase="com.tuempresa.tuaplicacion.acciones.AccionMostrarFichero"/&gt;    
 &lt;/controlador&gt;
@@ -5470,7 +5470,7 @@ public class MostrarFichero {
       <div class="wiki" style="display: block;">Finalmente, la lógica que
         procesa el fichero en tu acción:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.tuaplicacion.acciones;
+        <pre><code class="language-java">package com.tuempresa.tuaplicacion.acciones;
 
 import java.time.*;
 import org.apache.commons.fileupload.*;
@@ -6163,7 +6163,7 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre><code class="xml">&lt;controlador nombre="Collection"&gt;
+</style><pre><code class="language-xml">&lt;controlador nombre="Collection"&gt;
     &lt;accion nombre="new"
         clase="org.openxava.actions.CreateNewElementInCollectionAction"/&gt;
     &lt;accion nombre="hideDetail"                                           &lt;!-- 1 --&gt;
@@ -6958,7 +6958,7 @@ class="sy0">;</span>                                                  <span clas
         para v7 o superior y en la carpeta <i>xava</i> para versiones
         anteriores) en tu proyecto de esta forma:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;modulo nombre="Autor"&gt;
+        <pre><code class="language-xml">&lt;modulo nombre="Autor"&gt;
 	&lt;modelo nombre="Autor"/&gt; 
 	&lt;controlador nombre="Typical"/&gt;
 	&lt;controlador-modo nombre="MiIrModoLista"/&gt;
@@ -6967,7 +6967,7 @@ class="sy0">;</span>                                                  <span clas
       <div class="wiki" style="display: block;">Después define tu controlador <i>MiIrModoLista</i>
         en tu <i>controladores.xml</i>, así:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;controlador nombre="MiIrModoLista"&gt;
+        <pre><code class="language-xml">&lt;controlador nombre="MiIrModoLista"&gt;
 	&lt;hereda-de controlador="Mode"/&gt;
 	&lt;accion nombre="list"
 		icono="chevron-left"
@@ -6979,7 +6979,7 @@ class="sy0">;</span>                                                  <span clas
         controlador <i>Mode</i> y sobrescribimos la acción <i>list</i>. Ahora
         sólo nos queda escribir el código de la acción, que podría ser algo así:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.acciones;
+        <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 

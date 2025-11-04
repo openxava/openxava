@@ -34,14 +34,14 @@
               the project for this lesson</a></strong>. You can also copy the
           code used in the video here:</p>
         In <em>controllers.xml</em> file:
-        <pre><code class="xml">&lt;controller name="YourFirstEntity"&gt;
+        <pre><code class="language-xml">&lt;controller name="YourFirstEntity"&gt;
     &lt;extends controller="Typical"/&gt;
     &lt;action name="printCustomReport" icon="printer" mode="list" 
         class="com.yourcompany.report.actions.PrintMyCustomReportAction"&gt;
     &lt;/action&gt;
 &lt;/controller&gt;
 </code></pre> In <em>PrintMyCustomReportAction.java</em> file:<br>
-        <pre><code class="java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {

@@ -33,7 +33,7 @@
               target="_blank">descargar el proyecto de esta lección</a>.</strong>
           También puedes copiar el código que se usa en el video por aquí:</p>
         <p>En el archivo <em>CustomDateRange.java</em>: </p>
-        <pre><code class="java">@Getter @Setter
+        <pre><code class="language-java">@Getter @Setter
 public class CustomDateRange {
 
 	int customerNumber;
@@ -44,7 +44,7 @@ public class CustomDateRange {
 	
 }<br></code></pre>
         <p>En el archivo <em>ShowCustomDateRangeDialogAction.java</em>: </p>
-        <pre><code class="java">public class ShowCustomDateRangeDialogAction extends ViewBaseAction {
+        <pre><code class="language-java">public class ShowCustomDateRangeDialogAction extends ViewBaseAction {
 
 	@Override
 	public void execute() throws Exception {
@@ -57,7 +57,7 @@ public class CustomDateRange {
 
 }<br></code></pre>
         <p>En el archivo <em>PrintCustomerInvoicesByDateRangeAction.java</em>:</p>
-        <pre><code class="java">public class PrintCustomerInvoicesByDateRangeAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintCustomerInvoicesByDateRangeAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {
@@ -83,7 +83,7 @@ public class CustomDateRange {
 
 }</code></pre>
         En el archivo <em>controllers.xml</em>:<br>
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	...
 	&lt;action name="printInvoicesByDateRange"
 		class="com.yourcompany.invoicing.actions.ShowCustomDateRangeDialogAction"

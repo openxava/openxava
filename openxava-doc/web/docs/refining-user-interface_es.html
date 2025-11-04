@@ -105,7 +105,7 @@
       <h2 id="toc11"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion"></a>Usar @View para definir la disposición</h2>
       Para definir la disposición de los miembros de <em>Factura</em> en la interfaz de usuario has de usar la anotación <em>@View</em>. Es fácil, sólo has de enumerar los miembros a mostrar. Mira el código:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@View(members= // Esta vista no tiene nombre, por tanto será la vista usada por defecto
+      <pre><code class="language-java">@View(members= // Esta vista no tiene nombre, por tanto será la vista usada por defecto
  "anyo, numero, fecha;" + // Separados por coma significa en la misma línea
  "cliente;" + // Punto y coma significa nueva línea
  "detalles;" +
@@ -119,7 +119,7 @@ public class Factura {
       Todavía necesitas refinar la forma en que la referencia <em>cliente</em> se visualiza, porque visualiza todos los miembros de <em>Cliente</em>, y para introducir los datos de una <em>Factura</em> una vista más simple del cliente puede ser mejor. Para hacer esto, has de definir una vista <em>Simple</em> en <em>Cliente</em>, y entonces indicar en <em>Factura</em> que quieres usar esa vista <em>Simple</em> de <em>Cliente</em> para visualizarlo.<br>
       Primero definamos la vista <em>Simple</em> en <em>Cliente</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@View(name="Simple", // Esta vista solo se usará cuando se especifique “Simple”
+      <pre><code class="language-java">@View(name="Simple", // Esta vista solo se usará cuando se especifique “Simple”
     members="numero, nombre" // Muestra únicamente numero y nombre en la misma línea
 )
 public class Cliente {
@@ -127,7 +127,7 @@ public class Cliente {
     <div class="wiki" style="display: block;">Cuando una vista tiene un nombre, como en este caso, esa vista solo se usa cuando ese nombre se especifica. Es decir, aunque <em>Cliente</em> solo tiene esta anotación <em>@View</em>, cuando tratas de visualizar un <em>Cliente</em> no usará esta vista <em>Simple</em>, sino la generada por defecto. Si defines una <em>@View</em> sin nombre, esa vista será la vista por defecto, aunque este no es el caso.<br>
       Ahora has de indicar que la referencia a <em>Cliente</em> desde <em>Factura</em> use esta vista <em>Simple</em>. Esto se hace mediante <em>@ReferenceView</em>. Edita la referencia <i>cliente</i> en la clase <i>Factura</i> de esta forma:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // La vista llamada 'Simple' se usará para visualizar esta referencia
 Cliente cliente;
 </code></pre> </div>

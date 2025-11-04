@@ -22,12 +22,12 @@
       you have to change the compile level in the <i>pom.xml</i> of your
       project, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;maven.compiler.source&gt;25&lt;/maven.compiler.source&gt;
+      <pre><code class="language-xml">&lt;maven.compiler.source&gt;25&lt;/maven.compiler.source&gt;
 &lt;maven.compiler.target&gt;25&lt;/maven.compiler.target&gt;
 </code></pre> </div>
 <p>For Java 25 to recognize Lombok annotations you must add the following 
 plugin in the <i>build</i> section of your project's <i>pom.xml</i>:</p>
-<pre><code class="xml">&lt;build&gt;
+<pre><code class="language-xml">&lt;build&gt;
     &lt;finalName&gt;${artifactId}&lt;/finalName&gt;
     &lt;plugins&gt;
 	

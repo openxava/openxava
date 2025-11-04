@@ -98,13 +98,13 @@
 
         href="https://openlibrary.org/">openlibrary.org</a> for ISBN is OK, but in another project, or even in another entity of your current project, you do not want to call this particular URL. The code of the annotation has to be more flexible.<br>
       This flexibility can be achieved by attributes. For example, we can add a boolean search attribute to our <i>ISBN</i> annotation in order to switch on or off the internet search for validation. To implement this functionality, just add the <em>search</em> attribute to the <i>ISBN</i> annotation code that you can find in the package in <i>com.yourcompany.invoicing.annotations </i>folder:<br>
-      <pre><code class="java">public @interface ISBN {
+      <pre><code class="language-java">public @interface ISBN {
     boolean search() default true; // To (de)activate web search on validate
  
     // ...
 }
 </code></pre> This new search attribute can be read from the validator class what you can find in the folder <i>com.yourcompany.invoicing.validators</i>:<br>
-      <pre><code class="java">public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
+      <pre><code class="language-java">public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
     // ...
     private boolean search; // Stores the search option
  
@@ -120,7 +120,7 @@
 }
 </code></pre> Here you see the use of the <i>initialize()</i> method: the source annotation can be used to initialize the validator, in this case simply by storing the <em>isbn.search()</em> value to evaluate it in <i>isValid()</i>.<br>
       Now you can choose whether you want to call our REST service or skip the ISBN validation:<br>
-      <pre><code class="java">public class Product{<br>//...<br><br>@ISBN(search=false) // In this case no internet search is done to validate the ISBN
+      <pre><code class="language-java">public class Product{<br>//...<br><br>@ISBN(search=false) // In this case no internet search is done to validate the ISBN
 private String isbn;<br><br>//...<br>} <br></code></pre>
       Now try out your application and you will notice that the validation will not take place.</div>
     <div class="wiki" style="display: block;"><br>
