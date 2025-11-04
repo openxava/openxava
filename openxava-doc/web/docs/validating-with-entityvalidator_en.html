@@ -4,42 +4,74 @@
     <title>Lesson 18: Validating with @EntityValidation - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Lesson 6: Advanced validation"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Lesson 18: Validating with @EntityValidator </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
-        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
-        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
-        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
-        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
-        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
-        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
-        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> | <strong>18. Validating with @EntityValidator </strong>|&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> | <strong>18. Validating with @EntityValidator </strong>|&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
@@ -52,8 +84,10 @@
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20@EntityValidator">Validating with @EntityValidator</a></div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a> </div>
       So far we have only done some basic validations using the <i>@Required</i> annotation. In this lesson you are going to learn to validate using the annotation <i>@EntityValidator.</i></div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=rWZNTf7Sw9E&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-        target="_blank"><img src="files/validating-with-entityvalidator-video_en.png"
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=rWZNTf7Sw9E&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
+
+        target="_blank"><img src="files/validating-with-entityvalidator-video_en.png"
+
           title="Video for lesson 18: Validating with @EntityValidator"></a><br>
       If you don't like videos follow the instructions below. </div>
     <div class="wiki" style="display: block;">
@@ -118,7 +152,8 @@ public class DeliveredToBeInInvoiceValidator
       <pre><code class="properties"># Messages for the Invoicing application
 order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to an Invoice
 </code></pre> Now you can try to add orders to an invoice with the application, you will see how the undelivered orders are rejected. Go to <i>Invoices</i> module, select the ORDERS tab of an invoice, and from there click on <i>Add</i> button:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+    <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
+
         alt="validation_en010.png" title="validation_en010.png"></div>
     <div class="wiki" style="display: block;">It will show a dialog with a list of orders to choose from. Choose two, one of them not delivered yet, then click on ADD:</div>
     <img src="files/validation_en013.png" alt="validation_en013.png" title="validation_en013.png">
@@ -130,16 +165,23 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-18"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-18"
+
           rel="nofollow">Download source code of this lesson</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
+
           rel="nofollow"><br>
         </a></strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>Any problem with this lesson? <a
-          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? </strong><a
+    <div class="wiki" style="display: block;"><strong></strong> <strong>Any problem with this lesson? <a
+
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? </strong><a
+
         class="wiki_link" href="validation-alternatives_en.html"><strong>Go to lesson 19</strong></a> </div>
   </body>
 </html>

@@ -4,42 +4,74 @@
     <title> Lesson 24: Refining the standard behavior - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Lesson 24: Refining the standard behavior"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Lesson 24: Refining the standard behavior"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Lesson 24: Refining the standard behavior </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
-        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
-        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
-        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
-        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
-        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
-        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
-        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <strong>24. Refining the standard behavior </strong> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database </a> |&nbsp;<a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <strong>24. Refining the standard behavior </strong> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
@@ -73,7 +105,8 @@
       <h2 id="toc1"><a name="Lesson 7: Refining the standard behavior-Custom actions"></a>Custom actions</h2>
       By default, an OpenXava module allows you to manage your entity in a way powerful and adequate enough to perform the most common tasks: adding, modifying, removing, searching, generating PDF reports, exporting to Excel (CSV), and import data to entities. These default actions are contained in the <em>Typical</em> controller. You can refine or enhance the behavior of your module by defining your own controller. This section will teach you how to define your own controller and write custom actions.<br>
       <h3 id="toc2"><a name="Lesson 7: Refining the standard behavior-Custom actions-Typical controller"></a>Typical controller</h3>
-      By default the <em>Invoice</em> module uses the actions from <em>Typical</em> controller. This controller is defined in the <em>default-controllers.xml</em> and you can find it in <a
+      By default the <em>Invoice</em> module uses the actions from <em>Typical</em> controller. This controller is defined in the <em>default-controllers.xml</em> and you can find it in <a
+
         class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">xava folder from github</a><em></em>. A controller definition is an XML fragment with a relation of actions. OpenXava applies the <em>Typical</em> controller by default to all modules. You can see its definition:<br>
       <pre><code class="xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' inherits all actions --&gt;
     &lt;extends controller="Navigation"/&gt; &lt;!-- from 'Navigation', --&gt;
@@ -134,7 +167,8 @@
       <h3 id="toc3"><a name="Lesson 7: Refining the standard behavior-Custom actions-Refining the controller for a module"></a>Refining the controller for a module</h3>
       To start of, we will refine the <i>delete</i> action of the <em>Invoice</em> module. Our objective is to modify the delete procedure so that when a user clicks on the<br>
       delete button the invoice will not be removed but instead simply marked as removed. This way, we can recover the deleted invoices if needed.<br>
-      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
+
         title="refining_behavior_en010.png"><br>
       The previous figure shows the actions from <em>Typical</em>. We want all of these actions in our <em>Invoice</em> module, except that we're going to write our own logic for the delete action.<br>
       You have to define your own controller for <em>Invoice</em> in <em>controllers.xml</em> file of the <em>src/main/resources/xava</em> folder of your project, leaving it in this way:<br>
@@ -180,7 +214,8 @@ public class DeleteInvoiceAction
       <i> ViewBaseAction</i> has a <i>view</i> property that you can use from inside <i>execute()</i> with <i>getView()</i>. This object of type <i>org.openxava.view.View</i> allows you manage the user interface. Above we cleared the displayed data using <i>getView().clear()</i>.<br>
       We also used <i>addMessage()</i>. All the messages added by <i>addMessage()</i> will be shown to the user at the end of action execution. You can either add the message to show or an id of an entry in <em>src/main/resources/i18n/invoicing-messages_en.properties</em>.<br>
       The following figure demonstrates the behavior of the <em>Invoice</em> module after adding your custom delete action: <br>
-      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
+
         title="refining_behavior_en020.png"><br>
       This is of course mock behavior, so let us now add the real functionality. In order to mark the current invoice as deleted without actually deleting it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>. You can see it:<br>
       <pre><code class="java">@Hidden // It will not be shown by default in views and tabs
@@ -335,7 +370,8 @@ abstract public class CommercialDocument extends Deletable {
 </code></pre> With this change the validation works just as in the real deletion case, thus we preserve untouched the original behavior.<br>
       <h3 id="toc9"><a name="Lesson 7: Refining the standard behavior-Generic actions-Metadata for more generic code"></a>Metadata for more generic code</h3>
       With your current code <em>Invoice</em> and <em>Order</em> work fine. Though if you try to remove an entity in any other module, you'll get an ugly error message. The following figure shows what happens when you try to delete a <em>Customer</em>.<br>
-      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
+
         title="refining_behavior_en030.png"><br>
       If your entity has no <em>deleted</em> property, the delete action fails. Using <em>Deletable</em> as base class you can add the <em>deleted</em> property to all your entities. However, you might want to have entities marked as deleted (so <em>Deletable</em>) and entities to be actually removed from the database. We want the action to work in all cases.<br>
       OpenXava stores metadata for all entities, and you can access this metadata from your code. This allows you, among other things, to figure out if an entity has a <em>deleted</em> property.<br>
@@ -350,7 +386,8 @@ abstract public class CommercialDocument extends Deletable {
     }
     // ...
 }
-</code></pre> The key thing here is <i>getView().getMetaModel()</i> that returns a <i>MetaModel</i> object from <i>org.openxava.model.meta</i> package. This object contains metadata about the entity currently displayed in the view. You can ask for the properties, references, collections, methods and other entity metadata. Consult the <a
+</code></pre> The key thing here is <i>getView().getMetaModel()</i> that returns a <i>MetaModel</i> object from <i>org.openxava.model.meta</i> package. This object contains metadata about the entity currently displayed in the view. You can ask for the properties, references, collections, methods and other entity metadata. Consult the <a
+
         href="../apidocs/org/openxava/model/meta/MetaModel.html"><i>MetaModel </i>API</a> to learn more. In this case we ask if the <em>deleted</em> property exists.<br>
       For now we only show a message. Let's improve on this to actually delete the entity.<br>
       <h3 id="toc10"><a name="Lesson 7: Refining the standard behavior-Generic actions-Call another action from an action"></a>Call another action from an action</h3>
@@ -388,7 +425,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <h3 id="toc11"><a name="Lesson 7: Refining the standard behavior-Generic actions-Refining the default search action"></a>Refining the default search action</h3>
       Now, your <em>InvoicingDeleteAction</em> works fine, though it is useless. It is useless to mark objects as deleted if the rest of the application is not aware of that. In other words, we have to modify other parts of the application to treat the marking-as-deleted object as if they do not exist.<br>
       The most obvious place to start is the search action. If you delete an invoice and then search for it, it should not be found. The following figure shows how searching works in OpenXava.<br>
-      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
+
         title="refining_behavior_en040.png"><br>
       The first thing to observe in the previous figure is that searching in detail mode is more flexible than it seems. The user can enter any value in any field, or set of fields, and then click the refresh button. The first matching object will get loaded in the view.<br>
       Now you might think: “Well, I can refine the <em>CRUD.refresh</em> action just in the same was as I refined <em>CRUD.delete</em> “. Yes, you can, and it will work; when the user clicks on the refresh action of detail mode your code will be executed. However, there is a subtle detail here. The search logic is not called only from the detail view, but from several other places in an OpenXava module. For example, when the user chooses a detail from list mode, the <em>List.viewDetail</em> action takes the key from the row, puts it in the detail view, and then executes the search action.<br>
@@ -592,7 +630,8 @@ public class InvoicingDeleteSelectedAction
       Fantastic! Now your application marks the invoices and orders as deleted instead of actually removing them. One advantage of this approach is that in any given moment, the user can restore an invoice or order deleted by mistake. For this feature to be useful, you have to provide a tool for restoring the deleted entities. Therefore, we are going to create an <em>Invoice trash</em> and an <em>Order trash</em> to bring deleted documents back to life.<br>
       <h3 id="toc16"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Using properties to create reusable actions"></a>Using properties to create reusable actions</h3>
       The trash we want is exhibited in the next figure. It is a list of invoices or orders where the user can choose several of them and click the <i>Restore</i> button, or alternatively, for a single entity, click the <i>Restore</i> link on the row of the item to restore.<br>
-      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
+
         title="refining_behavior_en050.png"><br>
       The logic of this restore action is to set the <em>deleted</em> property of the selected entities to false. Obviously, this is the same logic we used for deleting, but setting deleted to false instead of true. Since our conscience does not allow us to copy and paste, we're going to reuse the present code. Just adding a <em>restore</em> property to <em>InvoicingDeleteSelectedAction</em> is enough to enable recovery of deleted entities.<br>
       <pre><code class="java">public class InvoicingDeleteSelectedAction ... {
@@ -646,7 +685,8 @@ public class InvoicingDeleteSelectedAction
     
 &lt;/application&gt;
 </code></pre> These modules work as <em>Invoice</em> and <em>Order</em>, but they define a specific action as a row action using the <em>XAVA_LIST_ACTION</em> environment variable. The next figure shows the <em>InvoiceTrash</em> module in action.<br>
-      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
+
         title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Lesson 7: Refining the standard behavior-Reusing actions code-Several tabular data definitions by entity"></a>Several tabular data definitions by entity</h3>
       Another important detail is that only deleted entities are shown in the list. This is possible because we define a specific <i>@Tab</i> by name for the module.<br>
@@ -686,11 +726,14 @@ public class Order extends CommercialDocument { ... }
       The standard OpenXava behavior is only a starting point. Using the delete actions as excuse we have explored a couple of ways to refine the details of the application behavior. With the techniques in this lesson you can not only refine the delete logic, but fully alter the way your OpenXava application works. Thus, you have the possibility of tailoring the behavior of your application to fit your user expectations.<br>
       The default OpenXava behavior is pretty limited, only CRUD and reporting. If you want a valuable application for your user you need to add specific functionality to help your user solve his problems. We will do more of that in the next lesson.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-24"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-24"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+
           class="wiki_link" href="business-logic-behavior_en.html">Go to lesson 25</a></strong> </div>
   </body>
 </html>

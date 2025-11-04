@@ -4,42 +4,74 @@
     <title>Lección 25: Comportamiento y lógica de negocio - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1><a name="comportamiento-y-logica-de-negocio"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1><a name="comportamiento-y-logica-de-negocio"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Lección 25: Comportamiento y lógica de negocio </h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a>&nbsp; | <a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
-        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
-        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> | <span
-        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
-        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <strong>25. Comportamiento y lógica de negocio</strong> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a>&nbsp; | <a
+
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
+
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> | <span
+
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <strong>25. Comportamiento y lógica de negocio</strong> | <a
+
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+
         class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a>
       <hr>
       <div id="toc">
@@ -66,7 +98,8 @@
       En esta lección vamos a ver como escribir lógica de negocio en el modelo y llamar a esta lógica desde acciones personalizadas. Así podrás transformar tu aplicación de gestión de datos en una herramienta útil para el trabajo cotidiano de tu usuario.
       <h2><a name="logica-de-negocio-desde-el-modo-detalle"></a>Lógica de negocio desde el modo detalle</h2>
       Empezaremos con el caso más simple: un botón en modo detalle para ejecutar cierta lógica. En este caso para crear la factura desde un pedido:<br>
-      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+      <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
         title="business-logic-behavior_es010.png"><br>
       Aquí se muestra como esta nueva acción coge el pedido actual y crea una factura a partir de él. Simplemente copia todos los datos del pedido a la nueva factura, incluyendo las líneas de detalle. Se muestra un mensaje y la pestaña FACTURA del pedido visualizará la factura recién creada. Veamos como codificar este comportamiento.
       <h3><a name="crear-una-accion-para-ejecutar-logica-personalizada"></a>Crear una acción para ejecutar lógica personalizada</h3>
@@ -285,7 +318,8 @@ public class MostrarOcultarCrearFactura
       Mostrar y ocultar acciones no es un sustituto para la validación en el modelo. Las validaciones siguen siendo necesarias porque las entidades pueden ser usadas desde cualquier otra parte de la aplicación, no solo de los módulos de mantenimiento. Sin embargo, el truco de ocultar y mostrar acciones mejora la experiencia del usuario.<br>
       <h2><a name="logica-de-negocio-desde-el-modo-lista"></a>Lógica de negocio desde el modo lista</h2>
       En la lección anterior aprendiste como crear acciones de lista. Las acciones de lista son una herramienta utilísima para dar al usuario la posibilidad de aplicar lógica a varios objetos a la vez. En nuestro caso, podemos añadir una acción en el modo lista para crear una nueva factura automáticamente a partir de varios pedidos seleccionados en la lista, de esta manera:<br>
-      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+      <img src="files/business-logic-behavior_es020.png" alt="business-logic-behavior_es020.png"
+
         title="business-logic-behavior_es020.png"><br>
       Aquí se muestra como esta acción de lista coge los pedidos seleccionados y crea una factura a partir de ellos. Simplemente copia los datos del pedido en la nueva factura, añadiendo las línea de detalle de todos los pedidos en una única factura. También se muestra un mensaje. Veamos como codificar este comportamiento.
       <h3><a name="accion-de-lista-con-logica-propia"></a>Acción de lista con lógica propia</h3>
@@ -385,7 +419,8 @@ public class CrearFacturaDesdePedidosSeleccionados
 </code></pre> Este no es el único error con el que el usuario puede encontrarse. Todas las validaciones que hemos escrito para <i>Factura</i> y <i>Pedido</i> hasta ahora se aplican automáticamente, por lo tanto el usuario ha de escoger pedidos ya entregados y sin factura. La validación del modelo impide que el usuario cree una factura desde pedidos no apropiados.
       <h2><a name="mostrar-un-dialogo"></a>Mostrar un diálogo</h2>
       Después de crear una factura a partir de varios pedidos, sería práctico para el usuario ver y posiblemente editar la nueva factura. Una forma de conseguir esto es sacando un diálogo que permite ver y editar la recién creada factura. De esta forma:<br>
-      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+      <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
         title="business-logic-behavior_es030.png"><br>
       Veamos como implementar este comportamiento.
       <h3><a name="usar-showdialog"></a>Usar showDialog()</h3>
@@ -436,10 +471,12 @@ public class GrabarFactura
       Para el botón CERRAR usamos <i>CancelAction</i>, una acción incluida en OpenXava que simplemente cierra el diálogo.
       <h3><a name="vista-plana-en-lugar-de-dialogo"></a>Vista plana en lugar de diálogo</h3>
       A veces en lugar de sacar un diálogo encima:<br>
-      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+      <img src="files/business-logic-behavior_es040.png" alt="business-logic-behavior_es040.png"
+
         title="business-logic-behavior_es040.png"><br>
       Podriamos preferir reemplazar la vista actual por la nueva, así: <br>
-      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+      <img src="files/business-logic-behavior_es050.png" alt="business-logic-behavior_es050.png"
+
         title="business-logic-behavior_es050.png"><br>
       Esto puede ser útil cuando la cantidad de información a mostrar es muy grande y en un diálogo queda mal. Usar una vista plana en vez de un diálogo es tan fácil como cambiar esta línea de tu <i>CrearFacturaDesdePedidosSeleccionados</i>:
       <pre><code class="java">showDialog();
@@ -453,11 +490,14 @@ public class GrabarFactura
       Has aprendido como crear métodos de lógica de negocio tanto estáticos como de instancia, y como llamarlos desde acciones de modo detalle y modo lista. Por el camino has visto como ocultar y mostrar acciones, usar excepciones, validar en las acciones, mostrar diálogos y cómo hacer las pruebas automáticas de todo esto.<br>
       Todavía nos quedan muchas cosas interesantes por aprender, por ejemplo en la siguiente lección vamos a refinar el comportamiento de las referencias y colecciones.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-25"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-25"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+
           class="wiki_link" href="references-collections_es.html">Ve a la lección 26</a></strong> </div>
   </body>
 </html>

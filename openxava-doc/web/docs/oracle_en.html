@@ -4,15 +4,20 @@
     <title>Configuration for Oracle - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Configuration for Oracle </h1>
-      <i>If you're using an OpenXava version older than 7.0 look at the <a
+      <i>If you're using an OpenXava version older than 7.0 look at the <a
+
           href="oracle-ox6_en.html">old instructions</a></i>
       <div class="wiki" style="display: block;"> Configuring your OpenXava application to go against Oracle is very simple, basically you have to add a dependency to the JDBC driver for Oracle in your project and define correctly the datasource. You don't need to touch any code of your application.</div>
       <div class="wiki" style="display: block;">We assume you have already installed and running Oracle.<br>

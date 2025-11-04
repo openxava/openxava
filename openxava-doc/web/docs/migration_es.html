@@ -4,8 +4,10 @@
     <title>Migración - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -74,7 +76,8 @@
           utilidades de Commons Lang 2.x, en la mayoría de los casos basta con
           cambiar el paquete en los <i>imports</i> de <i>org.apache.commons.lang</i>
           a <i>org.apache.commons.lang3</i>. Normalmente compilará y funcionará
-          igual. Si te encuentras algún pequeño cambio de API, consulta la <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html"
+          igual. Si te encuentras algún pequeño cambio de API, consulta la <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html"
+
             target="_blank">documentación de Commons Lang 3</a>.</p>
         <pre><code class="java">// Antes (Commons Lang 2.x)
 import org.apache.commons.lang.StringUtils;
@@ -645,7 +648,8 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>

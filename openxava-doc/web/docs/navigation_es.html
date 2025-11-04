@@ -4,8 +4,10 @@
     <title>Navegación entre módulos - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -36,7 +38,8 @@
       Se trata de crear una nueva carpeta y asignarle algunos módulos. Si
       quieres traducir el nombre de la carpeta, úsalo como clave en los archivos
       i18n de etiquetas.<br>
-      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>. El OpenXava normal usa una lista de módulos
       con una caja de búsqueda.<br>
       <h2 id="toc3"><a name="Navegación entre módulos-Títulos y descripciones para los módulos y la aplicación"></a>Títulos
@@ -67,7 +70,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
       Con la entradas de arriba OpenXava sabe como visualizar el nombre y la
       descripción de los módulos <em>Factura</em> y <em>Pedido</em> en
       español.<br>
-      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+
         title="naviox-module-labels_es.png"></div>
     <div class="wiki" style="display: block;">A partir de v6.0 la descripciones
       de los módulos ya no se usan, en el menú sólo aparece el nombre de los
@@ -75,7 +79,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
     </div>
     <div class="wiki" style="display: block;">El nombre de la aplicación se
       muestra en la esquina superior izquierda de la página:<br>
-      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+
         title="naviox-application-name_es.png"><br>
       Si no quieres mostrar el nombre de la aplicación añade la entrada <em>showApplicationName</em>
       <em>(nueva en v5.5)</em> en tu <em>naviox.properties</em> (situado en la
@@ -96,7 +101,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showApplicationName</span><span
+</style><pre class="properties"><span class="re0">showApplicationName</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       <h2 id="toc4"><a name="Navegación entre módulos-Personalización del comportamiento"></a>Personalización
         del comportamiento</h2>

@@ -4,51 +4,87 @@
     <title>Apéndice D: Pruebas automáticas - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Apéndice D: Pruebas automáticas</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> |&nbsp;<a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
-        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
-        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
-        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
-        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
-        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
-        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> |<a
-        class="wiki_link" href="basic-domain-model2_es.html"></a><a class="wiki_link"
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> |&nbsp;<a
+
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
+
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
+
+        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
+
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> |<a
+
+        class="wiki_link" href="basic-domain-model2_es.html"></a><a class="wiki_link"
+
         href="annotations_es.html"></a> <strong>D. Pruebas automáticas</strong>
       <hr>
       <div id="toc"><a class="wiki_link" href="testing_es.html">
           <h1 class="nopad">Tabla de contenidos</h1>
         </a>
-        <div style="margin-left: 1em;"><a class="wiki_link" href="testing_es.html"></a><a
+        <div style="margin-left: 1em;"><a class="wiki_link" href="testing_es.html"></a><a
+
             href="#Leccion+3:+Pruebas+automaticas">Apéndice D: Pruebas automáticas</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-JUnit">JUnit</a></div>
         <div style="margin-left: 2em;"><a href="#Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos">ModuleTestBase para probar módulos</a></div>
@@ -188,7 +224,8 @@ public class PruebaCliente extends ModuleTestBase { // Ha de extender de ModuleT
       Aprendamos como ejecutar tu prueba desde OpenXava Studio.<br>
       <h3 id="toc4"><a name="Leccion+3:+Pruebas+automaticas-ModuleTestBase+para+probar+modulos-Ejecutar+las+pruebas+desde+OpenXava+Studio"></a>Ejecutar las pruebas desde OpenXava Studio</h3>
       JUnit está integrado dentro del OpenXava Studio, por eso ejecutar tus pruebas es más fácil que quitarle un caramelo a un niño. Para que la prueba funcione tu aplicación tiene que estar ejecutándose, si no es el caso iníciala antes de nada. Para ejecutar la prueba pon el ratón sobre tu clase de prueba, <i>PruebaCliente</i>, y con el botón derecho escoge <em>Run As &gt; JUnit Test</em>:<br>
-      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
+      <img src="files/testing_es030.png" alt="testing_es030.png" title="testing_es030.png"
+
         style="height: 285px; width: 800px;"><br>
       Si la prueba no es satisfactoria la barra sale roja. Puedes probarlo. Edita <em>PruebaCliente</em> y comenta la línea que da valor al campo <em>nombre</em>:</div>
     <div class="wiki" style="display: block;">
@@ -617,7 +654,8 @@ private String getNumero() { // El número de factura para una factura nueva
     <div class="wiki" style="display: block;">
       <h2><a name="codigo-fuente-hasta-la-leccion-5"></a>Código fuente hasta la lección 5</h2>
       <p>El código de prueba hasta aquí es para aplicar sobre el código de la lección 5. Aquí puedes descarga el código fuente de la lección 5 pero incluyendo el código de prueba de arriba:</p>
-      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
+      <p><strong><a class="wiki_link_ext" href="https://sourceforge.net/projects/openxava/files/openxava-course-source-code/openxava-course-source-code-testing_es.zip/download"
+
             rel="nofollow">Descarga el código fuente hasta la lección 5 con pruebas</a></strong></p>
       <p>Todo el código a descargar a partir de la lección 5 ya include el código de prueba, que puedes ver con explicaciones a partir de aquí.</p>
       <h2 id="Herencia-en-las-pruebas-JUnit">Herencia en las pruebas JUnit</h2>
@@ -627,7 +665,8 @@ private String getNumero() { // El número de factura para una factura nueva
       <h3 id="toc15"><a name="Herencia-en-las-pruebas-JUnit-Crear-una-prueba-de-modulo-abstracta"></a>Crear una prueba de módulo abstracta</h3>
       Si examinas la prueba para crear una factura, en el método <em>testCrear()</em> de <em>PruebaFactura</em>. Puedes notar que probar la creación de una factura es exactamente igual que probar la creación de un pedido. Porque ambos tienen año, número, fecha, cliente, detalles y observaciones. Por tanto, aquí la herencia es una buena herramienta para la reutilización de código.<br>
       Vamos a renombrar <em>PruebaFactura</em> como <em>PruebaDocumentoComercial</em>, y entonces crearemos <em>PruebaFactura</em> y <em>PruebaPedido</em> a partir de él. Éste es el diagrama UML de esta idea:<br>
-      <img src="files/inheritance_es100.png" alt="inheritance_es100.png"
+      <img src="files/inheritance_es100.png" alt="inheritance_es100.png"
+
         title="inheritance_es100.png"><br>
       Primero renombra tu actual clase <em>PruebaFactura</em> a <em>PruebaDocumentoComercial</em>, y después haz los cambios indicados en el siguiente código:<br>
       <pre><code class="java">package com.tuempresa.facturacion.pruebas;
@@ -749,7 +788,8 @@ public void testAnyadirPedidos() throws Exception {
 }
 </code></pre> En este caso asumimos que hay al menos un pedido y el primer pedido de la lista no tiene factura. Antes de ejecutar esta prueba, si no tienes pedidos, crea uno sin factura, o si ya tienes pedidos, asegúrate de que el primero no tiene factura.<br>
       Con esto ya tienes tus pruebas listas. Ejecútalas y obtendrás el siguiente resultado:<br>
-      <img src="files/inheritance_es110.png" alt="inheritance_es110.png"
+      <img src="files/inheritance_es110.png" alt="inheritance_es110.png"
+
         title="inheritance_es110.png"><br>
       Fíjate que la prueba base <em>PruebaDocumentoComercial</em> no se muestra porque es abstracta. Y <em>testCrear()</em> de <em>PruebaDocumentoComercial</em> se ejecuta para <em>PruebaFactura</em> y <em>PruebaPedido</em>.<br>
       No solo has adaptado tu código de pruebas al nuevo código de <em>facturacion</em>, sino que también has aprendido como usar herencia en el mismo código de pruebas.</div>
@@ -808,11 +848,15 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     assertValue("numero", ""); // ... al crear un documento nuevo
     assertValue("fecha", getFechaActual());
 }
-</code></pre>Verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em> no se calcula hasta el momento de grabar el documento (sección <a
+</code></pre>Verificamos que <em>numero</em> no tiene valor inicial, porque ahora <em>numero</em> no se calcula hasta el momento de grabar el documento (sección <a
+
         class="wiki_link" href="basic-business-logic_es.html#Metodos-de-retrollamadas-JPA-Calculo-de-valor-por-defecto-multiusuario">Cálculo de valor por defecto multiusuario</a>). Cuando el documento (factura o pedido) se grabe verificaremos que <em>numero</em> se calcula.
-      <div class="wiki" style="display: block;">Cuando la línea se añade podemos verificar el cálculo de <em>importe</em> de <em>Detalle</em> (la propiedad calculada simple, sección <a
-          class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em> (<em>@DefaultValueCalculator</em>, sección <a
-          class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar @DefaultValueCalculator</a>) y las propiedades de importes del documento (sección <a
+      <div class="wiki" style="display: block;">Cuando la línea se añade podemos verificar el cálculo de <em>importe</em> de <em>Detalle</em> (la propiedad calculada simple, sección <a
+
+          class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedad-calculada-simple">Propiedad calculada simple</a>), el valor por defecto para <em>precioPorUnidad</em> (<em>@DefaultValueCalculator</em>, sección <a
+
+          class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Usar-DefaultValueCalculator">Usar @DefaultValueCalculator</a>) y las propiedades de importes del documento (sección <a
+
           class="wiki_link" href="basic-business-logic_es.html#Propiedades-calculadas-Propiedades-de-total-de-una-coleccion">Propiedades de total de una colección</a>). Entre las propiedades de total probamos <i>porcentajeIVA</i> cuyo valor por defecto se calcula leyendo de un archivo de propiedades. Todo esto lo probamos haciendo unas ligeras modificaciones en el ya existente método <em>anyadirDetalles()</em>:<br>
         <pre><code class="java">private void anyadirDetalles() throws Exception {
     assertCollectionRowCount("detalles", 0);
@@ -952,8 +996,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
 </code></pre> Aquí ves una buena técnica para hacer un bucle sobre los elementos visualizados de una lista para seleccionarlos y coger algunos datos, o cualquier otra cosa que quieras hacer con los datos de la lista. Para que esta prueba funcione la primera factura no ha de tener pedidos y además tiene que haber al menos un pedido entregado, pero que no sea el primero.<br>
         <h3 id="toc18"><a name="Pruebas-JUnit-Probar-validacion-al-asignar-una-referencia-y-al-borrar"></a>Probar validación al asignar una referencia y al borrar</h3>
         Desde el módulo <em>Factura</em> el usuario no puede asignar pedidos a una factura si los pedidos no están servidos, por lo tanto, desde el módulo <em>Pedido</em> el usuario tampoco debe poder asignar una factura a un pedido si éste no está servido. Es decir, hemos de probar también la otra parte de la asociación. Lo haremos modificando el actual <em>testPonerFactura()</em> de <em>PruebaPedido</em>.<br>
-        Además, aprovecharemos este caso para probar la validación al borrar que vimos en las secciones <a
-          class="wiki_link" href="validation_es.html#toc7">Validar al borrar con @RemoveValidator</a> y <a
+        Además, aprovecharemos este caso para probar la validación al borrar que vimos en las secciones <a
+
+          class="wiki_link" href="validation_es.html#toc7">Validar al borrar con @RemoveValidator</a> y <a
+
           class="wiki_link" href="validation_es.html#toc8">Validar al borrar con un método de retrollamada</a>. Allí modificamos la aplicación para impedir que un usuario borrara un pedido si éste tenía una factura asociada. Ahora probaremos este hecho.<br>
         Todo esto está en el <em>testPonerFactura()</em> de <i>PruebaPedido</i> mejorado que puedes ver a continuación:<br>
         <pre><code class="java">public void testPonerFactura() throws Exception {
@@ -1023,8 +1069,10 @@ public PruebaDocumentoComercial(String nombrePrueba, String nombreModulo) {
     execute("CRUD.save"); // No falla
     assertNoErrors();
 }
-</code></pre> Seguramente la prueba manual que hacías mientras estabas escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si hubieras escrito tu <a
-          href="http://www.extremeprogramming.org/rules/testfirst.html"
+</code></pre> Seguramente la prueba manual que hacías mientras estabas escribiendo el validador <em>@ISBN</em> era parecida a esta. Por eso, si hubieras escrito tu <a
+
+          href="http://www.extremeprogramming.org/rules/testfirst.html"
+
           rel="nofollow">código de prueba antes que el código de la aplicación</a>, lo hubieras podido usar mientras que desarrollabas, lo cual es más eficiente que repetir una y otra vez a mano las pruebas con el navegador.<br>
         Fíjate que si usas <i>@ISBN(search=false)</i> esta prueba no funciona porque no solo comprueba el formato sino que también hace la búsqueda con el servicio REST. Por tanto, has de usar <em>@ISBN</em> sin atributos para anotar la propiedad <i>isbn </i>y poder ejecutar esta prueba.<br>
         Ahora ejecuta todas las prueba de tu aplicación <em>Facturación</em> para verificar que todo sigue en su sitio.</div>
@@ -1192,7 +1240,8 @@ private int getFilaDocumentoEnLista(String anyo, String numero)
       <div class="wiki" style="display: block;"> El código que escribimos en la sección <i>Comportamiento y lógica de negocio</i> no estará completo hasta que no escribamos las pruebas. Recuerda, todo código nuevo tiene que tener su correspondiente código de prueba. Escribamos pues las pruebas para estas dos nuevas acciones.
         <h3><a name="probar-la-accion-de-modo-detalle"></a>Probar la acción de modo detalle</h3>
         Primero probaremos la acción <i>Pedido.crearFactura</i>, la acción para crear una factura a partir del modo detalle del pedido visualizado. Recordamos aquí como funciona este proceso:<br>
-        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+        <img src="files/business-logic-behavior_es010.png" alt="business-logic-behavior_es010.png"
+
           title="business-logic-behavior_es010.png"><br>
         Ahora vamos a escribir la prueba para verificar que funciona justo de esta forma. Añade el método <i>testCrearFacturaDesdePedido()</i> a la clase <i>PruebaPedido</i>:
         <pre><code class="java">public void testCrearFacturaDesdePedido() throws Exception {
@@ -1283,7 +1332,8 @@ import com.tuempresa.facturacion.modelo.*;
         Ya hemos probado que el botón está presente cuando el pedido es adecuado en la prueba <i>testCrearFacturaDesdePedido()</i>, porque <i>execute()</i> falla si la acción no está en la interfaz de usuario.
         <h3><a name="probar-la-accion-de-modo-lista"></a>Probar la acción de modo lista</h3>
         Ahora probaremos <i>Pedido.crearFacturaDesdePedidosSeleccionados</i>, la acción que crea una factura desde varios pedidos en modo lista. Recordemos su funcionamiento:<br>
-        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+        <img src="files/business-logic-behavior_es030.png" alt="business-logic-behavior_es030.png"
+
           title="business-logic-behavior_es030.png"><br>
         Escribamos una prueba para verificar que esto funciona justo de esta forma. Añade el método <i>testCrearFacturaDesdePedidosSeleccionados()</i> a la clase <i> PruebaPedido</i>:
         <pre><code class="java">public void testCrearFacturaDesdePedidosSeleccionados() throws Exception {
@@ -1786,7 +1836,8 @@ public class PruebaCliente extends ModuleTestBase {
       Has automatizado las pruebas de toda la funcionalidad de tu aplicación. Puede parecer que este código de prueba es mucho más largo y aburrido que el código real de la aplicación. Pero recuerda, el código de prueba es el tesoro más valioso que tienes. Quizás ahora no me creas, pero trata de hacer pruebas JUnit y una vez te hayan salvado la vida, ya no podrás desarrollar sin pruebas automáticas nunca más.<br>
       ¿Qué probar? No hagas pruebas exhaustivas al principio. Es mejor probar poco que no probar nada. Si tratas de hacer pruebas muy exhaustivas acabarás no haciendo pruebas en absoluto. Empieza haciendo algunas pruebas JUnit para tu código, y con cada nueva característica o nuevo arreglo añade nuevas pruebas. Al final, tendrás una suite de pruebas muy completa. En resumen, prueba poco, pero prueba siempre.<br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
           rel="nofollow">Pregunta en el foro</a></strong><strong></strong> </div>
   </body>
 </html>

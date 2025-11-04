@@ -4,15 +4,20 @@
     <title>Configuración para Db2 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Configuración para Db2</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+
           href="db2-ox6_es.html">instrucciones antiguas</a><br>
       </i>
       <div class="wiki" style="display: block;">Configurar tu aplicación OpenXava contra IBM Db2 es muy fácil, básicamente has de añadir una dependencia al controlador JDBC para Db2 en tu proyecto y definir correctamente la base de datos. No necesitas tocar el código de tu aplicación.</div>
@@ -49,7 +54,8 @@
       <div class="wiki" style="display: block;">
         <h2>Reconstruir proyecto</h2>
         Después de los cambios has de reconstruir (rebuild) tu proyecto. En OpenXava Studio pulsa con el botón derecho del ratón en tu proyecto y escoge <i>Run As &gt; Maven install</i>, así: </div>
-      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+      <div class="wiki" style="display: block;"><img src="files/run-as-maven-install.png"
+
           alt=""></div>
       <div class="wiki" style="display: block;">O si tienes Maven instalado en tu ordenador y prefieres usar la línea de órdenes:
         <pre><code class="bash">$ cd miaplicacion

@@ -4,42 +4,74 @@
     <title> Lesson 25: Behavior &amp; business logic - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1><a name="business-logic-behavior"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Lesson 25: Behavior &amp; business logic </h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
-        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
-        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
-        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
-        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
-        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
-        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
-        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <strong>25. Behavior &amp; business logic</strong> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_en.html">3. Basic domain model (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> |&nbsp;<a
+
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections </a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. @Calculation and collections totals </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file </a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution </a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation </a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties </a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> | <a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <strong>25. Behavior &amp; business logic</strong> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
         class="wiki_link" href="testing_en.html">D. Automated testing</a>
       <hr>
       <div id="toc">
@@ -67,7 +99,8 @@
       In this lesson we'll see how to add business logic to a model and call this logic from custom actions. In this way you can transform a database management application into a useful tool for the everyday work of your user.<br>
       <h2><a name="business-logic-in-detail-mode"></a>Business logic in detail mode</h2>
       We'll start with the simplest case: a button in the detail mode that executes some concrete logic. In this case we'll add a button for creating an invoice from an order:<br>
-      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+      <img src="files/business-logic-behavior_en010.png" alt="business-logic-behavior_en010.png"
+
         title="business-logic-behavior_en010.png"><br>
       This shows how this new action takes the current order and creates an invoice from it. It just copies all the order data to the new invoice, including the detail lines. A message is shown and the INVOICE tab of the order will display the recently created invoice. Let's see how to implement this.
       <h3><a name="creating-an-action-for-custom-logic"></a>Creating an action for custom logic</h3>
@@ -284,7 +317,8 @@ public class ShowHideCreateInvoiceAction
       Showing and hiding actions is not a substitute for validation in the model. Validations are still necessary since the entities can be used from any other part of the application, not just from the CRUD module. However, the trick of hiding and showing actions improves the user experience.
       <h2><a name="business-logic-from-list-mode"></a>Business logic from list mode</h2>
       In the previous lesson you learned <a href="refining-standard-behavior_en.html#Lesson%207:%20Refining%20the%20standard%20behavior-List%20mode-List%20actions">how to create list actions</a>. List actions are very useful tools that provides the user with the ability to perform some specific logic on multiple objects at the same time. In our case, we can add an action in list mode to create a new invoice automatically from several selected orders in the list. We want this action to work this way:<br>
-      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
+      <img src="files/business-logic-behavior_en020.png" alt="business-logic-behavior_en020.png"
+
         title="business-logic-behavior_en020.png"><br>
       This list action takes the selected orders and creates an invoice from them. It just copies the order data into the new invoice, adding the detail lines of all the orders in one unique invoice. Also a message is shown. Let's see how to code this behavior.
       <h3><a name="list-action-with-custom-logic"></a>List action with custom logic</h3>
@@ -386,7 +420,8 @@ public class CreateInvoiceFromSelectedOrdersAction
 </code></pre> These are not the only errors the user can get. All previously written validations for <i>Invoice</i> and <i>Order</i> still apply automatically. This ensures that the user has to choose orders from the same customer, that are delivered, that lacks an invoice, etc. Model validation prevents the user from creating invoices from the wrong orders.
       <h2><a name="Showing-a-dialog"></a>Showing a dialog</h2>
       After creating an invoice from several orders, it would be practical for the user to see and possibly edit the newly created invoice. One way of achieving this is by showing a dialog that allows to view and edit that just created invoice. In this way:<br>
-      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+      <img src="files/business-logic-behavior_en030.png" alt="business-logic-behavior_en030.png"
+
         title="business-logic-behavior_en030.png"><br>
       Let's see how to implement this behavior.
       <h3><a name="using-showdialog"></a>Using showDialog()</h3>
@@ -437,10 +472,12 @@ public class SaveInvoiceAction
       For the CLOSE button we use the <i>CancelAction</i>, an action included in OpenXava that simply closes the dialog.
       <h3><a name="plain-view-instead-of-dialog"></a>Plain view instead of dialog</h3>
       Sometimes instead of showing a dialog on top:<br>
-      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
+      <img src="files/business-logic-behavior_en040.png" alt="business-logic-behavior_en040.png"
+
         title="business-logic-behavior_en040.png"><br>
       You could prefer to replace the current view with a new one, thus: <br>
-      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
+      <img src="files/business-logic-behavior_en050.png" alt="business-logic-behavior_en050.png"
+
         title="business-logic-behavior_en050.png"><br>
       This can be useful when the amount of data to show is huge and in a dialog looks clumsy. Using a plain view instead of a dialog is as easy as changing this line of from your <i>CreateInvoiceFromSelectedOrdersAction:</i>
       <pre><code class="java">showDialog();
@@ -454,11 +491,14 @@ public class SaveInvoiceAction
       You have learned how to create instance and static methods for business logic, and how to call them from actions in detail and list mode. Along the way you also saw how to hide and show actions, use exceptions, validating from actions, show dialogs and how to test all this.<br>
       We still have many interesting things to learn, in the next lesson for example we are going to refine the behavior of references and collections.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-25"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-25"
+
           rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
-      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+      <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+
           class="wiki_link" href="references-collections_en.html">Go to Lesson 26</a></strong> </div>
   </body>
 </html>

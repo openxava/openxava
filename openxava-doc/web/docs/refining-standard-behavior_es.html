@@ -4,44 +4,78 @@
     <title>Lección 24: Refinar el comportamiento predefinido - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-24-Refinar-el-comportamiento-predefinido"></a> <span
-          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Leccion-24-Refinar-el-comportamiento-predefinido"></a> <span
+
+          id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Lección 24: Refinar el comportamiento predefinido</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a>&nbsp; | <a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
-        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
-        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
-        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
-        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <strong>24. Refinar el comportamiento predefinido</strong> | <a
-        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
-        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a>&nbsp; | <a
+
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <a
+
+        class="wiki_link" href="entity-inheritance_es.html">7. Herencia de entidades</a> | <a
+
+        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
+
+        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
+
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <strong>24. Refinar el comportamiento predefinido</strong> | <a
+
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
+
         class="wiki_link" href="testing_es.html"></a>
       <hr>
       <div id="toc">
@@ -75,7 +109,8 @@
       <h2 id="toc1"><a name="Acciones-personalizadas"></a>Acciones personalizadas</h2>
       Por defecto, un módulo OpenXava te permite manejar tu entidad de una forma bastante buena: es posible añadir, modificar, borrar, buscar, generar informes PDF, exportar a Excel (CSV) e importar datos a las entidades. Estas acciones por defecto están contenidas en el controlador <em>Typical</em>. Puedes refinar o extender el comportamiento de tu módulo definiendo tu propio controlador. Esta sección te enseñará como definir tu propio controlador y escribir tus acciones personalizadas.<br>
       <h3 id="toc2"><a name="Acciones-personalizadas-Controlador-Typical"></a>Controlador Typical</h3>
-      Por defecto el módulo <em>Factura</em> usa las acciones del controlador <em>Typical</em>. El controlador <em>Typical</em> está definido en <em>default-controllers.xml</em> y puedes verlo en la carpeta <a
+      Por defecto el módulo <em>Factura</em> usa las acciones del controlador <em>Typical</em>. El controlador <em>Typical</em> está definido en <em>default-controllers.xml</em> y puedes verlo en la carpeta <a
+
         class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">xava de github</a><em></em>. Una definición de controlador es un fragmento de XML con una lista de acciones. OpenXava aplica por defecto el controlador <em>Typical</em> a todos los módulos. Puedes ver su definición:<br>
       <pre><code class="xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' hereda sus acciones de los controladores --&gt;
     &lt;extends controller="Navigation"/&gt; &lt;!-- 'Navigation', --&gt;
@@ -135,7 +170,8 @@
       Las acciones se muestran por defecto en modo lista y detalle, aunque puedes, por medio del atributo <em>mode</em>, especificar que sea mostrada solo en modo lista (list) o detalle (detail).<br>
       <h3 id="toc3"><a name="Acciones-personalizadas-Refinar-el-controlador-para-un-modulo"></a>Refinar el controlador para un módulo</h3>
       Empezaremos refinando la acción para borrar del módulo <em>Factura</em>. Nuestro objetivo es que cuando el usuario pulse en el botón de borrar, la factura no sea borrada de la base de datos, sino que simplemente se marque como borrada. De esta forma, podemos recuperar las facturas borradas si fuese necesario.<br>
-      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+
         title="refining_behavior_es010.png"><br>
       La figura anterior muestra las acciones de <em>Typical</em>; queremos todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción de que vamos a escribir nuestra propia lógica para la acción de borrar.<br>
       Define tu propio controlador para <em>Factura</em> añadiéndolo al archivo <em>controladores.xml</em> de la carpeta <em>src/main/resources/xava</em> de tu proyecto, dejándolo como sigue:<br>
@@ -182,7 +218,8 @@ public class EliminarFactura
     <div class="wiki" style="display: block;"> <i> ViewBaseAction</i> tiene una propiedad <i>view</i> que puedes usar desde dentro de <i>execute()</i> mediante <i>getView()</i>. Este objeto del tipo <i>org.openxava.view.View</i> permite manejar la interfaz de usuario, en este caso borramos los datos visualizados usando <i>getView().clear()</i>.<br>
       También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i> se mostrarán al usuario al final de la ejecución de la acción. Puedes, bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>src/main/resources/i18n/facturacion-messages_es.properties</em>.<br>
       La siguiente imagen muestra el comportamiento del módulo <em>Factura</em> después de añadir la acción de borrar personalizada:<br>
-      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+
         title="refining_behavior_es020.png"><br>
       Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento real. Para marcar como borrada la factura actual sin borrarla realmente, necesitamos añadir una nueva propiedad a <em>Factura</em>. Llamémosla <em>eliminado</em>:<br>
       <pre><code class="java">@Hidden // No se mostrará por defecto en las vistas y los tabs
@@ -336,7 +373,8 @@ abstract public class DocumentoComercial extends Eliminable {
 </code></pre> Con este cambio la validación funciona igual que en el caso de un borrado de verdad, así preservamos el comportamiento original intacto.<br>
       <h3 id="toc9"><a name="Acciones-genericas-Metadatos-para-un-codigo-mas-generico"></a>Metadatos para un código más genérico</h3>
       Con tu actual código de <em>Factura</em> y <em>Pedido</em> el funcionamiento es bueno. Aunque si tratas de borrar una entidad de cualquier otro módulo, recibirás un feo mensaje de error. La figura siguiente muestra lo que ocurre cuando intentas borrar un <em>Cliente</em>.<br>
-      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+
         title="refining_behavior_es030.png"><br>
       Sí, si tu entidad no tiene una propiedad <em>eliminado</em>, la acción de borrar falla miserablemente. Es verdad que gracias a la clase <em>Eliminable</em> puedes añadir la propiedad <em>eliminado</em> a todas tus entidades fácilmente, pero puede ser que quieras tener entidades que puedan marcarse como borradas (<em>Eliminable</em>) y entidades que sean borradas de verdad de la base de datos. Queremos que la acción funcione bien en todos los casos.<br>
       OpenXava almacena metadatos para todas tus entidades y puedes acceder a estos metadatos desde tu código. Esto te permite, por ejemplo, averiguar si la entidad tiene una propiedad <em>eliminado</em>.<br>
@@ -351,7 +389,8 @@ abstract public class DocumentoComercial extends Eliminable {
     }
     // El resto del código...
 }
-</code></pre> La clave aquí es <i>getView().getMetaModel()</i> que devuelve un objeto <i>MetaModel</i> del paquete <i>org.openxava.model.meta</i>. Este objeto contiene metadatos sobre la entidad actualmente visualizada en la vista. Puedes preguntar por propiedades, referencias, colecciones, métodos y otra metainformación sobre la entidad. Consulta la <a
+</code></pre> La clave aquí es <i>getView().getMetaModel()</i> que devuelve un objeto <i>MetaModel</i> del paquete <i>org.openxava.model.meta</i>. Este objeto contiene metadatos sobre la entidad actualmente visualizada en la vista. Puedes preguntar por propiedades, referencias, colecciones, métodos y otra metainformación sobre la entidad. Consulta la <a
+
         href="../apidocs/org/openxava/model/meta/MetaModel.html">API de <i>MetaModel</i></a> para aprender más. En este caso preguntamos si la propiedad <em>eliminado</em> existe.<br>
       De momento solo mostramos un mensaje. Mejorémoslo para borrar de verdad la entidad.<br>
       <h3 id="toc10"><a name="Acciones-genericas-Llamar-a-otra-accion-desde-una-accion"></a>Llamar a otra acción desde una acción</h3>
@@ -388,7 +427,8 @@ public class EliminarParaFacturacion extends ViewBaseAction {
       <h3 id="toc11"><a name="Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto"></a>Refinar la acción de búsqueda por defecto</h3>
       <em>EliminarParaFacturacion</em> ahora funciona bastante bien, aunque no tiene demasiada utilidad. Es inútil marcar como borrados los objetos, si el resto de la aplicación no es consciente de ello. Es decir, hemos de modificar otras partes de la aplicación para que traten los objetos “marcados como borrados” como si no existieran.<br>
       El lugar más obvio para empezar es la acción de búsqueda. Si borras una factura y después tratas de buscarla, no deberías encontrarla. La siguiente figura muestra como funciona la búsqueda en OpenXava.<br>
-      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+
         title="refining_behavior_es040.png"><br>
       La primera cosa que puedes observar en la figura anterior es que buscar en modo detalle es más flexible de lo que parece. El usuario puede introducir cualquier valor en cualquier campo, o combinación de campos, y pulsar en el botón de refrescar. Entonces el primer objeto cuyos valores coinciden es cargado en la vista.<br>
       Puedes pensar: Bueno, puedo refinar la acción <em>CRUD.refresh</em> de la misma forma que he refinado <em>CRUD.delete</em>. Por supuesto, puedes hacerlo así. Y funcionaría; cuando el usuario pulsara en la acción del modo detalle tu código se ejecutaría. Aunque, aquí hay un detalle un tanto sutil. La lógica de buscar no se llama sólo desde el modo detalle, sino también desde otros puntos del módulo OpenXava. Por ejemplo, cuando el usuario escoge un detalle, la acción <em>List.viewDetail</em> coge la clave de la fila, la pone en la vista de detalle y después ejecuta la acción de buscar.<br>
@@ -594,7 +634,8 @@ public class EliminarSeleccionadoParaFacturacion
       Ahora tu aplicación marca como borradas las facturas y pedidos en vez de borrarlos. La ventaja de este enfoque es que el usuario puede restaurar en cualquier momento una factura o pedido borrado por error. Para que esta característica sea útil de verdad has de proporcionar al usuario una herramienta para restaurar las entidades borradas. Vamos a crear un módulo papelera para <em>Factura</em> y otro para <em>Pedido</em> para traer los documentos borrados de vuelta a la vida.<br>
       <h3 id="toc16"><a name="Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables"></a>Propiedades para crear acciones reutilizables</h3>
       La papelera que queremos es como la que puedes ver en la siguiente figura. Es una lista de facturas o pedidos donde el usuario pueda seleccionar varias y pulsar en el botón <em>Restaurar</em>, o simplemente pulsar en el vínculo <em>Restaurar</em> en la fila del documento que quiera restaurar:<br>
-      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+
         title="refining_behavior_es050.png"><br>
       La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em> de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente la misma lógica que usamos para borrar, pero poniendo <em>false</em> en vez de <em>true</em>. Dado que nuestra conciencia no nos permite copiar y pegar, vamos a reutilizar nuestro código actual. La forma de reutilizar es añadiendo una propiedad <em>restaurar</em> a la acción <em>EliminarSeleccionadoParaFacturacion</em>, para poder restaurar las entidades borradas.<br>
       El siguiente código muestra lo necesario para añadir una propiedad <em>restaurar</em> a la acción:<br>
@@ -645,7 +686,8 @@ public class EliminarSeleccionadoParaFacturacion
  
 &lt;/aplicacion&gt;
 </code></pre> Estos módulos van contra <em>Factura</em> y <em>Pedido</em>, pero definen una acción especial como acción de fila usando la variable de entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>PapeleraFactura</em>:<br>
-      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+
         title="refining_behavior_es060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias definiciones de datos tabulares por entidad</h3>
       Otro detalle importante es que solo las entidades borradas se muestran en la lista. Esto es posible porque definimos un <i>@Tab</i> específico indicando su nombre para el módulo. El siguiente código detalla como escoger el <i>@Tab</i> para un módulo:<br>
@@ -684,11 +726,14 @@ public class Pedido extends DocumentoComercial { ... }
       El comportamiento estándar de OpenXava solo es el punto de partida. Usando la acción de borrar como excusa, hemos explorado algunas formas de refinar los detalles del comportamiento de la aplicación. Con las técnicas de esta lección no solo puedes refinar la lógica de borrado, sino también definir completamente la forma en que una aplicación OpenXava funciona. Así, tienes la posibilidad de adaptar el comportamiento de tu aplicación para cubrir las expectativas de tus usuarios.<br>
       El comportamiento por defecto de OpenXava es limitado: solo mantenimientos y listados. Si quieres una aplicación que de verdad aporte valor a tu usuario necesitas añadir funcionalidad específica que le ayude a resolver sus problemas. Haremos esto en la próxima lección.<br>
       <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-24"
+      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-24"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+
           class="wiki_link" href="business-logic-behavior_es.html">Ve a la lección 25</a></strong> </div>
   </body>
 </html>

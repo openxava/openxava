@@ -4,46 +4,82 @@
     <title>Lección 7: Herencia de entidades - Herencia - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span> Lección 7: Herencia de entidades</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapeadas</a> | <b><span
-          class="wiki_link">7. Herencia de entidades</span></b> | <a class="wiki_link"
-        href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
-        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
-        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
-        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
-        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
-        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
-        class="wiki_link" href="testing_es.html"></a><a class="wiki_link"
+      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
+
+        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
+
+        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
+
+        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
+
+        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapeadas</a> | <b><span
+
+          class="wiki_link">7. Herencia de entidades</span></b> | <a class="wiki_link"
+
+        href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
+
+        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
+
+        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> |<a
+
+        class="wiki_link" href="attributes-in-annotations_es.html"></a> <span
+
+        style="color: #0000ee;"></span><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
+
+        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
+
+        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
+
+        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_es.html"> 21. Anotación Bean Validation propia</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a>&nbsp; | <a
+
+        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
+
+        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
+
+        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
+
+        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
+
+        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a><a
+
+        class="wiki_link" href="testing_es.html"></a><a class="wiki_link"
+
         href="testing_es.html"></a>
       <hr>
       <div id="toc">
@@ -59,8 +95,10 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Una entidad puede heredar de otra entidad. Esta herencia de entidades es una herramienta muy útil para simplificar tu modelo. Vamos a usarla para añadir una nueva entidad, <em>Pedido</em>, a tu aplicación <em>facturacion</em>.<br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=HblTunYkDLY&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=8"
-          target="_blank"><img src="files/entity-inheritance-video_es.png"
+      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=HblTunYkDLY&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=8"
+
+          target="_blank"><img src="files/entity-inheritance-video_es.png"
+
             title="Video para la lección 7: Herencia de entidades con OpenXava"></a> </div>
       <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
       <div class="wiki" style="display: block;"><br>
@@ -68,7 +106,8 @@
       <h2 id="toc3"><a name="Herencia-de-entidades-Nueva-entidad-Pedido"></a>Nueva entidad Pedido</h2>
       Queremos añadir un nuevo concepto a la aplicación <em>facturacion</em>: pedido. Mientras que una factura es algo que quieres cobrar a tu cliente, un pedido es algo que tu cliente te ha solicitado. Estos dos conceptos están fuertemente unidos, porque cobrarás por las cosas que tu cliente te ha pedido y tú le has servido.<br>
       Sería interesante poder tratar pedidos en tu aplicación y asociar estos pedidos con sus correspondientes facturas. Tal como muestra el siguiente diagrama UML:<br>
-      <img src="files/inheritance_es010.png" alt="inheritance_es010.png"
+      <img src="files/inheritance_es010.png" alt="inheritance_es010.png"
+
         title="inheritance_es010.png"><br>
       Y con código Java:<br>
       <pre><code class="java">@Entity
@@ -88,14 +127,16 @@ public class Pedido {
 }
 </code></pre> Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una factura. Fíjate como no usamos inicialización vaga (lazy fetching) para la referencia <em>factura</em> (1), esto es por un bug de Hibernate cuando la referencia contiene la relación bidireccional (es decir, es la referencia declarada en el atributo <em>mappedBy</em> del <em>@OneToMany</em>).<br>
       ¿Cómo es <em>Pedido</em>? Bien, tiene un cliente, unas líneas de detalle con producto y cantidad, un año y un número. Algo así como esto:<br>
-      <img src="files/inheritance_es020.png" alt="inheritance_es020.png"
+      <img src="files/inheritance_es020.png" alt="inheritance_es020.png"
+
         title="inheritance_es020.png"><br>
       Curiosamente, este diagrama UML es idéntico al diagrama de <em>Factura</em>. Es decir, para crear tu entidad <em>Pedido</em> puedes copiar y pegar la clase <em>Factura</em>, y asunto zanjado. Pero, ¡espera un momento! ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de reutilizar <em>Factura</em> para <em>Pedido</em>.<br>
       <h2 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>DocumentoComercial como entidad abstracta</h2>
       Una manera práctica de reutilizar el código de <em>Factura</em> para <em>Pedido</em> es usando herencia, además es una excusa perfecta para aprender lo fácil que es usar la herencia con JPA y OpenXava.<br>
       En la mayoría de las culturas orientadas a objetos has de observar el precepto sagrado <em>es un</em>. Esto significa que no podemos hacer que <em>Factura</em> herede de <em>Pedido</em>, porque una <em>Factura</em> no es un <em>Pedido</em>, y por la misma regla no podemos hacer que <em>Pedido</em> descienda de <em>Factura</em>. La solución para este caso es crear una clase base para ambos, <em>Pedido</em> y <em>Factura</em>. Llamaremos a esta clase <em>DocumentoComercial</em>.<br>
       Aquí tienes el diagrama UML para <em>DocumentoComercial</em>:<br>
-      <img src="files/inheritance_es030.png" alt="inheritance_es030.png"
+      <img src="files/inheritance_es030.png" alt="inheritance_es030.png"
+
         title="inheritance_es030.png"><br>
       Y aquí tienes la misma idea expresada con Java:<br>
       <pre><code class="java">public class DocumentoComercial { ... }
@@ -123,7 +164,8 @@ DROP TABLE FACTURA;
 </code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu aplicación se esté ejecutando, después usa la opción de menú <i>OpenXava &gt; Database Manager</i> de OpenXava Studio:<br>
       <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
       Después:<br>
-      <img src="files/inheritance_es050.png" alt="inheritance_es050.png"
+      <img src="files/inheritance_es050.png" alt="inheritance_es050.png"
+
         title="inheritance_es050.png"><br>
       Ya puedes ejecutar el módulo <em>Factura</em> y verlo funcionando en tu navegador. Lanza también <em>PruebaFactura</em>. Tiene que salirte verde.</div>
     <div class="wiki" style="display: block;">Si usas tu propia versión de Eclipse o IntelliJ puedes ejecutar Database Manager ejecutando la tarea Ant <i>runDBManager</i> de <i>OpenXava/build.xml</i>.<br>
@@ -165,7 +207,8 @@ public class Pedido extends DocumentoComercial {
 </code></pre> Usando esta nomenclatura puedes refactorizar la clase <em>Cuenta</em> en una jerarquía sin renombrar sus miembros y además puedes escribir código polimórfico con <em>Cuenta</em>.<br>
       <h2 id="toc8"><a name="Herencia-de-entidades-Asociar-Pedido-con-Factura"></a>Asociar Pedido con Factura</h2>
       Hasta ahora, <em>Pedido</em> y <em>Factura</em> son exactamente iguales. Vamos a hacerles sus primeras extensiones, que va a ser asociar <em>Pedido</em> con <em>Factura</em>, como se muestra en el diagrama:<br>
-      <img src="files/inheritance_es010.png" alt="inheritance_es010.png"
+      <img src="files/inheritance_es010.png" alt="inheritance_es010.png"
+
         title="inheritance_es010.png"><br>
       Solo necesitas añadir una referencia desde <em>Pedido</em> a <em>Factura</em>:<br>
       <pre><code class="java">package com.tuempresa.facturacion.modelo;
@@ -197,16 +240,21 @@ public class Factura extends DocumentoComercial {
 </code></pre> Después de escribir este código tan simple, ya puedes probar estas, recién creadas, relaciones. Reinicia tu aplicación y abre tu navegador y explora los módulos <em>Pedido</em> y <em>Factura</em>. Fíjate como al final de la interfaz de usuario de <em>Pedido</em> tienes una referencia a <em>Factura</em>. El usuario puede usar esta referencia para asociar una factura al pedido actual. Por otra parte, si exploras el módulo <em>Factura</em>, verás una colección de pedidos al final. El usuario puede usarla para añadir pedidos a la factura actual.<br>
       Intenta añadir pedidos a la factura y asociar una factura a un pedido. Funciona, aunque la interfaz de usuario es un poco fea. No te preocupes, mejoraremos esto en la siguiente lección.<br>
       <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
-      Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar herencia de Java con entidades JPA para simplificar tu código. Hemos usado la configuración por defecto de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la herencia con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>, <em>@DiscriminatorValue</em>, etc. Para aprender más acerca de la herencia en JPA puedes leer la documentación del <a
+      Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar herencia de Java con entidades JPA para simplificar tu código. Hemos usado la configuración por defecto de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la herencia con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>, <em>@DiscriminatorValue</em>, etc. Para aprender más acerca de la herencia en JPA puedes leer la documentación del <a
+
         class="wiki_link" href="jpa_es.html">apéndice B</a>.</div>
     <div class="wiki" style="display: block;"><span style="color: #0000ee;"><br>
       </span></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-7"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_es/tree/leccion-7"
+
           rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
     <div class="wiki" style="display: block;"> <br>
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
+          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
+
           class="wiki_link" href="view-inheritance_es.html">Ve a la lección 8</a></strong> </div>
   </body>
 </html>

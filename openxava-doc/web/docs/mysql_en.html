@@ -4,21 +4,28 @@
     <title>Configuration for MySQL - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Configuration for MySQL </h1>
-      <i>If you're using an OpenXava version older than 7.0 look at the <a
+      <i>If you're using an OpenXava version older than 7.0 look at the <a
+
           href="mysql-ox6_en.html">old instructions</a></i></div>
     <div class="wiki" style="display: block;"> Configuring your OpenXava application to go against MySQL is very simple, basically you have to add a dependency to the JDBC driver for MySQL in your project and define correctly the datasource. You don't need to touch any code of your application.</div>
     <div class="wiki" style="display: block;">We assume you have already installed and running MySQL.</div>
     <div class="wiki" style="display: block;">Follow the next video to setting up MySQL in OpenXava project:</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=Vbml-vzOekQ"
-        target="_blank"><em><img src="files/mysql_en00.png" title="Follow this video"
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=Vbml-vzOekQ"
+
+        target="_blank"><em><img src="files/mysql_en00.png" title="Follow this video"
+
             alt="Follow this video"></em></a></div>
     <div class="wiki" style="display: block;">If you don't like videos, follow the instructions below.<br>
       <h2 id="toc1">Add JDBC driver for MySQL to your project</h2>

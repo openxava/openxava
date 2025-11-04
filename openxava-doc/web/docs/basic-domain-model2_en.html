@@ -4,45 +4,80 @@
     <title>Lesson 3: Basic domain model 2: Calculating default values (@DefaultValueCalculator), regular references (@ManyToOne), collections of dependent objects (@ElementCollection) - Modeling with Java - OpenXava course</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
-            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"><a name="Modeling with Java"></a> <span id="breadcrumbs"> <span
+
+            id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_en.html">documentation</a> / </span> Lesson 3: Basic domain model - Part 2</h1>
-      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
-        href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <b>3.Basic domain model (2)</b> | <a
-        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
-        class="wiki_link" href="agile-development_en.html">5. Agile development</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
-        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
-        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
-        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
-        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a><strong> </strong> | <a
-        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
-        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
-        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
-        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
-        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
-        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
-        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
-        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
-        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
-        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
-        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
-        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
-        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
-        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
-        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
-        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+      <strong>Course</strong>: <a class="wiki_link" href="getting-started_en.html">1. Getting started</a> | <a
+
+        href="basic-domain-model1_en.html">2. Basic domain model (1)</a> | <b>3.Basic domain model (2)</b> | <a
+
+        class="wiki_link" href="refining-user-interface_en.html">4. Refining the user interface</a> | <a
+
+        class="wiki_link" href="agile-development_en.html">5. Agile development</a> | <a
+
+        class="wiki_link" href="mapped-superclass-inheritance_en.html">6. Mapped superclass inheritance</a> | <a
+
+        class="wiki_link" href="entity-inheritance_en.html">7. Entity inheritance</a> | <a
+
+        class="wiki_link" href="view-inheritance_en.html">8. View inheritance</a> | <a
+
+        class="wiki_link" href="java-properties_en.html">9. Java properties</a> | <a
+
+        class="wiki_link" href="calculated-properties_en.html">10. Calculated properties </a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-in-collections_en.html">11. @DefaultValueCalculator in collections</a><strong> </strong> | <a
+
+        class="wiki_link" href="calculation-and-collections-total_en.html">12. </a><a
+
+        class="wiki_link" href="calculation-and-collections-total_en.html">@Calculation and collections totals</a> | <a
+
+        class="wiki_link" href="defaultvaluecalculator-from-file_en.html">13. @DefaultValueCalculator from file</a> | <a
+
+        class="wiki_link" href="manual-schema-evolution_en.html">14. Manual schema evolution</a> | <a
+
+        class="wiki_link" href="multi-user-default-value-calculation_en.html">15. Multi user default value calculation</a> | <a
+
+        class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent and computed propierties</a> | <a
+
+        class="wiki_link" href="logic-from-database_en.html">17. Logic from database&nbsp;</a> |<span
+
+        style="color: #0000ee;"></span><span style="color: #0000ee;"> </span><a
+
+        class="wiki_link" href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator&nbsp;</a> |&nbsp; <a
+
+        class="wiki_link" href="validation-alternatives_en.html">19. Validation alternatives&nbsp;</a> | <a
+
+        class="wiki_link" href="validation-on-remove_en.html">20. Validation on remove&nbsp;</a> |&nbsp;<a
+
+        class="wiki_link" href="custom-bean-validation-annotation_en.html"> 21. Custom Bean Validation annotation&nbsp;</a> | <a
+
+        class="wiki_link" href="rest-service-call-from-validation_en.html">22. REST service call from validation&nbsp;</a> | <a
+
+        class="wiki_link" href="attributes-in-annotations_en.html">23. Attributes in annotations&nbsp;</a> | <a
+
+        class="wiki_link" href="refining-standard-behavior_en.html">24. Refining the standard behavior</a> | <a
+
+        class="wiki_link" href="business-logic-behavior_en.html">25. Behavior &amp; business logic</a> | <a
+
+        class="wiki_link" href="references-collections_en.html">26. References &amp; collections</a> | <a
+
+        class="wiki_link" href="philosophy_en.html">A. Architecture &amp; philosophy</a> | <a
+
+        class="wiki_link" href="jpa_en.html">B. Java Persistence API</a> | <a
+
+        class="wiki_link" href="annotations_en.html">C. Annotations</a> | <a
+
+        class="wiki_link" href="testing_en.html">D. Automated testing</a><a
+
         class="wiki_link" href="testing_en.html"></a>
       <hr>
       <div id="toc">
@@ -54,8 +89,10 @@
         <div style="margin-left: 2em;"><a href="#Modeling%20with%20Java-Summary">Summary</a></div>
       </div>
       In this lesson you'll finish to create all the entities required for your project. We already have the basic entities, now we're going to write the code for the main entity of our invoicing application, the <em>Invoice</em> entity.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=74vFNB6_tVU"
-        target="_blank"><img src="files/basic-domain-model2-video_en.png"
+    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=74vFNB6_tVU"
+
+        target="_blank"><img src="files/basic-domain-model2-video_en.png"
+
           title="Video for lesson 3: Basic domain model - Part 2"></a><br>
     </div>
     <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
@@ -99,11 +136,16 @@ public class Invoice {
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus when the user clicks on the <i>New</i> button the year field will have the current year, and the date field the current date. These two calculators (</span><em><span
-          style="line-height: 1.5;">CurrentYearCalculator</span></em><span
-        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
-        style="line-height: 1.5;">) are included in OpenXava. You can explore the </span><em><a
-          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Thus when the user clicks on the <i>New</i> button the year field will have the current year, and the date field the current date. These two calculators (</span><em><span
+
+          style="line-height: 1.5;">CurrentYearCalculator</span></em><span
+
+        style="line-height: 1.5;"> and </span><em><span style="line-height: 1.5;">CurrentLocalDateCalculator</span></em><span
+
+        style="line-height: 1.5;">) are included in OpenXava. You can explore the </span><em><a
+
+          href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/calculators/package-summary.html">org.openxava.calculators</a></em><span
+
         style="line-height: 1.5;"> package to see other useful built-in calculators.</span></div>
     <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Note that for the date we use the type <i>LocalDate</i> (from <i>java.time</i> package). Java has a type <i>Date</i> (in <i>java.util</i> package). However <i>Date</i> is not a date, but a moment in time, including hours, seconds and milliseconds, while <i>LocalDate</i> has just day, month and year, that is a date. For the invoice case, and for most cases in business applications, we'll use <i>LocalDate</i> over <i>Date</i>.</span><br>
       Sometimes you need your own logic for calculating the default value. For example, for <em>number</em> we want to add one to the last invoice number in the same year. Creating your own calculator with your logic is easy. First, create a package for calculators and call it <em>com.yourcompany.invoicing.calculators</em>. </div>
@@ -138,7 +180,8 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
  
 }
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em> interface (and therefore must have a <em>calculate()</em> method). We declare a <em>year</em> property to put in the year of the calculation. To implement the logic we use a JPA query. You can learn how to use JPA in <a
+    <div class="wiki" style="display: block;">Your calculator must implement <em>ICalculator</em> interface (and therefore must have a <em>calculate()</em> method). We declare a <em>year</em> property to put in the year of the calculation. To implement the logic we use a JPA query. You can learn how to use JPA in <a
+
         class="wiki_link" href="jpa_en.html">appendix B</a>. Now we only have to annotate the number <em>property</em> in the <em>Invoice</em> entity:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="java">@Column(length=6)
@@ -152,7 +195,8 @@ int number;
       This is the visual effect of the default value calculators:<br>
       <img src="files/modeling_en070.png" alt="modeling_en070.png" title="modeling_en070.png"><br>
       Default values are only the initial values. The user can change them if he wishes to.</div>
-    <div class="wiki" style="display: block;">Note as <i>year</i> and <i>number</i> are not key, instead we use an <i>oid</i> property as key (annotated with <i>@Id</i>). Generally using single keys is better, however <a
+    <div class="wiki" style="display: block;">Note as <i>year</i> and <i>number</i> are not key, instead we use an <i>oid</i> property as key (annotated with <i>@Id</i>). Generally using single keys is better, however <a
+
         href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Composite+key">using composite keys is also possible</a>.<br>
       <h2 id="toc7"><a name="Modeling with Java-Basic domain model-Regular reference (ManyToOne)"></a>Regular reference (ManyToOne)</h2>
       Now that we have all atomic properties ready to use it's time to add relationships with other entities. We'll begin adding a reference from <em>Invoice</em> to <em>Customer</em>, because an invoice without customer is not very useful. Before adding the customer <b>use the <em>Invoice</em> module to remove all the current invoices</b> because we're going to make the customer required, so the old data could fail.<br>
@@ -197,14 +241,17 @@ public class Detail {
 @ListProperties("product.number, product.description, quantity")
 Collection&lt;Detail&gt; details;
 </code></pre> </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As you can see, you only have to feed the value for the annotation </span><em><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">As you can see, you only have to feed the value for the annotation </span><em><span
+
           style="line-height: 1.5;">@ListProperties</span></em><span style="line-height: 1.5;"> with the list of the properties you wish, separated by commas. You can use qualified properties, that is, to use the dot notation for accessing properties of references, such as <em>product.number</em> and <em>product.description</em> in this case. The visual result is:</span><br>
       <img src="files/modeling_en100.png" alt="modeling_en100.png" title="modeling_en100.png"></div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Now we realize that we don't like the <i>product.number</i> property's label, so we want to change this to: <i>Product Number</i>. To achieve this, we must go to the file <i>invoicing-labels_en.properties</i> that is located in the folder <i>invoicing/src/main/resources/i18n</i> and add the following line to overwrite the default label that OpenXava brings us:</span><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">Now we realize that we don't like the <i>product.number</i> property's label, so we want to change this to: <i>Product Number</i>. To achieve this, we must go to the file <i>invoicing-labels_en.properties</i> that is located in the folder <i>invoicing/src/main/resources/i18n</i> and add the following line to overwrite the default label that OpenXava brings us:</span><span
+
         style="line-height: 1.5;"></span><br>
       <pre><code class="java">product.number = Product Number</code></pre>
     </div>
-    <div class="wiki" style="display: block;"><img src="files/modeling_en105.png"
+    <div class="wiki" style="display: block;"><img src="files/modeling_en105.png"
+
         alt="modeling_en100.png" title="modeling_en100.png"></div>
     <div class="wiki" style="display: block;"><br>
       This new label <i>product.number</i> will change in all modules that is used, in case that we want to use it only in collection details of Invoice entity, we should use the following label:<br>
@@ -212,21 +259,27 @@ Collection&lt;Detail&gt; details;
         <pre><code class="java">//For this application we will use the previous label and not the following one<br>Invoice.details.product.number= Product Number</code></pre>
       </div>
     </div>
-    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">In this way, we can customize the labels that OpenXava brings us or create our own labels.</span><span
+    <div class="wiki" style="display: block;"><span style="line-height: 1.5;">In this way, we can customize the labels that OpenXava brings us or create our own labels.</span><span
+
         style="line-height: 1.5;"></span></div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Modeling with Java-Summary"></a>Summary</h2>
       Congratulations! You have finished your domain model classes, and you have an application running. Now the user can work with products, categories, customers and even create invoices. In the case of products, categories and customers the user interface is pretty decent, though the user interface for invoices still can be improved a little. By the way, you already have used some OpenXava annotations for refining the presentation, such as <i>@DescriptionsList, @NoFrame</i> and <i>@ListProperties</i>, also we saw how to modify labels that OpenXava brings us by default. In the next lesson we'll use more of these annotations to give the <i>Invoice</i> user interface a better look without too much effort. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-3"
+    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
+
+          href="https://github.com/openxava/openxava-course_en/tree/lesson-3"
+
           rel="nofollow">Download source code of this lesson</a></strong></div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong>Any problem with this lesson? <a
-          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
-          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+    <div class="wiki" style="display: block;"> <strong>Any problem with this lesson? <a
+
+          class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
+
+          rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a
+
           class="wiki_link" href="refining-user-interface_en.html">Go to Lesson 4</a></strong> </div>
   </body>
 </html>
