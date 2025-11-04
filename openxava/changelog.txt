@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved migration documentation for 7.2 indicating the needed imports for JSP code.
+- Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
 - Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
 - Fix: Visual style for focused radiobuttons and checkbuttons does not match other editors for theme.
 - Fix: Setting focus in radio button editors programmatically with View.setFocus() does not work.
