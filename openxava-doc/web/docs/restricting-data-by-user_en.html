@@ -4,8 +4,10 @@
     <title>Restricting data by user/role - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body class="wiki">
 
@@ -45,7 +47,7 @@
 	as filter. For example, if we have a <i>Task</i> entity with a <i>user</i> property that stores
 	the user who has the task assigned, we could define the <i>@Tab</i> like this:</p>
 	
-	<pre><code class="java">import org.openxava.filters.UserFilter;
+	<pre><code class="language-java">import org.openxava.filters.UserFilter;
 
 @Entity
 @Tab(filter=UserFilter.class, baseCondition="${user} = ?")
@@ -103,7 +105,7 @@ public class Task {
 	
 	<p>If you want the user field to be visible in the interface but not editable:</p>
 	
-	<pre><code class="java">@DefaultValueCalculator(CurrentUserCalculator.class)
+	<pre><code class="language-java">@DefaultValueCalculator(CurrentUserCalculator.class)
 @ReadOnly
 @Column(length=50, name="USERNAME")
 private String user;</code></pre>
@@ -118,13 +120,13 @@ private String user;</code></pre>
 	Remember to import the <i>CurrentUserCalculator</i> class:
 	</p>
 	
-	<pre><code class="java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
+	<pre><code class="language-java">import org.openxava.calculators.CurrentUserCalculator;</code></pre>
 	
 	<h3>Option 2: Hidden user</h3>
 	
 	<p>If you prefer that the user field is not visible in the interface:</p>
 	
-	<pre><code class="java">@Hidden
+	<pre><code class="language-java">@Hidden
 @Column(length=50, name="USERNAME")
 private String user;
 
@@ -149,7 +151,7 @@ public void assignCurrentUser() {
 	Remember to import the <i>Users</i> class if you use the second option:
 	</p>
 	
-	<pre><code class="java">import org.openxava.util.Users;</code></pre>
+	<pre><code class="language-java">import org.openxava.util.Users;</code></pre>
 	
 	<h2 id="restricting-data-by-role">Restricting data by role <em>(new in v7.6)</em></h2>
 	
@@ -166,7 +168,7 @@ public void assignCurrentUser() {
 	
 	<h3>1. Define a property for the role in your entity</h3>
 	
-	<pre><code class="java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+	<pre><code class="language-java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
 private String role;</code></pre>
 	
 	<p>
@@ -177,7 +179,7 @@ private String role;</code></pre>
 	
 	<h3>2. Configure the filter in the @Tab annotation</h3>
 	
-	<pre><code class="java">@Tab(baseCondition = "${role} IN (?)",
+	<pre><code class="language-java">@Tab(baseCondition = "${role} IN (?)",
     filter=com.openxava.naviox.filters.RolesFilter.class,
     properties="year, number, date, customer.number, customer.name, ...")</code></pre>
 	
@@ -210,7 +212,7 @@ private String role;</code></pre>
 	Remember to import the necessary classes:
 	</p>
 	
-	<pre><code class="java">import com.openxava.naviox.filters.RolesFilter; // Note: package com.openxava.naviox, not org.openxava</code></pre>
+	<pre><code class="language-java">import com.openxava.naviox.filters.RolesFilter; // Note: package com.openxava.naviox, not org.openxava</code></pre>
     
   </body>
 </html>

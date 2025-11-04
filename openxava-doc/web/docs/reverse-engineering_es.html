@@ -4,8 +4,10 @@
     <title>Generar aplicación desde base de datos - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -67,13 +69,13 @@
         alt="getting-started_en030.png" title="getting-started_en030.png"></div>
     <br>
     <div class="wiki" style="display: block;">Edita el archivo <i>pom.xml</i> en la raíz de tu proyecto, allí descomenta la dependencia de MySQL<br>
-      <pre><code class="xml">&lt;dependency&gt;
+      <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;com.mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
     &lt;version&gt;8.1.0&lt;/version&gt;
 &lt;/dependency&gt;
 </code></pre>Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y ajusta la definición de tu fuente de datos para que apunte a MySQL, algo así:
-      <pre><code class="xml">&lt;Resource name="jdbc/invoicingDB" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/invoicingDB" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="r123456"
@@ -81,7 +83,7 @@
     url="jdbc:mysql://localhost:3306/invoicingdb"/&gt;</code></pre>
       Este código ya se encuentra en el <em>context.xml</em>, comenta la fuente de datos que apunta a HSQLDB y descomenta el de MySQL, luego debes usar tu <em>url</em>, <em>username</em>, <em>password</em>.<br>
       Por último edita <em>src/main/resources/MEFA-INF/persistence.xml</em> y agrega la linea del dialecto <em>org.hibernate.dialect.MySQL8Dialect</em> como se muestra abajo<br>
-      <pre><code class="xml">    &lt;persistence-unit name="default"&gt;
+      <pre><code class="language-xml">    &lt;persistence-unit name="default"&gt;
     	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
     	&lt;non-jta-data-source&gt;java://comp/env/jdbc/invoicingDS&lt;/non-jta-data-source&gt;
     	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
@@ -212,14 +214,14 @@
       <br>
       <h2 id="toc1"><a name="Adaptar código para OpenXava"></a>Adaptar código para OpenXava</h2>
       <div class="wiki" style="display: block;"> El código autogenerado es suficiente, pero no está adaptado para funcionar en una aplicación OpenXava, vamos a hacer algunas modificaciones, algunas son opcionales. En <em>Author </em>tenemos una relación de <em>@OneToMany</em> con <em>Product</em>, donde nos indica que cada autor puede tener muchos productos, es decir, nos interesa mostrar varios productos relacionados con el autor seleccionado, agregamos una anotación <em>@ListProperties()</em> con los parámetros <em>"number, description, price"</em> </div>
-      <pre><code class="java">public class Author implements Serializable {
+      <pre><code class="language-java">public class Author implements Serializable {
 
 ...<br><br>@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
 private List&lt;Product&gt; products;
-</code></pre><code class="java"></code> <br>
+</code></pre><code class="language-java"></code> <br>
       En <em>Invoice </em>tenemos dos relaciones, <em>@ManyToOne</em> con <em>Customer </em>y <em>@OneToMany</em> con <em>InvoiceDetail</em>. Vamos a dejar <em>Customer </em>como está y en <em>InvoiceDetail</em> eliminamos la anotación de <em>@OneToMany</em>, en su lugar agregaremos 2 anotaciones, <em>@ElementCollection</em> y <em>@ListProperties("product.number, product.description, quantity") </em><br>
-      <pre><code class="java">public class Invoice implements Serializable {
+      <pre><code class="language-java">public class Invoice implements Serializable {
 
 ...
 <br>//@OneToMany borramos esta anotación
@@ -228,14 +230,14 @@ private List&lt;Product&gt; products;
 private List&lt;InvoiceDetail&gt; invoiceDetails;
 </code></pre> <br>
       En <em>InvoiceDetail</em>, vemos que esta clase no tiene ninguna propiedad <em>@Id</em>, ya que en su lógica, es una clase incrustada. Cambiamos <em>@Entity</em> por <em>@Embeddable</em> y eliminamos la relación con <em>Invoice </em>porque no nos interesa. <br>
-      <code class="java"></code>
-      <pre><code class="java">@Embeddable<br>//@Entity eliminamos esta anotación<br>@Table(name="invoice_details")
+      <code class="language-java"></code>
+      <pre><code class="language-java">@Embeddable<br>//@Entity eliminamos esta anotación<br>@Table(name="invoice_details")
 @NamedQuery(name="InvoiceDetail.findAll", query="SELECT i FROM InvoiceDetail i")
 public class InvoiceDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable=false)
-	private int quantity;	</code><br><code class="java"><code class="java">
+	private int quantity;	</code><br><code class="language-java"><code class="language-java">
 	//bi-directional many-to-one association to Product
 	@ManyToOne
 	@JoinColumn(name="product_number")
@@ -249,7 +251,7 @@ public class InvoiceDetail implements Serializable {
 </code></pre> </div>
     <div class="wiki" style="display: block;">En <em>Invoice </em>eliminamos los métodos <em>addInvoiceDetail</em> y <em>removeInvoiceDetail</em></div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class Invoice implements Serializable {
+      <pre><code class="language-java">public class Invoice implements Serializable {
 
 	...<br>	<br>	//public InvoiceDetail addInvoiceDetail(InvoiceDetail invoiceDetail) {
 	//	getInvoiceDetails().add(invoiceDetail);
@@ -265,7 +267,7 @@ public class InvoiceDetail implements Serializable {
     <div class="wiki" style="display: block;"><br>
       Por último nos queda adaptar <em>Product</em>, tenemos 3 relaciones, <em>InvoiceDetail</em>, <em>Author </em>y <em>Category</em>. No nos interesa la relación con <em>InvoiceDetail</em>, pero si los otros dos, Agregamos una anotación <em>@DescriptionsList</em> en <em>Author </em>y <em>Category </em>.</div>
     <div class="wiki" style="display: block;">Por último eliminamos la relación con <em>InvoiceDetail</em>, también debemos eliminar algunos métodos de la misma clase como aparece debajo<br>
-      <pre><code class="java">//añade la anotación @DescriptionsList a Author y Category
+      <pre><code class="language-java">//añade la anotación @DescriptionsList a Author y Category
 @ManyToOne
 @JoinColumn(name="author_oid")
 @DescriptionsList

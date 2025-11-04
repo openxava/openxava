@@ -4,8 +4,10 @@
     <title>Generación de informes - Lección 4: Trabajando con imágenes - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -31,8 +33,8 @@
 
               target="_blank">descargar el proyecto de esta lección</a>.</strong>
           También puedes copiar el código que se usa en el video por aquí:</p>
-        <code class="xml"></code> En el archivo <em>PrintProductAction.java</em>:<br>
-        <pre><code class="java">public class PrintProductAction extends JasperReportBaseAction {
+        <code class="language-xml"></code> En el archivo <em>PrintProductAction.java</em>:<br>
+        <pre><code class="language-java">public class PrintProductAction extends JasperReportBaseAction {
 
 	private Product product;
 	

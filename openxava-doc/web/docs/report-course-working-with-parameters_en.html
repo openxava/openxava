@@ -4,8 +4,10 @@
     <title>Report generation - Lesson 2: Working with parameters - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -32,13 +34,13 @@
               target="_blank">download the project for this lesson</a></strong>.
           You can also copy the code used in the video here:</p>
         In <em>controllers.xml</em> file:
-        <pre><code class="xml">&lt;controller name="Product"&gt;
+        <pre><code class="language-xml">&lt;controller name="Product"&gt;
     &lt;extends controller="Invoicing"/&gt;
     &lt;action name="printProductDetail"
         class="com.yourcompany.invoicing.actions.PrintProductAction"<br>	mode="detail"<br>	icon="printer"/&gt;
 &lt;/controller&gt;
 </code></pre> In <em>PrintProductAction.java</em> file:<br>
-        <pre><code class="java">public class PrintProductAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintProductAction extends JasperReportBaseAction {
 
 	private Product product;
 	

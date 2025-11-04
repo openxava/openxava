@@ -4,8 +4,10 @@
     <title>Maven configuration - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -20,17 +22,17 @@
         href="migration_en.html">migrations instructions</a> for that.</div>
     <div class="wiki" style="display: block;">To create a new OpenXava project from command line using Maven, type the next commands for Windows, Linux or Mac:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
+      <pre><code class="language-sh">$ mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
 $ cd yourapp
 $ mvn package
 </code></pre> </div>
     <div class="wiki" style="display: block;">To run your application in Windows:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="dos">c:\&gt; java -cp "target/yourapp/WEB-INF/classes;target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
+      <pre><code class="language-dos">c:\&gt; java -cp "target/yourapp/WEB-INF/classes;target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 </code></pre> </div>
     <div class="wiki" style="display: block;">To run your application in Linux or Mac:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="sh">$ java -cp "target/yourapp/WEB-INF/classes:target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
+      <pre><code class="language-sh">$ java -cp "target/yourapp/WEB-INF/classes:target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 </code></pre> </div>
     <div class="wiki" style="display: block;">The difference is the separator ; or :</div>
     <div class="wiki" style="display: block;"><br>

@@ -4,8 +4,10 @@
     <title>Modelo - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -1127,7 +1129,7 @@ class="br0">}</span>                    <span class="co1">// 13</span></pre>
       Editamos (o creamos) el archivo <em>editors.xml</em> o <em>editores.xml</em>
       en nuestra carpeta <i>src/main/resources/xava</i> (simplemente <em>xava</em>
       antes de v7) Y añadimos<br>
-      <pre><code class="xml">&lt;editor url="editorNombrePersona.jsp"&gt;
+      <pre><code class="language-xml">&lt;editor url="editorNombrePersona.jsp"&gt;
     &lt;para-estereotipo estereotipo="NOMBRE_PERSONA"/&gt;
     &lt;para-anotacion anotacion="com.tuempresa.tuaplicacion.anotaciones.NombrePersona"/&gt; &lt;!-- Nuevo en v6.6 --&gt;
 &lt;/editor&gt;
@@ -1137,19 +1139,19 @@ class="br0">}</span>                    <span class="co1">// 13</span></pre>
       ambas cosas.<br>
       Además es útil indicar la longitud por defecto, eso se hace editando <em>default-size.xml</em>
       o <em>longitud-defecto.xml</em>:<br>
-      <pre><code class="xml">&lt;para-estereotipo nombre="NOMBRE_PERSONA" longitud="40"/&gt;
+      <pre><code class="language-xml">&lt;para-estereotipo nombre="NOMBRE_PERSONA" longitud="40"/&gt;
 &lt;para-anotacion clase="com.tuempresa.tuaplicacion.anotaciones.NombrePersona" longitud="40"/&gt; &lt;!-- Nuevo en v6.6 --&gt;
 </code></pre> Y así si no ponemos longitud asumirá 40 por defecto.<br>
       Menos común es querer cambiar el validador para requerido, pero si
       queremos cambiarlo lo podemos hacer añadiendo a <em>validators.xml</em> o
       <em>validadores.xml</em> de nuestro proyecto lo siguiente:<br>
-      <pre><code class="xml">&lt;validador-requerido&gt;
+      <pre><code class="language-xml">&lt;validador-requerido&gt;
     &lt;clase-validador clase="org.openxava.validators.NotBlankCharacterValidator"/&gt;
     &lt;para-estereotipo estereotipo="NOMBRE_PERSONA"/&gt;
     &lt;para-anotacion anotacion="com.tuempresa.tuaplicacion.anotaciones.NombrePersona"/&gt; &lt;!-- Nuevo en v6.6 --&gt;
 &lt;/validador-requerido&gt;
 </code></pre> Ahora podemos definir propiedades con estereotipo NOMBRE_PERSONA:<br>
-      <pre><code class="java">@Stereotype("NOMBRE_PERSONA")
+      <pre><code class="language-java">@Stereotype("NOMBRE_PERSONA")
 private String nombre;
 </code></pre> En este caso asume 40 longitud y tipo <em>String</em>, así como
       ejecutar el validador <em>NotBlankCharacterValidator</em><br>
@@ -1159,7 +1161,7 @@ private String nombre;
     <div class="wiki" style="display: block;">A partir de v6.6 puedes usar una
       anotación Java en lugar de un estereotipo, de esta forma:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@NombrePersona
+      <pre><code class="language-java">@NombrePersona
 private String nombre;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Obviamente has de escribir el
@@ -1506,26 +1508,26 @@ class="st0">"GalleryImage.hbm.xml"</span><span class="re2">/&gt;</span></span>
       sólo necesitamos declarar una propiedad con la anotación <i>@File (nuevo
         en v6.6)</i>. De esta manera:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@File
+      <pre><code class="language-java">@File
 @Column(length=32)
 private String documento;
 </code></pre> </div>
     <div class="wiki" style="display: block;">O con el estereotipo ARCHIVO si
       usas una versión anterior a la 6.6. Así:<br>
-      <pre><code class="java">@Stereotype("ARCHIVO")
+      <pre><code class="language-java">@Stereotype("ARCHIVO")
 @Column(length=32)
 private String documento;
 </code></pre>Usa <i>@Files (nuevo en v6.6)</i> para adjuntar múltiples
       archivos:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Files
+      <pre><code class="language-java">@Files
 @Column(length=32)
 private String documentos;
 </code></pre> </div>
     <div class="wiki" style="display: block;">O el estereotipo ARCHIVOS si usas
       una versión anterior a la 6.6. Así:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Stereotype("ARCHIVOS")
+      <pre><code class="language-java">@Stereotype("ARCHIVOS")
 @Column(length=32)
 private String documentos;
 </code></pre>Cuando usas la versión con anotación (<i>@File</i> o <i>@Files</i>)
@@ -1533,14 +1535,14 @@ private String documentos;
         </i>para restringir los archivos que el usuario puede subir. Por
       ejemplo, con este código:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
+        <pre><code class="language-java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
 @Column(length=32)
 private String foto;
 </code></pre> </div>
       <div class="wiki" style="display: block;">El usuario sólo puede subir
         imágenes de 90 Kb o menos, y con este otro:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        <pre><code class="language-java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 @Column(length=32)
 private String hojasCalculo;
 </code></pre> </div>
@@ -1690,12 +1692,12 @@ class="br0">)</span>
         <i>@Stereotype("FIRMA_MANUSCRITA")</i> la propiedad guarda directamente el id del archivo. 
         Por ejemplo si tenemos una propiedad como esta:</p>
       
-      <pre><code class="java">@File @Column(length=32)
+      <pre><code class="language-java">@File @Column(length=32)
 String foto;
 </code></pre>
       <p></p>
       <p>Podemos llenarla con un archivo usando nuestro propio código así:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1732,7 +1734,7 @@ public class CargarFoto extends ViewBaseAction {
         propiedad. La propiedad <i>foto</i> almacena el id del archivo.</p>
       <p>El proceso contrario, es decir, obtener y manipular el archivo que ya
         hay en la propiedad <i>@File</i>, sería así:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1768,11 +1770,11 @@ public class GrabarFoto extends ViewBaseAction {
         id de la librería, no del archivo. Una librería es un grupo de archivos.
         Cada archivo tiene su propio id, pero todos comparten un id común de
         librería. Por ejemplo, con una propiedad como esta:</p>
-      <pre><code class="java">@Files @Column(length=32)
+      <pre><code class="language-java">@Files @Column(length=32)
 String documentos;
 </code></pre>
       <p>Podemos llenarla con varios archivos usando nuestro propio código así:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1823,7 +1825,7 @@ public class CargarDocumentos
         cada uno el mismo id de librería.</p>
       <p>El proceso contrario, es decir, obtener y manipular los archivos que ya
         hay en la propiedad <i>@Files</i>, sería así:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 import java.util.*;
 
 import org.openxava.actions.*;
@@ -1864,13 +1866,13 @@ public class GrabarDocumentos extends ViewBaseAction {
       discusión, como los que hay en los foros, gestores de incidencias, blogs,
       etc. Sólo has de anotar tu propiedad con <i>@Discussion</i> <i>(nuevo en
         v6.6)</i>, de esta manera:<br>
-      <pre><code class="java">@Discussion
+      <pre><code class="language-java">@Discussion
 @Column(length=32)
 private String discusion;
 </code></pre>O con el estereotipo DISCUSION si usas una versión anterior a la
       6.6. Así:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Stereotype("DISCUSION")
+      <pre><code class="language-java">@Stereotype("DISCUSION")
 @Column(length=32)
 private String discusion;
 </code></pre> </div>
@@ -2173,7 +2175,7 @@ class="br0">)</span>;</pre>
       Una propiedad coordenadas te permite escoger un punto en un mapa y
       guardarlo. Para definirla anota tu propiedad con <i>@Coordinates</i> o <i>@Stereotype("COORDENADAS")</i>:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@Coordinates @Column(length=50)
+        <pre><code class="language-java">@Coordinates @Column(length=50)
 private String ubicacion;
 </code></pre> </div>
       <div class="wiki" style="display: block;">Fíjate en el tipo, <i>String</i>,
@@ -2200,7 +2202,7 @@ private String ubicacion;
         viene configurado para usar <a href="https://opentopomap.org/">OpenTopoMap</a>
         con estas entradas en <i>xava.properties</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties"># OpenTopoMap 
+        <pre><code class="language-properties"># OpenTopoMap 
 mapsTileProvider=https://b.tile.opentopomap.org/{z}/{x}/{y}.png
 mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://opentopomap.org"&gt;OpenTopoMap&lt;/a&gt; (&lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;CC-BY-SA&lt;/a&gt;)
 </code></pre> </div>
@@ -2210,7 +2212,7 @@ mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"
         proveedores, como <a href="https://www.mapbox.com/">MapBox</a>, de esta
         manera: </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties"># MapBox 
+        <pre><code class="language-properties"># MapBox 
 # Cambia abajo YOUR_ACCESS_TOKEN por tu propio token de acceso
 mapsTileProvider=https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=YOUR_ACCESS_TOKEN
 mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;
@@ -2235,7 +2237,7 @@ mapsZoomOffset=-1
         quieres un formulario con todos los campos a la izquierda y el mapa a la
         derecha, puedes escribir una anotación <i>@View</i> como esta:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@View(members=
+        <pre><code class="language-java">@View(members=
     "ciudad [ estado; "
         + "condicionEstado;"
         + "codigo;"
@@ -2263,7 +2265,7 @@ mapsZoomOffset=-1
       <i>La firma manuscrita sólo está disponible con <a href="https://openxava.org/xavapro">XavaPro</a></i>
       <p>Para permitir al usuario firmar a mano y guardar su firma en una propiedad,
         has de anotar la propiedad con <i>@HandwrittenSignature</i> o <i>@Stereotype("FIRMA_MANUSCRITA")</i>:</p>
-      <pre><code class="java">import com.openxava.annotations.*; // No org.openxava.annotations.*
+      <pre><code class="language-java">import com.openxava.annotations.*; // No org.openxava.annotations.*
 
 ...
 
@@ -2743,7 +2745,7 @@ class="br0">}</span><span class="sy0">;</span></pre>
 
         class="sy0"></span>
       <div class="wiki" id="content_view">
-        <pre><code class="java">public enum Prioridad implements IIconEnum { 
+        <pre><code class="language-java">public enum Prioridad implements IIconEnum { 
 <br>	BAJA("transfer-down"), MEDIA("square-medium"), ALTA("transfer-up");
 
 	private String icon;

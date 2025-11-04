@@ -4,8 +4,10 @@
     <title>Mobile user interface - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
     <style type="text/css">
 	    .mobile-screenshot {
 		    box-shadow: 0 0 7px #000;
@@ -240,7 +242,7 @@
       solution is to define a module in <i>application.xml</i> just for mobile.
       For example:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;module name="InvoiceMobile"&gt;
+      <pre><code class="language-xml">&lt;module name="InvoiceMobile"&gt;
 	&lt;model name="Invoice"/&gt;
 	&lt;view name="Mobile"/&gt;
 	&lt;controller name="InvoiceMobile"/&gt;
@@ -257,7 +259,7 @@
       for <i>InvoiceMobile</i> to remove the 'Mobile' suffix, this in the i18n
       labels files, with an entry like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">InvoiceMobile=Invoices
+      <pre><code class="language-properties">InvoiceMobile=Invoices
 </code></pre> </div>
     <div class="wiki" style="display: block;"><br>
     </div>

@@ -4,8 +4,10 @@
     <title>SSO with Azure AD - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -24,7 +26,7 @@
         authentication</b> for your XavaPro applications. <br>
       <h2><a name="añadir-dependencias-en-pom.xml">SSO configuration in XavaPro</a></h2>
       In the <i>Admin</i> folder, you have a module called SSO to configure
-      Azure AD:<code class="xml"></code> </div>
+      Azure AD:<code class="language-xml"></code> </div>
     <img src="files/sso-module_en.png">
     <div class="wiki" style="display: block;">If you check the <i>Enabled</i>
       checkbox and fill in the remaining fields with the correct configuration

@@ -4,8 +4,10 @@
     <title>OpenXava - Configuration for Kotlin</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -19,11 +21,11 @@
         href="https://kotlinlang.org/">Kotlin</a> is the most used language in Android applications and can be developed on JVM or JS. One of the Kotlin's features is that it's designed to fully interoperate with Java syntax, it means that you can compile both codes and have them interact with each other without any problems.<br>
       <h2><a name="add-dependencies-in-pom.xml">Add dependencies in pom.xml</a></h2>
       After created an OpenXava project (<a href="intellij_en.html">how to</a>), you must define the Kotlin version in properties in the <i>pom.xml</i> file located in the root folder of the project:
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
     &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
 &lt;/properties&gt;
 </code></pre>Add the following dependency in <i>dependencies</i> to use the Kotlin library:<br>
-      <pre><code class="xml">&lt;dependencies&gt;
+      <pre><code class="language-xml">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
         &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
@@ -31,7 +33,7 @@
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
 </code></pre>To build projects that include Kotlin and Java code, add the following in <i>build</i>:<br>
-      <pre><code class="xml">&lt;build&gt;
+      <pre><code class="language-xml">&lt;build&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
@@ -100,7 +102,7 @@
       Create the <i>kotlin</i> folder in <i>src/main</i> to store Kotlin codes, in the same folder create <i>com.yourcompany.invoicing.model</i> package for OpenXava entities. You may need to do a <i>Reload project</i> in Maven so that you can create packages in the <i>kotlin</i> folder.<br>
       <br>
       Create a Kotlin class in the <i>model</i> package with the name <i>Customer </i>(or <i>Customer.kt</i> file in Eclipse/OpenXava Studio):<br>
-      <pre><code class="java">package com.yourcompany.invoicing.model
+      <pre><code class="language-java">package com.yourcompany.invoicing.model
 
 import org.openxava.annotations.Required
 import javax.persistence.Column
@@ -125,7 +127,7 @@ class Customer {
         href="http://localhost:8080/invoicing">http://localhost:8080/invoicing</a> and log in with <i>admin/admin</i> as username/password to see the results.<br>
       <h2><a>Other codes examples</a></h2>
       To create a simple button (action) where it displays a message, put the Kotlin <i>ShowMessageAction</i> (<i>ShowMessageAction.kt</i>) class in the <i>com.yourcompany.invoicing.action</i> package of the <i>kotlin</i> folder:
-      <pre><code class="java">package com.yourcompany.invoicing.action
+      <pre><code class="language-java">package com.yourcompany.invoicing.action
 
 import org.openxava.actions.ViewBaseAction
 
@@ -136,12 +138,12 @@ class ShowMessageAction : ViewBaseAction() {
         addMessage("Hello world!")
     }<br><br>&nbsp;}</code></pre>
       Remember that you have to declare the action in <i>controllers.xml</i> in <i>src/main/resources/xava</i>:<br>
-      <pre><code class="xml">&lt;controller name ="Customer"&gt;
+      <pre><code class="language-xml">&lt;controller name ="Customer"&gt;
     &lt;extends controller ="Typical"/&gt;
     &lt;action name ="showMessage" class ="com.yourcompany.invoicing.action.ShowMessageAction" mode="detail"/&gt;
 &lt;/controller&gt;<br></code></pre>
       An entity with more features:
-      <pre><code class="java">package com.yourcompany.invoicing.model
+      <pre><code class="language-java">package com.yourcompany.invoicing.model
 
 import org.openxava.annotations.*
 import org.openxava.calculators.CurrentLocalDateCalculator

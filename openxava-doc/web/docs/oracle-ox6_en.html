@@ -4,8 +4,10 @@
     <title>Configuration for Oracle in OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -70,7 +72,7 @@
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
       to adjust the datasource to point to Oracle, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -88,7 +90,7 @@
       (in <i>persistence/META-INF</i>), to add the <i>hibernate.dialect</i>
       property with the correct value for your Oracle version:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;!-- Default Persistence Unit for Oracle --&gt;
+      <pre><code class="language-xml">&lt;!-- Default Persistence Unit for Oracle --&gt;
 &lt;persistence-unit name="default"&gt;
 	...
 	&lt;properties&gt;
@@ -105,7 +107,7 @@
     <div class="wiki" style="display: block;">Moreover, you have to modify the <i>junit</i>
       persistence unit to point to Oracle. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit Oracle --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit Oracle --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

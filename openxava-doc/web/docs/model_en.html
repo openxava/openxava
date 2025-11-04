@@ -4,8 +4,10 @@
     <title>Model - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -1117,7 +1119,7 @@ class="br0">}</span>                         <span class="co1">// 13</span>
       called PERSON_NAME to represent names of persons.<br>
       Edit (or create) the file <em>editors.xml</em> in your folder <i>src/main/resources/xava</i>
       (just <em>xava</em> before v7). And add:<br>
-      <pre><code class="xml">&lt;editor url="personNameEditor.jsp"&gt;
+      <pre><code class="language-xml">&lt;editor url="personNameEditor.jsp"&gt;
     &lt;for-stereotype stereotype="PERSON_NAME"/&gt;
     &lt;for-annotation annotation="com.yourcompany.yourapp.annotations.PersonName"/&gt; &lt;!-- New in v6.6 --&gt;
 &lt;/editor&gt;
@@ -1126,21 +1128,21 @@ class="br0">}</span>                         <span class="co1">// 13</span>
       can define an annotation instead of an stereotype, you can also use both.<br>
       Furthermore it is useful to indicate the default size; you can do this by
       editing <em>default-size.xml</em> of your project:<br>
-      <pre><code class="xml">&lt;for-stereotype name="PERSON_NAME" size="40"/&gt;
+      <pre><code class="language-xml">&lt;for-stereotype name="PERSON_NAME" size="40"/&gt;
 &lt;for-annotation class="com.yourcompany.yourapp.annotations.PersonName" size="40"/&gt; &lt;!-- New in v6.6 --&gt;
 </code></pre> Thus, if you do not put the size in a property of type PERSON_NAME
       (or <i>@PersonName</i>) a value of 40 is assumed.<br>
       Not so common is changing the validator for required, but if you wish to
       change it you can do it adding to <em>validators.xml</em> of your project
       the next definition:<br>
-      <pre><code class="xml">&lt;required-validator&gt;
+      <pre><code class="language-xml">&lt;required-validator&gt;
     &lt;validator-class class="org.openxava.validators.NotBlankCharacterValidator"/&gt;
     &lt;for-stereotype stereotype="PERSON_NAME"/&gt;
     &lt;for-annotation annotation="com.yourcompany.yourapp.annotations.PersonName"/&gt; &lt;!-- New in v6.6 --&gt;
 &lt;/required-validator&gt;
 </code></pre> Now everything is ready to define properties of stereotype
       PERSON_NAME:<br>
-      <pre><code class="java">@Stereotype("PERSON_NAME")
+      <pre><code class="language-java">@Stereotype("PERSON_NAME")
 private String name;
 </code></pre> In this case a value of 40 is assumed as size, String as type and
       the <em>NotBlankCharacterValidator</em> validator is executed to verify
@@ -1150,7 +1152,7 @@ private String name;
     <div class="wiki" style="display: block;">Since v6.6 you can use a Java
       annotation instead of a stereotype, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@PersonName
+      <pre><code class="language-java">@PersonName
 private String name;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Obviously, you have to write the
@@ -1495,40 +1497,40 @@ class="st0">"GalleryImage.hbm.xml"</span><span class="re2">/&gt;</span></span>
       to declare your property with the <i>@File</i> annotation <i>(new in
         v6.6)</i>, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@File
+      <pre><code class="language-java">@File
 @Column(length=32)
 private String document;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Or if you use a version previous
       to 6.6 using the FILE stereotype, in this way:<br>
-      <pre><code class="java">@Stereotype("FILE")
+      <pre><code class="language-java">@Stereotype("FILE")
 @Column(length=32)
 private String document;
 </code></pre>Use <i>@Files</i> <i>(new in v6.6)</i> for attaching multiple
       files:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Files
+      <pre><code class="language-java">@Files
 @Column(length=32)
 private String documents;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Or if you use a version previous
       to 6.6 use the FILES stereotype, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Stereotype("FILES")
+      <pre><code class="language-java">@Stereotype("FILES")
 @Column(length=32)
 private String documents;
 </code></pre>When you use the annotation version (<i>@File</i> or <i>@Files</i>)
       you can define attributes like <i>acceptFileTypes</i> or <i>maxFileSizeInKb</i>
       to restrict the files the user can upload. For example, with this code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
+      <pre><code class="language-java">@File(acceptFileTypes="image/*", maxFileSizeInKb=90)
 @Column(length=32)
 private String photo;
 </code></pre> </div>
     <div class="wiki" style="display: block;">The user can only upload images of
       90 Kb or less, and with this one:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+      <pre><code class="language-java">@Files(acceptFileTypes="text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
 @Column(length=32)
 private String spreadsheets;
 </code></pre> </div>
@@ -1675,12 +1677,12 @@ class="br0">)</span>
         property directly stores the file ID. For example, if we have a property
         like this:</p>
       <p></p>
-      <pre><code class="java">@File @Column(length=32)
+      <pre><code class="language-java">@File @Column(length=32)
 String photo;
 </code></pre>
       <p></p>
       <p>We can fill it with a file using our own code like this:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1717,7 +1719,7 @@ public class LoadPhotoAction extends ViewBaseAction {
         property stores the file ID.</p>
       <p>The reverse process, that is, obtaining and manipulating the file
         already in the <i>@File</i> property, would be like this:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1753,11 +1755,11 @@ public class SavePhotoAction extends ViewBaseAction {
         the file ID. A library is a group of files. Each file has its own ID,
         but they all share a common library ID. For example, with a property
         like this:</p>
-      <pre><code class="java">@Files @Column(length=32)
+      <pre><code class="language-java">@Files @Column(length=32)
 String documents;
 </code></pre>
       <p>We can populate it with multiple files using our own code like this:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 
 import org.openxava.actions.*;
 import org.openxava.web.editors.*;
@@ -1808,7 +1810,7 @@ public class LoadDocumentsAction
         ID.</p>
       <p>The opposite process, that is, retrieving and manipulating the files
         that are already in the <i>@Files</i> property, would be like this:</p>
-      <pre><code class="java">import java.nio.file.*;
+      <pre><code class="language-java">import java.nio.file.*;
 import java.util.*;
 
 import org.openxava.actions.*;
@@ -1849,14 +1851,14 @@ public class SaveDocumentsAction extends ViewBaseAction {
       just like the ones in forums, trackers, blogs, etc. You only have to
       annotate your property with <i>@Discussion (new in v6.6)</i>, in this
       way:<br>
-      <pre><code class="java">@Discussion
+      <pre><code class="language-java">@Discussion
 @Column(length=32)
 private String discussion;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Or if you use a version previous
       to 6.6 using the DISCUSSION stereotype, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Stereotype("DISCUSSION")
+      <pre><code class="language-java">@Stereotype("DISCUSSION")
 @Column(length=32)
 private String discussion;
 </code></pre> </div>
@@ -2160,7 +2162,7 @@ class="br0">)</span>;</pre>
       store it. To define it annotate your property with <i>@Coordinates</i> or
       <i>@Stereotype("COORDINATES")</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Coordinates @Column(length=50)
+      <pre><code class="language-java">@Coordinates @Column(length=50)
 private String location;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Note the type, <i>String</i>, and
@@ -2183,7 +2185,7 @@ private String location;
       to use <a href="https://opentopomap.org/">OpenTopoMap</a> with these
       entries in <i>xava.properties</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties"># OpenTopoMap 
+      <pre><code class="language-properties"># OpenTopoMap 
 mapsTileProvider=https://b.tile.opentopomap.org/{z}/{x}/{y}.png
 mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://opentopomap.org"&gt;OpenTopoMap&lt;/a&gt; (&lt;a href="https://creativecommons.org/licenses/by-sa/3.0/"&gt;CC-BY-SA&lt;/a&gt;)
 </code></pre> </div>
@@ -2193,7 +2195,7 @@ mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"
       providers, like <a href="https://www.mapbox.com/">MapBox</a>, in this
       way: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties"># MapBox 
+      <pre><code class="language-properties"># MapBox 
 # Change below YOUR_ACCESS_TOKEN by your own access token
 mapsTileProvider=https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=YOUR_ACCESS_TOKEN
 mapsAttribution=Map data © &lt;a href="https://www.openstreetmap.org/copyright"&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href="https://www.mapbox.com/"&gt;Mapbox&lt;/a&gt;
@@ -2217,7 +2219,7 @@ mapsZoomOffset=-1
       for example, if you want a form with all fields on left and the map on
       right, you can write a <i>@View</i> annotation like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@View(members=
+      <pre><code class="language-java">@View(members=
     "city [ state; "
         + "stateCondition;"
         + "code;"
@@ -2243,7 +2245,7 @@ mapsZoomOffset=-1
       <i>Handwritten signature is only available with <a href="https://openxava.org/xavapro">XavaPro</a></i>
       <p>To allow the user to sign by hand and save their signature in a property,
         you have to annotate the property with <i>@HandwrittenSignature</i> or <i>@Stereotype("HANDWRITTEN_SIGNATURE")</i>:</p>
-      <pre><code class="java">import com.openxava.annotations.*; // Not org.openxava.annotations.*
+      <pre><code class="language-java">import com.openxava.annotations.*; // Not org.openxava.annotations.*
 
 ...
 
@@ -2721,7 +2723,7 @@ class="br0">}</span><span class="sy0">;</span>
 
         class="sy0"></span>
       <div class="wiki" id="content_view">
-        <pre><code class="java">public enum Priority implements IIconEnum { 
+        <pre><code class="language-java">public enum Priority implements IIconEnum { 
 <br>	LOW("transfer-down"), MEDIUM("square-medium"), HIGH("transfer-up");
 
 	private String icon;

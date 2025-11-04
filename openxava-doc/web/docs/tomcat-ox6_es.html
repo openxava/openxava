@@ -4,8 +4,10 @@
     <title>Desplegar en producción con Tomcat para OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -62,13 +64,13 @@
           </span>y pulsa INTRO, entonces:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
     </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
+      <pre><code class="language-shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
 cd tomcat-9.0.24\bin
 startup</code></pre>
     </div>
     <div class="wiki" style="display: block;">Con Linux/Mac:
       <div class="wiki" style="display: block;">
-        <pre><code class="shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
+        <pre><code class="language-shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 cd tomcat-9.0.24/bin
 ./startup.sh</code></pre>
       </div>
@@ -89,7 +91,7 @@ cd tomcat-9.0.24/bin
       ejemplo, deberíamos editar <i>tomcat-9.0.24/conf/context.xml</i> y
       dejarlos de la siguiente manera:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+      <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
 &lt;!-- The contents of this file will be loaded for each web application --&gt;
 &lt;Context&gt;

@@ -4,8 +4,10 @@
     <title>OpenXava - Configuración para Kotlin</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -19,11 +21,11 @@
         href="https://kotlinlang.org/">Kotlin</a> es un lenguaje usado en la mayoría de las aplicaciones para Android y se puede desarrollar sobre JVM o JS. Una de las características es que Kotlin está diseñado para interoperar completamente con la sintaxis de Java, es decir que puedes compilar ambos códigos y que interactuen entre sí sin problemas. <br>
       <h2><a name="añadir-dependencias-en-pom.xml">Añadir dependencias en pom.xml</a></h2>
       Después de haber creado un proyecto OpenXava (<a href="intellij_es.html">cómo hacerlo</a>), debes definir la versión de Kotlin en <i>properties</i> en el archivo <i>pom.xml</i> ubicado en la carpeta raíz del proyecto:
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
     &lt;kotlin.version&gt;1.8.0&lt;/kotlin.version&gt;
 &lt;/properties&gt;
 </code></pre>Añade la siguiente dependencia para usar la librería de Kotlin en <i>dependencies</i>:<br>
-      <pre><code class="xml">&lt;dependencies&gt;
+      <pre><code class="language-xml">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
         &lt;artifactId&gt;kotlin-stdlib-jdk8&lt;/artifactId&gt;
@@ -31,7 +33,7 @@
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
 </code></pre>Para compilar proyectos que incluyan código Kotlin y Java, añade lo siguiente en <i>build</i>:<br>
-      <pre><code class="xml">&lt;build&gt;
+      <pre><code class="language-xml">&lt;build&gt;
     &lt;plugins&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;org.jetbrains.kotlin&lt;/groupId&gt;
@@ -100,7 +102,7 @@
       Crea la carpeta <i>kotlin</i> en <i>src/main</i> para almacenar el código Kotlin y en la misma carpeta crea el paquete <i>com.tuempresa.facturacion.modelo</i> para las entidades OpenXava. Quizás debas hacer un <i>Reload project</i> en Maven para que puedas crear paquetes en la carpeta <i>kotlin</i>. <br>
       <br>
       Crea una clase Kotlin en el paquete <i>modelo</i> con el nombre de <i>Cliente </i>(o un archivo <i>Cliente.kt</i> en Eclipse u OpenXava Studio):<br>
-      <pre><code class="java">package com.tuempresa.facturacion.modelo
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo
 
 import org.openxava.annotations.Required
 import javax.persistence.Column
@@ -125,7 +127,7 @@ class Cliente {
         href="http://localhost:8080/invoicing">http://localhost:8080/facturacion</a> e inicia sesión <i>con admin/admin</i> como usuario/contraseña para ver los resultados.<br>
       <h2><a>Otros ejemplos de código</a></h2>
       Crear un botón simple (acción) donde muestra un mensaje, deja la clase Kotlin <i>MostrarMensaje </i>(<i>MostrarMensaje.kt</i>) en el paquete <i>com.tuempresa.facturacion.accion </i>de la carpeta kotlin:
-      <pre><code class="java">package com.tuempresa.facturacion.accion
+      <pre><code class="language-java">package com.tuempresa.facturacion.accion
 
 import org.openxava.actions.ViewBaseAction
 
@@ -136,12 +138,12 @@ class MostrarMensaje : ViewBaseAction() {
         addMessage("Hola Mundo!")
     }<br><br>&nbsp;}</code></pre>
       Recuerda que debes declarar la acción en <i>controladores.xml</i> que se encuentra en <i>src/main/resources/xava</i>:<br>
-      <pre><code class="xml">&lt;controlador nombre ="Cliente"&gt;
+      <pre><code class="language-xml">&lt;controlador nombre ="Cliente"&gt;
     &lt;hereda-de controlador ="Typical"/&gt;
     &lt;accion nombre ="mostrarMensaje" clase ="com.tuempresa.facturacion.accion.MostrarMensaje" modo ="detail"/&gt;
 &lt;/controlador&gt;<br></code></pre>
       Una entidad con más características:
-      <pre><code class="java">package com.tuempresa.facturacion.modelo
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo
 
 import org.openxava.annotations.*
 import org.openxava.calculators.CurrentLocalDateCalculator

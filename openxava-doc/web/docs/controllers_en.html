@@ -4,8 +4,10 @@
     <title>Controllers - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -2749,7 +2751,7 @@ class="sy0">;</span>
       and if so, it calls the <em>isAvailable()</em> method. If the method returns <em>false</em>, the action
       is not displayed.<br>
       Let's see an example of a list action that is only available for specific rows depending on their content. In this case, the action will only be displayed for rows where the carrier's name is not already in uppercase:<br>
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.actions;
 
 import java.util.*;
 
@@ -5328,7 +5330,7 @@ class="br0">)</span><span class="sy0">;</span>
     <div class="wiki" style="display: block;">The first step is to create a
       transient class that includes a property of type <i>org.apache.commons.fileupload.FileItem</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.uploadtest.model;
+      <pre><code class="language-java">package com.yourcompany.uploadtest.model;
 
 import java.time.*;
 import org.apache.commons.fileupload.*;
@@ -5370,7 +5372,7 @@ public class ShowFile {
       <i>application.xml</i> because transient classes are not automatically
       recognized as modules:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;module name="ShowFile"&gt;
+      <pre><code class="language-xml">&lt;module name="ShowFile"&gt;
 	&lt;model name="ShowFile"/&gt;
 	&lt;controller name="ShowFile"/&gt;
 &lt;/module&gt;
@@ -5378,7 +5380,7 @@ public class ShowFile {
     <div class="wiki" style="display: block;">Then you have to define the
       controller with the action to process the file. Add it in <i>controllers.xml</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;controller name="ShowFile"&gt;
+      <pre><code class="language-xml">&lt;controller name="ShowFile"&gt;
 	&lt;action name="showFile"
 		class="com.yourcompany.uploadtest.actions.ShowFileAction"/&gt;    
 &lt;/controller&gt;
@@ -5386,7 +5388,7 @@ public class ShowFile {
     <div class="wiki" style="display: block;">Finally, the logic that process
       the uploaded file in your action:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.uploadtest.actions;
+      <pre><code class="language-java">package com.yourcompany.uploadtest.actions;
 
 import java.time.*;
 
@@ -6077,7 +6079,7 @@ class="sy0">;</span>
 .xml span.xtra { display:block; }
 
 -->
-</style><pre><code class="xml">&lt;controller name="Collection"&gt;
+</style><pre><code class="language-xml">&lt;controller name="Collection"&gt;
     &lt;action name="new"
         class="org.openxava.actions.CreateNewElementInCollectionAction"/&gt;
     &lt;action name="hideDetail"                                               &lt;!-- 1 --&gt;
@@ -6855,7 +6857,7 @@ class="sy0">;</span>                                      <span class="co1">// 3
       for v7 or better and just in <i>xava</i> folder for older versions) of
       your project in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;module name="Author"&gt;
+      <pre><code class="language-xml">&lt;module name="Author"&gt;
 	&lt;model name="Author"/&gt; 
 	&lt;controller name="Typical"/&gt;
 	&lt;mode-controller name="MyGoListMode"/&gt;
@@ -6864,7 +6866,7 @@ class="sy0">;</span>                                      <span class="co1">// 3
     <div class="wiki" style="display: block;">Then you have to define the <i>MyGoListMode</i>
       controller in your <i>controllers.xml</i>, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;controller name="MyGoListMode"&gt;
+      <pre><code class="language-xml">&lt;controller name="MyGoListMode"&gt;
 	&lt;extends controller="Mode"/&gt;
 	&lt;action name="list"
 		icon="chevron-left"
@@ -6876,7 +6878,7 @@ class="sy0">;</span>                                      <span class="co1">// 3
       controller and overwrite <i>list</i> action. Now just remains writing the
       action code, it could be:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 

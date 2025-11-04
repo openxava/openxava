@@ -4,8 +4,10 @@
     <title>Report generation - Lesson 5: Barcodes - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -30,8 +32,8 @@
 
               target="_blank">download the project for this lesson</a></strong>.
           You can also copy the code used in the video here:</p>
-        <code class="xml"></code> In <em>pom.xml</em> file:<br>
-        <pre><code class="xml">&lt;dependency&gt;
+        <code class="language-xml"></code> In <em>pom.xml</em> file:<br>
+        <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;net.sf.barcode4j&lt;/groupId&gt;
     &lt;artifactId&gt;barcode4j&lt;/artifactId&gt;
     &lt;version&gt;2.1&lt;/version&gt;

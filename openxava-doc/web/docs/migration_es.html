@@ -4,8 +4,10 @@
     <title>Migración - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -17,7 +19,7 @@
       <p>Edita el archivo <i>pom.xml</i> de tu proyecto y cambia el valor de la
         propiedad <i>openxava.version</i> para que apunte a la última versión
         de OpenXava, así: </p>
-      <pre><code class="xml">&lt;properties&gt;
+      <pre><code class="language-xml">&lt;properties&gt;
     &lt;openxava.version&gt;7.6.1&lt;/openxava.version&gt;
     ...
 &lt;/properties&gt;
@@ -74,9 +76,10 @@
           utilidades de Commons Lang 2.x, en la mayoría de los casos basta con
           cambiar el paquete en los <i>imports</i> de <i>org.apache.commons.lang</i>
           a <i>org.apache.commons.lang3</i>. Normalmente compilará y funcionará
-          igual. Si te encuentras algún pequeño cambio de API, consulta la <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html"
+          igual. Si te encuentras algún pequeño cambio de API, consulta la <a href="https://commons.apache.org/proper/commons-lang/javadocs/api-release/index.html"
+
             target="_blank">documentación de Commons Lang 3</a>.</p>
-        <pre><code class="java">// Antes (Commons Lang 2.x)
+        <pre><code class="language-java">// Antes (Commons Lang 2.x)
 import org.apache.commons.lang.StringUtils;
 
 // Después (Commons Lang 3)
@@ -95,10 +98,10 @@ boolean blank = StringUtils.isBlank(s);
           aplicación; solo actualizar tus pruebas JUnit si verifican los valores
           disponibles o su orden.</p>
         <p>Por ejemplo, si tienes una referencia como esta:</p>
-        <pre><code class="java">@DescriptionsList(descriptionProperties = "year, number, customer.name")
+        <pre><code class="language-java">@DescriptionsList(descriptionProperties = "year, number, customer.name")
 Invoice invoice;</code></pre>
         <p>Deberías cambiar en tu prueba esto:</p>
-        <pre><code class="java">// ANTES: valores esperados usados en pruebas (orden lexicográfico para números)
+        <pre><code class="language-java">// ANTES: valores esperados usados en pruebas (orden lexicográfico para números)
 String [][] invoices = {
     {"", ""},
     {"[.10.2004.]", "2004 10 Juanillo"},
@@ -110,7 +113,7 @@ String [][] invoices = {
 assertValidValues("invoice.KEY", invoices);
 </code></pre>
         <p>Por:</p>
-        <pre><code class="java">// DESPUÉS: actualiza los valores esperados para que coincidan con el orden numérico
+        <pre><code class="language-java">// DESPUÉS: actualiza los valores esperados para que coincidan con el orden numérico
 String [][] invoices = {
     {"", ""},
     {"[.2.2004.]",  "2004 2 Juanillo"},
@@ -130,7 +133,7 @@ assertValidValues("invoice.KEY", invoices);
           embargo, si tus pruebas JUnit verifican los valores mostrados, debes
           actualizarlas en consecuencia.</p>
         <p>Por ejemplo, actualiza aserciones como estas:</p>
-        <pre><code class="java">// ANTES (año corto en la fecha formateada)
+        <pre><code class="language-java">// ANTES (año corto en la fecha formateada)
 assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/04");
 // DESPUÉS (año completo)
 assertDescriptionValue("delivery.KEY", "DELIVERY JUNIT 666 2/22/2004");
@@ -151,7 +154,7 @@ assertDescriptionValue("address.state.id", "NEW YORK");
           XavaPro)</h3>
         <p>Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
           y añade la siguiente entrada a todas tus unidades de persistencia:</p>
-        <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
+        <pre><code class="language-xml">&lt;class&gt;com.openxava.naviox.model.LDAPConfiguration&lt;/class&gt;</code></pre>
         <h3>Añadir módulo LDAPConfiguration a rol admin y carpeta Admin (para
           XavaPro)</h3>
         <p>Si usas XavaPro con un proyecto existente, necesitas añadir el módulo
@@ -166,7 +169,7 @@ assertDescriptionValue("address.state.id", "NEW YORK");
         <h3>Configuración LDAP movida al módulo Admin (para XavaPro)</h3>
         <p>En XavaPro, la configuración LDAP ya no se realiza en el archivo <i>naviox.properties</i>.
           Las siguientes propiedades ya no son válidas:</p>
-        <pre><code class="properties"># LDAP Config
+        <pre><code class="language-properties"># LDAP Config
 ldapHost=192.168.0.0
 ldapDomain=XX
 ldapDN=DC=XX,DC=XX,DC=XX
@@ -208,10 +211,10 @@ ldapPort=389</code></pre>
           muestra la cantidad de registros presentes en el reporte, por lo que
           si compruebas detalles del reporte en pruebas JUnit, es necesario
           hacer unos cambios, anteriormente era: </p>
-        <pre><code class="java">assertPopupPDFLinesCount(7);
+        <pre><code class="language-java">assertPopupPDFLinesCount(7);
 assertPopupPDFLine(2, "Name");<br></code></pre>
         Ahora es:<br>
-        <pre><code class="java">assertPopupPDFLinesCount(8); // +1
+        <pre><code class="language-java">assertPopupPDFLinesCount(8); // +1
 assertPopupPDFLine(2, "Record count: 3"); // SE AGREGÓ ESTA NUEVA FILA
 assertPopupPDFLine(3, "Name");<br></code></pre>
         <h3>Nueva acción en colecciones (para pruebas JUnit)</h3>
@@ -221,14 +224,14 @@ assertPopupPDFLine(3, "Name");<br></code></pre>
           algunos cambios, agregando la nueva acción y en algunos casos quitando
           <i>Collection.removeSelected</i> si la colección tiene <em>(cascade=CascadeTYPE.REMOVE)</em>.
           Por ejemplo: </p>
-        <pre><code class="java">String [] actions = { <br>    "Collection.new",
+        <pre><code class="language-java">String [] actions = { <br>    "Collection.new",
     "Collection.edit",<br>    "Collection.removeSelected", // QUITA ESTA ENTRADA SI LA COLECCIÓN TIENE ELIMINAR EN CASCADA
     "Collection.deleteSelected" // AÑADE ESTA ENTRADA
 };		
 assertActions(actions);</code></pre>
         Lo mismo, si la colección tiene eliminar en cascada, debes cambiar la
         llamada de la acción por <em>Collection.deleteSelected</em><br>
-        <pre><code class="java">public void testDeleteElementInCollection() throws Exception {
+        <pre><code class="language-java">public void testDeleteElementInCollection() throws Exception {
 	....
 	execute("Collection.removeSelected", "row=0,viewObject=xava_view_humans"); // QUITAR
 	execute("Collection.deleteSelected", "row=0,viewObject=xava_view_humans"); // CAMBIAR POR
@@ -245,17 +248,17 @@ assertActions(actions);</code></pre>
           Esto se debe que al tener eliminar en cascada, la acción <em>Collection.removeSelected</em>
           actúa de la misma forma que <em>Collection.deleteSelected</em> y por
           tanto el primero no aparecerá en la vista.</p>
-        <pre><code class="java">@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
+        <pre><code class="language-java">@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
 @RemoveSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.removeSelected") // QUITAR<br>@DeleteSelectedAction(forViews="DEFAULT, MoreSections", value="DeliveryDetail.deleteSelected") // CAMBIAR POR @DeleteSelectedAction, <br>										       // EL NOMBRE DE LA ACCIÓN EN EL CONTROLADOR NO ES OBLIGATORIO CAMBIARLO
 private Collection&lt;Detail&gt; details;	<br></code></pre>
-        <pre><code class="java">public class DeleteSelectedDeliveryDetailsAction 
+        <pre><code class="language-java">public class DeleteSelectedDeliveryDetailsAction 
 	extends RemoveSelectedInCollectionAction { // QUITAR
 	extends DeleteSelectedInCollectionAction { // CAMBIAR POR<br></code></pre>
         <h3>Nueva acción en fila de colecciones (para pruebas JUnit)</h3>
         <p>Ahora cada fila de la colección tiene una nueva acción, <i>CollectionOpenInNewTab.openInNewTab</i>,
           por lo que si comprueban las acciones presentes en las pruebas JUnit,
           es necesario modificarlas y agregar la nueva acción. Por ejemplo: </p>
-        <pre><code class="java">String [] actions = { 
+        <pre><code class="language-java">String [] actions = { 
     "Collection.edit",
     "CollectionOpenInNewTab.openInNewTab" // AÑADE ESTA ENTRADA
 };		
@@ -272,7 +275,7 @@ assertActions(actions);</code></pre>
       <p>Si no has sobrescrito el controlador <i>Collection</i> puedes saltear
         este paso. De lo contrario debes agregar manualmente las acciones <i>previous</i>
         y <i>next</i> en el controlador:</p>
-      <pre><code class="xml">&lt;action name="next"
+      <pre><code class="language-xml">&lt;action name="next"
 	image="next.gif"
 	icon="skip-next"
 	class="org.openxava.actions.EditElementInCollectionAction"&gt;
@@ -292,7 +295,7 @@ assertActions(actions);</code></pre>
         y <i>Collection.next</i>, por lo que si comprueban todas las acciones
         presentes en las pruebas JUnit, hace falta modificarlas y agregar las
         nuevas acciones. Por ejemplo: </p>
-      <pre><code class="java">String [] bottomActions = { 
+      <pre><code class="language-java">String [] bottomActions = { 
     "Collection.save",
     "Collection.hideDetail",
     "Collection.next", // AÑADE ESTA ENTRADA
@@ -310,7 +313,7 @@ assertActions(bottomActions);</code></pre>
         altos estándares de seguridad, puedes habilitar el soporte de <i>eval()</i>
         para tu aplicación OpenXava agregando la siguiente entrada a tu archivo
         <i>xava.properties</i>:</p>
-      <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
+      <pre><code class="language-properties">unsafeEvalInScripts=true</code></pre>
       <h2>Para migrar de OpenXava 7.2.2 a OpenXava 7.2.3</h2>
       No hay consideraciones.
       <h2>Para migrar de OpenXava 7.2.1 a OpenXava 7.2.2</h2>
@@ -325,11 +328,11 @@ assertActions(bottomActions);</code></pre>
         por razones de seguridad. Tienes que eliminar los eventos del HTML y
         moverlos a un archivo JS. </p>
       <p>Es decir, si tienes un código como este en tu editor:</p>
-      <pre><code class="html">&lt;a class="ox-card" 
+      <pre><code class="language-html">&lt;a class="ox-card" 
     onclick="openxava.executeAction('&lt;%=request.getParameter("application")%&gt;', '&lt;%=request.getParameter("module")%&gt;', false, false, '&lt;%=action%&gt;', '&lt;%="row=" + (i++)%&gt;');"&gt;
 </code></pre>
       <p>Quita el evento <i>onclick</i> dejándolo de esta manera:</p>
-      <pre><code class="html">&lt;a class="ox-card" data-action="&lt;%=action%&gt;" data-row="&lt;%=i++%&gt;"&gt;
+      <pre><code class="language-html">&lt;a class="ox-card" data-action="&lt;%=action%&gt;" data-row="&lt;%=i++%&gt;"&gt;
 </code></pre>
       <p>Fíjate que hemos añadido atributos <i>data-</i> para guardas datos
         dinámicos que antes estaban en el JavaScript en línea, así podremos leer
@@ -338,7 +341,7 @@ assertActions(bottomActions);</code></pre>
         el editor JSP se llama <i>cardEditor.jsp</i>), en <i>src/main/webapp/xava/editors/js</i>
         (crea la carpeta si todavía no existe) de tu proyecto, con el siguiente
         contenido:</p>
-      <pre><code class="javascript">openxava.addEditorInitFunction(function() {
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
 	$('.ox-card').off('click').click(function() {
 		openxava.executeAction(openxava.lastApplication, openxava.lastModule, false, false, 
 			$(this).data('action'), "row=" + $(this).data('row'));
@@ -373,7 +376,7 @@ assertActions(bottomActions);</code></pre>
         del JSP y añadir un <i> openxava.getString()</i> en el archivo JS de tu
         editor. Por ejemplo, para el editor <i>Discussion</i> tenemos un <i>discussion.js</i>
         que está en <i>xava/editors/js</i> donde tenemos el código: </p>
-      <pre><code class="javascript">openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js");
+      <pre><code class="language-javascript">openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js");
 </code></pre>
       <p>Si tu editor o vista personalizada aún no tiene un archivo JS,
         simplemente créalo y colócalo en <i>xava/editors/js</i>, sin importar
@@ -382,12 +385,12 @@ assertActions(bottomActions);</code></pre>
         JSP y agregarle un atributo de nonce. En otras palabras, si en el código
         JSP de tu editor o vista tienes algo como esto:</p>
       <p></p>
-      <pre><code class="html">&lt;script type='text/javascript' src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
+      <pre><code class="language-html">&lt;script type='text/javascript' src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
       <p></p>
       <p>Deberías cambiarlo por:</p>
       <p></p>
-      <pre><code class="html">&lt;%@include file="../imports.jsp"%&gt; &lt;%-- Si tu JSP está en /xava/editors--&gt;
+      <pre><code class="language-html">&lt;%@include file="../imports.jsp"%&gt; &lt;%-- Si tu JSP está en /xava/editors--&gt;
 
 &lt;script type='text/javascript' &lt;xava:nonce/&gt; src='&lt;%=contextPath%&gt;/dwr/interface/Discussion.js?ox=&lt;%=version%&gt;'&gt;&lt;/script&gt;
 </code></pre>
@@ -429,14 +432,14 @@ assertActions(bottomActions);</code></pre>
             estilo de HTML a CSS en tus vistas personalizadas, editores,
             formateadores, servlets, etc.</p>
           <p>Por ejemplo, si tienes este código HTML:</p>
-          <pre><code class="html">&lt;div style="padding: 20px; background-color: green;"&gt;
+          <pre><code class="language-html">&lt;div style="padding: 20px; background-color: green;"&gt;
 </code></pre>
           <p>La parte de <i>style</i> ya no es reconocida. Ahora, debes cambiar
             el <i>style</i> por una <i>class</i>:</p>
-          <pre><code class="html">&lt;div class="mi-fondo"&gt;
+          <pre><code class="language-html">&lt;div class="mi-fondo"&gt;
 </code></pre>
           <p>Y agregar la clase a tu archivo CSS (ya sea el CSS de tu tema o <i>custom.css</i>):</p>
-          <pre><code class="css">.mi-fondo {
+          <pre><code class="language-css">.mi-fondo {
     padding: 20px; 
     background-color: green;
 }
@@ -446,10 +449,10 @@ assertActions(bottomActions);</code></pre>
             Especialmente cuando necesitas usar algún valor dinámico, como un
             color de una base de datos. Por ejemplo, podrías cambiar este código
             Java que genera HTML:</p>
-          <pre><code class="java">return "&lt;i class='mdi mdi-square' style='color: " + valorHexColor + "'&gt;&lt;/i&gt;";
+          <pre><code class="language-java">return "&lt;i class='mdi mdi-square' style='color: " + valorHexColor + "'&gt;&lt;/i&gt;";
 </code></pre>
           <p>Por esto:</p>
-          <pre><code class="java">return "&lt;font color='" + valorHexColor + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
+          <pre><code class="language-java">return "&lt;font color='" + valorHexColor + "'&gt;&lt;i class='mdi mdi-square ox-color-inherit'&gt;&lt;/i&gt;&lt;/font&gt;"; 
 </code></pre>
           <p>Fíjate en el uso de <i>&lt;font&gt;</i> para indicar el color. En
             este caso también utilizamos la clase <i>ox-color-inherit</i>
@@ -459,7 +462,7 @@ assertActions(bottomActions);</code></pre>
           <p>Esto es por razones de seguridad. Tus servlets requieren establecer
             explícitamente el tipo de contenido. Por lo tanto, si todavía no lo
             hacías, debes agregar la siguiente línea a tus servlets:</p>
-          <pre><code class="java">response.setContentType("text/html"); 
+          <pre><code class="language-java">response.setContentType("text/html"); 
 </code></pre>Debes indicar el tipo MIME correspondiente, en este ejemplo
           "text/html" para un documento HTML.</div>
         <h3>JavaScript en línea en los JSP requiere el atributo nonce</h3>
@@ -473,13 +476,13 @@ assertActions(bottomActions);</code></pre>
           a tu script en línea utilizando la nueva etiqueta <i>&lt;xava:nonce/&gt;</i>
           de la biblioteca de etiquetas.</p>
         <p>Por ejemplo, si tu página <i>welcome.jsp</i> tiene este código:</p>
-        <pre><code class="html">&lt;script type="text/javascript"&gt; 
+        <pre><code class="language-html">&lt;script type="text/javascript"&gt; 
     var button = document.getElementById('welcome_go_signin');
     button.onclick = function () { window.location='m/SignIn'; }
 &lt;/script&gt;
 </code></pre>
         <p>Deberías cambiarlo por:</p>
-        <pre><code class="html">&lt;%@include file="../xava/imports.jsp"%&gt;
+        <pre><code class="language-html">&lt;%@include file="../xava/imports.jsp"%&gt;
     
     ...
     
@@ -502,17 +505,17 @@ assertActions(bottomActions);</code></pre>
           que ya no van a funcionar. Esto es por razones de seguridad. Tienes
           que eliminar los eventos del HTML y moverlos a un archivo JS. </p>
         <p>Es decir, si tienes un código como este:</p>
-        <pre><code class="html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+        <pre><code class="language-html">&lt;input type="button" tabindex="1" onclick="window.location='m/SignIn'" value="&lt;xava:label key='SignIn'/&gt;"&gt;
 </code></pre>
         <p>Quita el evento <i>onclick</i> y añade un id al elemento, dejándolo
           de esta manera:</p>
-        <pre><code class="html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
+        <pre><code class="language-html">&lt;input id="welcome_go_signin" type="button" tabindex="1" value="&lt;xava:label key='SignIn'/&gt;"&gt;
 </code></pre>
         <p>Después añade un archivo JS, digamos <i>eventos.js</i> (o cualquier
           otro nombre que prefieras), en <i>src/main/webapp/xava/editors/js</i>
           (crea la carpeta si todavía no existe) de tu proyecto, con el
           siguiente contenido:</p>
-        <pre><code class="javascript">var button = document.getElementById('welcome_go_signin');
+        <pre><code class="language-javascript">var button = document.getElementById('welcome_go_signin');
 button.onclick = function () { window.location='m/SignIn'; }
 </code></pre>
         <p>Observa cómo utilizamos el ID para añadir el evento usando código
@@ -524,7 +527,7 @@ button.onclick = function () { window.location='m/SignIn'; }
           redirigir a una URL que comienza con <i>javascript:</i> para ejecutar
           código, eso no funcionará. En su lugar, utiliza <i>IJavaScriptPostAction</i>
           para ejecutar JavaScript. Es decir, si tienes una acción como esta:</p>
-        <pre><code class="java">public class DecirHola extends BaseAction implements IForwardAction {    
+        <pre><code class="language-java">public class DecirHola extends BaseAction implements IForwardAction {    
 
     public void execute() throws Exception {
     }
@@ -540,7 +543,7 @@ button.onclick = function () { window.location='m/SignIn'; }
 }
 </code></pre>
         <p>Reescríbela de esta manera:</p>
-        <pre><code class="java">public class DecirHola extends BaseAction implements IJavaScriptPostAction {
+        <pre><code class="language-java">public class DecirHola extends BaseAction implements IJavaScriptPostAction {
 
     public void execute() throws Exception {
     }
@@ -559,16 +562,16 @@ button.onclick = function () { window.location='m/SignIn'; }
           use métodos como <i>assertValue(), assertLabelInList(),
             assertValueInCollection()</i>, entre otros que se usen para
           verificar etiquetas. Por ejemplo, si tienes algo así:</p>
-        <pre><code class="java">assertLabelInList(0, "Year of invoice");
+        <pre><code class="language-java">assertLabelInList(0, "Year of invoice");
 </code></pre>
         <p>Cambiala por:</p>
-        <pre><code class="java">assertLabelInList(0, "Invoice year");
+        <pre><code class="language-java">assertLabelInList(0, "Invoice year");
 </code></pre>
         <p>Si antes las etiquetas eran:</p>
-        <pre><code class="java">customer.address = Address of customer<br>customer.address.street = Street of address of customer<br>customer.address.street.number = Number of street of address of customer <br></code></pre>
+        <pre><code class="language-java">customer.address = Address of customer<br>customer.address.street = Street of address of customer<br>customer.address.street.number = Number of street of address of customer <br></code></pre>
         <p>Ahora son:<br>
         </p>
-        <pre><code class="java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
+        <pre><code class="language-java">customer.address = Customer address<br>customer.address.street = Customer address street<br>customer.address.street.number = Customer address street number
 </code></pre>
         <h3>Recargar página necesario para usar CSS en las pruebas (para pruebas
           JUnit)</h3>
@@ -577,7 +580,7 @@ button.onclick = function () { window.location='m/SignIn'; }
         correctamente, por lo que si activas el CSS para tu prueba tienes que
         hacer un <i>reload()</i> después. Así:
         <div class="wiki" style="display: block;">
-          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
+          <pre><code class="language-java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
 reload(); // ...has de añadir esta línea
 </code></pre> </div>
         <div class="wiki" style="display: block;">Curiosamente, el añadir el <i>reload()</i>
@@ -588,7 +591,7 @@ reload(); // ...has de añadir esta línea
         el usuario (<i>Reference.clear</i>), por lo que si comprueban todas las
         acciones presentes en las pruebas JUnit, hace falta modificarlas y
         agregar la nueva acción Reference.clear. Por ejemplo:
-        <pre><code class="java">String [] acciones= {
+        <pre><code class="language-java">String [] acciones= {
 	"CRUD.new",
 	"CRUD.save",
 	"CRUD.refresh",
@@ -599,14 +602,14 @@ reload(); // ...has de añadir esta línea
 	"Reference.clear", // AÑADE ESTA ENTRADA
 	"Sections.change"
 };<br>assertActions(acciones); <br></code></pre>
-        <code class="java"> </code></div>
+        <code class="language-java"> </code></div>
       <h3>Tomcat 8.x requiere nivel de compilación Java 8 como mínimo</h3>
       Si usas Tomcat 8.x para tus aplicaciones en producción has de poner el
       nivel de compilación de las páginas JSP a 1.8 como mínimo. Para ello edita
       el archivo <i>web.xml</i> en la carpeta <i>conf</i> de tu Tomcat, busca
       un servlet llamado <i>jsp</i> y añade los siguiente parámetros:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;servlet&gt;
+      <pre><code class="language-xml">&lt;servlet&gt;
 	&lt;servlet-name&gt;jsp&lt;/servlet-name&gt;
 	&lt;servlet-class&gt;org.apache.jasper.servlet.JspServlet&lt;/servlet-class&gt;
 	...
@@ -627,7 +630,7 @@ reload(); // ...has de añadir esta línea
       Si usas XavaPro, o planeas usarlo en el futuro, edita el archivo <i>persistence.xml</i>
       y añade la siguiente entrada a todas tus unidades de persistencia
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
+        <pre><code class="language-xml">&lt;class&gt;com.openxava.naviox.model.SSORecord&lt;/class&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;"> </div>
       <h3>Añadir nuevo módulo SSO a rol admin y carpeta Admin (para XavaPro)</h3>
@@ -645,7 +648,8 @@ reload(); // ...has de añadir esta línea
       carpeta <i>Admin</i>. Abre el módulo <i>Carpetas</i>, busca la carpeta <i>Admin</i>
       en la lista y escógelo. Dentro del detalle de <i>Admin</i> pulsa para
       añadir un nuevo módulo, busca SSO y añádelo:</div>
-    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+    <div class="wiki" style="display: block;"><img src="files/add-sso-to-admin-folder_es.png"
+
         alt=""><br>
       <h2>Para migrar de OpenXava 7.0.5 a OpenXava 7.0.6</h2>
       <h3>@Column(length=x) sin scale ya no es scale=2 por defecto</h3>
@@ -655,20 +659,20 @@ reload(); // ...has de añadir esta línea
         como valor por defecto en lugar de <i>scale=2</i>. Es decir, has de
         cambiar este código: </p>
       <p></p>
-      <pre><code class="java">@Column(length=6)
+      <pre><code class="language-java">@Column(length=6)
 BigDecimal factor;
 </code></pre>
       <p></p>
       <p>Por este otro:</p>
       <p></p>
-      <pre><code class="java">@Column(length=6, scale=2) // AÑADE scale=2
+      <pre><code class="language-java">@Column(length=6, scale=2) // AÑADE scale=2
 BigDecimal factor;
 </code></pre>
       <p></p>
       <p>Si no defines <i>length</i> o <i>precision</i> el valor de <i>scale</i>
         todavía es 2, como siempre, por tanto si tienes:</p>
       <p></p>
-      <pre><code class="java">@Column(column="FCTR")// scale es 2 por defecto, como siempre
+      <pre><code class="language-java">@Column(column="FCTR")// scale es 2 por defecto, como siempre
 BigDecimal factor;
 </code></pre>
       <p></p>
@@ -686,10 +690,10 @@ BigDecimal factor;
         valor del campo. Esto es algo interno, no afecta el funcionamiento de la
         aplicación. Pero es posible que tengas que adaptar algo de código. Si
         tienes una condición como esta en una acción:</p>
-      <pre><code class="java">getTab().setConditionValue("vendedor.nombre", 1);
+      <pre><code class="language-java">getTab().setConditionValue("vendedor.nombre", 1);
 </code></pre>
       <p>Cámbiala por:</p>
-      <pre><code class="java">getTab().setConditionValue("vendedor.nombre", "JUAN HERRERO");
+      <pre><code class="language-java">getTab().setConditionValue("vendedor.nombre", "JUAN HERRERO");
 </code></pre>
       <p>Fíjate como ahora para <i>vendedor.nombre</i> usamos el nombre del
         vendedor, no el id. Hemos hecho esto para arreglar un bug, pero como
@@ -700,15 +704,15 @@ BigDecimal factor;
       <p>También tienes que adaptar tu código JUnit que pone valor al filtro de
         la lista si se usan referencias con <i>@DescriptionsList</i>. Es
         decir,&nbsp; cambia:</p>
-      <pre><code class="java">setConditionValues("", "1");
+      <pre><code class="language-java">setConditionValues("", "1");
 </code></pre>
       <div class="wiki" style="display: block;">Por: </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">setConditionValues("", "AUTOMÓVIL");
+        <pre><code class="language-java">setConditionValues("", "AUTOMÓVIL");
 </code></pre>
         <p>Aquí estás cambiando el id por la descripción o el nombre. Haz lo
           mismo con el código JUnit que verifica el contenido del combo. Cambia:</p>
-        <pre><code class="java">String [][] valoresValidos = {
+        <pre><code class="language-java">String [][] valoresValidos = {
     { "", "" },
     { "2:_:FAROLA", "FAROLA" },
     { "0:_:CASA", "CASA" },
@@ -718,7 +722,7 @@ BigDecimal factor;
 assertValidValues("conditionValue___3", valoresValidos);        
 </code></pre>
         <p>Por:</p>
-        <pre><code class="java">String [][] valoresValidos = {
+        <pre><code class="language-java">String [][] valoresValidos = {
     { "", "" },
     { "FAROLA", "FAROLA" },
     { "CASA", "CASA" },
@@ -804,7 +808,7 @@ assertValidValues("conditionValue___3", valoresValidos);
       <p>Si usas una base de datos que no sea HSQLDB has de añadir la
         dependencía para tu controlador JDBC. Por ejemplo, si usas MySQL añade
         la siguiente entrada a tu <i>pom.xml</i>:</p>
-      <pre><code class="xml">&lt;dependency&gt;
+      <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;mysql&lt;/groupId&gt;
     &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
     &lt;version&gt;8.0.29&lt;/version&gt;
@@ -853,39 +857,39 @@ assertValidValues("conditionValue___3", valoresValidos);
         nombre de proyecto de "almacenes" a "Almacenes". Para ello edita <i>pom.xml</i>
         y cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;artifactId&gt;almacenes&lt;/artifactId&gt;</code></pre>
+        <pre><code class="language-xml">&lt;artifactId&gt;almacenes&lt;/artifactId&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;artifactId&gt;Almacenes&lt;/artifactId&gt;</code></pre>
+        <pre><code class="language-xml">&lt;artifactId&gt;Almacenes&lt;/artifactId&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">También en <i>pom.xml</i>
         cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;finalName&gt;almacenes&lt;/finalName&gt;</code></pre>
+        <pre><code class="language-xml">&lt;finalName&gt;almacenes&lt;/finalName&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;finalName&gt;Almacenes&lt;/finalName&gt;</code></pre>
+        <pre><code class="language-xml">&lt;finalName&gt;Almacenes&lt;/finalName&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">Después edita <i>aplicacion.xml</i>
         (en <i> src/main/resources/xava</i>) y cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;aplicacion nombre="almacenes"&gt;</code></pre>
+        <pre><code class="language-xml">&lt;aplicacion nombre="almacenes"&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;aplicacion nombre="Almacenes"&gt;</code></pre>
+        <pre><code class="language-xml">&lt;aplicacion nombre="Almacenes"&gt;</code></pre>
       </div>
       <div class="wiki" style="display: block;">También en la clase lanzadora,
         es decir <i>almacenes.java</i> en el paquete <i>com.tuempresa.almacenes.run</i>,
         cambia:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">AppServer.run("almacenes");</code></pre>
+        <pre><code class="language-java">AppServer.run("almacenes");</code></pre>
       </div>
       <div class="wiki" style="display: block;">Por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">AppServer.run("Almacenes");</code></pre>
+        <pre><code class="language-java">AppServer.run("Almacenes");</code></pre>
       </div>
       <div class="wiki" style="display: block;">Para finalizar, deberías hacer
         en tu proyecto un <i>Run As &gt; Maven clean</i> (<i>mvn clean</i>) y
@@ -907,7 +911,7 @@ assertValidValues("conditionValue___3", valoresValidos);
           añadirlo, si el segundo nivel tiene una clave compuesta.</p>
         <p>Diciéndolo con código. Si tienes:</p>
         <p></p>
-        <pre><code class="java">@Entity
+        <pre><code class="language-java">@Entity
 public class CargoTransporte {
 	
     @Id @ManyToOne
@@ -947,7 +951,7 @@ public class Factura {
         <p>Con el código de arriba la siguiente consulta funciona bien con
           Hibernate 5.3:</p>
         <p></p>
-        <pre><code class="java">String consulta="from CargoTransporte c where c.albaran.factura.anyo = :albaran_factura_anyo";
+        <pre><code class="language-java">String consulta="from CargoTransporte c where c.albaran.factura.anyo = :albaran_factura_anyo";
 Query query = XPersistence.getManager().createQuery(consulta);
 query.setParameter("albaran_factura_anyo", 2022);
 </code></pre>
@@ -962,7 +966,7 @@ query.setParameter("albaran_factura_anyo", 2022);
           explicito para la primera referencia. Es decir, de la siguiente forma
           funciona con Hibernate 5.6:</p>
         <p></p>
-        <pre><code class="java">String consulta="from CargoTransporte c join fetch c.albaran a where a.factura.anyo = :albaran_factura_anyo";
+        <pre><code class="language-java">String consulta="from CargoTransporte c join fetch c.albaran a where a.factura.anyo = :albaran_factura_anyo";
 Query query = XPersistence.getManager().createQuery(consulta);
 query.setParameter("albaran_factura_anyo", 2022);
 </code></pre>
@@ -974,7 +978,7 @@ query.setParameter("albaran_factura_anyo", 2022);
         <p>Un nuevo bug en Hibernate 5.6 es que <a href="https://hibernate.atlassian.net/browse/HHH-13403">ya
             no reconoce javax.persistence.create-database-schemas</a>, por lo
           que si tienes la siguiente configuración en tu <i>persistence.xml</i>:</p>
-        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+        <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
     ...
     &lt;properties&gt;
         &lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
@@ -1000,11 +1004,11 @@ query.setParameter("albaran_factura_anyo", 2022);
         componentes XML en v7.0. El API de Hibernate todavía está disponible. En
         el raro caso de que uses <i>XHibernate</i> en algún punto de tu código,
         cambia:</p>
-      <pre><code class="java">Session session = XHibernate.getSession();
+      <pre><code class="language-java">Session session = XHibernate.getSession();
 session.save(factura);
 </code></pre>
       <p>Por:</p>
-      <pre><code class="java">Session session = (Session) XPersistence.getManager().getDelegate();
+      <pre><code class="language-java">Session session = (Session) XPersistence.getManager().getDelegate();
 session.save(factura);
 </code></pre>Es decir, puedes obtener un objeto <i>Session</i> de Hibernate
       desde el manager de JPA. Otra alternativa sería <a href="https://docs.jboss.org/hibernate/orm/5.6/quickstart/html_single/#hibernate-gsg-tutorial-basic-test">obtener
@@ -1021,11 +1025,11 @@ session.save(factura);
       <div class="wiki" style="display: block;">Por ejemplo, si tienes la
         siguiente línea en tu prueba JUnit:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">uploadFile("scripts", "informes/Corporacion.html");</code></pre>
+        <pre><code class="language-java">uploadFile("scripts", "informes/Corporacion.html");</code></pre>
       </div>
       <div class="wiki" style="display: block;">Deberías cambiarlo por:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">uploadFile("scripts", "src/main/resources/informes/Corporacion.html");</code></pre>
+        <pre><code class="language-java">uploadFile("scripts", "src/main/resources/informes/Corporacion.html");</code></pre>
       </div>
       <div class="wiki" style="display: block;">Fíjate como cambiamos&nbsp; <i>informes</i>
         por <i>src/main/resources/informes</i> en la ruta, porque ahora todos
@@ -1045,12 +1049,12 @@ session.save(factura);
           <i>HtmlElement</i> ha sido renombrado como <i>asNormalizedText()</i>,
           por lo que si tienes un código como este en tu prueba:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">HtmlElement tarjeta = body.getElementsByAttribute("div", "class", "ox-card").get(2);
+          <pre><code class="language-java">HtmlElement tarjeta = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.asText());
 </code></pre> </div>
         <div class="wiki" style="display: block;">Cámbialo por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">HtmlElement tarjeta = body.getElementsByAttribute("div", "class", "ox-card").get(2);
+          <pre><code class="language-java">HtmlElement tarjeta = body.getElementsByAttribute("div", "class", "ox-card").get(2);
 assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.asNormalizedText());
 </code></pre> </div>
         <div class="wiki" style="display: block;">Por si fuera poco <i>asNormalizedText()</i>
@@ -1060,11 +1064,11 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
           y examinas los saltos de línea. Por ejemplo, si tienes el siguiente
           código de prueba:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertDiscussionCommentText("discusion", 0, Strings.multiline("admin - Ahora", "Hola, soy yo")); 
+          <pre><code class="language-java">assertDiscussionCommentText("discusion", 0, Strings.multiline("admin - Ahora", "Hola, soy yo")); 
 </code></pre> </div>
         <div class="wiki" style="display: block;">Cámbialo por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertDiscussionCommentText("discusion", 0, "admin - Ahora\nHola, soy yo");
+          <pre><code class="language-java">assertDiscussionCommentText("discusion", 0, "admin - Ahora\nHola, soy yo");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Fíjate que ya no usamos la
           utilidad <i>Strings.multiline()</i> y usamos un único \n. En este
@@ -1075,18 +1079,18 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
           del formato tarjetas de la lista, ahora has de usar un único \n en
           lugar de \r\n. Por lo que has de cambiar:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValueInList(2, "XAVA\r\n3\r\nPrecio unitario: 0");
+          <pre><code class="language-java">assertValueInList(2, "XAVA\r\n3\r\nPrecio unitario: 0");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValueInList(2, "XAVA\n3\nPrecio unitario: 0");
+          <pre><code class="language-java">assertValueInList(2, "XAVA\n3\nPrecio unitario: 0");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Otro cambio en la forma en que
           HtmlUnit funciona es que usa caracteres UNICODE en lugar de ANSI, por
           lo que si verificas caracteres especiales has de adaptar tu código.
           Por ejemplo, deberías cambiar:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertEquals(
+          <pre><code class="language-java">assertEquals(
     "javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
         + (char) 145 // ANSI  
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
@@ -1094,7 +1098,7 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
 </code></pre> </div>
         <div class="wiki" style="display: block;">Por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertEquals(
+          <pre><code class="language-java">assertEquals(
     "javascript:openxava.executeAction('openxavatest', 'Carrier', 'Effacer l" 
         + (char) 8216 // UNICODE
         +"entité courante: Etes-vous sûr(e) ?', false, 'CRUD.delete')", 
@@ -1110,22 +1114,22 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
           tienes una propiedad <i>@HtmlText</i> llamada <i>descripcion</i>,
           cambia:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValue("descripcion", "Esto es una gran discusión sobre jUnit");
+          <pre><code class="language-java">assertValue("descripcion", "Esto es una gran discusión sobre jUnit");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValue("descripcion", "&lt;p&gt;Esto es una gran discusión sobre jUnit&lt;/p&gt;");
+          <pre><code class="language-java">assertValue("descripcion", "&lt;p&gt;Esto es una gran discusión sobre jUnit&lt;/p&gt;");
 </code></pre> </div>
         <div class="wiki" style="display: block;">También, <i>getValue()</i> y
           <i>assertValue()</i> ahora hacen un <i>trim()</i> para funcionar
           mejor con el nuevo comportamiento de HtmlUnit, por lo que has de
           cambiar:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValue("poblacion", "46540 ");
+          <pre><code class="language-java">assertValue("poblacion", "46540 ");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Por:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">assertValue("poblacion", "46540");
+          <pre><code class="language-java">assertValue("poblacion", "46540");
 </code></pre> </div>
         <div class="wiki" style="display: block;">Fíjate como hemos quitado el
           espacio después de 46540.</div>
@@ -1134,7 +1138,7 @@ assertEquals("Precio unitario: 0.00, Precio unitario en pesetas: 0"), tarjeta.as
           si activas el CSS para tu prueba tienes que hacer un <i>reload()</i>
           después. Así:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
+          <pre><code class="language-java">getWebClient().getOptions().setCssEnabled(true); // Si haces esto...
 reload(); // ...has de añadir esta línea
 </code></pre> </div>
         <div class="wiki" style="display: block;">Curiosamente, el añadir el <i>reload()</i>
@@ -1153,7 +1157,7 @@ reload(); // ...has de añadir esta línea
           <div class="wiki" style="display: block;">Han convertido todas las
             variables finales en enums, estos son algunos ejemplos:</div>
           <div class="wiki" style="display: block;">
-            <pre><code class="java">CellType.NUMERIC // En lugar de Cell.CELL_TYPE_NUMERIC
+            <pre><code class="language-java">CellType.NUMERIC // En lugar de Cell.CELL_TYPE_NUMERIC
 HyperlinkType.FILE // En lugar de Hyperlink.LINK_URL
 FillPatternType.SOLID_FOREGROUND // En lugar de CellStyle.SOLID_FOREGROUND
 HSSFColor.HSSFColorPredefined.RED // En lugar de HSSFColor.RED
@@ -1167,7 +1171,7 @@ HorizontalAlignment.LEFT // En lugar de CellStyle.ALIGN_LEFT
           <div class="wiki" style="display: block;">El método <i>setCellType()</i>
             de <i>Cell</i> se ha eliminado:</div>
           <div class="wiki" style="display: block;">
-            <pre><code class="java">Cell cell ... 
+            <pre><code class="language-java">Cell cell ... 
 // cell.setCellType(Cell.CELL_TYPE_FORMULA); // Ya no existe, no es necesario
 cell.setCellFormula(text);
 </code></pre> </div>
@@ -1177,11 +1181,11 @@ cell.setCellFormula(text);
           <div class="wiki" style="display: block;">El método <i>setBoldweight()</i>
             de <i>Font</i> se ha eliminado. Por lo que tienes que cambiar esto:
             <div class="wiki" style="display: block;">
-              <pre><code class="java">font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+              <pre><code class="language-java">font.setBoldweight(Font.BOLDWEIGHT_BOLD);
 </code></pre> </div>
             <div class="wiki" style="display: block;">Por:</div>
             <div class="wiki" style="display: block;">
-              <pre><code class="java">font.setBold(true);
+              <pre><code class="language-java">font.setBold(true);
 </code></pre> </div>
             <div class="wiki" style="display: block;">Fíjate en el nuevo método
               <i>setBold()</i> en <i>Font</i>.</div>

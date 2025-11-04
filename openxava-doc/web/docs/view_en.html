@@ -4,8 +4,10 @@
     <title>View - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -2830,7 +2832,7 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"A
   instead of one below the other, if you wish. That is, it is possible to arrange
   two frames in the same row. To do this you only have to separate them with a comma
    instead of a semicolon, as you can see in this example:</p>
-  <pre><code class="java">@View( members= 
+  <pre><code class="language-java">@View( members= 
     "name;" +  
     "seller, alternateSeller"
 )</code></pre>
@@ -2844,7 +2846,7 @@ class="kw116">View</span></a><span class="br0">(</span>name=<span class="st0">"A
   such as properties or references with <i>@DescriptionsList</i>, and members that use frames like reference,
   groups and collections on the same line. If you declare it this way in <i>@View</i>, OpenXava will show the frames on their own line.</p>  
 <p>For example, if you have this code:</p>  
-<pre><code class="java">@View( members="name, seller" )</code></pre>
+<pre><code class="language-java">@View( members="name, seller" )</code></pre>
 <p>Where you indicate that <i>name</i>, which is a plain property, and <i>seller</i>, which is a reference, 
   should be displayed side by side, since you separate them by comma. When displayed, 
   OpenXava ends up doing it like this:</p>
@@ -8153,7 +8155,7 @@ class="kw1">private</span> <span class="kw3">String</span> color<span class="sy0
         properties with <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/LargeDisplay.html"><i>@LargeDisplay</i></a>,
         like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@LargeDisplay 
+        <pre><code class="language-java">@LargeDisplay 
 int year;
 
 @Money @LargeDisplay 
@@ -8172,7 +8174,7 @@ BigDecimal discount;
         specify which prefix or suffix we want, using the <i>prefix</i> and <i>suffix</i>
         attributes:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@LargeDisplay(prefix="€") 
+        <pre><code class="language-java">@LargeDisplay(prefix="€") 
 BigDecimal amountsSum;
 
 @LargeDisplay(suffix="%", icon="label-percent-outline") 
@@ -10060,7 +10062,7 @@ class="br0">, forViews="SearchListCondition")</span> <span class="co1">// ${this
       annotation used for collections <b>does not work</b> with references, so
       we cannot define custom behavior for the creation action in a specific
       reference. That is, this cannot be done:</div>
-    <pre><code class="java">// @NewAction("Carrier.createWarehouse")  // NOT ALLOWED
+    <pre><code class="language-java">// @NewAction("Carrier.createWarehouse")  // NOT ALLOWED
 @ManyToOne
 Warehouse mainWarehouse;
 </code></pre>
@@ -10077,7 +10079,7 @@ Warehouse mainWarehouse;
         ProductCreation</i>, etc). If OpenXava sees this controller it uses it
       instead of the default one to allow creating a new object from a
       reference. For example, you can write in your <em>controllers.xml</em>:<br>
-      <pre><code class="xml">&lt;!--
+      <pre><code class="language-xml">&lt;!--
 Because its name is WarehouseCreation (model name + Creation) it is used
 by default for creating from reference, instead of NewCreation.
 The action 'new' is executed automatically.
@@ -10096,7 +10098,7 @@ The action 'new' is executed automatically.
       the view if needed. We define it as hidden, so it's not shown as a button
       to the user. Here's an example implementation:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 
@@ -10119,7 +10121,7 @@ public class CreateNewWarehouseFromReferenceAction extends NewAction {
       overridden the <i>saveNew</i> action, which is executed when the <i>Create</i>
       button in the dialog is clicked. Here's an example implementation:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 
@@ -10160,7 +10162,7 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
         annotation used for collections <b>does not work</b> with references,
         so we cannot define custom behavior for the modification action in a
         specific reference. That is, this cannot be done:</div>
-      <pre><code class="java">// @EditAction("Carrier.modifyWarehouse")  // NOT ALLOWED
+      <pre><code class="language-java">// @EditAction("Carrier.modifyWarehouse")  // NOT ALLOWED
 @ManyToOne
 Warehouse mainWarehouse;
 </code></pre>
@@ -10179,7 +10181,7 @@ Warehouse mainWarehouse;
         etc). If OpenXava sees this controller it uses it instead of the default
         one to allow modifying an existing object from a reference. For example,
         you can write in your <em>controllers.xml</em>:<br>
-        <pre><code class="xml">&lt;!-- 
+        <pre><code class="language-xml">&lt;!-- 
 Because its name is WarehouseModification (model name + Modification) it is used
 by default for modifying from reference, instead of Modification.
 The action 'search' is executed automatically.
@@ -10198,7 +10200,7 @@ The action 'search' is executed automatically.
         initialize the view if needed. We define it as hidden, so it's not shown
         as a button to the user. Here's an example implementation:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.actions;
+        <pre><code class="language-java">package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 
@@ -10220,7 +10222,7 @@ public class ModifyWarehouseFromReferenceAction extends SearchByViewKeyAction {
         overridden the <i>update</i> action, which is executed when the <i>Update</i>
         button in the dialog is clicked. Here's an example implementation:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package org.openxava.test.actions;
+        <pre><code class="language-java">package org.openxava.test.actions;
 
 import org.openxava.actions.*;
 
@@ -10948,7 +10950,7 @@ class="br0">)</span> @NoCreate <span class="co1">// 2</span>
       a ? for each key value. That is, if you have an <i>Warehouse</i> entity
       like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Entity @Getter @Setter
+      <pre><code class="language-java">@Entity @Getter @Setter
 @IdClass(WarehouseKey.class)
 public class Warehouse {
 
@@ -10967,7 +10969,7 @@ public class Warehouse {
       and <i>number</i>. Then in other entity you can have two <i>@DescriptionsLists</i>
       like these:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ManyToOne
+      <pre><code class="language-java">@ManyToOne
 @DescriptionsList
 Warehouse mainWarehouse;
 	
@@ -10988,7 +10990,7 @@ Carrier defaultCarrier;
         ${warehouse.number} = ?</i> in <i>condition</i>. This is not just for
       composite keys, but for single key references too, see:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@DescriptionsList(
+      <pre><code class="language-java">@DescriptionsList(
     depends="family", 
     // condition="${family.number} = ?" // Classic way
     condition="${family} = ?" // Since v6.6.3
@@ -19298,12 +19300,12 @@ class="br0">)</span></pre>
       the footer of the collection as total values. That is, if you define a
       collection in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@ListProperties("deliveryDate[invoice.deliveryDate], quantity, amount[invoice.amountsSum, invoice.vat, invoice.total]")
+      <pre><code class="language-java">@ListProperties("deliveryDate[invoice.deliveryDate], quantity, amount[invoice.amountsSum, invoice.vat, invoice.total]")
 </code></pre> </div>
     <div class="wiki" style="display: block;">That including the total
       properties code would be:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class Invoice {
+      <pre><code class="language-java">public class Invoice {
 
     ...
 	
@@ -19551,7 +19553,7 @@ class="br0">)</span></pre>
       with <i>@Calculation</i> and <i>@ReadOnly</i> (so not editable). This is
       the complete code:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class WorkCost  {
+      <pre><code class="language-java">public class WorkCost  {
 
     ...
     
@@ -20207,7 +20209,7 @@ class="st0">"roles"</span>/<span class="sy0">&gt;</span>
       you have to annotate the collection with <a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Chart.html"><i>@Chart</i></a>,
       like this:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@OneToMany(mappedBy="company")
+        <pre><code class="language-java">@OneToMany(mappedBy="company")
 @Chart
 Collection&lt;Employee&gt; employees;
 </code></pre> </div>
@@ -20227,7 +20229,7 @@ Collection&lt;Employee&gt; employees;
         using the <i>labelProperties</i> and <i>dataProperties</i> attributes
         of <i>@Chart</i>, like this:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@OneToMany(mappedBy="company")
+        <pre><code class="language-java">@OneToMany(mappedBy="company")
 @Chart(labelProperties="firstName, lastName", dataProperties="salary")
 Collection&lt;Employee&gt; employees;
 </code></pre> </div>
@@ -20252,7 +20254,7 @@ Collection&lt;Employee&gt; employees;
       </ul>
       For example: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@OneToMany(mappedBy="corporation")
+      <pre><code class="language-java">@OneToMany(mappedBy="corporation")
 @Chart(type=ChartType.LINE)
 private Collection<corporationemployee> employees;</corporationemployee></code></pre>
     </div>
@@ -20263,7 +20265,7 @@ private Collection<corporationemployee> employees;</corporationemployee></code><
       better to use an auxiliary class to show aggregated or summary data.
       Here's an example: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Chart(type = ChartType.PIE)
+      <pre><code class="language-java">@Chart(type = ChartType.PIE)
 public Collection&lt;Ratio&gt; getExternalEmployeesRatio() { 
     EntityManager em = XPersistence.getManager();
     
@@ -20294,7 +20296,7 @@ public Collection&lt;Ratio&gt; getExternalEmployeesRatio() {
     <div class="wiki" style="display: block;"> Where <i>Ratio</i> is a simple
       class that represents a ratio with a description and a value: </div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Data
+      <pre><code class="language-java">@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ratio {
@@ -20317,7 +20319,7 @@ public class Ratio {
       pagination, sorting, etc. That is, if we annotate our collection with <i>@SimpleList</i>,
       in this way:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@OneToMany(mappedBy="parent")
+        <pre><code class="language-java">@OneToMany(mappedBy="parent")
 @SimpleList
 Collection&lt;StaffTurnover&gt; turnoverByYear;
 </code></pre> </div>

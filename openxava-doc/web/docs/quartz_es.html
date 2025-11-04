@@ -4,8 +4,10 @@
     <title>Programación de trabajos con Quartz - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body class="wiki" style="display: block;">
     <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
@@ -21,13 +23,13 @@
       <h2>Código</h2>
       <p>Puedes copiar aquí el código usado en el vídeo:</p>
       <p>Primero, añade la dependencia Quartz a tu archivo <em>pom.xml</em>:</p>
-        <pre><code class="xml">&lt;dependency&gt;
+        <pre><code class="language-xml">&lt;dependency&gt;
     &lt;groupId&gt;org.quartz-scheduler&lt;/groupId&gt;
     &lt;artifactId&gt;quartz&lt;/artifactId&gt;
     &lt;version&gt;2.3.2&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
       <p>Crea el web listener en <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
-        <pre><code class="java">package com.yourcompany.projects.web;
+        <pre><code class="language-java">package com.yourcompany.projects.web;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -61,7 +63,7 @@ public class QuartzSchedulerListener implements ServletContextListener {
     
 }</code></pre>
       <p>Crea el trabajo en <em>src/main/java/com/yourcompany/projects/jobs/PlannedIssueReminderJob.java</em>:</p>
-        <pre><code class="java">package com.yourcompany.projects.jobs;
+        <pre><code class="language-java">package com.yourcompany.projects.jobs;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
@@ -92,7 +94,7 @@ public class PlannedIssueReminderJob implements Job {
 
 }</code></pre>
       <p>Añade los siguientes métodos a tu entidad <em>Issue</em> en el paquete model:</p>
-        <pre><code class="java">public void setPlannedFor(LocalDate plannedFor) {
+        <pre><code class="language-java">public void setPlannedFor(LocalDate plannedFor) {
     if (Is.equal(this.plannedFor, plannedFor)) return;
     if (this.plannedFor != null) unplanReminder();
     this.plannedFor = plannedFor;

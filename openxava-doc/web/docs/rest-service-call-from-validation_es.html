@@ -4,8 +4,10 @@
     <title>Lección 22: Llamada REST desde una validación - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -111,7 +113,7 @@
         JAX-RS, por lo que no necesitas añadir ninguna librería adicional.<br>
         Modifiquemos <em>ValidadorISBN</em> para usar este servicio <em>REST</em>.
         Veamos el resultado:<br>
-        <pre><code class="java">package com.tuempresa.facturacion.validadores; 
+        <pre><code class="language-java">package com.tuempresa.facturacion.validadores; 
 
 import javax.validation.*;
 import javax.ws.rs.client.*; // Para usar JAX-RS

@@ -4,8 +4,10 @@
     <title>Module navigation - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -145,12 +147,12 @@ class="re1">MyInitialModule</span></pre>
         If you use a version previous to 6.3.2 edit <em>firstSteps.jsp</em>,
         located in <em>web/naviox</em>, remove all the content and place a
         redirection on it, thus:</div>
-      <pre><code class="html">&lt;script&gt;window.location="MyInitialModule"&lt;/script&gt;
+      <pre><code class="language-html">&lt;script&gt;window.location="MyInitialModule"&lt;/script&gt;
 </code></pre>Even if you use a recent OpenXava version you can edit <i>firstSteps.jsp</i>
       instead of using <i>initialModule</i> in <i>naviox.properties</i>, if
       you want to add some logic to select the initial module, in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="html"><%@include file="../xava/imports.jsp"%>
+      <pre><code class="language-html"><%@include file="../xava/imports.jsp"%>
         
 &lt;% String module = isStartWithInvoice()?"Invoice":"Order";%&gt;
 &lt;script &lt;xava:nonce/&gt;&gt;window.location="&lt;%=module%&gt;"&lt;/script&gt;

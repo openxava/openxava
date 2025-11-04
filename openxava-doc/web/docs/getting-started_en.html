@@ -4,8 +4,15 @@
     <title>OpenXava Tutorial: Getting Started</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
     <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+        hljs.highlightAll();
+      });
+    </script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -57,7 +64,7 @@
       The initial code that Eclipse provides for <em>Customer</em> is pretty
       simple:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 public class Customer {
  
@@ -68,7 +75,7 @@ public class Customer {
       to add the <em>@Entity</em> annotation, the <em>number</em> and the <em>name
         </em>properties:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -148,7 +155,7 @@ public class Customer {
         title="getting-started_en193.png"></div>
     <div class="wiki" style="display: block;">Write the next code for <em>Product</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.yourcompany.invoicing.model;
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import javax.persistence.*;
 import org.openxava.annotations.*;

@@ -4,8 +4,10 @@
     <title>Configuration for MySQL in OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -46,7 +48,8 @@
       In the project you're going to use MySQL you have to add the variable
       declared above. Click with right mouse button on your project and then
       choose <i>Java Build Path &gt; Configure Build Path...</i>:</div>
-    <img src="files/project-build-path-eclipse-menu_en.png" alt="project-build-path-eclipse-menu_en.png"
+    <img src="files/project-build-path-eclipse-menu_en.png" alt="project-build-path-eclipse-menu_en.png"
+
       title="project-build-path-eclipse-menu_en.png">
     <div class="wiki" style="display: block;">Then select the <i>Libraries</i>
       tab:</div>
@@ -66,7 +69,7 @@
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
       to adjust the datasource to point to MySQL, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -83,7 +86,7 @@
       you have to change the <i>hibernate.default_schema</i> property by <i>hibernate.default_catalog.</i>
       Also, if you use <i>hibernate.dialect</i> property just remove it.<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;persistence-unit name="default"&gt;
+        <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;non-jta-data-source&gt;java://comp/env/jdbc/MyAppDS&lt;/non-jta-data-source&gt;
 	&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
@@ -101,7 +104,7 @@
     <div class="wiki" style="display: block;"> Morever, you have to modify the <i>junit</i>
       persistence unit to point to MySQL. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit MySQL --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit MySQL --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

@@ -4,8 +4,10 @@
     <title>Migration to v6.x - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -61,10 +63,10 @@
       locale that used two digits for year (like English for example) you have
       to adjust your JUnit tests, changing, for example, this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">assertValue("date", "5/25/21");</code></pre>
+      <pre><code class="language-java">assertValue("date", "5/25/21");</code></pre>
     </div>
     <div class="wiki" style="display: block;">By this:
-      <pre><code class="java">assertValue("date", "5/25/2021");</code></pre>
+      <pre><code class="language-java">assertValue("date", "5/25/2021");</code></pre>
     </div>
     <div class="wiki" style="display: block;">Note as we changed 21 by 2021.<br>
       <h2>Migration from OpenXava 6.5 to OpenXava 6.5.1</h2>
@@ -76,7 +78,7 @@
       tests that rely on that to reuse a previously used filter will fail. That
       is, this test code now fails:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">setConditionValues("1");
+      <pre><code class="language-java">setConditionValues("1");
 execute("List.filter"); // This does not save "Number = 1" automatically
 
 // Here you do more stuff
@@ -86,7 +88,7 @@ selectListConfiguration("Number = 1"); // FAILS IN v6.5
     <div class="wiki" style="display: block;">The solution is to save the query
       explicitly, thus:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">setConditionValues("1");
+      <pre><code class="language-java">setConditionValues("1");
 execute("List.filter"); 
 
 execute("List.saveConfiguration"); // ADD THESE LINES TO SAVE...
@@ -109,7 +111,7 @@ selectListConfiguration("Number = 1"); // Now it works
       use <i>assertActions()</i> in your tests you should adapt the list of
       actions, removing <i>List.changeConfiguration</i>, thus:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">String [] listActions = {
+        <pre><code class="language-java">String [] listActions = {
     "Print.generatePdf",
     "Print.generateExcel",
     "ImportData.importData", 
@@ -153,11 +155,11 @@ assertActions(listActions);
       code, but if you verify the labels of some list maybe you have to do some
       adjust in your JUnit tests, such as changing this assert:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">assertLabelInList(0, "Year of Invoice");
+      <pre><code class="language-java">assertLabelInList(0, "Year of Invoice");
 </code></pre> </div>
     <div class="wiki" style="display: block;">By this one:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">assertLabelInList(0, "Year of invoice");
+      <pre><code class="language-java">assertLabelInList(0, "Year of invoice");
 </code></pre> </div>
     <div class="wiki" style="display: block;">
       <h2>Migration from OpenXava 6.3.1 to OpenXava 6.3.2</h2>
@@ -168,7 +170,7 @@ assertActions(listActions);
       to adapt them. For example, in the next JUnit code you should remove the
       second pagination action:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">execute("List.goNextPage", "collection=myCollection");
+      <pre><code class="language-java">execute("List.goNextPage", "collection=myCollection");
 execute("Collection.edit", "row=10,viewObject=xava_view_myCollection");
 setValue("name", "Modified name");
 execute("Collection.save");
@@ -187,7 +189,7 @@ assertValueInCollection("myCollection", 0, 0, "Modified name");
       next code to <i>welcome.jsp</i> in order it can use the OpenXava styles
       well with IE9:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="jsp">&lt;% if (org.openxava.web.Browsers.isIE(request)) { %&gt;
+      <pre><code class="language-jsp">&lt;% if (org.openxava.web.Browsers.isIE(request)) { %&gt;
 &lt;script type='text/javascript' src="&lt;%=request.getContextPath()%&gt;/xava/js/css-vars-ponyfill.js?ox=&lt;%=oxVersion%&gt;"&gt;&lt;/script&gt;
 &lt;script type='text/javascript'&gt;cssVars({ }); &lt;/script&gt;	
 &lt;% } %&gt;
@@ -199,12 +201,12 @@ assertValueInCollection("myCollection", 0, 0, "Modified name");
       been adapted for that, but Welcome page (<i>welcome.jsp</i>) is yours, so
       you have to change the next code in <i>welcome.jsp</i>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">String applicationName = request.getContextPath().substring(1);
+      <pre><code class="language-java">String applicationName = request.getContextPath().substring(1);
 MetaApplication metaApplication = MetaApplications.getMetaApplication(applicationName);
 </code></pre> </div>
     <div class="wiki" style="display: block;">By:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">MetaApplication metaApplication = MetaApplications.getMainMetaApplication();
+      <pre><code class="language-java">MetaApplication metaApplication = MetaApplications.getMainMetaApplication();
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is only needed if you want to
       run your application in the root context.<br>
@@ -230,18 +232,18 @@ MetaApplication metaApplication = MetaApplications.getMetaApplication(applicatio
       the tests where you upload files. For example, if you have this test code
       to load an image:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">execute("ImageEditor.changeImage", "newImageProperty=image"); 
+      <pre><code class="language-java">execute("ImageEditor.changeImage", "newImageProperty=image"); 
 String imageURL = System.getProperty("user.dir") + "/test-images/cake.gif";
 setFileValue("newImage", imageURL);
 execute("LoadImage.loadImage");
 </code></pre></div>
     <div class="wiki" style="display: block;">You should rewrite it in this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">uploadFile("image", "test-images/cake.gif");
+      <pre><code class="language-java">uploadFile("image", "test-images/cake.gif");
 </code></pre> </div>
     <div class="wiki" style="display: block;">Or for the gallery:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">execute("Gallery.edit", "galleryProperty=photos");
+        <pre><code class="language-java">execute("Gallery.edit", "galleryProperty=photos");
 execute("Gallery.addImage");
 String imageURL = System.getProperty("user.dir") + "/test-images/foto-javi.png";
 setFileValue("newImage", imageURL);
@@ -251,7 +253,7 @@ execute("Gallery.close");
       <div class="wiki" style="display: block;">You should rewrite it in this
         way:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">updateFile("photos", "test-images/foto-javi.png");
+        <pre><code class="language-java">updateFile("photos", "test-images/foto-javi.png");
 </code></pre> </div>
       <div class="wiki" style="display: block;">The same for FILE and FILES
         stereotypes. In <i>ModuleTestBase</i> now we have the methods <i>uploadFile(),
@@ -264,12 +266,12 @@ execute("Gallery.close");
         you have to adapt the layout of some of your views. For example, if you
         have:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@View(members="number, description, screenshots, date")</code></pre>
+        <pre><code class="language-java">@View(members="number, description, screenshots, date")</code></pre>
       </div>
       <div class="wiki" style="display: block;">Where <i>screenshots</i> is an
         IMAGES_GALLERY property, now you should rewrite it in this way:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">@View(members="number, description; screenshots; date")</code></pre>
+        <pre><code class="language-java">@View(members="number, description; screenshots; date")</code></pre>
       </div>
       <div class="wiki" style="display: block;">Leaving a single line for the <i>
           screenshots</i> property.</div>
@@ -278,12 +280,12 @@ execute("Gallery.close");
         It means that maybe you have to adapt the layout of some of your views.
         For example, if you have:
         <div class="wiki" style="display: block;">
-          <pre><code class="java">@View(members="number, description, attachments, date")</code></pre>
+          <pre><code class="language-java">@View(members="number, description, attachments, date")</code></pre>
         </div>
         <div class="wiki" style="display: block;">Where <i>attachments</i> is a
           FILES property, now you should rewrite it in this way:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">@View(members="number, description; attachments; date")</code></pre>
+          <pre><code class="language-java">@View(members="number, description; attachments; date")</code></pre>
         </div>
         <div class="wiki" style="display: block;">Leaving a single line for the
           <i>attachments</i> property.</div>
@@ -291,7 +293,7 @@ execute("Gallery.close");
           in a view aligned by column (that one with a # before members), that
           is you should change:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">@View(members=
+          <pre><code class="language-java">@View(members=
     "datasheet [ #title;" +	
     "   releaseDate, director;"   +
     "   writers, starring;"    +
@@ -302,7 +304,7 @@ execute("Gallery.close");
         <div class="wiki" style="display: block;">Where <i>scripts</i> is a
           FILES property, by:</div>
         <div class="wiki" style="display: block;">
-          <pre><code class="java">@View(members=
+          <pre><code class="language-java">@View(members=
     "datasheet [ #title;" +	
     "   releaseDate, director;"   +
     "   writers, starring;"    +
@@ -487,7 +489,7 @@ private int id;</pre>
       <p>In order the new Hibernate 5.3 works with Liferay you have to create a
         file <i>portal-ext.properties</i> in the <i>webapps/ROOT/WEB-INF/classes</i>
         folder of the Tomcat in your Liferay, with the next entry:</p>
-      <pre><code class="properties">portal.security.manager.strategy=none           </code></pre>
+      <pre><code class="language-properties">portal.security.manager.strategy=none           </code></pre>
       <h2>Migration from OpenXava 6.0.1 to OpenXava 6.0.2</h2>
       No issues.
       <h2>Migration from OpenXava 6.0 to OpenXava 6.0.1</h2>
