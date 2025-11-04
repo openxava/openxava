@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Copy button in source code snippets in documentation.
+- More modern formatting for source code in documentation.
 - Improved migration documentation for 7.2 indicating the needed imports for JSP code.
 - Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
 - Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
