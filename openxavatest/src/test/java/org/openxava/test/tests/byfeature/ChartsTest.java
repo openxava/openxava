@@ -1,6 +1,7 @@
 package org.openxava.test.tests.byfeature;
 
 import java.util.*;
+
 import org.openqa.selenium.*;
 /**
  * To test charts related issues with Seleniumx.
@@ -15,7 +16,8 @@ public class ChartsTest extends WebDriverTestBase {
 	
 	public void testCharts() throws Exception {
 		goModule("Invoice");
-		assertOneBarByEachRow(); 
+		assertOneBarByEachRow();
+		assertInsideViewPort();
 		moveToListView();
 		
 		goModule("Color");
@@ -29,6 +31,26 @@ public class ChartsTest extends WebDriverTestBase {
 		List<WebElement> rects = getDriver().findElements(By.cssSelector(".ox-chart-data svg .c3-chart rect")); 
 		assertEquals(rowCount, rects.size());
 	}
+	
+	private void assertInsideViewPort() throws Exception {
+        WebElement chartData = getDriver().findElement(By.cssSelector(".ox-chart-data"));
+
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        boolean insideViewport = (Boolean) js.executeScript(
+            "const elem = arguments[0];" +
+            "const rect = elem.getBoundingClientRect();" +
+            "return (" +
+            "  rect.top >= 0 && " +
+            "  rect.left >= 0 && " +
+            "  rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && " +
+            "  rect.right <= (window.innerWidth || document.documentElement.clientWidth)" +
+            ");", 
+            chartData
+        );
+
+        assertTrue("Charts outside viewport", insideViewport);
+		
+	}	
 	
 	private void assertMax120Bars() throws Exception {
 		String listInfo = getDriver().findElements(By.cssSelector("td.ox-list-info-detail")).get(1).getText();

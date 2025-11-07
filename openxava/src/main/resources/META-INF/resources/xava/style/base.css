@@ -2298,7 +2298,7 @@ div.ox-subcontroller table{
 	background: transparent;  
 }
 
-.ox-charts .ox-half-frame {
+.ox-charts .ox-full-frame {
 	overflow: initial; 
 	display: initial; 
 	width: initial;
@@ -2311,7 +2311,7 @@ div.ox-subcontroller table{
 
 .ox-chart-x-column select {
 	position: relative;
-	left: calc(50vw - 340px); 
+	left: calc(50vw - 160px); 
 	width: 270px; 
 }
 
