@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them. 
 - Cleaned HTML code for Index, Migration and IntelliJ documentation, making it more human and AI readable.
 - Copy button in source code snippets in documentation.
 - More modern formatting for source code in documentation.
