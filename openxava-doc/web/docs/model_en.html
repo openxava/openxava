@@ -1777,54 +1777,36 @@ public class DefaultWarehouseCalculator implements ICalculator {
       the reference as <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Id.html"
 
           rel="nofollow">@Id</a></em>, and use an id class, as following:<br>
-      <pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+      <pre><code class="language-java">@Entity
+@IdClass(AdditionalDetailKey.class)
+public class AdditionalDetail {
 
-class="kw166">Entity</span></a>
-@IdClass<span class="br0">(</span>AdditionalDetailKey.<span class="kw2">class</span><span
+ // JoinColumn is also specified in AditionalDetailKey because
+ // a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361
+ @Id @ManyToOne(fetch=FetchType.LAZY)
+ @JoinColumn(name="SERVICE")
+ private Service service;
 
-class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> AdditionalDetail <span
-
-class="br0">{</span>
-&nbsp;
- <span class="co1">// JoinColumn is also specified in AditionalDetailKey because</span>
- <span class="co1">// a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361</span>
- @Id @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
-class="br0">)</span>
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"SERVICE"</span><span
-
-class="br0">)</span>
- <span class="kw2">private</span> Service service<span class="sy0">;</span>
-&nbsp;
  @Id @Hidden
- <span class="kw2">private</span> <span class="kw3">int</span> counter<span class="sy0">;</span>
-&nbsp;
+ private int counter;
+
  ...
-&nbsp;
-<span class="br0">}</span></pre>
+
+}</code></pre>
       Also, you need to write your key class:<br>
-      <pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> AdditionalDetailKey <span
+      <pre><code class="language-java">public class AdditionalDetailKey implements java.io.Serializable {
 
-class="kw2">implements</span> java.<span class="me1">io</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+ @ManyToOne(fetch=FetchType.LAZY)
+ @JoinColumn(name="SERVICE")
+ private Service service;
 
-class="kw20">Serializable</span></a> <span class="br0">{</span>
-&nbsp;
- @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
-class="br0">)</span>
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"SERVICE"</span><span
-
-class="br0">)</span>
- <span class="kw2">private</span> Service service<span class="sy0">;</span>
-&nbsp;
  @Hidden
- <span class="kw2">private</span> <span class="kw3">int</span> counter<span class="sy0">;</span>
-&nbsp;
- <span class="co1">// equals, hashCode, toString, getters and setters</span>
+ private int counter;
+
+ // equals, hashCode, toString, getters and setters
  ...
-&nbsp;
- <span class="br0">}</span></pre>
+
+ }</code></pre>
       You need to write the key class although the key would be only a reference
       with only a join column.<br>
       It's better to use this feature only when you are working against legacy
@@ -1837,153 +1819,85 @@ class="br0">)</span>
 
           rel="nofollow">@Embedded</a></em> annotation. For example, in your
       entity you can write:<br>
-      <pre class="java5">@Embedded
-<span class="kw2">private</span> Address address<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Embedded
+private Address address;
+</code></pre>
       And you have to define the <em>Address</em> class as embeddable:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
+import org.openxava.annotations.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
+ */
+
 @Embeddable
-<span class="kw2">public</span> <span class="kw2">class</span> Address <span class="kw2">implements</span> IWithCity <span
+public class Address implements IWithCity { // 1
 
-class="br0">{</span> <span class="co1">// 1</span>
-&nbsp;
- @Required @Column<span class="br0">(</span>length=<span class="nu0">30</span><span
+ @Required @Column(length=30)
+ private String street;
 
-class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Required @Column(length=5)
+ private int zipCode;
 
-class="kw21">String</span></a> street<span class="sy0">;</span>
-&nbsp;
- @Required @Column<span class="br0">(</span>length=<span class="nu0">5</span><span
+ @Required @Column(length=20)
+ private String city;
 
-class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> zipCode<span class="sy0">;</span>
-&nbsp;
- @Required @Column<span class="br0">(</span>length=<span class="nu0">20</span><span
+ // ManyToOne inside an Embeddable is not supported by JPA 1.0 (see at 9.1.34),
+ // but Hibernate implementation supports it.
+ @ManyToOne(fetch=FetchType.LAZY, optional=false) @JoinColumn(name="STATE")
+ private State state; // 2
 
-class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public String getCity() {
+ return city;
+ }
 
-class="kw21">String</span></a> city<span class="sy0">;</span>
-&nbsp;
- <span class="co1">// ManyToOne inside an Embeddable is not supported by JPA 1.0 (see at 9.1.34),</span>
- <span class="co1">// but Hibernate implementation supports it.</span>
- @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span>, optional=<span
+ public void setCity(String city) {
+ this.city = city;
+ }
 
-class="kw4">false</span><span class="br0">)</span> @JoinColumn<span class="br0">(</span>name=<span
+ public String getStreet() {
+ return street;
+ }
 
-class="st0">"STATE"</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
+ public void setStreet(String street) {
+ this.street = street;
+ }
 
-class="kw154">State</span></a> state<span class="sy0">;</span> <span class="co1">// 2</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public int getZipCode() {
+ return zipCode;
+ }
 
-class="kw21">String</span></a> getCity<span class="br0">(</span><span class="br0">)</span> <span
+ public void setZipCode(int zipCode) {
+ this.zipCode = zipCode;
+ }
 
-class="br0">{</span>
- <span class="kw2">return</span> city<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setCity<span class="br0">(</span><a
+ public State getState() {
+ return state;
+ }
 
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> city<span
+ public void setState(State state) {
+ this.state = state;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">city</span> = city<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getStreet<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> street<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setStreet<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> street<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">street</span> = street<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getZipCode<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> zipCode<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setZipCode<span class="br0">(</span><span
-
-class="kw3">int</span> zipCode<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">zipCode</span> = zipCode<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
-
-class="kw154">State</span></a> getState<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> state<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setState<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
-
-class="kw154">State</span></a> state<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">state</span> = state<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       As you see an embeddable class can implement an interface (1) and contain
       references (2), among other things, but it can't use JPA callbacks
       methods.<br>
       This code can be used this way, for reading:<br>
-      <pre class="java5">Customer customer = ...
-<span class="me1">Address</span> address = customer.<span class="me1">getAddress</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-address.<span class="me1">getStreet</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// to obtain the value</span></pre>
+      <pre><code class="language-java">Customer customer = ...
+Address address = customer.getAddress();
+address.getStreet(); // to obtain the value</code></pre>
       Or in this other way to set a new address:<br>
-      <pre class="java5"><span class="co1">// to set a new address</span>
-Address address = <span class="kw2">new</span> Address<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-address.<span class="me1">setStreet</span><span class="br0">(</span>“My street”<span
-
-class="br0">)</span><span class="sy0">;</span>
-address.<span class="me1">setZipCode</span><span class="br0">(</span><span class="nu0">46001</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-address.<span class="me1">setCity</span><span class="br0">(</span>“Valencia”<span
-
-class="br0">)</span><span class="sy0">;</span>
-address.<span class="me1">setState</span><span class="br0">(</span>state<span class="br0">)</span><span
-
-class="sy0">;</span>
-customer.<span class="me1">setAddress</span><span class="br0">(</span>address<span
-
-class="br0">)</span><span class="sy0">;</span></pre>
+      <pre><code class="language-java">// to set a new address
+Address address = new Address();
+address.setStreet("My street");
+address.setZipCode(46001);
+address.setCity("Valencia");
+address.setState(state);
+customer.setAddress(address);</code></pre>
       In this case you have a simple reference (not collection), and the
       generated code is a simple JavaBean, which life cycle is associated to its
       container object, that is, the <em>Address</em> is removed and created
@@ -1995,36 +1909,16 @@ class="br0">)</span><span class="sy0">;</span></pre>
       You can define a collection of references to entities. A collection is a
       Java property of type <em>java.util.Collection</em>.<br>
       Here syntax for collection:<br>
-      <pre class="java5">@Size <span class="co1">// 1</span>
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/concurrent/locks/Condition.html"><span
-
-class="kw49">Condition</span></a> <span class="co1">// 2</span>
-@OrderBy <span class="co1">// 3</span>
-@XOrderBy <span class="co1">// 4</span>
-@OrderColumn <span class="co1">// 5  New in v5.3</span>
-@OneToMany/@ManyToMany <span class="co1">// 6</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEntity<span class="sy0">&gt;</span> collectionName<span
-
-class="sy0">;</span> <span class="co1">// 5</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEntity<span class="sy0">&gt;</span> getCollectionName<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> ... <span
-
-class="br0">}</span> <span class="co1">// 5</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setCollectionName<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEntity<span class="sy0">&gt;</span> newValue<span
-
-class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span> <span
-
-class="co1">// 5</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Size // 1
+@Condition // 2
+@OrderBy // 3
+@XOrderBy // 4
+@OrderColumn // 5  New in v5.3
+@OneToMany/@ManyToMany // 6
+private Collection&lt;YourEntity&gt; collectionName; // 5
+public Collection&lt;YourEntity&gt; getCollectionName() { ... } // 5
+public void setCollectionName(Collection&lt;YourEntity&gt; newValue) { ... } // 5
+</code></pre>
       <ol>
         <li><strong>@Size</strong> (<a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/javax/validation/constraints/Size.html"
 
@@ -2167,21 +2061,15 @@ class="sy0">&gt;</span> details<span class="sy0">;</span></pre>
       <h3 id="collections-with-condition">Collections with condition</h3>
       You have full freedom to define how the collection data is obtained, with
       <em>@Condition</em> you can overwrite the default condition:<br>
-      <pre class="java5">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/concurrent/locks/Condition.html"><span
-
-class="kw49">Condition</span></a><span class="br0">(</span>
- <span class="st0">"${warehouse.zoneNumber} = ${this.warehouse.zoneNumber} AND "</span> +
- <span class="st0">"${warehouse.number} = ${this.warehouse.number} AND "</span> +
- <span class="st0">"NOT (${number} = ${this.number})"</span>
-<span class="br0">)</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Carrier<span class="sy0">&gt;</span> getFellowCarriers<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> <span class="kw4">null</span><span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Condition(
+ "${warehouse.zoneNumber} = ${this.warehouse.zoneNumber} AND " +
+ "${warehouse.number} = ${this.warehouse.number} AND " +
+ "NOT (${number} = ${this.number})"
+)
+public Collection&lt;Carrier&gt; getFellowCarriers() {
+ return null;
+}
+</code></pre>
       If you have this collection within <em>Carrier</em>, you can obtain with
       this collection all the carriers of the same warehouse but not himself,
       that is the list of his fellow workers. As you see you can use <em>this</em>
@@ -2197,40 +2085,16 @@ class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
       don't have enough, you can write the logic that returns the collection.
       The example of the previous section can be written in the following way
       too:<br>
-      <pre class="java5"><span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Carrier<span class="sy0">&gt;</span> getFellowCarriers<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
-
-class="kw67">Query</span></a> query = XPersistence.<span class="me1">getManager</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
-
-class="br0">(</span><span class="st0">"from Carrier c where "</span> +
- <span class="st0">"c.warehouse.zoneNumber = :zone AND "</span> +
- <span class="st0">"c.warehouse.number = :warehouseNumber AND "</span> +
- <span class="st0">"NOT (c.number = :number) "</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- query.<span class="me1">setParameter</span><span class="br0">(</span><span class="st0">"zone"</span>, getWarehouse<span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">getZoneNumber</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- query.<span class="me1">setParameter</span><span class="br0">(</span><span class="st0">"warehouseNumber"</span>, getWarehouse<span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">getNumber</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- query.<span class="me1">setParameter</span><span class="br0">(</span><span class="st0">"number"</span>, getNumber<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="kw2">return</span> query.<span class="me1">getResultList</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">public Collection&lt;Carrier&gt; getFellowCarriers() {
+ Query query = XPersistence.getManager().createQuery("from Carrier c where " +
+ "c.warehouse.zoneNumber = :zone AND " +
+ "c.warehouse.number = :warehouseNumber AND " +
+ "NOT (c.number = :number) ");
+ query.setParameter("zone", getWarehouse().getZoneNumber());
+ query.setParameter("warehouseNumber", getWarehouse().getNumber());
+ query.setParameter("number", getNumber());
+ return query.getResultList();
+}</code></pre>
       As you see this is a conventional getter method. Obviously it must return
       a <em>java.util.Collection</em> whose elements are of type <em>Carrier</em>.
       You don't need to define the field, the setter, or use <i>@OneToMany</i>
@@ -2240,20 +2104,14 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 
           rel="nofollow">@ManyToMany (JPA)</a></em> annotation allows to define
       a collection with many-to-many multiplicity. As following:<br>
-      <pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
-class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Customer <span class="br0">{</span>
+      <pre><code class="language-java">@Entity
+public class Customer {
  ...
  @ManyToMany
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/PortableServer/POAManagerPackage/State.html"><span
-
-class="kw154">State</span></a><span class="sy0">&gt;</span> states<span class="sy0">;</span>
+ private Collection&lt;State&gt; states;
  ...
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       In this case a customer has a collection of states, but a state can be
       present in several customers.<br>
       <h3 id="toc26"><a name="Model-Collections-Embedded collections"></a>Embedded
@@ -2264,13 +2122,9 @@ class="kw154">State</span></a><span class="sy0">&gt;</span> states<span class="s
       special way, and we still call them <em>embedded collections</em>.<br>
       Now an example of an embedded collection. In the main entity (for example
       <em>Invoice</em>) you can write:<br>
-      <pre class="java5">@OneToMany <span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span>, cascade=CascadeType.<span
-
-class="me1">REMOVE</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a> details<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)
+private Collection details;
+</code></pre>
       Note that you use <em>CascadeType.REMOVE</em>, and <em>InvoiceDetail</em>
       is an entity, not an embeddable class:<br>
       <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
@@ -2572,32 +2426,14 @@ class="br0">)</span> <span class="br0">{</span>
       Since JPA 2.0 you can define a collection of real <a class="wiki_link" href="#Model-Embeddable%20classes">embeddable
         objects</a>. We call these collections <em>element collections</em>.<br>
       This is the syntax for element collections:<br>
-      <pre class="java5">@Size <span class="co1">// 1</span>
-@OrderBy <span class="co1">// 2</span>
-@OrderColumn <span class="co1">// 3  New in v5.3</span>
-@ElementCollection <span class="co1">// 4</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEmbeddableClass<span
-
-class="sy0">&gt;</span> collectionName<span class="sy0">;</span> <span class="co1">// 3</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEmbeddableClass<span
-
-class="sy0">&gt;</span> getCollectionName<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span> ... <span class="br0">}</span> <span class="co1">// 3</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setCollectionName<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>YourEmbeddableClass<span
-
-class="sy0">&gt;</span> newValue<span class="br0">)</span> <span class="br0">{</span> ... <span
-
-class="br0">}</span> <span class="co1">// 3</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Size // 1
+@OrderBy // 2
+@OrderColumn // 3  New in v5.3
+@ElementCollection // 4
+private Collection&lt;YourEmbeddableClass&gt; collectionName; // 3
+public Collection&lt;YourEmbeddableClass&gt; getCollectionName() { ... } // 3
+public void setCollectionName(Collection&lt;YourEmbeddableClass&gt; newValue) { ... } // 3
+</code></pre>
       <ol>
         <li><strong>@Size</strong> (<a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/javax/validation/constraints/Size.html"
 
@@ -2634,47 +2470,26 @@ class="br0">}</span> <span class="co1">// 3</span>
       <br>
       Let's see an example. First you have to define the collection in the main
       entity:<br>
-      <pre class="java5">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
-class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Quote <span class="kw2">extends</span> Identifiable <span
-
-class="br0">{</span>
+      <pre><code class="language-java">@Entity
+public class Quote extends Identifiable {
     ...
     @ElementCollection
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
+    private Collection&lt;QuoteDetail&gt; details;
 
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>QuoteDetail<span
-
-class="sy0">&gt;</span> details<span class="sy0">;</span>
-&nbsp;
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>QuoteDetail<span
-
-class="sy0">&gt;</span> getDetails<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
-        <span class="kw2">return</span> details<span class="sy0">;</span>
-    <span class="br0">}</span>
-    <span class="kw2">public</span> <span class="kw3">void</span> setDetails<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>QuoteDetail<span
-
-class="sy0">&gt;</span> details<span class="br0">)</span> <span class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">details</span> = details<span
-
-class="sy0">;</span>
-    <span class="br0">}</span>
+    public Collection&lt;QuoteDetail&gt; getDetails() {
+        return details;
+    }
+    public void setDetails(Collection&lt;QuoteDetail&gt; newValue) {
+        this.details = newValue;
+    }
     ...
-<span class="br0">}</span></pre>
+}</code></pre>
       Then define your embeddable class:<br>
       <pre class="java5">@Embeddable
 <span class="kw2">public</span> <span class="kw2">class</span> QuoteDetail <span
 
 class="br0">{</span>
+    ...
 &nbsp;
     @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span>, optional=<span
 
