@@ -1340,122 +1340,62 @@ private String remarks;</code></pre>
 private int detailsCount;
 </code></pre>
       And the calculator class:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.calculators</span><span
+      <pre><code class="language-java">package org.openxava.test.calculators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">java.sql.*</span><span class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
+import java.sql.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+import org.openxava.calculators.*;
+import org.openxava.util.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * @author Javier Paniza
- */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> DetailsCountCalculator <span
+ */
+public class DetailsCountCalculator implements IJDBCCalculator { // 1
 
-class="kw2">implements</span> IJDBCCalculator <span class="br0">{</span> <span class="co1">// 1</span>
-&nbsp;
- <span class="kw2">private</span> IConnectionProvider provider<span class="sy0">;</span>
- <span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>
- <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setConnectionProvider<span
+ private IConnectionProvider provider;
+ private int year;
+ private int number;
 
-class="br0">(</span>IConnectionProvider provider<span class="br0">)</span> <span
+ public void setConnectionProvider(IConnectionProvider provider) { // 2
+ this.provider = provider;
+ }
 
-class="br0">{</span> <span class="co1">// 2</span>
- <span class="kw2">this</span>.<span class="me1">provider</span> = provider<span
+ public Object calculate() throws Exception {
+ Connection con = provider.getConnection();
+ try {
+ PreparedStatement ps = con.prepareStatement(
+ "select count(*) from XAVATEST.INVOICEDETAIL " +
+ "where INVOICE_YEAR = ? and INVOICE_NUMBER = ?");
+ ps.setInt(1, getYear());
+ ps.setInt(2, getNumber());
+ ResultSet rs = ps.executeQuery();
+ rs.next();
+ Integer result = new Integer(rs.getInt(1));
+ ps.close();
+ return result;
+ }
+ finally {
+ con.close();
+ }
+ }
 
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public int getYear() {
+ return year;
+ }
 
-class="kw166">Object</span></a> calculate<span class="br0">(</span><span class="br0">)</span> <span
+ public int getNumber() {
+ return number;
+ }
 
-class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
+ public void setYear(int year) {
+ this.year = year;
+ }
 
-class="kw21">Exception</span></a> <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Connection.html"><span
+ public void setNumber(int number) {
+ this.number = number;
+ }
 
-class="kw44">Connection</span></a> con = provider.<span class="me1">getConnection</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="kw2">try</span> <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
-
-class="kw44">PreparedStatement</span></a> ps = con.<span class="me1">prepareStatement</span><span
-
-class="br0">(</span>
- <span class="st0">"select count(*) from XAVATEST.INVOICEDETAIL “ +
- “where INVOICE_YEAR = ? and INVOICE_NUMBER = ?"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- ps.<span class="me1">setInt</span><span class="br0">(</span><span class="nu0">1</span>, getYear<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- ps.<span class="me1">setInt</span><span class="br0">(</span><span class="nu0">2</span>, getNumber<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
-
-class="kw44">ResultSet</span></a> rs = ps.<span class="me1">executeQuery</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- rs.<span class="me1">next</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> result = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>rs.<span class="me1">getInt</span><span
-
-class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- ps.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="kw2">return</span> result<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">finally</span> <span class="br0">{</span>
- con.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getYear<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> year<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setYear<span class="br0">(</span><span
-
-class="kw3">int</span> year<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">year</span> = year<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
-
-class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       To use JDBC your calculator must implement <em>IJDBCCalculator</em> (1)
       and then it will receive an <em>IConnectionProvider</em> (2) that you can
       use within the <em>calculate()</em> method.<br>
@@ -1506,46 +1446,26 @@ private void calculateCounter() {
       on the value assigned to the property just before storing. A property may
       have several validators:<br>
       <div class="wiki" id="content_view">
-        <pre class="java5">@PropertyValidator<span class="br0">(</span>value=ExcludeStringValidator.<span
-
-class="kw2">class</span>, properties=
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"string"</span>, value=<span
-
-class="st0">"MOTO"</span><span class="br0">)</span>
-<span class="br0">)</span>
-@PropertyValidator<span class="br0">(</span>value=ExcludeStringValidator.<span class="kw2">class</span>, properties=
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"string"</span>, value=<span
-
-class="st0">"COCHE"</span><span class="br0">)</span>,
-    onlyOnCreate=<span class="kw4">true</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> description<span class="sy0">;</span>
-&nbsp;</pre>
+        <pre><code class="language-java">@PropertyValidator(value=ExcludeStringValidator.class, properties=
+    @PropertyValue(name="string", value="MOTO")
+)
+@PropertyValidator(value=ExcludeStringValidator.class, properties=
+    @PropertyValue(name="string", value="COCHE")
+)
+private String remarks;
+</code></pre>
         With an OpenXava older than 6.1 you have to wrap the <i>@PropertyValidator</i>
         annotations with <i>@PropertyValidators</i>:</div>
-      <pre class="java5">@PropertyValidators <span class="br0">(</span><span class="br0">{</span> // Only needed until v6.0.2
-   @PropertyValidator<span class="br0">(</span>value=ExcludeStringValidator.<span
-
-class="kw2">class</span>, properties=
-       @PropertyValue<span class="br0">(</span>name=<span class="st0">"string"</span>, value=<span
-
-class="st0">"MOTO"</span><span class="br0">)</span>
-   <span class="br0">)</span>,
-   @PropertyValidator<span class="br0">(</span>value=ExcludeStringValidator.<span
-
-class="kw2">class</span>, properties=
-       @PropertyValue<span class="br0">(</span>name=<span class="st0">"string"</span>, value=<span
-
-class="st0">"COCHE"</span><span class="br0">)</span>,
-       onlyOnCreate=<span class="kw4">true</span>
- <span class="br0">  )</span>
-<span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> description<span class="sy0">;</span>
-</pre> The technique to configure the validator (with <em><a class="wiki_link_ext"
+      <pre><code class="language-java">@PropertyValidators ({ // Only needed until v6.0.2
+   @PropertyValidator(value=ExcludeStringValidator.class, properties=
+       @PropertyValue(name="string", value="MOTO")
+   ),
+   @PropertyValidator(value=ExcludeStringValidator.class, properties=
+       @PropertyValue(name="string", value="COCHE")
+   )
+})
+private String remarks;
+</code></pre> The technique to configure the validator (with <em><a class="wiki_link_ext"
 
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/PropertyValue.html"
 
@@ -1556,82 +1476,40 @@ class="kw21">String</span></a> description<span class="sy0">;</span>
       validation will be executed only when the object is created, and not when
       it is modified.<br>
       The validator code is:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.validators</span><span
+      <pre><code class="language-java">package org.openxava.test.validators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
+import org.openxava.util.*;
+import org.openxava.validators.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * @author Javier Paniza
- */</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> ExcludeStringValidator <span
+ */
 
-class="kw2">implements</span> IPropertyValidator <span class="br0">{</span> <span
+public class ExcludeStringValidator implements IPropertyValidator { // 1
 
-class="co1">// 1</span>
-&nbsp;
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ private String string;
 
-class="kw21">String</span></a> string<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> validate<span class="br0">(</span>
- Messages errors, <span class="co1">// 2</span>
- <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public void validate(
+ Messages errors, // 2
+ Object value, // 3
+ String objectName, // 4
+ String propertyName) // 5
+ throws Exception {
+ if (value==null) return;
+ if (value.toString().indexOf(getString()) >= 0) {
+ errors.add("exclude_string", propertyName, objectName, getString());
+ }
+ }
 
-class="kw166">Object</span></a> value, <span class="co1">// 3</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public String getString() {
+ return string==null?"":string;
+ }
 
-class="kw21">String</span></a> objectName, <span class="co1">// 4</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public void setString(String string) {
+ this.string = string;
+ }
 
-class="kw21">String</span></a> propertyName<span class="br0">)</span> <span class="co1">// 5</span>
- <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>value==<span class="kw4">null</span><span
-
-class="br0">)</span> <span class="kw2">return</span><span class="sy0">;</span>
- <span class="kw1">if</span> <span class="br0">(</span>value.<span class="me1">toString</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">indexOf</span><span
-
-class="br0">(</span>getString<span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span> <span class="sy0">&gt;</span>= <span class="nu0">0</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"exclude_string"</span>, propertyName, objectName, getString<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getString<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">""</span>:string<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setString<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> string<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">string</span> = string<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       A validator has to implement <em>IPropertyValidator</em> (1), this
       obliges the calculator to have a <em>validate()</em> method where the
       validation of property is executed. The arguments of <em>validate()</em>
@@ -1660,66 +1538,28 @@ class="br0">)</span> <span class="br0">{</span>
       not save the object.<br>
       Since v4.6.1 is also possible to use in the validator the message of <em>@PropertyValidator</em>.
       That is, you can write:<br>
-      <pre class="java5">@PropertyValidator<span class="br0">(</span>value=BookTitleValidator.<span
-
-class="kw2">class</span>, message=<span class="st0">"{rpg_book_not_allowed}"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> title<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@PropertyValidator(value=BookTitleValidator.class, message="{rpg_book_not_allowed}")
+private String title;</code></pre>
       If the message is between braces is get from i18n files, if not is used as
       is.<br>
       Moreover, you have to implement the <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/IWithMessage.html"
 
           rel="nofollow">IWithMessage</a></em> interface in your validator:<br>
-      <pre class="java5"><span class="kw2">public</span> <span class="kw2">class</span> BookTitleValidator <span
+      <pre><code class="language-java">public class BookTitleValidator implements IPropertyValidator, IWithMessage {
 
-class="kw2">implements</span> IPropertyValidator, IWithMessage <span class="br0">{</span>
-&nbsp;
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+    private String message;
 
-class="kw21">String</span></a> message<span class="sy0">;</span>
-&nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> setMessage<span
+    public void setMessage(String message) throws Exception {
+        this.message = message; // This message is from @PropertyValidator
+    }
 
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+    public void validate(Messages errors, Object value, String propertyName, String modelName) {
+       if (((String)value).contains("RPG")) {
+           errors.add(message); // You can add it directly
+       }
+    }
 
-class="kw21">String</span></a> message<span class="br0">)</span> <span class="kw2">throws</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
-        <span class="kw2">this</span>.<span class="me1">message</span> = message<span
-
-class="sy0">;</span> <span class="co1">// This message is from @PropertyValidator</span>
-    <span class="br0">}</span>
-&nbsp;
-    <span class="kw2">public</span> <span class="kw3">void</span> validate<span
-
-class="br0">(</span>Messages errors, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> value, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> propertyName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> modelName<span class="br0">)</span> <span class="br0">{</span>
-       <span class="kw1">if</span> <span class="br0">(</span><span class="br0">(</span><span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a><span class="br0">)</span>value<span class="br0">)</span>.<span
-
-class="me1">contains</span><span class="br0">(</span><span class="st0">"RPG"</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-           errors.<span class="me1">add</span><span class="br0">(</span>message<span
-
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// You can add it directly</span>
-       <span class="br0">}</span>
-    <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       The message specified in the <em>@PropertyValidator</em> annotation, <em>rpg_book_not_allowed</em>,
       is injected in the validator calling <em>setMessage()</em>. This message
       can be added directly as an error.<br>
@@ -1786,34 +1626,20 @@ private BigDecimal total;</code></pre>
       whose type is the referenced model Java type. For example a <em>Customer</em>
       can have a reference to his <em>Seller</em>, and that allows you to write
       code like this:<br>
-      <pre class="java5">Customer customer = ...
-<span class="me1">customer</span>.<span class="me1">getSeller</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">getName</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span></pre>
+      <pre><code class="language-java">Customer customer = ...
+customer.getSeller().getName();</code></pre>
       to access to the name of the seller of that customer.<br>
       The syntax of reference is:<br>
-      <pre class="java5">@Required <span class="co1">// 1</span>
-@Id <span class="co1">// 2</span>
-@SearchKey <span class="co1">// 3 New in v3.0.2</span>
-@DefaultValueCalculator <span class="co1">// 4</span>
-@ManyToOne<span class="br0">(</span> <span class="co1">// 5</span>
- optional=<span class="kw4">false</span> <span class="co1">// 1</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> type referenceName<span class="sy0">;</span> <span
-
-class="co1">// 5</span>
-<span class="kw2">public</span> type getReferenceName<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span> <span
-
-class="co1">// 5</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setReferenceName<span
-
-class="br0">(</span>type newValue<span class="br0">)</span> <span class="br0">{</span> ... <span
-
-class="br0">}</span> <span class="co1">// 5</span></pre>
+      <pre><code class="language-java">@Required // 1
+@Id // 2
+@SearchKey // 3 New in v3.0.2
+@DefaultValueCalculator // 4
+@ManyToOne( // 5
+ optional=false // 1
+)
+private type referenceName; // 5
+public type getReferenceName() { ... } // 5
+public void setReferenceName(type newValue) { ... } // 5</code></pre>
       <ol>
         <li><strong>@ManyToOne(optional=false)</strong> (<a class="wiki_link_ext"
 
@@ -1858,39 +1684,25 @@ class="br0">}</span> <span class="co1">// 5</span></pre>
           another entity.</li>
       </ol>
       A little example of references:<br>
-      <pre class="java5">@ManyToOne
-<span class="kw2">private</span> Seller seller<span class="sy0">;</span> <span class="co1">// 1</span>
-<span class="kw2">public</span> Seller getSeller<span class="br0">(</span><span
+      <pre><code class="language-java">@ManyToOne
+private Seller seller; // 1
+public Seller getSeller() {
+ return seller;
+}
+public void setSeller(Seller seller) {
+ this.seller = seller;
+}
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> seller<span class="sy0">;</span>
-<span class="br0">}</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setSeller<span class="br0">(</span>Seller seller<span
+@ManyToOne(fetch=FetchType.LAZY)
+private Seller alternateSeller; // 2
+public Seller getAlternateSeller() {
+ return alternateSeller;
+}
+public void setAlternateSeller(Seller alternateSeller) {
+ this.alternateSeller = alternateSeller;
+}
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">seller</span> = seller<span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;
-@ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> Seller alternateSeller<span class="sy0">;</span> <span
-
-class="co1">// 2</span>
-<span class="kw2">public</span> Seller getAlternateSeller<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> alternateSeller<span class="sy0">;</span>
-<span class="br0">}</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setAlternateSeller<span
-
-class="br0">(</span>Seller alternateSeller<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">alternateSeller</span> = alternateSeller<span
-
-class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;
-&nbsp;</pre>
+</code></pre>
       <ol>
         <li>A reference called <em>seller</em> to the entity of <em>Seller</em>
           entity.</li>
@@ -1903,14 +1715,10 @@ class="sy0">;</span>
       </ol>
       If you assume that this is in an entity named <em>Customer</em>, you
       could write:<br>
-      <pre class="java5">Customer customer = ...
-<span class="me1">Seller</span> seller = customer.<span class="me1">getSeller</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-Seller alternateSeller = customer.<span class="me1">getAlternateSeller</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">Customer customer = ...
+Seller seller = customer.getSeller();
+Seller alternateSeller = customer.getAlternateSeller();
+</code></pre>
       <h3 id="toc21"><a name="Model-References-Default value calculator in references"></a>Default
         value calculator in references</h3>
       In a reference <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DefaultValueCalculator.html"
@@ -1920,89 +1728,47 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         href="#Model-Properties-Default%20value%20calculator">like in a property</a>,
       only that it has to return the value of the reference key.<br>
       For example, in the case of a reference with simple key, you can write:<br>
-      <pre class="java5">@ManyToOne<span class="br0">(</span>optional=<span class="kw4">false</span>, fetch=FetchType.<span
-
-class="me1">LAZY</span><span class="br0">)</span> @JoinColumn<span class="br0">(</span>name=<span
-
-class="st0">"FAMILY"</span><span class="br0">)</span>
-@DefaultValueCalculator<span class="br0">(</span>value=IntegerCalculator.<span class="kw2">class</span>, properties=
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"value"</span>, value=<span
-
-class="st0">"2"</span><span class="br0">)</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> Family family<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@ManyToOne(optional=false, fetch=FetchType.LAZY) @JoinColumn(name="FAMILY")
+@DefaultValueCalculator(value=IntegerCalculator.class, properties=
+ @PropertyValue(name="value", value="2")
+)
+private Family family;
+</code></pre>
       The <em>calculate()</em> method is:<br>
-      <pre class="java5"><span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> calculate<span class="br0">(</span><span class="br0">)</span> <span
-
-class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>value<span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">public Object calculate() throws Exception {
+ return new Integer(value);
+}
+</code></pre>
       As you can see an integer is returned, that is, the default value for
       family is 2.<br>
       In the case of composite key:<br>
-      <pre class="java5">@ManyToOne<span class="br0">(</span>fetch=FetchType.<span
-
-class="me1">LAZY</span><span class="br0">)</span>
-@JoinColumns<span class="br0">(</span><span class="br0">{</span>
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"ZONE"</span>, referencedColumnName=<span
-
-class="st0">"ZONE"</span><span class="br0">)</span>,
- @JoinColumn<span class="br0">(</span>name=<span class="st0">"WAREHOUSE"</span>, referencedColumnName=<span
-
-class="st0">"NUMBER"</span><span class="br0">)</span>
-<span class="br0">}</span><span class="br0">)</span>
-@DefaultValueCalculator<span class="br0">(</span>DefaultWarehouseCalculator.<span
-
-class="kw2">class</span><span class="br0">)</span>
-<span class="kw2">private</span> Warehouse warehouse<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
+@JoinColumns({
+ @JoinColumn(name="ZONE", referencedColumnName="ZONE"),
+ @JoinColumn(name="WAREHOUSE", referencedColumnName="NUMBER")
+})
+@DefaultValueCalculator(DefaultWarehouseCalculator.class)
+private Warehouse warehouse;
+</code></pre>
       And the calculator code:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.calculators</span><span
+      <pre><code class="language-java">package org.openxava.test.calculators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
+import org.openxava.calculators.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * @author Javier Paniza
- */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> DefaultWarehouseCalculator <span
+ */
+public class DefaultWarehouseCalculator implements ICalculator {
 
-class="kw2">implements</span> ICalculator <span class="br0">{</span>
-&nbsp;
-  <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+  public Object calculate() throws Exception {
+    Warehouse key = new Warehouse();
+    key.setNumber(4);
+    key.setZoneNumber(4);
+    return key;
+  }
 
-class="kw166">Object</span></a> calculate<span class="br0">(</span><span class="br0">)</span> <span
-
-class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
-    Warehouse key = <span class="kw2">new</span> Warehouse<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-    key.<span class="me1">setNumber</span><span class="br0">(</span><span class="nu0">4</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-    key.<span class="me1">setZoneNumber</span><span class="br0">(</span><span class="nu0">4</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-    <span class="kw2">return</span> key<span class="sy0">;</span>
-  <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       Returns an object of type <em>Warehouse</em> but filling only the key
       properties.<br>
       <h3 id="toc22"><a name="Model-References-Using references as key"></a>Using
@@ -2998,23 +2764,9 @@ ADD TASKS_ORDER INTEGER</code></pre>
       <h2 id="toc29"><a name="Model-Methods"></a>Methods</h2>
       Methods are defined in an OpenXava entity (really a JPA entity) as in a
       regular Java class. For example:<br>
-      <pre class="java5"><span class="kw2">public</span> <span class="kw3">void</span> increasePrice<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- setUnitPrice<span class="br0">(</span>getUnitPrice<span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">multiply</span><span class="br0">(</span><span
-
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span><span class="st0">"1.02"</span><span
-
-class="br0">)</span><span class="br0">)</span>.<span class="me1">setScale</span><span
-
-class="br0">(</span><span class="nu0">2</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">public void increasePrice() {
+ setUnitPrice(getUnitPrice().multiply(new BigDecimal("1.02")).setScale(2));
+}</code></pre>
       Methods are the sauce of the objects, without them the object would only
       be a silly wrapper of data. When possible it is better to put the business
       logic in methods (model layer) instead of in actions (controller layer).<br>
@@ -3022,83 +2774,27 @@ class="sy0">;</span>
       A finder is a special static method that allows you to find an object or a
       collection of objects that follow some criteria.<br>
       Some examples:<br>
-      <pre class="java5"><span class="kw2">public</span> <span class="kw2">static</span> Customer findByNumber<span
+      <pre><code class="language-java">public static Customer findByNumber(int number) throws NoResultException {
+ Query query = XPersistence.getManager().createQuery(
+ "from Customer as o where o.number = :number");
+ query.setParameter("number", number);
+ return (Customer) query.getSingleResult();
+}
 
-class="br0">(</span><span class="kw3">int</span> number<span class="br0">)</span> <span
+public static Collection findAll() {
+ Query query = XPersistence.getManager().createQuery("from Customer as o");
+ return query.getResultList();
+}
 
-class="kw2">throws</span> NoResultException <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
-
-class="kw67">Query</span></a> query = XPersistence.<span class="me1">getManager</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
-
-class="br0">(</span>
- <span class="st0">"from Customer as o where o.number = :number"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- query.<span class="me1">setParameter</span><span class="br0">(</span><span class="st0">"number"</span>, number<span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="kw2">return</span> <span class="br0">(</span>Customer<span class="br0">)</span> query.<span
-
-class="me1">getSingleResult</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a> findAll<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
-
-class="kw67">Query</span></a> query = XPersistence.<span class="me1">getManager</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
-
-class="br0">(</span><span class="st0">"from Customer as o"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="kw2">return</span> query.<span class="me1">getResultList</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">static</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a> findByNameLike<span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> name<span class="br0">)</span> <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html"><span
-
-class="kw67">Query</span></a> query = XPersistence.<span class="me1">getManager</span><span
-
-class="br0">(</span><span class="br0">)</span>.<span class="me1">createQuery</span><span
-
-class="br0">(</span>
- <span class="st0">"from Customer as o where o.name like :name order by o.name desc"</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- query.<span class="me1">setParameter</span><span class="br0">(</span><span class="st0">"name"</span>, name<span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="kw2">return</span> query.<span class="me1">getResultList</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span></pre>
+public static Collection findByNameLike(String name) {
+ Query query = XPersistence.getManager().createQuery(
+ "from Customer as o where o.name like :name order by o.name desc");
+ query.setParameter("name", name);
+ return query.getResultList();
+}</code></pre>
       This methods can be used this way:<br>
-      <pre class="java5">Customer customer = Customer.<span class="me1">findByNumber</span><span
-
-class="br0">(</span><span class="nu0">8</span><span class="br0">)</span><span class="sy0">;</span>
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a> javieres = Customer.<span class="me1">findByNameLike</span><span
-
-class="br0">(</span>“<span class="sy0">%</span>JAVI<span class="sy0">%</span>”<span
-
-class="br0">)</span><span class="sy0">;</span></pre>
+      <pre><code class="language-java">Customer customer = Customer.findByNumber(8);
+Collection javieres = Customer.findByNameLike("%JAVI%");</code></pre>
       As you see, using finder methods creates a more readable code than using
       the verbose query API of JPA. But this is only a style recommendation, you
       can choose not to write finder methods and to use directly JPA queries.<br>
@@ -3110,16 +2806,12 @@ class="br0">)</span><span class="sy0">;</span></pre>
       at a time, and that validation does not correspond logically with any of
       them, then you can use this type of validation.<br>
       Its syntax is:<br>
-      <pre class="java5">@EntityValidator<span class="br0">(</span>
- value=<span class="kw2">class</span>, <span class="co1">// 1</span>
- onlyOnCreate=<span class="br0">(</span><span class="kw4">true</span>|false<span
-
-class="br0">)</span>, <span class="co1">// 2</span>
- properties=<span class="br0">{</span> @PropertyValue ... <span class="br0">}</span> <span
-
-class="co1">// 3</span>
-<span class="br0">)</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@EntityValidator(
+ value=class, // 1
+ onlyOnCreate=(true|false), // 2
+ properties={ @PropertyValue ... } // 3
+)
+</code></pre>
       <ol>
         <li><strong>value</strong> (required): Class that implements the
           validation logic. It has to be of type <em>IValidator</em>.</li>
@@ -3132,24 +2824,12 @@ class="co1">// 3</span>
           of the validator properties before executing it.</li>
       </ol>
       An example:<br>
-      <pre class="java5">@EntityValidator<span class="br0">(</span>value=org.<span
-
-class="me1">openxava</span>.<span class="me1">test</span>.<span class="me1">validators</span>.<span
-
-class="me1">CheapProductValidator</span>.<span class="kw2">class</span>, properties= <span
-
-class="br0">{</span>
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"limit"</span>, value=<span
-
-class="st0">"100"</span><span class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"description"</span><span
-
-class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-<span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Product <span class="br0">{</span></pre>
+      <pre><code class="language-java">@EntityValidator(value=org.openxava.test.validators.CheapProductValidator.class, properties= {
+ @PropertyValue(name="limit", value="100"),
+ @PropertyValue(name="description"),
+ @PropertyValue(name="unitPrice")
+})
+public class Product {</code></pre>
       And the validator code:<br>
       <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.validators</span><span
 
