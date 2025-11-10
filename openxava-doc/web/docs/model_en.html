@@ -1960,32 +1960,14 @@ public void setCollectionName(Collection&lt;YourEntity&gt; newValue) { ... } // 
           another entity.</li>
       </ol>
       Let's have a look at some examples. First a simple one:<br>
-      <pre class="java5">@OneToMany <span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Delivery<span class="sy0">&gt;</span> deliveries<span
-
-class="sy0">;</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Delivery<span class="sy0">&gt;</span> getDeliveries<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> deliveries<span class="sy0">;</span>
-<span class="br0">}</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setDeliveries<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Delivery<span class="sy0">&gt;</span> deliveries<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">deliveries</span> = deliveries<span
-
-class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@OneToMany (mappedBy="invoice")
+private Collection&lt;Delivery&gt; deliveries;
+public Collection&lt;Delivery&gt; getDeliveries() {
+ return deliveries;
+}
+public void setDeliveries(Collection&lt;Delivery&gt; deliveries) {
+ this.deliveries = deliveries;
+}</code></pre>
       If you have this within an <em>Invoice</em>, then you are defining a <em>deliveries</em>
       collection associated to that <em>Invoice</em>. The details to make the
       relationship are defined in the <a class="wiki_link" href="mapping_en.html">object/relational
@@ -1993,16 +1975,10 @@ class="sy0">;</span>
       reference <em>invoice</em> of <em>Delivery</em> is used to mapping this
       collection.<br>
       Now you can write a code like this:<br>
-      <pre class="java5">Invoice invoice = ...
-<span class="kw1">for</span> <span class="br0">(</span>Delivery delivery: invoice.<span
-
-class="me1">getDeliveries</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- delivery.<span class="me1">doSomething</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">Invoice invoice = ...
+for (Delivery delivery: invoice.getDeliveries()) {
+ delivery.doSomething();
+}</code></pre>
       To do something with all deliveries associated to an invoice.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
@@ -2015,14 +1991,8 @@ class="sy0">;</span>
       attribute <em>mappedBy</em> of <em>@OneToMany</em>. You can use it in
       this way:<br>
       <div class="wiki">
-        <pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"seller"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Customer<span class="sy0">&gt;</span> customers<span
-
-class="sy0">;</span></pre>
+        <pre><code class="language-java">@OneToMany(mappedBy="seller")
+private Collection&lt;Customer&gt; customers;</code></pre>
         To indicate that the reference <em>seller</em> and not <em>alternateSeller</em>
         will be used in this collection.<br>
       </div>
@@ -2031,22 +2001,10 @@ class="sy0">;</span></pre>
     </div>
     <div class="wiki" style="display: block;">Let's look at another example a
       little more complex, in <em>Invoice</em>:<br>
-      <pre class="java5">@OneToMany <span class="br0">(</span>mappedBy=<span class="st0">"invoice"</span>, cascade=CascadeType.<span
-
-class="me1">REMOVE</span><span class="br0">)</span> <span class="co1">// 1</span>
-@OrderBy<span class="br0">(</span><span class="st0">"serviceType desc"</span><span
-
-class="br0">)</span> <span class="co1">// 2</span>
-@org.<span class="me1">hibernate</span>.<span class="me1">validator</span>.<span
-
-class="me1">Size</span><span class="br0">(</span>min=<span class="nu0">1</span><span
-
-class="br0">)</span> <span class="co1">// 3</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>InvoiceDetail<span
-
-class="sy0">&gt;</span> details<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE) // 1
+@OrderBy("serviceType desc") // 2
+@org.hibernate.validator.Size(min=1) // 3
+private Collection&lt;InvoiceDetail&gt; details;</code></pre>
       <ol>
         <li>Using REMOVE as cascade type produces that when the user removes an
           invoice its details are also removed.</li>
@@ -2485,59 +2443,31 @@ public class Quote extends Identifiable {
     ...
 }</code></pre>
       Then define your embeddable class:<br>
-      <pre class="java5">@Embeddable
-<span class="kw2">public</span> <span class="kw2">class</span> QuoteDetail <span
-
-class="br0">{</span>
+      <pre><code class="language-java">@Embeddable
+public class QuoteDetail {
     ...
-&nbsp;
-    @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span>, optional=<span
 
-class="kw4">false</span><span class="br0">)</span> <span class="co1">// 1</span>
-    <span class="kw2">private</span> Product product<span class="sy0">;</span>
-&nbsp;
-    @Required <span class="co1">// 2</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+    @ManyToOne(fetch=FetchType.LAZY, optional=false) // 1
+    private Product product;
 
-class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span>
-&nbsp;
+    @Required // 2
+    private BigDecimal unitPrice;
+
     @Required
-    <span class="kw2">private</span> <span class="kw3">int</span> quantity<span
+    private int quantity;
 
-class="sy0">;</span>
-&nbsp;
-    <span class="kw2">private</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
+    private Date availabilityDate;
 
-class="kw166">Date</span></a> availabilityDate<span class="sy0">;</span>
-&nbsp;
-    @Column<span class="br0">(</span>length=<span class="nu0">30</span><span class="br0">)</span>
-    <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+    @Column(length=30)
+    private String remarks;
 
-class="kw21">String</span></a> remarks<span class="sy0">;</span>
-&nbsp;
-    @Column<span class="br0">(</span>precision=<span class="nu0">10</span>, scale=<span
-
-class="nu0">2</span><span class="br0">)</span>
-    @Depends<span class="br0">(</span><span class="st0">"unitPrice, quantity"</span><span
-
-class="br0">)</span>
-    <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getAmount<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span> <span class="co1">// 3</span>
-        <span class="kw2">return</span> getUnitPrice<span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">multiply</span><span class="br0">(</span><span
-
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span>getQuantity<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-    <span class="br0">}</span>
+    @Column(precision=10, scale=2)
+    @Depends("unitPrice, quantity")
+    public BigDecimal getAmount() { // 3
+        return getUnitPrice().multiply(new BigDecimal(getQuantity()));
+    }
     ...
-<span class="br0">}</span></pre>
+}</code></pre>
       As you can see, an embeddable class used in an element collection can
       contain references(1), validations(2) and calculated properties(3) among
       other things.<br>
@@ -2549,15 +2479,9 @@ class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span cl
 
           rel="nofollow">@OrderColumn</a></em>. That is, if you define a
       collection in this way:<br>
-      <pre class="java5">@OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"project"</span>, cascade=CascadeType.<span
-
-class="me1">ALL</span><span class="br0">)</span>
+      <pre><code class="language-java">@OneToMany(mappedBy="project", cascade=CascadeType.ALL)
 @OrderColumn
-<span class="kw2">private</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List"><span
-
-class="kw166">List</span></a><span class="sy0">&lt;</span>ProjectTask<span class="sy0">&gt;</span> tasks<span
-
-class="sy0">;</span></pre>
+private List&lt;ProjectTask&gt; tasks;</code></pre>
       The user interface allows the user to change the order of the elements and
       this order is persisted in database. Moreover, if you change the order of
       the elements programmatically this order is persisted in database too.<br>
@@ -2786,107 +2710,49 @@ class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
     <div class="wiki" style="display: block;"> You can define more than one
       validator for entity, as following:<br>
       <div class="wiki" id="content_view">
-        <pre class="java5">@EntityValidator<span class="br0">(</span>value=org.<span
-
-class="me1">openxava</span>.<span class="me1">test</span>.<span class="me1">validators</span>.<span
-
-class="me1">CheapProductValidator</span>.<span class="kw2">class</span>, properties= <span
-
-class="br0">{</span>
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"limit"</span>, value=<span
-
-class="st0">"100"</span><span class="br0">)</span>,
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"description"</span><span
-
-class="br0">)</span>,
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-<span class="br0">}</span><span class="br0">)</span>
-@EntityValidator<span class="br0">(</span>value=org.<span class="me1">openxava</span>.<span
-
-class="me1">test</span>.<span class="me1">validators</span>.<span class="me1">ExpensiveProductValidator</span>.<span
-
-class="kw2">class</span>, properties= <span class="br0">{</span>
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"limit"</span>, value=<span
-
-class="st0">"1000"</span><span class="br0">)</span>,
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"description"</span><span
-
-class="br0">)</span>,
-    @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-<span class="br0">}</span><span class="br0">)</span>
-@EntityValidator<span class="br0">(</span>value=org.<span class="me1">openxava</span>.<span
-
-class="me1">test</span>.<span class="me1">validators</span>.<span class="me1">ForbiddenPriceValidator</span>.<span
-
-class="kw2">class</span>,
-    properties= <span class="br0">{</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"forbiddenPrice"</span>, value=<span
-
-class="st0">"555"</span><span class="br0">)</span>,
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
- <span class="br0">   }</span>,
-    onlyOnCreate=<span class="kw4">true</span>
-<span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Product <span class="br0">{</span> </pre>
+        <pre><code class="language-java">@EntityValidator(value=org.openxava.test.validators.CheapProductValidator.class, properties= {
+    @PropertyValue(name="limit", value="100"),
+    @PropertyValue(name="description"),
+    @PropertyValue(name="unitPrice")
+})
+@EntityValidator(value=org.openxava.test.validators.ExpensiveProductValidator.class, properties= {
+    @PropertyValue(name="limit", value="1000"),
+    @PropertyValue(name="description"),
+    @PropertyValue(name="unitPrice")
+})
+@EntityValidator(value=org.openxava.test.validators.ForbiddenPriceValidator.class,
+    properties= {
+        @PropertyValue(name="forbiddenPrice", value="555"),
+        @PropertyValue(name="unitPrice")
+    },
+    onlyOnCreate=true
+)
+public class Product { </code></pre>
         With OpenXava previous to 6.1 you need to use <em>@EntityValidators</em>
         to define several validators:</div>
     </div>
     <div class="wiki" style="display: block;">
-      <pre class="java5">@EntityValidators<span class="br0">(</span><span class="br0">{ // Only needed until v6.0.2</span>
-    @EntityValidator<span class="br0">(</span>value=org.<span class="me1">openxava</span>.<span
-
-class="me1">test</span>.<span class="me1">validators</span>.<span class="me1">CheapProductValidator</span>.<span
-
-class="kw2">class</span>, properties= <span class="br0">{</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"limit"</span>, value=<span
-
-class="st0">"100"</span><span class="br0">)</span>,
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"description"</span><span
-
-class="br0">)</span>,
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-    <span class="br0">}</span><span class="br0">)</span>,
-    @EntityValidator<span class="br0">(</span>value=org.<span class="me1">openxava</span>.<span
-
-class="me1">test</span>.<span class="me1">validators</span>.<span class="me1">ExpensiveProductValidator</span>.<span
-
-class="kw2">class</span>, properties= <span class="br0">{</span>
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"limit"</span>, value=<span
-
-class="st0">"1000"</span><span class="br0">)</span>,
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"description"</span><span
-
-class="br0">)</span>,
-        @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-    <span class="br0">}</span><span class="br0">)</span>,
-    @EntityValidator<span class="br0">(</span>value=org.<span class="me1">openxava</span>.<span
-
-class="me1">test</span>.<span class="me1">validators</span>.<span class="me1">ForbiddenPriceValidator</span>.<span
-
-class="kw2">class</span>,
-        properties= <span class="br0">{</span>
-            @PropertyValue<span class="br0">(</span>name=<span class="st0">"forbiddenPrice"</span>, value=<span
-
-class="st0">"555"</span><span class="br0">)</span>,
-            @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
-
-class="br0">)</span>
-        <span class="br0">}</span>,
-        onlyOnCreate=<span class="kw4">true</span>
- <span class="br0">   )</span>
-<span class="br0">}</span><span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Product <span class="br0">{</span>
-</pre> <em>@EntityValidator</em> is defined as a <a class="wiki_link" href="#Model-Bean%20Validation">Bean
+      <pre><code class="language-java">@EntityValidators({ // Only needed until v6.0.2
+    @EntityValidator(value=org.openxava.test.validators.CheapProductValidator.class, properties= {
+        @PropertyValue(name="limit", value="100"),
+        @PropertyValue(name="description"),
+        @PropertyValue(name="unitPrice")
+    }),
+    @EntityValidator(value=org.openxava.test.validators.ExpensiveProductValidator.class, properties= {
+        @PropertyValue(name="limit", value="1000"),
+        @PropertyValue(name="description"),
+        @PropertyValue(name="unitPrice")
+    }),
+    @EntityValidator(value=org.openxava.test.validators.ForbiddenPriceValidator.class,
+        properties= {
+            @PropertyValue(name="forbiddenPrice", value="555"),
+            @PropertyValue(name="unitPrice")
+        },
+        onlyOnCreate=true
+    )
+})
+public class Product {
+</code></pre> <em>@EntityValidator</em> is defined as a <a class="wiki_link" href="#Model-Bean%20Validation">Bean
         Validation</a> constraint since v5.3 and as a <a class="wiki_link" href="#Model-Hibernate%20Validator%20%28new%20in%20v3.0.1%29">Hibernate
         Validator</a> constraint until v5.2.x.<br>
       If you need to use JPA in your validator, please see <a class="wiki_link"
@@ -2900,13 +2766,11 @@ class="br0">)</span>
       too, but in this case it is executed just before removing an object, and
       it has the possibility to deny the deletion.<br>
       Its syntax is:<br>
-      <pre class="java5">@RemoveValidator<span class="br0">(</span>
- value=<span class="kw2">class</span>, <span class="co1">// 1</span>
- properties=<span class="br0">{</span> @PropertyValue ... <span class="br0">}</span> <span
-
-class="co1">// 2</span>
-<span class="br0">)</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@RemoveValidator(
+ value=class, // 1
+ properties={ @PropertyValue ... } // 2
+)
+</code></pre>
       <ol>
         <li><strong>class</strong> (required): Class that implements the
           validation logic. Must implement <em>IRemoveValidator</em>.</li>
@@ -2916,17 +2780,11 @@ class="co1">// 2</span>
           value of the validator properties before executing it.</li>
       </ol>
       An example can be:<br>
-      <pre class="java5">@RemoveValidator<span class="br0">(</span>value=DeliveryTypeRemoveValidator.<span
-
-class="kw2">class</span>,
- properties=@PropertyValue<span class="br0">(</span>name=<span class="st0">"number"</span><span
-
-class="br0">)</span>
-<span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> DeliveryType <span
-
-class="br0">{</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@RemoveValidator(value=DeliveryTypeRemoveValidator.class,
+ properties=@PropertyValue(name="number")
+)
+public class DeliveryType {
+</code></pre>
       And the validator:<br>
       <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.validators</span><span
 
@@ -3036,16 +2894,10 @@ class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</spa
           rel="nofollow">@PrePersist</a></em> you can plug in your own logic to
       execute just before creating the object as persistent object.<br>
       As following:<br>
-      <pre class="java5">@PrePersist
-<span class="kw2">private</span> <span class="kw3">void</span> prePersist<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- setDescription<span class="br0">(</span>getDescription<span class="br0">(</span><span
-
-class="br0">)</span> + <span class="st0">" CREATED"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@PrePersist
+private void prePersist() {
+ setDescription(getDescription() + " CREATED");
+}</code></pre>
       In this case each time that a <em>DeliveryType</em> is created a suffix
       to description is added.<br>
       As you see, this is exactly the same as in other methods but is
@@ -3057,16 +2909,10 @@ class="sy0">;</span>
       stored in the database, that is, just before executing UPDATE against
       database.<br>
       As following:<br>
-      <pre class="java5">@PreUpdate
-<span class="kw2">private</span> <span class="kw3">void</span> preUpdate<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- setDescription<span class="br0">(</span>getDescription<span class="br0">(</span><span
-
-class="br0">)</span> + <span class="st0">" MODIFIED"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@PreUpdate
+private void preUpdate() {
+ setDescription(getDescription() + " MODIFIED");
+}</code></pre>
       In this case whenever that a <em>DeliveryType</em> is modified a suffix
       is added to its description.<br>
       As you see, this is exactly the same as in other methods, but it is
@@ -3098,33 +2944,17 @@ class="sy0">;</span>
       <br>
       For example, if we need to create a customer and assign it to an invoice
       when the customer is not specified:<br>
-      <pre class="java5">@PreCreate
-<span class="kw2">public</span> <span class="kw3">void</span> onPreCreate<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="co1">// Automatically create a new customer</span>
- <span class="kw1">if</span> <span class="br0">(</span>getCustomer<span class="br0">(</span><span
-
-class="br0">)</span> == <span class="kw4">null</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- Customer cust = <span class="kw2">new</span> Customer<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- cust.<span class="me1">setName</span><span class="br0">(</span>getName<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- cust.<span class="me1">setAddress</span><span class="br0">(</span>getAddress<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- cust = XPersistence.<span class="me1">getManager</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">merge</span><span class="br0">(</span>cust<span
-
-class="br0">)</span><span class="sy0">;</span>
- setCustomer<span class="br0">(</span>cust<span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@PreCreate
+public void onPreCreate() {
+ // Automatically create a new customer
+ if (getCustomer() == null) {
+ Customer cust = new Customer();
+ cust.setName(getName());
+ cust.setAddress(getAddress());
+ cust = XPersistence.getManager().merge(cust);
+ setCustomer(cust);
+ }
+}</code></pre>
       The entity manager operation will not affect the callbacks behavior. Along
       with @PreCreate is @PostCreate and @PreDelete the methods decorated with
       these annotations are part of the transaction, therefore the use of these
@@ -3144,213 +2974,125 @@ class="br0">)</span><span class="sy0">;</span>
       For example you can define a <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/MappedSuperclass.html"
 
           rel="nofollow">@MappedSuperclass</a></em> in this way:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.hibernate.annotations.*</span><span
+import org.hibernate.annotations.*;
+import org.openxava.annotations.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * Base class for defining entities with a UUID oid. &lt;p&gt;
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
+ */
+
 @MappedSuperclass
-<span class="kw2">public</span> <span class="kw2">class</span> Identifiable <span
+public class Identifiable {
 
-class="br0">{</span>
-&nbsp;
- @Id @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"system-uuid"</span><span
+ @Id @GeneratedValue(generator="system-uuid") @Hidden
+ @GenericGenerator(name="system-uuid", strategy = "uuid")
+ private String oid;
 
-class="br0">)</span> @Hidden
- @GenericGenerator<span class="br0">(</span>name=<span class="st0">"system-uuid"</span>, strategy = <span
+ public String getOid() {
+ return oid;
+ }
 
-class="st0">"uuid"</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public void setOid(String oid) {
+ this.oid = oid;
+ }
 
-class="kw21">String</span></a> oid<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getOid<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> oid<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setOid<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> oid<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">oid</span> = oid<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       You can define another <em>@MappedSuperclass</em> that extends from this
       one, for example:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+import org.openxava.annotations.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * Base class for entities with a 'name' property. &lt;p&gt;
  *
  * @author Javier Paniza
- */</span>
+ */
 @MappedSuperclass
-<span class="kw2">public</span> <span class="kw2">class</span> Nameable <span class="kw2">extends</span> Identifiable <span
+public class Nameable extends Identifiable {
 
-class="br0">{</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">50</span><span class="br0">)</span> @Required
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Column(length=50) @Required
+ private String name;
 
-class="kw21">String</span></a> name<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public String getName() {
+ return name;
+ }
 
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
+ public void setName(String name) {
+ this.name = name;
+ }
 
-class="br0">{</span>
- <span class="kw2">return</span> name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       Now you can use <em>Identifiable</em> or <em>Nameable</em> for defining
       your entities, as following:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+ */
 
-class="kw166">Entity</span></a>
-@DiscriminatorColumn<span class="br0">(</span>name=<span class="st0">"TYPE"</span><span
+@Entity
+@DiscriminatorColumn(name="TYPE")
+@DiscriminatorValue("HUM")
+@Table(name="PERSON")
+@AttributeOverrides(
+ @AttributeOverride(name="name", column=@Column(name="PNAME"))
+)
+public class Human extends Nameable {
 
-class="br0">)</span>
-@DiscriminatorValue<span class="br0">(</span><span class="st0">"HUM"</span><span
+ @Enumerated(EnumType.STRING)
+ private Sex sex;
+ public enum Sex { MALE, FEMALE };
 
-class="br0">)</span>
-@Table<span class="br0">(</span>name=<span class="st0">"PERSON"</span><span class="br0">)</span>
-@AttributeOverrides<span class="br0">(</span>
- @AttributeOverride<span class="br0">(</span>name=<span class="st0">"name"</span>, column=@Column<span
+ public Sex getSex() {
+ return sex;
+ }
+ public void setSex(Sex sex) {
+ this.sex = sex;
+ }
 
-class="br0">(</span>name=<span class="st0">"PNAME"</span><span class="br0">)</span><span
-
-class="br0">)</span>
-<span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Human <span class="kw2">extends</span> Nameable <span
-
-class="br0">{</span>
-&nbsp;
- @Enumerated<span class="br0">(</span>EnumType.<span class="me1">STRING</span><span
-
-class="br0">)</span>
- <span class="kw2">private</span> Sex sex<span class="sy0">;</span>
- <span class="kw2">public</span> <span class="kw2">enum</span> Sex <span class="br0">{</span> MALE, FEMALE <span
-
-class="br0">}</span><span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> Sex getSex<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> sex<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">void</span> setSex<span class="br0">(</span>Sex sex<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">sex</span> = sex<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       And now, the real entity inheritance, an entity that extends other entity:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+ */
 
-class="kw166">Entity</span></a>
-@DiscriminatorValue<span class="br0">(</span><span class="st0">"PRO"</span><span
+@Entity
+@DiscriminatorValue("PRO")
+public class Programmer extends Human {
 
-class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Programmer <span
+ @Column(length=20)
+ private String mainLanguage;
 
-class="kw2">extends</span> Human <span class="br0">{</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">20</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public String getMainLanguage() {
+ return mainLanguage;
+ }
 
-class="kw21">String</span></a> mainLanguage<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public void setMainLanguage(String mainLanguage) {
+ this.mainLanguage = mainLanguage;
+ }
 
-class="kw21">String</span></a> getMainLanguage<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> mainLanguage<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setMainLanguage<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> mainLanguage<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">mainLanguage</span> = mainLanguage<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       You can create an <a class="wiki_link" href="application_en.html">OpenXava
         module</a> for <em>Human</em> and <em>Programmer</em> (not for <em>Identifiable</em>
       or <em>Nameble</em> directly). In the <em>Programmer</em> module the
@@ -3809,7 +3551,7 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       <em>{disapproved_driving_test}</em> is the message identifier that is
       declared under i18n file like this:<br>
-      <pre class="text">disapproved_driving_test=Driver {name} can not be registered: must approve the driving test</pre>
+      <pre><code class="language-properties">disapproved_driving_test=Driver {name} can not be registered: must approve the driving test</code></pre>
       If we try to create an entity with <em>name=MIGUEL GRAU</em> and <em>approvedDrivingTest=false</em>
       the next error message will be shown:<br>
       <br>
@@ -3874,7 +3616,7 @@ class="sy0">;</span>
 <span class="br0">}</span></pre>
       <em>{not_roadworthy}</em> is the message identifier that is declared under
       i18n file like this:<br>
-      <pre class="text">not_roadworthy={type} plate {licensePlate} is not roadworthy. It can not be assigned to the driver {driver.name}</pre>
+      <pre><code class="language-properties">not_roadworthy={type} plate {licensePlate} is not roadworthy. It can not be assigned to the driver {driver.name}</code></pre>
       If we have an entity: <em>type=AUTO</em>, <em>licensePlate=A1-0001</em>
       and <em>roadworthy=false</em>, and try to assign <em>driver (name =
         MIGUEL GRAU)</em>, the validation method will fail and display the error
