@@ -1,4 +1,5 @@
 <html>
+  <!-- tmr -->
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Model - OpenXava</title>
@@ -1011,26 +1012,14 @@ class="br0">)</span><span class="sy0">;</span>
 <span class="br0">}</span></pre>
       Verify that <em>persistence.xml</em> contains the <em>DiscussionComment</em>
       entity, if not add it:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
-
-class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
-
-class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/OpenXavaTestDS<span
-
-class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.DiscussionComment<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span> <span
-
-class="sc-1">&lt;!-- ADD THIS LINE --&gt;</span>
+      <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
+ &lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;
+ &lt;non-jta-data-source&gt;java:comp/env/jdbc/OpenXavaTestDS&lt;/non-jta-data-source&gt;
+ &lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
+ &lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt; &lt;!-- ADD THIS LINE --&gt;
   ...
-<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
-&nbsp;</pre>
+&lt;/persistence-unit&gt;
+</code></pre>
       Note that we added <em>&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;</em>.
       When the database is generated, the OXDISCUSSIONCOMMENTS table is created:<br>
       <pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OXDISCUSSIONCOMMENTS <span
