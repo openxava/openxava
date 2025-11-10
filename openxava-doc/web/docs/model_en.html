@@ -568,22 +568,12 @@ private String photos;</code></pre>
       In order to support this stereotype you need to setup the system
       appropriately for your application.<br>
       First, create a table in your database to store the images:<br>
-      <pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> IMAGES <span
-
-class="br0">(</span>
- ID <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span
-
-class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
- GALLERY <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span
-
-class="sy0">,</span>
- IMAGE <span class="kw1">BLOB</span><span class="br0">)</span>;
-<span class="kw1">CREATE</span> <span class="kw1">INDEX</span> IMAGES01
- <span class="kw1">ON</span> IMAGES <span class="br0">(</span>GALLERY<span class="br0">)</span>;</pre>
+      <pre><code class="language-sql">CREATE TABLE IMAGES (
+ ID VARCHAR(32) NOT NULL PRIMARY KEY,
+ GALLERY VARCHAR(32) NOT NULL,
+ IMAGE BLOB);
+CREATE INDEX IMAGES01
+ ON IMAGES (GALLERY);</code></pre>
       The type of IMAGE column can be a more suitable one for your database to
       store byte [] (for example LONGVARBINARY) .<br>
       For PostgreSQL, the value to use instead of BLOB is BYTEA.<br>
@@ -593,41 +583,25 @@ class="sy0">,</span>
     <div class="wiki" style="display: block;"> Verify that <em>persistence.xml</em>
       contains the <em>GalleryImage</em> entity, if not add it:<br>
       <div class="wiki">
-        <pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
-
-class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
-
-class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/OpenXavaTestDS<span
-
-class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt; </span></span></span><span
-
-class="sc-1">&lt;!-- ADD THIS LINE --&gt;</span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.DiscussionComment<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span> 
+        <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
+ &lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;
+ &lt;non-jta-data-source&gt;java:comp/env/jdbc/OpenXavaTestDS&lt;/non-jta-data-source&gt;
+ &lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt; &lt;!-- ADD THIS LINE --&gt;
+ &lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt; 
   ...
-<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
-&nbsp;</pre>
+&lt;/persistence-unit&gt;
+</code></pre>
         Note that we added <em>&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</em>.</div>
       <div class="wiki">If you're using an OpenXava version older than 7.0 you
         need to define the mapping in your <em>persistence/hibernate.cfg.xml</em>
         file, thus:</div>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;hibernate-configuration<span
-
-class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;session-factory<span class="re2">&gt;</span></span></span>
+      <pre><code class="language-xml">&lt;hibernate-configuration&gt;
+ &lt;session-factory&gt;
  ...
- <span class="sc3"><span class="re1">&lt;mapping</span> <span class="re0">resource</span>=<span
-
-class="st0">"GalleryImage.hbm.xml"</span><span class="re2">/&gt;</span></span>
+ &lt;mapping resource="GalleryImage.hbm.xml"/&gt;
  ...
- <span class="sc3"><span class="re1">&lt;/session-factory<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/hibernate-configuration<span class="re2">&gt;</span></span></span></pre>
+ &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;</code></pre>
       After this you can use the IMAGES_GALLERY stereotype in all components of
       your application.<br>
       <h3 id="toc7"><a name="files"></a>File <em>(new in v5.0)</em> and Files <em>(new
@@ -692,63 +666,37 @@ private String spreadsheets;
       <ul>
         <li>Set the <strong><em>filePersistorClass</em></strong> property in <strong><em>xava.properties</em></strong></li>
       </ul>
-      <pre class="text">filePersistorClass=org.openxava.web.editors.JPAFilePersistor
-...</pre>
+      <pre><code class="language-properties">filePersistorClass=org.openxava.web.editors.JPAFilePersistor
+...</code></pre>
       <ul>
         <li>Modify the <strong><em>persistence.xml</em></strong></li>
       </ul>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;persistence-unit</span> <span
-
-class="re0">name</span>=<span class="st0">"default"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
-
-class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;non-jta-data-source<span class="re2">&gt;</span></span></span>java:comp/env/jdbc/OpenXavaTestDS<span
-
-class="sc3"><span class="re1">&lt;/non-jta-data-source<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.session.GalleryImage<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.AttachedFile<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+      <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
+ &lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;
+ &lt;non-jta-data-source&gt;java:comp/env/jdbc/OpenXavaTestDS&lt;/non-jta-data-source&gt;
+ &lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;
+ &lt;class&gt;org.openxava.web.editors.AttachedFile&lt;/class&gt;
   ...
-<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span>
-&nbsp;
+&lt;/persistence-unit&gt;
+
         ...
-&nbsp;
-<span class="sc3"><span class="re1">&lt;persistence-unit</span> <span class="re0">name</span>=<span
 
-class="st0">"junit"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;provider<span class="re2">&gt;</span></span></span>org.hibernate.ejb.HibernatePersistence<span
-
-class="sc3"><span class="re1">&lt;/provider<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;class<span class="re2">&gt;</span></span></span>org.openxava.web.editors.AttachedFile<span
-
-class="sc3"><span class="re1">&lt;/class<span class="re2">&gt;</span></span></span>
+&lt;persistence-unit name="junit"&gt;
+ &lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;
+ &lt;class&gt;org.openxava.web.editors.AttachedFile&lt;/class&gt;
  ....
-<span class="sc3"><span class="re1">&lt;/persistence-unit<span class="re2">&gt;</span></span></span></pre>
+&lt;/persistence-unit&gt;</code></pre>
       Note that you added <strong><em>&lt;class&gt;org.openxava.web.editors.AttachedFile&lt;/class&gt;</em></strong>
       both persistence units.<br>
       <ul>
         <li>When the database is generated, the table OXFILES is created:</li>
       </ul>
-      <pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OXFILES <span
-
-class="br0">(</span>
- ID <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span> <span
-
-class="kw1">PRIMARY</span> <span class="kw1">KEY</span><span class="sy0">,</span>
- NAME <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">255</span><span
-
-class="br0">)</span><span class="sy0">,</span>
- <span class="kw1">DATA</span> LONGVARBINARY<span class="sy0">,</span>
- LIBRARYID <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span>
-<span class="br0">)</span>;</pre>
+      <pre><code class="language-sql">CREATE TABLE OXFILES (
+ ID VARCHAR(32) NOT NULL PRIMARY KEY,
+ NAME VARCHAR(255),
+ DATA LONGVARBINARY,
+ LIBRARYID VARCHAR(32)
+);</code></pre>
       You should check that the type of DATA column is the most suitable type
       for storing byte[] (in our case LONGVARBINARY).</div>
     <div class="wiki" style="display: block;">
@@ -970,33 +918,17 @@ private void removeDiscussion() {
 </code></pre>
       Note that we added <em>&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;</em>.
       When the database is generated, the OXDISCUSSIONCOMMENTS table is created:<br>
-      <pre class="sql"><span class="kw1">CREATE</span> <span class="kw1">TABLE</span> OXDISCUSSIONCOMMENTS <span
+      <pre><code class="language-sql">CREATE TABLE OXDISCUSSIONCOMMENTS (
+    ID VARCHAR(32) NOT NULL,
+    COMMENT CLOB(16777216),
+    DISCUSSIONID VARCHAR(32),
+    TIME TIMESTAMP,
+    USERNAME VARCHAR(30),
+    PRIMARY KEY (ID)
+);
 
-class="br0">(</span>
-    ID <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">32</span><span
-
-class="br0">)</span> <span class="kw1">NOT</span> <span class="kw1">NULL</span><span
-
-class="sy0">,</span>
-    COMMENT <span class="kw1">CLOB</span><span class="br0">(</span><span class="nu0">16777216</span><span
-
-class="br0">)</span><span class="sy0">,</span>
-    DISCUSSIONID <span class="kw1">VARCHAR</span><span class="br0">(</span><span
-
-class="nu0">32</span><span class="br0">)</span><span class="sy0">,</span>
-    <span class="kw1">TIME</span> <span class="kw1">TIMESTAMP</span><span class="sy0">,</span>
-    USERNAME <span class="kw1">VARCHAR</span><span class="br0">(</span><span class="nu0">30</span><span
-
-class="br0">)</span><span class="sy0">,</span>
-    <span class="kw1">PRIMARY</span> <span class="kw1">KEY</span> <span class="br0">(</span>ID<span
-
-class="br0">)</span>
-<span class="br0">)</span>;
-&nbsp;
-<span class="kw1">CREATE</span> <span class="kw1">INDEX</span> OXDISCUSSIONCOMMENTS_DISCUSSIONID_INDEX
-    <span class="kw1">ON</span> OXDISCUSSIONCOMMENTS <span class="br0">(</span>DISCUSSIONID<span
-
-class="br0">)</span>;</pre>
+CREATE INDEX OXDISCUSSIONCOMMENTS_DISCUSSIONID_INDEX
+    ON OXDISCUSSIONCOMMENTS (DISCUSSIONID);</code></pre>
       Check that the type for COMMENT column is the most suitable type for
       storing a large text (by default CLOB) in your database, if not just do an
       ALTER COLUMN to put a better type.<br>
@@ -1284,33 +1216,21 @@ public int getDetailsCount() {
 
           rel="nofollow">@Transient</a></em> annotation to your calculated
       property, in this way:<br>
-      <pre class="java5"><span class="kw2">private</span> <span class="kw3">long</span> number<span
+      <pre><code class="language-java">private long number;
 
-class="sy0">;</span>
-&nbsp;
-@Id @Column<span class="br0">(</span>length=<span class="nu0">10</span><span class="br0">)</span> <span
+@Id @Column(length=10) // You annotated the getter,
+public long getNumber() { // so JPA will use property-base access for your class
+ return number;
+}
+public void setNumber(long number) {
+ this.number = number;
+}
 
-class="co1">// You annotated the getter,</span>
-<span class="kw2">public</span> <span class="kw3">long</span> getNumber<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// so JPA will use property-base access for your class</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
-<span class="br0">}</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
-
-class="kw3">long</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;
-@Transient <span class="co1">// You have to annotate as Transient your calculated property</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getZoneOne<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span> <span class="co1">// because you are using property-based access</span>
- <span class="kw2">return</span> <span class="st0">"In ZONE 1"</span><span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+@Transient // You have to annotate as Transient your calculated property
+public String getZoneOne() { // because you are using property-based access
+ return "In ZONE 1";
+}
+</code></pre>
       <h3 id="toc14"><a name="Model-Properties-Formula (new in v3.1.4)"></a>Formula
         <em>(new in v3.1.4)</em></h3>
       Using <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/stable/annotations/api/org/hibernate/annotations/Formula.html"
@@ -1321,21 +1241,11 @@ class="br0">{</span> <span class="co1">// because you are using property-based a
       for your property. This calculation is expressed using SQL, and it is
       executed by the database, not by Java. You only need to write a valid SQL
       fragment:<br>
-      <pre class="java5">@org.<span class="me1">hibernate</span>.<span class="me1">annotations</span>.<span
-
-class="me1">Formula</span><span class="br0">(</span><span class="st0">"UNITPRICE * 1.16"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> unitPriceWithTax<span class="sy0">;</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getUnitPriceWithTax<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> unitPriceWithTax<span class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@org.hibernate.annotations.Formula("UNITPRICE * 1.16")
+private BigDecimal unitPriceWithTax;
+public BigDecimal getUnitPriceWithTax() {
+ return unitPriceWithTax;
+}</code></pre>
       The use is simple. Put your calculation exactly in the same way that you
       would put it in a SQL statement.<br>
       Usually the properties with <em>@Formula</em> are read only properties,
@@ -1356,77 +1266,37 @@ class="br0">)</span> <span class="br0">{</span>
           rel="nofollow">@DefaultValueCalculator</a></em> you can associate
       logic to a property, in this case the property is readable and writable.
       This calculator is for calculating its initial value. For example:<br>
-      <pre class="java5">@DefaultValueCalculator<span class="br0">(</span>CurrentYearCalculator.<span
-
-class="kw2">class</span><span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> year<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@DefaultValueCalculator(CurrentYearCalculator.class)
+private int year;
+</code></pre>
       In this case when the user tries to create a new Invoice (for example) he
       will find that the year field already has a value, that he can change it
       if he wants to. The logic for generating this value is in the <em>CurrentYearCalculator</em>
       class, that it's:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.calculators</span><span
+      <pre><code class="language-java">package org.openxava.calculators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+import java.util.*;
+
+/**
  * @author Javier Paniza
- */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> CurrentYearCalculator <span
+ */
+public class CurrentYearCalculator implements ICalculator {
 
-class="kw2">implements</span> ICalculator <span class="br0">{</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public Object calculate() throws Exception {
+ Calendar cal = Calendar.getInstance();
+ cal.setTime(new java.util.Date());
+ return new Integer(cal.get(Calendar.YEAR));
+ }
 
-class="kw166">Object</span></a> calculate<span class="br0">(</span><span class="br0">)</span> <span
-
-class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">getInstance</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- cal.<span class="me1">setTime</span><span class="br0">(</span><span class="kw2">new</span> java.<span
-
-class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a><span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>cal.<span class="me1">get</span><span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html"><span
-
-class="kw46">Calendar</span></a>.<span class="me1">YEAR</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}
+</code></pre>
       It's possible to customize the behaviour of a calculator setting the value
       of its properties, as following:<br>
-      <pre class="java5">@DefaultValueCalculator<span class="br0">(</span>
- value=org.<span class="me1">openxava</span>.<span class="me1">calculators</span>.<span
-
-class="me1">StringCalculator</span>.<span class="kw2">class</span>,
- properties=<span class="br0">{</span> @PropertyValue<span class="br0">(</span>name=<span
-
-class="st0">"string"</span>, value=<span class="st0">"GOOD"</span><span class="br0">)</span> <span
-
-class="br0">}</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> relationWithSeller<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@DefaultValueCalculator(
+ value=org.openxava.calculators.StringCalculator.class,
+ properties={ @PropertyValue(name="string", value="GOOD") }
+)
+private String relationWithSeller;</code></pre>
       In this case for calculating the default value OpenXava instances <em>StringCalculator</em>
       and then injects the value "GOOD" in the property <em>string</em> of <em>StringCalculator</em>,
       and finally it calls to the <em>calculate()</em> method in order to
@@ -1437,21 +1307,13 @@ class="kw21">String</span></a> relationWithSeller<span class="sy0">;</span></pre
       reusable calculators.<br>
       <em>@PropertyValue</em> allows to inject the value from other displayed
       properties, in this way:<br>
-      <pre class="java5">@DefaultValueCalculator<span class="br0">(</span>
- value=org.<span class="me1">openxava</span>.<span class="me1">test</span>.<span
-
-class="me1">calculators</span>.<span class="me1">CarrierRemarksCalculator</span>.<span
-
-class="kw2">class</span>,
- properties=<span class="br0">{</span>
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"drivingLicenceType"</span>, from=<span
-
-class="st0">"drivingLicence.type"</span><span class="br0">)</span>
- <span class="br0">}</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> remarks<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@DefaultValueCalculator(
+ value=org.openxava.test.calculators.CarrierRemarksCalculator.class,
+ properties={
+ @PropertyValue(name="drivingLicenceType", from="drivingLicence.type")
+ }
+)
+private String remarks;</code></pre>
       In this case before to execute the calculator OpenXava fills the <em>drivingLicenceType</em>
       property of <em>CarrierRemarksCalculator</em> with the value of the
       displayed property <em>type</em> from the reference <em>drivingLicence</em>.
@@ -1460,35 +1322,23 @@ class="kw21">String</span></a> remarks<span class="sy0">;</span></pre>
       changes <em>remarks</em> is recalculated (<em>new in v5.1</em>, with
       previous versions it was recalculated only the first time).<br>
       Also you can use <em>@PropertyValue</em> without <em>from</em> nor <em>value</em>:<br>
-      <pre class="java5">@DefaultValueCalculator<span class="br0">(</span>value=DefaultProductPriceCalculator.<span
-
-class="kw2">class</span>, properties=
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"familyNumber"</span><span
-
-class="br0">)</span>
-<span class="br0">)</span></pre>
+      <pre><code class="language-java">@DefaultValueCalculator(value=DefaultProductPriceCalculator.class, properties=
+ @PropertyValue(name="familyNumber")
+)</code></pre>
       In this case OpenXava takes the value of the displayed property <em>familyNumber</em>
       and inject it in the property <em>familyNumber</em> of the calculator;
       that is <em>@PropertyValue(name="familiyNumber")</em> is equivalent to <em>@PropertyValue(name="familiyNumber",
         from="familyNumber")</em>.<br>
       From a calculator you have direct access to JDBC connections, here is an
       example:<br>
-      <pre class="java5">@DefaultValueCalculator<span class="br0">(</span>value=DetailsCountCalculator.<span
-
-class="kw2">class</span>,
- properties= <span class="br0">{</span>
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"year"</span><span
-
-class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"number"</span><span
-
-class="br0">)</span>,
- <span class="br0">}</span>
-<span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> detailsCount<span
-
-class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@DefaultValueCalculator(value=DetailsCountCalculator.class,
+ properties= {
+ @PropertyValue(name="year"),
+ @PropertyValue(name="number"),
+ }
+)
+private int detailsCount;
+</code></pre>
       And the calculator class:<br>
       <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.calculators</span><span
 
@@ -1617,63 +1467,33 @@ class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</spa
       (inserting into database) an object for the first time.<br>
       Usually for the key case you use the JPA standard. For example, if you
       want to use an <em>identity</em> (auto increment) column as key:<br>
-      <pre class="java5">@Id @Hidden
-@GeneratedValue<span class="br0">(</span>strategy=GenerationType.<span class="me1">IDENTITY</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> id<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Id @Hidden
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+private Integer id;
+</code></pre>
       You can use other generation techniques, for example, a database <em>sequence</em>
       can be defined in this JPA standard way:<br>
-      <pre class="java5">@SequenceGenerator<span class="br0">(</span>name=<span
-
-class="st0">"SIZE_SEQ"</span>, sequenceName=<span class="st0">"SIZE_ID_SEQ"</span>, allocationSize=<span
-
-class="nu0">1</span> <span class="br0">)</span>
-@Hidden @Id @GeneratedValue<span class="br0">(</span>strategy=GenerationType.<span
-
-class="me1">SEQUENCE</span>, generator=<span class="st0">"SIZE_SEQ"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> id<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@SequenceGenerator(name="SIZE_SEQ", sequenceName="SIZE_ID_SEQ", allocationSize=1 )
+@Hidden @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SIZE_SEQ")
+private Integer id;
+</code></pre>
       If you want to generate a unique identifier of type String and 32
       characters, you can use a Hibernate extesion of JPA:<br>
-      <pre class="java5">@Id @GeneratedValue<span class="br0">(</span>generator=<span
-
-class="st0">"system-uuid"</span><span class="br0">)</span> @Hidden
-@GenericGenerator<span class="br0">(</span>name=<span class="st0">"system-uuid"</span>, strategy = <span
-
-class="st0">"uuid"</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> oid<span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Id @GeneratedValue(generator="system-uuid") @Hidden
+@GenericGenerator(name="system-uuid", strategy = "uuid")
+private String oid;
+</code></pre>
       Look at section 9.1.9 of JPA 1.0 specification (part of JSR-220) for
       learning more about <em>@GeneratedValues</em>.<br>
       If you want to use your own logic for generating the value on creating, or
       you want a generated new value for a non-key property then you cannot use
       the JPA <em>@GeneratedValue</em>, although it's easy to solve these cases
       using JPA. You only need to add this code to your class:<br>
-      <pre class="java5">@PrePersist
-<span class="kw2">private</span> <span class="kw3">void</span> calculateCounter<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- counter = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html"><span
-
-class="kw21">Long</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html"><span
-
-class="kw21">System</span></a>.<span class="me1">currentTimeMillis</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span>.<span class="me1">intValue</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@PrePersist
+private void calculateCounter() {
+ counter = new Long(System.currentTimeMillis()).intValue();
+}
+</code></pre>
       The JPA <em>@PrePersist</em> annotation does that this method will be
       executed before inserting the data the first time in database, in this
       method you can calculate the value for your key or non-key properties with
@@ -1830,7 +1650,7 @@ class="br0">)</span> <span class="br0">{</span>
       by sending a message identifier and the arguments. If you want to obtain a
       significant message you need to add to your <em>i18n</em> file the next
       entry:<br>
-      <pre class="text">exclude_string={0} cannot contain {2} in {1}</pre>
+      <pre><code class="language-properties">exclude_string={0} cannot contain {2} in {1}</code></pre>
       If the identifier sent is not found in the resource file, this identifier
       is shown as is; but the recommended way is always to use identifiers of
       resource files.<br>
@@ -1922,28 +1742,18 @@ class="br0">)</span><span class="sy0">;</span> <span class="co1">// You can add 
       project to define in it the default validators.<br>
       For example, you can define in your <em>validators.xml</em> the
       following:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;validators<span
-
-class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;default-validator<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;validator-class</span></span>
-<span class="sc3"> <span class="re0">class</span>=<span class="st0">"org.openxava.test.validators.PersonNameValidator"</span><span
-
-class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-stereotype</span> <span class="re0">stereotype</span>=<span
-
-class="st0">"PERSON_NAME"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;/default-validator<span class="re2">&gt;</span></span></span>
-<span class="sc3"><span class="re1">&lt;/validators<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;validators&gt;
+ &lt;default-validator&gt;
+ &lt;validator-class
+ class="org.openxava.test.validators.PersonNameValidator"/&gt;
+ &lt;for-stereotype stereotype="PERSON_NAME"/&gt;
+ &lt;/default-validator&gt;
+&lt;/validators&gt;</code></pre>
       In this case you are associating the validator <em>PersonNameValidator</em>
       to the stereotype PERSON_NAME. Now if you define a property as the next
       one:<br>
-      <pre class="java5">@Required @Stereotype<span class="br0">(</span><span
-
-class="st0">"PERSON_NAME"</span><span class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> name<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@Required @Stereotype("PERSON_NAME")
+private String name;</code></pre>
       This property will be validated using <em>PersonNameValidator</em>
       although the property itself does not define any validator. <em>PersonNameValidator</em>
       is applied to all properties with PERSON_NAME stereotype.<br>
@@ -1960,12 +1770,8 @@ class="kw21">String</span></a> name<span class="sy0">;</span></pre>
       With <em>@Calculation</em> you can define an arithmetic expression to do
       the calculation for the property. The expression can contain +, -, *, /,
       (), numeric values and properties names of the same entity. For example:<br>
-      <pre class="java5">@Calculation<span class="br0">(</span><span class="st0">"((hours * worker.hourPrice) + tripCost - discount) * vatPercentage / 100"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> total<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@Calculation("((hours * worker.hourPrice) + tripCost - discount) * vatPercentage / 100")
+private BigDecimal total;</code></pre>
       Note as <em>worker.hourPrice</em> is used to get the value from the
       reference.<br>
       The calculation is executed and displayed when the user changes any value
@@ -3183,8 +2989,8 @@ class="sy0">;</span></pre>
       database schema by yourself you should add the column to your table, for
       example for the above collection you should add the next column to your
       table:<br>
-      <pre class="sql"><span class="kw1">ALTER</span> <span class="kw1">TABLE</span> PROJECTTASK
-<span class="kw1">ADD</span> TASKS_ORDER <span class="kw1">INTEGER</span></pre>
+      <pre><code class="language-sql">ALTER TABLE PROJECTTASK
+ADD TASKS_ORDER INTEGER</code></pre>
       In the current implementation drag and drop is used by the user to change
       the order, with <em>@OneToMany</em> collections the order is persisted
       just after drop, while in <em>@ElementCollection</em> the order is
