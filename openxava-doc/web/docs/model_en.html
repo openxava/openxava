@@ -228,15 +228,13 @@ public class EntityName { // 4
         strictly to their owning entity, and are</em><br>
       <em>not sharable across persistent entities."</em><br>
       The embeddable class syntax is:<br>
-      <pre class="java5">@Embeddable <span class="co1">// 1</span>
-<span class="kw2">public</span> <span class="kw2">class</span> EmbeddableName <span
-
-class="br0">{</span> <span class="co1">// 2</span>
- <span class="co1">// Properties // 3</span>
- <span class="co1">// References // 4</span>
- <span class="co1">// Methods // 5</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Embeddable // 1
+public class EmbeddableName { // 2
+ // Properties // 3
+ // References // 4
+ // Methods // 5
+}
+</code></pre>
       <ol>
         <li><strong>@Embeddable</strong> (<a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Embeddable.html"
 
@@ -257,64 +255,22 @@ class="br0">{</span> <span class="co1">// 2</span>
       cases updated. The object does not have the obligation to store physically
       the property data, it only has to return it when required.<br>
       The syntax to define a property is:<br>
-      <pre class="java5">@Stereotype                                                                <span
-
-class="co1">//  1</span>
-@Column<span class="br0">(</span>length=<span class="br0">)</span> @Column<span
-
-class="br0">(</span>precision=<span class="br0">)</span> @Max @Length<span class="br0">(</span>max=<span
-
-class="br0">)</span> @Digits<span class="br0">(</span>integer=<span class="br0">)</span>  <span
-
-class="co1">//  2</span>
-@Digits<span class="br0">(</span>integer=<span class="br0">)</span> @Digits<span
-
-class="br0">(</span>fraction=<span class="br0">)</span>                                       <span
-
-class="co1">//  3</span>
-@Required @Min @Range<span class="br0">(</span>min=<span class="br0">)</span> @Length<span
-
-class="br0">(</span>min=<span class="br0">)</span>                                  <span
-
-class="co1">//  4</span>
-@Id                                                                        <span
-
-class="co1">//  5</span>
-@Hidden                                                                    <span
-
-class="co1">//  6</span>
-@SearchKey                                                                 <span
-
-class="co1">//  7</span>
-@Version                                                                   <span
-
-class="co1">//  8</span>
-@Formula                                                                   <span
-
-class="co1">//  9  New in v3.1.4</span>
-@Calculation                                                               <span
-
-class="co1">// 10  New in v5.7</span>
-@DefaultValueCalculator                                                    <span
-
-class="co1">// 11</span>
-@PropertyValidator                                                         <span
-
-class="co1">// 12</span>
-<span class="kw2">private</span> type propertyName<span class="sy0">;</span>                                                 <span
-
-class="co1">// 13</span>
-<span class="kw2">public</span> type getPropertyName<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span> ... <span class="br0">}</span>                                      <span
-
-class="co1">// 13</span>
-<span class="kw2">public</span> <span class="kw3">void</span> setPropertyName<span
-
-class="br0">(</span>type newValue<span class="br0">)</span> <span class="br0">{</span> ... <span
-
-class="br0">}</span>                         <span class="co1">// 13</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Stereotype                                                                //  1
+@Column(length=) @Column(precision=) @Max @Length(max=) @Digits(integer=)  //  2
+@Digits(integer=) @Digits(fraction=)                                       //  3
+@Required @Min @Range(min=) @Length(min=)                                  //  4
+@Id                                                                        //  5
+@Hidden                                                                    //  6
+@SearchKey                                                                 //  7
+@Version                                                                   //  8
+@Formula                                                                   //  9  New in v3.1.4
+@Calculation                                                               // 10  New in v5.7
+@DefaultValueCalculator                                                    // 11
+@PropertyValidator                                                         // 12
+private type propertyName;                                                 // 13
+public type getPropertyName() { ... }                                      // 13
+public void setPropertyName(type newValue) { ... }                         // 13
+</code></pre>
       <ol>
         <li><strong><a class="wiki_link" href="model_en.html#Model-Properties-Stereotype">@Stereotype</a></strong>
           (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Stereotype.html"
@@ -602,12 +558,8 @@ private String name;
     <div class="wiki" style="display: block;">If you want a property of your
       component to hold a gallery of images, you only have to declare your
       property with the IMAGES_GALLERY stereotype, in this way:<br>
-      <pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"IMAGES_GALLERY"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> photos<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@Stereotype("IMAGES_GALLERY")
+private String photos;</code></pre>
       Furthermore, in the mapping part you have to map your property to a table
       column suitable to store a String with a length of 32 characters
       (VARCHAR(32)).<br>
@@ -1002,14 +954,10 @@ private String discussion;
     <div class="wiki" style="display: block;">Also if you want that when the
       entity is removed the associated discussion would be removed too, you have
       to add the next code to your entity:<br>
-      <pre class="java5">@PreRemove
-<span class="kw2">private</span> <span class="kw3">void</span> removeDiscussion<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
-    DiscussionComment.<span class="me1">removeForDiscussion</span><span class="br0">(</span>discussion<span
-
-class="br0">)</span><span class="sy0">;</span>
-<span class="br0">}</span></pre>
+      <pre><code class="language-java">@PreRemove
+private void removeDiscussion() {
+    DiscussionComment.removeForDiscussion(discussion);
+}</code></pre>
       Verify that <em>persistence.xml</em> contains the <em>DiscussionComment</em>
       entity, if not add it:<br>
       <pre><code class="language-xml">&lt;persistence-unit name="default"&gt;
@@ -1181,15 +1129,15 @@ private String customerSignature;</code></pre>
       <br>
       You can also add special characters, blank spaces statically and even
       combine validators, for example:<br>
-      <pre class="java5">@Mask("L-000000")
-<span class="kw2">private</span> String passport<span class="sy0">;<br></span>
+      <pre><code class="language-java">@Mask("L-000000")
+private String passport;
 @Mask("0000 0000 0000 0000")
-<span class="kw2">private</span> String creditCard<span class="sy0">;<br></span>
+private String creditCard;
 @Mask("LL 000 AA")
-<span class="kw2">private</span> String carPlate<span class="sy0">;<br></span>
+private String carPlate;
 @Mask("0.000/0-000")
-<span class="kw2">private</span> String customMask<span class="sy0">;</span>
-</pre> <img src="files/model_en008.png" alt="model_en008.png" title="model_en008.png">
+private String customMask;
+</code></pre> <img src="files/model_en008.png" alt="model_en008.png" title="model_en008.png">
     </div>
     <div class="wiki" style="display: block;">
       <h3 id="toc11"><a name="Model-Properties-Concurrency and version property"></a>Concurrency
@@ -1206,10 +1154,8 @@ private String customerSignature;</code></pre>
       a property using <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Version.html"
 
           rel="nofollow">@Version</a></em>, in this way:<br>
-      <pre class="java5">@Version
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> version<span class="sy0">;</span></pre>
+      <pre><code class="language-java">@Version
+private Integer version;</code></pre>
       This property is persistence engine use, your application or your user
       must not use this property directly. If you don't use automatic schema
       evolution remember to add the column VERSION to the table.<br>
@@ -1217,13 +1163,9 @@ class="kw21">Integer</span></a> version<span class="sy0">;</span></pre>
       OpenXava supports Java 5 enums. An enum allows you to define a property
       that can hold one of the indicated values only .<br>
       It's easy to use, let's see this example:<br>
-      <pre class="java5"><span class="kw2">private</span> Distance distance<span
-
-class="sy0">;</span>
-<span class="kw2">public</span> <span class="kw2">enum</span> Distance <span class="br0">{</span> LOCAL, NATIONAL, INTERNATIONAL <span
-
-class="br0">}</span><span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">private Distance distance;
+public enum Distance { LOCAL, NATIONAL, INTERNATIONAL };
+</code></pre>
       The <em>distance</em> property only can have the following values: LOCAL,
       NATIONAL or INTERNATIONAL, and as <em>@Required</em> is not specified, no
       value (null) is allowed too. Since v5.3 if <em>@Required</em> is
@@ -1273,46 +1215,18 @@ private Priority priority;
       The calculated properties are read only (only have <em>getter</em>) and
       are not persistent (they do not match with any column of database table).<br>
       A calculated property is defined in this way:<br>
-      <pre class="java5">@Depends<span class="br0">(</span><span class="st0">"unitPrice"</span><span
-
-class="br0">)</span> <span class="co1">// 1</span>
-@Max<span class="br0">(</span>9999999999L<span class="br0">)</span> <span class="co1">// 2</span>
-<span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getUnitPriceInPesetas<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>unitPrice == <span class="kw4">null</span><span
-
-class="br0">)</span> <span class="kw2">return</span> <span class="kw4">null</span><span
-
-class="sy0">;</span>
- <span class="kw2">return</span> unitPrice.<span class="me1">multiply</span><span
-
-class="br0">(</span><span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span><span class="st0">"166.386"</span><span
-
-class="br0">)</span><span class="br0">)</span>.<span class="me1">setScale</span><span
-
-class="br0">(</span><span class="nu0">0</span>, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a>.<span class="me1">ROUND_HALF_UP</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Depends("unitPrice") // 1
+@Max(9999999999L) // 2
+public BigDecimal getUnitPriceInPesetas() {
+ if (unitPrice == null) return null;
+ return unitPrice.multiply(new BigDecimal("166.386")).setScale(0, BigDecimal.ROUND_HALF_UP);
+}
+</code></pre>
       According to the above definition now you can use the code in this way:<br>
-      <pre class="java5">Product product = ...
-<span class="me1">product</span>.<span class="me1">setUnitPrice</span><span class="br0">(</span><span
-
-class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span>
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> result = product.<span class="me1">getUnitPriceInPesetas</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-&nbsp;</pre>
+      <pre><code class="language-java">Product product = ...
+product.setUnitPrice(2);
+BigDecimal result = product.getUnitPriceInPesetas();
+</code></pre>
       And <em>result</em> will hold 332.772.<br>
       When the property <em>unitPriceInPesetas</em> is displayed to the user
       it's not editable, and its editor has a length of 10, indicated using <em>@Max(9999999999L)</em>
@@ -1325,97 +1239,37 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
         of <i>@Depends</i></a> for more details.<br>
       From a calculated property you have direct access to JDBC connections,
       here is an example:<br>
-      <pre class="java5">@Max<span class="br0">(</span><span class="nu0">999</span><span
-
-class="br0">)</span>
-<span class="kw2">public</span> <span class="kw3">int</span> getDetailsCount<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="co1">// An example of using JDBC</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Connection.html"><span
-
-class="kw44">Connection</span></a> con = <span class="kw4">null</span><span class="sy0">;</span>
- <span class="kw2">try</span> <span class="br0">{</span>
- con = DataSourceConnectionProvider.<span class="me1">getByComponent</span><span
-
-class="br0">(</span><span class="st0">"Invoice"</span><span class="br0">)</span>.<span
-
-class="me1">getConnection</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 1</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> table = MetaModel.<span class="me1">get</span><span
-
-class="br0">(</span><span class="st0">"InvoiceDetail"</span><span class="br0">)</span>.<span
-
-class="me1">getMapping</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">getTable</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html"><span
-
-class="kw44">PreparedStatement</span></a> ps = con.<span class="me1">prepareStatement</span><span
-
-class="br0">(</span><span class="st0">"select count(*) from "</span> + table +
- <span class="st0">" where INVOICE_YEAR = ? and INVOICE_NUMBER = ?"</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- ps.<span class="me1">setInt</span><span class="br0">(</span><span class="nu0">1</span>, getYear<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- ps.<span class="me1">setInt</span><span class="br0">(</span><span class="nu0">2</span>, getNumber<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html"><span
-
-class="kw44">ResultSet</span></a> rs = ps.<span class="me1">executeQuery</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
- rs.<span class="me1">next</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a> result = <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>rs.<span class="me1">getInt</span><span
-
-class="br0">(</span><span class="nu0">1</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- ps.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="kw2">return</span> result<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
- log.<span class="me1">error</span><span class="br0">(</span><span class="st0">"Problem calculating details count of an Invoice"</span>, ex<span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="co1">// You can throw any runtime exception here</span>
- <span class="kw2">throw</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/CORBA/SystemException.html"><span
-
-class="kw135">SystemException</span></a><span class="br0">(</span>ex<span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">finally</span> <span class="br0">{</span>
- <span class="kw2">try</span> <span class="br0">{</span>
- con.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">catch</span> <span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> ex<span class="br0">)</span> <span class="br0">{</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
-<span class="br0">}</span>
-&nbsp;</pre>
+      <pre><code class="language-java">@Max(999)
+public int getDetailsCount() {
+ // An example of using JDBC
+ Connection con = null;
+ try {
+ con = DataSourceConnectionProvider.getByComponent("Invoice").getConnection(); // 1
+ String table = MetaModel.get("InvoiceDetail").getMapping().getTable();
+ PreparedStatement ps = con.prepareStatement("select count(*) from " + table +
+ " where INVOICE_YEAR = ? and INVOICE_NUMBER = ?");
+ ps.setInt(1, getYear());
+ ps.setInt(2, getNumber());
+ ResultSet rs = ps.executeQuery();
+ rs.next();
+ Integer result = new Integer(rs.getInt(1));
+ ps.close();
+ return result;
+ }
+ catch (Exception ex) {
+ log.error("Problem calculating details count of an Invoice", ex);
+ // You can throw any runtime exception here
+ throw new SystemException(ex);
+ }
+ finally {
+ try {
+ con.close();
+ }
+ catch (Exception ex) {
+ }
+ }
+}
+</code></pre>
       Yes, the JDBC code is ugly and awkward, but sometimes it can help to solve
       performance problems. The <em>DataSourceConnectionProvider</em> class
       allows you to obtain a connection associated to the same data source that
