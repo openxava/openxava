@@ -550,7 +550,9 @@ private Seller seller;</code></pre>
 @OnChange // 4
 @Action // 5
 @Editor // 6
-@LabelStyle // 7 New in v4m4<br>@LargeDisplay // 8 New in v7.4<br>private type propertyName;
+@LabelStyle // 7 New in v4m4
+@LargeDisplay // 8 New in v7.4
+private type propertyName;
 </code></pre> All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
         for view annotations</a> and all they are optionals. OpenXava always
       assumes a correct default values if they are omitted.<br>
@@ -835,7 +837,9 @@ getView().addValidValue("color", "blk", "Black");</code></pre>
       and <a href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/view/View.html#hasBlankValidValue%28java.lang.String%29"><i>hasBlankValidValue()</i></a>.<br>
       Since v7.1 you can select and edit the selected option or enter a new
       value directly using <i>EditableValidValues</i> editor, for example:
-      <pre><code class="language-java">@Editor("EditableValidValues")<br>@Column(length = 15)<br>private String color;</code></pre>
+      <pre><code class="language-java">@Editor("EditableValidValues")
+@Column(length = 15)
+private String color;</code></pre>
       In this example selecting <i>White</i>, you can edit it by <i>White
         beige</i> or enter a new value as <i>Yellow</i>. These new values will
       not be added to the original list of options for use in other records.<br>
@@ -913,7 +917,8 @@ BigDecimal vatPercentage;
 @OnChangeSearch      // 14
 @Editor              // 15 New in v3.1.3
 @LabelStyle          // 16 New in v4m4
-@Collapsed           // 17 New in v5.0<br>@SearchListTab       // 18 New in v7.4
+@Collapsed           // 17 New in v5.0
+@SearchListTab       // 18 New in v7.4
 @ManyToOne
 private type referenceName;</code></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
@@ -1160,7 +1165,11 @@ public class MySearchAction extends ReferenceSearchAction {
       the condition supports the use of <em>${this.}</em> to refer to a
       property of the entity itself. The above example can be rewritten as
       following:<br>
-      <pre><code class="language-java">private int code;<br><br>@ManyToOne(fetch=FetchType.LAZY) <br>@SearchListCondition("${number} &lt; 3")<br>@SearchListCondition("${number} &lt; ${this.code}", forViews="SearchListCondition") // ${this.} New in v7.4
+      <pre><code class="language-java">private int code;
+        
+@ManyToOne(fetch=FetchType.LAZY)
+@SearchListCondition("${number} &lt; 3")
+@SearchListCondition("${number} &lt; ${this.code}", forViews="SearchListCondition") // ${this.} New in v7.4
 private Seller seller;
 </code></pre>
       Note as you do not need to create any action.<br>
@@ -1381,7 +1390,9 @@ public class UpdateWarehouseFromReferenceAction extends UpdateAction {
   depends="depends",                   // 2
   condition="condition",               // 3
   orderByKey="true|false",             // 4
-  order="order",                       // 5<br>  filter="filter class",               // 6 New in v6.4<br> showReferenceView="true|false",      // 7 New in v5.5
+  order="order",                       // 5
+  filter="filter class",               // 6 New in v6.4
+  showReferenceView="true|false",      // 7 New in v5.5
   forTabs="tab1,tab2,...",             // 8 New in v4m4
   notForTabs="tab1,tab2,..."           // 9 New in v4m4
 )</code></pre>
@@ -1751,7 +1762,8 @@ public class Warehouse {</code></pre>
 @SaveAction             // 13
 @HideDetailAction       // 14
 @RemoveAction           // 15
-@RemoveSelectedAction   // 16<br>@DeleteSelectedAction   // 17 New in v7.4
+@RemoveSelectedAction   // 16
+@DeleteSelectedAction   // 17 New in v7.4
 @ListAction             // 18
 @RowAction              // 19 New in v4.6
 @DetailAction           // 20
@@ -1760,7 +1772,12 @@ public class Warehouse {</code></pre>
 @SearchListCondition    // 23 New in v4m4
 @Tree                   // 24 New in v4m4
 @Collapsed              // 25 New in v5.0
-@ListSubcontroller      // 26 New in v5.7<br>@Chart                  // 27 New in v7.4<br>@SimpleList             // 28 New in v7.4<br>@SearchListTab          // 29 New in v7.4<br>@NoDefaultActions       // 30 New in v7.4<br>@OneToMany/@ManyToMany  // Not for calculated collections
+@ListSubcontroller      // 26 New in v5.7
+@Chart                  // 27 New in v7.4
+@SimpleList             // 28 New in v7.4
+@SearchListTab          // 29 New in v7.4
+@NoDefaultActions       // 30 New in v7.4
+@OneToMany/@ManyToMany  // Not for calculated collections
 private Collection collectionName; // Or a getter for calculated collections</code></pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
       <pre><code class="language-java">@ReadOnly               //  2 New in v5.1
@@ -1768,7 +1785,10 @@ private Collection collectionName; // Or a getter for calculated collections</co
 @ListProperties         //  7
 @RemoveSelectedAction   // 15 New in v5.3
 @Editor                 // 20
-@Collapsed              // 23<br>@Chart                  // 27 New in v7.4<br>@SimpleList             // 28 New in v7.4<br>@ElementCollection
+@Collapsed              // 23
+@Chart                  // 27 New in v7.4
+@SimpleList             // 28 New in v7.4
+@ElementCollection
 private Collection collectionName;</code></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
         for view annotations</a> and all they are optionals. OpenXava always
@@ -2516,8 +2536,11 @@ private Collection&lt;Customer&gt; customers;</code></pre>
       property to define different criteria for different views (1). Since <em>v7.4</em>,
       the condition supports the use of <em>${this.}</em> to refer to a
       property of the entity itself (2). As shown in the following code snippet.<br>
-      <pre><code class="language-java">private int code;<br><br>@OneToMany(mappedBy="seller")
-@SearchListCondition(value="${number} &lt; 5", forViews="SearchListCondition, SearchListConditionBlank") // 1<br>@SearchListCondition(value="${number} &lt; ${this.code}", forViews="SearchListConditionCode") // 2
+      <pre><code class="language-java">private int code;
+        
+@OneToMany(mappedBy="seller")
+@SearchListCondition(value="${number} &lt; 5", forViews="SearchListCondition, SearchListConditionBlank") // 1
+@SearchListCondition(value="${number} &lt; ${this.code}", forViews="SearchListConditionCode") // 2
 private Collection&lt;Customer&gt; customers;</code></pre>
       <h3 id="toc37"><a name="View-Collection customization-Displaying collections as a tree (new in v4m4)"></a><a
 
@@ -2722,7 +2745,7 @@ private Collection&lt;TeamMember&gt; members;</code></pre>
           &lt;set value="true" property="roles"/&gt;
      &lt;/action&gt;
 &lt;/controller&gt;</code></pre>
-      <h3 id="chart-from-collection">Chart from a collection <em>(new in v7.4)<br>
+      <h3 id="chart-from-collection">Chart from a collection <em>(new in v7.4)
         </em></h3>
       <em>Applies to @OneToMany/@ManyToMany, @ElementCollection</em><em> and
         calculated collections</em><br>
