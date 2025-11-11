@@ -1063,10 +1063,13 @@ private String customerSignature;</code></pre>
       combine validators, for example:<br>
       <pre><code class="language-java">@Mask("L-000000")
 private String passport;
+
 @Mask("0000 0000 0000 0000")
 private String creditCard;
+
 @Mask("LL 000 AA")
 private String carPlate;
+
 @Mask("0.000/0-000")
 private String customMask;
 </code></pre> <img src="files/model_en008.png" alt="model_en008.png" title="model_en008.png">
@@ -2085,294 +2088,144 @@ private Collection details;
 </code></pre>
       Note that you use <em>CascadeType.REMOVE</em>, and <em>InvoiceDetail</em>
       is an entity, not an embeddable class:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">java.math.*</span><span class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import java.math.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.hibernate.annotations.Columns</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.annotations.Type</span><span
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.GenericGenerator;
+import org.openxava.annotations.*;
+import org.openxava.calculators.*;
+import org.openxava.test.validators.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.annotations.Parameter</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.hibernate.annotations.GenericGenerator</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.calculators.*</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.test.validators.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+ */
 
-class="kw166">Entity</span></a>
-@EntityValidator<span class="br0">(</span>value=InvoiceDetailValidator.<span class="kw2">class</span>,
- properties= <span class="br0">{</span>
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"invoice"</span><span
+@Entity
+@EntityValidator(value=InvoiceDetailValidator.class,
+ properties= {
+ @PropertyValue(name="invoice"),
+ @PropertyValue(name="oid"),
+ @PropertyValue(name="product"),
+ @PropertyValue(name="unitPrice")
+ }
+)
+public class InvoiceDetail {
 
-class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"oid"</span><span
+ @ManyToOne // Lazy fetching produces a fails on removing a detail from invoice
+ private Invoice invoice;
 
-class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"product"</span><span
+ @Id @GeneratedValue(generator="system-uuid") @Hidden
+ @GenericGenerator(name="system-uuid", strategy = "uuid")
+ private String oid;
 
-class="br0">)</span>,
- @PropertyValue<span class="br0">(</span>name=<span class="st0">"unitPrice"</span><span
+ private ServiceType serviceType;
+ public enum ServiceType { SPECIAL, URGENT }
 
-class="br0">)</span>
- <span class="br0">}</span>
-<span class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> InvoiceDetail <span
+ @Column(length=4) @Required
+ private int quantity;
 
-class="br0">{</span>
-&nbsp;
- @ManyToOne <span class="co1">// Lazy fetching produces a fails on removing a detail from invoice</span>
- <span class="kw2">private</span> Invoice invoice<span class="sy0">;</span>
-&nbsp;
- @Id @GeneratedValue<span class="br0">(</span>generator=<span class="st0">"system-uuid"</span><span
+ @Stereotype("MONEY") @Required
+ private BigDecimal unitPrice;
 
-class="br0">)</span> @Hidden
- @GenericGenerator<span class="br0">(</span>name=<span class="st0">"system-uuid"</span>, strategy = <span
+ @ManyToOne(fetch=FetchType.LAZY, optional=false)
+ private Product product;
 
-class="st0">"uuid"</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @DefaultValueCalculator(CurrentDateCalculator.class)
+ private java.util.Date deliveryDate;
 
-class="kw21">String</span></a> oid<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">private</span> ServiceType serviceType<span class="sy0">;</span>
- <span class="kw2">public</span> <span class="kw2">enum</span> ServiceType <span
+ @ManyToOne(fetch=FetchType.LAZY)
+ private Seller soldBy;
 
-class="br0">{</span> SPECIAL, URGENT <span class="br0">}</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">4</span><span class="br0">)</span> @Required
- <span class="kw2">private</span> <span class="kw3">int</span> quantity<span class="sy0">;</span>
-&nbsp;
- @Stereotype<span class="br0">(</span><span class="st0">"MONEY"</span><span class="br0">)</span> @Required
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+ @Stereotype("MEMO")
+ private String remarks;
 
-class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span>
-&nbsp;
- @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span>, optional=<span
+ @Stereotype("MONEY") @Depends("unitPrice, quantity")
+ public BigDecimal getAmount() {
+ return getUnitPrice().multiply(new BigDecimal(getQuantity()));
+ }
 
-class="kw4">false</span><span class="br0">)</span>
- <span class="kw2">private</span> Product product<span class="sy0">;</span>
-&nbsp;
- @DefaultValueCalculator<span class="br0">(</span>CurrentDateCalculator.<span class="kw2">class</span><span
+ public boolean isFree() {
+ return getAmount().compareTo(new BigDecimal("0")) <= 0;
+ }
 
-class="br0">)</span>
- <span class="kw2">private</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> deliveryDate<span class="sy0">;</span>
-&nbsp;
- @ManyToOne<span class="br0">(</span>fetch=FetchType.<span class="me1">LAZY</span><span
-
-class="br0">)</span>
- <span class="kw2">private</span> Seller soldBy<span class="sy0">;</span>
-&nbsp;
- @Stereotype<span class="br0">(</span><span class="st0">"MEMO"</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> remarks<span class="sy0">;</span>
-&nbsp;
- @Stereotype<span class="br0">(</span><span class="st0">"MONEY"</span><span class="br0">)</span> @Depends<span
-
-class="br0">(</span><span class="st0">"unitPrice, quantity"</span><span class="br0">)</span>
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getAmount<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> getUnitPrice<span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">multiply</span><span class="br0">(</span><span class="kw2">new</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span>getQuantity<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">boolean</span> isFree<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> getAmount<span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">compareTo</span><span class="br0">(</span><span class="kw2">new</span> <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span><span class="st0">"0"</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="sy0">&lt;</span>= <span
-
-class="nu0">0</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
  @PostRemove
- <span class="kw2">private</span> <span class="kw3">void</span> postRemove<span
+ private void postRemove() {
+ invoice.setComment(invoice.getComment() + "DETAIL DELETED");
+ }
 
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- invoice.<span class="me1">setComment</span><span class="br0">(</span>invoice.<span
+ public String getOid() {
+ return oid;
+ }
+ public void setOid(String oid) {
+ this.oid = oid;
+ }
+ public ServiceType getServiceType() {
+ return serviceType;
+ }
+ public void setServiceType(ServiceType serviceType) {
+ this.serviceType = serviceType;
+ }
+ public int getQuantity() {
+ return quantity;
+ }
+ public void setQuantity(int quantity) {
+ this.quantity = quantity;
+ }
+ public BigDecimal getUnitPrice() {
+ return unitPrice==null?BigDecimal.ZERO:unitPrice;
+ }
+ public void setUnitPrice(BigDecimal unitPrice) {
+ this.unitPrice = unitPrice;
+ }
 
-class="me1">getComment</span><span class="br0">(</span><span class="br0">)</span> + <span
+ public Product getProduct() {
+ return product;
+ }
 
-class="st0">"DETAIL DELETED"</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public void setProduct(Product product) {
+ this.product = product;
+ }
 
-class="kw21">String</span></a> getOid<span class="br0">(</span><span class="br0">)</span> <span
+ public java.util.Date getDeliveryDate() {
+ return deliveryDate;
+ }
 
-class="br0">{</span>
- <span class="kw2">return</span> oid<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">void</span> setOid<span class="br0">(</span><a
+ public void setDeliveryDate(java.util.Date deliveryDate) {
+ this.deliveryDate = deliveryDate;
+ }
 
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> oid<span
+ public Seller getSoldBy() {
+ return soldBy;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">oid</span> = oid<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> ServiceType getServiceType<span class="br0">(</span><span
+ public void setSoldBy(Seller soldBy) {
+ this.soldBy = soldBy;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> serviceType<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">void</span> setServiceType<span
+ public String getRemarks() {
+ return remarks;
+ }
 
-class="br0">(</span>ServiceType serviceType<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">serviceType</span> = serviceType<span
+ public void setRemarks(String remarks) {
+ this.remarks = remarks;
+ }
 
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">int</span> getQuantity<span class="br0">(</span><span
+ public Invoice getInvoice() {
+ return invoice;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> quantity<span class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">void</span> setQuantity<span
+ public void setInvoice(Invoice invoice) {
+ this.invoice = invoice;
+ }
 
-class="br0">(</span><span class="kw3">int</span> quantity<span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">quantity</span> = quantity<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getUnitPrice<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> unitPrice==<span class="kw4">null</span><span class="sy0">?</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a>.<span class="me1">ZERO</span>:unitPrice<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
- <span class="kw2">public</span> <span class="kw3">void</span> setUnitPrice<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> unitPrice<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">unitPrice</span> = unitPrice<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> Product getProduct<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> product<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setProduct<span class="br0">(</span>Product product<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">product</span> = product<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> getDeliveryDate<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> deliveryDate<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setDeliveryDate<span
-
-class="br0">(</span>java.<span class="me1">util</span>.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date"><span
-
-class="kw166">Date</span></a> deliveryDate<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">deliveryDate</span> = deliveryDate<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> Seller getSoldBy<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> soldBy<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setSoldBy<span class="br0">(</span>Seller soldBy<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">soldBy</span> = soldBy<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getRemarks<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> remarks<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setRemarks<span class="br0">(</span><a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> remarks<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">remarks</span> = remarks<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> Invoice getInvoice<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> invoice<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setInvoice<span class="br0">(</span>Invoice invoice<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">invoice</span> = invoice<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       As you see this is a complex entity, with calculators, validators,
       references and so on. Also you have to define a reference to the container
       class (<em>invoice</em>). In this case when an <em>Invoice</em> is
@@ -2570,128 +2423,59 @@ Collection javieres = Customer.findByNameLike("%JAVI%");</code></pre>
 })
 public class Product {</code></pre>
       And the validator code:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.validators</span><span
+      <pre><code class="language-java">package org.openxava.test.validators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">java.math.*</span><span class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+import java.math.*;
+
+/**
  * @author Javier Paniza
- */</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> CheapProductValidator <span
+ */
 
-class="kw2">implements</span> IValidator <span class="br0">{</span> <span class="co1">// 1</span>
-&nbsp;
- <span class="kw2">private</span> <span class="kw3">int</span> limit<span class="sy0">;</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
+public class CheapProductValidator implements IValidator { // 1
 
-class="kw27">BigDecimal</span></a> unitPrice<span class="sy0">;</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ private int limit;
+ private BigDecimal unitPrice;
+ private String description;
 
-class="kw21">String</span></a> description<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> validate<span class="br0">(</span>Messages errors<span
+ public void validate(Messages errors) { // 2
+ if (getDescription().indexOf("CHEAP") >= 0 ||
+ getDescription().indexOf("BARATO") >= 0 ||
+ getDescription().indexOf("BARATA") >= 0) {
+ if (getLimiteBd().compareTo(getUnitPrice()) < 0) {
+ errors.add("cheap_product", getLimitBd()); // 3
+ }
+ }
+ }
 
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// 2</span>
- <span class="kw1">if</span> <span class="br0">(</span>getDescription<span class="br0">(</span><span
+ public BigDecimal getUnitPrice() {
+ return unitPrice;
+ }
 
-class="br0">)</span>.<span class="me1">indexOf</span><span class="br0">(</span><span
+ public void setUnitPrice(BigDecimal decimal) {
+ unitPrice = decimal;
+ }
 
-class="st0">"CHEAP"</span><span class="br0">)</span> <span class="sy0">&gt;</span>= <span
+ public String getDescription() {
+ return description==null?"":description;
+ }
 
-class="nu0">0</span> ||
- getDescription<span class="br0">(</span><span class="br0">)</span>.<span class="me1">indexOf</span><span
+ public void setDescription(String string) {
+ description = string;
+ }
 
-class="br0">(</span><span class="st0">"BARATO"</span><span class="br0">)</span> <span
+ public int getLimit() {
+ return limit;
+ }
 
-class="sy0">&gt;</span>= <span class="nu0">0</span> ||
- getDescription<span class="br0">(</span><span class="br0">)</span>.<span class="me1">indexOf</span><span
+ public void setLimit(int i) {
+ limit = i;
+ }
 
-class="br0">(</span><span class="st0">"BARATA"</span><span class="br0">)</span> <span
+ private BigDecimal getLimitBd() {
+ return new BigDecimal(Integer.toString(limit));
+ }
 
-class="sy0">&gt;</span>= <span class="nu0">0</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>getLimiteBd<span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">compareTo</span><span class="br0">(</span>getUnitPrice<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="sy0">&lt;</span> <span
-
-class="nu0">0</span><span class="br0">)</span> <span class="br0">{</span>
- errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"cheap_product"</span>, getLimitBd<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// 3</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getUnitPrice<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> unitPrice<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setUnitPrice<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> decimal<span class="br0">)</span> <span class="br0">{</span>
- unitPrice = decimal<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> getDescription<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> description==<span class="kw4">null</span><span
-
-class="sy0">?</span><span class="st0">""</span>:description<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setDescription<span
-
-class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> string<span class="br0">)</span> <span class="br0">{</span>
- description = string<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getLimit<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> limit<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setLimit<span class="br0">(</span><span
-
-class="kw3">int</span> i<span class="br0">)</span> <span class="br0">{</span>
- limit = i<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a> getLimitBd<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> <span class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html"><span
-
-class="kw27">BigDecimal</span></a><span class="br0">(</span><a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a>.<span class="me1">toString</span><span class="br0">(</span>limit<span
-
-class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}</code></pre>
       This validator must implement <em>IValidator</em> (1), this forces you to
       write a <em>validate(Messages messages)</em> (2). In this method you add
       the error message ids (3) (whose texts are in the i18n files). And if the
@@ -2786,87 +2570,40 @@ public class Product {
 public class DeliveryType {
 </code></pre>
       And the validator:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.validators</span><span
+      <pre><code class="language-java">package org.openxava.test.validators;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.test.model.*</span><span
+import org.openxava.test.model.*;
+import org.openxava.util.*;
+import org.openxava.validators.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.util.*</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.validators.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * @author Javier Paniza
- */</span>
-<span class="kw2">public</span> <span class="kw2">class</span> DeliveryTypeRemoveValidator <span
+ */
+public class DeliveryTypeRemoveValidator implements IRemoveValidator { // 1
 
-class="kw2">implements</span> IRemoveValidator <span class="br0">{</span> <span
+ private DeliveryType deliveryType;
+ private int number; // We use this (instead of obtaining it from deliveryType)
+ // for testing @PropertyValue for simple properties
 
-class="co1">// 1</span>
-&nbsp;
- <span class="kw2">private</span> DeliveryType deliveryType<span class="sy0">;</span>
- <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span> <span
+ public void setEntity(Object entity) throws Exception { // 2
+ this.deliveryType = (DeliveryType) entity;
+ }
 
-class="co1">// We use this (instead of obtaining it from deliveryType)</span>
- <span class="co1">// for testing @PropertyValue for simple properties</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setEntity<span class="br0">(</span><a
+ public void validate(Messages errors) throws Exception {
+ if (!deliveryType.getDeliveries().isEmpty()) {
+ errors.add("not_remove_delivery_type_if_in_deliveries", new Integer(getNumber())); // 3
+ }
+ }
 
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public int getNumber() {
+ return number;
+ }
 
-class="kw166">Object</span></a> entity<span class="br0">)</span> <span class="kw2">throws</span> <a
+ public void setNumber(int number) {
+ this.number = number;
+ }
 
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span> <span class="co1">// 2</span>
- <span class="kw2">this</span>.<span class="me1">deliveryType</span> = <span class="br0">(</span>DeliveryType<span
-
-class="br0">)</span> entity<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> validate<span class="br0">(</span>Messages errors<span
-
-class="br0">)</span> <span class="kw2">throws</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html"><span
-
-class="kw21">Exception</span></a> <span class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>deliveryType.<span
-
-class="me1">getDeliveries</span><span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">isEmpty</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- errors.<span class="me1">add</span><span class="br0">(</span><span class="st0">"not_remove_delivery_type_if_in_deliveries"</span>, <span
-
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html"><span
-
-class="kw21">Integer</span></a><span class="br0">(</span>getNumber<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// 3</span>
- <span class="br0">}</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
-
-class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}</code></pre>
       As you see this validator must implement <em>IRemoveValidator</em> (1)
       this forces you to write a <em>setEntity()</em> (2) method that receives
       the object to remove. If validation error is added to the <em>Messages</em>
@@ -3132,203 +2869,114 @@ public class Programmer extends Human {
       class, and you mark the key properties as <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Id.html"
 
           rel="nofollow">@Id</a></em> in your entity:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+import org.openxava.annotations.*;
+import org.openxava.jpa.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.jpa.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+ */
 
-class="kw166">Entity</span></a>
-@IdClass<span class="br0">(</span>WarehouseKey.<span class="kw2">class</span><span
+@Entity
+@IdClass(WarehouseKey.class)
+public class Warehouse {
 
-class="br0">)</span>
-<span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span class="br0">{</span>
-&nbsp;
  @Id
- <span class="co1">// Column is also specified in WarehouseKey because a bug in Hibernate, see</span>
- <span class="co1">// http://opensource.atlassian.com/projects/hibernate/browse/ANN-361</span>
- @Column<span class="br0">(</span>length=<span class="nu0">3</span>, name=<span
+ // Column is also specified in WarehouseKey because a bug in Hibernate, see
+ // http://opensource.atlassian.com/projects/hibernate/browse/ANN-361
+ @Column(length=3, name="ZONE")
+ private int zoneNumber;
 
-class="st0">"ZONE"</span><span class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> zoneNumber<span class="sy0">;</span>
-&nbsp;
- @Id @Column<span class="br0">(</span>length=<span class="nu0">3</span><span class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Id @Column(length=3)
+ private int number;
 
-class="kw21">String</span></a> name<span class="sy0">;</span>
-&nbsp;
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Column(length=40) @Required
+ private String name;
 
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
 
-class="br0">{</span>
- <span class="kw2">return</span> name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+ public String getName() {
+ return name;
+ }
 
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
+ public void setName(String name) {
+ this.name = name;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span class="br0">(</span><span
+ public int getNumber() {
+ return number;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
+ public void setNumber(int number) {
+ this.number = number;
+ }
 
-class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getZoneNumber<span
+ public int getZoneNumber() {
+ return zoneNumber;
+ }
 
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> zoneNumber<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setZoneNumber<span
+ public void setZoneNumber(int zoneNumber) {
+ this.zoneNumber = zoneNumber;
+ }
 
-class="br0">(</span><span class="kw3">int</span> zoneNumber<span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">zoneNumber</span> = zoneNumber<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;
+}</code></pre>
 &nbsp;</pre>
       You also need to declare your id class, a serializable regular class with
       all key properties from the entity:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import java.io.*;
 
-class="sy0">;</span>
-&nbsp;
-&nbsp;
-<span class="co3">/**
+import javax.persistence.*;
+
+
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> WarehouseKey <span
+ */
 
-class="kw2">implements</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
+public class WarehouseKey implements Serializable {
 
-class="kw20">Serializable</span></a> <span class="br0">{</span>
-&nbsp;
- @Column<span class="br0">(</span>name=<span class="st0">"ZONE"</span><span class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> zoneNumber<span class="sy0">;</span>
- <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
+ @Column(name="ZONE")
+ private int zoneNumber;
+ private int number;
 
-class="kw21">Override</span></a>
- <span class="kw2">public</span> <span class="kw3">boolean</span> equals<span class="br0">(</span><a
+ @Override
+ public boolean equals(Object obj) {
+ if (obj == null) return false;
+ return obj.toString().equals(this.toString());
+ }
 
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ @Override
+ public int hashCode() {
+ return toString().hashCode();
+ }
 
-class="kw166">Object</span></a> obj<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw1">if</span> <span class="br0">(</span>obj == <span class="kw4">null</span><span
+ @Override
+ public String toString() {
+ return "WarehouseKey::" + zoneNumber+ ":" + number;
+ }
 
-class="br0">)</span> <span class="kw2">return</span> <span class="kw4">false</span><span
+ public int getNumber() {
+ return number;
+ }
 
-class="sy0">;</span>
- <span class="kw2">return</span> obj.<span class="me1">toString</span><span class="br0">(</span><span
+ public void setNumber(int number) {
+ this.number = number;
+ }
 
-class="br0">)</span>.<span class="me1">equals</span><span class="br0">(</span><span
+ public int getZoneNumber() {
+ return zoneNumber;
+ }
 
-class="kw2">this</span>.<span class="me1">toString</span><span class="br0">(</span><span
+ public void setZoneNumber(int zoneNumber) {
+ this.zoneNumber = zoneNumber;
+ }
 
-class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
-
-class="kw21">Override</span></a>
- <span class="kw2">public</span> <span class="kw3">int</span> hashCode<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> toString<span class="br0">(</span><span class="br0">)</span>.<span
-
-class="me1">hashCode</span><span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html"><span
-
-class="kw21">Override</span></a>
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> toString<span class="br0">(</span><span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">return</span> <span class="st0">"WarehouseKey::"</span> + zoneNumber+ <span
-
-class="st0">":"</span> + number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span class="br0">(</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
-
-class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getZoneNumber<span
-
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> zoneNumber<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setZoneNumber<span
-
-class="br0">(</span><span class="kw3">int</span> zoneNumber<span class="br0">)</span> <span
-
-class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">zoneNumber</span> = zoneNumber<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       <h3 id="toc38"><a name="Model-Composite key-Embedded id"></a>Embedded id</h3>
       In this case you have a reference to a <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Embeddable.html"
 
@@ -3337,125 +2985,80 @@ class="sy0">;</span>
           href="http://java.sun.com/javaee/5/docs/api/javax/persistence/EmbeddedId.html"
 
           rel="nofollow">@EmbeddedId</a></em>:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+import org.openxava.annotations.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
+ */
 
-class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Warehouse <span class="br0">{</span>
-&nbsp;
+@Entity
+public class Warehouse {
+
  @EmbeddedId
- <span class="kw2">private</span> WarehouseKey key<span class="sy0">;</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span> @Required
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ private WarehouseKey key;
 
-class="kw21">String</span></a> name<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> WarehouseKey getKey<span class="br0">(</span><span
+ @Column(length=40) @Required
+ private String name;
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> key<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setKey<span class="br0">(</span>WarehouseKey key<span
+ public WarehouseKey getKey() {
+ return key;
+ }
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">key</span> = key<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ public void setKey(WarehouseKey key) {
+ this.key = key;
+ }
 
-class="kw21">String</span></a> getName<span class="br0">(</span><span class="br0">)</span> <span
+ public String getName() {
+ return name;
+ }
 
-class="br0">{</span>
- <span class="kw2">return</span> name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setName<span class="br0">(</span><a
+ public void setName(String name) {
+ this.name = name;
+ }
 
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> name<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">name</span> = name<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-&nbsp;</pre>
+}</code></pre>
       And you key is an embeddable class that holds the key properties:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.test.model</span><span
+      <pre><code class="language-java">package org.openxava.test.model;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+import javax.persistence.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  *
  * @author Javier Paniza
- */</span>
-&nbsp;
+ */
+
 @Embeddable
-<span class="kw2">public</span> <span class="kw2">class</span> WarehouseKey <span
+public class WarehouseKey implements java.io.Serializable {
 
-class="kw2">implements</span> java.<span class="me1">io</span>.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html"><span
 
-class="kw20">Serializable</span></a> <span class="br0">{</span>
-&nbsp;
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">3</span>, name=<span
+ @Column(length=3, name="ZONE")
+ private int zoneNumber;
 
-class="st0">"ZONE"</span><span class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> zoneNumber<span class="sy0">;</span>
-&nbsp;
- @Column<span class="br0">(</span>length=<span class="nu0">3</span><span class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">int</span> number<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getNumber<span class="br0">(</span><span
+ @Column(length=3)
+ private int number;
 
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setNumber<span class="br0">(</span><span
+ public int getNumber() {
+ return number;
+ }
 
-class="kw3">int</span> number<span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">number</span> = number<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">int</span> getZoneNumber<span
+ public void setNumber(int number) {
+ this.number = number;
+ }
 
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
- <span class="kw2">return</span> zoneNumber<span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <span class="kw3">void</span> setZoneNumber<span
+ public int getZoneNumber() {
+ return zoneNumber;
+ }
 
-class="br0">(</span><span class="kw3">int</span> zoneNumber<span class="br0">)</span> <span
+ public void setZoneNumber(int zoneNumber) {
+ this.zoneNumber = zoneNumber;
+ }
 
-class="br0">{</span>
- <span class="kw2">this</span>.<span class="me1">zoneNumber</span> = zoneNumber<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       <h2 id="toc39"><a name="Model-Bean Validation"></a>Bean Validation</h2>
       OpenXava has full support for the Java standard for <a class="wiki_link_ext"
 
@@ -3501,54 +3104,26 @@ class="sy0">;</span>
           rel="nofollow">@AssertTrue</a></em>. Example:<br>
       In this case we have an <em>@AssertTrue</em> annotating a field of the
       entity:<br>
-      <pre class="java5"><span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+      <pre><code class="language-java">import javax.persistence.*;
+import org.openxava.annotations.*;
+import org.openxava.model.*
+import javax.validation.constraints.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+@Entity
+public class Driver extends Identifiable{
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span>
-<span class="kw2">import</span> <span class="co2">javax.validation.constraints.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
-class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Driver.html"><span
-
-class="kw44">Driver</span></a> <span class="kw2">extends</span> Identifiable<span
-
-class="br0">{</span>
-&nbsp;
  @Required
- @Column<span class="br0">(</span>length=<span class="nu0">40</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Column(length=40)
+ private String name;
 
-class="kw21">String</span></a> name<span class="sy0">;</span>
-&nbsp;
- @AssertTrue<span class="br0">(</span>message=<span class="st0">"{disapproved_driving_test}"</span><span
+ @AssertTrue(message="{disapproved_driving_test}")
+ private boolean approvedDrivingTest;
 
-class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">boolean</span> approvedDrivingTest<span
+ @OneToMany(mappedBy="driver")
+ private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 
-class="sy0">;</span>
-&nbsp;
- @OneToMany<span class="br0">(</span>mappedBy=<span class="st0">"driver"</span><span
-
-class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html"><span
-
-class="kw46">Collection</span></a><span class="sy0">&lt;</span>Vehicle<span class="sy0">&gt;</span> vehicles = <span
-
-class="kw2">new</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/ArrayList.html"><span
-
-class="kw46">ArrayList</span></a><span class="sy0">&lt;</span>Vehicle<span class="sy0">&gt;</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-&nbsp;
- <span class="co1">//getters and setters...</span>
-<span class="br0">}</span></pre>
+ //getters and setters...
+}</code></pre>
       <em>{disapproved_driving_test}</em> is the message identifier that is
       declared under i18n file like this:<br>
       <pre><code class="language-properties">disapproved_driving_test=Driver {name} can not be registered: must approve the driving test</code></pre>
@@ -3560,60 +3135,34 @@ class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
       <br>
       In this case we have an <em>@AssertTrue</em> annotating a method of the
       entity:<br>
-      <pre class="java5"><span class="kw2">import</span> <span class="co2">javax.persistence.*</span><span
+      <pre><code class="language-java">import javax.persistence.*;
+import org.openxava.annotations.*;
+import org.openxava.model.*;
+import javax.validation.constraints.*;
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.annotations.*</span><span
+@Entity
+public class Vehicle extends Identifiable{
 
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">org.openxava.model.*</span><span
-
-class="sy0">;</span>
-<span class="kw2">import</span> <span class="co2">javax.validation.constraints.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity"><span
-
-class="kw166">Entity</span></a>
-<span class="kw2">public</span> <span class="kw2">class</span> Vehicle <span class="kw2">extends</span> Identifiable<span
-
-class="br0">{</span>
-&nbsp;
  @Required
- @Column<span class="br0">(</span>length=<span class="nu0">15</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Column(length=15)
+ private String type;
 
-class="kw21">String</span></a> type<span class="sy0">;</span>
-&nbsp;
  @Required
- @Column<span class="br0">(</span>length=<span class="nu0">7</span><span class="br0">)</span>
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+ @Column(length=7)
+ private String licensePlate;
 
-class="kw21">String</span></a> licensePlate<span class="sy0">;</span>
-&nbsp;
- <span class="kw2">private</span> <span class="kw3">boolean</span> roadworthy<span
+ private boolean roadworthy;
 
-class="sy0">;</span>
-&nbsp;
  @ManyToOne
- <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Driver.html"><span
+ private Driver driver;
 
-class="kw44">Driver</span></a> driver<span class="sy0">;</span>
-&nbsp;
- @AssertTrue<span class="br0">(</span>message=<span class="st0">"{not_roadworthy}"</span><span
+ @AssertTrue(message="{not_roadworthy}")
+ private boolean isRoadworthyToAssignTheDriver(){
+     return driver == null || roadworthy;
+ }
 
-class="br0">)</span>
- <span class="kw2">private</span> <span class="kw3">boolean</span> isRoadworthyToAssignTheDriver<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">{</span>
-     <span class="kw2">return</span> driver == <span class="kw4">null</span> || roadworthy<span
-
-class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="co1">//getters and setters...</span>
-<span class="br0">}</span></pre>
+ //getters and setters...
+}</code></pre>
       <em>{not_roadworthy}</em> is the message identifier that is declared under
       i18n file like this:<br>
       <pre><code class="language-properties">not_roadworthy={type} plate {licensePlate} is not roadworthy. It can not be assigned to the driver {driver.name}</code></pre>
