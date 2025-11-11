@@ -1242,3 +1242,13 @@ aliases:["yml"],contains:l}}});const Pe=ne;for(const e of Object.keys(Ue)){
 const n=e.replace("grmr_","").replace("_","-");Pe.registerLanguage(n,Ue[e])}
 return Pe}()
 ;"object"==typeof exports&&"undefined"!=typeof module&&(module.exports=hljs);
+/*! `properties` grammar compiled for Highlight.js 11.11.1 */
+(()=>{var e=(()=>{"use strict";return e=>{
+const n="[ \\t\\f]*",t=n+"[:=]"+n,s="[ \\t\\f]+",a="([^\\\\:= \\t\\f\\n]|\\\\.)+",r={
+end:"("+t+"|"+s+")",relevance:0,starts:{className:"string",end:/$/,relevance:0,
+contains:[{begin:"\\\\\\\\"},{begin:"\\\\\\n"}]}};return{name:".properties",
+disableAutodetect:!0,case_insensitive:!0,illegal:/\S/,
+contains:[e.COMMENT("^\\s*[!#]","$"),{returnBegin:!0,variants:[{begin:a+t},{
+begin:a+s}],contains:[{className:"attr",begin:a,endsParent:!0}],starts:r},{
+className:"attr",begin:a+n+"$"}]}}})();hljs.registerLanguage("properties",e)
+})();
