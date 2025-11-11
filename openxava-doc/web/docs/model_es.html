@@ -175,7 +175,7 @@
       Validator, HA para indicar que es una anotación de Hibernate Annotations y
       OX para indicar que es una anotación de OpenXava.<br>
       Ésta es la sintáxis para una entidad:<br>
-      <pre><code class="language-java">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a> // 1
+      <pre><code class="language-java">@Entity // 1
 @EntityValidator // 2
 @RemoveValidator // 3
 public class NombreEntidad { // 4
@@ -238,7 +238,7 @@ public class NombreIncrustada { // 2
  // Referencias // 4
  // Metodos // 5
 }
-&nbsp;</code></pre>
+</code></pre>
       <ol>
         <li><strong>@Embeddable</strong> (<a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Embeddable.html"
 
@@ -572,7 +572,7 @@ private String nombre;
       declarar que nuestra propiedad sea del estereotipo GALERIA_IMAGENES. De
       esta manera:<br>
       <pre><code class="language-java">@Stereotype("GALERIA_IMAGENES")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> fotos;</code></pre>
+private String fotos;</code></pre>
       Además, en el mapeo tenemos que mapear la propiedad contra una columna
       adecuada para almacenar una cadena (String) con 32 caracteres de longitud
       (VARCHAR(32)).<br>
@@ -587,7 +587,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
  IMAGE BLOB);
 CREATE INDEX IMAGENES01
  ON IMAGENES (GALLERY);
-&nbsp;</code></pre>
+</code></pre>
       El tipo de la columna IMAGE puede ser un tipo más adecuado para almacenar
       byte [] en el caso de nuestra base de datos (por ejemplo LONGVARBINARY) .<br>
       Verifica que <em>persistence.xml</em> contiene la entidad <em>GalleryImage</em>,
@@ -600,7 +600,7 @@ CREATE INDEX IMAGENES01
  &lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt; 
   ...
 &lt;/persistence-unit&gt;
-&nbsp;</code></pre>
+</code></pre>
         Fíjate que hemos añadido <em>&lt;class&gt;org.openxava.session.GalleryImage&lt;/class&gt;</em>.</div>
       Si usas una versión de OpenXava anterior a 7.0 necesitas definir el mapeo
       en tu archivo <em>persistence/hibernate.cfg.xml</em>, así:<br>
@@ -693,9 +693,9 @@ private String hojasCalculo;
  &lt;class&gt;org.openxava.web.editors.AttachedFile&lt;/class&gt;
   ...
 &lt;/persistence-unit&gt;
-&nbsp;
+ 
         ...
-&nbsp;
+ 
 &lt;persistence-unit name="junit"&gt;
  &lt;provider&gt;org.hibernate.ejb.HibernatePersistence&lt;/provider&gt;
  &lt;class&gt;org.openxava.web.editors.AttachedFile&lt;/class&gt;
@@ -928,7 +928,7 @@ private void borrarDiscusion() {
  &lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt; &lt;!-- AÑADE ESTA LÍNEA --&gt;
   ...
 &lt;/persistence-unit&gt;
-&nbsp;</code></pre>
+</code></pre>
       Fíjate que hemos añadido <em>&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;</em>.
       Cuando se genere la base datos, la tabla OXDISCUSSIONCOMMENTS se creará:<br>
       <pre><code class="language-sql">CREATE TABLE OXDISCUSSIONCOMMENTS (
@@ -939,7 +939,7 @@ private void borrarDiscusion() {
     USERNAME VARCHAR(30),
     PRIMARY KEY (ID)
 );
-&nbsp;
+ 
 CREATE INDEX OXDISCUSSIONCOMMENTS_DISCUSSIONID_INDEX
     ON OXDISCUSSIONCOMMENTS (DISCUSSIONID);</code></pre>
       Comprueba que el tipo para la columna COMMENT es el más adecuado para
@@ -1111,7 +1111,7 @@ private String customMask;
 
           rel="nofollow">@Version</a></em>, de esta manera:<br>
       <pre><code class="language-java">@Version
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a> version;</code></pre>
+private Integer version;</code></pre>
       Esta propiedad es para uso del mecanismo de persistencia (Hibernate o
       JPA), ni nuestra aplicación ni usuarios deberían acceder directamente a
       ella. Si no usas evolución automática de esquema recuerda añadir la
@@ -1146,7 +1146,8 @@ public enum Distancia { LOCAL, NACIONAL, INTERNACIONAL };</code></pre>
         class="sy0"></span>
       <div class="wiki" id="content_view">
         <pre><code class="language-java">public enum Prioridad implements IIconEnum { 
-<br>	BAJA("transfer-down"), MEDIA("square-medium"), ALTA("transfer-up");
+
+	BAJA("transfer-down"), MEDIA("square-medium"), ALTA("transfer-up");
 
 	private String icon;
 
@@ -1174,20 +1175,18 @@ private Prioridad prioridad;
       Una propiedad calculada se define de esta manera:<br>
       <pre><code class="language-java">@Depends("precioUnitario") // 1
 @Max(9999999999L) // 2
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getPrecioUnitarioEnPesetas() {
+public BigDecimal getPrecioUnitarioEnPesetas() {
  if (precioUnitario == null) return null;
- return precioUnitario.multiply(new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>("166.386"))
- .setScale(0, <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>.ROUND_HALF_UP);
+ return precioUnitario.multiply(new BigDecimal("166.386"))
+ .setScale(0, BigDecimal.ROUND_HALF_UP);
 }
-&nbsp;</code></pre>
+</code></pre>
       De acuerdo con esta definición ahora podemos usar el código de esta
       manera:<br>
       <pre><code class="language-java">Producto producto = ...
 producto.setPrecioUnitario(2);
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> resultado = producto.getPrecioUnitarioEnPesetas();
-&nbsp;</code></pre>
+BigDecimal resultado = producto.getPrecioUnitarioEnPesetas();
+</code></pre>
       Y <em>resultado</em> contendrá 332,772.<br>
       Cuando la propiedad <em>precioUnitarioEnPesetas</em> se visualiza al
       usuario no es editable, y su editor tiene una longitud de 10, indicado
@@ -1203,34 +1202,34 @@ producto.setPrecioUnitario(2);
       <pre><code class="language-java">@Max(999)
 public int getCantidadLineas() {
  // Un ejemplo de uso de JDBC
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Connection.html">Connection</a> con = null;
+ Connection con = null;
  try {
  con = DataSourceConnectionProvider.getByComponent("Factura").getConnection(); // 1
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> tabla = MetaModel.get("LineaFactura").getMapping().getTable();
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html">PreparedStatement</a> ps = con.prepareStatement("select count(*) from " + tabla +
+ String tabla = MetaModel.get("LineaFactura").getMapping().getTable();
+ PreparedStatement ps = con.prepareStatement("select count(*) from " + tabla +
  " where FACTURA_AÑO = ? and FACTURA_NUMERO = ?");
  ps.setInt(1, getAño());
  ps.setInt(2, getNumero());
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html">ResultSet</a> rs = ps.executeQuery();
+ ResultSet rs = ps.executeQuery();
  rs.next();
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a> result = new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>(rs.getInt(1));
+ Integer result = new Integer(rs.getInt(1));
  ps.close();
  return result;
  }
- catch (<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> ex) {
+ catch (Exception ex) {
  log.error("Problemas al calcular cantidad de líneas de una Factura", ex);
  // Podemos lanzar cualquier RuntimeException aquí
- throw new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/org/omg/CORBA/SystemException.html">SystemException</a>(ex);
+ throw new SystemException(ex);
  }
  finally {
  try {
  con.close();
  }
- catch (<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> ex) {
+ catch (Exception ex) {
  }
  }
 }
-&nbsp;</code></pre>
+</code></pre>
       Es verdad, el código JDBC es feo y complicado, pero a veces puede ayudar a
       resolver problemas de rendimiento. La clase <em>DataSourceConnectionProvider</em>
       nos permite obtener la conexión asociada a la misma fuente de datos que la
@@ -1256,7 +1255,7 @@ public void setCodigo(long codigo) {
 }
 
 @Transient // Hemos de anotar como Transient nuestra propiedad calculada
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getZoneOne() { // porque usamos acceso basado en propiedades
+public String getZoneOne() { // porque usamos acceso basado en propiedades
  return "En ZONA 1";
 }</code></pre>
       <h3 id="toc14"><a name="Modelo-Propiedades-Formula (nuevo en v3.1.4)"></a>Fórmula
@@ -1270,8 +1269,8 @@ public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.htm
       la propia base de datos, en vez de por Java. Simplemente hemos de escribir
       un fragmento válido de SQL:<br>
       <pre><code class="language-java">@org.hibernate.annotations.Formula("PRECIOUNITARIO * 1.16")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> precioUnitarioConIVA;
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getPrecioUnitarioConIVA() {
+private BigDecimal precioUnitarioConIVA;
+public BigDecimal getPrecioUnitarioConIVA() {
  return precioUnitarioConIVA;
 }</code></pre>
       El uso es simple. Hemos de poner el cálculo como lo hariamos si lo
@@ -1309,21 +1308,21 @@ import java.util.*;
  */
 public class CurrentYearCalculator implements ICalculator {
 
- public <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> calculate() throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html">Calendar</a> cal = <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html">Calendar</a>.getInstance();
- cal.setTime(new java.util.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date">Date</a>());
- return new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>(cal.get(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Calendar.html">Calendar</a>.YEAR));
+ public Object calculate() throws Exception {
+ Calendar cal = Calendar.getInstance();
+ cal.setTime(new java.util.Date());
+ return new Integer(cal.get(Calendar.YEAR));
  }
 
 }
-&nbsp;</code></pre>
+</code></pre>
       Es posible personalizar el comportamiento de un calculador poniendo el
       valor de sus propiedades, como sigue:<br>
       <pre><code class="language-java">@DefaultValueCalculator(
  value=org.openxava.calculators.StringCalculator.class,
  properties={ @PropertyValue(name="string", value="BUENA") }
 )
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> relacionConComercial;</code></pre>
+private String relacionConComercial;</code></pre>
       En este caso para calcular el valor por defecto OpenXava instancia <em>StringCalculator</em>
       y entonces inyecta el valor "BUENA" en la propiedad <em>string</em> de <em>StringCalculator</em>,
       y finalmente llama al método <em>calculate()</em> para obtener el valor
@@ -1340,7 +1339,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
  @PropertyValue(name="tipoPermisoConducir", from="permisoConducir.tipo")
  }
 )
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> observaciones;</code></pre>
+private String observaciones;</code></pre>
       En este caso antes de ejecutar el calculador OpenXava llena la propiedad <em>permisoConducir</em>
       de <em>CalculadorObservacionesTransportista</em> con el valor de la
       propiedad visualizada <em>tipo</em> de la referencia <em>permisoConducir</em>.
@@ -1364,39 +1363,39 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
  }
 )
 private int cantidadLineas;
-&nbsp;</code></pre>
+</code></pre>
       Y la clase del calculador:<br>
       <pre><code class="language-java">package org.openxava.test.calculadores;
-&nbsp;
+ 
 import java.sql.*;
-&nbsp;
+ 
 import org.openxava.calculators.*;
 import org.openxava.util.*;
-&nbsp;
+ 
 /**
  * @author Javier Paniza
  */
 public class CalculadorCantidadLineas implements IJDBCCalculator { // 1
-&nbsp;
+ 
  private IConnectionProvider provider;
  private int año;
  private int numero;
-&nbsp;
+ 
  public void setConnectionProvider(IConnectionProvider provider) { // 2
  this.provider = provider;
  }
-&nbsp;
- public <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> calculate() throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/Connection.html">Connection</a> con = provider.getConnection();
+ 
+ public Object calculate() throws Exception {
+ Connection con = provider.getConnection();
  try {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/PreparedStatement.html">PreparedStatement</a> ps = con.prepareStatement(
+ PreparedStatement ps = con.prepareStatement(
  "select count(*) from XAVATEST.LINEAFACTURA “ +
  “where FACTURA_AÑO = ? and FACTURA_NUMERO = ?");
  ps.setInt(1, getAño());
  ps.setInt(2, getNumero());
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/sql/ResultSet.html">ResultSet</a> rs = ps.executeQuery();
+ ResultSet rs = ps.executeQuery();
  rs.next();
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a> result = new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>(rs.getInt(1));
+ Integer result = new Integer(rs.getInt(1));
  ps.close();
  return result;
  }
@@ -1404,23 +1403,23 @@ public class CalculadorCantidadLineas implements IJDBCCalculator { // 1
  con.close();
  }
  }
-&nbsp;
+ 
  public int getAño() {
  return año;
  }
-&nbsp;
+ 
  public int getNumero() {
  return numero;
  }
-&nbsp;
+ 
  public void setAño(int año) {
  this.año = año;
  }
-&nbsp;
+ 
  public void setNumero(int numero) {
  this.numero = numero;
  }
-&nbsp;
+ 
 }</code></pre>
       Para usar JDBC nuestro calculador tiene que implementar <em>IJDBCCalculator</em>
       (1) y entonces recibirá un <em>IConnectionProvider</em> (2) que podemos
@@ -1435,20 +1434,20 @@ public class CalculadorCantidadLineas implements IJDBCCalculator { // 1
       queremos usar una columna <em>identity</em> (auto incremento) como clave:<br>
       <pre><code class="language-java">@Id @Hidden
 @GeneratedValue(strategy=GenerationType.IDENTITY)
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a> id;
-&nbsp;</code></pre>
+private Integer id;
+</code></pre>
       Podemos usar otras técnicas de generación, por ejemplo, una <em>sequence</em>
       de base de datos puede ser definida usando el estándar JPA de esta manera:<br>
       <pre><code class="language-java">@SequenceGenerator(name="SIZE_SEQ", sequenceName="SIZE_ID_SEQ", allocationSize=1 )
 @Hidden @Id @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SIZE_SEQ")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a> id;
-&nbsp;</code></pre>
+private Integer id;
+</code></pre>
       Si queremos generar un identificador único de tipo String y 32 caracteres,
       podemos usar una extensión de Hibernate de JPA:<br>
       <pre><code class="language-java">@Id @GeneratedValue(generator="system-uuid") @Hidden
 @GenericGenerator(name="system-uuid", strategy = "uuid")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> oid;
-&nbsp;</code></pre>
+private String oid;
+</code></pre>
       Ver la sección 9.1.9 de la especificación JPA 1.0 (parte de JSR-220) para
       aprender más sobre <em>@GeneratedValues</em>.<br>
       Si queremos usar nuestra propia lógica para generar el valor al crear, o
@@ -1458,9 +1457,9 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
       nuestra clase:<br>
       <pre><code class="language-java">@PrePersist
 private void calcularContador() {
- contador = new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Long.html">Long</a>(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/System.html">System</a>.currentTimeMillis()).intValue();
+ contador = new Long(System.currentTimeMillis()).intValue();
 }
-&nbsp;</code></pre>
+</code></pre>
       La anotación JPA <em>@PrePersist</em> hace que este método se ejecute
       antes de insertar datos por primera vez en la base de datos, en este
       método podemos calcular el valor para nuestra clave o incluso para
@@ -1480,7 +1479,7 @@ private void calcularContador() {
     @PropertyValue(name="cadena", value="COCHE"),
     onlyOnCreate=true
 )
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> descripcion;</code></pre>
+private String descripcion;</code></pre>
         Con un OpenXava anterior a 6.1 has de usar <i>@PropertyValidators</i>
         para englobar las anotaciones, así:</div>
       <pre><code class="language-java">@PropertyValidators ({ // Sólo necesario hasta v6.0.2
@@ -1492,7 +1491,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
         onlyOnCreate=true
     )
 })
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> descripcion;</code></pre>
+private String descripcion;</code></pre>
       La forma de configurar el validador (con los <em><a class="wiki_link_ext"
 
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/PropertyValue.html"
@@ -1505,41 +1504,39 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
       modifica.<br>
       El código del validador es:<br>
       <pre><code class="language-java">package org.openxava.test.validadores;
-&nbsp;
+ 
 import org.openxava.util.*;
 import org.openxava.validators.*;
-&nbsp;
+ 
 /**
  * @author Javier Paniza
  */
-&nbsp;
+ 
 public class ValidadorExcluirCadena implements IPropertyValidator { // 1
-&nbsp;
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> cadena;
-&nbsp;
+ 
+ private String cadena;
+ 
  public void validate(
  Messages errores, // 2
- <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> valor, // 3
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombreObjecto, // 4
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombrePropiedad) // 5
- throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
+ Object valor, // 3
+ String nombreObjecto, // 4
+ String nombrePropiedad) // 5
+ throws Exception {
  if (valor==null) return;
  if (valor.toString().indexOf(getCadena()) &gt;= 0) {
  errores.add("excluir_cadena",
  nombrePropiedad, nombreObjeto, getCadena());
  }
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getCadena() {
+ 
+ public String getCadena() {
  return cadena==null?"":cadena;
  }
-&nbsp;
- public void setCadena(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> cadena) {
+ 
+ public void setCadena(String cadena) {
  this.cadena = cadena;
  }
-&nbsp;
+ 
 }</code></pre>
       Un validador ha de implementar <em>IPropertyValidator</em> (1), esto le
       obliga a tener un método <em>validate()</em> en donde se ejecuta la
@@ -1573,28 +1570,26 @@ href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String<
       A partir de v4.6.1 también es posible usar en el validador el mensaje de <em>@PropertyValidator</em>.
       Es decir, podemos escribir:<br>
       <pre><code class="language-java">@PropertyValidator(value=ValidadorTituloLibro.class, message="{libro_rpg_no_permitido}")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> titulo;</code></pre>
+private String titulo;</code></pre>
       Si el mensaje está entre llaves se obtiene de los archivos i18n, si no se
       usa tal cual.<br>
       Además, hemos de implementar la interfaz <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/validators/IWithMessage.html"
 
           rel="nofollow">IWithMessage</a></em> en el validador:<br>
       <pre><code class="language-java">public class ValidadorTituloLibro implements IPropertyValidator, IWithMessage {
-&nbsp;
-    private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> message;
-&nbsp;
-    public void setMessage(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> message) throws <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
+ 
+    private String message;
+ 
+    public void setMessage(String message) throws Exception {
         this.message = message; // Este es message de @PropertyValidator
     }
-&nbsp;
-    public void validate(Messages errors, <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> value, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> propertyName, <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> modelName) {
-       if (((<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a>)value).contains("RPG")) {
+ 
+    public void validate(Messages errors, Object value, String propertyName, String modelName) {
+       if (((String)value).contains("RPG")) {
            errors.add(message); // Podemos añadir el mensaje directamente
        }
     }
-&nbsp;
+ 
 }</code></pre>
       El mensaje especificado en la anotación <em>@PropertyValidator</em>, <em>libro_rpg_no_permitido</em>,
       se inyecta en el validador llamando a <em>setMessage()</em>. Este mensaje
@@ -1629,7 +1624,7 @@ href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exce
       al estereotipo NOMBRE_PERSONA. Ahora si definimos una propiedad como la
       siguiente:<br>
       <pre><code class="language-java">@Required @Stereotype("NOMBRE_PERSONA")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre;</code></pre>
+private String nombre;</code></pre>
       Esta propiedad será validada usando <em>ValidadorNombrePersona</em>
       aunque la propiedad misma no defina ningun validador. <em>ValidadorNombrePersona</em>
       se aplica a todas las propiedades con el estereotipo NOMBRE_PERSONA.<br>
@@ -1649,7 +1644,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.ht
       (), valores numéricos y nombres de propiedades de la misma entidad. Por
       ejemplo:<br>
       <pre><code class="language-java">@Calculation("((horas * trabajador.precioHora) + desplazamiento - descuento) * porcentajeIVA / 100")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> total;</code></pre>
+private BigDecimal total;</code></pre>
       Fíjate como <em>trabajador.precioHora</em> se usa para obtener el valor
       de una referencia.<br>
       El cálculo se ejecuta y visualiza cuando el usuario cambia cualquier valor
@@ -1670,7 +1665,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecima
       código Java como éste:<br>
       <pre><code class="language-java">Cliente cliente = ...
 cliente.getComercial().getNombre();
-&nbsp;</code></pre>
+</code></pre>
       para acceder al nombre del comercial de ese cliente.<br>
       La sintaxis para definir referencias es:<br>
       <pre><code class="language-java">@Required // 1
@@ -1736,7 +1731,7 @@ public Comercial getComercial() {
 public void setComercial(Comercial comercial) {
  this.comercial = comercial;
 }
-&nbsp;
+ 
 @ManyToOne(fetch=FetchType.LAZY)
 private Comercial comercialAlternativo; // 2
 public Comercial getComercialAlternativo() {
@@ -1745,7 +1740,7 @@ public Comercial getComercialAlternativo() {
 public void setComercialAlternativo(Comercial comercialAlternativa) {
  this.comercialAlternativo = comercialAlternativo;
 }
-&nbsp;</code></pre>
+</code></pre>
       <ol>
         <li>Una referencia llamada <em>comercial</em> a la entidad <em>Comercial</em>.</li>
         <li>Una referencia llamada <em>comercialAlternativo</em> a la entidad <em>Comercial</em>.
@@ -1760,7 +1755,7 @@ public void setComercialAlternativo(Comercial comercialAlternativa) {
       <pre><code class="language-java">Cliente cliente = ...
 Comercial comercial = cliente.getComercial();
 Comercial comercialAlternativo = cliente.getComercialAlternativo();
-&nbsp;</code></pre>
+</code></pre>
       <h3 id="toc21"><a name="Modelo-Referencias-Calculador valor por defecto en referencias"></a>Calculador
         valor por defecto en referencias</h3>
       En una referencia <strong><em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/DefaultValueCalculator.html"
@@ -1777,10 +1772,10 @@ Comercial comercialAlternativo = cliente.getComercialAlternativo();
 )
 private Familia familia;</code></pre>
       El método <em>calculate()</em> de este calculador es:<br>
-      <pre><code class="language-java">public <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> calculate() throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
- return new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>(value);
+      <pre><code class="language-java">public Object calculate() throws Exception {
+ return new Integer(value);
 }
-&nbsp;</code></pre>
+</code></pre>
       Como se puede ver se devuelve un entero, es decir, el valor para familia
       por defecto es la familia cuyo código es el 2.<br>
       En el caso de clave compuesta sería así:<br>
@@ -1793,21 +1788,21 @@ private Familia familia;</code></pre>
 private Almacen almacen;</code></pre>
       Y el código del calculador:<br>
       <pre><code class="language-java">package org.openxava.test.calculadores;
-&nbsp;
+ 
 import org.openxava.calculators.*;
-&nbsp;
+ 
 /**
  * @author Javier Paniza
  */
 public class CalculadorDefectoAlmacen implements ICalculator {
-&nbsp;
-  public <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> calculate() throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
+ 
+  public Object calculate() throws Exception {
     Almacen clave = new Almacen();
     clave.setNumber(4);
     clave.setZoneNumber(4);
     return clave;
   }
-&nbsp;
+ 
 }</code></pre>
       Devuelve un objeto de tipo <em>Almacen</em> pero rellenando sólo las
       propiedades clave.<br>
@@ -1818,35 +1813,35 @@ public class CalculadorDefectoAlmacen implements ICalculator {
       <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/5/docs/api/javax/persistence/Id.html"
 
           rel="nofollow">@Id</a></em>, y usar una clase clave, como sigue:<br>
-      <pre><code class="language-java">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+      <pre><code class="language-java">@Entity
 @IdClass(DetalleAdicionalKey.class)
 public class DetalleAdicional {
-&nbsp;
+ 
  // JoinColumn se especifica también en DetalleAdicionalKey por un
  // bug de Hibernate, ver http://opensource.atlassian.com/projects/hibernate/browse/ANN-361
  @Id @ManyToOne(fetch=FetchType.LAZY)
  @JoinColumn(name="SERVICIO")
  private Servicio servicio;
-&nbsp;
+ 
  @Id @Hidden
  private int contador;
-&nbsp;
+ 
  ...
-&nbsp;
+ 
 }</code></pre>
       Además, necesitamos escribir la clase clave:<br>
-      <pre><code class="language-java">public class DetalleAdicionalKey implements java.io.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html">Serializable</a> {
-&nbsp;
+      <pre><code class="language-java">public class DetalleAdicionalKey implements java.io.Serializable {
+ 
  @ManyToOne(fetch=FetchType.LAZY)
  @JoinColumn(name="SERVICIO")
  private Servicio servicio;
-&nbsp;
+ 
  @Hidden
  private int contador;
-&nbsp;
+ 
  // equals, hashCode, toString, getters y setters
  ...
-&nbsp;
+ 
  }</code></pre>
       Necesitamos escribir la clase clave aunque la clave sea solo una
       referencia con una sola columna clave.<br>
@@ -1862,69 +1857,67 @@ public class DetalleAdicional {
       principal podemos escribir:<br>
       <pre><code class="language-java">@Embedded
 private Direccion direccion;
-&nbsp;</code></pre>
+</code></pre>
       Y hemos de definir la clase <em>Direccion</em> como incrustable:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
 import org.openxava.annotations.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
+ 
 @Embeddable
 public class Direccion implements IConPoblacion {
-&nbsp;
+ 
  @Required @Column(length=30)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> calle;
-&nbsp;
+ private String calle;
+ 
  @Required @Column(length=5)
  private int codigoPostal;
-&nbsp;
+ 
  @Required @Column(length=20)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> poblacion;
-&nbsp;
+ private String poblacion;
+ 
  // ManyToOne dentro de un Embeddable no está soportado en JPA 1.0 (ver en 9.1.34),
  // pero la implementación de Hibernate lo soporta.
  @ManyToOne(fetch=FetchType.LAZY, optional=false) @JoinColumn(name="STATE")
  private Provincia provincia;
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getPoblacion() {
+ 
+ public String getPoblacion() {
  return poblacion;
  }
-&nbsp;
- public void setPoblacion(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> poblacion) {
+ 
+ public void setPoblacion(String poblacion) {
  this.poblacion = poblacion;
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getCalle() {
+ 
+ public String getCalle() {
  return calle;
  }
-&nbsp;
- public void setCalle(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> calle) {
+ 
+ public void setCalle(String calle) {
  this.calle = calle;
  }
-&nbsp;
+ 
  public int getCodigoPostal() {
  return codigoPostal;
  }
-&nbsp;
+ 
  public void setCodigoPostal(int codigoPostal) {
  this.codigoPostal = codigoPostal;
  }
-&nbsp;
+ 
  public Provincia getProvincia() {
  return provincia;
  }
-&nbsp;
+ 
  public void setProvincia(Provincia provincia) {
  this.provincia = provincia;
  }
-&nbsp;
+ 
 }</code></pre>
       Como se ve una clase incrustable puede implementar una interfaz (1) y
       contener referencias (2), entre otras cosas, pero no puede usar métodos de
@@ -1952,15 +1945,15 @@ cliente.setDireccion(direccion);</code></pre>
       una propiedad Java que devuelve <em>java.util.Collection</em>.<br>
       Aquí la sintaxis para definir una colección:<br>
       <pre><code class="language-java">@Size // 1
-@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/concurrent/locks/Condition.html">Condition</a> // 2
+@Condition // 2
 @OrderBy // 3
 @XOrderBy // 4
 @OrderColumn // 5
 @OneToMany/@ManyToMany // 6
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;TuEntidad&gt; nombreColeccion; // 5
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;TuEntidad&gt; getNombreColeccion() { ... } // 5
-public void setNombreColeccion(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;TuEntidad&gt; nuevoValor) { ... } // 5
-&nbsp;</code></pre>
+private Collection&lt;TuEntidad&gt; nombreColeccion; // 5
+public Collection&lt;TuEntidad&gt; getNombreColeccion() { ... } // 5
+public void setNombreColeccion(Collection&lt;TuEntidad&gt; nuevoValor) { ... } // 5
+</code></pre>
       <ol>
         <li><strong>@Size</strong> (<a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/javax/validation/constraints/Size.html"
 
@@ -2003,14 +1996,14 @@ public void setNombreColeccion(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/
       </ol>
       Vamos a ver algunos ejemplos. Empecemos por uno simple:<br>
       <pre><code class="language-java">@OneToMany (mappedBy="factura")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Albaran&gt; albaranes;
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Albaran&gt; getAlbaranes() {
+private Collection&lt;Albaran&gt; albaranes;
+public Collection&lt;Albaran&gt; getAlbaranes() {
  return albaranes;
 }
-public void setAlbaranes(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Albaran&gt; albaranes) {
+public void setAlbaranes(Collection&lt;Albaran&gt; albaranes) {
  this.albaranes = albaranes;
 }
-&nbsp;</code></pre>
+</code></pre>
       Si ponemos esto dentro de una <em>Factura</em>, estamos definiendo una
       colección de los <em>albaranes</em> asociados a esa <em>Factura</em>. La
       forma de relacionarlo se hace en la parte del <a class="wiki_link" href="mapping_es.html">mapeo
@@ -2035,7 +2028,7 @@ for (Albaran albaran: factura.getAlbaranes()) {
       este caso pondríamos:<br>
       <div class="wiki">
         <pre><code class="language-java">@OneToMany(mappedBy="comercial")
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Cliente&gt; clientes;</code></pre>
+private Collection&lt;Cliente&gt; clientes;</code></pre>
         Para indicar que es la referencia <em>comercial</em> y no <em>comercialAlternativo</em>
         la que vamos a usar para esta colección.</div>
       <div class="wiki"><br>
@@ -2044,7 +2037,7 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collectio
       <pre><code class="language-java">@OneToMany (mappedBy="factura", cascade=CascadeType.REMOVE) // 1
 @OrderBy("tipoServicio desc") // 2
 @org.hibernate.validator.Size(min=1) // 3
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;LineaFactural&gt; facturas;</code></pre>
+private Collection&lt;LineaFactural&gt; facturas;</code></pre>
       <ol>
         <li>Usar REMOVE como tipo de cascadaas cascade type hace que cuando el
           usuario borra una factura sus líneas también se borran.</li>
@@ -2058,12 +2051,12 @@ private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collectio
       Tenemos libertad completa para definir como se obtienen los datos de una
       colección, con <em>@Condition</em> podemos sobreescribir la condición por
       defecto:<br>
-      <pre><code class="language-java">@<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/concurrent/locks/Condition.html">Condition</a>(
+      <pre><code class="language-java">@Condition(
  "${almacen.codigoZona} = ${this.almacen.codigoZona} AND " +
  "${almacen.codigo} = ${this.almacen.codigo} AND " +
  "NOT (${codigo} = ${this.codigo})"
 )
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Transportista&gt; getCompañeros() {
+public Collection&lt;Transportista&gt; getCompañeros() {
  return null;
 }</code></pre>
       Si ponemos esta colección dentro de <em>Transportista</em>, podemos
@@ -2081,8 +2074,8 @@ public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection
       tenemos suficiente, podemos escribir completamente la lógica que devuelve
       la colección. La colección del punto anterior también se podría haber
       definido así:<br>
-      <pre><code class="language-java">public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Transportista&gt; getCompañeros() {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html">Query</a> query = XPersistence.getManager().createQuery("from Transportista t where " +
+      <pre><code class="language-java">public Collection&lt;Transportista&gt; getCompañeros() {
+ Query query = XPersistence.getManager().createQuery("from Transportista t where " +
  "t.almacen.codigoZona = :zona AND " +
  "t.almacen.codigo = :codigoAlmacen AND " +
  "NOT (t.codigo = :codigo) ");
@@ -2104,14 +2097,14 @@ public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection
 
           rel="nofollow">@ManyToMany (JPA)</a></em> permite definir una
       colección con una multiciplidad de muchos-a-muchos. Como sigue:<br>
-      <pre><code class="language-java">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+      <pre><code class="language-java">@Entity
 public class Cliente {
  ...
  @ManyToMany
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;Provincia&gt; provincias;
+ private Collection&lt;Provincia&gt; provincias;
  ...
 }
-&nbsp;</code></pre>
+</code></pre>
       En este caso un cliente tiene una colección de provincias, pero una misma
       provincia puede estar presente en varios clientes.<br>
       <h3 id="toc26"><a name="Modelo-Colecciones-Colecciones incrustadas"></a>Colecciones
@@ -2124,15 +2117,15 @@ public class Cliente {
       Ahora un ejemplo de una colección incrustada. En la entidad principal (por
       ejemplo de <em>Factura</em>) podemos poner:<br>
       <pre><code class="language-java">@OneToMany (mappedBy="factura", cascade=CascadeType.REMOVE)
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;LineaFactura&gt; lineas;</code></pre>
+private Collection&lt;LineaFactura&gt; lineas;</code></pre>
       Es de notar que usamos <em>CascadeType.REMOVE</em> y <em>LineaFactura</em>
       es una entidad y no una clase incrustable:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import java.math.*;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Parameter;
@@ -2140,13 +2133,13 @@ import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.validators.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 @EntityValidator(value=ValidadorLineaFactura.class,
  properties= {
  @PropertyValue(name="factura"),
@@ -2156,57 +2149,53 @@ import org.openxava.test.validators.*;
  }
 )
 public class LineaFactura {
-&nbsp;
+ 
  @ManyToOne // 'Lazy fetching' produce un falla al borrar una linea desde la factura
  private Factura factura;
-&nbsp;
+ 
  @Id @GeneratedValue(generator="system-uuid") @Hidden
  @GenericGenerator(name="system-uuid", strategy = "uuid")
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> oid;
-&nbsp;
+ private String oid;
+ 
  private TipoServicio tipoServicio;
  public enum TipoServicio { ESPECIAL, URGENTE }
-&nbsp;
+ 
  @Column(length=4) @Required
  private int cantidad;
-&nbsp;
+ 
  @Stereotype("DINERO") @Required
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> precioUnitario;
-&nbsp;
+ private BigDecimal precioUnitario;
+ 
  @ManyToOne(fetch=FetchType.LAZY, optional=false)
  private Producto producto;
-&nbsp;
+ 
  @DefaultValueCalculator(CurrentDateCalculator.class)
- private java.util.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date">Date</a> fechaEntrega;
-&nbsp;
+ private java.util.Date fechaEntrega;
+ 
  @ManyToOne(fetch=FetchType.LAZY)
  private Comercial vendidoPor;
-&nbsp;
+ 
  @Stereotype("MEMO")
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> observaciones;
-&nbsp;
+ private String observaciones;
+ 
  @Stereotype("DINERO") @Depends("precioUnitario, cantidad")
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getImporte() {
- return getPrecioUnitario().multiply(new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>(getCantidad()));
+ public BigDecimal getImporte() {
+ return getPrecioUnitario().multiply(new BigDecimal(getCantidad()));
  }
-&nbsp;
+ 
  public boolean isGratis() {
- return getImporte().compareTo(new <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>("0")) &lt;= 0;
+ return getImporte().compareTo(new BigDecimal("0")) &lt;= 0;
  }
-&nbsp;
+ 
  @PostRemove
  private void postRemove() {
  factura.setComentario(factura.getComentario() + "DETALLE BORRADO");
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getOid() {
+ 
+ public String getOid() {
  return oid;
  }
- public void setOid(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> oid) {
+ public void setOid(String oid) {
  this.oid = oid;
  }
  public TipoServicio getTipoServicio() {
@@ -2221,53 +2210,53 @@ href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String<
  public void setCantidad(int cantidad) {
  this.cantidad = cantidad;
  }
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getPrecioUnitario() {
- return precioUnitario==null?<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>.ZERO:precioUnitario;
+ public BigDecimal getPrecioUnitario() {
+ return precioUnitario==null?BigDecimal.ZERO:precioUnitario;
  }
- public void setPrecioUnitario(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> precioUnitario) {
+ public void setPrecioUnitario(BigDecimal precioUnitario) {
  this.precioUnitario = precioUnitario;
  }
-&nbsp;
+ 
  public Product getProducto() {
  return producto;
  }
-&nbsp;
+ 
  public void setProducto(Producto producto) {
  this.producto = producto;
  }
-&nbsp;
- public java.util.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date">Date</a> getFechaEntrega() {
+ 
+ public java.util.Date getFechaEntrega() {
  return fechaEntrega;
  }
-&nbsp;
- public void setFechaEntrega(java.util.<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date">Date</a> fechaEntrega) {
+ 
+ public void setFechaEntrega(java.util.Date fechaEntrega) {
  this.fechaEntrega = fechaEntrega;
  }
-&nbsp;
+ 
  public Comercial getVendidoPor() {
  return vendidoPor;
  }
-&nbsp;
+ 
  public void setVendidoPor(Comercial vendidoPor) {
  this.vendidoPor = vendidoPor;
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getObservaciones() {
+ 
+ public String getObservaciones() {
  return observaciones;
  }
-&nbsp;
- public void setObservaciones(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> observaciones) {
+ 
+ public void setObservaciones(String observaciones) {
  this.observaciones = observaciones;
  }
-&nbsp;
+ 
  public Invoice getFactura() {
  return factura;
  }
-&nbsp;
+ 
  public void setFactura(Factura factura) {
  this.factura = factura;
  }
-&nbsp;
+ 
 }</code></pre>
       Como se ve esto es una entidad compleja, con calculadores, validadores,
       referencias y así por el estilo. También hemos de definir una referencia a
@@ -2287,8 +2276,8 @@ href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String<
 @OrderBy // 2
 @OrderColumn // 3  Nuevo en v5.3
 @ElementCollection // 4
-private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;TuClaseIncrustable&gt; nombreColeccion; // 3
-public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;TuClaseIncrustable&gt; getNombreColeccion() { ... } // 3
+private Collection&lt;TuClaseIncrustable&gt; nombreColeccion; // 3
+public Collection&lt;TuClaseIncrustable&gt; getNombreColeccion() { ... } // 3
 public void setNombreColeccion&lt;TuClaseIncrustable&gt; nuevoValor) { ... } // 3</code></pre>
       <ol>
         <li><strong>@Size</strong> (<a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/beanvalidation/spec/1.1/api/javax/validation/constraints/Size.html"
@@ -2332,16 +2321,16 @@ public void setNombreColeccion&lt;TuClaseIncrustable&gt; nuevoValor) { ... } // 
       <br>
       Veamos un ejemplo. Primero hemos de definir la colección en la entidad
       principal:<br>
-      <pre><code class="language-java">@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+      <pre><code class="language-java">@Entity
 public class Presupuesto extends Identifiable {
     ...
     @ElementCollection
-    private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;LineaPresupuesto&gt; lineas;
-&nbsp;
-    public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;LineaPresupuesto&gt; getLineas() {
+    private Collection&lt;LineaPresupuesto&gt; lineas;
+ 
+    public Collection&lt;LineaPresupuesto&gt; getLineas() {
         return lineas;
     }
-    public void setLineas(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a>&lt;LineaPresupuesto&gt; lineas) {
+    public void setLineas(Collection&lt;LineaPresupuesto&gt; lineas) {
         this.lineas = lineas;
     }
     ...
@@ -2349,25 +2338,25 @@ public class Presupuesto extends Identifiable {
       Ahora definimos nuestra clase incrustada:<br>
       <pre><code class="language-java">@Embeddable
 public class LineaPresupuesto {
-&nbsp;
+ 
     @ManyToOne(fetch=FetchType.LAZY, optional=false) // 1
     private Producto producto;
-&nbsp;
+ 
     @Required // 2
-    private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> precioUnitario;
-&nbsp;
+    private BigDecimal precioUnitario;
+ 
     @Required
     private int cantidad;
-&nbsp;
-    private <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Date">Date</a> fechaDisponibilidad;
-&nbsp;
+ 
+    private Date fechaDisponibilidad;
+ 
     @Column(length=30)
-    private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> comentarios;
-&nbsp;
+    private String comentarios;
+ 
     @Column(precision=10, scale=2)
     @Depends("precioUnitario, cantidad")
-    public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getImporte() { // 3
-        return getPrecioUnitario().multiply(new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>(getCantidad()));
+    public BigDecimal getImporte() { // 3
+        return getPrecioUnitario().multiply(new BigDecimal(getCantidad()));
     }
     ...
 }</code></pre>
@@ -2384,7 +2373,7 @@ public class LineaPresupuesto {
       colección de esta forma:<br>
       <pre><code class="language-java">@OneToMany(mappedBy="proyecto", cascade=CascadeType.ALL)
 @OrderColumn
-private <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+List">List</a>&lt;TareaProyecto&gt; tareas;</code></pre>
+private List&lt;TareaProyecto&gt; tareas;</code></pre>
       La interfaz de usuario permitirá al usuario cambiar el orden de los
       elementos y este orden se almacenará en la base de datos. Además, si se
       cambia el orden de los elementos por código este orden también se
@@ -2408,7 +2397,7 @@ ADD TAREAS_ORDER INTEGER</code></pre>
       Los métodos se definen en una entidad OpenXava (mejor dicho, en una
       entidad JPA) como una clase de Java convencional. Por ejemplo:<br>
       <pre><code class="language-java">public void incrementarPrecio() {
- setPrecioUnitario(getPrecioUnitario().multiply(new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>("1.02")).setScale(2));
+ setPrecioUnitario(getPrecioUnitario().multiply(new BigDecimal("1.02")).setScale(2));
 }</code></pre>
       Los métodos son la salsa de los objetos, sin ellos solo serían caparazones
       tontos alrededor de los datos. Cuando sea posible es mejor poner la lógica
@@ -2419,28 +2408,26 @@ ADD TAREAS_ORDER INTEGER</code></pre>
       una colección de objetos que sigue algún criterio.<br>
       Algunos ejemplos:<br>
       <pre><code class="language-java">public static Cliente findByCodigo(int codigo) throws NoResultException {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html">Query</a> query = XPersistence.getManager().createQuery(
+ Query query = XPersistence.getManager().createQuery(
  "from Cliente as o where o.codigo = :codigo");
  query.setParameter("codigo", codigo);
  return (Cliente) query.getSingleResult();
 }
-&nbsp;
-public static <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a> findTodos() {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html">Query</a> query = XPersistence.getManager().createQuery("from Cliente as o");
+ 
+public static Collection findTodos() {
+ Query query = XPersistence.getManager().createQuery("from Cliente as o");
  return query.getResultList();
 }
-&nbsp;
-public static <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a> findByNombreLike(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre) {
- <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/javax/management/Query.html">Query</a> query = XPersistence.getManager().createQuery(
+ 
+public static Collection findByNombreLike(String nombre) {
+ Query query = XPersistence.getManager().createQuery(
  "from Cliente as o where o.nombre like :nombre order by o.nombre desc");
  query.setParameter("nombre", nombre);
  return query.getResultList();
 }</code></pre>
       Estos métodos se pueden usar de esta manera:<br>
       <pre><code class="language-java">Cliente cliente = Cliente.findByCodigo(8);
-<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/util/Collection.html">Collection</a> javieres = Cliente.findByNombreLike(“%JAVI%”);</code></pre>
+Collection javieres = Cliente.findByNombreLike(“%JAVI%”);</code></pre>
       Como se ve, usar método buscadores produce un código más legible que
       usando la verbosa API de JPA. Pero esto es solo una recomendación de
       estilo, podemos escoger no escribir métodos buscadores y usar directamente
@@ -2479,19 +2466,19 @@ href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String<
 public class Producto {</code></pre>
       Y el código del validador:<br>
       <pre><code class="language-java">package org.openxava.test.validadores;
-&nbsp;
+ 
 import java.math.*;
-&nbsp;
+ 
 /**
  * @author Javier Paniza
  */
-&nbsp;
+ 
 public class ValidadorProductoBarato implements IValidator { // 1
-&nbsp;
+ 
  private int limite;
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> precioUnitario;
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> descripcion;
-&nbsp;
+ private BigDecimal precioUnitario;
+ private String descripcion;
+ 
  public void validate(Messages errores) { // 2
  if (getDescripcion().indexOf("CHEAP") &gt;= 0 ||
  getDescripcion().indexOf("BARATO") &gt;= 0 ||
@@ -2501,37 +2488,37 @@ public class ValidadorProductoBarato implements IValidator { // 1
  }
  }
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getPrecioUnitario() {
+ 
+ public BigDecimal getPrecioUnitario() {
  return precioUnitario;
  }
-&nbsp;
- public void setPrecioUnitario(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> decimal) {
+ 
+ public void setPrecioUnitario(BigDecimal decimal) {
  precioUnitario = decimal;
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getDescripcion() {
+ 
+ public String getDescripcion() {
  return descripcion==null?"":descripcion;
  }
-&nbsp;
- public void setDescripcion(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> string) {
+ 
+ public void setDescripcion(String string) {
  descripcion = string;
  }
-&nbsp;
+ 
  public int getLimite() {
  return limite;
  }
-&nbsp;
+ 
  public void setLimite(int i) {
  limite = i;
  }
-&nbsp;
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a> getLimiteBd() {
- return new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/math/BigDecimal.html">BigDecimal</a>(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>.toString(limite));
+ 
+ private BigDecimal getLimiteBd() {
+ return new BigDecimal(Integer.toString(limite));
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       Este validador ha de implementar <em>IValidator</em> (1), lo que le
       obliga a tener un método <em>validate(Messages messages)</em> (2). En
       este método solo hay que añadir identificadores de mensajes de error (3)
@@ -2610,7 +2597,7 @@ public class Product {</code></pre>
  value=clase, // 1
  properties={ @PropertyValue ... } // 2
 )
-&nbsp;</code></pre>
+</code></pre>
       <ol>
         <li><strong>clase</strong> (obligada): Clase que implementa la
           validación. Ha de ser del tipo <em>IRemoveValidator</em>.</li>
@@ -2626,42 +2613,38 @@ public class Product {</code></pre>
 public class TipoAlbaran {</code></pre>
       Y el validador:<br>
       <pre><code class="language-java">package org.openxava.test.validadores;
-&nbsp;
+ 
 import org.openxava.test.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
-&nbsp;
+ 
 /**
  * @author Javier Paniza
  */
 public class ValidadorBorrarTipoAlbaran implements IRemoveValidator { // 1
-&nbsp;
+ 
  private TipoAlbaran tipoAlbaran;
  private int codigo; // Usamos esto (en vez de obtenerlo de tipoAlbaran)
  // para probar @PropertyValue con propiedades simples
-&nbsp;
- public void setEntity(<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> entidad) throws <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> { // 2
+ 
+ public void setEntity(Object entidad) throws Exception { // 2
  this.tipoAlbaran = (TipoAlbaran) entidad;
  }
-&nbsp;
- public void validate(Messages errores) throws <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Exception.html">Exception</a> {
+ 
+ public void validate(Messages errores) throws Exception {
  if (!tipoAlbaran.getAlbaranes().isEmpty()) {
- errores.add("no_borrar_tipo_albaran_si_albaranes", new <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Integer.html">Integer</a>(getCodigo())); // 3
+ errores.add("no_borrar_tipo_albaran_si_albaranes", new Integer(getCodigo())); // 3
  }
  }
-&nbsp;
+ 
  public int getCodigo() {
  return codigo;
  }
-&nbsp;
+ 
  public void setCodigo(int codigo) {
  this.codigo = codigo;
  }
-&nbsp;
+ 
 }</code></pre>
       Como se ve tiene que implementar <em>IRemoveValidator</em> (1) lo que le
       obliga a tener un método <em>setEntity()</em> (2) con el recibirá el
@@ -2749,7 +2732,7 @@ private void antesDeModificar() {
  setCliente(clte);
  }
 }
-&nbsp;</code></pre>
+</code></pre>
       En este ejemplo, la operación del manejador de persistencia, no afectará
       el comportamiento de este y las demás retrollamadas. Además de <em>@PreCreate</em>
       están disponible <em>@PostCreate</em> y <em>@PreDelete</em>. Los métodos
@@ -2774,45 +2757,43 @@ private void antesDeModificar() {
 
           rel="nofollow">@MappedSuperclass</a></em>) de esta manera:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
-&nbsp;
+ 
 /**
  * Clase base para definir entidades con un oid UUID. &lt;p&gt;
  *
  * @author Javier Paniza
  */
-&nbsp;
+ 
 @MappedSuperclass
 public class Identificable {
-&nbsp;
+ 
  @Id @GeneratedValue(generator="system-uuid") @Hidden
  @GenericGenerator(name="system-uuid", strategy = "uuid")
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> oid;
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getOid() {
+ private String oid;
+ 
+ public String getOid() {
  return oid;
  }
-&nbsp;
- public void setOid(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> oid) {
+ 
+ public void setOid(String oid) {
  this.oid = oid;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       Podemos definir otra <em>@MappedSuperclass</em> que extienda de esta, por
       ejemplo:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 import org.openxava.annotations.*;
-&nbsp;
+ 
 /**
  * Clase base para entidades con una propiedad 'nombre'. &lt;p&gt;
  *
@@ -2820,34 +2801,32 @@ import org.openxava.annotations.*;
  */
 @MappedSuperclass
 public class ConNombre extends Identifiable {
-&nbsp;
+ 
  @Column(length=50) @Required
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre;
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getNombre() {
+ private String nombre;
+ 
+ public String getNombre() {
  return nombre;
  }
-&nbsp;
- public void setNombre(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre) {
+ 
+ public void setNombre(String nombre) {
  this.nombre = nombre;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       Ahora podemos usar <em>Identificable</em> y <em>ConNombre</em> para
       definir nuestra entidades, como sigue:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 @DiscriminatorColumn(name="TYPE")
 @DiscriminatorValue("HUM")
 @Table(name="PERSONA")
@@ -2855,49 +2834,49 @@ import javax.persistence.*;
  @AttributeOverride(name="name", column=@Column(name="PNOMBRE"))
 )
 public class Humano extends ConNombre {
-&nbsp;
+ 
  @Enumerated(EnumType.STRING)
  private Sexo sexo;
  public enum Sexo { MASCULINO, FEMENINO };
-&nbsp;
+ 
  public Sexo getSexo() {
  return sexo;
  }
  public void setSexo(Sexo sexo) {
  this.sexo = sexo;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       Y ahora, la auténtica herencia de entidades, una entidad que extiende de
       otra entidad:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 @DiscriminatorValue("PRO")
 public class Programador extends Humano {
-&nbsp;
+ 
  @Column(length=20)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> lenguajePrincipal;
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getLenguajePrincipal() {
+ private String lenguajePrincipal;
+ 
+ public String getLenguajePrincipal() {
  return lenguajePrincipal;
  }
-&nbsp;
- public void setLenguajePrincipal(<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> lenguajePrincipal) {
+ 
+ public void setLenguajePrincipal(String lenguajePrincipal) {
  this.lenguajePrincipal = lenguajePrincipal;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
-      Podemo crear un <a class="wiki_link" href="application_es.html">módulo
+</code></pre>
+      Podemos crear un <a class="wiki_link" href="application_es.html">módulo
         OpenXava</a> para <em>Humano</em> y <em>Programador</em> (no para <em>Identificable</em>
       ni <em>ConNombre</em> directamente). En el módulo de <em>Programador</em>
       el usuario puede acceder solo a programadores, por otra parte usando el
@@ -2940,114 +2919,110 @@ public class Programador extends Humano {
 
           rel="nofollow">@Id</a></em> en nuestra entidad:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 @IdClass(AlmacenKey.class)
 public class Almacen {
-&nbsp;
+ 
  @Id
  // Column también se especifica en AlmacenKey por un bug en Hibernate, ver
  // http://opensource.atlassian.com/projects/hibernate/browse/ANN-361
  @Column(length=3, name="ZONA")
  private int codigoZona;
-&nbsp;
+ 
  @Id @Column(length=3)
  private int codigo;
-&nbsp;
+ 
  @Column(length=40) @Required
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre;
-&nbsp;
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getNombre() {
+ private String nombre;
+ 
+ 
+ public String getNombre() {
  return nombre;
  }
-&nbsp;
- public void setNombre(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre) {
+ 
+ public void setNombre(String nombre) {
  this.nombre = nombre;
  }
-&nbsp;
+ 
  public int getCodigo() {
  return codigo;
  }
-&nbsp;
+ 
  public void setCodigo(int codigo) {
  this.codigo = codigo;
  }
-&nbsp;
+ 
  public int getCodigoZona() {
  return codigoZona;
  }
-&nbsp;
+ 
  public void setCodigoZona(int codigoZona) {
  this.codigoZona = codigoZona;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       También necesitamos declarar una clase id, una clase serializable normal y
       corriente con todas las propiedades clave de la entidad:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import java.io.*;
 import javax.persistence.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-public class AlmacenKey implements <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html">Serializable</a> {
-&nbsp;
+ 
+public class AlmacenKey implements Serializable {
+ 
  @Column(name="ZONE")
  private int codigoZona;
  private int codigo;
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html">Override</a>
- public boolean equals(<a
-
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object">Object</a> obj) {
+ 
+ @Override
+ public boolean equals(Object obj) {
  if (obj == null) return false;
  return obj.toString().equals(this.toString());
  }
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html">Override</a>
+ 
+ @Override
  public int hashCode() {
  return toString().hashCode();
  }
-&nbsp;
- @<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/Override.html">Override</a>
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> toString() {
+ 
+ @Override
+ public String toString() {
  return "AlmacenKey::" + codigoZona + ":" + codigo;
  }
-&nbsp;
+ 
  public int getCodigo() {
  return codigo;
  }
-&nbsp;
+ 
  public void setCodigo(int codigo) {
  this.codigo = codigo;
  }
-&nbsp;
+ 
  public int getCodigoZona() {
  return codigoZona;
  }
-&nbsp;
+ 
  public void setCodigoZona(int codigoZona) {
  this.codigoZona = codigoZona;
  }
-&nbsp;
+ 
 }</code></pre>
       <h3 id="toc38"><a name="Modelo-Clave+multiple-Id+inscrustado"></a>Id
         inscrustado</h3>
@@ -3061,82 +3036,80 @@ href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se
 
           rel="nofollow">@EmbeddedId</a></em>:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 import org.openxava.annotations.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 public class Almacen {
-&nbsp;
+ 
  @EmbeddedId
  private AlmacenKey clave;
-&nbsp;
+ 
  @Column(length=40) @Required
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre;
-&nbsp;
+ private String nombre;
+ 
  public AlmacenKey getClave() {
  return clave;
  }
-&nbsp;
+ 
  public void setClave(AlmacenKey clave) {
  this.clave = clave;
  }
-&nbsp;
- public <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> getNombre() {
+ 
+ public String getNombre() {
  return nombre;
  }
-&nbsp;
- public void setNombre(<a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre) {
+ 
+ public void setNombre(String nombre) {
  this.nombre = nombre;
  }
-&nbsp;
+ 
 }
-&nbsp;</code></pre>
+</code></pre>
       Y nuestra clave es una clase incrustable que contiene las propiedades
       clave:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-&nbsp;
+ 
 import javax.persistence.*;
-&nbsp;
+ 
 /**
  *
  * @author Javier Paniza
  */
-&nbsp;
+ 
 @Embeddable
-public class AlmacenKey implements java.io.<a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/io/Serializable.html">Serializable</a> {
-&nbsp;
-&nbsp;
+public class AlmacenKey implements java.io.Serializable {
+ 
+ 
  @Column(length=3, name="ZONA")
  private int codigoZona;
-&nbsp;
+ 
  @Column(length=3)
  private int codigo;
-&nbsp;
+ 
  public int getCodigo() {
  return codigo;
  }
-&nbsp;
+ 
  public void setCodigo(int codigo) {
  this.codigo = codigo;
  }
-&nbsp;
+ 
  public int getCodigoZona() {
  return codigoZona;
  }
-&nbsp;
+ 
  public void setCodigoZona(int codigoZona) {
  this.codigoZona = codigoZona;
  }
-&nbsp;
+ 
 }</code></pre>
       <h2 id="toc39"><a name="Modelo-Bean Validation"></a>Bean Validation</h2>
       OpenXava tiene soporte completo del estándar Java para validación: <a class="wiki_link_ext"
@@ -3187,17 +3160,17 @@ public class AlmacenKey implements java.io.<a href="http://java.sun.com/j2se/1%2
 import org.openxava.annotations.*;
 import org.openxava.model.*
 import javax.validation.constraints.*;
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 public class Conductor extends Identifiable{
-&nbsp;
+ 
  @Required
  @Column(length = 40)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> nombre;
-&nbsp;
+ private String nombre;
+ 
  @AssertTrue(message = "{no_puede_conducir}")
  private boolean puedeConducir;
-&nbsp;
+ 
  //getters y setters...
 }</code></pre>
       <em>{no_puede_conducir}</em> es el identificador de mensaje que se
@@ -3215,28 +3188,28 @@ public class Conductor extends Identifiable{
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 import javax.validation.constraints.*;
-&nbsp;
-@<a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Entity">Entity</a>
+ 
+@Entity
 public class Vehiculo extends Identifiable{
-&nbsp;
+ 
  @Required
  @Column(length = 15)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> tipo;
-&nbsp;
+ private String tipo;
+ 
  @Required
  @Column(length = 7)
- private <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html">String</a> placa;
-&nbsp;
+ private String placa;
+ 
  private boolean puedeCircular;
-&nbsp;
+ 
  @ManyToOne
  private Conductor conductor;
-&nbsp;
+ 
  @AssertTrue(message="{no_puede_circular}")
  private boolean isAptoParaCircular(){
      return driver == null || roadworthy;
  }
-&nbsp;
+ 
  //getters y setters...
 }</code></pre>
       <em>{no_puede_circular}</em> es el identificador de mensaje que se
