@@ -1,4 +1,4 @@
-<html>
+﻿<html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Customizing - OpenXava</title>
@@ -92,29 +92,7 @@
       editors you must create in the folder <i>src/main/resources/xava</i>
       (just <em>xava</em> in v6 or older) of you project a file called <em>editors.xml</em>.
       This file looks like this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
 class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
 &nbsp;
 <span class="sc0">&lt;!DOCTYPE editors SYSTEM "dtds/editors.dtd"&gt;</span>
@@ -124,29 +102,7 @@ class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span c
 <span class="sc3"><span class="re1">&lt;/editors<span class="re2">&gt;</span></span></span></pre>
       Simply it contains the definition of a group of editors, and an editor is
       defined like this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
 <span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                                   &lt;!--  1  New in v2.1.3 --<span
 class="re2">&gt;</span></span>
     url="url"                           <span class="sc-1">          &lt;!--  2 --&gt;</span>
@@ -304,29 +260,7 @@ class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
     <div class="wiki" style="display: block;"> Let's see an example of an editor
       definition. This example is an editor that comes with OpenXava, but it is
       a good example to learn how to make your custom editors:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
@@ -351,46 +285,7 @@ class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
       Here a group of basic types is assigned to the editor <em>textEditor.jsp</em>
       (you can find it in <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/editors"><em>openxava/src/main/resources/META-INF/resources/xava/editors</em></a>).
       The JSP code of this editor is:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
 
 class="sy0">=</span><span class="st0">"org.openxava.model.meta.MetaProperty"</span> <span
 
@@ -508,29 +403,7 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       directly with JSP is easy it is not usual to do it. It's more common to
       configure existing JSPs. For example, in your <em>editors.xml</em> in <i>src/main/resources/xava</i>
       (just <i>xava</i> before v7) you can write:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;formatter</span> <span class="re0">class</span>=<span
@@ -543,194 +416,7 @@ class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
       In this way you are overwriting the OpenXava behavior for properties of <em>String</em>
       type, now all Strings are displayed and accepted in upper-cases. Let's see
       the code of the formatter:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
+      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
 
 class="sy0">;</span>
 &nbsp;
@@ -809,194 +495,7 @@ class="br0">)</span><span class="sy0">;</span>
       For example if you want to define a stereotype REGIONS that allows the
       user to select more than one region for a single property. You may use the
       stereotype in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONS"</span><span
+      <pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONS"</span><span
 
 class="br0">)</span>
 <span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
@@ -1006,57 +505,13 @@ class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</sp
 class="sy0">;</span></pre>
       Then you need to add the next entry to your <em>stereotype-type-default.xml</em>
       file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;for</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;for</span> <span
 
 class="re0">stereotype</span>=<span class="st0">"REGIONS"</span> <span class="re0">type</span>=<span
 
 class="st0">"String []"</span><span class="re2">/&gt;</span></span></pre>
       And to define in your editor in your <em>editors.xml</em> file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"regionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
 
@@ -1088,46 +543,7 @@ class="st0">"REGIONS"</span><span class="re2">/&gt;</span></span>
       that simply do a bypass.<br>
       The last is to write your JSP editor in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
 
 class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
@@ -1291,46 +707,7 @@ class="sy1">%&gt;</span>"&gt;
       instead of a simple string (<em>String</em>).<br>
       As alternative, you can define the above editor using checkboxes <em>(new
         in v4.9)</em>, as following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
 
 class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
@@ -1487,29 +864,7 @@ class="br0">]</span><span class="sy1">%&gt;</span>"&gt;
       By default references are displayed with a detail view, but you can create
       your own editor for references. For example, you can write this in the <em>editors.xml</em>
       file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"colorEditor.jsp"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;for-reference</span> <span class="re0">model</span>=<span
@@ -1569,29 +924,7 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       Moreover, you can define the way all references are displayed by default
       for your entire application, using <em>&lt;for-references/&gt;</em>. Edit
       your <em>editors.xml</em> and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">name</span>=<span class="st0">"MyReference"</span> <span class="re0">url</span>=<span
 
@@ -1611,29 +944,7 @@ class="re2">&gt;</span></span>
       By default collections are displayed with a tabular data list, but you can
       create your own editor for collections. For example, you can write this in
       the <em>editors.xml</em> file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"blogCommentsEditor.jsp"</span><span class="re2">&gt;</span></span>
  <span class="sc3"><span class="re1">&lt;for-collection</span> <span class="re0">model</span>=<span
@@ -1648,46 +959,7 @@ class="st0">"BlogComment"</span><span class="re2">/&gt;</span></span>
         about View</a>). <em>&lt;for-collection /&gt;</em> works for <em>@OneToMany/@ManyToMany</em>
       and <em>@ElementCollection</em> collections.<br>
       Here the code for <em>blogCommentsEditor.jsp</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
+      <pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
 
 class="kw1">include</span> page<span class="sy0">=</span><span class="st0">"collectionEditor.jsp"</span><span
 
@@ -1705,46 +977,7 @@ class="sy0">/&gt;</span>
       you only have to do the rendering of the list.<br>
       The <em>blogCommentsListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
 
 class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 
@@ -1890,46 +1123,7 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       Of course, you can create your collection editor from scratch, without
       using <em>collectionEditor.jsp</em>. In this case you have to write the
       whole user interface for the collection. Look an example in <em>carriersNamesEditor.jsp</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
 
 class="sy0">=</span><span class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
 <span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
@@ -2010,29 +1204,7 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       <em>@OneToMany/@ManyToMany</em> collections and <em>&lt;for-element-collections/&gt;</em>
       <em>(new in v5.0)</em> for <em>@ElementCollection</em>. Edit your <em>editors.xml</em>
       and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">name</span>=<span class="st0">"MyCollection"</span> <span class="re0">url</span>=<span
 
@@ -2057,29 +1229,7 @@ class="sc-1">&lt;!-- New in v5.0 --&gt;</span>
       By default tabular data (the data shown in list mode) is displayed with a
       list, but you can create your own editor for list mode. For example, you
       can write this in the <em>editors.xml</em> file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"corporationEmployeeListEditor.jsp"</span><span
 
@@ -2096,46 +1246,7 @@ class="st0">"CorporationEmployee"</span><span class="re2">/&gt;</span></span>
         an editor</a> section).<br>
       Here is the code for <em>corporationEmployeeListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
 
 class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 
@@ -2215,46 +1326,7 @@ class="sy0">;</span>
       create your own list editor from scratch, for example, the following
       editor, <em>customerCardListEditor.jsp</em>, shows a list customer as a
       row of cards:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
 
 class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 
@@ -2377,29 +1449,7 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
       Moreover, you can define the way all the lists are displayed by default
       for your entire application, using <em>&lt;for-tabs/&gt;</em>. Edit your
       <em>editors.xml</em> and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">name</span>=<span class="st0">"MyList"</span> <span class="re0">url</span>=<span
 
@@ -2416,29 +1466,7 @@ class="st0">"myListEditor.jsp"</span><span class="re2">&gt;</span></span>
       and <em>editors.xml</em> are used as different list formats that the user
       can choose. For example, if you have this in <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-editors.xml">openxava/src/main/resources/xava/default-editors.xml</a>
       <em>(OpenXava/xava/default-editors.xml</em> before v7):<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">name</span>=<span class="st0">"List"</span> <span class="re0">url</span>=<span
 
@@ -2460,29 +1488,7 @@ class="re2">&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
       And the next declaration in the <em>editors.xml</em> of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">name</span>=<span class="st0">"MyCards"</span> <span class="re0">url</span>=<span
 
@@ -2691,29 +1697,7 @@ String name;
       loaded automatically.<br>
       Moreover, since v7.1 you cannot user inline events, like <i>onclick</i>,
       you cannot write this code:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.html4strict  {font-family:monospace;}
-.html4strict .imp {font-weight: bold; color: red;}
-.html4strict .kw2 {color: #000000; font-weight: bold;}
-.html4strict .kw3 {color: #000066;}
-.html4strict .es0 {color: #000099; font-weight: bold;}
-.html4strict .br0 {color: #66cc66;}
-.html4strict .sy0 {color: #66cc66;}
-.html4strict .st0 {color: #ff0000;}
-.html4strict .nu0 {color: #cc66cc;}
-.html4strict .sc-2 {color: #404040;}
-.html4strict .sc-1 {color: #808080; font-style: italic;}
-.html4strict .sc0 {color: #00bbdd;}
-.html4strict .sc1 {color: #ddbb00;}
-.html4strict .sc2 {color: #009900;}
-.html4strict span.xtra { display:block; }
-
--->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
+      <pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
 class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
 class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
       Instead you have to attach the events from the code in your JS files. For
@@ -2726,29 +1710,7 @@ class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
       page loading is produced. You have to register your initialization code in
       OpenXava. You can do it in your <em>myEditor.js</em> file (or another
       file in <i>src/main/webapp/xava/editors/js</i>), as following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
+      <pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
 class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span>
 <span class="coMULTI">/*
@@ -2765,29 +1727,7 @@ or $(function() { ... }) of jQuery
       already displayed page.<br>
       Since v4.8.1 you can also define a destroy function for your editor in
       your <em>myEditor.js</em> file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
+      <pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
 class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v4.8.1</span>
 <span class="coMULTI">/*
@@ -2802,29 +1742,7 @@ This is to free resources obtained by the editor.
         file:<br>
       </p>
       <div class="wiki">
-        <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
+        <pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
 class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
 class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v7.1</span>
 <span class="coMULTI">/*
@@ -2910,194 +1828,7 @@ before each AJAX request from OpenXava.
       with data from the database.<br>
       Let's see this.<br>
       You define the properties like this in your entity:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
+      <pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
 
 class="br0">)</span>
 <span class="kw2">private</span> <span class="kw3">int</span> familyNumber<span
@@ -3110,29 +1841,7 @@ class="sy0">;</span>
 class="sy0">;</span>
 &nbsp;</pre>
       And in your <em>editors.xml</em> put:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
 
 class="re0">url</span>=<span class="st0">"descriptionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
 
@@ -3274,29 +1983,7 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
           style="font-size: 1.1em; line-height: 1.5;"><strong>Example</strong></span></h3>
       First you have to define in your module that you want to use your own JSP,
       in <em>application.xml</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
 class="st0">"invoicing.variations"</span><span class="re2">&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
@@ -3319,46 +2006,7 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
       the focus order, etc explicitly. You can put your JSP inside <i>src/main/webapp</i><em>/custom-jsp</em>
       (or other of your choice) folder of your project (<i>web</i> instead of <i>src/main/webapp</i><em>
       </em>for versions older than v7.0), and it can be as this one:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
 class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
 class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &nbsp;
@@ -3403,29 +2051,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       The &lt;xava:editor/&gt; tag allows you to render an editor (a HTML
       control) for your property, in the same way that OpenXava does it when it
       generates the user interface automatically.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
 <span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
 editable="true|false" <span class="sc-1">&lt;!-- 2 New in v2.0.1 --&gt;</span>
@@ -3454,57 +2080,13 @@ value="explicitValue" <span class="sc-1">&lt;!-- 4 New in v7.6 --&gt;</span>
             xava:link, xava:image, xava:button</strong></span></h3>
       The &lt;xava:action/&gt; tag allows you to render an action (a button or a
       image that the user can click).<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
 class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
       The action attribute indicates the action to execute, and the argv
       attribute (optional) allows you to put values to some properties of the
       action before execute it. One example:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
 class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       When the user clicks on it, then it executes the action CRUD.save, before
@@ -3515,29 +2097,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       <em>&lt;xava:image/&gt;</em> or <em>&lt;xava:link/&gt;</em> similars to <em>&lt;xava:action/&gt;</em>.<br>
       You can specify an empty string as action <em>(new in v2.2.1)</em>, as
       following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
 class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
       In this case the tag has no effect and no error is produced. This feature
       may be useful if you fill the name of the action dynamically (that is
@@ -3552,29 +2112,7 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
         (new in v2.0.3)</h3>
       The &lt;xava:message/&gt; tag allows to show in HTML a message from the
       i18n resource files of OpenXava.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
 class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
 class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
 class="re2">/&gt;</span></span></pre>
@@ -3593,58 +2131,14 @@ class="re2">/&gt;</span></span></pre>
       This tag only generates the message text, without any formatting HTML
       tags.<br>
       An example:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
 class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
 class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
       <h3 id="toc19"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:label (new in v5.5)"></a>xava:label
         (new in v5.5)</h3>
       The &lt;xava:label/&gt; tag allows to show in HTML a label from the i18n
       resource labels files of OpenXava.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
 class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&gt;</span></span></pre>
       The message is searched first in the label resource files of your project
       (<em>yourproject/src/main/resources/i18n/yourproject-labels_en.properties</em>
@@ -3655,46 +2149,7 @@ class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&
       older).<br>
       This tag only generates the label text, without any formatting HTML tags.<br>
       With &lt;xava:label/&gt; instead of writing this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
@@ -3702,46 +2157,7 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
 <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
       You can write this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
 class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
 class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
@@ -3756,29 +2172,7 @@ class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</sp
       The &lt;xava:descriptionsList/&gt; tag allows you to render a description
       list (a HTML combo) for your reference, in the same way that OpenXava does
       it when it generates the user interface automatically.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
 <span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
 class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br> descriptionValue="descriptionValue" <span class="sc-1"> &lt;!-- 3 New in v7.6 --&gt;</span><br>/&gt;</pre>
       <ol>
@@ -3791,46 +2185,7 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one.<br>
       <em>An example:</em><br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
@@ -3842,46 +2197,7 @@ class="sy0">=</span><span class="st0">"level"</span><span class="sy0">/&gt;</spa
       A combo is shown with all available levels.<br>
       <br>
       <em>An example using descriptionValue:</em><br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
+      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Customer<span class="sy0">:</span> <span
 class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
 <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
