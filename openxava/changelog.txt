@@ -1,11 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Consistent source code formatting in reference guide.
 - Groovy upgraded to 4.0.29.
 - PDFBox upgraded to 3.0.6.
 - Embedded Tomcat used in development upgraded to 9.0.112.
 - Driver version in doc/new projects upgraded for MySQL and Oracle.
-- Consistent source code formatting in the model, view, tab, mapping and controllers sections of the reference guide.
 - Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them. 
 - Cleaned HTML code for Index, Migration and IntelliJ documentation, making it more human and AI readable.
 - Copy button in source code snippets in documentation.
