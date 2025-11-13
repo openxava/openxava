@@ -11,7 +11,7 @@
               </a> </span> / <a href="index_en.html">documentation</a> / </span>
         Application </h1>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a>
-      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
         href="tab_en.html">Tabular data</a> | <a class="wiki_link" href="mapping_en.html">Object/relational
         mapping</a> | <a class="wiki_link" href="controllers_en.html">Controllers</a>
       | <strong>Application</strong> | <a class="wiki_link" href="customizing_en.html">Customizing</a>
@@ -40,36 +40,14 @@
       that can be found in the <em>src/main/resources/xava</em> directory of
       your project (in <i>xava</i> directory in v6 or older).<br>
       The file syntax is:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                   &lt;!-- 1 --<span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;application</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                   &lt;!-- 1 --<span
 class="re2">&gt;</span></span>
     label="label"                 <span class="sc-1">&lt;!-- 2 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span
+    <span class="sc3"><span class="re1">&lt;default-module</span> ... <span class="re2">/&gt;</span></span> ...    <span
 class="sc-1">&lt;!-- 3  New in v2.2.2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span
+    <span class="sc3"><span class="re1">&lt;module</span> ... <span class="re2">/&gt;</span></span> ...            <span
 class="sc-1">&lt;!-- 4 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/application<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -84,49 +62,27 @@ class="sc-1">&lt;!-- 4 --&gt;</span>
       </ol>
       In short, an application is a set of modules. Let's see how define a
       module:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                    &lt;!--  1 --<span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span></span>
+<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                    &lt;!--  1 --<span
 class="re2">&gt;</span></span>
     label="label"                  <span class="sc-1">&lt;!--  2 --&gt;</span>
     description="description"      <span class="sc-1">&lt;!--  3 --&gt;</span>
 &gt;
-    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span
+    <span class="sc3"><span class="re1">&lt;env-var</span> ... <span class="re2">/&gt;</span></span> ...            <span
 class="sc-1">&lt;!--  4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span
+    <span class="sc3"><span class="re1">&lt;model</span> ... <span class="re2">/&gt;</span></span>                  <span
 class="sc-1">&lt;!--  5 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span
+    <span class="sc3"><span class="re1">&lt;view</span> ... <span class="re2">/&gt;</span></span>                   <span
 class="sc-1">&lt;!--  6 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span
+    <span class="sc3"><span class="re1">&lt;web-view</span> ... <span class="re2">/&gt;</span></span>               <span
 class="sc-1">&lt;!--  7 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span
+    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                    <span
 class="sc-1">&lt;!--  8 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span
+    <span class="sc3"><span class="re1">&lt;controller</span> ... <span class="re2">/&gt;</span></span> ...         <span
 class="sc-1">&lt;!--  9 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> ... <span class="re2">/&gt;</span></span>        <span
 class="sc-1">&lt;!-- 10 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span
+    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                    <span
 class="sc-1">&lt;!-- 11  Until v6.6.3 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <ol>
@@ -168,38 +124,16 @@ class="sc-1">&lt;!-- 11  Until v6.6.3 --&gt;</span>
       <h2 id="toc1"><a name="Application-Typical module example"></a>Typical
         module example</h2>
       Defining a simple module can be like this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
 class="re0">name</span>=<span class="st0">"management"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
-class="st0">"Warehouse"</span> <span class="re0">folder</span>=<span class="st0">"warehousing"</span><span
+    <span class="sc3"><span class="re1">&lt;module</span> <span class="re0">name</span>=<span
+class="st0">"Warehouse"</span> <span class="re0">folder</span>=<span class="st0">"warehousing"</span><span
 class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span>
     ...
@@ -212,7 +146,7 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       supported in the current OpenXava version) this module will be in folder
       "warehousing".<br>
       In order to execute this module you need to open your browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Warehouse"
+      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Warehouse"
         rel="nofollow">http://localhost:8080/management/modules/Warehouse</a><br>
       Until v6.6.3 a portlet was generated to allow you to deploy the module as
       a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
@@ -228,7 +162,7 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       although the module is not explicitly defined in <i>applicaction.xml</i>.<br>
       That is, if you define an entity <em>Invoice.java</em>, you can open your
       browser and go to:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Invoice"
+      <a class="wiki_link_ext" href="http://localhost:8080/management/modules/Invoice"
         rel="nofollow">http://localhost:8080/management/modules/Invoice</a><br>
       Until v6.6.3 a portlet was generated to allow you to deploy the module as
       a JSR-168/286 portlet in a Java portal. <i>Portal support was removed in
@@ -237,33 +171,11 @@ class="st0">"Warehouse"</span><span class="re2">/&gt;</span></span>
       The controller for these default modules will be Typical, but you can
       change this default value using the default-module element in <i>application.xml</i>,
       in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;application</span> <span
 class="re0">name</span>=<span class="st0">"management"</span><span class="re2">&gt;</span></span>
 &nbsp;
     <span class="sc3"><span class="re1">&lt;default-module<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+        <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
     <span class="sc3"><span class="re1">&lt;/default-module<span class="re2">&gt;</span></span></span>
 &nbsp;
@@ -299,70 +211,26 @@ class="st0">"ManagementCRUD"</span><span class="re2">/&gt;</span></span>
         module</h2>
       A module with only detail mode, without list, is defined this way <em>(new
         in v4m5)</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"InvoiceNoList"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>        <span
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>        <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Just use <em>DetailOnly</em> (1) as <em>mode-controller</em>.<br>
       If you are using a version prior to v4m5 you have to define a detail only
       module in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"InvoiceNoList"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Invoice"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
 class="st0">"Void"</span><span class="re2">/&gt;</span></span>        <span class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>Void</em> (1) mode controller is for removing the "detail – list"
@@ -372,37 +240,14 @@ class="st0">"Void"</span><span class="re2">/&gt;</span></span>        <span clas
     </div>
     <div class="wiki" style="display: block;"> A module with only list mode,
       without detail, is defined this way <em>(new in v6.0)</em>:<br>
-      <div class="wiki" id="content_view">
-        <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+<pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1  New in v2.0.4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
         Setting XAVA_LIST_ACTION to empty string (1) the detail link in each row
@@ -411,39 +256,17 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
     </div>
     <div class="wiki" style="display: block;">If you are using a version between
       v4m5 and v5.9.1 define the list only mode thus:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>  
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>           <span
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>           <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>ListOnly</em> (1) mode controller is for removing the "detail – list –
@@ -452,42 +275,20 @@ class="sc-1">&lt;!-- 1 --&gt;</span>
       supported.<br>
       If you are using a version prior to v4m5 you have to define a list only
       module in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"FamilyListOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">value</span>=<span class="st0">""</span><span
 class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Family"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
 class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                   <span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                   <span
 class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
-class="st0">"Void"</span><span class="re2">/&gt;</span></span>                  <span
+    <span class="sc3"><span class="re1">&lt;mode-controller</span> <span class="re0">name</span>=<span
+class="st0">"Void"</span><span class="re2">/&gt;</span></span>                  <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       <em>Void</em> (2) mode controller is for removing the "detail – list"
@@ -502,32 +303,10 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
         v7.0, so documentation modules are ignored since v7.0</i></div>
     <div class="wiki" style="display: block;"> A documentation module can only
       display a HTML document. It's easy to define:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"Description"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
-class="st0">"doc/description"</span> <span class="re0">languages</span>=<span class="st0">"en,es"</span><span
+    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
+class="st0">"doc/description"</span> <span class="re0">languages</span>=<span class="st0">"en,es"</span><span
 class="re2">/&gt;</span></span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       This module shows the document <em>web/doc/description_en.html</em> or <em>web/doc/description_es.html</em>
@@ -540,37 +319,15 @@ class="re2">/&gt;</span></span>
       <h2 id="toc6"><a name="Application-Read only module"></a>Read only module</h2>
       A read only module, that is only for consulting data, not for modifying,
       can be defined as following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
+      <pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
 class="re0">name</span>=<span class="st0">"CustomerReadOnly"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
-class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
+    <span class="sc3"><span class="re1">&lt;env-var</span> <span class="re0">name</span>=<span
+class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">value</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
 class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
+    <span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
 class="st0">"Customer"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                        <span
+    <span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
+class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                        <span
 class="sc-1">&lt;!-- 2 --&gt;</span>
 <span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
       Using <em>CRUD.searchReadOnly</em> (1) the user cannot edit the data, and
