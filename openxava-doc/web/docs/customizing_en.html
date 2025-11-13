@@ -1,4 +1,4 @@
-<html>
+﻿<html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Customizing - OpenXava</title>
@@ -92,105 +92,46 @@
       editors you must create in the folder <i>src/main/resources/xava</i>
       (just <em>xava</em> in v6 or older) of you project a file called <em>editors.xml</em>.
       This file looks like this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
+      <pre><code class="language-xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
 
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
-class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-&nbsp;
-<span class="sc0">&lt;!DOCTYPE editors SYSTEM "dtds/editors.dtd"&gt;</span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editors<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;editor</span> ...<span class="re2">/&gt;</span></span> ...
-<span class="sc3"><span class="re1">&lt;/editors<span class="re2">&gt;</span></span></span></pre>
+&lt;!DOCTYPE editors SYSTEM "dtds/editors.dtd"&gt;
+
+&lt;editors&gt;
+ &lt;editor .../&gt; ...
+&lt;/editors&gt;</code></pre>
       Simply it contains the definition of a group of editors, and an editor is
       defined like this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
-<span class="sc3">    <span class="re0">name</span>=<span class="st0">"name"</span>                                   &lt;!--  1  New in v2.1.3 --<span
-class="re2">&gt;</span></span>
-    url="url"                           <span class="sc-1">          &lt;!--  2 --&gt;</span>
-    format="true|false"                 <span class="sc-1">          &lt;!--  3 --&gt;</span>
-    depends-stereotypes="stereotypes"   <span class="sc-1">          &lt;!--  4 --&gt;</span>
-    depends-properties="properties"     <span class="sc-1">          &lt;!--  5 --&gt;</span>
-    frame="true|false"                  <span class="sc-1">          &lt;!--  6 --&gt;</span>
-    always-reload="true|false"                    <span class="sc-1">&lt;!--  7  New in v3.1.2 --&gt;</span>
-    composite="true|false"              <span class="sc-1">          &lt;!--  8  New in v3.1.3 --&gt;</span>
-    icon="icon"                                   <span class="sc-1">&lt;!--  9  New in v5.7 --&gt;</span>
-    init-action="Controller.action"     <span class="sc-1">          &lt;!-- 10  New in v5.7 --&gt;</span>
-    release-action="Controller.action"  <span class="sc-1">          &lt;!-- 11  New in v5.7 --&gt;</span>
-    selectable-items="true|false"                 <span class="sc-1">&lt;!-- 12  New in v5.7 --&gt;</span><br>    default-label-format="normal|small|no-label"  <span
-class="sc-1">&lt;!-- 13  New in v7.4 --&gt;</span><br>&gt;
-   <span class="sc3"><span class="re1">&lt;property</span> ... <span class="re2">/&gt;</span></span> ...                 <span
-class="sc-1">          &lt;!-- 14 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formatter</span> ... <span class="re2">/&gt;</span></span>                    <span
-class="sc-1">          &lt;!-- 15 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;list-formatter</span> ... <span class="re2">/&gt;</span></span>               <span
-class="sc-1">          &lt;!-- 16  New in v3.1.4 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-stereotype</span> ... <span class="re2">/&gt;</span></span> ...           <span
-class="sc-1">          &lt;!-- 17 --&gt;</span><br>   <span class="sc3"><span class="re1">&lt;for-annotation</span> ... <span
-class="re2">/&gt;</span></span> ...           <span class="sc-1">          &lt;!-- 18  New in v6.6 --&gt;<br>  </span>&nbsp;<span
-class="sc3"><span class="re1">&lt;for-type</span> ... <span class="re2">/&gt;</span></span> ...                 <span
-class="sc-1">          &lt;!-- 19 --&gt;<br></span>  &nbsp;<span class="sc3"><span
-class="re1">&lt;for-model-property</span> ... <span class="re2">/&gt;</span></span> ...       <span
-class="sc-1">          &lt;!-- 20 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-reference</span> ... <span class="re2">/&gt;</span></span> ...            <span
-class="sc-1">          &lt;!-- 21  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collection</span> ... <span class="re2">/&gt;</span></span> ...           <span
-class="sc-1">          &lt;!-- 22  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-tab</span> ... <span class="re2">/&gt;</span></span> ...                            <span
-class="sc-1">&lt;!-- 23  New in v4.6 --&gt;</span><br>  &nbsp;<span class="sc3"><span
-class="re1">&lt;for-valid-values</span> <span class="re2">/&gt;</span></span>                 <span
-class="sc-1">          &lt;!-- 24  New in v2.1.2 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-references</span> <span class="re2">/&gt;</span></span>                   <span
-class="sc-1">          &lt;!-- 25  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-collections</span> <span class="re2">/&gt;</span></span>                            <span
-class="sc-1">&lt;!-- 26  New in v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-element-collections</span> <span
-class="re2">/&gt;</span></span>          <span class="sc-1">          &lt;!-- 27  New in v5.0 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;for-tabs</span> <span class="re2">/&gt;</span></span>                         <span
-class="sc-1">          &lt;!-- 28  New in v4.6 --&gt;</span><br><span class="sc3"><span
-class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor
+    name="name"                                   &lt;!--  1  New in v2.1.3 --&gt;
+    url="url"                                     &lt;!--  2 --&gt;
+    format="true|false"                           &lt;!--  3 --&gt;
+    depends-stereotypes="stereotypes"             &lt;!--  4 --&gt;
+    depends-properties="properties"               &lt;!--  5 --&gt;
+    frame="true|false"                            &lt;!--  6 --&gt;
+    always-reload="true|false"                    &lt;!--  7  New in v3.1.2 --&gt;
+    composite="true|false"                        &lt;!--  8  New in v3.1.3 --&gt;
+    icon="icon"                                   &lt;!--  9  New in v5.7 --&gt;
+    init-action="Controller.action"               &lt;!-- 10  New in v5.7 --&gt;
+    release-action="Controller.action"            &lt;!-- 11  New in v5.7 --&gt;
+    selectable-items="true|false"                 &lt;!-- 12  New in v5.7 --&gt;
+    default-label-format="normal|small|no-label"  &lt;!-- 13  New in v7.4 --&gt;
+&gt;
+   &lt;property ... /&gt; ...                           &lt;!-- 14 --&gt;
+   &lt;formatter ... /&gt;                              &lt;!-- 15 --&gt;
+   &lt;list-formatter ... /&gt;                         &lt;!-- 16  New in v3.1.4 --&gt;
+   &lt;for-stereotype ... /&gt; ...                     &lt;!-- 17 --&gt;
+   &lt;for-annotation ... /&gt; ...                     &lt;!-- 18  New in v6.6 --&gt;
+   &lt;for-type ... /&gt; ...                           &lt;!-- 19 --&gt;
+   &lt;for-model-property ... /&gt; ...                 &lt;!-- 20 --&gt;
+   &lt;for-reference ... /&gt; ...                      &lt;!-- 21  New in v3.1.3 --&gt;
+   &lt;for-collection ... /&gt; ...                     &lt;!-- 22  New in v3.1.3 --&gt;
+   &lt;for-tab ... /&gt; ...                            &lt;!-- 23  New in v4.6 --&gt;
+   &lt;for-valid-values /&gt;                           &lt;!-- 24  New in v2.1.2 --&gt;
+   &lt;for-references /&gt;                             &lt;!-- 25  New in v3.1.3 --&gt;
+   &lt;for-collections /&gt;                            &lt;!-- 26  New in v3.1.3 --&gt;
+   &lt;for-element-collections /&gt;                    &lt;!-- 27  New in v5.0 --&gt;
+   &lt;for-tabs /&gt;                                   &lt;!-- 28  New in v4.6 --&gt;
+&lt;/editor&gt;</code></pre>
       <ol>
         <li><strong>name</strong> (optional): <em>(New in v2.1.3)</em> Name for
           referencing to this editor from other places, like <em>@Editor</em>
@@ -304,188 +245,51 @@ class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
     <div class="wiki" style="display: block;"> Let's see an example of an editor
       definition. This example is an editor that comes with OpenXava, but it is
       a good example to learn how to make your custom editors:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.math.BigDecimal"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"int"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.Integer"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"long"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="textEditor.jsp"&gt;
+ &lt;for-type type="java.lang.String"/&gt;
+ &lt;for-type type="java.math.BigDecimal"/&gt;
+ &lt;for-type type="int"/&gt;
+ &lt;for-type type="java.lang.Integer"/&gt;
+ &lt;for-type type="long"/&gt;
+ &lt;for-type type="java.lang.Long"/&gt;
+&lt;/editor&gt;</code></pre>
       Here a group of basic types is assigned to the editor <em>textEditor.jsp</em>
       (you can find it in <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/editors"><em>openxava/src/main/resources/META-INF/resources/xava/editors</em></a>).
       The JSP code of this editor is:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ page import="org.openxava.model.meta.MetaProperty" %&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
-
-class="sy0">=</span><span class="st0">"org.openxava.model.meta.MetaProperty"</span> <span
-
-class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 1</span>
-MetaProperty p <span class="sy0">=</span> <span class="br0">(</span>MetaProperty<span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey<span
-
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// 2</span>
-String fvalue <span class="sy0">=</span> <span class="br0">(</span>String<span class="br0">)</span> request<span
-
-class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span class="sy0">+</span> <span
-
-class="st0">".fvalue"</span><span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// 3</span>
-String align <span class="sy0">=</span> p<span class="sy0">.</span>isNumber<span
-
-class="br0">(</span><span class="br0">)</span>?<span class="st0">"right"</span><span
-
-class="sy0">:</span><span class="st0">"left"</span><span class="sy0">;</span> <span
-
-class="co1">// 4</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 5</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span> <span
-
-class="co1">// 5</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 6</span>  Ignored since v7.2, so no longer needed
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="co1">// 5</span>
-<span class="sy1">%&gt;</span>
-&lt;input id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
-
-class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" class=editor &lt;!-- 1 --&gt;
+&lt;%
+String propertyKey = request.getParameter("propertyKey"); // 1
+MetaProperty p = (MetaProperty) request.getAttribute(propertyKey); // 2
+String fvalue = (String) request.getAttribute(propertyKey + ".fvalue"); // 3
+String align = p.isNumber()?"right":"left"; // 4
+boolean editable="true".equals(request.getParameter("editable")); // 5
+String disabled=editable?"":"disabled"; // 5
+String script = request.getParameter("script"); // 6  Ignored since v7.2, so no longer needed
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) { // 5
+%&gt;
+&lt;input id="&lt;%=propertyKey%&gt;" name="&lt;%=propertyKey%&gt;" class=editor &lt;!-- 1 --&gt;
  type="text"
  tabindex="1" &lt;!-- 7 --&gt;
- title="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getDescription<span
-
-class="br0">(</span>request<span class="br0">)</span><span class="sy1">%&gt;</span>"
- align='<span class="sy1">&lt;%=</span>align<span class="sy1">%&gt;</span>' &lt;!-- 4 --&gt;
- maxlength="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>"
- size="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>"
- value="<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>" &lt;!-- 3 --&gt;
- <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span> &lt;!-- 5 --&gt;
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- 6  Ignored since v7.2 --&gt;
+ title="&lt;%=p.getDescription(request)%&gt;"
+ align='&lt;%=align%&gt;' &lt;!-- 4 --&gt;
+ maxlength="&lt;%=p.getSize()%&gt;"
+ size="&lt;%=p.getSize()%&gt;"
+ value="&lt;%=fvalue%&gt;" &lt;!-- 3 --&gt;
+ &lt;%=disabled%&gt; &lt;!-- 5 --&gt;
+ &lt;%=script%&gt; &lt;!-- 6  Ignored since v7.2 --&gt;
  /&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>&amp;nbsp;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span> <span class="kw1">if</span> <span class="br0">(</span><span
-
-class="sy0">!</span>editable<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-
-class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span> <span class="br0">}</span> <span class="sy1">%&gt;</span></pre>
+&lt;%
+} else {
+%&gt;
+&lt;%=fvalue%&gt;&amp;nbsp;
+&lt;%
+}
+%&gt;
+&lt;% if (!editable) { %&gt;
+ &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalue%&gt;"&gt;
+&lt;% } %&gt;</code></pre>
       A JSP editor receives a set of parameters and has access to attributes
       that allows to configure it in order to work suitably with OpenXava. First
       you can see how it gets <em>propertyKey</em> (1) that is used as HTML id.
@@ -508,279 +312,32 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       directly with JSP is easy it is not usual to do it. It's more common to
       configure existing JSPs. For example, in your <em>editors.xml</em> in <i>src/main/resources/xava</i>
       (just <i>xava</i> before v7) you can write:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;formatter</span> <span class="re0">class</span>=<span
-
-class="st0">"org.openxava.formatters.UpperCaseFormatter"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="textEditor.jsp"&gt;
+ &lt;formatter class="org.openxava.formatters.UpperCaseFormatter"/&gt;
+ &lt;for-type type="java.lang.String"/&gt;
+&lt;/editor&gt;</code></pre>
       In this way you are overwriting the OpenXava behavior for properties of <em>String</em>
       type, now all Strings are displayed and accepted in upper-cases. Let's see
       the code of the formatter:<br>
-      <style type="text/css"><!--
+      <pre><code class="language-java">package org.openxava.formatters;
+
+import javax.servlet.http.*;
+
 /**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.servlet.http.*</span><span
-
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
  * @author Javier Paniza
- */</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> UpperCaseFormatter <span
+ */
 
-class="kw2">implements</span> IFormatter <span class="br0">{</span> <span class="co1">// 1</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+public class UpperCaseFormatter implements IFormatter { // 1
 
-class="kw21">String</span></a> format<span class="br0">(</span>HttpServletRequest request, <a
+ public String format(HttpServletRequest request, Object string) { // 2
+ return string==null?"":string.toString().toUpperCase();
+ }
 
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public Object parse(HttpServletRequest request, String string) { // 3
+ return string==null?"":string.toString().toUpperCase();
+ }
 
-class="kw166">Object</span></a> string<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="co1">// 2</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> parse<span class="br0">(</span>HttpServletRequest request, <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> string<span
-
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// 3</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       A formatter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
 
           rel="nofollow">IFormatter</a></em> (1) or <em><a class="wiki_link_ext"
@@ -809,272 +366,17 @@ class="br0">)</span><span class="sy0">;</span>
       For example if you want to define a stereotype REGIONS that allows the
       user to select more than one region for a single property. You may use the
       stereotype in this way:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
-
--->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONS"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regions<span
-
-class="sy0">;</span></pre>
+      <pre><code class="language-java">@Stereotype("REGIONS")
+private String [] regions;</code></pre>
       Then you need to add the next entry to your <em>stereotype-type-default.xml</em>
       file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;for</span> <span
-
-class="re0">stereotype</span>=<span class="st0">"REGIONS"</span> <span class="re0">type</span>=<span
-
-class="st0">"String []"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;for stereotype="REGIONS" type="String []"/&gt;</code></pre>
       And to define in your editor in your <em>editors.xml</em> file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"regionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"regionsCount"</span> <span class="re0">value</span>=<span class="st0">"3"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;formatter</span> <span class="re0">class</span>=<span
-
-class="st0">"org.openxava.formatters.MultipleValuesByPassFormatter"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;for-stereotype</span> <span class="re0">stereotype</span>=<span
-
-class="st0">"REGIONS"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="regionsEditor.jsp"&gt; &lt;!-- 1 --&gt;
+ &lt;property name="regionsCount" value="3"/&gt; &lt;!-- 2 --&gt;
+ &lt;formatter class="org.openxava.formatters.MultipleValuesByPassFormatter"/&gt; &lt;!-- 3 --&gt;
+ &lt;for-stereotype stereotype="REGIONS"/&gt;
+&lt;/editor&gt;</code></pre>
       <em>regionsEditor.jsp</em> (1) is the JSP file to render the editor. You
       can define properties that will be sent to the JSP as request parameters
       (2). And the formatter must implement <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IMultipleValuesFormatter.html"
@@ -1088,434 +390,124 @@ class="st0">"REGIONS"</span><span class="re2">/&gt;</span></span>
       that simply do a bypass.<br>
       The last is to write your JSP editor in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ page import="java.util.Collection" %&gt;
+&lt;%@ page import="java.util.Collections" %&gt;
+&lt;%@ page import="java.util.Arrays" %&gt;
+&lt;%@ page import="org.openxava.util.Labels" %&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
-
-class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 1</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> // Ignored since v7.2, no longer needed
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
- String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"regionsCount"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
-
-class="sy0">;</span>
- Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;select id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
-
-class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" multiple="multiple"
- class=<span class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>
- <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>&gt; &lt;%-- Not used since v7.2 --%&gt;
- <span class="sy1">&lt;%</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
-
-class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
- String selected <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"selected"</span><span
-
-class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
- <span class="sy1">%&gt;</span>
+&lt;%
+String propertyKey = request.getParameter("propertyKey");
+String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue"); // 1
+boolean editable="true".equals(request.getParameter("editable"));
+String disabled=editable?"":"disabled";
+String script = request.getParameter("script"); // Ignored since v7.2, no longer needed
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) {
+ String sregionsCount = request.getParameter("regionsCount");
+ int regionsCount = sregionsCount == null?5:Integer.parseInt(sregionsCount);
+ Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
+%&gt;
+&lt;select id="&lt;%=propertyKey%&gt;" name="&lt;%=propertyKey%&gt;" multiple="multiple"
+ class=&lt;%=style.getEditor()%&gt;
+ &lt;%=disabled%&gt;
+ &lt;%=script%&gt;&gt; &lt;%-- Not used since v7.2 --%&gt;
+ &lt;%
+ for (int i=1; i&lt;regionsCount+1; i++) {
+ String selected = regions.contains(Integer.toString(i))?"selected":"";
+ %&gt;
  &lt;option
- value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>" <span class="sy1">&lt;%=</span>selected<span
-
-class="sy1">%&gt;</span>&gt;
- <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> i<span class="sy0">,</span> request<span
-
-class="sy0">.</span>getLocale<span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>
+ value="&lt;%=i%&gt;" &lt;%=selected%&gt;&gt;
+ &lt;%=Labels.get("regions." + i, request.getLocale())%&gt;
  &lt;/option&gt;
- <span class="sy1">&lt;%</span>
- <span class="br0">}</span>
- <span class="sy1">%&gt;</span>
+ &lt;%
+ }
+ %&gt;
 &lt;/select&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="kw1">else</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+&lt;%
+}
+else {
+ for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+&lt;%=Labels.get("regions." + fvalues[i], request.getLocale())%&gt;
+&lt;%
+ }
+}
+%&gt;
 
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span>
- <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-
-class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span class="br0">]</span><span
-
-class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span>
- <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+if (!editable) {
+ for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+ &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalues[i]%&gt;"&gt;
+&lt;%
+ }
+}
+%&gt;</code></pre>
       As you see it is like defining a single value editor, the main difference
       is that the formatted value (1) is an array of strings (<em>String []</em>)
       instead of a simple string (<em>String</em>).<br>
       As alternative, you can define the above editor using checkboxes <em>(new
         in v4.9)</em>, as following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ page import="java.util.Collection" %&gt;
+&lt;%@ page import="java.util.Collections" %&gt;
+&lt;%@ page import="java.util.Arrays" %&gt;
+&lt;%@ page import="org.openxava.util.Labels" %&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
-
-class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> // Ignored since v7.2, no longer needed
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
-    String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"regionsCount"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-    int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
-
-class="sy0">;</span>
-    Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
-
-class="sy0">;</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
-
-class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
-        String checked <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"checked"</span><span
-
-class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
-    <span class="sy1">%&gt;</span>
-        &lt;input name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" type="checkbox" class="<span
-
-class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>"
+&lt;%
+String propertyKey = request.getParameter("propertyKey");
+String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
+boolean editable="true".equals(request.getParameter("editable"));
+String disabled=editable?"":"disabled";
+String script = request.getParameter("script"); // Ignored since v7.2, no longer needed
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) {
+    String sregionsCount = request.getParameter("regionsCount");
+    int regionsCount = sregionsCount == null?5:Integer.parseInt(sregionsCount);
+    Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
+    for (int i=1; i&lt;regionsCount+1; i++) {
+        String checked = regions.contains(Integer.toString(i))?"checked":"";
+    %&gt;
+        &lt;input name="&lt;%=propertyKey%&gt;" type="checkbox" class="&lt;%=style.getEditor()%&gt;"
                 tabindex="1"
-                value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>"
-                <span class="sy1">&lt;%=</span>checked<span class="sy1">%&gt;</span>
-                <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
-                <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;%-- Not used since v7.2 --%&gt;
+                value="&lt;%=i%&gt;"
+                &lt;%=checked%&gt;
+                &lt;%=disabled%&gt;
+                &lt;%=script%&gt; &lt;%-- Not used since v7.2 --%&gt;
         /&gt;
-        <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span
+        &lt;%=Labels.get("regions." + i, request.getLocale())%&gt;
+    &lt;%
+    }
+}
+else {
+    for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+&lt;%=Labels.get("regions." + fvalues[i], request.getLocale())%&gt;
+&lt;%
+    }
+}
+%&gt;
 
-class="br0">(</span><span class="st0">"regions."</span> <span class="sy0">+</span> i<span
-
-class="sy0">,</span> request<span class="sy0">.</span>getLocale<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-    <span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="kw1">else</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
-
-class="br0">)</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-        &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span
-
-class="sy1">%&gt;</span>" value="<span class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+if (!editable) {
+    for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+        &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalues[i]%&gt;"&gt;
+&lt;%
+    }
+}
+%&gt;</code></pre>
       <h3 id="toc4"><a name="Customizing-Editors-Editors for references (new in v3.1.3)"></a>Editors
         for references <em>(new in v3.1.3)</em></h3>
       By default references are displayed with a detail view, but you can create
       your own editor for references. For example, you can write this in the <em>editors.xml</em>
       file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"colorEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-reference</span> <span class="re0">model</span>=<span
-
-class="st0">"Color"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="colorEditor.jsp"&gt;
+ &lt;for-reference model="Color"/&gt;
+&lt;/editor&gt;</code></pre>
       With the above code you say that any reference to <em>Color</em> entity
       must be displayed and edited using <em>colorEditor.jsp</em> (for using an
       editor only for a concrete reference in a concrete entity look at <a class="wiki_link"
@@ -1569,39 +561,9 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       Moreover, you can define the way all references are displayed by default
       for your entire application, using <em>&lt;for-references/&gt;</em>. Edit
       your <em>editors.xml</em> and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"MyReference"</span> <span class="re0">url</span>=<span
-
-class="st0">"myReferenceEditor.jsp"</span> <span class="re0">frame</span>=<span
-
-class="st0">"true"</span> <span class="re0">composite</span>=<span class="st0">"true"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-references</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor name="MyReference" url="myReferenceEditor.jsp" frame="true" composite="true"&gt;
+ &lt;for-references/&gt;
+&lt;/editor&gt;</code></pre>
       Since you have marked the editor with <em>&lt;for-references/&gt;</em>
       now all the references in your application will be displayed using your <em>myReferenceEditor.jsp</em>.
       This is a simple way to customize the behaviour of the OpenXava UI
@@ -1611,35 +573,9 @@ class="re2">&gt;</span></span>
       By default collections are displayed with a tabular data list, but you can
       create your own editor for collections. For example, you can write this in
       the <em>editors.xml</em> file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"blogCommentsEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-collection</span> <span class="re0">model</span>=<span
-
-class="st0">"BlogComment"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="blogCommentsEditor.jsp"&gt;
+ &lt;for-collection model="BlogComment"/&gt;
+&lt;/editor&gt;</code></pre>
       With the above code you say that any collection of <em>BlogComment</em>
       entities must be displayed and edited using <em>blogCommentsEditor.jsp</em>
       (for using an editor only for a concrete collection in a concrete entity
@@ -1648,56 +584,9 @@ class="st0">"BlogComment"</span><span class="re2">/&gt;</span></span>
         about View</a>). <em>&lt;for-collection /&gt;</em> works for <em>@OneToMany/@ManyToMany</em>
       and <em>@ElementCollection</em> collections.<br>
       Here the code for <em>blogCommentsEditor.jsp</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
-
-class="kw1">include</span> page<span class="sy0">=</span><span class="st0">"collectionEditor.jsp"</span><span
-
-class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>jsp<span class="sy0">:</span>param name<span class="sy0">=</span><span
-
-class="st0">"listEditor"</span> value<span class="sy0">=</span><span class="st0">"blogCommentsListEditor.jsp"</span><span
-
-class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>jsp<span class="sy0">:</span>include<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;jsp:include page="collectionEditor.jsp"&gt;
+ &lt;jsp:param name="listEditor" value="blogCommentsListEditor.jsp"/&gt;
+&lt;/jsp:include&gt;</code></pre>
       This is a typical way to create a collection editor, you call to <em>collectionEditor.jsp</em>
       (the default OpenXava editor for collections) sending as <em>listEditor</em>
       argument a JSP that contains the editor for the list part. In this way you
@@ -1705,177 +594,54 @@ class="sy0">/&gt;</span>
       you only have to do the rendering of the list.<br>
       The <em>blogCommentsListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+&lt;%@page import="org.openxava.view.View"%&gt;
+&lt;%@page import="org.openxava.model.MapFacade"%&gt;
+&lt;%@page import="org.openxava.test.model.Blog"%&gt;
+&lt;%@page import="org.openxava.test.model.BlogComment"%&gt;
+&lt;%@page import="java.util.Iterator"%&gt;
+&lt;%@page import="java.util.Map"%&gt;
+&lt;%@page import="java.text.DateFormat"%&gt;
+&lt;%@page import="org.openxava.util.Locales"%&gt;
+&lt;%@page import="org.openxava.util.Is"%&gt;
 
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.Blog"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.BlogComment"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Map"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.text.DateFormat"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Locales"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Is"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// Id to access to the view object of the collection</span>
-View collectionView <span class="sy0">=</span> <span class="br0">(</span>View<span
-
-class="br0">)</span> context<span class="sy0">.</span>get<span class="br0">(</span>request<span
-
-class="sy0">,</span> viewObject<span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// We get the collection view by means of context</span>
-View rootView <span class="sy0">=</span> collectionView<span class="sy0">.</span>getRoot<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// In this case we use the root view, the view of Blog</span>
-Map <span class="kw3">key</span> <span class="sy0">=</span> rootView<span class="sy0">.</span>getKeyValues<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>Is<span class="sy0">.</span><span
-
-class="kw3">empty</span><span class="br0">(</span><span class="kw3">key</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
+&lt;%
+String viewObject = request.getParameter("viewObject"); // Id to access to the view object of the collection
+View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
+View rootView = collectionView.getRoot(); // In this case we use the root view, the view of Blog
+Map key = rootView.getKeyValues();
+if (Is.empty(key)) {
+%&gt;
 There are no comments
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> <span
+&lt;%
+} else { // If the key has value, then we render the collection of comments
 
-class="co1">// If the key has value, then we render the collection of comments</span>
-&nbsp;
-Blog blog <span class="sy0">=</span> <span class="br0">(</span>Blog<span class="br0">)</span> MapFacade<span
+Blog blog = (Blog) MapFacade.findEntity("Blog", key);
+String action = request.getParameter("rowAction"); // rowAction is the action to edit or view each element
+String actionArgv = ",viewObject=" + viewObject;
+%&gt;
 
-class="sy0">.</span>findEntity<span class="br0">(</span><span class="st0">"Blog"</span><span
-
-class="sy0">,</span> <span class="kw3">key</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String action <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"rowAction"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// rowAction is the action to edit or view each element</span>
-String actionArgv <span class="sy0">=</span> <span class="st0">",viewObject="</span> <span
-
-class="sy0">+</span> viewObject<span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
 These are the comments:&lt;br/&gt;
-<span class="sy1">&lt;%</span>
-DateFormat df <span class="sy0">=</span> DateFormat<span class="sy0">.</span>getDateInstance<span
-
-class="br0">(</span>DateFormat<span class="sy0">.</span>SHORT<span class="sy0">,</span> Locales<span
-
-class="sy0">.</span>getCurrent<span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-int f<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> blog<span
-
-class="sy0">.</span>getComments<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> f<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- BlogComment comment <span class="sy0">=</span> <span class="br0">(</span>BlogComment<span
-
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;i&gt;&lt;b&gt;&lt;big&gt;Comment at <span class="sy1">&lt;%=</span>df<span class="sy0">.</span>format<span
-
-class="br0">(</span>comment<span class="sy0">.</span><span class="kw3">getDate</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/big&gt;&lt;/b&gt;&lt;/i&gt;
-&lt;xava:action action='<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>' argv='<span
-
-class="sy1">&lt;%=</span><span class="st0">"row="</span> <span class="sy0">+</span> f <span
-
-class="sy0">+</span> actionArgv<span class="sy1">%&gt;</span>'/&gt;
+&lt;%
+DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());
+int f=0;
+for (Iterator it = blog.getComments().iterator(); it.hasNext(); f++) {
+ BlogComment comment = (BlogComment) it.next();
+%&gt;
+&lt;i&gt;&lt;b&gt;&lt;big&gt;Comment at &lt;%=df.format(comment.getDate())%&gt;&lt;/big&gt;&lt;/b&gt;&lt;/i&gt;
+&lt;xava:action action='&lt;%=action%&gt;' argv='&lt;%="row=" + f + actionArgv%&gt;'/&gt;
 &lt;p&gt;
-&lt;i&gt;<span class="sy1">&lt;%=</span>comment<span class="sy0">.</span>getBody<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/i&gt;
+&lt;i&gt;&lt;%=comment.getBody()%&gt;&lt;/i&gt;
 &lt;/p&gt;
 &lt;hr/&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+}
+
+}
+%&gt;</code></pre>
       This editor draw the blog comments as simple texts with a date as header.<br>
       The list of parameters to be used in a list editor for collections is:<br>
       <ol>
@@ -1890,108 +656,29 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       Of course, you can create your collection editor from scratch, without
       using <em>collectionEditor.jsp</em>. In this case you have to write the
       whole user interface for the collection. Look an example in <em>carriersNamesEditor.jsp</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@page import="org.openxava.view.View"%&gt;
+&lt;%@page import="org.openxava.model.MapFacade"%&gt;
+&lt;%@page import="org.openxava.test.model.Carrier"%&gt;
+&lt;%@page import="java.util.Iterator"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
-
-class="sy0">=</span><span class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.Carrier"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// viewObject is the id of the view of the parent object</span>
-View view <span class="sy0">=</span> <span class="br0">(</span>View<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> viewObject<span
-
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// view is the view of Carrier, the parent of the collection</span>
-Carrier carrier <span class="sy0">=</span> <span class="br0">(</span>Carrier<span
-
-class="br0">)</span> MapFacade<span class="sy0">.</span>findEntity<span class="br0">(</span><span
-
-class="st0">"Carrier"</span><span class="sy0">,</span> view<span class="sy0">.</span>getKeyValues<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-The fellows of <span class="sy1">&lt;%=</span>carrier<span class="sy0">.</span>getName<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span> are:&lt;br&gt;
+&lt;%
+String viewObject = request.getParameter("viewObject"); // viewObject is the id of the view of the parent object
+View view = (View) context.get(request, viewObject); // view is the view of Carrier, the parent of the collection
+Carrier carrier = (Carrier) MapFacade.findEntity("Carrier", view.getKeyValues());
+%&gt;
+The fellows of &lt;%=carrier.getName()%&gt; are:&lt;br&gt;
 &lt;ul&gt;
-<span class="sy1">&lt;%</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> carrier<span
-
-class="sy0">.</span>getFellowCarriers<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> <span class="br0">)</span> <span
-
-class="br0">{</span>
- Carrier fellow <span class="sy0">=</span> <span class="br0">(</span>Carrier<span
-
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;li&gt;<span class="sy1">&lt;%=</span>fellow<span class="sy0">.</span>getName<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/li&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&lt;/ul&gt;</pre>
+&lt;%
+for (Iterator it = carrier.getFellowCarriers().iterator(); it.hasNext(); ) {
+ Carrier fellow = (Carrier) it.next();
+%&gt;
+&lt;li&gt;&lt;%=fellow.getName()%&gt;&lt;/li&gt;
+&lt;%
+}
+%&gt;
+&lt;/ul&gt;</code></pre>
       In this case you write the code for render the complete collection, if you
       wish to have some actions for working with the collection you must put it
       yourself. Beware, because <em>viewObject</em> here is the view of the
@@ -2010,45 +697,13 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       <em>@OneToMany/@ManyToMany</em> collections and <em>&lt;for-element-collections/&gt;</em>
       <em>(new in v5.0)</em> for <em>@ElementCollection</em>. Edit your <em>editors.xml</em>
       and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
+      <pre><code class="language-xml">&lt;editor name="MyCollection" url="myCollectionEditor.jsp"&gt;
+ &lt;for-collections/&gt;
+&lt;/editor&gt;
 
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"MyCollection"</span> <span class="re0">url</span>=<span
-
-class="st0">"myCollectionEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-collections</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span
-
-class="st0">"MyElementCollection"</span> <span class="re0">url</span>=<span class="st0">"myElementCollectionEditor.jsp"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-element-collections</span><span class="re2">/&gt;</span></span> <span
-
-class="sc-1">&lt;!-- New in v5.0 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+&lt;editor name="MyElementCollection" url="myElementCollectionEditor.jsp"&gt;
+ &lt;for-element-collections/&gt; &lt;!-- New in v5.0 --&gt;
+&lt;/editor&gt;</code></pre>
       Now all <em>@OneToMany/@ManyToMany</em> collections in your application
       will be displayed using your <em>myCollectionEditor.jsp</em> and all <em>@ElementCollection</em>
       collections using your <em>myElementCollectionEditor.jsp</em>.<br>
@@ -2057,37 +712,9 @@ class="sc-1">&lt;!-- New in v5.0 --&gt;</span>
       By default tabular data (the data shown in list mode) is displayed with a
       list, but you can create your own editor for list mode. For example, you
       can write this in the <em>editors.xml</em> file of your application:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"corporationEmployeeListEditor.jsp"</span><span
-
-class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;for-tab</span> <span class="re0">model</span>=<span
-
-class="st0">"CorporationEmployee"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="corporationEmployeeListEditor.jsp"&gt;
+  &lt;for-tab model="CorporationEmployee"/&gt;
+&lt;/editor&gt;</code></pre>
       With the above code you say that all tabs (all the lists) for <em>CorporationEmployee</em>
       entity must be displayed and edited using <em>corporationEmployeeListEditor.jsp</em>
       (for using an editor only for a concrete tab of an entity look at <a class="wiki_link"
@@ -2096,266 +723,64 @@ class="st0">"CorporationEmployee"</span><span class="re2">/&gt;</span></span>
         an editor</a> section).<br>
       Here is the code for <em>corporationEmployeeListEditor.jsp</em> in the <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> in v6 or older) folder of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
+&lt;%
+String tabObject = request.getParameter("tabObject");
+tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
+org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
+String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
+String all = condition.equals("")?"selected":"";
+String low = condition.contains("&lt;=")?"selected":"";
+String high = condition.contains("&gt;")?"selected":"";
+String action="openxava.executeAction('OpenXavaTest', 'CorporationEmployee'," +
+    "false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
+%&gt;
 
-class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
-
-class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
-
-class="br0">)</span><span class="sy0">;</span>
-String condition <span class="sy0">=</span> tab<span class="sy0">.</span>getBaseCondition<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">==</span><span class="kw4">null</span>?<span
-
-class="st0">""</span><span class="sy0">:</span>tab<span class="sy0">.</span>getBaseCondition<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-String all <span class="sy0">=</span> condition<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String low <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-
-class="br0">(</span><span class="st0">"&lt;="</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String high <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-
-class="br0">(</span><span class="st0">"&gt;"</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String action<span class="sy0">=</span><span class="st0">"openxava.executeAction('OpenXavaTest', 'CorporationEmployee',"</span> <span
-
-class="sy0">+</span>
-    <span class="st0">"false, false, 'CorporationEmployee.filter', 'segment='+this.value)"</span><span
-
-class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
 &lt;select name="&lt;xava:id name='chooseSegment'/&gt;" onchange=
-    "<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>"&gt;
-    &lt;option value="all" <span class="sy1">&lt;%=</span>all<span class="sy1">%&gt;</span>&gt;All employees&lt;/option&gt;
-    &lt;option value="low" <span class="sy1">&lt;%=</span>low<span class="sy1">%&gt;</span>&gt;Low salary employees&lt;/option&gt;
-    &lt;option value="high" <span class="sy1">&lt;%=</span>high<span class="sy1">%&gt;</span>&gt;High salary employees&lt;/option&gt;
+    "&lt;%=action%&gt;"&gt;
+    &lt;option value="all" &lt;%=all%&gt;&gt;All employees&lt;/option&gt;
+    &lt;option value="low" &lt;%=low%&gt;&gt;Low salary employees&lt;/option&gt;
+    &lt;option value="high" &lt;%=high%&gt;&gt;High salary employees&lt;/option&gt;
 &lt;/select&gt;
-&nbsp;
-&lt;jsp:include page="listEditor.jsp"/&gt;</pre>
+
+&lt;jsp:include page="listEditor.jsp"/&gt;</code></pre>
       Note that this editor includes <em>listEditor.jsp</em> at the end. <em>listEditor.jsp</em>
       is the default editor for list mode, so in this case we only refine the
       standard list adding a combo to choose a custom filter. However, you can
       create your own list editor from scratch, for example, the following
       editor, <em>customerCardListEditor.jsp</em>, shows a list customer as a
       row of cards:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String collection <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"collection"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String id <span class="sy0">=</span> <span class="st0">"list"</span><span class="sy0">;</span>
-String collectionArgv <span class="sy0">=</span> <span class="st0">""</span><span
-
-class="sy0">;</span>
-String prefix <span class="sy0">=</span> <span class="st0">""</span><span class="sy0">;</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
-
-class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>collection <span class="sy0">!=</span> <span
-
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>collection<span
-
-class="sy0">.</span>equals<span class="br0">(</span><span class="st0">""</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-    id <span class="sy0">=</span> collection<span class="sy0">;</span>
-    collectionArgv<span class="sy0">=</span><span class="st0">",collection="</span><span
-
-class="sy0">+</span>collection<span class="sy0">;</span>
-    prefix <span class="sy0">=</span> tabObject <span class="sy0">+</span> <span
-
-class="st0">"_"</span><span class="sy0">;</span>
-<span class="br0">}</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
-
-class="br0">)</span><span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>impl<span
-
-class="sy0">.</span>IXTableModel model <span class="sy0">=</span> tab<span class="sy0">.</span>getTableModel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>int r<span class="sy0">=</span>tab<span
-
-class="sy0">.</span>getInitialIndex<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> r<span class="sy0">&lt;</span>model<span class="sy0">.</span>getRowCount<span
-
-class="br0">(</span><span class="br0">)</span> <span class="sy0">&amp;&amp;</span> r <span
-
-class="sy0">&lt;</span> tab<span class="sy0">.</span>getFinalIndex<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> r<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
+&lt;%
+String collection = request.getParameter("collection");
+String id = "list";
+String collectionArgv = "";
+String prefix = "";
+String tabObject = request.getParameter("tabObject");
+tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
+if (collection != null &amp;&amp; !collection.equals("")) {
+    id = collection;
+    collectionArgv=",collection="+collection;
+    prefix = tabObject + "_";
+}
+org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
+org.openxava.tab.impl.IXTableModel model = tab.getTableModel();
+for (int r=tab.getInitialIndex(); r&lt;model.getRowCount() &amp;&amp; r &lt; tab.getFinalIndex(); r++) {
+%&gt;
     &lt;xava:link action="List.viewDetail"&gt;&lt;div class="customer-card"&gt;
-    &lt;h4&gt;<span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">1</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>(<span class="sy1">&lt;%=</span>model<span
-
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
-
-class="nu0">0</span><span class="br0">)</span><span class="sy1">%&gt;</span>)&lt;/h4&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">2</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>&lt;br/&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">3</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span> (<span class="sy1">&lt;%=</span>model<span
-
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
-
-class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
+    &lt;h4&gt;&lt;%=model.getValueAt(r, 1)%&gt;(&lt;%=model.getValueAt(r, 0)%&gt;)&lt;/h4&gt;
+    &lt;%=model.getValueAt(r, 2)%&gt;&lt;br/&gt;
+    &lt;%=model.getValueAt(r, 3)%&gt; (&lt;%=model.getValueAt(r, 4)%&gt;)
     &lt;/div&gt;&lt;/xava:link&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+}
+%&gt;</code></pre>
       For this editor we use a CSS class, <i>customer-card</i> (inline style is
       not allowed since v7.1), put this CSS class in a <em>customerCardListEditor.</em><i>css</i>
       file inside the folder <i>src/main/webapp/xava/editors/style</i> (<i>web/xava/editors/style</i>
@@ -2377,35 +802,9 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
       Moreover, you can define the way all the lists are displayed by default
       for your entire application, using <em>&lt;for-tabs/&gt;</em>. Edit your
       <em>editors.xml</em> and add:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"MyList"</span> <span class="re0">url</span>=<span
-
-class="st0">"myListEditor.jsp"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor name="MyList" url="myListEditor.jsp"&gt;
+  &lt;for-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       Since you have marked the editor with <em>&lt;for-tabs/&gt;</em> now all
       the tabs in your application will be displayed using your <em>myListEditor.jsp</em>.
       This is a simple way to customize the behaviour of the OpenXava UI
@@ -2416,81 +815,21 @@ class="st0">"myListEditor.jsp"</span><span class="re2">&gt;</span></span>
       and <em>editors.xml</em> are used as different list formats that the user
       can choose. For example, if you have this in <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-editors.xml">openxava/src/main/resources/xava/default-editors.xml</a>
       <em>(OpenXava/xava/default-editors.xml</em> before v7):<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
+      <pre><code class="language-xml">&lt;editor name="List" url="listEditor.jsp" icon="table-large"&gt;
+    &lt;for-tabs/&gt;
+&lt;/editor&gt;
 
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"List"</span> <span class="re0">url</span>=<span
-
-class="st0">"listEditor.jsp"</span> <span class="re0">icon</span>=<span class="st0">"table-large"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span
-
-class="st0">"Charts"</span> <span class="re0">url</span>=<span class="st0">"chartsEditor.jsp"</span></span>
-<span class="sc3">    <span class="re0">selectable-items</span>=<span class="st0">"false"</span></span>
-<span class="sc3">    <span class="re0">icon</span>=<span class="st0">"chart-line"</span></span>
-<span class="sc3">    <span class="re0">init-action</span>=<span class="st0">"Chart.init"</span></span>
-<span class="sc3">    <span class="re0">release-action</span>=<span class="st0">"Chart.release"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+&lt;editor name="Charts" url="chartsEditor.jsp"
+    selectable-items="false"
+    icon="chart-line"
+    init-action="Chart.init"
+    release-action="Chart.release"&gt;
+    &lt;for-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       And the next declaration in the <em>editors.xml</em> of your project:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"MyCards"</span> <span class="re0">url</span>=<span
-
-class="st0">"myCardsEditor.jsp"</span> <span class="re0">icon</span>=<span class="st0">"view-module"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor name="MyCards" url="myCardsEditor.jsp" icon="view-module"&gt;
+    &lt;for-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       Your user will have three formats to choose in the list:<br>
       <img src="files/tab050.png" alt="tab050.png" title="tab050.png"><br>
       That is, since v5.7 <em>&lt;for-tabs/&gt;</em> does not replace but
@@ -2507,16 +846,15 @@ class="re2">&gt;</span></span>
       <h3><a name="Customizing-Editors-Editors for list formats in specific entities"></a>Editors
         for list formats in specific entities <em>(new in v7.3)</em></h3>
       Since v7.3, conditions can be added to the editors marked with <i>&lt;for-tabs/&gt;</i>.<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">name</span>=<span class="st0">"MyEditor"</span> <span class="re0">url</span>=<span
-
-class="st0">"myEditor.jsp"</span></span>
-<span class="sc3">    <span class="re0">icon</span>=<span class="st0">"puzzle"</span></span><span
-
-class="sc3"><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">&gt; <br>        &lt;has-type type="java.util.Date"&gt;<br>	&lt;has-type type="java.time.LocalDate"&gt;<br>	&lt;has-annotation annotation="DateTime"&gt;<br>	&lt;has-stereotype stereotype="DATETIME"&gt;<br>    &lt;/for-tabs&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor name="MyEditor" url="myEditor.jsp"
+    icon="puzzle"&gt;
+    &lt;for-tabs&gt;
+        &lt;has-type type="java.util.Date"&gt;
+	&lt;has-type type="java.time.LocalDate"&gt;
+	&lt;has-annotation annotation="DateTime"&gt;
+	&lt;has-stereotype stereotype="DATETIME"&gt;
+    &lt;/for-tabs&gt;
+&lt;/editor&gt;</code></pre>
       <div class="wiki" style="display: block;">Conditions allow you to display
         the editor for list formats in modules whose entities meet any of the
         defined conditions.</div>
@@ -2691,31 +1029,7 @@ String name;
       loaded automatically.<br>
       Moreover, since v7.1 you cannot user inline events, like <i>onclick</i>,
       you cannot write this code:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.html4strict  {font-family:monospace;}
-.html4strict .imp {font-weight: bold; color: red;}
-.html4strict .kw2 {color: #000000; font-weight: bold;}
-.html4strict .kw3 {color: #000066;}
-.html4strict .es0 {color: #000099; font-weight: bold;}
-.html4strict .br0 {color: #66cc66;}
-.html4strict .sy0 {color: #66cc66;}
-.html4strict .st0 {color: #ff0000;}
-.html4strict .nu0 {color: #cc66cc;}
-.html4strict .sc-2 {color: #404040;}
-.html4strict .sc-1 {color: #808080; font-style: italic;}
-.html4strict .sc0 {color: #00bbdd;}
-.html4strict .sc1 {color: #ddbb00;}
-.html4strict .sc2 {color: #009900;}
-.html4strict span.xtra { display:block; }
-
--->
-</style><pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
-class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
-class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
+      <pre><code class="language-html">&lt;input ... onclick="f()"/&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</code></pre>
       Instead you have to attach the events from the code in your JS files. For
       your JavaScript code create a file called <em>myEditor.js</em> (or
       whatever name you want), and put it in <i>src/main/webapp/xava/editors/js
@@ -2726,38 +1040,14 @@ class="sy0">/</span>&gt; &lt;!-- NOT ALLOWED SINCE v7.1 --&gt;</span></pre>
       page loading is produced. You have to register your initialization code in
       OpenXava. You can do it in your <em>myEditor.js</em> file (or another
       file in <i>src/main/webapp/xava/editors/js</i>), as following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span>
-<span class="coMULTI">/*
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
+/*
 Here your initialization code for your editor.
 That is the things your usually put in onload JavaScript event
 or $(function() { ... }) of jQuery
-*/</span>
+*/
 ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
       You see how using <em>openxava.addEditorInitFunction()</em> to register
       an initialization function. The <em>onload</em> JavaScript event or <em>ready()</em>
       event of jQuery does not work, because no page is loaded, instead the
@@ -2765,74 +1055,26 @@ or $(function() { ... }) of jQuery
       already displayed page.<br>
       Since v4.8.1 you can also define a destroy function for your editor in
       your <em>myEditor.js</em> file:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v4.8.1</span>
-<span class="coMULTI">/*
+      <pre><code class="language-javascript">openxava.addEditorDestroyFunction(function() { // New in v4.8.1
+/*
 Here the destroy code for your editor.
 This is to free resources obtained by the editor.
-*/</span>
+*/
 ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
       <h4 id="toc10"><a name="Customizing-Editors-JavaScript in editors-Until v4m2"></a></h4>
       <p>Since v7.1 you can also define a function to call just after each AJAX
         request done by OpenXava for your editor in your <em>myEditor.js</em>
         file:<br>
       </p>
       <div class="wiki">
-        <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.javascript  {font-family:monospace;}
-.javascript .imp {font-weight: bold; color: red;}
-.javascript .kw1 {color: #000066; font-weight: bold;}
-.javascript .kw2 {color: #003366; font-weight: bold;}
-.javascript .kw3 {color: #000066;}
-.javascript .co1 {color: #006600; font-style: italic;}
-.javascript .co2 {color: #009966; font-style: italic;}
-.javascript .coMULTI {color: #006600; font-style: italic;}
-.javascript .es0 {color: #000099; font-weight: bold;}
-.javascript .br0 {color: #009900;}
-.javascript .sy0 {color: #339933;}
-.javascript .st0 {color: #3366CC;}
-.javascript .nu0 {color: #CC0000;}
-.javascript .me1 {color: #660066;}
-.javascript span.xtra { display:block; }
-
--->
-</style><pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// New in v7.1</span>
-<span class="coMULTI">/*
+        <pre><code class="language-javascript">openxava.addEditorPreRequestFunction(function() { // New in v7.1
+/*
 Here the code to execute on your editor
 before each AJAX request from OpenXava.
-*/</span>
+*/
 ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
         <h4 id="toc10"><a name="Customizing-Editors-JavaScript in editors-Until v4m2"></a></h4>
       </div>
       For example, if you want to show a JavaScript alert when the user click on
@@ -2910,309 +1152,40 @@ before each AJAX request from OpenXava.
       with data from the database.<br>
       Let's see this.<br>
       You define the properties like this in your entity:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.java5  {font-family:monospace;}
-.java5 .imp {font-weight: bold; color: red;}
-.java5 .kw1 {color: #000000;  font-weight: bold;}
-.java5 .kw2 {color: #000000; font-weight: bold;}
-.java5 .kw3 {color: #006600; font-weight: bold;}
-.java5 .kw4 {color: #006600; font-weight: bold;}
-.java5 .kw5 {color: #003399; font-weight: bold;}
-.java5 .kw6 {color: #003399; font-weight: bold;}
-.java5 .kw7 {color: #003399; font-weight: bold;}
-.java5 .kw8 {color: #003399; font-weight: bold;}
-.java5 .kw9 {color: #003399; font-weight: bold;}
-.java5 .kw10 {color: #003399; font-weight: bold;}
-.java5 .kw11 {color: #003399; font-weight: bold;}
-.java5 .kw12 {color: #003399; font-weight: bold;}
-.java5 .kw13 {color: #003399; font-weight: bold;}
-.java5 .kw14 {color: #003399; font-weight: bold;}
-.java5 .kw15 {color: #003399; font-weight: bold;}
-.java5 .kw16 {color: #003399; font-weight: bold;}
-.java5 .kw17 {color: #003399; font-weight: bold;}
-.java5 .kw18 {color: #003399; font-weight: bold;}
-.java5 .kw19 {color: #003399; font-weight: bold;}
-.java5 .kw20 {color: #003399; font-weight: bold;}
-.java5 .kw21 {color: #003399; font-weight: bold;}
-.java5 .kw22 {color: #003399; font-weight: bold;}
-.java5 .kw23 {color: #003399; font-weight: bold;}
-.java5 .kw24 {color: #003399; font-weight: bold;}
-.java5 .kw25 {color: #003399; font-weight: bold;}
-.java5 .kw26 {color: #003399; font-weight: bold;}
-.java5 .kw27 {color: #003399; font-weight: bold;}
-.java5 .kw28 {color: #003399; font-weight: bold;}
-.java5 .kw29 {color: #003399; font-weight: bold;}
-.java5 .kw30 {color: #003399; font-weight: bold;}
-.java5 .kw31 {color: #003399; font-weight: bold;}
-.java5 .kw32 {color: #003399; font-weight: bold;}
-.java5 .kw33 {color: #003399; font-weight: bold;}
-.java5 .kw34 {color: #003399; font-weight: bold;}
-.java5 .kw35 {color: #003399; font-weight: bold;}
-.java5 .kw36 {color: #003399; font-weight: bold;}
-.java5 .kw37 {color: #003399; font-weight: bold;}
-.java5 .kw38 {color: #003399; font-weight: bold;}
-.java5 .kw39 {color: #003399; font-weight: bold;}
-.java5 .kw40 {color: #003399; font-weight: bold;}
-.java5 .kw41 {color: #003399; font-weight: bold;}
-.java5 .kw42 {color: #003399; font-weight: bold;}
-.java5 .kw43 {color: #003399; font-weight: bold;}
-.java5 .kw44 {color: #003399; font-weight: bold;}
-.java5 .kw45 {color: #003399; font-weight: bold;}
-.java5 .kw46 {color: #003399; font-weight: bold;}
-.java5 .kw47 {color: #003399; font-weight: bold;}
-.java5 .kw48 {color: #003399; font-weight: bold;}
-.java5 .kw49 {color: #003399; font-weight: bold;}
-.java5 .kw50 {color: #003399; font-weight: bold;}
-.java5 .kw51 {color: #003399; font-weight: bold;}
-.java5 .kw52 {color: #003399; font-weight: bold;}
-.java5 .kw53 {color: #003399; font-weight: bold;}
-.java5 .kw54 {color: #003399; font-weight: bold;}
-.java5 .kw55 {color: #003399; font-weight: bold;}
-.java5 .kw56 {color: #003399; font-weight: bold;}
-.java5 .kw57 {color: #003399; font-weight: bold;}
-.java5 .kw58 {color: #003399; font-weight: bold;}
-.java5 .kw59 {color: #003399; font-weight: bold;}
-.java5 .kw60 {color: #003399; font-weight: bold;}
-.java5 .kw61 {color: #003399; font-weight: bold;}
-.java5 .kw62 {color: #003399; font-weight: bold;}
-.java5 .kw63 {color: #003399; font-weight: bold;}
-.java5 .kw64 {color: #003399; font-weight: bold;}
-.java5 .kw65 {color: #003399; font-weight: bold;}
-.java5 .kw66 {color: #003399; font-weight: bold;}
-.java5 .kw67 {color: #003399; font-weight: bold;}
-.java5 .kw68 {color: #003399; font-weight: bold;}
-.java5 .kw69 {color: #003399; font-weight: bold;}
-.java5 .kw70 {color: #003399; font-weight: bold;}
-.java5 .kw71 {color: #003399; font-weight: bold;}
-.java5 .kw72 {color: #003399; font-weight: bold;}
-.java5 .kw73 {color: #003399; font-weight: bold;}
-.java5 .kw74 {color: #003399; font-weight: bold;}
-.java5 .kw75 {color: #003399; font-weight: bold;}
-.java5 .kw76 {color: #003399; font-weight: bold;}
-.java5 .kw77 {color: #003399; font-weight: bold;}
-.java5 .kw78 {color: #003399; font-weight: bold;}
-.java5 .kw79 {color: #003399; font-weight: bold;}
-.java5 .kw80 {color: #003399; font-weight: bold;}
-.java5 .kw81 {color: #003399; font-weight: bold;}
-.java5 .kw82 {color: #003399; font-weight: bold;}
-.java5 .kw83 {color: #003399; font-weight: bold;}
-.java5 .kw84 {color: #003399; font-weight: bold;}
-.java5 .kw85 {color: #003399; font-weight: bold;}
-.java5 .kw86 {color: #003399; font-weight: bold;}
-.java5 .kw87 {color: #003399; font-weight: bold;}
-.java5 .kw88 {color: #003399; font-weight: bold;}
-.java5 .kw89 {color: #003399; font-weight: bold;}
-.java5 .kw90 {color: #003399; font-weight: bold;}
-.java5 .kw91 {color: #003399; font-weight: bold;}
-.java5 .kw92 {color: #003399; font-weight: bold;}
-.java5 .kw93 {color: #003399; font-weight: bold;}
-.java5 .kw94 {color: #003399; font-weight: bold;}
-.java5 .kw95 {color: #003399; font-weight: bold;}
-.java5 .kw96 {color: #003399; font-weight: bold;}
-.java5 .kw97 {color: #003399; font-weight: bold;}
-.java5 .kw98 {color: #003399; font-weight: bold;}
-.java5 .kw99 {color: #003399; font-weight: bold;}
-.java5 .kw100 {color: #003399; font-weight: bold;}
-.java5 .kw101 {color: #003399; font-weight: bold;}
-.java5 .kw102 {color: #003399; font-weight: bold;}
-.java5 .kw103 {color: #003399; font-weight: bold;}
-.java5 .kw104 {color: #003399; font-weight: bold;}
-.java5 .kw105 {color: #003399; font-weight: bold;}
-.java5 .kw106 {color: #003399; font-weight: bold;}
-.java5 .kw107 {color: #003399; font-weight: bold;}
-.java5 .kw108 {color: #003399; font-weight: bold;}
-.java5 .kw109 {color: #003399; font-weight: bold;}
-.java5 .kw110 {color: #003399; font-weight: bold;}
-.java5 .kw111 {color: #003399; font-weight: bold;}
-.java5 .kw112 {color: #003399; font-weight: bold;}
-.java5 .kw113 {color: #003399; font-weight: bold;}
-.java5 .kw114 {color: #003399; font-weight: bold;}
-.java5 .kw115 {color: #003399; font-weight: bold;}
-.java5 .kw116 {color: #003399; font-weight: bold;}
-.java5 .kw117 {color: #003399; font-weight: bold;}
-.java5 .kw118 {color: #003399; font-weight: bold;}
-.java5 .kw119 {color: #003399; font-weight: bold;}
-.java5 .kw120 {color: #003399; font-weight: bold;}
-.java5 .kw121 {color: #003399; font-weight: bold;}
-.java5 .kw122 {color: #003399; font-weight: bold;}
-.java5 .kw123 {color: #003399; font-weight: bold;}
-.java5 .kw124 {color: #003399; font-weight: bold;}
-.java5 .kw125 {color: #003399; font-weight: bold;}
-.java5 .kw126 {color: #003399; font-weight: bold;}
-.java5 .kw127 {color: #003399; font-weight: bold;}
-.java5 .kw128 {color: #003399; font-weight: bold;}
-.java5 .kw129 {color: #003399; font-weight: bold;}
-.java5 .kw130 {color: #003399; font-weight: bold;}
-.java5 .kw131 {color: #003399; font-weight: bold;}
-.java5 .kw132 {color: #003399; font-weight: bold;}
-.java5 .kw133 {color: #003399; font-weight: bold;}
-.java5 .kw134 {color: #003399; font-weight: bold;}
-.java5 .kw135 {color: #003399; font-weight: bold;}
-.java5 .kw136 {color: #003399; font-weight: bold;}
-.java5 .kw137 {color: #003399; font-weight: bold;}
-.java5 .kw138 {color: #003399; font-weight: bold;}
-.java5 .kw139 {color: #003399; font-weight: bold;}
-.java5 .kw140 {color: #003399; font-weight: bold;}
-.java5 .kw141 {color: #003399; font-weight: bold;}
-.java5 .kw142 {color: #003399; font-weight: bold;}
-.java5 .kw143 {color: #003399; font-weight: bold;}
-.java5 .kw144 {color: #003399; font-weight: bold;}
-.java5 .kw145 {color: #003399; font-weight: bold;}
-.java5 .kw146 {color: #003399; font-weight: bold;}
-.java5 .kw147 {color: #003399; font-weight: bold;}
-.java5 .kw148 {color: #003399; font-weight: bold;}
-.java5 .kw149 {color: #003399; font-weight: bold;}
-.java5 .kw150 {color: #003399; font-weight: bold;}
-.java5 .kw151 {color: #003399; font-weight: bold;}
-.java5 .kw152 {color: #003399; font-weight: bold;}
-.java5 .kw153 {color: #003399; font-weight: bold;}
-.java5 .kw154 {color: #003399; font-weight: bold;}
-.java5 .kw155 {color: #003399; font-weight: bold;}
-.java5 .kw156 {color: #003399; font-weight: bold;}
-.java5 .kw157 {color: #003399; font-weight: bold;}
-.java5 .kw158 {color: #003399; font-weight: bold;}
-.java5 .kw159 {color: #003399; font-weight: bold;}
-.java5 .kw160 {color: #003399; font-weight: bold;}
-.java5 .kw161 {color: #003399; font-weight: bold;}
-.java5 .kw162 {color: #003399; font-weight: bold;}
-.java5 .kw163 {color: #003399; font-weight: bold;}
-.java5 .kw164 {color: #003399; font-weight: bold;}
-.java5 .kw165 {color: #003399; font-weight: bold;}
-.java5 .kw166 {color: #003399; font-weight: bold;}
-.java5 .co1 {color: #666666; font-style: italic;}
-.java5 .co2 {color: #006699;}
-.java5 .co3 {color: #008000; font-style: italic; font-weight: bold;}
-.java5 .coMULTI {color: #666666; font-style: italic;}
-.java5 .es0 {color: #000099; font-weight: bold;}
-.java5 .br0 {color: #009900;}
-.java5 .sy0 {color: #339933;}
-.java5 .st0 {color: #0000ff;}
-.java5 .nu0 {color: #cc66cc;}
-.java5 .me1 {color: #006633;}
-.java5 .me2 {color: #006633;}
-.java5 span.xtra { display:block; }
+      <pre><code class="language-java">@Stereotype("FAMILY")
+private int familyNumber;
 
--->
-</style><pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> familyNumber<span
-
-class="sy0">;</span>
-&nbsp;
-@Stereotype<span class="br0">(</span><span class="st0">"SUBFAMILY"</span><span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> subfamilyNumber<span
-
-class="sy0">;</span>
-&nbsp;</pre>
+@Stereotype("SUBFAMILY")
+private int subfamilyNumber;
+</code></pre>
       And in your <em>editors.xml</em> put:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
+      <pre><code class="language-xml">&lt;editor url="descriptionsEditor.jsp"&gt; &lt;!-- 10 --&gt;
+&lt;property name="model" value="Family"/&gt; &lt;!-- 1 --&gt;
+&lt;property name="keyProperty" value="number"/&gt; &lt;!-- 2 --&gt;
+&lt;property name="descriptionProperty" value="description"/&gt; &lt;!-- 3 --&gt;
+&lt;property name="orderByKey" value="true"/&gt; &lt;!-- 4 --&gt;
+&lt;property name="readOnlyAsLabel" value="true"/&gt; &lt;!-- 5 --&gt;
+&lt;for-stereotype stereotype="FAMILY"/&gt; &lt;!-- 11 --&gt;
+&lt;/editor&gt;
 
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"descriptionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 10 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"model"</span> <span class="re0">value</span>=<span class="st0">"Family"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"keyProperty"</span> <span class="re0">value</span>=<span class="st0">"number"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"descriptionProperty"</span> <span class="re0">value</span>=<span class="st0">"description"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"orderByKey"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 4 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"readOnlyAsLabel"</span> <span class="re0">value</span>=<span class="st0">"true"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 5 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;for-stereotype</span> <span class="re0">stereotype</span>=<span
-
-class="st0">"FAMILY"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc-1">&lt;!-- It is possible to specify dependencies from stereotypes or properties --&gt;</span>
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">url</span>=<span
-
-class="st0">"descriptionsEditor.jsp"</span> &lt;!-- 10 --<span class="re2">&gt;</span></span>
-depends-stereotypes="FAMILY"&gt; <span class="sc-1">&lt;!-- 12 --&gt;</span>
-<span class="sc-1">&lt;!--</span>
-<span class="sc-1">&lt;editor url="descriptionsEditor.jsp" depends-properties="familyNumber"&gt; &lt;!-- 13 --&gt;</span>
+&lt;!-- It is possible to specify dependencies from stereotypes or properties --&gt;
+&lt;editor url="descriptionsEditor.jsp" &lt;!-- 10 --&gt;
+depends-stereotypes="FAMILY"&gt; &lt;!-- 12 --&gt;
+&lt;!--
+&lt;editor url="descriptionsEditor.jsp" depends-properties="familyNumber"&gt; &lt;!-- 13 --&gt;
 --&gt;
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"model"</span> <span class="re0">value</span>=<span class="st0">"Subfamily"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"keyProperty"</span> <span class="re0">value</span>=<span class="st0">"number"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"descriptionProperties"</span> <span class="re0">value</span>=<span
-
-class="st0">"number, description"</span><span class="re2">/&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 3 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"condition"</span> <span class="re0">value</span>=<span class="st0">"${familyNumber} = ?"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 6 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"parameterValuesStereotypes"</span> <span class="re0">value</span>=<span
-
-class="st0">"FAMILY"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 7 --&gt;</span>
-<span class="sc-1">&lt;!--</span>
-<span class="sc-1">&lt;property name="parameterValuesProperties" value="familyNumber"/&gt; &lt;!-- 8 --&gt;</span>
+&lt;property name="model" value="Subfamily"/&gt; &lt;!-- 1 --&gt;
+&lt;property name="keyProperty" value="number"/&gt; &lt;!-- 2 --&gt;
+&lt;property name="descriptionProperties" value="number, description"/&gt; &lt;!-- 3 --&gt;
+&lt;property name="condition" value="${familyNumber} = ?"/&gt; &lt;!-- 6 --&gt;
+&lt;property name="parameterValuesStereotypes" value="FAMILY"/&gt; &lt;!-- 7 --&gt;
+&lt;!--
+&lt;property name="parameterValuesProperties" value="familyNumber"/&gt; &lt;!-- 8 --&gt;
 --&gt;
-<span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span
-
-class="st0">"descriptionsFormatter"</span> &lt;!-- 9 --<span class="re2">&gt;</span></span>
+&lt;property name="descriptionsFormatter" &lt;!-- 9 --&gt;
 value="org.openxava.test.formatters.FamilyDescriptionsFormatter"/&gt;
-<span class="sc3"><span class="re1">&lt;for-stereotype</span> <span class="re0">stereotype</span>=<span
-
-class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+&lt;for-stereotype stereotype="SUBFAMILY"/&gt; &lt;!-- 11 --&gt;
+&lt;/editor&gt;</code></pre>
       When you show a view with this two properties (<em>familyNumber</em> and <em>subfamilyNumber</em>)
       OpenXava displays a combo for each property, the family combo is filled
       with all families and the subfamily combo is empty; and when the user
@@ -3274,41 +1247,12 @@ class="st0">"SUBFAMILY"</span><span class="re2">/&gt;</span></span> <span class=
           style="font-size: 1.1em; line-height: 1.5;"><strong>Example</strong></span></h3>
       First you have to define in your module that you want to use your own JSP,
       in <em>application.xml</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;module</span> <span
-class="re0">name</span>=<span class="st0">"SellersJSP"</span> <span class="re0">folder</span>=<span
-class="st0">"invoicing.variations"</span><span class="re2">&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;model</span> <span class="re0">name</span>=<span
-class="st0">"Seller"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;view</span> <span class="re0">name</span>=<span
-class="st0">"ForCustomJSP"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;web-view</span> <span class="re0">url</span>=<span
-class="st0">"custom-jsp/seller.jsp"</span><span class="re2">/&gt;</span></span> <span
-class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;controller</span> <span class="re0">name</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/module<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;module name="SellersJSP" folder="invoicing.variations"&gt;
+&lt;model name="Seller"/&gt;
+&lt;view name="ForCustomJSP"/&gt; &lt;!-- 1 --&gt;
+&lt;web-view url="custom-jsp/seller.jsp"/&gt; &lt;!-- 2 --&gt;
+&lt;controller name="Typical"/&gt;
+&lt;/module&gt;</code></pre>
       If you use web-view (2) on defining your module, OpenXava uses your JSP to
       render the detail, instead of generating the view automatically.
       Optionally you can define an OpenXava view using <em>view</em> (1), this
@@ -3319,49 +1263,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
       the focus order, etc explicitly. You can put your JSP inside <i>src/main/webapp</i><em>/custom-jsp</em>
       (or other of your choice) folder of your project (<i>web</i> instead of <i>src/main/webapp</i><em>
       </em>for versions older than v7.0), and it can be as this one:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
+      <pre><code class="language-php">&lt;%@ include file="../xava/imports.jsp"%&gt;
 
--->
-</style><pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;table&gt;
 &lt;tr&gt;
 &lt;td&gt;Number: &lt;/td&gt;
@@ -3375,7 +1278,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &lt;xava:editor property="name"/&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
-&nbsp;
+
 &lt;tr&gt;
 &lt;td&gt;Level: &lt;/td&gt;
 &lt;td&gt;
@@ -3383,7 +1286,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
 &lt;xava:editor property="level.description"/&gt;
 &lt;/td&gt;
 &lt;/tr&gt;
-&lt;/table&gt;</pre>
+&lt;/table&gt;</code></pre>
       You are free to create your JSP file as you like, but it can be useful to
       use OpenXava taglibs, in this case, for example the &lt;xava:editor/&gt;
       taglib is used, this renders an editor suitable for the indicated
@@ -3403,35 +1306,12 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       The &lt;xava:editor/&gt; tag allows you to render an editor (a HTML
       control) for your property, in the same way that OpenXava does it when it
       generates the user interface automatically.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"><span class="re0">property</span>=<span class="st0">"propertyName"</span> &lt;!-- 1 --<span
-class="re2">&gt;</span></span>
-editable="true|false" <span class="sc-1">&lt;!-- 2 New in v2.0.1 --&gt;</span>
-throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 New in v2.0.1 --&gt;</span>
-value="explicitValue" <span class="sc-1">&lt;!-- 4 New in v7.6 --&gt;</span>
-/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:editor
+property="propertyName" &lt;!-- 1 --&gt;
+editable="true|false" &lt;!-- 2 New in v2.0.1 --&gt;
+throwPropertyChanged="true|false" &lt;!-- 3 New in v2.0.1 --&gt;
+value="explicitValue" &lt;!-- 4 New in v7.6 --&gt;
+/&gt;</code></pre>
       <ol>
         <li><strong>property</strong> (required): It's the property of the model
           associated with the current module</li>
@@ -3454,59 +1334,11 @@ value="explicitValue" <span class="sc-1">&lt;!-- 4 New in v7.6 --&gt;</span>
             xava:link, xava:image, xava:button</strong></span></h3>
       The &lt;xava:action/&gt; tag allows you to render an action (a button or a
       image that the user can click).<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controller.action"</span> <span class="re0">argv</span>=<span
-class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action="controller.action" argv="argv"/&gt;</code></pre>
       The action attribute indicates the action to execute, and the argv
       attribute (optional) allows you to put values to some properties of the
       action before execute it. One example:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
-class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action="CRUD.save" argv="resetAfter=true"/&gt;</code></pre>
       When the user clicks on it, then it executes the action CRUD.save, before
       it puts true to the <em>resetAfter</em> property of the action.<br>
       The action is rendered as an image, if it has an image associated.
@@ -3515,30 +1347,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       <em>&lt;xava:image/&gt;</em> or <em>&lt;xava:link/&gt;</em> similars to <em>&lt;xava:action/&gt;</em>.<br>
       You can specify an empty string as action <em>(new in v2.2.1)</em>, as
       following:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action=""/&gt;</code></pre>
       In this case the tag has no effect and no error is produced. This feature
       may be useful if you fill the name of the action dynamically (that is
       action=”&lt;%=mycode()%&gt;”), and the value can be empty in some cases.<br>
@@ -3552,32 +1361,7 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
         (new in v2.0.3)</h3>
       The &lt;xava:message/&gt; tag allows to show in HTML a message from the
       i18n resource files of OpenXava.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"message_key"</span> <span class="re0">param</span>=<span
-class="st0">"messageParam"</span> <span class="re0">intParam</span>=<span class="st0">"messageParam"</span><span
-class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:message key="message_key" param="messageParam" intParam="messageParam"/&gt;</code></pre>
       The message is searched first in the message resource files of your
       project (<em>yourproject/src/main/resources/i18n/yourproject-messages_en.properties</em>
       for v7 or better, and <em>YourProject/i18n/YourProject-messages.properties</em>
@@ -3593,59 +1377,12 @@ class="re2">/&gt;</span></span></pre>
       This tag only generates the message text, without any formatting HTML
       tags.<br>
       An example:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"list_count"</span> <span class="re0">intParam</span>=<span
-class="st0">"&lt;%=totalSize%&gt;</span></span>"/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:message key="list_count" intParam="&lt;%=totalSize%&gt;"/&gt;</code></pre>
       <h3 id="toc19"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:label (new in v5.5)"></a>xava:label
         (new in v5.5)</h3>
       The &lt;xava:label/&gt; tag allows to show in HTML a label from the i18n
       resource labels files of OpenXava.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
-class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:label key="memberName"/&gt;</code></pre>
       The message is searched first in the label resource files of your project
       (<em>yourproject/src/main/resources/i18n/yourproject-labels_en.properties</em>
       for v7 or better, and <em>YourProject/i18n/YourProject-labels.properties</em>
@@ -3655,132 +1392,28 @@ class="re0">key</span>=<span class="st0">"memberName"</span><span class="re2">/&
       older).<br>
       This tag only generates the label text, without any formatting HTML tags.<br>
       With &lt;xava:label/&gt; instead of writing this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
-class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+&lt;td&gt;Number: &lt;/td&gt;&lt;td&gt;
+&lt;xava:editor property="number"/&gt;
+&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       You can write this:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
-class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
-class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
-class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
-class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+&lt;td&gt;&lt;xava:label key="number"/&gt;: &lt;/td&gt;&lt;td&gt;
+&lt;xava:editor property="number"/&gt;
+&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       And get the label translated.<br>
       <h3 id="toc20"><a name="Customizing-Custom JSP view and OpenXava taglibs-xava:descriptionsList (new in v2.0.3)"></a>xava:descriptionsList
         (new in v2.0.3)</h3>
       The &lt;xava:descriptionsList/&gt; tag allows you to render a description
       list (a HTML combo) for your reference, in the same way that OpenXava does
       it when it generates the user interface automatically.<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
-<span class="sc3"><span class="re0"> reference</span>=<span class="st0">"referenceName"</span>     &lt;!-- 1 --<span
-class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 New in v6.0.1 --&gt;</span><br> descriptionValue="descriptionValue" <span class="sc-1"> &lt;!-- 3 New in v7.6 --&gt;</span><br>/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:descriptionsList
+ reference="referenceName"     &lt;!-- 1 --&gt;
+ readOnlyAsLabel="true|false"  &lt;!-- 2 New in v6.0.1 --&gt;
+ descriptionValue="descriptionValue"  &lt;!-- 3 New in v7.6 --&gt;
+/&gt;</code></pre>
       <ol>
         <li><strong>reference</strong> (required): It's a reference of the model
           associated with the current module.</li>
@@ -3791,105 +1424,22 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
       This tag generates the needed JavaScript in order to allow your view to
       work in the same way as an automatic one.<br>
       <em>An example:</em><br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Level<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
-class="sy0">=</span><span class="st0">"level"</span><span class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+&lt;td&gt;Level: &lt;/td&gt;
+&lt;td&gt;
+&lt;xava:descriptionsList reference="level"/&gt;
+&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       In this case level is a reference of the current model (for example <em>Seller</em>).
       A combo is shown with all available levels.<br>
       <br>
       <em>An example using descriptionValue:</em><br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.php  {font-family:monospace;}
-.php .imp {font-weight: bold; color: red;}
-.php .kw1 {color: #b1b100;}
-.php .kw2 {color: #000000; font-weight: bold;}
-.php .kw3 {color: #990000;}
-.php .kw4 {color: #009900; font-weight: bold;}
-.php .co1 {color: #666666; font-style: italic;}
-.php .co2 {color: #666666; font-style: italic;}
-.php .co3 {color: #0000cc; font-style: italic;}
-.php .co4 {color: #009933; font-style: italic;}
-.php .coMULTI {color: #666666; font-style: italic;}
-.php .es0 {color: #000099; font-weight: bold;}
-.php .es1 {color: #000099; font-weight: bold;}
-.php .es2 {color: #660099; font-weight: bold;}
-.php .es3 {color: #660099; font-weight: bold;}
-.php .es4 {color: #006699; font-weight: bold;}
-.php .es5 {color: #006699; font-weight: bold; font-style: italic;}
-.php .es6 {color: #009933; font-weight: bold;}
-.php .es_h {color: #000099; font-weight: bold;}
-.php .br0 {color: #009900;}
-.php .sy0 {color: #339933;}
-.php .sy1 {color: #000000; font-weight: bold;}
-.php .st0 {color: #0000ff;}
-.php .st_h {color: #0000ff;}
-.php .nu0 {color: #cc66cc;}
-.php .nu8 {color: #208080;}
-.php .nu12 {color: #208080;}
-.php .nu19 {color:#800080;}
-.php .me1 {color: #004000;}
-.php .me2 {color: #004000;}
-.php .re0 {color: #000088;}
-.php span.xtra { display:block; }
-
--->
-</style><pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Customer<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
-class="sy0">=</span><span class="st0">"customer"</span> descriptionValue<span
-class="sy0">=</span><span class="st0">"${customerName}"</span><span class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+&lt;td&gt;Customer: &lt;/td&gt;
+&lt;td&gt;
+&lt;xava:descriptionsList reference="customer" descriptionValue="${customerName}"/&gt;
+&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       In this example, the description shown in the dropdown list will be the value of <em>customerName</em> instead of the default description value obtained from the view.<br>
       <h2><a name="modifying-openxava-core-jsps"></a>Modifying OpenXava core
         JSPs</h2>
@@ -4874,3 +2424,5 @@ class="sy0">=</span><span class="st0">"${customerName}"</span><span class="sy0">
     </div>
   </body>
 </html>
+
+

@@ -40,6 +40,10 @@ h1 #doc {
 	padding: 6px !important;
 }
 
+code.hljs, code.hljs .hljs-tag {
+	background-color: #f6f8fa;
+}
+
 
 .wiki { line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 13px; }
 .wiki h2 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.3em; }
