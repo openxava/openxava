@@ -97,82 +97,46 @@
       nuestros podemos crear en el directorio <i>src/main/resources/xava</i> (<em>xava</em>
       en v6 o anteriores) de nuestro proyecto un archivo llamado <em>editores.xml</em>.
       Este archivo es como sigue:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;?xml</span> version = <span
+      <pre><code class="language-xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
 
-class="st0">"1.0"</span> encoding = <span class="st0">"ISO-8859-1"</span><span class="re2">?&gt;</span></span>
-&nbsp;
-<span class="sc0">&lt;!DOCTYPE editores SYSTEM "dtds/editores.dtd"&gt;</span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editores<span class="re2">&gt;</span></span></span>
- <span class="sc3"><span class="re1">&lt;editor</span> ...<span class="re2">/&gt;</span></span> ...
-<span class="sc3"><span class="re1">&lt;/editores<span class="re2">&gt;</span></span></span></pre>
+&lt;!DOCTYPE editores SYSTEM "dtds/editores.dtd"&gt;
+
+&lt;editores&gt;
+ &lt;editor .../&gt; ...
+&lt;/editores&gt;</code></pre>
       Simplemente contiene la definición de un conjunto de editores, y un editor
       se define así:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                                         &lt;!--  1  Nuevo en v2.1.3 --<span
-
-class="re2">&gt;</span></span>
-    url="url"                               <span class="sc-1">                &lt;!--  2 --&gt;</span>
-    formatear="true|false"                  <span class="sc-1">                &lt;!--  3 --&gt;</span>
-    depende-de-estereotipos="estereotipos"                  <span class="sc-1">&lt;!--  4 --&gt;</span>
-    depende-de-propiedades="propiedades"    <span class="sc-1">                &lt;!--  5 --&gt;</span>
-    enmarcable="true|false"                 <span class="sc-1">                &lt;!--  6 --&gt;</span>
-    recargar-siempre="true|false"           <span class="sc-1">                &lt;!--  7  Nuevo en v3.1.2 --&gt;</span>
-    compuesto="true|false"                  <span class="sc-1">                &lt;!--  8  Nuevo en v3.1.3 --&gt;</span>
-    icono="icono"                           <span class="sc-1">                &lt;!--  9  Nuevo en v5.7 --&gt;</span>
-    accion-iniciar="Controlador.accion"                     <span class="sc-1">&lt;!-- 10  Nuevo en v5.7 --&gt;</span>
-    accion-liberar="Controlador.accion"     <span class="sc-1">                &lt;!-- 11  Nuevo en v5.7 --&gt;</span>
-    elementos-seleccionables="true|false"                   <span class="sc-1">&lt;!-- 12  Nuevo en v5.7 --&gt;</span><br>    formato-etiqueta-defecto="normal|pequena|sin-etiqueta"  <span
-
-class="sc-1">&lt;!-- 13  Nuevo en v7.4 --&gt;</span><br>&gt;
-   <span class="sc3"><span class="re1">&lt;propiedad</span> ... <span class="re2">/&gt;</span></span> ...                    <span
-
-class="sc-1">                &lt;!-- 14 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formateador</span> ... <span class="re2">/&gt;</span></span>                                      <span
-
-class="sc-1">&lt;!-- 15 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;formateador-lista</span> ... <span class="re2">/&gt;</span></span>                <span
-
-class="sc-1">                &lt;!-- 16  Nuevo en v3.1.4 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-estereotipo</span> ... <span class="re2">/&gt;</span></span> ...             <span
-
-class="sc-1">                &lt;!-- 17 --&gt;</span><br>   <span class="sc3"><span
-
-class="re1">&lt;para-anotacion</span> ... <span class="re2">/&gt;</span></span> ...             <span
-
-class="sc-1">                  &lt;!-- 18  Nuevo en v6.6 --&gt;</span><br>  &nbsp;<span
-
-class="sc3"><span class="re1">&lt;para-tipo</span> ... <span class="re2">/&gt;</span></span> ...                    <span
-
-class="sc-1">                &lt;!-- 19 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-propiedad-modelo</span> ... <span
-
-class="re2">/&gt;</span></span> ...        <span class="sc-1">                &lt;!-- 20 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-referencia</span> ... <span class="re2">/&gt;</span></span> ...              <span
-
-class="sc-1">                &lt;!-- 21  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-coleccion</span> ... <span class="re2">/&gt;</span></span> ...               <span
-
-class="sc-1">                &lt;!-- 22  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-tab</span> ... <span class="re2">/&gt;</span></span> ...                     <span
-
-class="sc-1">                &lt;!-- 23  Nuevo en v4.6 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-valores-posibles</span> <span class="re2">/&gt;</span></span>                <span
-
-class="sc-1">                &lt;!-- 24  Nuevo en v2.1.2 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-referencias</span> <span class="re2">/&gt;</span></span>                     <span
-
-class="sc-1">                &lt;!-- 25  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-colecciones</span> <span class="re2">/&gt;</span></span>                     <span
-
-class="sc-1">                &lt;!-- 26  Nuevo en v3.1.3 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span> <span
-
-class="re2">/&gt;</span></span>                           <span class="sc-1">&lt;!-- 27  Nuevo en v5.0 --&gt;</span>
-   <span class="sc3"><span class="re1">&lt;para-tabs</span> <span class="re2">/&gt;</span></span>                            <span
-
-class="sc-1">                &lt;!-- 28  Nuevo en v4.6 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor
+    nombre="nombre"                                         &lt;!--  1  Nuevo en v2.1.3 --&gt;
+    url="url"                                               &lt;!--  2 --&gt;
+    formatear="true|false"                                  &lt;!--  3 --&gt;
+    depende-de-estereotipos="estereotipos"                  &lt;!--  4 --&gt;
+    depende-de-propiedades="propiedades"                    &lt;!--  5 --&gt;
+    enmarcable="true|false"                                 &lt;!--  6 --&gt;
+    recargar-siempre="true|false"                           &lt;!--  7  Nuevo en v3.1.2 --&gt;
+    compuesto="true|false"                                  &lt;!--  8  Nuevo en v3.1.3 --&gt;
+    icono="icono"                                           &lt;!--  9  Nuevo en v5.7 --&gt;
+    accion-iniciar="Controlador.accion"                     &lt;!-- 10  Nuevo en v5.7 --&gt;
+    accion-liberar="Controlador.accion"                     &lt;!-- 11  Nuevo en v5.7 --&gt;
+    elementos-seleccionables="true|false"                   &lt;!-- 12  Nuevo en v5.7 --&gt;
+    formato-etiqueta-defecto="normal|pequena|sin-etiqueta"  &lt;!-- 13  Nuevo en v7.4 --&gt;
+&gt;
+   &lt;propiedad ... /&gt; ...                                    &lt;!-- 14 --&gt;
+   &lt;formateador ... /&gt;                                      &lt;!-- 15 --&gt;
+   &lt;formateador-lista ... /&gt;                                &lt;!-- 16  Nuevo en v3.1.4 --&gt;
+   &lt;para-estereotipo ... /&gt; ...                             &lt;!-- 17 --&gt;
+   &lt;para-anotacion ... /&gt; ...                               &lt;!-- 18  Nuevo en v6.6 --&gt;
+   &lt;para-tipo ... /&gt; ...                                    &lt;!-- 19 --&gt;
+   &lt;para-propiedad-modelo ... /&gt; ...                        &lt;!-- 20 --&gt;
+   &lt;para-referencia ... /&gt; ...                              &lt;!-- 21  Nuevo en v3.1.3 --&gt;
+   &lt;para-coleccion ... /&gt; ...                               &lt;!-- 22  Nuevo en v3.1.3 --&gt;
+   &lt;para-tab ... /&gt; ...                                     &lt;!-- 23  Nuevo en v4.6 --&gt;
+   &lt;para-valores-posibles /&gt;                                &lt;!-- 24  Nuevo en v2.1.2 --&gt;
+   &lt;para-referencias /&gt;                                     &lt;!-- 25  Nuevo en v3.1.3 --&gt;
+   &lt;para-colecciones /&gt;                                     &lt;!-- 26  Nuevo en v3.1.3 --&gt;
+   &lt;para-colecciones-elementos /&gt;                           &lt;!-- 27  Nuevo en v5.0 --&gt;
+   &lt;para-tabs /&gt;                                            &lt;!-- 28  Nuevo en v4.6 --&gt;
+&lt;/editor&gt;</code></pre>
       <ol>
         <li><strong>nombre</strong> (opcional): <em>(Nuevo en v2.1.3)</em>
           Nombre para referenciar a este editor desde otros sitios, por ejemplo
@@ -295,127 +259,51 @@ class="sc-1">                &lt;!-- 28  Nuevo en v4.6 --&gt;</span>
       definición de editor, este ejemplo es uno de los editores que vienen
       incluidos con OpenXava, pero es un buen ejemplo para aprender como hacer
       nuestros propios editores:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.math.BigDecimal"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"int"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.Integer"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"long"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;for-type</span> <span class="re0">type</span>=<span
-
-class="st0">"java.lang.Long"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="textEditor.jsp"&gt;
+ &lt;for-type type="java.lang.String"/&gt;
+ &lt;for-type type="java.math.BigDecimal"/&gt;
+ &lt;for-type type="int"/&gt;
+ &lt;for-type type="java.lang.Integer"/&gt;
+ &lt;for-type type="long"/&gt;
+ &lt;for-type type="java.lang.Long"/&gt;
+&lt;/editor&gt;</code></pre>
       Aquí asignamos a un grupo de tipos básicos el editor <em>textEditor.jsp</em>
       (podemos encontrarlo en <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/editors"><em>openxava/src/main/resources/META-INF/resources/xava/editors</em></a>).
       El código JSP de este editor es:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre><code class="language-php">&lt;%@ page import="org.openxava.model.meta.MetaProperty" %&gt;
 
-class="sy0">=</span><span class="st0">"org.openxava.model.meta.MetaProperty"</span> <span
-
-class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 1</span>
-MetaProperty p <span class="sy0">=</span> <span class="br0">(</span>MetaProperty<span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey<span
-
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// 2</span>
-String fvalue <span class="sy0">=</span> <span class="br0">(</span>String<span class="br0">)</span> request<span
-
-class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span class="sy0">+</span> <span
-
-class="st0">".fvalue"</span><span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// 3</span>
-String align <span class="sy0">=</span> p<span class="sy0">.</span>isNumber<span
-
-class="br0">(</span><span class="br0">)</span>?<span class="st0">"right"</span><span
-
-class="sy0">:</span><span class="st0">"left"</span><span class="sy0">;</span> <span
-
-class="co1">// 4</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 5</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span> <span
-
-class="co1">// 5</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// 6</span>  Ignorado desde v7.2, por lo que ya no es necesario
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="co1">// 5</span>
-<span class="sy1">%&gt;</span>
-&lt;input id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
-
-class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" class=editor &lt;!-- 1 --&gt;
+&lt;%
+String propertyKey = request.getParameter("propertyKey"); // 1
+MetaProperty p = (MetaProperty) request.getAttribute(propertyKey); // 2
+String fvalue = (String) request.getAttribute(propertyKey + ".fvalue"); // 3
+String align = p.isNumber()?"right":"left"; // 4
+boolean editable="true".equals(request.getParameter("editable")); // 5
+String disabled=editable?"":"disabled"; // 5
+String script = request.getParameter("script"); // 6  Ignorado desde v7.2, por lo que ya no es necesario
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) { // 5
+%&gt;
+&lt;input id="&lt;%=propertyKey%&gt;" name="&lt;%=propertyKey%&gt;" class=editor &lt;!-- 1 --&gt;
  type="text"
  tabindex="1" &lt;!-- 7 --&gt;
- title="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getDescription<span
-
-class="br0">(</span>request<span class="br0">)</span><span class="sy1">%&gt;</span>"
- align='<span class="sy1">&lt;%=</span>align<span class="sy1">%&gt;</span>' &lt;!-- 4 --&gt;
- maxlength="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>"
- size="<span class="sy1">&lt;%=</span>p<span class="sy0">.</span>getSize<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>"
- value="<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>" &lt;!-- 3 --&gt;
- <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span> &lt;!-- 5 --&gt;
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- 6  Ignorado desde v7.2 --&gt;
+ title="&lt;%=p.getDescription(request)%&gt;"
+ align='&lt;%=align%&gt;' &lt;!-- 4 --&gt;
+ maxlength="&lt;%=p.getSize()%&gt;"
+ size="&lt;%=p.getSize()%&gt;"
+ value="&lt;%=fvalue%&gt;" &lt;!-- 3 --&gt;
+ &lt;%=disabled%&gt; &lt;!-- 5 --&gt;
+ &lt;%=script%&gt; &lt;!-- 6  Ignorado desde v7.2 --&gt;
  /&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>&amp;nbsp;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span> <span class="kw1">if</span> <span class="br0">(</span><span
-
-class="sy0">!</span>editable<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-
-class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span> <span class="br0">}</span> <span class="sy1">%&gt;</span></pre>
+&lt;%
+} else {
+%&gt;
+&lt;%=fvalue%&gt;&amp;nbsp;
+&lt;%
+}
+%&gt;
+&lt;% if (!editable) { %&gt;
+ &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalue%&gt;"&gt;
+&lt;% } %&gt;</code></pre>
       Un editor JSP recibe un conjunto de parámetros y tiene accesos a atributos
       que le permiten configurarse adecuadamente para encajar bien en una vista
       OpenXava. En primer lugar vemos como cogemos <em>propertyKey</em> (1) que
@@ -440,71 +328,33 @@ class="sy1">&lt;%=</span>fvalue<span class="sy1">%&gt;</span>"&gt;
       habitual configurar JSPs ya existentes. Por ejemplo si en nuestro <em>editores.xml</em>
       en <i>src/main/resources/xava</i> (simplemente <i>xava</i> antes de v7)
       ponemos:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"textEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;formatedor</span> <span class="re0">clase</span>=<span
-
-class="st0">"org.openxava.formatters.UpperCaseFormatter"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-tipo</span> <span class="re0">tipo</span>=<span
-
-class="st0">"java.lang.String"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="textEditor.jsp"&gt;
+ &lt;formatedor clase="org.openxava.formatters.UpperCaseFormatter"/&gt;
+ &lt;para-tipo tipo="java.lang.String"/&gt;
+&lt;/editor&gt;</code></pre>
       Estaremos sobreescribiendo el comportamiento de OpenXava para las
       propiedades de tipo <em>String</em>, ahora todas las cadenas se
       visualizaran y aceptaran en mayúsculas. Podemos ver el código del
       formateador:<br>
-      <pre class="java5"><span class="kw2">package</span> <span class="co2">org.openxava.formatters</span><span
+      <pre><code class="language-java">package org.openxava.formatters;
 
-class="sy0">;</span>
-&nbsp;
-<span class="kw2">import</span> <span class="co2">javax.servlet.http.*</span><span
+import javax.servlet.http.*;
 
-class="sy0">;</span>
-&nbsp;
-<span class="co3">/**
+/**
  * @author Javier Paniza
- */</span>
-&nbsp;
-<span class="kw2">public</span> <span class="kw2">class</span> UpperCaseFormatter <span
+ */
 
-class="kw2">implements</span> IFormatter <span class="br0">{</span> <span class="co1">// 1</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
+public class UpperCaseFormatter implements IFormatter { // 1
 
-class="kw21">String</span></a> format<span class="br0">(</span>HttpServletRequest request, <a
+ public String format(HttpServletRequest request, Object string) { // 2
+ return string==null?"":string.toString().toUpperCase();
+ }
 
-href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
+ public Object parse(HttpServletRequest request, String string) { // 3
+ return string==null?"":string.toString().toUpperCase();
+ }
 
-class="kw166">Object</span></a> string<span class="br0">)</span> <span class="br0">{</span> <span
-
-class="co1">// 2</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
- <span class="kw2">public</span> <a href="http://www.google.com/search?sitesearch=java.sun.com&amp;q=allinurl%3Aj2se%2F1+5+0%2Fdocs%2Fapi+Object"><span
-
-class="kw166">Object</span></a> parse<span class="br0">(</span>HttpServletRequest request, <a
-
-href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span class="kw21">String</span></a> string<span
-
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// 3</span>
- <span class="kw2">return</span> string==<span class="kw4">null</span><span class="sy0">?</span><span
-
-class="st0">""</span>:string.<span class="me1">toString</span><span class="br0">(</span><span
-
-class="br0">)</span>.<span class="me1">toUpperCase</span><span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span>
- <span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span></pre>
+}</code></pre>
       Un formateador ha de implementar <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/formatters/IFormatter.html"
 
           rel="nofollow">IFormatter</a></em> (1) o <em><a class="wiki_link_ext"
@@ -533,41 +383,17 @@ class="br0">)</span><span class="sy0">;</span>
       Por ejemplo, si queremos definir un estereotipo REGIONES que permita al
       usuario seleccionar más de una región para una propiedad. Ese estereotipo
       se puede usar de esta manera:<br>
-      <pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"REGIONES"</span><span
-
-class="br0">)</span>
-<span class="kw2">private</span> <a href="http://java.sun.com/j2se/1%2E5%2E0/docs/api/java/lang/String.html"><span
-
-class="kw21">String</span></a> <span class="br0">[</span><span class="br0">]</span> regiones<span
-
-class="sy0">;</span></pre>
+      <pre><code class="language-java">@Stereotype("REGIONES")
+private String [] regiones;</code></pre>
       Entonces podemos añadir una entrada en el archivo <em>tipo-estereotipo-defecto.xml</em>
       como sigue:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;para</span> <span
-
-class="re0">estereotipo</span>=<span class="st0">"REGIONES"</span> <span class="re0">tipo</span>=<span
-
-class="st0">"String []"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;para estereotipo="REGIONES" tipo="String []"/&gt;</code></pre>
       Y definir nuestro editor en el <em>editores.xml</em> de nuestro proyecto:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"editorRegiones.jsp"</span><span class="re2">&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"cantidadRegiones"</span> <span class="re0">valor</span>=<span class="st0">"3"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;formateador</span> <span class="re0">clase</span>=<span
-
-class="st0">"org.openxava.formatters.MultipleValuesByPassFormatter"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
-
-class="st0">"REGIONES"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="editorRegiones.jsp"&gt; &lt;!-- 1 --&gt;
+ &lt;propiedad nombre="cantidadRegiones" valor="3"/&gt; &lt;!-- 2 --&gt;
+ &lt;formateador clase="org.openxava.formatters.MultipleValuesByPassFormatter"/&gt; &lt;!-- 3 --&gt;
+ &lt;para-estereotipo estereotipo="REGIONES"/&gt;
+&lt;/editor&gt;</code></pre>
       <em>editorRegiones.jsp</em> (1) es el archivo JSP que dibuja nuestro
       editor. Podemos definir propiedades que serán enviada al JSP como
       parámetros del <em>request</em> (2). El formateador tiene que implementar
@@ -582,336 +408,126 @@ class="st0">"REGIONES"</span><span class="re2">/&gt;</span></span>
       simplemente deja pasar el dato.<br>
       Y para terminar escribimos nuestro editor JSP en la carpeta <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre><code class="language-php">&lt;%@ page import="java.util.Collection" %&gt;
+&lt;%@ page import="java.util.Collections" %&gt;
+&lt;%@ page import="java.util.Arrays" %&gt;
+&lt;%@ page import="org.openxava.util.Labels" %&gt;
 
-class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// (1)</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> // Ignorado desde v7.2, ya no es necesario 
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
- String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
- int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
-
-class="sy0">;</span>
- Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
-
-class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;select id="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" name="<span
-
-class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" multiple="multiple"
- class=<span class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>
- <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
- <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span>&gt; &lt;!-- No se usa desde v7.2 --&gt;
- <span class="sy1">&lt;%</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
-
-class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
- String selected <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"selected"</span><span
-
-class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
- <span class="sy1">%&gt;</span>
+&lt;%
+String propertyKey = request.getParameter("propertyKey");
+String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue"); // (1)
+boolean editable="true".equals(request.getParameter("editable"));
+String disabled=editable?"":"disabled";
+String script = request.getParameter("script"); // Ignorado desde v7.2, ya no es necesario
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) {
+ String sregionsCount = request.getParameter("cantidadRegiones");
+ int regionsCount = sregionsCount == null?5:Integer.parseInt(sregionsCount);
+ Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
+%&gt;
+&lt;select id="&lt;%=propertyKey%&gt;" name="&lt;%=propertyKey%&gt;" multiple="multiple"
+ class=&lt;%=style.getEditor()%&gt;
+ &lt;%=disabled%&gt;
+ &lt;%=script%&gt;&gt; &lt;!-- No se usa desde v7.2 --&gt;
+ &lt;%
+ for (int i=1; i&lt;regionsCount+1; i++) {
+ String selected = regions.contains(Integer.toString(i))?"selected":"";
+ %&gt;
  &lt;option
- value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>" <span class="sy1">&lt;%=</span>selected<span
-
-class="sy1">%&gt;</span>&gt;
- <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> i<span class="sy0">,</span> request<span
-
-class="sy0">.</span>getLocale<span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>
+ value="&lt;%=i%&gt;" &lt;%=selected%&gt;&gt;
+ &lt;%=Labels.get("regions." + i, request.getLocale())%&gt;
  &lt;/option&gt;
- <span class="sy1">&lt;%</span>
- <span class="br0">}</span>
- <span class="sy1">%&gt;</span>
+ &lt;%
+ }
+ %&gt;
 &lt;/select&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="kw1">else</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
+&lt;%
+}
+else {
+ for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+&lt;%=Labels.get("regions." + fvalues[i], request.getLocale())%&gt;
+&lt;%
+ }
+}
+%&gt;
 
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span>
- <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
-
-class="br0">)</span> <span class="br0">{</span>
- <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
- &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" value="<span
-
-class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span class="br0">]</span><span
-
-class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span>
- <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+if (!editable) {
+ for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+ &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalues[i]%&gt;"&gt;
+&lt;%
+ }
+}
+%&gt;</code></pre>
       Como se puede ver es como definir un editor para un valor simple, la
       principal diferencia es que el valor formateado (1) es un array de cadenas
       (<em>String []</em>) y no una cadena simple (<em>String</em>).<br>
       Como alternativa, puedes definir el editor anterior usando casillas de
       verificación (checkboxes) <em>(nuevo en v4.9)</em>, como sigue:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span
+      <pre><code class="language-php">&lt;%@ page import="java.util.Collection" %&gt;
+&lt;%@ page import="java.util.Collections" %&gt;
+&lt;%@ page import="java.util.Arrays" %&gt;
+&lt;%@ page import="org.openxava.util.Labels" %&gt;
 
-class="sy0">=</span><span class="st0">"java.util.Collection"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Collections"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Arrays"</span> <span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span> page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Labels"</span> <span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String propertyKey <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"propertyKey"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String <span class="br0">[</span><span class="br0">]</span> fvalues <span class="sy0">=</span> <span
-
-class="br0">(</span>String <span class="br0">[</span><span class="br0">]</span><span
-
-class="br0">)</span> request<span class="sy0">.</span>getAttribute<span class="br0">(</span>propertyKey <span
-
-class="sy0">+</span> <span class="st0">".fvalue"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-boolean editable<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">.</span>equals<span
-
-class="br0">(</span>request<span class="sy0">.</span>getParameter<span class="br0">(</span><span
-
-class="st0">"editable"</span><span class="br0">)</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String disabled<span class="sy0">=</span>editable?<span class="st0">""</span><span
-
-class="sy0">:</span><span class="st0">"disabled"</span><span class="sy0">;</span>
-String script <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"script"</span><span class="br0">)</span><span
-
-class="sy0">;</span> // Ignorado desde v7.2, ya no es necesario 
-boolean label <span class="sy0">=</span> org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>util<span class="sy0">.</span>XavaPreferences<span class="sy0">.</span>getInstance<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">.</span>isReadOnlyAsLabel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>editable <span class="sy0">||</span> <span
-
-class="sy0">!</span>label<span class="br0">)</span> <span class="br0">{</span>
-    String sregionsCount <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"cantidadRegiones"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-    int regionsCount <span class="sy0">=</span> sregionsCount <span class="sy0">==</span> <span
-
-class="kw4">null</span>?<span class="nu0">5</span><span class="sy0">:</span>Integer<span
-
-class="sy0">.</span>parseInt<span class="br0">(</span>sregionsCount<span class="br0">)</span><span
-
-class="sy0">;</span>
-    Collection regions <span class="sy0">=</span> fvalues<span class="sy0">==</span><span
-
-class="kw4">null</span>?Collections<span class="sy0">.</span>EMPTY_LIST<span class="sy0">:</span>Arrays<span
-
-class="sy0">.</span>asList<span class="br0">(</span>fvalues<span class="br0">)</span><span
-
-class="sy0">;</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">1</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>regionsCount<span
-
-class="sy0">+</span><span class="nu0">1</span><span class="sy0">;</span> i<span
-
-class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
-        String checked <span class="sy0">=</span> regions<span class="sy0">.</span>contains<span
-
-class="br0">(</span>Integer<span class="sy0">.</span>toString<span class="br0">(</span>i<span
-
-class="br0">)</span><span class="br0">)</span>?<span class="st0">"checked"</span><span
-
-class="sy0">:</span><span class="st0">""</span><span class="sy0">;</span>
-    <span class="sy1">%&gt;</span>
-        &lt;input name="<span class="sy1">&lt;%=</span>propertyKey<span class="sy1">%&gt;</span>" type="checkbox" class="<span
-
-class="sy1">&lt;%=</span>style<span class="sy0">.</span>getEditor<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>"
+&lt;%
+String propertyKey = request.getParameter("propertyKey");
+String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
+boolean editable="true".equals(request.getParameter("editable"));
+String disabled=editable?"":"disabled";
+String script = request.getParameter("script"); // Ignorado desde v7.2, ya no es necesario
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+if (editable || !label) {
+    String sregionsCount = request.getParameter("cantidadRegiones");
+    int regionsCount = sregionsCount == null?5:Integer.parseInt(sregionsCount);
+    Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
+    for (int i=1; i&lt;regionsCount+1; i++) {
+        String checked = regions.contains(Integer.toString(i))?"checked":"";
+    %&gt;
+        &lt;input name="&lt;%=propertyKey%&gt;" type="checkbox" class="&lt;%=style.getEditor()%&gt;"
                 tabindex="1"
-                value="<span class="sy1">&lt;%=</span>i<span class="sy1">%&gt;</span>"
-                <span class="sy1">&lt;%=</span>checked<span class="sy1">%&gt;</span>
-                <span class="sy1">&lt;%=</span>disabled<span class="sy1">%&gt;</span>
-                <span class="sy1">&lt;%=</span>script<span class="sy1">%&gt;</span> &lt;!-- No se usa desde v7.2 --&gt;
+                value="&lt;%=i%&gt;"
+                &lt;%=checked%&gt;
+                &lt;%=disabled%&gt;
+                &lt;%=script%&gt; &lt;!-- No se usa desde v7.2 --&gt;
         /&gt;
-        <span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span
+        &lt;%=Labels.get("regions." + i, request.getLocale())%&gt;
+    &lt;%
+    }
+}
+else {
+    for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+&lt;%=Labels.get("regions." + fvalues[i], request.getLocale())%&gt;
+&lt;%
+    }
+}
+%&gt;
 
-class="br0">(</span><span class="st0">"regions."</span> <span class="sy0">+</span> i<span
-
-class="sy0">,</span> request<span class="sy0">.</span>getLocale<span class="br0">(</span><span
-
-class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-    <span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="kw1">else</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%=</span>Labels<span class="sy0">.</span>get<span class="br0">(</span><span
-
-class="st0">"regions."</span> <span class="sy0">+</span> fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy0">,</span> request<span class="sy0">.</span>getLocale<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span>
-<span class="kw1">if</span> <span class="br0">(</span><span class="sy0">!</span>editable<span
-
-class="br0">)</span> <span class="br0">{</span>
-    <span class="kw1">for</span> <span class="br0">(</span>int i<span class="sy0">=</span><span
-
-class="nu0">0</span><span class="sy0">;</span> i<span class="sy0">&lt;</span>fvalues<span
-
-class="sy0">.</span>length<span class="sy0">;</span> i<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
-        &lt;input type="hidden" name="<span class="sy1">&lt;%=</span>propertyKey<span
-
-class="sy1">%&gt;</span>" value="<span class="sy1">&lt;%=</span>fvalues<span class="br0">[</span>i<span
-
-class="br0">]</span><span class="sy1">%&gt;</span>"&gt;
-<span class="sy1">&lt;%</span>
-    <span class="br0">}</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+if (!editable) {
+    for (int i=0; i&lt;fvalues.length; i++) {
+%&gt;
+        &lt;input type="hidden" name="&lt;%=propertyKey%&gt;" value="&lt;%=fvalues[i]%&gt;"&gt;
+&lt;%
+    }
+}
+%&gt;</code></pre>
       <h3 id="toc4"><a name="Personalizacion-Editores-Editores+para+referencias+(nuevo+en+v3.1.3)"></a>Editores
         para referencias <em>(nuevo en v3.1.3)</em></h3>
       Por defecto las referencias se visualizan con una vista de detalle, pero
       podemos crear nuestro propio editor para las referencias. Por ejemplo,
       podemos escribir lo siguiente en el archivo <em>editores.xml</em> de
       nuestra aplicación:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"colorEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-referencia</span> <span class="re0">modelo</span>=<span
-
-class="st0">"Color"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;</pre>
+      <pre><code class="language-xml">&lt;editor url="colorEditor.jsp"&gt;
+ &lt;para-referencia modelo="Color"/&gt;
+&lt;/editor&gt;
+</code></pre>
       Con este código estamos diciendo que cualquier referencia a la entidad <em>Color</em>
       se tiene que visualizar usando <em>colorEditor.jsp</em> (para usar un
       editor solo para una referencia concreta en una entidad concreta véase la
@@ -965,17 +581,9 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       Además, podemos definir la forma en que se visualizan todas la referencias
       por defecto para toda nuestra aplicación, usando <em>&lt;para-referencias/&gt;</em>.
       Para ello hemos de editar nuestro <em>editores.xml</em> y añadir:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">nombre</span>=<span class="st0">"MiReferencia"</span> <span class="re0">url</span>=<span
-
-class="st0">"miReferenciaEditor.jsp"</span> <span class="re0">enmarcable</span>=<span
-
-class="st0">"true"</span> <span class="re0">compuesto</span>=<span class="st0">"true"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-referencias</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor nombre="MiReferencia" url="miReferenciaEditor.jsp" enmarcable="true" compuesto="true"&gt;
+ &lt;para-referencias/&gt;
+&lt;/editor&gt;</code></pre>
       Ya que hemos marcado el editor con <em>&lt;para-referencias/&gt;</em>
       ahora todas las referencias de nuestra aplicación se visualizarán usando
       nuestro <em>miReferenciaEditor.jsp</em>. Esta es una forma sencilla de
@@ -987,15 +595,9 @@ class="re2">&gt;</span></span>
       tabulares, pero podemos crear nuestro propio editor para colecciones. Por
       ejemplo, podemos escribir lo siguiente en el archivo <em>editores.xml</em>
       de nuestra aplicación:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"comentariosBlogEditor.jsp"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-coleccion</span> <span class="re0">modelo</span>=<span
-
-class="st0">"ComentarioBlog"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="comentariosBlogEditor.jsp"&gt;
+ &lt;para-coleccion modelo="ComentarioBlog"/&gt;
+&lt;/editor&gt;</code></pre>
       Con el código de arriba estamos diciendo que cualquier colección de
       entidades <em>ComentarioBlog</em> tiene que ser visualizada y editada
       usando <em>comentariosBlogEditor.jsp</em> (para usar un editor solo para
@@ -1007,17 +609,9 @@ class="st0">"ComentarioBlog"</span><span class="re2">/&gt;</span></span>
       <em>&lt;para-coleccion /&gt;</em> funciona para colecciones de tipo <em>@OneToMany/@ManyToMany</em>
       y <em>@ElementCollection</em>.<br>
       Aquí tenemos el código para <em>comentariosBlogEditor.jsp</em>:<br>
-      <pre class="php"><span class="sy0">&lt;</span>jsp<span class="sy0">:</span><span
-
-class="kw1">include</span> page<span class="sy0">=</span><span class="st0">"collectionEditor.jsp"</span><span
-
-class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>jsp<span class="sy0">:</span>param name<span class="sy0">=</span><span
-
-class="st0">"listEditor"</span> value<span class="sy0">=</span><span class="st0">"comentariosBlogListEditor.jsp"</span><span
-
-class="sy0">/&gt;</span>
-<span class="sy0">&lt;/</span>jsp<span class="sy0">:</span>include<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;jsp:include page="collectionEditor.jsp"&gt;
+ &lt;jsp:param name="listEditor" value="comentariosBlogListEditor.jsp"/&gt;
+&lt;/jsp:include&gt;</code></pre>
       Esta es una forma habitual de crear un editor para colecciones. Aquí
       llamamos a <em>collectionEditor.jsp</em> (el editor por defecto de
       OpenXava para colecciones) enviando como argumento para <em>listEditor</em>
@@ -1026,138 +620,54 @@ class="sy0">/&gt;</span>
       colecciones, por tanto solo hemos de preocuparnos por dibujar la lista.<br>
       El <em>comentariosBlogListEditor.jsp</em> en la carpeta <i>src/main/webapp/xava/editors</i>
       (<i>web/xava/editors</i> en v6 o anterior) de tu proyecto:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
+&lt;%@page import="org.openxava.view.View"%&gt;
+&lt;%@page import="org.openxava.model.MapFacade"%&gt;
+&lt;%@page import="org.openxava.test.model.Blog"%&gt;
+&lt;%@page import="org.openxava.test.model.BlogComment"%&gt;
+&lt;%@page import="java.util.Iterator"%&gt;
+&lt;%@page import="java.util.Map"%&gt;
+&lt;%@page import="java.text.DateFormat"%&gt;
+&lt;%@page import="org.openxava.util.Locales"%&gt;
+&lt;%@page import="org.openxava.util.Is"%&gt;
 
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.Blog"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.BlogComment"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Map"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.text.DateFormat"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Locales"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.util.Is"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// Id para acceder al objeto view de la colección</span>
-View collectionView <span class="sy0">=</span> <span class="br0">(</span>View<span
-
-class="br0">)</span> context<span class="sy0">.</span>get<span class="br0">(</span>request<span
-
-class="sy0">,</span> viewObject<span class="br0">)</span><span class="sy0">;</span> <span
-
-class="co1">// Obtenemos el objeto view de la colección mediante context</span>
-View rootView <span class="sy0">=</span> collectionView<span class="sy0">.</span>getRoot<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// En este caso usamos la vista raiz, la vista de Blog</span>
-Map <span class="kw3">key</span> <span class="sy0">=</span> rootView<span class="sy0">.</span>getKeyValues<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>Is<span class="sy0">.</span><span
-
-class="kw3">empty</span><span class="br0">(</span><span class="kw3">key</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
+&lt;%
+String viewObject = request.getParameter("viewObject"); // Id para acceder al objeto view de la colección
+View collectionView = (View) context.get(request, viewObject); // Obtenemos el objeto view de la colección mediante context
+View rootView = collectionView.getRoot(); // En este caso usamos la vista raiz, la vista de Blog
+Map key = rootView.getKeyValues();
+if (Is.empty(key)) {
+%&gt;
 No hay comentarios
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span> <span
+&lt;%
+} else { // Si la clave tiene valor dibujamos la colección de comentarios
 
-class="co1">// Si la clave tiene valor dibujamos la colección de comentarios</span>
-&nbsp;
-Blog blog <span class="sy0">=</span> <span class="br0">(</span>Blog<span class="br0">)</span> MapFacade<span
+Blog blog = (Blog) MapFacade.findEntity("Blog", key);
+String action = request.getParameter("rowAction"); // rowAction es la acción para editar o visualizar cada elemento
+String actionArgv = ",viewObject=" + viewObject;
+%&gt;
 
-class="sy0">.</span>findEntity<span class="br0">(</span><span class="st0">"Blog"</span><span
-
-class="sy0">,</span> <span class="kw3">key</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String action <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"rowAction"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// rowAction es la acción para editar o visualizar cada elemento</span>
-String actionArgv <span class="sy0">=</span> <span class="st0">",viewObject="</span> <span
-
-class="sy0">+</span> viewObject<span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
 Estos son los comentarios&lt;br/&gt;
-<span class="sy1">&lt;%</span>
-DateFormat df <span class="sy0">=</span> DateFormat<span class="sy0">.</span>getDateInstance<span
-
-class="br0">(</span>DateFormat<span class="sy0">.</span>SHORT<span class="sy0">,</span> Locales<span
-
-class="sy0">.</span>getCurrent<span class="br0">(</span><span class="br0">)</span><span
-
-class="br0">)</span><span class="sy0">;</span>
-int f<span class="sy0">=</span><span class="nu0">0</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> blog<span
-
-class="sy0">.</span>getComentarios<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> f<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
- ComentarioBlog comentario <span class="sy0">=</span> <span class="br0">(</span>ComentarioBlog<span
-
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;i&gt;&lt;b&gt;&lt;big&gt;Comentario del <span class="sy1">&lt;%=</span>df<span
-
-class="sy0">.</span>format<span class="br0">(</span>comentario<span class="sy0">.</span>getFecha<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/big&gt;&lt;/b&gt;&lt;/i&gt;
-&lt;xava:action action='<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>' argv='<span
-
-class="sy1">&lt;%=</span><span class="st0">"row="</span> <span class="sy0">+</span> f <span
-
-class="sy0">+</span> actionArgv<span class="sy1">%&gt;</span>'/&gt;
+&lt;%
+DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());
+int f=0;
+for (Iterator it = blog.getComentarios().iterator(); it.hasNext(); f++) {
+ ComentarioBlog comentario = (ComentarioBlog) it.next();
+%&gt;
+&lt;i&gt;&lt;b&gt;&lt;big&gt;Comentario del &lt;%=df.format(comentario.getFecha())%&gt;&lt;/big&gt;&lt;/b&gt;&lt;/i&gt;
+&lt;xava:action action='&lt;%=action%&gt;' argv='&lt;%="row=" + f + actionArgv%&gt;'/&gt;
 &lt;p&gt;
-&lt;i&gt;<span class="sy1">&lt;%=</span>comentario<span class="sy0">.</span>getCuerpo<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/i&gt;
+&lt;i&gt;&lt;%=comentario.getCuerpo()%&gt;&lt;/i&gt;
 &lt;/p&gt;
 &lt;hr/&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-&nbsp;
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+}
+
+}
+%&gt;</code></pre>
       Este editor dibuja los comentarios del blog como un texto simple con una
       cabecera con la fecha.<br>
       La lista de parámetro a usar en un editor de lista para colecciones es:<br>
@@ -1173,69 +683,29 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       Por supuesto, podemos crear nuestro editor para colección desde cero, sin
       usar <em>collectionEditor.jsp</em>. En este caso has de escribir la
       interfaz de usuario completa para la colección. Veamos un ejemplo en <em>nombresTransportistaEditor.jsp</em>:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span
+      <pre><code class="language-php">&lt;%@page import="org.openxava.view.View"%&gt;
+&lt;%@page import="org.openxava.model.MapFacade"%&gt;
+&lt;%@page import="org.openxava.test.model.Carrier"%&gt;
+&lt;%@page import="java.util.Iterator"%&gt;
 
-class="sy0">=</span><span class="st0">"org.openxava.view.View"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.model.MapFacade"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"org.openxava.test.model.Carrier"</span><span class="sy1">%&gt;</span>
-<span class="sy1">&lt;%</span><span class="sy0">@</span>page import<span class="sy0">=</span><span
-
-class="st0">"java.util.Iterator"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String viewObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"viewObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span> <span class="co1">// viewObject es el id del objeto view del padre</span>
-View view <span class="sy0">=</span> <span class="br0">(</span>View<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> viewObject<span
-
-class="br0">)</span><span class="sy0">;</span> <span class="co1">// view es el objeto view de Transportista, el padre de la colección</span>
-Transportista transportista <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
-
-class="br0">)</span> MapFacade<span class="sy0">.</span>findEntity<span class="br0">(</span><span
-
-class="st0">"Transportista"</span><span class="sy0">,</span> view<span class="sy0">.</span>getKeyValues<span
-
-class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-Los compañeros de <span class="sy1">&lt;%=</span>transportista<span class="sy0">.</span>getNombre<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span> son:&lt;br&gt;
+&lt;%
+String viewObject = request.getParameter("viewObject"); // viewObject es el id del objeto view del padre
+View view = (View) context.get(request, viewObject); // view es el objeto view de Transportista, el padre de la colección
+Transportista transportista = (Transportista) MapFacade.findEntity("Transportista", view.getKeyValues());
+%&gt;
+Los compañeros de &lt;%=transportista.getNombre()%&gt; son:&lt;br&gt;
 &lt;ul&gt;
-<span class="sy1">&lt;%</span>
-<span class="kw1">for</span> <span class="br0">(</span>Iterator it <span class="sy0">=</span> transportista<span
-
-class="sy0">.</span>getCompaneros<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">.</span>iterator<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> it<span class="sy0">.</span>hasNext<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> <span class="br0">)</span> <span
-
-class="br0">{</span>
- Transportista companero <span class="sy0">=</span> <span class="br0">(</span>Transportista<span
-
-class="br0">)</span> it<span class="sy0">.</span><span class="kw3">next</span><span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&lt;li&gt;<span class="sy1">&lt;%=</span>companero<span class="sy0">.</span>getNombre<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;/li&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span>
-&lt;/ul&gt;</pre>
+&lt;%
+for (Iterator it = transportista.getCompaneros().iterator(); it.hasNext(); ) {
+ Transportista companero = (Transportista) it.next();
+%&gt;
+&lt;li&gt;&lt;%=companero.getNombre()%&gt;&lt;/li&gt;
+&lt;%
+}
+%&gt;
+&lt;/ul&gt;</code></pre>
       En este caso escribimos el código para dibujar la colección completamente,
       si queremos tener algunas acciones para trabajar con la colección tenemos
       que ponerlas nosotros mismos. ¡Ojo!, porque aquí <em>viewObject</em> es
@@ -1253,23 +723,13 @@ class="br0">(</span><span class="br0">)</span><span class="sy1">%&gt;</span>&lt;
       colecciones <em>@OneToMany/@ManyToMany</em> y <em>&lt;para-colecciones-elementos
         /&gt;</em> <em>(nuevo en v5.0)</em> para <em>@ElementCollection</em>.
       Editemos nuestro <em>editors.xml</em> y añadamos:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre><code class="language-xml">&lt;editor nombre="MiColeccion" url="miColeccionEditor.jsp"&gt;
+ &lt;para-colecciones/&gt;
+&lt;/editor&gt;
 
-class="re0">nombre</span>=<span class="st0">"MiColeccion"</span> <span class="re0">url</span>=<span
-
-class="st0">"miColeccionEditor.jsp"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-colecciones</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">nombre</span>=<span
-
-class="st0">"MiColeccionElementos"</span> <span class="re0">url</span>=<span class="st0">"miColeccionElementosEditor.jsp"</span><span
-
-class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;para-colecciones-elementos</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Nuevo en v5.0 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+&lt;editor nombre="MiColeccionElementos" url="miColeccionElementosEditor.jsp"&gt;
+ &lt;para-colecciones-elementos/&gt; &lt;!-- Nuevo en v5.0 --&gt;
+&lt;/editor&gt;</code></pre>
       Ahora todas las colecciones <em>@OneToMany/@ManyToMany</em> en nuestra
       aplicación se visualizan usando nuestro <em>miColeccionEditor.jsp</em> y
       las @ElementCollection usando nuestro <em>miColeccionElementosEditor.jsp</em>.<br>
@@ -1279,15 +739,9 @@ class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- Nuevo en v5.0 --&gt;<
       visualizan con una lista, pero podemos crear nuestro propio editor. Por
       ejemplo, podemos escribir esto en el <em>editores.xml</em> de nuestra
       aplicación:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">url</span>=<span class="st0">"empleadoCorporativoListEditor.jsp"</span><span
-
-class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;para-tab</span> <span class="re0">modelo</span>=<span
-
-class="st0">"EmpleadoCorporativo"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor url="empleadoCorporativoListEditor.jsp"&gt;
+  &lt;para-tab modelo="EmpleadoCorporativo"/&gt;
+&lt;/editor&gt;</code></pre>
       Con el código de arriba estamos diciendo que todos los tabs (es decir
       todas la listas) para la entidad <em>EmpleadoCorporativo</em> tienen que
       ser editados y visualizados usando <em>empleadoCorporativoListEditor.jsp</em>
@@ -1297,80 +751,30 @@ class="st0">"EmpleadoCorporativo"</span><span class="re2">/&gt;</span></span>
       Aqui tenemos el código para <em>empleadoCorporativoListEditor.jsp</em> en
       la carpeta <i>src/main/webapp/xava/editors</i> (<i>web/xava/editors</i>
       en v6 o anterior) de tu proyecto:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
+&lt;%
+String tabObject = request.getParameter("tabObject");
+tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
+org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
+String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
+String all = condition.equals("")?"selected":"";
+String low = condition.contains("&lt;=")?"selected":"";
+String high = condition.contains("&gt;")?"selected":"";
+String action="openxava.executeAction('OpenXavaTest', 'EmpleadoCorporativo'," +
+    "false, false, 'EmpleadoCorporativo.filtrar', 'segmento='+this.value)";
+%&gt;
 
-class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
-
-class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
-
-class="br0">)</span><span class="sy0">;</span>
-String condition <span class="sy0">=</span> tab<span class="sy0">.</span>getBaseCondition<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">==</span><span class="kw4">null</span>?<span
-
-class="st0">""</span><span class="sy0">:</span>tab<span class="sy0">.</span>getBaseCondition<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-String all <span class="sy0">=</span> condition<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String low <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-
-class="br0">(</span><span class="st0">"&lt;="</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String high <span class="sy0">=</span> condition<span class="sy0">.</span>contains<span
-
-class="br0">(</span><span class="st0">"&gt;"</span><span class="br0">)</span>?<span
-
-class="st0">"selected"</span><span class="sy0">:</span><span class="st0">""</span><span
-
-class="sy0">;</span>
-String action<span class="sy0">=</span><span class="st0">"openxava.executeAction('OpenXavaTest', 'EmpleadoCorporativo',"</span> <span
-
-class="sy0">+</span>
-    <span class="st0">"false, false, 'EmpleadoCorporativo.filtrar', 'segmento='+this.value)"</span><span
-
-class="sy0">;</span>
-<span class="sy1">%&gt;</span>
-&nbsp;
 &lt;select name="&lt;xava:id name='escogerSegmento'/&gt;" onchange=
-    "<span class="sy1">&lt;%=</span>action<span class="sy1">%&gt;</span>"&gt;
-    &lt;option value="all" <span class="sy1">&lt;%=</span>todos<span class="sy1">%&gt;</span>&gt;Todos los empleados&lt;/option&gt;
-    &lt;option value="low" <span class="sy1">&lt;%=</span>bajo<span class="sy1">%&gt;</span>&gt;Empleados con salario bajo&lt;/option&gt;
-    &lt;option value="high" <span class="sy1">&lt;%=</span>alto<span class="sy1">%&gt;</span>&gt;Empleados con salario alto&lt;/option&gt;
+    "&lt;%=action%&gt;"&gt;
+    &lt;option value="all" &lt;%=todos%&gt;&gt;Todos los empleados&lt;/option&gt;
+    &lt;option value="low" &lt;%=bajo%&gt;&gt;Empleados con salario bajo&lt;/option&gt;
+    &lt;option value="high" &lt;%=alto%&gt;&gt;Empleados con salario alto&lt;/option&gt;
 &lt;/select&gt;
-&nbsp;
-&lt;jsp:include page="listEditor.jsp"/&gt;</pre>
+
+&lt;jsp:include page="listEditor.jsp"/&gt;</code></pre>
       Un detalle importante es que este editor incluye <em>listEditor.jsp</em>
       al final. <em>listEditor.jsp</em> es el editor por defecto para modo
       lista, por tanto en este caso simplemente estamos refinando la lista
@@ -1378,108 +782,34 @@ class="sy0">;</span>
       embargo, podemos crear nuestro propio editor para lista desde cero, por
       ejemplo, el siguiente editor, <em>fichasClienteListEditor.jsp</em>,
       muestra la lista de clientes como una fila de fichas:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
+      <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-
-class="st0">"../imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
 &lt;jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/&gt;
-&nbsp;
-<span class="sy1">&lt;%</span>
-String collection <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
 
-class="br0">(</span><span class="st0">"collection"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-String id <span class="sy0">=</span> <span class="st0">"list"</span><span class="sy0">;</span>
-String collectionArgv <span class="sy0">=</span> <span class="st0">""</span><span
-
-class="sy0">;</span>
-String prefix <span class="sy0">=</span> <span class="st0">""</span><span class="sy0">;</span>
-String tabObject <span class="sy0">=</span> request<span class="sy0">.</span>getParameter<span
-
-class="br0">(</span><span class="st0">"tabObject"</span><span class="br0">)</span><span
-
-class="sy0">;</span>
-tabObject <span class="sy0">=</span> <span class="br0">(</span>tabObject <span class="sy0">==</span> <span
-
-class="kw4">null</span> <span class="sy0">||</span> tabObject<span class="sy0">.</span>equals<span
-
-class="br0">(</span><span class="st0">""</span><span class="br0">)</span><span class="br0">)</span>?<span
-
-class="st0">"xava_tab"</span><span class="sy0">:</span>tabObject<span class="sy0">;</span>
-<span class="kw1">if</span> <span class="br0">(</span>collection <span class="sy0">!=</span> <span
-
-class="kw4">null</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>collection<span
-
-class="sy0">.</span>equals<span class="br0">(</span><span class="st0">""</span><span
-
-class="br0">)</span><span class="br0">)</span> <span class="br0">{</span>
-    id <span class="sy0">=</span> collection<span class="sy0">;</span>
-    collectionArgv<span class="sy0">=</span><span class="st0">",collection="</span><span
-
-class="sy0">+</span>collection<span class="sy0">;</span>
-    prefix <span class="sy0">=</span> tabObject <span class="sy0">+</span> <span
-
-class="st0">"_"</span><span class="sy0">;</span>
-<span class="br0">}</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>Tab tab <span
-
-class="sy0">=</span> <span class="br0">(</span>org<span class="sy0">.</span>openxava<span
-
-class="sy0">.</span>tab<span class="sy0">.</span>Tab<span class="br0">)</span> context<span
-
-class="sy0">.</span>get<span class="br0">(</span>request<span class="sy0">,</span> tabObject<span
-
-class="br0">)</span><span class="sy0">;</span>
-org<span class="sy0">.</span>openxava<span class="sy0">.</span>tab<span class="sy0">.</span>impl<span
-
-class="sy0">.</span>IXTableModel model <span class="sy0">=</span> tab<span class="sy0">.</span>getTableModel<span
-
-class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
-<span class="kw1">for</span> <span class="br0">(</span>int r<span class="sy0">=</span>tab<span
-
-class="sy0">.</span>getInitialIndex<span class="br0">(</span><span class="br0">)</span><span
-
-class="sy0">;</span> r<span class="sy0">&lt;</span>model<span class="sy0">.</span>getRowCount<span
-
-class="br0">(</span><span class="br0">)</span> <span class="sy0">&amp;&amp;</span> r <span
-
-class="sy0">&lt;</span> tab<span class="sy0">.</span>getFinalIndex<span class="br0">(</span><span
-
-class="br0">)</span><span class="sy0">;</span> r<span class="sy0">++</span><span
-
-class="br0">)</span> <span class="br0">{</span>
-<span class="sy1">%&gt;</span>
+&lt;%
+String collection = request.getParameter("collection");
+String id = "list";
+String collectionArgv = "";
+String prefix = "";
+String tabObject = request.getParameter("tabObject");
+tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
+if (collection != null &amp;&amp; !collection.equals("")) {
+    id = collection;
+    collectionArgv=",collection="+collection;
+    prefix = tabObject + "_";
+}
+org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
+org.openxava.tab.impl.IXTableModel model = tab.getTableModel();
+for (int r=tab.getInitialIndex(); r&lt;model.getRowCount() &amp;&amp; r &lt; tab.getFinalIndex(); r++) {
+%&gt;
     &lt;xava:link action="List.viewDetail"&gt;&lt;div class="ficha-cliente"&gt;
-    &lt;h4&gt;<span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">1</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>(<span class="sy1">&lt;%=</span>model<span
-
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
-
-class="nu0">0</span><span class="br0">)</span><span class="sy1">%&gt;</span>)&lt;/h4&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">2</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span>&lt;br/&gt;
-    <span class="sy1">&lt;%=</span>model<span class="sy0">.</span>getValueAt<span
-
-class="br0">(</span>r<span class="sy0">,</span> <span class="nu0">3</span><span
-
-class="br0">)</span><span class="sy1">%&gt;</span> (<span class="sy1">&lt;%=</span>model<span
-
-class="sy0">.</span>getValueAt<span class="br0">(</span>r<span class="sy0">,</span> <span
-
-class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
+    &lt;h4&gt;&lt;%=model.getValueAt(r, 1)%&gt;(&lt;%=model.getValueAt(r, 0)%&gt;)&lt;/h4&gt;
+    &lt;%=model.getValueAt(r, 2)%&gt;&lt;br/&gt;
+    &lt;%=model.getValueAt(r, 3)%&gt; (&lt;%=model.getValueAt(r, 4)%&gt;)
     &lt;/div&gt;&lt;/xava:link&gt;
-<span class="sy1">&lt;%</span>
-<span class="br0">}</span>
-<span class="sy1">%&gt;</span></pre>
+&lt;%
+}
+%&gt;</code></pre>
       Para este editor usamos una clase CSS, <i>ficha-cliente </i>(el estilo
       en línea no está permitido desde v7.1), pon esta clase CSS en un archivo <em>fichasClienteListEditor</em><em>.</em><i>css</i>
       dentro de la carpeta <i>src/main/webapp/xava/editors/style</i> (<i>web/xava/editors/style</i>
@@ -1501,13 +831,9 @@ class="nu0">4</span><span class="br0">)</span><span class="sy1">%&gt;</span>)
       Además, podemos definir la forma en que las listas se visualizan por
       defecto en toda la aplicación, usando <em>&lt;para-tabs/&gt;</em>, para
       ello editamos <em>editores.xml</em> y añadimos:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">nombre</span>=<span class="st0">"MiLista"</span> <span class="re0">url</span>=<span
-
-class="st0">"miListaEditor.jsp"</span><span class="re2">&gt;</span></span>
-  <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor nombre="MiLista" url="miListaEditor.jsp"&gt;
+  &lt;para-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       Como hemos marcado el editor con <em>&lt;for-tabs/&gt;</em> ahora todos
       los tabs de nuestra aplicación se visualizaran usando nuestro <em>miListaEditor.jsp</em>.
       Esta es una forma sencilla de personalizar el comportamiento del generador
@@ -1519,37 +845,21 @@ class="st0">"miListaEditor.jsp"</span><span class="re2">&gt;</span></span>
       formatos de lista diferentes que el usuario puede escoger. Por ejemplo, si
       tenemos esto en <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-editors.xml">openxava/src/main/resources/xava/default-editors.xml</a>
       (<em>OpenXava/xava/default-editors.xml</em> antes de v7):<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre><code class="language-xml">&lt;editor name="List" url="listEditor.jsp" icon="table-large"&gt;
+    &lt;for-tabs/&gt;
+&lt;/editor&gt;
 
-class="re0">name</span>=<span class="st0">"List"</span> <span class="re0">url</span>=<span
-
-class="st0">"listEditor.jsp"</span> <span class="re0">icon</span>=<span class="st0">"table-large"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">name</span>=<span
-
-class="st0">"Charts"</span> <span class="re0">url</span>=<span class="st0">"chartsEditor.jsp"</span></span>
-<span class="sc3">    <span class="re0">selectable-items</span>=<span class="st0">"false"</span></span>
-<span class="sc3">    <span class="re0">icon</span>=<span class="st0">"chart-line"</span></span>
-<span class="sc3">    <span class="re0">init-action</span>=<span class="st0">"Chart.init"</span></span>
-<span class="sc3">    <span class="re0">release-action</span>=<span class="st0">"Chart.release"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;for-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+&lt;editor name="Charts" url="chartsEditor.jsp"
+    selectable-items="false"
+    icon="chart-line"
+    init-action="Chart.init"
+    release-action="Chart.release"&gt;
+    &lt;for-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       Y esto en <em>editores.xml</em> de tu proyecto:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
-
-class="re0">nombre</span>=<span class="st0">"MiFicha"</span> <span class="re0">url</span>=<span
-
-class="st0">"miFichaEditor.jsp"</span> <span class="re0">icono</span>=<span class="st0">"view-module"</span><span
-
-class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor nombre="MiFicha" url="miFichaEditor.jsp" icono="view-module"&gt;
+    &lt;para-tabs/&gt;
+&lt;/editor&gt;</code></pre>
       Tu usuario tendrá tres formatos para escoger en la lista:<br>
       <img src="files/tab050.png" alt="tab050.png" title="tab050.png"><br>
       Es decir, a partir de v5.7 <em>&lt;para-tabs/&gt;</em> no sustituye sino
@@ -1569,16 +879,15 @@ class="re2">&gt;</span></span>
         para formatos de lista en entidades específicas <em>(nuevo en v7.3)</em></h3>
       A partir de v7.3, en los editores marcados con <em>&lt;for-tabs/&gt; </em>y
       <em>&lt;para-tabs/&gt;</em>, se podrán agregar condiciones: <br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> nombre=<span
-
-class="st0">"MiEditor"</span> <span class="re0">url</span>=<span class="st0">"miEditor.jsp"</span></span><span
-
-class="sc3"></span>
-<span class="sc3">    <span class="re0">icon</span>o=<span class="st0">"puzzle"</span></span><span
-
-class="sc3"><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;para-tabs</span><span class="re2">&gt; <br>        &lt;tiene-tipo tipo="java.util.Date"&gt;<br>	&lt;tiene-tipo tipo="java.time.LocalDate"&gt;<br>	&lt;tiene-anotacion anotacion="DateTime"&gt;<br>	&lt;tiene-estereotipo estereotipo="FECHAHORA"&gt;<br>    &lt;/para-tabs&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;editor nombre="MiEditor" url="miEditor.jsp"
+    icono="puzzle"&gt;
+    &lt;para-tabs&gt;
+        &lt;tiene-tipo tipo="java.util.Date"&gt;
+	&lt;tiene-tipo tipo="java.time.LocalDate"&gt;
+	&lt;tiene-anotacion anotacion="DateTime"&gt;
+	&lt;tiene-estereotipo estereotipo="FECHAHORA"&gt;
+    &lt;/para-tabs&gt;
+&lt;/editor&gt;</code></pre>
     </div>
     <div class="wiki" style="display: block;">Las condiciones te permiten
       mostrar el editor para formatos de lista en los módulos cuya entidades
@@ -1753,9 +1062,7 @@ String nombre;
       automáticamente.<br>
       Además, desde v7.1 no se permiten los eventos en línea como <i>onclick</i>,
       es decir, el siguiente código no está permitido:<br>
-      <pre class="html4strict"><span class="sc2">&lt;<span class="kw2">input</span> ... <span
-class="kw3">onclick</span><span class="sy0">=</span><span class="st0">"f()"</span><span
-class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
+      <pre><code class="language-html">&lt;input ... onclick="f()"/&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</code></pre>
       En su lugar has de asociar los eventos desde el código en tus archivos JS.
       Para tu código JavaScript crea un archivo llamado <em>miEditor.js</em> (o
       cualquier otro nombre que quieras), y ponlo en la carpeta <i>src/main/webapp/xava/editors/js</i>
@@ -1767,16 +1074,14 @@ class="sy0">/</span>&gt; &lt;!-- NO PERMITIDO DESDE V7.1--&gt;</span></pre>
       inicialización en OpenXava. Puedes hacerlo en tu archivo <em>miEditor.js</em>
       (o cualquier otro archivo en <i>src/main/webapp/xava/editors/js</i><em></em>),
       como sigue:<br>
-      <pre class="javascript">openxava.<span class="me1">addEditorInitFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span>
- <span class="coMULTI">/*
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
+ /*
  Aquí tu código de inicialización para tu editor.
  Es decir, las cosas que normalmente pondrías en el event onload de JavaScript
  o $(function() { ... }) de jQuery
- */</span>
+ */
  ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
       Vemos como usamos <em>openxava.addEditorInitFunction()</em> para
       registrar una función de inicialización. El evento JavaScript <em>onload</em>
       o el evento <em>ready()</em> de jQuery no funciona, porque no se produce
@@ -1784,29 +1089,24 @@ class="br0">)</span> <span class="br0">{</span>
       carga vía AJAX y se inserta en la página que ya se estaba visualizando.<br>
       A partir de v4.8.1 puedes definir una función de destrucción para tu
       editor en tu <em>miEditor.js</em>:<br>
-      <pre class="javascript">openxava.<span class="me1">addEditorDestroyFunction</span><span
-class="br0">(</span><span class="kw2">function</span><span class="br0">(</span><span
-class="br0">)</span> <span class="br0">{</span> <span class="co1">// Nuevo en v4.8.1</span>
-<span class="coMULTI">/*
+      <pre><code class="language-javascript">openxava.addEditorDestroyFunction(function() { // Nuevo en v4.8.1
+/*
 Aquí el código de destrucción de tu editor.
 Esto es para liberar los recursos obtenidos por el editor.
-*/</span>
+*/
 ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
       <p id="toc10"> A partir de v7.1 puedes definir una función a ejecutar
         antes de cada llamada AJAX de OpenXava, ponla en tu <em>miEditor.js</em>:<br>
       </p>
       <div class="wiki">
-        <pre class="javascript">openxava.<span class="me1">addEditorPreRequestFunction</span><span
-class="br0"></span><span class="br0">(</span><span class="kw2">function</span><span
-class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span
-class="co1">// Nuevo en v7.1</span>
-<span class="coMULTI">/*
+        <pre><code class="language-javascript">openxava.addEditorPreRequestFunction(function() { // Nuevo en v7.1
+/*
 Aquí el código a ejecutar para tu editor
 antes de cada llamada AJAX de OpenXava.
-*/</span>
+*/
 ...
-<span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span></pre>
+});</code></pre>
         <p id="toc10">Por ejemplo, si quieres mostrar un diálogo de JavaScript
           con un mensaje cuando el usuario pulse en un botón de tu editor, y
           tienes este código en tu <i>miEditor.jsp</i>: </p>
@@ -1888,99 +1188,39 @@ antes de cada llamada AJAX de OpenXava.
       Podemos hacer que propiedades simples que se visualicen como combos que
       rellenen sus datos desde la base datos. Veámoslo.<br>
       Definimos las propiedades así en nuestro componente:<br>
-      <pre class="java5">@Stereotype<span class="br0">(</span><span class="st0">"FAMILY"</span><span
+      <pre><code class="language-java">@Stereotype("FAMILY")
+private int familyNumber;
 
-class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> familyNumber<span
-
-class="sy0">;</span>
-&nbsp;
-@Stereotype<span class="br0">(</span><span class="st0">"SUBFAMILY"</span><span class="br0">)</span>
-<span class="kw2">private</span> <span class="kw3">int</span> subfamilyNumber<span
-
-class="sy0">;</span></pre>
+@Stereotype("SUBFAMILY")
+private int subfamilyNumber;</code></pre>
       Y en nuestro <em>editores.xml</em> ponemos:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;editor</span> <span
+      <pre><code class="language-xml">&lt;editor url="descriptionsEditor.jsp"&gt; &lt;!-- 10 --&gt;
+ &lt;propiedad nombre="modelo" valor="Familia"/&gt; &lt;!-- 1 --&gt;
+ &lt;propiedad nombre="propiedadClave" valor="codigo"/&gt; &lt;!-- 2 --&gt;
+ &lt;propiedad nombre="propiedadDescripcion" valor="descripcion"/&gt; &lt;!-- 3 --&gt;
+ &lt;propiedad nombre="ordenadoPorClave" valor="true"/&gt; &lt;!-- 4 --&gt;
+ &lt;propiedad nombre="readOnlyAsLabel" valor="true"/&gt; &lt;!-- 5 --&gt;
+ &lt;para-estereotipo estereotipo="FAMILIA"/&gt; &lt;!-- 11 --&gt;
+&lt;/editor&gt;
 
-class="re0">url</span>=<span class="st0">"descriptionsEditor.jsp"</span><span class="re2">&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 10 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Familia"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"propiedadDescripcion"</span> <span class="re0">valor</span>=<span class="st0">"descripcion"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"ordenadoPorClave"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 4 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"readOnlyAsLabel"</span> <span class="re0">valor</span>=<span class="st0">"true"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 5 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
-
-class="st0">"FAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc-1">&lt;!-- Es posible especificar dependencias de estereotipos o propiedades --&gt;</span>
-<span class="sc3"><span class="re1">&lt;editor</span> <span class="re0">url</span>=<span
-
-class="st0">"descriptionsEditor.jsp"</span> &lt;!-- 10 --<span class="re2">&gt;</span></span>
- depende-de-estereotipos="FAMILIA"&gt; <span class="sc-1">&lt;!-- 12 --&gt;</span>
-<span class="sc-1">&lt;!--</span>
-<span class="sc-1">&lt;editor url="descriptionsEditor.jsp" depende-de-propiedades="codigoFamilia"&gt; &lt;!-- 13 --&gt;</span>
+&lt;!-- Es posible especificar dependencias de estereotipos o propiedades --&gt;
+&lt;editor url="descriptionsEditor.jsp" &lt;!-- 10 --&gt;
+ depende-de-estereotipos="FAMILIA"&gt; &lt;!-- 12 --&gt;
+&lt;!--
+&lt;editor url="descriptionsEditor.jsp" depende-de-propiedades="codigoFamilia"&gt; &lt;!-- 13 --&gt;
 --&gt;
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"modelo"</span> <span class="re0">valor</span>=<span class="st0">"Subfamilia"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"propiedadClave"</span> <span class="re0">valor</span>=<span class="st0">"codigo"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"propiedadesDescripcion"</span> <span class="re0">valor</span>=<span
-
-class="st0">"codigo, descripcion"</span><span class="re2">/&gt;</span></span> <span
-
-class="sc-1">&lt;!-- 3 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"condicion"</span> <span class="re0">value</span>=<span class="st0">"${codigoFamilia} = ?"</span><span
-
-class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 6 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"estereotiposValoresParametros"</span> <span class="re0">valor</span>=<span
-
-class="st0">"FAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 7 --&gt;</span>
- <span class="sc-1">&lt;!--</span>
-<span class="sc-1"> &lt;propiedad nombre="propiedadesValoresParametros" valor="codigoFamilia"/&gt; &lt;!-- 8 --&gt;</span>
+ &lt;propiedad nombre="modelo" valor="Subfamilia"/&gt; &lt;!-- 1 --&gt;
+ &lt;propiedad nombre="propiedadClave" valor="codigo"/&gt; &lt;!-- 2 --&gt;
+ &lt;propiedad nombre="propiedadesDescripcion" valor="codigo, descripcion"/&gt; &lt;!-- 3 --&gt;
+ &lt;propiedad nombre="condicion" value="${codigoFamilia} = ?"/&gt; &lt;!-- 6 --&gt;
+ &lt;propiedad nombre="estereotiposValoresParametros" valor="FAMILIA"/&gt; &lt;!-- 7 --&gt;
+ &lt;!--
+ &lt;propiedad nombre="propiedadesValoresParametros" valor="codigoFamilia"/&gt; &lt;!-- 8 --&gt;
  --&gt;
- <span class="sc3"><span class="re1">&lt;propiedad</span> <span class="re0">nombre</span>=<span
-
-class="st0">"formateadorDescripciones"</span> &lt;!-- 9 --<span class="re2">&gt;</span></span>
+ &lt;propiedad nombre="formateadorDescripciones" &lt;!-- 9 --&gt;
  valor="org.openxava.test.formatters.FormateadorDescripcionesFamilia"/&gt;
- <span class="sc3"><span class="re1">&lt;para-estereotipo</span> <span class="re0">estereotipo</span>=<span
-
-class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 11 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/editor<span class="re2">&gt;</span></span></span></pre>
+ &lt;para-estereotipo estereotipo="SUBFAMILIA"/&gt; &lt;!-- 11 --&gt;
+&lt;/editor&gt;</code></pre>
       Al visualizar una vista con estas dos propiedades <em>codigoFamilia</em>
       y <em>codigoSubfamilia</em> sacará un combo para cada una de ellas, el de
       familias con todas las familias disponible y el de subfamilias estará
@@ -2041,19 +1281,12 @@ class="st0">"SUBFAMILIA"</span><span class="re2">/&gt;</span></span> <span class
       <h3 id="toc15"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-Ejemplo"></a>Ejemplo</h3>
       Lo primero es indicar en nuestro módulo que queremos usar nuestro propio
       JSP, en <em>aplicacion.xml</em>:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"ComercialJSP"</span> <span class="re0">carpeta</span>=<span
-class="st0">"facturacion.variaciones"</span><span class="re2">&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Comercial"</span><span class="re2">/&gt;</span></span>
- <span class="sc3"><span class="re1">&lt;vista</span> <span class="re0">nombre</span>=<span
-class="st0">"ParaJSPPropio"</span><span class="re2">/&gt;</span></span> <span class="sc-1">&lt;!-- 1 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;vista-web</span> <span class="re0">url</span>=<span
-class="st0">"jsp-propios/comercial.jsp"</span><span class="re2">/&gt;</span></span> <span
-class="sc-1">&lt;!-- 2 --&gt;</span>
- <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="ComercialJSP" carpeta="facturacion.variaciones"&gt;
+ &lt;modelo nombre="Comercial"/&gt;
+ &lt;vista nombre="ParaJSPPropio"/&gt; &lt;!-- 1 --&gt;
+ &lt;vista-web url="jsp-propios/comercial.jsp"/&gt; &lt;!-- 2 --&gt;
+ &lt;controlador nombre="Typical"/&gt;
+&lt;/modulo&gt;</code></pre>
       Si usamos <em>vista-web</em> (2) al definir el módulo, OpenXava usa
       nuestro JSP para dibujar el detalle, en vez de usar la vista generada
       automáticamente. Opcionalmente podemos definir una vista OpenXava con <em>vista</em>
@@ -2065,10 +1298,8 @@ class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
       dentro de la carpeta <i>src/main/webapp</i><em>/custom-jsp</em><em>/jsp-propios</em>
       (u otra de nuestra elección) de nuestro proyecto (<i>web</i> en lugar de <i>src/main/webapp</i><em>
       </em>para versiones anteriores a v7.0), y este JSP puede ser así:<br>
-      <pre class="php"><span class="sy1">&lt;%</span><span class="sy0">@</span> <span
-class="kw1">include</span> <span class="kw3">file</span><span class="sy0">=</span><span
-class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
-&nbsp;
+      <pre><code class="language-php">&lt;%@ include file="../xava/imports.jsp"%&gt;
+
 &lt;table&gt;
 &lt;tr&gt;
  &lt;td&gt;C&amp;oacute;digo: &lt;/td&gt;
@@ -2082,7 +1313,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
  &lt;xava:editor property="nombre"/&gt;
  &lt;/td&gt;
 &lt;/tr&gt;
-&nbsp;
+
 &lt;tr&gt;
  &lt;td&gt;Nivel: &lt;/td&gt;
  &lt;td&gt;
@@ -2090,7 +1321,7 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
  &lt;xava:editor property="nivel.descripcion"/&gt;
  &lt;/td&gt;
 &lt;/tr&gt;
-&lt;/table&gt;</pre>
+&lt;/table&gt;</code></pre>
       Somos libres de crear el archivo JSP como queramos, pero puede ser
       práctico usar las taglibs de OpenXava, en este caso, por ejemplo, se usa <em>&lt;xava:editor/&gt;</em>,
       esto dibuja un editor apto para la propiedad indicada, además añade el
@@ -2110,13 +1341,12 @@ class="st0">"../xava/imports.jsp"</span><span class="sy1">%&gt;</span>
       La marca (tag) <em>&lt;xava:editor/&gt;</em> permite visualizar un editor
       (un control HTML) para nuestra propiedad, de la misma forma que lo hace
       OpenXava cuando genera automáticamente la interfaz de usuario.<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:editor</span></span>
-<span class="sc3"> <span class="re0">property</span>=<span class="st0">"nombrePropiedad"</span> &lt;!-- 1 --<span
-class="re2">&gt;</span></span>
- editable="true|false" <span class="sc-1">&lt;!-- 2 Nuevo en v2.0.1 --&gt;</span>
- throwPropertyChanged="true|false" <span class="sc-1">&lt;!-- 3 Nuevo en v2.0.1 --&gt;</span>
- value="valorExplicito" <span class="sc-1">&lt;!-- 4 Nuevo en v7.6 --&gt;</span>
-/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:editor
+ property="nombrePropiedad" &lt;!-- 1 --&gt;
+ editable="true|false" &lt;!-- 2 Nuevo en v2.0.1 --&gt;
+ throwPropertyChanged="true|false" &lt;!-- 3 Nuevo en v2.0.1 --&gt;
+ value="valorExplicito" &lt;!-- 4 Nuevo en v7.6 --&gt;
+/&gt;</code></pre>
       <ol>
         <li><strong>property</strong> (obligado): Propiedad del modelo asociado
           al módulo actual.</li>
@@ -2137,15 +1367,11 @@ class="re2">&gt;</span></span>
         xava:link, xava:image, xava:button</h3>
       La marca (tag) <em>&lt;xava:action/&gt;</em> permite dibujar una acción
       (un botón o una imagen que el usuario puede pulsar).<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"controlador.accion"</span> <span class="re0">argv</span>=<span
-class="st0">"argv"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action="controlador.accion" argv="argv"/&gt;</code></pre>
       El atributo action indica la acción a ejecutar, y el atributo <em>argv</em>
       (opcional) nos permite establecer valores a algunas propiedades de la
       acción antes de ejecutarla. Un ejemplo:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">"CRUD.save"</span> <span class="re0">argv</span>=<span
-class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action="CRUD.save" argv="resetAfter=true"/&gt;</code></pre>
       Cuando el usuario pulse en la acción se ejecutará <em>CRUD.save</em>,
       antes pone a true la propiedad <em>resetAfter</em> de la acción.<br>
       La acción se visualiza como una imagen si tiene una imagen asociada y como
@@ -2154,8 +1380,7 @@ class="st0">"resetAfter=true"</span><span class="re2">/&gt;</span></span></pre>
       <em>&lt;xava:image/&gt;</em> o <em>&lt;xava:link/&gt;</em> similares a <em>&lt;xava:action/&gt;</em>.<br>
       Podemos especificar una cadena vacía para la acción <em>(nuevo en v2.2.1)</em>,
       como sigue:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:action</span> <span
-class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:action action=""/&gt;</code></pre>
       En este caso la marca (tag) no tiene efecto y no se produce error. Esta
       característica puede ser útil cuando el nombre de la acción lo obtenemos
       dinámicamente (es decir <em>action=”&lt;%=micodigo()%&gt;”</em>), y el
@@ -2169,10 +1394,7 @@ class="re0">action</span>=<span class="st0">""</span><span class="re2">/&gt;</sp
         (nuevo en v2.0.3)</h3>
       La marca (tag) &lt;xava:message/&gt; permite mostrar en HTML un mensaje de
       los archivos de recursos i18n de OpenXava.<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"clave_mensaje"</span> <span class="re0">param</span>=<span
-class="st0">"parametroMensaje"</span> <span class="re0">intParam</span>=<span class="st0">"paramMensaje"</span><span
-class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:message key="clave_mensaje" param="parametroMensaje" intParam="paramMensaje"/&gt;</code></pre>
       El mensaje es buscado primero en los archivos de recursos de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-messages_es.properties</em></em>
       para v7 o superior, y <em>MiProyecto/i18n/MensajesMiProyecto.properties</em>
@@ -2188,15 +1410,12 @@ class="re2">/&gt;</span></span></pre>
       Esta marca solo genera el texto del mensaje, sin ningún tipo de formateo
       HTML.<br>
       Un ejemplo:<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:message</span> <span
-class="re0">key</span>=<span class="st0">"cantidad_lista"</span> <span class="re0">intParam</span>=<span
-class="st0">"&lt;%=cantidadTotal%&gt;</span></span>"/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:message key="cantidad_lista" intParam="&lt;%=cantidadTotal%&gt;"/&gt;</code></pre>
       <h3 id="toc19"><a name="Personalizacion-Vistas+JSP+propias+y+taglibs+de+OpenXava-xava:label+(nuevo+en+v5.5)"></a>xava:label
         (nuevo en v5.5)</h3>
       La marca &lt;xava:label/&gt; permite mostrar en HTML una etiqueta de los
       archivos de etiquetas de OpenXava.<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:label</span> <span
-class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2">/&gt;</span></span></pre>
+      <pre><code class="language-xml">&lt;xava:label key="nombreMiembro"/&gt;</code></pre>
       El mensaje es buscado primero en los archivos de etiquetas de nuestro
       proyecto (<em><em>miproyecto/src/main/resources/i18n/</em></em><em><em><em><em>miproyecto</em></em>-labels_es.properties</em></em>
       para v7 o superior<em>, y </em><em>MiProyecto/i18n/EtiquetasMiProyecto.properties</em>
@@ -2207,32 +1426,28 @@ class="re0">key</span>=<span class="st0">"nombreMiembro"</span><span class="re2"
       <span style="line-height: 1.5;">Esta marca solo genera el texto de la
         etiqueta, sin ningún tipo de formateo HTML.</span><br>
       Con &lt;xava:label/&gt; en lugar de escribir:<br>
-      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Number<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
-class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
-    <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+    &lt;td&gt;Number: &lt;/td&gt;&lt;td&gt;
+    &lt;xava:editor property="number"/&gt;
+    &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       Puedes escribir esto:<br>
-      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>td<span class="sy0">&gt;&lt;</span>xava<span class="sy0">:</span>label <span
-class="kw3">key</span><span class="sy0">=</span><span class="st0">"number"</span><span
-class="sy0">/&gt;:</span> <span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span
-class="sy0">&gt;</span>
-    <span class="sy0">&lt;</span>xava<span class="sy0">:</span>editor property<span
-class="sy0">=</span><span class="st0">"number"</span><span class="sy0">/&gt;</span>
-    <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+    &lt;td&gt;&lt;xava:label key="number"/&gt;: &lt;/td&gt;&lt;td&gt;
+    &lt;xava:editor property="number"/&gt;
+    &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       Y así tener la etiqueta traducida.<br>
       <h3 id="toc20"><a name="toc20"></a>xava:descriptionsList (nuevo en v2.0.3)</h3>
       La marca (tab) <em>&lt;xava:descriptionsList/&gt;</em> permite visualizar
       una lista descripciones (un combo HTML) para una referencia, del mismo
       modo que lo hace OpenXava cuando genera la interfaz de usuario
       automáticamente.<br>
-      <pre class="xml"><span class="sc3"><span class="re1">&lt;xava:descriptionsList</span></span>
-<span class="sc3"> <span class="re0">reference</span>=<span class="st0">"nombreReferencia"</span>  &lt;!-- 1 --<span
-class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-1"> &lt;!-- 2 Nuevo en v6.0.1 --&gt;</span><br> descriptionValue="valorDescripcion" <span class="sc-1"> &lt;!-- 3 Nuevo en v7.6 --&gt;</span><br>/&gt;</pre>
+      <pre><code class="language-xml">&lt;xava:descriptionsList
+ reference="nombreReferencia"  &lt;!-- 1 --&gt;
+ readOnlyAsLabel="true|false"  &lt;!-- 2 Nuevo en v6.0.1 --&gt;
+ descriptionValue="valorDescripcion"  &lt;!-- 3 Nuevo en v7.6 --&gt;
+/&gt;</code></pre>
       <ol>
         <li><strong>reference</strong> (obligado): Una referencia del modelo
           asociado con el módulo actual.</li>
@@ -2244,28 +1459,23 @@ class="re2">&gt;<br></span></span> readOnlyAsLabel="true|false" <span class="sc-
       Esta marca genera el JavaScript necesario para permitir a la vista
       personalizada trabajar de la misma forma que una automática.<br>
       Un ejemplo:<br>
-      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Nivel<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
-class="sy0">=</span><span class="st0">"nivel"</span><span class="sy0">/&gt;</span>
- <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+ &lt;td&gt;Nivel: &lt;/td&gt;
+ &lt;td&gt;
+ &lt;xava:descriptionsList reference="nivel"/&gt;
+ &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       En este caso <em>nivel</em> es una referencia al modelo actual (por
       ejemplo <em>Comercial</em>). Un combo es mostrado con todos los niveles
       disponibles.<br>
       <br>
       <em>Un ejemplo usando descriptionValue:</em><br>
-      <pre class="php"><span class="sy0">&lt;</span>tr<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>Cliente<span class="sy0">:</span> <span
-class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>td<span class="sy0">&gt;</span>
- <span class="sy0">&lt;</span>xava<span class="sy0">:</span>descriptionsList reference<span
-class="sy0">=</span><span class="st0">"cliente"</span> descriptionValue<span
-class="sy0">=</span><span class="st0">"${nombreCliente}"</span><span class="sy0">/&gt;</span>
- <span class="sy0">&lt;/</span>td<span class="sy0">&gt;</span>
-<span class="sy0">&lt;/</span>tr<span class="sy0">&gt;</span></pre>
+      <pre><code class="language-php">&lt;tr&gt;
+ &lt;td&gt;Cliente: &lt;/td&gt;
+ &lt;td&gt;
+ &lt;xava:descriptionsList reference="cliente" descriptionValue="${nombreCliente}"/&gt;
+ &lt;/td&gt;
+&lt;/tr&gt;</code></pre>
       En este ejemplo, la descripción mostrada en la lista desplegable será el valor de <em>nombreCliente</em> en lugar del valor de descripción predeterminado obtenido de la vista.</div>
     <div class="wiki" style="display: block;">
       <h2><a name="modificar-jsps-nucleo-openxava"></a>Modificar el código JSP
@@ -3277,3 +2487,5 @@ class="sy0">=</span><span class="st0">"${nombreCliente}"</span><span class="sy0"
     </div>
   </body>
 </html>
+
+
