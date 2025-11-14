@@ -1,31 +1,34 @@
 Change Log for OpenXava project
 ===============================
 
-- Consistent source code formatting in reference guide.
+- ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
+- The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.
+
 - Groovy upgraded to 4.0.29.
 - PDFBox upgraded to 3.0.6.
 - Embedded Tomcat used in development upgraded to 9.0.112.
 - Driver version in doc/new projects upgraded for MySQL and Oracle.
-- Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them. 
+
+- Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
+- Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
+- Improved migration documentation for 7.2 indicating the needed imports for JSP code.
+- More modern formatting for source code in documentation.
+- Consistent source code formatting in reference guide.
 - Cleaned HTML code for Index, Migration and IntelliJ documentation, making it more human and AI readable.
 - Copy button in source code snippets in documentation.
-- More modern formatting for source code in documentation.
-- Improved migration documentation for 7.2 indicating the needed imports for JSP code.
-- Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
-- Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
+
+- Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them.
+- Fix: List with baseCondition shows extra conditions or columns after consulting a record in detail mode.
+- Fix: Calendar list format option shown for hidden dates, breaking the module when chosen. 
 - Fix: Visual style for focused radiobuttons and checkbuttons does not match other editors for theme.
 - Fix: Setting focus in radio button editors programmatically with View.setFocus() does not work.
 - Fix: Default value ignored if it depends on a reference whose default value calculator returns the entity.
 - Fix: Adding/removing/moving columns in a 'grouped by' list modifies the columns of the original list.
-- Fix: List with baseCondition shows extra conditions or columns after consulting a record in detail mode.
 - Fix: Collection border not clearly visible in light themes.
 - Fix: Gson throwing 'multiple JSON fields' exception when serializing OpenXava metadata.
 - Fix: Bad alignment of @DescriptionList combos with flowLayout=true.
-- ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
 - Fix: Tab.filterByContentInAnyProperty() fails when only one of several properties is a string.
-- Fix: Search filling non-ID fields and clicking Refresh could show records not in list.
-- The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.
-- Fix: Calendar list format option shown for hidden dates, breaking the module when chosen.
+- Fix: Search filling non-ID fields and clicking Refresh could show records not in the list.
 
 OpenXava 7.6.1 (2025-10-17)
 ---------------------------
