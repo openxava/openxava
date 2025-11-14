@@ -1,14 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6.2 (2025-11-14)
+---------------------------
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
 - The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.
-
 - Groovy upgraded to 4.0.29.
 - PDFBox upgraded to 3.0.6.
 - Embedded Tomcat used in development upgraded to 9.0.112.
 - Driver version in doc/new projects upgraded for MySQL and Oracle.
-
 - Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
 - Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
 - Improved migration documentation for 7.2 indicating the needed imports for JSP code.
@@ -16,7 +16,6 @@ Change Log for OpenXava project
 - Consistent source code formatting in reference guide.
 - Cleaned HTML code for Index, Migration and IntelliJ documentation, making it more human and AI readable.
 - Copy button in source code snippets in documentation.
-
 - Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them.
 - Fix: List with baseCondition shows extra conditions or columns after consulting a record in detail mode.
 - Fix: Calendar list format option shown for hidden dates, breaking the module when chosen. 
