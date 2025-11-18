@@ -100,7 +100,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		warehouse.setNumber(1);
 		setValueInList(1, "warehouse.KEY", toKeyString(warehouse));		
 
-		// For a bug returing from Charts
+		// For a bug returing from Charts // TMR ME QUEDÉ POR AQUÍ, LO DE ABAJO FUNCIONA PERO HAY DOS TEST QUE FALLAN
 		execute("ListFormat.select", "editor=Charts");
 		execute("ListFormat.select", "editor=List");
 		assertNoErrors();

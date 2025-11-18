@@ -7,7 +7,7 @@ import org.openxava.tests.*;
  * @author Javier Paniza
  */
 
-public class Invoice6WithDetailsTest extends ModuleTestBase {
+public class Invoice6WithDetailsTest extends ModuleTestBase { // TMR FALLA
 	
 	public Invoice6WithDetailsTest(String testName) {
 		super(testName, "Invoice6WithDetails");		
