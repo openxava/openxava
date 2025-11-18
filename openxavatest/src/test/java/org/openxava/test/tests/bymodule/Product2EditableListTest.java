@@ -99,6 +99,12 @@ public class Product2EditableListTest extends ModuleTestBase {
 		warehouse.setZoneNumber(1);
 		warehouse.setNumber(1);
 		setValueInList(1, "warehouse.KEY", toKeyString(warehouse));		
+
+		// For a bug returing from Charts
+		execute("ListFormat.select", "editor=Charts");
+		execute("ListFormat.select", "editor=List");
+		assertNoErrors();
+		assertValueInList(0, "unitPrice", "11.00");  // So the list is displayed
 	}
 	
 }

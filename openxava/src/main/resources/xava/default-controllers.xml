@@ -323,13 +323,11 @@ here that you want to override.
 	<controller name="List">
 	
 		<action name="init" hidden="true"
-			class="org.openxava.actions.SetOptimizeChunkSizeAction">
-			<set property="optimizeChunkSize" value="true"/>
+			class="org.openxava.actions.InitListFormatAction">
 		</action>		
 		
 		<action name="release" hidden="true"
-			class="org.openxava.actions.SetOptimizeChunkSizeAction">
-			<set property="optimizeChunkSize" value="false"/>
+			class="org.openxava.actions.ReleaseListFormatAction">
 		</action>		
 	
 		<action name="setPageRowCount"
