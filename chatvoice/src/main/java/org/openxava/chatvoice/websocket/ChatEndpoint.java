@@ -73,7 +73,6 @@ public class ChatEndpoint {
 			if (assistant == null) {
 				// Obtener API key desde xava.properties
 				String apiKey = System.getProperty("openai.apiKey");
-				apiKey = "demo"; // tmr
 				if (Is.emptyString(apiKey)) {
 					apiKey = System.getenv("OPENAI_API_KEY");
 				}
@@ -84,9 +83,9 @@ public class ChatEndpoint {
 				
 				// Crear modelo de chat de OpenAI
 				var model = OpenAiChatModel.builder()
-					.baseUrl("http://langchain4j.dev/demo/openai/v1")
 					.apiKey(apiKey)
-					.modelName("gpt-4o-mini")
+					// .modelName("gpt-4o-mini")
+					.modelName("gpt-5-mini")
 					.build();
 				
 				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)
