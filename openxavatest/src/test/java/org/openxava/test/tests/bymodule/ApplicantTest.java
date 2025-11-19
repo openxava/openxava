@@ -43,7 +43,7 @@ public class ApplicantTest extends ModuleTestBase {
 		execute("List.saveConfiguration");
 		execute("SaveListConfiguration.save"); // In order List.changeConfiguration be available for the next tests 
 		
-		execute("List.changeConfiguration"); // TMR FALLA
+		execute("List.changeConfiguration"); 
 		assertExists("name");
 		assertNoAction("List.filter");
 		execute("ChangeListConfiguration.cancel");
