@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Module breaks when returning to the list from charts if the list uses editable properties.
+
 OpenXava 7.6.2 (2025-11-14)
 ---------------------------
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
