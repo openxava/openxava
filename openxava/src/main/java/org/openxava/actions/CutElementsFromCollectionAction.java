@@ -25,7 +25,6 @@ public class CutElementsFromCollectionAction extends CollectionBaseAction implem
 
 	public void execute() throws Exception {
 		try{
-			// TMR ME QUEDÉ POR AQUÍ. PUSE TAMBIÉN LOGS EN dwr.Module
 			log.info("getCollectionElementView().getModelName()>" + getCollectionElementView().getModelName()); // Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
 			log.info("getCollectionElementView().getParent().getModelName()>" + getCollectionElementView().getParent().getModelName()); // Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
 			Map [] selectedOnes = getSelectedKeys();

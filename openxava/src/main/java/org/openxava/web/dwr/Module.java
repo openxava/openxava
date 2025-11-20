@@ -323,7 +323,7 @@ public class Module extends DWRBase {
 				// Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
 				log.info("view.getModelName()=" + view.getModelName());
 				log.info("changeParts.keys=" + changeParts.keySet());
-				log.error(ex);
+				log.error("Exception retrieving part: " + changedPart.getKey(), ex);
 				changedParts.put(changedPart.getKey(), "ERROR: PART NOT AVAILABLE");
 			}
 		}
