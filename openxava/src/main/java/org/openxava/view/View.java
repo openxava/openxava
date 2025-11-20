@@ -7389,7 +7389,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean isCollectionHasDefaultActions() {
-		MetaCollectionView metaCollectionView = getRoot().getMetaView().getMetaCollectionView(getMemberName());
+		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
 		if (metaCollectionView != null) return metaCollectionView.hasDefaultActions();
 		return true;
 	}
