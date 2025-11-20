@@ -13,7 +13,7 @@ import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
-import org.openxava.hotswap.Hotswap;
+import org.openxava.hotswap.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.View;
@@ -311,12 +311,21 @@ public class Module extends DWRBase {
 		}
 				
 		Collection<String> propertiesUsedInCalculations = new HashSet<String>(); 
-		Map<String, View> changedCollectionsTotals = view.getChangedCollectionsTotals(); 
-		for (Iterator it = getChangedParts(values, propertiesUsedInCalculations, changedCollectionsTotals).entrySet().iterator(); it.hasNext(); ) { 
+		Map<String, View> changedCollectionsTotals = view.getChangedCollectionsTotals();
+		Map changeParts = getChangedParts(values, propertiesUsedInCalculations, changedCollectionsTotals);
+		for (Iterator it = changeParts.entrySet().iterator(); it.hasNext(); ) { 
 			Map.Entry changedPart = (Map.Entry) it.next();
-			changedParts.put(changedPart.getKey(),
-				getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters)	
-			);
+			try {
+				String htmlContent = getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters); 
+				changedParts.put(changedPart.getKey(), htmlContent);
+			}
+			catch (Exception ex) {
+				// Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
+				log.info("view.getModelName()=" + view.getModelName());
+				log.info("changeParts.keys=" + changeParts.keySet());
+				log.error("Exception retrieving part: " + changedPart.getKey(), ex);
+				changedParts.put(changedPart.getKey(), "ERROR: PART NOT AVAILABLE");
+			}
 		}
 	
 		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations, changedCollectionsTotals);
@@ -542,7 +551,8 @@ public class Module extends DWRBase {
 	}
 
 	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result, Collection<String> propertiesUsedInCalculations) { 
-		View view = getView();			
+		View view = getView();	
+		log.info("view.getModelName()=" + view.getModelName()); // Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
 		Collection changedMembers = view.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor().entrySet();
 		for (Iterator it = changedMembers.iterator(); it.hasNext(); ) {
 			Map.Entry en = (Map.Entry) it.next();
