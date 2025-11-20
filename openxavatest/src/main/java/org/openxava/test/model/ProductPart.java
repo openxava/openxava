@@ -24,6 +24,7 @@ public class ProductPart extends Nameable {
 	@ManyToOne
 	ProductPart parentPart;
 	
+	@NoDefaultActions
 	@CollectionView("Simple")
 	@OneToMany(mappedBy="parentPart", cascade = CascadeType.ALL)
 	Collection<ProductPart> subparts;
