@@ -839,12 +839,15 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValue("comment", "");
 	}
 	
-	public void testPaginationInCollections_notLoseChangesMessageWhenModifyCollectionElement() throws Exception { 
+	public void testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement() throws Exception { 
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
 		
-		// The invoice 2007/14 has 14 detail lines
+		setConditionValues("2002");
 		execute("CRUD.new");
+		confirmHandler.assertNoMessage();
+		
+		// The invoice 2007/14 has 14 detail lines
 		setValue("year", "2007");
 		setValue("number", "14");
 		execute("CRUD.refresh");
