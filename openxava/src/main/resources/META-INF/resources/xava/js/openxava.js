@@ -325,8 +325,13 @@ openxava.setEnterAsFocusKey = function() {
 	});
 }
 
+openxava.isListMode = function() {
+	var id = openxava.decorateId(openxava.lastApplication, openxava.lastModule, "list");
+	return $("#" + id).length;
+}
+
 openxava.listenChanges = function() { 
-	if (openxava.dialogLevel > 0) return;
+	if (openxava.dialogLevel > 0 || openxava.isListMode()) return;
 	$("." + openxava.editorClass).unbind("change.changedCancelled");
 	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {

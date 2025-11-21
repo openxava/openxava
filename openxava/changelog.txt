@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: 'Changed data' dialog when changing filter fields in list before navigating to detail via action.
 - Fix: @NoDefaultActions does not work for nested collections.
 - Fix: Module breaks when returning to the list from charts if the list uses editable properties.
 
