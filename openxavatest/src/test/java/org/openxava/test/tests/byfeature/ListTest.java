@@ -16,11 +16,20 @@ import org.openxava.web.*;
  */
 public class ListTest extends WebDriverTestBase {
 	
+	private final static String ACTION_PREFIX = "action";
+	
 	public ListTest(String testName) {
 		super(testName);
 	}
 	
-	private final static String ACTION_PREFIX = "action";
+	@Override
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+	
+	@Override
+	protected void tearDown() throws Exception { // tmr
+	}
 	
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
@@ -52,6 +61,19 @@ public class ListTest extends WebDriverTestBase {
 		assertTrue(hasClockIcon());
 		goModule("Subfamily");
 		assertTrue(hasClockIcon());
+	}
+	
+	public void testResizeDialogAfterCollectionChanges() throws Exception { // tmr Aquí o en un DialogTest, si aquí ¿mezclar con otro?
+		goModule("InvoicesByYear");
+		execute("InvoicesByYear.showInDialog");
+		WebElement dialog = getDriver().findElement(By.id("ox_openxavatest_InvoicesByYear__dialog1"));
+		int width = dialog.getSize().getWidth();
+		System.out.println("Ancho> " + width); // tmr
+		setValue("year", "2004\t");
+		
+		int afterWidth = dialog.getSize().getWidth();
+		System.out.println("Ancho< " + afterWidth); // tmr
+		assertTrue(afterWidth > width);
 	}
 	
 	private void assertDefaultColumnWidthsForCalculatedCollection() throws Exception {

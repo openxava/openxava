@@ -64,6 +64,9 @@
 	
 	<controller name="InvoicesByYear"> 
 		<action name="setModel" class="org.openxava.test.actions.InvoicesByYearSetModelAction"/>
+		<!-- tmr ini -->
+		<action name="showInDialog" class="org.openxava.test.actions.ShowInvoicesByYearInDialogAction"/>
+		<!-- tmr fin -->
 	</controller>
 	
 	<controller name="Quote">	

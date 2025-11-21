@@ -4,6 +4,7 @@ import java.time.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
+import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.*;
@@ -11,8 +12,6 @@ import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.junit.After;
-import org.junit.Before;
 
 import junit.framework.*;
 /**
