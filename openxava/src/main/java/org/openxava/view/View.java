@@ -6440,8 +6440,9 @@ public class View implements java.io.Serializable {
 		return result;
 	}
 	
-	public boolean hasChangedCollections() { // tmr
-		return mustRefreshCollection;
+	/** @since 7.6.3 */
+	public boolean hasChangedCollections() { 
+		return !getChangedCollections().isEmpty();
 	}
 	
 	private void fillChangedCollections(Map result) { 

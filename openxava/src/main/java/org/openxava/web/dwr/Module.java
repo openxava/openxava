@@ -421,13 +421,8 @@ public class Module extends DWRBase {
 			result.setHideDialog(true);
 			restoreDialogTitle(result); 			
 		}		
-		// tmr result.setResizeDialog(manager.getDialogLevel() > 0 && (getView().isReloadNeeded() || manager.isReloadViewNeeded()));
-		// tmr ini
-		// TMR ME QUEDÉ POR AQUÍ: LO DEL getView().hasChangedCollections() NO FUNCIONÓ PERO VOY BIEN ENCAMINADO
-		System.out.println("[Module.setDialogLevel] getView().hasChangedCollections()=" + getView().hasChangedCollections()); // tmr
 		result.setResizeDialog(manager.getDialogLevel() > 0 
 			&& (getView().isReloadNeeded() || manager.isReloadViewNeeded() || getView().hasChangedCollections())); 
-		// tmr fin
 	}
 	
 	private void restoreDialogTitle(Result result) {
