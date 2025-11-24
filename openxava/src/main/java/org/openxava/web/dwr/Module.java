@@ -421,7 +421,8 @@ public class Module extends DWRBase {
 			result.setHideDialog(true);
 			restoreDialogTitle(result); 			
 		}		
-		result.setResizeDialog(manager.getDialogLevel() > 0 && (getView().isReloadNeeded() || manager.isReloadViewNeeded()));		
+		result.setResizeDialog(manager.getDialogLevel() > 0 
+			&& (getView().isReloadNeeded() || manager.isReloadViewNeeded() || getView().hasChangedCollections())); 
 	}
 	
 	private void restoreDialogTitle(Result result) {

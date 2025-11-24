@@ -3,6 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.time.*;
 import java.util.*;
 
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
@@ -16,12 +17,9 @@ import org.openxava.web.*;
  */
 public class ListTest extends WebDriverTestBase {
 	
-	public ListTest(String testName) {
-		super(testName);
-	}
-	
 	private final static String ACTION_PREFIX = "action";
-	
+		
+	@Test
 	public void testListAndCollection() throws Exception {
 		goModule("Author");
 		assertShowHideFilterInList();
@@ -44,14 +42,30 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Blog");
 		assertDefaultColumnWidthsForList();
+
+		goModule("InvoicesByYear");
+		assertResizeDialogAfterCollectionChanges();
 	}
 	
+	@Test
 	public void testListFormatIsSelectable() throws Exception { 
 		//has-type tested with CalendarTest
 		goModule("City");
 		assertTrue(hasClockIcon());
 		goModule("Subfamily");
 		assertTrue(hasClockIcon());
+	}
+	
+	
+	public void assertResizeDialogAfterCollectionChanges() throws Exception { 
+		execute("InvoicesByYear.showInDialog");
+		WebElement dialog = getDriver().findElement(By.id("ox_openxavatest_InvoicesByYear__dialog1"));
+		int width = dialog.getSize().getWidth();
+		setValue("year", "2004\t");
+		
+		Thread.sleep(700); 
+		int afterWidth = dialog.getSize().getWidth();
+		assertTrue(afterWidth > width);
 	}
 	
 	private void assertDefaultColumnWidthsForCalculatedCollection() throws Exception {

@@ -6440,6 +6440,11 @@ public class View implements java.io.Serializable {
 		return result;
 	}
 	
+	/** @since 7.6.3 */
+	public boolean hasChangedCollections() { 
+		return !getChangedCollections().isEmpty();
+	}
+	
 	private void fillChangedCollections(Map result) { 
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
