@@ -12,7 +12,6 @@ import java.util.function.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.lang3.*;
-import org.apache.commons.lang3.math.*;
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
@@ -1865,65 +1864,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 			setBaseCondition("");
 			return;
 		}
-		content = content.replaceAll("[\"'%;]", ""); // To avoid SQL injection
-		StringBuffer condition = new StringBuffer();
-		boolean needsOr = false;
-		for (MetaProperty property: getMetaPropertiesNotCalculated()) {
-			if (property.getType().equals(String.class)) {
-				if (needsOr) condition.append(" or ");
-				condition.append("upper(${");
-				condition.append(property.getQualifiedName());
-				condition.append("}) like '%");
-				condition.append(content.toUpperCase());
-				condition.append("%'");
-				needsOr = true;
-			}
-			else if (property.isNumber()) {
-				if (NumberUtils.isCreatable(content)) {
-					if (needsOr) condition.append(" or ");
-					condition.append("${");
-					condition.append(property.getQualifiedName());
-					condition.append("} = ");
-					condition.append(content);
-					needsOr = true;
-				}
-			}
-			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
-				if (property.getLabel().toUpperCase().contains(content.toUpperCase())) {
-					if (needsOr) condition.append(" or ");
-					condition.append("${");
-					condition.append(property.getQualifiedName());
-					condition.append("} = true");
-					needsOr = true;
-				}				
-			}
-			else if (property.isDateType() || property.isDateTimeType()) {
-				
-				try {
-					Object date = property.parse(content);
-					if (needsOr) condition.append(" or ");
-					condition.append("${");
-					condition.append(property.getQualifiedName());
-					condition.append("} = '");
-					condition.append(date);
-					condition.append("'");
-					needsOr = true;									
-				}
-				catch (ParseException ex) {					
-				}
-			}
-			else {
-				if (needsOr) condition.append(" or ");
-				condition.append("${");
-				condition.append(property.getQualifiedName());
-				condition.append("} = ");
-				condition.append(content);
-				needsOr = true;
-			}
-			
-		}
-		
-		setBaseCondition(condition.toString());
+		String condition = getMetaTab().buildFilterConditionForContent(content);
+		setBaseCondition(condition);
 	}
 	
 	

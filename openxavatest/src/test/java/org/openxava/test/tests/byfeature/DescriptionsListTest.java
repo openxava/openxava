@@ -335,32 +335,23 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		
 		setFamilyDescription(1, "SOFTWARE"); 
 		removeWarehouseWithQuote(); 
+
+		assertFilterByNumber();
 	}
 
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-
-	@Override
-	protected void tearDown() throws Exception { // tmr
-	}
-	
-	@Test
-	public void testFilterInDescriptionsListTypingJu() throws Exception { // tmr Cambiar nombre del test
+	private void assertFilterByNumber() throws Exception { 
 		goModule("DeliveryInvoiceAsDecriptionsList");
 		execute("CRUD.new");
 		
 		WebElement invoiceTextField = getDescriptionsListTextField("invoice");
 		invoiceTextField.clear();
-		invoiceTextField.sendKeys("ju");
+		invoiceTextField.sendKeys("10");
 		Thread.sleep(700); // Wait for suggestions to be loaded
 		
 		WebElement list = getDriver().findElement(By.id(getListId(0)));
 		List<WebElement> items = list.findElements(By.tagName("li"));
-		assertEquals(2, items.size());
-		assertTrue(items.get(0).getText().contains("Juanillo"));
-		assertTrue(items.get(1).getText().contains("Juanillo"));
+		assertEquals(1, items.size());
+		assertEquals("2004 10 Juanillo", items.get(0).getText());
 	}
 	
 	private String getListId(int orderInUI) throws Exception { 
