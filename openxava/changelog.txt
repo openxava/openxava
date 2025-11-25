@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filtering in a @DescriptionsList fails with numeric properties.
 - Fix: When collection content changes inside a dialog, the dialog does not resize.
 - Fix: 'Changed data' dialog when changing filter fields in list before navigating to detail via action.
 - Fix: @NoDefaultActions does not work for nested collections.
