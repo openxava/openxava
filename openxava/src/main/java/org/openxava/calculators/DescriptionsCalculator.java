@@ -832,8 +832,6 @@ public class DescriptionsCalculator implements ICalculator {
 			return "";
 		}
 
-		// TMR ME QUEDÉ POR AQUÍ: NO TOQUÉ NADA, PERO PARECE QUE AQUÍ ESTÁ EL PROBLEMA
-		
 		// Build LIKE condition for each description property
 		        // Normalize parameter according to preferences (remove accents, optional upper)
         String value = searchTerm.trim();
