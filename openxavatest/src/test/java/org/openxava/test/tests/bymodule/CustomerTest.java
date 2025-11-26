@@ -55,6 +55,12 @@ public class CustomerTest extends CustomizeListTestBase {
 		this.moduleName = moduleName; 
 	}
 	
+	public void testSelectedRowsInListFromDialogUsingReference() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: PARA HACERLO
+		// TMR DESPUÉS DE ARREGLARLO COMPROBAR QUE AL BUSCAR TECLEANDO (SIN DIÁLOGO) VA
+		// TMR DESPUÉS DE ARREGLARLO COMPROBAR QUE SI SE DA EL ERROR DE VALIDACIÓN VA
+	}
+	
 	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
 		assertListRowCount(5); 
 		assertLabelInList(4, "Seller level"); 
