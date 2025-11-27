@@ -200,7 +200,6 @@ public class BlogContentFilter implements Filter {
             
             StringBuilder blogHtml = new StringBuilder();
             blogHtml.append("<div class=\"blog-notification\" style=\"background: #f8f9fa; color: #333; padding: 12px 10px; margin: 15px 0; font-size: 0.9em; font-weight: normal; border: 1px solid #dee2e6; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">");
-            blogHtml.append("<strong>📝 Latest from OpenXava Blog:</strong><br>");
             
             if (h2Matcher.find() && dateMatcher.find()) {
                 String title = h2Matcher.group(1).trim();
@@ -217,11 +216,12 @@ public class BlogContentFilter implements Filter {
                 System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + date + ", Link: " + link);
                 
                 blogHtml.append("<div style=\"margin-top: 8px;\">")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\" style=\"color: #007bff; text-decoration: none; font-weight: bold;\">")
-                       .append(title).append("</a>")
-                       .append("<div style=\"font-size: 0.8em; color: #666; margin-top: 4px;\">")
-                       .append("📅 ").append(date)
-                       .append("</div></div>");
+                       .append("<b>").append(title).append("</b>")
+                       .append(" — ")
+                       .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
+                       .append(" · ")
+                       .append("<a href=\"").append(link).append("\" target=\"_blank\" style=\"color: #007bff; text-decoration: none;\">Read more</a>")
+                       .append("</div>");
             } else {
                 System.out.println("BlogContentFilter: No blog post found with simple approach");
                 // Fallback if no post found
