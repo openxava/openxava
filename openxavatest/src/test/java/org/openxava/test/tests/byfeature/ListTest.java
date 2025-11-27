@@ -3,7 +3,7 @@ package org.openxava.test.tests.byfeature;
 import java.time.*;
 import java.util.*;
 
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.*;
@@ -34,7 +34,7 @@ public class ListTest extends WebDriverTestBase {
 		assertDefaultColumnWidthsForCalculatedCollection();
 
 		goModule("CustomerWithSection");
-		assertCustomizeList();
+		assertCustomizeList(); 
 		assertCustomizeList_addAndResetModule(); 
 		
 		goModule("Invoice");
@@ -452,6 +452,7 @@ public class ListTest extends WebDriverTestBase {
 			"EmailNotifications.subscribe",
 			"Customer.hideSellerInList",
 			"Customer.showSellerInList",
+			"Customer.assignSeller",
 			"Customer.startRefisher",
 			"Customer.stopRefisher",	
 			"Customer.disableAddress",
