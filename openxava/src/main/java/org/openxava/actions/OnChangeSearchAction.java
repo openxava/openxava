@@ -30,7 +30,6 @@ public class OnChangeSearchAction extends OnChangePropertyBaseAction implements 
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		tab.setModelName(getView().getBaseModelName());
-		// tmr setTab(tab);
 		String tabName = metaReferenceView == null ? "" : metaReferenceView.getTabName();
 		tab.setTabName(tabName);
 		if (tab.getMetaTab().hasBaseCondition()) {

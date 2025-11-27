@@ -63,7 +63,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 	
 	@Test
-	public void testSelectedRowsInListFromDialogUsingReference() throws Exception { // tmr ¿Fusionar?
+	public void testSelectedRowsInListFromDialogUsingReference() throws Exception { 
 		assertValueInList(2, "seller.name", "");
 		assertValueInList(3, "seller.name", "");
 
@@ -78,6 +78,18 @@ public class CustomerTest extends CustomizeListTestBase {
 		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
 		assertValueInList(2, "seller.name", "JUANVI LLAVADOR");
 		assertValueInList(3, "seller.name", "JUANVI LLAVADOR");
+
+
+		// Using a dialog with list cancelling
+		checkRow(2);
+		checkRow(3);
+		execute("Customer.assignSeller");
+		execute("MyReference.search", "keyProperty=seller.number");
+		execute("ReferenceSearch.cancel");
+		assertValue("seller.name", "");
+		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
+		assertValueInList(2, "seller.name", "");
+		assertValueInList(3, "seller.name", "");
 
 		// Typing key to search reference
 		checkRow(2);

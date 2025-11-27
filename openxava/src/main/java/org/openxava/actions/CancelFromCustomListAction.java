@@ -16,10 +16,13 @@ public class CancelFromCustomListAction extends ViewBaseAction implements ICusto
 	
 	@Inject 
 	private Tab tab;
+
+	@Inject
+	private Tab mainTab;
 	
 	public void execute() throws Exception {
 		closeDialog(); 
-		getTab().setModelName(getView().getModelName());		 
+		setTab(mainTab);
 	}
 	
 	public String getCustomView() {
