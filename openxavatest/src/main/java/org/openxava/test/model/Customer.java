@@ -232,6 +232,8 @@ import org.openxava.test.actions.*;
 
 @View( name="SearchListCondition", members="number; name; sellerNameInCondition; seller; transientSeller; alternateSeller;")
 
+@View( name="OnlySeller", members="seller")
+
 @Tabs ({
 	@Tab(
 		rowStyles={

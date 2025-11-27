@@ -607,7 +607,9 @@
 			class="org.openxava.test.actions.ShowListPropertyAction">								
 			<set property="property" value="seller.name"/>	
 			<set property="index" value="2"/>	
-		</action>												
+		</action>
+		<action name="assignSeller" mode="list"
+			class="org.openxava.test.actions.GoAssignSellerToCustomersAction"/>								
 		<action name="moveRelationWithSellerToRemarks" mode="detail"
 			class="org.openxava.test.actions.MoveRelationWithSellerToRemarksAction"/>
 		<action name="changeToSimpleView" mode="detail"
@@ -646,6 +648,12 @@
 		
 		<action name="filterBySellerOne" class="org.openxava.test.actions.FilterBySellerOneAction" mode="list"/>
 			
+	</controller>
+	
+	<controller name="AssignSellerToCustomers">
+		<action name="assignSellerToSelectedCustomers"
+			class="org.openxava.test.actions.AssignSellerToSelectedCustomersAction"/>
+		<action name="close" class="org.openxava.actions.CancelAction"/>
 	</controller>
 		
 	<controller name="ArtistSomeMembersReadOnly"> 

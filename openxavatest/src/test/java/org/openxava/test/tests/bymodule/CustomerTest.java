@@ -5,6 +5,7 @@ import java.io.*;
 import javax.persistence.*;
 
 import org.htmlunit.html.*;
+import org.junit.*;
 import org.openxava.model.meta.*;
 import org.openxava.test.model.*;
 import org.openxava.test.util.*;
@@ -37,6 +38,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		"ListFormat.select", 
 		"Customer.hideSellerInList",
 		"Customer.showSellerInList",
+		"Customer.assignSeller",
 		"Customer.startRefisher",
 		"Customer.stopRefisher",
 		"Customer.disableAddress",
@@ -44,9 +46,15 @@ public class CustomerTest extends CustomizeListTestBase {
 	};
 	
 	
-	public CustomerTest(String testName) {
-		super(testName, "Customer");
+	public CustomerTest() {
+		super("Customer");
 		section = "";				
+	}
+	
+	public CustomerTest(String moduleName, boolean section) {
+		super(moduleName);		
+		this.section = section?"_section0":"";
+		this.moduleName = moduleName; 
 	}
 	
 	public CustomerTest(String testName, String moduleName, boolean section) {
@@ -55,6 +63,57 @@ public class CustomerTest extends CustomizeListTestBase {
 		this.moduleName = moduleName; 
 	}
 	
+	@Test
+	public void testSelectedRowsInListFromDialogUsingReference() throws Exception { 
+		assertValueInList(2, "seller.name", "");
+		assertValueInList(3, "seller.name", "");
+
+		// Using a dialog with list to search reference
+		checkRow(2);
+		checkRow(3);
+		execute("Customer.assignSeller");
+		execute("MyReference.search", "keyProperty=seller.number");
+		assertValueInList(1, 1, "JUANVI LLAVADOR");
+		execute("ReferenceSearch.choose", "row=1");
+		assertValue("seller.name", "JUANVI LLAVADOR");
+		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
+		assertValueInList(2, "seller.name", "JUANVI LLAVADOR");
+		assertValueInList(3, "seller.name", "JUANVI LLAVADOR");
+
+
+		// Using a dialog with list cancelling
+		checkRow(2);
+		checkRow(3);
+		execute("Customer.assignSeller");
+		execute("MyReference.search", "keyProperty=seller.number");
+		execute("ReferenceSearch.cancel");
+		assertValue("seller.name", "");
+		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
+		assertValueInList(2, "seller.name", "");
+		assertValueInList(3, "seller.name", "");
+
+		// Typing key to search reference
+		checkRow(2);
+		checkRow(3);
+		execute("Customer.assignSeller");
+		setValue("seller.number", "1");
+		assertValue("seller.name", "MANUEL CHAVARRI");
+		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
+		assertValueInList(2, "seller.name", "MANUEL CHAVARRI");
+		assertValueInList(3, "seller.name", "MANUEL CHAVARRI");
+
+		// Directly, without search reference at all
+		checkRow(2);
+		checkRow(3);
+		execute("Customer.assignSeller");
+		assertValue("seller.name", "");
+		execute("AssignSellerToCustomers.assignSellerToSelectedCustomers");
+		assertValueInList(2, "seller.name", "");
+		assertValueInList(3, "seller.name", "");
+
+	}
+	
+	@Test
 	public void testDescriptionsListInListForSecondLevelReferences_clearConditionExecutesFilter() throws Exception { 
 		assertListRowCount(5); 
 		assertLabelInList(4, "Seller level"); 
@@ -68,6 +127,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertListRowCount(5);
 	}
 	
+	@Test
 	public void testReloadModuleInsideHtml_iconsInViewAction() throws Exception { // NaviOX with a special group combination, address with a group for city 		
 		execute("CRUD.new");
 		assertAction("EditableOnOff.setOn"); 
@@ -75,6 +135,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertAction("EditableOnOff.setOn");
 	}
 	
+	@Test
 	public void testPdfReportInNestedCollection() throws Exception {
 		execute("CRUD.new");
 		setValue("number", "4");
@@ -87,6 +148,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertContentTypeForPopup("application/pdf"); 		
 	}
 	
+	@Test
 	public void testListActionInNestedCollection() throws Exception { 
 		execute("CRUD.new");
 		setValue("number", "4");
@@ -104,6 +166,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertCollectionRowCount("receptionists", 2);
 	}
 				
+	@Test
 	public void testObtainAggregateValues_constraintViolationShowWell() throws Exception { 
 		String city = getValueInList(0, "address.city");
 		assertTrue("Value for city in first customer is required for run this test", !Is.emptyString(city));
@@ -126,6 +189,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertTrue(errorCount < 2); // the system language is another or msg is not showing well
 	}
 	
+	@Test
 	public void testCalculatedPropertyDependsOnPropertyOfAggregate() throws Exception { 
 		execute("CRUD.new");
 		assertValue("city", "");
@@ -135,6 +199,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("city", "46540 EL PUIG");
 	}
 	
+	@Test
 	public void testChangeLabelProgrammatic() throws Exception {
 		execute("CRUD.new");
 		assertLabel("name", "Name"); 
@@ -146,6 +211,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertLabel("address.state", "Province");
 	}
 		
+	@Test
 	public void testFilterByMemberOfAggregate() throws Exception {  
 		assertListRowCount(5); 
 		String [] totalCondition = { "", "", "", "V" };		
@@ -168,6 +234,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testChangeView() throws Exception { 
 		execute("CRUD.new");
 		assertExists("number");
@@ -177,6 +244,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNotExists("remarks");
 	}
 	
+	@Test
 	public void testOnChangePropertyOfReferenceWithMultipleKeyAsListDescriptionInAggregateOfCollection() throws Exception { 
 		execute("List.viewDetail", "row=0"); 
 		execute("Collection.new", "viewObject=xava_view" + getSection() + "_deliveryPlaces");		
@@ -189,6 +257,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("remarks", "PREFERRED WAREHOUSE IS 1"); 
 	}
 		
+	@Test
 	public void testDisableEmbedded_ViewGetValueInGroup() throws Exception { 
 		execute("Customer.disableAddress"); // We set before changing to detail because the AJAX thing does not work well
 											// for this case yet, when we'll fix it we can move it after CRUD.new calling
@@ -206,6 +275,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("remarks", "RELATION WITH SELLER JUNIT");
 	}
 	
+	@Test
 	public void testFilterByValidValues() throws Exception { 
 		int total = Customer.findAll().size();
 		int normalOnes = Customer.findNormalOnes().size();
@@ -236,6 +306,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertListRowCount(total);		
 	}
 		
+	@Test
 	public void testHideShowGroup() throws Exception {		
 		execute("CRUD.new");
 		assertExists("seller.number");
@@ -254,6 +325,7 @@ public class CustomerTest extends CustomizeListTestBase {
 	}
 	
 
+	@Test
 	public void testSearchReferenceWithAListInAGroup() throws Exception {
 		execute("CRUD.new");		
 		assertValue("seller.name", "");		
@@ -265,12 +337,15 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("seller.number","1");
 	}
 
-	public void testValidValues() throws Exception {   				
+	@Test
+	public void testValidValues() throws Exception {   			
+	
 		execute("CRUD.new");
 		// OX3 uses Java 5 enums, and enums have base 0. OX2 valid-value has base 1  
 		String [][] validValues = { 
 			{ "0", "Normal" }, 
 			{ "1", "Steady" },
+	// ... rest of the code remains the same ...
 			{ "2", "Special" }	
 		};
 		
@@ -278,6 +353,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValidValues("type", validValues);
 	}
 	
+	@Test
 	public void testOnChangeAction() throws Exception {
 		execute("CRUD.new");		
 		assertValue("type", "2");		
@@ -289,6 +365,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 	
 	// references to entities and aggregates
+	@Test
 	public void testCreateModifyAndReadWithReferencesAndOverwriteSaveAction() throws Exception { 			
 		// Create one new
 		execute("CRUD.new");
@@ -376,6 +453,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 		
+	@Test
 	public void testSearchReferenceOnChangeCodeAndOnChangeActionInSubview_cleanReferencedValueWithOnChange() throws Exception { 
 		execute("CRUD.new"); 
 		setValue("seller.number", "1");
@@ -402,6 +480,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("OnChangeVoidAction executed");
 	}
 	
+	@Test
 	public void testSearchReferenceWithListAndOnChangeActionInSubview() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("alternateSeller.number", "");
@@ -433,6 +512,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 	}
 	
+	@Test
 	public void testCustomSearchReferenceAction_searchDialogWhenNotFound() throws Exception { 
 		execute("CRUD.new");
 		String html = getHtml();		
@@ -453,6 +533,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertAction("ListFormat.select"); // To test we are in list mode 
 	}
 	
+	@Test
 	public void testReferencesIfBlankKey() throws Exception {
 		execute("CRUD.new");
 		setValue("seller.number", "1");
@@ -463,8 +544,9 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("seller.name", "MANUEL CHAVARRI");
 	}
 	
-	public void testLeftJoinInListModeForReference() throws Exception {  
-		assertActions(listActions); 
+	@Test
+	public void testLeftJoinInListModeForReference() throws Exception {   
+		assertActions(listActions);
 		int initialRows = getListRowCount();
 		assertTrue("This test only run with less than 10 rows", initialRows < 10);
 		
@@ -508,6 +590,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 	
+	@Test
 	public void testIfKeyNotExistsInReferenceNotExecuteAction() throws Exception {
 		execute("CRUD.new");				
 		setValue("relationWithSeller", "HOLA");		
@@ -520,6 +603,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("relationWithSeller", "HOLA"); // That implies that 'new' not was executed		
 	}
 		
+	@Test
 	public void testPropertiesOfEntityReferenceAndAggregateInList() throws Exception {  
 		setConditionValues(new String [] { "JAVI", "" });
 		execute("List.filter");
@@ -532,6 +616,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValueInList(0, 5, "NEW YORK"); // property of a reference inside an aggregate
 	}
 	
+	@Test
 	public void testNestedAggregateCollections() throws Exception { 
 		// Creating
 		execute("CRUD.new");
@@ -632,6 +717,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertMessage("Customer deleted successfully");
 	}
 
+	@Test
 	public void testSetEditableOfReferences_notOnChangeActionsOfReferences_disableReferenceActions_validateUrlWithStereotypeWEBURL() throws Exception {  
 		execute("List.viewDetail", "row=2");	
 		assertValue("website", "http://localhost:8080/openxavatest");
@@ -673,6 +759,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertNoEditable("seller.name");
 	}
 	
+	@Test
 	public void testFocus() throws Exception { 
 		// Focus in first active
 		execute("List.viewDetail", "row=0");
@@ -696,6 +783,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		return section;		
 	}
 	
+	@Test
 	public void testFilterToDescriptionsListWithBaseConditionAndFilter() throws Exception {   
 		try{
 			// warehouse has a filter zoneNumber <= 999
@@ -728,6 +816,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		
 	}
 	
+	@Test
 	public void testDescriptionValidValuesEditor() throws Exception { 
 		execute("CRUD.new");
 		assertValue("type", "2");
@@ -737,6 +826,7 @@ public class CustomerTest extends CustomizeListTestBase {
 		assertValue("type", "2");		
 	}
 	
+	@Test
 	public void testRefisher() throws Exception { 
 		execute("Customer.startRefisher");
 		assertEquals(-1, getRefisherEntriesCount()); // If it fails try to stop the refisher clicking in the button of the module

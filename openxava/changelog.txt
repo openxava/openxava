@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Selected rows of the main list are not accessible from a dialog if user searches a reference.
 - Fix: Filtering in a @DescriptionsList fails with numeric properties.
 - Fix: When collection content changes inside a dialog, the dialog does not resize.
 - Fix: 'Changed data' dialog when changing filter fields in list before navigating to detail via action.
