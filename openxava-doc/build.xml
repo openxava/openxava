@@ -72,6 +72,10 @@
 			</fileset>
 		</sync>
 		
+		<!-- Touch web.xml to force Tomcat reload -->
+		<touch file="${local.deploy.dir}\${app.name}\WEB-INF\web.xml"/>
+		<echo message="Touched web.xml to force Tomcat reload"/>
+		
 		<echo message="Incremental deployment completed to ${local.deploy.dir}\${app.name}"/>
 	</target>
 	
