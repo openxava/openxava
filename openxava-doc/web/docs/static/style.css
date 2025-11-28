@@ -156,3 +156,33 @@ code.hljs, code.hljs .hljs-tag {
 img {
     margin: 10px 0px 10px 0px;
 }
+
+.blog-notification {
+	background: #F3F3F3;
+    color: #666;
+    padding: 8px 8px 5px 8px;
+    margin: -18px -8px 5px -8px;
+    font-size: 0.85em;
+}
+.blog-notification.recent {
+	background: #FFFDE7;
+}
+.blog-notification a {
+    color: #666;
+}
+
+.blog-notification a:hover {
+    color: #333;
+}
+
+.blog-close {
+    float: right;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.blog-close:hover {
+    opacity: 1;
+}
