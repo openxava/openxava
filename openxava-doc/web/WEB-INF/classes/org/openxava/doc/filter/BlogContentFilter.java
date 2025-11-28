@@ -113,7 +113,7 @@ public class BlogContentFilter implements Filter {
         
         if (cachedBlogContent == null) {
             System.out.println("BlogContentFilter: cachedBlogContent is still null after fetch, using fallback");
-            return "<div class=\"blog-notification\" style=\"background: #f8f9fa; color: #333; padding: 12px 10px; margin: 15px 0; font-size: 0.9em; font-weight: normal; border: 1px solid #dee2e6; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\"><strong>📝 Latest from OpenXava Blog:</strong><br><a href=\"https://www.openxava.org/blog\" target=\"_blank\" style=\"color: #007bff; text-decoration: none;\">Visit OpenXava Blog</a></div>";
+            return "<div class=\"blog-notification\"><strong>📝 Latest from OpenXava Blog:</strong><br><a href=\"https://www.openxava.org/blog\" target=\"_blank\">Visit OpenXava Blog</a></div>";
         }
         
         return cachedBlogContent;
@@ -199,7 +199,7 @@ public class BlogContentFilter implements Filter {
             dateMatcher.reset();
             
             StringBuilder blogHtml = new StringBuilder();
-            blogHtml.append("<div class=\"blog-notification\" style=\"background: #f8f9fa; color: #333; padding: 12px 10px; margin: 15px 0; font-size: 0.9em; font-weight: normal; border: 1px solid #dee2e6; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\">");
+            blogHtml.append("<div class=\"blog-notification\">");
             
             if (h2Matcher.find() && dateMatcher.find()) {
                 String title = h2Matcher.group(1).trim();
@@ -215,17 +215,16 @@ public class BlogContentFilter implements Filter {
                 
                 System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + date + ", Link: " + link);
                 
-                blogHtml.append("<div style=\"margin-top: 8px;\">")
+                blogHtml.append("News: ")
                        .append("<b>").append(title).append("</b>")
-                       .append(" — ")
+                       .append(" - ")
                        .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
                        .append(" · ")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\" style=\"color: #007bff; text-decoration: none;\">Read more</a>")
-                       .append("</div>");
+                       .append("<a href=\"").append(link).append("\" target=\"_blank\">Read more</a>");
             } else {
                 System.out.println("BlogContentFilter: No blog post found with simple approach");
                 // Fallback if no post found
-                blogHtml.append("<a href=\"https://www.openxava.org/blog\" target=\"_blank\" style=\"color: #007bff; text-decoration: none;\">Visit OpenXava Blog</a>");
+                blogHtml.append("<a href=\"https://www.openxava.org/blog\" target=\"_blank\">Visit OpenXava Blog</a>");
             }
             
             blogHtml.append("</div>");
@@ -236,7 +235,7 @@ public class BlogContentFilter implements Filter {
         } catch (Exception e) {
             System.err.println("Error parsing blog HTML: " + e.getMessage());
             e.printStackTrace();
-            return "<div class=\"blog-notification\" style=\"background: #f8f9fa; color: #333; padding: 12px 10px; margin: 15px 0; font-size: 0.9em; font-weight: normal; border: 1px solid #dee2e6; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);\"><a href=\"https://www.openxava.org/blog\" target=\"_blank\" style=\"color: #007bff; text-decoration: none;\">📝 Visit OpenXava Blog</a></div>";
+            return "<div class=\"blog-notification\"><a href=\"https://www.openxava.org/blog\" target=\"_blank\">📝 Visit OpenXava Blog</a></div>";
         }
     }
     
