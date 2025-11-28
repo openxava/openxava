@@ -164,6 +164,9 @@ img {
     margin: -18px -8px 5px -8px;
     font-size: 0.85em;
 }
+.blog-notification.recent {
+	background: #FFFDE7;
+}
 .blog-notification a {
     color: #666;
 }

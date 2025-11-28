@@ -228,11 +228,12 @@ public class BlogContentFilter implements Filter {
                 
                 String newsLabel = spanish ? "Novedad: " : "News: ";
                 String readMore = spanish ? "Leer más" : "Read more";
+                String recentClass = daysOld <= 3 ? " recent" : "";
                 
                 // Script to check localStorage and hide if already dismissed
                 blogHtml.append("<script>if(localStorage.getItem('blog-dismissed')==='" + slug + "')document.write('<style>.blog-notification{display:none}</style>')</script>");
                 
-                blogHtml.append("<div class=\"blog-notification\" data-slug=\"" + slug + "\">")
+                blogHtml.append("<div class=\"blog-notification" + recentClass + "\" data-slug=\"" + slug + "\">")
                        .append("<span class=\"blog-close\" onclick=\"localStorage.setItem('blog-dismissed',this.parentElement.dataset.slug);this.parentElement.style.display='none'\">×</span>")
                        .append(newsLabel)
                        .append("<b>").append(title).append("</b>")

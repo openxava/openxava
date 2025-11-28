@@ -1,8 +1,6 @@
 Blog note in doc:
 
    
-- Fondo más resalatado cuando sean solo 3 días.
-    un tenue amarillo pastel muy suave, estilo "note"
 - Excluir artículos
 - Quitar prints
 - Revisar rendimiento
