@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- No help icon is displayed when using local help if no article is defined for that module.
+- For local help, if the user-language article is missing, another is used; fallback is the no-suffix one. 
+- Fix: 404 error when accessing the local help if the article for the module and language is not available.
 - Fix: Selected rows of the main list are not accessible from a dialog if user searches a reference.
 - Fix: Filtering in a @DescriptionsList fails with numeric properties.
 - Fix: When collection content changes inside a dialog, the dialog does not resize.
