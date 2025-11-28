@@ -10,6 +10,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Arrays"%>
 <%@ page import="org.openxava.web.Ids"%>
+<%@ page import="org.openxava.web.Helps"%>
 <%@ page import="org.openxava.util.EmailNotifications"%> 
 <%@ page import="org.openxava.controller.meta.MetaControllerElement"%>
 <%@ page import="org.openxava.model.meta.MetaProperty"%>
@@ -118,33 +119,21 @@ if (manager.isButtonBarVisible()) {
 		}
 	}
 
-	
+	String helpURL = null;
 	if (XavaPreferences.getInstance().isHelpAvailable() && style.isHelpAvailable()) {
-		String language = Locales.getCurrent().getLanguage();  
-		String href = XavaPreferences.getInstance().getHelpPrefix(); 
-		String suffix = XavaPreferences.getInstance().getHelpSuffix(); 
+		helpURL = Helps.urlForModule(request.getServletContext(), manager.getApplicationName(), manager.getModuleName());
+	} 
+	if (helpURL != null) {
 		String target = XavaPreferences.getInstance().isHelpInNewWindow() ? "_blank" : "";
-		if (href.startsWith("http:") || href.startsWith("https:")) {
-			if (href.endsWith("_")) href = href + language;
-			if (!Is.emptyString(suffix)) href = href + suffix;
-		}
-		else {
-			href = 
-				"/" + manager.getApplicationName() + "/" + 
-				href +
-				manager.getModuleName() +
-				"_" + language + 
-				suffix;
-		}
 		String helpImage = null;
 		if (style.getHelpImage() != null) helpImage = !style.getHelpImage().startsWith("/")?request.getContextPath() + "/" + style.getHelpImage():style.getHelpImage();
 	%>
 		<span class="<%=style.getHelp()%>">  
-			<a href="<%=href%>" target="<%=target%>">
+			<a href="<%=helpURL%>" target="<%=target%>">
 				<% if (helpImage == null) { %>
 				<i class="mdi mdi-help-circle"></i>
 				<% } else { %>
-				<a href="<%=href%>" target="<%=target%>"><img src="<%=helpImage%>"/></a>
+				<a href="<%=helpURL%>" target="<%=target%>"><img src="<%=helpImage%>"/></a>
 				<% } %>
 			</a>
 		</span>
