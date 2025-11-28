@@ -15,16 +15,20 @@ import java.util.regex.Pattern;
 @WebFilter("*.html")
 public class BlogContentFilter implements Filter {
     
-    private String cachedBlogContent = null;
-    private long lastFetchTime = 0;
+    private String cachedBlogContentEn = null;
+    private String cachedBlogContentEs = null;
+    private long lastFetchTimeEn = 0;
+    private long lastFetchTimeEs = 0;
     private static final long CACHE_DURATION_MS = 3600000; // 1 hour
-    private static final String BLOG_URL = "https://www.openxava.org/blog";
+    private static final String BLOG_URL_EN = "https://www.openxava.org/blog";
+    private static final String BLOG_URL_ES = "https://www.openxava.org/es/blog";
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("BlogContentFilter: Initializing filter");
-        // Initial fetch
-        fetchBlogContent();
+        // Initial fetch for both languages
+        fetchBlogContent(false);
+        fetchBlogContent(true);
     }
     
     @Override
@@ -62,21 +66,23 @@ public class BlogContentFilter implements Filter {
         System.out.println("BlogContentFilter: HTML content length: " + html.length());
         
         // Inject blog content after </h1>
-        String modifiedHtml = injectBlogContent(html);
+        boolean isSpanish = requestURI.endsWith("_es.html");
+        String modifiedHtml = injectBlogContent(html, isSpanish);
         
-        System.out.println("BlogContentFilter: Modified HTML length: " + modifiedHtml.length());
-        
-        // Write the modified HTML - let servlet container handle content-length automatically
-        response.getWriter().write(modifiedHtml);
+        // Reset content-length so container recalculates it for modified content
+        httpResponse.setContentLength(-1);
+        byte[] bytes = modifiedHtml.getBytes(StandardCharsets.UTF_8);
+        httpResponse.setContentLength(bytes.length);
+        httpResponse.getOutputStream().write(bytes);
     }
     
-    private String injectBlogContent(String html) {
+    private String injectBlogContent(String html, boolean spanish) {
         // Find the closing </h1> tag and inject after it
         Pattern pattern = Pattern.compile("</h1>");
         Matcher matcher = pattern.matcher(html);
         
         if (matcher.find()) {
-            String blogHtml = getBlogContentHtml();
+            String blogHtml = getBlogContentHtml(spanish);
             String result = matcher.replaceFirst("</h1>" + blogHtml);
             
             // Debug: Show context around injection point
@@ -94,36 +100,29 @@ public class BlogContentFilter implements Filter {
         return html; // Return original if no h1 found
     }
     
-    private String getBlogContentHtml() {
-        System.out.println("BlogContentFilter: getBlogContentHtml() called");
-        System.out.println("BlogContentFilter: cachedBlogContent = " + (cachedBlogContent == null ? "null" : "not null"));
-        System.out.println("BlogContentFilter: lastFetchTime = " + lastFetchTime);
+    private String getBlogContentHtml(boolean spanish) {
+        String cachedContent = spanish ? cachedBlogContentEs : cachedBlogContentEn;
+        long lastFetch = spanish ? lastFetchTimeEs : lastFetchTimeEn;
         
-        // Refresh cache if needed
+        // Check if cache needs refresh
         long currentTime = System.currentTimeMillis();
-        boolean cacheExpired = currentTime - lastFetchTime > CACHE_DURATION_MS;
-        boolean cacheEmpty = cachedBlogContent == null;
+        boolean cacheExpired = currentTime - lastFetch > CACHE_DURATION_MS;
         
-        System.out.println("BlogContentFilter: cacheExpired = " + cacheExpired + ", cacheEmpty = " + cacheEmpty);
-        
-        if (cacheEmpty || cacheExpired) {
-            System.out.println("BlogContentFilter: Calling fetchBlogContent() because cache is " + (cacheEmpty ? "empty" : "expired"));
-            fetchBlogContent();
+        if (cacheExpired) {
+            // Refresh in background, don't block the request
+            final boolean sp = spanish;
+            new Thread(() -> fetchBlogContent(sp)).start();
         }
         
-        if (cachedBlogContent == null) {
-            System.out.println("BlogContentFilter: cachedBlogContent is still null after fetch, using fallback");
-            return "<div class=\"blog-notification\"><strong>📝 Latest from OpenXava Blog:</strong><br><a href=\"https://www.openxava.org/blog\" target=\"_blank\">Visit OpenXava Blog</a></div>";
-        }
-        
-        return cachedBlogContent;
+        return cachedContent != null ? cachedContent : "";
     }
     
-    private void fetchBlogContent() {
-        System.out.println("BlogContentFilter: fetchBlogContent() called");
+    private void fetchBlogContent(boolean spanish) {
+        String blogUrl = spanish ? BLOG_URL_ES : BLOG_URL_EN;
+        System.out.println("BlogContentFilter: fetchBlogContent() called, spanish=" + spanish);
         try {
-            System.out.println("BlogContentFilter: Fetching blog from: " + BLOG_URL);
-            URL url = new URL(BLOG_URL);
+            System.out.println("BlogContentFilter: Fetching blog from: " + blogUrl);
+            URL url = new URL(blogUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
@@ -148,10 +147,15 @@ public class BlogContentFilter implements Filter {
                 System.out.println("BlogContentFilter: Read entire response, total length: " + response.length());
                 
                 // Parse HTML to extract latest blog posts
-                String blogHtml = parseBlogHtml(response.toString());
+                String blogHtml = parseBlogHtml(response.toString(), spanish);
                 if (blogHtml != null && !blogHtml.trim().isEmpty()) {
-                    cachedBlogContent = blogHtml;
-                    lastFetchTime = System.currentTimeMillis();
+                    if (spanish) {
+                        cachedBlogContentEs = blogHtml;
+                        lastFetchTimeEs = System.currentTimeMillis();
+                    } else {
+                        cachedBlogContentEn = blogHtml;
+                        lastFetchTimeEn = System.currentTimeMillis();
+                    }
                     System.out.println("BlogContentFilter: Successfully cached blog content");
                 } else {
                     System.out.println("BlogContentFilter: parseBlogHtml() returned empty content");
@@ -167,42 +171,28 @@ public class BlogContentFilter implements Filter {
         }
     }
     
-    private String parseBlogHtml(String html) {
-        System.out.println("BlogContentFilter: Parsing HTML, length: " + html.length());
-        System.out.println("BlogContentFilter: First 1000 chars: " + html.substring(0, Math.min(1000, html.length())));
-        System.out.println("BlogContentFilter: Looking for blog posts...");
+    private String parseBlogHtml(String html, boolean spanish) {
+        System.out.println("BlogContentFilter: Parsing HTML, length: " + html.length() + ", spanish=" + spanish);
         
-        // Search for any h2 tags to see what's available
+        // Search for h2 title
         Pattern h2Pattern = Pattern.compile("<h2[^>]*>([^<]+)</h2>", Pattern.CASE_INSENSITIVE);
         Matcher h2Matcher = h2Pattern.matcher(html);
-        int h2Count = 0;
-        while (h2Matcher.find() && h2Count < 3) {
-            System.out.println("BlogContentFilter: Found h2[" + h2Count + "]: " + h2Matcher.group(1).trim());
-            h2Count++;
-        }
         
-        // Search for any blog dates
+        // Search for blog date
         Pattern datePattern = Pattern.compile("<p[^>]*class=\"blog-date\"[^>]*>([^<]+)</p>", Pattern.CASE_INSENSITIVE);
         Matcher dateMatcher = datePattern.matcher(html);
-        int dateCount = 0;
-        while (dateMatcher.find() && dateCount < 3) {
-            System.out.println("BlogContentFilter: Found date[" + dateCount + "]: " + dateMatcher.group(1).trim());
-            dateCount++;
-        }
+        
+        // Search for "Read more" / "Leer más" link in <p class="links">
+        Pattern linkPattern = Pattern.compile("<p[^>]*class=\"links\"[^>]*>\\s*<a[^>]*href=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
+        Matcher linkMatcher = linkPattern.matcher(html);
         
         try {
-            // Simple approach: use first h2 title and first date directly
-            System.out.println("BlogContentFilter: Using first h2 and first date approach...");
-            
-            // Reset matchers to use existing patterns
-            h2Matcher.reset();
-            dateMatcher.reset();
-            
             StringBuilder blogHtml = new StringBuilder();
             
-            if (h2Matcher.find() && dateMatcher.find()) {
+            if (h2Matcher.find() && dateMatcher.find() && linkMatcher.find()) {
                 String title = h2Matcher.group(1).trim();
                 String date = dateMatcher.group(1).trim();
+                String link = linkMatcher.group(1).trim();
                 
                 // Create slug from title for localStorage key
                 String slug = title.toLowerCase()
@@ -211,33 +201,46 @@ public class BlogContentFilter implements Filter {
                          .replaceAll("\\s+", "-")
                          .replaceAll("-+$", "");
                 
-                String link = "https://openxava.org/blog/" + slug;
+                // Format date: remove year part
+                // English: "November 19, 2025" -> "November 19"
+                // Spanish: "19 de noviembre del 2025" -> "19 de noviembre"
+                String shortDate;
+                if (spanish) {
+                    // Spanish format: "19 de noviembre del 2025"
+                    int delIndex = date.indexOf(" del ");
+                    shortDate = delIndex > 0 ? date.substring(0, delIndex) : date;
+                } else {
+                    // English format: "November 19, 2025"
+                    int commaIndex = date.indexOf(",");
+                    shortDate = commaIndex > 0 ? date.substring(0, commaIndex) : date;
+                }
                 
-                System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + date + ", Link: " + link);
+                System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + shortDate + ", Link: " + link);
+                
+                String newsLabel = spanish ? "Novedad: " : "News: ";
+                String readMore = spanish ? "Leer más" : "Read more";
                 
                 // Script to check localStorage and hide if already dismissed
                 blogHtml.append("<script>if(localStorage.getItem('blog-dismissed')==='" + slug + "')document.write('<style>.blog-notification{display:none}</style>')</script>");
                 
                 blogHtml.append("<div class=\"blog-notification\" data-slug=\"" + slug + "\">")
                        .append("<span class=\"blog-close\" onclick=\"localStorage.setItem('blog-dismissed',this.parentElement.dataset.slug);this.parentElement.style.display='none'\">×</span>")
-                       .append("News: ")
+                       .append(newsLabel)
                        .append("<b>").append(title).append("</b>")
                        .append(" - ")
-                       .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
+                       .append("<i>").append(shortDate).append("</i>")
                        .append(" · ")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">Read more</a>")
+                       .append("<a href=\"").append(link).append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">").append(readMore).append("</a>")
                        .append("</div>");
             } else {
-                System.out.println("BlogContentFilter: No blog post found with simple approach");
+                System.out.println("BlogContentFilter: No blog post found");
             }
-            String result = blogHtml.toString();
-            System.out.println("BlogContentFilter: Generated HTML: " + result);
-            return result;
+            return blogHtml.toString();
             
         } catch (Exception e) {
             System.err.println("Error parsing blog HTML: " + e.getMessage());
             e.printStackTrace();
-            return "<div class=\"blog-notification\"><a href=\"https://www.openxava.org/blog\" target=\"_blank\">📝 Visit OpenXava Blog</a></div>";
+            return "";
         }
     }
     
