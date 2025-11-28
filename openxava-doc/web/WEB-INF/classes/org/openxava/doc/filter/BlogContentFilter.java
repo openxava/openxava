@@ -29,7 +29,6 @@ public class BlogContentFilter implements Filter {
     
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("BlogContentFilter: Initializing filter");
         // Initial fetch for both languages
         fetchBlogContent(false);
         fetchBlogContent(true);
@@ -39,14 +38,11 @@ public class BlogContentFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        System.out.println("BlogContentFilter.doFilter() HOLA SOY JAVI");        
-        
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
         // Only process HTML files
         String requestURI = httpRequest.getRequestURI();
-        System.out.println("BlogContentFilter: Processing URI: " + requestURI);
         
         if (!requestURI.endsWith(".html")) {
             chain.doFilter(request, response);
@@ -61,8 +57,6 @@ public class BlogContentFilter implements Filter {
             return;
         }
         
-        System.out.println("BlogContentFilter: Processing HTML file: " + requestURI);
-        
         // Wrap response to capture HTML
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(httpResponse);
         
@@ -71,11 +65,8 @@ public class BlogContentFilter implements Filter {
         // Get the HTML content
         String html = wrappedResponse.getContent();
         if (html == null || html.trim().isEmpty()) {
-            System.out.println("BlogContentFilter: No HTML content found");
             return;
         }
-        
-        System.out.println("BlogContentFilter: HTML content length: " + html.length());
         
         // Inject blog content after </h1>
         boolean isSpanish = requestURI.endsWith("_es.html");
@@ -95,20 +86,8 @@ public class BlogContentFilter implements Filter {
         
         if (matcher.find()) {
             String blogHtml = getBlogContentHtml(spanish);
-            String result = matcher.replaceFirst("</h1>" + blogHtml);
-            
-            // Debug: Show context around injection point
-            int injectionIndex = result.indexOf(blogHtml);
-            int start = Math.max(0, injectionIndex - 100);
-            int end = Math.min(result.length(), injectionIndex + blogHtml.length() + 100);
-            
-            System.out.println("BlogContentFilter: Injection context:");
-            System.out.println("BlogContentFilter: " + result.substring(start, end));
-            
-            return result;
+            return matcher.replaceFirst("</h1>" + blogHtml);
         }
-        
-        System.out.println("BlogContentFilter: No </h1> tag found in HTML");
         return html; // Return original if no h1 found
     }
     
@@ -131,19 +110,14 @@ public class BlogContentFilter implements Filter {
     
     private void fetchBlogContent(boolean spanish) {
         String blogUrl = spanish ? BLOG_URL_ES : BLOG_URL_EN;
-        System.out.println("BlogContentFilter: fetchBlogContent() called, spanish=" + spanish);
         try {
-            System.out.println("BlogContentFilter: Fetching blog from: " + blogUrl);
             URL url = new URL(blogUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(10000);
             connection.setReadTimeout(10000);
             connection.setRequestProperty("User-Agent", "OpenXava-Doc-Bot/1.0");
-            
-            System.out.println("BlogContentFilter: Making HTTP request...");
             int responseCode = connection.getResponseCode();
-            System.out.println("BlogContentFilter: Response code: " + responseCode);
             
             if (responseCode == 200) {
                 BufferedReader reader = new BufferedReader(
@@ -156,8 +130,6 @@ public class BlogContentFilter implements Filter {
                 }
                 reader.close();
                 
-                System.out.println("BlogContentFilter: Read entire response, total length: " + response.length());
-                
                 // Parse HTML to extract latest blog posts
                 String blogHtml = parseBlogHtml(response.toString(), spanish);
                 if (blogHtml != null && !blogHtml.trim().isEmpty()) {
@@ -168,23 +140,16 @@ public class BlogContentFilter implements Filter {
                         cachedBlogContentEn = blogHtml;
                         lastFetchTimeEn = System.currentTimeMillis();
                     }
-                    System.out.println("BlogContentFilter: Successfully cached blog content");
-                } else {
-                    System.out.println("BlogContentFilter: parseBlogHtml() returned empty content");
                 }
-            } else {
-                System.out.println("BlogContentFilter: HTTP error, response code: " + responseCode);
             }
             connection.disconnect();
             
         } catch (Exception e) {
-            System.err.println("BlogContentFilter: Error fetching blog content: " + e.getMessage());
-            e.printStackTrace();
+            // Silently fail - notification just won't show
         }
     }
     
     private String parseBlogHtml(String html, boolean spanish) {
-        System.out.println("BlogContentFilter: Parsing HTML, length: " + html.length() + ", spanish=" + spanish);
         
         // Search for h2 title
         Pattern h2Pattern = Pattern.compile("<h2[^>]*>([^<]+)</h2>", Pattern.CASE_INSENSITIVE);
@@ -209,7 +174,6 @@ public class BlogContentFilter implements Filter {
                 // Check if article is older than 14 days
                 long daysOld = calculateDaysOld(date, spanish);
                 if (daysOld > 14) {
-                    System.out.println("BlogContentFilter: Article is " + daysOld + " days old, not showing notification");
                     return "";
                 }
                 
@@ -232,8 +196,6 @@ public class BlogContentFilter implements Filter {
                     shortDate = commaIndex > 0 ? date.substring(0, commaIndex) : date;
                 }
                 
-                System.out.println("BlogContentFilter: Found post - Title: " + title + ", Days old: " + daysOld + ", Link: " + link);
-                
                 String newsLabel = spanish ? "Novedad: " : "News: ";
                 String readMore = spanish ? "Leer más" : "Read more";
                 String recentClass = daysOld <= 3 ? " recent" : "";
@@ -250,14 +212,9 @@ public class BlogContentFilter implements Filter {
                        .append(" · ")
                        .append("<a href=\"").append(link).append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">").append(readMore).append("</a>")
                        .append("</div>");
-            } else {
-                System.out.println("BlogContentFilter: No blog post found");
             }
             return blogHtml.toString();
-            
         } catch (Exception e) {
-            System.err.println("Error parsing blog HTML: " + e.getMessage());
-            e.printStackTrace();
             return "";
         }
     }
@@ -285,7 +242,6 @@ public class BlogContentFilter implements Filter {
             }
             return ChronoUnit.DAYS.between(articleDate, LocalDate.now());
         } catch (Exception e) {
-            System.err.println("BlogContentFilter: Error parsing date '" + date + "': " + e.getMessage());
             return 0; // Show notification if date parsing fails
         }
     }
