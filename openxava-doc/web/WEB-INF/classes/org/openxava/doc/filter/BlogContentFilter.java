@@ -13,25 +13,42 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @WebFilter("*.html")
 public class BlogContentFilter implements Filter {
     
-    private String cachedBlogContentEn = null;
-    private String cachedBlogContentEs = null;
-    private long lastFetchTimeEn = 0;
-    private long lastFetchTimeEs = 0;
+    private volatile String cachedBlogContentEn = null;
+    private volatile String cachedBlogContentEs = null;
+    private volatile long lastFetchTimeEn = 0;
+    private volatile long lastFetchTimeEs = 0;
+    
     private static final long CACHE_DURATION_MS = 3600000; // 1 hour
     private static final String BLOG_URL_EN = "https://www.openxava.org/blog";
     private static final String BLOG_URL_ES = "https://www.openxava.org/es/blog";
     
+    // Pre-compiled patterns for better performance
+    private static final Pattern H1_CLOSE_PATTERN = Pattern.compile("</h1>");
+    private static final Pattern H2_PATTERN = Pattern.compile("<h2[^>]*>([^<]+)</h2>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DATE_PATTERN = Pattern.compile("<p[^>]*class=\"blog-date\"[^>]*>([^<]+)</p>", Pattern.CASE_INSENSITIVE);
+    private static final Pattern LINK_PATTERN = Pattern.compile("<p[^>]*class=\"links\"[^>]*>\\s*<a[^>]*href=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
+    private static final DateTimeFormatter EN_DATE_FORMATTER = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter ES_DATE_FORMATTER = DateTimeFormatter.ofPattern("d MM yyyy");
+    
+    private ScheduledExecutorService scheduler;
+    
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Initial fetch for both languages
-        fetchBlogContent(false);
-        fetchBlogContent(true);
+        scheduler = Executors.newSingleThreadScheduledExecutor();
+        // Initial fetch in background, don't block server startup
+        scheduler.execute(() -> {
+            fetchBlogContent(false);
+            fetchBlogContent(true);
+        });
     }
     
     @Override
@@ -80,15 +97,16 @@ public class BlogContentFilter implements Filter {
     }
     
     private String injectBlogContent(String html, boolean spanish) {
-        // Find the closing </h1> tag and inject after it
-        Pattern pattern = Pattern.compile("</h1>");
-        Matcher matcher = pattern.matcher(html);
-        
-        if (matcher.find()) {
-            String blogHtml = getBlogContentHtml(spanish);
-            return matcher.replaceFirst("</h1>" + blogHtml);
+        String blogHtml = getBlogContentHtml(spanish);
+        if (blogHtml.isEmpty()) {
+            return html;
         }
-        return html; // Return original if no h1 found
+        // Use pre-compiled pattern
+        Matcher matcher = H1_CLOSE_PATTERN.matcher(html);
+        if (matcher.find()) {
+            return matcher.replaceFirst("</h1>" + Matcher.quoteReplacement(blogHtml));
+        }
+        return html;
     }
     
     private String getBlogContentHtml(boolean spanish) {
@@ -100,9 +118,8 @@ public class BlogContentFilter implements Filter {
         boolean cacheExpired = currentTime - lastFetch > CACHE_DURATION_MS;
         
         if (cacheExpired) {
-            // Refresh in background, don't block the request
-            final boolean sp = spanish;
-            new Thread(() -> fetchBlogContent(sp)).start();
+            // Refresh in background using executor, don't block the request
+            scheduler.execute(() -> fetchBlogContent(spanish));
         }
         
         return cachedContent != null ? cachedContent : "";
@@ -150,18 +167,10 @@ public class BlogContentFilter implements Filter {
     }
     
     private String parseBlogHtml(String html, boolean spanish) {
-        
-        // Search for h2 title
-        Pattern h2Pattern = Pattern.compile("<h2[^>]*>([^<]+)</h2>", Pattern.CASE_INSENSITIVE);
-        Matcher h2Matcher = h2Pattern.matcher(html);
-        
-        // Search for blog date
-        Pattern datePattern = Pattern.compile("<p[^>]*class=\"blog-date\"[^>]*>([^<]+)</p>", Pattern.CASE_INSENSITIVE);
-        Matcher dateMatcher = datePattern.matcher(html);
-        
-        // Search for "Read more" / "Leer más" link in <p class="links">
-        Pattern linkPattern = Pattern.compile("<p[^>]*class=\"links\"[^>]*>\\s*<a[^>]*href=\"([^\"]+)\"", Pattern.CASE_INSENSITIVE);
-        Matcher linkMatcher = linkPattern.matcher(html);
+        // Use pre-compiled patterns
+        Matcher h2Matcher = H2_PATTERN.matcher(html);
+        Matcher dateMatcher = DATE_PATTERN.matcher(html);
+        Matcher linkMatcher = LINK_PATTERN.matcher(html);
         
         try {
             StringBuilder blogHtml = new StringBuilder();
@@ -233,12 +242,10 @@ public class BlogContentFilter implements Filter {
                     .replace("julio", "07").replace("agosto", "08").replace("septiembre", "09")
                     .replace("octubre", "10").replace("noviembre", "11").replace("diciembre", "12");
                 // Now format is "19 11 2025"
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-                articleDate = LocalDate.parse(normalized, formatter);
+                articleDate = LocalDate.parse(normalized, ES_DATE_FORMATTER);
             } else {
                 // English format: "November 19, 2025"
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-                articleDate = LocalDate.parse(date, formatter);
+                articleDate = LocalDate.parse(date, EN_DATE_FORMATTER);
             }
             return ChronoUnit.DAYS.between(articleDate, LocalDate.now());
         } catch (Exception e) {
@@ -248,7 +255,16 @@ public class BlogContentFilter implements Filter {
     
     @Override
     public void destroy() {
-        // Cleanup if needed
+        if (scheduler != null) {
+            scheduler.shutdown();
+            try {
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    scheduler.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                scheduler.shutdownNow();
+            }
+        }
     }
     
     // Response wrapper to capture HTML output
