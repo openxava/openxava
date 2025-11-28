@@ -1,8 +1,0 @@
-Blog note in doc:
-
-   
-- Quitar prints
-- Revisar rendimiento
-
-Notas:
-localStorage.removeItem('blog-dismissed')
