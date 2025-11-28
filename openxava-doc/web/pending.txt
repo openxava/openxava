@@ -1,7 +1,6 @@
 Blog note in doc:
 
    
-- Excluir artículos
 - Quitar prints
 - Revisar rendimiento
 

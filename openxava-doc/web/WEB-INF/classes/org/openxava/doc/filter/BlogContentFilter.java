@@ -53,6 +53,14 @@ public class BlogContentFilter implements Filter {
             return;
         }
         
+        // Exclude index and getting started pages
+        String pageName = requestURI.substring(requestURI.lastIndexOf('/') + 1);
+        if (pageName.startsWith("index") || pageName.startsWith("getting-started") || 
+            pageName.startsWith("how-to-install") || pageName.startsWith("project-templates")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        
         System.out.println("BlogContentFilter: Processing HTML file: " + requestURI);
         
         // Wrap response to capture HTML
