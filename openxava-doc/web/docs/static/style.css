@@ -171,3 +171,15 @@ img {
 .blog-notification a:hover {
     color: #333;
 }
+
+.blog-close {
+    float: right;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.blog-close:hover {
+    opacity: 1;
+}

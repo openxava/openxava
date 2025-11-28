@@ -215,7 +215,8 @@ public class BlogContentFilter implements Filter {
                 
                 System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + date + ", Link: " + link);
                 
-                blogHtml.append("News: ")
+                blogHtml.append("<span class=\"blog-close\" onclick=\"this.parentElement.style.display='none'\">×</span>")
+                       .append("News: ")
                        .append("<b>").append(title).append("</b>")
                        .append(" - ")
                        .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
