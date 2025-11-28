@@ -225,7 +225,7 @@ public class BlogContentFilter implements Filter {
                        .append(" - ")
                        .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
                        .append(" · ")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\">Read more</a>")
+                       .append("<a href=\"").append(link).append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">Read more</a>")
                        .append("</div>");
             } else {
                 System.out.println("BlogContentFilter: No blog post found with simple approach");
