@@ -1,6 +1,6 @@
 Blog note in doc
 * ¿Sacar el año?
-- Botón para quitar
+* Botón para quitar
 - Si es español sacar el de español.
 - Visible durante 14 días.
 - Fondo más resalatado cuando sean solo 3 días.

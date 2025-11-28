@@ -199,36 +199,37 @@ public class BlogContentFilter implements Filter {
             dateMatcher.reset();
             
             StringBuilder blogHtml = new StringBuilder();
-            blogHtml.append("<div class=\"blog-notification\">");
             
             if (h2Matcher.find() && dateMatcher.find()) {
                 String title = h2Matcher.group(1).trim();
                 String date = dateMatcher.group(1).trim();
                 
-                // Create link from title (simple slug conversion)
-                String link = "https://openxava.org/blog/" + 
-                    title.toLowerCase()
+                // Create slug from title for localStorage key
+                String slug = title.toLowerCase()
                          .replaceAll("&nbsp;", " ")
-                         .replaceAll("[^a-zA-Z0-9\\s.]", "")  // Keep dots for version numbers
+                         .replaceAll("[^a-zA-Z0-9\\s.]", "")
                          .replaceAll("\\s+", "-")
                          .replaceAll("-+$", "");
                 
+                String link = "https://openxava.org/blog/" + slug;
+                
                 System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + date + ", Link: " + link);
                 
-                blogHtml.append("<span class=\"blog-close\" onclick=\"this.parentElement.style.display='none'\">×</span>")
+                // Script to check localStorage and hide if already dismissed
+                blogHtml.append("<script>if(localStorage.getItem('blog-dismissed')==='" + slug + "')document.write('<style>.blog-notification{display:none}</style>')</script>");
+                
+                blogHtml.append("<div class=\"blog-notification\" data-slug=\"" + slug + "\">")
+                       .append("<span class=\"blog-close\" onclick=\"localStorage.setItem('blog-dismissed',this.parentElement.dataset.slug);this.parentElement.style.display='none'\">×</span>")
                        .append("News: ")
                        .append("<b>").append(title).append("</b>")
                        .append(" - ")
                        .append("<i>").append(date.substring(0, date.indexOf(","))).append("</i>")
                        .append(" · ")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\">Read more</a>");
+                       .append("<a href=\"").append(link).append("\" target=\"_blank\">Read more</a>")
+                       .append("</div>");
             } else {
                 System.out.println("BlogContentFilter: No blog post found with simple approach");
-                // Fallback if no post found
-                blogHtml.append("<a href=\"https://www.openxava.org/blog\" target=\"_blank\">Visit OpenXava Blog</a>");
             }
-            
-            blogHtml.append("</div>");
             String result = blogHtml.toString();
             System.out.println("BlogContentFilter: Generated HTML: " + result);
             return result;
