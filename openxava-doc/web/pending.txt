@@ -1,6 +1,6 @@
 Blog note in doc:
 
-- Visible durante 14 días.    
+   
 - Fondo más resalatado cuando sean solo 3 días.
     un tenue amarillo pastel muy suave, estilo "note"
 - Excluir artículos

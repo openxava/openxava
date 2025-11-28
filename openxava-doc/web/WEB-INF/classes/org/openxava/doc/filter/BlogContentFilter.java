@@ -9,6 +9,10 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -194,6 +198,13 @@ public class BlogContentFilter implements Filter {
                 String date = dateMatcher.group(1).trim();
                 String link = linkMatcher.group(1).trim();
                 
+                // Check if article is older than 14 days
+                long daysOld = calculateDaysOld(date, spanish);
+                if (daysOld > 14) {
+                    System.out.println("BlogContentFilter: Article is " + daysOld + " days old, not showing notification");
+                    return "";
+                }
+                
                 // Create slug from title for localStorage key
                 String slug = title.toLowerCase()
                          .replaceAll("&nbsp;", " ")
@@ -206,16 +217,14 @@ public class BlogContentFilter implements Filter {
                 // Spanish: "19 de noviembre del 2025" -> "19 de noviembre"
                 String shortDate;
                 if (spanish) {
-                    // Spanish format: "19 de noviembre del 2025"
                     int delIndex = date.indexOf(" del ");
                     shortDate = delIndex > 0 ? date.substring(0, delIndex) : date;
                 } else {
-                    // English format: "November 19, 2025"
                     int commaIndex = date.indexOf(",");
                     shortDate = commaIndex > 0 ? date.substring(0, commaIndex) : date;
                 }
                 
-                System.out.println("BlogContentFilter: Found post - Title: " + title + ", Date: " + shortDate + ", Link: " + link);
+                System.out.println("BlogContentFilter: Found post - Title: " + title + ", Days old: " + daysOld + ", Link: " + link);
                 
                 String newsLabel = spanish ? "Novedad: " : "News: ";
                 String readMore = spanish ? "Leer más" : "Read more";
@@ -241,6 +250,34 @@ public class BlogContentFilter implements Filter {
             System.err.println("Error parsing blog HTML: " + e.getMessage());
             e.printStackTrace();
             return "";
+        }
+    }
+    
+    private long calculateDaysOld(String date, boolean spanish) {
+        try {
+            LocalDate articleDate;
+            if (spanish) {
+                // Spanish format: "19 de noviembre del 2025"
+                // Normalize month names for parsing
+                String normalized = date.toLowerCase()
+                    .replace(" del ", " ")
+                    .replace(" de ", " ")
+                    .replace("enero", "01").replace("febrero", "02").replace("marzo", "03")
+                    .replace("abril", "04").replace("mayo", "05").replace("junio", "06")
+                    .replace("julio", "07").replace("agosto", "08").replace("septiembre", "09")
+                    .replace("octubre", "10").replace("noviembre", "11").replace("diciembre", "12");
+                // Now format is "19 11 2025"
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+                articleDate = LocalDate.parse(normalized, formatter);
+            } else {
+                // English format: "November 19, 2025"
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+                articleDate = LocalDate.parse(date, formatter);
+            }
+            return ChronoUnit.DAYS.between(articleDate, LocalDate.now());
+        } catch (Exception e) {
+            System.err.println("BlogContentFilter: Error parsing date '" + date + "': " + e.getMessage());
+            return 0; // Show notification if date parsing fails
         }
     }
     
