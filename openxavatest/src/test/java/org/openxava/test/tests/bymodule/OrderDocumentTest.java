@@ -13,7 +13,7 @@ public class OrderDocumentTest extends ModuleTestBase {
 		super(testName, "OrderDocument");		
 	}
 			
-	public void testGroupByIncludesPropertiesFromReferences_CalculationPropertyInReferenceInsideHiddenSection() throws Exception {
+	public void testGroupByIncludesPropertiesFromReferences_calculationPropertyInReferenceInsideHiddenSection() throws Exception {
 		getWebClient().getOptions().setCssEnabled(true);
 		
 		selectGroupBy("Group by year");
