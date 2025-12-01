@@ -5,9 +5,9 @@ import java.sql.*;
 import java.text.*;
 import java.util.*;
 import java.util.Collections;
+import java.util.function.*;
 import java.util.prefs.*;
 import java.util.stream.*;
-import java.util.function.*;
 
 import javax.servlet.http.*;
 
@@ -1664,7 +1664,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private boolean isPropertyGroupable(String propertyName) { 
 		MetaProperty p = getMetaTab().getMetaModel().getMetaProperty(propertyName);
 		if (!p.isNumber() || p.isCalculated() || p.hasValidValues()) return false; 
-		if (propertyName.contains(".")) return false;
 		propertyName = propertyName.toLowerCase();
 		return !propertyName.contains("year")   && !propertyName.contains("number") 
 			&& !propertyName.contains("code")   && !propertyName.contains("percentage") 
