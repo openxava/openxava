@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Properties from references are excluded from the list when grouping.
 - The documentation shows a subtle note pointing to the latest openxava.org blog entry.
 - No help icon is displayed when using local help if no article is defined for that module.
 - For local help, if the user-language article is missing, another is used; fallback is the no-suffix one. 
