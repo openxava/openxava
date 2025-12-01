@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Curso con IA - Lección 4: Interfaz de usuario (parte 2) - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
+          / </span>Curso con IA - Lección 4: Interfaz de usuario (parte 2)</h1>
+        <p>Esta es la cuarta lección de un curso donde estamos creando una aplicación
+          de gestión de pólizas de seguro de automóviles usando OpenXava e inteligencia artificial.</p>
+        <h2>Video</h2>
+        <p>En esta cuarta lección nos vamos a dedicar a pulir detalles de la interfaz de usuario, aprenderemos un poco de OpenXava y veremos algunos trucos para llevarnos mejor con la IA.</p>
+        <p><a href="https://youtu.be/Kqs3HP9IOgc" target="_blank"><img src="files/course-with-ai_es040.png"
+              title="course-with-ai-040"></a></p>
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="https://sourceforge.net/p/openxava/discussion/437013/"
+              rel="nofollow">Pregunta en el foro</a></strong></p>
+      
+        <h2>Código</h2>
+        <p>Si sigues el curso, no necesitas escribir ningún código, la IA lo
+          escribirá por ti. Y tu código no tiene que ser exactamente igual al del
+          video. Sin embargo, puedes encontrar el código generado en este video en <b><a
+              href="https://github.com/openxava/ai-course/tree/lesson-4">un
+              repositorio de GitHub</a></b>, por si te interesa
+          examinarlo.</p>
+        <h2>Transcripción</h2>
+        
+        <h3>Introducción</h3>
+        <p>Hola, soy Alexandra. En la lección anterior mi compañera Mónica estuvo hablando con la IA y en menos de 10 minutos Windsurf mejoró la interfaz por defecto que genera OpenXava a partir del código plano de las entidades. La verdad es que el resultado fue bastante bueno, consiguiendo que nuestra aplicación pasara de ser fea y destartalada, a tener un aspecto profesional. En esta segunda parte nos vamos a dedicar a pulir detalles de la interfaz de usuario, aprenderemos un poco de OpenXava y veremos algunos trucos para llevarnos mejor con la IA.</p>
+        
+        <h3>Buscando detalles que mejorar</h3>
+        <p>Aquí tenemos nuestra flamante aplicación de pólizas de seguro de automóviles. Busquemos detalles que podamos mejorar. Por ejemplo, podemos ver como los campos de nombre y apellidos en el cliente son demasiado largos, para lo cortos que suelen ser los nombres y los apellidos. En vehículo pasa tres cuartos de lo mismo, los campos marca y modelo ocupan demasiado espacio en la pantalla, cuando no se suelen llenar. Estos campos de 50 caracteres de longitud, se podrían visualizar más cortos, por ejemplo, con 30 caracteres, aunque el usuario siempre tenga la posibilidad de rellenar 50 si lo necesitase. Pero en la mayoría de los casos los datos se visualizarían completamente y la interfaz de usuario sería más compacta. Vamos a pedírselo a Windsurf.</p>
+        
+        <h3>Pidiendo a la IA que acorte el tamaño de visualización</h3>
+        <p>Le vamos a pedir a la IA que acorte el tamaño de visualización, usando un lenguaje sencillo, sin usar términos técnicos de OpenXava. Lo estamos haciendo en inglés, pero lo puedes hacer en español si lo prefieres. Simplemente le hemos dicho que queremos un tamaño de visualización de 30 para las propiedades de longitud 50. Windsurf confirma lo que va a hacer y empieza a analizar el código. El video está grabado en tiempo real, sin ninguna edición o truco. Quizás haya que esperar un poco, pero ves como funciona esto de verdad.</p>
+        
+        <h3>Análisis y generación de código por la IA</h3>
+        <p>La inteligencia artificial concluye que la solución es usar la anotación <code>DisplaySize</code> y nos lo dice. Vemos como, una por una edita nuestras entidades Java para añadir la anotación <code>DisplaySize</code> donde corresponda. Y aquí tenemos un resumen de todo el trabajo que ha hecho. Comprobamos que ha anotado <code>firstName</code> y <code>lastName</code> con <code>DisplaySize</code> 30. Buen trabajo, y también ha hecho lo mismo para <code>make</code> y <code>model</code> en <em>Vehículo</em>, por ejemplo. Aceptamos el código.</p>
+        
+        <h3>Primeros resultados en la aplicación</h3>
+        <p>Y con ansia y sin pausa nos vamos directamente al navegador a ver como ha quedado. Ahora queda superbonito, todos los campos alineados y con un tamaño razonable. Y también en vehículo. Pero ahora que los campos son más cortos, notamos que queda mucho espacio en blanco a la derecha, quizás si pusiéramos los campos del vehículo en dos columnas, aprovecharíamos mejor ese espacio. Vamos a pedirle a nuestra IA que lo haga.</p>
+        
+        <h3>Pidiendo dos columnas</h3>
+        <p>Vamos a pedirle a nuestro amable y eficiente compañero cibernético que visualice las propiedades del vehículo en dos columnas, y lo hacemos con lenguaje simple y llano. Le damos a ENTER y esperamos expectantes su reacción. Nos dice que nos va ayudar, por supuesto. Dice que necesita incluir una anotación <code>DefaultView</code>. Y empieza a editar el código de nuestra clase.</p>
+        
+        <h3>Lidiando con errores</h3>
+        <p>Nos indica que ya está y nos hace un resumen. ¡Uhm! El código que ha generado está marcado en rojo. Esto es sospechoso. Vamos a quejarnos. Le decimos que su código está marcado como error. Y Windsurf empieza a revisar el código. Lo edita para corregirlo y al final nos dice que la anotación <code>DefaultView</code> no existe en OpenXava y la vista por defecto se define con una anotación <code>View</code> sin nombre de vista. Aceptamos el código y vamos al navegador.</p>
+        
+        <h3>Arreglando el resultado</h3>
+        <p>Y bueno, sí, los campos están en dos columnas, pero la segunda columna no está bien alineada, y además ahora no saca la póliza. Vamos a pedir a nuestro amigo que resuelva esto. Le decimos que queremos las propiedades alineadas por columnas. Además, le pedimos que vuelva a poner la póliza en su sitio. La IA confirma el trabajo que tiene que hacer y después analiza el código de la entidad <em>Vehicle</em>. Modifica el código de <em>Vehicle</em>. El cuál podemos ver modificado en el editor, en el momento. Vemos como ha modificado la anotación <code>View</code>. Para finalizar, nos hace un resumen de lo que ha hecho.</p>
+        
+        <h3>Insistiendo en la alineación</h3>
+        <p>Aceptemos el código y veamos como queda. La póliza vuelve a aparecer. Bien hecho. Sin embargo, los campos siguen sin estar alineados. Parece que al Windsurf lo que le hemos dicho de alinear las columnas le ha entrado por un oído y le ha salido por el otro. Vamos a insistir. Hablando se entiende la gente. Así que vamos a hablar con nuestra máquina para ver si es capaz de hacerlo mejor. Primero, la encomiamos por haber hecho bien lo de la póliza. Después nos quejamos de que las propiedades siguen sin estar alineadas.</p>
+        
+        <h3>Proporcionando documentación a la IA</h3>
+        <p>Puede que no nos haya entendido, o puede que no sepa como alinear las propiedades en OpenXava, por eso vamos a hacer algo para ayudarle. Le decimos que lea la documentación de OpenXava y le ponemos la URL donde puede encontrar la documentación referente a la disposición visual. Nos dice que va a leer la documentación, esto pinta bien. Dice que ya ve donde se explica la sintaxis de la disposición, que lo va a leer para entenderlo mejor. Ahora dice que ya sabe hacerlo y acto seguido modifica el código. Como tiene por costumbre nos hace un resumen de lo que ha hecho.</p>
+        
+        <h3>Éxito con las columnas alineadas</h3>
+        <p>Por nuestra parte, aceptaremos el código para irnos corriendo al navegador y ver si esta vez habrá decepción o victoria. Los campos están bien alineados, incluso la segunda columna. Y nos ha puesto un marco alrededor de los campos. No se lo hemos pedido, pero nos gusta, así que nos lo quedamos. La moraleja es que "el que la sigue, la consigue". Solo hay que insistir hasta que las cosas queden como queremos. Podríamos seguir refinando más detalles de la interfaz de usuario hasta dejarla perfecta, pero creo que con estos ejemplos ya sabrás hacerlo tú mismo. Por eso, ahora vamos a hacer algo mejor. Volvamos al IDE.</p>
+        
+        <h3>Usando la IA para aprender</h3>
+        <p>Vamos a utilizar la IA no solo para que programe por nosotros, sino también para aprender. Por eso, ahora le pediremos que nos explique cómo lo ha hecho. Le decimos que su código ha funcionado y le damos las gracias. Le indicamos que somos nuevos en OpenXava, para ayudar a que sea lo más didáctico posible. Después le pedimos que nos explique cómo se ponen las propiedades en dos columnas, cómo se dice que tienen que estar alineadas y cómo se ponen dentro de un marco.</p>
+        <p>La máquina nos va a hacer un tutorial personalizado de justo lo que acabamos de ver. Un tutorial que podemos revisar y comparar con el código generado y así aprender OpenXava. Además, si no entendemos algo le podemos preguntar para que nos lo aclare, o nos ponga más ejemplos. Una nueva forma de aprender que va más allá de la documentación oficial, un tutorial en internet, un video o un libro. Ya sabéis, si queréis aprender, preguntad.</p>
+        
+        <h3>Conclusión</h3>
+        <p>Hemos llegado al final de nuestra lección, donde hemos visto lo fácil que es refinar la interfaz de usuario de nuestra aplicación OpenXava usando una IA. Pero donde también hemos aprendido algunas cosas más. Como que la IA puede generar código erróneo, incluso que no compila. No es ningún problema, solo hay que insistir, normalmente solo un poco, para que lo arregle. También vimos como a veces si le pedimos varias cosas puede ignorar alguna. Sin problemas, se lo volvemos a pedir y listo. A veces Windsurf no sabe cómo hacer algo, en ese caso podemos indicarle la URL de la documentación y este ingenio pensante se leerá la documentación y aprenderá.</p>
+        <p>Y algo muy interesante. Podemos pedirle que nos explique lo que ha hecho y así tenemos un profesor particular a nuestro servicio, 24 horas al día. ¿Qué más se puede pedir? Si te ha gustado el video, abre Windsurf en tu ordenador, crea una aplicación OpenXava y trata de hacerlo tú mismo en tu casa. No olvides contarme como te ha ido. Chao.</p>
+        
+      </div>    
+  </body>
+</html>
