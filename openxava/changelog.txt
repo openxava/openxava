@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 4 of the OpenXava course with AI available in the documentation with video.
 - Fix: After removing a selected row from a collection, the delete action of the main entity is not shown.
 - Fix: Properties from references are excluded from the list when grouping.
 - The documentation shows a subtle note pointing to the latest openxava.org blog entry.
