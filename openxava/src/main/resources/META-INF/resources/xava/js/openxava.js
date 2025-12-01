@@ -303,6 +303,7 @@ openxava.initActions = function() {
 	$('.ox-list-formats i').off('click').click(function() {
 		openxava.onSelectListFormat($(this));
 	});
+	$('div[id$="__button_bar"] a[id$="__delete"]').show();
 }
 
 openxava.initMessages = function(application, module) { 
