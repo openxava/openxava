@@ -39,7 +39,7 @@ public class CutElementsFromCollectionAction extends CollectionBaseAction implem
 				cutCollectionElements.setCollectionName(getCollectionElementView().getMemberName());
 				cutCollectionElements.setCollectionModel(getCollectionElementView().getMetaModel().getName());
 				int count = cutCollectionElements.elementsCount();
-				String collectionLabel = Labels.get(getCollectionElementView().getMemberName());
+				String collectionLabel = getCollectionLabel();
 				addMessage(count > 1?"elements_cut_from_collection":"element_cut_from_collection", count, collectionLabel);
 				if (count > 0) refreshOtherCollectionsOfSameType();
 			}

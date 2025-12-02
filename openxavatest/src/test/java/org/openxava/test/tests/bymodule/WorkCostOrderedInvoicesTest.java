@@ -36,10 +36,10 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_invoices"); 
 		assertCutRowStyle(0);
 		assertNoAction("CollectionCopyPaste.paste");
-		assertMessage("1 row cut from Invoices");
+		assertMessage("1 row cut from Cost invoices"); // It uses the label for WorkCost.invoices
 		assertCollectionRowCount("invoices", 2);
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_invoices");
-		assertMessage("1 row cut from Invoices"); // Does not accumulate rows 
+		assertMessage("1 row cut from Cost invoices"); // Does not accumulate rows 
 		
 		execute("CRUD.new");
 		setValue("description", "MOTO SERVICE");
@@ -47,7 +47,7 @@ public class WorkCostOrderedInvoicesTest extends WorkCostTestBase {
 		assertTotals("0.00", "13", "0.00", "0.00"); 
 		execute("CollectionCopyPaste.paste", "viewObject=xava_view_invoices");
 		assertNoAction("CollectionCopyPaste.paste");
-		assertMessage("1 row pasted into Invoices");
+		assertMessage("1 row pasted into Cost invoices");
 		assertCollectionRowCount("invoices", 1);
 		assertValueInCollection("invoices", 0, 0, "1");
 		assertTotals("52.20", "13", "6.79", "58.99"); 

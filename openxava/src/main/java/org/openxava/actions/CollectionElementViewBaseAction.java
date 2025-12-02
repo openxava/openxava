@@ -125,4 +125,13 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		return closeDialogDisallowed;
 	}
 	
+	/**
+	 * @since 7.6.3
+	 */
+	protected String getCollectionLabel() {
+		String parentModel = getCollectionElementView().getParent().getModelName();
+		String memberName = getCollectionElementView().getMemberName();
+		return Labels.get(parentModel + "." + memberName);
+	}
+	
 }

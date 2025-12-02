@@ -38,7 +38,7 @@ public class PasteElementsIntoCollectionAction extends SaveElementInCollectionAc
 		for (Map element: cutCollectionElements.getElements()) {
 			paste(element);		
 		}
-		String collectionLabel = Labels.get(getCollectionElementView().getMemberName());		
+		String collectionLabel = getCollectionLabel();		
 		addMessage(added>1?"elements_pasted_into_collection":"element_pasted_into_collection", 
 			new Integer(added), collectionLabel);		
 		if (failed > 0) {
