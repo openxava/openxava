@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Confirm message of cut and paste actions does not use the collection qualified label if it exists.
 - Lesson 4 of the OpenXava course with AI available in the documentation with video.
 - Fix: After removing a selected row from a collection, the delete action of the main entity is not shown.
 - Fix: Properties from references are excluded from the list when grouping.
