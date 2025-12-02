@@ -5,8 +5,10 @@
       - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -32,7 +34,7 @@
               target="_blank">descargar el proyecto de esta lección</a>.</strong>
           También puedes copiar el código que se usa en el video por aquí:</p>
         <p>En el archivo <em>PrintCustomerInvoicesAction.java</em>:</p>
-        <pre><code class="java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintCustomerInvoicesAction extends JasperReportBaseAction {
 	
 	@Override
 	protected JRDataSource getDataSource() throws Exception {
@@ -56,8 +58,8 @@
 
 }<br></code></pre>
         <p></p>
-        <code class="xml"></code> En el archivo <em>controllers.xml</em>:<br>
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <code class="language-xml"></code> En el archivo <em>controllers.xml</em>:<br>
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	&lt;extends controller="Invoicing"/&gt;
 	&lt;action name="printCustomerInvoices"
 		class="com.yourcompany.invoicing.actions.PrintCustomerInvoicesAction"

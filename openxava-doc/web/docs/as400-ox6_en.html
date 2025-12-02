@@ -4,8 +4,10 @@
     <title>Configuration for AS/400 in OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -72,7 +74,7 @@
       project, and for production edit <i>conf/context.xml</i> of your Tomcat
       to adjust the datasource to point to AS/400, something like this:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -94,7 +96,7 @@
     <div class="wiki" style="display: block;">Also, you have to modify the <i>junit</i>
       persistence unit to point to AS/400. <br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit AS/400 --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit AS/400 --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
@@ -117,7 +119,7 @@
         with preexisting tables. In this case you have to create a journal for
         your library, in this way:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="shell">CRTJRNRCV JRNRCV(MYLIB/MYRCV) THRESHOLD(5000)
+        <pre><code class="language-shell">CRTJRNRCV JRNRCV(MYLIB/MYRCV) THRESHOLD(5000)
 CRTJRN JRN(MYLIB/MYJRN) JRNRCV(MYLIB/MYRCV) MNGRCV(*SYSTEM)
 CHGJRN JRN(MYLIB/MYJRN) JRNRCV(*GEN) DLTRCV(*YES)
 </code></pre></div>
@@ -125,12 +127,12 @@ CHGJRN JRN(MYLIB/MYJRN) JRNRCV(*GEN) DLTRCV(*YES)
         name of your library. Afterwards you have to register all the table in
         the journal, thus:<br>
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">STRJRNPF FILE(MYLIB/*ALL) JRN(MYLIB/MYJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+          <pre><code class="language-shell">STRJRNPF FILE(MYLIB/*ALL) JRN(MYLIB/MYJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
 </code></pre></div>
         When in the future you'll create a new table to be used from OpenXava
         you have to add it to the journal:
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">STRJRNPF FILE(MYLIB/MYTABLE) JRN(MYLIB/MYJRN)
+          <pre><code class="language-shell">STRJRNPF FILE(MYLIB/MYTABLE) JRN(MYLIB/MYJRN)
 </code></pre></div>
         If you're not familiar with the AS/400 interface look for help from some
         AS/400 guru of your company for this task.</div>

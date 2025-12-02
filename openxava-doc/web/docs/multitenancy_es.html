@@ -4,8 +4,10 @@
     <title>Multiempresa/multimunicipio - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -103,7 +105,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       <div class="wiki" style="display: block;">Primero, añade el módulo <i>Organization</i>
         a tu <i>aplicacion.xml</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;modulo nombre="Organization"&gt;
+        <pre><code class="language-xml">&lt;modulo nombre="Organization"&gt;
     &lt;modelo nombre="Organization" /&gt;
     &lt;controlador nombre="MiOrganizacion" /&gt;
 &lt;/module&gt;
@@ -111,7 +113,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       <div class="wiki" style="display: block;">Después añade tu controlador <i>MiOrganizacion</i>
         a tu<i> controladores.xml</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;controlador nombre="MiOrganizacion"&gt;
+        <pre><code class="language-xml">&lt;controlador nombre="MiOrganizacion"&gt;
     &lt;hereda-de controlador="Organization"/&gt;
     &lt;accion nombre="createNewOrganization" modo="detail" cuesta="true"
         clase="com.tuempresa.tuaplicacion.acciones.CrearMiOrganizacionNueva"/&gt;
@@ -120,7 +122,7 @@ dropSchema.MySQL=DROP SCHEMA ${schema}</pre>
       <div class="wiki" style="display: block;"> Finalmente escribe el código
         para tu acción <i>CrearMiOrganizacionNueva</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.tuempresa.tuaplicacion.acciones;
+        <pre><code class="language-java">package com.tuempresa.tuaplicacion.acciones;
 
 import com.openxava.naviox.actions.*;
 
@@ -228,7 +230,7 @@ public class CrearMiOrganizacionNueva extends CreateNewOrganizationAction {
         definen en <i>xava.properties</i> con la propiedad <i>themes</i>, de
         esta manera::</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
+        <pre><code class="language-properties">themes=terra.css, light.css, dark.css, black-and-white.css, blue.css</code></pre>
       </div>
       <div class="wiki" style="display: block;">Aprende más sobre los temas en
         la <a href="custom-style_es.html">documentación sobre el estilo visual</a>.</div>

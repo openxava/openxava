@@ -6,9 +6,9 @@ import java.util.*;
 import javax.persistence.*;
 
 import org.htmlunit.html.*;
+import org.junit.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
-import org.openxava.tests.*;
 import org.openxava.util.*;
 
 
@@ -18,7 +18,7 @@ import org.openxava.util.*;
  * @author Federico Alcántara
  */
 
-public class DeliveryTest extends ModuleTestBase { 
+public class DeliveryTest extends CustomizeListTestBase { 
 	
 	private String [] listActions = {
 		"Print.generatePdf",
@@ -43,10 +43,11 @@ public class DeliveryTest extends ModuleTestBase {
 		"Delivery.changeTitles"
 	};
 		
-	public DeliveryTest(String testName) {
-		super(testName, "Delivery");		
+	public DeliveryTest() {
+		super("Delivery");		
 	}
 	
+	@Test
 	public void testChangeNameOfGroupAndSection_showCalendarEditorWithDate() throws Exception {  
 		execute("ListFormat.select", "editor=Cards");
 		HtmlElement div = (HtmlElement) getHtmlPage().getElementById("xava_calendar");
@@ -63,6 +64,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertLabel(1, "My section name");
 	}
 	
+	@Test
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
 		assertLabelInList(3, "Type"); 
 		assertLabelInList(7, "Distance");
@@ -112,6 +114,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValueInCollection("columns", 7, 2, "Nachional");
 	}
 	
+	@Test
 	public void testFocusOnlyInEditors() throws Exception { 
 		execute("CRUD.new");
 		assertFocusOn("invoice.year");
@@ -133,6 +136,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertFocusOn("customer.number");		
 	}
 	
+	@Test
 	public void testModifyEmptyReferenceFromADialog() throws Exception {  
 		execute("CRUD.new");
 		setValue("deliveredBy", "1");
@@ -151,6 +155,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertAction("Modification.update");		
 	}
 	
+	@Test
 	public void testSaveElementInCollectionWithUseObjectView() throws Exception { 
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=2");
@@ -159,6 +164,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNotExists("invoice.year");
 	}
 	
+	@Test
 	public void testSearchUsesSearchView() throws Exception {  
 		execute("CRUD.new");
 		execute("SearchForCRUD.search"); 
@@ -175,6 +181,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 
 	
+	@Test
 	public void testModifyEmptyReferenceNotMustShowTheDialog() throws Exception{
 		execute("CRUD.new");
 		assertValue("type.number", "");
@@ -184,10 +191,12 @@ public class DeliveryTest extends ModuleTestBase {
 		assertTrue(!getHtml().contains("Modify - Delivery")); 
 	}
 	
+	@Test
 	public void testSecondLevelDialogReturningWithCancelButton() throws Exception { 
 		assertSecondLevelDialogReturning(false); 
 	}
 	
+	@Test
 	public void testSecondLevelDialogReturningWithCloseDialogButton() throws Exception { 
 		assertSecondLevelDialogReturning(true);
 	}	
@@ -229,6 +238,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	
+	@Test
 	public void testCreateEntityWithCollectionFromReference_secondLevelDialog() throws Exception {     
 		execute("CRUD.new");
 		execute("Reference.createNew", "model=Invoice,keyProperty=xava.Delivery.invoice.number");		
@@ -279,6 +289,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Invoice deleted successfully");
 	}
 	
+	@Test
 	public void testMinimunInCollection_overrideCollectionActions() throws Exception { 
 		// minimunCollection
 		execute("CRUD.new");
@@ -330,6 +341,7 @@ public class DeliveryTest extends ModuleTestBase {
 		*/
 	}
 	
+	@Test
 	public void testMaxInCollectionWithSaveAndStay() throws Exception{
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
@@ -349,6 +361,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertCollectionRowCount("details", 0);
 	}
 	
+	@Test
 	public void testFocusWhenSectionsAndGroupsInHeader() throws Exception {
 		execute("CRUD.new");
 		assertFocusOn("invoice.year");
@@ -359,6 +372,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertFocusOn("remarks"); 
 	}
 	
+	@Test
 	public void testZeroValueOnChange_accedingDescriptionsListDescriptionUsingGetEntity() throws Exception { 
 		createDeliveryType(0, "JUNIT DELIVERY TYPE 0"); 
 		execute("CRUD.new");
@@ -387,6 +401,7 @@ public class DeliveryTest extends ModuleTestBase {
 		XPersistence.commit();
 	}
 	
+	@Test
 	public void testSearchingByAnyPropertyUsingRefresh() throws Exception { 
 		// One result
 		execute("CRUD.new");
@@ -409,6 +424,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("description", "DELIVERY JUNIT 666");				
 	}
 	
+	@Test
 	public void testSearchingByAnyProperty() throws Exception {
 		// One result
 		execute("CRUD.new");
@@ -432,6 +448,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("description", "DELIVERY JUNIT 666");				
 	}		
 		
+	@Test
 	public void testDateCalendarEditor() throws Exception { 
 		execute("CRUD.new");
 		assertExists("invoice.date");
@@ -443,6 +460,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertTrue(deliveryDate.contains("mdi-calendar"));		
 	}
 	
+	@Test
 	public void testAggregateInCollectionWithVisibleKeyDoesNotTryToSearchOnChangeKey() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=2");
@@ -451,11 +469,13 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testOnChangeActionOnlyOnce() throws Exception {
 		execute("CRUD.new");
 		assertValue("driverType", "X");
 	}
 	
+	@Test
 	public void testAggregateInCollectionWithNotHiddenKey_setFocusInDialog() throws Exception {
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
@@ -494,6 +514,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testEntityWithCollectionOfAggregatesWithNotHiddenKey() throws Exception { 
 		execute("CRUD.new");
 		
@@ -517,6 +538,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testReferenceAsDescriptionsListWithValidValuesInKey_validateViewPropertiesOnModify() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertValue("shipment.KEY", ""); 
@@ -538,6 +560,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testWhenStereotypeWithoutFormatterUseTypeFormatter() throws Exception {
 		// date: Without stereotype, use date formatter
 		String date = getValueInList(0, "date");		
@@ -547,6 +570,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertEquals(date, dateAsLabel);
 	}
 	
+	@Test
 	public void testSecondLevelCalculatedPropertyAndDependenOf3LevelPropertyInList_chartsWithNumericPropertyFromReferenceAsFirstColumn() throws Exception { 
 		int c = getListRowCount();
 		boolean withoutDiscount = false;
@@ -566,6 +590,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=List"); 
 	}
 		
+	@Test
 	public void testUseListWithOtherModelAndReturnToModuleList() throws Exception {
 		execute("CRUD.new");
 		execute("Delivery.viewCurrentYearInvoices");
@@ -575,6 +600,7 @@ public class DeliveryTest extends ModuleTestBase {
 		execute("Mode.list");
 	}
 	
+	@Test
 	public void testCreateObjectInvalidateDescriptionsCache() throws Exception {
 		execute("CRUD.new");
 		assertNoType("66"); 
@@ -597,6 +623,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 
+	@Test
 	public void testEntityValidatorWithKeyReference() throws Exception {		
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
@@ -606,6 +633,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testReadHiddenValuesFromServer() throws Exception { 				
 		// Create one new
 		execute("CRUD.new");
@@ -656,6 +684,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	
+	@Test
 	public void testNavigationActionCanReturnPreviousController() throws Exception {
 		String [] initialActions = {
 			"Navigation.previous",
@@ -726,6 +755,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertActions(minimumActions);	
 	}
 	
+	@Test
 	public void testPropertyAndReferenceActions() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertNoErrors(); 
@@ -753,6 +783,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("invoice.date", "1/1/2002"); 		
 	}
 				
+	@Test
 	public void testActivateDeactivateSection() throws Exception {
 		execute("CRUD.new");
 		assertEditable("advice");
@@ -765,6 +796,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertEditable("remarks");		
 	}
 	
+	@Test
 	public void testCreateAndReadWithKeyReferences() throws Exception { 				
 		// Create new one 
 		execute("CRUD.new");
@@ -806,6 +838,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Delivery deleted successfully");
 	}
 	
+	@Test
 	public void testConverterWithMetaSets() throws Exception { 				
 		// Creating new
 		execute("CRUD.new");
@@ -851,6 +884,7 @@ public class DeliveryTest extends ModuleTestBase {
 	}
 	
 	
+	@Test
 	public void testDeleteSelectedOnesAndOrderBy() throws Exception {  
 		// Creating new
 		execute("CRUD.new");
@@ -889,6 +923,7 @@ public class DeliveryTest extends ModuleTestBase {
 		}
 	}
 		
+	@Test
 	public void testInEntityReferencesNoDefaultValues() throws Exception { 
 		execute("CRUD.new");
 		assertValue("invoice.year", "");
@@ -898,6 +933,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoErrors();
 	}
 	
+	@Test
 	public void testViewPropertyAndHideMembers() throws Exception { 
 		execute("CRUD.new");
 		assertValue("deliveredBy", "");
@@ -926,6 +962,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNotExists("carrier.number");			
 	}
 	
+	@Test
 	public void testEnvironmentVariablesModule() throws Exception {   
 		// Verifying if works the action search special for this module 
 
@@ -1017,6 +1054,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Delivery deleted successfully");
 	}
 	
+	@Test
 	public void testMultipleMappingProperty() throws Exception {   				
 		// Creating new
 		execute("CRUD.new");
@@ -1077,6 +1115,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertMessage("Delivery deleted successfully");
 	}
 	
+	@Test
 	public void testCalculatedValueDependentOnChangePropertyOnChangeAndPropertyOnChangeDepedentOnPropertyOnChange() throws Exception { 
 		execute("CRUD.new");
 		assertValue("distance", "");
@@ -1099,6 +1138,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("driverType", "DRIVERX");	
 	}
 
+	@Test
 	public void testOnChangeWithQualifiedProperty() throws Exception { 
 		execute("CRUD.new");		
 		// Left from field
@@ -1136,6 +1176,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValue("remarks", "No remarks");							
 	}
 	
+	@Test
 	public void testOnChangeDescriptionsListKey_messagesInChangeAction_cleanDescriptionListValueWithOnChangeAndWhenNotEditable() throws Exception { 
 		execute("CRUD.new");		
 		assertValue("remarks", "No remarks");
@@ -1155,6 +1196,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoAction("Reference.clear", "keyProperty=carrier.number");
 	}
 	
+	@Test
 	public void testHideInSection() throws Exception { 
 		execute("CRUD.new");		
 		assertExists("remarks");
@@ -1184,6 +1226,7 @@ public class DeliveryTest extends ModuleTestBase {
 						// but the sections and bottom actions are not displayed		
 	}
 	
+	@Test
 	public void testI18nOfValidValues_descriptionsListWithOrderAndNoCondition() throws Exception {
 		// I18n of ValidValues
 		execute("CRUD.new");
@@ -1226,6 +1269,7 @@ public class DeliveryTest extends ModuleTestBase {
 		}
 	}
 
+	@Test
 	public void testViewPropertyInSectionDefaultCalcultarAndValidators() throws Exception { 
 		execute("CRUD.new");		
 		assertExists("advice");
@@ -1235,6 +1279,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertError("Value for Advice in Delivery is required");
 	}
 	
+	@Test
 	public void testEditableAffectsSection() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertEditable("description"); // out of section  
@@ -1244,7 +1289,8 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNoEditable("advice"); // in section				
 	}
 	
-	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum() throws Exception {   
+	@Test
+	public void testValidValuesInList_groupByDataYearOfReference_groupByEnum_keepOriginalColumnAfterCustomizingGroupedList() throws Exception {   	
 		int quantity = getListRowCount();
 		assertTrue("For this test is needed at least one created delivery", quantity > 0);
 		Collection values = new ArrayList();
@@ -1276,8 +1322,23 @@ public class DeliveryTest extends ModuleTestBase {
 		assertValuesInList(0, "", "4");
 		assertValuesInList(1, "Nachional", "2");
 		assertValuesInList(2, "Lokal", "1");
+
+		assertListColumnCount(2);
+		assertLabelInList(0, "Distance");
+		assertLabelInList(1, "Record count");
+
+		removeColumn(1);
+		selectGroupBy("No grouping");
+
+		// Return to the original columns, whatever they are, 
+		// if we change the columns in Delivery module we should adapt this
+		assertListColumnCount(13);
+		assertLabelInList(0, "Invoice year");
+		assertLabelInList(1, "Invoice number");
+		assertLabelInList(12, "Invoice date");
 	}
 	 
+	@Test
 	public void testSetValueAgainstPropertiesOfSectionsHiddenAndShowed() throws Exception {
 		execute("Remarks.hideRemarks");
 		execute("CRUD.new");
@@ -1313,6 +1374,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertTrue(type + " expected", Arrays.asList(types).contains(type));
 	}
 	
+	@Test
 	public void testNewGoFirstSection() throws Exception {
 		execute("CRUD.new");
 		assertExists("advice");
@@ -1325,6 +1387,7 @@ public class DeliveryTest extends ModuleTestBase {
 		assertNotExists("incidents");
 	}
 
+	@Test
 	public void testDescriptionsListHiddenAfterClearCondition() throws Exception {
 		HtmlSelect select = getHtmlPage().getElementByName("ox_openxavatest_Delivery__conditionValue___3"); 
 		String s = select.getAttribute("style");
@@ -1344,6 +1407,7 @@ public class DeliveryTest extends ModuleTestBase {
 	 * 
 	 * @throws Exception
 	 */
+	@Test
 	public void testFrameAndGroupIds() throws Exception {
 		execute("CRUD.new");
 		HtmlElement groupContent = getHtmlPage().getHtmlElementById("ox_openxavatest_Delivery__frame_group_deliveryDatacontent"); 

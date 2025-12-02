@@ -2,7 +2,10 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
+import org.junit.*;
 import org.openqa.selenium.*;
+
+import static org.junit.Assert.*;
 
 /**
  * To test collections related issues with Selenium. <p>
@@ -13,18 +16,15 @@ import org.openqa.selenium.*;
  * @author Chungyen Tsai
  */
 public class CollectionTest extends WebDriverTestBase {
-	
-	public CollectionTest(String testName) {
-		super(testName);
-	}
 
+    @Test
     public void testChangeSectionNotLoadCollection() throws Exception { 
         goModule("Invoice");
         execute("CRUD.new");
         setValue("year", "2002");
         setValue("number", "1");
         execute("Sections.change", "activeSection=1");
-        Thread.sleep(500);
+        Thread.sleep(600);
         assertCollectionRowCount("details", (0+2));
         execute("CRUD.refresh");
         Thread.sleep(300); 
@@ -60,6 +60,7 @@ public class CollectionTest extends WebDriverTestBase {
         return "";
     }
     
+    @Test
     public void testRowActionsGroupInPopUp_openRecordInNewWindow() throws Exception { 
         goModule("Carrier");
         List<WebElement> menuIcons;

@@ -4,11 +4,11 @@
 
   <groupId>org.openxava</groupId>
   <artifactId>openxavatest</artifactId>
-  <version>7.6.2-SNAPSHOT</version>
+  <version>7.6.3-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <properties>
-    <openxava.version>7.6.2-SNAPSHOT</openxava.version>
+    <openxava.version>7.6.3-SNAPSHOT</openxava.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source> 
     <maven.compiler.target>11</maven.compiler.target>
@@ -28,6 +28,15 @@
       <version>4.13.0</version> 
       <scope>test</scope>
     </dependency>
+    
+    <!-- Not used in application, to test that OpenXava metadata works with GSON -->
+	<dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>2.13.2</version> 
+	    <scope>test</scope>
+	</dependency>
+    
     
   </dependencies>
   

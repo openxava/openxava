@@ -4,8 +4,10 @@
     <title>OpenXava - Web security (OWASP)</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -63,7 +65,7 @@
         of your application, which is located in <i>src/main/webapp/WEB-INF</i>
         of your project:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;error-page&gt;
+        <pre><code class="language-xml">&lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
     &lt;location&gt;/WEB-INF/error404.html&lt;/location&gt;
 &lt;/error-page&gt;
@@ -84,7 +86,7 @@
         <i>src/main/webapp/META-INF</i>. Add the entry <i>&lt;CookieProcessor
           sameSiteCookies="lax" /&gt;</i>, as you see here:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;Context&gt;
+        <pre><code class="language-xml">&lt;Context&gt;
     &lt;JarScanner scanClassPath="false" /&gt;
     &lt;CookieProcessor sameSiteCookies="lax" /&gt; &lt;!-- ADD THIS LINE --&gt;
   
@@ -106,7 +108,7 @@
         filter that generates these headers. The following code may be useful to
         you:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">import java.io.*;
+        <pre><code class="language-java">import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -140,7 +142,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         have to ensure that <i>metadata-complete</i> is set to <i>false</i> in
         ROOT’s <i>web.xml</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;web-app 
+        <pre><code class="language-xml">&lt;web-app 
     ...
     metadata-complete="false"&gt;
     
@@ -173,7 +175,7 @@ public class ContentSecurityPolicyFilter implements Filter {
           trustedHostsForScripts, trustedHostsForStyles</i> and <i>trustedHostsForFrames</i>
         in the <i>xava.properties</i> file of our project, as in this example:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">trustedHostsForImages=https://openxava.org/
+        <pre><code class="language-properties">trustedHostsForImages=https://openxava.org/
 trustedHostsForScripts=https://openxava.org/
 trustedHostsForStyles=https://openxava.org/
 trustedHostsForFrames=https://openxava.org/
@@ -188,7 +190,7 @@ trustedHostsForFrames=https://openxava.org/
         third-party library that needs it, we can enable the use of <i>eval()</i>
         with the following line in <i>xava.properties</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
+        <pre><code class="language-properties">unsafeEvalInScripts=true</code></pre>
       </div>
       <div class="wiki" style="display: block;">Enabling the use of <i>eval()</i>
         is always dangerous, so this should be a temporary measure and you
@@ -197,7 +199,7 @@ trustedHostsForFrames=https://openxava.org/
       <div class="wiki" style="display: block;">In addition, the <i>Content
           Security Policy</i> (CSP) header can be completely disabled. Add to <i>xava.properties</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">turnOffWebSecurity=true</code></pre>
+        <pre><code class="language-properties">turnOffWebSecurity=true</code></pre>
       </div>
       <div class="wiki" style="display: block;">Doing this is a quick way to see
         your application working if you have updated to version 7.3+ from an old

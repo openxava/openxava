@@ -2,8 +2,9 @@
 
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
-	<property name="xava.version" value="7.6.1"/>
-	<property name="dist.dir" value="C:\cygwin\home\javi"/>
+	<property name="xava.version" value="7.6.2"/>
+	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
+	<property name="local.deploy.dir" value="E:\java\apache-tomcat-9.0.55\webapps"/>
 	<!--
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/> 
 	<property name="dist.dir" value="/home/javi/site"/>
@@ -35,7 +36,50 @@
 		</javadoc>
 	</target>
 	
-	<target name="createWar">
+	<target name="compile" description="Compile Java sources">
+		<mkdir dir="web/WEB-INF/classes"/>
+		<javac srcdir="web/WEB-INF/classes" 
+		       destdir="web/WEB-INF/classes"
+		       includeantruntime="false"
+		       encoding="utf-8"
+		       debug="true">
+			<classpath>
+				<!-- Use dedicated compilation lib directory - servlet-api.jar is NOT included in WAR -->
+				<fileset dir="lib-compile" includes="servlet-api.jar"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="deployLocal" depends="compile" description="Deploy to local Tomcat (incremental)">
+		<property name="app.name" value="OpenXavaDoc"/>
+		
+		<echo message="Deploying to ${local.deploy.dir}\${app.name} (incremental)"/>
+		
+		<!-- Create target directory if it doesn't exist -->
+		<mkdir dir="${local.deploy.dir}\${app.name}"/>
+		
+		<!-- Sync only changed files - handles deletions and provides verbose output -->
+		<sync todir="${local.deploy.dir}\${app.name}" 
+		      verbose="true" 
+		      includeEmptyDirs="false">
+			<fileset dir="web">
+				<!-- Exclude Tomcat runtime files to prevent deletion -->
+				<exclude name="logs/**"/>
+				<exclude name="temp/**"/>
+				<exclude name="work/**"/>
+				<exclude name="**/*.log"/>
+				<exclude name="**/*.tmp"/>
+			</fileset>
+		</sync>
+		
+		<!-- Touch web.xml to force Tomcat reload -->
+		<touch file="${local.deploy.dir}\${app.name}\WEB-INF\web.xml"/>
+		<echo message="Touched web.xml to force Tomcat reload"/>
+		
+		<echo message="Incremental deployment completed to ${local.deploy.dir}\${app.name}"/>
+	</target>
+	
+	<target name="createWar" depends="compile">
 		<delete file="${dist.dir}/OpenXavaDoc.war"/>
 		<jar jarfile="${dist.dir}/OpenXavaDoc.war" basedir="web"/>		
 	</target>

@@ -4,8 +4,10 @@
     <title>OpenXava - Seguridad web (OWASP)</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -64,7 +66,7 @@
         siguiente en el <i>web.xml</i> de tu aplicación, que está situado en <i>src/main/webapp/WEB-INF
           </i>de tu proyecto:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;error-page&gt;
+        <pre><code class="language-xml">&lt;error-page&gt;
     &lt;error-code&gt;404&lt;/error-code&gt;
     &lt;location&gt;/WEB-INF/error404.html&lt;/location&gt;
 &lt;/error-page&gt;
@@ -85,7 +87,7 @@
         situado en <i>src/main/webapp/META-INF</i>. Añade la entrada <i>&lt;CookieProcessor
           sameSiteCookies="lax" /&gt;</i>, como ves aquí:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;Context&gt;
+        <pre><code class="language-xml">&lt;Context&gt;
     &lt;JarScanner scanClassPath="false" /&gt;
     &lt;CookieProcessor sameSiteCookies="lax" /&gt; &lt;!-- AÑADIR ESTA LÍNEA --&gt;
   
@@ -107,7 +109,7 @@
         de un filtro que genere esas cabeceras. El siguiente código te puede
         servir:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="java">import java.io.*;
+        <pre><code class="language-java">import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
@@ -141,7 +143,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         tienes que asegurarte de que <i>metadata-complete</i> sea false en <i>web.xml</i>
         de ROOT:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;web-app 
+        <pre><code class="language-xml">&lt;web-app 
     ...
     metadata-complete="false"&gt;
     
@@ -176,7 +178,7 @@ public class ContentSecurityPolicyFilter implements Filter {
         en el archivo <i>xava.properties</i> de nuestro proyecto, como en este
         ejemplo:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">trustedHostsForImages=https://openxava.org/
+        <pre><code class="language-properties">trustedHostsForImages=https://openxava.org/
 trustedHostsForScripts=https://openxava.org/
 trustedHostsForStyles=https://openxava.org/
 trustedHostsForFrames=https://openxava.org/
@@ -191,7 +193,7 @@ trustedHostsForFrames=https://openxava.org/
         librería de terceros que lo necesite, podemos habilitar el uso de <i>eval()</i>
         con la siguiente línea en <i>xava.properties</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">unsafeEvalInScripts=true</code></pre>
+        <pre><code class="language-properties">unsafeEvalInScripts=true</code></pre>
       </div>
       <div class="wiki" style="display: block;">Habilitar el uso de <i>eval()</i>
         es peligroso siempre, por eso esto debería ser una medida temporal y
@@ -200,7 +202,7 @@ trustedHostsForFrames=https://openxava.org/
       <div class="wiki" style="display: block;">Además, la cabecera de Content
         Security Policy (CSP) se puede desactivar completamente. Añade a <i>xava.properties</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">turnOffWebSecurity=true</code></pre>
+        <pre><code class="language-properties">turnOffWebSecurity=true</code></pre>
       </div>
       <div class="wiki" style="display: block;">Hacer esto es una forma rápida
         de ver tu aplicación funcionando si has actualizado a la versión 7.3+

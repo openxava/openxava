@@ -2,9 +2,9 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
+import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
-import org.junit.Test;
 
 /**
  * To test pop up calendar with Selenium.
@@ -566,7 +566,7 @@ public class DateCalendarTest extends WebDriverTestBase {
 		WebElement input = getDriver().findElement(By.id("ox_openxavatest_Quarter__initDate"));
 		input.sendKeys(Keys.TAB);
 		if (format.equals("zh-CN")) {
-			assertEquals(getValue("initDate"), year + "/" + month + "/" + day);
+			assertEquals(getValue("initDate"), year + "/" + month + "/" + day); // It fails if today is 31, look at: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080819a0cb333019a3a90ea800029
 		} else {
 			assertEquals(getValue("initDate"), dayFormatted + "/" + monthFormatted + "/" + year);
 		} 

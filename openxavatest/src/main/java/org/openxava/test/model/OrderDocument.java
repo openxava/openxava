@@ -22,6 +22,7 @@ import lombok.*;
 		members = 
 		"year, number, date;" + 
 		"details; remarks") 
+@Tab(properties="year, number, date, customer.number, customer.name, invoice.totalAmount")
 public class OrderDocument extends CommercialDocument {
 
 	@ManyToOne

@@ -46,6 +46,21 @@ public class CorporationTest extends ModuleTestBase {
 		assertDeleteHidden();
 		uncheckAllCollection("employees");
 		assertDeleteDisplayed();
+		
+		assertCollectionRowCount("employees", 3); // 3 or whatever, just to confirm below we have one more
+		execute("Collection.new", "viewObject=xava_view_section0_employees");
+		setValue("firstName", "JUNIT");
+		setValue("lastName", "TEST");
+		setValue("email", "junittest@example.org");
+		execute("Collection.save");
+		assertCollectionRowCount("employees", 4);
+		assertValueInCollection("employees", 3, 0, "JUNIT");
+		assertDeleteDisplayed();
+		checkRowCollection("employees", 3);
+		assertDeleteHidden();
+		execute("Collection.deleteSelected", "viewObject=xava_view_section0_employees");
+		assertCollectionRowCount("employees", 3);
+		assertDeleteDisplayed();
 	}
 	
 	private void assertDeleteDisplayed() { 

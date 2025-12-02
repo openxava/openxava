@@ -4,8 +4,10 @@
     <title>Navegación entre módulos - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -36,7 +38,8 @@
       Se trata de crear una nueva carpeta y asignarle algunos módulos. Si
       quieres traducir el nombre de la carpeta, úsalo como clave en los archivos
       i18n de etiquetas.<br>
-      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+      El menú jerárquico está disponible sólo en <a class="wiki_link_ext" href="http://www.openxava.org/xavapro"
+
         rel="nofollow">XavaPro</a>. El OpenXava normal usa una lista de módulos
       con una caja de búsqueda.<br>
       <h2 id="toc3"><a name="Navegación entre módulos-Títulos y descripciones para los módulos y la aplicación"></a>Títulos
@@ -67,7 +70,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
       Con la entradas de arriba OpenXava sabe como visualizar el nombre y la
       descripción de los módulos <em>Factura</em> y <em>Pedido</em> en
       español.<br>
-      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+      <img src="files/naviox-module-labels_es.png" alt="naviox-module-labels_es.png"
+
         title="naviox-module-labels_es.png"></div>
     <div class="wiki" style="display: block;">A partir de v6.0 la descripciones
       de los módulos ya no se usan, en el menú sólo aparece el nombre de los
@@ -75,7 +79,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
     </div>
     <div class="wiki" style="display: block;">El nombre de la aplicación se
       muestra en la esquina superior izquierda de la página:<br>
-      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+      <img src="files/naviox-application-name_es.png" alt="naviox-application-name_es.png"
+
         title="naviox-application-name_es.png"><br>
       Si no quieres mostrar el nombre de la aplicación añade la entrada <em>showApplicationName</em>
       <em>(nueva en v5.5)</em> en tu <em>naviox.properties</em> (situado en la
@@ -96,7 +101,8 @@ Pedido.module[description]=Crea y gestiona pedidos, además genera facturas a pa
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showApplicationName</span><span
+</style><pre class="properties"><span class="re0">showApplicationName</span><span
+
 class="sy0">=</span><span class="re1">false</span></pre>
       <h2 id="toc4"><a name="Navegación entre módulos-Personalización del comportamiento"></a>Personalización
         del comportamiento</h2>
@@ -312,19 +318,23 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
+</style><pre class="properties"><span class="re0">initialModule</span><span class="sy0">=</span><span
 class="re1">MiModuloInicial</span></pre>
         Si usas una versión anterior a la 6.3.2 edita <em>firstSteps.jsp</em>,
         localizado en <em>web/naviox</em>, quita todo su contenido y pon una
         redirección en él, así:</div>
-      <pre><code class="html">&lt;script&gt;window.location="MiModuloInicial"&lt;/script&gt;
-</code></pre>Incluso si usas 6.3.2 o superior puedes editar <i>firstSteps.jsp</i>
+      <pre><code class="language-html">&lt;script&gt;window.location="MiModuloInicial"&lt;/script&gt;
+</code></pre>Incluso si usas una versión reciente de OpenXava puedes editar <i>firstSteps.jsp</i>
       en lugar de <i>initialModule</i> en <i>naviox.properties</i>, si quieres
       añadir cierta lógica para la selección del módulo inicial, de esta forma:
       <div class="wiki" style="display: block;">
-        <pre><code class="html">&lt;% String modulo = empiezaConFactura()?"Factura":"Pedido";%&gt;
-&lt;script&gt;window.location="&lt;%=modulo%&gt;"&lt;/script&gt;
-</code></pre> </div>
+        <pre><code class="language-html">&lt;%@include file="../xava/imports.jsp"%&gt;
+        
+&lt;% String modulo = empiezaConFactura()?"Factura":"Pedido";%&gt;
+&lt;script &lt;xava:nonce/&gt;&gt;window.location="&lt;%=modulo%&gt;"&lt;/script&gt;
+</code></pre>
+        <p>Nota: El atributo <i>&lt;xava:nonce/&gt;</i> es obligatorio desde OpenXava 7.1.</p>
+      </div>
       Para que la lista de los últimos módulos visitados de la barra superior se
       borre al iniciar sesión, añade la siguiente entrada en <em>naviox.properties</em>:<br>
       <style type="text/css"><!--
@@ -343,7 +353,7 @@ class="re1">MiModuloInicial</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0"># Hasta v5.9.1, desde v6.6<br>rememberVisitedModules</span><span
+</style><pre class="properties"><span class="re0"># Hasta v5.9.1, desde v6.6<br>rememberVisitedModules</span><span
 class="sy0">=</span><span class="re1">false</span></pre>
       La propiedad <i>rememberVisitedModules</i> no estuvo disponible entre la
       versión 6.0 y la versión 6.5.3.<br>
@@ -366,7 +376,7 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
+</style><pre class="properties"><span class="re0">showModulesMenuWhenNotLogged</span><span
 class="sy0">=</span><span class="re1">false</span></pre>
       El el menú de módulos no se mostrará incluso si hay módulos disponible
       para los usuarios no identificados.<br>
@@ -388,7 +398,7 @@ class="sy0">=</span><span class="re1">false</span></pre>
 .properties span.xtra { display:block; }
 
 -->
-</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
+</style><pre class="properties"><span class="re0">fixModulesOnTopMenu</span><span
 class="sy0">=</span><span class="re1">Invoice, Order</span></pre>
       Como valor pon la lista de módulos separados por comas. Los módulos
       estarán siempre presentes en la barra superior, a no ser que el usuario no

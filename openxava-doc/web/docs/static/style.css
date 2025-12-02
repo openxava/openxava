@@ -40,6 +40,10 @@ h1 #doc {
 	padding: 6px !important;
 }
 
+code.hljs, code.hljs .hljs-tag {
+	background-color: #f6f8fa;
+}
+
 
 .wiki { line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 13px; }
 .wiki h2 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.3em; }
@@ -151,4 +155,34 @@ h1 #doc {
 
 img {
     margin: 10px 0px 10px 0px;
+}
+
+.blog-notification {
+	background: #F3F3F3;
+    color: #666;
+    padding: 8px 8px 5px 8px;
+    margin: -18px -8px 5px -8px;
+    font-size: 0.85em;
+}
+.blog-notification.recent {
+	background: #FFFDE7;
+}
+.blog-notification a {
+    color: #666;
+}
+
+.blog-notification a:hover {
+    color: #333;
+}
+
+.blog-close {
+    float: right;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.blog-close:hover {
+    opacity: 1;
 }

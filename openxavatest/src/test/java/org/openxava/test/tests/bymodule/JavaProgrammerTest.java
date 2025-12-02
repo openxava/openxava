@@ -1,5 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
+import org.junit.*;
 import org.openxava.tests.*;
 
 /**
@@ -9,10 +10,11 @@ import org.openxava.tests.*;
 
 public class JavaProgrammerTest extends ModuleTestBase {
 	
-	public JavaProgrammerTest(String testName) {
-		super(testName, "JavaProgrammer");		
+	public JavaProgrammerTest() {
+		super("JavaProgrammer");		
 	}
 		
+	@Test
 	public void test2LevelsInheritedEntityCRUD() throws Exception { 
 		execute("CRUD.new");
 		setValue("name", "JUNIT JAVA PROGRAMMER");
@@ -35,7 +37,8 @@ public class JavaProgrammerTest extends ModuleTestBase {
 		assertMessage("Java programmer deleted successfully");
 	}
 	
-	public void test2LevelsInheritedEntityWithBaseConditionList_noEmailSubscriptionsIfBaseCondition() throws Exception {
+	@Test
+	public void test2LevelsInheritedEntityWithBaseConditionList_noEmailSubscriptionsIfBaseCondition_listModeFilteringNotAlteredAfterGoingDetailWithBaseCondition() throws Exception {
 		assertFalse(getHtml().contains("'" + EmailNotificationsUtils.getEmailSubscriptionAction() + "'")); // Because assertNoAction does not work for this action
 		
 		assertListColumnCount(6);  
@@ -46,7 +49,16 @@ public class JavaProgrammerTest extends ModuleTestBase {
 		assertLabelInList(4, "Main language");
 		assertLabelInList(5, "Favourite framework");
 		assertListRowCount(1);
-		assertValueInList(0, 0, "JAVI");  				
+		assertValueInList(0, 0, "JAVI");  		
+
+		execute("List.viewDetail", "row=0");
+		assertNoErrors();
+		execute("Mode.list");
+		execute("List.addColumns");
+		checkRow("selectedProperties", "frameworks.name");
+		execute("AddColumns.addColumns");
+		assertListColumnCount(7); // One more column added
+		assertListRowCount(1); // Query still works with baseCondition
 	}
 		
 }

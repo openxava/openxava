@@ -4,8 +4,10 @@
     <title>Configuración para Oracle en OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -68,7 +70,7 @@
       Eclipse y para producción edita <i>conf/context.xml</i> de tu Tomcat,
       para ajustar la fuente de datos para que apunte a Oracle, algo como esto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -86,7 +88,7 @@
       (en <i>persistence/META-INF</i>), para añadir la propiedad <i>hibernate.dialect</i>
       con el valor correcto para tu versión de Oracle:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;!-- Unidad de persistence por defecto para Oracle --&gt;
+      <pre><code class="language-xml">&lt;!-- Unidad de persistence por defecto para Oracle --&gt;
 &lt;persistence-unit name="default"&gt;
 	...
 	&lt;properties&gt;
@@ -103,7 +105,7 @@
     <div class="wiki" style="display: block;">Además, sí que has de modificar la
       unidad de persistencia <i>junit</i> para que apunte a Oracle:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit Oracle --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit Oracle --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;

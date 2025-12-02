@@ -3,6 +3,7 @@ package org.openxava.tab.meta;
 import java.util.*;
 
 import org.apache.commons.logging.*;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.openxava.component.*;
 import org.openxava.filters.*;
 import org.openxava.filters.meta.*;
@@ -102,6 +103,127 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			metaProperties = namesToMetaProperties(getPropertiesNames());
 		}
 		return metaProperties;
+	}
+	
+	/**
+	 * Builds a condition to filter rows by textual content across one or more
+	 * properties, reusing the same semantics as Tab.filterByContentInAnyProperty.
+	 *
+	 * @param content          Text entered by the user
+	 * @param propertiesToUse  Qualified property names to include in the filter;
+	 *                         if null, all non-calculated visible properties of the tab are used
+	 * @since 7.6.3
+	 */
+	public String buildFilterConditionForContent(String content, Collection<String> propertiesToUse) throws XavaException {
+		if (Is.emptyString(content)) return "";
+		// Same sanitizing as Tab.filterByContentInAnyProperty to avoid SQL injection
+		content = content.replaceAll("[\"'%;]", "");
+		StringBuilder condition = new StringBuilder();
+		boolean needsOr = false;
+		
+		Collection<MetaProperty> props;
+		if (propertiesToUse == null) {
+			// All visible non-calculated properties
+			props = new ArrayList<>();
+			for (MetaProperty p : getMetaProperties()) {
+				if (!p.isCalculated() && !p.isNotFieldBackedAndNotCalculated()) {
+					((ArrayList<MetaProperty>) props).add(p);
+				}
+			}
+		}
+		else {
+			// Restrict to the explicit list of properties
+			props = namesToMetaProperties(propertiesToUse);
+		}
+		
+		boolean ignoreAccents = XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions();
+		boolean toUpper = XavaPreferences.getInstance().isToUpperForStringArgumentsInConditions();
+		
+		for (MetaProperty property: props) {
+			if (property.getType().equals(String.class)) {
+				if (needsOr) condition.append(" or ");
+				// Column side: apply accent translation and upper according to preferences
+				String columnExpr = "${" + property.getQualifiedName() + "}";
+				if (ignoreAccents) {
+					try {
+						columnExpr = property.getMetaModel().getMetaComponent().getEntityMapping().translateSQLFunction(columnExpr);
+					}
+					catch (Exception ex) {
+						// Fallback to raw column expression if mapping is not available
+					}
+				}
+				if (toUpper) {
+					columnExpr = "upper(" + columnExpr + ")";
+				}
+				// Parameter side: normalize content similarly
+				String value = content;
+				if (ignoreAccents) {
+					value = org.openxava.util.Strings.removeAccents(value);
+				}
+				if (toUpper) {
+					value = value.toUpperCase();
+				}
+				condition.append(columnExpr)
+					.append(" like '%")
+					.append(value)
+					.append("%'");
+				needsOr = true;
+			}
+			else if (property.isNumber()) {
+				if (NumberUtils.isCreatable(content)) {
+					if (needsOr) condition.append(" or ");
+					condition.append("${")
+						.append(property.getQualifiedName())
+						.append("} = ")
+						.append(content);
+					needsOr = true;
+				}
+			}
+			else if (property.getType().equals(Boolean.class) || property.getType().equals(boolean.class)) {
+				if (property.getLabel().toUpperCase().contains(content.toUpperCase())) {
+					if (needsOr) condition.append(" or ");
+					condition.append("${")
+						.append(property.getQualifiedName())
+						.append("} = true");
+					needsOr = true;
+				}
+			}
+			else if (property.isDateType() || property.isDateTimeType()) {
+				try {
+					Object date = property.parse(content);
+					if (needsOr) condition.append(" or ");
+					condition.append("${")
+						.append(property.getQualifiedName())
+						.append("} = '")
+						.append(date)
+						.append("'");
+					needsOr = true;
+				}
+				catch (java.text.ParseException ex) {
+					// Ignore unparsable dates, like Tab.filterByContentInAnyProperty
+				}
+			}
+			else {
+				if (needsOr) condition.append(" or ");
+				condition.append("${")
+					.append(property.getQualifiedName())
+					.append("} = ")
+					.append(content);
+				needsOr = true;
+			}
+		}
+		
+		return condition.toString();
+	}
+	
+	/**
+	 * Convenience overload that filters using all non-calculated visible
+	 * properties of this tab.
+	 *
+	 * @since 7.6.3
+	 */
+	public String buildFilterConditionForContent(String content) throws XavaException {
+		return buildFilterConditionForContent(content, null);
 	}
 	
 	public Collection getMetaPropertiesHidden() throws XavaException {

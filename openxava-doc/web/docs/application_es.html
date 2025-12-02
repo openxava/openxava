@@ -1,8 +1,11 @@
-<html>
+﻿<html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Aplicación - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link href="highlight/highlight.css" rel="stylesheet"/>
+    <link href="highlight/highlightjs-copy.css" rel="stylesheet"/><script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -11,7 +14,8 @@
               </a> </span> / <a href="index_es.html">documentación</a> / </span>
         Aplicación</h1>
       <strong>Guía de referencia</strong>: <a class="wiki_link" href="model_es.html">Modelo</a>
-      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
+      | <a class="wiki_link" href="view_es.html">Vista</a> | <a class="wiki_link"
+
         href="tab_es.html">Datos tabulares</a> | <a class="wiki_link" href="mapping_es.html">Mapeo
         objeto/relacional</a> | <a class="wiki_link" href="controllers_es.html">Controladores</a>
       | <strong>Aplicación</strong> | <a class="wiki_link" href="customizing_es.html">Personalización</a>
@@ -40,38 +44,13 @@
       que encontramos en el directorio <em>src/main/resources/xava</em><em></em>
       de nuestro proyecto (en el directorio <i>xava</i> en v6 o anteriores).<br>
       La sintaxis de este archivo es:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                   &lt;!-- 1 --<span
-class="re2">&gt;</span></span>
-    etiqueta="etiqueta"               <span class="sc-1">&lt;!-- 2 --&gt;</span>
+      <pre><code class="language-xml">&lt;aplicacion
+    nombre="nombre"                   &lt;!-- 1 --&gt;
+    etiqueta="etiqueta"               &lt;!-- 2 --&gt;
 &gt;
-    <span class="sc3"><span class="re1">&lt;modulo-defecto</span> ... <span class="re2">/&gt;</span></span> ...        <span
-class="sc-1">&lt;!-- 3  Nuevo en v2.2.2 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modulo</span> ... <span class="re2">/&gt;</span></span> ...                <span
-class="sc-1">&lt;!-- 4 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span></pre>
+    &lt;modulo-defecto ... /&gt; ...        &lt;!-- 3  Nuevo en v2.2.2 --&gt;
+    &lt;modulo ... /&gt; ...                &lt;!-- 4 --&gt;
+&lt;/aplicacion&gt;</code></pre>
       <ol>
         <li><strong>nombre</strong> (obligado): Nombre de la aplicación.</li>
         <li><strong>etiqueta</strong> (opcional): Mucho mejor usar archivos
@@ -84,51 +63,20 @@ class="sc-1">&lt;!-- 4 --&gt;</span>
       </ol>
       Se ve claramente que una aplicación es un conjunto de módulos. Vamos a ver
       como se define un módulo:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span></span>
-<span class="sc3">    <span class="re0">nombre</span>=<span class="st0">"nombre"</span>                  &lt;!--  1 --<span
-class="re2">&gt;</span></span>
-    etiqueta="etiqueta"              <span class="sc-1">&lt;!--  2 --&gt;</span>
-    descripcion="descripcion"        <span class="sc-1">&lt;!--  3 --&gt;</span>
+      <pre><code class="language-xml">&lt;modulo
+    nombre="nombre"                  &lt;!--  1 --&gt;
+    etiqueta="etiqueta"              &lt;!--  2 --&gt;
+    descripcion="descripcion"        &lt;!--  3 --&gt;
 &gt;
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> ... <span class="re2">/&gt;</span></span> ...          <span
-class="sc-1">&lt;!--  4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> ... <span class="re2">/&gt;</span></span>                   <span
-class="sc-1">&lt;!--  5 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;vista</span> ... <span class="re2">/&gt;</span></span>                    <span
-class="sc-1">&lt;!--  6 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;vista-web</span> ... <span class="re2">/&gt;</span></span>                <span
-class="sc-1">&lt;!--  7 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;tab</span> ... <span class="re2">/&gt;</span></span>                      <span
-class="sc-1">&lt;!--  8 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> ... <span class="re2">/&gt;</span></span> ...          <span
-class="sc-1">&lt;!--  9 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> ... <span class="re2">/&gt;</span></span>         <span
-class="sc-1">&lt;!-- 10 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;doc</span> ... <span class="re2">/&gt;</span></span>                      <span
-class="sc-1">&lt;!-- 11  Hasta v6.6.3 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+    &lt;var-entorno ... /&gt; ...          &lt;!--  4 --&gt;
+    &lt;modelo ... /&gt;                   &lt;!--  5 --&gt;
+    &lt;vista ... /&gt;                    &lt;!--  6 --&gt;
+    &lt;vista-web ... /&gt;                &lt;!--  7 --&gt;
+    &lt;tab ... /&gt;                      &lt;!--  8 --&gt;
+    &lt;controlador ... /&gt; ...          &lt;!--  9 --&gt;
+    &lt;controlador-modo ... /&gt;         &lt;!-- 10 --&gt;
+    &lt;doc ... /&gt;                      &lt;!-- 11  Hasta v6.6.3 --&gt;
+&lt;/modulo&gt;</code></pre>
       <ol>
         <li><strong>nombre</strong> (obligado): Identificador único del módulo
           dentro de esta aplicación.</li>
@@ -169,42 +117,14 @@ class="sc-1">&lt;!-- 11  Hasta v6.6.3 --&gt;</span>
       </ol>
       <h2 id="toc1"><a name="Aplicacion-Un+modulo+tipico"></a>Un módulo típico</h2>
       Definir un módulo sencillo puede ser como sigue:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
-class="re0">nombre</span>=<span class="st0">"gestion"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modulo</span> <span class="re0">nombre</span>=<span
-class="st0">"Almacen"</span> <span class="re0">carpeta</span>=<span class="st0">"almacen"</span><span
-class="re2">&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span>
+      <pre><code class="language-xml">&lt;aplicacion nombre="gestion"&gt;
+    &lt;modulo nombre="Almacen" carpeta="almacen"&gt;
+        &lt;modelo nombre="Almacen"/&gt;
+        &lt;controlador nombre="Typical"/&gt;
+        &lt;controlador nombre="Almacen"/&gt;
+    &lt;/modulo&gt;
     ...
-<span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span></pre>
+&lt;/aplicacion&gt;</code></pre>
       En este caso tenemos un módulo que nos permite hacer altas, bajas
       modificaciones, consultas, listados en PDF y exportación a Excel de los
       datos de los almacenes (gracias a <em>Typical</em>) y acciones propias
@@ -212,7 +132,8 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       En el caso en que el sistema genere una estructura de módulos (actualmente
       no soportado) este módulo estará en la carpeta "almacen".<br>
       Para ejecutar este módulo podemos desde nuestro navegador escribir:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Almacen"
+      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Almacen"
+
         rel="nofollow">http://localhost:8080/gestion/modules/Almacen</a><br>
       Hasta v6.6.3 también se generaba un portlet para poder desplegar el módulo
       como un portlet JSR-168/286 en un portal Java. <i>El soporte de portales
@@ -228,7 +149,8 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       aunque el módulo no se defina explícitamente en <em>aplicacion.xml</em>.<br>
       Es decir, si definimos una entidad <em>Factura.java</em>, podemos abrir
       nuestro navegador e ir a:<br>
-      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Factura"
+      <a class="wiki_link_ext" href="http://localhost:8080/gestion/modules/Factura"
+
         rel="nofollow">http://localhost:8080/gestion/modules/Factura</a><br>
       Hasta v6.6.3 también se generaba un portlet para poder desplegar el módulo
       como un portlet JSR-168/286 en un portal Java. <i>El soporte de portales
@@ -237,37 +159,13 @@ class="st0">"Almacen"</span><span class="re2">/&gt;</span></span>
       El controlador para estos módulos por defecto será <em>Typical</em>, pero
       podemos cambiar este valor por defecto usando el elemento <em>modulo-defecto</em>
       en <em>aplicacion.xml</em>, de esta manera:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
+      <pre><code class="language-xml">&lt;aplicacion nombre="gestion"&gt;
 
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;aplicacion</span> <span
-class="re0">nombre</span>=<span class="st0">"gestion"</span><span class="re2">&gt;</span></span>
-&nbsp;
-    <span class="sc3"><span class="re1">&lt;modulo-defecto<span class="re2">&gt;</span></span></span>
-        <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;/modulo-defecto<span class="re2">&gt;</span></span></span>
-&nbsp;
-<span class="sc3"><span class="re1">&lt;/aplicacion<span class="re2">&gt;</span></span></span></pre>
+    &lt;modulo-defecto&gt;
+        &lt;controlador nombre="MantenimientoGestion"/&gt;
+    &lt;/modulo-defecto&gt;
+    
+&lt;/aplicacion&gt;</code></pre>
       En este caso todos los módulos por defecto de la aplicación <em>gestion</em>
       tendrán el controlador <em>MantenimientoGestion</em> asignado a ellos.<br>
       Si queremos que cierto módulo no use estos controladores por defecto,
@@ -298,71 +196,19 @@ class="st0">"MantenimientoGestion"</span><span class="re2">/&gt;</span></span>
         solo detalle</h2>
       Un módulo con solo modo detalle, sin lista se define así <em>(nuevo en
         v4m5)</em>:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"FacturaSinLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Factura"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"DetailOnly"</span><span class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="FacturaSinLista"&gt;
+    &lt;modelo nombre="Factura"/&gt;
+    &lt;controlador nombre="Typical"/&gt;
+    &lt;controlador-modo nombre="DetailOnly"/&gt;    &lt;!-- 1 --&gt;
+&lt;/modulo&gt;</code></pre>
       Simplemente usa <em>DetailOnly</em> (1) como <em>mode-controller</em>.<br>
       Si estás usando una versión anterior a v4m5 has de definir los módulos de
       solo detalle de esta forma:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"FacturaSinLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Factura"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"Void"</span><span class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="FacturaSinLista"&gt;
+    &lt;modelo nombre="Factura"/&gt;
+    &lt;controlador nombre="Typical"/&gt;
+    &lt;controlador-modo nombre="Void"/&gt;    &lt;!-- 1 --&gt;
+&lt;/modulo&gt;</code></pre>
       El controlador de modo <em>Void</em> (1) es para que no aparezcan los
       vínculos "detalle – lista"; en esta caso el módulo usa por defecto el modo
       detalle únicamente. Aunque obsoleta esta forma todavía está soportada.<br>
@@ -371,123 +217,36 @@ class="st0">"Void"</span><span class="re2">/&gt;</span></span>    <span class="s
       Un módulo con solo modo lista, sin detalle se define así <em>(nuevo en
         v6.0)</em>:<br>
       <div class="wiki" id="content_view">
-        <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
-class="re2">/&gt;</span></span>    <span class="sc-1">&lt;!-- 1  Nuevo en v2.0.4 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+        <pre><code class="language-xml">&lt;modulo nombre="FamiliaSoloLista"&gt;
+    &lt;var-entorno nombre="XAVA_LIST_ACTION" valor=""/&gt;    &lt;!-- 1  Nuevo en v2.0.4 --&gt;
+    &lt;modelo nombre="Familia"/&gt;
+    &lt;controlador nombre="Typical"/&gt;
+&lt;/modulo&gt;</code></pre>
         Poniendo XAVA_LIST_ACTION a cadena vacía (1) el vínculo de detalle en
         cada fila no aparece <em>(nuevo en v2.0.4)</em>.<br>
       </div>
     </div>
     <div class="wiki" style="display: block;">Entre v4m5 y v5.9.1 un módulo con
       solo modo lista, sin detalle se definía así:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
-class="re2">/&gt;</span></span>    
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>               <span
-class="sc-1">&lt;!-- 1 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="FamiliaSoloLista"&gt;
+    &lt;var-entorno nombre="XAVA_LIST_ACTION" valor=""/&gt;
+    &lt;modelo nombre="Familia"/&gt;
+    &lt;controlador nombre="Typical"/&gt;
+    &lt;controlador-modo nombre="ListOnly"/&gt;               &lt;!-- 1 --&gt;
+&lt;/modulo&gt;</code></pre>
       El controlador de modo <em>ListOnly</em> (1) es para que no aparezcan los
       vínculos "detalle – lista" e inicializar el módulo en modo detalle. A
       partir de v6.0 esto vínculos no aparecen en ningún módulo. Aunque obsoleta
       está forma todavía está soportada.<br>
       Si estás usando una versión anterior a v4m5 has de definir los módulos de
       solo lista de esta forma:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"FamiliaSoloLista"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_LIST_ACTION"</span> <span class="re0">valor</span>=<span class="st0">""</span><span
-class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Familia"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Typical"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"ListOnly"</span><span class="re2">/&gt;</span></span>                     <span
-class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;controlador-modo</span> <span class="re0">nombre</span>=<span
-class="st0">"Void"</span><span class="re2">/&gt;</span></span>                   <span
-class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="FamiliaSoloLista"&gt;
+    &lt;var-entorno nombre="XAVA_LIST_ACTION" valor=""/&gt;
+    &lt;modelo nombre="Familia"/&gt;
+    &lt;controlador nombre="Typical"/&gt;
+    &lt;controlador nombre="ListOnly"/&gt;                     &lt;!-- 1 --&gt;
+    &lt;controlador-modo nombre="Void"/&gt;                   &lt;!-- 2 --&gt;
+&lt;/modulo&gt;</code></pre>
       El controlador de modo <em>Void</em> (2) es para que no aparezcan los
       vínculos "detalle – lista". Además al definir <em>ListOnly</em> (1) como
       controlador el módulo cambia a modo lista al iniciar, por lo tanto éste es
@@ -502,34 +261,9 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
         partir de v7.0</i></div>
     <div class="wiki" style="display: block;"> Un módulo de documentación solo
       visualiza un documento HTML. Es fácil de definir:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"Descripcion"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;doc</span> <span class="re0">url</span>=<span
-class="st0">"doc/descripcion"</span> <span class="re0">idiomas</span>=<span class="st0">"es,en"</span><span
-class="re2">/&gt;</span></span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="Descripcion"&gt;
+    &lt;doc url="doc/descripcion" idiomas="es,en"/&gt;
+&lt;/modulo&gt;</code></pre>
       Este módulo muestra el documento <em>web/doc/descripcion_en.html</em> o <em>web/doc/descripcion_es.html</em>
       según el idioma del navegador. Si el idioma del navegador no es inglés o
       español entonces asume español (el primer idioma especificado). Si no
@@ -540,39 +274,11 @@ class="re2">/&gt;</span></span>
         solo lectura</h2>
       Un módulo de solo lectura, es decir solo para consultar no para modificar,
       puede ser definido como sigue:<br>
-      <style type="text/css"><!--
-/**
- * GeSHi (C) 2004 - 2007 Nigel McNie, 2007 - 2008 Benny Baumann
- * (http://qbnz.com/highlighter/ and http://geshi.org/)
- */
-.xml  {font-family:monospace;}
-.xml .imp {font-weight: bold; color: red;}
-.xml .es0 {color: #000099; font-weight: bold;}
-.xml .br0 {color: #66cc66;}
-.xml .sy0 {color: #66cc66;}
-.xml .st0 {color: #ff0000;}
-.xml .sc-1 {color: #808080; font-style: italic;}
-.xml .sc0 {color: #00bbdd;}
-.xml .sc1 {color: #ddbb00;}
-.xml .sc2 {color: #339933;}
-.xml .sc3 {color: #009900;}
-.xml .re0 {color: #000066;}
-.xml .re1 {color: #000000; font-weight: bold;}
-.xml .re2 {color: #000000; font-weight: bold;}
-.xml span.xtra { display:block; }
-
--->
-</style><pre class="xml"><span class="sc3"><span class="re1">&lt;modulo</span> <span
-class="re0">nombre</span>=<span class="st0">"ConsultaClientes"</span><span class="re2">&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;var-entorno</span> <span class="re0">nombre</span>=<span
-class="st0">"XAVA_SEARCH_ACTION"</span> <span class="re0">valor</span>=<span class="st0">"CRUD.searchReadOnly"</span><span
-class="re2">/&gt;</span></span>  <span class="sc-1">&lt;!-- 1 --&gt;</span>
-    <span class="sc3"><span class="re1">&lt;modelo</span> <span class="re0">nombre</span>=<span
-class="st0">"Cliente"</span><span class="re2">/&gt;</span></span>
-    <span class="sc3"><span class="re1">&lt;controlador</span> <span class="re0">nombre</span>=<span
-class="st0">"Print"</span><span class="re2">/&gt;</span></span>                                           <span
-class="sc-1">&lt;!-- 2 --&gt;</span>
-<span class="sc3"><span class="re1">&lt;/modulo<span class="re2">&gt;</span></span></span></pre>
+      <pre><code class="language-xml">&lt;modulo nombre="ConsultaClientes"&gt;
+    &lt;var-entorno nombre="XAVA_SEARCH_ACTION" valor="CRUD.searchReadOnly"/&gt;  &lt;!-- 1 --&gt;
+    &lt;modelo nombre="Cliente"/&gt;
+    &lt;controlador nombre="Print"/&gt;                                           &lt;!-- 2 --&gt;
+&lt;/modulo&gt;</code></pre>
       Usando <em>CRUD.searchReadOnly</em> (1) el usuario no puede editar los
       datos, y usando solo el controlador <em>Print</em>(2) (o<br>
       (o <em>ExtendedPrint</em> a partir de v4.6)<br>
@@ -584,3 +290,5 @@ class="sc-1">&lt;!-- 2 --&gt;</span>
     </div>
   </body>
 </html>
+
+

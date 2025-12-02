@@ -17,6 +17,10 @@ public class ChooseReferenceAction extends ViewBaseAction implements INavigation
 	 	
 	@Inject
 	private Tab tab;
+
+	@Inject
+	private Tab mainTab;
+
 	@Inject
 	private View referenceSubview;
 	private int row = -1;
@@ -37,7 +41,7 @@ public class ChooseReferenceAction extends ViewBaseAction implements INavigation
 			return;
 		}		
 		getReferenceSubview().setValuesNotifying(key);
-		getTab().setModelName(getPreviousView().getModelName());
+		setTab(mainTab); 
 		closeDialog();
 	}
 

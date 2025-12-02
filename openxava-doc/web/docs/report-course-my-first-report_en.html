@@ -4,8 +4,10 @@
     <title>Report generation - Lesson 1: My first report - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -32,14 +34,14 @@
               the project for this lesson</a></strong>. You can also copy the
           code used in the video here:</p>
         In <em>controllers.xml</em> file:
-        <pre><code class="xml">&lt;controller name="YourFirstEntity"&gt;
+        <pre><code class="language-xml">&lt;controller name="YourFirstEntity"&gt;
     &lt;extends controller="Typical"/&gt;
     &lt;action name="printCustomReport" icon="printer" mode="list" 
         class="com.yourcompany.report.actions.PrintMyCustomReportAction"&gt;
     &lt;/action&gt;
 &lt;/controller&gt;
 </code></pre> In <em>PrintMyCustomReportAction.java</em> file:<br>
-        <pre><code class="java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintMyCustomReportAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {

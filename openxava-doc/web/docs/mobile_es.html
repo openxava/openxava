@@ -4,8 +4,10 @@
     <title>Interfaz de usuario para móviles - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
     <style type="text/css">
 	    .mobile-screenshot {
 		    box-shadow: 0 0 7px #000;
@@ -242,7 +244,7 @@
       acciones. Para estos casos, la solución es definir un módulo en <i>aplicacion.xml</i>
       sólo para móvil. Por ejemplo:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;modulo nombre="FacturaMovil"&gt;
+      <pre><code class="language-xml">&lt;modulo nombre="FacturaMovil"&gt;
 	&lt;modulo nombre="Factura"/&gt;
 	&lt;vista nombre="Movil"/&gt;
 	&lt;controlador nombre="FacturaMovil"/&gt;
@@ -260,7 +262,7 @@
       etiqueta <i>FacturaMovil</i> para quitar el sufijo 'Movil', esto en los
       archivos de etiquetas i18n, con una entrada como esta:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">FacturaMovil=Facturas
+      <pre><code class="language-properties">FacturaMovil=Facturas
 </code></pre> </div>
     <div class="wiki" style="display: block;"><br>
     </div>

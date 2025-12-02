@@ -18,13 +18,16 @@ import lombok.*;
  */
 @Getter @Setter
 @View(members="year; invoices { invoices } ") 
+@View(name="ForDialog", members="year; invoices") 
 public class InvoicesByYear { 
 	
 	@Max(2100) @OnChange(OnChangeVoidAction.class)
 	int year;
 	
 	@Condition("${year} = ${this.year}")
-	@ListProperties("year, number, date, total[invoicesByYear.totalSum]") 
+	@ListProperties("year, number, date, total[invoicesByYear.totalSum]")
+	@NoDefaultActions(forViews="ForDialog") // So the collection is narrow with no data, to test a dialog resize case
+	@ListProperties(forViews="ForDialog", value="year, number, date, total, comment")
 	Collection<Invoice> invoices;
 	
 	public BigDecimal getTotalSum() {

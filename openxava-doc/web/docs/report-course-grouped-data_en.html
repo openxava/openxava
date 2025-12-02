@@ -4,8 +4,10 @@
     <title>Report generation - Lesson 10: Grouped report - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -29,14 +31,14 @@
               the project for this lesson</a></strong>. You can also copy the
           code used in the video here:</p>
         In <em>controllers.xml</em> file:
-        <pre><code class="xml">&lt;controller name="Customer"&gt;
+        <pre><code class="language-xml">&lt;controller name="Customer"&gt;
 	&lt;action name="printAnnualSummary"
 		class="com.yourcompany.invoicing.actions.PrintAnnualSummaryAction"
 		mode="list"
 		icon="printer"/&gt;
 &lt;/controller&gt;
 </code></pre> In <em>PrintAnnualSummaryAction.java</em> file:<br>
-        <pre><code class="java">public class PrintAnnualSummaryAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintAnnualSummaryAction extends JasperReportBaseAction {
 
 	@Override
 	protected JRDataSource getDataSource() throws Exception {

@@ -1,12 +1,48 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Bad alignment of @DescriptionList combos with flowLayout=true.
+- Fix: Confirm message of cut and paste actions does not use the collection qualified label if it exists.
+- Lesson 4 of the OpenXava course with AI available in the documentation with video.
+- Fix: After removing a selected row from a collection, the delete action of the main entity is not shown.
+- Fix: Properties from references are excluded from the list when grouping.
+- The documentation shows a subtle note pointing to the latest openxava.org blog entry.
+- No help icon is displayed when using local help if no article is defined for that module.
+- For local help, if the user-language article is missing, another is used; fallback is the no-suffix one. 
+- Fix: 404 error when accessing the local help if the article for the module and language is not available.
+- Fix: Selected rows of the main list are not accessible from a dialog if user searches a reference.
+- Fix: Filtering in a @DescriptionsList fails with numeric properties.
+- Fix: When collection content changes inside a dialog, the dialog does not resize.
+- Fix: 'Changed data' dialog when changing filter fields in list before navigating to detail via action.
+- Fix: @NoDefaultActions does not work for nested collections.
+- Fix: Module breaks when returning to the list from charts if the list uses editable properties.
+
+OpenXava 7.6.2 (2025-11-14)
+---------------------------
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
-- Fix: Tab.filterByContentInAnyProperty() fails when only one of several properties is a string.
-- Fix: Search filling non-ID fields and clicking Refresh could show records not in list.
 - The has-type, has-annotation, has-stereotype options in editors.xml now exclude hidden properties.
-- Fix: Calendar list format option shown for hidden dates, breaking the module when chosen.
+- Groovy upgraded to 4.0.29.
+- PDFBox upgraded to 3.0.6.
+- Embedded Tomcat used in development upgraded to 9.0.112.
+- Driver version in doc/new projects upgraded for MySQL and Oracle.
+- Article about using Quartz to schedule jobs in OpenXava available in the documentation with video.
+- Navigation documentation explains how to use nonce taglib in custom JSPs when customizing behavior.
+- Improved migration documentation for 7.2 indicating the needed imports for JSP code.
+- More modern formatting for source code in documentation.
+- Consistent source code formatting in reference guide.
+- Cleaned HTML code for Index, Migration and IntelliJ documentation, making it more human and AI readable.
+- Copy button in source code snippets in documentation.
+- Fix: Charts in lists are placed outside the viewport, so users need to scroll horizontally to see them.
+- Fix: List with baseCondition shows extra conditions or columns after consulting a record in detail mode.
+- Fix: Calendar list format option shown for hidden dates, breaking the module when chosen. 
+- Fix: Visual style for focused radiobuttons and checkbuttons does not match other editors for theme.
+- Fix: Setting focus in radio button editors programmatically with View.setFocus() does not work.
+- Fix: Default value ignored if it depends on a reference whose default value calculator returns the entity.
+- Fix: Adding/removing/moving columns in a 'grouped by' list modifies the columns of the original list.
+- Fix: Collection border not clearly visible in light themes.
+- Fix: Gson throwing 'multiple JSON fields' exception when serializing OpenXava metadata.
+- Fix: Bad alignment of @DescriptionList combos with flowLayout=true.
+- Fix: Tab.filterByContentInAnyProperty() fails when only one of several properties is a string.
+- Fix: Search filling non-ID fields and clicking Refresh could show records not in the list.
 
 OpenXava 7.6.1 (2025-10-17)
 ---------------------------
@@ -518,6 +554,7 @@ OpenXava 7.2.3 (2024-1-26)
 - Fix: @DescriptionsList combos do not open if a \ is in one of the values.
 - Fix: Grouping by a three level property in list fails. 
 - Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
+- Fix: Grouping fails when baseCondition uses properties not included in the grouped list.
 - Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
 - Fix: Some incorrect translations for Spanish labels.
 - Fix: No trace with the root cause of the problem when the logic in a getter of an entity fails. 

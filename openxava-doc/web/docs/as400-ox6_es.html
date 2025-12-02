@@ -4,8 +4,10 @@
     <title>Configuración para AS/400 in OpenXava 6 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -68,7 +70,7 @@
       Eclipse y para producción edita <i>conf/context.xml</i> de tu Tomcat,
       para ajustar la fuente de datos para que apunte a AS/400, algo como esto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
+      <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
 	type="javax.sql.DataSource"
 	maxTotal="100" maxIdle="20" maxWaitMillis="10000"
 	username="root" password="ao49fmsk"
@@ -92,7 +94,7 @@
       modificar la unidad de persistencia <i>junit</i> para que apunte a
       AS/400:<br>
       <div class="wiki" style="display: block;">
-        <pre><code class="xml">&lt;!-- JUnit AS/400 --&gt;
+        <pre><code class="language-xml">&lt;!-- JUnit AS/400 --&gt;
 &lt;persistence-unit name="junit"&gt;
 	&lt;provider&gt;org.hibernate.jpa.HibernatePersistenceProvider&lt;/provider&gt;
 	&lt;class&gt;org.openxava.web.editors.DiscussionComment&lt;/class&gt;
@@ -115,19 +117,19 @@
         AS/400 has de hacerlo con tablas preexistentes. En este caso has de
         crear un diario (journal) para tu biblioteca, de esta manera:
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">CRTJRNRCV JRNRCV(MILIB/MIRCV) THRESHOLD(5000)
+          <pre><code class="language-shell">CRTJRNRCV JRNRCV(MILIB/MIRCV) THRESHOLD(5000)
 CRTJRN JRN(MILIB/MIJRN) JRNRCV(MILIB/MIRCV) MNGRCV(*SYSTEM)
 CHGJRN JRN(MILIB/MIJRN) JRNRCV(*GEN) DLTRCV(*YES)
 </code></pre></div>
         En vez de MILIB usa el nombre de tu biblioteca. Después, tienes que
         registrar todas las tabla por diario, así:<br>
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">STRJRNPF FILE(MILIB/*ALL) JRN(MILIB/MIJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+          <pre><code class="language-shell">STRJRNPF FILE(MILIB/*ALL) JRN(MILIB/MIJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
 </code></pre></div>
         Cuando en el futuro crees una nueva tabla para ser usada desde OpenXava
         has de registrarla por diario:
         <div class="wiki" style="display: block;">
-          <pre><code class="shell">STRJRNPF FILE(MILIB/MITABLA) JRN(MILIB/MIJRN)
+          <pre><code class="language-shell">STRJRNPF FILE(MILIB/MITABLA) JRN(MILIB/MIJRN)
 </code></pre></div>
         Si no estás familiarizado con la interfaz del AS/400 busca ayuda de
         algún gurú del AS/400 de tu empresa para esta tarea. </div>

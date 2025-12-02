@@ -4,28 +4,35 @@
     <title>Generación de informes - Lección 6: Reportes en modo lista - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
-              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a
+
+              href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
+
             href="index_es.html">documentación</a> / </span>Generación de informes - Lección 6: Reportes en modo lista</h1>
       <div class="wiki" style="display: block;">
         <h2>Video</h2>
         <p>En este video veremos cómo generar informes personalizados desde modo lista de cada módulo de nuestra aplicación OpenXava.</p>
-        <p><a href="https://youtu.be/YnuELy6m9Pw" target="_blank"><img src="files/report-course_es060.png"
+        <p><a href="https://youtu.be/YnuELy6m9Pw" target="_blank"><img src="files/report-course_es060.png"
+
               title="report-generation-060"></a> </p>
-        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext"
+
               href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta en el foro</a></strong></p>
       </div>
       <div class="wiki" style="display: block;">
         <h2>Código</h2>
-        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_6"
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_6"
+
               target="_blank">descargar el proyecto de esta lección</a>.</strong> También puedes copiar el código que se usa en el video por aquí:</p>
         <p>En el archivo <em>PrintInvoiceListAction.java</em>:</p>
-        <pre><code class="java">public class PrintInvoiceListAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintInvoiceListAction extends JasperReportBaseAction {
 
 	@Inject
 	private Tab tab;
@@ -59,8 +66,8 @@
 
 }<br></code></pre>
         <p></p>
-        <code class="xml"></code> En el archivo <em>controllers.xml</em>:<br>
-        <pre><code class="xml">&lt;action name="printInvoiceList"
+        <code class="language-xml"></code> En el archivo <em>controllers.xml</em>:<br>
+        <pre><code class="language-xml">&lt;action name="printInvoiceList"
       class="com.yourcompany.invoicing.actions.PrintInvoiceListAction"
       mode="list"
       icon="printer"/&gt;

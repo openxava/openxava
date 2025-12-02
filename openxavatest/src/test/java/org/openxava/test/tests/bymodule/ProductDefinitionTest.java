@@ -13,7 +13,7 @@ public class ProductDefinitionTest extends ModuleTestBase {
 		super(testName, "ProductDefinition");		
 	}
 	
-	public void testCompositeWithCascadeRemoveInsideCollectionWithCascadeRemove() throws Exception {
+	public void testCompositeWithCascadeRemoveInsideCollectionWithCascadeRemove_noDefaultActionsInNestedCollections() throws Exception {
 		execute("List.viewDetail", "row=0");
 		assertValue("name", "LEGO CITY");
 		assertCollectionRowCount("parts", 1);
@@ -28,6 +28,9 @@ public class ProductDefinitionTest extends ModuleTestBase {
 		
 		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_subparts");
 		assertCollectionRowCount("subparts", 0);
+
+		assertNoAction("Print.generatePdf", "viewObject=xava_view_subparts");
+		assertNoAction("CollectionCopyPaste.cut", "viewObject=xava_view_subparts");
 	}
 	
 		

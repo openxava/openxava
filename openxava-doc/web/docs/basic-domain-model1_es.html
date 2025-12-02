@@ -4,8 +4,10 @@
     <title>Lección 2: Modelo básico del dominio 1: @ManyToOne como @DescriptionsList, estereotipos, @Embeddable - Modelar con Java - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
@@ -101,7 +103,7 @@
       Empecemos con el caso más simple. Vamos a crear una entidad <em>Categoria</em> y asociarla a <em>Producto</em>, visualizándola con un combo.<br>
       El código para la entidad <em>Categoria</em> es:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -128,7 +130,7 @@ public class Categoria {
       <img src="files/modeling_es035.png" alt="modeling_es035.png" title="modeling_es035.png"><br>
       Lo siguiente sería asociar <em>Producto</em> con <em>Categoria</em>: Añade la siguiente declaración para la referencia <em>categoria</em> en tu entidad <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class Producto {
+      <pre><code class="language-java">public class Producto {
  
     ...
  
@@ -149,7 +151,7 @@ public class Categoria {
       La entidad <em>Producto</em> necesita tener al menos precio, además estaría bien que tuviese fotos y un campo para observaciones. Vamos a usar anotaciones para conseguirlo. Las anotaciones son como etiquetas para el código, es una forma de añadir metadatos a nuestro código, como en variables, métodos, clases, paquetes, entre otros.</div>
     <div class="wiki" style="display: block;"> La mejor forma de entender que es una anotación es verlo en acción. Añadamos las propiedades <em>precio</em>, <em>foto</em><em>s</em> y <em>observaciones</em> a tu entidad <em>Producto</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Money // La propiedad precio se usa para almacenar dinero
+      <pre><code class="language-java">@Money // La propiedad precio se usa para almacenar dinero
 BigDecimal precio; // BigDecimal se suele usar para dinero
  
 @Files // Una galería de fotos completa está disponible
@@ -163,7 +165,7 @@ String observaciones;
       <img src="files/modeling_es040.png" alt="modeling_es040.png" title="modeling_es040.png"><br>
       En este caso usamos algunas de las anotaciones que están incluidas dentro de OpenXava, puedes notar que cada una produce un efecto en la interfaz de usuario. <code
 
-        class="java"></code></div>
+        class="language-java"></code></div>
     <div class="wiki" style="display: block;">
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">Algunas de las anotaciones disponibles son <i>@Password, @Money, @TextArea, @Label, @DateTime, @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC , @StringTime, @HtmlText, @Coordinates, @Files</i>, <i>@File</i>, etc. Para más información puedes ver <a
@@ -180,7 +182,7 @@ String observaciones;
         class="wiki_link" href="jpa_es.html#Ap%C3%A9ndice%20B:%20Java%20Persistence%20API-Anotaciones%20JPA-Clases%20incrustables">apéndice B</a> sobre JPA.<br>
       Añade la clase <em>Direccion</em> a tu proyecto:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.tuempresa.facturacion.modelo;
+      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import javax.persistence.*;
 import lombok.*;
@@ -206,7 +208,7 @@ public class Direccion {
     <div class="wiki" style="display: block;">Como ves, es una clase normal y corriente anotada como <em>@Embeddable</em>. Sus propiedades se anotan de la misma manera que en las entidades, aunque las clases incrustables no soportan toda la funcionalidad de las entidades.<br>
       Ahora, puedes usar <em>Direccion</em> en cualquier entidad. Simplemente añade una referencia a ella en tu entidad <em>Cliente</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">public class Cliente {
+      <pre><code class="language-java">public class Cliente {
  
     ...
  
@@ -217,7 +219,7 @@ public class Direccion {
 </code></pre> </div>
     <div class="wiki" style="display: block;">Los datos de <em>Direccion</em> se almacenan en la misma tabla que los de <em>Cliente</em>. Y desde una perspectiva de la interfaz de usuario hay un marco alrededor de <i>Direccion</i>, aunque si no te gusta el marco sólo has de anotar la referencia con <em>@NoFrame</em>, como se muestra aquí:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">@Embedded @NoFrame // Con @NoFrame no se muestra marco para direccion
+      <pre><code class="language-java">@Embedded @NoFrame // Con @NoFrame no se muestra marco para direccion
 private Direccion direccion;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Aquí se muestra la interfaz de usuario para una referencia incrustada con y sin <em>@NoFrame</em>:<br>

@@ -4,8 +4,10 @@
     <title>Security and user management - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -197,7 +199,7 @@
       <h3>Password configuration in naviox.properties</h3>
       In addition to the runtime configuration available in the <em>Configuration</em> module, 
       you can also set basic password security options directly in the <i>naviox.properties</i> file:
-      <pre><code class="properties"># Password setting
+      <pre><code class="language-properties"># Password setting
 encryptPassword=true
 storePasswordAsHex=true
 initialPasswordForAdmin=admin</code></pre>
@@ -297,7 +299,7 @@ initialPasswordForAdmin=admin</code></pre>
       against LDAP in your application by extending <i>ProLDAPAuthenticatorProvider</i>,
       like this:
       <div class="wiki" style="display: block;">
-        <pre><code class="java">package com.mycompany.myapp.impl;
+        <pre><code class="language-java">package com.mycompany.myapp.impl;
 
 import java.util.*;
 
@@ -367,7 +369,7 @@ public class MyCustomLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
         above class for LDAP authentication, you need to add the following entry
         to your project’s <i>naviox.properties</i> file:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">ldapAuthenticatorProviderClass=com.mycompany.myapp.impl.MyCustomLDAPAuthenticatorProvider</code></pre>
+        <pre><code class="language-properties">ldapAuthenticatorProviderClass=com.mycompany.myapp.impl.MyCustomLDAPAuthenticatorProvider</code></pre>
         The support for defining custom logic for LDAP authentication is only
         available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.</div>
       <h2 id="toc6"><a name="Security and user management-Guest can create a user account himself"></a>Guest
@@ -479,7 +481,7 @@ public class MyCustomLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
       authenticates users, for that extend <i>ProSignInHelperProvider</i>, in
       this way:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="java">package com.mycompany.myapp.impl;
+      <pre><code class="language-java">package com.mycompany.myapp.impl;
 
 import javax.servlet.*;
 import org.openxava.util.*;
@@ -512,7 +514,7 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
       above class for authentication you have to add the next entry in the <i>naviox.properties</i>
       file of your project:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="properties">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
+      <pre><code class="language-properties">signInHelperProviderClass=com.mycompany.myapp.impl.MyCustomSignInHelperProvider
 </code></pre> </div>
     <div class="wiki" style="display: block;">
       <div class="wiki" style="display: block;">
@@ -523,7 +525,7 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
         folder. For example, you could create a <i>mySignIn.jsp</i> (or
         whatever name you want except <i>signIn.jsp</i>) with this content:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="html">&lt;div&gt;Hi, I'm a custom sign in page&lt;/div&gt;
+        <pre><code class="language-html">&lt;div&gt;Hi, I'm a custom sign in page&lt;/div&gt;
 &lt;div&gt;
 &lt;jsp:include page="signIn.jsp"/&gt;
 &lt;/div&gt;
@@ -537,7 +539,7 @@ public class MyCustomSignInHelperProvider extends ProSignInHelperProvider {
         the above Sign In page you have to add the next entry in the <i>naviox.properties</i>
         file of your project:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="properties">signInJSP=mySignIn.jsp
+        <pre><code class="language-properties">signInJSP=mySignIn.jsp
 </code></pre> </div>
     </div>
     <div class="wiki" style="display: block;">

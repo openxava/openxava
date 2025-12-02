@@ -116,30 +116,28 @@ public class DescriptionsCalculator implements ICalculator {
             return executeQueryPaginatedCollection(limit, offset, null);
         }
 
-        // Try to build a DB-side search condition
-        String searchCond = buildSearchCondition(searchTerm);
+        // If description properties are calculated, we cannot filter at DB level
+        // and must fall back to in-memory filtering using the formatted description
+        if (hasCalculatedDescriptionProperties()) {
+            int window = Math.max(0, offset) + Math.max(0, limit);
+            int minScan = 20000; // high cap to avoid missing matches across pages
+            if (window < minScan) window = minScan;
 
-        // If we can filter in DB, do so
-        if (!Is.emptyString(searchCond)) {
-            return executeQueryPaginatedCollection(limit, offset, searchTerm);
+            Collection<KeyAndDescription> unfiltered = executeQueryPaginatedCollection(window, 0, null);
+
+            // Normalize term like in list mode: remove accents and lowercase
+            String normalized = searchTerm == null ? "" : searchTerm;
+            if (XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions()) {
+                normalized = Strings.removeAccents(normalized);
+            }
+            normalized = normalized.toLowerCase();
+            
+            return filterDescriptionsInMemory(unfiltered, normalized, Math.max(0, limit), Math.max(0, offset));
         }
 
-        // Otherwise, fall back to in-memory filtering (calculated description properties)
-        // Fetch a large unfiltered window to cover results beyond the first page
-        int window = Math.max(0, offset) + Math.max(0, limit);
-        int minScan = 20000; // high cap to avoid missing matches across pages
-        if (window < minScan) window = minScan;
-
-        Collection<KeyAndDescription> unfiltered = executeQueryPaginatedCollection(window, 0, null);
-
-        // Normalize term like in list mode: remove accents and lowercase
-        String normalized = searchTerm == null ? "" : searchTerm;
-        if (XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions()) {
-            normalized = Strings.removeAccents(normalized);
-        }
-        normalized = normalized.toLowerCase();
-
-        return filterDescriptionsInMemory(unfiltered, normalized, Math.max(0, limit), Math.max(0, offset));
+        // Non-calculated description properties: use DB-side filtering reusing
+        // MetaTab.buildFilterConditionForContent restricted to descriptionProperties
+        return executeQueryPaginatedCollection(limit, offset, searchTerm);
     }
 	
 	/**
@@ -364,7 +362,9 @@ public class DescriptionsCalculator implements ICalculator {
 
 		// Add search condition if provided
 		if (!Is.emptyString(searchTerm)) {
-			String searchCondition = buildSearchCondition(searchTerm);
+			String descProps = getDescriptionProperties();
+			Collection<String> props = Strings.toCollection(descProps);
+			String searchCondition = getMetaTab().buildFilterConditionForContent(searchTerm, props);
 			if (!Is.emptyString(searchCondition)) {
 				if (Is.emptyString(condition)) {
 					condition = searchCondition;
@@ -806,72 +806,6 @@ public class DescriptionsCalculator implements ICalculator {
         String out = sb.toString();
         try { out = Normalizer.normalize(out, Normalizer.Form.NFC); } catch (Throwable ignore) {}
         return out;
-    }
-
-	/**
-	 * Builds a search condition for filtering descriptions based on the search term.
-	 * This method constructs a LIKE condition for the description properties.
-	 * Only works for non-calculated properties that have database columns.
-	 * 
-	 * @param searchTerm The term to search for
-	 * @return SQL condition string for filtering, or empty if properties are calculated
-	    */
-    private String buildSearchCondition(String searchTerm) {
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return "";
-        }
-        
-        // Get description properties to build the search condition
-        String descriptionProperties = getDescriptionProperties();
-		if (Is.emptyString(descriptionProperties)) {
-			return "";
-		}
-		
-		// Check if any properties are calculated - if so, we can't filter at DB level
-		if (hasCalculatedDescriptionProperties()) {
-			return "";
-		}
-		
-		// Build LIKE condition for each description property
-		        // Normalize parameter according to preferences (remove accents, optional upper)
-        String value = searchTerm.trim();
-        if (XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions()) {
-            value = Strings.removeAccents(value);
-        }
-        if (XavaPreferences.getInstance().isToUpperForStringArgumentsInConditions()) {
-            value = value.toUpperCase();
-        }
-        String like = "%" + value.replace("'", "''") + "%";
-
-        // Build condition using translateSQLFunction for the column side when configured
-        StringBuilder condition = new StringBuilder();
-        String[] properties = descriptionProperties.split(",");
-        boolean ignoreAccents = XavaPreferences.getInstance().isIgnoreAccentsForStringArgumentsInConditions();
-        boolean toUpper = XavaPreferences.getInstance().isToUpperForStringArgumentsInConditions();
-
-        for (int i = 0; i < properties.length; i++) {
-            if (i > 0) condition.append(" OR ");
-            String property = properties[i].trim();
-            String columnExpr = "${" + property + "}";
-            try {
-                if (ignoreAccents) {
-                    // Apply DB-side accent normalization like list mode
-                    columnExpr = getMetaModel().getMetaComponent().getEntityMapping().translateSQLFunction(columnExpr);
-                }
-            } catch (Exception ex) {
-                // If mapping is not available for some reason, fallback to raw column
-            }
-            if (toUpper) {
-                columnExpr = "upper(" + columnExpr + ")";
-            }
-            condition.append(columnExpr).append(" LIKE '").append(like).append("'");
-        }
-
-        if (properties.length > 1) {
-            return "(" + condition.toString() + ")";
-        } else {
-            return condition.toString();
-        }
     }
 
 }

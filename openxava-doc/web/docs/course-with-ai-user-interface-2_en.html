@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Course with AI - Lesson 4: User interface (part 2) - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
+              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_en.html">documentation</a>
+          / </span>Course with AI - Lesson 4: User interface (part 2)</h1>
+        <p>This is the fourth lesson of a course where we are creating a car insurance
+          policy management application using OpenXava and artificial intelligence.</p>
+        <h2>Video</h2>
+        <p>In this fourth lesson we'll focus on polishing the user interface details, learn a bit about OpenXava, and see some tricks to get along better with the AI.</p>
+        <p><a href="https://youtu.be/VGoH-b5NPCQ" target="_blank"><img src="files/course-with-ai_en040.png"
+              title="course-with-ai-040"></a></p>
+        <p><strong>Problems with the lesson? <a class="wiki_link_ext" href="https://sourceforge.net/p/openxava/discussion/419690/"
+              rel="nofollow">Ask in the forum</a></strong></p>
+      
+        <h2>Code</h2>
+        <p>If you follow the course, you don't need to write any code, the AI will
+          write it for you. And your code doesn't have to be exactly like the one in the
+          video. However, you can find the code generated in this video in <b><a
+              href="https://github.com/openxava/ai-course/tree/lesson-4">a
+              GitHub repository</a></b>, in case you're interested in
+          examining it.</p>
+        <h2>Transcript</h2>
+        
+        <h3>Introduction</h3>
+        <p>Hi, I'm Alexandra. In the previous lesson, my colleague Mónica was talking with the AI, and in less than 10 minutes, Windsurf improved the default interface that OpenXava generates from the plain entity code. The truth is that the result was quite good, turning our application from ugly and messy into something that looks professional. In this second part, we'll focus on polishing the user interface details, learn a bit about OpenXava, and see some tricks to get along better with the AI.</p>
+        
+        <h3>Looking for details to improve</h3>
+        <p>Here we have our brand-new car insurance policy application. Let's look for details we can improve. For example, we can see that the first name and last name fields in the customer are too wide, considering how short names usually are. It's pretty much the same with the vehicle—the make and model fields take up too much space on the screen, even though they're rarely filled completely. These fields are 50 characters long but could be displayed shorter, say 30 characters, while still allowing the user to enter up to 50 if needed. In most cases, the data would still be fully visible, and the user interface would look more compact. Let's ask Windsurf to do it.</p>
+        
+        <h3>Asking the AI to shorten the display size</h3>
+        <p>We're going to ask the AI to shorten the display size, using simple language, without OpenXava-specific technical terms. We're doing it in English, but you can do it in your own language if you prefer. We simply told it that we want a display size of 30 for the properties with length 50. Windsurf confirms what it's going to do and starts analyzing the code. The video is recorded in real time, with no editing or tricks. You might have to wait a little, but you can really see how this works.</p>
+        
+        <h3>AI analysis and code generation</h3>
+        <p>The artificial intelligence concludes that the solution is to use the <code>DisplaySize</code> annotation, and it tells us so. We can see how it edits our Java entities one by one, adding the <code>DisplaySize</code> annotation wherever it's needed. And here we have a summary of all the work it's done. We can see that it annotated <code>firstName</code> and <code>lastName</code> with <code>DisplaySize</code> 30. Nice work—and it also did the same for <code>make</code> and <code>model</code> in <em>Vehicle</em>, for example. We accept the code.</p>
+        
+        <h3>First results in the application</h3>
+        <p>And eagerly, without delay, we go straight to the browser to see how it looks. Now it looks really nice, all the fields aligned and with a reasonable size. And also in vehicle. But now that the fields are shorter, we notice that there is a lot of white space on the right, perhaps if we put the vehicle fields in two columns, we would make better use of that space. Let's ask our AI to do it.</p>
+        
+        <h3>Asking for two columns</h3>
+        <p>Let's ask our kind and efficient cybernetic companion to display the vehicle properties in two columns, and we do it in simple, plain language. We press ENTER and wait expectantly for its reaction. It says it will help us, of course. It says it needs to include a <code>DefaultView</code> annotation. And it starts editing the code of our class.</p>
+        
+        <h3>Dealing with errors</h3>
+        <p>It tells us it's done and gives us a summary. Hmm! The code it generated is marked in red. This is suspicious. Let's complain. We tell it that its code is marked as an error. And Windsurf starts reviewing the code. It edits it to correct it and finally tells us that the <code>DefaultView</code> annotation does not exist in OpenXava and the default view is defined with a <code>View</code> annotation without a view name. We accept the code and go to the browser.</p>
+        
+        <h3>Fixing the result</h3>
+        <p>And well, yes, the fields are in two columns, but the second column is not properly aligned, and also now it doesn't show the policy. Let's ask our friend to fix this. We tell him we want the properties aligned by columns. Also, we ask him to put the policy back in its place. The AI confirms the work it has to do and then analyzes the code of the <em>Vehicle</em> entity. It modifies the <em>Vehicle</em> code. Which we can see modified in the editor, in real time. We see how it has modified the <code>View</code> annotation. To finish, it gives us a summary of what it has done.</p>
+        
+        <h3>Insisting on alignment</h3>
+        <p>Let's accept the code and see how it looks. The policy appears again. Well done. However, the fields are still not aligned. It seems that what we told Windsurf about aligning the columns went in one ear and out the other. Let's insist. People understand each other by talking. So let's talk to our machine to see if it can do better. First, we praise it for having done well with the policy. Then we complain that the properties are still not aligned.</p>
+        
+        <h3>Providing documentation to the AI</h3>
+        <p>Maybe it didn't understand us, or maybe it doesn't know how to align properties in OpenXava, so we're going to do something to help it. We tell it to read the OpenXava documentation and we give it the URL where it can find the documentation regarding visual layout. It says it's going to read the documentation, this looks promising. It says it now sees where the layout syntax is explained, and that it's going to read it to understand it better. Now it says it knows how to do it and immediately modifies the code. As is its custom, it gives us a summary of what it has done.</p>
+        
+        <h3>Success with aligned columns</h3>
+        <p>For our part, we will accept the code to quickly go to the browser and see if this time there will be disappointment or victory. The fields are well aligned, even the second column. And it has put a frame around the fields. We didn't ask for it, but we like it, so we'll keep it. The moral is that "perseverance pays off". You just have to insist until things are the way you want them. We could continue refining more details of the user interface until it's perfect, but I think with these examples you'll know how to do it yourself. That's why we're now going to do something better. Let's return to the IDE.</p>
+        
+        <h3>Using AI to learn</h3>
+        <p>We are going to use AI not only to program for us, but also to learn. That's why we will now ask it to explain to us how it did it. We tell it that its code worked and we thank it. We indicate that we are new to OpenXava, to help it be as didactic as possible. Then we ask it to explain to us how to arrange properties in two columns, how to specify that they must be aligned and how to place them inside a frame.</p>
+        <p>The machine is going to create a personalized tutorial of exactly what we just saw. A tutorial that we can review and compare with the generated code and thus learn OpenXava. Furthermore, if we don't understand something, we can ask it to clarify it for us, or give us more examples. A new way of learning that goes beyond official documentation, an online tutorial, a video, or a book. So you know, if you want to learn, just ask.</p>
+        
+        <h3>Conclusion</h3>
+        <p>We have reached the end of our lesson, where we have seen how easy it is to refine the user interface of our OpenXava application using AI. But we have also learned some other things. Such as the fact that AI can generate wrong code, even code that doesn't compile. It's not a problem, you just need to insist, usually only a little, for it to fix it. We also saw how sometimes if we ask it for several things it might ignore one. No problem, we just ask again and that's it. Sometimes Windsurf doesn't know how to do something, in that case we can give it the URL of the documentation and this thinking machine will read the documentation and learn.</p>
+        <p>And something very interesting. We can ask it to explain what it has done and thus have a private teacher at our service, 24 hours a day. What more could you ask for? If you liked the video, open Windsurf on your computer, create an OpenXava application and try to do it yourself at home. Don't forget to tell me how it went. Bye.</p>
+        
+      </div>    
+  </body>
+</html>

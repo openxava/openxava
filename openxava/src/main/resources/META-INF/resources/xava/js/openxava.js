@@ -303,6 +303,7 @@ openxava.initActions = function() {
 	$('.ox-list-formats i').off('click').click(function() {
 		openxava.onSelectListFormat($(this));
 	});
+	$('div[id$="__button_bar"] a[id$="__delete"]').show();
 }
 
 openxava.initMessages = function(application, module) { 
@@ -325,8 +326,13 @@ openxava.setEnterAsFocusKey = function() {
 	});
 }
 
+openxava.isListMode = function() {
+	var id = openxava.decorateId(openxava.lastApplication, openxava.lastModule, "list");
+	return $("#" + id).length;
+}
+
 openxava.listenChanges = function() { 
-	if (openxava.dialogLevel > 0) return;
+	if (openxava.dialogLevel > 0 || openxava.isListMode()) return;
 	$("." + openxava.editorClass).unbind("change.changedCancelled");
 	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
@@ -1161,18 +1167,32 @@ openxava.setFocus = function(application, module) {
 }
 
 openxava.setFocusOnElement = function(form, name) { 
-	var element = form.elements[name];
-	if (element != null && typeof element.disabled != "undefined" && !element.disabled) {
-		if (!$(element).is(':visible') || element.type == "hidden") {
-			return false;
-		} 	
-		element.focus();	
-		if (typeof element.select != "undefined") {
-			element.select();
-			return true; 
-		}
-	}	
-	return false;
+  var element = form.elements[name];
+  if (element == null) return false;
+  if (typeof element.length === 'number' && !element.tagName) {
+    var list = Array.prototype.slice.call(element);
+    var candidates = list.filter(function(e) {
+      return typeof e.disabled != "undefined" && !e.disabled && $(e).is(':visible') && e.type != "hidden";
+    });
+    var target = null;
+    for (var i = 0; i < candidates.length && target == null; i++) {
+      if (candidates[i].checked) target = candidates[i];
+    }
+    if (target == null && candidates.length > 0) target = candidates[0];
+    if (target != null) { target.focus(); return true; }
+    return false;
+  }
+  if (typeof element.disabled != "undefined" && !element.disabled) {
+    if (!$(element).is(':visible') || element.type == "hidden") {
+      return false;
+    }
+    element.focus();
+    if (typeof element.select != "undefined") {
+      element.select();
+      return true; 
+    }
+  }	
+  return false;
 }
 
 openxava.clearCondition = function(application, module, prefix) { 

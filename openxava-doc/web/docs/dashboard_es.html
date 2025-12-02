@@ -4,8 +4,10 @@
     <title>Cuadro de mandos - Dashboard - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -16,7 +18,8 @@
         <h2>Video</h2>
         <p>En este video veremos cómo crear un cuadro de mando en una aplicación
           de OpenXava.</p>
-        <p><a href="https://youtu.be/e2tzPQ_hpZE" target="_blank"><img src="files/dashboard_es010.png"
+        <p><a href="https://youtu.be/e2tzPQ_hpZE" target="_blank"><img src="files/dashboard_es010.png"
+
               title="dashboard_es010"></a> </p>
         <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/">Pregunta
               en el foro</a></strong></p>
@@ -24,13 +27,13 @@
       <div class="wiki" style="display: block;">
         <h2>Código</h2>
         <p>Puedes copiar el código que se usa en el video por aquí:</p>
-        <code class="xml"></code> En el archivo <em>application.xml</em>:<br>
-        <pre><code class="xml">&lt;module name="InvoiceDashboard"&gt;
+        <code class="language-xml"></code> En el archivo <em>application.xml</em>:<br>
+        <pre><code class="language-xml">&lt;module name="InvoiceDashboard"&gt;
     &lt;model name="InvoiceDashboard"/&gt;
     &lt;controller name="InitModelWithNewInstance"/&gt;
 &lt;/module&gt;</code></pre>
         En el archivo <i><em>InvoiceDashboard.java</em></i>:
-        <pre><code class="java">import java.math.*;
+        <pre><code class="language-java">import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -94,7 +97,7 @@ public class InvoiceDashboard {
 	
 }</code></pre>
         <p>En el archivo <em>InvoicePerMonth.java</em>:</p>
-        <pre><code class="java">import java.math.*;
+        <pre><code class="language-java">import java.math.*;
 
 import lombok.*;<br><br>@Getter @Setter @AllArgsConstructor
 public class InvoicedPerMonth {
@@ -108,7 +111,7 @@ public class InvoicedPerMonth {
 }
 </code></pre>
         <p>En el archivo <em>custom.css</em>:</p>
-        <pre><code class="css">#ox_invoicing_InvoiceDashboard__editor_totalInvoiced .ox-large-display {
+        <pre><code class="language-css">#ox_invoicing_InvoiceDashboard__editor_totalInvoiced .ox-large-display {
     width: 505px;
     margin-right: -5px;
     padding-right: 0px;

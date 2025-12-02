@@ -17,6 +17,11 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 		this.module = module;
 	}
 	
+	public CustomizeListTestBase(String module) {
+		super(module);
+		this.module = module;
+	}
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 	}

@@ -5,8 +5,10 @@
       multiples colecciones - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    <script src="highlight/highlight.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
   <body>
     <div class="wiki" style="display: block;">
@@ -19,16 +21,18 @@
           trabajando con varias colecciones en el mismo informe.</p>
         <p><a href="https://youtu.be/6_Csyb3nqQA" target="_blank"><img src="files/report-course_es070.png" title="report-generation-070"></a>
         </p>
-        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+        <p><strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
+
               rel="nofollow">Pregunta en el foro</a></strong></p>
       </div>
       <div class="wiki" style="display: block;">
         <h2>Código</h2>
-        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_7"
+        <p>Puedes <strong><a href="https://github.com/openxava/report-generation-course/tree/lesson_7"
+
               target="_blank">descargar el proyecto de esta lección</a>.</strong>
           También puedes copiar el código que se usa en el video por aquí:</p>
         En el archivo <em>controllers.xml</em>:
-        <pre><code class="xml">&lt;controller name="Invoice"&gt;
+        <pre><code class="language-xml">&lt;controller name="Invoice"&gt;
     &lt;extends controller="Invoicing"/&gt;
     &lt;action name="printInvoiceWithOrders"
 	    class="com.yourcompany.invoicing.actions.PrintInvoiceWithOrdersAction"
@@ -36,7 +40,7 @@
 	    icon="printer"/&gt;
 &lt;/controller&gt;
 </code></pre> En el archivo <em>PrintInvoiceWithOrdersAction.java</em>:<br>
-        <pre><code class="java">public class PrintInvoiceWithOrdersAction extends JasperReportBaseAction {
+        <pre><code class="language-java">public class PrintInvoiceWithOrdersAction extends JasperReportBaseAction {
 
 	private Invoice invoice;
 	

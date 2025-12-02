@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.persistence.*;
 
+import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.*;
 import org.openxava.jpa.*;
@@ -17,17 +18,15 @@ import org.openxava.test.model.*;
  */
 
 public class DescriptionsListTest extends WebDriverTestBase {
-
-	public DescriptionsListTest(String testName) {
-		super(testName);
-	}
 	
+	@Before
 	protected void setUp() throws Exception {
 		super.setUp();
 		XPersistence.reset(); 
 		XPersistence.setPersistenceUnit("junit");
 	}
 
+	@Test
 	public void testLargeDatasetLoadedOnDemand() throws Exception { 
 		goModule("Traveler"); 
 
@@ -196,6 +195,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
         );
     }
 
+	@Test
 	public void testDropDownWhenValuesHasBackSlash() throws Exception { 
 		goModule("Carrier");
 		execute("CRUD.new");
@@ -206,6 +206,7 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(dropDown.getAttribute("style").contains("display: none;"));
 	}
 
+	@Test
 	public void testAutocomplete() throws Exception { 
 		setFamilyDescription(1, "SOFTWARÉ"); // To test a bug with accents 
 		createWarehouseWithQuote(); // To test a bug with quotes
@@ -334,6 +335,23 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		
 		setFamilyDescription(1, "SOFTWARE"); 
 		removeWarehouseWithQuote(); 
+
+		assertFilterByNumber();
+	}
+
+	private void assertFilterByNumber() throws Exception { 
+		goModule("DeliveryInvoiceAsDecriptionsList");
+		execute("CRUD.new");
+		
+		WebElement invoiceTextField = getDescriptionsListTextField("invoice");
+		invoiceTextField.clear();
+		invoiceTextField.sendKeys("10");
+		Thread.sleep(700); // Wait for suggestions to be loaded
+		
+		WebElement list = getDriver().findElement(By.id(getListId(0)));
+		List<WebElement> items = list.findElements(By.tagName("li"));
+		assertEquals(1, items.size());
+		assertEquals("2004 10 Juanillo", items.get(0).getText());
 	}
 	
 	private String getListId(int orderInUI) throws Exception { 

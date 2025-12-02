@@ -2714,10 +2714,15 @@ public class View implements java.io.Serializable {
 							if (!ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) { // This way to avoid calculated dependend ones
 								Object value = ref.getDefaultValueCalculator().calculate();
 								MetaModel referencedModel = ref.getMetaModelReferenced();								
-								if (referencedModel.getPOJOClass().isInstance(value)) { 																								
+								if (referencedModel.getPOJOClass().isInstance(value)) { 
 									Map values = referencedModel.toMap(value);
-									trySetValue(ref.getName(), values); 
-									alreadyPut.addAll(referencedModel.getAllKeyPropertiesNames());									
+									trySetValue(ref.getName(), values);									
+									alreadyPut.addAll(
+									    referencedModel.getAllKeyPropertiesNames()
+									        .stream()
+									        .map(name -> ref.getName() + "." + name)
+									        .collect(Collectors.toList())
+									);								
 								}
 								else {
 									Collection keys = referencedModel.getAllKeyPropertiesNames();
@@ -2735,7 +2740,7 @@ public class View implements java.io.Serializable {
 							getErrors().add("calculate_default_value_error", ref.getName());
 						}				 
 					}
-				}				
+				}	
 				if (!alreadyPut.isEmpty()) { 
 					Iterator itAlreadyPut = alreadyPut.iterator();
 					boolean hasNext = itAlreadyPut.hasNext(); 
@@ -6435,6 +6440,11 @@ public class View implements java.io.Serializable {
 		return result;
 	}
 	
+	/** @since 7.6.3 */
+	public boolean hasChangedCollections() { 
+		return !getChangedCollections().isEmpty();
+	}
+	
 	private void fillChangedCollections(Map result) { 
 		if (hasSubviews()) {
 			Iterator itSubviews = getSubviews().values().iterator();
@@ -7384,7 +7394,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private boolean isCollectionHasDefaultActions() {
-		MetaCollectionView metaCollectionView = getRoot().getMetaView().getMetaCollectionView(getMemberName());
+		MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
 		if (metaCollectionView != null) return metaCollectionView.hasDefaultActions();
 		return true;
 	}
