@@ -1543,6 +1543,6 @@ openxava.getScript = function( url ) {
 	if (openxava.loadedScripts.includes(url)) return;
 	var script = document.createElement('script');
 	script.src = url;
-	document.body.appendChild(script);
+	document.head.appendChild(script); // Not body, it could be not available yet
 	openxava.loadedScripts.push(url);
 };
