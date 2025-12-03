@@ -320,10 +320,8 @@ public class Module extends DWRBase {
 				changedParts.put(changedPart.getKey(), htmlContent);
 			}
 			catch (Exception ex) {
-				// Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
-				log.info("view.getModelName()=" + view.getModelName());
-				log.info("changeParts.keys=" + changeParts.keySet());
-				log.error("Exception retrieving part: " + changedPart.getKey(), ex);
+				// Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=2c9e83239adb7b84019ae3e0b2c50009
+				log.error("Exception retrieving part: " + changedPart.getKey(), ex); // If we keep, we should i18n
 				changedParts.put(changedPart.getKey(), "ERROR: PART NOT AVAILABLE");
 			}
 		}
@@ -553,7 +551,6 @@ public class Module extends DWRBase {
 
 	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result, Collection<String> propertiesUsedInCalculations) { 
 		View view = getView();	
-		log.info("view.getModelName()=" + view.getModelName()); // Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808197a7d1f20197b130db820015
 		Collection changedMembers = view.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor().entrySet();
 		for (Iterator it = changedMembers.iterator(); it.hasNext(); ) {
 			Map.Entry en = (Map.Entry) it.next();
