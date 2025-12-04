@@ -591,6 +591,7 @@ public class ModuleManager implements java.io.Serializable {
 			Messages errors, Messages messages, String propertyValues,
 			HttpServletRequest request) { 
 		try {
+			validate(metaAction);
 			View previousView = (View) getContext().get(applicationName, moduleName,	"xava_view"); 
 			prepareAction(action, metaAction, errors, messages, propertyValues, request);
 			action.execute(); 
@@ -1992,6 +1993,14 @@ public class ModuleManager implements java.io.Serializable {
 		if (refiner == null) return;
 		XObjects.execute(refiner, "refine", MetaModule.class, getMetaModule(),
 			Collection.class, collection); 
+	}
+	
+	public void validate(MetaAction metaAction) throws Exception { 
+		if (refiner == null || metaAction == null) return;
+		if (getMetaActions().contains(metaAction)) return;
+		XObjects.execute(refiner, "validate",
+			MetaModule.class, getMetaModule(),
+			MetaAction.class, metaAction);
 	}
 
 	public boolean isReloadAllUINeeded() {
