@@ -149,7 +149,7 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records.")
+	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties")
 	public List<Map<String, Object>> findEntitiesByCondition(@P("entity") String entity, @P("condition") String condition) {
 		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
 		return findEntities(entity, condition);
