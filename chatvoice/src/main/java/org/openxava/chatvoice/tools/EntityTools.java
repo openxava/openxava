@@ -9,6 +9,7 @@ import org.openxava.application.meta.MetaModule;
 import org.openxava.component.MetaComponent;
 import com.openxava.naviox.Modules;
 
+import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
 
 /**
@@ -18,6 +19,9 @@ import dev.langchain4j.agent.tool.Tool;
  * @author Javier Paniza
  */
 public class EntityTools {
+
+	// tmr Umbral de 600 registros para window de 128k. 600 para ser mútiplo de 120. ¿Hacerlo configurable?
+	private final static int MAX_RECORDS = 600;
 	
 	private ModuleContext context;
 	private HttpSession session;
@@ -83,13 +87,37 @@ public class EntityTools {
 	}
 	
 	/**
+	 * Returns the list of available properties for an entity.
+	 * Use this to know which properties can be used in conditions.
+	 * 
+	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
+	 * @return A list of property names available for the entity
+	 */
+	@Tool("Get the list of available properties for an entity. Use this before building conditions to know which property names you can use wrapped in ${}.")
+	public List<String> getEntityProperties(@P("entity") String entity) {
+		System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") called");
+		try {
+			Tab tab = getTab(entity);
+			List<String> properties = new ArrayList<>();
+			for (org.openxava.model.meta.MetaProperty p : tab.getMetaProperties()) {
+				properties.add(p.getQualifiedName());
+			}
+			System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") returning: " + properties);
+			return properties;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw ex;
+		}
+	}
+	
+	/**
 	 * Returns the total number of records in an entity.
 	 * 
 	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
 	 * @return The count of records in the entity
 	 */
 	@Tool("Get the total number of records in an entity. Specify the entity name like Customer, Invoice, or Product.")
-	public long getEntityCount(String entity) {
+	public long getEntityCount(@P("entity") String entity) {
 		System.out.println("[TOOL] getEntityCount(entity=" + entity + ") called");
 		try {
 			long result = getTab(entity).getTotalSize();
@@ -102,38 +130,52 @@ public class EntityTools {
 	}
 	
 	/**
-	 * Returns all records from an entity using the Tab.
+	 * Returns the first 600 records from an entity.
 	 * 
 	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
-	 * @return A list of all records with their details
+	 * @return A list with up to 600 records
 	 */
-	@Tool("Get all records from an entity. Specify the entity name like Customer, Invoice, or Product. Returns the visible data, respecting any filters applied by the user.")
-	public List<Map<String, Object>> getAllFromEntity(String entity) {
-		System.out.println("[TOOL] getAllFromEntity(entity=" + entity + ") called");
+	@Tool("Get the first 600 records from an entity. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results.")
+	public List<Map<String, Object>> findFirst600Entities(@P("entity") String entity) {
+		System.out.println("[TOOL] findFirst600Entities(entity=" + entity + ") called");
+		return findEntities(entity, null);
+	}
+	
+	/**
+	 * Returns records from an entity that match a SQL-style condition.
+	 * The condition uses property names wrapped in ${}, e.g., "${name} = 'John'" or "${price} > 100".
+	 * 
+	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
+	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
+	 * @return A list of records matching the condition (up to 600)
+	 */
+	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records.")
+	public List<Map<String, Object>> findEntitiesByCondition(@P("entity") String entity, @P("condition") String condition) {
+		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
+		return findEntities(entity, condition);
+	}
+	
+	private List<Map<String, Object>> findEntities(String entity, String condition) {
 		try {
 			Tab tab = getTab(entity);
+			tab.setBaseCondition(condition);
 			List<Map<String, Object>> records = new ArrayList<>();
 			
-			// Get the TableModel from the Tab
+			// tmr Optimizar para que cargue los 600 primeros registros de un golpe
 			javax.swing.table.TableModel tableModel = tab.getTableModel();
-			
 			int columnCount = tableModel.getColumnCount();
 			
-			// Iterate over all rows
-			for (int row = 0; row < tableModel.getRowCount(); row++) {
+			for (int row = 0; row < tableModel.getRowCount() && row < MAX_RECORDS; row++) {
 				Map<String, Object> record = new HashMap<>();
-				
-				// Get all available columns
 				for (int col = 0; col < columnCount; col++) {
 					String columnName = tableModel.getColumnName(col);
 					Object value = tableModel.getValueAt(row, col);
 					record.put(columnName, value);
 				}
-				
 				records.add(record);
 			}
 			
-			System.out.println("[TOOL] getAllFromEntity(entity=" + entity + ") returning " + records.size() + " records");
+			System.out.println("[TOOL] findEntities(entity=" + entity + ") returning " + records.size() + " records");
 			return records;
 		} catch (Exception ex) {
 			ex.printStackTrace();
