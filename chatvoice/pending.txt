@@ -15,7 +15,6 @@ M1
 M2
 * Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter). 
-- No poder acceder a datos de módulos no disponibles.
 - Preguntar por información de colecciones @ElementCollection.
 - Verificar rendimiento. 
     - Si vemos que la velocidad de respuesta es baja.
@@ -41,11 +40,12 @@ Cuestiones
         es más natural que un JSP en application.xml que tienes que saber donde está.
 - ¿Presentarlo como Chat o como Agente?        
 
+Para XavaPro
+- No poder acceder a datos de módulos no disponibles.
+- No acceder a campos no permitidos.
+
 Por resolver
 - Validaciones
-- DataSets grandes
-- Respetar IFilter de tabs
-- No recuerda la conversación
 - ¿Cómo confirmar cambio y borrado de datos?
 - Si pido que borre y la lógica de borra no borra de verdad, ¿qué hago?
-- No acceder a campos no permitidos.
+
