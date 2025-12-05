@@ -18,6 +18,7 @@ Tab tab = (Tab) context.get(request, "xava_tab");
 View view = (View) context.get(request, "xava_view");
 String action=request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
+manager.registerAction(action); // tmr En migration, ¿en customization?
 boolean loadMore = false;
 int limit = tab.getTableModel().getRowCount() - 1;
 if (tab.getTableModel().isAllLoaded()) limit = Integer.MAX_VALUE - 2;
