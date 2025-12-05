@@ -15,7 +15,7 @@ M1
 M2
 * Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter). 
-- Preguntar por información de colecciones @ElementCollection.
+* Preguntar por información de colecciones @ElementCollection.
 - Verificar rendimiento. 
     - Si vemos que la velocidad de respuesta es baja.
     - Poner miles de registros en facturas y clientes.

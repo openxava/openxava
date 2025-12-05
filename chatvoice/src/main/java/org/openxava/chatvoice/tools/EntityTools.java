@@ -4,7 +4,10 @@ import java.util.*;
 import javax.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
+import org.openxava.view.View;
+import org.openxava.model.MapFacade;
 import org.openxava.tab.Tab;
+import org.openxava.tab.impl.IXTableModel;
 import org.openxava.application.meta.MetaModule;
 import org.openxava.component.MetaComponent;
 import com.openxava.naviox.Modules;
@@ -27,6 +30,7 @@ public class EntityTools {
 	private HttpSession session;
 	private String application;
 	private Map<String, Tab> tabs = new HashMap<>();
+	private Map<String, View> views = new HashMap<>();
 	
 	/**
 	 * Constructor that receives the ModuleContext, HttpSession and application name.
@@ -135,7 +139,7 @@ public class EntityTools {
 	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
 	 * @return A list with up to 600 records
 	 */
-	@Tool("Get the first 600 records from an entity. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results.")
+	@Tool("Get the first 600 records from an entity. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results. Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findFirst600Entities(@P("entity") String entity) {
 		System.out.println("[TOOL] findFirst600Entities(entity=" + entity + ") called");
 		return findEntities(entity, null);
@@ -149,7 +153,7 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties")
+	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findEntitiesByCondition(@P("entity") String entity, @P("condition") String condition) {
 		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
 		return findEntities(entity, condition);
@@ -162,15 +166,20 @@ public class EntityTools {
 			List<Map<String, Object>> records = new ArrayList<>();
 			
 			// tmr Optimizar para que cargue los 600 primeros registros de un golpe
-			javax.swing.table.TableModel tableModel = tab.getTableModel();
+			IXTableModel tableModel = tab.getTableModel();
 			int columnCount = tableModel.getColumnCount();
 			
 			for (int row = 0; row < tableModel.getRowCount() && row < MAX_RECORDS; row++) {
-				Map<String, Object> record = new HashMap<>();
+				Map<String, Object> record = new HashMap<>();				
 				for (int col = 0; col < columnCount; col++) {
-					String columnName = tableModel.getColumnName(col);
+					String columnName = tab.getMetaProperty(col).getQualifiedName();
 					Object value = tableModel.getValueAt(row, col);
 					record.put(columnName, value);
+				}
+				try {
+					record.put("hiddenKey", tableModel.getObjectAt(row));
+				} catch (javax.ejb.FinderException ex) {
+					ex.printStackTrace(); // tmr Hacer algo mejor
 				}
 				records.add(record);
 			}
@@ -180,6 +189,31 @@ public class EntityTools {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw ex;
+		}
+	}
+	
+	/**
+	 * Returns the details of an entity given its key.
+	 * The key can be obtained from the hiddenKey field returned by findEntities methods.
+	 * 
+	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
+	 * @param key The entity key as a Map (obtained from hiddenKey)
+	 * @return A map with all the entity details
+	 */
+	@SuppressWarnings("unchecked")
+	@Tool("Get the details of an entity given its key. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. Use this to get complete information about a specific record.")
+	public Map<String, Object> getEntityDetails(
+			@P("entity") String entity, 
+			@P("key") Map<String, Object> key) {
+		System.out.println("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
+		try {
+			View view = getView(entity);
+			Map<String, Object> result = MapFacade.getValues(view.getModelName(), key, view.getMembersNames());
+			System.out.println("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new RuntimeException(ex);
 		}
 	}
 	
@@ -206,6 +240,27 @@ public class EntityTools {
 			tabs.put(module, tab);
 		}
 		return tab;
+	}
+	
+	/**
+	 * Gets a View from the private map and creates it if it doesn't exist.
+	 * 
+	 * @param module The module name
+	 * @return The View
+	 */
+	private View getView(String module) {
+		View view = views.get(module);
+		if (view == null) {
+			view = new View();
+			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
+			manager.setSession(session);
+			manager.setApplicationName(application);
+			manager.setModuleName(module);
+			view.setModelName(manager.getModelName());
+			view.setViewName(manager.getXavaViewName());
+			views.put(module, view);
+		}
+		return view;
 	}
 	
 }
