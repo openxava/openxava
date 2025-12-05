@@ -16,9 +16,10 @@ M2
 * Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
 * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter). 
 * Preguntar por información de colecciones @ElementCollection.
-- Verificar rendimiento. 
+- Verificar rendimiento. TMR ME QUEDÉ POR AQUÍ. HECHO. BUEN RENDIMIENTO DE LLAMADAS A TOOL
+                        TMR PERO LENTINTUDO POR EL MODELO. EL GPT4 ES MÁS RÁPIDO PERO MÁS TONTO.
     - Si vemos que la velocidad de respuesta es baja.
-    - Poner miles de registros en facturas y clientes.
+    - Poner miles de registros en facturas y clientes. TMR DEBERÍA HACER BAJO DEMANDA
 - Impersonalizar.
 - Chat en cada módulo.
 - Poder filtrar en la lista.

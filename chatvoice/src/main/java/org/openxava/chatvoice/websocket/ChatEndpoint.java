@@ -58,6 +58,7 @@ public class ChatEndpoint {
 	
 	@OnMessage
 	public void onMessage(String message, Session session) {
+		long startTime = System.currentTimeMillis();
 		try {
 			log.info("Received message: " + message);
 			
@@ -84,8 +85,8 @@ public class ChatEndpoint {
 				// Crear modelo de chat de OpenAI
 				var model = OpenAiChatModel.builder()
 					.apiKey(apiKey)
-					.modelName("gpt-4o-mini")
-					//.modelName("gpt-5-mini")
+					//.modelName("gpt-4o-mini") // Más rápido pero más tonto
+					.modelName("gpt-5-mini")
 					.build();
 				
 				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)
@@ -121,6 +122,8 @@ public class ChatEndpoint {
 			} catch (IOException ioe) {
 				log.error("Error sending error message", ioe);
 			}
+		} finally {
+			log.info("onMessage() took " + (System.currentTimeMillis() - startTime) + " ms");
 		}
 	}
 	

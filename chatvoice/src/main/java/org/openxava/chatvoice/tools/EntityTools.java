@@ -101,7 +101,8 @@ public class EntityTools {
 	 * @return A list of property names available for the entity
 	 */
 	@Tool("Get the list of available properties for an entity. Use this before building conditions to know which property names you can use wrapped in ${}.")
-	public List<String> getEntityProperties(@P("entity") String entity) {
+	public List<String> getEntityProperties(
+			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") called");
 		try {
@@ -127,7 +128,8 @@ public class EntityTools {
 	 * @return The count of records in the entity
 	 */
 	@Tool("Get the total number of records in an entity. Specify the entity name like Customer, Invoice, or Product.")
-	public long getEntityCount(@P("entity") String entity) {
+	public long getEntityCount(
+			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityCount(entity=" + entity + ") called");
 		try {
@@ -148,8 +150,9 @@ public class EntityTools {
 	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
 	 * @return A list with up to 600 records
 	 */
-	@Tool("Get the first 600 records from an entity. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results. Don't show hiddenKey to the user.")
-	public List<Map<String, Object>> findFirst600Entities(@P("entity") String entity) {
+	@Tool("Get the first 600 records from an entity. IMPORTANT: First call getAvailableEntities() to get valid entity names. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results. Don't show hiddenKey to the user.")
+	public List<Map<String, Object>> findFirst600Entities(
+			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] findFirst600Entities(entity=" + entity + ") called");
 		List<Map<String, Object>> result = findEntities(entity, null);
@@ -165,8 +168,10 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Get available entities using getAvailableEntities(). Don't show hiddenKey to the user.")
-	public List<Map<String, Object>> findEntitiesByCondition(@P("entity") String entity, @P("condition") String condition) {
+	@Tool("Get records from an entity that match a condition. IMPORTANT: First call getAvailableEntities() to get valid entity names. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Don't show hiddenKey to the user.")
+	public List<Map<String, Object>> findEntitiesByCondition(
+			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity, 
+			@P("SQL-style condition with property names in ${}, e.g. ${name} = 'John'") String condition) {
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
 		List<Map<String, Object>> result = findEntities(entity, condition);
@@ -175,13 +180,6 @@ public class EntityTools {
 	}
 	
 	private List<Map<String, Object>> findEntities(String entity, String condition) {
-		// TMR ME QUEDÉ POR AQUÍ. PROBANDO RENDIMIENTO CON OTRO MODELO ESTO FALLÓ
-		// TMR  QUIZÁS DEBERÍA MOVERLO A getTab(). Y PONER EXPLICACIÓN EN TODOS LOS TOOLS
-		System.out.println("EntityTools.findEntities() entity=" + entity); // tmr
-		if (entity == null) {
-			System.out.println("EntityTools.findEntities() entity IS NULL"); // tmr
-			throw new IllegalArgumentException("Entity cannot be null. Use a value returned by getAvailableEntities()");
-		}
 		try {
 			Tab tab = getTab(entity);
 			tab.setBaseCondition(condition);
@@ -225,8 +223,8 @@ public class EntityTools {
 	@SuppressWarnings("unchecked")
 	@Tool("Get the details of an entity given its key. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. Use this to get complete information about a specific record.")
 	public Map<String, Object> getEntityDetails(
-			@P("entity") String entity, 
-			@P("key") Map<String, Object> key) {
+			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
+			@P("The entity key obtained from hiddenKey field") Map<String, Object> key) {
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
 		try {
@@ -245,25 +243,29 @@ public class EntityTools {
 	/**
 	 * Gets a Tab from the private map and creates it if it doesn't exist.
 	 * 
-	 * @param module The module name
+	 * @param entity The entity name
 	 * @return The Tab
 	 */
-	private Tab getTab(String module) {
-		Tab tab = tabs.get(module);
+	private Tab getTab(String entity) {
+		if (entity == null) {
+			throw new IllegalArgumentException("Entity cannot be null. Use any of: " + getAvailableEntities());
+		}
+
+		Tab tab = tabs.get(entity);
 		if (tab == null) {
 			tab = new Tab();
 			// This code is also in execute.jsp, should we refactor?
-			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
+			ModuleManager manager = (ModuleManager) context.get(application, entity, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
-			System.out.println("EntityTools.getTab() application=" + application + ", module=" + module); // tmr
+			System.out.println("EntityTools.getTab() application=" + application + ", entity=" + entity); // tmr
 			manager.setApplicationName(application);
-			manager.setModuleName(module);
+			manager.setModuleName(entity);
 			tab.setModelName(manager.getModelName());
 			if (tab.getTabName() == null) { 
 				tab.setTabName(manager.getTabName());
 			}
 			tab.setPropertiesNames("*");
-			tabs.put(module, tab);
+			tabs.put(entity, tab);
 		}
 		return tab;
 	}
