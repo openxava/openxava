@@ -34,6 +34,7 @@ public class ImageTag extends ActionTagBase {
 			if (!isActionAvailable(metaAction, application, module, request)) {
 				return SKIP_BODY;
 			}
+			registerAction(getAction(), application, module, request);
 			Style style = (Style) request.getAttribute("style");
 			pageContext.getOut().print("<input name='");
 			pageContext.getOut().print(Ids.decorate(application, module, "action." + getAction())); 

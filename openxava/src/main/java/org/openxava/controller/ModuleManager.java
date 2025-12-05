@@ -160,6 +160,7 @@ public class ModuleManager implements java.io.Serializable {
 	private transient Map<String,Collection<MetaAction>> subcontrollersMetaActions;
 	private transient Collection<MetaControllerElement> metaControllerElements;
 	private Set<String> actionsForPermalink;
+	private Set<String> registeredActions;
 	private boolean buttonsVisible = true;
 	private boolean viewKeyEditable;
 	private String moduleURL;
@@ -203,6 +204,12 @@ public class ModuleManager implements java.io.Serializable {
 		actionsChanged = true;
 		actionsAddedOrRemoved = true;		
 		this.controllersNames = MODIFIED_CONTROLLERS;
+	}
+	
+	/** @since 7.6.3 */
+	public void registerAction(String qualifiedActionName) {
+		if (registeredActions == null) registeredActions = new HashSet<>();
+		registeredActions.add(qualifiedActionName);
 	}
 	
 	private boolean isSubcontrollersExist() {
@@ -449,13 +456,14 @@ public class ModuleManager implements java.io.Serializable {
 
 	public void execute(HttpServletRequest request, Messages errors,
 			Messages messages) {
+		String xavaAction = null;
 		try {
 			if (errors.isEmpty()) { // Only it's executed the action if there
 									// aren't errors
 				if (isFormUpload()) {
 					parseMultipartRequest(request);
 				}
-				String xavaAction = getParameter(request, "xava_action");
+				xavaAction = getParameter(request, "xava_action");
 				if (!Is.emptyString(xavaAction)) {
 					String actionValue = request
 							.getParameter("xava_action_argv");
@@ -480,6 +488,7 @@ public class ModuleManager implements java.io.Serializable {
 						if (!alreadyProcessed.contains("_" + i + "_")) {
 							String av = Is.empty(range) ? actionValue
 									: actionValue + ",row=" + i;
+							validate(xavaAction);
 							MetaAction a = MetaControllers
 									.getMetaAction(xavaAction);
 							long ini = System.currentTimeMillis();
@@ -492,7 +501,7 @@ public class ModuleManager implements java.io.Serializable {
 			}
 		} catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			errors.add("no_execute_action");
+			errors.add("no_execute_action", xavaAction, ex.getMessage());
 		}
 	}
 	
@@ -591,7 +600,6 @@ public class ModuleManager implements java.io.Serializable {
 			Messages errors, Messages messages, String propertyValues,
 			HttpServletRequest request) { 
 		try {
-			validate(metaAction);
 			View previousView = (View) getContext().get(applicationName, moduleName,	"xava_view"); 
 			prepareAction(action, metaAction, errors, messages, propertyValues, request);
 			action.execute(); 
@@ -1995,12 +2003,11 @@ public class ModuleManager implements java.io.Serializable {
 			Collection.class, collection); 
 	}
 	
-	public void validate(MetaAction metaAction) throws Exception { 
-		if (refiner == null || metaAction == null) return;
-		if (getMetaActions().contains(metaAction)) return;
-		XObjects.execute(refiner, "validate",
-			MetaModule.class, getMetaModule(),
-			MetaAction.class, metaAction);
+	private void validate(String actionQualifiedName) throws Exception { 
+		System.out.println("ModuleManager.validate()");	// tmr
+		if (registeredActions == null || !registeredActions.contains(actionQualifiedName)) {
+			throw new SecurityException(XavaResources.getString("action_not_available", actionQualifiedName));
+		}
 	}
 
 	public boolean isReloadAllUINeeded() {
