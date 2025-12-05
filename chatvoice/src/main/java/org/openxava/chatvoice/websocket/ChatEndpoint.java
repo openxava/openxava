@@ -84,8 +84,8 @@ public class ChatEndpoint {
 				// Crear modelo de chat de OpenAI
 				var model = OpenAiChatModel.builder()
 					.apiKey(apiKey)
-					// .modelName("gpt-4o-mini")
-					.modelName("gpt-5-mini")
+					.modelName("gpt-4o-mini")
+					//.modelName("gpt-5-mini")
 					.build();
 				
 				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)

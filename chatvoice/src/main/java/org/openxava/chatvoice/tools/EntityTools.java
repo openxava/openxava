@@ -53,6 +53,7 @@ public class EntityTools {
 	 */
 	@Tool("Get the list of available entities in the application. Use this when you need to know what data is available. Only returns entities the current user has permission to access.")
 	public List<String> getAvailableEntities() {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getAvailableEntities() called");
 		try {
 			// Get the Modules object from session (uses cache)
@@ -83,9 +84,11 @@ public class EntityTools {
 			}
 			
 			System.out.println("[TOOL] getAvailableEntities() returning: " + entityNames);
+			System.out.println("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return entityNames;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -99,6 +102,7 @@ public class EntityTools {
 	 */
 	@Tool("Get the list of available properties for an entity. Use this before building conditions to know which property names you can use wrapped in ${}.")
 	public List<String> getEntityProperties(@P("entity") String entity) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") called");
 		try {
 			Tab tab = getTab(entity);
@@ -107,9 +111,11 @@ public class EntityTools {
 				properties.add(p.getQualifiedName());
 			}
 			System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") returning: " + properties);
+			System.out.println("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return properties;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -122,13 +128,16 @@ public class EntityTools {
 	 */
 	@Tool("Get the total number of records in an entity. Specify the entity name like Customer, Invoice, or Product.")
 	public long getEntityCount(@P("entity") String entity) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityCount(entity=" + entity + ") called");
 		try {
 			long result = getTab(entity).getTotalSize();
 			System.out.println("[TOOL] getEntityCount(entity=" + entity + ") returning: " + result);
+			System.out.println("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -141,8 +150,11 @@ public class EntityTools {
 	 */
 	@Tool("Get the first 600 records from an entity. Use this for small entities or to get a sample. For large entities use findEntitiesByCondition to filter results. Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findFirst600Entities(@P("entity") String entity) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] findFirst600Entities(entity=" + entity + ") called");
-		return findEntities(entity, null);
+		List<Map<String, Object>> result = findEntities(entity, null);
+		System.out.println("[TOOL] findFirst600Entities() took " + (System.currentTimeMillis() - startTime) + " ms");
+		return result;
 	}
 	
 	/**
@@ -153,13 +165,23 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Don't show hiddenKey to the user.")
+	@Tool("Get records from an entity that match a condition. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Get available entities using getAvailableEntities(). Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findEntitiesByCondition(@P("entity") String entity, @P("condition") String condition) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
-		return findEntities(entity, condition);
+		List<Map<String, Object>> result = findEntities(entity, condition);
+		System.out.println("[TOOL] findEntitiesByCondition() took " + (System.currentTimeMillis() - startTime) + " ms");
+		return result;
 	}
 	
 	private List<Map<String, Object>> findEntities(String entity, String condition) {
+		// TMR ME QUEDÉ POR AQUÍ. PROBANDO RENDIMIENTO CON OTRO MODELO ESTO FALLÓ
+		// TMR  QUIZÁS DEBERÍA MOVERLO A getTab(). Y PONER EXPLICACIÓN EN TODOS LOS TOOLS
+		System.out.println("EntityTools.findEntities() entity=" + entity); // tmr
+		if (entity == null) {
+			System.out.println("EntityTools.findEntities() entity IS NULL"); // tmr
+			throw new IllegalArgumentException("Entity cannot be null. Use a value returned by getAvailableEntities()");
+		}
 		try {
 			Tab tab = getTab(entity);
 			tab.setBaseCondition(condition);
@@ -205,14 +227,17 @@ public class EntityTools {
 	public Map<String, Object> getEntityDetails(
 			@P("entity") String entity, 
 			@P("key") Map<String, Object> key) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
 		try {
 			View view = getView(entity);
 			Map<String, Object> result = MapFacade.getValues(view.getModelName(), key, view.getMembersNames());
 			System.out.println("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
+			System.out.println("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			System.out.println("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw new RuntimeException(ex);
 		}
 	}
@@ -230,6 +255,7 @@ public class EntityTools {
 			// This code is also in execute.jsp, should we refactor?
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
+			System.out.println("EntityTools.getTab() application=" + application + ", module=" + module); // tmr
 			manager.setApplicationName(application);
 			manager.setModuleName(module);
 			tab.setModelName(manager.getModelName());
