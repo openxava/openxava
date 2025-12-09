@@ -18,7 +18,7 @@ Tab tab = (Tab) context.get(request, "xava_tab");
 View view = (View) context.get(request, "xava_view");
 String action=request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
-manager.registerAction(action); // tmr En migration, ¿en customization?
+manager.registerAction(action); 
 boolean loadMore = false;
 int limit = tab.getTableModel().getRowCount() - 1;
 if (tab.getTableModel().isAllLoaded()) limit = Integer.MAX_VALUE - 2;
@@ -41,7 +41,7 @@ for (Card card: new CardIterator(tab, view, request, errors)) {
 }
 
 if (loadMore) {
-	manager.registerAction("Cards.loadMoreCards"); // tmr En migration
+	manager.registerAction("Cards.loadMoreCards"); 
 %>
 <div id="xava_loading_more_elements" class="ox-card">
 	<i class="mdi mdi-autorenew spin"></i>
