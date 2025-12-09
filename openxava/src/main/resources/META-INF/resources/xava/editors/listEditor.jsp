@@ -64,6 +64,7 @@ boolean filter = !"false".equals(sfilter);
 String lastRow = request.getParameter("lastRow");
 boolean singleSelection="true".equalsIgnoreCase(request.getParameter("singleSelection"));
 String onSelectCollectionElementAction = view.getOnSelectCollectionElementAction();
+manager.registerAction(onSelectCollectionElementAction);
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 int currentRow = ((Number) context.get(request, "xava_row")).intValue(); 
 String cssCurrentRow = style.getCurrentRow();

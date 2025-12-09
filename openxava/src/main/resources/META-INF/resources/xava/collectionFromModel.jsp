@@ -16,6 +16,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 String tabObject = request.getParameter("tabObject"); 
 tabObject = (tabObject == null || tabObject.equals(""))?"xava_tab":tabObject;
 String onSelectCollectionElementAction = subview.getOnSelectCollectionElementAction();
+manager.registerAction(onSelectCollectionElementAction);
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 boolean sortable = subview.isCollectionSortable();

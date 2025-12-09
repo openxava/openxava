@@ -2016,7 +2016,7 @@ public class ModuleManager implements java.io.Serializable {
 	
 	private void validate(String actionQualifiedName) throws Exception { 
 		if (!getRegisteredActions().contains(actionQualifiedName)) {
-			System.out.println("ModuleManager.validate() actionQualifiedName=" + actionQualifiedName); // tmr
+			log.warn(XavaResources.getString("action_not_available", "'" + actionQualifiedName + "'"));
 			throw new SecurityException(XavaResources.getString("action_not_available", actionQualifiedName));
 		}
 	}
