@@ -20,7 +20,7 @@ public class TreeTest extends WebDriverTestBase{
 	private Map<String, String> treeItemNodesId;
 	private Map<String, String> treeItemTwoNodesId;
 	
-	public void testTreeLib() throws Exception {
+	public void testTreeLib() throws Exception { 
 		//all the tests are under the same, because the order must be respected
 		goModule("TreeItem");
 		String rootIdValue = getValueInList(0, 0);

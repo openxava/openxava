@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Using JavaScript, it is possible to execute actions not declared in any controller of the module.
 - Fix: @DescriptionsList and @Discussion editors not working in some circumstances, failing to load JS.
 - Fix: Module occasionally breaks when cutting a line in a collection.
 - Fix: Confirm message of cut and paste actions does not use the collection qualified label if it exists.

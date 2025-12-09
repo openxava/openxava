@@ -28,6 +28,12 @@ public class ActionTagBase extends TagSupport implements IActionTag {
 		return manager.isActionAvailable(metaAction, errors, messages, getArgv(), request);
 	}
 	
+	/** @since 7.6.3 */
+	protected void registerAction(String qualifiedActionName, String application, String module, HttpServletRequest request) {
+		ModuleManager manager = (ModuleManager) getContext(request).get(application, module, "manager");
+		manager.registerAction(qualifiedActionName);
+	}
+	
 	protected String getTooltip(MetaAction metaAction) {  
 		String description = getActionDescription(metaAction);
 		StringBuffer result = new StringBuffer();

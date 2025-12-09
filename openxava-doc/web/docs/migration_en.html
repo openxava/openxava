@@ -71,6 +71,72 @@
       Finally, revise the instructions below to adapt your code.
     </p>
     
+    <h2>Migration from OpenXava 7.6.2 to OpenXava 7.6.3</h2>
+    
+    <h3>Register actions when using data-action or openxava.executeAction()</h3>
+    
+    <p>
+      From version 7.6.3, when an action is executed from JavaScript using
+      <code>data-action</code> attributes or calling
+      <code>openxava.executeAction()</code> directly, the action must first be
+      registered in the <code>ModuleManager</code>. Otherwise, OpenXava will
+      not consider that action as available for the current user and it will not
+      be executed.
+    </p>
+    
+    <p>
+      The recommended and official way to execute actions in OpenXava is
+      by using the taglibs: <code>&lt;xava:action&gt;</code>,
+      <code>&lt;xava:link&gt;</code>, <code>&lt;xava:image&gt;</code> and
+      <code>&lt;xava:button&gt;</code>. These tags automatically register and
+      handle actions, so you do not need to do anything special when migrating.
+      However, some advanced custom editors may have copied OpenXava internal
+      code and use <code>data-action</code> or <code>openxava.executeAction()</code>
+      directly. These cases require an explicit registration.
+    </p>
+    
+    <p>
+      The usual place to register the action is in the JSP that renders it,
+      obtaining the <code>ModuleManager</code> from the
+      <code>ModuleContext</code> and calling
+      <code>manager.registerAction("YourController.yourAction")</code> for
+      each action that can be triggered from JavaScript.
+    </p>
+    
+    <p>For example, if you execute a row action using <code>data-action</code>:</p>
+    
+    <pre><code class="language-jsp"><jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
+&lt;%
+ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager"); 
+String action = request.getParameter("rowAction");
+action = action == null ? manager.getEnvironment().getValue("XAVA_LIST_ACTION") : action;
+manager.registerAction(action); // ADD THIS LINE
+%&gt;
+
+&lt;div class="ox-card" data-action="&lt;%=action%&gt;" data-row="&lt;%=i++%&gt;"&gt;
+    ...
+&lt;/div&gt;</code></pre>
+    
+    <p>And if you execute an action explicitly from JavaScript using <code>openxava.executeAction()</code>:</p>
+    
+    <pre><code class="language-jsp"><jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
+&lt;%
+ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager"); 
+manager.registerAction("Cards.loadMoreCards"); // ADD THIS LINE
+%&gt;
+
+&lt;script &lt;xava:nonce/&gt;&gt;
+if ($("#xava_loading_more_elements").is(":visible")) {
+	$(window).scroll(function () {
+		if ($("#xava_loading_more_elements").is(":visible")) {
+			if($(document).height() &lt;= $(window).scrollTop() + $(window).height() + 1) { 		
+				openxava.executeAction('&lt;%=request.getParameter("application")%&gt;', '&lt;%=request.getParameter("module")%&gt;', false, false, 'Cards.loadMoreCards');
+			}
+		}
+	});
+}
+&lt;/script&gt;</code></pre>
+    
     <h2>Migration from OpenXava 7.6.1 to OpenXava 7.6.2</h2>
     
     <p>No issues.</p>    

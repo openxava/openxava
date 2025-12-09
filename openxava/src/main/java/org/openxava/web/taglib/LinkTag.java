@@ -39,7 +39,8 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				available = false;
 				return SKIP_BODY;
 			}
-						 		
+			registerAction(getAction(), application, module, request);
+			
 			pageContext.getOut().print("<input name='");
 			pageContext.getOut().print(Ids.decorate(application, module, "action." + getAction())); 
 			pageContext.getOut().print("' type='hidden'/>");
