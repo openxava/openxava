@@ -20,8 +20,7 @@ public class TreeTest extends WebDriverTestBase{
 	private Map<String, String> treeItemNodesId;
 	private Map<String, String> treeItemTwoNodesId;
 	
-	public void testTreeLib() throws Exception { // TMR ME QUEDÉ POR AQUÍ FALLA. COMPROBAR ANTES QUE VA LA ACCIÓN A MANO Y QUE EL
-												// TMR CÓDIGO JSP NUEVO SI SE QUITA YA NO VA LA ACCIÓN
+	public void testTreeLib() throws Exception { 
 		//all the tests are under the same, because the order must be respected
 		goModule("TreeItem");
 		String rootIdValue = getValueInList(0, 0);

@@ -18,12 +18,14 @@
 <%@page import="org.openxava.model.meta.MetaReference"%> 
 <%@page import="org.openxava.web.DescriptionsLists"%> 
 <%@page import="org.openxava.web.WebEditors"%>
+<%@page import="org.openxava.controller.ModuleManager"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
+ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 String collectionName = request.getParameter("collectionName");
 String viewObject = request.getParameter("viewObject");
 String viewName = viewObject + "_" + collectionName;
@@ -32,6 +34,7 @@ View subview = view.getSubview(collectionName);
 String idCollection = org.openxava.web.Collections.id(request, collectionName);
 String propertyPrefixAccumulated = request.getParameter("propertyPrefix");
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + ".";
+manager.registerAction("ElementCollection.refreshTotals");
 
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
 String collectionClass = subview.isEditable()?"ox-element-collection":"";

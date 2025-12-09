@@ -208,8 +208,19 @@ public class ModuleManager implements java.io.Serializable {
 	
 	/** @since 7.6.3 */
 	public void registerAction(String qualifiedActionName) {
-		if (registeredActions == null) registeredActions = new HashSet<>();
-		registeredActions.add(qualifiedActionName);
+		getRegisteredActions().add(qualifiedActionName);
+	}
+	
+	private Set<String> getRegisteredActions() {
+		if (registeredActions == null) {
+			registeredActions = new HashSet<>();
+			registeredActions.add("Dialog.cancel");
+			registeredActions.add("CollectionTotals.save");
+			registeredActions.add("List.filter");
+			registeredActions.add("List.groupBy");
+			registeredActions.add("List.setPageRowCount");
+		}
+		return registeredActions;
 	}
 	
 	private boolean isSubcontrollersExist() {
@@ -2004,7 +2015,8 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	private void validate(String actionQualifiedName) throws Exception { 
-		if (registeredActions == null || !registeredActions.contains(actionQualifiedName)) {
+		if (!getRegisteredActions().contains(actionQualifiedName)) {
+			System.out.println("ModuleManager.validate() actionQualifiedName=" + actionQualifiedName); // tmr
 			throw new SecurityException(XavaResources.getString("action_not_available", actionQualifiedName));
 		}
 	}

@@ -41,6 +41,7 @@ for (Card card: new CardIterator(tab, view, request, errors)) {
 }
 
 if (loadMore) {
+	manager.registerAction("Cards.loadMoreCards"); // tmr En migration
 %>
 <div id="xava_loading_more_elements" class="ox-card">
 	<i class="mdi mdi-autorenew spin"></i>
