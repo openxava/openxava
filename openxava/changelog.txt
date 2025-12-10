@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons Validator upgraded to 1.10.1.
+- Embedded Tomcat used in development upgraded to 9.0.113.
+- Driver version in doc/new projects upgraded for Db2.
 - Fix: Using JavaScript, it is possible to execute actions not declared in any controller of the module.
 - Fix: @DescriptionsList and @Discussion editors not working in some circumstances, failing to load JS.
 - Fix: Module occasionally breaks when cutting a line in a collection.
