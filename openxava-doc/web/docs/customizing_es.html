@@ -763,18 +763,36 @@ String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
 String all = condition.equals("")?"selected":"";
 String low = condition.contains("&lt;=")?"selected":"";
 String high = condition.contains("&gt;")?"selected":"";
-String action="openxava.executeAction('OpenXavaTest', 'EmpleadoCorporativo'," +
-    "false, false, 'EmpleadoCorporativo.filtrar', 'segmento='+this.value)";
+org.openxava.controller.ModuleManager manager = 
+    (org.openxava.controller.ModuleManager) context.get(request, "manager");
+manager.registerAction("EmpleadoCorporativo.filtrar"); // Requerido desde v7.6.3 para llamar a openxava.executeAction() desde JavaScript
 %&gt;
-
-&lt;select name="&lt;xava:id name='escogerSegmento'/&gt;" onchange=
-    "&lt;%=action%&gt;"&gt;
-    &lt;option value="all" &lt;%=todos%&gt;&gt;Todos los empleados&lt;/option&gt;
-    &lt;option value="low" &lt;%=bajo%&gt;&gt;Empleados con salario bajo&lt;/option&gt;
-    &lt;option value="high" &lt;%=alto%&gt;&gt;Empleados con salario alto&lt;/option&gt;
+&lt;%-- 
+Usar data-application y data-module en vez de 
+openxava.lastApplication y openxava.lastModule en JavaScript
+permite usar varios módulos en la misma página HTML.
+--%&gt;
+&lt;select name="&lt;xava:id name='escogerSegmento'/&gt;" class='empleado-corporativo-list-select' 
+    data-application="&lt;%=request.getParameter("application")%&gt;"
+    data-module="&lt;%=request.getParameter("module")%&gt;"&gt;
+    &lt;option value="all" &lt;%=all%&gt;&gt;Todos los empleados&lt;/option&gt;
+    &lt;option value="low" &lt;%=low%&gt;&gt;Empleados con salario bajo&lt;/option&gt;
+    &lt;option value="high" &lt;%=high%&gt;&gt;Empleados con salario alto&lt;/option&gt;
 &lt;/select&gt;
 
 &lt;jsp:include page="listEditor.jsp"/&gt;</code></pre>
+      Desde v7.2 los eventos en línea como <em>onchange</em> u <em>onclick</em> no están permitidos, 
+      por lo que hay que añadir el código JavaScript en un archivo separado. Crea un archivo 
+      <em>empleadoCorporativoListEditor.js</em> en la carpeta <i>src/main/webapp/xava/editors/js</i> 
+      de tu proyecto con el siguiente contenido:<br>
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
+    $('.empleado-corporativo-list-select').off('change').change(function() {
+        openxava.executeAction(
+            $(this).data('application'), $(this).data('module'), 
+            false, false, 
+            'EmpleadoCorporativo.filtrar', 'segmento=' + this.value);
+    });
+});</code></pre>
       Un detalle importante es que este editor incluye <em>listEditor.jsp</em>
       al final. <em>listEditor.jsp</em> es el editor por defecto para modo
       lista, por tanto en este caso simplemente estamos refinando la lista

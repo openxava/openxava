@@ -735,18 +735,36 @@ String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
 String all = condition.equals("")?"selected":"";
 String low = condition.contains("&lt;=")?"selected":"";
 String high = condition.contains("&gt;")?"selected":"";
-String action="openxava.executeAction('OpenXavaTest', 'CorporationEmployee'," +
-    "false, false, 'CorporationEmployee.filter', 'segment='+this.value)";
+org.openxava.controller.ModuleManager manager = 
+    (org.openxava.controller.ModuleManager) context.get(request, "manager");
+manager.registerAction("CorporationEmployee.filter"); // Required since v7.6.3 to call openxava.executeAction() from JavaScript
 %&gt;
-
-&lt;select name="&lt;xava:id name='chooseSegment'/&gt;" onchange=
-    "&lt;%=action%&gt;"&gt;
+&lt;%-- 
+Using data-application and data-module instead of 
+openxava.lastApplication and openxava.lastModule in JavaScript
+allows using several modules in the same HTML page.
+--%&gt;
+&lt;select name="&lt;xava:id name='chooseSegment'/&gt;" class='corporation-employee-list-select' 
+    data-application="&lt;%=request.getParameter("application")%&gt;"
+    data-module="&lt;%=request.getParameter("module")%&gt;"&gt;
     &lt;option value="all" &lt;%=all%&gt;&gt;All employees&lt;/option&gt;
     &lt;option value="low" &lt;%=low%&gt;&gt;Low salary employees&lt;/option&gt;
     &lt;option value="high" &lt;%=high%&gt;&gt;High salary employees&lt;/option&gt;
 &lt;/select&gt;
 
 &lt;jsp:include page="listEditor.jsp"/&gt;</code></pre>
+      Since v7.2 inline events like <em>onchange</em> or <em>onclick</em> are not allowed, 
+      so you have to add the JavaScript code in a separate file. Create a file 
+      <em>corporationEmployeeListEditor.js</em> in the <i>src/main/webapp/xava/editors/js</i> 
+      folder of your project with the following content:<br>
+      <pre><code class="language-javascript">openxava.addEditorInitFunction(function() {
+    $('.corporation-employee-list-select').off('change').change(function() {
+        openxava.executeAction(
+            $(this).data('application'), $(this).data('module'), 
+            false, false, 
+            'CorporationEmployee.filter', 'segment=' + this.value);
+    });
+});</code></pre>
       Note that this editor includes <em>listEditor.jsp</em> at the end. <em>listEditor.jsp</em>
       is the default editor for list mode, so in this case we only refine the
       standard list adding a combo to choose a custom filter. However, you can
