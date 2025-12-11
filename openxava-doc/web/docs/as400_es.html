@@ -82,7 +82,17 @@ $ mvn install
     url="jdbc:as400:192.168.1.8/mibiblioteca;tcp no delay=true"/&gt;
 </code></pre>
         <p>Fíjate en el <i>tcp no delay=true</i> al final de la URL.</p>
-        <p></p>
+        <h2>Quitar DBServer.start() para arrancar más rápido</h2>
+        <p>Cuando creas un nuevo proyecto OpenXava, la clase lanzadora (en el paquete <i>run</i> con el mismo nombre que tu proyecto) incluye una línea <i>DBServer.start()</i> para arrancar la base de datos HSQLDB por defecto. Dado que ahora usas AS/400, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
+        <pre><code class="language-java">public class miaplicacion {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("miaplicacion-db"); // Comenta o elimina, HSQLDB ya no es necesario
+        AppServer.run("miaplicacion");
+    }
+
+}
+</code></pre>
       </div>
     </div>
   </body>

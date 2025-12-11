@@ -80,6 +80,17 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The driver could not
 </code></pre>
         <h2>Otros problemas</h2>
         <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, <i>context.xml</i> (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
+        <h2>Quitar DBServer.start() para arrancar más rápido</h2>
+        <p>Cuando creas un nuevo proyecto OpenXava, la clase lanzadora (en el paquete <i>run</i> con el mismo nombre que tu proyecto) incluye una línea <i>DBServer.start()</i> para arrancar la base de datos HSQLDB por defecto. Dado que ahora usas MS SQL Server, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
+        <pre><code class="language-java">public class miaplicacion {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("miaplicacion-db"); // Comenta o elimina, HSQLDB ya no es necesario
+        AppServer.run("miaplicacion");
+    }
+
+}
+</code></pre>
       </div>
     </div>
   </body>

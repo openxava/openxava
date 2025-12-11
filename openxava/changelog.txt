@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Database configuration docs include a section explaining how to disable the default HSQLDB database.
 - The Project Management archetype in English includes some new JUnit tests.
 - Some obsolete source code in the customizing documentation has been updated to work with recent versions.
 - Commons Validator upgraded to 1.10.1.

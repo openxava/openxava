@@ -61,6 +61,17 @@ $ mvn install
         <h2>Ejecutar aplicacion</h2>
         <p>Ejecuta tu aplicación, debería funcionar bien contra tu base de datos Informix. Si fallara, verifica que tu base de datos está funcionando, que el usuario y la contraseña son correctos, que la IP del servidor es correcta. Verifica también que el usuario tiene privilegios para crear bases de datos y tablas (si quieres usar la generación automática de esquema de OpenXava, no necesario si las tablas ya existen).</p>
         <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, <i>context.xml</i> (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
+        <h2>Quitar DBServer.start() para arrancar más rápido</h2>
+        <p>Cuando creas un nuevo proyecto OpenXava, la clase lanzadora (en el paquete <i>run</i> con el mismo nombre que tu proyecto) incluye una línea <i>DBServer.start()</i> para arrancar la base de datos HSQLDB por defecto. Dado que ahora usas Informix, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
+        <pre><code class="language-java">public class miaplicacion {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("miaplicacion-db"); // Comenta o elimina, HSQLDB ya no es necesario
+        AppServer.run("miaplicacion");
+    }
+
+}
+</code></pre>
       </div>
     </div>
   </body>
