@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Some obsolete source code in the customizing documentation has been updated to work with recent versions.
 - Commons Validator upgraded to 1.10.1.
 - Embedded Tomcat used in development upgraded to 9.0.113.
 - Driver version in doc/new projects upgraded for Db2.
