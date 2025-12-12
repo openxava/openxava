@@ -1,21 +1,18 @@
 Change Log for OpenXava project
 ===============================
 
-
-
+OpenXava 7.6.3 (2025-12-12)
+---------------------------
 - No help icon is displayed when using local help if no article is defined for that module.
 - For local help, if the user-language article is missing, another is used; fallback is the no-suffix one.
 - The Project Management archetype in English includes some new JUnit tests. 
-
 - Commons Validator upgraded to 1.10.1.
 - Embedded Tomcat used in development upgraded to 9.0.113.
 - Driver version in doc/new projects upgraded for Db2.
-
 - Database configuration docs include a section explaining how to disable the default HSQLDB database.
 - Some obsolete source code in the customizing documentation has been updated to work with recent versions.
 - The documentation shows a subtle note pointing to the latest openxava.org blog entry.
 - Lesson 4 of the OpenXava course with AI available in the documentation with video.
-
 - Fix: @DescriptionsList and @Discussion editors not working in some circumstances, failing to load JS.
 - Fix: Module occasionally breaks when cutting a line in a collection.
 - Fix: Confirm message of cut and paste actions does not use the collection qualified label if it exists.
