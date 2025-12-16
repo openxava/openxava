@@ -601,6 +601,32 @@ public class MapFacadeBean {
 		removeCollectionElement(parentMetaModel, keyValues, collectionName, collectionElementKeyValues, false);
 	}
 	
+	// tmr Revisar DRY en este método
+	// Only removes from the Java collection, does not touch the FK in the child
+	private void removeElementFromCollectionOnly(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+		throws FinderException, XavaException, RemoteException, InvocationTargetException, PropertiesManagerException 
+	{
+		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);
+		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
+		String refToParent = metaCollection.getMetaReference().getRole();
+		if ((!childMetaModel.containsMetaReference(refToParent) || metaCollection.isSortable()) && parentMetaModel.isPOJOAvailable()) { 
+			Object parent = findEntity(parentMetaModel, keyValues);
+			Object child = findEntity(childMetaModel, collectionElementKeyValues);
+			if (metaCollection.hasInverseCollection()) {
+				Object theChild = child;
+				child = parent;
+				parent = theChild;
+				collectionName = metaCollection.getInverseCollection(); 
+			}				
+			PropertiesManager pm = new PropertiesManager(parent);				
+			Collection collection = (Collection) pm.executeGet(collectionName);
+			collection.remove(child);
+		}
+		if (metaCollection.hasPostRemoveCalculators()) {
+			executePostremoveCollectionElement(parentMetaModel, keyValues, metaCollection);			
+		}						
+	}
+	
 	private void removeCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues, boolean deletingElement) 
 		throws FinderException,	ValidationException, XavaException, RemoveException, RemoteException, InvocationTargetException, PropertiesManagerException 
 	{
@@ -705,8 +731,8 @@ public class MapFacadeBean {
 			MetaModel targetMetaModel = getMetaModel(targetModelName);
 			try {		
 				beginTransactionForAddCollectionElement(sourceMetaModel);
-				removeElementFromCollection(sourceMetaModel, sourceKeyValues, sourceCollectionName, collectionElementKeyValues);
 				addCollectionElement(targetMetaModel, targetKeyValues, targetCollectionName, collectionElementKeyValues);
+				removeElementFromCollectionOnly(sourceMetaModel, sourceKeyValues, sourceCollectionName, collectionElementKeyValues);
 				commitTransactionForAddCollectionElement(sourceMetaModel);		
 			} 
 			catch (FinderException ex) {
