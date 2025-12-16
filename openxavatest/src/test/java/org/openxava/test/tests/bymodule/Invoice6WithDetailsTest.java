@@ -14,6 +14,7 @@ public class Invoice6WithDetailsTest extends ModuleTestBase {
 	}
 	
 	public void testEntityValidatorAddingToCollection_setterValidationAddingToCollection_recalculatePropertiesAddingToCollection() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ. PARECE QUE FALLA. ConferenceTest E InvoiceTest TAMBIÉN HAN DE FUNCIONAR
 		execute("List.viewDetail", "row=0");
 		assertValidationAddingToCollection("2002", "1", 2, "Detail not added: Invoice too old");
 		
