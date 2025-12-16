@@ -438,7 +438,6 @@ public class View implements java.io.Serializable {
 			}	
 		}
 		
-		// TMR ME QUEDÉ POR AQUÍ: AÑADÍ EL BUCLE PERO NO FUNCIONA. TENDRÉ QUE DEPURAR
 		if (hasSubviews()) {
 			for (View subview : getSubviews().values()) {
 				if (!subview.isRepresentsCollection()) {
