@@ -601,34 +601,32 @@ public class MapFacadeBean {
 		removeCollectionElement(parentMetaModel, keyValues, collectionName, collectionElementKeyValues, false);
 	}
 	
-	// tmr Revisar DRY en este método
 	// Only removes from the Java collection, does not touch the FK in the child
 	private void removeElementFromCollectionOnly(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
 		throws FinderException, XavaException, RemoteException, InvocationTargetException, PropertiesManagerException 
 	{
-		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);
-		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
-		String refToParent = metaCollection.getMetaReference().getRole();
-		if ((!childMetaModel.containsMetaReference(refToParent) || metaCollection.isSortable()) && parentMetaModel.isPOJOAvailable()) { 
-			Object parent = findEntity(parentMetaModel, keyValues);
-			Object child = findEntity(childMetaModel, collectionElementKeyValues);
-			if (metaCollection.hasInverseCollection()) {
-				Object theChild = child;
-				child = parent;
-				parent = theChild;
-				collectionName = metaCollection.getInverseCollection(); 
-			}				
-			PropertiesManager pm = new PropertiesManager(parent);				
-			Collection collection = (Collection) pm.executeGet(collectionName);
-			collection.remove(child);
-		}
-		if (metaCollection.hasPostRemoveCalculators()) {
-			executePostremoveCollectionElement(parentMetaModel, keyValues, metaCollection);			
-		}						
+		removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
 	}
 	
 	private void removeCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues, boolean deletingElement) 
 		throws FinderException,	ValidationException, XavaException, RemoveException, RemoteException, InvocationTargetException, PropertiesManagerException 
+	{
+		MetaCollection metaCollection = removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
+		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
+		String refToParent = metaCollection.getMetaReference().getRole();
+		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
+			remove(childMetaModel, collectionElementKeyValues);
+		}		
+		else if (childMetaModel.containsMetaReference(refToParent)) {
+			// If the child contains the reference to its parent we simply update this reference
+			Map nullParentKey = new HashMap();
+			nullParentKey.put(refToParent, null); 
+			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true, false);   
+		}
+	}
+	
+	private MetaCollection removeFromJavaCollection(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+		throws FinderException, XavaException, RemoteException, InvocationTargetException, PropertiesManagerException 
 	{
 		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
@@ -647,18 +645,10 @@ public class MapFacadeBean {
 			Collection collection = (Collection) pm.executeGet(collectionName);
 			collection.remove(child);
 		}
-		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
-			remove(childMetaModel, collectionElementKeyValues);
-		}		
-		else if (childMetaModel.containsMetaReference(refToParent)) {
-			// If the child contains the reference to its parent we simply update this reference
-			Map nullParentKey = new HashMap();
-			nullParentKey.put(refToParent, null); 
-			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true, false);   
-		}
 		if (metaCollection.hasPostRemoveCalculators()) {
 			executePostremoveCollectionElement(parentMetaModel, keyValues, metaCollection);			
-		}						
+		}
+		return metaCollection;
 	}
 
 	public void addCollectionElement(UserInfo userInfo, String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues)   
