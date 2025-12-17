@@ -601,8 +601,39 @@ public class MapFacadeBean {
 		removeCollectionElement(parentMetaModel, keyValues, collectionName, collectionElementKeyValues, false);
 	}
 	
+	// Removes from the Java collection and sets the FK to null
+	private void removeElementFromCollectionSettingFKToNull(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+		throws FinderException, ValidationException, XavaException, RemoteException, InvocationTargetException, PropertiesManagerException 
+	{
+		MetaCollection metaCollection = removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
+		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
+		String refToParent = metaCollection.getMetaReference().getRole();
+		if (childMetaModel.containsMetaReference(refToParent)) {
+			Map nullParentKey = new HashMap();
+			nullParentKey.put(refToParent, null); 
+			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, false, true, false);   
+		}
+	}
+	
 	private void removeCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues, boolean deletingElement) 
 		throws FinderException,	ValidationException, XavaException, RemoveException, RemoteException, InvocationTargetException, PropertiesManagerException 
+	{
+		MetaCollection metaCollection = removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
+		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
+		String refToParent = metaCollection.getMetaReference().getRole();
+		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
+			remove(childMetaModel, collectionElementKeyValues);
+		}		
+		else if (childMetaModel.containsMetaReference(refToParent)) {
+			// If the child contains the reference to its parent we simply update this reference
+			Map nullParentKey = new HashMap();
+			nullParentKey.put(refToParent, null); 
+			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true, false);   
+		}
+	}
+	
+	private MetaCollection removeFromJavaCollection(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+		throws FinderException, XavaException, RemoteException, InvocationTargetException, PropertiesManagerException 
 	{
 		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
@@ -621,18 +652,10 @@ public class MapFacadeBean {
 			Collection collection = (Collection) pm.executeGet(collectionName);
 			collection.remove(child);
 		}
-		if (deletingElement && (metaCollection.isAggregate() || metaCollection.isOrphanRemoval())) {
-			remove(childMetaModel, collectionElementKeyValues);
-		}		
-		else if (childMetaModel.containsMetaReference(refToParent)) {
-			// If the child contains the reference to its parent we simply update this reference
-			Map nullParentKey = new HashMap();
-			nullParentKey.put(refToParent, null); 
-			setValues(childMetaModel, collectionElementKeyValues, nullParentKey, deletingElement, true, false);   
-		}
 		if (metaCollection.hasPostRemoveCalculators()) {
 			executePostremoveCollectionElement(parentMetaModel, keyValues, metaCollection);			
-		}						
+		}
+		return metaCollection;
 	}
 
 	public void addCollectionElement(UserInfo userInfo, String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues)   
@@ -705,8 +728,15 @@ public class MapFacadeBean {
 			MetaModel targetMetaModel = getMetaModel(targetModelName);
 			try {		
 				beginTransactionForAddCollectionElement(sourceMetaModel);
-				removeElementFromCollection(sourceMetaModel, sourceKeyValues, sourceCollectionName, collectionElementKeyValues);
+				String sourceRefToParent = sourceMetaModel.getMetaCollection(sourceCollectionName).getMetaReference().getRole();
+				String targetRefToParent = targetMetaModel.getMetaCollection(targetCollectionName).getMetaReference().getRole();
 				addCollectionElement(targetMetaModel, targetKeyValues, targetCollectionName, collectionElementKeyValues);
+				if (sourceRefToParent.equals(targetRefToParent)) {
+					removeFromJavaCollection(sourceMetaModel, sourceKeyValues, sourceCollectionName, collectionElementKeyValues);
+				}
+				else {
+					removeElementFromCollectionSettingFKToNull(sourceMetaModel, sourceKeyValues, sourceCollectionName, collectionElementKeyValues);
+				}
 				commitTransactionForAddCollectionElement(sourceMetaModel);		
 			} 
 			catch (FinderException ex) {

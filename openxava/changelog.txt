@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Cut and paste in collections fails when foreign key fields to the container entity are not nullable.
+
 OpenXava 7.6.3 (2025-12-12)
 ---------------------------
 - No help icon is displayed when using local help if no article is defined for that module.
