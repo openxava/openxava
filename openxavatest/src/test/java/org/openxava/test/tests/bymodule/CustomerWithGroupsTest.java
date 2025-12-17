@@ -3,6 +3,9 @@
  */
 package org.openxava.test.tests.bymodule;
 
+import java.time.*;
+import java.time.format.*;
+
 import javax.persistence.*;
 
 import org.openxava.jpa.*;
@@ -43,7 +46,8 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 		setValue("address.state.id", "FL");
 		execute("CustomerWithGroups.save");
 		assertNoErrors();
-		assertMessage("Customer created successfully");
+		assertMessage("Customer created successfully");		
+		assertValue("creationDate", LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 	}
 	
 	private Integer getMaxCustomerNumber() throws Exception {
