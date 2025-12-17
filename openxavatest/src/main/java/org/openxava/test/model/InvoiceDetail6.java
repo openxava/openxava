@@ -28,7 +28,6 @@ import org.openxava.util.*;
 		@PropertyValue(name="invoice")
 	}
 )
-@Table(name="INVOICEDETAIL")
 public class InvoiceDetail6 {
 	
 	@ManyToOne 
