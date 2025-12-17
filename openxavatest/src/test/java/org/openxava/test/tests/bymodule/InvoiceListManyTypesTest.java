@@ -31,7 +31,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();
 		assertListConfigurationsRemove();
-		assertListConfigurationsNotSavedByDefault();
+		assertListConfigurationsNotSavedByDefault(); // TMR FALLA
 	}
 
 	private void assertListConfigurationsChangeName() throws Exception { 

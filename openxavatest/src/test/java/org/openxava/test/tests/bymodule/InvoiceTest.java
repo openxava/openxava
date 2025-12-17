@@ -310,7 +310,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			{ "considerable", "Considerable" },
 			{ "__MORE__", "[SHOW MORE...]" }
 		};		
-		assertValidValues("name", defaultColumnNames); 
+		assertValidValues("name", defaultColumnNames); // TMR FALLA
 				
 		setValue("name", "__MORE__");
 		
@@ -992,7 +992,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertValueInCollection("xavaPropertiesList",  1, 0, "Considerable");
 		assertValueInCollection("xavaPropertiesList",  2, 0, "Customer additional emails");
 		assertValueInCollection("xavaPropertiesList",  3, 0, "Customer city");
-		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer credit card");
+		assertValueInCollection("xavaPropertiesList",  4, 0, "Customer credit card"); // TMR FALLA
 		assertValueInCollection("xavaPropertiesList",  5, 0, "Customer discount");
 		assertValueInCollection("xavaPropertiesList",  6, 0, "Customer email");
 		assertValueInCollection("xavaPropertiesList",  7, 0, "Customer lokal");
@@ -1161,7 +1161,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		execute("List.addColumns");
 		assertCollectionRowCount("xavaPropertiesList", 20); 		
 		assertValueInCollection("xavaPropertiesList",  0, 0, "Comment");  
-		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date"); 
+		assertValueInCollection("xavaPropertiesList", 19, 0, "Deliveries date"); // TMR FALLA
 		assertAction("AddColumns.showMoreColumns");
 
 		HtmlInput searchBox = getHtmlPage().getHtmlElementById("xava_search_columns_text");
@@ -1205,7 +1205,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 	@Test
 	public void testCustomizeList() throws Exception {
-		doTestCustomizeList_addColumns(); 
+		doTestCustomizeList_addColumns(); // TMR FALLA
 		resetModule(); 
 		doTestCustomizeList_storePreferences(); 
 	}
