@@ -39,6 +39,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	@Test
 	public void testCutPasteCascadeCollection() throws Exception {
+		// INVOICE_YEAR and INVOICE_NUMBER must be NOT NULL in INVOICEDETAIL to test a case
 		assertValueInList(5, 0, "2004");
 		assertValueInList(5, 1, "12"); 
 		execute("List.viewDetail", "row=5");

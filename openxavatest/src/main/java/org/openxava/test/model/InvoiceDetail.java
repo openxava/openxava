@@ -55,8 +55,8 @@ public class InvoiceDetail {
 	/*
 	 This mapping is the assumed one	
 	  @JoinColumns({
-		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR", nullable=false),
-		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER", nullable=false)
+		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR", nullable=false), // Must be NOT NULL to test a case
+		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER", nullable=false) // Must be NOT NULL to test a case
 	})
 	*/
 	private Invoice invoice;
