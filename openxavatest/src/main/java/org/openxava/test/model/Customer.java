@@ -380,7 +380,7 @@ public class Customer implements IWithName {
 	@Mask("0000 0000 0000 0000")
 	String creditCard;
 	
-	@Column(columnDefinition="DATE DEFAULT CURRENT_DATE")
+	@Column(columnDefinition="DATE DEFAULT CURRENT_DATE", insertable=false)
 	@ReadOnly
 	private LocalDate creationDate;
 	

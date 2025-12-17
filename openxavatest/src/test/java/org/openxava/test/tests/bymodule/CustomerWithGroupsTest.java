@@ -22,7 +22,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 		super(nameTest, "CustomerWithGroups");
 	}
 	
-	public void testConsecutiveCreationWithKeyInsideGroupAndSeveralGroups() throws Exception { 
+	public void testConsecutiveCreationWithKeyInsideGroupAndSeveralGroups_saveRefreshAfterLoadDBCreatedValues() throws Exception { 
 		Integer customerNumber = getMaxCustomerNumber() + 1;
 		for (int index = 0; index < 3; index++) {
 			createCustomer(customerNumber + index); 
