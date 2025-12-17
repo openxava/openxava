@@ -219,7 +219,7 @@ public class BlogContentFilter implements Filter {
                        .append(" - ")
                        .append("<i>").append(shortDate).append("</i>")
                        .append(" · ")
-                       .append("<a href=\"").append(link).append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">").append(readMore).append("</a>")
+                       .append("<a href=\"").append(link).append(link.contains("?") ? "&utm_source=doc" : "?utm_source=doc").append("\" target=\"_blank\" onclick=\"localStorage.setItem('blog-dismissed','").append(slug).append("')\">").append(readMore).append("</a>")
                        .append("</div>");
             }
             return blogHtml.toString();
