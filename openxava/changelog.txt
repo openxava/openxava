@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Database-generated values are not refreshed in the UI after a save action with refreshAfter=true.
 - Fix: Cut and paste in collections fails when foreign key fields to the container entity are not nullable.
 
 OpenXava 7.6.3 (2025-12-12)

@@ -31,7 +31,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 		assertListConfigurationsI18n(); 
 		assertListConfigurationsPersistence();
 		assertListConfigurationsRemove();
-		assertListConfigurationsNotSavedByDefault(); // TMR FALLA
+		assertListConfigurationsNotSavedByDefault(); 
 	}
 
 	private void assertListConfigurationsChangeName() throws Exception { 
@@ -465,7 +465,7 @@ public class InvoiceListManyTypesTest extends CustomizeListTestBase {
 	private void modifyColumns() throws Exception { 
 		removeColumn(5); 						
 		execute("List.addColumns");
-		checkRow("selectedProperties", "vat");  
+		checkRow("selectedProperties", "vatPercentage"); 
 		execute("AddColumns.addColumns");
 		moveColumn(2, 3);
 		execute("List.addColumns");  
