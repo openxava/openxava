@@ -64,6 +64,7 @@ public class SaveAction extends TabBaseAction {
 		addMessage("entity_modified", getModelName());
 		if (!isResetAfterOnModify() && isRefreshAfter()) {
 			getView().clear(); 
+			commit();
 			values = MapFacade.getValues(getModelName(), keyValues, getView().getMembersNamesWithHidden());
 		}
 		return values;
@@ -89,6 +90,7 @@ public class SaveAction extends TabBaseAction {
 			addMessage("entity_created", getModelName());
 			if (isRefreshAfter()) {  
 				getView().clear(); 
+				commit();
 				values = MapFacade.getValues(getModelName(), keyValues, getView().getMembersNamesWithHidden());
 			}
 			else {

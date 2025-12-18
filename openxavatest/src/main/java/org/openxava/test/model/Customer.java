@@ -1,5 +1,6 @@
 package org.openxava.test.model;
 
+import java.time.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -197,6 +198,7 @@ import org.openxava.test.actions.*;
 
 @View( name="WithGroups", members=
 	"general [number;"  
+		+ "creationDate;"
 		+ "type;"
 		+ "name, Customer.changeNameLabel()"
 	+ "];"
@@ -377,6 +379,10 @@ public class Customer implements IWithName {
 	
 	@Mask("0000 0000 0000 0000")
 	String creditCard;
+	
+	@Column(columnDefinition="DATE DEFAULT CURRENT_DATE", insertable=false)
+	@ReadOnly
+	private LocalDate creationDate;
 	
 	@Column(length=40)	
 	@Depends("address.zipCode, address.city")	
@@ -590,5 +596,13 @@ public class Customer implements IWithName {
 	
 	public String getSellerNameInCondition () {
 		return "GALILEO GALILEI";
+	}
+
+	public LocalDate getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(LocalDate creationDate) {
+		this.creationDate = creationDate;
 	}
 }
