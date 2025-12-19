@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.6.3-SNAPSHOT</openxava.version>
+		<openxava.version>7.6.4-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
 		<!-- For Java 25 you have to uncomment the annotation processor plugin in build section below -->
@@ -97,7 +97,7 @@
 		<dependency>
 			<groupId>com.ibm.db2</groupId>
 			<artifactId>jcc</artifactId>
-			<version>12.1.2.0</version>
+			<version>12.1.3.0</version>
 		</dependency>
 		-->
 		

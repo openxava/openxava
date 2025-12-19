@@ -410,7 +410,7 @@ public class View implements java.io.Serializable {
 		if (polisher == null) return;
 		if (polished) return;
 		
-		if (!isFirstLevel() && !(isGroup() || isSection())) return;
+		if (!isFirstLevel() && !(isGroup() || isSection() || !isRepresentsCollection())) return;
 
 		try {
 			XObjects.execute(polisher, "refine", 
@@ -437,8 +437,16 @@ public class View implements java.io.Serializable {
 				getSectionView(i).polish();
 			}	
 		}
+		
+		if (hasSubviews()) {
+			for (View subview : getSubviews().values()) {
+				if (!subview.isRepresentsCollection()) {
+					subview.polish();
+				}
+			}
+		}
 	}
-	
+
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager(getRequest()); 
 		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 

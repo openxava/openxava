@@ -54,6 +54,7 @@ org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleM
 manager.setSession(session);
 manager.setApplicationName(request.getParameter("application"));
 manager.setModuleName(module); // In order to show the correct description in head
+manager.registerAction("SessionLocker.lock");
 %>
 
 <!DOCTYPE html>

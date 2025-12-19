@@ -51,6 +51,8 @@ for (MetaAction ma: manager.getMetaActions()) {
        break;
    }
 }
+manager.registerAction(action);
+manager.registerAction(actionNew);
 
 if (dateFormat != null) {
     dateFormat = dateFormat.replace("n", "M")

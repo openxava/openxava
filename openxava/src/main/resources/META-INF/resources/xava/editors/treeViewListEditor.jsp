@@ -20,6 +20,7 @@
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.apache.commons.beanutils.PropertyUtils"%>
+<%@page import="org.openxava.controller.ModuleManager"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
@@ -27,6 +28,7 @@
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 
 <%
+ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
 String viewObject = request.getParameter("viewObject"); // Id to access to the view object of the collection
 View collectionView = (View) context.get(request, viewObject); // We get the collection view by means of context
 View rootView = collectionView.getRoot(); // In this case we use the root view
@@ -36,6 +38,7 @@ boolean isReferenced = collectionView.getModelName().equals(rootView.getModelNam
 String collectionName = request.getParameter("collectionName");
 Map key = rootView.getKeyValues();
 String action = request.getParameter("rowAction");
+manager.registerAction(action);
 String actionArgv = ",viewObject=" + viewObject;
 String actionArg = "viewObject=" + viewObject;
 String actionWithArgs;

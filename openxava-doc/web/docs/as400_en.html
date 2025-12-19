@@ -81,8 +81,17 @@ $ mvn install
     url="jdbc:as400:192.168.1.8/mylib;tcp no delay=true"/&gt;
 </code></pre>
         <p>Note the <i>tcp no delay=true</i> at the end of the URL.</p>
-        <p></p>
-        <p></p>
+        <h2>Remove DBServer.start() for faster startup</h2>
+        <p>When you create a new OpenXava project, the launcher class (located in the <i>run</i> package with the same name as your project) includes a line <i>DBServer.start()</i> to start the default HSQLDB database. Since you're now using AS/400, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <pre><code class="language-java">public class myapp {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("myapp-db"); // Comment or remove, HSQLDB no longer needed
+        AppServer.run("myapp");
+    }
+
+}
+</code></pre>
       </div>
     </div>
   </body>

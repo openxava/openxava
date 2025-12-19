@@ -29,6 +29,7 @@ public class ButtonTag extends ActionTagBase {
 			if (!isActionAvailable(metaAction, application, module, request)) {
 				return SKIP_BODY;
 			}
+			registerAction(getAction(), application, module, request);
 			pageContext.getOut().print("<input name='");
 			pageContext.getOut().print(Ids.decorate(application, module, "action." + getAction())); 
 			pageContext.getOut().println("' type='hidden'/>");			

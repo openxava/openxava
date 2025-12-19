@@ -84,6 +84,19 @@ $ mvn install
         <p>Run your application, it should work nicely against your Oracle database. If it fails, verify that your database server is up, that the user and password in <i>context.xml</i> are correct, that the server IP is correct. Also verify that the user has rights to create databases and tables (if you want to use the automatic schema generation of OpenXava, not needed if the tables already exist).</p>
         <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, <i>context.xml</i> (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
       </div>
+      <div class="wiki" style="display: block;">
+        <h2>Remove DBServer.start() for faster startup</h2>
+        <p>When you create a new OpenXava project, the launcher class (located in the <i>run</i> package with the same name as your project) includes a line <i>DBServer.start()</i> to start the default HSQLDB database. Since you're now using Oracle, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <pre><code class="language-java">public class myapp {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("myapp-db"); // Comment or remove, HSQLDB no longer needed
+        AppServer.run("myapp");
+    }
+
+}
+</code></pre>
+      </div>
     </div>
   </body>
 </html>

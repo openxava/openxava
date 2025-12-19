@@ -10,6 +10,8 @@ String condition = tab.getBaseCondition()==null?"":tab.getBaseCondition();
 String all = condition.equals("")?"selected":"";
 String low = condition.contains("<=")?"selected":"";
 String high = condition.contains(">")?"selected":"";
+org.openxava.controller.ModuleManager manager = (org.openxava.controller.ModuleManager) context.get(request, "manager");
+manager.registerAction("CorporationEmployee.filter");
 %>
 <%-- 
 Using data-application and data-module instead of openxava.lastApplication and openxava.lastModule in JavaScrip

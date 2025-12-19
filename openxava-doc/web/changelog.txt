@@ -1,6 +1,32 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6.3 (2025-12-12)
+---------------------------
+- No help icon is displayed when using local help if no article is defined for that module.
+- For local help, if the user-language article is missing, another is used; fallback is the no-suffix one.
+- The Project Management archetype in English includes some new JUnit tests. 
+- Commons Validator upgraded to 1.10.1.
+- Embedded Tomcat used in development upgraded to 9.0.113.
+- Driver version in doc/new projects upgraded for Db2.
+- Database configuration docs include a section explaining how to disable the default HSQLDB database.
+- Some obsolete source code in the customizing documentation has been updated to work with recent versions.
+- The documentation shows a subtle note pointing to the latest openxava.org blog entry.
+- Lesson 4 of the OpenXava course with AI available in the documentation with video.
+- Fix: @DescriptionsList and @Discussion editors not working in some circumstances, failing to load JS.
+- Fix: Module occasionally breaks when cutting a line in a collection.
+- Fix: Confirm message of cut and paste actions does not use the collection qualified label if it exists.
+- Fix: After removing a selected row from a collection, the delete action of the main entity is not shown.
+- Fix: Properties from references are excluded from the list when grouping.
+- Fix: 404 error when accessing the local help if the article for the module and language is not available.
+- Fix: Using JavaScript, it is possible to execute actions not declared in any controller of the module.
+- Fix: Selected rows of the main list are not accessible from a dialog if user searches a reference.
+- Fix: Filtering in a @DescriptionsList fails with numeric properties.
+- Fix: When collection content changes inside a dialog, the dialog does not resize.
+- Fix: 'Changed data' dialog when changing filter fields in list before navigating to detail via action.
+- Fix: @NoDefaultActions does not work for nested collections.
+- Fix: Module breaks when returning to the list from charts if the list uses editable properties.
+
 OpenXava 7.6.2 (2025-11-14)
 ---------------------------
 - ModuleTestBase now supports JUnit4 style tests, although it still supports JUnit 3 style too.
@@ -539,6 +565,7 @@ OpenXava 7.2.3 (2024-1-26)
 - Fix: @DescriptionsList combos do not open if a \ is in one of the values.
 - Fix: Grouping by a three level property in list fails. 
 - Fix: Qualified properties in baseCondition of @Tab fails if those properties are not in the list.
+- Fix: Grouping fails when baseCondition uses properties not included in the grouped list.
 - Fix: Filtering in the list by a numeric property of a reference of a reference (3 levels or more) fails.
 - Fix: Some incorrect translations for Spanish labels.
 - Fix: No trace with the root cause of the problem when the logic in a getter of an entity fails. 

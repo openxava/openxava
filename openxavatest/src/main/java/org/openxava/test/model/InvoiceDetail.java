@@ -51,12 +51,12 @@ import lombok.*;
 )
 public class InvoiceDetail {
 	
-	@ManyToOne // Lazy fetching produces a fails on removing a detail from invoice
+	@ManyToOne(optional=false) // Lazy fetching produces a fails on removing a detail from invoice
 	/*
 	 This mapping is the assumed one	
 	  @JoinColumns({
-		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR"),
-		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER")
+		@JoinColumn(name="INVOICE_YEAR", referencedColumnName="YEAR", nullable=false), // Must be NOT NULL to test a case
+		@JoinColumn(name="INVOICE_NUMBER", referencedColumnName="NUMBER", nullable=false) // Must be NOT NULL to test a case
 	})
 	*/
 	private Invoice invoice;

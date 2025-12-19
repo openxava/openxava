@@ -79,4 +79,50 @@ public class IssueStatusTest extends ModuleTestBase {
 		assertValueInList(4, 3, "");
 	}
 	
+	public void testUseAsDefaultValueForMyCalendar() throws Exception {
+		login("admin", "admin");
+		assertListRowCount(5);
+		
+		// Verify that "Planned" is the default value for MyCalendar
+		execute("List.viewDetail", "row=4");
+		assertValue("name", "Planned");
+		assertValue("useAsDefaultValueForMyCalendar", "true");
+		
+		// Change the default value for MyCalendar to "Pending"
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "Pending");
+		setValue("useAsDefaultValueForMyCalendar", "true");
+		execute("CRUD.save");
+		execute("Mode.list");
+		
+		// Verify that "Pending" is now the default value for MyCalendar
+		// and "Planned" is no longer
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "Pending");
+		assertValue("useAsDefaultValueForMyCalendar", "true");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=4");
+		assertValue("name", "Planned");
+		assertValue("useAsDefaultValueForMyCalendar", "false");
+		
+		// Restore "Planned" as the default value for MyCalendar
+		setValue("useAsDefaultValueForMyCalendar", "true");
+		execute("CRUD.save");
+		execute("Mode.list");
+		
+		// Verify that "Planned" is again the default value for MyCalendar
+		// and "Pending" is no longer
+		execute("List.viewDetail", "row=4");
+		assertValue("name", "Planned");
+		assertValue("useAsDefaultValueForMyCalendar", "true");
+		execute("Mode.list");
+		execute("List.viewDetail", "row=0");
+		assertValue("name", "Pending");
+		assertValue("useAsDefaultValueForMyCalendar", "false");
+		
+		// Restore the original state
+		execute("CRUD.save");
+	}
+	
 }

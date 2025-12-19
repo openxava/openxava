@@ -154,6 +154,7 @@ abstract public class WebDriverTestBase extends TestCase {
             } catch (ElementNotInteractableException ex) {
                 JavascriptExecutor executor = (JavascriptExecutor) driver;
                 executor.executeScript("arguments[0].click();", button);
+                wait(driver); 
             }
         }
         catch (NoSuchElementException ex) {

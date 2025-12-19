@@ -17,7 +17,6 @@ import org.openxava.calculators.*;
 
 @Entity
 @IdClass(InvoiceKey.class)  // We reuse the key class for Invoice
-@Table(name="INVOICE")
 @View(members="year; number; date; amountsSum")
 @View(name="WithDetails", members="year; number; date; details; amountsSum; amount") 
 public class Invoice6 {
