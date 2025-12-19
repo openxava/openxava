@@ -3174,6 +3174,7 @@ public class View implements java.io.Serializable {
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
 				if (!isHiddenKeyWithoutValue && mustToFormat) { 
 					getRequest().setAttribute(valueKey, value);
+					System.out.println("[View.assignValuesToMembers()] model=" + getModelName() + ", property=" + p.getName() + ", value=" + value); // tmr
 					trySetValue(p.getName(), value);
 					if (isNeededToVerifyHasBeenFormatted(p)) {
 						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); 
@@ -6095,7 +6096,8 @@ public class View implements java.io.Serializable {
 		if (changedPropertiesActionsAndReferencesWithNotCompositeEditor == null) {
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
-		}		
+		}
+		System.out.println("[View.getChangedPropertiesActionsAndReferencesWithNotCompositeEditor()] model=" + getModelName() + ", changedPropertiesActionsAndReferencesWithNotCompositeEditor=" + changedPropertiesActionsAndReferencesWithNotCompositeEditor.keySet()); // tmr
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
@@ -6197,7 +6199,8 @@ public class View implements java.io.Serializable {
 				propertyHasChangedActions((String) en.getKey()) || 
 				formattedProperties != null && formattedProperties.contains(en.getKey()) ||
 				editorMustBeReloaded((String) en.getKey())) 
-			{				
+			{
+				System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor()] (A) Added: model=" + getModelName() + ", property=" + (String) en.getKey() + ", value=" + en.getValue()); // tmr
 				addChangedPropertyOrReferenceWithSingleEditor(result, (String) en.getKey());
 			}
 			oldValues.remove(en.getKey());			
@@ -6207,7 +6210,8 @@ public class View implements java.io.Serializable {
 			if (!equals(en.getValue(), values.get(en.getKey())) ||
 				editorMustBeReloaded((String) en.getKey()) ||
 				hasKeyEditableChanged())  
-			{	
+			{
+				System.out.println("[View.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor()] (B) Added: model=" + getModelName() + ", property=" + (String) en.getKey() + ", value=" + en.getValue()); // tmr
 				addChangedPropertyOrReferenceWithSingleEditor(result, (String) en.getKey());
 			}
 		}	

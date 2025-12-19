@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.inject.*;
 
+import org.apache.catalina.filters.ExpiresFilter;
 import org.openxava.model.meta.*;
 import org.openxava.session.*;
 import org.openxava.util.*;
@@ -22,6 +23,8 @@ public class CutElementsFromCollectionAction extends CollectionBaseAction implem
 
 	public void execute() throws Exception {
 		try{
+			System.out.println("[CutElementsFromCollectionAction.execute()] model=" + getCollectionElementView().getModelName()); // tmr
+			System.out.println("[CutElementsFromCollectionAction.execute()] parent.model=" + getCollectionElementView().getParent().getModelName()); // tmr
 			Map [] selectedOnes = getSelectedKeys();
 			validateMinimum(selectedOnes.length); 
 			if (selectedOnes.length > 0){ 
