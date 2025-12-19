@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: 404 error in browser console for Material Design Icons CSS source map.
 - Fix: @DescriptionsList combos not filled with data when the key part contains special characters.
 - Fix: Database-generated values are not refreshed in the UI after a save action with refreshAfter=true.
 - Fix: Cut and paste in collections fails when foreign key fields to the container entity are not nullable.
