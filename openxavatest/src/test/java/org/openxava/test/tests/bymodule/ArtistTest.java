@@ -28,6 +28,17 @@ public class ArtistTest extends ModuleTestBase {
 		assertEquals(40, level.getDescription().length());
 		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
 		
+		// tmr Cambiar nombre del método
+		// Special characters in key for @DescriptionsList
+		String [][] actingLevels = {
+			{ "",           "" },	
+			{ "A         ", "A SUPER STAR" },
+			{ "B         ", "B MAIN CHARACTER" },
+			{ "C         ", "C SECUNDARY CHARACTER" },
+			{ "É         ", "É EXTRA" } // With accent in key to test a case
+		};
+		assertValidValues("level.id", actingLevels);
+		
 		// Editor for annotation
 		assertEditorForAnnotation("name", "green");
 		assertEditorForAnnotation("age", "pink");
