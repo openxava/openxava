@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.6.2</openxava.version>
+		<openxava.version>7.6.3</openxava.version>
 		<langchain4j.version>1.7.1</langchain4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
@@ -41,15 +41,13 @@
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-api</artifactId>
 			<version>1.1</version>
-			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Tomcat Embedded WebSocket (for embedded Tomcat) -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-websocket</artifactId>
-			<version>9.0.110</version>
-			<scope>provided</scope>
+			<version>9.0.113</version>
 		</dependency>
 		
 		<!-- Markdown to HTML conversion -->
@@ -200,7 +198,8 @@
 						WEB-INF/lib/websocket-*.jar,
 						WEB-INF/lib/xalan-*.jar,
 						WEB-INF/lib/xercesImpl-*.jar,
-						WEB-INF/lib/xml-apis-*.jar</packagingExcludes>
+						WEB-INF/lib/xml-apis-*.jar,
+						WEB-INF/lib/javax.websocket-api-*.jar</packagingExcludes>
 				</configuration>
 			</plugin>
 			
