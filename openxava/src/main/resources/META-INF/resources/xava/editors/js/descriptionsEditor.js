@@ -166,9 +166,8 @@ openxava.addEditorInitFunction(function() {
 								list = list.map(function(it){
 									if (it && typeof it.label === 'string') {
 										var copy = $.extend({}, it);
-										copy.label = descriptionsEditor._convertUPlusToBackslashU(copy.label);
-										copy.label = descriptionsEditor._decodeUnicodeEscapes(copy.label);
-										if (copy.label && typeof copy.label.normalize === 'function') copy.label = copy.label.normalize('NFC');
+										copy.label = descriptionsEditor._normalize(copy.label);										
+										copy.value = descriptionsEditor._normalize(copy.value);
 										return copy;
 									}
 									return it;
@@ -226,6 +225,12 @@ descriptionsEditor.removeAccents = function(str) {
     return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
+descriptionsEditor._normalize = function(s) {
+	s = descriptionsEditor._convertUPlusToBackslashU(s);
+	s = descriptionsEditor._decodeUnicodeEscapes(s);
+	if (s && typeof s.normalize === 'function') s = s.normalize('NFC');
+	return s;
+}
 
 // Convert occurrences like "U+00C9" into a literal "\u00C9" (do not decode to a character)
 descriptionsEditor._convertUPlusToBackslashU = function(s) {

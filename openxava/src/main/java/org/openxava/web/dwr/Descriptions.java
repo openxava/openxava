@@ -8,9 +8,9 @@ import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
-import org.openxava.controller.ModuleManager;
-import org.openxava.util.*;
+import org.openxava.controller.*;
 import org.openxava.formatters.*;
+import org.openxava.util.*;
 
 /**
  * DWR endpoint to fetch descriptions incrementally for @DescriptionsList.
@@ -97,7 +97,7 @@ public class Descriptions extends DWRBase {
                 // No additional filtering needed - calculator already filtered if term was provided
                 Map<String, String> item = new HashMap<>(2);
                 item.put("label", label); // Visible description
-                item.put("value", String.valueOf(kd.getKey())); // Value for the hidden input
+                item.put("value", encodeToUPlusCodes(String.valueOf(kd.getKey()))); // Value for the hidden input
                 item.put("position", String.valueOf(count)); // Position for reference
                 simpleItems.add(item);
                 count++;

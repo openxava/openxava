@@ -15,7 +15,7 @@ public class ArtistTest extends ModuleTestBase {
 		super(testName, "Artist");		
 	}
 	
-	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_editorForAnnotation_displaySizeGreaterThan50WhenColumnLength255() throws Exception {   
+	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_specialCharactersInDescriptionsListKey_editorForAnnotation_displaySizeGreaterThan50WhenColumnLength255() throws Exception {   
 		// Focus on list
 		assertFocusOn("listConfigurations");
 		execute("List.filter"); 
@@ -28,7 +28,6 @@ public class ArtistTest extends ModuleTestBase {
 		assertEquals(40, level.getDescription().length());
 		assertDescriptionValue("level.id", "B MAIN CHARACTER"); 
 		
-		// tmr Cambiar nombre del método
 		// Special characters in key for @DescriptionsList
 		String [][] actingLevels = {
 			{ "",           "" },	
@@ -38,6 +37,16 @@ public class ArtistTest extends ModuleTestBase {
 			{ "É         ", "É EXTRA" } // With accent in key to test a case
 		};
 		assertValidValues("level.id", actingLevels);
+		setValue("level.id", "É         ");
+		execute("CRUD.save");
+		execute("Mode.list");
+		assertValueInList(0, "level.id", "É");
+		execute("List.viewDetail", "row=0");
+		assertDescriptionValue("level.id", "É EXTRA");
+		setValue("level.id", "B         ");
+		execute("CRUD.save");
+		execute("Navigation.first");
+		assertDescriptionValue("level.id", "B MAIN CHARACTER");
 		
 		// Editor for annotation
 		assertEditorForAnnotation("name", "green");
