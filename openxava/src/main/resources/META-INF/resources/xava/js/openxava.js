@@ -336,7 +336,9 @@ openxava.listenChanges = function() {
 	$("." + openxava.editorClass).unbind("change.changedCancelled");
 	$("." + openxava.editorClass).bind("change.changedCancelled", function() {
 		  if (!$(this).data('changedCancelled')) {
-			openxava.dataChanged = true;
+			if (!$(this).closest('.xava_transient').length) {
+				openxava.dataChanged = true;
+			}
 		  }
 		  else {
 		  	$(this).removeData('changedCancelled');
