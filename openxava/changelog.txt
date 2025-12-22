@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: 'Changed data' dialog when changing only transient properties.
 - Fix: Log warning 'not possible to assign value to property' when filtering list by pressing ENTER.
 - Fix: 404 error in browser console for Material Design Icons CSS source map.
 - Fix: @DescriptionsList combos not filled with data when the key part contains special characters.
