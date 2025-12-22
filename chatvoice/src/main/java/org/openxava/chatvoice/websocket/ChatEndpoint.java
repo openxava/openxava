@@ -83,10 +83,13 @@ public class ChatEndpoint {
 				}
 				
 				// Crear modelo de chat de OpenAI
+                System.out.println("[ChatEndpoint] gpt-5-mini + priority"); // tmr
 				var model = OpenAiChatModel.builder()
 					.apiKey(apiKey)
 					//.modelName("gpt-4o-mini") // Más rápido pero más tonto
 					.modelName("gpt-5-mini")
+					//.modelName("gpt-5-nano") // No es más rápido que el mini
+					.serviceTier("priority") // Doble de rápido, doble de caro
 					.build();
 				
 				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)
