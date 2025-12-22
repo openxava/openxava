@@ -18,13 +18,15 @@ M2
 * Preguntar por información de colecciones @ElementCollection.
 * Verificar rendimiento.
 
-
+M3
 - Chat en cada módulo.
+
+
 - Poder filtrar en la lista.
 - Modificar y borrar, mediante el módulo.
 
 Principios
-- El usuario no debería poder acceder a datos con el chat a los que no pueda acceder desde la applicación.
+- El usuario no debería poder acceder a datos con el chat a los que no pueda acceder desde la aplicación.
 - Impersonalizar los datos, para permitir el uso en empresas sería con configuración simple.
 - El chat tiene que ofrecer datos en lenguage natural, sin necesidad de abrir un módulo.
 - El chat debe permitir abrir y manipular módulos.
@@ -51,3 +53,4 @@ Por resolver
 Bajo demanda
 - Prueba con tablas inmensas.
 - Impersonalizar.
+- Mejorar consultas de totales. ¿Cuál es el producto más vendido?
