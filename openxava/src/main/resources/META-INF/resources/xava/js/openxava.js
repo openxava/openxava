@@ -889,7 +889,7 @@ openxava.processKey = function(event) {
 			}
 
 			openxava.executeAction(openxava.lastApplication, openxava.lastModule,
-				"", false, "List.filter", "collection=" + collection);
+				"", false, "List.filter", collection === "" ? "" : "collection=" + collection);
 		}
 		return;
 	}
