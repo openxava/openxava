@@ -1,6 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
 import org.htmlunit.html.*;
+import org.junit.*;
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
 
@@ -11,10 +12,11 @@ import org.openxava.test.model.*;
 
 public class CustomerWithSectionTest extends CustomerTest { 
 	
-	public CustomerWithSectionTest(String testName) { 
-		super(testName, "CustomerWithSection", true);		
+	public CustomerWithSectionTest() {
+		super("CustomerWithSection", true);
 	}
 	
+	@Test
 	public void testMyReportColumnLabels() throws Exception { 
 		assertLabelInList(0, "Name");
 		
@@ -66,6 +68,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("MyReport.remove", "xava.keyProperty=name");		
 	}
 	
+	@Test
 	public void testMyReportFilteringByValidValues() throws Exception { 
 		execute("ExtendedPrint.myReports");
 		assertValueInCollection("columns", 1, 0, "Type"); 
@@ -129,6 +132,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		execute("MyReport.remove", "xava.keyProperty=name");
 	}
 	
+	@Test
 	public void testDialogsInNestedCollections() throws Exception {
 		execute("List.viewDetail", "row=0"); 
 		assertDialogsInNestedCollections(false); 
@@ -178,6 +182,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertNotExists("receptionists");		
 	}
 	
+	@Test
 	public void testForwardToAbsoluteURL() throws Exception { 
 		execute("CRUD.new");
 		assertValue("website", "");
@@ -189,6 +194,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		
 	}
 	
+	@Test
 	public void testForwardToJavaScript() throws Exception {  
 		execute("CRUD.new");
 		HtmlElement console = getHtmlPage().getHtmlElementById("xava_console"); 
@@ -199,6 +205,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	// To fix a concrete bug
+	@Test
 	public void testNavigateToSearchReferenceAndCreateReference() throws Exception { 
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=alternateSeller.number"); 
@@ -209,6 +216,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 
 	
+	@Test
 	public void testDialogChangesPreviousView() throws Exception {		
 		execute("CRUD.new");
 		assertValue("address.street", "");
@@ -247,6 +255,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("alternateSeller.name", "DON MANUEL CHAVARRI");		
 	}
 	
+	@Test
 	public void testTELEPHONE_EMAIL_EMAIL_LIST_WEBURLstereotypes() throws Exception { 
 		assertTrue("website column must have a clickable link", getHtml().contains("<a href=\"http://www.openxava.org\">"));
 		execute("List.viewDetail", "row=0");
@@ -286,6 +295,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		XPersistence.commit();		
 	}
 	
+	@Test
 	public void testOrderAndFilterInNestedCollection() throws Exception { 
 		execute("CRUD.new");
 		setValue("number", "4");
@@ -310,6 +320,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("receptionists", 0, 0, "JUAN");				
 	}
 	
+	@Test
 	public void testModifyFromReference() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.modify", "model=Seller,keyProperty=xava.Customer.seller.number"); 
@@ -335,6 +346,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValue("seller.name", "MANUEL CHAVARRI");
 	}
 	
+	@Test
 	public void testChooseInReferenceWithoutSelecting() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");	
@@ -343,6 +355,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertAction("ReferenceSearch.choose"); // Because no row is selected we keep in searching list
 	}
 	
+	@Test
 	public void testCustomizeReferenceListDoesNotReturnToListModeOfModule() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.search", "keyProperty=xava.Customer.alternateSeller.number");
@@ -352,6 +365,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertListColumnCount(3); // To test that it's still is the tab of sellers, not the customer's one
 	}
 	
+	@Test
 	public void testDefaultValidator() throws Exception {
 		execute("CRUD.new");
 		setValue("name", "x");
@@ -362,6 +376,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertError("Person name MAKARIO is not allowed for Name in Customer");
 	}
 	
+	@Test
 	public void testCreatedFromReferenceIsChosenAndThrowsOnChange() throws Exception {
 		execute("CRUD.new");
 		execute("Reference.createNew", "model=Seller,keyProperty=xava.Customer.alternateSeller.number");
@@ -378,6 +393,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		XPersistence.getManager().remove(XPersistence.getManager().find(Seller.class, number));				
 	}
 
+	@Test
 	public void testPropertyAction() throws Exception { 
 		execute("CRUD.new");
 		setValue("address.street", "DOCTOR PESSET");
@@ -394,6 +410,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertFalse(actionsXml.contains("images/"));		
 	}
 	
+	@Test
 	public void testAddingToManyToManyCollectionFromANewObject() throws Exception { 
 		execute("CRUD.new");
 		
@@ -418,6 +435,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 
 	
+	@Test
 	public void testManyToManyCollection() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		execute("Sections.change", "activeSection=1");
@@ -463,6 +481,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("states", 1, 1, "CALIFORNIA");
 	}
 	
+	@Test
 	public void testTabSetConditionValueForReference_changeReferenceLabel() throws Exception { 
 		assertListRowCount(5);
 		execute("Customer.filterBySellerOne");
@@ -496,6 +515,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		return getHtmlPage().getHtmlElementById(decorateId(id));
 	}
 		
+	@Test
 	public void testRowStyle() throws Exception {
 		int c = getListRowCount();
 		boolean found = false;
@@ -523,6 +543,7 @@ public class CustomerWithSectionTest extends CustomerTest {
 		}
 	}
 	
+	@Test
 	public void testLeaveEntityWithoutSavingLosesChangedDataMessage() throws Exception {  
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
 		getWebClient().setConfirmHandler(confirmHandler);
@@ -668,6 +689,15 @@ public class CustomerWithSectionTest extends CustomerTest {
 		assertValueInCollection("deliveryPlaces", 0, 0, "JUNIT DEVIVERY PLACE");
 		execute("Collection.deleteSelected", "row=0,viewObject=xava_view_section0_deliveryPlaces");
 		assertCollectionRowCount("deliveryPlaces", 0); 
+
+		// Modifying transient properties does not ask for confirmation
+		confirmHandler = new MessageConfirmHandler();
+		getWebClient().setConfirmHandler(confirmHandler);
+		confirmHandler.assertNoMessage();
+		assertValue("extendedCity", "");
+		setValue("extendedCity", "JUNIT EXTENDED CITY");
+		execute("CRUD.new");
+		confirmHandler.assertNoMessage();		
 	}
 	
 	private void assertChangeTransientReferenceByCodeNoMessage(MessageConfirmHandler confirmHandler, String action,	String expectedNumber, String expectedName) throws Exception {
