@@ -1206,8 +1206,6 @@ public class ModuleManager implements java.io.Serializable {
 	 */
 	private Map setPropertyValues(IAction action, String propertyValues)
 			throws Exception {
-		System.out.println("[ModuleManager.setPropertyValues] action.getClass()=" + action.getClass()); // tmr
-		System.out.println("[ModuleManager.setPropertyValues] propertyValues=" + propertyValues); // tmr
 		if (Is.emptyString(propertyValues))
 			return Collections.EMPTY_MAP;
 		StringTokenizer st = new StringTokenizer(propertyValues, ",");

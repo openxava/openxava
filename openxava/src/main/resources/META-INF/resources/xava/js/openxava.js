@@ -641,7 +641,6 @@ openxava.initLists = function(application, module) {
   			if (valueField == null || valueField.is(':hidden') || 
   				this.options[this.selectedIndex].value.indexOf('range') < 0 && valueField.val() !== '') 
   			{ 
-  				// TMR ME QUEDÉ POR AQUÍ. PUEDE QUE LA CLAVE ESTÉ ABAJO
   				openxava.executeAction(application, module, '', false, 'List.filter', $(this).data("collection-argv")); 
   			}	
 		}
@@ -890,7 +889,7 @@ openxava.processKey = function(event) {
 			}
 
 			openxava.executeAction(openxava.lastApplication, openxava.lastModule,
-				"", false, "List.filter", "collection=" + collection);
+				"", false, "List.filter", collection === "" ? "" : "collection=" + collection);
 		}
 		return;
 	}
