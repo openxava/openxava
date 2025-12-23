@@ -22,3 +22,84 @@ Put here your own style
     background: transparent;
   
 }
+
+/* Chat Panel - Right side collapsible panel */
+#chat_panel {
+	position: sticky;
+	top: 0;
+	vertical-align: top;
+	width: 280px;
+	min-width: 280px;
+	height: 100vh;
+	background: var(--modules-list-background);
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	box-shadow: 0px 0px 4px var(--modules-list-shadow);
+	z-index: 20;
+}
+
+#chat_panel_header {
+	padding: 15px;
+	font-weight: bold;
+	font-size: 16px;
+	color: var(--modules-list-color);
+	border-bottom: 1px solid var(--modules-list-header-border-bottom);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+#chat_panel_header i {
+	font-size: 20px;
+}
+
+#chat_panel_content {
+	flex: 1;
+	padding: 15px;
+	color: var(--modules-list-color);
+	overflow-y: auto;
+}
+
+#chat_panel_hide, #chat_panel_show {
+	position: fixed;
+	top: 50%;
+	background: var(--module-list-hide-show-background);
+	border-radius: 100px;
+	padding: 9px 3px 6px 3px;
+	z-index: 1;
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+#chat_panel_hide {
+	right: 262px;
+}
+
+#chat_panel_show {
+	right: -36px;
+	clip-path: inset(0 50% 0 0);
+	padding-right: 20px;
+	display: none;
+}
+
+#chat_panel_hide i, #chat_panel_show i {
+	font-size: 30px;
+	color: var(--module-list-hide-show-color);
+	position: relative;
+	left: -9px;
+}
+
+#chat_panel_hide:hover, #chat_panel_show:hover {
+	opacity: 1;
+}
+
+@media only screen and (max-width: 1120px) {
+	#chat_panel, #chat_panel_hide {
+		display: none;
+	}
+	
+	#chat_panel_show {
+		display: block;
+	}
+}

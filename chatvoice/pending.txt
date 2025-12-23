@@ -20,6 +20,8 @@ M2
 
 M3
 - Chat en cada módulo.
+    - Botón claro de chat cuando está oculto, como hacemos con menú de la izquierda.
+    - Poder redimensionar.
 
 
 - Poder filtrar en la lista.
@@ -30,6 +32,9 @@ Principios
 - Impersonalizar los datos, para permitir el uso en empresas sería con configuración simple.
 - El chat tiene que ofrecer datos en lenguage natural, sin necesidad de abrir un módulo.
 - El chat debe permitir abrir y manipular módulos.
+
+Refactorizar
+- ¿Dejar JSPs de Chat en carpeta naviox? Quizás no, porque naviox es de navegación.
 
 Cuestiones
 - ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación?
