@@ -1,6 +1,6 @@
 if (chatEditor == null) var chatEditor = {};
 
-openxava.addEditorInitFunction(function() {
+chatEditor.init = function() {
 	var chatMessages = $('#chatMessages');
 	var chatInput = $('#chatInput');
 	var chatSendBtn = $('#chatSendBtn');
@@ -39,8 +39,14 @@ openxava.addEditorInitFunction(function() {
 	});
 	
 	chatEditor.updateSendButton(chatInput, chatSendBtn);
-	chatInput.focus();
-});
+};
+
+if (typeof openxava !== 'undefined' && openxava.addEditorInitFunction) {
+	openxava.addEditorInitFunction(function() {
+		chatEditor.init();
+		$('#chatInput').focus();
+	});
+}
 
 chatEditor.autoResizeTextarea = function(input) {
 	input.css('height', 'auto');

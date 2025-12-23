@@ -67,6 +67,7 @@ manager.registerAction("SessionLocker.lock");
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/editors/style/chat.css?ox=<%=oxVersion%>">
 	<script type='text/javascript' <xava:nonce/>>
 		if (typeof dwr == 'undefined') dwr = {};
 		if (!dwr.engine) dwr.engine = {};
@@ -106,6 +107,7 @@ manager.registerAction("SessionLocker.lock");
 	<%@include file="indexExt.jsp"%>
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
+	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/editors/js/chat.js?ox=<%=oxVersion%>'></script> 
 	
 	<script <xava:nonce/>> 
 	$(function() {

@@ -56,9 +56,81 @@ Put here your own style
 
 #chat_panel_content {
 	flex: 1;
-	padding: 15px;
+	padding: 0;
 	color: var(--modules-list-color);
-	overflow-y: auto;
+	overflow-y: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+#chat_panel .ox-chat-container {
+	min-height: auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+#chat_panel .ox-chat-header {
+	position: relative;
+	top: auto;
+	height: auto;
+	padding: 10px 15px;
+}
+
+#chat_panel .ox-chat-messages {
+	position: relative;
+	top: auto;
+	bottom: auto;
+	flex: 1;
+	padding: 10px 15px;
+	padding-bottom: 10px;
+}
+
+#chat_panel .ox-chat-center-content {
+	position: relative;
+	top: auto;
+	left: auto;
+	transform: none;
+	max-width: none;
+	padding: 0 15px 15px 15px;
+	flex-shrink: 0;
+}
+
+#chat_panel .ox-chat-center-content.has-messages {
+	position: relative;
+	bottom: auto;
+	transform: none;
+}
+
+#chat_panel .ox-chat-welcome {
+	display: none;
+}
+
+#chat_panel .ox-chat-message {
+	max-width: 100%;
+	padding: 8px 0;
+}
+
+#chat_panel .ox-chat-message.user .ox-chat-message-content {
+	max-width: 90%;
+}
+
+#chat_panel .ox-chat-message-content {
+	font-size: 14px;
+}
+
+#chat_panel .ox-chat-input-container {
+	padding: 0;
+}
+
+#chat_panel .ox-chat-input-wrapper {
+	border-radius: 20px;
+	padding: 8px 12px;
+}
+
+#chat_panel .ox-chat-input {
+	font-size: 14px;
+	line-height: 22px;
 }
 
 #chat_panel_hide, #chat_panel_show {

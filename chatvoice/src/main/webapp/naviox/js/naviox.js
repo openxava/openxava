@@ -257,6 +257,10 @@ naviox.initChatPanel = function() {
 	$('#chat_panel_show').on("click", function() {
 		naviox.showChatPanel();
 	});
+	
+	if (typeof chatEditor !== 'undefined' && chatEditor.init) {
+		chatEditor.init();
+	}
 }
 
 naviox.hideChatPanel = function() {
