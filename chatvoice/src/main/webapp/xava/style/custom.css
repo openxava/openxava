@@ -31,27 +31,12 @@ Put here your own style
 	width: 280px;
 	min-width: 280px;
 	height: 100vh;
-	background: var(--modules-list-background);
+	background: var(--background);
 	display: flex;
 	flex-direction: column;
 	flex-shrink: 0;
-	box-shadow: 0px 0px 4px var(--modules-list-shadow);
+	box-shadow: 0px 0px 4px var(--shadow);
 	z-index: 20;
-}
-
-#chat_panel_header {
-	padding: 15px;
-	font-weight: bold;
-	font-size: 16px;
-	color: var(--modules-list-color);
-	border-bottom: 1px solid var(--modules-list-header-border-bottom);
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-#chat_panel_header i {
-	font-size: 20px;
 }
 
 #chat_panel_content {
@@ -61,6 +46,8 @@ Put here your own style
 	overflow-y: hidden;
 	display: flex;
 	flex-direction: column;
+	background: var(--background);
+	height: 100vh;
 }
 
 #chat_panel .ox-chat-container {
@@ -68,6 +55,7 @@ Put here your own style
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	background: var(--background);
 }
 
 #chat_panel .ox-chat-header {
@@ -82,28 +70,40 @@ Put here your own style
 	top: auto;
 	bottom: auto;
 	flex: 1;
-	padding: 10px 15px;
+	padding: 10px 12px;
 	padding-bottom: 10px;
 }
 
 #chat_panel .ox-chat-center-content {
-	position: relative;
-	top: auto;
-	left: auto;
-	transform: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
 	max-width: none;
-	padding: 0 15px 15px 15px;
-	flex-shrink: 0;
+	padding: 0 12px;
+	box-sizing: border-box;
 }
 
 #chat_panel .ox-chat-center-content.has-messages {
 	position: relative;
-	bottom: auto;
+	top: auto;
+	left: auto;
 	transform: none;
+	padding: 0 12px 12px 12px;
 }
 
 #chat_panel .ox-chat-welcome {
-	display: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	margin-bottom: 16px;
+}
+
+#chat_panel .ox-chat-welcome h2 {
+	font-size: 18px;
+	font-weight: 600;
 }
 
 #chat_panel .ox-chat-message {
@@ -125,7 +125,9 @@ Put here your own style
 
 #chat_panel .ox-chat-input-wrapper {
 	border-radius: 20px;
-	padding: 8px 12px;
+	padding: 8px 10px;
+	border: 1px solid var(--input-border);
+	box-shadow: none;
 }
 
 #chat_panel .ox-chat-input {

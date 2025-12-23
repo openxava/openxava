@@ -20,6 +20,7 @@ M2
 
 M3
 - Chat en cada módulo.
+    - TMR ME QUEDÉ PARA HACER EL PANEL MÁS ANCHO, DEBERÍA SER DE 330
     - Eliminar módulo, anotación, editor, etc.
     - Botón claro de chat cuando está oculto, como hacemos con menú de la izquierda.
     - Poder redimensionar.
