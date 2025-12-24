@@ -20,10 +20,10 @@ M2
 
 M3
 - Chat en cada módulo.
-    - TMR ME QUEDÉ PARA HACER EL PANEL MÁS ANCHO, DEBERÍA SER DE 330
     - Eliminar módulo, anotación, editor, etc.
     - Botón claro de chat cuando está oculto, como hacemos con menú de la izquierda.
-    - Poder redimensionar.
+    - Recordar si se ha ocultado el panel.
+
 
 
 - Poder filtrar en la lista.
@@ -39,7 +39,7 @@ Refactorizar
 - ¿Dejar JSPs y JSs de Chat en carpeta naviox? Quizás no, porque naviox es de navegación.
 
 Cuestiones
-- ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación?
+- ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación? NO
     - No hacerlo haría el código más sencillo. Podría prescindir de la anotación @Chat.
     - Podríamos esperar a que alguien lo pidiera.
     - A lo mejor no hay un uso común práctico y si lo hay ni es como pienso.
@@ -56,6 +56,9 @@ Por resolver
 - Validaciones
 - ¿Cómo confirmar cambio y borrado de datos?
 - Si pido que borre y la lógica de borra no borra de verdad, ¿qué hago?
+
+Diferido
+- Poder redimensionar panel del chat.
 
 Bajo demanda
 - Prueba con tablas inmensas.

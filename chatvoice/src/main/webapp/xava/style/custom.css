@@ -28,8 +28,8 @@ Put here your own style
 	position: sticky;
 	top: 0;
 	vertical-align: top;
-	width: 280px;
-	min-width: 280px;
+	width: 330px;
+	min-width: 330px;
 	height: 100vh;
 	background: var(--background);
 	display: flex;
@@ -147,7 +147,7 @@ Put here your own style
 }
 
 #chat_panel_hide {
-	right: 262px;
+	right: 312px;
 }
 
 #chat_panel_show {
