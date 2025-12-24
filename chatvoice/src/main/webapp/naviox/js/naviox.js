@@ -254,7 +254,7 @@ naviox.initChatPanel = function() {
 	$('#chat_panel_hide').on("click", function() {
 		naviox.hideChatPanel();
 	});
-	$('#chat_panel_show').on("click", function() {
+	$('#chat_panel_show, #module_header_chat_button').on("click", function() {
 		naviox.showChatPanel();
 	});
 	
@@ -265,6 +265,7 @@ naviox.initChatPanel = function() {
 
 naviox.hideChatPanel = function() {
 	$('#chat_panel_hide').hide();
+	$('#module_header_chat_button').show();
 	$('#chat_panel').animate({width:'toggle'}, 200, function() {
 		$('#chat_panel_show').fadeIn();
 		openxava.resetListsSize(naviox.application, naviox.module);
@@ -273,6 +274,7 @@ naviox.hideChatPanel = function() {
 
 naviox.showChatPanel = function() {
 	$('#chat_panel_show').hide();
+	$('#module_header_chat_button').hide();
 	$('#chat_panel').animate({width:'toggle'}, 200, function() {
 		$('#chat_panel_hide').fadeIn();
 		openxava.resetListsSize(naviox.application, naviox.module);

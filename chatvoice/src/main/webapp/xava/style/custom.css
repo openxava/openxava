@@ -168,6 +168,15 @@ Put here your own style
 	opacity: 1;
 }
 
+#module_header_chat_button {
+	display: none;
+	cursor: pointer;
+}
+
+#module_header_chat_button i {
+	font-size: 22px;
+}
+
 @media only screen and (max-width: 1120px) {
 	#chat_panel, #chat_panel_hide {
 		display: none;
