@@ -24,9 +24,5 @@
 		<model name="Dashboard"/>
 		<controller name="InitModelWithNewInstance"/>
 	</module>
-	
-	<module name="Chat">
-		<model name="Chat"/>
-	</module>
-	
+
 </application>

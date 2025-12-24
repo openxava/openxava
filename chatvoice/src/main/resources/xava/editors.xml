@@ -9,10 +9,6 @@ https://www.openxava.org/OpenXavaDoc/docs/customizing_en.html
  
 <editors>
 
-	<editor name="Chat" url="chat.jsp" frame="true">
-		<for-annotation annotation="org.openxava.chatvoice.annotations.Chat"/>
-	</editor>
-
 	<!--  
 	To try YourEditor uncomment the code below 
 	and annotate your property with @Editor("YourEditor")
