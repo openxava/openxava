@@ -19,10 +19,10 @@ M2
 * Verificar rendimiento.
 
 M3
-- Chat en cada módulo.
-    - Probar a fondo.
-        - Consulta por totales. Totales obtenidos de las líneas.
-    - Refactorizar
+* Consulta por totales. Totales obtenidos de las líneas.
+* Chat en cada módulo.
+- Refactorizar
+
 
 - Poder filtrar en la lista.
 - Modificar y borrar, mediante el módulo.
@@ -64,5 +64,4 @@ Diferido
 Bajo demanda
 - Prueba con tablas inmensas.
 - Impersonalizar.
-- Mejorar consultas de totales. ¿Cuál es el producto más vendido?
 - Recordar si se ha ocultado el panel.

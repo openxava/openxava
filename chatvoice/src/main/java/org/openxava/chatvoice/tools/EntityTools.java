@@ -10,6 +10,7 @@ import org.openxava.tab.Tab;
 import org.openxava.tab.impl.IXTableModel;
 import org.openxava.application.meta.MetaModule;
 import org.openxava.component.MetaComponent;
+import org.openxava.model.meta.MetaCollection;
 import com.openxava.naviox.Modules;
 
 import dev.langchain4j.agent.tool.P;
@@ -117,6 +118,40 @@ public class EntityTools {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
+			throw ex;
+		}
+	}
+	
+	/**
+	 * Returns the list of collections for an entity with their properties.
+	 * Use this to know which collections an entity has and what properties each collection contains.
+	 * Collections cannot be used in conditions, only to understand the entity structure.
+	 * 
+	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
+	 * @return A map where keys are collection names and values are lists of property names in each collection
+	 */
+	@Tool("Get the collections of an entity with their properties. Use this to understand the entity structure and know what related data exists. IMPORTANT: Collections CANNOT be used in conditions for findEntitiesByCondition, they are only for understanding the data model. To get collection data use getEntityDetails with the hiddenKey of a specific record.")
+	public Map<String, List<String>> getEntityCollections(
+			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
+		long startTime = System.currentTimeMillis();
+		System.out.println("[TOOL] getEntityCollections(entity=" + entity + ") called");
+		try {
+			View view = getView(entity);
+			Map<String, List<String>> collections = new LinkedHashMap<>();
+			for (MetaCollection metaCollection : view.getMetaModel().getMetaCollections()) {
+				String collectionName = metaCollection.getName();
+				List<String> collectionProperties = new ArrayList<>();
+				for (org.openxava.model.meta.MetaProperty p : metaCollection.getMetaReference().getMetaModelReferenced().getMetaProperties()) {
+					collectionProperties.add(p.getName());
+				}
+				collections.put(collectionName, collectionProperties);
+			}
+			System.out.println("[TOOL] getEntityCollections(entity=" + entity + ") returning: " + collections);
+			System.out.println("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return collections;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
