@@ -25,18 +25,21 @@ Put here your own style
 
 /* Chat Panel - Right side collapsible panel */
 #chat_panel {
-	position: sticky;
+	position: fixed;
 	top: 0;
-	vertical-align: top;
+	right: 0;
 	width: 330px;
-	min-width: 330px;
 	height: 100vh;
 	background: var(--background);
 	display: flex;
 	flex-direction: column;
-	flex-shrink: 0;
 	box-shadow: 0px 0px 4px var(--shadow);
 	z-index: 20;
+}
+
+/* Reserve space for the fixed chat panel */
+.module-wrapper {
+	margin-right: 330px;
 }
 
 #chat_panel_content {
@@ -189,5 +192,8 @@ Put here your own style
 	#module_header_chat_button {
 		display: inline;
 	}
-
+	
+	.module-wrapper {
+		margin-right: 0;
+	}
 }
