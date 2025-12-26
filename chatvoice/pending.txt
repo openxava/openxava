@@ -6,7 +6,7 @@ M1
 * Filtro en el módulo por el usuario no afectan a los resultado del chat.
 * Propiedad no visualizada en el tab son reconocidas.
 * Reconocer datos nuevos, modificados o eliminados.
-* Deberiamos excluir los módulos transitorios de la lista de entidades.
+* Deberíamos excluir los módulos transitorios de la lista de entidades.
 * Estética del chat profesional.
 * Markdown.
 * Que recuerde conversación.
@@ -20,11 +20,8 @@ M2
 
 M3
 - Chat en cada módulo.
-    - Recordar si se ha ocultado el panel.
     - Probar a fondo.
-        - Fallo al consultar por "Juanito"
-        - Que pasa cuando se cambia de módulo.
-        - Consulta por totales. Totales obtenidos de la líneas.
+        - Consulta por totales. Totales obtenidos de las líneas.
     - Refactorizar
 
 - Poder filtrar en la lista.
@@ -62,8 +59,10 @@ Por resolver
 
 Diferido
 - Poder redimensionar panel del chat.
+- Mostrar la respuesta a medida que se genere, para mejorar la sensación de tiempo de respuesta.
 
 Bajo demanda
 - Prueba con tablas inmensas.
 - Impersonalizar.
 - Mejorar consultas de totales. ¿Cuál es el producto más vendido?
+- Recordar si se ha ocultado el panel.

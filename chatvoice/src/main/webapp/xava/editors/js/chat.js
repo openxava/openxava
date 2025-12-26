@@ -1,5 +1,7 @@
 if (chatEditor == null) var chatEditor = {};
 
+chatEditor.STORAGE_KEY = 'oxChatMessages';
+
 chatEditor.init = function() {
 	var chatMessages = $('#chatMessages');
 	var chatInput = $('#chatInput');
@@ -9,6 +11,8 @@ chatEditor.init = function() {
 	if (chatMessages.length === 0 || chatInput.length === 0 || chatSendBtn.length === 0) {
 		return;
 	}
+	
+	chatEditor.restoreMessages(chatMessages);
 	
 	chatInput.off('input keyup').on('input keyup', function() {
 		chatEditor.autoResizeTextarea(chatInput);
@@ -102,12 +106,48 @@ chatEditor.scrollToBottom = function(container) {
 	container.scrollTop(container[0].scrollHeight);
 };
 
+chatEditor.saveMessages = function() {
+	var messages = [];
+	$('#chatMessages .ox-chat-message').each(function() {
+		var $msg = $(this);
+		var isUser = $msg.hasClass('user');
+		var content = $msg.find('.ox-chat-message-content').html();
+		messages.push({ isUser: isUser, content: content });
+	});
+	sessionStorage.setItem(chatEditor.STORAGE_KEY, JSON.stringify(messages));
+};
+
+chatEditor.restoreMessages = function(container) {
+	var stored = sessionStorage.getItem(chatEditor.STORAGE_KEY);
+	if (!stored) return;
+	
+	try {
+		var messages = JSON.parse(stored);
+		if (messages.length === 0) return;
+		
+		chatEditor.hideWelcome(container);
+		$('.ox-chat-center-content').addClass('has-messages');
+		
+		messages.forEach(function(msg) {
+			var messageDiv = $('<div>').addClass('ox-chat-message').addClass(msg.isUser ? 'user' : 'assistant');
+			var content = $('<div>').addClass('ox-chat-message-content').html(msg.content);
+			messageDiv.append(content);
+			container.append(messageDiv);
+		});
+		
+		chatEditor.scrollToBottom(container);
+	} catch (e) {
+		console.error('Error restoring chat messages:', e);
+	}
+};
+
 chatEditor.sendMessage = function(container, input, button, text) {
 	chatEditor.hideWelcome(container);
 	$('.ox-chat-center-content').addClass('has-messages');
 	
 	var userMessage = chatEditor.createMessage(text, true);
 	container.append(userMessage);
+	chatEditor.saveMessages();
 	
 	input.val('');
 	input.css('height', 'auto');
@@ -140,6 +180,7 @@ chatEditor.getWebSocket = function() {
 			var assistantMessage = chatEditor.createMessage(event.data, false);
 			$('#chatMessages').append(assistantMessage);
 			chatEditor.scrollToBottom($('#chatMessages'));
+			chatEditor.saveMessages();
 		};
 		
 		chatEditor.ws.onerror = function(error) {
@@ -173,6 +214,9 @@ chatEditor.sendViaWebSocket = function(message) {
 chatEditor.newConversation = function(container, input) {
 	// Limpiar todos los mensajes del UI
 	container.empty();
+	
+	// Limpiar mensajes guardados
+	sessionStorage.removeItem(chatEditor.STORAGE_KEY);
 	
 	// Mostrar el mensaje de bienvenida y ocultar el header
 	chatEditor.showWelcome();
