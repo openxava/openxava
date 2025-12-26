@@ -185,4 +185,9 @@ Put here your own style
 	#chat_panel_show {
 		display: block;
 	}
+
+	#module_header_chat_button {
+		display: inline;
+	}
+
 }
