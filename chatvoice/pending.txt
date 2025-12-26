@@ -20,11 +20,6 @@ M2
 
 M3
 - Chat en cada módulo.
-    - Botón claro de chat cuando está oculto, como hacemos con menú de la izquierda.
-        - TMR ME QUEDÉ POR AQUÍ. BOTÓN RECIÉN AÑADIDO, PERO:
-            - NO SALE LA PRIMERA VEZ.
-            - NO SALE A LA DERECHA DEL TODO.
-            - LE FALTA TOOLTIP.
     - Recordar si se ha ocultado el panel.
     - Probar a fondo.
         - Fallo al consultar por "Juanito"
