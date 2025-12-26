@@ -21,12 +21,12 @@ M2
 M3
 * Consulta por totales. Totales obtenidos de las líneas.
 * Chat en cada módulo.
-- Refactorizar
 
 
 - Poder filtrar en la lista.
 - Modificar y borrar, mediante el módulo.
 - Pruebas JUnit
+- Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.
 
 Principios
