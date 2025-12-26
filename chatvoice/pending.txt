@@ -21,6 +21,7 @@ M2
 M3
 * Consulta por totales. Totales obtenidos de las líneas.
 * Chat en cada módulo.
+- TMR ME QUEDÉ POR ESTO: BUG: Al cambiar de módulo triplica el mensaje, al menos en openxava.org.
 
 
 - Poder filtrar en la lista.
