@@ -276,9 +276,9 @@ naviox.hideChatPanel = function() {
 naviox.showChatPanel = function() {
 	$('#chat_panel_show').hide();
 	$('#module_header_chat_button').hide();
+	$('.module-wrapper').css('margin-right', '330px');
 	$('#chat_panel').animate({width:'toggle'}, 200, function() {
 		$('#chat_panel_hide').fadeIn();
-		$('.module-wrapper').css('margin-right', '330px');
 		openxava.resetListsSize(naviox.application, naviox.module);
 	});
 }

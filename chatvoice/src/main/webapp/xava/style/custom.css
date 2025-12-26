@@ -40,6 +40,7 @@ Put here your own style
 /* Reserve space for the fixed chat panel */
 .module-wrapper {
 	margin-right: 330px;
+	transition: margin-right 0.2s ease;
 }
 
 #chat_panel_content {
@@ -180,7 +181,7 @@ Put here your own style
 	font-size: 22px;
 }
 
-@media only screen and (max-width: 1120px) {
+@media only screen and (max-width: 1700px) {
 	#chat_panel, #chat_panel_hide {
 		display: none;
 	}
