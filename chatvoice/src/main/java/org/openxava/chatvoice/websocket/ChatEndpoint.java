@@ -67,8 +67,8 @@ public class ChatEndpoint {
 				return;
 			}
 			
-			// Obtener o crear el asistente para esta sesión
-			String sessionId = session.getId();
+			// Obtener o crear el asistente para esta sesión HTTP (persiste entre cambios de módulo)
+			String sessionId = httpSession.getId();
 			Assistant assistant = assistants.get(sessionId);
 			
 			if (assistant == null) {
@@ -132,12 +132,9 @@ public class ChatEndpoint {
 	
 	@OnClose
 	public void onClose(Session session) {
-		String sessionId = session.getId();
 		sessions.remove(session);
-		// Limpiar memoria y asistente de esta sesión
-		chatMemories.remove(sessionId);
-		assistants.remove(sessionId);
-		log.info("WebSocket closed: " + sessionId);
+		// No limpiar memoria ni asistente para mantener contexto entre cambios de módulo
+		log.info("WebSocket closed: " + session.getId());
 	}
 	
 	@OnError
