@@ -21,11 +21,15 @@ M2
 M3
 * Consulta por totales. Totales obtenidos de las líneas.
 * Chat en cada módulo.
-- TMR ME QUEDÉ POR ESTO: BUG: Al cambiar de módulo triplica el mensaje, al menos en openxava.org.
 
+M4
+- Modificar.
 
+M5
 - Poder filtrar en la lista.
-- Modificar y borrar, mediante el módulo.
+
+
+
 - Pruebas JUnit
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.
@@ -40,14 +44,18 @@ Refactorizar
 - ¿Dejar código de chat en editors? Quizás no, porque ya no es un editor.
 
 Cuestiones
-- ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación? NO
+* ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación? NO
     - No hacerlo haría el código más sencillo. Podría prescindir de la anotación @Chat.
     - Podríamos esperar a que alguien lo pidiera.
     - A lo mejor no hay un uso común práctico y si lo hay ni es como pienso.
     - Quizás pidan implementar la lógica del chat que vamos a poner, en lugar de ponerlo como un formulario.
     - Una propiedad con un chat puede ser raro, pero un módulo con chat no tanto, y quizas @Chat en una entidades  
         es más natural que un JSP en application.xml que tienes que saber donde está.
-- ¿Presentarlo como Chat o como Agente?        
+- ¿Presentarlo como Chat o como Agente?
+- ¿Poder ejecutar cada acción disponible por el usuario?
+    - El usuario ya las tiene disponible fácilmente, sería redundante.
+    - Menos rendimiento que usar una tool.
+    - Toda la funcionalidad de la aplicación con lenguaje natural y respetando permisos.
 
 Para XavaPro
 - No poder acceder a datos de módulos no disponibles.
@@ -61,6 +69,10 @@ Por resolver
 Diferido
 - Poder redimensionar panel del chat.
 - Mostrar la respuesta a medida que se genere, para mejorar la sensación de tiempo de respuesta.
+- Crear nuevos registros.
+- Borrar registros existentes.
+- Generar gráficos. ¿En el chat o modificando un dashboard?
+- Tools personalizadas. Reconocidas por XavaPro para autorizarlas con roles.
 
 Bajo demanda
 - Prueba con tablas inmensas.
