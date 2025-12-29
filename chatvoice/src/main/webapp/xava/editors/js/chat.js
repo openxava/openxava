@@ -125,6 +125,8 @@ chatEditor.restoreMessages = function(container) {
 		var messages = JSON.parse(stored);
 		if (messages.length === 0) return;
 		
+		container.empty();
+		
 		chatEditor.hideWelcome(container);
 		$('.ox-chat-center-content').addClass('has-messages');
 		
