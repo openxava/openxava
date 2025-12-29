@@ -22,6 +22,7 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.openxava.chatvoice.tools.EntityTools;
 import org.openxava.controller.ModuleContext;
+import org.openxava.jpa.XPersistence;
 import org.openxava.util.Is;
 
 import dev.langchain4j.memory.ChatMemory;
@@ -126,6 +127,7 @@ public class ChatEndpoint {
 				log.error("Error sending error message", ioe);
 			}
 		} finally {
+			XPersistence.commit();
 			log.info("onMessage() took " + (System.currentTimeMillis() - startTime) + " ms");
 		}
 	}

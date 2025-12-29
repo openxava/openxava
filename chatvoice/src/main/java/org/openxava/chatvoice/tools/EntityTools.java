@@ -276,6 +276,48 @@ public class EntityTools {
 	}
 	
 	/**
+	 * Updates one or more fields of an entity.
+	 * The key can be obtained from the hiddenKey field returned by findEntities methods.
+	 * 
+	 * @param entity The entity name (e.g., "Customer", "Invoice", "Product")
+	 * @param key The entity key as a Map (obtained from hiddenKey)
+	 * @param values A map with the field names and their new values
+	 * @return A confirmation message or error description
+	 */
+	@Tool("Update one or more fields of an entity. Use this to modify data like changing a customer name, invoice date, or any other field. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. The values parameter is a map where keys are property names and values are the new values to set.")
+	public String updateEntity(
+			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
+			@P("The entity key obtained from hiddenKey field") Map<String, Object> key,
+			@P("Map of property names to new values, e.g. {name: 'New Name', email: 'new@email.com'}") Map<String, Object> values) {
+		long startTime = System.currentTimeMillis();
+		System.out.println("[TOOL] updateEntity(entity=" + entity + ", key=" + key + ", values=" + values + ") called");
+		try {
+			if (key == null || key.isEmpty()) {
+				return "ERROR: Key cannot be null or empty. Use hiddenKey from findFirst600Entities or findEntitiesByCondition.";
+			}
+			if (values == null || values.isEmpty()) {
+				return "ERROR: Values cannot be null or empty. Specify at least one field to update.";
+			}
+			
+			View view = getView(entity);
+			String modelName = view.getModelName();
+			
+			MapFacade.setValues(modelName, key, values);
+			
+			String result = "Successfully updated " + values.size() + " field(s) in " + entity + ": " + values.keySet();
+			System.out.println("[TOOL] updateEntity() returning: " + result);
+			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			String errorMessage = "ERROR updating " + entity + ": " + ex.getMessage();
+			System.out.println("[TOOL] updateEntity() returning: " + errorMessage);
+			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return errorMessage;
+		}
+	}
+	
+	/**
 	 * Gets a Tab from the private map and creates it if it doesn't exist.
 	 * 
 	 * @param entity The entity name
