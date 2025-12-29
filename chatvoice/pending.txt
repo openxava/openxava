@@ -23,9 +23,14 @@ M3
 * Chat en cada módulo.
 
 M4
-- Modificar.
+* Arreglo: No se cerraban las conexiones bloqueando la aplicación.
+* Modificar.
 
 M5
+- Refrescar lista o detalle después de modificar datos.
+- Solo poder modificar datos editables en modo detalle.
+
+M6
 - Poder filtrar en la lista.
 
 
