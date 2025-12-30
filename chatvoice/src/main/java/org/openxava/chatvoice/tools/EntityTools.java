@@ -1,6 +1,7 @@
 package org.openxava.chatvoice.tools;
 
 import java.util.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
@@ -11,6 +12,8 @@ import org.openxava.tab.impl.IXTableModel;
 import org.openxava.application.meta.MetaModule;
 import org.openxava.component.MetaComponent;
 import org.openxava.model.meta.MetaCollection;
+import org.openxava.model.meta.MetaModel;
+import org.openxava.model.meta.MetaProperty;
 import com.openxava.naviox.Modules;
 
 import dev.langchain4j.agent.tool.P;
@@ -301,8 +304,31 @@ public class EntityTools {
 			
 			View view = getView(entity);
 			String modelName = view.getModelName();
+			MetaModel metaModel = MetaModel.get(modelName);
 			
-			MapFacade.setValues(modelName, key, values);
+			// Convert String values to the correct type using MetaProperty.parse()
+			Map<String, Object> convertedValues = new HashMap<>();
+			for (Map.Entry<String, Object> entry : values.entrySet()) {
+				String propertyName = entry.getKey();
+				Object value = entry.getValue();
+				
+				if (value instanceof String) {
+					try {
+						MetaProperty metaProperty = metaModel.getMetaProperty(propertyName);
+						value = parseValue(metaProperty, (String) value);
+					} catch (Exception ex) {
+						// If parsing fails, keep the original value
+						System.out.println("[TOOL] updateEntity() - Could not parse property " + propertyName + ": " + ex.getMessage());
+					}
+				}
+				
+				System.out.println("[TOOL] updateEntity() - Key: " + propertyName + 
+					", Value: " + value + 
+					", Class: " + (value != null ? value.getClass() : "null"));
+				convertedValues.put(propertyName, value);
+			}
+			
+			MapFacade.setValues(modelName, key, convertedValues);
 			
 			String result = "Successfully updated " + values.size() + " field(s) in " + entity + ": " + values.keySet();
 			System.out.println("[TOOL] updateEntity() returning: " + result);
@@ -366,6 +392,27 @@ public class EntityTools {
 			views.put(module, view);
 		}
 		return view;
+	}
+	
+	/**
+	 * Parses a String value to the correct type for the property.
+	 * Handles ISO date format (yyyy-MM-dd) as fallback for dates since LLMs typically use this format.
+	 */
+	private Object parseValue(MetaProperty metaProperty, String value) throws Exception {
+		try {
+			return metaProperty.parse(value);
+		} catch (Exception ex) {
+			// If standard parsing fails, try ISO format for date types
+			Class<?> type = metaProperty.getType();
+			if (java.time.LocalDate.class.isAssignableFrom(type)) {
+				return java.time.LocalDate.parse(value); // ISO format yyyy-MM-dd
+			}
+			if (java.util.Date.class.isAssignableFrom(type)) {
+				java.time.LocalDate localDate = java.time.LocalDate.parse(value);
+				return java.sql.Date.valueOf(localDate);
+			}
+			throw ex;
+		}
 	}
 	
 }
