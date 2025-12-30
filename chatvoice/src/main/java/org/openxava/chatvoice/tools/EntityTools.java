@@ -35,6 +35,7 @@ public class EntityTools {
 	private String application;
 	private Map<String, Tab> tabs = new HashMap<>();
 	private Map<String, View> views = new HashMap<>();
+	private boolean refreshListNeeded = false;
 	
 	/**
 	 * Constructor that receives the ModuleContext, HttpSession and application name.
@@ -330,6 +331,9 @@ public class EntityTools {
 			
 			MapFacade.setValues(modelName, key, convertedValues);
 			
+			// Mark that list needs refresh
+			refreshListNeeded = true;
+			
 			String result = "Successfully updated " + values.size() + " field(s) in " + entity + ": " + values.keySet();
 			System.out.println("[TOOL] updateEntity() returning: " + result);
 			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -413,6 +417,15 @@ public class EntityTools {
 			}
 			throw ex;
 		}
+	}
+	
+	/**
+	 * Returns true if a list refresh is needed (after an update) and resets the flag.
+	 */
+	public boolean consumeRefreshListNeeded() {
+		boolean result = refreshListNeeded;
+		refreshListNeeded = false;
+		return result;
 	}
 	
 }

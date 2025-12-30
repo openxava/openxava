@@ -46,6 +46,7 @@ public class ChatEndpoint {
 	private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<>());
 	private static Map<String, ChatMemory> chatMemories = Collections.synchronizedMap(new HashMap<>());
 	private static Map<String, Assistant> assistants = Collections.synchronizedMap(new HashMap<>());
+	private static Map<String, EntityTools> entityToolsMap = Collections.synchronizedMap(new HashMap<>());
 	private HttpSession httpSession;
 	private static final Parser markdownParser = Parser.builder().build();
 	private static final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
@@ -99,10 +100,12 @@ public class ChatEndpoint {
 				
 				// Crear asistente con tools genéricos y memoria
 				ModuleContext context = new ModuleContext();
+				EntityTools entityTools = new EntityTools(context, httpSession, "chatvoice");
+				entityToolsMap.put(sessionId, entityTools);
 				assistant = AiServices.builder(Assistant.class)
 					.chatModel(model)
 					.chatMemory(chatMemory)
-					.tools(new EntityTools(context, httpSession, "chatvoice"))
+					.tools(entityTools)
 					.build();
 				
 				assistants.put(sessionId, assistant);
@@ -116,6 +119,12 @@ public class ChatEndpoint {
 			
 			// Send response back to client
 			session.getBasicRemote().sendText(htmlResponse);
+			
+			// Check if list refresh is needed after update
+			EntityTools entityTools = entityToolsMap.get(sessionId);
+			if (entityTools != null && entityTools.consumeRefreshListNeeded()) {
+				session.getBasicRemote().sendText("__REFRESH_LIST__");
+			}
 			
 		} catch (IOException e) {
 			log.error("Error sending message", e);

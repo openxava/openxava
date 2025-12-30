@@ -177,6 +177,12 @@ chatEditor.getWebSocket = function() {
 		};
 		
 		chatEditor.ws.onmessage = function(event) {
+			// Check for special refresh command
+			if (event.data === '__REFRESH_LIST__') {
+				openxava.executeAction(openxava.lastApplication, openxava.lastModule, '', false, 'List.filter');
+				return;
+			}
+			
 			$('#typingIndicator').remove();
 			
 			var assistantMessage = chatEditor.createMessage(event.data, false);

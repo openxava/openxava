@@ -29,6 +29,10 @@ M4
 M5
 * Se pueden actualizar fechas y número.
 - Refrescar lista o detalle después de modificar datos.
+    * Actualiza la lista.
+    - TMR ME QUEDÉ POR AQUÍ
+    - Actualizar el detalle.
+    - ¿Actualizar solo si se modifica el registro actual?
 - Solo poder modificar datos editables en modo detalle.
 
 M6
