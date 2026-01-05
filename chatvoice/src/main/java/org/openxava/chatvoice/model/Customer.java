@@ -7,7 +7,8 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-@View(members="data [ number; name; photo; address; city; country ], location")
+// tmr @View(members="data [ number; name; photo; address; city; country ], location")
+@View(members="data [ number; name; photo; address; city ], location") // Quitamos country
 @View(name="Simple", members="number, name") 
 @Tab(properties="number, name, photo") 
 public class Customer {
@@ -25,6 +26,7 @@ public class Customer {
 	@Column(length=40) 
 	String address; 	
 
+	@ReadOnly // tmr
 	@Column(length=40)
 	String city; 
 	
