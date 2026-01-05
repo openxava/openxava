@@ -465,4 +465,50 @@ public class EntityTools {
 		return result;
 	}
 	
+	private void setupWindowId() {
+		context.cleanCurrentWindowId();
+	}
+	
+	/**
+	 * Returns information about the entity currently being displayed in detail mode.
+	 * This allows the LLM to know which record the user is viewing/editing,
+	 * so the user can say things like "change the address of the current record".
+	 * 
+	 * @return A map with "entity" (module name) and "key" (the entity key), or null if not in detail mode
+	 */
+	@Tool("Get the entity currently being displayed or edited in detail mode. Use this when the user refers to 'current record', 'this record', or similar. Returns the entity name and key that can be used with getEntityDetails or updateEntity. Returns null if the user is not viewing a specific record in detail mode.")
+	public Map<String, Object> getCurrentDisplayedEntity() {
+		long startTime = System.currentTimeMillis();
+		System.out.println("[TOOL] getCurrentDisplayedEntity() called");
+		try {
+			setupWindowId();
+			
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) return null;
+			
+			String currentModuleName = modules.getCurrentModuleName();
+			if (currentModuleName == null) return null;
+			
+			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
+			if (!manager.isDetailMode()) return null;
+			
+			View view = (View) context.get(application, currentModuleName, "xava_view");
+			if (view == null) return null;
+			
+			Map<String, Object> keyValues = view.getKeyValues();
+			if (keyValues == null || keyValues.isEmpty()) return null;
+			
+			Map<String, Object> result = new HashMap<>();
+			result.put("entity", currentModuleName);
+			result.put("key", keyValues);
+			System.out.println("[TOOL] getCurrentDisplayedEntity() returning: " + result);
+			System.out.println("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return null;
+		}
+	}
+	
 }

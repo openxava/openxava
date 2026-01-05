@@ -236,8 +236,9 @@ chatEditor.newConversation = function(container, input) {
 	input.css('height', 'auto');
 	input.focus();
 	
-	// Cerrar el WebSocket actual para forzar nueva sesión con memoria limpia
+	// Enviar comando para limpiar memoria en el servidor y cerrar WebSocket
 	if (chatEditor.ws && chatEditor.ws.readyState === WebSocket.OPEN) {
+		chatEditor.ws.send('__NEW_CONVERSATION__');
 		chatEditor.ws.close();
 		chatEditor.ws = null;
 	}

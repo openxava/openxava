@@ -59,17 +59,28 @@ public class ChatEndpoint {
 	}
 	
 	@OnMessage
-	public void onMessage(String message, Session session) {
+	public void onMessage(String rawMessage, Session session) {
 		long startTime = System.currentTimeMillis();
 		try {
-			log.info("Received message: " + message);
+			log.info("Received message: " + rawMessage);
 			
-			if (Is.emptyString(message)) {
+			if (Is.emptyString(rawMessage)) {
 				session.getBasicRemote().sendText("Error: Message is required");
 				return;
 			}
 			
+			// Manejar comando de nueva conversación
+			if ("__NEW_CONVERSATION__".equals(rawMessage)) {
+				String sessionId = httpSession.getId();
+				chatMemories.remove(sessionId);
+				assistants.remove(sessionId);
+				entityToolsMap.remove(sessionId);
+				log.info("Chat memory cleared for session: " + sessionId);
+				return;
+			}
+			
 			// Obtener o crear el asistente para esta sesión HTTP (persiste entre cambios de módulo)
+			String message = rawMessage;
 			String sessionId = httpSession.getId();
 			Assistant assistant = assistants.get(sessionId);
 			
@@ -99,8 +110,13 @@ public class ChatEndpoint {
 				chatMemories.put(sessionId, chatMemory);
 				
 				// Crear asistente con tools genéricos y memoria
-				ModuleContext context = new ModuleContext();
-				EntityTools entityTools = new EntityTools(context, httpSession, "chatvoice");
+				// Obtener el ModuleContext existente de la sesión (no crear uno nuevo)
+				ModuleContext moduleContext = (ModuleContext) httpSession.getAttribute("context");
+				if (moduleContext == null) {
+					moduleContext = new ModuleContext();
+					httpSession.setAttribute("context", moduleContext);
+				}
+				EntityTools entityTools = new EntityTools(moduleContext, httpSession, "chatvoice");
 				entityToolsMap.put(sessionId, entityTools);
 				assistant = AiServices.builder(Assistant.class)
 					.chatModel(model)

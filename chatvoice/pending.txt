@@ -30,7 +30,8 @@ M5
 * Se pueden actualizar fechas y número.
 * Refrescar lista o detalle después de modificar datos.
 * Solo poder modificar datos editables en modo detalle.
-- Reconocer el registro actual.
+* Reconocer el registro actual.
+* Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
 
 M6
 - Poder filtrar en la lista.
