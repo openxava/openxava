@@ -307,9 +307,43 @@ public class EntityTools {
 			String modelName = view.getModelName();
 			MetaModel metaModel = MetaModel.get(modelName);
 			
+			// Filter out fields that are not editable or not present in the view
+			Map<String, Object> editableValues = new HashMap<>();
+			List<String> skippedFields = new ArrayList<>();
+			Map<String, Object> membersInView = view.getMembersNames();
+			
+			for (Map.Entry<String, Object> entry : values.entrySet()) {
+				String propertyName = entry.getKey();
+				
+				// Check if property is in the view
+				if (!membersInView.containsKey(propertyName)) {
+					skippedFields.add(propertyName + " (not in view)");
+					System.out.println("[TOOL] updateEntity() - Skipping " + propertyName + ": not present in view");
+					continue;
+				}
+				
+				// Check if property is editable
+				if (!view.isEditable(propertyName)) {
+					skippedFields.add(propertyName + " (read-only)");
+					System.out.println("[TOOL] updateEntity() - Skipping " + propertyName + ": read-only field");
+					continue;
+				}
+				
+				editableValues.put(propertyName, entry.getValue());
+			}
+			
+			if (editableValues.isEmpty()) {
+				String message = "ERROR: No editable fields to update.";
+				if (!skippedFields.isEmpty()) {
+					message += " Skipped fields: " + skippedFields;
+				}
+				System.out.println("[TOOL] updateEntity() returning: " + message);
+				return message;
+			}
+			
 			// Convert String values to the correct type using MetaProperty.parse()
 			Map<String, Object> convertedValues = new HashMap<>();
-			for (Map.Entry<String, Object> entry : values.entrySet()) {
+			for (Map.Entry<String, Object> entry : editableValues.entrySet()) {
 				String propertyName = entry.getKey();
 				Object value = entry.getValue();
 				
@@ -334,7 +368,10 @@ public class EntityTools {
 			// Mark that UI needs refresh
 			refreshUINeeded = true;
 			
-			String result = "Successfully updated " + values.size() + " field(s) in " + entity + ": " + values.keySet();
+			String result = "Successfully updated " + editableValues.size() + " field(s) in " + entity + ": " + editableValues.keySet();
+			if (!skippedFields.isEmpty()) {
+				result += ". Skipped fields: " + skippedFields;
+			}
 			System.out.println("[TOOL] updateEntity() returning: " + result);
 			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
