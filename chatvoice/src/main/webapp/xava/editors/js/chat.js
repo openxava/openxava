@@ -177,9 +177,10 @@ chatEditor.getWebSocket = function() {
 		};
 		
 		chatEditor.ws.onmessage = function(event) {
-			// Check for special refresh command
-			if (event.data === '__REFRESH_LIST__') {
-				openxava.executeAction(openxava.lastApplication, openxava.lastModule, '', false, 'List.filter');
+			// Check for special refresh UI command
+			if (event.data === '__REFRESH_UI__') {
+				var action = openxava.isListMode() ? 'List.filter' : 'CRUD.refresh';
+				openxava.executeAction(openxava.lastApplication, openxava.lastModule, '', false, action);
 				return;
 			}
 			

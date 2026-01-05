@@ -120,10 +120,10 @@ public class ChatEndpoint {
 			// Send response back to client
 			session.getBasicRemote().sendText(htmlResponse);
 			
-			// Check if list refresh is needed after update
+			// Check if UI refresh is needed after update
 			EntityTools entityTools = entityToolsMap.get(sessionId);
-			if (entityTools != null && entityTools.consumeRefreshListNeeded()) {
-				session.getBasicRemote().sendText("__REFRESH_LIST__");
+			if (entityTools != null && entityTools.consumeRefreshUINeeded()) {
+				session.getBasicRemote().sendText("__REFRESH_UI__");
 			}
 			
 		} catch (IOException e) {
