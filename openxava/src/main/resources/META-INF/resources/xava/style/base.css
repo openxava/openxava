@@ -755,7 +755,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 }
 
 .flatpickr-calendar.open{
-	z-index:2147483699;
+	z-index: 2147483699 !important;
 }
 
 .ie .ox-date-calendar input {
