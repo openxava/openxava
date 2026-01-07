@@ -118,6 +118,16 @@ public class ResourceManagerI18n {
 		return getString(locale, key, new Object [] { argv0, argv1, argv2 });
 	}
 	
+	/** @since 7.6.4 */
+	public String getString(Locale locale, String key, Object argv0, Object argv1, Object argv2, Object argv3) {		
+		return getString(locale, key, new Object [] { argv0, argv1, argv2, argv3 });
+	}	
+	
+	/** @since 7.6.4 */
+	public String getString(Locale locale, String key, Object argv0, Object argv1, Object argv2, Object argv3, Object argv4) {		
+		return getString(locale, key, new Object [] { argv0, argv1, argv2, argv3, argv4 });
+	}		
+	
 	public String getString(Locale locale, String key, Object [] argv) {		
 		MessageFormat formateador = new MessageFormat("");
 		formateador.setLocale(locale);

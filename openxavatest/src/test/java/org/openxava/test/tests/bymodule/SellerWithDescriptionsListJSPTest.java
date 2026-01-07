@@ -22,7 +22,7 @@ public class SellerWithDescriptionsListJSPTest extends ModuleTestBase {
 			{ "b", "SEMI SENIOR" },
 			{ "B", "SENIOR" }
 		};			
-		assertValue("level.id", "A");
+		assertValue("level.id", "A"); // TMR FALLA
 		assertValidValues("level.id", levelValues);
 		
 		execute("Mode.list");

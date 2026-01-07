@@ -25,7 +25,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 	public void testConsecutiveCreationWithKeyInsideGroupAndSeveralGroups_saveRefreshAfterLoadDBCreatedValues() throws Exception { 
 		Integer customerNumber = getMaxCustomerNumber() + 1;
 		for (int index = 0; index < 3; index++) {
-			createCustomer(customerNumber + index); 
+			createCustomer(customerNumber + index); // TMR FALLA ME QUEDÉ POR AQUÍ. QUEDAN MUCHOS FALLA.
 		}
 		deleteCustomers(); 
 	}

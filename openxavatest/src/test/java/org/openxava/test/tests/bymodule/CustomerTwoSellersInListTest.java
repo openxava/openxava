@@ -1,8 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
-import org.openxava.tests.*;
-
 import org.htmlunit.html.*;
+import org.openxava.tests.*;
 
 /**
  * @author Javier Paniza
@@ -16,7 +15,7 @@ public class CustomerTwoSellersInListTest extends ModuleTestBase {
 	}
 	
 	public void test2ReferenceToSameModelInList_goingToURLofWEBURL() throws Exception { 
-		assertListRowCount(5); 
+		assertListRowCount(5); // TMR FALLA
 		assertValueInList(0, "name", "Javi");
 		assertValueInList(0, "seller.name", "MANUEL CHAVARRI");
 		assertValueInList(0, "seller.level.description", "MANAGER");

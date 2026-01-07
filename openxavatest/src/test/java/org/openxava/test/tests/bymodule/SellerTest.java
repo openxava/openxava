@@ -126,7 +126,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("Collection.removeSelected", "row=0,viewObject=xava_view_customers");
 		assertCollectionRowCount("customers", 0);
 		
-		assertCreateElementInEntityCollection(); 
+		assertCreateElementInEntityCollection(); // TMR FALLA
 		
 		assertEmailNotifications(  
 			"CREATED: email=openxavatest1@getnada.com, user=openxavatest2@getnada.com, application=OpenXavaTest, module=Sellers, permalink=http://localhost:8080" + getContextPath() + "modules/Seller?detail=66",
@@ -421,7 +421,7 @@ public class SellerTest extends CustomizeListTestBase {
 		execute("List.viewDetail", "row=2");
 		assertValue("name", "ELISEO FERNANDEZ");
 		assertCollectionRowCount("customers", 0); 
-		assertCreateElementInEntityCollection(); 		
+		assertCreateElementInEntityCollection(); // TMR FALLA		
 		assertEditElementInEntityCollection();
 		assertRemoveElementInEntityCollection();
 		deleteJUnitCustomer();
@@ -710,7 +710,7 @@ public class SellerTest extends CustomizeListTestBase {
 
 	public void testEntityReferenceCollections() throws Exception { 		
 		createCustomers(); 
-		createSeller66(); 
+		createSeller66(); // TMR FALLA
 		createSeller67();
 		verifySeller66();
 		deleteCustomers(); 

@@ -486,20 +486,32 @@ public class Strings {
    * 
    * @since 5.9
    */
-  public final static String toString(Object object) { 
+  public final static String toString(Object object) {
+	  return toString(Locales.getCurrent(), object);
+  }
+  
+  /**
+   * Try to do a decent toString from a regular object. <p>
+   * 
+   * Good format for arrays, dates, numbers, etc. taking in account the specified locale.
+   * 
+   * @since 7.6.4
+   */
+  public final static String toString(Locale locale, Object object) { // tmr En changelog 
 	  if (object == null) return "";
 	  if (object.getClass().isArray()) return ArrayUtils.toString(object);
 	  Format formatter = null;
 	  if (object instanceof BigDecimal) {
-		  formatter = NumberFormat.getNumberInstance(Locales.getCurrent());
+		  formatter = NumberFormat.getNumberInstance(locale);
 		  ((NumberFormat) formatter).setMaximumFractionDigits(2);
 	  }
 	  else if (object instanceof java.util.Date) {
-		  formatter = DateFormat.getDateInstance(DateFormat.SHORT, Locales.getCurrent());
+		  formatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
 	  }
 	  if (formatter != null) return formatter.format(object);
 	  return object.toString();
   }
+  
 
      
   /**

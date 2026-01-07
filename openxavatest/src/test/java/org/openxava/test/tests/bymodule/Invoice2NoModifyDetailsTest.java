@@ -23,7 +23,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 
 	public void testNoModifyInCollection_largeDisplay() throws Exception { 
 		execute("List.viewDetail", "row=0");
-		assertLargeDisplay();
+		assertLargeDisplay(); // TMR FALLA
 		assertNoModifyInCollection();
 	}
 
