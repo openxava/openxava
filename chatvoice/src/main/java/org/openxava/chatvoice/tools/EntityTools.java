@@ -470,6 +470,71 @@ public class EntityTools {
 	}
 	
 	/**
+	 * Filters the list of the current module by setting condition values for the filterable properties.
+	 * The filter is a map where keys are property names and values are the filter values.
+	 * For numbers, it uses = comparison. For strings, it uses LIKE '%value%'.
+	 * 
+	 * @param filter A map with property names and their filter values
+	 * @return A confirmation message or error description
+	 */
+	@Tool("Filter the list of the current module. Use this when the user asks to filter or show only certain records in the list. The filter is a map where keys are property names (get them from getEntityProperties) and values are the filter values. For numbers it uses = comparison, for strings it uses LIKE '%value%'. To clear the filter, call with an empty map.")
+	public String filterList( // tmr ¿Aquí o en otra tool? Si dejamos aquí ¿cambiar nombre de la clase?
+			@P("Map of property names to filter values, e.g. {year: '2023', customer.name: 'John'}. Use empty map {} to clear the filter.") Map<String, String> filter) {
+		// TMR ME QUEDÉ POR AQUÍ. NO FUNCIONA, AUNQUE EL CÓDIGO PARECE BUEN. QUIZÁS NO ENCUENTRA EL TAB CORRECTO
+		long startTime = System.currentTimeMillis();
+		System.out.println("[TOOL] filterList(filter=" + filter + ") called");
+		try {
+			setupWindowId();
+			
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) {
+				return "ERROR: No modules available in session.";
+			}
+			
+			String currentModuleName = modules.getCurrentModuleName();
+			if (currentModuleName == null) {
+				return "ERROR: No current module selected.";
+			}
+			
+			Tab tab = (Tab) context.get(application, currentModuleName, "xava_tab");
+			if (tab == null) {
+				return "ERROR: No tab available for module " + currentModuleName;
+			}
+			
+			List<MetaProperty> filterableProperties = tab.getMetaPropertiesNotCalculated();
+			int propertyCount = filterableProperties.size();
+			
+			List<String> conditionValues = new ArrayList<>();
+			for (int i = 0; i < propertyCount; i++) {
+				MetaProperty prop = filterableProperties.get(i);
+				String propertyName = prop.getQualifiedName();
+				String value = filter != null ? filter.get(propertyName) : null;
+				conditionValues.add(value != null ? value : "");
+			}
+			
+			tab.setConditionValues(conditionValues);
+			
+			// tmr refreshUINeeded = true; ¿Hace falta?
+			
+			String result;
+			if (filter == null || filter.isEmpty()) {
+				result = "Filter cleared for " + currentModuleName + ". Showing all records.";
+			} else {
+				result = "Filter applied to " + currentModuleName + " with values: " + filter;
+			}
+			System.out.println("[TOOL] filterList() returning: " + result);
+			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			String errorMessage = "ERROR filtering list: " + ex.getMessage();
+			System.out.println("[TOOL] filterList() returning: " + errorMessage);
+			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return errorMessage;
+		}
+	}
+	
+	/**
 	 * Returns information about the entity currently being displayed in detail mode.
 	 * This allows the LLM to know which record the user is viewing/editing,
 	 * so the user can say things like "change the address of the current record".

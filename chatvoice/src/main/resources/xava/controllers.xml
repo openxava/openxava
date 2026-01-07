@@ -39,6 +39,10 @@ https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources
     		class="org.openxava.chatvoice.actions.PrintInvoiceAction"
     		mode="detail"
     		icon="printer"/>
+    	<action name="filterList" 
+    		class="org.openxava.chatvoice.actions.FilterListAction"
+    		mode="list"
+    		icon="filter"/>
 		<!--
     	<action name="showValues" available-on-new="false"
     		class="org.openxava.chatvoice.actions.ShowInvoiceValuesAction"
