@@ -47,7 +47,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 		execute("CustomerWithGroups.save");
 		assertNoErrors();
 		assertMessage("Customer created successfully");		
-		assertValue("creationDate", LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		assertValue("creationDate", LocalDate.now().format(DateTimeFormatter.ofPattern("M/d/yyyy")));
 	}
 	
 	private Integer getMaxCustomerNumber() throws Exception {

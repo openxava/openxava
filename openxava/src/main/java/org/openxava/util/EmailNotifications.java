@@ -45,7 +45,7 @@ public class EmailNotifications {
 				moduleLabel = metaModule.getLabel();
 			}
 			catch (Exception ex) {
-				moduleLabel = Labels.get(getCurrentModule());
+				moduleLabel = Labels.get(getCurrentModule(), Locale.getDefault());
 				log.warn(XavaResources.getString("module_info_email_notifications"), ex);
 			} 			
 		}
@@ -56,7 +56,7 @@ public class EmailNotifications {
 		
 		public String getApplicationLabel() {
 			if (applicationLabel == null) {
-				applicationLabel = Labels.get(application);
+				applicationLabel = Labels.get(application, Locale.getDefault());
 			}
 			return applicationLabel;
 		}
@@ -284,10 +284,10 @@ public class EmailNotifications {
 	
 	static void notifyCreated(String modelName, Map key) {
 		setCurrentModuleModel(modelName);
-		String subject = XavaResources.getString("email_notification_created_subject", 
+		String subject = XavaResources.getString(Locale.getDefault(), "email_notification_created_subject", 
        		getCurrentApplicationLabel(), getCurrentModuleLabel());
 		String permalink = toPermalink(getCurrentModuleURL(), key);
-		String content =XavaResources.getString("email_notification_created_content", 
+		String content =XavaResources.getString(Locale.getDefault(), "email_notification_created_content", 
        		Users.getCurrent(),	permalink);
 
 		String logSuffix = ", permalink=" + permalink;
@@ -313,17 +313,17 @@ public class EmailNotifications {
 			changes.append("<li data-property='");
 			changes.append(property);
 			changes.append("'><b>");
-			changes.append(Labels.getQualified(property));
+			changes.append(Labels.getQualified(property, Locale.getDefault()));
 			changes.append("</b>: ");
-			changes.append(Strings.toString(oldChangedValues.get(property)));
+			changes.append(Strings.toString(Locale.getDefault(), oldChangedValues.get(property)));
 			changes.append(" --> ");
-			changes.append(Strings.toString(newChangedValues.get(property)));
+			changes.append(Strings.toString(Locale.getDefault(), newChangedValues.get(property)));
 			changes.append("</li>");
 		}		
 		changes.append("</ul>");
 		String permalink = toPermalink(getCurrentModuleURL(), key);
 		
-		String subject = XavaResources.getString("email_notification_modified_subject", 
+		String subject = XavaResources.getString(Locale.getDefault(), "email_notification_modified_subject", 
        		getCurrentApplicationLabel(), getCurrentModuleLabel());
 		String content = toContent(permalink, changes.toString());	
 		String logSuffix = toLogSuffix(permalink, changes.toString());
@@ -336,15 +336,15 @@ public class EmailNotifications {
 	}
 
 	private static String toContent(String permalink, String changes) {
-		return XavaResources.getString("email_notification_modified_content", 
+		return XavaResources.getString(Locale.getDefault(), "email_notification_modified_content", 
        		Users.getCurrent(), permalink, changes.toString());
 	}
 
 	static void notifyRemoved(String modelName, Map key) { 
 		setCurrentModuleModel(modelName);
-		String subject = XavaResources.getString("email_notification_removed_subject", 
+		String subject = XavaResources.getString(Locale.getDefault(), "email_notification_removed_subject", 
        		getCurrentApplicationLabel(), getCurrentModuleLabel());
-		String content = XavaResources.getString("email_notification_removed_content", 
+		String content = XavaResources.getString(Locale.getDefault(), "email_notification_removed_content", 
        		Users.getCurrent(),	getCurrentModuleLabel(), getCurrentModuleURL(), key);
 		String logSuffix = ", url=" + getCurrentModuleURL() + ", key=" + key; 
 		Set notifiedEmails = notifyByModule("REMOVED", subject, content, logSuffix, null, null); 
@@ -446,13 +446,13 @@ public class EmailNotifications {
 
 	private static String decorateModuleUnsubscribe(String content) {
 		return content + "<br><br>" +
-			XavaResources.getString("email_notification_module_unsuscribe", 
+			XavaResources.getString(Locale.getDefault(), "email_notification_module_unsuscribe", 
 				getCurrentApplicationLabel(), getCurrentModuleLabel(), getCurrentModuleURL());	
 	}
 	
 	private static String decorateRecordUnsubscribe(String content, Map key, String unsubscribeOneURL, String unsubscribeAllURL) {
 		return content + "<br><br>" +
-			XavaResources.getString("email_notification_record_unsuscribe",  
+			XavaResources.getString(Locale.getDefault(), "email_notification_record_unsuscribe",  
 				getCurrentApplicationLabel(), getCurrentModuleLabel(), key, unsubscribeOneURL, unsubscribeAllURL);
 	}
 	

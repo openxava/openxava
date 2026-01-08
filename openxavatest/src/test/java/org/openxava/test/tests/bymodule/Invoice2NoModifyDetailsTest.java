@@ -11,11 +11,6 @@ import org.openxava.tests.*;
 
 public class Invoice2NoModifyDetailsTest extends ModuleTestBase { 
 	
-	private static final List<String> EURO_ZONE_COUNTRIES = Arrays.asList( 
-		"AT", "BE", "CY", "EE", "FI", "FR", "DE", "GR", 
-        "IE", "IT", "LV", "LT", "LU", "MT", "NL", 
-        "PT", "SK", "SI", "ES"
-    );
 
 	public Invoice2NoModifyDetailsTest(String testName) {
 		super(testName, "Invoice2NoModifyDetails");		
@@ -23,7 +18,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 
 	public void testNoModifyInCollection_largeDisplay() throws Exception { 
 		execute("List.viewDetail", "row=0");
-		assertLargeDisplay();
+		assertLargeDisplay(); 
 		assertNoModifyInCollection();
 	}
 
@@ -35,7 +30,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 			assertDisplayValue("total", "2,650.00\u20AC"); // Automatic @Money suffix. Symbol and position depend on the server locale, not browser locale
 		}
 		else {
-			assertDisplayValue("total", "$2,650.00"); // Automatic @Money prefix. Starting openxavatest with -Duser.language=en -Duser.country=US
+			assertDisplayValue("total", "$2,650.00"); // Automatic @Money prefix. 
 		}
 		
 		assertEditorContains("vatPercentage", "<i class=\"mdi mdi-label-percent-outline\">"); // Icon
@@ -86,8 +81,7 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 	}
 	
 	private boolean inEuroCountry() { 
-		String userCountry = System.getProperty("user.country");
-		return EURO_ZONE_COUNTRIES.contains(userCountry);
+		return false; // Because we use Locale.setDefault(Locale.US) in openxavatest launcher
 	}
 
 	

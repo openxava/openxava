@@ -338,7 +338,9 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 	}
 
-	public void testEmailNotificationsInElementCollections_numberAndDateFormatInEmailNotifications() throws Exception { 
+	public void testEmailNotificationsInElementCollections_emailNotificationsUseServerLocale_numberAndDateFormatInEmailNotifications() throws Exception {
+		setLocale("es"); 
+		
 		subscribeToEmailNotifications(); 
 		
 		execute("List.viewDetail", "row=0");
@@ -352,20 +354,20 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/1/2014");
-		setValue("date", "10/2/14");
+		assertValue("date", "01/10/2014");
+		setValue("date", "2/10/14");
 		setValueInCollection("details", 2, "product.number", "4");
 		assertValueInCollection("details", 2, "product.description", "CUATRE");
-		assertValueInCollection("details", 2, "unitPrice", "555.00");
-		assertValueInCollection("details", 2, "amount", "2,220.00"); 
+		assertValueInCollection("details", 2, "unitPrice", "555,00");
+		assertValueInCollection("details", 2, "amount", "2.220,00"); 
 		execute("CRUD.save");
 		
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/2/2014");
-		setValue("date", "10/1/14");
+		assertValue("date", "02/10/2014");
+		setValue("date", "1/10/14");
 		removeRow(2);
 		execute("CRUD.save");
 		
@@ -373,12 +375,12 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2014");  
 		assertValue("number", "1");
-		assertValue("date", "10/1/2014");
+		assertValue("date", "01/10/2014");
 		assertCollectionRowCount("details", 2);
 		setValueInCollection("details", 2, "product.number", "3");
 		setValueInCollection("details", 2, "unitPrice", "20");
 		setValueInCollection("details", 2, "quantity", "4");
-		assertValueInCollection("details", 2, "amount", "80.00");
+		assertValueInCollection("details", 2, "amount", "80,00");
 		execute("CRUD.save");
 
 		assertEmailNotifications(  
