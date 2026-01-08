@@ -184,6 +184,14 @@ chatEditor.getWebSocket = function() {
 				return;
 			}
 			
+			// Check for filter list command: __FILTER_LIST__:{"conditionValue___0":"value",...}
+			if (event.data.startsWith('__FILTER_LIST__:')) {
+				var json = event.data.substring('__FILTER_LIST__:'.length);
+				var filterValues = JSON.parse(json);
+				chatEditor.setListConditionValues(filterValues);
+				return;
+			}
+			
 			$('#typingIndicator').remove();
 			
 			var assistantMessage = chatEditor.createMessage(event.data, false);
@@ -218,6 +226,21 @@ chatEditor.sendViaWebSocket = function(message) {
 	} else {
 		alert('Cannot send message: WebSocket is not connected');
 	}
+};
+
+chatEditor.setListConditionValues = function(filterValues) {
+	var app = openxava.lastApplication;
+	var module = openxava.lastModule;
+	
+	for (var key in filterValues) {
+		var id = openxava.decorateId(app, module, key);
+		var element = document.getElementById(id);
+		if (element) {
+			element.value = filterValues[key];
+		}
+	}
+	
+	openxava.executeAction(app, module, '', false, 'List.filter');
 };
 
 chatEditor.newConversation = function(container, input) {

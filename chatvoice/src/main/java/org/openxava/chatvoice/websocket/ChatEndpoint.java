@@ -136,10 +136,25 @@ public class ChatEndpoint {
 			// Send response back to client
 			session.getBasicRemote().sendText(htmlResponse);
 			
-			// Check if UI refresh is needed after update
+			// Check if filter list is needed
 			EntityTools entityTools = entityToolsMap.get(sessionId);
-			if (entityTools != null && entityTools.consumeRefreshUINeeded()) {
-				session.getBasicRemote().sendText("__REFRESH_UI__");
+			if (entityTools != null) {
+				Map<String, String> filterValues = entityTools.consumePendingFilterValues();
+				if (filterValues != null) {
+					StringBuilder json = new StringBuilder("{");
+					boolean first = true;
+					for (Map.Entry<String, String> entry : filterValues.entrySet()) {
+						if (!first) json.append(",");
+						json.append("\"").append(entry.getKey()).append("\":\"").append(entry.getValue()).append("\"");
+						first = false;
+					}
+					json.append("}");
+					session.getBasicRemote().sendText("__FILTER_LIST__:" + json);
+				}
+				// Check if UI refresh is needed after update
+				else if (entityTools.consumeRefreshUINeeded()) {
+					session.getBasicRemote().sendText("__REFRESH_UI__");
+				}
 			}
 			
 		} catch (IOException e) {

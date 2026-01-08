@@ -35,7 +35,11 @@ M5
 
 M6
 - Poder filtrar en la lista.
-
+    * Pedir explícitamente que filtre en la lista.
+    - Que filtre si estamos en el módulo.
+    - Filtrar por varios campos.
+    - Filtrar por fecha.
+    - Comparadores.
 
 
 - Pruebas JUnit

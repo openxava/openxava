@@ -36,6 +36,7 @@ public class EntityTools {
 	private Map<String, Tab> tabs = new HashMap<>();
 	private Map<String, View> views = new HashMap<>();
 	private boolean refreshUINeeded = false;
+	private Map<String, String> pendingFilterValues = null;
 	
 	/**
 	 * Constructor that receives the ModuleContext, HttpSession and application name.
@@ -465,6 +466,16 @@ public class EntityTools {
 		return result;
 	}
 	
+	/**
+	 * Returns the pending filter values and clears them.
+	 * The keys are in the format "conditionValue___N" for JavaScript.
+	 */
+	public Map<String, String> consumePendingFilterValues() {
+		Map<String, String> result = pendingFilterValues;
+		pendingFilterValues = null;
+		return result;
+	}
+	
 	private void setupWindowId() {
 		context.cleanCurrentWindowId();
 	}
@@ -480,7 +491,6 @@ public class EntityTools {
 	@Tool("Filter the list of the current module. Use this when the user asks to filter or show only certain records in the list. The filter is a map where keys are property names (get them from getEntityProperties) and values are the filter values. For numbers it uses = comparison, for strings it uses LIKE '%value%'. To clear the filter, call with an empty map.")
 	public String filterList( // tmr ¿Aquí o en otra tool? Si dejamos aquí ¿cambiar nombre de la clase?
 			@P("Map of property names to filter values, e.g. {year: '2023', customer.name: 'John'}. Use empty map {} to clear the filter.") Map<String, String> filter) {
-		// TMR ME QUEDÉ POR AQUÍ. NO FUNCIONA, AUNQUE EL CÓDIGO PARECE BUEN. QUIZÁS NO ENCUENTRA EL TAB CORRECTO
 		long startTime = System.currentTimeMillis();
 		System.out.println("[TOOL] filterList(filter=" + filter + ") called");
 		try {
@@ -512,9 +522,11 @@ public class EntityTools {
 				conditionValues.add(value != null ? value : "");
 			}
 			
-			tab.setConditionValues(conditionValues);
-			
-			// tmr refreshUINeeded = true; ¿Hace falta?
+			// Build the filter values map for JavaScript with conditionValue___N keys
+			pendingFilterValues = new LinkedHashMap<>();
+			for (int i = 0; i < propertyCount; i++) {
+				pendingFilterValues.put("conditionValue___" + i, conditionValues.get(i));
+			}
 			
 			String result;
 			if (filter == null || filter.isEmpty()) {
