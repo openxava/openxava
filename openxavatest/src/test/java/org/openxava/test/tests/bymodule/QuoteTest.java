@@ -338,8 +338,8 @@ public class QuoteTest extends EmailNotificationsTestBase {
 		getWebClient().waitForBackgroundJavaScriptStartingBefore(10000);
 	}
 
-	public void testEmailNotificationsInElementCollections_numberAndDateFormatInEmailNotifications() throws Exception {
-		setLocale("es"); // tmr Cambiar nombre del test, si dejamos esto
+	public void testEmailNotificationsInElementCollections_emailNotificationsUseServerLocale_numberAndDateFormatInEmailNotifications() throws Exception {
+		setLocale("es"); 
 		
 		subscribeToEmailNotifications(); 
 		

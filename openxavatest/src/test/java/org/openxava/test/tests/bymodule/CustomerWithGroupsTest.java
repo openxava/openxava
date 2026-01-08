@@ -25,7 +25,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 	public void testConsecutiveCreationWithKeyInsideGroupAndSeveralGroups_saveRefreshAfterLoadDBCreatedValues() throws Exception { 
 		Integer customerNumber = getMaxCustomerNumber() + 1;
 		for (int index = 0; index < 3; index++) {
-			createCustomer(customerNumber + index); // TMR FALLA ME QUEDÉ POR AQUÍ. QUEDAN MUCHOS FALLA.
+			createCustomer(customerNumber + index); 
 		}
 		deleteCustomers(); 
 	}
@@ -47,7 +47,7 @@ public class CustomerWithGroupsTest extends ModuleTestBase {
 		execute("CustomerWithGroups.save");
 		assertNoErrors();
 		assertMessage("Customer created successfully");		
-		assertValue("creationDate", LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+		assertValue("creationDate", LocalDate.now().format(DateTimeFormatter.ofPattern("M/d/yyyy")));
 	}
 	
 	private Integer getMaxCustomerNumber() throws Exception {

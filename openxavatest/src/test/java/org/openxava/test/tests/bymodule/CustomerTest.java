@@ -12,7 +12,7 @@ import org.openxava.test.util.*;
 import org.openxava.util.*;
 
 /**
- * TMR FALLA
+ * 
  * @author Javier Paniza
  */
 

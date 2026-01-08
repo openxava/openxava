@@ -86,7 +86,7 @@ public class ShipmentTest extends ModuleTestBase {
 		setValue("Customer", "address.city", "JUNIT CITY");
 		setValue("Customer", "address.state.id", "CA");
 		execute("NewCreation.saveNew");
-		assertNoErrors(); // TMR FALLA
+		assertNoErrors(); 
 		setValue("CustomerContactPerson", "name", "JUNIT CONTACT PERSON FROM SHIPMENTS");
 		execute("NewCreation.saveNew");
 		assertNoErrors();

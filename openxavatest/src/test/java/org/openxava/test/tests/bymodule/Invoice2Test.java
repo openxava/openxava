@@ -49,7 +49,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertListSelectedConfiguration("Year = 2002"); 
 		assertListAllConfigurations("Year = 2002", "All");
 		assertListRowCount(1);
-		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi, Discount: -250.00, Total: 2,650.00"); // TMR FALLA 
+		assertValueInList(0, "1\n2002\nDate: 1/1/2002, VAT %: 16.0, Amounts sum: 2,500.00, Number: 1, Name: Javi, Discount: -250.00, Total: 2,650.00"); 
 		
 		
 		selectListConfiguration("All"); 
@@ -153,7 +153,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertAction("CRUD.deleteRow");		
 		assertTrue(getHtml().contains("There are 9 records in list")); 
 		assertListRowCount(9);
-		assertValuesInList(0, "2002",  "1",  "1/1/2002", "16.0",  "2,500.00", "1", "Javi"); // TMR FALLA 
+		assertValuesInList(0, "2002",  "1",  "1/1/2002", "16.0",  "2,500.00", "1", "Javi"); 
 		assertValuesInList(1, "2004",  "2",  "1/4/2004", "42.0",     "11.00", "2", "Juanillo");
 		assertValuesInList(2, "2004",  "9",  "1/4/2004", "71.0",  "4,396.00", "1", "Javi");
 		assertValuesInList(3, "2004", "10", "12/4/2004", "18.0",  "1,189.00", "2", "Juanillo");
