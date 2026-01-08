@@ -228,7 +228,7 @@ chatEditor.sendViaWebSocket = function(message) {
 	}
 };
 
-chatEditor.setListConditionValues = function(filterValues) {
+chatEditor.setListConditionValues = function(filterValues) { // tmr Mover a openxava.js
 	var app = openxava.lastApplication;
 	var module = openxava.lastModule;
 	

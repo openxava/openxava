@@ -208,7 +208,7 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity that match a condition. IMPORTANT: First call getAvailableEntities() to get valid entity names. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100 AND ${active} = true. Returns up to 600 records. Get available properties names for entity using getEntityProperties. Don't show hiddenKey to the user.")
+	@Tool("Get records from an entity and return them in the chat. IMPORTANT: Before using this, check getCurrentModule(). If the user is viewing the same entity they're asking about, use filterList instead to filter the visible list. Only use this tool when: (1) the user asks for data from a DIFFERENT entity than the current module, or (2) the user explicitly wants data returned in the chat for analysis/summary. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100. Returns up to 600 records. Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findEntitiesByCondition(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity, 
 			@P("SQL-style condition with property names in ${}, e.g. ${name} = 'John'") String condition) {
@@ -488,11 +488,12 @@ public class EntityTools {
 	 * @param filter A map with property names and their filter values
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the list of the current module. Use this when the user asks to filter or show only certain records in the list. The filter is a map where keys are property names (get them from getEntityProperties) and values are the filter values. For numbers it uses = comparison, for strings it uses LIKE '%value%'. To clear the filter, call with an empty map.")
-	public String filterList( // tmr ¿Aquí o en otra tool? Si dejamos aquí ¿cambiar nombre de la clase?
+	@Tool("Filter the visible list in the UI. Use this when the user wants to filter the list they are currently viewing. You must specify the entity the user is asking about. If the entity does not match the current module, this tool will fail and you should use findEntitiesByCondition instead. The filter is a map where keys are property names and values are the filter values. For numbers it uses = comparison, for strings it uses LIKE '%value%'. To clear the filter, call with an empty map.")
+	public String filterList(
+			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
 			@P("Map of property names to filter values, e.g. {year: '2023', customer.name: 'John'}. Use empty map {} to clear the filter.") Map<String, String> filter) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] filterList(filter=" + filter + ") called");
+		System.out.println("[TOOL] filterList(entity=" + entity + ", filter=" + filter + ") called");
 		try {
 			setupWindowId();
 			
@@ -504,6 +505,11 @@ public class EntityTools {
 			String currentModuleName = modules.getCurrentModuleName();
 			if (currentModuleName == null) {
 				return "ERROR: No current module selected.";
+			}
+			
+			// Check if the requested entity matches the current module
+			if (entity != null && !entity.equalsIgnoreCase(currentModuleName)) {
+				return "ERROR: Cannot filter. The user is viewing '" + currentModuleName + "' but asked about '" + entity + "'. Use findEntitiesByCondition to get data from a different entity.";
 			}
 			
 			Tab tab = (Tab) context.get(application, currentModuleName, "xava_tab");
@@ -543,6 +549,34 @@ public class EntityTools {
 			System.out.println("[TOOL] filterList() returning: " + errorMessage);
 			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
+		}
+	}
+	
+	/**
+	 * Returns information about the entity currently being displayed in detail mode.
+	 * This allows the LLM to know which record the user is viewing/editing,
+	 * so the user can say things like "change the address of the current record".
+	 * 
+	 * @return A map with "entity" (module name) and "key" (the entity key), or null if not in detail mode
+	 */
+	@Tool("Get the module (entity) the user is currently viewing. Use this to determine if filterList should be used instead of findEntitiesByCondition. Returns the module name that the user is currently on.")
+	public String getCurrentModule() { // tmr ¿Este nombre?
+		long startTime = System.currentTimeMillis();
+		System.out.println("[TOOL] getCurrentModule() called");
+		try {
+			setupWindowId();
+			
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) return null;
+			
+			String currentModuleName = modules.getCurrentModuleName();
+			System.out.println("[TOOL] getCurrentModule() returning: " + currentModuleName);
+			System.out.println("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return currentModuleName;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
+			return null;
 		}
 	}
 	
