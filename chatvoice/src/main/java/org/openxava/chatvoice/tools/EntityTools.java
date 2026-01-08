@@ -513,6 +513,12 @@ public class EntityTools {
 				return "ERROR: Cannot filter. The user is viewing '" + currentModuleName + "' but asked about '" + entity + "'. Use findEntitiesByCondition to get data from a different entity.";
 			}
 			
+			// Check if the user is in list mode (not detail mode)
+			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
+			if (manager != null && !manager.isListMode()) {
+				return "ERROR: Cannot filter. The user is in detail mode, not viewing the list. Use findEntitiesByCondition to return data in the chat.";
+			}
+			
 			Tab tab = (Tab) context.get(application, currentModuleName, "xava_tab");
 			if (tab == null) {
 				return "ERROR: No tab available for module " + currentModuleName;
