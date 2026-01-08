@@ -482,18 +482,19 @@ public class EntityTools {
 	
 	/**
 	 * Filters the list of the current module by setting condition values for the filterable properties.
-	 * The filter is a map where keys are property names and values are the filter values.
-	 * For numbers, it uses = comparison. For strings, it uses LIKE '%value%'.
 	 * 
-	 * @param filter A map with property names and their filter values
+	 * @param entity The entity name the user is asking about
+	 * @param values Map of property names to filter values
+	 * @param comparators Map of property names to comparators (optional)
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the visible list in the UI. Use this when the user wants to filter the list they are currently viewing. You must specify the entity the user is asking about. If the entity does not match the current module, this tool will fail and you should use findEntitiesByCondition instead. The filter is a map where keys are property names and values are the filter values. For numbers it uses = comparison, for strings it uses LIKE '%value%'. To clear the filter, call with an empty map.")
+	@Tool("Filter the visible list in the UI. IMPORTANT: Before calling this, use getEntityProperties to get the exact property names for the entity. Use those exact names in 'values' and 'comparators'. If the entity does not match the current module, this tool will fail and you should use findEntitiesByCondition instead. Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
 	public String filterList(
 			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
-			@P("Map of property names to filter values, e.g. {year: '2023', customer.name: 'John'}. Use empty map {} to clear the filter.") Map<String, String> filter) {
+			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
+			@P("Map of property names to comparators, e.g. {amount: 'gt'} for greater than. Optional, defaults to 'eq' for numbers, 'contains' for strings.") Map<String, String> comparators) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] filterList(entity=" + entity + ", filter=" + filter + ") called");
+		System.out.println("[TOOL] filterList(entity=" + entity + ", values=" + values + ", comparators=" + comparators + ") called");
 		try {
 			setupWindowId();
 			
@@ -520,25 +521,30 @@ public class EntityTools {
 			List<MetaProperty> filterableProperties = tab.getMetaPropertiesNotCalculated();
 			int propertyCount = filterableProperties.size();
 			
-			List<String> conditionValues = new ArrayList<>();
+			// Build the filter values map for JavaScript
+			pendingFilterValues = new LinkedHashMap<>();
 			for (int i = 0; i < propertyCount; i++) {
 				MetaProperty prop = filterableProperties.get(i);
 				String propertyName = prop.getQualifiedName();
-				String value = filter != null ? filter.get(propertyName) : null;
-				conditionValues.add(value != null ? value : "");
-			}
-			
-			// Build the filter values map for JavaScript with conditionValue___N keys
-			pendingFilterValues = new LinkedHashMap<>();
-			for (int i = 0; i < propertyCount; i++) {
-				pendingFilterValues.put("conditionValue___" + i, conditionValues.get(i));
+				
+				String value = values != null ? values.get(propertyName) : null;
+				pendingFilterValues.put("conditionValue___" + i, value != null ? value : "");
+				
+				// Set comparator if specified
+				String comparator = comparators != null ? comparators.get(propertyName) : null;
+				if (comparator != null && !comparator.isEmpty()) {
+					String comparatorValue = mapComparator(comparator);
+					if (comparatorValue != null) {
+						pendingFilterValues.put("conditionComparator___" + i, comparatorValue);
+					}
+				}
 			}
 			
 			String result;
-			if (filter == null || filter.isEmpty()) {
+			if (values == null || values.isEmpty()) {
 				result = "Filter cleared for " + currentModuleName + ". Showing all records.";
 			} else {
-				result = "Filter applied to " + currentModuleName + " with values: " + filter;
+				result = "Filter applied to " + currentModuleName + " with values: " + values + (comparators != null && !comparators.isEmpty() ? " and comparators: " + comparators : "");
 			}
 			System.out.println("[TOOL] filterList() returning: " + result);
 			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
@@ -549,6 +555,31 @@ public class EntityTools {
 			System.out.println("[TOOL] filterList() returning: " + errorMessage);
 			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
+		}
+	}
+	
+	private String mapComparator(String comparator) {
+		if (comparator == null) return null;
+		switch (comparator.toLowerCase()) {
+			case "eq": case "=": case "equals": return "eq_comparator";
+			case "ne": case "<>": case "!=": case "not_equals": return "ne_comparator";
+			case "gt": case ">": case "greater": case "greater_than": return "gt_comparator";
+			case "lt": case "<": case "less": case "less_than": return "lt_comparator";
+			case "ge": case ">=": case "greater_or_equal": return "ge_comparator";
+			case "le": case "<=": case "less_or_equal": return "le_comparator";
+			case "contains": return "contains_comparator";
+			case "starts": case "starts_with": return "starts_comparator";
+			case "ends": case "ends_with": return "ends_comparator";
+			case "not_contains": return "not_contains_comparator";
+			case "empty": case "is_empty": return "empty_comparator";
+			case "not_empty": case "is_not_empty": return "not_empty_comparator";
+			case "range": case "between": return "range_comparator";
+			case "in": case "in_group": return "in_comparator";
+			case "not_in": case "not_in_group": return "not_in_comparator";
+			case "year": case "year_equals": return "year_comparator";
+			case "month": case "month_equals": return "month_comparator";
+			case "year_month": return "year_month_comparator";
+			default: return null;
 		}
 	}
 	

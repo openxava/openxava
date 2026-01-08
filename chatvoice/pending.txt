@@ -34,12 +34,12 @@ M5
 * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
 
 M6
-- Poder filtrar en la lista.
+* Poder filtrar en la lista.
     * Pedir explícitamente que filtre en la lista.
     * Que filtre si estamos en el módulo.
-    - Filtrar por varios campos.
-    - Filtrar por fecha.
-    - Comparadores.
+    * Filtrar por varios campos.
+    * Filtrar por fecha.
+    * Comparadores.
 
 
 - Pruebas JUnit
@@ -69,6 +69,7 @@ Cuestiones
     - El usuario ya las tiene disponible fácilmente, sería redundante.
     - Menos rendimiento que usar una tool.
     - Toda la funcionalidad de la aplicación con lenguaje natural y respetando permisos.
+    - A veces el LLM sugieres cosas que no puede hacer, como "Quieres que te lo exporte a CSV"
 
 Para XavaPro
 - No poder acceder a datos de módulos no disponibles.
@@ -86,6 +87,7 @@ Diferido
 - Borrar registros existentes.
 - Generar gráficos. ¿En el chat o modificando un dashboard?
 - Tools personalizadas. Reconocidas por XavaPro para autorizarlas con roles.
+- Poder pedir ordenaciones en las listas.
 
 Bajo demanda
 - Otros proveedores aparte de OpenAI.
