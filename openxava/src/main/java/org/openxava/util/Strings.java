@@ -497,7 +497,7 @@ public class Strings {
    * 
    * @since 7.6.4
    */
-  public final static String toString(Locale locale, Object object) { // tmr En changelog 
+  public final static String toString(Locale locale, Object object) {  
 	  if (object == null) return "";
 	  if (object.getClass().isArray()) return ArrayUtils.toString(object);
 	  Format formatter = null;
