@@ -6,6 +6,7 @@ import java.util.*;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
@@ -19,8 +20,12 @@ public class ListTest extends WebDriverTestBase {
 	
 	private final static String ACTION_PREFIX = "action";
 		
+
+		
 	@Test
 	public void testListAndCollection() throws Exception {
+		resetPreferences();
+		
 		goModule("Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
@@ -32,6 +37,7 @@ public class ListTest extends WebDriverTestBase {
 		assertEnableDisableCustomizeList(); 
 		assertCustomizeCollection();
 		assertDefaultColumnWidthsForCalculatedCollection();
+		assertResizedColumnAddingElementToCollectionRemembersWidth();
 
 		goModule("CustomerWithSection");
 		assertCustomizeList(); 
@@ -56,8 +62,43 @@ public class ListTest extends WebDriverTestBase {
 		assertTrue(hasClockIcon());
 	}
 	
-	
-	public void assertResizeDialogAfterCollectionChanges() throws Exception { 
+	private void assertResizedColumnAddingElementToCollectionRemembersWidth() throws Exception { 
+		execute("Collection.add", "viewObject=xava_view_fellowCarriersCalculated");
+		
+		// Find the specific element with ID ox_openxavatest_CommercialDocument__details_col4
+		WebElement column = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col0"));
+		
+		// Find the resize handle within this element
+		WebElement resizeHandle = column.findElement(By.className("ui-resizable-handle"));
+		
+		// Get initial widths
+		int columnInitialWidth = column.getSize().getWidth();
+		
+		// Create an action to drag the handle
+		Actions actions = new Actions(getDriver());
+		
+		// Move the handle 30 pixels to the left
+		actions.clickAndHold(resizeHandle)
+			.moveByOffset(-30, 0)
+			.release()
+			.perform();
+		
+		// Wait for the action to complete
+		Thread.sleep(500);
+		
+		int columnResizedWidth = column.getSize().getWidth();
+		
+		assertTrue(columnResizedWidth < columnInitialWidth);
+		
+		execute("AddToCollection.cancel");
+
+		execute("Collection.add", "viewObject=xava_view_fellowCarriersCalculated");
+		column = getDriver().findElement(By.id("ox_openxavatest_Carrier__list_col0"));
+		int columnFinalWidth = column.getSize().getWidth();
+		assertEquals(columnResizedWidth, columnFinalWidth);
+	}
+
+	private void assertResizeDialogAfterCollectionChanges() throws Exception { 
 		execute("InvoicesByYear.showInDialog");
 		WebElement dialog = getDriver().findElement(By.id("ox_openxavatest_InvoicesByYear__dialog1"));
 		int width = dialog.getSize().getWidth();
