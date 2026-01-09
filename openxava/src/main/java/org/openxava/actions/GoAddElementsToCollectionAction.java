@@ -27,6 +27,7 @@ public class GoAddElementsToCollectionAction extends CollectionElementViewBaseAc
 		Tab tab = new Tab();
 		tab.setRequest(getTab().getRequest());
 		tab.setModelName(getCollectionElementView().getModelName());
+		tab.setTabName(""); // So preferences are loaded
 		MetaCollection collection =
 			getCollectionElementView().getParent().getMetaModel().getMetaCollection(getCollectionElementView().getMemberName());
 		if (collection != null) {
