@@ -27,7 +27,7 @@ public class DiscussionComment extends Identifiable {
 	
 	private Timestamp time;
 
-	@Lob @Column(length=16777216) 
+	@Lob @Column(name="\"COMMENT\"", length=16777216) // Column name between double quotes to support Oracle 
 	@Stereotype("HTML_TEXT") 
 	private String comment;
 	
