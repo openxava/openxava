@@ -40,9 +40,6 @@ M6
     * Filtrar por varios campos.
     * Filtrar por fecha.
     * Comparadores.
-    - TMR ME QUEDÉ POR AQUÍ. ARREGLÉ DE QUE EN MODO DETALLE SACA LA LISTA EN EL CHAT EN LUGAR DE FILTRAR.
-    -       DEBERÍA PROBAR TODOS LOS CASOS OTRA VEZ Y DESPUÉS DESPLEGAR EN openxava.org
-
 
 - Pruebas JUnit
 - Refactorizar
