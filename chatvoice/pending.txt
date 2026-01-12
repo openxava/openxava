@@ -41,7 +41,11 @@ M6
     * Filtrar por fecha.
     * Comparadores.
 
+M7
 - Pruebas JUnit
+
+
+
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.
 - Indicar al usuario de forma sencilla que puede hacer con el chat.
