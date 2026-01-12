@@ -56,6 +56,14 @@
 			<artifactId>commonmark</artifactId>
 			<version>0.24.0</version>
 		</dependency>
+
+		<!-- last version supported for java 8 -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.13.0</version>
+			<scope>test</scope>
+		</dependency>
 		
 		<!-- 
 		To access to your database uncomment the corresponding entry 
