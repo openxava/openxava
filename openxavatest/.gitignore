@@ -3,7 +3,4 @@
 /.settings/
 /.classpath
 /.project
-/.idea/.gitignore
-/.idea/libraries/apidocs.xml
-/.idea/libraries/servlet_api.xml
-/.idea/libraries/src.xml
+/.idea/

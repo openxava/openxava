@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved startup time of embedded Tomcat.
+- Fix: Unnecessary scanning of JARs by the embedded Tomcat used in development.
 - Fix: User-resized column width not remembered in the list used to add elements to a collection.
 - Fix: @Discussion editor does not work in Oracle by default due to unquoted COMMENT column name.
 - Fix: Email notifications use the language of the user who modifies the data instead of the server locale.
