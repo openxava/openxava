@@ -43,8 +43,31 @@ M6
 
 M7
 - Pruebas JUnit
-
-
+    * Plantear futuro definitivo. Tendremos un chattest que conservaremos en la 8.
+    - Mecánica del panel. Mostrar, ocultar, según tamaño. ¿Bajo demanda?
+    - Consultar.
+        - Filtro en el módulo por el usuario no afectan a los resultado del chat.
+        - Propiedad no visualizada en el tab son reconocidas.
+        - Reconocer datos nuevos, modificados o eliminados.
+        - Que recuerde conversación.
+        - Botón nueva conversación.
+            - Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
+    - No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
+    - Preguntar por información de colecciones @ElementCollection.
+    - Consulta por totales. Totales obtenidos de las líneas.
+    - Modificar.
+        - Mirar ejemplos en foro.
+        - Se pueden actualizar fechas y número.
+        - Refrescar lista o detalle después de modificar datos.
+        - Solo poder modificar datos editables en modo detalle.
+        - Reconocer el registro actual.
+    - Filtrar lista.
+        - Que filtre si estamos en el módulo.
+        - Si estamos en datalle u otro módulo que lo saque en el chat.
+        - Filtrar por varios campos.
+        - Filtrar por fecha.
+        - Comparadores.
+    - ¿Fusionar tests?
 
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.
