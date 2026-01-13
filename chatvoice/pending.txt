@@ -49,9 +49,10 @@ M7
     * Botón nueva conversación.
         * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
     * Multilingüe.
-    - Consultar.
+    * Consultar.
         * Filtro en el módulo por el usuario no afectan a los resultado del chat.
-        - Propiedad no visualizada en el tab son reconocidas.
+        * Propiedad no visualizada en el tab son reconocidas.
+        * Consultar de un módulo no abierto todavía.
         * Reconocer datos nuevos, modificados o eliminados.
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     - Preguntar por información de colecciones @ElementCollection.
@@ -68,7 +69,10 @@ M7
         - Filtrar por varios campos.
         - Filtrar por fecha.
         - Comparadores.
-    - ¿Fusionar tests? Quizás podríamos hacer el navegador estático.
+    - ¿Fusionar tests?
+        - Quizás podríamos hacer el navegador estático, pero a lo mejor iniciar me interesa
+            por ejemplo, para consultar de módulos no abiertos todavía, o cosas así.
+        - ¿Cuánto cuesta toda la suite? ¿Cuánto cuesta abrir el navegador?
 
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.

@@ -184,7 +184,7 @@ public class ChatTest extends WebDriverTestBase {
         assertFalse("Response should NOT contain '2020'", response.contains("2020"));
     }
     
-    public void testUseJustUpdatedData() throws Exception {
+    public void testUseJustUpdatedData_consultFieldsNotShownInList_queryDataFromAModuleNotOpenedYet() throws Exception {
         goModule("Customer");
         assertListRowCount(9);
         
@@ -205,6 +205,16 @@ public class ChatTest extends WebDriverTestBase {
         
         execute("CRUD.deleteRow", "row=9");
         assertListRowCount(9);
+
+        // Address is not displayed in list, but we can ask for it
+        sendChatMessage("Give me the address of customer number 2");
+        response = waitForChatResponse();
+        assertTrue("Response should contain 'Calle de la Unión'", response.contains("Calle de la Unión"));
+
+        // Products is other module, not opened yet, but we can ask for its data
+        sendChatMessage("How many products do we have registered in the system?");
+        response = waitForChatResponse();
+        assertTrue("Response should contain '11'", response.contains("11"));
     }
     
     protected void assertChatPanelHidden() throws Exception {
