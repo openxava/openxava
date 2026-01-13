@@ -44,14 +44,15 @@ M6
 M7
 - Pruebas JUnit
     * Plantear futuro definitivo. Tendremos un chattest que conservaremos en la 8.
-    - Mecánica del panel. Mostrar, ocultar, según tamaño. ¿Bajo demanda?
+    - Mecánica del panel. Mostrar, ocultar, según tamaño.
+    * Que recuerde conversación.
+    - Botón nueva conversación.
+        - Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
+    - Multilingue. No hace falta algo especial, solo que uno de los casos sea en español.
     - Consultar.
         - Filtro en el módulo por el usuario no afectan a los resultado del chat.
         - Propiedad no visualizada en el tab son reconocidas.
         - Reconocer datos nuevos, modificados o eliminados.
-        - Que recuerde conversación.
-        - Botón nueva conversación.
-            - Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
     - No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     - Preguntar por información de colecciones @ElementCollection.
     - Consulta por totales. Totales obtenidos de las líneas.
@@ -67,7 +68,7 @@ M7
         - Filtrar por varios campos.
         - Filtrar por fecha.
         - Comparadores.
-    - ¿Fusionar tests?
+    - ¿Fusionar tests? Quizás podríamos hacer el navegador estático.
 
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.

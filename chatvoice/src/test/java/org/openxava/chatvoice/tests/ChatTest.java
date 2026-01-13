@@ -34,6 +34,19 @@ public class ChatTest extends WebDriverTestBase {
         String response = waitForChatResponse();
         assertTrue("Response should contain '9'", response.contains("9"));
         assertTrue("Response should contain 'customers'", response.toLowerCase().contains("customers"));
+        
+        sendChatMessage("List them");
+        
+        response = waitForChatResponse();
+        assertTrue("Response should contain 'Wim Mertens'", response.contains("Wim Mertens"));
+        assertTrue("Response should contain 'Xavier Corcobado'", response.contains("Javier Corcobado"));
+        assertTrue("Response should contain 'Juanito Valderrama'", response.contains("Juanito Valderrama"));
+        assertTrue("Response should contain 'John Cage'", response.contains("John Cage"));
+        assertTrue("Response should contain 'Bill Gates'", response.contains("Bill Gates"));
+        assertTrue("Response should contain 'Marissa Mayer'", response.contains("Marissa Mayer"));
+        assertTrue("Response should contain 'Juan Antonio Cabrera López'", response.contains("Juan Antonio Cabrera López"));
+        assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));
+        assertTrue("Response should contain 'Luigi Nono'", response.contains("Luigi Nono"));
     }
     
     protected void openChatPanel() throws Exception {
