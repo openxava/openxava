@@ -35,6 +35,10 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("Response should contain '9'", response.contains("9"));
         assertTrue("Response should contain 'customers'", response.toLowerCase().contains("customers"));
         
+        goModule("Product");
+        
+        assertChatPanelContains("How many customers are there?");
+        
         sendChatMessage("List them");
         
         response = waitForChatResponse();
@@ -47,6 +51,14 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("Response should contain 'Juan Antonio Cabrera López'", response.contains("Juan Antonio Cabrera López"));
         assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));
         assertTrue("Response should contain 'Luigi Nono'", response.contains("Luigi Nono"));
+        
+        clickNewConversation();
+        assertChatPanelNotContains("How many customers are there?");
+        
+        sendChatMessage("Show me the details of the first one");
+        
+        response = waitForChatResponse();
+        assertFalse("Response should NOT contain 'Wim Mertens'", response.contains("Wim Mertens"));
     }
     
     protected void openChatPanel() throws Exception {
@@ -85,5 +97,29 @@ public class ChatTest extends WebDriverTestBase {
         }
         
         return assistantMessages.get(assistantMessages.size() - 1).getText();
+    }
+    
+    protected void assertChatPanelContains(String text) throws Exception {
+        openChatPanel();
+        WebDriver driver = getDriver();
+        WebElement chatMessages = driver.findElement(By.id("chatMessages"));
+        String content = chatMessages.getText();
+        assertTrue("Chat panel should contain '" + text + "'", content.contains(text));
+    }
+    
+    protected void assertChatPanelNotContains(String text) throws Exception {
+        openChatPanel();
+        WebDriver driver = getDriver();
+        WebElement chatMessages = driver.findElement(By.id("chatMessages"));
+        String content = chatMessages.getText();
+        assertFalse("Chat panel should NOT contain '" + text + "'", content.contains(text));
+    }
+    
+    protected void clickNewConversation() throws Exception {
+        openChatPanel();
+        WebDriver driver = getDriver();
+        WebElement newConversationBtn = driver.findElement(By.id("chatNewConversationBtn"));
+        newConversationBtn.click();
+        Thread.sleep(300);
     }
 }

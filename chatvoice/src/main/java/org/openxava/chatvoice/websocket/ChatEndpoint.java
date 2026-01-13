@@ -161,6 +161,22 @@ public class ChatEndpoint {
 			log.error("Error sending message", e);
 		} catch (Exception e) {
 			log.error("Error processing AI message", e);
+			String sessionId = httpSession.getId();
+			// Si el error es por tool_calls huérfanos en la memoria, limpiar y reintentar
+			if (e.getMessage() != null && e.getMessage().contains("tool_call") && 
+				e.getMessage().contains("did not have response messages")) {
+				log.info("Detected orphan tool_calls in memory, clearing session and retrying: " + sessionId);
+				chatMemories.remove(sessionId);
+				assistants.remove(sessionId);
+				entityToolsMap.remove(sessionId);
+				try {
+					// Reintentar el mensaje con memoria limpia
+					onMessage(rawMessage, session);
+					return;
+				} catch (Exception retryEx) {
+					log.error("Retry also failed", retryEx);
+				}
+			}
 			try {
 				session.getBasicRemote().sendText("Error: " + e.getMessage());
 			} catch (IOException ioe) {
