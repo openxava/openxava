@@ -57,6 +57,12 @@ M7
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     * Preguntar por información de colecciones @ElementCollection.
     - Consulta por totales. Totales obtenidos de las líneas.
+        TMR ME QUEDÉ HACIENDO ESTO. AL PREGUNTAR
+        ¿Cuál es el producto que más unidades ha facturado en toda la historia?
+        Me dice:
+        Producto nº 2 — "Aprende OpenXava con muchos ejemplos": 142 unidades.
+        TENGO QUE VERIFICAR QUE ES CIERTO. TAMBIÉN DEBERÍA AJUSTAR EL PROMPT
+        PARA QUE SACARA SOLO ES
     - Modificar.
         - Mirar ejemplos en foro.
         - Se pueden actualizar fechas y número.
