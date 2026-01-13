@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
-import org.openxava.chatvoice.filters.CurrentYearFilter;
+import org.openxava.chatvoice.filters.StartYearFilter;
 import org.openxava.model.*;
 
 import lombok.*;
@@ -20,7 +20,7 @@ import lombok.*;
 	"details { details };" +
 	"remarks { remarks }"
 )
-@Tab(baseCondition="year < ?", filter=CurrentYearFilter.class,
+@Tab(baseCondition="year >= ?", filter= StartYearFilter.class,
 	properties="year, number, date, customer.name, total, remarks")
 public class Invoice extends Identifiable {
 	

@@ -48,9 +48,9 @@ M7
     * Que recuerde conversación.
     * Botón nueva conversación.
         * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
-    - Multilingüe. No hace falta algo especial, solo que uno de los casos sea en español.
+    * Multilingüe.
     - Consultar.
-        - Filtro en el módulo por el usuario no afectan a los resultado del chat.
+        * Filtro en el módulo por el usuario no afectan a los resultado del chat.
         - Propiedad no visualizada en el tab son reconocidas.
         - Reconocer datos nuevos, modificados o eliminados.
     - No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).

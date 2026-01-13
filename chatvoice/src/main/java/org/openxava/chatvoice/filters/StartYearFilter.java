@@ -8,13 +8,14 @@ import org.openxava.filters.*;
  * @author Javier Paniza
  */
 
-public class CurrentYearFilter implements IFilter {
+public class StartYearFilter implements IFilter {
 
+	private static final Integer START_YEAR = 2021;
 
 	public Object filter(Object o) throws FilterException {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new java.util.Date());		
-		Integer year = new Integer(cal.get(Calendar.YEAR));
+		Integer year = START_YEAR;
 		Object [] r = null;
 		if (o == null) {
 			r = new Object[1];

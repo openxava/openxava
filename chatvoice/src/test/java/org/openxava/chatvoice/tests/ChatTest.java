@@ -167,6 +167,23 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("chat_panel_hide should be visible when panel is visible", hideButton.isDisplayed());
     }
     
+    public void testTabBaseConditionAppliedToChat_recordsNoInListRecognized_multilingual() throws Exception {
+        goModule("Invoice");
+        
+        setConditionValue("2025", 0);
+        execute("List.filter");
+        assertListRowCount(3);
+        
+        sendChatMessage("Dime de que años tengo facturas");
+        String response = waitForChatResponse();
+        assertTrue("Response should contain '2021'", response.contains("2021"));
+        assertTrue("Response should contain '2022'", response.contains("2022"));
+        assertTrue("Response should contain '2023'", response.contains("2023"));
+        assertTrue("Response should contain '2024'", response.contains("2024"));
+        assertTrue("Response should contain '2025'", response.contains("2025"));
+        assertFalse("Response should NOT contain '2020'", response.contains("2020"));
+    }
+    
     protected void assertChatPanelHidden() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatPanel = driver.findElement(By.id("chat_panel"));
