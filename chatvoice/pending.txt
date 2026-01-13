@@ -53,7 +53,7 @@ M7
         * Filtro en el módulo por el usuario no afectan a los resultado del chat.
         - Propiedad no visualizada en el tab son reconocidas.
         - Reconocer datos nuevos, modificados o eliminados.
-    - No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
+    * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     - Preguntar por información de colecciones @ElementCollection.
     - Consulta por totales. Totales obtenidos de las líneas.
     - Modificar.

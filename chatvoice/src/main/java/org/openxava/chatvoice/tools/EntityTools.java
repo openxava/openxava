@@ -410,8 +410,9 @@ public class EntityTools {
 				tab.setTabName(manager.getTabName());
 			}
 			tab.setPropertiesNames("*");
-			tabs.put(entity, tab);
+			tabs.put(entity, tab); // TMR ME QUEDÉ POR AQUÍ. ESTO NO FUNCIONO. INTENTANDO QUE EL CHAT RECONOZCA LOS CAMBIOS HECHOS PORA LA APLICACIÓN EN LOS DATOS
 		}
+		tab.filter();
 		return tab;
 	}
 	
