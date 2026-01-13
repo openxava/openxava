@@ -55,7 +55,7 @@ M7
         * Consultar de un módulo no abierto todavía.
         * Reconocer datos nuevos, modificados o eliminados.
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
-    - Preguntar por información de colecciones @ElementCollection.
+    * Preguntar por información de colecciones @ElementCollection.
     - Consulta por totales. Totales obtenidos de las líneas.
     - Modificar.
         - Mirar ejemplos en foro.

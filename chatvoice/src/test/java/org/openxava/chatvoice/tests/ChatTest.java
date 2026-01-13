@@ -217,6 +217,15 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("Response should contain '11'", response.contains("11"));
     }
     
+    public void testAccessElementCollectionData() throws Exception {
+        goModule("Invoice");
+        
+        sendChatMessage("Tell me what products have been invoiced in invoice 2021/1");
+        String response = waitForChatResponse();
+        assertTrue("Response should contain 'XavaPro Enterprise'", response.contains("XavaPro Enterprise"));
+        assertTrue("Response should contain 'Aprende OpenXava con muchos ejemplos'", response.contains("Aprende OpenXava con muchos ejemplos"));
+    }
+    
     protected void assertChatPanelHidden() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatPanel = driver.findElement(By.id("chat_panel"));
