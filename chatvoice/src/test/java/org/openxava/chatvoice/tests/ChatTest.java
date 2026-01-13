@@ -26,16 +26,20 @@ public class ChatTest extends WebDriverTestBase {
         super(testName);
     }
     
-    public void testHowManyCustomers() throws Exception {
+    public void testConversationPersistenceAndPanelState() throws Exception {
         goModule("Customer");
         
+        assertChatPanelHidden();
+        openChatPanel();
+        assertChatPanelVisible();
+
         sendChatMessage("How many customers are there?");
-        
         String response = waitForChatResponse();
         assertTrue("Response should contain '9'", response.contains("9"));
         assertTrue("Response should contain 'customers'", response.toLowerCase().contains("customers"));
         
         goModule("Product");
+        assertChatPanelVisible();
         
         assertChatPanelContains("How many customers are there?");
         
@@ -59,6 +63,15 @@ public class ChatTest extends WebDriverTestBase {
         
         response = waitForChatResponse();
         assertFalse("Response should NOT contain 'Wim Mertens'", response.contains("Wim Mertens"));
+        
+        closeChatPanel();
+        assertChatPanelHidden();
+        
+        goModule("Customer");
+        assertChatPanelHidden();
+        
+        openChatPanelWithShowButton();
+        assertChatPanelVisible();
     }
     
     protected void openChatPanel() throws Exception {
@@ -121,5 +134,51 @@ public class ChatTest extends WebDriverTestBase {
         WebElement newConversationBtn = driver.findElement(By.id("chatNewConversationBtn"));
         newConversationBtn.click();
         Thread.sleep(300);
+    }
+    
+    protected void closeChatPanel() throws Exception {
+        WebDriver driver = getDriver();
+        WebElement hideButtonIcon = driver.findElement(By.cssSelector("#chat_panel_hide i"));
+        hideButtonIcon.click();
+        Thread.sleep(300);
+    }
+    
+    protected void openChatPanelWithShowButton() throws Exception {
+        WebDriver driver = getDriver();
+        WebElement showButton = driver.findElement(By.id("chat_panel_show"));
+        if (showButton.isDisplayed()) {
+            showButton.click();
+            Thread.sleep(300);
+        }
+    }
+    
+    protected void assertChatPanelVisible() throws Exception {
+        WebDriver driver = getDriver();
+        WebElement chatPanel = driver.findElement(By.id("chat_panel"));
+        assertTrue("Chat panel should be visible", chatPanel.isDisplayed());
+        
+        WebElement headerButton = driver.findElement(By.id("module_header_chat_button"));
+        assertFalse("module_header_chat_button should be hidden when panel is visible", headerButton.isDisplayed());
+        
+        WebElement showButton = driver.findElement(By.id("chat_panel_show"));
+        assertFalse("chat_panel_show should be hidden when panel is visible", showButton.isDisplayed());
+        
+        WebElement hideButton = driver.findElement(By.id("chat_panel_hide"));
+        assertTrue("chat_panel_hide should be visible when panel is visible", hideButton.isDisplayed());
+    }
+    
+    protected void assertChatPanelHidden() throws Exception {
+        WebDriver driver = getDriver();
+        WebElement chatPanel = driver.findElement(By.id("chat_panel"));
+        assertFalse("Chat panel should be hidden", chatPanel.isDisplayed());
+        
+        WebElement headerButton = driver.findElement(By.id("module_header_chat_button"));
+        assertTrue("module_header_chat_button should be visible when panel is hidden", headerButton.isDisplayed());
+        
+        WebElement showButton = driver.findElement(By.id("chat_panel_show"));
+        assertTrue("chat_panel_show should be visible when panel is hidden", showButton.isDisplayed());
+        
+        WebElement hideButton = driver.findElement(By.id("chat_panel_hide"));
+        assertFalse("chat_panel_hide should be hidden when panel is hidden", hideButton.isDisplayed());
     }
 }

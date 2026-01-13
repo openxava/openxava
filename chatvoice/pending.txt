@@ -44,11 +44,11 @@ M6
 M7
 - Pruebas JUnit
     * Plantear futuro definitivo. Tendremos un chattest que conservaremos en la 8.
-    - Mecánica del panel. Mostrar, ocultar, según tamaño.
+    * Mecánica del panel. Mostrar, ocultar, según tamaño.
     * Que recuerde conversación.
     * Botón nueva conversación.
         * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
-    - Multilingue. No hace falta algo especial, solo que uno de los casos sea en español.
+    - Multilingüe. No hace falta algo especial, solo que uno de los casos sea en español.
     - Consultar.
         - Filtro en el módulo por el usuario no afectan a los resultado del chat.
         - Propiedad no visualizada en el tab son reconocidas.
