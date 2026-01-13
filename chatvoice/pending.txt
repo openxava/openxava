@@ -52,7 +52,7 @@ M7
     - Consultar.
         * Filtro en el módulo por el usuario no afectan a los resultado del chat.
         - Propiedad no visualizada en el tab son reconocidas.
-        - Reconocer datos nuevos, modificados o eliminados.
+        * Reconocer datos nuevos, modificados o eliminados.
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     - Preguntar por información de colecciones @ElementCollection.
     - Consulta por totales. Totales obtenidos de las líneas.
@@ -64,7 +64,7 @@ M7
         - Reconocer el registro actual.
     - Filtrar lista.
         - Que filtre si estamos en el módulo.
-        - Si estamos en datalle u otro módulo que lo saque en el chat.
+        - Si estamos en detalle u otro módulo que lo saque en el chat.
         - Filtrar por varios campos.
         - Filtrar por fecha.
         - Comparadores.

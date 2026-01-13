@@ -184,6 +184,29 @@ public class ChatTest extends WebDriverTestBase {
         assertFalse("Response should NOT contain '2020'", response.contains("2020"));
     }
     
+    public void testUseJustUpdatedData() throws Exception {
+        goModule("Customer");
+        assertListRowCount(9);
+        
+        sendChatMessage("How many customers do I have?");
+        String response = waitForChatResponse();
+        assertTrue("Response should contain '9'", response.contains("9"));
+        
+        execute("CRUD.new");
+        setValue("number", "66");
+        setValue("name", "Test Customer");
+        execute("CRUD.save");
+        execute("Mode.list");
+        assertListRowCount(10);
+
+        sendChatMessage("How many customers do I have now?"); // The "now" is need so the LLM does not use its own memory
+        response = waitForChatResponse();
+        assertTrue("Response should contain '10'", response.contains("10"));
+        
+        execute("CRUD.deleteRow", "row=9");
+        assertListRowCount(9);
+    }
+    
     protected void assertChatPanelHidden() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatPanel = driver.findElement(By.id("chat_panel"));
