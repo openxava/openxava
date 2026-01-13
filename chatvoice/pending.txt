@@ -107,6 +107,10 @@ Por resolver
 - ¿Cómo confirmar cambio y borrado de datos?
 - Si pido que borre y la lógica de borra no borra de verdad, ¿qué hago?
 
+Pedido:
+- Poder preguntar por datos del dashboard.
+- Poder preguntar por voz. Sponsor/pet.
+
 Diferido
 - Poder redimensionar panel del chat.
 - Mostrar la respuesta a medida que se genere, para mejorar la sensación de tiempo de respuesta.
