@@ -3,9 +3,7 @@ package org.openxava.test.run;
 import org.openxava.util.*;
 
 /**
- * Execute this class to start a manager for you development database.
- * 
- * With Eclipse: Right mouse button > Run As > Java Application
+ * Execute this class to start a manager for your development database.
  */
 
 public class DBManager {
