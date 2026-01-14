@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Log4j upgraded to 2.25.3. 
+- Driver version in doc/new projects upgraded for Informix.
+- Fixed 1 security vulnerabilities in dependencies.
 - Improved startup time of embedded Tomcat.
 - Fix: Unnecessary scanning of JARs by the embedded Tomcat used in development.
 - Fix: User-resized column width not remembered in the list used to add elements to a collection.
