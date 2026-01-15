@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Visual Studio Code configuration files removed from GitHub code, altough it still works with VSC.
 - New projects include a DBManager class to launch a DB explorer for HSQLDB.
 - New projects can be executed from the command line using mvn exec:java.
 - Removed Eclipse-specific code comments from new projects created from archetypes.
