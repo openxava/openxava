@@ -1,11 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-TMR ME QUEDÉ PARA COPIAR EL pom.xml DE openxava-archetype A TODOS LOS DEMÁS.
-TMR INVESTIGAR SI DESDE INTELLIJ SE PUEDE EJECUTAR EL PROYECTO Y RECONOCE LA CLASE.
-TMR openxava-archetype PROBADO. FALTAN PROBAR LOS DEMAS.
-
-- Log4j upgraded to 2.25.3. 
+- Removed Eclipse-specific code comments from new projects created from archetypes.
+- Log4j upgraded to 2.25.3.
 - Driver version in doc/new projects upgraded for Informix.
 - Fixed 1 security vulnerabilities in dependencies.
 - Improved startup time of embedded Tomcat.

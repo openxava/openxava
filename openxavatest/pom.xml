@@ -107,8 +107,7 @@
 			<artifactId>exec-maven-plugin</artifactId>
 			<version>3.1.0</version> <!-- It works with Maven 3.6.0, from 2018 -->
 			<configuration>
-				<mainClass>${groupId}.test.run.${artifactId}</mainClass>
-				<classpath>target/${project.build.finalName}/WEB-INF/classes;target/${project.build.finalName}/WEB-INF/lib/*</classpath>
+				<mainClass>${project.groupId}.test.run.${project.artifactId}</mainClass>
 			</configuration>
 		</plugin>		
 		

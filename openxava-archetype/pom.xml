@@ -185,8 +185,7 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.1.0</version> 
 				<configuration>
-					<mainClass>\${groupId}.\${artifactId}.run.\${artifactId}</mainClass>
-					<classpath>target/${project.build.finalName}/WEB-INF/classes;target/${project.build.finalName}/WEB-INF/lib/*</classpath>
+					<mainClass>${project.groupId}.${project.artifactId}.run.${project.artifactId}</mainClass>
 				</configuration>
 			</plugin>
 		
