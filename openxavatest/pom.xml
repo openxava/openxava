@@ -102,6 +102,15 @@
 			</configuration>
 		</plugin>
 		
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>3.1.0</version> <!-- It works with Maven 3.6.0, from 2018 -->
+			<configuration>
+				<mainClass>${project.groupId}.test.run.${project.artifactId}</mainClass>
+			</configuration>
+		</plugin>		
+		
  		<!-- Ensure annotation processing (Lombok) works, especially on Java 25 
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>

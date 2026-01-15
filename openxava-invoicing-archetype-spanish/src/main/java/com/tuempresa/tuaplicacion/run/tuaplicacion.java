@@ -4,8 +4,6 @@ import org.openxava.util.*;
 
 /**
  * Ejecuta esta clase para arrancar la aplicación.
- *
- * Con OpenXava Studio/Eclipse: Botón derecho del ratón > Run As > Java Application
  */
 
 public class tuaplicacion {

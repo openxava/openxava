@@ -6,8 +6,6 @@ import org.openxava.util.*;
 
 /**
  * Execute this class to start the application.
- *
- * With Eclipse: Right mouse button > Run As > Java Application
  */
 
 public class openxavatest {

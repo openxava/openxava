@@ -1,7 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
-- Log4j upgraded to 2.25.3. 
+- New projects include a DBManager class to launch a DB explorer for HSQLDB.
+- New projects can be executed from the command line using mvn exec:java.
+- Removed Eclipse-specific code comments from new projects created from archetypes.
+- Log4j upgraded to 2.25.3.
 - Driver version in doc/new projects upgraded for Informix.
 - Fixed 1 security vulnerabilities in dependencies.
 - Improved startup time of embedded Tomcat.
