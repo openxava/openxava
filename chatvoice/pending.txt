@@ -61,8 +61,8 @@ M7
         ¿Cuál es el producto que más unidades ha facturado en toda la historia?
         Me dice:
         Producto nº 2 — "Aprende OpenXava con muchos ejemplos": 142 unidades.
-        TENGO QUE VERIFICAR QUE ES CIERTO. TAMBIÉN DEBERÍA AJUSTAR EL PROMPT
-        PARA QUE SACARA SOLO ES
+        YA HE VERIFICAR QUE ES CIERTO. DEBERÍA AJUSTAR EL PROMPT
+        PARA QUE SACARA SOLO ESTE
     - Modificar.
         - Mirar ejemplos en foro.
         - Se pueden actualizar fechas y número.
