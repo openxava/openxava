@@ -215,26 +215,25 @@ public class Oficinista {
       A veces es útil disponer los miembros alineados por columnas, como en una
       tabla. Por ejemplo, la siguiente vista:<br>
       <pre><code class="language-java">@View( members=
-    "number, type, name;" +
-    "telephone, email, website")
+    "numero, tipo, nombre;" +
+    "telefono, correoElectronico, sitioWeb")
 </code></pre>
       ...se visualizaría así:<br>
-      <img src="files/view_en024.png" alt="view_en024.png" title="view_en024.png"><br>
+      <img src="files/view_es024.png" alt="view_es024.png" title="view_es024.png"><br>
       Esto es feo. Sería mejor tener todos los datos alineados por columnas. Puedes
       definir la vista de esta forma:<br>
       <pre><code class="language-java">@View( members=
-    "#number, type, name;" +
-    "telephone, email, website")
+    "#numero, tipo, nombre;" +
+    "telefono, correoElectronico, sitioWeb")
 </code></pre>
       Fíjate que ahora usas <em>#</em> al principio de <em>members</em>. Ahora obtienes
       este resultado:<br>
-      <img src="files/view_en026.png" alt="view_en026.png" title="view_en026.png"><br>
+      <img src="files/view_es026.png" alt="view_es026.png" title="view_es026.png"><br>
       Ahora, gracias a la <em>#,</em> los miembros están alineados por columnas.<br>
       Esta característica también está disponible para los grupos y secciones (ver más abajo). Además, si pones
       <em>alignedByColumns=true</em> en <em>xava.properties</em>
       todos los elementos se alinean por columna incluso si no especificas <em>#</em>
       en la vista.<br>
-      <br>
       <h3 id="toc2"><a name="Vista-Disposicion-Grupos"></a>Grupos</h3>
       Con los grupos podemos agrupar un conjunto de propiedades relacionadas, y
       esto tiene un efecto visual. Para definir un grupo solo necesitamos poner
@@ -334,7 +333,6 @@ public class Oficinista {
       Además, si ponemos <em>alignedByColumns=true (nuevo en v4.7.1)</em> en <em>xava.properties</em>
       todos los elementos se alinean por columna incluso si no especificamos <em>#</em>
       en la vista.<br>
-      <br>
       <h3 id="toc3"><a name="Vista-Disposicion-Secciones"></a>Secciones</h3>
       Además de en grupo los miembros se pueden organizar en secciones. Para
       definir una sección solo necesitamos poner el nombre de la sección y
