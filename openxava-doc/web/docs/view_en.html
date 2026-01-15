@@ -27,6 +27,7 @@
         <h1 class="nopad">Table of contents</h1>
         <div style="margin-left: 1em;"><a href="#View">View</a></div>
         <div style="margin-left: 2em;"><a href="#View-Layout">Layout</a></div>
+        <div style="margin-left: 3em;"><a href="#View-Layout-Aligned+by+columns">Aligned by columns</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Groups">Groups</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Sections">Sections</a></div>
         <div style="margin-left: 3em;"><a href="#View-Layout-Frames+side+by+side">Frames side by side</a></div>
@@ -208,6 +209,30 @@ public class Clerk {</code></pre>
       is put below (in the next line). Hence the previous view is displayed in
       this way:<br>
       <img src="files/view_en020.jpg" alt="view_en020.jpg" title="view_en020.jpg"><br>
+      <h3 id="toc1.5"><a name="View-Layout-Aligned+by+columns"></a>Aligned by columns</h3>
+      Sometimes it's useful to layout members aligned by columns, like in a
+      table. For example, the next view:<br>
+      <pre><code class="language-java">@View( members=
+    "number, type, name;" +
+    "telephone, email, website")
+</code></pre>
+      ...will be displayed as following:<br>
+      <img src="files/view_en024.png" alt="view_en024.png" title="view_en024.png"><br>
+      This is ugly. It would be better to have all data aligned by columns. You
+      can define the view in this way:<br>
+      <pre><code class="language-java">@View( members=
+    "#number, type, name;" +
+    "telephone, email, website")
+</code></pre>
+      Note that now you use <em>#</em> at the beginning of <em>members</em>. Now you obtain
+      this result:<br>
+      <img src="files/view_en026.png" alt="view_en026.png" title="view_en026.png"><br>
+      Now, thanks to the <em>#,</em> the members are aligned by columns.<br>
+      This feature is also available for the groups and sections (see below). Moreover, if you put
+      <em>alignedByColumns=true</em> in <em>xava.properties</em>
+      all elements are aligned by column even if you do not specify <em>#</em>
+      in the view.<br>
+      <br>
       <h3 id="toc2"><a name="View-Layout-Groups"></a>Groups</h3>
       With groups you can lump a set of related properties and it has visual
       effect. For defining a group you only need to put the name of the group

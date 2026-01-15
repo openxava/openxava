@@ -27,6 +27,7 @@
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#Vista">Vista</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Disposicion">Disposición</a></div>
+        <div style="margin-left: 3em;"><a href="#Vista-Disposicion-Alineado+por+columnas">Alineado por columnas</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Disposicion-Grupos">Grupos</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Disposicion-Secciones">Secciones</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Disposicion-Marcos+uno+al+lado+del+otro">Marcos uno al lado del otro</a></div>
@@ -210,6 +211,30 @@ public class Oficinista {
       miembro se pone a continuación, y con punto y coma en la línea siguiente,
       esto es la vista anterior quedaría así:<br>
       <img src="files/view_es020.jpg" alt="view_es020.jpg" title="view_es020.jpg"><br>
+      <h3 id="toc1.5"><a name="Vista-Disposicion-Alineado+por+columnas"></a>Alineado por columnas</h3>
+      A veces es útil disponer los miembros alineados por columnas, como en una
+      tabla. Por ejemplo, la siguiente vista:<br>
+      <pre><code class="language-java">@View( members=
+    "number, type, name;" +
+    "telephone, email, website")
+</code></pre>
+      ...se visualizaría así:<br>
+      <img src="files/view_en024.png" alt="view_en024.png" title="view_en024.png"><br>
+      Esto es feo. Sería mejor tener todos los datos alineados por columnas. Puedes
+      definir la vista de esta forma:<br>
+      <pre><code class="language-java">@View( members=
+    "#number, type, name;" +
+    "telephone, email, website")
+</code></pre>
+      Fíjate que ahora usas <em>#</em> al principio de <em>members</em>. Ahora obtienes
+      este resultado:<br>
+      <img src="files/view_en026.png" alt="view_en026.png" title="view_en026.png"><br>
+      Ahora, gracias a la <em>#,</em> los miembros están alineados por columnas.<br>
+      Esta característica también está disponible para los grupos y secciones (ver más abajo). Además, si pones
+      <em>alignedByColumns=true</em> en <em>xava.properties</em>
+      todos los elementos se alinean por columna incluso si no especificas <em>#</em>
+      en la vista.<br>
+      <br>
       <h3 id="toc2"><a name="Vista-Disposicion-Grupos"></a>Grupos</h3>
       Con los grupos podemos agrupar un conjunto de propiedades relacionadas, y
       esto tiene un efecto visual. Para definir un grupo solo necesitamos poner
