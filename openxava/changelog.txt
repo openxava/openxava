@@ -13,7 +13,7 @@ Change Log for OpenXava project
 
 - Section in view docs explaining column alignment in root view with code examples.
 
-- Fixed 1 security vulnerabilities in dependencies.
+- Fixed 1 security vulnerability in dependencies.
 - Fix: 'Changed data' dialog when changing only transient properties.
 - Fix: User-resized column width not remembered in the list used to add elements to a collection.
 - Fix: @Discussion editor does not work in Oracle by default due to unquoted COMMENT column name.
