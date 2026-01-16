@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.6.4-SNAPSHOT</openxava.version>
+		<openxava.version>7.6.4</openxava.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<!-- Las aplicaciones OpenXava funcionan bien con Java 1.8, 11, 17, 21 y 25 -->
 		<!-- Para Java 25 has de descomentar el plugin de procesamiento de anotaciones en la sección build más abajo -->
