@@ -1,18 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6.4 (2026-1-16)
+--------------------------
 - Improved startup time of embedded Tomcat.
 - New method toString(Locale, Object) in the Strings utility class for locale-aware string conversion.
 - Visual Studio Code configuration files removed from GitHub code, although it still works with VSC.
 - Removed Eclipse-specific code comments from new projects created from archetypes.
 - New projects include a DBManager class to launch a DB explorer for HSQLDB.
 - New projects can be executed from the command line using mvn exec:java.
-
 - Log4j upgraded to 2.25.3.
 - Driver version in doc/new projects upgraded for Informix.
-
 - Section in view docs explaining column alignment in root view with code examples.
-
 - Fixed 1 security vulnerability in dependencies.
 - Fix: 'Changed data' dialog when changing only transient properties.
 - Fix: User-resized column width not remembered in the list used to add elements to a collection.
