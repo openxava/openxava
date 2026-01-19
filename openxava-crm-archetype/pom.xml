@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.6.4</openxava.version>
+		<openxava.version>7.7-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
 		<!-- For Java 25 you have to uncomment the annotation processor plugin in build section below -->
