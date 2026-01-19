@@ -223,7 +223,14 @@ public class ChatTest extends WebDriverTestBase {
         sendChatMessage("Tell me what products have been invoiced in invoice 2021/1");
         String response = waitForChatResponse();
         assertTrue("Response should contain 'XavaPro Enterprise'", response.contains("XavaPro Enterprise"));
-        assertTrue("Response should contain 'Aprende OpenXava con muchos ejemplos'", response.contains("Aprende OpenXava con muchos ejemplos"));
+        assertTrue("Response should contain 'Aprende OpenXava con muchos ejemplos'", response.contains("Aprende OpenXava con ejemplos"));
+        
+        clickNewConversation();
+        
+        sendChatMessage("What is the product that has been invoiced the most in all history? Inform me only of the product description and the total number of units sold.");
+        response = waitForChatResponse();
+        assertTrue("Response should contain 'Aprende OpenXava con muchos ejemplos'", response.contains("Aprende OpenXava con ejemplos"));
+        assertTrue("Response should contain '142'", response.contains("142"));
     }
     
     protected void assertChatPanelHidden() throws Exception {

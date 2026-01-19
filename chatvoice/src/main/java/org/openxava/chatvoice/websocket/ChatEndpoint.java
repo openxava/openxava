@@ -29,6 +29,7 @@ import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.service.AiServices;
+import dev.langchain4j.service.SystemMessage;
 
 /**
  * WebSocket endpoint for chat functionality.
@@ -39,6 +40,15 @@ import dev.langchain4j.service.AiServices;
 public class ChatEndpoint {
 	
 	interface Assistant {
+		@SystemMessage("""
+			You are a helpful assistant for an OpenXava business application.
+			
+			IMPORTANT RULES:
+			1. ALWAYS remember the user's original question throughout the conversation.
+			2. Before loading data, THINK about what you really need. Don't load all entities - only the ones required to answer the question.
+			3. For aggregation questions (max, min, sum, count, most, least), use findEntitiesByCondition with appropriate conditions instead of loading all data.
+			4. Keep your responses concise and focused on answering the user's question.
+			""")
 		String chat(String userMessage);
 	}
 	
@@ -105,8 +115,9 @@ public class ChatEndpoint {
 					.serviceTier("priority") // Doble de rápido, doble de caro
 					.build();
 				
-				// Crear memoria de chat para esta sesión (mantiene últimos 20 mensajes)
-				ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(20);
+				// Crear memoria de chat para esta sesión (mantiene últimos 50 mensajes)
+				// 50 mensajes para evitar que tool calls con respuestas grandes desplacen la pregunta original
+				ChatMemory chatMemory = MessageWindowChatMemory.withMaxMessages(50);
 				chatMemories.put(sessionId, chatMemory);
 				
 				// Crear asistente con tools genéricos y memoria
