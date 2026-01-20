@@ -3,7 +3,7 @@ Pending Chat AI
 
 M1
 * Acceder a todos los datos mediante el tab.
-* Filtro en el módulo por el usuario no afectan a los resultado del chat.
+* Filtro en el módulo por el usuario no afectan a los resultados del chat.
 * Propiedad no visualizada en el tab son reconocidas.
 * Reconocer datos nuevos, modificados o eliminados.
 * Deberíamos excluir los módulos transitorios de la lista de entidades.
@@ -57,12 +57,13 @@ M7
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     * Preguntar por información de colecciones @ElementCollection.
     * Consulta por totales. Totales obtenidos de las líneas.
-    - Modificar. TMR ME QUEDÉ PARA EMPEZAR ESTO
-        - Mirar ejemplos en foro.
-        - Se pueden actualizar fechas y número.
-        - Refrescar lista o detalle después de modificar datos.
-        - Solo poder modificar datos editables en modo detalle.
-        - Reconocer el registro actual.
+    - Modificar.
+        * Mirar ejemplos en foro.
+        * Se pueden actualizar fechas.
+        * Se pueden actualizar números.
+        * Refrescar lista o detalle después de modificar datos.
+        * Solo poder modificar datos editables en modo detalle.
+        * Reconocer el registro actual.
     - Filtrar lista.
         - Que filtre si estamos en el módulo.
         - Si estamos en detalle u otro módulo que lo saque en el chat.

@@ -242,8 +242,14 @@ abstract public class WebDriverTestBase extends TestCase {
         return driver.findElement(By.id("ox_chatvoice_" + module + "__" + collection));
     }
     
-    protected void assertValueInList(int row, int column, String expectedValue) { // Duplicated with DescriptionsListTest, refactoring pending 
-        assertEquals(expectedValue, getValueInList(row, column));				
+    protected void assertValueInList(int row, int column, String expectedValue) throws Exception { 
+    	String actualValue = getValueInList(row, column);
+    	int c=0;
+    	while (!Is.equal(actualValue, expectedValue)) {
+    		if (c++ > 20) assertEquals(expectedValue, actualValue);
+			Thread.sleep(100);
+			actualValue = getValueInList(row, column);
+    	}
     }
     
     protected void assertValueInCollection(String collection, int row, int column, String expectedValue) {

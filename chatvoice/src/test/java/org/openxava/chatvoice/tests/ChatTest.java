@@ -233,6 +233,66 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("Response should contain '142'", response.contains("142"));
     }
     
+    public void testModifyData() throws Exception {
+        goModule("Product");
+        
+        assertValueInList(9, 1, "BMW 330i");
+        assertValueInList(9, 2, "47,000.00");
+        
+        sendChatMessage("Update the price of the BMW 330i to 51k");
+        waitForChatResponse();
+        
+        assertValueInList(9, 2, "51,000.00");
+        
+        execute("List.viewDetail", "row=9");
+        assertValue("unitPrice", "51,000.00");
+        
+        clickNewConversation();
+        sendChatMessage("Set the price to 47000");
+        waitForChatResponse();
+        
+        assertValue("unitPrice", "47,000.00");
+        
+        goModule("Invoice");
+        clickNewConversation();
+        
+        assertValueInList(0, 0, "2021");
+        assertValueInList(0, 1, "1");
+        assertValueInList(0, 2, "6/13/2021");
+        
+        sendChatMessage("Cambia la fecha de la factura 2021/1 al 15 de junio del 2021");
+        waitForChatResponse();
+        
+        assertValueInList(0, 2, "6/15/2021");
+        
+        sendChatMessage("Change the date of invoice 2021/1 to June 13, 2021");
+        waitForChatResponse();
+
+        assertValueInList(0, 2, "6/13/2021");
+        
+        goModule("Customer");
+        clickNewConversation();
+        
+        assertValueInList(0, 0, "1");
+        assertValueInList(0, 1, "Wim Mertens");
+        assertValueInList(0, 2, "");
+        assertValueInList(0, 3, "Boomgaardstraat, 17");
+        assertValueInList(0, 4, "Neerpelt");
+        assertValueInList(0, 5, "Belgium");
+        
+        sendChatMessage("Set the address of customer 1 to 'Main Street, 100', the city to 'Brussels' and the country to 'Spain'");
+        waitForChatResponse();
+        
+        assertValueInList(0, 3, "Main Street, 100");
+        assertValueInList(0, 4, "Neerpelt");
+        assertValueInList(0, 5, "Belgium");
+        
+        sendChatMessage("Set the address of customer 1 to 'Boomgaardstraat, 17'");
+        waitForChatResponse();
+        
+        assertValueInList(0, 3, "Boomgaardstraat, 17");
+    }
+    
     protected void assertChatPanelHidden() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatPanel = driver.findElement(By.id("chat_panel"));
