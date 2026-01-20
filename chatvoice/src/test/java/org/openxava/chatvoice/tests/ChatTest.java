@@ -318,4 +318,152 @@ public class ChatTest extends WebDriverTestBase {
         WebElement hideButton = driver.findElement(By.id("chat_panel_hide"));
         assertFalse("chat_panel_hide should be hidden when panel is hidden", hideButton.isDisplayed());
     }
+    
+    public void testFilterList() throws Exception {
+        assertFilterListInModule();
+        assertFilterListInDetailModeReturnsInChat();
+        assertFilterListFromDifferentModuleReturnsInChat();
+        assertFilterByMultipleFields();
+        assertFilterByDate();
+        assertFilterWithComparators();
+    }
+    
+    private void assertFilterListInModule() throws Exception {
+        goModule("Invoice");
+        assertListRowCount(10);
+        
+        // Filter by year - should filter the visible list
+        sendChatMessage("Filtra las facturas del año 2025");
+        waitForChatResponse();
+        Thread.sleep(500); // Wait for filter to apply
+        
+        assertListRowCount(3);
+        assertValueInList(0, 0, "2025");
+        assertValueInList(1, 0, "2025");
+        assertValueInList(2, 0, "2025");
+        
+        // Clear filter
+        sendChatMessage("Quita el filtro");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(10);
+    }
+    
+    private void assertFilterListInDetailModeReturnsInChat() throws Exception {
+        goModule("Invoice");
+        clickNewConversation();
+        
+        // Enter detail mode
+        execute("List.viewDetail", "row=0");
+        assertValue("year", "2021");
+        
+        // Ask to filter - should return data in chat since we're in detail mode
+        sendChatMessage("Show me invoices from 2024");
+        String response = waitForChatResponse();
+        
+        // Should contain data in the chat response, not filter the list
+        assertTrue("Response should contain '2024'", response.contains("2024"));
+        assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));
+        
+        // Go back to list mode
+        execute("Mode.list");
+    }
+    
+    private void assertFilterListFromDifferentModuleReturnsInChat() throws Exception {
+        goModule("Customer");
+        clickNewConversation();
+        
+        // Ask about invoices while in Customer module - should return in chat
+        sendChatMessage("Show me invoices from year 2023");
+        String response = waitForChatResponse();
+        
+        // Should contain invoice data in the chat
+        assertTrue("Response should contain '2023'", response.contains("2023"));
+        assertTrue("Response should contain 'Marissa Mayer' or 'Carlos Ann'", 
+            response.contains("Marissa Mayer") || response.contains("Carlos Ann"));
+    }
+    
+    private void assertFilterByMultipleFields() throws Exception {
+        goModule("Invoice");
+        clickNewConversation();
+        assertListRowCount(10);
+        
+        // Filter by year and customer
+        sendChatMessage("Muestra las facturas del año 2025 del cliente John Cage");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(1);
+        assertValueInList(0, 0, "2025");
+        assertValueInList(0, 3, "John Cage");
+        
+        // Clear filter
+        sendChatMessage("Limpia el filtro");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(10);
+    }
+    
+    private void assertFilterByDate() throws Exception {
+        goModule("Invoice");
+        clickNewConversation();
+        assertListRowCount(10);
+        
+        // Filter by specific date
+        sendChatMessage("Filtra las facturas con fecha 8/13/2024");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(1);
+        assertValueInList(0, 2, "8/13/2024");
+        assertValueInList(0, 3, "Carlos Ann");
+        
+        // Clear and filter by month
+        clickNewConversation();
+        sendChatMessage("Muestra las facturas del mes de agosto");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        // Should show invoices from August (month 8): 8/13/2024, 8/11/2023, 8/17/2025
+        assertListRowCount(3);
+        
+        // Clear filter
+        sendChatMessage("Quita el filtro");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(10);
+    }
+    
+    private void assertFilterWithComparators() throws Exception {
+        goModule("Invoice");
+        clickNewConversation();
+        assertListRowCount(10);
+        
+        // Filter with greater than comparator
+        sendChatMessage("Muestra las facturas con total mayor a 60000");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        // Should show invoices with total > 60000: 62920, 64657.56, 61710, 62920, 123420 = 5 invoices
+        assertListRowCount(5);
+        
+        // Clear and filter with less than
+        clickNewConversation();
+        sendChatMessage("Filtra las facturas con total menor a 20000");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        // Should show invoices with total < 20000: 15258.10, 6353.71, 17198.94 = 3 invoices
+        assertListRowCount(3);
+        
+        // Clear filter
+        sendChatMessage("Limpia el filtro");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(10);
+    }
 }
