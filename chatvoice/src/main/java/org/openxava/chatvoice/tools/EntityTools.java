@@ -208,7 +208,7 @@ public class EntityTools {
 	 * @param condition SQL-style condition with property names in ${}, e.g., "${status} = 'active' AND ${amount} > 1000"
 	 * @return A list of records matching the condition (up to 600)
 	 */
-	@Tool("Get records from an entity and return them in the chat. IMPORTANT: Before using this, check getCurrentModule(). If the user is viewing the same entity they're asking about, use filterList instead to filter the visible list. Only use this tool when: (1) the user asks for data from a DIFFERENT entity than the current module, or (2) the user explicitly wants data returned in the chat for analysis/summary. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100. Returns up to 600 records. Don't show hiddenKey to the user.")
+	@Tool("Get records from an entity and return them in the chat. CRITICAL: DO NOT use this tool if the user is viewing the same entity in list mode - use filterList instead! This tool is ONLY for: (1) querying a DIFFERENT entity than the current module, (2) when the user is in detail mode, or (3) when the user explicitly asks for data analysis/summary in the chat. Specify the entity name and a SQL-style condition where property names are wrapped in ${}, like: ${name} = 'John' or ${price} > 100. Returns up to 600 records. Don't show hiddenKey to the user.")
 	public List<Map<String, Object>> findEntitiesByCondition(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity, 
 			@P("SQL-style condition with property names in ${}, e.g. ${name} = 'John'") String condition) {
@@ -489,7 +489,7 @@ public class EntityTools {
 	 * @param comparators Map of property names to comparators (optional)
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the visible list in the UI. IMPORTANT: Before calling this, use getEntityProperties to get the exact property names for the entity. Use those exact names in 'values' and 'comparators'. If the entity does not match the current module, this tool will fail and you should use findEntitiesByCondition instead. Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
+	@Tool("Filter the visible list in the UI. THIS IS THE PREFERRED WAY to show/display/filter data when the user is viewing the same entity in list mode. When user says 'show me', 'display', 'filter', 'list' data from the CURRENT module, ALWAYS use this tool first. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail and you should use findEntitiesByCondition instead. Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
 	public String filterList(
 			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
 			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
@@ -506,22 +506,26 @@ public class EntityTools {
 			
 			String currentModuleName = modules.getCurrentModuleName();
 			if (currentModuleName == null) {
+				System.out.println("[DEBUG] No current module selected"); // tmr
 				return "ERROR: No current module selected.";
 			}
-			
+
 			// Check if the requested entity matches the current module
 			if (entity != null && !entity.equalsIgnoreCase(currentModuleName)) {
+				System.out.println("[DEBUG] Entity mismatch - current: " + currentModuleName + ", requested: " + entity); // tmr
 				return "ERROR: Cannot filter. The user is viewing '" + currentModuleName + "' but asked about '" + entity + "'. Use findEntitiesByCondition to get data from a different entity.";
 			}
-			
+
 			// Check if the user is in list mode (not detail mode)
 			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
 			if (manager != null && !manager.isListMode()) {
+				System.out.println("[DEBUG] User is in detail mode, not list mode"); // tmr
 				return "ERROR: Cannot filter. The user is in detail mode, not viewing the list. Use findEntitiesByCondition to return data in the chat.";
 			}
-			
+
 			Tab tab = (Tab) context.get(application, currentModuleName, "xava_tab");
 			if (tab == null) {
+				System.out.println("[DEBUG] No tab available for module: " + currentModuleName); // tmr
 				return "ERROR: No tab available for module " + currentModuleName;
 			}
 			
@@ -535,6 +539,7 @@ public class EntityTools {
 				String propertyName = prop.getQualifiedName();
 				
 				String value = values != null ? values.get(propertyName) : null;
+				System.out.println("[DEBUG] Processing property: " + propertyName + ", value: " + value); // tmr
 				pendingFilterValues.put("conditionValue___" + i, value != null ? value : "");
 				
 				// Set comparator if specified

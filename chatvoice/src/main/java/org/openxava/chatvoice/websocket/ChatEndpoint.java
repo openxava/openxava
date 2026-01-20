@@ -48,6 +48,7 @@ public class ChatEndpoint {
 			2. Before loading data, THINK about what you really need. Don't load all entities - only the ones required to answer the question.
 			3. For aggregation questions (max, min, sum, count, most, least), use findEntitiesByCondition with appropriate conditions instead of loading all data.
 			4. Keep your responses concise and focused on answering the user's question.
+			5. CRITICAL: When user asks to show/display/filter data, ALWAYS call getCurrentModule() first to check which module they are viewing. If they are viewing the SAME entity they ask about, use filterList. The user may have changed modules since the last message.
 			""")
 		String chat(String userMessage);
 	}

@@ -412,17 +412,17 @@ public class ChatTest extends WebDriverTestBase {
         assertListRowCount(10);
         
         // Filter by specific date
-        sendChatMessage("Filtra las facturas con fecha 8/13/2024");
+        sendChatMessage("Filter invoices with date 8/13/2024");
         waitForChatResponse();
         Thread.sleep(500);
         
-        assertListRowCount(1);
+        assertListRowCount(1); // TMR ME QUEDÉ POR AQUÍ. FALLA PORQUE A VECES USA EL FORMATO 8/13/2024 Y A VECES 2024-08-13
         assertValueInList(0, 2, "8/13/2024");
         assertValueInList(0, 3, "Carlos Ann");
         
         // Clear and filter by month
         clickNewConversation();
-        sendChatMessage("Muestra las facturas del mes de agosto");
+        sendChatMessage("Show invoices from August");
         waitForChatResponse();
         Thread.sleep(500);
         
@@ -430,7 +430,7 @@ public class ChatTest extends WebDriverTestBase {
         assertListRowCount(3);
         
         // Clear filter
-        sendChatMessage("Quita el filtro");
+        sendChatMessage("Clear the filter");
         waitForChatResponse();
         Thread.sleep(500);
         
