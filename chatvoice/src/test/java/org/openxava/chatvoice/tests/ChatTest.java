@@ -97,6 +97,7 @@ public class ChatTest extends WebDriverTestBase {
     protected String waitForChatResponse() throws Exception {
         WebDriver driver = getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.ignoring(StaleElementReferenceException.class);
         
         // Wait for typing indicator to disappear
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("typingIndicator")));

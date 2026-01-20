@@ -50,7 +50,7 @@ M7
         * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
     * Multilingüe.
     * Consultar.
-        * Filtro en el módulo por el usuario no afectan a los resultado del chat.
+        * Filtro en el módulo por el usuario no afectan a los resultados del chat.
         * Propiedad no visualizada en el tab son reconocidas.
         * Consultar de un módulo no abierto todavía.
         * Reconocer datos nuevos, modificados o eliminados.

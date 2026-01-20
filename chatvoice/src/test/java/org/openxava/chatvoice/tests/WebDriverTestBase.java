@@ -243,13 +243,16 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected void assertValueInList(int row, int column, String expectedValue) throws Exception { 
-    	String actualValue = getValueInList(row, column);
-    	int c=0;
-    	while (!Is.equal(actualValue, expectedValue)) {
-    		if (c++ > 20) assertEquals(expectedValue, actualValue);
+    	String actualValue = null;
+    	for (int c = 0; c < 20; c++) {
+    		try {
+    			actualValue = getValueInList(row, column);
+    			if (Is.equal(actualValue, expectedValue)) return;
+    		} catch (StaleElementReferenceException ex) {
+    		}
 			Thread.sleep(100);
-			actualValue = getValueInList(row, column);
     	}
+    	assertEquals(expectedValue, actualValue);
     }
     
     protected void assertValueInCollection(String collection, int row, int column, String expectedValue) {
