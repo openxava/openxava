@@ -235,6 +235,12 @@ public class ChatTest extends WebDriverTestBase {
     }
     
     public void testModifyData() throws Exception {
+        assertModifyNumberFromListAndDetail();
+        assertModifyDate();
+        assertModifyOnlyEditableFields();
+    }
+    
+    private void assertModifyNumberFromListAndDetail() throws Exception {
         goModule("Product");
         
         assertValueInList(9, 1, "BMW 330i");
@@ -253,7 +259,9 @@ public class ChatTest extends WebDriverTestBase {
         waitForChatResponse();
         
         assertValue("unitPrice", "47,000.00");
-        
+    }
+    
+    private void assertModifyDate() throws Exception {
         goModule("Invoice");
         clickNewConversation();
         
@@ -270,7 +278,9 @@ public class ChatTest extends WebDriverTestBase {
         waitForChatResponse();
 
         assertValueInList(0, 2, "6/13/2021");
-        
+    }
+    
+    private void assertModifyOnlyEditableFields() throws Exception {
         goModule("Customer");
         clickNewConversation();
         

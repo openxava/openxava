@@ -57,7 +57,7 @@ M7
     * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
     * Preguntar por información de colecciones @ElementCollection.
     * Consulta por totales. Totales obtenidos de las líneas.
-    - Modificar.
+    * Modificar.
         * Mirar ejemplos en foro.
         * Se pueden actualizar fechas.
         * Se pueden actualizar números.
