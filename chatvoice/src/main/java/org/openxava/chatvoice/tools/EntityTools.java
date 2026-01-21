@@ -543,10 +543,17 @@ public class EntityTools {
 				
 				// Convert date values from yyyy-MM-dd to user locale format
 				if (value != null && !value.isEmpty() && prop.isDateType()) {
+					// tmr Mover esto a un método
 					try {
-						java.time.LocalDate date = java.time.LocalDate.parse(value); // ISO format yyyy-MM-dd
-						java.util.Date utilDate = java.sql.Date.valueOf(date);
-						value = prop.format(utilDate, org.openxava.util.Locales.getCurrent());
+						java.time.LocalDate localDate = java.time.LocalDate.parse(value); // ISO format yyyy-MM-dd
+						Class<?> type = prop.getType();
+						System.out.println("[DEBUG] Current locale: " + org.openxava.util.Locales.getCurrent()); // tmr
+						if (java.time.LocalDate.class.isAssignableFrom(type)) {
+							value = prop.format(localDate, org.openxava.util.Locales.getCurrent());
+						} else {
+							java.util.Date utilDate = java.sql.Date.valueOf(localDate);
+							value = prop.format(utilDate, org.openxava.util.Locales.getCurrent());
+						}
 						System.out.println("[DEBUG] Converted date to UI format: " + value);
 					} catch (Exception e) {
 						System.out.println("[DEBUG] Could not parse date: " + value + ", error: " + e.getMessage());
