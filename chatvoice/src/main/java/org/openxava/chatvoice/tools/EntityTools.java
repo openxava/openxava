@@ -489,7 +489,7 @@ public class EntityTools {
 	 * @param comparators Map of property names to comparators (optional)
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the visible list in the UI. THIS IS THE PREFERRED WAY to show/display/filter data when the user is viewing the same entity in list mode. When user says 'show me', 'display', 'filter', 'list' data from the CURRENT module, ALWAYS use this tool first. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail and you should use findEntitiesByCondition instead. Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
+	@Tool("Filter the visible list in the UI. THIS IS THE PREFERRED WAY to show/display/filter data when the user is viewing the same entity in list mode. When user says 'show me', 'display', 'filter', 'list' data from the CURRENT module, ALWAYS use this tool first. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail and you should use findEntitiesByCondition instead. IMPORTANT: For date values, ALWAYS use ISO format yyyy-MM-dd (e.g., 2024-08-13). Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
 	public String filterList(
 			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
 			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
@@ -540,6 +540,19 @@ public class EntityTools {
 				
 				String value = values != null ? values.get(propertyName) : null;
 				System.out.println("[DEBUG] Processing property: " + propertyName + ", value: " + value); // tmr
+				
+				// Convert date values from yyyy-MM-dd to user locale format
+				if (value != null && !value.isEmpty() && prop.isDateType()) {
+					try {
+						java.time.LocalDate date = java.time.LocalDate.parse(value); // ISO format yyyy-MM-dd
+						java.util.Date utilDate = java.sql.Date.valueOf(date);
+						value = prop.format(utilDate, org.openxava.util.Locales.getCurrent());
+						System.out.println("[DEBUG] Converted date to UI format: " + value);
+					} catch (Exception e) {
+						System.out.println("[DEBUG] Could not parse date: " + value + ", error: " + e.getMessage());
+					}
+				}
+				
 				pendingFilterValues.put("conditionValue___" + i, value != null ? value : "");
 				
 				// Set comparator if specified

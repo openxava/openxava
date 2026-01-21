@@ -415,8 +415,10 @@ public class ChatTest extends WebDriverTestBase {
         sendChatMessage("Filter invoices with date 8/13/2024");
         waitForChatResponse();
         Thread.sleep(500);
-        
-        assertListRowCount(1); // TMR ME QUEDÉ POR AQUÍ. FALLA PORQUE A VECES USA EL FORMATO 8/13/2024 Y A VECES 2024-08-13
+
+        // TMR ME QUEDÉ POR AQUÍ. FALLA PORQUE A VECES USA EL FORMATO 8/13/2024 Y A VECES 2024-08-13
+        // TMR YA ESTÁ ARREGLADO, PERO NO LO HE LLEGADO A PROBAR
+        assertListRowCount(1);
         assertValueInList(0, 2, "8/13/2024");
         assertValueInList(0, 3, "Carlos Ann");
         
