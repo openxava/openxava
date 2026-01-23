@@ -416,16 +416,14 @@ public class ChatTest extends WebDriverTestBase {
         waitForChatResponse();
         Thread.sleep(500);
 
-        // TMR ME QUEDÉ POR AQUÍ. FALLA PORQUE A VECES USA EL FORMATO 8/13/2024 Y A VECES 2024-08-13
-        // TMR YA ESTÁ ARREGLADO, HE HECHO UN PRIMERA PRUEBA MANUAL Y FUNCIONA. FALTA PROBARLO EN INGLÉS
-        // TMR LANZAR EL TEST Y REFACTORIZAR
         assertListRowCount(1);
         assertValueInList(0, 2, "8/13/2024");
         assertValueInList(0, 3, "Carlos Ann");
+        //assertValue("conditionValue___2", "8/13/2024"); // Waiting to solve: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808182a6fae10182f389ede3006d
         
         // Clear and filter by month
         clickNewConversation();
-        sendChatMessage("Show invoices from August");
+        sendChatMessage("Show invoices from August, from all years");
         waitForChatResponse();
         Thread.sleep(500);
         
