@@ -70,10 +70,9 @@ M7
         * Filtrar por varios campos.
         * Filtrar por fecha.
         * Comparadores.
-    - ¿Fusionar tests?
-        - Quizás podríamos hacer el navegador estático, pero a lo mejor iniciar me interesa
-            por ejemplo, para consultar de módulos no abiertos todavía, o cosas así.
-        - ¿Cuánto cuesta toda la suite? ¿Cuánto cuesta abrir el navegador?
+    - ¿Fusionar tests? No, a no ser que encuentre uno muy corto.
+    TMR ME QUEDÉ POR AQUÍ. INTENTANDO PASAR LA SUITE
+
 
 - Refactorizar
 - Poder desactivarlo mediante una propiedad en xava.properties.

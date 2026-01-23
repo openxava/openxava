@@ -59,15 +59,15 @@ abstract public class WebDriverTestBase extends TestCase {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--accept-lang=" + lang);
-        options.addArguments("--lang=" + lang); 
-        options.addArguments("--disable-search-engine-choice-screen"); 
-        options.addArguments("--window-size=900,850"); 
+        options.addArguments("--lang=" + lang);
+        options.addArguments("--disable-search-engine-choice-screen");
+        options.addArguments("--window-size=900,850");
         if (isHeadless()) {
-            options.addArguments("--headless"); 
-            options.addArguments("--disable-gpu"); 	    	
+            options.addArguments("--headless");
+            options.addArguments("--disable-gpu");
         }
         return new ChromeDriver(options);
-    }
+   }
     
     protected void changeLanguage(String lang) throws Exception {
         tearDown();

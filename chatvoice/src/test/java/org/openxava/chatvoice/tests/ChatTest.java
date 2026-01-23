@@ -14,12 +14,15 @@ import org.openqa.selenium.support.ui.*;
 public class ChatTest extends WebDriverTestBase {
 
     @Override
-    protected boolean isHeadless() { // tmr
-        return false;
+    protected boolean isHeadless() {
+        return true;
     }
 
     @Override
-    public void tearDown() throws Exception { // tmr
+    public void tearDown() throws Exception {
+        if (isHeadless()) {
+            super.tearDown();
+        }
     }
 
     public ChatTest(String testName) {
