@@ -64,12 +64,12 @@ M7
         * Refrescar lista o detalle después de modificar datos.
         * Solo poder modificar datos editables en modo detalle.
         * Reconocer el registro actual.
-    - Filtrar lista.
-        - Que filtre si estamos en el módulo.
-        - Si estamos en detalle u otro módulo que lo saque en el chat.
-        - Filtrar por varios campos.
-        - Filtrar por fecha.
-        - Comparadores.
+    * Filtrar lista.
+        * Que filtre si estamos en el módulo.
+        * Si estamos en detalle u otro módulo que lo saque en el chat.
+        * Filtrar por varios campos.
+        * Filtrar por fecha.
+        * Comparadores.
     - ¿Fusionar tests?
         - Quizás podríamos hacer el navegador estático, pero a lo mejor iniciar me interesa
             por ejemplo, para consultar de módulos no abiertos todavía, o cosas así.
