@@ -52,9 +52,6 @@ For an invoicing application use openxava-invoicing-archetype:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false	
 
-## Java 25 support
-If you want to use Java 25, you have to uncomment the `maven-compiler-plugin` section in the `pom.xml` of your project. This section is included by default but commented out. It ensures that annotation processing (Lombok) works correctly with Java 25.
-
 ## Older versions
 To create a project from an older version of OpenXava, use the following command:
 
