@@ -12,9 +12,8 @@
 		<openxava.version>7.7-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
-		<!-- For Java 25 you have to uncomment the annotation processor plugin in build section below -->
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -115,7 +114,6 @@
 		<finalName>${artifactId}</finalName>
 		<plugins>
 		
- 			<!-- Uncomment for Java 25. Be sure to specify the same Lombok version you are using. 
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-compiler-plugin</artifactId>
@@ -133,7 +131,6 @@
 	                </annotationProcessorPaths>
 	            </configuration>
 	        </plugin>
-        	-->
         			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
