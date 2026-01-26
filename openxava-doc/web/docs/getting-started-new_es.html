@@ -15,26 +15,45 @@
     </script>
   </head>
   <body class="wiki">
-    <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-            <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-        / </span> Primeros pasos con OpenXava </h1>
+    <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> 
+      <a href="https://www.openxava.org/"><span>o</span>pen<span>x</span>ava</a> </span> 
+      / <a href="index_es.html">documentación</a> / </span> 
+      Primeros pasos con OpenXava 
+    </h1>
     <p>Sigue este video para crear y ejecutar tu primer proyecto OpenXava:</p>
-    <p><a href="https://youtu.be/_DQ5oGdww3k" target="_blank"><em><img src="files/getting-started_es010.png" title="Sigue este video para empezar con OpenXava"></em></a></p>
+    <p><a href="https://youtu.be/_DQ5oGdww3k" target="_blank"><em>
+      <img src="files/getting-started_es010.png" 
+        title="Sigue este video para empezar con OpenXava"></em></a></p>
     <p>O si no te gustan los videos sigue las instrucciones a continuación.</p>
-    <h2 id="toc2"><a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>Crear un proyecto nuevo</h2>
+
+    <h2 id="toc2">
+      <a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>
+      Crear un proyecto nuevo</h2>
     <p>En primer lugar has de crear un proyecto OpenXava nuevo:</p>
-    <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png" title="getting-started_es020.png"></p>
-    <p>Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>facturacion</em>. Recuerda también escoger <i>Español</i> como idioma para que el código de este tutorial funcione bien. Presiona en <i>Finish</i>:</p>
-    <p><img src="files/getting-started_es030.png" alt="getting-started_es030.png" title="getting-started_es030.png"></p>
+    <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png" 
+      title="getting-started_es020.png"></p>
+    <p>Entonces aparecerá un asistente. Teclea el nombre del proyecto, <em>facturacion</em>. 
+      Recuerda también escoger <i>Español</i> como idioma para que el código de este tutorial 
+      funcione bien. Presiona en <i>Finish</i>:</p>
+    <p><img src="files/getting-started_es030.png" alt="getting-started_es030.png" 
+      title="getting-started_es030.png"></p>
     <p>Ahora tu proyecto ya está listo para empezar a escribir código:</p>
-    <p><img src="files/getting-started_es040.png" alt="getting-started_es040.png" title="getting-started_es040.png"></p>
+    <p><img src="files/getting-started_es040.png" alt="getting-started_es040.png" 
+      title="getting-started_es040.png"></p>
+
     <h2 id="toc9"><a name="Crear-tu-primera-entidad"></a>Crear tu primera entidad</h2>
-    <p>Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu aplicación. Empezaremos con una versión simplificada de <em>Cliente</em> con solo <em>numero</em> y <i>nombre</i>.</p>
-    <p>Abre la carpeta <i>src/main/java</i>, allí selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón <em>New Java Class</em>:</p>
-    <p><img src="files/getting-started_es125.png" alt="getting-started_es125.png" title="getting-started_es125.png"></p>
+    <p>Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu 
+      aplicación. Empezaremos con una versión simplificada de <em>Cliente</em> con solo 
+      <em>numero</em> y <i>nombre</i>.</p>
+    <p>Abre la carpeta <i>src/main/java</i>, allí selecciona el paquete 
+      <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón <em>New Java Class</em>:</p>
+    <p><img src="files/getting-started_es125.png" alt="getting-started_es125.png" 
+      title="getting-started_es125.png"></p>
     <p>Después teclea <em>Cliente</em> como nombre de clase y pulsa <em>Finish</em>.</p>
-    <p><img src="files/getting-started_es130.png" alt="getting-started_es130.png" title="getting-started_es130.png"></p>
-    <p>Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es muy importante, en Java todas las clases empiezan con mayúscula.</p>
+    <p><img src="files/getting-started_es130.png" alt="getting-started_es130.png" 
+      title="getting-started_es130.png"></p>
+    <p>Fíjate que la <em>C</em> de <em>Cliente</em> está en mayúscula, esto es muy importante, 
+      en Java todas las clases empiezan con mayúscula.</p>
     <p>El código inicial que Eclipse proporciona para <em>Cliente</em> es muy simple:</p>
     <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
 
@@ -42,7 +61,9 @@ public class Cliente {
 
 }
 </code></pre>
-    <p>Ahora, te toca a ti rellenar esta clase para convertirla en una entidad adecuada para OpenXava. Solo necesitas añadir la anotación <em>@Entity</em> y las propiedades <em>numero</em> y <i>nombre</i>:</p>
+    <p>Ahora, te toca a ti rellenar esta clase para convertirla en una entidad adecuada para 
+      OpenXava. Solo necesitas añadir la anotación <em>@Entity</em> y las propiedades 
+      <em>numero</em> y <i>nombre</i>:</p>
     <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
 
 import javax.persistence.*;
@@ -63,29 +84,50 @@ public class Cliente {
  
 }
 </code></pre>
-    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. Hagámoslo.</p>
+    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. 
+      Hagámoslo.</p>
+
     <h2 id="toc10"><a name="Ejecutar-la-aplicacion"></a>Ejecutar la aplicación</h2>
     <p>Pulsa el botón <i>Run</i>:</p>
-    <p><img src="files/getting-started_es150.png" alt="getting-started_es150.png" title="getting-started_es150.png"></p>
-    <p>Espera hasta que la consola muestre un mensaje diciendo "Aplicación iniciada", como este:</p>
-    <p><img src="files/getting-started_es155.png" alt="getting-started_es155.png" title="getting-started_es155.png"></p>
-    <p>Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador favorito (Chrome, Firefox, Edge o Safari) y ve a la siguiente URL:</p>
-    <p><code><i>&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/facturacion" target="_blank">http://localhost:8080/facturacion</a></i></code></p>
-    <p>Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón <i>Iniciar sesión</i>:</p>
-    <p><img src="files/getting-started_es160.png" alt="getting-started_es160.png" title="getting-started_es160.png"></p>
+    <p><img src="files/getting-started_es150.png" alt="getting-started_es150.png" 
+      title="getting-started_es150.png"></p>
+    <p>Espera hasta que la consola muestre un mensaje diciendo "Aplicación iniciada", 
+      como este:</p>
+    <p><img src="files/getting-started_es155.png" alt="getting-started_es155.png" 
+      title="getting-started_es155.png"></p>
+    <p>Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador favorito 
+      (Chrome, Firefox, Edge o Safari) y ve a la siguiente URL:</p>
+    <p><code><i>&nbsp;&nbsp;&nbsp; 
+      <a href="http://localhost:8080/facturacion" target="_blank">
+        http://localhost:8080/facturacion</a></i></code></p>
+    <p>Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón 
+      <i>Iniciar sesión</i>:</p>
+    <p><img src="files/getting-started_es160.png" alt="getting-started_es160.png" 
+      title="getting-started_es160.png"></p>
     <p>Ahora, introduce admin/admin y pulsa en <i>Entrar</i>:</p>
     <p><img src="files/getting-started_es165.png" alt="Página de identificación"></p>
-    <p>Después, pulsa en la parte de la izquierda se mostrará una lista de módulos, escoge <em>Clientes</em>:</p>
-    <p><img src="files/getting-started_es170.png" alt="getting-started_es170.png" title="getting-started_es170.png"></p>
-    <p>Usa el módulo <em>Clientes</em> para crear nuevos clientes, simplemente introduce el número y el nombre y pulsa <em>Grabar</em>.</p>
-    <p><img src="files/getting-started_es190.png" alt="getting-started_es190.png" title="getting-started_es190.png"></p>
-    <p>Pulsa en <em>Lista</em> para ver los clientes que has creado. Enhorabuena, tienes tu primera aplicación OpenXava funcionando.</p>
+    <p>Después, pulsa en la parte de la izquierda se mostrará una lista de módulos, 
+      escoge <em>Clientes</em>:</p>
+    <p><img src="files/getting-started_es170.png" alt="getting-started_es170.png" 
+      title="getting-started_es170.png"></p>
+    <p>Usa el módulo <em>Clientes</em> para crear nuevos clientes, simplemente introduce 
+      el número y el nombre y pulsa <em>Grabar</em>.</p>
+    <p><img src="files/getting-started_es190.png" alt="getting-started_es190.png" 
+      title="getting-started_es190.png"></p>
+    <p>Pulsa en <em>Lista</em> para ver los clientes que has creado. Enhorabuena, tienes 
+      tu primera aplicación OpenXava funcionando.</p>
+
     <h2 id="toc11"><a name="Modificar-la-aplicacion"></a>Modificar la aplicación</h2>
-    <p>A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una clase y ya puedes ver el resultado en el navegador. Creemos una entidad para <i>Producto</i>.</p>
-    <p>Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón <em>New Java Class</em>:</p>
-    <p><img src="files/getting-started_es125.png" alt="getting-started_es125.png" title="getting-started_es125.png"></p>
+    <p>A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una 
+      clase y ya puedes ver el resultado en el navegador. Creemos una entidad para 
+      <i>Producto</i>.</p>
+    <p>Selecciona el paquete <em>com.tuempresa.facturacion.modelo</em> y pulsa el botón 
+      <em>New Java Class</em>:</p>
+    <p><img src="files/getting-started_es125.png" alt="getting-started_es125.png" 
+      title="getting-started_es125.png"></p>
     <p>Después teclea <em>Producto</em> como nombre de clase y pulsa <em>Finish</em>.</p>
-    <p><img src="files/getting-started_es193.png" alt="getting-started_es193.png" title="getting-started_es193.png"></p>
+    <p><img src="files/getting-started_es193.png" alt="getting-started_es193.png" 
+      title="getting-started_es193.png"></p>
     <p>Escribe el siguiente código para <em>Producto</em>:</p>
     <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
 
@@ -105,19 +147,38 @@ public class Producto {
 }
 </code></pre>
     <p>Ahora, pulsa el botón <i>Run</i>, esto parará la aplicación y la volverá a iniciar:</p>
-    <p><img src="files/getting-started_es195.png" alt="getting-started_es195.png" title="getting-started_es195.png"></p>
-    <p><i>Nota: En versiones recientes de OpenXava ya no es necesario reiniciar la aplicación para ver los cambios, gracias a la <a href="hot-code-reloading_es.html">recarga de código en caliente</a>.</i></p>
+    <p><img src="files/getting-started_es195.png" alt="getting-started_es195.png" 
+      title="getting-started_es195.png"></p>
+    <p><i>Nota: En versiones recientes de OpenXava ya no es necesario reiniciar la aplicación 
+      para ver los cambios, gracias a la 
+      <a href="hot-code-reloading_es.html">recarga de código en caliente</a>.</i></p>
     <p>Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:</p>
-    <p><code><i>&nbsp;&nbsp;&nbsp; <a href="http://localhost:8080/facturacion/modules/Producto" target="_blank">http://localhost:8080/facturacion/modules/Producto</a></i></code></p>
+    <p><code><i>&nbsp;&nbsp;&nbsp; 
+      <a href="http://localhost:8080/facturacion/modules/Producto" target="_blank">
+        http://localhost:8080/facturacion/modules/Producto</a></i></code></p>
     <p>Después de identificarte con admin/admin obtendrás:</p>
-    <p><img src="files/getting-started_es200.png" alt="getting-started_es200.png" title="getting-started_es200.png"></p>
-    <p>Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir una simple clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</p>
+    <p><img src="files/getting-started_es200.png" alt="getting-started_es200.png" 
+      title="getting-started_es200.png"></p>
+    <p>Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir una simple 
+      clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</p>
+
     <h2 id="toc1">¿Has tenido problemas?</h2>
-    <p>¡Enhorabuena! Has creado tu primera aplicación OpenXava. Si no ha sido así y has tenido algún problema con el ejemplo de arriba, pregunta en el foro:</p>
-    <p>&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/" rel="nofollow">Pregunta en el foro</a></strong></p>
+    <p>¡Enhorabuena! Has creado tu primera aplicación OpenXava. Si no ha sido así y has 
+      tenido algún problema con el ejemplo de arriba, pregunta en el foro:</p>
+    <p>&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext" 
+      href="http://sourceforge.net/p/openxava/discussion/437013/" rel="nofollow">
+      Pregunta en el foro</a></strong></p>
     <p>Te ayudaremos a resolver cualquier dificultad.</p>
+
     <h2 id="toc12">Siguientes pasos</h2>
-    <p>Esta guía de primeros pasos es la lección 1 de un curso completo de OpenXava. Este curso te enseñará cómo desarrollar aplicaciones empresariales con OpenXava, así como con otras tecnologías, herramientas y marcos de trabajo Java. Desarrollaremos paso a paso una aplicación completa desde cero. Se trata de una pequeña aplicación de facturación con facturas, clientes, productos y así por el estilo. Esta aplicación es una mera excusa para aprender algunos casos típicos en aplicaciones de gestión. Puedes aplicar todo lo que aprendas con esta aplicación a cualquier otra aplicación de gestión en cualquier otro dominio.</p>
+    <p>Esta guía de primeros pasos es la lección 1 de un curso completo de OpenXava. Este 
+      curso te enseñará cómo desarrollar aplicaciones empresariales con OpenXava, así como 
+      con otras tecnologías, herramientas y marcos de trabajo Java. Desarrollaremos paso a 
+      paso una aplicación completa desde cero. Se trata de una pequeña aplicación de 
+      facturación con facturas, clientes, productos y así por el estilo. Esta aplicación es 
+      una mera excusa para aprender algunos casos típicos en aplicaciones de gestión. Puedes 
+      aplicar todo lo que aprendas con esta aplicación a cualquier otra aplicación de gestión 
+      en cualquier otro dominio.</p>
     <p>Este es el contenido del curso:</p>
     <ul>
       <li>Primeros pasos:</li>
@@ -126,65 +187,104 @@ public class Producto {
       </ul>
       <li>Modelar con Java:</li>
       <ul>
-        <li><a class="wiki_link" href="basic-domain-model1_es.html">Lección 2: Modelo básico del dominio - Parte 1</a> <i>(Tu siguiente paso)</i></li>
-        <li><a class="wiki_link" href="basic-domain-model2_es.html">Lección 3: Modelo básico del dominio - Parte 2</a></li>
-        <li><a class="wiki_link" href="refining-user-interface_es.html">Lección 4: Refinar la interfaz de usuario</a></li>
-        <li><a class="wiki_link" href="agile-development_es.html">Lección 5: Desarrollo ágil</a></li>
+        <li><a class="wiki_link" href="basic-domain-model1_es.html">Lección 2: Modelo básico 
+          del dominio - Parte 1</a> <i>(Tu siguiente paso)</i></li>
+        <li><a class="wiki_link" href="basic-domain-model2_es.html">Lección 3: Modelo básico 
+          del dominio - Parte 2</a></li>
+        <li><a class="wiki_link" href="refining-user-interface_es.html">Lección 4: Refinar 
+          la interfaz de usuario</a></li>
+        <li><a class="wiki_link" href="agile-development_es.html">Lección 5: 
+          Desarrollo ágil</a></li>
       </ul>
       <li>Herencia:</li>
       <ul>
-        <li><a class="wiki_link" href="mapped-superclass-inheritance_es.html">Lección 6: Herencia de superclases mapedas</a></li>
-        <li><a class="wiki_link" href="entity-inheritance_es.html">Lección 7: Herencia de entidades</a></li>
-        <li><a class="wiki_link" href="view-inheritance_es.html">Lección 8. Herencia de vistas</a></li>
+        <li><a class="wiki_link" href="mapped-superclass-inheritance_es.html">Lección 6: 
+          Herencia de superclases mapedas</a></li>
+        <li><a class="wiki_link" href="entity-inheritance_es.html">Lección 7: 
+          Herencia de entidades</a></li>
+        <li><a class="wiki_link" href="view-inheritance_es.html">Lección 8. 
+          Herencia de vistas</a></li>
       </ul>
       <li>Lógica de negocio básica:</li>
       <ul>
-        <li><a class="wiki_link" href="java-properties_es.html">Lección 9: Propiedades Java</a></li>
-        <li><a class="wiki_link" href="calculated-properties_es.html">Lección 10: Propiedades calculadas</a></li>
-        <li><a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">Lección 11: @DefaultValueCalculator en colecciones</a></li>
-        <li><a class="wiki_link" href="calculation-and-collections-total_es.html">Lección 12: Calculation y totales de colección</a></li>
-        <li><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">Lección 13: @DefaultValueCalculator desde archivo</a></li>
-        <li><a class="wiki_link" href="manual-schema-evolution_es.html">Lección 14: Evolución de esquema manual</a></li>
-        <li><a class="wiki_link" href="multi-user-default-value-calculation_es.html">Lección 15: Cálculo de valor por defecto multiusuario</a></li>
-        <li><a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">Lección 16: Sincronizar propiedades persistentes y calculadas</a></li>
-        <li><a class="wiki_link" href="logic-from-database_es.html">Lección 17: Lógica desde la base de datos</a></li>
+        <li><a class="wiki_link" href="java-properties_es.html">Lección 9: 
+          Propiedades Java</a></li>
+        <li><a class="wiki_link" href="calculated-properties_es.html">Lección 10: 
+          Propiedades calculadas</a></li>
+        <li><a class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">
+          Lección 11: @DefaultValueCalculator en colecciones</a></li>
+        <li><a class="wiki_link" href="calculation-and-collections-total_es.html">Lección 12: 
+          Calculation y totales de colección</a></li>
+        <li><a class="wiki_link" href="defaultvaluecalculator-from-file_es.html">Lección 13: 
+          @DefaultValueCalculator desde archivo</a></li>
+        <li><a class="wiki_link" href="manual-schema-evolution_es.html">Lección 14: 
+          Evolución de esquema manual</a></li>
+        <li><a class="wiki_link" href="multi-user-default-value-calculation_es.html">
+          Lección 15: Cálculo de valor por defecto multiusuario</a></li>
+        <li><a class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">
+          Lección 16: Sincronizar propiedades persistentes y calculadas</a></li>
+        <li><a class="wiki_link" href="logic-from-database_es.html">Lección 17: 
+          Lógica desde la base de datos</a></li>
       </ul>
       <li>Validación avanzada:</li>
       <ul>
-        <li><a class="wiki_link" href="validating-with-entityvalidator_es.html">Lección 18: Validando con @EntityValidator</a></li>
-        <li><a class="wiki_link" href="validation-alternatives_es.html">Lección 19: Alternativas de validación</a></li>
-        <li><a class="wiki_link" href="validation-on-remove_es.html">Lección 20: Validación al borrar</a></li>
-        <li><a class="wiki_link" href="custom-bean-validation-annotation_es.html">Lección 21: Anotación Bean Validation propia</a></li>
-        <li><a class="wiki_link" href="rest-service-call-from-validation_es.html">Lección 22: Llamada REST desde una validación</a></li>
-        <li><a class="wiki_link" href="attributes-in-annotations_es.html">Lección 23: Atributos en anotaciones</a></li>
+        <li><a class="wiki_link" href="validating-with-entityvalidator_es.html">Lección 18: 
+          Validando con @EntityValidator</a></li>
+        <li><a class="wiki_link" href="validation-alternatives_es.html">Lección 19: 
+          Alternativas de validación</a></li>
+        <li><a class="wiki_link" href="validation-on-remove_es.html">Lección 20: 
+          Validación al borrar</a></li>
+        <li><a class="wiki_link" href="custom-bean-validation-annotation_es.html">Lección 21: 
+          Anotación Bean Validation propia</a></li>
+        <li><a class="wiki_link" href="rest-service-call-from-validation_es.html">Lección 22: 
+          Llamada REST desde una validación</a></li>
+        <li><a class="wiki_link" href="attributes-in-annotations_es.html">Lección 23: 
+          Atributos en anotaciones</a></li>
       </ul>
       <li>Refinar el comportamiento predefinido:</li>
       <ul>
-        <li><a class="wiki_link" href="refining-standard-behavior_es.html">Lección 24: Refinar el comportamiento predefinido</a></li>
+        <li><a class="wiki_link" href="refining-standard-behavior_es.html">Lección 24: 
+          Refinar el comportamiento predefinido</a></li>
       </ul>
       <li>Comportamiento y lógica de negocio:</li>
       <ul>
-        <li><a class="wiki_link" href="business-logic-behavior_es.html">Lección 25: Comportamiento y lógica de negocio</a></li>
+        <li><a class="wiki_link" href="business-logic-behavior_es.html">Lección 25: 
+          Comportamiento y lógica de negocio</a></li>
       </ul>
       <li>Referencias y colecciones:</li>
       <ul>
-        <li><a class="wiki_link" href="references-collections_es.html">Lección 26: Referencias y colecciones</a></li>
+        <li><a class="wiki_link" href="references-collections_es.html">Lección 26: 
+          Referencias y colecciones</a></li>
       </ul>
       <li>Apéndices:</li>
       <ul>
-        <li><a class="wiki_link" href="philosophy_es.html">Apéndice A: Arquitectura y filosofía</a></li>
+        <li><a class="wiki_link" href="philosophy_es.html">Apéndice A: 
+          Arquitectura y filosofía</a></li>
         <li><a class="wiki_link" href="jpa_es.html">Apéndice B: Java Persistence API</a></li>
         <li><a class="wiki_link" href="annotations_es.html">Apéndice C: Anotaciones</a></li>
         <li><a class="wiki_link" href="testing_es.html">Apéndice D: Pruebas automáticas</a></li>
       </ul>
     </ul>
-    <p>Ya estás listo para pasar a la siguiente lección, sin embargo deberías considerar adquirir un poco de conocimiento base, tal como:</p>
+    <p>Ya estás listo para pasar a la siguiente lección, sin embargo deberías considerar 
+      adquirir un poco de conocimiento base, tal como:</p>
     <ul>
-      <li>Si eres nuevo en Java deberías leer un libro de introducción a Java o leerte el <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/" rel="nofollow">Tutorial de Java</a>.</li>
-      <li>Si estás interesado en la filosofía y arquitectura de OpenXava <a class="wiki_link" href="philosophy_es.html">lee el apéndice A</a> de este curso.</li>
-      <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java Persistence API</a> y <a class="wiki_link" href="annotations_es.html">anotaciones</a> te serán de mucha utilidad.</li>
+      <li>Si eres nuevo en Java deberías leer un libro de introducción a Java o leerte el 
+        <a class="wiki_link_ext" href="https://docs.oracle.com/javase/tutorial/" 
+          rel="nofollow">Tutorial de Java</a>.</li>
+      <li>Si estás interesado en la filosofía y arquitectura de OpenXava 
+        <a class="wiki_link" href="philosophy_es.html">lee el apéndice A</a> de este curso.</li>
+      <li>Los apéndices B y C sobre <a class="wiki_link" href="jpa_es.html">Java 
+        Persistence API</a> y <a class="wiki_link" href="annotations_es.html">anotaciones</a> 
+        te serán de mucha utilidad.</li>
     </ul>
-    <p>¿Quieres usar <a href="getting-started-intellij_es.html">IntelliJ</a>, <a href="getting-started-maven_es.html">Maven</a> o <a href="getting-started-vsc_es.html">Visual Studio Code</a>? ¿Quieres ir contra MySQL, PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 o Firebird? ¿Quieres una guía de referencia detallada? Echa un vistazo a <a href="index_es.html">la documentación de OpenXava</a>, que incluye todo esto y mucho más.</p>
-    <p><strong>¿Preparado? </strong><strong> <a class="wiki_link" href="basic-domain-model1_es.html">Ve a la lección 2</a></strong></p>
+    <p>¿Quieres usar <a href="getting-started-intellij_es.html">IntelliJ</a>, 
+      <a href="getting-started-maven_es.html">Maven</a> o 
+      <a href="getting-started-vsc_es.html">Visual Studio Code</a>? ¿Quieres ir contra MySQL, 
+      PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 o Firebird? ¿Quieres 
+      una guía de referencia detallada? Echa un vistazo a 
+      <a href="index_es.html">la documentación de OpenXava</a>, que incluye todo esto y 
+      mucho más.</p>
+    <p><strong>¿Preparado?</strong> 
+      <strong><a class="wiki_link" href="basic-domain-model1_es.html">Ve a la lección 2</a></strong></p>
   </body>
 </html>
