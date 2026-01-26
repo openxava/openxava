@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.6.4.1 (2026-1-26) (Archetypes only; framework unchanged)
+-------------------------------------------------------------------
+- Java 17 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported.
+- Fix: Lombok annotations are not processed by default in new projects using Java 25.
+- Fix: HTTP 500 error due to JSP compilation when using IntelliJ on Windows in new projects.
+
 OpenXava 7.6.4 (2026-1-16)
 --------------------------
 - Improved startup time of embedded Tomcat.

@@ -5,6 +5,17 @@
 <web-app>
   <display-name>OpenXava Application</display-name>
   
+  <!-- Evitar problema de bloqueo de archivos de IntelliJ en Windows -->
+  <servlet>
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+    <init-param>
+      <param-name>suppressSmap</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  
   <!-- Para cumplir con OWASP -->
   <error-page>
     <error-code>404</error-code>
