@@ -42,7 +42,7 @@ M6
     * Comparadores.
 
 M7
-- Pruebas JUnit
+* Pruebas JUnit
     * Plantear futuro definitivo. Tendremos un chattest que conservaremos en la 8.
     * Mecánica del panel. Mostrar, ocultar, según tamaño.
     * Que recuerde conversación.
@@ -70,8 +70,7 @@ M7
         * Filtrar por varios campos.
         * Filtrar por fecha.
         * Comparadores.
-    - ¿Fusionar tests? No, a no ser que encuentre uno muy corto.
-    TMR ME QUEDÉ POR AQUÍ. INTENTANDO PASAR LA SUITE
+    * ¿Fusionar tests? No, a no ser que encuentre uno muy corto.
 
 
 - Refactorizar

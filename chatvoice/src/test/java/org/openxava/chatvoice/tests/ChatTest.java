@@ -105,15 +105,16 @@ public class ChatTest extends WebDriverTestBase {
         // Wait for typing indicator to disappear
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("typingIndicator")));
         
-        // Get the last assistant message
-        List<WebElement> assistantMessages = driver.findElements(
-            By.cssSelector("#chatMessages .ox-chat-message.assistant .ox-chat-message-content"));
-        
-        if (assistantMessages.isEmpty()) {
-            throw new RuntimeException("No assistant response found");
-        }
-        
-        return assistantMessages.get(assistantMessages.size() - 1).getText();
+        // Get the last assistant message text, retrying on stale element
+        return wait.until(d -> {
+            List<WebElement> assistantMessages = d.findElements(
+                By.cssSelector("#chatMessages .ox-chat-message.assistant .ox-chat-message-content"));
+            if (assistantMessages.isEmpty()) {
+                return null;
+            }
+            String text = assistantMessages.get(assistantMessages.size() - 1).getText();
+            return text.isEmpty() ? null : text;
+        });
     }
     
     protected void assertChatPanelContains(String text) throws Exception {
