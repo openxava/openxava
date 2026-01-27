@@ -1,0 +1,75 @@
+<!ELEMENT subcontrolador EMPTY>
+<!ATTLIST subcontrolador
+ controlador CDATA #REQUIRED
+ imagen CDATA #IMPLIED
+ icono CDATA #IMPLIED
+ modo (detail|list|ALL|NONE) "ALL"
+>
+
+<!ELEMENT var-entorno EMPTY>
+<!ATTLIST var-entorno
+ nombre CDATA #REQUIRED
+ valor CDATA #IMPLIED
+>
+
+<!ELEMENT objeto EMPTY>
+<!ATTLIST objeto
+ nombre CDATA #REQUIRED
+ clase CDATA #REQUIRED
+ valor CDATA #IMPLIED
+ ambito (modulo|global) "modulo"
+>
+
+<!ELEMENT accion (poner*, usa-objeto*)>
+<!ATTLIST accion
+ nombre CDATA #REQUIRED
+ etiqueta CDATA #IMPLIED
+ descripcion CDATA #IMPLIED
+ modo (detail|list|ALL|NONE) "ALL" 
+ metodo CDATA #IMPLIED
+ imagen CDATA #IMPLIED
+ icono CDATA #IMPLIED
+ atajo-de-teclado CDATA #IMPLIED
+ clase CDATA #IMPLIED
+ oculta (true|false) "false"
+ al-iniciar (true|false) "false"
+ en-cada-peticion (true|false) "false"
+ antes-de-cada-peticion (true|false) "false"
+ despues-de-cada-peticion (true|false) "false"
+ por-defecto (nunca|casi-nunca|si-posible|casi-siempre|siempre) "casi-nunca"
+ cuesta (true|false) "false" 
+ confirmar (true|false) "false"
+ en-cada-fila (true|false) "false"
+ procesar-elementos-seleccionados (true|false) "false"
+ disponible-en-nuevo (true|false) "true"
+ pierde-datos-cambiados (true|false) "false"
+>
+
+<!ELEMENT usa-objeto EMPTY>
+<!ATTLIST usa-objeto
+ nombre CDATA #REQUIRED
+ propiedad-accion CDATA #IMPLIED
+>
+
+<!ELEMENT poner EMPTY>
+<!ATTLIST poner
+ propiedad CDATA #REQUIRED
+ valor CDATA #REQUIRED
+>
+
+<!ELEMENT hereda-de EMPTY>
+<!ATTLIST hereda-de
+ controlador CDATA #REQUIRED
+ acciones-excluidas CDATA #IMPLIED
+>
+
+<!ELEMENT controlador (hereda-de*, (accion|subcontrolador)*)>
+<!ATTLIST controlador
+ nombre CDATA #REQUIRED
+ etiqueta CDATA #IMPLIED
+ imagen CDATA #IMPLIED
+ icono CDATA #IMPLIED
+ clase CDATA #IMPLIED
+ contexto (comun|swing|web) "comun"
+>
+<!ELEMENT controladores (var-entorno*, objeto*, controlador*)>

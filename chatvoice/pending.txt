@@ -1,0 +1,130 @@
+Pending Chat AI
+---------------
+
+M1
+* Acceder a todos los datos mediante el tab.
+* Filtro en el módulo por el usuario no afectan a los resultados del chat.
+* Propiedad no visualizada en el tab son reconocidas.
+* Reconocer datos nuevos, modificados o eliminados.
+* Deberíamos excluir los módulos transitorios de la lista de entidades.
+* Estética del chat profesional.
+* Markdown.
+* Que recuerde conversación.
+* Botón nueva conversación.
+
+M2
+* Trabajar con tablas grandes. Es decir, usar filtros en lugar de leer todos.
+* No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter). 
+* Preguntar por información de colecciones @ElementCollection.
+* Verificar rendimiento.
+
+M3
+* Consulta por totales. Totales obtenidos de las líneas.
+* Chat en cada módulo.
+
+M4
+* Arreglo: No se cerraban las conexiones bloqueando la aplicación.
+* Modificar.
+
+M5
+* Se pueden actualizar fechas y número.
+* Refrescar lista o detalle después de modificar datos.
+* Solo poder modificar datos editables en modo detalle.
+* Reconocer el registro actual.
+* Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
+
+M6
+* Poder filtrar en la lista.
+    * Pedir explícitamente que filtre en la lista.
+    * Que filtre si estamos en el módulo.
+    * Filtrar por varios campos.
+    * Filtrar por fecha.
+    * Comparadores.
+
+M7
+* Pruebas JUnit
+    * Plantear futuro definitivo. Tendremos un chattest que conservaremos en la 8.
+    * Mecánica del panel. Mostrar, ocultar, según tamaño.
+    * Que recuerde conversación.
+    * Botón nueva conversación.
+        * Arreglo: Al pulsar "Nueva conversación" no se borraba la memoria, solo la UI.
+    * Multilingüe.
+    * Consultar.
+        * Filtro en el módulo por el usuario no afectan a los resultados del chat.
+        * Propiedad no visualizada en el tab son reconocidas.
+        * Consultar de un módulo no abierto todavía.
+        * Reconocer datos nuevos, modificados o eliminados.
+    * No poder acceder a datos no disponibles en el tab (respetar baseCondition e IFilter).
+    * Preguntar por información de colecciones @ElementCollection.
+    * Consulta por totales. Totales obtenidos de las líneas.
+    * Modificar.
+        * Mirar ejemplos en foro.
+        * Se pueden actualizar fechas.
+        * Se pueden actualizar números.
+        * Refrescar lista o detalle después de modificar datos.
+        * Solo poder modificar datos editables en modo detalle.
+        * Reconocer el registro actual.
+    * Filtrar lista.
+        * Que filtre si estamos en el módulo.
+        * Si estamos en detalle u otro módulo que lo saque en el chat.
+        * Filtrar por varios campos.
+        * Filtrar por fecha.
+        * Comparadores.
+    * ¿Fusionar tests? No, a no ser que encuentre uno muy corto.
+
+
+- Refactorizar
+- Poder desactivarlo mediante una propiedad en xava.properties.
+- Indicar al usuario de forma sencilla que puede hacer con el chat.
+
+Principios
+- El usuario no debería poder acceder a datos con el chat a los que no pueda acceder desde la aplicación.
+- El chat tiene que ofrecer datos en lenguaje natural, sin necesidad de abrir un módulo.
+- El chat debe permitir abrir y manipular módulos.
+
+Refactorizar
+- ¿Dejar JSPs y JSs de Chat en carpeta naviox? Quizás no, porque naviox es de navegación.
+- ¿Dejar código de chat en editors? Quizás no, porque ya no es un editor.
+
+Cuestiones
+* ¿Dar la posibilidad de añadir fácilmente un chat en cualquier parte de la aplicación? NO
+    - No hacerlo haría el código más sencillo. Podría prescindir de la anotación @Chat.
+    - Podríamos esperar a que alguien lo pidiera.
+    - A lo mejor no hay un uso común práctico y si lo hay ni es como pienso.
+    - Quizás pidan implementar la lógica del chat que vamos a poner, en lugar de ponerlo como un formulario.
+    - Una propiedad con un chat puede ser raro, pero un módulo con chat no tanto, y quizas @Chat en una entidades  
+        es más natural que un JSP en application.xml que tienes que saber donde está.
+- ¿Presentarlo como Chat o como Agente?
+- ¿Poder ejecutar cada acción disponible por el usuario?
+    - El usuario ya las tiene disponible fácilmente, sería redundante.
+    - Menos rendimiento que usar una tool.
+    - Toda la funcionalidad de la aplicación con lenguaje natural y respetando permisos.
+    - A veces el LLM sugieres cosas que no puede hacer, como "Quieres que te lo exporte a CSV"
+
+Para XavaPro
+- No poder acceder a datos de módulos no disponibles.
+- No acceder a campos no permitidos.
+
+Por resolver
+- Validaciones
+- ¿Cómo confirmar cambio y borrado de datos?
+- Si pido que borre y la lógica de borra no borra de verdad, ¿qué hago?
+
+Pedido:
+- Poder preguntar por datos del dashboard.
+- Poder preguntar por voz. Sponsor/pet.
+
+Diferido
+- Poder redimensionar panel del chat.
+- Mostrar la respuesta a medida que se genere, para mejorar la sensación de tiempo de respuesta.
+- Crear nuevos registros.
+- Borrar registros existentes.
+- Generar gráficos. ¿En el chat o modificando un dashboard?
+- Tools personalizadas. Reconocidas por XavaPro para autorizarlas con roles.
+- Poder pedir ordenaciones en las listas.
+
+Bajo demanda
+- Otros proveedores aparte de OpenAI.
+- Prueba con tablas inmensas.
+- Impersonalizar.
+- Recordar si se ha ocultado el panel.

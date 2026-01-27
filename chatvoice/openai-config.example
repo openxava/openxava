@@ -1,0 +1,10 @@
+# OpenAI Configuration Example
+# 
+# Option 1: Set as environment variable (recommended for production)
+# Windows: set OPENAI_API_KEY=your-api-key-here
+# Linux/Mac: export OPENAI_API_KEY=your-api-key-here
+#
+# Option 2: Set as JVM system property when starting Tomcat
+# Add to CATALINA_OPTS: -Dopenai.apiKey=your-api-key-here
+#
+# Get your API key from: https://platform.openai.com/api-keys
