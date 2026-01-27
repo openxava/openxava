@@ -101,6 +101,8 @@ Cuestiones
     - Toda la funcionalidad de la aplicación con lenguaje natural y respetando permisos.
     - A veces el LLM sugieres cosas que no puede hacer, como "Quieres que te lo exporte a CSV"
 
+TMR ME QUEDÉ POR AQUÍ. REVISANDO LO PENDIENTE
+
 Para XavaPro
 - No poder acceder a datos de módulos no disponibles.
 - No acceder a campos no permitidos.
