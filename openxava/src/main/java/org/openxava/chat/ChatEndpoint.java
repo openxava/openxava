@@ -25,6 +25,8 @@ import org.openxava.jpa.XPersistence;
 import org.openxava.util.Is;
 import org.openxava.util.XavaPreferences;
 
+import com.openxava.naviox.impl.MetaModuleFactory;
+
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -128,7 +130,7 @@ public class ChatEndpoint {
 					moduleContext = new ModuleContext();
 					httpSession.setAttribute("context", moduleContext);
 				}
-				String application = XavaPreferences.getInstance().getChatApplicationName();
+				String application = MetaModuleFactory.getApplication();
 				EntityTools entityTools = new EntityTools(moduleContext, httpSession, application);
 				entityToolsMap.put(sessionId, entityTools);
 				assistant = AiServices.builder(Assistant.class)

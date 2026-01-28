@@ -3,7 +3,7 @@ Pending Chat AI
 
 Mover a openxava
 - Con Java 17 en openxava.
-    - TMR ME QUEDÉ POR AQUÍ. NO FUNCIONA DESPUÉS DE REFACTORIZAR. ¿NO FALTARÁ UN JSP?
+    - TMR ME QUEDÉ POR AQUÍ. TODAVÍA NO FUNCIONA BIEN, AHORA DA UN ERROR localhost:8080
     - Renombrar chatEditor como chat. ¿Otro nombre como chatAI?
     - ¿Nuevos métodos en naviox.js deberían estar en naviox.js?
 - Mover código Java 17 a otro proyecto.

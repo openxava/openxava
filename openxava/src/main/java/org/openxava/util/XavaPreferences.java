@@ -573,10 +573,5 @@ public class XavaPreferences {
 	public boolean isChatPriorityServiceTier() {
 		return "true".equalsIgnoreCase(getProperties().getProperty("chatPriorityServiceTier", "false").trim());
 	}
-	
-	/** @since 7.7 */
-	public String getChatApplicationName() {
-		return getProperties().getProperty("chatApplicationName", "").trim();
-	}
-	
+
 }
