@@ -77,7 +77,6 @@ manager.registerAction("SessionLocker.lock");
 	<% request.setAttribute("xava.dwr.loaded", true); %>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Folders.js?ox=<%=oxVersion%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/chat/chat.js?ox=<%=oxVersion%>'></script>
 </head>
 
 <body <%=XavaStyle.getBodyClass(request)%>>
@@ -117,6 +116,7 @@ manager.registerAction("SessionLocker.lock");
 		naviox.module = "<%=module%>";
 		naviox.locked = <%=context.get(request, "naviox_locked")%>;
 		naviox.init();
+		chatEditor.init();
 	});
 	</script>
 	
