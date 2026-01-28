@@ -67,6 +67,7 @@ manager.registerAction("SessionLocker.lock");
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/chat/chat.css?ox=<%=oxVersion%>">
 	<script type='text/javascript' <xava:nonce/>> 
 		if (typeof dwr == 'undefined') dwr = {};
 		if (!dwr.engine) dwr.engine = {};
@@ -76,6 +77,7 @@ manager.registerAction("SessionLocker.lock");
 	<% request.setAttribute("xava.dwr.loaded", true); %>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Folders.js?ox=<%=oxVersion%>'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/chat/chat.js?ox=<%=oxVersion%>'></script>
 </head>
 
 <body <%=XavaStyle.getBodyClass(request)%>>
@@ -99,11 +101,14 @@ manager.registerAction("SessionLocker.lock");
 			<% } %>
 		</div>
 		
+		<jsp:include page="rightChatPanel.jsp"/>
+		
 	</div> 
 	
 	<%@include file="indexExt.jsp"%>
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
+	<script type='text/javascript' src='<%=request.getContextPath()%>/chat/chat.js?ox=<%=oxVersion%>'></script> 
 	
 	<script <xava:nonce/>> 
 	$(function() {

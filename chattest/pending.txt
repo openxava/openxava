@@ -2,17 +2,22 @@ Pending Chat AI
 ---------------
 
 Mover a openxava
-- Refactorizar
-    - ¿Dejar JSPs y JSs de Chat en carpeta naviox? Quizás no, porque naviox es de navegación.
-    - ¿Dejar código de chat en editors? Quizás no, porque ya no es un editor.
+- Con Java 17 en openxava.
+- Mover código Java 17 a otro proyecto.
+    - Volver a poner Java 8 en openxava.
 
 Pruebas
+- Copiar pruebas de chatvoice
+- Quitar los test no relacionados con el chat.
+- Probar en un war.
 
 Refinamientos
 - Poder desactivarlo mediante una propiedad en xava.properties.
     - Poder desactivar solo modificación.
 - Indicar al usuario que configure la clave de OPEN_AI cuando esta no exista.
 - Poder configurar el LLM y su velocidad mediante xava.properties.
+    - Verificar nuevas propiedades en XavaPreferences.
+    - Documentar.
 - Indicar al usuario de forma sencilla que puede hacer con el chat.
 - Probar un proyecto con Java 8, refinarlo para que responda razonablemente.
 

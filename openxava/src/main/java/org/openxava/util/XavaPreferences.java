@@ -564,4 +564,19 @@ public class XavaPreferences {
 				"org.openxava.jpa.impl.EntityManagerFactoryProvider").trim();
 	}
 	
+	/** @since 7.7 */
+	public String getChatModelName() {
+		return getProperties().getProperty("chatModelName", "gpt-4o-mini").trim();
+	}
+	
+	/** @since 7.7 */
+	public boolean isChatPriorityServiceTier() {
+		return "true".equalsIgnoreCase(getProperties().getProperty("chatPriorityServiceTier", "false").trim());
+	}
+	
+	/** @since 7.7 */
+	public String getChatApplicationName() {
+		return getProperties().getProperty("chatApplicationName", "").trim();
+	}
+	
 }

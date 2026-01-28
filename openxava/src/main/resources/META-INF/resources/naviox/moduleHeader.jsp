@@ -84,7 +84,9 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 <div id="module_header_right">
 	<a id="bookmark" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>">
 		<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-	</a> 				
+	</a>
+	<a id="module_header_chat_button" title="<xava:message key='chat_tooltip'/>">
+		<i class="mdi mdi-chat"></i></a>
 	<span id="sign_in_out"> 
 		<%
 		if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
