@@ -18,6 +18,7 @@ naviox.init = function() {
 	naviox.initModulesList();
 	naviox.initBookmark();
 	naviox.initModuleHeader();
+	naviox.initChatPanel();
 }
 
 naviox.initLeftMenu = function() { 
@@ -247,4 +248,65 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     		naviox.postRefreshFolderBackModulesList(); 
     	}
     );
+}
+
+naviox.CHAT_PANEL_STATE_KEY = 'oxChatPanelOpen';
+
+naviox.initChatPanel = function() {
+	$('#chat_panel_hide').on("click", function() {
+		naviox.hideChatPanel();
+	});
+	$('#chat_panel_show, #module_header_chat_button').on("click", function() {
+		naviox.showChatPanel();
+	});
+	
+	naviox.restoreChatPanelState();
+	
+	if (typeof chatEditor !== 'undefined' && chatEditor.init) {
+		chatEditor.init();
+	}
+}
+
+naviox.restoreChatPanelState = function() {
+	var savedState = sessionStorage.getItem(naviox.CHAT_PANEL_STATE_KEY);
+	if (savedState === null) return;
+	
+	var shouldBeOpen = savedState === 'true';
+	var isCurrentlyVisible = $('#chat_panel').is(':visible');
+	
+	if (shouldBeOpen && !isCurrentlyVisible) {
+		$('#chat_panel_show').hide();
+		$('#module_header_chat_button').hide();
+		$('.module-wrapper').css('margin-right', '330px');
+		$('#chat_panel').show();
+		$('#chat_panel_hide').show();
+	} else if (!shouldBeOpen && isCurrentlyVisible) {
+		$('#chat_panel_hide').hide();
+		$('#module_header_chat_button').show();
+		$('.module-wrapper').css('margin-right', '0');
+		$('#chat_panel').hide();
+		$('#chat_panel_show').show();
+	}
+}
+
+naviox.hideChatPanel = function() {
+	sessionStorage.setItem(naviox.CHAT_PANEL_STATE_KEY, 'false');
+	$('#chat_panel_hide').hide();
+	$('#module_header_chat_button').show();
+	$('.module-wrapper').css('margin-right', '0');
+	$('#chat_panel').animate({width:'toggle'}, 200, function() {
+		$('#chat_panel_show').fadeIn();
+		openxava.resetListsSize(naviox.application, naviox.module);
+	});
+}
+
+naviox.showChatPanel = function() {
+	sessionStorage.setItem(naviox.CHAT_PANEL_STATE_KEY, 'true');
+	$('#chat_panel_show').hide();
+	$('#module_header_chat_button').hide();
+	$('.module-wrapper').css('margin-right', '330px');
+	$('#chat_panel').animate({width:'toggle'}, 200, function() {
+		$('#chat_panel_hide').fadeIn();
+		openxava.resetListsSize(naviox.application, naviox.module);
+	});
 }

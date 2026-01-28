@@ -116,7 +116,6 @@ manager.registerAction("SessionLocker.lock");
 		naviox.module = "<%=module%>";
 		naviox.locked = <%=context.get(request, "naviox_locked")%>;
 		naviox.init();
-		chatEditor.init();
 	});
 	</script>
 	
