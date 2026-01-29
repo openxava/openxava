@@ -3,8 +3,7 @@ Pending Chat AI
 
 Mover a openxava
 - Con Java 17 en openxava.
-    - Renombrar chatEditor como chat.
-    - ¿Nuevos métodos en naviox.js deberían estar en naviox.js?
+    - Buscar tmr y todos, en chatvoice y openxava.
 - Mover código Java 17 a otro proyecto.
     - Volver a poner Java 8 en openxava.
 
