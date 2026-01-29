@@ -1,11 +1,7 @@
 Pending Chat AI
 ---------------
 
-Mover a openxava
-- Mover código Java 17 a otro proyecto.
-    - Volver a poner Java 8 en openxava.
-
-Pruebas
+Pruebas // TMR ME QUEDÉ PARA EMPEZAR LAS PRUEBAS
 - Copiar pruebas de chatvoice
 - Quitar los test no relacionados con el chat.
 - Probar en un war. Tomcat 8 y 9. Si no va en el 8 podemos simplemente señalarlo.
@@ -22,6 +18,6 @@ Refinamientos
     - Verificar nuevas propiedades en XavaPreferences.
     - Documentar.
 - Indicar al usuario de forma sencilla que puede hacer con el chat.
-- Probar un proyecto con Java 8, refinarlo para que responda razonablemente.
+- Actualizar todos los arquetipos para que lo incluyan por defecto.
 
 Documentación

@@ -171,8 +171,9 @@ public class ChatEndpoint {
 				} else {
 					log.info("No chat service implementation found. AI chat requires openxava-7.7-chat-jdk17 dependency.");
 				}
-			} catch (Exception e) {
-				log.error("Error loading chat service", e);
+			} catch (Throwable e) {
+				// Catches both Exception and Error (like ServiceConfigurationError when Java 17 classes can't load)
+				log.warn(XavaResources.getString("chat_requires_java17"));
 			}
 		}
 		return chatService;
