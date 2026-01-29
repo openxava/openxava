@@ -2,8 +2,6 @@ Pending Chat AI
 ---------------
 
 Mover a openxava
-- Con Java 17 en openxava.
-    - Buscar tmr y todos, en chatvoice y openxava.
 - Mover código Java 17 a otro proyecto.
     - Volver a poner Java 8 en openxava.
 
@@ -13,8 +11,12 @@ Pruebas
 - Probar en un war. Tomcat 8 y 9. Si no va en el 8 podemos simplemente señalarlo.
 
 Refinamientos
+- Cambiar los prints y printStacktraces por logs en EntityTools. Probar activar y desactivar.
 - Poder desactivarlo mediante una propiedad en xava.properties.
     - Poder desactivar solo modificación.
+    - ¿En un archivo de propiedades propio?
+        - Lo hacemos así en naviox.
+        - Pensar en poder añadir tools personalizados en el futuro.
 - Indicar al usuario que configure la clave de OPEN_AI cuando esta no exista.
 - Poder configurar el LLM y su velocidad mediante xava.properties.
     - Verificar nuevas propiedades en XavaPreferences.
