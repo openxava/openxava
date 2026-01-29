@@ -100,7 +100,7 @@ manager.registerAction("SessionLocker.lock");
 			<% } %>
 		</div>
 		
-		<jsp:include page="rightChatPanel.jsp"/>
+		<jsp:include page="../chat/chat.jsp"/>
 		
 	</div> 
 	

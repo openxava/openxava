@@ -1,8 +1,8 @@
-if (chatEditor == null) var chatEditor = {};
+if (chat == null) var chat = {};
 
-chatEditor.STORAGE_KEY = 'oxChatMessages';
+chat.STORAGE_KEY = 'oxChatMessages';
 
-chatEditor.init = function() {
+chat.init = function() {
 	var chatMessages = $('#chatMessages');
 	var chatInput = $('#chatInput');
 	var chatSendBtn = $('#chatSendBtn');
@@ -12,11 +12,11 @@ chatEditor.init = function() {
 		return;
 	}
 	
-	chatEditor.restoreMessages(chatMessages);
+	chat.restoreMessages(chatMessages);
 	
 	chatInput.off('input keyup').on('input keyup', function() {
-		chatEditor.autoResizeTextarea(chatInput);
-		chatEditor.updateSendButton(chatInput, chatSendBtn);
+		chat.autoResizeTextarea(chatInput);
+		chat.updateSendButton(chatInput, chatSendBtn);
 	});
 	
 	chatInput.off('keypress').on('keypress', function(e) {
@@ -24,7 +24,7 @@ chatEditor.init = function() {
 			e.preventDefault();
 			var text = chatInput.val().trim();
 			if (text) {
-				chatEditor.sendMessage(chatMessages, chatInput, chatSendBtn, text);
+				chat.sendMessage(chatMessages, chatInput, chatSendBtn, text);
 			}
 		}
 	});
@@ -33,47 +33,47 @@ chatEditor.init = function() {
 		e.preventDefault();
 		var text = chatInput.val().trim();
 		if (text) {
-			chatEditor.sendMessage(chatMessages, chatInput, chatSendBtn, text);
+			chat.sendMessage(chatMessages, chatInput, chatSendBtn, text);
 		}
 	});
 	
 	chatNewConversationBtn.off('click').on('click', function(e) {
 		e.preventDefault();
-		chatEditor.newConversation(chatMessages, chatInput);
+		chat.newConversation(chatMessages, chatInput);
 	});
 	
-	chatEditor.updateSendButton(chatInput, chatSendBtn);
+	chat.updateSendButton(chatInput, chatSendBtn);
 };
 
 if (typeof openxava !== 'undefined' && openxava.addEditorInitFunction) {
 	openxava.addEditorInitFunction(function() {
-		chatEditor.init();
+		chat.init();
 		$('#chatInput').focus();
 	});
 }
 
-chatEditor.autoResizeTextarea = function(input) {
+chat.autoResizeTextarea = function(input) {
 	input.css('height', 'auto');
 	var newHeight = Math.min(input[0].scrollHeight, 200);
 	input.css('height', newHeight + 'px');
 };
 
-chatEditor.updateSendButton = function(input, button) {
+chat.updateSendButton = function(input, button) {
 	var hasText = input.val().trim().length > 0;
 	button.prop('disabled', !hasText);
 };
 
-chatEditor.hideWelcome = function(container) {
+chat.hideWelcome = function(container) {
 	$('.ox-chat-welcome').hide();
 	$('.ox-chat-header').removeClass('hidden');
 };
 
-chatEditor.showWelcome = function() {
+chat.showWelcome = function() {
 	$('.ox-chat-welcome').show();
 	$('.ox-chat-header').addClass('hidden');
 };
 
-chatEditor.createMessage = function(text, isUser) {
+chat.createMessage = function(text, isUser) {
 	var messageDiv = $('<div>').addClass('ox-chat-message').addClass(isUser ? 'user' : 'assistant');
 	var content = $('<div>').addClass('ox-chat-message-content');
 	
@@ -91,7 +91,7 @@ chatEditor.createMessage = function(text, isUser) {
 	return messageDiv;
 };
 
-chatEditor.createTypingIndicator = function() {
+chat.createTypingIndicator = function() {
 	var messageDiv = $('<div>').addClass('ox-chat-message assistant').attr('id', 'typingIndicator');
 	var content = $('<div>').addClass('ox-chat-message-content');
 	var typing = $('<div>').addClass('ox-chat-typing').html('<span></span><span></span><span></span>');
@@ -102,11 +102,11 @@ chatEditor.createTypingIndicator = function() {
 	return messageDiv;
 };
 
-chatEditor.scrollToBottom = function(container) {
+chat.scrollToBottom = function(container) {
 	container.scrollTop(container[0].scrollHeight);
 };
 
-chatEditor.saveMessages = function() {
+chat.saveMessages = function() {
 	var messages = [];
 	$('#chatMessages .ox-chat-message').each(function() {
 		var $msg = $(this);
@@ -114,11 +114,11 @@ chatEditor.saveMessages = function() {
 		var content = $msg.find('.ox-chat-message-content').html();
 		messages.push({ isUser: isUser, content: content });
 	});
-	sessionStorage.setItem(chatEditor.STORAGE_KEY, JSON.stringify(messages));
+	sessionStorage.setItem(chat.STORAGE_KEY, JSON.stringify(messages));
 };
 
-chatEditor.restoreMessages = function(container) {
-	var stored = sessionStorage.getItem(chatEditor.STORAGE_KEY);
+chat.restoreMessages = function(container) {
+	var stored = sessionStorage.getItem(chat.STORAGE_KEY);
 	if (!stored) return;
 	
 	try {
@@ -127,7 +127,7 @@ chatEditor.restoreMessages = function(container) {
 		
 		container.empty();
 		
-		chatEditor.hideWelcome(container);
+		chat.hideWelcome(container);
 		$('.ox-chat-center-content').addClass('has-messages');
 		
 		messages.forEach(function(msg) {
@@ -137,46 +137,46 @@ chatEditor.restoreMessages = function(container) {
 			container.append(messageDiv);
 		});
 		
-		chatEditor.scrollToBottom(container);
+		chat.scrollToBottom(container);
 	} catch (e) {
 		console.error('Error restoring chat messages:', e);
 	}
 };
 
-chatEditor.sendMessage = function(container, input, button, text) {
-	chatEditor.hideWelcome(container);
+chat.sendMessage = function(container, input, button, text) {
+	chat.hideWelcome(container);
 	$('.ox-chat-center-content').addClass('has-messages');
 	
-	var userMessage = chatEditor.createMessage(text, true);
+	var userMessage = chat.createMessage(text, true);
 	container.append(userMessage);
-	chatEditor.saveMessages();
+	chat.saveMessages();
 	
 	input.val('');
 	input.css('height', 'auto');
-	chatEditor.updateSendButton(input, button);
+	chat.updateSendButton(input, button);
 	
-	chatEditor.scrollToBottom(container);
+	chat.scrollToBottom(container);
 	
-	var typingIndicator = chatEditor.createTypingIndicator();
+	var typingIndicator = chat.createTypingIndicator();
 	container.append(typingIndicator);
-	chatEditor.scrollToBottom(container);
+	chat.scrollToBottom(container);
 	
 	// Send message via WebSocket
-	chatEditor.sendViaWebSocket(text);
+	chat.sendViaWebSocket(text);
 };
 
-chatEditor.getWebSocket = function() {
-	if (!chatEditor.ws || chatEditor.ws.readyState === WebSocket.CLOSED) {
+chat.getWebSocket = function() {
+	if (!chat.ws || chat.ws.readyState === WebSocket.CLOSED) {
 		var protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 		var wsUrl = protocol + '//' + window.location.host + openxava.contextPath + '/chat-ws';
 		
-		chatEditor.ws = new WebSocket(wsUrl);
+		chat.ws = new WebSocket(wsUrl);
 		
-		chatEditor.ws.onopen = function() {
+		chat.ws.onopen = function() {
 			console.log('WebSocket connected');
 		};
 		
-		chatEditor.ws.onmessage = function(event) {
+		chat.ws.onmessage = function(event) {
 			// Check for special refresh UI command
 			if (event.data === '__REFRESH_UI__') {
 				var action = openxava.isListMode() ? 'List.filter' : 'CRUD.refresh';
@@ -188,33 +188,33 @@ chatEditor.getWebSocket = function() {
 			if (event.data.startsWith('__FILTER_LIST__:')) {
 				var json = event.data.substring('__FILTER_LIST__:'.length);
 				var filterValues = JSON.parse(json);
-				chatEditor.setListConditionValues(filterValues);
+				openxava.filterList(filterValues);
 				return;
 			}
 			
 			$('#typingIndicator').remove();
 			
-			var assistantMessage = chatEditor.createMessage(event.data, false);
+			var assistantMessage = chat.createMessage(event.data, false);
 			$('#chatMessages').append(assistantMessage);
-			chatEditor.scrollToBottom($('#chatMessages'));
-			chatEditor.saveMessages();
+			chat.scrollToBottom($('#chatMessages'));
+			chat.saveMessages();
 		};
 		
-		chatEditor.ws.onerror = function(error) {
+		chat.ws.onerror = function(error) {
 			console.error('WebSocket error:', error);
 			$('#typingIndicator').remove();
 			alert('Error connecting to chat service');
 		};
 		
-		chatEditor.ws.onclose = function() {
+		chat.ws.onclose = function() {
 			console.log('WebSocket closed');
 		};
 	}
-	return chatEditor.ws;
+	return chat.ws;
 };
 
-chatEditor.sendViaWebSocket = function(message) {
-	var ws = chatEditor.getWebSocket();
+chat.sendViaWebSocket = function(message) {
+	var ws = chat.getWebSocket();
 	
 	if (ws.readyState === WebSocket.OPEN) {
 		ws.send(message);
@@ -228,30 +228,15 @@ chatEditor.sendViaWebSocket = function(message) {
 	}
 };
 
-chatEditor.setListConditionValues = function(filterValues) { // TODO Move to openxava.js
-	var app = openxava.lastApplication;
-	var module = openxava.lastModule;
-	
-	for (var key in filterValues) {
-		var id = openxava.decorateId(app, module, key);
-		var element = document.getElementById(id);
-		if (element) {
-			element.value = filterValues[key];
-		}
-	}
-	
-	openxava.executeAction(app, module, '', false, 'List.filter');
-};
-
-chatEditor.newConversation = function(container, input) {
+chat.newConversation = function(container, input) {
 	// Clear all messages from UI
 	container.empty();
 	
 	// Clear saved messages
-	sessionStorage.removeItem(chatEditor.STORAGE_KEY);
+	sessionStorage.removeItem(chat.STORAGE_KEY);
 	
 	// Show welcome message and hide header
-	chatEditor.showWelcome();
+	chat.showWelcome();
 	$('.ox-chat-center-content').removeClass('has-messages');
 	
 	// Clear the input
@@ -260,9 +245,70 @@ chatEditor.newConversation = function(container, input) {
 	input.focus();
 	
 	// Send command to clear memory on server and close WebSocket
-	if (chatEditor.ws && chatEditor.ws.readyState === WebSocket.OPEN) {
-		chatEditor.ws.send('__NEW_CONVERSATION__');
-		chatEditor.ws.close();
-		chatEditor.ws = null;
+	if (chat.ws && chat.ws.readyState === WebSocket.OPEN) {
+		chat.ws.send('__NEW_CONVERSATION__');
+		chat.ws.close();
+		chat.ws = null;
 	}
 };
+
+chat.PANEL_STATE_KEY = 'oxChatPanelOpen';
+
+chat.initPanel = function() {
+	$('#chat_panel_hide').on("click", function() {
+		chat.hidePanel();
+	});
+	$('#chat_panel_show, #module_header_chat_button').on("click", function() {
+		chat.showPanel();
+	});
+	
+	chat.restorePanelState();
+	
+	if (typeof chat !== 'undefined' && chat.init) {
+		chat.init();
+	}
+}
+
+chat.restorePanelState = function() {
+	var savedState = sessionStorage.getItem(chat.PANEL_STATE_KEY);
+	if (savedState === null) return;
+	
+	var shouldBeOpen = savedState === 'true';
+	var isCurrentlyVisible = $('#chat_panel').is(':visible');
+	
+	if (shouldBeOpen && !isCurrentlyVisible) {
+		$('#chat_panel_show').hide();
+		$('#module_header_chat_button').hide();
+		$('.module-wrapper').css('margin-right', '330px');
+		$('#chat_panel').show();
+		$('#chat_panel_hide').show();
+	} else if (!shouldBeOpen && isCurrentlyVisible) {
+		$('#chat_panel_hide').hide();
+		$('#module_header_chat_button').show();
+		$('.module-wrapper').css('margin-right', '0');
+		$('#chat_panel').hide();
+		$('#chat_panel_show').show();
+	}
+}
+
+chat.hidePanel = function() {
+	sessionStorage.setItem(chat.PANEL_STATE_KEY, 'false');
+	$('#chat_panel_hide').hide();
+	$('#module_header_chat_button').show();
+	$('.module-wrapper').css('margin-right', '0');
+	$('#chat_panel').animate({width:'toggle'}, 200, function() {
+		$('#chat_panel_show').fadeIn();
+		openxava.resetListsSize(naviox.application, naviox.module);
+	});
+}
+
+chat.showPanel = function() {
+	sessionStorage.setItem(chat.PANEL_STATE_KEY, 'true');
+	$('#chat_panel_show').hide();
+	$('#module_header_chat_button').hide();
+	$('.module-wrapper').css('margin-right', '330px');
+	$('#chat_panel').animate({width:'toggle'}, 200, function() {
+		$('#chat_panel_hide').fadeIn();
+		openxava.resetListsSize(naviox.application, naviox.module);
+	});
+}

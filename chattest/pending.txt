@@ -3,8 +3,7 @@ Pending Chat AI
 
 Mover a openxava
 - Con Java 17 en openxava.
-    - TMR ME QUEDÉ POR AQUÍ. TODAVÍA NO FUNCIONA BIEN, AHORA DA UN ERROR localhost:8080
-    - Renombrar chatEditor como chat. ¿Otro nombre como chatAI?
+    - Renombrar chatEditor como chat.
     - ¿Nuevos métodos en naviox.js deberían estar en naviox.js?
 - Mover código Java 17 a otro proyecto.
     - Volver a poner Java 8 en openxava.
@@ -12,7 +11,7 @@ Mover a openxava
 Pruebas
 - Copiar pruebas de chatvoice
 - Quitar los test no relacionados con el chat.
-- Probar en un war.
+- Probar en un war. Tomcat 8 y 9. Si no va en el 8 podemos simplemente señalarlo.
 
 Refinamientos
 - Poder desactivarlo mediante una propiedad en xava.properties.
