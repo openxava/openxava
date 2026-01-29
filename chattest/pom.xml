@@ -21,6 +21,12 @@
 			<artifactId>openxava</artifactId>
 			<version>${openxava.version}</version>
 		</dependency>
+		<!-- AI Chat functionality (requires Java 17) -->
+		<dependency>
+			<groupId>org.openxava</groupId>
+			<artifactId>openxava-7.7-chat-jdk17</artifactId>
+			<version>${openxava.version}</version>
+		</dependency>
 		
 		<!-- 
 		To access to your database uncomment the corresponding entry 

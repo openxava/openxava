@@ -1,4 +1,4 @@
-package org.openxava.chat;
+package org.openxava.chat.impl;
 
 import java.util.*;
 
