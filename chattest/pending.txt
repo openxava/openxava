@@ -1,10 +1,10 @@
 Pending Chat AI
 ---------------
 
-Pruebas // TMR ME QUEDÉ PARA EMPEZAR LAS PRUEBAS
-- Copiar pruebas de chatvoice
-- Quitar los test no relacionados con el chat.
+Pruebas
+- ChatTest ha de salir verde.
 - Probar en un war. Tomcat 8 y 9. Si no va en el 8 podemos simplemente señalarlo.
+- Borrar chatvoice
 
 Refinamientos
 - Cambiar los prints y printStacktraces por logs en EntityTools. Probar activar y desactivar.

@@ -28,6 +28,14 @@
 			<version>${openxava.version}</version>
 		</dependency>
 
+		<!-- Selenium WebDriver for testing -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.40.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		
 		<!-- 
 		To access to your database uncomment the corresponding entry 
