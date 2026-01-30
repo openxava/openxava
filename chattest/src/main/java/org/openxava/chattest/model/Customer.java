@@ -7,9 +7,9 @@ import org.openxava.annotations.*;
 import lombok.*;
 
 @Entity @Getter @Setter
-@View(members="data [ number; name; photo; address; city; country ], location")
+@View(members="data [ number; name; photo; address; city ], location") // With no country to test a case
 @View(name="Simple", members="number, name") 
-@Tab(properties="number, name, photo") 
+@Tab(properties="number, name, photo, address, city, country") 
 public class Customer {
 	
 	@Id
@@ -25,6 +25,7 @@ public class Customer {
 	@Column(length=40) 
 	String address; 	
 
+	@ReadOnly // To test a case
 	@Column(length=40)
 	String city; 
 	
