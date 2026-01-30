@@ -1,10 +1,7 @@
 Pending Chat AI
 ---------------
 
-Pruebas
-- Borrar chatvoice
-
-Refinamientos
+cRefinamientos
 - Cambiar los prints y printStacktraces por logs en EntityTools. Probar activar y desactivar.
 - Poder desactivarlo mediante una propiedad en xava.properties.
     - Poder desactivar solo modificación.
