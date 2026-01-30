@@ -2,7 +2,6 @@ Pending Chat AI
 ---------------
 
 Pruebas
-- ChatTest ha de salir verde.
 - Probar en un war. Tomcat 8 y 9. Si no va en el 8 podemos simplemente señalarlo.
 - Borrar chatvoice
 
@@ -21,3 +20,7 @@ Refinamientos
 - Actualizar todos los arquetipos para que lo incluyan por defecto.
 
 Documentación
+
+Pruebas finales
+- ChatTest
+- openxavatest
