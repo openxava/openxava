@@ -2,19 +2,19 @@ Pending Chat AI
 ---------------
 
 Refinamientos
+TMR ME QUEDÉ PARA EMPEZAR LO SIGUIENTE. DECIDÍ DEJAR LA CONFIGURACIÓN EN xava.properties.
 - Poder desactivarlo mediante una propiedad en xava.properties.
     - Poder desactivar solo modificación.
-    - ¿En un archivo de propiedades propio?
-        - Lo hacemos así en naviox.
-        - Pensar en poder añadir tools personalizados en el futuro.
 - Indicar al usuario que configure la clave de OPEN_AI cuando esta no exista.
 - Poder configurar el LLM y su velocidad mediante xava.properties.
     - Verificar nuevas propiedades en XavaPreferences.
     - Documentar.
 - Indicar al usuario de forma sencilla que puede hacer con el chat.
 - Actualizar todos los arquetipos para que lo incluyan por defecto.
+    - También xava.properties
 
 Documentación
+- xava.properties
 
 Pruebas finales
 - ChatTest
