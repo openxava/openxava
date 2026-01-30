@@ -2,6 +2,8 @@ package org.openxava.chat.impl;
 
 import java.util.*;
 
+import org.apache.commons.logging.*;
+
 import javax.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
@@ -26,6 +28,8 @@ import dev.langchain4j.agent.tool.Tool;
  * @author Javier Paniza
  */
 public class EntityTools {
+	
+	private static Log log = LogFactory.getLog(EntityTools.class);
 
 	// Threshold of 600 records for 128k window. 600 to be a multiple of 120.
 	private final static int MAX_RECORDS = 600;
@@ -60,7 +64,7 @@ public class EntityTools {
 	@Tool("Get the list of available entities in the application. Use this when you need to know what data is available. Only returns entities the current user has permission to access.")
 	public List<String> getAvailableEntities() {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getAvailableEntities() called");
+		log.debug("[TOOL] getAvailableEntities() called");
 		try {
 			// Get the Modules object from session (uses cache)
 			Modules modules = (Modules) session.getAttribute("modules");
@@ -89,12 +93,12 @@ public class EntityTools {
 				entityNames.add(module.getName());
 			}
 			
-			System.out.println("[TOOL] getAvailableEntities() returning: " + entityNames);
-			System.out.println("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getAvailableEntities() returning: " + entityNames);
+			log.debug("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return entityNames;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -110,19 +114,19 @@ public class EntityTools {
 	public List<String> getEntityProperties(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") called");
+		log.debug("[TOOL] getEntityProperties(entity=" + entity + ") called");
 		try {
 			Tab tab = getTab(entity);
 			List<String> properties = new ArrayList<>();
 			for (org.openxava.model.meta.MetaProperty p : tab.getMetaProperties()) {
 				properties.add(p.getQualifiedName());
 			}
-			System.out.println("[TOOL] getEntityProperties(entity=" + entity + ") returning: " + properties);
-			System.out.println("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getEntityProperties(entity=" + entity + ") returning: " + properties);
+			log.debug("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return properties;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getEntityProperties() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -139,7 +143,7 @@ public class EntityTools {
 	public Map<String, List<String>> getEntityCollections(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getEntityCollections(entity=" + entity + ") called");
+		log.debug("[TOOL] getEntityCollections(entity=" + entity + ") called");
 		try {
 			View view = getView(entity);
 			Map<String, List<String>> collections = new LinkedHashMap<>();
@@ -151,12 +155,12 @@ public class EntityTools {
 				}
 				collections.put(collectionName, collectionProperties);
 			}
-			System.out.println("[TOOL] getEntityCollections(entity=" + entity + ") returning: " + collections);
-			System.out.println("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getEntityCollections(entity=" + entity + ") returning: " + collections);
+			log.debug("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return collections;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getEntityCollections() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -171,15 +175,15 @@ public class EntityTools {
 	public long getEntityCount(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getEntityCount(entity=" + entity + ") called");
+		log.debug("[TOOL] getEntityCount(entity=" + entity + ") called");
 		try {
 			long result = getTab(entity).getTotalSize();
-			System.out.println("[TOOL] getEntityCount(entity=" + entity + ") returning: " + result);
-			System.out.println("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getEntityCount(entity=" + entity + ") returning: " + result);
+			log.debug("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getEntityCount() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw ex;
 		}
 	}
@@ -194,9 +198,9 @@ public class EntityTools {
 	public List<Map<String, Object>> findFirst600Entities(
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] findFirst600Entities(entity=" + entity + ") called");
+		log.debug("[TOOL] findFirst600Entities(entity=" + entity + ") called");
 		List<Map<String, Object>> result = findEntities(entity, null);
-		System.out.println("[TOOL] findFirst600Entities() took " + (System.currentTimeMillis() - startTime) + " ms");
+		log.debug("[TOOL] findFirst600Entities() took " + (System.currentTimeMillis() - startTime) + " ms");
 		return result;
 	}
 	
@@ -213,9 +217,9 @@ public class EntityTools {
 			@P("The entity name, e.g. Customer, Invoice, Product. Get valid names from getAvailableEntities()") String entity, 
 			@P("SQL-style condition with property names in ${}, e.g. ${name} = 'John'") String condition) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
+		log.debug("[TOOL] findEntitiesByCondition(entity=" + entity + ", condition=" + condition + ") called");
 		List<Map<String, Object>> result = findEntities(entity, condition);
-		System.out.println("[TOOL] findEntitiesByCondition() took " + (System.currentTimeMillis() - startTime) + " ms");
+		log.debug("[TOOL] findEntitiesByCondition() took " + (System.currentTimeMillis() - startTime) + " ms");
 		return result;
 	}
 	
@@ -239,15 +243,15 @@ public class EntityTools {
 				try {
 					record.put("hiddenKey", tableModel.getObjectAt(row));
 				} catch (javax.ejb.FinderException ex) {
-					ex.printStackTrace(); // TODO Handle this better
+					log.warn(ex.getMessage(), ex); // TODO Handle this better
 				}
 				records.add(record);
 			}
 			
-			System.out.println("[TOOL] findEntities(entity=" + entity + ") returning " + records.size() + " records");
+			log.debug("[TOOL] findEntities(entity=" + entity + ") returning " + records.size() + " records");
 			return records;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 			throw ex;
 		}
 	}
@@ -266,16 +270,16 @@ public class EntityTools {
 			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
 			@P("The entity key obtained from hiddenKey field") Map<String, Object> key) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
+		log.debug("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
 		try {
 			View view = getView(entity);
 			Map<String, Object> result = MapFacade.getValues(view.getModelName(), key, view.getMembersNames());
-			System.out.println("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
-			System.out.println("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
+			log.debug("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getEntityDetails() took " + (System.currentTimeMillis() - startTime) + " ms");
 			throw new RuntimeException(ex);
 		}
 	}
@@ -295,7 +299,7 @@ public class EntityTools {
 			@P("The entity key obtained from hiddenKey field") Map<String, Object> key,
 			@P("Map of property names to new values, e.g. {name: 'New Name', email: 'new@email.com'}") Map<String, Object> values) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] updateEntity(entity=" + entity + ", key=" + key + ", values=" + values + ") called");
+		log.debug("[TOOL] updateEntity(entity=" + entity + ", key=" + key + ", values=" + values + ") called");
 		try {
 			if (key == null || key.isEmpty()) {
 				return "ERROR: Key cannot be null or empty. Use hiddenKey from findFirst600Entities or findEntitiesByCondition.";
@@ -319,14 +323,14 @@ public class EntityTools {
 				// Check if property is in the view
 				if (!membersInView.containsKey(propertyName)) {
 					skippedFields.add(propertyName + " (not in view)");
-					System.out.println("[TOOL] updateEntity() - Skipping " + propertyName + ": not present in view");
+					log.debug("[TOOL] updateEntity() - Skipping " + propertyName + ": not present in view");
 					continue;
 				}
 				
 				// Check if property is editable
 				if (!view.isEditable(propertyName)) {
 					skippedFields.add(propertyName + " (read-only)");
-					System.out.println("[TOOL] updateEntity() - Skipping " + propertyName + ": read-only field");
+					log.debug("[TOOL] updateEntity() - Skipping " + propertyName + ": read-only field");
 					continue;
 				}
 				
@@ -338,7 +342,7 @@ public class EntityTools {
 				if (!skippedFields.isEmpty()) {
 					message += " Skipped fields: " + skippedFields;
 				}
-				System.out.println("[TOOL] updateEntity() returning: " + message);
+				log.debug("[TOOL] updateEntity() returning: " + message);
 				return message;
 			}
 			
@@ -354,11 +358,11 @@ public class EntityTools {
 						value = parseValue(metaProperty, (String) value);
 					} catch (Exception ex) {
 						// If parsing fails, keep the original value
-						System.out.println("[TOOL] updateEntity() - Could not parse property " + propertyName + ": " + ex.getMessage());
+						log.debug("[TOOL] updateEntity() - Could not parse property " + propertyName + ": " + ex.getMessage());
 					}
 				}
 				
-				System.out.println("[TOOL] updateEntity() - Key: " + propertyName + 
+				log.debug("[TOOL] updateEntity() - Key: " + propertyName + 
 					", Value: " + value + 
 					", Class: " + (value != null ? value.getClass() : "null"));
 				convertedValues.put(propertyName, value);
@@ -373,14 +377,14 @@ public class EntityTools {
 			if (!skippedFields.isEmpty()) {
 				result += ". Skipped fields: " + skippedFields;
 			}
-			System.out.println("[TOOL] updateEntity() returning: " + result);
-			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] updateEntity() returning: " + result);
+			log.debug("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 			String errorMessage = "ERROR updating " + entity + ": " + ex.getMessage();
-			System.out.println("[TOOL] updateEntity() returning: " + errorMessage);
-			System.out.println("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] updateEntity() returning: " + errorMessage);
+			log.debug("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
 		}
 	}
@@ -402,7 +406,7 @@ public class EntityTools {
 			// This code is also in execute.jsp, should we refactor?
 			ModuleManager manager = (ModuleManager) context.get(application, entity, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
-			System.out.println("EntityTools.getTab() application=" + application + ", entity=" + entity);
+			log.debug("EntityTools.getTab() application=" + application + ", entity=" + entity);
 			manager.setApplicationName(application);
 			manager.setModuleName(entity);
 			tab.setModelName(manager.getModelName());
@@ -495,7 +499,7 @@ public class EntityTools {
 			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
 			@P("Map of property names to comparators, e.g. {amount: 'gt'} for greater than. Optional, defaults to 'eq' for numbers, 'contains' for strings.") Map<String, String> comparators) {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] filterList(entity=" + entity + ", values=" + values + ", comparators=" + comparators + ") called");
+		log.debug("[TOOL] filterList(entity=" + entity + ", values=" + values + ", comparators=" + comparators + ") called");
 		try {
 			setupWindowId();
 			
@@ -506,26 +510,26 @@ public class EntityTools {
 			
 			String currentModuleName = modules.getCurrentModuleName();
 			if (currentModuleName == null) {
-				System.out.println("[DEBUG] No current module selected");
+				log.debug("[DEBUG] No current module selected");
 				return "ERROR: No current module selected.";
 			}
 
 			// Check if the requested entity matches the current module
 			if (entity != null && !entity.equalsIgnoreCase(currentModuleName)) {
-				System.out.println("[DEBUG] Entity mismatch - current: " + currentModuleName + ", requested: " + entity);
+				log.debug("[DEBUG] Entity mismatch - current: " + currentModuleName + ", requested: " + entity);
 				return "ERROR: Cannot filter. The user is viewing '" + currentModuleName + "' but asked about '" + entity + "'. Use findEntitiesByCondition to get data from a different entity.";
 			}
 
 			// Check if the user is in list mode (not detail mode)
 			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
 			if (manager != null && !manager.isListMode()) {
-				System.out.println("[DEBUG] User is in detail mode, not list mode");
+				log.debug("[DEBUG] User is in detail mode, not list mode");
 				return "ERROR: Cannot filter. The user is in detail mode, not viewing the list. Use findEntitiesByCondition to return data in the chat.";
 			}
 
 			Tab tab = (Tab) context.get(application, currentModuleName, "xava_tab");
 			if (tab == null) {
-				System.out.println("[DEBUG] No tab available for module: " + currentModuleName);
+				log.debug("[DEBUG] No tab available for module: " + currentModuleName);
 				return "ERROR: No tab available for module " + currentModuleName;
 			}
 			
@@ -539,7 +543,7 @@ public class EntityTools {
 				String propertyName = prop.getQualifiedName();
 				
 				String value = values != null ? values.get(propertyName) : null;
-				System.out.println("[DEBUG] Processing property: " + propertyName + ", value: " + value);
+				log.debug("[DEBUG] Processing property: " + propertyName + ", value: " + value);
 				
 				// Convert date values from yyyy-MM-dd to user locale format
 				if (value != null && !value.isEmpty() && prop.isDateType()) {
@@ -547,16 +551,16 @@ public class EntityTools {
 					try {
 						java.time.LocalDate localDate = java.time.LocalDate.parse(value); // ISO format yyyy-MM-dd
 						Class<?> type = prop.getType();
-						System.out.println("[DEBUG] Current locale: " + org.openxava.util.Locales.getCurrent());
+						log.debug("[DEBUG] Current locale: " + org.openxava.util.Locales.getCurrent());
 						if (java.time.LocalDate.class.isAssignableFrom(type)) {
 							value = prop.format(localDate, org.openxava.util.Locales.getCurrent());
 						} else {
 							java.util.Date utilDate = java.sql.Date.valueOf(localDate);
 							value = prop.format(utilDate, org.openxava.util.Locales.getCurrent());
 						}
-						System.out.println("[DEBUG] Converted date to UI format: " + value);
+						log.debug("[DEBUG] Converted date to UI format: " + value);
 					} catch (Exception e) {
-						System.out.println("[DEBUG] Could not parse date: " + value + ", error: " + e.getMessage());
+						log.debug("[DEBUG] Could not parse date: " + value + ", error: " + e.getMessage());
 					}
 				}
 				
@@ -578,14 +582,14 @@ public class EntityTools {
 			} else {
 				result = "Filter applied to " + currentModuleName + " with values: " + values + (comparators != null && !comparators.isEmpty() ? " and comparators: " + comparators : "");
 			}
-			System.out.println("[TOOL] filterList() returning: " + result);
-			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] filterList() returning: " + result);
+			log.debug("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			log.error(ex.getMessage(), ex);
 			String errorMessage = "ERROR filtering list: " + ex.getMessage();
-			System.out.println("[TOOL] filterList() returning: " + errorMessage);
-			System.out.println("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] filterList() returning: " + errorMessage);
+			log.debug("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
 		}
 	}
@@ -625,7 +629,7 @@ public class EntityTools {
 	@Tool("Get the module (entity) the user is currently viewing. Use this to determine if filterList should be used instead of findEntitiesByCondition. Returns the module name that the user is currently on.")
 	public String getCurrentModule() {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getCurrentModule() called");
+		log.debug("[TOOL] getCurrentModule() called");
 		try {
 			setupWindowId();
 			
@@ -633,12 +637,12 @@ public class EntityTools {
 			if (modules == null) return null;
 			
 			String currentModuleName = modules.getCurrentModuleName();
-			System.out.println("[TOOL] getCurrentModule() returning: " + currentModuleName);
-			System.out.println("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getCurrentModule() returning: " + currentModuleName);
+			log.debug("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return currentModuleName;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getCurrentModule() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return null;
 		}
 	}
@@ -653,7 +657,7 @@ public class EntityTools {
 	@Tool("Get the entity currently being displayed or edited in detail mode. Use this when the user refers to 'current record', 'this record', or similar. Returns the entity name and key that can be used with getEntityDetails or updateEntity. Returns null if the user is not viewing a specific record in detail mode.")
 	public Map<String, Object> getCurrentDisplayedEntity() {
 		long startTime = System.currentTimeMillis();
-		System.out.println("[TOOL] getCurrentDisplayedEntity() called");
+		log.debug("[TOOL] getCurrentDisplayedEntity() called");
 		try {
 			setupWindowId();
 			
@@ -675,12 +679,12 @@ public class EntityTools {
 			Map<String, Object> result = new HashMap<>();
 			result.put("entity", currentModuleName);
 			result.put("key", keyValues);
-			System.out.println("[TOOL] getCurrentDisplayedEntity() returning: " + result);
-			System.out.println("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.debug("[TOOL] getCurrentDisplayedEntity() returning: " + result);
+			log.debug("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return result;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			System.out.println("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
+			log.error(ex.getMessage(), ex);
+			log.debug("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return null;
 		}
 	}

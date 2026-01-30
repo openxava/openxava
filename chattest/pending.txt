@@ -1,8 +1,7 @@
 Pending Chat AI
 ---------------
 
-cRefinamientos
-- Cambiar los prints y printStacktraces por logs en EntityTools. Probar activar y desactivar.
+Refinamientos
 - Poder desactivarlo mediante una propiedad en xava.properties.
     - Poder desactivar solo modificación.
     - ¿En un archivo de propiedades propio?
