@@ -2,9 +2,6 @@ Pending Chat AI
 ---------------
 
 Refinamientos
-- Poder configurar el LLM y su velocidad mediante xava.properties.
-    - Verificar nuevas propiedades en XavaPreferences.
-    - Documentar.
 - Indicar al usuario de forma sencilla que puede hacer con el chat.
 - Actualizar todos los arquetipos para que lo incluyan por defecto.
     - También xava.properties
