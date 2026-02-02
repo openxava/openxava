@@ -2,7 +2,6 @@ Pending Chat AI
 ---------------
 
 Refinamientos
-- Poder desactivar solo modificación.
 - Indicar al usuario que configure la clave de OPEN_AI cuando esta no exista.
 - Mensaje de OPEN_AI o Java 17 deberían también indicar como desactivar el chat.
 - Poder configurar el LLM y su velocidad mediante xava.properties.

@@ -49,6 +49,7 @@ public class ChatServiceImpl implements IChatService {
 	private static Map<String, ChatMemory> chatMemories = Collections.synchronizedMap(new HashMap<>());
 	private static Map<String, Assistant> assistants = Collections.synchronizedMap(new HashMap<>());
 	private static Map<String, EntityTools> entityToolsMap = Collections.synchronizedMap(new HashMap<>());
+	private static Map<String, EntityModifyTools> entityModifyToolsMap = Collections.synchronizedMap(new HashMap<>());
 	private static final Parser markdownParser = Parser.builder().build();
 	private static final HtmlRenderer htmlRenderer = HtmlRenderer.builder().build();
 	
@@ -92,11 +93,20 @@ public class ChatServiceImpl implements IChatService {
 				String application = MetaModuleFactory.getApplication();
 				EntityTools entityTools = new EntityTools(moduleContext, httpSession, application);
 				entityToolsMap.put(sessionId, entityTools);
-				assistant = AiServices.builder(Assistant.class)
+				
+				var aiServicesBuilder = AiServices.builder(Assistant.class)
 					.chatModel(model)
 					.chatMemory(chatMemory)
-					.tools(entityTools)
-					.build();
+					.tools(entityTools);
+				
+				// Add modify tools only if enabled
+				if (XavaPreferences.getInstance().isChatModifyDataAvailable()) {
+					EntityModifyTools entityModifyTools = new EntityModifyTools(moduleContext, httpSession, application);
+					entityModifyToolsMap.put(sessionId, entityModifyTools);
+					aiServicesBuilder.tools(entityModifyTools);
+				}
+				
+				assistant = aiServicesBuilder.build();
 				
 				assistants.put(sessionId, assistant);
 			}
@@ -116,6 +126,7 @@ public class ChatServiceImpl implements IChatService {
 		chatMemories.remove(sessionId);
 		assistants.remove(sessionId);
 		entityToolsMap.remove(sessionId);
+		entityModifyToolsMap.remove(sessionId);
 	}
 	
 	@Override
@@ -129,9 +140,9 @@ public class ChatServiceImpl implements IChatService {
 	
 	@Override
 	public boolean consumeRefreshUINeeded(String sessionId) {
-		EntityTools entityTools = entityToolsMap.get(sessionId);
-		if (entityTools != null) {
-			return entityTools.consumeRefreshUINeeded();
+		EntityModifyTools entityModifyTools = entityModifyToolsMap.get(sessionId);
+		if (entityModifyTools != null) {
+			return entityModifyTools.consumeRefreshUINeeded();
 		}
 		return false;
 	}
