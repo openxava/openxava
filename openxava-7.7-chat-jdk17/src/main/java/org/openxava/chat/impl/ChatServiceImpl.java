@@ -14,6 +14,7 @@ import org.openxava.chat.IChatService;
 import org.openxava.controller.ModuleContext;
 import org.openxava.util.Is;
 import org.openxava.util.XavaPreferences;
+import org.openxava.util.XavaResources;
 
 import com.openxava.naviox.impl.MetaModuleFactory;
 
@@ -65,7 +66,7 @@ public class ChatServiceImpl implements IChatService {
 					apiKey = System.getenv("OPENAI_API_KEY");
 				}
 				if (Is.emptyString(apiKey)) {
-					throw new ChatException("OpenAI API key not configured");
+					throw new ChatException(XavaResources.getString("openai_api_key_not_configured"));
 				}
 				
 				// Create OpenAI chat model
