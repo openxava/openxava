@@ -66,7 +66,9 @@ public class ChatServiceImpl implements IChatService {
 					apiKey = System.getenv("OPENAI_API_KEY");
 				}
 				if (Is.emptyString(apiKey)) {
-					throw new ChatException(XavaResources.getString("openai_api_key_not_configured"));
+					String errorMessage = XavaResources.getString("openai_api_key_not_configured");
+					String disableHint = XavaResources.getString("chat_disable_hint");
+					throw new ChatException(errorMessage + "<br/><br/>" + disableHint);
 				}
 				
 				// Create OpenAI chat model

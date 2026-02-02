@@ -74,7 +74,8 @@ public class ChatEndpoint {
 			if (service == null) {
 				// No implementation available - return generic message
 				String message = XavaResources.getString("chat_requires_java17");
-				session.getBasicRemote().sendText("<p>" + message + "</p>");
+				String disableHint = XavaResources.getString("chat_disable_hint");
+				session.getBasicRemote().sendText("<p>" + message + "<br/><br/>" + disableHint + "</p>");
 				return;
 			}
 			

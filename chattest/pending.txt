@@ -2,7 +2,6 @@ Pending Chat AI
 ---------------
 
 Refinamientos
-- Mensaje de OPEN_AI o Java 17 deberían también indicar como desactivar el chat.
 - Poder configurar el LLM y su velocidad mediante xava.properties.
     - Verificar nuevas propiedades en XavaPreferences.
     - Documentar.
