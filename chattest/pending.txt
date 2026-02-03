@@ -2,7 +2,6 @@ Pending Chat AI
 ---------------
 
 Refinamientos
-- Indicar al usuario de forma sencilla que puede hacer con el chat.
 - Actualizar todos los arquetipos para que lo incluyan por defecto.
     - También xava.properties
 
