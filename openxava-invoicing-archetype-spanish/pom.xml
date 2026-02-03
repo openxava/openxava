@@ -22,6 +22,13 @@
 			<version>${openxava.version}</version>
 		</dependency>
 		
+		<!-- Funcionalidad de Chat IA (requiere Java 17) -->
+		<dependency>
+			<groupId>org.openxava</groupId>
+			<artifactId>openxava-7.7-chat-jdk17</artifactId>
+			<version>${openxava.version}</version>
+		</dependency>
+		
 		<!-- 
 		Para acceder a tu base de datos descomenta la entrada correspondiente 
 		de las dependencias de abajo. Si no encuentras la tuya, busca en
