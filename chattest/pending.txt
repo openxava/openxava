@@ -1,9 +1,6 @@
 Pending Chat AI
 ---------------
 
-Documentación
-- Artículo
-
 Pruebas finales
 - ChatTest
 - openxavatest
