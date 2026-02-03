@@ -2,5 +2,4 @@ Pending Chat AI
 ---------------
 
 Pruebas finales
-- ChatTest
 - openxavatest
