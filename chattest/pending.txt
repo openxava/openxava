@@ -1,12 +1,8 @@
 Pending Chat AI
 ---------------
 
-Refinamientos
-- Actualizar todos los arquetipos para que lo incluyan por defecto.
-    - También xava.properties
-
 Documentación
-- xava.properties
+- Artículo
 
 Pruebas finales
 - ChatTest
