@@ -1,5 +1,0 @@
-Pending Chat AI
----------------
-
-Pruebas finales
-- openxavatest

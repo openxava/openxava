@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- AI chat assistant available in all modules to query, filter, and modify data in natural language.
+
 OpenXava 7.6.4.1 (2026-1-26) (Archetypes only; framework unchanged)
 -------------------------------------------------------------------
 - Java 17 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported.
