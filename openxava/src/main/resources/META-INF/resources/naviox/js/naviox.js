@@ -18,6 +18,7 @@ naviox.init = function() {
 	naviox.initModulesList();
 	naviox.initBookmark();
 	naviox.initModuleHeader();
+	chat.initPanel();
 }
 
 naviox.initLeftMenu = function() { 
@@ -248,3 +249,4 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     	}
     );
 }
+

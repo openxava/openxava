@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT editors (editor*)>
+
+<!ELEMENT editor (property*, formatter?, list-formatter?, (for-type | for-stereotype | for-model-property | for-valid-values | for-references | for-reference | for-collections | for-element-collections | for-collection | for-tabs | for-tab | for-annotation)*)>
+<!ATTLIST editor
+ name CDATA #IMPLIED
+ url CDATA #REQUIRED
+ format (true|false) "true" 
+ depends-stereotypes CDATA #IMPLIED
+ depends-properties CDATA #IMPLIED
+ frame (true|false) "false"
+ always-reload (true|false) "false"
+ composite (true|false) "false" 
+ icon CDATA #IMPLIED
+ init-action CDATA #IMPLIED
+ release-action CDATA #IMPLIED
+ selectable-items (true|false) "true"
+ default-label-format (normal|small|no-label) #IMPLIED
+>
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+  name CDATA #REQUIRED
+  value CDATA #REQUIRED
+>
+
+<!ELEMENT formatter (set*)>
+<!ATTLIST formatter
+  class CDATA #IMPLIED
+	from-type (true|false) "false"
+>
+
+<!ELEMENT list-formatter (set*)>
+<!ATTLIST list-formatter
+  class CDATA #IMPLIED
+	from-type (true|false) "false"
+>
+
+<!ELEMENT set EMPTY>
+<!ATTLIST set
+ property CDATA #REQUIRED
+ value CDATA #REQUIRED 
+>
+
+<!ELEMENT for-type EMPTY>
+<!ATTLIST for-type
+ type CDATA #REQUIRED
+>
+
+<!ELEMENT for-stereotype EMPTY>
+<!ATTLIST for-stereotype
+ stereotype CDATA #REQUIRED
+>
+
+<!ELEMENT for-model-property EMPTY>
+<!ATTLIST for-model-property
+ model CDATA #REQUIRED
+ property CDATA #REQUIRED 
+>
+
+<!ELEMENT for-valid-values EMPTY>
+
+<!ELEMENT for-references EMPTY>
+
+<!ELEMENT for-reference EMPTY>
+<!ATTLIST for-reference
+ model CDATA #REQUIRED
+>
+
+<!ELEMENT for-collections EMPTY>
+
+<!ELEMENT for-element-collections EMPTY>
+
+<!ELEMENT for-collection EMPTY>
+<!ATTLIST for-collection
+ model CDATA #REQUIRED
+>
+
+<!ELEMENT for-tabs (has-type*, has-annotation*, has-stereotype*)>
+
+<!ELEMENT has-type EMPTY>
+<!ATTLIST has-type
+  type CDATA #IMPLIED
+>
+
+<!ELEMENT has-annotation EMPTY>
+<!ATTLIST has-annotation
+  annotation CDATA #IMPLIED
+>
+
+<!ELEMENT has-stereotype EMPTY>
+<!ATTLIST has-stereotype
+  stereotype CDATA #IMPLIED
+>
+
+
+<!ELEMENT for-tab EMPTY>
+<!ATTLIST for-tab
+ model CDATA #REQUIRED
+>
+
+<!ELEMENT for-annotation EMPTY>
+<!ATTLIST for-annotation
+ annotation CDATA #REQUIRED
+>
+

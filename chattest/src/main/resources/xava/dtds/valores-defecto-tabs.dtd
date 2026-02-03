@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!ELEMENT valores-defecto-tab (tab*)>
+
+<!ELEMENT tab
+   (filtro?, estilo-fila*, propiedades?, condicion-base?, orden-defecto?, (para-modelo* | excepto-para-modelo* | para-todos-los-modelos) )
+>
+<!ATTLIST tab
+ editores CDATA #IMPLIED
+>
+
+<!ELEMENT condicion-base
+   (#PCDATA)
+>
+
+<!ELEMENT orden-defecto
+   (#PCDATA)
+>
+
+<!ELEMENT propiedades
+   (#PCDATA)
+>
+
+<!ELEMENT poner EMPTY>
+<!ATTLIST poner
+ propiedad CDATA #REQUIRED
+ desde CDATA #IMPLIED
+ valor CDATA #IMPLIED 
+>
+
+<!ELEMENT estilo-fila EMPTY>
+<!ATTLIST estilo-fila
+ estilo CDATA #REQUIRED
+ propiedad CDATA #REQUIRED
+ valor CDATA #REQUIRED
+>
+
+<!ELEMENT filtro (poner*)>
+<!ATTLIST filtro
+ clase CDATA #REQUIRED
+>
+
+<!ELEMENT para-modelo EMPTY>
+<!ATTLIST para-modelo
+ modelo CDATA #REQUIRED
+>
+
+<!ELEMENT excepto-para-modelo EMPTY>
+<!ATTLIST excepto-para-modelo
+ modelo CDATA #REQUIRED
+>
+
+<!ELEMENT para-todos-los-modelos EMPTY>
+
+

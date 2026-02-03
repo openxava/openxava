@@ -1,0 +1,15 @@
+<!ELEMENT converters (for-stereotype|for-type)+>
+
+<!ELEMENT for-stereotype EMPTY>
+<!ATTLIST for-stereotype
+ stereotype CDATA #REQUIRED
+ converter-class CDATA #REQUIRED
+ cmp-type CDATA #REQUIRED
+>
+
+<!ELEMENT for-type EMPTY>
+<!ATTLIST for-type
+ type CDATA #REQUIRED
+ converter-class CDATA #REQUIRED
+ cmp-type CDATA #REQUIRED
+>

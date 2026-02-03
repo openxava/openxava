@@ -564,4 +564,24 @@ public class XavaPreferences {
 				"org.openxava.jpa.impl.EntityManagerFactoryProvider").trim();
 	}
 	
+	/** @since 7.7 */
+	public String getChatModelName() {
+		return getProperties().getProperty("chatModelName", "gpt-5-mini").trim();
+	}
+	
+	/** @since 7.7 */
+	public boolean isChatPriorityServiceTier() {
+		return "true".equalsIgnoreCase(getProperties().getProperty("chatPriorityServiceTier", "true").trim());
+	}
+	
+	/** @since 7.7 */
+	public boolean isChatAvailable() {
+		return "true".equalsIgnoreCase(getProperties().getProperty("chatAvailable", "true").trim());
+	}
+	
+	/** @since 7.7 */
+	public boolean isChatModifyDataAvailable() {
+		return "true".equalsIgnoreCase(getProperties().getProperty("chatModifyDataAvailable", "true").trim());
+	}
+
 }
