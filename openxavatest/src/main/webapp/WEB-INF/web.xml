@@ -4,11 +4,27 @@
 
 <web-app>
 	<display-name>openxavatest</display-name>
-  
+
+	<!-- Avoid IntelliJ file locking issue on Windows -->
+	<servlet>
+		<servlet-name>jsp</servlet-name>
+		<servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+		<init-param>
+			<param-name>suppressSmap</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+
   	<servlet>
 		<servlet-name>testServlet</servlet-name>
 		<servlet-class>org.openxava.test.servlets.TestServlet</servlet-class>
 	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>jsp</servlet-name>
+		<url-pattern>*.jsp</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>testServlet</servlet-name>
