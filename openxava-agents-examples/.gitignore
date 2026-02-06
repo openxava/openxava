@@ -1,0 +1,8 @@
+/target/
+/temp/
+/.idea/
+.classpath
+.project
+.settings/
+/src/main/resources/agents/test/bymodule/
+/src/main/resources/agents/test/default-controllers.xml

@@ -1,0 +1,12 @@
+Pending for AGENTS.md (tmr)
+
+- No copia AGENTS.md.
+- Probarlo.
+- Que copie solo al cambiar de versión.
+- Añadir .xava a todos los .gitignore.
+- ¿Quitar el README.md? ¿Pones un AGENTS.md en su lugar?
+- Probar ejecutar el test.
+- Soporte del modelo.
+- Soporte de acciones.
+- Documentar.
+- Apuntar para ponerlo como característica en openxava.org.
