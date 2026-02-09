@@ -161,8 +161,9 @@ public class Factura extends DocumentoComercial {
     <div class="wiki" style="display: block;">Este nuevo código necesita un esquema de base de datos ligeramente diferente, ahora las facturas y los pedidos se almacenarán en la misma tabla (la tabla DocumentoComercial) usando una columna discriminador. Por tanto has de borrar las viejas tablas ejecutando las siguientes sentencias SQL:<br>
       <pre><code class="language-sql">DROP TABLE FACTURA_DETALLES;
 DROP TABLE FACTURA;
-</code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu aplicación se esté ejecutando, después usa la opción de menú <i>OpenXava &gt; Database Manager</i> de OpenXava Studio:<br>
-      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
+</code></pre> Para ejecutar estas sentencias SQL, primero asegurate de que tu aplicación se esté ejecutando,
+        después ejecuta la clase <i>DBManager</i> dentro del paquete <i>com.tuempresa.facturacion.run</i> en tu proyecto:<br>
+      <img src="files/inheritance_es040.png" alt="inheritance_es040.png" title="inheritance_es040.png"><br>
       Después:<br>
       <img src="files/inheritance_es050.png" alt="inheritance_es050.png"
 
