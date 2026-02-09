@@ -1,6 +1,5 @@
 Pending for AGENTS.md (tmr)
 
-- No copia AGENTS.md.
 - Probarlo.
 - Que copie solo al cambiar de versión.
 - Añadir .xava a todos los .gitignore.

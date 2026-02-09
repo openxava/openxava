@@ -52,6 +52,7 @@
       <directory></directory>
       <includes>
         <include>.gitignore</include>
+        <include>AGENTS.md</include>
       </includes>
     </fileSet>
   </fileSets>
