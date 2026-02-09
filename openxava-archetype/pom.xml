@@ -160,7 +160,7 @@
 									<artifactId>openxava-agents-examples</artifactId>
 									<version>${openxava.version}</version>
 									<outputDirectory>.xava</outputDirectory>
-									<includes>agents/**,.gitignore</includes>
+									<includes>agents/**</includes>
 								</artifactItem>
 							</artifactItems>
 						</configuration>
