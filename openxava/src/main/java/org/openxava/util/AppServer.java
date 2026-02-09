@@ -62,7 +62,7 @@ public class AppServer {
 	
 	private static Tomcat startTomcat(String webappDir, String contextPath, int port, String ... extraClassPaths) throws Exception {  
         Tomcat tomcat = new Tomcat();
-        tomcat.setBaseDir("temp"); 
+        tomcat.setBaseDir("target/tomcat");
         tomcat.setPort(port);
         tomcat.getConnector();
         tomcat.enableNaming();

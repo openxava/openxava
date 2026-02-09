@@ -67,6 +67,9 @@ manager.registerAction("SessionLocker.lock");
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
+	<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/chat/chat.css?ox=<%=oxVersion%>">
+	<% } %>
 	<script type='text/javascript' <xava:nonce/>> 
 		if (typeof dwr == 'undefined') dwr = {};
 		if (!dwr.engine) dwr.engine = {};
@@ -99,11 +102,18 @@ manager.registerAction("SessionLocker.lock");
 			<% } %>
 		</div>
 		
+		<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+		<jsp:include page="../chat/chat.jsp"/>
+		<% } %>
+		
 	</div> 
 	
 	<%@include file="indexExt.jsp"%>
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
+	<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/chat/chat.js?ox=<%=oxVersion%>'></script>
+	<% } %> 
 	
 	<script <xava:nonce/>> 
 	$(function() {

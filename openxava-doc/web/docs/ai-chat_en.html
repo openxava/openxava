@@ -1,0 +1,236 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>AI Chat - OpenXava</title>
+	<link rel="stylesheet" href="static/style.css" type="text/css">
+	<link rel="stylesheet" href="highlight/highlight.css">
+	<link rel="stylesheet" href="highlight/highlightjs-copy.css">
+	<script src="highlight/highlight.js"></script>
+	<script src="highlight/highlightjs-copy.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+			hljs.highlightAll();
+		});
+	</script>
+</head>
+
+<body class="wiki">
+
+<h1 id="toc0">
+	<span id="breadcrumbs">
+		<span id="openxava">
+			<a href="https://www.openxava.org/"><span>o</span>pen<span>x</span>ava</a>
+		</span> 
+		/ <a href="index_en.html">documentation</a> / 
+	</span>
+	AI Chat
+</h1>
+
+<i>Available since OpenXava 7.7. Requires Java 17 or later 
+(OpenXava 7.7 still works with Java 8 for all other features).</i>
+
+<div id="toc">
+	<h1 class="nopad">Table of contents</h1>
+	<div style="margin-left: 1em;"><a href="#ai-chat">AI Chat</a></div>
+	<div style="margin-left: 2em;"><a href="#introduction">Introduction</a></div>
+	<div style="margin-left: 2em;"><a href="#features">Features for end users</a></div>
+	<div style="margin-left: 2em;"><a href="#setup">Setup</a></div>
+	<div style="margin-left: 3em;"><a href="#new-projects">New projects (7.7 or later)</a></div>
+	<div style="margin-left: 3em;"><a href="#upgrading">Upgrading from a previous version</a></div>
+	<div style="margin-left: 2em;"><a href="#configuration">Configuration</a></div>
+	<div style="margin-left: 3em;"><a href="#chatModelName">chatModelName</a></div>
+	<div style="margin-left: 3em;"><a href="#chatAvailable">chatAvailable</a></div>
+	<div style="margin-left: 3em;"><a href="#chatModifyDataAvailable">chatModifyDataAvailable</a></div>
+	<div style="margin-left: 3em;"><a href="#chatPriorityServiceTier">chatPriorityServiceTier</a></div>
+	<div style="margin-left: 2em;"><a href="#api-key">API Key</a></div>
+</div>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>OpenXava 7.7 introduces an AI-powered chat assistant that allows users to interact with 
+your application data using natural language. The chat panel is integrated directly into the 
+OpenXava user interface and provides a conversational way to query, filter, and even modify 
+data.</p>
+
+<p>The AI chat uses LangChain4j to connect to OpenAI-compatible language models, enabling 
+sophisticated natural language understanding. Users can ask questions about their data, 
+request filtering of lists, and perform data modifications—all through simple conversational 
+commands.</p>
+
+<h2 id="features">Features for end users</h2>
+
+<p>The AI chat provides a rich set of capabilities for end users:</p>
+
+<h3>Querying data</h3>
+
+<p>Users can ask questions about their data in natural language:</p>
+<ul>
+	<li><i>"How many customers are there?"</i></li>
+	<li><i>"List all customers"</i></li>
+	<li><i>"Give me the address of customer number 2"</i></li>
+	<li><i>"What products have been invoiced in invoice 2021/1?"</i></li>
+	<li><i>"What is the product that has been invoiced the most in all history?"</i></li>
+</ul>
+
+<p>The chat can access data from any module, not just the currently open one. For example, 
+while viewing customers, you can ask about products or invoices.</p>
+
+<p>The chat also supports accessing data from element collections and related entities, 
+allowing complex queries like <i>"Tell me what products have been invoiced in invoice 
+2021/1"</i>.</p>
+
+<h3>Filtering lists</h3>
+
+<p>Users can filter the current list using natural language:</p>
+<ul>
+	<li><i>"Filter invoices from year 2025"</i></li>
+	<li><i>"Show me invoices from 2025 for customer John Cage"</i></li>
+	<li><i>"Filter invoices with date 8/13/2024"</i></li>
+	<li><i>"Show invoices from August, from all years"</i></li>
+	<li><i>"Show invoices with total greater than 60000"</i></li>
+	<li><i>"Clear the filter"</i></li>
+</ul>
+
+<p>The filtering works with multiple fields, dates, and comparators (greater than, less than, 
+etc.). When the user is in list mode of the corresponding module, the filter is applied 
+directly to the list. When in detail mode or a different module, the results are returned 
+in the chat response.</p>
+
+<h3>Modifying data</h3>
+
+<p>Users can modify data through natural language commands:</p>
+<ul>
+	<li><i>"Update the price of the BMW 330i to 51000"</i></li>
+	<li><i>"Set the price to 47000"</i> (when viewing a record in detail mode)</li>
+	<li><i>"Change the date of invoice 2021/1 to June 15, 2021"</i></li>
+	<li><i>"Set the address of customer 1 to 'Main Street, 100'"</i></li>
+</ul>
+
+<p>The chat respects the editable/read-only status of fields. If a field is not editable, 
+the chat will not modify it, even if the user requests it.</p>
+
+<p><b>Advanced modifications:</b> The AI can perform sophisticated bulk operations that would 
+otherwise require custom actions. For example, you can say <i>"Increase the price of all cars 
+by 10%"</i> and the AI will understand and execute this operation across all matching 
+records—without needing a specific "vehicle type" field or a dedicated action in the 
+application.</p>
+
+<h3>Multilingual support</h3>
+
+<p>The chat understands and responds in multiple languages. Users can ask questions in 
+Spanish, English, or other languages:</p>
+<ul>
+	<li><i>"Dime de qué años tengo facturas"</i></li>
+	<li><i>"Filtra las facturas del año 2025"</i></li>
+	<li><i>"Cambia la fecha de la factura 2021/1 al 15 de junio del 2021"</i></li>
+</ul>
+
+<h3>Conversation memory</h3>
+
+<p>The chat maintains conversation context, allowing follow-up questions:</p>
+<ul>
+	<li><i>"How many customers are there?"</i> → <i>"List them"</i></li>
+	<li>The chat remembers the previous context and lists the customers</li>
+</ul>
+
+<p>Users can start a new conversation by clicking the "New conversation" button, which 
+clears the memory.</p>
+
+<h3>Real-time data</h3>
+
+<p>The chat always works with the current state of the data. If you add a new customer and 
+then ask "How many customers do I have now?", it will reflect the updated count.</p>
+
+<h2 id="setup">Setup</h2>
+
+<h3 id="new-projects">New projects (7.7 or later)</h3>
+
+<p>Projects created with OpenXava 7.7 or later already include the AI chat dependency. 
+No additional setup is required beyond configuring the API key.</p>
+
+<h3 id="upgrading">Upgrading from a previous version</h3>
+
+<p>If you are upgrading from a version prior to 7.7, you need to add the AI chat dependency 
+to your <i>pom.xml</i>:</p>
+
+<pre><code class="language-xml">&lt;!-- AI Chat functionality (requires Java 17) --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+    &lt;artifactId&gt;openxava-7.7-chat-jdk17&lt;/artifactId&gt;
+    &lt;version&gt;${openxava.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<p><b>Important:</b> This dependency requires Java 17 or later. If your project uses Java 8 
+or 11, you will need to upgrade to Java 17 to use the AI chat feature. The rest of 
+OpenXava 7.7 continues to work with Java 8.</p>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>The AI chat can be configured through properties in your <i>xava.properties</i> file:</p>
+
+<h3 id="chatModelName">chatModelName</h3>
+
+<p>Specifies the AI model to use. The default is <i>gpt-5-mini</i>.</p>
+
+<pre><code class="language-properties"># AI model to use for chat
+chatModelName=gpt-5-mini</code></pre>
+
+<p>We recommend using <b>gpt-5-mini</b> as the minimum model for good behavior. Smaller or 
+less capable models may not understand complex queries or may produce incorrect results. 
+You can also use more powerful models like <i>gpt-5</i> for even better results, though 
+they may be slower and more expensive.</p>
+
+<h3 id="chatAvailable">chatAvailable</h3>
+
+<p>Enables or disables the chat feature. The default is <i>true</i>.</p>
+
+<pre><code class="language-properties"># Set to false to disable the AI chat
+chatAvailable=false</code></pre>
+
+<p>When set to <i>false</i>, the chat button and panel will not appear in the user 
+interface.</p>
+
+<h3 id="chatModifyDataAvailable">chatModifyDataAvailable</h3>
+
+<p>Enables or disables the ability to modify data through the chat. The default is 
+<i>true</i>.</p>
+
+<pre><code class="language-properties"># Set to false to make the chat read-only
+chatModifyDataAvailable=false</code></pre>
+
+<p>When set to <i>false</i>, users can query and filter data but cannot modify it through 
+the chat. This is useful for environments where you want to provide AI-powered querying 
+without the risk of accidental data modifications.</p>
+
+<h3 id="chatPriorityServiceTier">chatPriorityServiceTier</h3>
+
+<p>Enables or disables the priority service tier for OpenAI API calls. The default is 
+<i>true</i>.</p>
+
+<pre><code class="language-properties"># Set to false to use standard service tier
+chatPriorityServiceTier=false</code></pre>
+
+<p>When enabled, the chat uses OpenAI's priority service tier which may provide faster 
+response times.</p>
+
+<h2 id="api-key">API Key</h2>
+
+<p>The AI chat requires an OpenAI API key to function. You must set the 
+<i>OPENAI_API_KEY</i> environment variable with your API key:</p>
+
+<pre><code class="language-bash"># Linux/macOS
+export OPENAI_API_KEY=your-api-key-here
+
+# Windows
+set OPENAI_API_KEY=your-api-key-here</code></pre>
+
+<p>You can obtain an API key from 
+<a href="https://platform.openai.com/api-keys" target="_blank">OpenAI's platform</a>.</p>
+
+<p><b>Security note:</b> Never hardcode your API key in source code or configuration files 
+that may be committed to version control. Always use environment variables or secure secret 
+management solutions.</p>
+
+</body>
+</html>

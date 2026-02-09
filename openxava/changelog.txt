@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded Tomcat now stores temporary files in the target folder to avoid Windows file-locking issues.
+- Fix: Validation error in web.xml reported by IntelliJ with no functional impact in new projects.
+- AI chat assistant available in all modules to query, filter, and modify data in natural language.
+
 OpenXava 7.6.4.1 (2026-1-26) (Archetypes only; framework unchanged)
 -------------------------------------------------------------------
 - Java 17 as default compiler level for new projects (from archetypes), though Java 1.8 is still supported.

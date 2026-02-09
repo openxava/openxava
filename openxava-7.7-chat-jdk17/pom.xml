@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.openxava</groupId>
+    <artifactId>openxava-7.7-chat-jdk17</artifactId>
+    <version>7.7-SNAPSHOT</version>
+    <name>OpenXava 7.7 Chat JDK17</name>
+    <description>AI Chat functionality for OpenXava 7.7 requiring Java 17</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <openxava.version>7.7-SNAPSHOT</openxava.version>
+    </properties>
+
+    <dependencies>
+        <!-- OpenXava core dependency -->
+        <dependency>
+            <groupId>org.openxava</groupId>
+            <artifactId>openxava</artifactId>
+            <version>${openxava.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- LangChain4j dependencies for AI chat -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+        <!-- Markdown to HTML conversion -->
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.24.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

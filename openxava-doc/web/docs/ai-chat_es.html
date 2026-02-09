@@ -1,0 +1,236 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Chat IA - OpenXava</title>
+	<link rel="stylesheet" href="static/style.css" type="text/css">
+	<link rel="stylesheet" href="highlight/highlight.css">
+	<link rel="stylesheet" href="highlight/highlightjs-copy.css">
+	<script src="highlight/highlight.js"></script>
+	<script src="highlight/highlightjs-copy.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+			hljs.highlightAll();
+		});
+	</script>
+</head>
+
+<body class="wiki">
+
+<h1 id="toc0">
+	<span id="breadcrumbs">
+		<span id="openxava">
+			<a href="https://www.openxava.org/"><span>o</span>pen<span>x</span>ava</a>
+		</span> 
+		/ <a href="index_es.html">documentación</a> / 
+	</span>
+	Chat IA
+</h1>
+
+<i>Disponible desde OpenXava 7.7. Requiere Java 17 o superior 
+(OpenXava 7.7 sigue funcionando con Java 8 para el resto de funcionalidades).</i>
+
+<div id="toc">
+	<h1 class="nopad">Tabla de contenidos</h1>
+	<div style="margin-left: 1em;"><a href="#chat-ia">Chat IA</a></div>
+	<div style="margin-left: 2em;"><a href="#introduccion">Introducción</a></div>
+	<div style="margin-left: 2em;"><a href="#caracteristicas">Características para usuarios finales</a></div>
+	<div style="margin-left: 2em;"><a href="#configuracion-inicial">Configuración inicial</a></div>
+	<div style="margin-left: 3em;"><a href="#proyectos-nuevos">Proyectos nuevos (7.7 o posterior)</a></div>
+	<div style="margin-left: 3em;"><a href="#actualizando">Actualizando desde una versión anterior</a></div>
+	<div style="margin-left: 2em;"><a href="#configuracion">Configuración</a></div>
+	<div style="margin-left: 3em;"><a href="#chatModelName">chatModelName</a></div>
+	<div style="margin-left: 3em;"><a href="#chatAvailable">chatAvailable</a></div>
+	<div style="margin-left: 3em;"><a href="#chatModifyDataAvailable">chatModifyDataAvailable</a></div>
+	<div style="margin-left: 3em;"><a href="#chatPriorityServiceTier">chatPriorityServiceTier</a></div>
+	<div style="margin-left: 2em;"><a href="#clave-api">Clave API</a></div>
+</div>
+
+<h2 id="introduccion">Introducción</h2>
+
+<p>OpenXava 7.7 introduce un asistente de chat potenciado por IA que permite a los usuarios 
+interactuar con los datos de tu aplicación usando lenguaje natural. El panel de chat está 
+integrado directamente en la interfaz de usuario de OpenXava y proporciona una forma 
+conversacional de consultar, filtrar e incluso modificar datos.</p>
+
+<p>El chat IA usa LangChain4j para conectarse a modelos de lenguaje compatibles con OpenAI, 
+permitiendo una comprensión sofisticada del lenguaje natural. Los usuarios pueden hacer 
+preguntas sobre sus datos, solicitar filtrado de listas y realizar modificaciones de 
+datos—todo mediante simples comandos conversacionales.</p>
+
+<h2 id="caracteristicas">Características para usuarios finales</h2>
+
+<p>El chat IA proporciona un rico conjunto de capacidades para los usuarios finales:</p>
+
+<h3>Consultar datos</h3>
+
+<p>Los usuarios pueden hacer preguntas sobre sus datos en lenguaje natural:</p>
+<ul>
+	<li><i>"¿Cuántos clientes hay?"</i></li>
+	<li><i>"Lista todos los clientes"</i></li>
+	<li><i>"Dame la dirección del cliente número 2"</i></li>
+	<li><i>"¿Qué productos se han facturado en la factura 2021/1?"</i></li>
+	<li><i>"¿Cuál es el producto que más se ha facturado en toda la historia?"</i></li>
+</ul>
+
+<p>El chat puede acceder a datos de cualquier módulo, no solo del que está abierto actualmente. 
+Por ejemplo, mientras visualizas clientes, puedes preguntar sobre productos o facturas.</p>
+
+<p>El chat también soporta acceso a datos de colecciones de elementos y entidades relacionadas, 
+permitiendo consultas complejas como <i>"Dime qué productos se han facturado en la factura 
+2021/1"</i>.</p>
+
+<h3>Filtrar listas</h3>
+
+<p>Los usuarios pueden filtrar la lista actual usando lenguaje natural:</p>
+<ul>
+	<li><i>"Filtra las facturas del año 2025"</i></li>
+	<li><i>"Muéstrame las facturas de 2025 del cliente John Cage"</i></li>
+	<li><i>"Filtra las facturas con fecha 13/8/2024"</i></li>
+	<li><i>"Muestra las facturas de agosto, de todos los años"</i></li>
+	<li><i>"Muestra las facturas con total mayor a 60000"</i></li>
+	<li><i>"Quita el filtro"</i></li>
+</ul>
+
+<p>El filtrado funciona con múltiples campos, fechas y comparadores (mayor que, menor que, 
+etc.). Cuando el usuario está en modo lista del módulo correspondiente, el filtro se aplica 
+directamente a la lista. Cuando está en modo detalle o en un módulo diferente, los resultados 
+se devuelven en la respuesta del chat.</p>
+
+<h3>Modificar datos</h3>
+
+<p>Los usuarios pueden modificar datos mediante comandos en lenguaje natural:</p>
+<ul>
+	<li><i>"Actualiza el precio del BMW 330i a 51000"</i></li>
+	<li><i>"Pon el precio a 47000"</i> (cuando se visualiza un registro en modo detalle)</li>
+	<li><i>"Cambia la fecha de la factura 2021/1 al 15 de junio del 2021"</i></li>
+	<li><i>"Pon la dirección del cliente 1 a 'Calle Mayor, 100'"</i></li>
+</ul>
+
+<p>El chat respeta el estado editable/solo lectura de los campos. Si un campo no es editable, 
+el chat no lo modificará, aunque el usuario lo solicite.</p>
+
+<p><b>Modificaciones avanzadas:</b> La IA puede realizar operaciones masivas sofisticadas que 
+de otro modo requerirían acciones personalizadas. Por ejemplo, puedes decir <i>"Incrementa el 
+precio de todos los coches en un 10%"</i> y la IA entenderá y ejecutará esta operación en 
+todos los registros coincidentes—sin necesitar un campo específico de "tipo de vehículo" ni 
+una acción dedicada en la aplicación.</p>
+
+<h3>Soporte multilingüe</h3>
+
+<p>El chat entiende y responde en múltiples idiomas. Los usuarios pueden hacer preguntas en 
+español, inglés u otros idiomas:</p>
+<ul>
+	<li><i>"How many customers are there?"</i></li>
+	<li><i>"Filter invoices from year 2025"</i></li>
+	<li><i>"Change the date of invoice 2021/1 to June 15, 2021"</i></li>
+</ul>
+
+<h3>Memoria de conversación</h3>
+
+<p>El chat mantiene el contexto de la conversación, permitiendo preguntas de seguimiento:</p>
+<ul>
+	<li><i>"¿Cuántos clientes hay?"</i> → <i>"Lístalos"</i></li>
+	<li>El chat recuerda el contexto anterior y lista los clientes</li>
+</ul>
+
+<p>Los usuarios pueden iniciar una nueva conversación haciendo clic en el botón 
+"Nueva conversación", que limpia la memoria.</p>
+
+<h3>Datos en tiempo real</h3>
+
+<p>El chat siempre trabaja con el estado actual de los datos. Si añades un nuevo cliente y 
+luego preguntas "¿Cuántos clientes tengo ahora?", reflejará el recuento actualizado.</p>
+
+<h2 id="configuracion-inicial">Configuración inicial</h2>
+
+<h3 id="proyectos-nuevos">Proyectos nuevos (7.7 o posterior)</h3>
+
+<p>Los proyectos creados con OpenXava 7.7 o posterior ya incluyen la dependencia del chat IA. 
+No se requiere configuración adicional más allá de configurar la clave API.</p>
+
+<h3 id="actualizando">Actualizando desde una versión anterior</h3>
+
+<p>Si estás actualizando desde una versión anterior a 7.7, necesitas añadir la dependencia 
+del chat IA a tu <i>pom.xml</i>:</p>
+
+<pre><code class="language-xml">&lt;!-- Funcionalidad Chat IA (requiere Java 17) --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+    &lt;artifactId&gt;openxava-7.7-chat-jdk17&lt;/artifactId&gt;
+    &lt;version&gt;${openxava.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+<p><b>Importante:</b> Esta dependencia requiere Java 17 o superior. Si tu proyecto usa Java 8 
+u 11, necesitarás actualizar a Java 17 para usar la funcionalidad de chat IA. El resto de 
+OpenXava 7.7 sigue funcionando con Java 8.</p>
+
+<h2 id="configuracion">Configuración</h2>
+
+<p>El chat IA se puede configurar mediante propiedades en tu archivo <i>xava.properties</i>:</p>
+
+<h3 id="chatModelName">chatModelName</h3>
+
+<p>Especifica el modelo de IA a usar. El valor por defecto es <i>gpt-5-mini</i>.</p>
+
+<pre><code class="language-properties"># Modelo de IA a usar para el chat
+chatModelName=gpt-5-mini</code></pre>
+
+<p>Recomendamos usar <b>gpt-5-mini</b> como modelo mínimo para un buen comportamiento. 
+Modelos más pequeños o menos capaces pueden no entender consultas complejas o producir 
+resultados incorrectos. También puedes usar modelos más potentes como <i>gpt-5</i> para 
+obtener mejores resultados, aunque pueden ser más lentos y costosos.</p>
+
+<h3 id="chatAvailable">chatAvailable</h3>
+
+<p>Habilita o deshabilita la funcionalidad de chat. El valor por defecto es <i>true</i>.</p>
+
+<pre><code class="language-properties"># Pon a false para deshabilitar el chat IA
+chatAvailable=false</code></pre>
+
+<p>Cuando se establece a <i>false</i>, el botón y panel de chat no aparecerán en la interfaz 
+de usuario.</p>
+
+<h3 id="chatModifyDataAvailable">chatModifyDataAvailable</h3>
+
+<p>Habilita o deshabilita la capacidad de modificar datos a través del chat. El valor por 
+defecto es <i>true</i>.</p>
+
+<pre><code class="language-properties"># Pon a false para hacer el chat de solo lectura
+chatModifyDataAvailable=false</code></pre>
+
+<p>Cuando se establece a <i>false</i>, los usuarios pueden consultar y filtrar datos pero no 
+pueden modificarlos a través del chat. Esto es útil para entornos donde quieres proporcionar 
+consultas potenciadas por IA sin el riesgo de modificaciones accidentales de datos.</p>
+
+<h3 id="chatPriorityServiceTier">chatPriorityServiceTier</h3>
+
+<p>Habilita o deshabilita el nivel de servicio prioritario para las llamadas a la API de 
+OpenAI. El valor por defecto es <i>true</i>.</p>
+
+<pre><code class="language-properties"># Pon a false para usar el nivel de servicio estándar
+chatPriorityServiceTier=false</code></pre>
+
+<p>Cuando está habilitado, el chat usa el nivel de servicio prioritario de OpenAI que puede 
+proporcionar tiempos de respuesta más rápidos.</p>
+
+<h2 id="clave-api">Clave API</h2>
+
+<p>El chat IA requiere una clave API de OpenAI para funcionar. Debes establecer la variable 
+de entorno <i>OPENAI_API_KEY</i> con tu clave API:</p>
+
+<pre><code class="language-bash"># Linux/macOS
+export OPENAI_API_KEY=tu-clave-api-aqui
+
+# Windows
+set OPENAI_API_KEY=tu-clave-api-aqui</code></pre>
+
+<p>Puedes obtener una clave API desde la 
+<a href="https://platform.openai.com/api-keys" target="_blank">plataforma de OpenAI</a>.</p>
+
+<p><b>Nota de seguridad:</b> Nunca escribas tu clave API directamente en el código fuente o 
+en archivos de configuración que puedan ser subidos al control de versiones. Usa siempre 
+variables de entorno o soluciones seguras de gestión de secretos.</p>
+
+</body>
+</html>

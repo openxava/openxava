@@ -15,6 +15,10 @@
     </init-param>
     <load-on-startup>3</load-on-startup>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>jsp</servlet-name>
+    <url-pattern>*.jsp</url-pattern>
+  </servlet-mapping>
   
   <!-- Para cumplir con OWASP -->
   <error-page>

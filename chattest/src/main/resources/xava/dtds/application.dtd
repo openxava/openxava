@@ -1,0 +1,62 @@
+<!ELEMENT application (default-module?, module*)>
+<!ATTLIST application
+ name ID #REQUIRED
+ label CDATA #IMPLIED
+>
+
+<!ELEMENT default-module (controller*)>
+
+<!ELEMENT module (doc | (env-var*, model?, view?, web-view?, tab?, controller*, mode-controller?))>
+<!ATTLIST module
+ name ID #REQUIRED
+ folder CDATA #IMPLIED
+ label CDATA #IMPLIED
+ description CDATA #IMPLIED
+>
+
+<!ELEMENT doc EMPTY>
+<!ATTLIST doc
+ url CDATA #REQUIRED
+ languages CDATA #IMPLIED
+>
+
+<!ELEMENT env-var EMPTY>
+<!ATTLIST env-var
+ name CDATA #REQUIRED
+ value CDATA #IMPLIED
+>
+
+
+<!ELEMENT model EMPTY>
+<!ATTLIST model
+ name CDATA #REQUIRED
+>
+
+<!ELEMENT view EMPTY>
+<!ATTLIST view
+ name CDATA #REQUIRED
+>
+
+<!ELEMENT tab EMPTY>
+<!ATTLIST tab
+ name CDATA #REQUIRED
+>
+
+
+<!ELEMENT web-view EMPTY>
+<!ATTLIST web-view
+ url CDATA #REQUIRED
+>
+
+
+
+<!ELEMENT controller EMPTY>
+<!ATTLIST controller
+ name CDATA #REQUIRED
+>
+
+<!ELEMENT mode-controller EMPTY>
+<!ATTLIST mode-controller
+ name CDATA #REQUIRED
+>
+

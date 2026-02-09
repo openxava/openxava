@@ -1,0 +1,9 @@
+<!ELEMENT tipo-estereotipo-defecto (para*)>
+
+<!ELEMENT para EMPTY>
+<!ATTLIST para
+ estereotipo CDATA #REQUIRED
+ tipo CDATA #REQUIRED
+>
+
+

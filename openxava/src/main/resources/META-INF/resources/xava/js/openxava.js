@@ -1548,3 +1548,18 @@ openxava.getScript = function( url ) {
 	document.head.appendChild(script); // Not body, it could be not available yet
 	openxava.loadedScripts.push(url);
 };
+
+openxava.filterList = function(filterValues) {
+	var app = openxava.lastApplication;
+	var module = openxava.lastModule;
+	
+	for (var key in filterValues) {
+		var id = openxava.decorateId(app, module, key);
+		var element = document.getElementById(id);
+		if (element) {
+			element.value = filterValues[key];
+		}
+	}
+	
+	openxava.executeAction(app, module, '', false, 'List.filter');
+};

@@ -17,6 +17,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@page import="org.openxava.util.Users"%>
 <%@page import="org.openxava.util.Locales"%>
 <%@page import="com.openxava.naviox.util.OrganizationsCurrent"%>
+<%@page import="org.openxava.util.XavaPreferences"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="modules" class="com.openxava.naviox.Modules" scope="session"/>
@@ -84,7 +85,11 @@ boolean isFirstSteps = com.openxava.naviox.Modules.FIRST_STEPS.equals(module);
 <div id="module_header_right">
 	<a id="bookmark" title="<xava:message key='<%=modules.isCurrentBookmarked(request)?"unbookmark_module":"bookmark_module"%>'/>">
 		<i class='mdi mdi-star<%=modules.isCurrentBookmarked(request)?"":"-outline"%>'></i> 
-	</a> 				
+	</a>
+	<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+	<a id="module_header_chat_button" title="<xava:message key='chat_tooltip'/>">
+		<i class="mdi mdi-chat"></i></a>
+	<% } %>
 	<span id="sign_in_out"> 
 		<%
 		if (Is.emptyString(NaviOXPreferences.getInstance().getAutologinUser())) {
