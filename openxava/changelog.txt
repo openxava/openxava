@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- The Quick Start section in the documentation has been simplified to leave only one option.
+- New "Starting with OpenXava" video using IntelliJ and a recent OpenXava version.
+- Updated Getting Started guide using IntelliJ and a recent OpenXava version.
 - Embedded Tomcat now stores temporary files in the target folder to avoid Windows file-locking issues.
 - Fix: Validation error in web.xml reported by IntelliJ with no functional impact in new projects.
 - AI chat assistant available in all modules to query, filter, and modify data in natural language.
