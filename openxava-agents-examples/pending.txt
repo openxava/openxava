@@ -1,9 +1,12 @@
 Pending for AGENTS.md (tmr)
 
 - Probarlo.
+    - Funciona con le pongo bymodule en la lista. Pero tengo que probarlo poniendolo en el arquetipo
+        y que funcione a la primera. TMR ME QUEDÉ PARA HACERLO.
 - Que copie solo al cambiar de versión.
 - ¿Quitar el README.md? ¿Pones un AGENTS.md en su lugar?
 - Probar ejecutar el test.
+- Probar añadir un .gitignore al proyecto. Podría modificar AGENTS.md para que lo indicara.
 - Soporte del modelo.
 - Soporte de acciones.
 - Documentar.
