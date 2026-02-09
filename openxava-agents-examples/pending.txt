@@ -1,12 +1,18 @@
 Pending for AGENTS.md (tmr)
 
 - Probarlo.
-    - Funciona con le pongo bymodule en la lista. Pero tengo que probarlo poniendolo en el arquetipo
-        y que funcione a la primera. TMR ME QUEDÉ PARA HACERLO.
+    - Funciona con le pongo bymodule en la lista.
+        TMR ME QUEDÉ POR AQUÍ: Poniendolo con la ruta bymodule SI QUE LEE EN LA RUTA
+            PERO SIGUE HACIENDO MAL EL TEST, PERO ESTO SERÁ POR EL SWE 1.5. DE HECHO
+            SI LE DIGO QUE ESTA MAL, EN EL SEGUNDO INTENTO LO HACE BIEN.
+        DEBERÍA PROBAR CON AGENTS.md ANIDADO
+    - Crea el modelo en el paquete agenttest.
+    - Pone los test en el paquete main.
 - Que copie solo al cambiar de versión.
 - ¿Quitar el README.md? ¿Pones un AGENTS.md en su lugar?
 - Probar ejecutar el test.
 - Probar añadir un .gitignore al proyecto. Podría modificar AGENTS.md para que lo indicara.
+- Que el agente indique si existe .xava y que promueva la ejecución de mvn package
 - Soporte del modelo.
 - Soporte de acciones.
 - Documentar.

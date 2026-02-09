@@ -43,10 +43,10 @@ public class MyEntity {
 
 ## Conventions for Automated Tests (JUnit)
 
-When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test`.
+When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test/bymodule`.
 
 ### Test Examples Reference
-- **Examples location**: `./.xava/agents/test`
+- **Examples location**: `./.xava/agents/test/bymodule`
 - **Available actions**: See `default-controllers.xml` inside `./.xava/agents/test`
 
 ### Common Patterns to Follow
