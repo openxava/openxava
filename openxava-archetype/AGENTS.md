@@ -35,11 +35,71 @@ public class MyEntity {
 }
 ```
 
+### Master-Detail (Collections)
+
+When asked to create a master-detail structure, the detail collection in the master entity **must use `@ElementCollection`** instead of `@OneToMany`. The detail class must be annotated with `@Embeddable` instead of `@Entity`.
+
+#### Master-Detail Example
+
+```java
+package ${package}.${artifactId}.model;
+
+import javax.persistence.*;
+import org.openxava.annotations.*;
+import lombok.*;
+
+@Entity
+@Getter @Setter
+public class Invoice {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    int id;
+
+    @Column(length=50)
+    @Required
+    String customer;
+
+    @ElementCollection
+    @ListProperties("product, quantity, price")
+    Collection<InvoiceDetail> details;
+}
+```
+
+```java
+package ${package}.${artifactId}.model;
+
+import javax.persistence.*;
+import org.openxava.annotations.*;
+import lombok.*;
+
+@Embeddable
+@Getter @Setter
+public class InvoiceDetail {
+
+    @Column(length=50)
+    String product;
+
+    int quantity;
+
+    @Money
+    java.math.BigDecimal price;
+}
+```
+
 ### Summary
 - ✅ `@Getter @Setter` from Lombok
 - ✅ Fields without modifier (package access)
+- ✅ Use `@ElementCollection` + `@Embeddable` for master-detail collections
 - ❌ Do not use `private` on fields
 - ❌ Do not write getters/setters manually
+- ❌ Do not use `@OneToMany` / `@Entity` for detail collections
+
+## The `.xava` Folder
+
+This project relies on a `.xava` folder that contains agent resources (test examples, controller definitions, etc.). If the `.xava` folder does not exist in the project root:
+- **Run `mvn package`** to generate it
+- **Do NOT add `.xava` to `.gitignore`** — it must remain in the repository
 
 ## Conventions for Automated Tests (JUnit)
 

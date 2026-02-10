@@ -1,13 +1,12 @@
 Pending for AGENTS.md (tmr)
 
 - Que copie solo al cambiar de versión.
-- ¿Quitar el README.md? ¿Pones un AGENTS.md en su lugar?
-- Probar ejecutar el test.
-- Probar añadir un .gitignore al proyecto. Podría modificar AGENTS.md para que lo indicara.
-- Que el agente indique si existe .xava y que promueva la ejecución de mvn package
-- Soporte del modelo.
-- Soporte de acciones.
-- ¿Mover el contenido de AGENTS.md a .xava?
-- Casos avanzados como Dashboard o Quartz o Informes. ¿Diferir?
+- Casos avanzados como
+- Diferir:
+        - Dashboard.
+        - Quartz.
+        - Informes.
+        - Para la 8 revisar.
+        - Probar nuevo curso con asistente.
 - Documentar. Antes mezclar desde el master.
 - Apuntar para ponerlo como característica en openxava.org.
