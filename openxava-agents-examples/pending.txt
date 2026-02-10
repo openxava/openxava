@@ -1,12 +1,9 @@
 Pending for AGENTS.md (tmr)
 
-- Que copie solo al cambiar de versión.
-- Casos avanzados como
 - Diferir:
         - Dashboard.
         - Quartz.
         - Informes.
-        - Para la 8 revisar.
-        - Probar nuevo curso con asistente.
+- Aplicar cambios a los demás arquetipos.
 - Documentar. Antes mezclar desde el master.
 - Apuntar para ponerlo como característica en openxava.org.
