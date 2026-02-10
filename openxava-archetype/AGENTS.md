@@ -15,7 +15,7 @@ When creating an entity in this project, follow these rules:
 ### Correct Entity Example
 
 ```java
-package org.openxava.agenttest.model;
+package ${package}.${artifactId}.model;
 
 import javax.persistence.*;
 import org.openxava.annotations.*;
@@ -43,10 +43,10 @@ public class MyEntity {
 
 ## Conventions for Automated Tests (JUnit)
 
-When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test/bymodule`.
+When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test`.
 
 ### Test Examples Reference
-- **Examples location**: `./.xava/agents/test/bymodule`
+- **Examples location**: `./.xava/agents/test`
 - **Available actions**: See `default-controllers.xml` inside `./.xava/agents/test`
 
 ### Common Patterns to Follow
@@ -58,7 +58,7 @@ When creating an automated test or JUnit test in this project, refer to the exam
 
 ### Basic Test Example
 ```java
-package org.openxava.agenttest.tests;
+package ${package}.${artifactId}.tests;
 
 import org.openxava.tests.*;
 
