@@ -1,5 +1,12 @@
 Pending for AGENTS.md (tmr)
 
 - Documentar.
+    AI assistants in the IDE
+
+    Mencionar que OpenXava funciona bien con asistentes IA y agentes de codicación de código como Copilot, Windsurf, Cursor, Junie, Claude Code, etc.
+    La razón es que está basado en estándares Java y además lleva más de 20 años como proyecto de código abierto, con código de ejemplos, documentación, preguntas en los foros, etc.
+    Además, desde la versión 7.7 lo hemos optimizado, menciona lo de AGENTS.md y .xava. También menciona que el AGENTS.md se puede configurar. Esto para proyectos nuevos creados.
+    Explica como se puede modificar un proyecto creado con una versión anterior y que se ha actualizado después, para que tenga AGENTS.md y .xava. Debería indicar como modificar el pom.xml y de donde obtener el AGENTS.md (con URL de GitHub)
+
 - Cambiar README.md para poner versión de OpenXava concreta. Apuntarlo en Publicar OpenXava.
 - Apuntar para ponerlo como característica en openxava.org.
