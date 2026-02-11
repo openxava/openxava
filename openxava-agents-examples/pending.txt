@@ -1,6 +1,5 @@
 Pending for AGENTS.md (tmr)
 
-- Aplicar cambios a los demás arquetipos.
 - Documentar.
 - Cambiar README.md para poner versión de OpenXava concreta. Apuntarlo en Publicar OpenXava.
 - Apuntar para ponerlo como característica en openxava.org.
