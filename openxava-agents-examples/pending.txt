@@ -1,5 +1,5 @@
 Pending for AGENTS.md (tmr)
 
 - Aplicar cambios a los demás arquetipos.
-- Documentar. Antes mezclar desde el master.
+- Documentar.
 - Apuntar para ponerlo como característica en openxava.org.
