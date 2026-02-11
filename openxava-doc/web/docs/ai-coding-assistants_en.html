@@ -1,0 +1,249 @@
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>AI Coding Assistants - OpenXava</title>
+	<link rel="stylesheet" href="static/style.css" type="text/css">
+	<link rel="stylesheet" href="highlight/highlight.css">
+	<link rel="stylesheet" href="highlight/highlightjs-copy.css">
+	<script src="highlight/highlight.js"></script>
+	<script src="highlight/highlightjs-copy.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', function() {
+			hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+			hljs.highlightAll();
+		});
+	</script>
+</head>
+
+<body class="wiki">
+
+<h1 id="toc0">
+	<span id="breadcrumbs">
+		<span id="openxava">
+			<a href="https://www.openxava.org/"><span>o</span>pen<span>x</span>ava</a>
+		</span> 
+		/ <a href="index_en.html">documentation</a> / 
+	</span>
+	AI Coding Assistants
+</h1>
+
+<i>Optimized since OpenXava 7.7</i>
+
+<div id="toc">
+	<h1 class="nopad">Table of contents</h1>
+	<div style="margin-left: 1em;"><a href="#ai-coding-assistants">AI Coding Assistants</a></div>
+	<div style="margin-left: 2em;"><a href="#why-openxava-works-well">Why OpenXava works well with AI coding assistants</a></div>
+	<div style="margin-left: 2em;"><a href="#optimizations">Optimizations for AI agents (7.7+)</a></div>
+	<div style="margin-left: 3em;"><a href="#agents-md">AGENTS.md</a></div>
+	<div style="margin-left: 3em;"><a href="#xava-folder">The .xava folder</a></div>
+	<div style="margin-left: 3em;"><a href="#how-it-works">How it works together</a></div>
+	<div style="margin-left: 2em;"><a href="#new-projects">New projects (7.7 or later)</a></div>
+	<div style="margin-left: 2em;"><a href="#existing-projects">Adding AI support to existing projects</a></div>
+	<div style="margin-left: 3em;"><a href="#step1-agents-md">Step 1: Add AGENTS.md</a></div>
+	<div style="margin-left: 3em;"><a href="#step2-pom">Step 2: Modify pom.xml</a></div>
+	<div style="margin-left: 3em;"><a href="#step3-generate">Step 3: Generate the .xava folder</a></div>
+	<div style="margin-left: 2em;"><a href="#customizing-agents-md">Customizing AGENTS.md</a></div>
+</div>
+
+<h2 id="why-openxava-works-well">Why OpenXava works well with AI coding assistants</h2>
+
+<p>OpenXava works remarkably well with AI coding assistants and agents such as 
+<b>GitHub Copilot</b>, <b>Windsurf</b>, <b>Cursor</b>, <b>JetBrains Junie</b>, 
+<b>Claude Code</b>, and others. There are several reasons for this:</p>
+
+<ul>
+	<li><b>Built on Java standards:</b> OpenXava is based on well-known Java standards 
+	like JPA, Bean Validation, and standard annotations. AI models have been extensively 
+	trained on these technologies and understand them deeply.</li>
+	
+	<li><b>Over 20 years of open source history:</b> OpenXava has been an open source 
+	project since 2004. This means there are two decades of source code, documentation, 
+	forum discussions, tutorials, and example applications publicly available on the 
+	internet—all of which has been ingested by AI training datasets.</li>
+	
+	<li><b>Convention over configuration:</b> OpenXava's approach of generating the 
+	entire user interface from annotated Java classes is straightforward for AI to 
+	understand. The AI only needs to produce a JPA entity with a few annotations, and 
+	OpenXava takes care of the rest.</li>
+	
+	<li><b>Minimal boilerplate:</b> Thanks to Lombok integration and OpenXava's 
+	declarative style, the code that AI needs to generate is concise and 
+	pattern-based—exactly the kind of code AI excels at producing.</li>
+</ul>
+
+<p>You can see this in action in the <a class="wiki_link" href="course-with-ai-project-creation_en.html">Course 
+with AI</a>, where a complete business application is built using an AI agent with 
+minimal manual intervention.</p>
+
+<h2 id="optimizations">Optimizations for AI agents (7.7+)</h2>
+
+<p>Starting with version 7.7, OpenXava includes specific optimizations to make AI 
+coding assistants even more effective. These optimizations provide AI agents with 
+project-specific context and real code examples, so they produce correct OpenXava 
+code from the very first attempt.</p>
+
+<h3 id="agents-md">AGENTS.md</h3>
+
+<p>Every new OpenXava project includes an <i>AGENTS.md</i> file in the project root. 
+This is a special Markdown file that AI coding assistants automatically read to 
+understand the conventions and rules of your project. Most modern AI-powered IDEs 
+(Windsurf, Cursor, GitHub Copilot, etc.) recognize this file and use it as context 
+when generating code.</p>
+
+<p>The <i>AGENTS.md</i> file included with OpenXava projects contains:</p>
+<ul>
+	<li><b>JPA entity conventions:</b> How to use Lombok, field visibility rules, 
+	and correct annotation patterns.</li>
+	<li><b>Master-detail patterns:</b> Instructions to use <i>@ElementCollection</i> 
+	and <i>@Embeddable</i> instead of <i>@OneToMany</i> for detail collections.</li>
+	<li><b>Test conventions:</b> How to write JUnit tests using <i>ModuleTestBase</i>, 
+	including the requirement to call <i>login()</i> as the first line.</li>
+	<li><b>References to the .xava folder:</b> Directing the AI to look at real code 
+	examples for guidance.</li>
+</ul>
+
+<p>This means that when you ask an AI agent to "create a Customer entity" or 
+"write a test for the Invoice module," it will follow OpenXava conventions 
+automatically.</p>
+
+<h3 id="xava-folder">The .xava folder</h3>
+
+<p>In addition to <i>AGENTS.md</i>, OpenXava projects use a <i>.xava</i> folder 
+that contains real code examples for AI agents to reference. This folder is 
+generated automatically and includes:</p>
+
+<ul>
+	<li><b>agents/test/bymodule/:</b> Real JUnit test examples from the OpenXava 
+	test suite, showing how to test different types of modules.</li>
+	<li><b>agents/test/default-controllers.xml:</b> The complete list of available 
+	actions in OpenXava controllers, so the AI knows which actions it can use in 
+	tests.</li>
+</ul>
+
+<p>The <i>.xava</i> folder is generated from the <i>openxava-agents-examples</i> 
+Maven artifact. It is not meant to be edited manually—it is regenerated each time 
+you run a Maven build.</p>
+
+<h3 id="how-it-works">How it works together</h3>
+
+<p>When an AI coding assistant opens your project, it reads <i>AGENTS.md</i> to 
+learn the project rules. When it needs to generate a test or understand how 
+OpenXava works, it looks at the examples in the <i>.xava</i> folder. This 
+combination of rules and examples results in much more accurate code generation.</p>
+
+<h2 id="new-projects">New projects (7.7 or later)</h2>
+
+<p>Projects created with OpenXava 7.7 or later already include everything needed. 
+Both the <i>AGENTS.md</i> file and the <i>pom.xml</i> configuration for the 
+<i>.xava</i> folder are set up automatically.</p>
+
+<p>The only step you need to take is to run a Maven build to generate the 
+<i>.xava</i> folder:</p>
+
+<pre><code class="language-bash">mvn package</code></pre>
+
+<p>After this, the <i>.xava</i> folder will be created in your project root with 
+all the example files. The <i>.xava</i> folder is listed in <i>.gitignore</i> by 
+default, since it is generated content. It will be regenerated automatically on 
+every Maven build.</p>
+
+<h2 id="existing-projects">Adding AI support to existing projects</h2>
+
+<p>If your project was created with a version prior to 7.7 and you have upgraded 
+to 7.7 or later, you can add AI coding assistant support manually by following 
+these steps:</p>
+
+<h3 id="step1-agents-md">Step 1: Add AGENTS.md</h3>
+
+<p>Download the <i>AGENTS.md</i> file from the OpenXava GitHub repository and 
+place it in your project root:</p>
+
+<p><a href="https://github.com/openxava/openxava/blob/master/openxava-archetype/AGENTS.md" 
+target="_blank">https://github.com/openxava/openxava/blob/master/openxava-archetype/AGENTS.md</a></p>
+
+<p>After downloading, edit the file to replace the archetype placeholders with 
+your actual project values:</p>
+<ul>
+	<li>Replace <i>${package}</i> with your base package (e.g. <i>com.yourcompany</i>)</li>
+	<li>Replace <i>${artifactId}</i> with your project name (e.g. <i>yourapp</i>)</li>
+</ul>
+
+<p>For example, if your package is <i>com.mycompany</i> and your artifact is 
+<i>invoicing</i>, change:</p>
+
+<pre><code class="language-java">package ${package}.${artifactId}.model;</code></pre>
+
+<p>to:</p>
+
+<pre><code class="language-java">package com.mycompany.invoicing.model;</code></pre>
+
+<h3 id="step2-pom">Step 2: Modify pom.xml</h3>
+
+<p>Add the following execution inside the <i>maven-dependency-plugin</i> in your 
+<i>pom.xml</i>. If you already have a <i>maven-dependency-plugin</i> configuration 
+(most OpenXava projects do), just add this new <i>&lt;execution&gt;</i> block 
+alongside the existing ones:</p>
+
+<pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+        &lt;!-- ... your existing executions ... --&gt;
+        &lt;execution&gt;
+            &lt;id&gt;unpack-agents-examples&lt;/id&gt;
+            &lt;phase&gt;initialize&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;unpack&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+                &lt;artifactItems&gt;
+                    &lt;artifactItem&gt;
+                        &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+                        &lt;artifactId&gt;openxava-agents-examples&lt;/artifactId&gt;
+                        &lt;version&gt;${openxava.version}&lt;/version&gt;
+                        &lt;outputDirectory&gt;.xava&lt;/outputDirectory&gt;
+                        &lt;includes&gt;agents/**&lt;/includes&gt;
+                    &lt;/artifactItem&gt;
+                &lt;/artifactItems&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+
+<p>This configuration unpacks the <i>openxava-agents-examples</i> artifact into 
+the <i>.xava</i> folder during the Maven <i>initialize</i> phase, which runs 
+before compilation.</p>
+
+<h3 id="step3-generate">Step 3: Generate the .xava folder</h3>
+
+<p>Run Maven to generate the <i>.xava</i> folder:</p>
+
+<pre><code class="language-bash">mvn package</code></pre>
+
+<p>You should now see a <i>.xava/agents/</i> folder in your project root 
+containing the test examples and controller definitions.</p>
+
+<p>Optionally, add <i>.xava</i> to your <i>.gitignore</i> file since it is 
+generated content:</p>
+
+<pre><code class="language-bash">/.xava/</code></pre>
+
+<h2 id="customizing-agents-md">Customizing AGENTS.md</h2>
+
+<p>The <i>AGENTS.md</i> file is fully customizable. You can and should edit it to 
+include conventions specific to your project. For example:</p>
+
+<ul>
+	<li>Add naming conventions for your entities and packages.</li>
+	<li>Document specific business rules that the AI should follow.</li>
+	<li>Include patterns for custom actions or validators used in your project.</li>
+	<li>Add references to your own example code.</li>
+</ul>
+
+<p>The more specific and detailed your <i>AGENTS.md</i> is, the better the AI 
+coding assistant will understand your project and generate code that fits your 
+standards. Think of it as onboarding documentation—not for a new developer, but 
+for an AI agent.</p>
+
+</body>
+</html>
