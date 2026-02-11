@@ -160,8 +160,9 @@ public class Invoice extends CommercialDocument {
       This new code requires a slightly different database schema, now invoices and orders will be stored in the same table (the CommercialDocument table) using a discriminator column. Therefore you need to remove the old tables executing the next SQL statements:<br>
       <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
 DROP TABLE INVOICE;
-</code></pre> To execute these SQL statements, first make sure your application is running, then use the menu option <i>OpenXava &gt; Database Manager</i> of OpenXava Studio:<br>
-      <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
+</code></pre> To execute these SQL statements, first make sure your application is running,
+        then execute the class <i>DBManager</i> inside the package <i>com.yourcompany.invoicing.run</i> of your project:<br>
+      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
       Then:<br>
       <img src="files/inheritance_en050.png" alt="inheritance_en050.png"
 
