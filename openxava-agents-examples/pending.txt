@@ -1,9 +1,5 @@
 Pending for AGENTS.md (tmr)
 
-- Diferir:
-        - Dashboard.
-        - Quartz.
-        - Informes.
 - Aplicar cambios a los demás arquetipos.
 - Documentar. Antes mezclar desde el master.
 - Apuntar para ponerlo como característica en openxava.org.
