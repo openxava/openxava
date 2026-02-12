@@ -161,6 +161,24 @@
 							</artifactItems>
 						</configuration>
 					</execution>
+					<execution>
+						<id>unpack-agents-examples</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.openxava</groupId>
+									<artifactId>openxava-agents-examples</artifactId>
+									<version>${openxava.version}</version>
+									<outputDirectory>.xava</outputDirectory>
+									<includes>agents/**</includes>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Documentation article on optimizing AI assistants' code generation.
+- New projects include AGENTS.md and sample code to improve AI code assistant effectiveness.
 - The Quick Start section in the documentation has been simplified to leave only one option.
 - New "Starting with OpenXava" video using IntelliJ and a recent OpenXava version.
 - Updated Getting Started guide using IntelliJ and a recent OpenXava version.

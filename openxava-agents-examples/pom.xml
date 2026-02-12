@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.openxava</groupId>
+	<artifactId>openxava-agents-examples</artifactId>
+	<version>7.7-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>OpenXava Agents Examples</name>
+	<description>Example files for AI agents working with OpenXava projects</description>
+	<url>https://www.openxava.org</url>
+
+	<licenses>
+		<license>
+			<name>GNU Library General Public License v2.1 or later</name>
+			<url>https://www.opensource.org/licenses/LGPL-2.1</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>openxava-team</id>
+			<name>The OpenXava Development Team</name>
+			<organization>OpenXava.org</organization>
+			<organizationUrl>https://openxava.org</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/openxava/openxava.git</connection>
+		<developerConnection>scm:git:ssh://github.com:openxava/openxava.git</developerConnection>
+		<url>https://github.com/openxava/openxava</url>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>copy-default-controllers</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/agents/test</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/../openxava/src/main/resources/xava</directory>
+									<includes>
+										<include>default-controllers.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>copy-test-examples</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/agents/test/bymodule</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/../openxavatest/src/test/java/org/openxava/test/tests/bymodule</directory>
+									<includes>
+										<include>**/*.java</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		<!-- Uncomment to deploy on Maven Central
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.8.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+				</configuration>
+			</plugin>
+			
+    		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.4.0</version>
+				<configuration>
+					<failOnError>false</failOnError>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		-->
+		</plugins>
+	</build>
+	
+</project>
