@@ -1,5 +1,7 @@
 package org.openxava.test.tests.bymodule;
 
+import org.htmlunit.html.*;
+
 import org.openxava.test.model.*;
 import org.openxava.tests.*;
 
@@ -75,12 +77,30 @@ public class Product2EditableListTest extends ModuleTestBase {
 		setValueInList(1, "family.number", "3"); 
 		assertMessage("Saved new value for family in row 2 Undo changes");
 		
+		// Undo changes for @DescriptionsList with single key
+		clickUndoInMessage();
+		assertNoErrors();
+		assertMessage("Restored previous value for family in row 2");
+		assertValueInList(1, "family.description", "HARDWARE");
+		
+		setValueInList(1, "family.number", "3");
+		assertNoErrors();
+		
 		Warehouse warehouse = new Warehouse();
 		warehouse.setZoneNumber(4);
 		warehouse.setNumber(13);		 
 		String warehouseKey = toKeyString(warehouse);
 		setValueInList(1, "warehouse.KEY", warehouseKey); 
 		assertMessage("Saved new value for warehouse in row 2 Undo changes");
+		
+		// Undo changes for @DescriptionsList with composite key
+		clickUndoInMessage();
+		assertNoErrors();
+		assertMessage("Restored previous value for warehouse in row 2");
+		assertValueInList(1, "warehouse.name", "CENTRAL VALENCIA");
+		
+		setValueInList(1, "warehouse.KEY", warehouseKey);
+		assertNoErrors();
 		
 		// Verifying in detail
 		execute("List.viewDetail", "row=1");
@@ -114,6 +134,15 @@ public class Product2EditableListTest extends ModuleTestBase {
 		execute("ListFormat.select", "editor=List");
 		assertNoErrors();
 		assertValueInList(0, "unitPrice", "11.00");  // So the list is displayed
+	}
+	
+	private void clickUndoInMessage() throws Exception {
+		HtmlTable table = (HtmlTable) getElementById("messages_table");
+		HtmlTableCell cell = table.getCellAt(0, 0);
+		HtmlAnchor undoLink = cell.getFirstByXPath(".//a[@class='ox-undo-link']");
+		assertNotNull("Undo link not found in message", undoLink);
+		undoLink.click();
+		waitAJAX();
 	}
 	
 }

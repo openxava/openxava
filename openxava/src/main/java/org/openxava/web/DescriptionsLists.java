@@ -166,7 +166,7 @@ public class DescriptionsLists {
 	 * @param metaModel  MetaModel to obtain key property names from
 	 * @param keyValues  Map from key property name to its value
 	 * @return The formatted key string
-	 * @since 7.6
+	 * @since 7.7
 	 */
 	public static String toKeyString(MetaModel metaModel, Map<String, Object> keyValues) {
 		Collection<String> keyPropertiesNames = metaModel.getAllKeyPropertiesNames();

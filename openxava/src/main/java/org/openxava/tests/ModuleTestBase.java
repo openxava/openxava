@@ -1596,23 +1596,6 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	/**
-	 * Clicks the "Undo changes" link shown in the confirmation message after editing a value in the list. <p>
-	 * 
-	 * When a value is modified in an editable list, a confirmation message is shown with an
-	 * "Undo changes" link. This method clicks that link to restore the original value.
-	 * 
-	 * @since 7.6
-	 */
-	protected void clickUndoInMessage() throws Exception {
-		HtmlTable table = (HtmlTable) getElementById("messages_table");
-		HtmlTableCell cell = table.getCellAt(0, 0);
-		HtmlAnchor undoLink = cell.getFirstByXPath(".//a[@class='ox-undo-link']");
-		assertNotNull("Undo link not found in message", undoLink);
-		undoLink.click();
-		waitAJAX();
-	}
-	
-	/**
 	 * @since 5.0 
 	 */
 	protected void setValueInCollection(String collection, int row, String name, String value) throws Exception {
