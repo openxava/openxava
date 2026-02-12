@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<title>AI Coding Assistants - OpenXava</title>
+	<title>AI coding assistants - OpenXava</title>
 	<link rel="stylesheet" href="static/style.css" type="text/css">
 	<link rel="stylesheet" href="highlight/highlight.css">
 	<link rel="stylesheet" href="highlight/highlightjs-copy.css">
@@ -24,7 +24,7 @@
 		</span> 
 		/ <a href="index_en.html">documentation</a> / 
 	</span>
-	AI Coding Assistants
+	AI coding assistants
 </h1>
 
 <i>Optimized since OpenXava 7.7</i>
@@ -121,8 +121,8 @@ generated automatically and includes:</p>
 </ul>
 
 <p>The <i>.xava</i> folder is generated from the <i>openxava-agents-examples</i> 
-Maven artifact. It is not meant to be edited manually—it is regenerated each time 
-you run a Maven build.</p>
+Maven artifact. It is not meant to be edited manually—it is regenerated 
+automatically when the OpenXava version changes.</p>
 
 <h3 id="how-it-works">How it works together</h3>
 
@@ -143,9 +143,10 @@ Both the <i>AGENTS.md</i> file and the <i>pom.xml</i> configuration for the
 <pre><code class="language-bash">mvn package</code></pre>
 
 <p>After this, the <i>.xava</i> folder will be created in your project root with 
-all the example files. The <i>.xava</i> folder is listed in <i>.gitignore</i> by 
-default, since it is generated content. It will be regenerated automatically on 
-every Maven build.</p>
+all the example files. The <i>.xava</i> folder is not included in <i>.gitignore</i> 
+and you should not add it, because most AI coding assistants only search files 
+that are inside the project and not ignored by Git. The content of the <i>.xava</i> 
+folder is regenerated automatically when the OpenXava version changes.</p>
 
 <h2 id="existing-projects">Adding AI support to existing projects</h2>
 
@@ -223,10 +224,10 @@ before compilation.</p>
 <p>You should now see a <i>.xava/agents/</i> folder in your project root 
 containing the test examples and controller definitions.</p>
 
-<p>Optionally, add <i>.xava</i> to your <i>.gitignore</i> file since it is 
-generated content:</p>
-
-<pre><code class="language-bash">/.xava/</code></pre>
+<p>Do not add <i>.xava</i> to your <i>.gitignore</i> file, because most AI coding 
+assistants only search files that are inside the project and not ignored by 
+Git. If <i>.xava</i> is in <i>.gitignore</i>, the agents will not be able to 
+find the examples.</p>
 
 <h2 id="customizing-agents-md">Customizing AGENTS.md</h2>
 

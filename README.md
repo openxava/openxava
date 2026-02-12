@@ -8,7 +8,7 @@ You need Java and Maven installed.
 ## Create your first project
 From the command-line prompt, type:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=7.6.4.1 -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
 
 Then change to the folder where the project was created:
  
@@ -38,19 +38,19 @@ Then start the application again.
 Apart from the basic archetype, there are other OpenXava archetypes, so you don't have to start your application from scratch.
 For a project with an initial Master-Detail structure, use openxava-master-detail-archetype, in this way:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourmasterdetail -DinteractiveMode=false
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype -DarchetypeVersion=7.6.4.1 -DgroupId=com.yourcompany -DartifactId=yourmasterdetail -DinteractiveMode=false
 	
 For a basic CRM use openxava-crm-archetype, thus:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourcrm -DinteractiveMode=false
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype -DarchetypeVersion=7.6.4.1 -DgroupId=com.yourcompany -DartifactId=yourcrm -DinteractiveMode=false
 	
 For a project management application use openxava-project-management-archetype:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=7.6.4.1 -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
 	
 For an invoicing application use openxava-invoicing-archetype:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false	
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=7.6.4.1 -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false	
 
 ## Older versions
 To create a project from an older version of OpenXava, use the following command:
