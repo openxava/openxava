@@ -1,0 +1,9 @@
+Pending (tmr):
+- Mensajes hay que añadirlos sin que corrompa los archivos i18n.
+- Probar el combo con clave compuesta.
+    - Revisar código en DescriptionsList
+    - También probar que se grabar,
+    - Probar que se graba en el detalle.
+- Probar con otro idioma, italiano.
+- Revisar tests.
+- Mover método de ModuleTestBase a Product2...Test.

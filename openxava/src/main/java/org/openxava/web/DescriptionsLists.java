@@ -155,4 +155,35 @@ public class DescriptionsLists {
 	public static void fillReferenceValues(Map<String, Object> values, MetaModel metaModel, String value) {
 		values.putAll(parseKeyValues(metaModel, value));
 	}
+	
+	/**
+	 * Formats key values into the standard key string representation. <p>
+	 * 
+	 * For a single key property, returns the raw value as a string (e.g. "2").
+	 * For multiple key properties, returns the composite format "[.v1.v2.]" (e.g. "[.1.4.]").
+	 * The key properties are obtained from the MetaModel, so nested keys are supported.
+	 *
+	 * @param metaModel  MetaModel to obtain key property names from
+	 * @param keyValues  Map from key property name to its value
+	 * @return The formatted key string
+	 * @since 7.6
+	 */
+	public static String toKeyString(MetaModel metaModel, Map<String, Object> keyValues) {
+		Collection<String> keyPropertiesNames = metaModel.getAllKeyPropertiesNames();
+		if (keyPropertiesNames.size() == 1) {
+			Object v = keyValues.get(keyPropertiesNames.iterator().next());
+			return v == null ? "" : v.toString();
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("[.");
+		boolean first = true;
+		for (String keyName : keyPropertiesNames) {
+			if (!first) sb.append(".");
+			Object v = keyValues.get(keyName);
+			sb.append(v == null ? "" : v.toString());
+			first = false;
+		}
+		sb.append(".]");
+		return sb.toString();
+	}
 }

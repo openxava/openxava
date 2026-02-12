@@ -32,8 +32,10 @@ openxava.addEditorInitFunction(function() {
                 }                
                 
                 // Call the DWR method to update the value in the server
-                Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
+                listEditor.lastRow = row;
+                listEditor.lastProperty = property;
                 listEditor.lastEditor = editor;
+                Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 editor.parent().removeClass("ox-error-editor");
             });
         });
@@ -47,6 +49,59 @@ listEditor.showMessage = function(message) {
 		listEditor.lastEditor.parent().addClass("ox-error-editor");
 	}
 	else {
-		openxava.showMessage(message);
+		var parts = message.split("\t");
+		var displayMessage = parts[0];
+		if (parts.length >= 4 && parts[1].startsWith("UNDO:")) {
+			var undoLabel = parts[1].substring(5);
+			listEditor.undoOldValue = parts[2];
+			listEditor.undoRestoreMessage = parts[3];
+			listEditor.undoRow = listEditor.lastRow;
+			listEditor.undoProperty = listEditor.lastProperty;
+			displayMessage += ' <a href="#" class="ox-undo-link">'
+				+ undoLabel + '</a>';
+		}
+		openxava.showMessage(displayMessage);
+		$('.ox-undo-link').off('click').on('click', function(e) {
+			e.preventDefault();
+			listEditor.undo();
+		});
+	}
+}
+
+listEditor.undo = function() {
+	var row = listEditor.undoRow;
+	var property = listEditor.undoProperty;
+	var oldValue = listEditor.undoOldValue;
+	listEditor.lastRow = row;
+	listEditor.lastProperty = property;
+	// Find the editor for this row and property and restore its displayed value
+	$('.ox-list-cell-editor').each(function() {
+		var cell = $(this);
+		if (cell.data('row') == row && cell.data('property') == property) {
+			var editor = cell.find('.editor').first();
+			if (editor.length > 0) {
+				listEditor.lastEditor = editor;
+				if (editor.hasClass('ox-descriptions-list')) {
+					var hiddenInput = editor.find('input[type="hidden"]').first();
+					if (hiddenInput.length > 0) {
+						descriptionsEditor.val(hiddenInput, oldValue);
+					}
+				}
+				else {
+					editor.val(oldValue);
+				}
+			}
+		}
+	});
+	Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, oldValue, listEditor.showUndoResult);
+}
+
+listEditor.showUndoResult = function(message) {
+	if (message.startsWith("ERROR:")) {
+		var errorMessage = message.substring(6).trim();
+		openxava.showError(errorMessage);
+	}
+	else {
+		openxava.showMessage(listEditor.undoRestoreMessage);
 	}
 }

@@ -53,25 +53,34 @@ public class Product2EditableListTest extends ModuleTestBase {
 		// Modifying simple property
 		setValueInList(0, "unitPrice", "17");
 		assertNoErrors();
-		assertMessage("Saved new value for unit price in row 1");
+		assertMessage("Saved new value for unit price in row 1 Undo changes");
 		
 		setValueInList(1, "unitPrice", "31");
 		assertNoErrors();
-		assertMessage("Saved new value for unit price in row 2");
+		assertMessage("Saved new value for unit price in row 2 Undo changes");
+		
+		// Undo changes for simple property
+		clickUndoInMessage();
+		assertNoErrors();
+		assertMessage("Restored original value for unit price in row 2");
+		assertValueInList(1, "unitPrice", "20.00");
+		
+		setValueInList(1, "unitPrice", "31");
+		assertNoErrors();
 		
 		setValueInList(1, "unitPrice", "1500");
 		assertError("{0} in {1} can not be greater than 1000"); // {0} and {1} should be replaced, but it fails too in detail mode, so it's another different bug
 		
 		// Modifying references as @DescriptionsList 
 		setValueInList(1, "family.number", "3"); 
-		assertMessage("Saved new value for family in row 2");
+		assertMessage("Saved new value for family in row 2 Undo changes");
 		
 		Warehouse warehouse = new Warehouse();
 		warehouse.setZoneNumber(4);
 		warehouse.setNumber(13);		 
 		String warehouseKey = toKeyString(warehouse);
 		setValueInList(1, "warehouse.KEY", warehouseKey); 
-		assertMessage("Saved new value for warehouse in row 2");
+		assertMessage("Saved new value for warehouse in row 2 Undo changes");
 		
 		// Verifying in detail
 		execute("List.viewDetail", "row=1");

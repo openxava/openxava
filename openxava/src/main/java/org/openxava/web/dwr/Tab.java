@@ -53,6 +53,10 @@ public class Tab extends DWRBase {
 			org.openxava.tab.Tab tab = getTab(request, application, module, "xava_tab"); // By now only in list mode, not int collections
 			
 			Map key = (Map) tab.getTableModel().getObjectAt(row);
+			
+			// Read old value before saving for undo support
+			String oldValue = getFormattedValue(request, tab, key, property);
+			
 			Map<String, Object> values = new HashMap<>();
 			try {
 				Messages parsingErrors = new Messages();
@@ -75,7 +79,10 @@ public class Tab extends DWRBase {
 			}
 			MapFacade.setValues(tab.getModelName(), key, values);
 			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
-			return XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1); 
+			String message = XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1);
+			String undoLabel = XavaResources.getString(request, "undo_changes");
+			String restoreMessage = XavaResources.getString(request, "value_restored_for_property_in_row", propertyLabel, row + 1);
+			return message + "\tUNDO:" + undoLabel + "\t" + oldValue + "\t" + restoreMessage; 
 		}
 		catch (Exception ex) {
 			Messages errors = ModuleManager.manageException(ex); 		
@@ -83,6 +90,37 @@ public class Tab extends DWRBase {
 		}
 		finally {
 			cleanRequest();
+		}
+	}
+	
+	private String getFormattedValue(HttpServletRequest request, org.openxava.tab.Tab tab, Map key, String property) {
+		try {
+			if (tab.getMetaTab().getMetaModel().containsMetaReference(property)) {
+				MetaReference ref = tab.getMetaTab().getMetaModel().getMetaReference(property);
+				MetaModel refModel = ref.getMetaModelReferenced();
+				Collection<String> keyPropertiesNames = refModel.getAllKeyPropertiesNames();
+				Map<String, Object> memberNames = new HashMap<>();
+				for (String keyName : keyPropertiesNames) {
+					memberNames.put(property + "." + keyName, null);
+				}
+				Map refValues = MapFacade.getValues(tab.getModelName(), key, memberNames);
+				Map<String, Object> keyValues = new HashMap<>();
+				for (String keyName : keyPropertiesNames) {
+					keyValues.put(keyName, refValues.get(property + "." + keyName));
+				}
+				return DescriptionsLists.toKeyString(refModel, keyValues);
+			}
+			else {
+				Map<String, Object> memberNames = new HashMap<>();
+				memberNames.put(property, null);
+				Map currentValues = MapFacade.getValues(tab.getModelName(), key, memberNames);
+				Object oldRawValue = currentValues.get(property);
+				return WebEditors.format(request, tab.getMetaProperty(property), oldRawValue, new Messages(), "", true);
+			}
+		}
+		catch (Exception ex) {
+			log.warn("Could not get old value for undo", ex);
+			return "";
 		}
 	}
 
