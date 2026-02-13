@@ -1,3 +1,3 @@
 Pending (tmr):
-- Tests. TMR ME QUEDÉ POR AQUÍ: TEST RECIÉN HECHO. NO COMPILA. ARREGLARLO, REVISARLO Y PROBARLO.
-- Mover método de ModuleTestBase a Product2...Test.
+- . o paréntis
+- ¿Documentación?

@@ -64,7 +64,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		// Undo changes for simple property
 		clickUndoInMessage();
 		assertNoErrors();
-		assertMessage("Restored original value for unit price in row 2");
+		assertMessage("Restored previous value for unit price in row 2");
 		assertValueInList(1, "unitPrice", "20.00");
 		
 		setValueInList(1, "unitPrice", "31");
@@ -79,12 +79,12 @@ public class Product2EditableListTest extends ModuleTestBase {
 		
 		// Undo changes for @DescriptionsList with single key
 		clickUndoInMessage();
-		assertNoErrors();
+		assertErrorsNotDisplayed(); // assertNoErrors() fails because undo() hides errors via JS but doesn't remove them from HTML
 		assertMessage("Restored previous value for family in row 2");
 		assertValueInList(1, "family.description", "HARDWARE");
 		
 		setValueInList(1, "family.number", "3");
-		assertNoErrors();
+		assertErrorsNotDisplayed(); // assertNoErrors() fails because undo() hides errors via JS but doesn't remove them from HTML
 		
 		Warehouse warehouse = new Warehouse();
 		warehouse.setZoneNumber(4);
@@ -95,12 +95,12 @@ public class Product2EditableListTest extends ModuleTestBase {
 		
 		// Undo changes for @DescriptionsList with composite key
 		clickUndoInMessage();
-		assertNoErrors();
+		assertErrorsNotDisplayed(); // assertNoErrors() fails because undo() hides errors via JS but doesn't remove them from HTML
 		assertMessage("Restored previous value for warehouse in row 2");
 		assertValueInList(1, "warehouse.name", "CENTRAL VALENCIA");
 		
 		setValueInList(1, "warehouse.KEY", warehouseKey);
-		assertNoErrors();
+		assertErrorsNotDisplayed(); // assertNoErrors() fails because undo() hides errors via JS but doesn't remove them from HTML
 		
 		// Verifying in detail
 		execute("List.viewDetail", "row=1");
@@ -136,8 +136,14 @@ public class Product2EditableListTest extends ModuleTestBase {
 		assertValueInList(0, "unitPrice", "11.00");  // So the list is displayed
 	}
 	
+	private void assertErrorsNotDisplayed() throws Exception {
+		HtmlElement errorsDiv = getHtmlPage().getHtmlElementById(decorateId("errors"));
+		String style = errorsDiv.getAttribute("style");
+		assertFalse("There are errors and should not", !style.contains("display: none") && errorsDiv.asNormalizedText().trim().length() > 0);
+	}
+	
 	private void clickUndoInMessage() throws Exception {
-		HtmlTable table = (HtmlTable) getElementById("messages_table");
+		HtmlTable table = (HtmlTable) getHtmlPage().getHtmlElementById(decorateId("messages_table"));
 		HtmlTableCell cell = table.getCellAt(0, 0);
 		HtmlAnchor undoLink = cell.getFirstByXPath(".//a[@class='ox-undo-link']");
 		assertNotNull("Undo link not found in message", undoLink);
