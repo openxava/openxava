@@ -265,7 +265,8 @@ public class FiltroAñoDefecto extends BaseContextFilter {    // (1)
       <img src="files/tab_es025.png" alt="tab_es025.png" title="tab_es025.png"><br>
       Solo se permiten propiedades simples editables y referencias con <em>@DescriptionsList</em>. Las propiedades calculadas, propiedades con anotaciones <em>@Formula</em> y <em>@Calculation</em> no están permitidas. Tampoco se permiten propiedades que sean clave (<em>@Id</em>), de solo lectura (<em>@ReadOnly</em>), versiones (<em>@Version</em>) o transitorias (<em>@Transient</em>).<br>
       <br>
-      Al editar una propiedad en la lista, el valor se guarda automáticamente y se muestra un mensaje de confirmación. 
+      Al editar una propiedad en la lista, el valor se guarda automáticamente y se muestra un mensaje de confirmación.
+      Desde la v7.7 este mensaje también contiene un vínculo <i>Deshacer</i> para deshacer el cambio.
       Si hay validaciones configuradas para la propiedad, estas se aplicarán normalmente y se mostrarán los mensajes 
       de error correspondientes. ¡Ojo! porque no se ejecuta la acción <em>save</em> del módulo para grabar el valor,
       ni tampoco se ejecutan las acciones <em>@OnChange</em>. Es decir, se ejecutan las validaciones a nivel 

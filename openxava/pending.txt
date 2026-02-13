@@ -1,3 +1,2 @@
 Pending (tmr):
-- Documentación.
 - Suite.
