@@ -471,11 +471,8 @@ public class DescriptionsCalculator implements ICalculator {
 			KeyAndDescription el = new KeyAndDescription();
 
             if (isMultipleKey()) {
-                // Build composite key string in the format: "[.v1.v2.]" following MetaModel key order (toKeyString order)
-                StringBuilder keyBuilder = new StringBuilder();
-                keyBuilder.append("[.");
                 // Map key block names -> values from the detected contiguous block (propertiesOrder)
-                java.util.Map<String, Object> keyValuesByName = new java.util.HashMap<>();
+                java.util.Map<String, Object> keyValuesByName = new java.util.LinkedHashMap<>();
                 int blockLen = keySeq.size();
                 for (int j = 0; j < blockLen; j++) {
                     String propertyName = String.valueOf(propertiesOrder.get(keyStartRel + j));
@@ -483,19 +480,7 @@ public class DescriptionsCalculator implements ICalculator {
                     Object keyValue = col < row.length ? row[col] : null;
                     keyValuesByName.put(propertyName, keyValue);
                 }
-                // Emit in MetaModel.getAllKeyPropertiesNames() order to match toKeyString() and tests
-                int p = 0;
-                for (Object on : getMetaModel().getAllKeyPropertiesNames()) {
-                    String propertyName = String.valueOf(on);
-                    if (!keyValuesByName.containsKey(propertyName)) continue;
-                    Object keyValue = keyValuesByName.get(propertyName);
-                    if (p > 0) keyBuilder.append('.');
-                    keyBuilder.append(keyValue == null ? "" : String.valueOf(keyValue));
-                    p++;
-                }
-                keyBuilder.append(".]");
-                String compositeKey = keyBuilder.toString();
-                el.setKey(compositeKey);
+                el.setKey(DescriptionsLists.toKeyString(getMetaModel(), keyValuesByName));
             } else {
                 // Simple key is at iKey
                 Object simpleKey = iKey < row.length ? row[iKey] : null;

@@ -80,7 +80,7 @@ public class GsonTest {
 
                     @Override
                     public boolean shouldSkipClass(Class<?> clazz) {
-                        return false;
+                        return java.text.Format.class.isAssignableFrom(clazz);
                     }
                 })                
                 .create();
