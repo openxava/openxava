@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Undo link to revert changes when modifying a value in an editable property in a list.
 - Documentation article on optimizing AI assistants' code generation.
 - New projects include AGENTS.md and sample code to improve AI code assistant effectiveness.
 - The Quick Start section in the documentation has been simplified to leave only one option.
