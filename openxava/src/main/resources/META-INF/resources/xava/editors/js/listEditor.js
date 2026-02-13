@@ -57,7 +57,7 @@ listEditor.showMessage = function(message) {
 			listEditor.undoRestoreMessage = parts[3];
 			listEditor.undoRow = listEditor.lastRow;
 			listEditor.undoProperty = listEditor.lastProperty;
-			displayMessage += ' <a href="#" class="ox-undo-link">'
+			displayMessage += '. <a href="#" class="ox-undo-link">'
 				+ undoLabel + '</a>';
 		}
 		openxava.showMessage(displayMessage);

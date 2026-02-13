@@ -55,11 +55,11 @@ public class Product2EditableListTest extends ModuleTestBase {
 		// Modifying simple property
 		setValueInList(0, "unitPrice", "17");
 		assertNoErrors();
-		assertMessage("Saved new value for unit price in row 1 Undo changes");
+		assertMessage("Saved new value for unit price in row 1. Undo");
 		
 		setValueInList(1, "unitPrice", "31");
 		assertNoErrors();
-		assertMessage("Saved new value for unit price in row 2 Undo changes");
+		assertMessage("Saved new value for unit price in row 2. Undo");
 		
 		// Undo changes for simple property
 		clickUndoInMessage();
@@ -75,7 +75,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		
 		// Modifying references as @DescriptionsList 
 		setValueInList(1, "family.number", "3"); 
-		assertMessage("Saved new value for family in row 2 Undo changes");
+		assertMessage("Saved new value for family in row 2. Undo");
 		
 		// Undo changes for @DescriptionsList with single key
 		clickUndoInMessage();
@@ -91,7 +91,7 @@ public class Product2EditableListTest extends ModuleTestBase {
 		warehouse.setNumber(13);		 
 		String warehouseKey = toKeyString(warehouse);
 		setValueInList(1, "warehouse.KEY", warehouseKey); 
-		assertMessage("Saved new value for warehouse in row 2 Undo changes");
+		assertMessage("Saved new value for warehouse in row 2. Undo");
 		
 		// Undo changes for @DescriptionsList with composite key
 		clickUndoInMessage();

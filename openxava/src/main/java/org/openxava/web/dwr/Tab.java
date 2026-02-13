@@ -80,7 +80,7 @@ public class Tab extends DWRBase {
 			MapFacade.setValues(tab.getModelName(), key, values);
 			String propertyLabel = Labels.get(property, request.getLocale()).toLowerCase();
 			String message = XavaResources.getString(request, "value_saved_for_property_in_row", propertyLabel, row + 1);
-			String undoLabel = XavaResources.getString(request, "undo_changes");
+			String undoLabel = XavaResources.getString(request, "undo");
 			String restoreMessage = XavaResources.getString(request, "value_restored_for_property_in_row", propertyLabel, row + 1);
 			return message + "\tUNDO:" + undoLabel + "\t" + oldValue + "\t" + restoreMessage; 
 		}
