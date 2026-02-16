@@ -26,6 +26,7 @@ import org.openxava.annotations.*;
 	"product"
 )
 @View(name="Simple", members="product; quantity; unitPrice")
+@View(name="Simpler", members="quantity; unitPrice")
 public class InvoiceDetail2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY)	 
