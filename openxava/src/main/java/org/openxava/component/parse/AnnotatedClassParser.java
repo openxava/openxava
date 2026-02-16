@@ -2158,6 +2158,24 @@ public class AnnotatedClassParser implements IComponentParser {
 				}					
 			}			
 			
+			// NewView
+			if (element.isAnnotationPresent(NewView.class)) {
+				NewView newView = element.getAnnotation(NewView.class);
+				if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+					referenceView.setNewViewName(newView.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(NewViews.class)) {
+				NewView [] newViews = element.getAnnotation(NewViews.class).value();				
+				for (NewView newView: newViews) {
+					if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+						referenceView.setNewViewName(newView.value());
+						mustAddMetaView = true;				
+					}
+				}					
+			}			
+			
 			// NoFrame
 			if (element.isAnnotationPresent(NoFrame.class)) {
 				NoFrame noFrame = element.getAnnotation(NoFrame.class);

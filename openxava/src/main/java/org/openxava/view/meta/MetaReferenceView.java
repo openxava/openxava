@@ -25,7 +25,8 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 	private boolean search = true;
 	private boolean readOnly = false;
 	private boolean asAggregate = false;
-	private String onChangeSearchActionClassName; 
+	private String onChangeSearchActionClassName;
+	private String newViewName; 
 
 	public IOnChangePropertyAction createOnChangeSearchAction() throws XavaException { 
 		try {			
@@ -134,6 +135,14 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 
 	public void setOnChangeSearchActionClassName(String searchOnChangeActionClassName) {
 		this.onChangeSearchActionClassName = searchOnChangeActionClassName;
+	}
+
+	public String getNewViewName() {
+		return newViewName;
+	}
+
+	public void setNewViewName(String newViewName) {
+		this.newViewName = newViewName;
 	}
 	
 }
