@@ -535,5 +535,35 @@ public class Invoice2Test extends ModuleTestBase {
 		assertNotExists("remarks");
 		
 		execute("Modification.cancel");
+		
+		// @NewView("Simple") on details collection: creation dialog uses Simple view of InvoiceDetail2
+		execute("InvoiceDetail2.new", "viewObject=xava_view_details");
+		assertNoErrors();
+		
+		// Fields from Simple view must exist
+		assertExists("product.number");
+		assertExists("quantity");
+		assertExists("unitPrice");
+		
+		// Fields only in the default view must not exist
+		assertNotExists("amount");
+		
+		closeDialog();
+		
+		// Edit uses default view (no @EditView on collection), navigate to existing invoice with details
+		execute("CRUD.new");
+		setValue("year", "2002");
+		setValue("number", "1");
+		execute("CRUD.refresh");
+		assertCollectionRowCount("details", 2);
+		
+		execute("Collection.edit", "row=0,viewObject=xava_view_details");
+		
+		// Default view fields must exist (including amount which is not in Simple view)
+		assertExists("quantity");
+		assertExists("unitPrice");
+		assertExists("amount");
+		
+		closeDialog();
 	} 							
 }

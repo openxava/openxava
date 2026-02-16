@@ -88,6 +88,7 @@ public class Invoice2 {
 	@XOrderBy("product.description desc")
 	@NoModify(forViews="NoModifyDetails")
 	@NewAction("InvoiceDetail2.new") 
+	@NewView("Simple")
 	private Collection<InvoiceDetail2> details;
 	
  	public static Collection<Invoice2> findAll()  {  		 			

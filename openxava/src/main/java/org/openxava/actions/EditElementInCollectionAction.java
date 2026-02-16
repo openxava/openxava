@@ -5,6 +5,7 @@ import java.util.*;
 import org.apache.commons.logging.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
+import org.openxava.view.meta.*;
 
 
 /**
@@ -48,6 +49,7 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		} else {
 			throw new XavaException("only_list_collection_for_aggregates");
 		}
+		setViewNameForEditIfNeeded();
 		if (openDialog) showDialog(getCollectionElementView());	
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
@@ -94,6 +96,20 @@ public class EditElementInCollectionAction extends CollectionElementViewBaseActi
 		this.openDialog = openDialog;
 	}
 
+	/**
+	 * @since 7.7
+	 */
+	protected void setViewNameForEditIfNeeded() {
+		MetaCollectionView metaCollectionView = getMetaCollectionView();
+		if (metaCollectionView == null) return;
+		String editViewName = metaCollectionView.getEditViewName();
+		if (!Is.emptyString(editViewName)) {
+			getCollectionElementView().setViewName(editViewName);
+		} else if (!Is.emptyString(metaCollectionView.getNewViewName())) {
+			getCollectionElementView().setViewName(metaCollectionView.getViewName());
+		}
+	}
+	
 	private void validRowAndUpdate(int actualRow, int size) {
 		row = actualRow + nextValue;
 		if (row == -1) {
