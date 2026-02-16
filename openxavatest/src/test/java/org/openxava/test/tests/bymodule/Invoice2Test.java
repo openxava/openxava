@@ -490,12 +490,31 @@ public class Invoice2Test extends ModuleTestBase {
 		assertNoEditableInList(0, 3); // By now in search lists we don't enable editable properties. If we enable it we should test XavaPro security too
 	}
 	
-	public void testMinSizeForCollections() throws Exception {
+	public void testMinSizeForCollections_newViewForCreateFromReference() throws Exception { 
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("vatPercentage", "18");
 		setValue("customer.number", "1");
 		execute("CRUD.save");
-		assertError("It's required at least 1 element in Details of Invoice 2"); 
+		assertError("It's required at least 1 element in Details of Invoice 2");
+		
+		// @NewView("Simple") is used, so the creation dialog uses the Simple view of Customer
+		execute("Reference.createNew", "model=Customer,keyProperty=customer.number");
+		assertNoErrors();
+		assertAction("NewCreation.saveNew");
+		assertAction("NewCreation.cancel");
+		
+		// Fields from Simple view must exist
+		assertExists("number");
+		assertExists("type");
+		assertExists("name");
+		assertExists("address.street");
+		
+		// Fields only in the default view must not exist
+		assertNotExists("seller.number");
+		assertNotExists("alternateSeller.number");
+		assertNotExists("remarks");
+		
+		execute("NewCreation.cancel");
 	} 							
 }

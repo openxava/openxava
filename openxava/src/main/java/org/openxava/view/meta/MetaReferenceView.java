@@ -137,10 +137,16 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 		this.onChangeSearchActionClassName = searchOnChangeActionClassName;
 	}
 
+	/**
+	 * @since 7.7
+	 */
 	public String getNewViewName() {
 		return newViewName;
 	}
 
+	/**
+	 * @since 7.7
+	 */
 	public void setNewViewName(String newViewName) {
 		this.newViewName = newViewName;
 	}

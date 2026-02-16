@@ -20,6 +20,9 @@ public class CreateNewFromReferenceAction extends NavigationFromReferenceBaseAct
 		return getController() + ".new";
 	}
 	
+	/**
+	 * @since 7.7
+	 */
 	@Override
 	protected String getNewViewName() {
 		try {

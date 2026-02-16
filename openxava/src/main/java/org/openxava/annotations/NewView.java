@@ -18,6 +18,7 @@ import java.lang.annotation.*;
  * </pre>
  * 
  * @author Javier Paniza
+ * @since 7.7
  */
 
 @Repeatable(NewViews.class)

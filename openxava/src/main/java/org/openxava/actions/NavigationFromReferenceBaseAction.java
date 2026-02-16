@@ -36,7 +36,7 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 	}
 	
 	/**
-	 * @since 7.5
+	 * @since 7.7
 	 */
 	protected String getNewViewName() { 
 		return null;

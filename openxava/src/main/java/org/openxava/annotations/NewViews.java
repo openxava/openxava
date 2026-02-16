@@ -18,9 +18,10 @@ import java.lang.annotation.*;
  * &nbsp;})
  * </pre>
  * 
- * Since 6.1 @NewView is repeatable, so you don't need to use @NewViews any more.
+ * @NewView is repeatable, so you don't need to use @NewViews explicitly.
  *
  * @author Javier Paniza
+ * @since 7.7
  */
 
 @Retention(RetentionPolicy.RUNTIME)
