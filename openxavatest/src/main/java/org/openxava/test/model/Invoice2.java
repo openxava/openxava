@@ -79,6 +79,7 @@ public class Invoice2 {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
 	@NewView("Simple")
+	@EditView("Simplest")
 	private Customer customer;
 	
 	@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)

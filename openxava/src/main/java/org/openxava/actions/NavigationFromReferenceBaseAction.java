@@ -25,9 +25,10 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 		if (showDialog) showDialog(); 
 		else showNewView();		
 		getView().setModelName(getModel());
-		String newViewName = getNewViewName();
-		if (!Is.emptyString(newViewName)) {
-			getView().setViewName(newViewName);
+		String viewName = getNewViewName();
+		if (Is.emptyString(viewName)) viewName = getEditViewName();
+		if (!Is.emptyString(viewName)) {
+			getView().setViewName(viewName);
 		}
 		getView().putObject("xava.referenceSubview", getReferenceSubview());
 		
@@ -39,6 +40,13 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 	 * @since 7.7
 	 */
 	protected String getNewViewName() { 
+		return null;
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	protected String getEditViewName() { 
 		return null;
 	}
 
