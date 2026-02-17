@@ -490,7 +490,7 @@ public class Invoice2Test extends ModuleTestBase {
 		assertNoEditableInList(0, 3); // By now in search lists we don't enable editable properties. If we enable it we should test XavaPro security too
 	}
 	
-	public void testMinSizeForCollections_newViewAndEditView() throws Exception {
+	public void testMinSizeForCollections_newViewAndEditViewForReferences() throws Exception {
 		execute("CRUD.new");
 		setValue("number", "66");
 		setValue("vatPercentage", "18");
