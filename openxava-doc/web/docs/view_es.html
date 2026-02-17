@@ -77,6 +77,8 @@
             un editor (referencia, nuevo in v3.1.3)</a></div>
         <div style="margin-left: 3em;"><a href="#escoger-tab-para-accion-de-busqueda-referencias">Escoger
             tab para la acción de busqueda (referencia, nuevo en v7.4)</a><a href="#Vista-Personalizacion+de+referencia-Escoger+un+editor+%28referencia,+nuevo+in+v3.1.3%29"></a></div>
+        <div style="margin-left: 3em;"><a href="#vista-para-editar-referencia">Vista
+            para editar (referencia, nuevo en v7.7)</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Personalizacion+de+coleccion">Personalización
             de colección</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+coleccion-Propiedades+en+lista">Propiedades
@@ -948,6 +950,8 @@ BigDecimal porcentajeIVA;
 @LabelStyle          // 16 Nuevo en v4m4
 @Collapsed           // 17 Nuevo en v5.0
 @SearchListTab       // 18 Nuevo en v7.4
+@NewView             // 19 Nuevo en v7.7
+@EditView            // 20 Nuevo en v7.7
 @ManyToOne
 private tipo nombreReferencia;</code></pre>
       Todas estas anotaciones siguen las <a class="wiki_link" href="#Vista-Normas%20para%20las%20anotaciones%20de%20vista">normas
@@ -1079,6 +1083,16 @@ private tipo nombreReferencia;</code></pre>
             rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Definimos el tab a
           mostrar en la lista cuando se hace una busqueda. Si omitimos esta
           anotación, al realizar una búsqueda se mostrará el tab por defecto.</li>
+        <li><strong><a class="wiki_link" href="#vista-para-editar-referencia">@NewView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7) </em>Vista del objeto 
+          referenciado a usar cuando se crea uno nuevo desde esta referencia.</li>
+        <li><strong><a class="wiki_link" href="#vista-para-editar-referencia">@EditView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7) </em>Vista del objeto 
+          referenciado a usar cuando se modifica desde esta referencia.</li>
       </ol>
       Si no usamos ninguna de estas anotaciones OpenXava dibuja la referencia
       usando su vista por defecto. Por ejemplo si tenemos una referencia así:<br>
@@ -1782,6 +1796,25 @@ private Almacen almacen;</code></pre>
 public class Almacen {</code></pre>
         Además, los atributos <em>forViews</em> y <em>notForViews</em> están
         disponibles en <i>@SearchListTab</i>. </div>
+      <h3><a name="vista-para-editar-referencia"></a>Vista para editar (referencia, <em>nuevo en v7.7</em>)</h3>
+      Por defecto, cuando el usuario crea un nuevo objeto desde una referencia o 
+      modifica uno existente, se usa la vista por defecto del objeto referenciado. Con 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+        rel="nofollow">@NewView</a></em> y 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+        rel="nofollow">@EditView</a></em> podemos especificar vistas diferentes para 
+      la creación y la modificación respectivamente:<br>
+      <pre><code class="language-java">@ManyToOne
+@NewView("CreacionSimple")
+@EditView("EdicionSimple")
+private Cliente cliente;</code></pre>
+      Cuando el usuario pulsa en el botón para crear un nuevo cliente, se usará la 
+      vista <em>CreacionSimple</em> de <em>Cliente</em>. Cuando el usuario pulsa en 
+      el botón para modificar el cliente actual, se usará la vista <em>EdicionSimple</em>.<br>
+      <br>
+      Podemos usar solo una de estas anotaciones si solo necesitamos personalizar 
+      la creación o la modificación. Por ejemplo, si solo usamos <em>@NewView</em>, 
+      la vista por defecto se seguirá usando para la modificación.<br>
       <h2 id="toc25"><a name="Vista-Personalizacion+de+coleccion"></a>Personalización
         de colección</h2>
       Podemos refinar la forma de visualización y comportamiento de una
@@ -1817,6 +1850,8 @@ public class Almacen {</code></pre>
 @SimpleList             // 28 Nuevo en v7.4
 @SearchListTab          // 29 Nuevo en v7.4
 @NoDefaultActions       // 30 Nuevo en v7.4
+@NewView                // 31 Nuevo en v7.7
+@EditView               // 32 Nuevo en v7.7
 @OneToMany/@ManyToMany  // No para colecciones calculadas
 private Collection nombreColeccion; // O un getter para colecciones calculadas</code></pre>
       Y las siguientes anotaciones para una <em>@ElementCollection (nuevo en
@@ -2048,6 +2083,18 @@ private Collection nombreColleccion;</code></pre>
             rel="nofollow">OX</a>): <em>(Nuevo en v7.4)</em> Usando esta
           anotación, no se mostrarán las acciones de los controladores <i>DefaultListActionsForCollections</i>
           y ´<i></i>.</li>
+        <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Vista+para+editar">@NewView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7)</em> Vista del elemento 
+          de la colección a usar cuando se crea uno nuevo. Sobreescribe 
+          <em>@CollectionView</em> para la creación.</li>
+        <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+coleccion-Vista+para+editar">@EditView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7)</em> Vista del elemento 
+          de la colección a usar cuando se edita uno existente. Sobreescribe 
+          <em>@CollectionView</em> para la edición.</li>
       </ol>
       <h3 id="toc26"><a name="Vista-Personalizacion+de+coleccion-Propiedades+en+lista"></a>Propiedades
         en lista</h3>
@@ -2089,6 +2136,24 @@ private Collection&lt;Cliente&gt; clientes;</code></pre>
       Al pulsar detalle aparecerá el diálogo:<br>
       <img src="files/view_es171.jpg" alt="view_es171.jpg" title="view_es171.jpg"><br>
       <br>
+      <em>(Nuevo en v7.7)</em> Podemos usar 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+        rel="nofollow">@NewView</a></em> y 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+        rel="nofollow">@EditView</a></em> para especificar vistas diferentes para 
+      crear y editar elementos de la colección respectivamente. Estas anotaciones 
+      sobreescriben <em>@CollectionView</em> para su operación específica:<br>
+      <pre><code class="language-java">@CollectionView("Simple")
+@NewView("CreacionSimple")  // Sobreescribe @CollectionView para la creación
+@EditView("EdicionSimple")  // Sobreescribe @CollectionView para la edición
+@OneToMany(mappedBy="factura")
+private Collection&lt;LineaFactura&gt; lineas;</code></pre>
+      Usar <em>@CollectionView("Simple")</em> solo es equivalente a usar tanto 
+      <em>@NewView("Simple")</em> como <em>@EditView("Simple")</em>. Podemos usar 
+      <em>@NewView</em> y <em>@EditView</em> para sobreescribir <em>@CollectionView</em> 
+      para la creación o la edición, o usarlas sin <em>@CollectionView</em> para 
+      especificar vistas solo para la creación o la edición mientras se mantiene 
+      la vista por defecto para la otra operación.<br>
       <h3 id="toc28"><a name="Vista-Personalizacion+de+coleccion-Coleccion+de+elementos"></a>Colección
         de elementos</h3>
       En el caso de una <em>@ElementCollection</em> <em>(nuevo en v5.0)</em>
