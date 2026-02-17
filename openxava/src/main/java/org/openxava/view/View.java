@@ -4860,7 +4860,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public String getNewActionForReference(MetaReference ref) throws XavaException {
 		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
@@ -4869,7 +4869,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public String getEditActionForReference(MetaReference ref) throws XavaException {
 		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		

@@ -169,28 +169,28 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 	}
 
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public String getNewActionName() {
 		return newActionName;
 	}
 
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public void setNewActionName(String newActionName) {
 		this.newActionName = newActionName;
 	}
 
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public String getEditActionName() {
 		return editActionName;
 	}
 
 	/**
-	 * @since 7.4.2
+	 * @since 7.7
 	 */
 	public void setEditActionName(String editActionName) {
 		this.editActionName = editActionName;
