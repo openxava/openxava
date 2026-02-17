@@ -35,7 +35,9 @@ public class Artist extends Identifiable {
 	
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@ReadOnly(forViews="SomeMembersReadOnly") 
+	@ReadOnly(forViews="SomeMembersReadOnly")
+	@NewAction("Artist.createNewLevel")
+	@EditAction("Artist.modifyLevel")
 	private ActingLevel level; 
 		
 	public Studio getArtistStudio() {

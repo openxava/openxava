@@ -70,7 +70,23 @@ public class ArtistTest extends ModuleTestBase {
 		assertDialog();
 		assertDialogTitle("Are you sure to change the name?");
 		assertValue("name", "CHARLOT");
-		assertNotExists("age");		
+		assertNotExists("age");
+		closeDialog();
+		
+		// @NewAction and @EditAction for references
+		execute("CRUD.new");
+		assertAction("Artist.createNewLevel"); 
+		execute("Artist.createNewLevel", "keyProperty=level.id");
+		assertDialog();
+		assertValue("description", "NEW ACTING LEVEL");
+		closeDialog();
+		
+		execute("List.viewDetail", "row=0");
+		assertAction("Artist.modifyLevel");
+		execute("Artist.modifyLevel", "keyProperty=level.id");
+		assertDialog();
+		assertValue("description", "B MAIN CHARACTER                         (MODIFIED)");
+		closeDialog();
 	}
 	
 	private void assertEditorForAnnotation(String property, String color) { 

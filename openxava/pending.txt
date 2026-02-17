@@ -1,0 +1,8 @@
+Pending (TMR)
+- Pruebas.
+	- Prueba hecha en ArtistTest. TMR ME QUEDÉ POR AQUÍ. CÓDIGO RECIÉN HECHO, FALTA PROBARLO.
+	- Probar sin @DescriptionsList (si falla el actual ArtistTest con prueba automática)
+- Documentación,
+	- Añadirlos en la lista de acciones.
+	- @NewAction/@EditAction dentro de la explicación con vínculo en lugar de negrilla.
+	- En Javadoc indicar que el soporte para referencias es a partir de la 7.7.

@@ -41,7 +41,7 @@
 		<controller name="Typical"/> 
 	</module>
 	
-	<module name="Movie3WithSection">
+ 	<module name="Movie3WithSection">
 		<model name="Movie3"/>
 		<view name="WithSection"/>
 		<controller name="Typical"/> 
