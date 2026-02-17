@@ -480,7 +480,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private transient IXTableModel tableModel;	
 	private String modelName;
 	private String tabName;
-	private transient HttpServletRequest request; 
+	private transient HttpServletRequest request;
+	private transient ModuleManager moduleManager; 
 	private boolean metaTabCloned = false;
 	private boolean titleVisible = false;
 	private transient List metaPropertiesKey;
@@ -1122,10 +1123,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	private void refine() { 
 		if (refiner == null) return;
-		if (request == null) return;
+		ModuleManager moduleManager = getModuleManager();
+		if (moduleManager == null) return;
 		cloneMetaTab();
 		try {
-			XObjects.execute(refiner, "polish", MetaModule.class, getModuleManager(request).getMetaModule(),
+			XObjects.execute(refiner, "polish", MetaModule.class, moduleManager.getMetaModule(),
 				Tab.class, this); 	
 			resetAfterChangeProperties(); 
 		}
@@ -1135,9 +1137,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	private ModuleManager getModuleManager(HttpServletRequest request) throws XavaException {	
-		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");		
-		return (ModuleManager) context.get(request, "manager");		
+	private ModuleManager getModuleManager() throws XavaException {
+		if (moduleManager == null) {
+			if (getRequest() == null) return null;
+			ModuleContext context = (ModuleContext) getRequest().getSession().getAttribute("context");
+			moduleManager = (ModuleManager) context.get(getRequest(), "manager");
+		}
+		return moduleManager;
 	}
 
 	private String decorateConditionProperty(MetaProperty metaProperty, int i) throws XavaException {
@@ -1390,9 +1396,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}	
 	}
 	
-	/**
-	 * @param int row
-	 */
 	public void deselect(int row){
 		if (row < 0 || selectedKeys == null) return;
 		
@@ -1408,7 +1411,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	/**
-	 * @param as 'ox_OpenXavaTest_Color__xava_tab:4,3,1'
+	 * @param deselect  as 'ox_OpenXavaTest_Color__xava_tab:4,3,1'
 	 */
 	public void friendExecuteJspDeselect(String deselect){
 		if (Is.empty(deselect) || selectedKeys  == null) return;
@@ -1430,9 +1433,6 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	/**
-	 * @param Map key
-	 */
 	public void deselect(Map key){
 		selectedKeys.remove(key);
 	}
@@ -1842,6 +1842,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public synchronized void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+	public void setModuleManager(ModuleManager moduleManager) {
+		this.moduleManager = moduleManager;
+	}
+
 
 	/** @since 5.9 */
 	public void filter() { 
@@ -2422,7 +2426,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		conditionComparators = null;
 		additionalTotalsCount = -1; 
 		totalPropertiesNames = null;
-		if (getCollectionView() != null) getCollectionView().setMetaPropertiesList(getMetaProperties()); 
+		if (getCollectionView() != null) getCollectionView().setMetaPropertiesList(getMetaProperties());
 	}
 	
 	/** @since 4m5 */
@@ -2789,6 +2793,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		cloneMetaTab();
 		getMetaTab().setPropertiesNames(propertiesNames);
 		resetAfterChangeProperties();
+		refine();
 	}
 	
 	/**
@@ -3262,7 +3267,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public boolean isPropertyEditable(String propertyName) {
 		try {
-			if (getModuleManager(getRequest()).getDialogLevel() > 0) return false; // Editable properties are only for main list of modules, not for searching references
+			if (getModuleManager().getDialogLevel() > 0) return false; // Editable properties are only for main list of modules, not for searching references
 			return getMetaTab().isPropertyEditable(propertyName);
 		} catch (Exception e) {
 			log.error(XavaResources.getString("error_checking_property_editable", propertyName), e);

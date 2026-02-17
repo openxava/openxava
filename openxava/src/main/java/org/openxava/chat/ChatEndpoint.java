@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openxava.jpa.XPersistence;
 import org.openxava.util.Is;
+import org.openxava.util.Users;
 import org.openxava.util.XavaResources;
 
 /**
@@ -51,6 +52,7 @@ public class ChatEndpoint {
 		long startTime = System.currentTimeMillis();
 		try {
 			log.info("Received message: " + rawMessage);
+			Users.setCurrent(httpSession);
 			
 			if (Is.emptyString(rawMessage)) {
 				session.getBasicRemote().sendText("Error: Message is required");

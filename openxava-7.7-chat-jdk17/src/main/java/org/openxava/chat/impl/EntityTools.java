@@ -306,7 +306,9 @@ public class EntityTools {
 			if (tab.getTabName() == null) { 
 				tab.setTabName(manager.getTabName());
 			}
+			tab.setModuleManager(manager); // In this point so the Tab.refine() is not done twice
 			tab.setPropertiesNames("*");
+			System.out.println("[EntityTools.getTab()] v2"); // tmr
 			tabs.put(entity, tab);
 		}
 		tab.reset();
@@ -323,11 +325,14 @@ public class EntityTools {
 		View view = views.get(module);
 		if (view == null) {
 			view = new View();
+			// TMR PROBARLO CON UN MÓDULO QUE TENGA VIEW CON NOMBRE PARA COMPROBAR QUE NO SE REFINA DOS VECES
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
 			manager.setApplicationName(application);
 			manager.setModuleName(module);
+			view.setModuleManager(manager);
 			view.setModelName(manager.getModelName());
+			System.out.println("[EntityTools.getView()] manager.getXavaViewName()=" + manager.getXavaViewName()); // tmr
 			view.setViewName(manager.getXavaViewName());
 			views.put(module, view);
 		}
