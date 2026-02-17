@@ -2230,6 +2230,52 @@ public class AnnotatedClassParser implements IComponentParser {
 				}					
 			}			
 			
+			// NewAction
+			if (element.isAnnotationPresent(NewAction.class)) {
+				NewAction action = element.getAnnotation(NewAction.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					referenceView.setNewActionName(action.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(NewActions.class)) {
+				NewAction [] actions = element.getAnnotation(NewActions.class).value();
+				for (NewAction action: actions) {				
+					if (isForView(metaView, action.forViews(), action.notForViews())) {
+						if (Is.emptyString(referenceView.getNewActionName())) {
+							referenceView.setNewActionName(action.value());
+							mustAddMetaView = true;				
+						}
+						else {
+							duplicateAnnotationForView(ref.getName(), NewAction.class, metaView.getName());
+						}
+					}
+				}				
+			}
+			
+			// EditAction
+			if (element.isAnnotationPresent(EditAction.class)) {
+				EditAction action = element.getAnnotation(EditAction.class);
+				if (isForView(metaView, action.forViews(), action.notForViews())) {
+					referenceView.setEditActionName(action.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(EditActions.class)) {
+				EditAction [] actions = element.getAnnotation(EditActions.class).value();
+				for (EditAction action: actions) {				
+					if (isForView(metaView, action.forViews(), action.notForViews())) {
+						if (Is.emptyString(referenceView.getEditActionName())) {
+							referenceView.setEditActionName(action.value());
+							mustAddMetaView = true;				
+						}
+						else {
+							duplicateAnnotationForView(ref.getName(), EditAction.class, metaView.getName());
+						}
+					}
+				}				
+			}
+			
 			// NoFrame
 			if (element.isAnnotationPresent(NoFrame.class)) {
 				NoFrame noFrame = element.getAnnotation(NoFrame.class);
@@ -2458,12 +2504,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(PropertyValidators.class)) {
 			notApply(ref.getName(), PropertyValidators.class, "properties");
 		}														
-		if (element.isAnnotationPresent(EditAction.class)) {
-			notApply(ref.getName(), EditAction.class, "collections");
-		}				
-		if (element.isAnnotationPresent(EditActions.class)) {
-			notApply(ref.getName(), EditActions.class, "collections");
-		}
 		if (element.isAnnotationPresent(DetailAction.class)) {
 			notApply(ref.getName(), DetailAction.class, "collections");
 		}
@@ -2491,12 +2531,6 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(HideDetailActions.class)) {
 			notApply(ref.getName(), HideDetailActions.class, "collections");
 		}				
-		if (element.isAnnotationPresent(NewAction.class)) {
-			notApply(ref.getName(), NewAction.class, "collections");
-		}				
-		if (element.isAnnotationPresent(NewActions.class)) {
-			notApply(ref.getName(), NewActions.class, "collections");
-		}
 		if (element.isAnnotationPresent(RemoveAction.class)) {
 			notApply(ref.getName(), RemoveAction.class, "collections");
 		}				

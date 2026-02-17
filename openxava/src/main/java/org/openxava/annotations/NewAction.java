@@ -4,16 +4,22 @@ import java.lang.annotation.*;
 
 /**
  * Allows you to define your custom action to start
- * creating a new element to a collection. <p>
+ * creating a new element for a collection or reference. <p>
  * 
- * Applies to @OneToMany/@ManyToMany collections. <p>
+ * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references. <p>
  * 
  * This is the action executed on click in 'New' link.<br>
- * Example:
+ * Example for collection:
  * <pre>
  * &nbsp;@OneToMany (mappedBy="delivery", cascade=CascadeType.REMOVE)
  * &nbsp;@NewAction("DeliveryDetails.new")
  * &nbsp;private Collection<DeliveryDetail> details;	
+ * </pre>
+ * Example for reference:
+ * <pre>
+ * &nbsp;@NewAction("Invoice.newCustomer")
+ * &nbsp;@ManyToOne
+ * &nbsp;private Customer customer;
  * </pre>
  * 
  * @author Javier Paniza

@@ -1219,15 +1219,18 @@ private Seller seller;
     <div class="wiki" style="display: block;"><img src="files/view_en143.png" alt="view_en143.png"
 
         title="view_en143.png"></div>
-    <div class="wiki" style="display: block;">The <b><i>@NewAction</i></b>
-      annotation used for collections <b>does not work</b> with references, so
-      we cannot define custom behavior for the creation action in a specific
-      reference. That is, this cannot be done:</div>
-    <pre><code class="language-java">// @NewAction("Carrier.createWarehouse")  // NOT ALLOWED
+    <div class="wiki" style="display: block;">Since v7.4.2 you can use the <b><i>@NewAction</i></b>
+      annotation to define custom behavior for the creation action in a specific
+      reference. For example:</div>
+    <pre><code class="language-java">@NewAction("Carrier.createWarehouse")
 @ManyToOne
 Warehouse mainWarehouse;
 </code></pre>
-    <div class="wiki" style="display: block;">OpenXava will always display a
+    <div class="wiki" style="display: block;">In this case, when the user clicks on the create icon for the 
+      <i>mainWarehouse</i> reference in <i>Carrier</i>, the action <i>Carrier.createWarehouse</i> 
+      will be executed instead of the default one. This only affects this specific reference; 
+      other references to <i>Warehouse</i> in the application will use the standard behavior.</div>
+    <div class="wiki" style="display: block;">If you don't use <i>@NewAction</i>, OpenXava will display a
       dialog with the default view of the referenced component and allow the
       user to enter values and click a button to create it. Like this:</div>
     <div class="wiki" style="display: block;"><img src="files/view_en147.png" alt="view_en147.png"
@@ -1319,15 +1322,18 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
       <div class="wiki" style="display: block;"><img src="files/view_en148.png"
 
           alt="view_en148.png" title="view_en148.png"></div>
-      <div class="wiki" style="display: block;">The <b><i>@EditAction</i></b>
-        annotation used for collections <b>does not work</b> with references,
-        so we cannot define custom behavior for the modification action in a
-        specific reference. That is, this cannot be done:</div>
-      <pre><code class="language-java">// @EditAction("Carrier.modifyWarehouse")  // NOT ALLOWED
+      <div class="wiki" style="display: block;">Since v7.4.2 you can use the <b><i>@EditAction</i></b>
+        annotation to define custom behavior for the modification action in a
+        specific reference. For example:</div>
+      <pre><code class="language-java">@EditAction("Carrier.modifyWarehouse")
 @ManyToOne
 Warehouse mainWarehouse;
 </code></pre>
-      <div class="wiki" style="display: block;">OpenXava will always display a
+      <div class="wiki" style="display: block;">In this case, when the user clicks on the modify icon for the 
+        <i>mainWarehouse</i> reference in <i>Carrier</i>, the action <i>Carrier.modifyWarehouse</i> 
+        will be executed instead of the default one. This only affects this specific reference; 
+        other references to <i>Warehouse</i> in the application will use the standard behavior.</div>
+      <div class="wiki" style="display: block;">If you don't use <i>@EditAction</i>, OpenXava will display a
         dialog with the default view of the referenced component and allow the
         user to enter values and click a button to modify current values. Like
         this:</div>

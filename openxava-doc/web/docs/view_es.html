@@ -1227,15 +1227,18 @@ private Comercial comercial;
     <div class="wiki" style="display: block;"><img src="files/view_es143.png" alt="view_es143.png"
 
         title="view_es143.png"></div>
-    <div class="wiki" style="display: block;">La anotación <b><i>@NewAction</i></b>
-      de las colecciones <b>no funciona</b> con las referencias, por lo que no
-      podemos definir un comportamiento propio para la acción de creación en una
-      referencia concreta. Es decir, esto no se puede hacer:</div>
-    <pre><code class="language-java">// @NewAction("Transportista.crearAlmacen")  // NO PERMITIDO
+    <div class="wiki" style="display: block;">Desde v7.4.2 puedes usar la anotación <b><i>@NewAction</i></b>
+      para definir un comportamiento propio para la acción de creación en una
+      referencia concreta. Por ejemplo:</div>
+    <pre><code class="language-java">@NewAction("Transportista.crearAlmacen")
 @ManyToOne
 Almacen almacenPrincipal;
 </code></pre>
-    <div class="wiki" style="display: block;">OpenXava siempre sacará un diálogo
+    <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de crear para la 
+      referencia <i>almacenPrincipal</i> en <i>Transportista</i>, se ejecutará la acción <i>Transportista.crearAlmacen</i> 
+      en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
+      otras referencias a <i>Almacen</i> en la aplicación usarán el comportamiento estándar.</div>
+    <div class="wiki" style="display: block;">Si no usas <i>@NewAction</i>, OpenXava sacará un diálogo
       con la vista por defecto del componente referenciado y permitirá
       introducir valores y pulsar un botón para crearlo. Así:</div>
     <div class="wiki" style="display: block;"><img src="files/view_es147.png" alt="view_es147.png"
@@ -1329,16 +1332,18 @@ public class GuardarNuevoAlmacenDesdeReferencia extends SaveNewAction {
       <div class="wiki" style="display: block;"><img src="files/view_es148.png"
 
           alt="view_es148.png" title="view_es148.png"></div>
-      <div class="wiki" style="display: block;">La anotación <b><i>@EditAction</i></b>
-        de las colecciones <b>no funciona</b> con las referencias, por lo que
-        no podemos definir un comportamiento propio para la acción de
-        modificación en una referencia concreta. Es decir, esto no se puede
-        hacer:</div>
-      <pre><code class="language-java">// @EditAction("Transportista.modificarAlmacen")  // NO PERMITIDO
+      <div class="wiki" style="display: block;">Desde v7.4.2 puedes usar la anotación <b><i>@EditAction</i></b>
+        para definir un comportamiento propio para la acción de
+        modificación en una referencia concreta. Por ejemplo:</div>
+      <pre><code class="language-java">@EditAction("Transportista.modificarAlmacen")
 @ManyToOne
 Almacen almacenPrincipal;
 </code></pre>
-      <div class="wiki" style="display: block;">OpenXava siempre sacará un
+      <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de modificar para la 
+        referencia <i>almacenPrincipal</i> en <i>Transportista</i>, se ejecutará la acción <i>Transportista.modificarAlmacen</i> 
+        en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
+        otras referencias a <i>Almacen</i> en la aplicación usarán el comportamiento estándar.</div>
+      <div class="wiki" style="display: block;">Si no usas <i>@EditAction</i>, OpenXava sacará un
         diálogo con la vista por defecto del componente referenciado y permitirá
         introducir valores y pulsar un botón para modificar los valores
         actuales. Así:</div>

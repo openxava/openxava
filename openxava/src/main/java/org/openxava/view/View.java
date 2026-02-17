@@ -4858,6 +4858,24 @@ public class View implements java.io.Serializable {
 		if (viewRef == null) return true;
 		return viewRef.isSearch();
 	}
+	
+	/**
+	 * @since 7.4.2
+	 */
+	public String getNewActionForReference(MetaReference ref) throws XavaException {
+		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
+		if (viewRef == null) return null;
+		return viewRef.getNewActionName();
+	}
+	
+	/**
+	 * @since 7.4.2
+	 */
+	public String getEditActionForReference(MetaReference ref) throws XavaException {
+		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
+		if (viewRef == null) return null;
+		return viewRef.getEditActionName();
+	}
 		
 	public boolean isCreateNew() throws XavaException {		
 		if (isGroup()) return getParent().isCreateNew();
