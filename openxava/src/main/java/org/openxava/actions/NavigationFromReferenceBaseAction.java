@@ -2,6 +2,7 @@ package org.openxava.actions;
 
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
+import org.openxava.view.meta.*;
 
 /**
  * @author Javier Paniza
@@ -24,10 +25,29 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 		if (showDialog) showDialog(); 
 		else showNewView();		
 		getView().setModelName(getModel());
+		String viewName = getNewViewName();
+		if (Is.emptyString(viewName)) viewName = getEditViewName();
+		if (!Is.emptyString(viewName)) {
+			getView().setViewName(viewName);
+		}
 		getView().putObject("xava.referenceSubview", getReferenceSubview());
 		
 		// Next line is for reset the cache		
 		getRequest().getSession().removeAttribute(getKeyProperty() + ".descriptionsCalculator");				
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	protected String getNewViewName() { 
+		return null;
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	protected String getEditViewName() { 
+		return null;
 	}
 
 	public String[] getNextControllers() throws Exception {		

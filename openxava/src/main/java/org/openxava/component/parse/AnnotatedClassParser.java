@@ -1403,6 +1403,42 @@ public class AnnotatedClassParser implements IComponentParser {
 				}
 			}
 			
+			// NewView
+			if (element.isAnnotationPresent(NewView.class)) {
+				NewView newView = element.getAnnotation(NewView.class);
+				if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+					collectionView.setNewViewName(newView.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(NewViews.class)) {
+				NewView [] newViews = element.getAnnotation(NewViews.class).value();				
+				for (NewView newView: newViews) {
+					if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+						collectionView.setNewViewName(newView.value());
+						mustAddMetaView = true;				
+					}
+				}					
+			}			
+			
+			// EditView
+			if (element.isAnnotationPresent(EditView.class)) {
+				EditView editView = element.getAnnotation(EditView.class);
+				if (isForView(metaView, editView.forViews(), editView.notForViews())) {
+					collectionView.setEditViewName(editView.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(EditViews.class)) {
+				EditView [] editViews = element.getAnnotation(EditViews.class).value();				
+				for (EditView editView: editViews) {
+					if (isForView(metaView, editView.forViews(), editView.notForViews())) {
+						collectionView.setEditViewName(editView.value());
+						mustAddMetaView = true;				
+					}
+				}					
+			}			
+			
 			// RowStyle 
 			if (element.isAnnotationPresent(RowStyle.class)) {
 				RowStyle rowStyle = element.getAnnotation(RowStyle.class);
@@ -2153,6 +2189,42 @@ public class AnnotatedClassParser implements IComponentParser {
 				for (ReferenceView viewName: viewNames) {
 					if (isForView(metaView, viewName.forViews(), viewName.notForViews())) {
 						referenceView.setViewName(viewName.value());
+						mustAddMetaView = true;				
+					}
+				}					
+			}			
+			
+			// NewView
+			if (element.isAnnotationPresent(NewView.class)) {
+				NewView newView = element.getAnnotation(NewView.class);
+				if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+					referenceView.setNewViewName(newView.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(NewViews.class)) {
+				NewView [] newViews = element.getAnnotation(NewViews.class).value();				
+				for (NewView newView: newViews) {
+					if (isForView(metaView, newView.forViews(), newView.notForViews())) {
+						referenceView.setNewViewName(newView.value());
+						mustAddMetaView = true;				
+					}
+				}					
+			}			
+			
+			// EditView
+			if (element.isAnnotationPresent(EditView.class)) {
+				EditView editView = element.getAnnotation(EditView.class);
+				if (isForView(metaView, editView.forViews(), editView.notForViews())) {
+					referenceView.setEditViewName(editView.value());
+					mustAddMetaView = true;				
+				}
+			}
+			if (element.isAnnotationPresent(EditViews.class)) {
+				EditView [] editViews = element.getAnnotation(EditViews.class).value();				
+				for (EditView editView: editViews) {
+					if (isForView(metaView, editView.forViews(), editView.notForViews())) {
+						referenceView.setEditViewName(editView.value());
 						mustAddMetaView = true;				
 					}
 				}					

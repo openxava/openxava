@@ -3,8 +3,9 @@ package org.openxava.actions;
 import java.util.*;
 
 import org.openxava.model.*;
-import org.openxava.util.XavaPreferences;
+import org.openxava.util.*;
 import org.openxava.view.*;
+import org.openxava.view.meta.*;
 
 
 /**
@@ -25,6 +26,7 @@ public class CreateNewElementInCollectionAction extends CollectionElementViewBas
 		getCollectionElementView().reset();						
 		getCollectionElementView().setCollectionDetailVisible(true); 
 		getCollectionElementView().setCollectionEditingRow(-1);
+		setViewNameForNewIfNeeded();
 		showDialog(getCollectionElementView());				
 		if (getCollectionElementView().isCollectionEditable() || 
 			getCollectionElementView().isCollectionMembersEditables()) 
@@ -45,6 +47,20 @@ public class CreateNewElementInCollectionAction extends CollectionElementViewBas
 			addActions(itDetailActions.next().toString());			
 		}
 		addActions(getCollectionElementView().getHideCollectionElementAction());
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	protected void setViewNameForNewIfNeeded() {
+		MetaCollectionView metaCollectionView = getMetaCollectionView();
+		if (metaCollectionView == null) return;
+		String newViewName = metaCollectionView.getNewViewName();
+		if (!Is.emptyString(newViewName)) {
+			getCollectionElementView().setViewName(newViewName);
+		} else if (!Is.emptyString(metaCollectionView.getEditViewName())) {
+			getCollectionElementView().setViewName(metaCollectionView.getViewName());
+		}
 	}
 	
 	protected boolean isParentSaved() { 
