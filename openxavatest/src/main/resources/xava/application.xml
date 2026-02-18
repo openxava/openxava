@@ -24,7 +24,7 @@
 	<module name="Artist">
 		<model name="Artist"/>
 		<view name="ConfirmName"/>
-		<controller name="Typical"/> 
+		<controller name="Artist"/> 
 	</module>
 	
 	<module name="SlowTraveler">

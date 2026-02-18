@@ -656,6 +656,14 @@
 		<action name="close" class="org.openxava.actions.CancelAction"/>
 	</controller>
 		
+	<controller name="Artist">
+		<extends controller="Typical"/>
+		<action name="createNewLevel" hidden="true"
+			class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/>
+		<action name="modifyLevel" hidden="true"
+			class="org.openxava.test.actions.ModifyLevelFromArtistAction"/>
+	</controller>
+	
 	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"

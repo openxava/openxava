@@ -85,7 +85,7 @@ public class ArtistTest extends ModuleTestBase {
 		assertAction("Artist.modifyLevel");
 		execute("Artist.modifyLevel", "keyProperty=level.id");
 		assertDialog();
-		assertValue("description", "B MAIN CHARACTER                         (MODIFIED)");
+		assertValue("description", "B MAIN CHARACTER (MODIFIED)");
 		closeDialog();
 	}
 	
