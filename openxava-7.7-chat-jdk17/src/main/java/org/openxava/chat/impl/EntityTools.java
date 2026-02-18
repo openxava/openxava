@@ -24,7 +24,8 @@ import dev.langchain4j.agent.tool.Tool;
 /**
  * Generic tools for accessing OpenXava entity data using LangChain4j.
  * Works with any entity in any OpenXava application.
- * 
+ *
+ * @since 7.7
  * @author Javier Paniza
  */
 public class EntityTools extends BaseEntityTools {

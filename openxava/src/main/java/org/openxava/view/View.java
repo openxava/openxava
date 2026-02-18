@@ -4604,6 +4604,7 @@ public class View implements java.io.Serializable {
 		polish(); 
 	}
 
+	/** @since 7.7 */
 	public void setModuleManager(ModuleManager moduleManager) {
 		getRoot().moduleManager = moduleManager;
 	}

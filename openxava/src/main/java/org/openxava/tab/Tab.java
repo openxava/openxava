@@ -1842,6 +1842,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public synchronized void setRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+	/** @since 7.7 */
 	public void setModuleManager(ModuleManager moduleManager) {
 		this.moduleManager = moduleManager;
 	}
