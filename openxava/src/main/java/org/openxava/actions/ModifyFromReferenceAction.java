@@ -30,7 +30,9 @@ public class ModifyFromReferenceAction extends NavigationFromReferenceBaseAction
 		}	
 			
 		getView().setKeyEditable(false);
-		getView().setValues(key);		
+		getView().setValues(key);
+
+		executeAction(getNextAction()); // Instead of using IChainAction to allow overwriting using a plain super.execute() with no more extra code
 	}
 		
 	public String getCustomController() {	

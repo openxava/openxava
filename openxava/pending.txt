@@ -1,8 +1,12 @@
 Pending (TMR)
 - Pruebas.
-	- Prueba hecha en ArtistTest. TMR ME QUEDÉ POR AQUÍ. CÓDIGO RECIÉN HECHO, FALTA PROBARLO.
-	- Probar sin @DescriptionsList (si falla el actual ArtistTest con prueba automática)
+	- Falla sin @DescriptionsList
+- Suite.
 - Documentación,
 	- Añadirlos en la lista de acciones.
 	- @NewAction/@EditAction dentro de la explicación con vínculo en lugar de negrilla.
+	- ¿Añadir ejemplos en la documentación? Diría que sí
+	- Revisar si los cambios afectan a la documentación relacionada con NavigationFromReferenceBaseAction
 	- En Javadoc indicar que el soporte para referencias es a partir de la 7.7.
+- Changelog:
+    - executeAction() reconoce setView()

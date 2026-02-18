@@ -7,7 +7,13 @@ import org.openxava.view.meta.*;
  */
 
 public class CreateNewFromReferenceAction extends NavigationFromReferenceBaseAction {
-	
+
+	@Override
+	public void execute() throws Exception {
+		super.execute();
+		executeAction(getNextAction());
+	}
+
 	public String getCustomController() {	
 		return getModel() + "Creation";
 	}

@@ -8,13 +8,13 @@ import org.openxava.view.meta.*;
  * @author Javier Paniza
  */
 
-abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAction implements IChangeControllersAction, IChainAction {
+abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAction implements IChangeControllersAction {
 		
 	private String model;	
 	private String controller;		
 	private boolean showDialog = true; 
 	
-	abstract public String getNextAction() throws Exception;
+	abstract protected String getNextAction() throws Exception;
 	abstract protected String getCustomController();
 	abstract protected String getDefaultController();
 	
@@ -33,7 +33,7 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 		getView().putObject("xava.referenceSubview", getReferenceSubview());
 		
 		// Next line is for reset the cache		
-		getRequest().getSession().removeAttribute(getKeyProperty() + ".descriptionsCalculator");				
+		getRequest().getSession().removeAttribute(getKeyProperty() + ".descriptionsCalculator");
 	}
 	
 	/**

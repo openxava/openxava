@@ -9,7 +9,6 @@ public class CreateNewLevelFromArtistAction extends CreateNewFromReferenceAction
 	
 	@Override
 	public void execute() throws Exception {
-		System.out.println("CreateNewLevelFromArtistAction.execute()"); // tmr
 		super.execute();
 		getView().setValue("description", "NEW ACTING LEVEL");
 	}
