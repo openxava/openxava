@@ -3728,7 +3728,7 @@ public class View implements java.io.Serializable {
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
 			if (action instanceof IRequestAction) {
-				((IRequestAction)action).setRequest(request);
+				((IRequestAction)action).setRequest(getRequest());
 			}
 			action.setView(viewOfAction);
 			action.setChangedProperty(changedPropertyQualifiedName); 
