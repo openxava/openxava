@@ -2,15 +2,14 @@ package org.openxava.chat.impl;
 
 import java.util.*;
 
-import org.apache.commons.logging.*;
-
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.*;
 import org.openxava.controller.*;
-import org.openxava.view.View;
 import org.openxava.model.MapFacade;
 import org.openxava.model.meta.MetaModel;
 import org.openxava.model.meta.MetaProperty;
+import org.openxava.view.View;
 
 import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
@@ -22,14 +21,10 @@ import dev.langchain4j.agent.tool.Tool;
  * @author Javier Paniza
  * @since 7.7
  */
-public class EntityModifyTools {
+public class EntityModifyTools extends BaseEntityTools {
 	
 	private static Log log = LogFactory.getLog(EntityModifyTools.class);
 
-	private ModuleContext context;
-	private HttpSession session;
-	private String application;
-	private Map<String, View> views = new HashMap<>();
 	private boolean refreshUINeeded = false;
 	
 	/**
@@ -40,9 +35,7 @@ public class EntityModifyTools {
 	 * @param application The application name
 	 */
 	public EntityModifyTools(ModuleContext context, HttpSession session, String application) {
-		this.context = context;
-		this.session = session;
-		this.application = application;
+		super(context, session, application);
 	}
 	
 	/**
@@ -148,27 +141,6 @@ public class EntityModifyTools {
 			log.debug("[TOOL] updateEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
 		}
-	}
-	
-	/**
-	 * Gets a View from the private map and creates it if it doesn't exist.
-	 * 
-	 * @param module The module name
-	 * @return The View
-	 */
-	private View getView(String module) {
-		View view = views.get(module);
-		if (view == null) {
-			view = new View();
-			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
-			manager.setSession(session);
-			manager.setApplicationName(application);
-			manager.setModuleName(module);
-			view.setModelName(manager.getModelName());
-			view.setViewName(manager.getXavaViewName());
-			views.put(module, view);
-		}
-		return view;
 	}
 	
 	/**
