@@ -659,8 +659,10 @@
 	<controller name="Artist">
 		<extends controller="Typical"/>
 		<action name="createNewLevel" hidden="true"
+			icon="plus-box-multiple"
 			class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/>
 		<action name="modifyLevel" hidden="true"
+			icon="border-color"
 			class="org.openxava.test.actions.ModifyLevelFromArtistAction"/>
 	</controller>
 	

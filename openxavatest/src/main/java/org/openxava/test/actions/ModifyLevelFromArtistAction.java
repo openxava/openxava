@@ -9,6 +9,7 @@ public class ModifyLevelFromArtistAction extends ModifyFromReferenceAction {
 	
 	@Override
 	public void execute() throws Exception {
+		System.out.println("ModifyLevelFromArtistAction.execute()"); // tmr
 		super.execute();
 		String description = getView().getValueString("description");
 		getView().setValue("description", description + "(MODIFIED)");

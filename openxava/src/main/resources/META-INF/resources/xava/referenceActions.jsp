@@ -10,7 +10,7 @@ if (editable && view.isCreateNewForReference(ref)) {
 	}
 	else {
 %>
-	<xava:action action='<%=newAction%>' argv='<%="keyProperty=" + keyPropertyForAction%>'/>
+	<xava:action action='<%=newAction%>' argv='<%="model="+ref.getReferencedModelName() + ",keyProperty=" + keyPropertyForAction%>'/>
 <%
 	}
 }
@@ -24,7 +24,7 @@ if (editable && view.isModifyForReference(ref)) {
 	}
 	else {
 %>
-	<xava:action action='<%=editAction%>' argv='<%="keyProperty=" + keyPropertyForAction%>'/>
+	<xava:action action='<%=editAction%>' argv='<%="model="+ref.getReferencedModelName() + ",keyProperty=" + keyPropertyForAction%>'/>
 <%
 	}
 }
