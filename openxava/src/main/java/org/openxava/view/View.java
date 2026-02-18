@@ -450,8 +450,6 @@ public class View implements java.io.Serializable {
 
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager();
-		// TMR ME QUEDÉ POR AQUÍ, DEPURANDO. NI SIQUIERA FUNCIONA. PROBANDO QUE LA CONSULTA
-		// TMR EN MODO DETALLE EXCLUYE EL CAMPO. YA TENGO EL TEST.
 		System.out.println("[View.getMetaModuleForModel] moduleManager=" + moduleManager); // tmr
 		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
 		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager().getApplicationName());
@@ -3054,7 +3052,6 @@ public class View implements java.io.Serializable {
 		modelName = newModel;
 		getFirstLevelView().reloadNeeded = true; // If the model of the view of a reference changes, the main view must be reloaded.
 		resetMembers();
-		polish();
 		if (model != null && !model.getClass().getSimpleName().equals(modelName)) model = null; 
 	}
 	
@@ -4496,8 +4493,7 @@ public class View implements java.io.Serializable {
 		resetMembers();		
 		viewName = newView;
 		getFirstLevelView().reloadNeeded = true; // We reload the root view when a subview
-										// is changed. Obviously this can be optimized		
-		polish();
+										// is changed. Obviously this can be optimized
 		reloadNeeded = true;
 	}
 	

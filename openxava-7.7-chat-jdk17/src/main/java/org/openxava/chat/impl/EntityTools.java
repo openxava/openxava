@@ -325,7 +325,6 @@ public class EntityTools {
 		View view = views.get(module);
 		if (view == null) {
 			view = new View();
-			// TMR PROBARLO CON UN MÓDULO QUE TENGA VIEW CON NOMBRE PARA COMPROBAR QUE NO SE REFINA DOS VECES
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
 			manager.setApplicationName(application);
@@ -334,6 +333,7 @@ public class EntityTools {
 			view.setModelName(manager.getModelName());
 			System.out.println("[EntityTools.getView()] manager.getXavaViewName()=" + manager.getXavaViewName()); // tmr
 			view.setViewName(manager.getXavaViewName());
+			view.setRequest(null);
 			views.put(module, view);
 		}
 		return view;
