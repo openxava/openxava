@@ -21,6 +21,8 @@ import org.openxava.test.annotations.*;
 public class Artist extends Identifiable {
 	
 	@ManyToOne
+	@NewAction("Artist.createNewStudio")
+	@EditAction("Artist.modifyStudio")
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
 	@Required

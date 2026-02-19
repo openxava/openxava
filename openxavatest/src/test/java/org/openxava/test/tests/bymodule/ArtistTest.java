@@ -83,6 +83,16 @@ public class ArtistTest extends ModuleTestBase {
 		execute("Artist.modifyLevel", "model=ActingLevel,keyProperty=level.id");
 		assertDialog();
 		assertValue("description", "MAIN CHARACTER (MODIFIED)");
+		closeDialog();
+		
+		execute("Artist.createNewStudio", "model=Studio,keyProperty=artistStudio.id");
+		assertDialog();
+		assertValue("name", "NEW STUDIO");
+		closeDialog();
+		
+		execute("Artist.modifyStudio", "model=Studio,keyProperty=artistStudio.id");
+		assertDialog();
+		assertValue("name", "EL DESEO (MODIFIED)");
 	}
 	
 	private void assertEditorForAnnotation(String property, String color) { 
