@@ -15,7 +15,7 @@ public class ArtistTest extends ModuleTestBase {
 		super(testName, "Artist");		
 	}
 	
-	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_specialCharactersInDescriptionsListKey_editorForAnnotation_displaySizeGreaterThan50WhenColumnLength255() throws Exception {   
+	public void testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_specialCharactersInDescriptionsListKey_editorForAnnotation_displaySizeGreaterThan50WhenColumnLength255_newActionEditActionForReferences() throws Exception {
 		// Focus on list
 		assertFocusOn("listConfigurations");
 		execute("List.filter"); 
@@ -23,6 +23,7 @@ public class ArtistTest extends ModuleTestBase {
 		
 		// No spaces in descriptions list
 		execute("List.viewDetail", "row=0");
+
 		ActingLevel level = XPersistence.getManager().find(ActingLevel.class, "B    ");
 		assertEquals(5, level.getId().length());
 		assertEquals(40, level.getDescription().length());
@@ -70,7 +71,28 @@ public class ArtistTest extends ModuleTestBase {
 		assertDialog();
 		assertDialogTitle("Are you sure to change the name?");
 		assertValue("name", "CHARLOT");
-		assertNotExists("age");		
+		assertNotExists("age");
+		closeDialog();
+		
+		// @NewAction and @EditAction for references
+		execute("Artist.createNewLevel", "model=ActingLevel,keyProperty=level.id");
+		assertDialog();
+		assertValue("description", "NEW ACTING LEVEL");
+		closeDialog();
+		
+		execute("Artist.modifyLevel", "model=ActingLevel,keyProperty=level.id");
+		assertDialog();
+		assertValue("description", "MAIN CHARACTER (MODIFIED)");
+		closeDialog();
+		
+		execute("Artist.createNewStudio", "model=Studio,keyProperty=artistStudio.name");
+		assertDialog();
+		assertValue("name", "NEW STUDIO");
+		closeDialog();
+		
+		execute("Artist.modifyStudio", "model=Studio,keyProperty=artistStudio.name");
+		assertDialog();
+		assertValue("name", "EL DESEO (MODIFIED)");
 	}
 	
 	private void assertEditorForAnnotation(String property, String color) { 

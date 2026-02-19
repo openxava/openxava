@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openxava.view.*;
+import org.openxava.view.meta.*;
 
 
 
@@ -29,7 +30,9 @@ public class ModifyFromReferenceAction extends NavigationFromReferenceBaseAction
 		}	
 			
 		getView().setKeyEditable(false);
-		getView().setValues(key);		
+		getView().setValues(key);
+
+		executeAction(getNextAction()); // Instead of using IChainAction to allow overwriting using a plain super.execute() with no more extra code
 	}
 		
 	public String getCustomController() {	
@@ -46,6 +49,22 @@ public class ModifyFromReferenceAction extends NavigationFromReferenceBaseAction
 	
 	public String getNextAction() throws Exception {
 		return exists?getController() + ".search":null;
+	}
+
+	/**
+	 * @since 7.7
+	 */
+	@Override
+	protected String getEditViewName() {
+		try {
+			MetaReferenceView metaReferenceView = getViewInfo().getParent().getMetaView().getMetaReferenceViewFor(getViewInfo().getMemberName());
+			if (metaReferenceView != null) {
+				return metaReferenceView.getEditViewName();
+			}
+		}
+		catch (Exception ex) {			
+		}
+		return null;
 	}
 
 }

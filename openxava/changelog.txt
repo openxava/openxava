@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- @NewAction and @EditAction now work for references too.
+- Actions invoked via executeAction() from a view now recognize the view previously set with setView().
+- New @NewView annotation to choose the view used when creating new objects from references and collections.
+- New @EditView annotation to choose the view used when editing objects from references and collections.
 - Undo link to revert changes when modifying a value in an editable property in a list.
 - Documentation article on optimizing AI assistants' code generation.
 - New projects include AGENTS.md and sample code to improve AI code assistant effectiveness.

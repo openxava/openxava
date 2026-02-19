@@ -3729,6 +3729,9 @@ public class View implements java.io.Serializable {
 		if (!actionRegisteredAsExecuted(changedPropertyQualifiedName, action)) {
 			View viewOfAction = this;
 			while (viewOfAction.isGroup()) viewOfAction = viewOfAction.getParent();
+			if (action instanceof IRequestAction) {
+				((IRequestAction)action).setRequest(getRequest());
+			}
 			action.setView(viewOfAction);
 			action.setChangedProperty(changedPropertyQualifiedName); 
 			action.setNewValue(getValue(changedPropertyQualifiedName));
@@ -4868,6 +4871,24 @@ public class View implements java.io.Serializable {
 		if (viewRef == null) return true;
 		return viewRef.isSearch();
 	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getNewActionForReference(MetaReference ref) throws XavaException {
+		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
+		if (viewRef == null) return null;
+		return viewRef.getNewActionName();
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getEditActionForReference(MetaReference ref) throws XavaException {
+		MetaReferenceView viewRef = getMetaView().getMetaReferenceView(ref);		
+		if (viewRef == null) return null;
+		return viewRef.getEditActionName();
+	}
 		
 	public boolean isCreateNew() throws XavaException {		
 		if (isGroup()) return getParent().isCreateNew();
@@ -4894,6 +4915,34 @@ public class View implements java.io.Serializable {
 			MetaCollectionView collectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
 			if (collectionView == null) return true;
 			return collectionView.isModifyReference(); 
+		}
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getNewAction() throws XavaException {
+		if (isGroup()) return getParent().getNewAction();
+		try {			
+			MetaReference ref = getParent().getMetaModel().getMetaReference(getMemberName());			
+			return getParent().getNewActionForReference(ref);
+		}
+		catch (ElementNotFoundException ex) {			
+			return null;
+		}
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getEditAction() throws XavaException {
+		if (isGroup()) return getParent().getEditAction();
+		try {			
+			MetaReference ref = getParent().getMetaModel().getMetaReference(getMemberName());			
+			return getParent().getEditActionForReference(ref);
+		}
+		catch (ElementNotFoundException ex) {			
+			return null;
 		}
 	}
 		

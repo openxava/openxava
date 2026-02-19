@@ -78,6 +78,8 @@ public class Invoice2 {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@ReferenceView("Simplest")
+	@NewView("Simple")
+	@EditView("Simplest")
 	private Customer customer;
 	
 	@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)
@@ -86,6 +88,8 @@ public class Invoice2 {
 	@XOrderBy("product.description desc")
 	@NoModify(forViews="NoModifyDetails")
 	@NewAction("InvoiceDetail2.new") 
+	@NewView(forViews="NoModifyDetails", value="Simple")
+	@EditView(forViews="NoModifyDetails", value="Simpler")
 	private Collection<InvoiceDetail2> details;
 	
  	public static Collection<Invoice2> findAll()  {  		 			

@@ -16,10 +16,11 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		super(testName, "Invoice2NoModifyDetails");		
 	}
 
-	public void testNoModifyInCollection_largeDisplay() throws Exception { 
+	public void testNoModifyInCollection_largeDisplay_newViewAndEditViewForCollections() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertLargeDisplay(); 
 		assertNoModifyInCollection();
+		assertNewViewAndEditViewForCollections();
 	}
 
 	private void assertLargeDisplay() throws Exception { 
@@ -78,6 +79,36 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		execute("Collection.view", "row=0,viewObject=xava_view_details");
 		assertNoEditable("quantity");
 		assertNoAction("Collection.save");
+	}
+	
+	private void assertNewViewAndEditViewForCollections() throws Exception {
+		// @EditView("Simpler") on details collection: view dialog uses Simpler view of InvoiceDetail2
+		// We're just in adialog opened by Collection.view, we don't need to call it again
+		// execute("Collection.view", "row=0,viewObject=xava_view_details");
+		
+		// Fields from Simpler view must exist
+		assertExists("quantity");
+		assertExists("unitPrice");
+		
+		// Fields not in Simpler view must not exist
+		assertNotExists("product.number");
+		assertNotExists("amount");
+		
+		closeDialog();
+		
+		// @NewView("Simple") on details collection: creation dialog uses Simple view of InvoiceDetail2
+		// InvoiceDetail2.new implementation extends Collection.new implementation, so we test the core functionality
+		execute("InvoiceDetail2.new", "viewObject=xava_view_details");
+		
+		// Fields from Simple view must exist
+		assertExists("product.number");
+		assertExists("quantity");
+		assertExists("unitPrice");
+		
+		// Fields only in the default view must not exist
+		assertNotExists("amount");
+		
+		closeDialog();
 	}
 	
 	private boolean inEuroCountry() { 

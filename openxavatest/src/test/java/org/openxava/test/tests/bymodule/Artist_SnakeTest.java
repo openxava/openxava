@@ -14,14 +14,14 @@ public class Artist_SnakeTest extends ModuleTestBase {
 	}
 	
 	public void testSnakeCase() throws Exception { 
-		assertValueInList(0, 0, ""); 
+		assertValueInList(0, 0, "EL DESEO");
 		assertValueInList(0, 1, "AARON");
 		assertValueInList(0, 2, "");
 		assertValueInList(0, 3, "B");
 		assertValueInList(0, 4, "MAIN CHARACTER");
 		
 		execute("List.viewDetail", "row=0");
-		assertExists("artist_studio.name");
+		assertValue("artist_studio.name","EL DESEO");
 		assertValue("artist_name", "AARON");
 		assertExists("artist_age");
 		assertDescriptionValue("artist_level.id", "B MAIN CHARACTER");

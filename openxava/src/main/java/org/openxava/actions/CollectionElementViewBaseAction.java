@@ -126,6 +126,18 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 	}
 	
 	/**
+	 * @since 7.7
+	 */
+	protected MetaCollectionView getMetaCollectionView() {
+		try {
+			return getCollectionElementView().getParent().getMetaView().getMetaCollectionView(getCollectionElementView().getMemberName());
+		}
+		catch (Exception ex) {
+			return null;
+		}
+	}
+	
+	/**
 	 * @since 7.6.3
 	 */
 	protected String getCollectionLabel() {

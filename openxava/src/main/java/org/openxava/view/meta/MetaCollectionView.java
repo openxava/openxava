@@ -45,6 +45,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String onSelectElementActionName;
 	private Tree path;
 	private Map<String, List<String>> totalProperties;
+	private String newViewName;
+	private String editViewName;
 	
 	public void addActionDetailName(String actionName) {
 		if (actionsDetailNames == null) actionsDetailNames = new ArrayList();
@@ -329,6 +331,34 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 
 	public void setDefaultActions(boolean defaultActions) {
 		this.defaultActions = defaultActions;
+	}
+
+	/**
+	 * @since 7.7
+	 */
+	public String getNewViewName() {
+		return newViewName;
+	}
+
+	/**
+	 * @since 7.7
+	 */
+	public void setNewViewName(String newViewName) {
+		this.newViewName = newViewName;
+	}
+
+	/**
+	 * @since 7.7
+	 */
+	public String getEditViewName() {
+		return editViewName;
+	}
+
+	/**
+	 * @since 7.7
+	 */
+	public void setEditViewName(String editViewName) {
+		this.editViewName = editViewName;
 	}
 
 }

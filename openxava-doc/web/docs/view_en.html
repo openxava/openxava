@@ -77,6 +77,8 @@
             an editor (reference, new in v3.1.3)</a><br>
           <a href="#choose-tab-for-search-action-reference">Choose tab for
             search action (reference, new in v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#view-for-editing-reference">View
+            for editing (reference, new in v7.7)</a></div>
         <div style="margin-left: 2em;"><a href="#View-Collection%20customization">Collection
             customization</a></div>
         <div style="margin-left: 3em;"><a href="#View-Collection%20customization-Properties%20in%20list">Properties
@@ -942,6 +944,10 @@ BigDecimal vatPercentage;
 @LabelStyle          // 16 New in v4m4
 @Collapsed           // 17 New in v5.0
 @SearchListTab       // 18 New in v7.4
+@NewView             // 19 New in v7.7
+@EditView            // 20 New in v7.7
+@NewAction           // 21 New in v7.7
+@EditAction          // 22 New in v7.7
 @ManyToOne
 private type referenceName;</code></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
@@ -1069,6 +1075,26 @@ private type referenceName;</code></pre>
             rel="nofollow">OX</a>): <em>(New in v7.4) </em>Define the tab to
           display in the list when searching. If you omit this annotation, when
           searching, the default tab will be displayed.</li>
+        <li><strong><a class="wiki_link" href="#view-for-editing-reference">@NewView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>View of the referenced 
+          object to use when creating a new one from this reference.</li>
+        <li><strong><a class="wiki_link" href="#view-for-editing-reference">@EditView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>View of the referenced 
+          object to use when modifying it from this reference.</li>
+        <li><strong><a class="wiki_link" href="#View-Reference%20customization-Custom%20creation%20action">@NewAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>Allows you to define your 
+          custom action to start creating a new element for this reference.</li>
+        <li><strong><a class="wiki_link" href="#View-Reference%20customization-Custom%20modification%20action">@EditAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>Allows you to define your 
+          custom action to view/edit the current element of this reference.</li>
       </ol>
       If you do not use any of these annotations OpenXava draws a reference
       using the default view. For example, if you have a reference like this:<br>
@@ -1205,15 +1231,7 @@ private Seller seller;
     <div class="wiki" style="display: block;"><img src="files/view_en143.png" alt="view_en143.png"
 
         title="view_en143.png"></div>
-    <div class="wiki" style="display: block;">The <b><i>@NewAction</i></b>
-      annotation used for collections <b>does not work</b> with references, so
-      we cannot define custom behavior for the creation action in a specific
-      reference. That is, this cannot be done:</div>
-    <pre><code class="language-java">// @NewAction("Carrier.createWarehouse")  // NOT ALLOWED
-@ManyToOne
-Warehouse mainWarehouse;
-</code></pre>
-    <div class="wiki" style="display: block;">OpenXava will always display a
+    <div class="wiki" style="display: block;">OpenXava will display a
       dialog with the default view of the referenced component and allow the
       user to enter values and click a button to create it. Like this:</div>
     <div class="wiki" style="display: block;"><img src="files/view_en147.png" alt="view_en147.png"
@@ -1293,6 +1311,44 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
       We can also override the <i>cancel</i> action if needed. Additionally, if
       we add extra actions to our <i>WarehouseCreation</i> controller, these
       actions will appear as additional buttons in the creation dialog.</div>
+    <div class="wiki" style="display: block;">Since v7.7 you can use the <i><a class="wiki_link_ext" 
+      href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+      rel="nofollow">@NewAction</a></i>
+      annotation to define custom behavior for the creation action in a specific
+      reference. For example:</div>
+    <pre><code class="language-java">@NewAction("Artist.createNewLevel")
+@ManyToOne
+ActingLevel level;
+</code></pre>
+    <div class="wiki" style="display: block;">In this case, when the user clicks on the create icon for the 
+      <i>level</i> reference in <i>Artist</i>, the action <i>Artist.createNewLevel</i> 
+      will be executed instead of the default one. This only affects this specific reference; 
+      other references to <i>ActingLevel</i> in the application will use the standard behavior.</div>
+    <div class="wiki" style="display: block;">You need to define the action in <i>controllers.xml</i>:</div>
+    <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="createNewLevel" hidden="true"
+        icon="plus-box-multiple"
+        class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+    <div class="wiki" style="display: block;">And the action class:</div>
+    <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class CreateNewLevelFromArtistAction extends CreateNewFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        getView().setValue("description", "NEW ACTING LEVEL");
+    }
+
+}
+</code></pre>
+    <div class="wiki" style="display: block;">Note that the action extends <i>CreateNewFromReferenceAction</i>, 
+      which handles opening the dialog and setting up the view. You just need to add your custom logic.</div>
     <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="View-Reference customization-Custom modification action"></a><a
 
@@ -1305,15 +1361,7 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
       <div class="wiki" style="display: block;"><img src="files/view_en148.png"
 
           alt="view_en148.png" title="view_en148.png"></div>
-      <div class="wiki" style="display: block;">The <b><i>@EditAction</i></b>
-        annotation used for collections <b>does not work</b> with references,
-        so we cannot define custom behavior for the modification action in a
-        specific reference. That is, this cannot be done:</div>
-      <pre><code class="language-java">// @EditAction("Carrier.modifyWarehouse")  // NOT ALLOWED
-@ManyToOne
-Warehouse mainWarehouse;
-</code></pre>
-      <div class="wiki" style="display: block;">OpenXava will always display a
+      <div class="wiki" style="display: block;">OpenXava will display a
         dialog with the default view of the referenced component and allow the
         user to enter values and click a button to modify current values. Like
         this:</div>
@@ -1394,6 +1442,45 @@ public class UpdateWarehouseFromReferenceAction extends UpdateAction {
         We can also override the <i>cancel</i> action if needed. Additionally,
         if we add extra actions to our <i>WarehouseModification</i> controller,
         these actions will appear as additional buttons in the modification dialog.</div>
+      <div class="wiki" style="display: block;">Since v7.7 you can use the <i><a class="wiki_link_ext" 
+        href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+        rel="nofollow">@EditAction</a></i>
+        annotation to define custom behavior for the modification action in a
+        specific reference. For example:</div>
+      <pre><code class="language-java">@EditAction("Artist.modifyLevel")
+@ManyToOne
+ActingLevel level;
+</code></pre>
+      <div class="wiki" style="display: block;">In this case, when the user clicks on the modify icon for the 
+        <i>level</i> reference in <i>Artist</i>, the action <i>Artist.modifyLevel</i> 
+        will be executed instead of the default one. This only affects this specific reference; 
+        other references to <i>ActingLevel</i> in the application will use the standard behavior.</div>
+      <div class="wiki" style="display: block;">You need to define the action in <i>controllers.xml</i>:</div>
+      <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="modifyLevel" hidden="true"
+        icon="border-color"
+        class="org.openxava.test.actions.ModifyLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+      <div class="wiki" style="display: block;">And the action class:</div>
+      <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class ModifyLevelFromArtistAction extends ModifyFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        String description = getView().getValueString("description").trim();
+        getView().setValue("description", description + " (MODIFIED)");
+    }
+	
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Note that the action extends <i>ModifyFromReferenceAction</i>, 
+        which handles opening the dialog and loading the current data. You just need to add your custom logic.</div>
     </div>
     <div class="wiki" style="display: block;"> 
       <h3 id="toc21"><a name="View-Reference customization-Descriptions list (combos)"></a><a
@@ -1765,6 +1852,25 @@ private Warehouse warehouse;</code></pre>
 public class Warehouse {</code></pre>
         In addition, the <i>forViews</i> and <i>notForViews</i> attributes are
         available in <i>@SearchListTab</i>. </div>
+      <h3><a name="view-for-editing-reference"></a>View for editing (reference, <em>new in v7.7</em>)</h3>
+      By default, when the user creates a new object from a reference or modifies 
+      an existing one, the default view of the referenced object is used. With 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+        rel="nofollow">@NewView</a></em> and 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+        rel="nofollow">@EditView</a></em> you can specify different views for 
+      creation and modification respectively:<br>
+      <pre><code class="language-java">@ManyToOne
+@NewView("SimpleCreation")
+@EditView("SimpleEdition")
+private Customer customer;</code></pre>
+      When the user clicks on the button to create a new customer, the <em>SimpleCreation</em> 
+      view of <em>Customer</em> will be used. When the user clicks on the button to 
+      modify the current customer, the <em>SimpleEdition</em> view will be used instead.<br>
+      <br>
+      You can use just one of these annotations if you only need to customize 
+      creation or modification. For example, if you only use <em>@NewView</em>, 
+      the default view will still be used for modification.<br>
       <h2 id="toc25"><a name="View-Collection customization"></a>Collection
         customization</h2>
       You can refine the visual aspect and behavior of an <em>@OneToMany</em>/<em>@ManyToMany</em>
@@ -1800,6 +1906,8 @@ public class Warehouse {</code></pre>
 @SimpleList             // 28 New in v7.4
 @SearchListTab          // 29 New in v7.4
 @NoDefaultActions       // 30 New in v7.4
+@NewView                // 31 New in v7.7
+@EditView               // 32 New in v7.7
 @OneToMany/@ManyToMany  // Not for calculated collections
 private Collection collectionName; // Or a getter for calculated collections</code></pre>
       And the next annotations for a <em>@ElementCollection (new in v5.0)</em>:<br>
@@ -2022,6 +2130,18 @@ private Collection collectionName;</code></pre>
             rel="nofollow">OX</a>): <em>(New in v7.4)</em> Using this
           annotation will hide the actions from the <i>DefaultListActionsForCollections</i>
           and <i>DefaultRowActionsForCollections</i> controllers.</li>
+        <li><strong><a class="wiki_link" href="#View-Collection%20customization-View%20for%20editing">@NewView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7)</em> View of the collection 
+          element to use when creating a new one. Overrides <em>@CollectionView</em> 
+          for creation.</li>
+        <li><strong><a class="wiki_link" href="#View-Collection%20customization-View%20for%20editing">@EditView</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7)</em> View of the collection 
+          element to use when editing an existing one. Overrides <em>@CollectionView</em> 
+          for editing.</li>
       </ol>
       <h3 id="toc26"><a name="View-Collection customization-Properties in list"></a>Properties
         in list</h3>
@@ -2062,6 +2182,24 @@ private Collection&lt;Customer&gt; customers;</code></pre>
       On clicking in a detail the following dialog will be shown:<br>
       <img src="files/view_en171.jpg" alt="view_en171.jpg" title="view_en171.jpg"><br>
       <br>
+      <em>(New in v7.7)</em> You can use 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewView.html"
+        rel="nofollow">@NewView</a></em> and 
+      <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditView.html"
+        rel="nofollow">@EditView</a></em> to specify different views for 
+      creating and editing collection elements respectively. These annotations 
+      override <em>@CollectionView</em> for their specific operation:<br>
+      <pre><code class="language-java">@CollectionView("Simple")
+@NewView("SimpleCreation")  // Overrides @CollectionView for creation
+@EditView("SimpleEdition")  // Overrides @CollectionView for editing
+@OneToMany(mappedBy="invoice")
+private Collection&lt;InvoiceDetail&gt; details;</code></pre>
+      Using <em>@CollectionView("Simple")</em> alone is equivalent to using both 
+      <em>@NewView("Simple")</em> and <em>@EditView("Simple")</em>. You can use 
+      <em>@NewView</em> and <em>@EditView</em> to override <em>@CollectionView</em> 
+      for creation or editing, or use them without <em>@CollectionView</em> to 
+      specify views only for creation or editing while keeping the default view 
+      for the other operation.<br>
       <h3 id="toc28"><a name="View-Collection customization-Element collection (new in v5.0)"></a>Element
         collection <em>(new in v5.0)</em></h3>
       Element collections do not use <em>@CollectionView</em> because the data

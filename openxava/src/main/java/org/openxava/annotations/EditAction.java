@@ -3,15 +3,23 @@ package org.openxava.annotations;
 import java.lang.annotation.*;
 
 /**
- * Allows you to define your custom action to view a collection element. <p> 
+ * Allows you to define your custom action to view/edit a collection element or reference. <p> 
  * 
- * Applies to @OneToMany/@ManyToMany collections.<p>
+ * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references.<br>
+ * Support for references since v7.7.<p>
  * 
- * This is the action showed in each row, if the collection is read only.<br>
- * Example:
+ * For collections, this is the action showed in each row, if the collection is read only.<br>
+ * For references, this is the action executed on click in the 'Edit' link.<br>
+ * Example for collection:
  * <pre>
  * &nbsp;@EditAction("Invoice.editDetail")
  * &nbsp;private Collection<InvoiceDetail> details;
+ * </pre>
+ * Example for reference:
+ * <pre>
+ * &nbsp;@EditAction("Invoice.editCustomer")
+ * &nbsp;@ManyToOne
+ * &nbsp;private Customer customer;
  * </pre>
  * 
  * @author Javier Paniza
