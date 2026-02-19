@@ -1,6 +1,4 @@
 Pending (TMR)
-- Pruebas.
-	- Falla sin @DescriptionsList. TMR ME QUEDÉ PARA HACER UN TEST CON LA REFERENCIA STUDIO EN ArtistTest
 - Suite.
 - Documentación,
 	- Añadirlos en la lista de acciones.

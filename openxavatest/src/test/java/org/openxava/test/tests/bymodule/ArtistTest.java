@@ -85,12 +85,12 @@ public class ArtistTest extends ModuleTestBase {
 		assertValue("description", "MAIN CHARACTER (MODIFIED)");
 		closeDialog();
 		
-		execute("Artist.createNewStudio", "model=Studio,keyProperty=artistStudio.id");
+		execute("Artist.createNewStudio", "model=Studio,keyProperty=artistStudio.name");
 		assertDialog();
 		assertValue("name", "NEW STUDIO");
 		closeDialog();
 		
-		execute("Artist.modifyStudio", "model=Studio,keyProperty=artistStudio.id");
+		execute("Artist.modifyStudio", "model=Studio,keyProperty=artistStudio.name");
 		assertDialog();
 		assertValue("name", "EL DESEO (MODIFIED)");
 	}

@@ -4907,6 +4907,34 @@ public class View implements java.io.Serializable {
 			return collectionView.isModifyReference(); 
 		}
 	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getNewAction() throws XavaException {
+		if (isGroup()) return getParent().getNewAction();
+		try {			
+			MetaReference ref = getParent().getMetaModel().getMetaReference(getMemberName());			
+			return getParent().getNewActionForReference(ref);
+		}
+		catch (ElementNotFoundException ex) {			
+			return null;
+		}
+	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public String getEditAction() throws XavaException {
+		if (isGroup()) return getParent().getEditAction();
+		try {			
+			MetaReference ref = getParent().getMetaModel().getMetaReference(getMemberName());			
+			return getParent().getEditActionForReference(ref);
+		}
+		catch (ElementNotFoundException ex) {			
+			return null;
+		}
+	}
 		
 	public boolean isSearch() throws XavaException {		
 		if (isGroup()) return getParent().isSearch(); 

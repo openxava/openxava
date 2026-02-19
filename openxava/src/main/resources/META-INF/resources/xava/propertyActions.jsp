@@ -20,12 +20,32 @@ if (lastSearchKey) {
 	<% if (view.isSearch() && editable) {%>	
 <xava:action action='<%=view.getSearchAction()%>' argv='<%="keyProperty="+propertyKey%>'/>
 	<% } %>
-	<% if (view.isCreateNew() && editable) {%>
+	<% if (view.isCreateNew() && editable) {
+		String newAction = view.getNewAction();
+		if (newAction == null) {
+	%>
 <xava:action action='Reference.createNew' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>
-	<% } %>
-	<% if (view.isModify() && editable) {%>
+	<% 
+		}
+		else {
+	%>
+<xava:action action='<%=newAction%>' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>
+	<%
+		}
+	} %>
+	<% if (view.isModify() && editable) {
+		String editAction = view.getEditAction();
+		if (editAction == null) {
+	%>
 <xava:action action='Reference.modify' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>	
-	<% } %>
+	<%
+		}
+		else {
+	%>
+<xava:action action='<%=editAction%>' argv='<%="model="+referencedModel + ",keyProperty=" + propertyKey%>'/>	
+	<%
+		}
+	} %>
 	<% if (editable) {%>
 <xava:action action='Reference.clear' argv='<%="keyProperty=" + propertyKey%>'/>	
 	<% } %>
