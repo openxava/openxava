@@ -1,10 +1,20 @@
 Pending (TMR)
-- Suite.
 - Documentación,
 	- Añadirlos en la lista de acciones.
 	- @NewAction/@EditAction dentro de la explicación con vínculo en lugar de negrilla.
 	- ¿Añadir ejemplos en la documentación? Diría que sí
 	- Revisar si los cambios afectan a la documentación relacionada con NavigationFromReferenceBaseAction
 	- En Javadoc indicar que el soporte para referencias es a partir de la 7.7.
+Prompt.
+Hemos implementado el uso de @NewAction y @EditAction, que ya existían para las colecciones,
+para que funcionen también con referencias. Tienes la prueba en la parte final de
+ArtistTest.testBeanValidationJSR303_focusOnList_dialogFromOnChangeAction_noSpacesInDescriptionsList_specialCharactersInDescriptionsListKey_editorForAnnotation_displaySizeGreaterThan50WhenColumnLength255_newActionEditActionForReferences()
+Y el ejemplo de código en Artist. También puedes ir al controlador Artits en controllers.xml
+y ver la implementación de las acciones.
+Ahora queremos actualizar la documentación de @NewAction y @EditAction para que refleje
+que funcionan con referencias.
+En view_en.html quiero que:
+1.
+
 - Changelog:
     - executeAction() reconoce setView()
