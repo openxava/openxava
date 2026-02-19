@@ -1328,33 +1328,33 @@ public class GuardarNuevoAlmacenDesdeReferencia extends SaveNewAction {
       rel="nofollow">@NewAction</a></i>
       para definir un comportamiento propio para la acción de creación en una
       referencia concreta. Por ejemplo:</div>
-    <pre><code class="language-java">@NewAction("Artist.createNewLevel")
+    <pre><code class="language-java">@NewAction("Artista.crearNuevoNivel")
 @ManyToOne
-ActingLevel level;
+NivelActuacion nivel;
 </code></pre>
     <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de crear para la 
-      referencia <i>level</i> en <i>Artist</i>, se ejecutará la acción <i>Artist.createNewLevel</i> 
+      referencia <i>nivel</i> en <i>Artista</i>, se ejecutará la acción <i>Artista.crearNuevoNivel</i> 
       en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
-      otras referencias a <i>ActingLevel</i> en la aplicación usarán el comportamiento estándar.</div>
-    <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controllers.xml</i>:</div>
-    <pre><code class="language-xml">&lt;controller name="Artist"&gt;
-    &lt;extends controller="Typical"/&gt;
-    &lt;action name="createNewLevel" hidden="true"
-        icon="plus-box-multiple"
-        class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/&gt;
-&lt;/controller&gt;
+      otras referencias a <i>NivelActuacion</i> en la aplicación usarán el comportamiento estándar.</div>
+    <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controladores.xml</i>:</div>
+    <pre><code class="language-xml">&lt;controlador nombre="Artista"&gt;
+    &lt;hereda-de controlador="Typical"/&gt;
+    &lt;accion nombre="crearNuevoNivel" oculta="true"
+        icono="plus-box-multiple"
+        clase="org.openxava.test.acciones.CrearNuevoNivelDesdeArtista"/&gt;
+&lt;/controlador&gt;
 </code></pre>
     <div class="wiki" style="display: block;">Y la clase de la acción:</div>
-    <pre><code class="language-java">package org.openxava.test.actions;
+    <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
-public class CreateNewLevelFromArtistAction extends CreateNewFromReferenceAction {
+public class CrearNuevoNivelDesdeArtista extends CreateNewFromReferenceAction {
 	
     @Override
     public void execute() throws Exception {
         super.execute();
-        getView().setValue("description", "NEW ACTING LEVEL");
+        getView().setValue("descripcion", "NUEVO NIVEL DE ACTUACIÓN");
     }
 
 }
@@ -1461,34 +1461,34 @@ public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
         rel="nofollow">@EditAction</a></i>
         para definir un comportamiento propio para la acción de
         modificación en una referencia concreta. Por ejemplo:</div>
-      <pre><code class="language-java">@EditAction("Artist.modifyLevel")
+      <pre><code class="language-java">@EditAction("Artista.modificarNivel")
 @ManyToOne
-ActingLevel level;
+NivelActuacion nivel;
 </code></pre>
       <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de modificar para la 
-        referencia <i>level</i> en <i>Artist</i>, se ejecutará la acción <i>Artist.modifyLevel</i> 
+        referencia <i>nivel</i> en <i>Artista</i>, se ejecutará la acción <i>Artista.modificarNivel</i> 
         en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
-        otras referencias a <i>ActingLevel</i> en la aplicación usarán el comportamiento estándar.</div>
-      <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controllers.xml</i>:</div>
-      <pre><code class="language-xml">&lt;controller name="Artist"&gt;
-    &lt;extends controller="Typical"/&gt;
-    &lt;action name="modifyLevel" hidden="true"
-        icon="border-color"
-        class="org.openxava.test.actions.ModifyLevelFromArtistAction"/&gt;
-&lt;/controller&gt;
+        otras referencias a <i>NivelActuacion</i> en la aplicación usarán el comportamiento estándar.</div>
+      <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controladores.xml</i>:</div>
+      <pre><code class="language-xml">&lt;controlador nombre="Artista"&gt;
+    &lt;hereda-de controlador="Typical"/&gt;
+    &lt;accion nombre="modificarNivel" oculta="true"
+        icono="border-color"
+        clase="org.openxava.test.acciones.ModificarNivelDesdeArtista"/&gt;
+&lt;/controlador&gt;
 </code></pre>
       <div class="wiki" style="display: block;">Y la clase de la acción:</div>
-      <pre><code class="language-java">package org.openxava.test.actions;
+      <pre><code class="language-java">package org.openxava.test.acciones;
 
 import org.openxava.actions.*;
 
-public class ModifyLevelFromArtistAction extends ModifyFromReferenceAction {
+public class ModificarNivelDesdeArtista extends ModifyFromReferenceAction {
 	
     @Override
     public void execute() throws Exception {
         super.execute();
-        String description = getView().getValueString("description").trim();
-        getView().setValue("description", description + " (MODIFIED)");
+        String descripcion = getView().getValueString("descripcion").trim();
+        getView().setValue("descripcion", descripcion + " (MODIFICADO)");
     }
 	
 }
