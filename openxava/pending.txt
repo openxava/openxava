@@ -1,3 +1,0 @@
-Pending (TMR)
-- Changelog:
-    - executeAction() reconoce setView()
