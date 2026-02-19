@@ -21,6 +21,8 @@ import org.openxava.test.annotations.*;
 public class Artist extends Identifiable {
 	
 	@ManyToOne
+	@NewAction("Artist.createNewStudio")
+	@EditAction("Artist.modifyStudio")
 	private Studio artistStudio; // Not the same name of parent entity, to test a case
 	
 	@Required
@@ -35,7 +37,9 @@ public class Artist extends Identifiable {
 	
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@ReadOnly(forViews="SomeMembersReadOnly") 
+	@ReadOnly(forViews="SomeMembersReadOnly")
+	@NewAction("Artist.createNewLevel")
+	@EditAction("Artist.modifyLevel")
 	private ActingLevel level; 
 		
 	public Studio getArtistStudio() {

@@ -132,7 +132,12 @@ abstract public class BaseAction implements IAction, IRequestAction, IModuleCont
 	 * @since 4m1
 	 */    
 	protected ModuleContext getContext() {  
-		if (context == null) throw new XavaException("context_null_in_action");
+		if (context == null) {
+			if (request != null) {
+				context = (ModuleContext) request.getSession().getAttribute("context");
+			}
+			else throw new XavaException("context_null_in_action");
+		}
 		return context;
 	}
 

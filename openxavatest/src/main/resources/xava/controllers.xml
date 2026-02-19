@@ -656,6 +656,22 @@
 		<action name="close" class="org.openxava.actions.CancelAction"/>
 	</controller>
 		
+	<controller name="Artist">
+		<extends controller="Typical"/>
+		<action name="createNewLevel" hidden="true"
+			icon="plus-box-multiple"
+			class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/>
+		<action name="modifyLevel" hidden="true"
+			icon="border-color"
+			class="org.openxava.test.actions.ModifyLevelFromArtistAction"/>
+		<action name="createNewStudio" hidden="true"
+			icon="plus-box-multiple"
+			class="org.openxava.test.actions.CreateNewStudioFromArtistAction"/>
+		<action name="modifyStudio" hidden="true"
+			icon="border-color"
+			class="org.openxava.test.actions.ModifyStudioFromArtistAction"/>
+	</controller>
+	
 	<controller name="ArtistSomeMembersReadOnly"> 
 		
 		<action name="search"
