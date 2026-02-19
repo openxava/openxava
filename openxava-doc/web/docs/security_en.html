@@ -79,6 +79,7 @@
       users of a particular role cannot access the <em>Customer</em> module,
       they cannot create or modify customers from the <em>Invoice</em> module
       either (<em>new in v5.3</em>).<br>
+      Since version 7.7, OpenXava applications include a Chat AI feature. This chat respects the module access permissions: if a user's role does not have access to a module, the chat will not be able to query or return data from that module's entity. For example, if a role cannot access the <em>Customer</em> module, the chat cannot provide information about customers (<em>new in v7.7</em>).<br>
       The above user management system is only available in <a href="http://www.openxava.org/xavapro">XavaPro</a>,
       with plain OpenXava you have to add users in the <em>naviox-users.properties</em>
       file inside <em>properties</em> folder of your project.<br>
@@ -115,6 +116,7 @@
       click on <em>Save</em>. From now on, all the users of that role will not
       be able to access those members in that module. Note you also have <em>Read
         only data</em> to allow the users to see the data but not to change it.<br>
+      Since version 7.7, these restrictions also apply to the Chat AI: excluded members cannot be queried through the chat, and read-only members can be queried but not modified via the chat (<em>new in v7.7</em>).<br>
       Restricting user access to properties, references or collections is only
       available in <a href="http://www.openxava.org/xavapro">XavaPro</a>.<br>
       <h2><a name="readonly-module-for-role"></a>Read only module with one click

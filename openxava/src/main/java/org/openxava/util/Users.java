@@ -116,13 +116,21 @@ public class Users {
 	
 	
 	/**
+	 * Associated the user of the session to the current thread. <p>
+	 *
+	 * @since 7.7
+	 */
+	public static void setCurrent(HttpSession session) {		 
+        String user = (String) session.getAttribute("xava.user");
+		current.set(user);
+		currentUserInfo.set(session.getAttribute("xava.userinfo"));
+	}
+
+	/**
 	 * Associated the user of the request to the current thread. <p>
 	 */
 	public static void setCurrent(HttpServletRequest request) {		 
-        String user = (String) request.getSession().getAttribute("xava.user");
-		current.set(user);
-		request.getSession().setAttribute("xava.user", user); 
-		currentUserInfo.set(request.getSession().getAttribute("xava.userinfo"));
+        setCurrent(request.getSession());
 		currentIP.set(request.getRemoteAddr());
 	}
 	

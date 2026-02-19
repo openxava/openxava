@@ -119,6 +119,7 @@ public class View implements java.io.Serializable {
 	private Messages errors;
 	private Set notEditableMembersNames;
 	private transient HttpServletRequest request;
+	private transient ModuleManager moduleManager;
 	private Collection depends;
 	private boolean hasToSearchOnChangeIfSubview = true;
 	private transient Map<MetaView, View> sectionsViews;
@@ -420,7 +421,7 @@ public class View implements java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("refining_members_error"), ex); 
-			metaMembers.clear(); 
+			if (metaMembers != null) metaMembers.clear();
 		}		
 
 		if (hasGroups()) {
@@ -448,9 +449,10 @@ public class View implements java.io.Serializable {
 	}
 
 	private MetaModule getMetaModuleForModel() { 
-		ModuleManager moduleManager = getModuleManager(getRequest()); 
+		ModuleManager moduleManager = getModuleManager();
+		System.out.println("[View.getMetaModuleForModel] moduleManager=" + moduleManager); // tmr
 		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
-		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager(getRequest()).getApplicationName());
+		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager().getApplicationName());
 		String modelName = getModelName();
 		if (modelName.contains(".")) modelName = Strings.lastToken(modelName, ".");
 		return app.getMetaModule(modelName);
@@ -3049,7 +3051,7 @@ public class View implements java.io.Serializable {
 		if (Is.equal(modelName, newModel)) return;		
 		modelName = newModel;
 		getFirstLevelView().reloadNeeded = true; // If the model of the view of a reference changes, the main view must be reloaded.
-		resetMembers();		
+		resetMembers();
 		if (model != null && !model.getClass().getSimpleName().equals(modelName)) model = null; 
 	}
 	
@@ -3733,7 +3735,7 @@ public class View implements java.io.Serializable {
 			action.setView(viewOfAction);
 			action.setChangedProperty(changedPropertyQualifiedName); 
 			action.setNewValue(getValue(changedPropertyQualifiedName));
-			getModuleManager(getRequest()).executeAction(action, getErrors(), getMessages(), getRequest());
+			getModuleManager().executeAction(action, getErrors(), getMessages(), getRequest());
 			registerExecutedAction(changedPropertyQualifiedName, action);
 		}
 	}	
@@ -3747,9 +3749,12 @@ public class View implements java.io.Serializable {
 		return false;
 	}
 
-	private ModuleManager getModuleManager(HttpServletRequest request) throws XavaException {		
-		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");		
-		return (ModuleManager) context.get(request, "manager");		
+	private ModuleManager getModuleManager() throws XavaException {
+		if (getRoot().moduleManager == null) {
+			ModuleContext context = (ModuleContext) getRequest().getSession().getAttribute("context");
+			getRoot().moduleManager = (ModuleManager) context.get(getRequest(), "manager");
+		}
+		return getRoot().moduleManager;
 	}
 
 	/**
@@ -4491,7 +4496,7 @@ public class View implements java.io.Serializable {
 		resetMembers();		
 		viewName = newView;
 		getFirstLevelView().reloadNeeded = true; // We reload the root view when a subview
-										// is changed. Obviously this can be optimized		
+										// is changed. Obviously this can be optimized
 		reloadNeeded = true;
 	}
 	
@@ -4600,6 +4605,11 @@ public class View implements java.io.Serializable {
 	public void setRequest(HttpServletRequest request) throws XavaException {			
 		getRoot().request = request;
 		polish(); 
+	}
+
+	/** @since 7.7 */
+	public void setModuleManager(ModuleManager moduleManager) {
+		getRoot().moduleManager = moduleManager;
 	}
 
 	public boolean displayAsDescriptionsList(MetaReference ref) throws XavaException {		
@@ -5450,7 +5460,7 @@ public class View implements java.io.Serializable {
 	 * @since 7.4
 	 */
 	public Collection<String> removeUnavailableActionFromRow(Collection<String> rowActions, String actionArgv) {
-		ModuleManager moduleManager = getModuleManager(getRequest());
+		ModuleManager moduleManager = getModuleManager();
 		Collection<String> actionsToRemove = null;
 		for (java.util.Iterator itRowActions = rowActions.iterator(); itRowActions.hasNext();) {
 			String action = (String) itRowActions.next();
@@ -7238,7 +7248,7 @@ public class View implements java.io.Serializable {
 		
 		try { 
 			XObjects.execute(refiner, "refineForCollections", 
-				         MetaModule.class, getModuleManager(getRequest()).getMetaModule(),
+				         MetaModule.class, getModuleManager().getMetaModule(),
 					     Collection.class, collection);
 		} catch(Exception ex) {
 			log.error(XavaResources.getString("controller_actions_error"), ex);			

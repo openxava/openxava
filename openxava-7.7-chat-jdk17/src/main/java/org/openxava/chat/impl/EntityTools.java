@@ -15,6 +15,7 @@ import org.openxava.application.meta.MetaModule;
 import org.openxava.component.MetaComponent;
 import org.openxava.model.meta.MetaCollection;
 import org.openxava.model.meta.MetaProperty;
+
 import com.openxava.naviox.Modules;
 
 import dev.langchain4j.agent.tool.P;
@@ -23,21 +24,17 @@ import dev.langchain4j.agent.tool.Tool;
 /**
  * Generic tools for accessing OpenXava entity data using LangChain4j.
  * Works with any entity in any OpenXava application.
- * 
+ *
+ * @since 7.7
  * @author Javier Paniza
  */
-public class EntityTools {
+public class EntityTools extends BaseEntityTools {
 	
 	private static Log log = LogFactory.getLog(EntityTools.class);
 
 	// Threshold of 600 records for 128k window. 600 to be a multiple of 120.
 	private final static int MAX_RECORDS = 600;
 	
-	private ModuleContext context;
-	private HttpSession session;
-	private String application;
-	private Map<String, Tab> tabs = new HashMap<>();
-	private Map<String, View> views = new HashMap<>();
 	private Map<String, String> pendingFilterValues = null;
 	
 	/**
@@ -48,9 +45,7 @@ public class EntityTools {
 	 * @param application The application name
 	 */
 	public EntityTools(ModuleContext context, HttpSession session, String application) {
-		this.context = context;
-		this.session = session;
-		this.application = application;
+		super(context, session, application);
 	}
 	
 	/**
@@ -282,57 +277,6 @@ public class EntityTools {
 		}
 	}
 	
-	/**
-	 * Gets a Tab from the private map and creates it if it doesn't exist.
-	 * 
-	 * @param entity The entity name
-	 * @return The Tab
-	 */
-	private Tab getTab(String entity) {
-		if (entity == null) {
-			throw new IllegalArgumentException("Entity cannot be null. Use any of: " + getAvailableEntities());
-		}
-
-		Tab tab = tabs.get(entity);
-		if (tab == null) {
-			tab = new Tab();
-			// This code is also in execute.jsp, should we refactor?
-			ModuleManager manager = (ModuleManager) context.get(application, entity, "manager", "org.openxava.controller.ModuleManager");
-			manager.setSession(session);
-			log.debug("EntityTools.getTab() application=" + application + ", entity=" + entity);
-			manager.setApplicationName(application);
-			manager.setModuleName(entity);
-			tab.setModelName(manager.getModelName());
-			if (tab.getTabName() == null) { 
-				tab.setTabName(manager.getTabName());
-			}
-			tab.setPropertiesNames("*");
-			tabs.put(entity, tab);
-		}
-		tab.reset();
-		return tab;
-	}
-	
-	/**
-	 * Gets a View from the private map and creates it if it doesn't exist.
-	 * 
-	 * @param module The module name
-	 * @return The View
-	 */
-	private View getView(String module) {
-		View view = views.get(module);
-		if (view == null) {
-			view = new View();
-			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
-			manager.setSession(session);
-			manager.setApplicationName(application);
-			manager.setModuleName(module);
-			view.setModelName(manager.getModelName());
-			view.setViewName(manager.getXavaViewName());
-			views.put(module, view);
-		}
-		return view;
-	}
 	
 	
 	/**
