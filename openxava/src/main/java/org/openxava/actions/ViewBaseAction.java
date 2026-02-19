@@ -161,7 +161,9 @@ abstract public class ViewBaseAction extends BaseAction {
 
 	public void setView(View view) {
 		this.view = view;
-		getContext().put(getRequest(), "xava_view", view); // For instant injection, so it can be use for actions called from executeAction()
+		if (!(this instanceof IOnChangePropertyAction)) { // In on change actions view is injected from View
+			getContext().put(getRequest(), "xava_view", view); // For instant injection, so it can be use for actions called from executeAction()
+		}
 	}
 			
 	protected String getModelName() {
