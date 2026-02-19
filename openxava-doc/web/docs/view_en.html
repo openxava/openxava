@@ -946,6 +946,8 @@ BigDecimal vatPercentage;
 @SearchListTab       // 18 New in v7.4
 @NewView             // 19 New in v7.7
 @EditView            // 20 New in v7.7
+@NewAction           // 21 New in v7.7
+@EditAction          // 22 New in v7.7
 @ManyToOne
 private type referenceName;</code></pre>
       All these annotations follow the <a class="wiki_link" href="#View-Rules%20for%20view%20annotations">rules
@@ -1083,6 +1085,16 @@ private type referenceName;</code></pre>
 
             rel="nofollow">OX</a>): <em>(New in v7.7) </em>View of the referenced 
           object to use when modifying it from this reference.</li>
+        <li><strong><a class="wiki_link" href="#View-Reference%20customization-Custom%20creation%20action">@NewAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>Allows you to define your 
+          custom action to start creating a new element for this reference.</li>
+        <li><strong><a class="wiki_link" href="#View-Reference%20customization-Custom%20modification%20action">@EditAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+
+            rel="nofollow">OX</a>): <em>(New in v7.7) </em>Allows you to define your 
+          custom action to view/edit the current element of this reference.</li>
       </ol>
       If you do not use any of these annotations OpenXava draws a reference
       using the default view. For example, if you have a reference like this:<br>
@@ -1299,17 +1311,44 @@ public class SaveNewWarehouseFromReferenceAction extends SaveNewAction {
       We can also override the <i>cancel</i> action if needed. Additionally, if
       we add extra actions to our <i>WarehouseCreation</i> controller, these
       actions will appear as additional buttons in the creation dialog.</div>
-    <div class="wiki" style="display: block;">Since v7.7 you can use the <b><i>@NewAction</i></b>
+    <div class="wiki" style="display: block;">Since v7.7 you can use the <i><a class="wiki_link_ext" 
+      href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+      rel="nofollow">@NewAction</a></i>
       annotation to define custom behavior for the creation action in a specific
       reference. For example:</div>
-    <pre><code class="language-java">@NewAction("Carrier.createWarehouse")
+    <pre><code class="language-java">@NewAction("Artist.createNewLevel")
 @ManyToOne
-Warehouse mainWarehouse;
+ActingLevel level;
 </code></pre>
     <div class="wiki" style="display: block;">In this case, when the user clicks on the create icon for the 
-      <i>mainWarehouse</i> reference in <i>Carrier</i>, the action <i>Carrier.createWarehouse</i> 
+      <i>level</i> reference in <i>Artist</i>, the action <i>Artist.createNewLevel</i> 
       will be executed instead of the default one. This only affects this specific reference; 
-      other references to <i>Warehouse</i> in the application will use the standard behavior.</div>
+      other references to <i>ActingLevel</i> in the application will use the standard behavior.</div>
+    <div class="wiki" style="display: block;">You need to define the action in <i>controllers.xml</i>:</div>
+    <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="createNewLevel" hidden="true"
+        icon="plus-box-multiple"
+        class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+    <div class="wiki" style="display: block;">And the action class:</div>
+    <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class CreateNewLevelFromArtistAction extends CreateNewFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        getView().setValue("description", "NEW ACTING LEVEL");
+    }
+
+}
+</code></pre>
+    <div class="wiki" style="display: block;">Note that the action extends <i>CreateNewFromReferenceAction</i>, 
+      which handles opening the dialog and setting up the view. You just need to add your custom logic.</div>
     <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="View-Reference customization-Custom modification action"></a><a
 
@@ -1403,17 +1442,45 @@ public class UpdateWarehouseFromReferenceAction extends UpdateAction {
         We can also override the <i>cancel</i> action if needed. Additionally,
         if we add extra actions to our <i>WarehouseModification</i> controller,
         these actions will appear as additional buttons in the modification dialog.</div>
-      <div class="wiki" style="display: block;">Since v7.7 you can use the <b><i>@EditAction</i></b>
+      <div class="wiki" style="display: block;">Since v7.7 you can use the <i><a class="wiki_link_ext" 
+        href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+        rel="nofollow">@EditAction</a></i>
         annotation to define custom behavior for the modification action in a
         specific reference. For example:</div>
-      <pre><code class="language-java">@EditAction("Carrier.modifyWarehouse")
+      <pre><code class="language-java">@EditAction("Artist.modifyLevel")
 @ManyToOne
-Warehouse mainWarehouse;
+ActingLevel level;
 </code></pre>
       <div class="wiki" style="display: block;">In this case, when the user clicks on the modify icon for the 
-        <i>mainWarehouse</i> reference in <i>Carrier</i>, the action <i>Carrier.modifyWarehouse</i> 
+        <i>level</i> reference in <i>Artist</i>, the action <i>Artist.modifyLevel</i> 
         will be executed instead of the default one. This only affects this specific reference; 
-        other references to <i>Warehouse</i> in the application will use the standard behavior.</div>
+        other references to <i>ActingLevel</i> in the application will use the standard behavior.</div>
+      <div class="wiki" style="display: block;">You need to define the action in <i>controllers.xml</i>:</div>
+      <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="modifyLevel" hidden="true"
+        icon="border-color"
+        class="org.openxava.test.actions.ModifyLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+      <div class="wiki" style="display: block;">And the action class:</div>
+      <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class ModifyLevelFromArtistAction extends ModifyFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        String description = getView().getValueString("description").trim();
+        getView().setValue("description", description + " (MODIFIED)");
+    }
+	
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Note that the action extends <i>ModifyFromReferenceAction</i>, 
+        which handles opening the dialog and loading the current data. You just need to add your custom logic.</div>
     </div>
     <div class="wiki" style="display: block;"> 
       <h3 id="toc21"><a name="View-Reference customization-Descriptions list (combos)"></a><a

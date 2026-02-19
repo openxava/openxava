@@ -952,6 +952,8 @@ BigDecimal porcentajeIVA;
 @SearchListTab       // 18 Nuevo en v7.4
 @NewView             // 19 Nuevo en v7.7
 @EditView            // 20 Nuevo en v7.7
+@NewAction           // 21 Nuevo en v7.7
+@EditAction          // 22 Nuevo en v7.7
 @ManyToOne
 private tipo nombreReferencia;</code></pre>
       Todas estas anotaciones siguen las <a class="wiki_link" href="#Vista-Normas%20para%20las%20anotaciones%20de%20vista">normas
@@ -1093,6 +1095,16 @@ private tipo nombreReferencia;</code></pre>
 
             rel="nofollow">OX</a>): <em>(Nuevo en v7.7) </em>Vista del objeto 
           referenciado a usar cuando se modifica desde esta referencia.</li>
+        <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+referencia-Accion+de+creacion+propia">@NewAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7) </em>Permite definir tu 
+          propia acción para empezar a crear un nuevo elemento para esta referencia.</li>
+        <li><strong><a class="wiki_link" href="#Vista-Personalizacion+de+referencia-Accion+de+modificacion+propia">@EditAction</a></strong>
+          (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+
+            rel="nofollow">OX</a>): <em>(Nuevo en v7.7) </em>Permite definir tu 
+          propia acción para ver/editar el elemento actual de esta referencia.</li>
       </ol>
       Si no usamos ninguna de estas anotaciones OpenXava dibuja la referencia
       usando su vista por defecto. Por ejemplo si tenemos una referencia así:<br>
@@ -1311,17 +1323,44 @@ public class GuardarNuevoAlmacenDesdeReferencia extends SaveNewAction {
       si ponemos acciones extra en nuestro controlador <i>AlmacenCreation</i>,
       estas acciones aparecerán como botones adicionales en el diálogo de
       creación. </div>
-    <div class="wiki" style="display: block;">Desde v7.7 puedes usar la anotación <b><i>@NewAction</i></b>
+    <div class="wiki" style="display: block;">Desde v7.7 puedes usar la anotación <i><a class="wiki_link_ext" 
+      href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/NewAction.html"
+      rel="nofollow">@NewAction</a></i>
       para definir un comportamiento propio para la acción de creación en una
       referencia concreta. Por ejemplo:</div>
-    <pre><code class="language-java">@NewAction("Transportista.crearAlmacen")
+    <pre><code class="language-java">@NewAction("Artist.createNewLevel")
 @ManyToOne
-Almacen almacenPrincipal;
+ActingLevel level;
 </code></pre>
     <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de crear para la 
-      referencia <i>almacenPrincipal</i> en <i>Transportista</i>, se ejecutará la acción <i>Transportista.crearAlmacen</i> 
+      referencia <i>level</i> en <i>Artist</i>, se ejecutará la acción <i>Artist.createNewLevel</i> 
       en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
-      otras referencias a <i>Almacen</i> en la aplicación usarán el comportamiento estándar.</div>
+      otras referencias a <i>ActingLevel</i> en la aplicación usarán el comportamiento estándar.</div>
+    <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controllers.xml</i>:</div>
+    <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="createNewLevel" hidden="true"
+        icon="plus-box-multiple"
+        class="org.openxava.test.actions.CreateNewLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+    <div class="wiki" style="display: block;">Y la clase de la acción:</div>
+    <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class CreateNewLevelFromArtistAction extends CreateNewFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        getView().setValue("description", "NEW ACTING LEVEL");
+    }
+
+}
+</code></pre>
+    <div class="wiki" style="display: block;">Fíjate que la acción extiende <i>CreateNewFromReferenceAction</i>, 
+      que se encarga de abrir el diálogo y configurar la vista. Solo necesitas añadir tu lógica propia.</div>
     <div class="wiki" style="display: block;">
       <h3 id="toc20"><a name="Vista-Personalizacion+de+referencia-Accion+de+modificacion+propia"></a>Acción
         de modificación propia</h3></div>
@@ -1417,17 +1456,45 @@ public class ActualizarAlmacenDesdeReferencia extends UpdateAction {
       si lo necesitamos. Además, si ponemos acciones extra en nuestro
       controlador <i>AlmacenModification</i>, estas acciones aparecerán como
       botones adicionales en el diálogo de modificación.</div>
-      <div class="wiki" style="display: block;">Desde v7.7 puedes usar la anotación <b><i>@EditAction</i></b>
+      <div class="wiki" style="display: block;">Desde v7.7 puedes usar la anotación <i><a class="wiki_link_ext" 
+        href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/EditAction.html"
+        rel="nofollow">@EditAction</a></i>
         para definir un comportamiento propio para la acción de
         modificación en una referencia concreta. Por ejemplo:</div>
-      <pre><code class="language-java">@EditAction("Transportista.modificarAlmacen")
+      <pre><code class="language-java">@EditAction("Artist.modifyLevel")
 @ManyToOne
-Almacen almacenPrincipal;
+ActingLevel level;
 </code></pre>
       <div class="wiki" style="display: block;">En este caso, cuando el usuario pulse en el icono de modificar para la 
-        referencia <i>almacenPrincipal</i> en <i>Transportista</i>, se ejecutará la acción <i>Transportista.modificarAlmacen</i> 
+        referencia <i>level</i> en <i>Artist</i>, se ejecutará la acción <i>Artist.modifyLevel</i> 
         en lugar de la de por defecto. Esto solo afecta a esta referencia concreta; 
-        otras referencias a <i>Almacen</i> en la aplicación usarán el comportamiento estándar.</div>
+        otras referencias a <i>ActingLevel</i> en la aplicación usarán el comportamiento estándar.</div>
+      <div class="wiki" style="display: block;">Necesitas definir la acción en <i>controllers.xml</i>:</div>
+      <pre><code class="language-xml">&lt;controller name="Artist"&gt;
+    &lt;extends controller="Typical"/&gt;
+    &lt;action name="modifyLevel" hidden="true"
+        icon="border-color"
+        class="org.openxava.test.actions.ModifyLevelFromArtistAction"/&gt;
+&lt;/controller&gt;
+</code></pre>
+      <div class="wiki" style="display: block;">Y la clase de la acción:</div>
+      <pre><code class="language-java">package org.openxava.test.actions;
+
+import org.openxava.actions.*;
+
+public class ModifyLevelFromArtistAction extends ModifyFromReferenceAction {
+	
+    @Override
+    public void execute() throws Exception {
+        super.execute();
+        String description = getView().getValueString("description").trim();
+        getView().setValue("description", description + " (MODIFIED)");
+    }
+	
+}
+</code></pre>
+      <div class="wiki" style="display: block;">Fíjate que la acción extiende <i>ModifyFromReferenceAction</i>, 
+        que se encarga de abrir el diálogo y cargar los datos actuales. Solo necesitas añadir tu lógica propia.</div>
     </div>
     <div class="wiki" style="display: block;">
       <h3 id="toc21"><a name="Vista-Personalizacion+de+referencia-Lista+descripciones+(combos)"></a>Lista

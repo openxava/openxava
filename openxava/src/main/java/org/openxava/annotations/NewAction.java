@@ -6,7 +6,8 @@ import java.lang.annotation.*;
  * Allows you to define your custom action to start
  * creating a new element for a collection or reference. <p>
  * 
- * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references. <p>
+ * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references.<br>
+ * Support for references since v7.7. <p>
  * 
  * This is the action executed on click in 'New' link.<br>
  * Example for collection:

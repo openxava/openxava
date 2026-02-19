@@ -5,7 +5,8 @@ import java.lang.annotation.*;
 /**
  * Allows you to define your custom action to view/edit a collection element or reference. <p> 
  * 
- * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references.<p>
+ * Applies to @OneToMany/@ManyToMany collections and @ManyToOne/@OneToOne references.<br>
+ * Support for references since v7.7.<p>
  * 
  * For collections, this is the action showed in each row, if the collection is read only.<br>
  * For references, this is the action executed on click in the 'Edit' link.<br>
