@@ -1771,7 +1771,18 @@ public class View implements java.io.Serializable {
 				CollectionWithConditionInViewFilter filter = new CollectionWithConditionInViewFilter(); 
 				filter.setView(getParent());
 				filter.setConditionArgumentsPropertyNames(metaCollection.getConditionArgumentsPropertyNames());
-				collectionTab.setFilter(filter);
+				if (metaCollection.hasFilter()) {
+					try {
+						CompositeFilter compositeFilter = new CompositeFilter(metaCollection.getMetaFilter().getFilter(), filter);
+						collectionTab.setFilter(compositeFilter);
+					}
+					catch (Exception ex) {
+						throw new XavaException(ex.getMessage(), ex);
+					}
+				}
+				else {
+					collectionTab.setFilter(filter);
+				}
 			}
 			else {
 				collectionTab.setBaseCondition(createBaseConditionForCollectionTab());

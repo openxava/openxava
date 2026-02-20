@@ -1345,6 +1345,11 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(Condition.class)) {
 			Condition condition = element.getAnnotation(Condition.class);
 			collection.setCondition(condition.value());
+			if (!condition.filter().equals(VoidFilter.class)) {
+				MetaFilter metaFilter = new MetaFilter();
+				metaFilter.setClassName(condition.filter().getName());
+				collection.setMetaFilter(metaFilter);
+			}
 		}
 		
 		if (element.isAnnotationPresent(XOrderBy.class)) {

@@ -2,6 +2,8 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
+import org.openxava.filters.VoidFilter;
+
 /**
  * Restricts the elements that appear in the collection. <p>
  * 
@@ -28,4 +30,12 @@ import java.lang.annotation.*;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface Condition {
 	String value();
+	
+	/**
+	 * Allows to define programmatically some logic to apply to the values
+	 * entered by user when he filters the collection data.
+	 * 
+	 * @since 7.7
+	 */
+	Class filter() default VoidFilter.class;
 }

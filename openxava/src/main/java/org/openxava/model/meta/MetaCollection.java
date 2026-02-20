@@ -3,6 +3,7 @@ package org.openxava.model.meta;
 import java.rmi.*;
 import java.util.*;
 
+import org.openxava.filters.meta.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 
@@ -26,6 +27,7 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 	private boolean orphanRemoval; 
 	private boolean elementCollection;
 	private boolean sortable;   
+	private MetaFilter metaFilter;   
 	
 	private MetaReference metaReference;
 	private Collection metaCalculatorsPostRemove;
@@ -367,6 +369,18 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 
 	public void setSortable(boolean ordenable) {
 		this.sortable = ordenable;
+	}
+
+	public MetaFilter getMetaFilter() {
+		return metaFilter;
+	}
+
+	public void setMetaFilter(MetaFilter metaFilter) {
+		this.metaFilter = metaFilter;
+	}
+
+	public boolean hasFilter() {
+		return metaFilter != null;
 	}
 
 }
