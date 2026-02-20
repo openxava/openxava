@@ -21,7 +21,13 @@ import org.openxava.filters.VoidFilter;
  * If you have this collection within Carrier, you can obtain with this collection 
  * all carriers of the same warehouse but not himself, that is the list of his 
  * fellow workers. As you see you can use this in the condition in order to 
- * reference the value of a property of current object.
+ * reference the value of a property of current object.<p>
+ * 
+ * Since v7.7 you can use a filter to provide values for the condition arguments:
+ * <pre>
+ * &nbsp;@Condition(value="${year} = ?", filter=ActiveYearFilter.class)
+ * &nbsp;private Collection&lt;Invoice&gt; activeInvoices;
+ * </pre>
  * 
  * @author Javier Paniza
  */
