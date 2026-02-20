@@ -1931,7 +1931,7 @@ public void setCollectionName(Collection&lt;YourEntity&gt; newValue) { ... } // 
         <li><strong>@Condition</strong> (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Condition.html"
 
             rel="nofollow">OX</a>, optional): Restricts the elements that appear
-          in the collection. Doesn't work with <i>@ManyToMany</i>. <em>(New in v7.7)</em> You can use a <em>filter</em> attribute to apply an <a class="wiki_link" href="tab_en.html#Tabular%20data-Filters%20and%20base%20condition">IFilter</a> just like in <em>@Tab</em>.</li>
+          in the collection. Doesn't work with <i>@ManyToMany</i>. <em>(New in v7.7)</em> You can use a <em>filter</em> attribute to apply an <a class="wiki_link" href="tab_en.html#Tabular%20data-Filters%20and%20base%20condition"><em>IFilter</em></a> just like in <em>@Tab</em>.</li>
         <li><strong>@OrderBy</strong> (<a class="wiki_link_ext" href="http://docs.oracle.com/javaee/7/api/javax/persistence/OrderBy.html"
 
             rel="nofollow">JPA</a>, optional): The elements in collections will
@@ -2038,7 +2038,7 @@ public Collection&lt;Carrier&gt; getFellowCarriers() {
       it will return null. The condition is absolute, meaning that if you set <i>@Condition("1
         = 1")</i>, it would display all the carriers in the database.<br>
       <br>
-      <em>(New in v7.7)</em> You can apply an <em>IFilter</em> to the condition, just like in <a class="wiki_link" href="tab_en.html#Tabular%20data-Filters%20and%20base%20condition">@Tab</a>. For example:<br>
+      <em>(New in v7.7)</em> You can apply an <em>IFilter</em> to the condition, just like in <a class="wiki_link" href="tab_en.html#Tabular%20data-Filters%20and%20base%20condition"><em>@Tab</em></a>. For example:<br>
       <pre><code class="language-java">@Condition(value="${year} = ${this.year} OR ${year} = ?", filter=ActiveYearFilter.class)
 private Collection&lt;Invoice&gt; invoices;
 </code></pre>

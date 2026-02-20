@@ -1965,7 +1965,7 @@ public void setNombreColeccion(Collection&lt;TuEntidad&gt; nuevoValor) { ... } /
         <li><strong>@Condition</strong> (<a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Condition.html"
 
             rel="nofollow">OX</a>, opcional): Para restringir los elementos que
-          aparecen en la colección. No funciona en relaciones <i>@ManyToMany</i>. <em>(Nuevo en v7.7)</em> Se puede usar un atributo <em>filter</em> para aplicar un <a class="wiki_link" href="tab_es.html#Datos%20tabulares-Filtros%20y%20condici%C3%B3n%20base">IFilter</a> igual que en <em>@Tab</em>.</li>
+          aparecen en la colección. No funciona en relaciones <i>@ManyToMany</i>. <em>(Nuevo en v7.7)</em> Se puede usar un atributo <em>filter</em> para aplicar un <a class="wiki_link" href="tab_es.html#Datos+tabulares-Filtros+y+condicion+base"><em>IFilter</em></a> igual que en <em>@Tab</em>.</li>
         <li><strong>@OrderBy</strong> (<a class="wiki_link_ext" href="http://docs.oracle.com/javaee/7/api/javax/persistence/OrderBy.html"
 
             rel="nofollow">JPA</a>, opcional): Para que los elementos de la
@@ -2068,9 +2068,9 @@ public Collection&lt;Transportista&gt; getCompañeros() {
       retornará nulo. La condición es absoluta, es decir si ponemos <i>@Condition("1
         = 1")</i> mostraría todos los transportista en la base de datos.<br>
       <br>
-      <em>(Nuevo en v7.7)</em> Se puede aplicar un <em>IFilter</em> a la condición, igual que en <a class="wiki_link" href="tab_es.html#Datos%20tabulares-Filtros%20y%20condici%C3%B3n%20base">@Tab</a>. Por ejemplo:<br>
-      <pre><code class="language-java">@Condition(value="${year} = ${this.year} OR ${year} = ?", filter=ActiveYearFilter.class)
-private Collection&lt;Invoice&gt; invoices;
+      <em>(Nuevo en v7.7)</em> Se puede aplicar un <em>IFilter</em> a la condición, igual que en <a class="wiki_link" href="tab_es.html#Datos+tabulares-Filtros+y+condicion+base"><em>@Tab</em></a>. Por ejemplo:<br>
+      <pre><code class="language-java">@Condition(value="${anyo} = ${this.anyo} OR ${anyo} = ?", filter=AnyoActivoFilter.class)
+private Collection&lt;Factura&gt; facturasActivas;
 </code></pre>
       En este caso, la colección muestra facturas donde el año coincide con el año del objeto actual o el año activo de la sesión (proporcionado por el filtro). La clase del filtro ha de implementar <em>IFilter</em>.</div>
     <div class="wiki" style="display: block;">
