@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- IFilter can be applied to collections using the new filter attribute in @Condition.
 - @NewAction and @EditAction now work for references too.
 - Actions invoked via executeAction() from a view now recognize the view previously set with setView().
 - New @NewView annotation to choose the view used when creating new objects from references and collections.

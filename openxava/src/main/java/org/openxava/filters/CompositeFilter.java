@@ -1,5 +1,7 @@
 package org.openxava.filters;
 
+import javax.servlet.http.*;
+
 import lombok.*;
 
 /**
@@ -14,7 +16,7 @@ import lombok.*;
 
 
 @Getter @Setter
-public class CompositeFilter implements IFilter{
+public class CompositeFilter implements IFilter, IRequestFilter{
 	
 	IFilter oldFilter;
 	IFilter newFilter;
@@ -40,4 +42,14 @@ public class CompositeFilter implements IFilter{
         System.arraycopy(arr2, 0, sum, length1, length2);
         return sum;
     }
+
+	@Override
+	public void setRequest(HttpServletRequest request) {
+		if (oldFilter instanceof IRequestFilter) {
+			((IRequestFilter) oldFilter).setRequest(request);
+		}
+		if (newFilter instanceof IRequestFilter) {
+			((IRequestFilter) newFilter).setRequest(request);
+		}
+	}
 }

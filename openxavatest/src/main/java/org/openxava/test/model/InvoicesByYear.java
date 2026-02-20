@@ -11,13 +11,14 @@ import org.openxava.jpa.*;
 import org.openxava.test.actions.*;
 
 import lombok.*;
+import org.openxava.test.filters.ActiveYearFilter;
 
 /**
  *  
  * @author Javier Paniza
  */
 @Getter @Setter
-@View(members="year; invoices { invoices } ") 
+@View(members="year; invoices { invoices }, otherInvoices { activeInvoices; activeInvoicesPlusYear } ")
 @View(name="ForDialog", members="year; invoices") 
 public class InvoicesByYear { 
 	
@@ -29,6 +30,14 @@ public class InvoicesByYear {
 	@NoDefaultActions(forViews="ForDialog") // So the collection is narrow with no data, to test a dialog resize case
 	@ListProperties(forViews="ForDialog", value="year, number, date, total, comment")
 	Collection<Invoice> invoices;
+
+	@Condition(value="${year} = ?", filter= ActiveYearFilter.class)
+	@ListProperties("year, number, date, total")
+	Collection<Invoice> activeInvoices;
+
+	@Condition(value="${year} = ${this.year} or ${year} = ?", filter= ActiveYearFilter.class)
+	@ListProperties("year, number, date, total")
+	Collection<Invoice> activeInvoicesPlusYear;
 	
 	public BigDecimal getTotalSum() {
 		Query query = XPersistence.getManager().createQuery("from Invoice i where i.year = :year");
