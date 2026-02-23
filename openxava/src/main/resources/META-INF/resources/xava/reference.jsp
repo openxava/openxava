@@ -149,6 +149,20 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 			condition = metaTab.getBaseCondition() + " AND " + condition;
 		}
 	}	
+	org.openxava.web.meta.MetaEditor descriptionsListEditor = org.openxava.web.meta.MetaWebEditors.getEditorForDescriptionsLists();
+	if (descriptionsListEditor != null) {
+		String editorURL = "editors/" + descriptionsListEditor.getUrl() + "?propertyKey=" + propertyKey + "&editable=" + editable + "&model=" + ref.getReferencedModelName() + "&keyProperty=" + keyProperty + "&keyProperties=" + keyProperties + "&descriptionProperty=" + descriptionProperty + "&descriptionProperties=" + descriptionProperties + "&parameterValuesProperties=" + parameterValuesProperties + "&condition=" + condition + "&orderByKey=" + orderByKey + "&order=" + order + "&filter=" + filter;
+		java.util.Map editorProperties = descriptionsListEditor.getProperties();
+		if (editorProperties != null) {
+			for (java.util.Iterator it = editorProperties.keySet().iterator(); it.hasNext(); ) {
+				String propName = (String) it.next();
+				editorURL += "&" + propName + "=" + (String) editorProperties.get(propName);
+			}
+		}
+%>
+	<jsp:include page="<%=editorURL%>" />
+<%
+	} else {
 %>
 	<jsp:include page="editors/descriptionsEditor.jsp">
 		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
@@ -163,7 +177,10 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 		<jsp:param name="orderByKey" value="<%=orderByKey%>"/>
 		<jsp:param name="order" value="<%=order%>"/>
 		<jsp:param name="filter" value="<%=filter%>"/>
-	</jsp:include>	
+	</jsp:include>
+<%
+	}
+%>	
 	<%
 	if (descriptionsListAndReferenceView) { 
 	%>

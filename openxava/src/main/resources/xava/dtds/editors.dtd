@@ -72,6 +72,8 @@
 
 <!ELEMENT for-element-collections EMPTY>
 
+<!ELEMENT for-descriptions-lists EMPTY>
+
 <!ELEMENT for-collection EMPTY>
 <!ATTLIST for-collection
  model CDATA #REQUIRED

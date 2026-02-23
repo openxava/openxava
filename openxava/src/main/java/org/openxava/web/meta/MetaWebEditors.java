@@ -36,6 +36,7 @@ public class MetaWebEditors {
 	private static MetaEditor editorForReferences;
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
+	private static MetaEditor editorForDescriptionsLists;
 	private static Collection<MetaEditor> editorsForTabs;
 	private static Map<String, MetaEditor> editorsByMember;  
 	private static int modelCodeVersion = Hotswap.getModelVersion();
@@ -409,6 +410,14 @@ public class MetaWebEditors {
 	public static void addMetaEditorForElementCollections(MetaEditor editor) {   
 		editorForElementCollections = editor; 		
 	}	
+	
+	public static void addMetaEditorForDescriptionsLists(MetaEditor editor) {   
+		editorForDescriptionsLists = editor; 		
+	}
+	
+	public static MetaEditor getEditorForDescriptionsLists() {
+		return editorForDescriptionsLists;
+	}
 	
 	public static void addMetaEditorForTabs(MetaEditor editor) {   
 		if (editorsForTabs == null) {

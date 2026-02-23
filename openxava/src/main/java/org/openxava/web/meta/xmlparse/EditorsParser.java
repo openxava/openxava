@@ -82,6 +82,7 @@ public class EditorsParser extends ParserBase {
 		addEditorsForReferenceModel(editor, el);
 		addEditorsForCollections(editor, el);
 		addEditorsForElementCollections(editor, el);
+		addEditorsForDescriptionsLists(editor, el);
 		addEditorsForCollectionModel(editor, el);
 		addEditorsForTabs(editor, el); 
 		addEditorsForTabModel(editor, el);
@@ -262,6 +263,13 @@ public class EditorsParser extends ParserBase {
 			MetaWebEditors.addMetaEditorForElementCollections(editor);
 		}		
 	}	
+	
+	private void addEditorsForDescriptionsLists(MetaEditor editor, Element n) throws XavaException {  		
+		NodeList l = n.getElementsByTagName(xfor_descriptions_lists[lang]);
+		if (l.getLength() > 0) { 
+			MetaWebEditors.addMetaEditorForDescriptionsLists(editor);
+		}		
+	}
 	
 	private void addEditorsForTabs(MetaEditor editor, Element n) throws XavaException {   		
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);

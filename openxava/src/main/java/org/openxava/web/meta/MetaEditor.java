@@ -82,6 +82,11 @@ public class MetaEditor implements Cloneable {
 		return properties == null?null:(String) properties.get(name);
 	}
 	
+	/** @since 7.7 */
+	public Map getProperties() {
+		return properties;
+	}
+	
 	/** @since 6.6 */
 	public MetaEditor cloneMetaEditor()  { 
 		try {
