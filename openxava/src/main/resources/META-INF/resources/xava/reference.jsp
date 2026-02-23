@@ -150,38 +150,12 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 		}
 	}	
 	org.openxava.web.meta.MetaEditor descriptionsListEditor = org.openxava.web.meta.MetaWebEditors.getEditorForDescriptionsLists();
-	if (descriptionsListEditor != null) {
-		String editorURL = "editors/" + descriptionsListEditor.getUrl() + "?propertyKey=" + propertyKey + "&editable=" + editable + "&model=" + ref.getReferencedModelName() + "&keyProperty=" + keyProperty + "&keyProperties=" + keyProperties + "&descriptionProperty=" + descriptionProperty + "&descriptionProperties=" + descriptionProperties + "&parameterValuesProperties=" + parameterValuesProperties + "&condition=" + condition + "&orderByKey=" + orderByKey + "&order=" + order + "&filter=" + filter;
-		java.util.Map editorProperties = descriptionsListEditor.getProperties();
-		if (editorProperties != null) {
-			for (java.util.Iterator it = editorProperties.keySet().iterator(); it.hasNext(); ) {
-				String propName = (String) it.next();
-				editorURL += "&" + propName + "=" + (String) editorProperties.get(propName);
-			}
-		}
+	String editorURL = "editors/" + descriptionsListEditor.getUrl();
+	String paramSeparator = editorURL.contains("?") ? "&" : "?";
+	editorURL += paramSeparator + "propertyKey=" + (propertyKey == null ? "" : propertyKey) + "&editable=" + editable + "&model=" + (ref.getReferencedModelName() == null ? "" : ref.getReferencedModelName()) + "&keyProperty=" + (keyProperty == null ? "" : keyProperty) + "&keyProperties=" + (keyProperties == null ? "" : keyProperties) + "&descriptionProperty=" + (descriptionProperty == null ? "" : descriptionProperty) + "&descriptionProperties=" + (descriptionProperties == null ? "" : descriptionProperties) + "&parameterValuesProperties=" + (parameterValuesProperties == null ? "" : parameterValuesProperties) + "&condition=" + (condition == null ? "" : condition) + "&orderByKey=" + orderByKey + "&order=" + (order == null ? "" : order) + "&filter=" + (filter == null ? "" : filter);
 %>
 	<jsp:include page="<%=editorURL%>" />
 <%
-	} else {
-%>
-	<jsp:include page="editors/descriptionsEditor.jsp">
-		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
-		<jsp:param name="editable" value="<%=editable%>"/>
-		<jsp:param name="model" value="<%=ref.getReferencedModelName()%>"/>
-		<jsp:param name="keyProperty" value="<%=keyProperty%>"/>
-		<jsp:param name="keyProperties" value="<%=keyProperties%>"/>
-		<jsp:param name="descriptionProperty" value="<%=descriptionProperty%>"/>
-		<jsp:param name="descriptionProperties" value="<%=descriptionProperties%>"/>
-		<jsp:param name="parameterValuesProperties" value="<%=parameterValuesProperties%>"/>
-		<jsp:param name="condition" value="<%=condition%>"/>
-		<jsp:param name="orderByKey" value="<%=orderByKey%>"/>
-		<jsp:param name="order" value="<%=order%>"/>
-		<jsp:param name="filter" value="<%=filter%>"/>
-	</jsp:include>
-<%
-	}
-%>	
-	<%
 	if (descriptionsListAndReferenceView) { 
 	%>
 		<%@ include file="referenceActions.jsp"%>
@@ -191,12 +165,12 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	</span>
 	
 	<% 
-	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
+	String referenceEditorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
 		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=false";
 	%>
-	<jsp:include page="<%=editorURL%>" />	
+	<jsp:include page="<%=referenceEditorURL%>" />	
 	<% 
 	} 
 	%>
