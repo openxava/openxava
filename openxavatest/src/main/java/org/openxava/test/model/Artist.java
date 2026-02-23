@@ -34,7 +34,8 @@ public class Artist extends Identifiable {
 	@Max(90l)
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	private Integer age;
-	
+
+	@Editor("TruncateDescriptionsList")  // TMR ME QUEDÉ POR AQUÍ. PARA IMPLEMENTAR ESTO
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@ReadOnly(forViews="SomeMembersReadOnly")

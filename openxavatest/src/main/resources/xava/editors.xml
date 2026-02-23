@@ -239,10 +239,13 @@
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
 
-	<!-- TMR ME QUEDÉ POR AQUÍ, ACABÓ DE FUNCIONAR -->
+	<!-- -->
 	<editor name="TruncateDescriptionsList" url="descriptionsEditor.jsp">
 		<property name="descriptionsFormatter" value="org.openxava.test.formatters.TruncateDescriptionsFormatter"/>
+		<!--
 		<for-descriptions-lists/>
+		-->
 	</editor>
+
 		
 </editors>
