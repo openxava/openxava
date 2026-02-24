@@ -149,7 +149,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 			condition = metaTab.getBaseCondition() + " AND " + condition;
 		}
 	}	
-	org.openxava.web.meta.MetaEditor descriptionsListEditor = org.openxava.web.meta.MetaWebEditors.getEditorForDescriptionsLists();
+	org.openxava.web.meta.MetaEditor descriptionsListEditor = WebEditors.getMetaEditorForDescriptionsList(ref, view.getViewName());
 	String editorURL = "editors/" + descriptionsListEditor.getUrl();
 	String paramSeparator = editorURL.contains("?") ? "&" : "?";
 	editorURL += paramSeparator + "propertyKey=" + (propertyKey == null ? "" : propertyKey) + "&editable=" + editable + "&model=" + (ref.getReferencedModelName() == null ? "" : ref.getReferencedModelName()) + "&keyProperty=" + (keyProperty == null ? "" : keyProperty) + "&keyProperties=" + (keyProperties == null ? "" : keyProperties) + "&descriptionProperty=" + (descriptionProperty == null ? "" : descriptionProperty) + "&descriptionProperties=" + (descriptionProperties == null ? "" : descriptionProperties) + "&parameterValuesProperties=" + (parameterValuesProperties == null ? "" : parameterValuesProperties) + "&condition=" + (condition == null ? "" : condition) + "&orderByKey=" + orderByKey + "&order=" + (order == null ? "" : order) + "&filter=" + (filter == null ? "" : filter);

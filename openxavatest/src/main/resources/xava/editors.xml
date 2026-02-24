@@ -242,9 +242,7 @@
 	<!-- -->
 	<editor name="TruncateDescriptionsList" url="descriptionsEditor.jsp">
 		<property name="descriptionsFormatter" value="org.openxava.test.formatters.TruncateDescriptionsFormatter"/>
-		<!--
 		<for-descriptions-lists/>
-		-->
 	</editor>
 
 		

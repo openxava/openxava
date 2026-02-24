@@ -394,5 +394,29 @@ public class WebEditors {
 	private static String refineURLParam(String condition) {
 		return condition.replace("%", "%25");
 	}
+	
+	/**
+	 * @since 7.7
+	 */
+	public static MetaEditor getMetaEditorForDescriptionsList(MetaReference ref, String viewName) throws XavaException {
+		if (ref.getMetaModel() != null) {
+			try {				
+				MetaView metaView = ref.getMetaModel().getMetaView(viewName);				
+				String editorName = metaView.getEditorFor(ref);
+				if (!Is.emptyString(editorName)) {
+					MetaEditor metaEditor = MetaWebEditors.getMetaEditorByName(editorName);
+					if (metaEditor != null) {
+						return metaEditor;
+					}
+					else {
+						log.warn(XavaResources.getString("editor_by_name_for_property_not_found", editorName, ref.getName()));
+					}
+				}
+			}
+			catch (ElementNotFoundException ex) {
+			}
+		}
+		return MetaWebEditors.getEditorForDescriptionsLists();
+	}
 
 }
