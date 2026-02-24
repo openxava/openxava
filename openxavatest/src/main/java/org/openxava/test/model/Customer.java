@@ -333,6 +333,7 @@ public class Customer implements IWithName {
 	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceViewNoKey", value="SimpleNoNumber")
 	@ReferenceView(forViews="SellerInSection", value="CompleteWithCustomersWithSellerInSection") 
 	@Action(forViews="SellerAsDescriptionsListShowingReferenceView", value="Customer.hideSeller")
+	//@Editor("TruncateDescriptionsList") // tmr
 	@DescriptionsList(
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
