@@ -450,7 +450,6 @@ public class View implements java.io.Serializable {
 
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager();
-		System.out.println("[View.getMetaModuleForModel] moduleManager=" + moduleManager); // tmr
 		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
 		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager().getApplicationName());
 		String modelName = getModelName();

@@ -53,6 +53,7 @@ public class ChatEndpoint {
 		try {
 			log.info("Received message: " + rawMessage);
 			Users.setCurrent(httpSession);
+			org.openxava.controller.ModuleManager.resetPersistence(httpSession); // To set the organization schema in multitenancy
 			
 			if (Is.emptyString(rawMessage)) {
 				session.getBasicRemote().sendText("Error: Message is required");

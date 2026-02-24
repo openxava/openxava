@@ -1077,6 +1077,15 @@ public class ModuleManager implements java.io.Serializable {
 	 * Init JPA in order to process the current request.
 	 */
 	public void resetPersistence() { 
+		resetPersistence(this.session);
+	}
+
+	/**
+	 * Init JPA in order to process the current request.
+	 * Static version that accepts the session as parameter.
+	 * @since 7.7
+	 */
+	public static void resetPersistence(HttpSession session) { 
 		org.openxava.jpa.XPersistence.reset();
 		if (reseter != null) {
 			try {
