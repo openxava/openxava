@@ -154,7 +154,12 @@ public class Modules implements Serializable {
 	
 	public boolean showsSearchModules(HttpServletRequest request) { 
 		return ModulesHelper.showsSearchModules(request); 
-	}	
+	}
+	
+	/** @since 7.7 */
+	public boolean isAIChatAvailable() {
+		return ModulesHelper.isAIChatAvailable();
+	}
 
 	public String getCurrent(HttpServletRequest request) { 
 		try {
