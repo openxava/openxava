@@ -12,13 +12,13 @@ public class WorkComplaintTest extends ModuleTestBase {
 		super(testName, "WorkComplaint");		
 	}
 	
-	public void testDescriptionsListWithSameNameInDialog() throws Exception {
+	public void testDescriptionsListWithSameNameInDialog_editorForDescriptionsList() throws Exception {
 		String referenceName = "type.id"; // Same for both, to test a bug
 		
 		String [][] complaintTypes = {
 			{ "", "" },
 			{ "40288118682cb68a01682cb843a20001", "INCOMPLETE" },
-			{ "40288118682cb68a01682cb7caf50000", "LOW QUALITY" },
+			{ "40288118682cb68a01682cb7caf50000", "LOW QUALIT..." }, // ... because of @Editor for @DescriptionsList
 			{ "40288118682cb68a01682cb86aae0002", "MISSING" }
 		};		
 		assertValidValues(referenceName, complaintTypes);
