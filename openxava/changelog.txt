@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- editors.xml allows define a custom editor for @DescriptionsList at application level.
+TMR ME QUEDÉ POR AQUÍ: FALTA QUE FUNCIONE ListTest Y ACABAR EL CHANGELOG
+
+
 - IFilter can be applied to collections using the new filter attribute in @Condition.
 - @NewAction and @EditAction now work for references too.
 - Actions invoked via executeAction() from a view now recognize the view previously set with setView().
