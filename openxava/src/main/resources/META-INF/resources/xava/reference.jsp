@@ -149,6 +149,7 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 			condition = metaTab.getBaseCondition() + " AND " + condition;
 		}
 	}	
+	condition = WebEditors.refineURLParam(condition); // Codificar caracteres especiales para URL
 	org.openxava.web.meta.MetaEditor descriptionsListEditor = WebEditors.getMetaEditorForDescriptionsList(ref, view.getViewName());
 	String editorURL = "editors/" + descriptionsListEditor.getUrl();
 	String paramSeparator = editorURL.contains("?") ? "&" : "?";

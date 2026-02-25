@@ -391,7 +391,10 @@ public class WebEditors {
 		return metaFilter == null?"":metaFilter.getClassName();
 	}
 
-	private static String refineURLParam(String condition) {
+	/**
+	 * @since 7.7
+	 */
+	public static String refineURLParam(String condition) {
 		return condition.replace("%", "%25");
 	}
 	
