@@ -238,5 +238,12 @@
 		<property name="suffix" value="one_not_deletable"/>
 		<for-model-property model="UserWithNickname" property="name" />
 	</editor>
-		
+
+	<editor name="TruncateDescriptionsList" url="descriptionsEditor.jsp">
+		<property name="descriptionsFormatter" value="org.openxava.test.formatters.TruncateDescriptionsFormatter"/>
+		<!-- Uncomment to apply the editor to all @DescriptionsList in the application
+		<for-descriptions-lists/>
+		-->
+	</editor>
+
 </editors>

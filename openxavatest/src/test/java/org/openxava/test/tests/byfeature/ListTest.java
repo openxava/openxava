@@ -25,7 +25,7 @@ public class ListTest extends WebDriverTestBase {
 	@Test
 	public void testListAndCollection() throws Exception {
 		resetPreferences();
-		
+
 		goModule("Author");
 		assertShowHideFilterInList();
 		assertMoveColumns();
@@ -592,7 +592,7 @@ public class ListTest extends WebDriverTestBase {
 		assertNoErrors();
 		assertListColumnCount(5);		
 		execute("Print.generatePdf"); 
-		assertContentTypeForPopup("application/pdf");
+		assertPDFInPopup();
 	}
 	
 	private void doTestRestoreColumns_addRemoveTabColumnsDynamically() throws Exception {
@@ -742,15 +742,24 @@ public class ListTest extends WebDriverTestBase {
 		String bareAction = Ids.undecorate(action);
 		return bareAction.substring(ACTION_PREFIX.length() + 1);
 	}
-	
-	private void assertContentTypeForPopup(String expectedContentType) {
+
+	private void assertPDFInPopup() {
 		for (String windowHandle : getDriver().getWindowHandles()) {
 			getDriver().switchTo().window(windowHandle);
         }
+
+		String pageSource = getDriver().getPageSource();
+		
+		// If page source indicates Chrome's built-in PDF viewer, verification passes
+		if (pageSource.contains("pdf_embedder.css")) {
+			return;
+		}
+		
+		// Otherwise, verify using embed element
 		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(4000));
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
-		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type"); // This works for PDF with Chrome
-		assertEquals(expectedContentType, contentType);
+		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type");
+		assertEquals("application/pdf", contentType);
 	}
 	
 	private boolean hasClockIcon() {

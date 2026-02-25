@@ -31,6 +31,8 @@
             values editors</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-Editors%20for%20references%20%28new%20in%20v3.1.3%29">Editors
             for references (new in v3.1.3)</a></div>
+        <div style="margin-left: 3em;"><a href="#Customizing-Editors-Editors%20for%20@DescriptionsList%20%28new%20in%20v7.7%29">Editors
+            for @DescriptionsList (new in v7.7)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-Editors%20for%20collections%20%28new%20in%20v3.1.3%29">Editors
             for collections (new in v3.1.3)</a></div>
         <div style="margin-left: 3em;"><a href="#Customizing-Editors-Editors%20for%20tabs%20%28list%20mode%29%20%28new%20in%20v4.6%29">Editors
@@ -568,7 +570,67 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       now all the references in your application will be displayed using your <em>myReferenceEditor.jsp</em>.
       This is a simple way to customize the behaviour of the OpenXava UI
       generator.<br>
-      <h3 id="toc5"><a name="Customizing-Editors-Editors for collections (new in v3.1.3)"></a>Editors
+      <h3 id="toc5"><a name="Customizing-Editors-Editors for @DescriptionsList (new in v7.7)"></a>Editors
+        for @DescriptionsList <em>(new in v7.7)</em></h3>
+      You can customize the editor used for references with <em>@DescriptionsList</em>.
+      The <em>&lt;for-descriptions-lists/&gt;</em> element allows you to define a custom editor
+      for all <em>@DescriptionsList</em> in your application. You can put this in the <em>editors.xml</em>
+      of your project to customize the editor globally. You can create your own JSP and JavaScript
+      from scratch, but you can also use the original <em>descriptionsEditor.jsp</em> sending it
+      a property, like <em>descriptionsFormatter</em>. This is a simple way to define your own
+      formatter (<em>IFormatter</em>) for the values displayed in the combo. Here is an example:<br>
+      <pre><code class="language-xml">&lt;editor name="TruncateDescriptionsList" url="descriptionsEditor.jsp"&gt;
+    &lt;property name="descriptionsFormatter" value="org.openxava.test.formatters.TruncateDescriptionsFormatter"/&gt;
+    &lt;for-descriptions-lists/&gt;
+&lt;/editor&gt;</code></pre>
+      The formatter class must implement <em>IFormatter</em>. Here is an example that truncates
+      descriptions to 10 characters:<br>
+      <pre><code class="language-java">package org.openxava.test.formatters;
+
+import javax.servlet.http.*;
+import org.openxava.formatters.*;
+
+public class TruncateDescriptionsFormatter implements IFormatter {
+
+    private static final int MAX_LENGTH = 10;
+
+    @Override
+    public String format(HttpServletRequest request, Object object) throws Exception {
+        if (object == null) return "";
+        String value = object.toString();
+        if (value.length() &gt; MAX_LENGTH) {
+            return value.substring(0, MAX_LENGTH) + "...";
+        }
+        return value;
+    }
+
+    @Override
+    public Object parse(HttpServletRequest request, String string) throws Exception {
+        return string;
+    }
+}</code></pre>
+      With the above configuration, the change applies globally to all <em>@DescriptionsList</em>
+      in the application.<br>
+      <br>
+      You can also specify an editor for a particular <em>@DescriptionsList</em> by combining
+      <em>@DescriptionsList</em> and <em>@Editor</em> annotations on the same reference:<br>
+      <pre><code class="language-java">@Editor("TruncateDescriptionsList")
+@DescriptionsList
+@Required
+@ManyToOne(fetch=FetchType.LAZY)
+private WorkComplaintType type;</code></pre>
+      In this case, only this specific reference will use the <em>TruncateDescriptionsList</em> editor.<br>
+      <br>
+      When using <em>@DescriptionsList</em> with <em>showReferenceView=true</em>:<br>
+      <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
+@Editor("TruncateDescriptionsList")
+@DescriptionsList(showReferenceView=true)
+private Seller seller;</code></pre>
+      The editor applies only to the <em>@DescriptionsList</em> part (the combo), while the
+      detail view part is not affected. Note that in versions prior to 7.7, <em>@Editor</em>
+      changed everything. If you want to change everything, just remove the <em>@DescriptionsList</em>
+      annotation.<br>
+      <h3 id="toc6"><a name="Customizing-Editors-Editors for collections (new in v3.1.3)"></a>Editors
         for collections <em>(new in v3.1.3)</em></h3>
       By default collections are displayed with a tabular data list, but you can
       create your own editor for collections. For example, you can write this in

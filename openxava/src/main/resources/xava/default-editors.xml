@@ -58,6 +58,10 @@
 	<editor name="ElementCollection" url="elementCollectionEditor.jsp">
 		<for-element-collections/>
 	</editor>
+
+	<editor name="DescriptionsList" url="descriptionsEditor.jsp">
+		<for-descriptions-lists/>
+	</editor>
 	
 	<editor name="CollectionChart" url="collectionChartEditor.jsp">
 	    <for-annotation annotation="org.openxava.annotations.Chart"/>

@@ -129,7 +129,7 @@ else {
 <input type="hidden" name="<%=editableKey%>" value="<%=editable%>"/>
 
 <%
-if (descriptionsList || descriptionsListAndReferenceView) { 	
+if (descriptionsList || descriptionsListAndReferenceView) {
 	String descriptionProperty = view.getDescriptionPropertyInDescriptionsList(ref);
 	String descriptionProperties = view.getDescriptionPropertiesInDescriptionsList(ref);
 	String parameterValuesProperties=view.getParameterValuesPropertiesInDescriptionsList(ref);
@@ -149,22 +149,14 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 			condition = metaTab.getBaseCondition() + " AND " + condition;
 		}
 	}	
+	condition = WebEditors.refineURLParam(condition); // Codificar caracteres especiales para URL
+	org.openxava.web.meta.MetaEditor descriptionsListEditor = WebEditors.getMetaEditorForDescriptionsList(ref, view.getViewName());
+	String editorURL = "editors/" + descriptionsListEditor.getUrl();
+	String paramSeparator = editorURL.contains("?") ? "&" : "?";
+	editorURL += paramSeparator + "propertyKey=" + (propertyKey == null ? "" : propertyKey) + "&editable=" + editable + "&model=" + (ref.getReferencedModelName() == null ? "" : ref.getReferencedModelName()) + "&keyProperty=" + (keyProperty == null ? "" : keyProperty) + "&keyProperties=" + (keyProperties == null ? "" : keyProperties) + "&descriptionProperty=" + (descriptionProperty == null ? "" : descriptionProperty) + "&descriptionProperties=" + (descriptionProperties == null ? "" : descriptionProperties) + "&parameterValuesProperties=" + (parameterValuesProperties == null ? "" : parameterValuesProperties) + "&condition=" + (condition == null ? "" : condition) + "&orderByKey=" + orderByKey + "&order=" + (order == null ? "" : order) + "&filter=" + (filter == null ? "" : filter);
 %>
-	<jsp:include page="editors/descriptionsEditor.jsp">
-		<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
-		<jsp:param name="editable" value="<%=editable%>"/>
-		<jsp:param name="model" value="<%=ref.getReferencedModelName()%>"/>
-		<jsp:param name="keyProperty" value="<%=keyProperty%>"/>
-		<jsp:param name="keyProperties" value="<%=keyProperties%>"/>
-		<jsp:param name="descriptionProperty" value="<%=descriptionProperty%>"/>
-		<jsp:param name="descriptionProperties" value="<%=descriptionProperties%>"/>
-		<jsp:param name="parameterValuesProperties" value="<%=parameterValuesProperties%>"/>
-		<jsp:param name="condition" value="<%=condition%>"/>
-		<jsp:param name="orderByKey" value="<%=orderByKey%>"/>
-		<jsp:param name="order" value="<%=order%>"/>
-		<jsp:param name="filter" value="<%=filter%>"/>
-	</jsp:include>	
-	<%
+	<jsp:include page="<%=editorURL%>" />
+<%
 	if (descriptionsListAndReferenceView) { 
 	%>
 		<%@ include file="referenceActions.jsp"%>
@@ -173,13 +165,14 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	%>
 	</span>
 	
-	<% 
-	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
+	<%
+	String referenceEditorURL = "editors/" + org.openxava.web.meta.MetaWebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
 		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=false";
+
 	%>
-	<jsp:include page="<%=editorURL%>" />	
+	<jsp:include page="<%=referenceEditorURL%>" />	
 	<% 
 	} 
 	%>
