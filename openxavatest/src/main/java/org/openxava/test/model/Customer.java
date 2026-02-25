@@ -333,12 +333,13 @@ public class Customer implements IWithName {
 	@ReferenceView(forViews="SellerAsDescriptionsListShowingReferenceViewNoKey", value="SimpleNoNumber")
 	@ReferenceView(forViews="SellerInSection", value="CompleteWithCustomersWithSellerInSection") 
 	@Action(forViews="SellerAsDescriptionsListShowingReferenceView", value="Customer.hideSeller")
-	//@Editor("TruncateDescriptionsList") // tmr
-	@DescriptionsList(
+	@Editor(forViews="SellerAsDescriptionsListShowingReferenceView", value="TruncateDescriptionsList") // tmr
+	@DescriptionsList // tmr
+	/* tmr @DescriptionsList(
 		forViews="SellerAsDescriptionsListShowingReferenceView, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoKey, "
 				+ "SellerAsDescriptionsListShowingReferenceViewNoFrameInSection", 
-		showReferenceView=true) 
+		showReferenceView=true)*/
 	private Seller seller; 
 	
 	@Transient @ManyToOne(fetch=FetchType.LAZY)

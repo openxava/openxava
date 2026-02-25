@@ -450,8 +450,7 @@ public class View implements java.io.Serializable {
 
 	private MetaModule getMetaModuleForModel() { 
 		ModuleManager moduleManager = getModuleManager();
-		System.out.println("[View.getMetaModuleForModel] moduleManager=" + moduleManager); // tmr
-		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule(); 
+		if (getRoot() == this && moduleManager.getDialogLevel() == 0) return moduleManager.getMetaModule();
 		MetaApplication app = MetaApplications.getMetaApplication(getModuleManager().getApplicationName());
 		String modelName = getModelName();
 		if (modelName.contains(".")) modelName = Strings.lastToken(modelName, ".");
@@ -5159,7 +5158,8 @@ public class View implements java.io.Serializable {
 		}				
 	}
 	
-	public boolean displayReferenceWithNoFrameEditor(MetaReference ref) { 
+	public boolean displayReferenceWithNoFrameEditor(MetaReference ref) {
+		if (displayAsDescriptionsListAndReferenceView(ref)) return false;
 		if (displayAsDescriptionsList(ref)) return true;
 		try {
 			return !WebEditors.getMetaEditorFor(ref, getViewName()).isFrame(); 
@@ -5191,7 +5191,8 @@ public class View implements java.io.Serializable {
 	}	
 
 	
-	public boolean displayReferenceWithNotCompositeEditor(MetaReference ref) { 
+	public boolean displayReferenceWithNotCompositeEditor(MetaReference ref) {
+		if (displayAsDescriptionsListAndReferenceView(ref)) return false;
 		if (displayAsDescriptionsList(ref)) return true;
 		try {
 			return !WebEditors.getMetaEditorFor(ref, getViewName()).isComposite(); 

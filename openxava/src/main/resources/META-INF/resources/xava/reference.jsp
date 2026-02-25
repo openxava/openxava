@@ -28,10 +28,7 @@ String refViewObject = request.getParameter("refViewObject");
 if (Is.emptyString(refViewObject)) refViewObject = viewObject; 
 String labelKey = "xava_label_" + referenceKey;
 if (!descriptionsList) descriptionsList = view.displayAsDescriptionsList(ref);
-// TMR ME QUEDÉ POR AQUÍ. LOS TMR ES LO QUE CAMBIA DE LO QUE FUNCIONABA PARA CASOS NORMALES
-// TMR   COMO ESTÁ AHORA DA UN BUCLE INFINITO SI NO SE PONE @Editor
-// tmr boolean descriptionsListAndReferenceView = descriptionsList || !composite?false:view.displayAsDescriptionsListAndReferenceView(ref);
-boolean descriptionsListAndReferenceView = descriptionsList || view.displayAsDescriptionsListAndReferenceView(ref);
+boolean descriptionsListAndReferenceView = descriptionsList || !composite?false:view.displayAsDescriptionsListAndReferenceView(ref);
 if (descriptionsListAndReferenceView) {
 	composite = false;
 }
@@ -132,10 +129,7 @@ else {
 <input type="hidden" name="<%=editableKey%>" value="<%=editable%>"/>
 
 <%
-System.out.println("[reference.jsp] descriptionsList=" + descriptionsList); // tmr
-System.out.println("[reference.jsp] descriptionsListAndReferenceView=" + descriptionsListAndReferenceView); // tmr
 if (descriptionsList || descriptionsListAndReferenceView) {
-    System.out.println("[reference.jsp] A"); // tmr
 	String descriptionProperty = view.getDescriptionPropertyInDescriptionsList(ref);
 	String descriptionProperties = view.getDescriptionPropertiesInDescriptionsList(ref);
 	String parameterValuesProperties=view.getParameterValuesPropertiesInDescriptionsList(ref);
@@ -171,13 +165,10 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 	</span>
 	
 	<%
-	System.out.println("[reference.jsp] WebEditors.getMetaEditorFor=" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()); // tmr
-	System.out.println("[reference.jsp] MetaWebEditors.getMetaEditorFor=" + org.openxava.web.meta.MetaWebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()); // tmr
-	String referenceEditorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
+	String referenceEditorURL = "editors/" + org.openxava.web.meta.MetaWebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
 		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
 		+ "&editable=false";
-	System.out.println("[reference.jsp] referenceEditorURL=" + referenceEditorURL); // tmr
 
 	%>
 	<jsp:include page="<%=referenceEditorURL%>" />	
@@ -187,7 +178,6 @@ if (descriptionsList || descriptionsListAndReferenceView) {
 <%
 }
 else {
-    System.out.println("[reference.jsp] B"); // tmr
 	String editorURL = "editors/" + WebEditors.getMetaEditorFor(ref, view.getViewName()).getUrl()
 		+ "?propertyKey=" + propertyKey 
 		+ "&viewObject=" + refViewObject 
