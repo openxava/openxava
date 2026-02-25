@@ -594,7 +594,7 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       <h3 id="toc5"><a name="Personalizacion-Editores-Editores+para+@DescriptionsList+(nuevo+en+v7.7)"></a>Editores
         para @DescriptionsList <em>(nuevo en v7.7)</em></h3>
       Podemos personalizar el editor usado para las referencias con <em>@DescriptionsList</em>.
-      El elemento <em>&lt;for-descriptions-lists/&gt;</em> permite definir un editor personalizado
+      El elemento <em>&lt;para-listas-descripciones/&gt;</em> permite definir un editor personalizado
       para todos los <em>@DescriptionsList</em> de la aplicación. Podemos poner esto en el <em>editores.xml</em>
       de nuestro proyecto para personalizar el editor globalmente. Podemos crear nuestro propio JSP y JavaScript
       desde cero, pero también podemos usar el original <em>descriptionsEditor.jsp</em> enviándole
@@ -602,7 +602,7 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       formateador (<em>IFormatter</em>) para los valores que se muestran en el combo. Aquí hay un ejemplo:<br>
       <pre><code class="language-xml">&lt;editor nombre="TruncateDescriptionsList" url="descriptionsEditor.jsp"&gt;
     &lt;propiedad nombre="descriptionsFormatter" valor="org.openxava.test.formatters.TruncateDescriptionsFormatter"/&gt;
-    &lt;for-descriptions-lists/&gt;
+    &lt;para-listas-descripciones/&gt;
 &lt;/editor&gt;</code></pre>
       La clase formateadora debe implementar <em>IFormatter</em>. Aquí hay un ejemplo que trunca
       las descripciones a 10 caracteres:<br>
