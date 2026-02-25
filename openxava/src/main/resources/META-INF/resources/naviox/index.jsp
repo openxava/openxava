@@ -17,6 +17,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@ page import="org.openxava.web.servlets.Servlets"%>
 <%@ page import="org.openxava.util.Locales"%>
 <%@ page import="org.openxava.util.XavaPreferences"%>
+<%@ page import="org.openxava.util.Users"%>
 <%@ page import="org.openxava.web.style.XavaStyle"%>
 <%@ page import="org.openxava.web.style.Themes"%> 
 <%@ page import="org.apache.commons.logging.LogFactory" %> 
@@ -67,7 +68,7 @@ manager.registerAction("SessionLocker.lock");
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
-	<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+	<% if (XavaPreferences.getInstance().isChatAvailable() && Users.getCurrent() != null) { %>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/chat/chat.css?ox=<%=oxVersion%>">
 	<% } %>
 	<script type='text/javascript' <xava:nonce/>> 
@@ -102,7 +103,7 @@ manager.registerAction("SessionLocker.lock");
 			<% } %>
 		</div>
 		
-		<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+		<% if (XavaPreferences.getInstance().isChatAvailable() && Users.getCurrent() != null) { %>
 		<jsp:include page="../chat/chat.jsp"/>
 		<% } %>
 		
@@ -111,7 +112,7 @@ manager.registerAction("SessionLocker.lock");
 	<%@include file="indexExt.jsp"%>
 
 	<script type='text/javascript' src='<%=request.getContextPath()%>/naviox/js/naviox.js?ox=<%=oxVersion%>'></script> 
-	<% if (XavaPreferences.getInstance().isChatAvailable()) { %>
+	<% if (XavaPreferences.getInstance().isChatAvailable() && Users.getCurrent() != null) { %>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/chat/chat.js?ox=<%=oxVersion%>'></script>
 	<% } %> 
 	
