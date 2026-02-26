@@ -77,8 +77,8 @@ public class ModulesHelper {
 	}
 	
 	/** @since 7.7 */
-	public static boolean isAIChatAvailable() {
-		return getProvider().isAIChatAvailable();
+	public static boolean isChatAvailable() {
+		return getProvider().isChatAvailable();
 	}
 	
 	private static IModulesHelperProvider getProvider() {

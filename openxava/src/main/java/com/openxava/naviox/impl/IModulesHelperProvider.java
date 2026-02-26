@@ -50,7 +50,7 @@ public interface IModulesHelperProvider {
 	}
 
 	/** @since 7.7 */
-	default boolean isAIChatAvailable() {
+	default boolean isChatAvailable() {
 		return true;
 	}
 

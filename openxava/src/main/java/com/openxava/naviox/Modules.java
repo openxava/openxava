@@ -157,8 +157,8 @@ public class Modules implements Serializable {
 	}
 	
 	/** @since 7.7 */
-	public boolean isAIChatAvailable() {
-		return ModulesHelper.isAIChatAvailable();
+	public boolean isChatAvailable() {
+		return ModulesHelper.isChatAvailable();
 	}
 
 	public String getCurrent(HttpServletRequest request) { 
