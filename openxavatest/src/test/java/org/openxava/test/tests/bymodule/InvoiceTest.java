@@ -2594,6 +2594,45 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	@Test
+	public void testSetPropertyStyle() throws Exception {
+		// TMR ME QUEDÉ POR AQUÍ: EL TEST NO LO HE PROBADO, PERO LA REALIDAD NO FUNCIONA
+		execute("List.viewDetail", "row=0");
+		
+		// Before action, no style wrappers
+		assertNoStyleForProperty("date");
+		assertNoStyleForProperty("customerDiscount");
+		
+		execute("Invoice.setPropertyStyle");
+		
+		// Properties in the main body
+		assertStyleForProperty("date", "ox-color-red");
+		assertStyleForProperty("customerDiscount", "ox-color-blue");
+		
+		// Properties in the customer section
+		execute("Sections.change", "activeSection=0");
+		assertStyleForProperty("customer___name", "ox-color-green");
+		assertStyleForProperty("customer___address___street", "ox-color-orange");
+	}
+	
+	private void assertStyleForProperty(String property, String expectedStyle) {
+		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
+		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
+		HtmlElement parent = (HtmlElement) editor.getParentNode();
+		String parentClass = parent.getAttribute("class");
+		assertTrue("Style '" + expectedStyle + "' expected for property " + property + " but class is '" + parentClass + "'", 
+			parentClass.contains(expectedStyle));
+	}
+	
+	private void assertNoStyleForProperty(String property) {
+		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
+		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
+		HtmlElement parent = (HtmlElement) editor.getParentNode();
+		String parentClass = parent.getAttribute("class");
+		assertFalse("No style expected for property " + property + " but class is '" + parentClass + "'", 
+			parentClass.contains("ox-color-"));
+	}
+	
+	@Test
 	public void testBooleanComboHiddenAfterClearCondition() throws Exception{
 		HtmlSelect select = getHtmlPage().getElementByName("ox_openxavatest_Invoice__conditionComparator___3"); 
 		String s = select.getAttribute("style");
