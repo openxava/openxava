@@ -49,4 +49,9 @@ public interface IModulesHelperProvider {
 		return false;
 	}
 
+	/** @since 7.7 */
+	default boolean isChatAvailable() {
+		return true;
+	}
+
 }

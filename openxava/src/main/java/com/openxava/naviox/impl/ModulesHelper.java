@@ -76,6 +76,11 @@ public class ModulesHelper {
 		return getProvider().isExcludedFromVisitedModules(moduleName);
 	}
 	
+	/** @since 7.7 */
+	public static boolean isChatAvailable() {
+		return getProvider().isChatAvailable();
+	}
+	
 	private static IModulesHelperProvider getProvider() {
 		if (provider == null) {
 			try {
