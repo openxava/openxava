@@ -34,7 +34,7 @@ public class Artist extends Identifiable {
 	@Max(90l)
 	@ReadOnly(forViews="SomeMembersReadOnly")
 	private Integer age;
-	
+
 	@DescriptionsList(descriptionProperties = "id, description")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@ReadOnly(forViews="SomeMembersReadOnly")

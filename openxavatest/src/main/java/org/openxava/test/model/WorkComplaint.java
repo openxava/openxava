@@ -18,8 +18,9 @@ public class WorkComplaint extends Identifiable {
 	@Required
 	@ManyToOne(fetch=FetchType.LAZY)
 	private WorkOrder order;
-	
-	
+
+
+	@Editor("TruncateDescriptionsList")
 	@DescriptionsList
 	@Required
 	@ManyToOne(fetch=FetchType.LAZY)

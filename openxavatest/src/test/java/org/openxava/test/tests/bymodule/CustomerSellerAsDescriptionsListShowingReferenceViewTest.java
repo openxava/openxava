@@ -59,7 +59,7 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		execute("List.viewDetail", "row=1");
 		assertValue("name", "Juanillo");
 		assertValue("seller.name", "MANUEL CHAVARRI");
-		assertValue("seller.number__CONTROL__", "MANUEL CHAVARRI");
+		assertValue("seller.number__CONTROL__", "MANUEL CHA..."); // With ... so @Editor works for @DescriptionsList(showReferenceView=true)
 		
 		execute("Navigation.next");
 		assertValue("name", "Carmelo");
@@ -74,7 +74,7 @@ public class CustomerSellerAsDescriptionsListShowingReferenceViewTest extends Mo
 		execute("Navigation.next");
 		assertValue("name", "Gonzalo Gonzalez");
 		assertValue("seller.name", "JUANVI LLAVADOR");
-		assertValue("seller.number__CONTROL__", "JUANVI LLAVADOR");		
+		assertValue("seller.number__CONTROL__", "JUANVI LLA...");
 	}
 		
 }
