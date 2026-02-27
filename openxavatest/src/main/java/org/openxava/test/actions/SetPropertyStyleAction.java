@@ -8,10 +8,10 @@ import org.openxava.actions.*;
 public class SetPropertyStyleAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		getView().setStyle("date", "ox-color-red");
-		getView().setStyle("customerDiscount", "ox-color-blue");
-		getView().setStyle("customer.name", "ox-color-green");
-		getView().setStyle("customer.address.street", "ox-color-orange");
+		getView().setStyle("date", "red");
+		getView().setStyle("customerDiscount", "blue");
+		getView().setStyle("customer.name", "green");
+		getView().setStyle("customer.address.street", "orange");
 	}
 
 }

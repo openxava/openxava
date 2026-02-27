@@ -61,11 +61,11 @@ String required = view.isEditable() && p.isRequired() ? style.getRequiredEditor(
 String transientClass = p.isTransient() ? "xava_transient" : "";
 String propertyStyle = view.getStyle(p.getName());
 %>
-<% if (!Is.empty(propertyStyle)) { %><span class="<%=propertyStyle%>"><% } %>
 <span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + p.getName()%>'/>" class="xava_editor <%=required%> <%=transientClass%>" <%=placeholder%>>
+<% if (!Is.empty(propertyStyle)) { %><span class="<%=propertyStyle%>"><% } %>
 <xava:editor property="<%=p.getName()%>" editable="<%=editable%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
-</span>
 <% if (!Is.empty(propertyStyle)) { %></span><% } %>
+</span>
 
 <% if (!(lastSearchKey && view.displayWithFrame())) { %> 
 	<span id="<xava:id name='<%="property_actions_" + view.getPropertyPrefix() + p.getName()%>'/>">

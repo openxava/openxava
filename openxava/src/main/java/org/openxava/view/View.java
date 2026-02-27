@@ -7507,6 +7507,20 @@ public class View implements java.io.Serializable {
 			if (formattedProperties == null) formattedProperties = new HashSet();
 			formattedProperties.add(propertyName);
 		}
+		
+		if (hasGroups()) {
+			Iterator it = getGroupsViews().values().iterator();
+			while (it.hasNext()) {
+				View v = (View) it.next();
+				v.setStyle(propertyName, style);
+			}
+		}
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				getSectionView(i).setStyle(propertyName, style);
+			}	
+		}
 	}
 	
 	/**
@@ -7538,6 +7552,20 @@ public class View implements java.io.Serializable {
 			if (formattedProperties == null) formattedProperties = new HashSet();
 			formattedProperties.addAll(propertyStyles.keySet());
 			propertyStyles.clear();
+		}
+		
+		if (hasGroups()) {
+			Iterator it = getGroupsViews().values().iterator();
+			while (it.hasNext()) {
+				View v = (View) it.next();
+				v.clearStyles();
+			}
+		}
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				getSectionView(i).clearStyles();
+			}	
 		}
 	}
 	

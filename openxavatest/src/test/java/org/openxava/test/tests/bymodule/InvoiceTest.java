@@ -2595,7 +2595,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	@Test
 	public void testSetPropertyStyle() throws Exception {
-		// TMR ME QUEDÉ POR AQUÍ: EL TEST NO LO HE PROBADO, PERO LA REALIDAD NO FUNCIONA
 		execute("List.viewDetail", "row=0");
 		
 		// Before action, no style wrappers
@@ -2603,33 +2602,48 @@ public class InvoiceTest extends CustomizeListTestBase {
 		assertNoStyleForProperty("customerDiscount");
 		
 		execute("Invoice.setPropertyStyle");
+
+		// Properties in the main body (AJAX refresh)
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
 		
-		// Properties in the main body
-		assertStyleForProperty("date", "ox-color-red");
-		assertStyleForProperty("customerDiscount", "ox-color-blue");
+		// Properties in the customer section (AJAX refresh)
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
 		
-		// Properties in the customer section
-		execute("Sections.change", "activeSection=0");
-		assertStyleForProperty("customer___name", "ox-color-green");
-		assertStyleForProperty("customer___address___street", "ox-color-orange");
+		// Reload page and check styles persist (full page refresh)
+		reload();
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
+
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
 	}
 	
 	private void assertStyleForProperty(String property, String expectedStyle) {
 		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
 		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
-		HtmlElement parent = (HtmlElement) editor.getParentNode();
-		String parentClass = parent.getAttribute("class");
-		assertTrue("Style '" + expectedStyle + "' expected for property " + property + " but class is '" + parentClass + "'", 
-			parentClass.contains(expectedStyle));
+		boolean found = false;
+		for (HtmlElement child : editor.getElementsByTagName("span")) {
+			String childClass = child.getAttribute("class");
+			if (childClass != null && childClass.contains(expectedStyle)) {
+				found = true;
+				break;
+			}
+		}
+		assertTrue("Style '" + expectedStyle + "' expected for property " + property + " inside editor, but not found. Editor HTML: " + editor.asXml(), found);
 	}
 	
 	private void assertNoStyleForProperty(String property) {
 		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
 		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
-		HtmlElement parent = (HtmlElement) editor.getParentNode();
-		String parentClass = parent.getAttribute("class");
-		assertFalse("No style expected for property " + property + " but class is '" + parentClass + "'", 
-			parentClass.contains("ox-color-"));
+		for (HtmlElement child : editor.getElementsByTagName("span")) {
+			String childClass = child.getAttribute("class");
+			if (childClass != null) {
+				assertFalse("No style expected for property " + property + " but class is '" + childClass + "'", 
+					childClass.contains("red") || childClass.contains("blue") || childClass.contains("green") || childClass.contains("orange"));
+			}
+		}
 	}
 	
 	@Test

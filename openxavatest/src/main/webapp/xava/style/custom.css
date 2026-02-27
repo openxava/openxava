@@ -8,3 +8,19 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.red input[type="text"], .red .xava_numeric, .red textarea {
+	color: red !important;
+}
+
+.blue input[type="text"], .blue .xava_numeric, .blue textarea {
+	color: blue !important;
+}
+
+.green input[type="text"], .green .xava_numeric, .green textarea {
+	color: green !important;
+}
+
+.orange input[type="text"], .orange .xava_numeric, .orange textarea {
+	color: orange !important;
+}

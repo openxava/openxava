@@ -799,7 +799,7 @@ public class AJAXTest extends ModuleTestBase {
 				"messages, ");
 	}
 	
-	public void testDetailCollection() throws Exception { 
+	public void testDetailCollection_viewSetStyle() throws Exception {
 		changeModule("Invoice");
 		execute("List.viewDetail", "row=0"); 
 		execute("Sections.change", "activeSection=1");
@@ -831,7 +831,18 @@ public class AJAXTest extends ModuleTestBase {
 				"editor_product.unitPrice, " +
 				"editor_product.unitPriceInPesetas, " +
 				"editor_product.description, " +
-				"messages");		
+				"messages");
+				
+		closeDialog();
+		execute("Invoice.setPropertyStyle");
+		assertLoadedParts("errors, " +
+				"editor_date, " +
+				"editor_customerDiscount, " +
+				/* Not because we're in section 1 and the next fields are in secton 0
+				"editor_customer.name, " +
+				"editor_customer.address.street, " +
+				 */
+				"messages");
 	}	
 	
 	public void testEditorsWithErrorForPropertiesAndDescriptionsLists() throws Exception {  
