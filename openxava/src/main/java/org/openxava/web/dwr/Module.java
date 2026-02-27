@@ -100,7 +100,6 @@ public class Module extends DWRBase {
 			result.setUrlParam(getUrlParam());
 			result.setViewSimple(getView().isSimple());
 			result.setDataChanged(getView().isDataChanged());
-			System.out.println("[Module.request] ChangedParts.keys=" + result.getChangedParts().keySet()); // tmr
 			return result;
 		}
 		catch (SecurityException ex) {

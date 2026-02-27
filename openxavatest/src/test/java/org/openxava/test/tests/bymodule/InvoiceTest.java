@@ -923,11 +923,33 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	@Test
-	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
+	public void testi18nOfLabelOfAConcreteView_alwaysEnabledActions_setPropertyStyle() throws Exception {
 		execute("CRUD.new"); 
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");
+		
+		// Before action, no style wrappers
+		assertNoStyleForProperty("date");
+		assertNoStyleForProperty("customerDiscount");
+		
+		execute("Invoice.setPropertyStyle");
+		
+		// Properties in the main body (AJAX refresh)
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
+		
+		// Properties in the customer section (AJAX refresh)
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
+		
+		// Reload page and check styles persist (full page refresh)
+		reload();
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
+
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
 	}
 	
 	@Test
@@ -2591,33 +2613,6 @@ public class InvoiceTest extends CustomizeListTestBase {
 		if (!calendar.isDisplayed()) return false;
 		String html = parent.asXml();
 		return html.contains("mdi-calendar") && html.contains("xava_date");
-	}
-	
-	@Test
-	public void testSetPropertyStyle() throws Exception {
-		execute("List.viewDetail", "row=0");
-		
-		// Before action, no style wrappers
-		assertNoStyleForProperty("date");
-		assertNoStyleForProperty("customerDiscount");
-		
-		execute("Invoice.setPropertyStyle");
-
-		// Properties in the main body (AJAX refresh)
-		assertStyleForProperty("date", "red");
-		assertStyleForProperty("customerDiscount", "blue");
-		
-		// Properties in the customer section (AJAX refresh)
-		assertStyleForProperty("customer___name", "green");
-		assertStyleForProperty("customer___address___street", "orange");
-		
-		// Reload page and check styles persist (full page refresh)
-		reload();
-		assertStyleForProperty("date", "red");
-		assertStyleForProperty("customerDiscount", "blue");
-
-		assertStyleForProperty("customer___name", "green");
-		assertStyleForProperty("customer___address___street", "orange");
 	}
 	
 	private void assertStyleForProperty(String property, String expectedStyle) {
