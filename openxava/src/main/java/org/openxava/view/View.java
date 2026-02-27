@@ -7498,8 +7498,14 @@ public class View implements java.io.Serializable {
 		if (idx >= 0) {
 			String subviewName = propertyName.substring(0, idx);
 			String member = propertyName.substring(idx + 1);
-			getSubview(subviewName).setStyle(member, style);
-			return;
+			try {
+				if (hasSubview(subviewName)) {
+					getSubview(subviewName).setStyle(member, style);
+					return;
+				}
+			} catch (XavaException ex) {
+				// Continue processing property as local
+			}
 		}
 		if (propertyStyles == null) propertyStyles = new HashMap<>();
 		String old = propertyStyles.put(propertyName, style);
@@ -7536,7 +7542,13 @@ public class View implements java.io.Serializable {
 		if (idx >= 0) {
 			String subviewName = propertyName.substring(0, idx);
 			String member = propertyName.substring(idx + 1);
-			return getSubview(subviewName).getStyle(member);
+			try {
+				if (hasSubview(subviewName)) {
+					return getSubview(subviewName).getStyle(member);
+				}
+			} catch (XavaException ex) {
+				// Continue processing property as local
+			}
 		}
 		if (propertyStyles == null) return null;
 		return propertyStyles.get(propertyName);
