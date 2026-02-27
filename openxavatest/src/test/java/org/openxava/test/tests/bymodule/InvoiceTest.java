@@ -923,11 +923,33 @@ public class InvoiceTest extends CustomizeListTestBase {
 	}
 	
 	@Test
-	public void testI18nOfLabelOfAConcreteView_alwaysEnabledActions() throws Exception {
+	public void testi18nOfLabelOfAConcreteView_alwaysEnabledActions_setPropertyStyle() throws Exception {
 		execute("CRUD.new"); 
 		assertLabel("customer.number", "Little code");
 		assertAction("Customer.changeNameLabel");
 		assertAction("Customer.prefixStreet");
+		
+		// Before action, no style wrappers
+		assertNoStyleForProperty("date");
+		assertNoStyleForProperty("customerDiscount");
+		
+		execute("Invoice.setPropertyStyle");
+		
+		// Properties in the main body (AJAX refresh)
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
+		
+		// Properties in the customer section (AJAX refresh)
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
+		
+		// Reload page and check styles persist (full page refresh)
+		reload();
+		assertStyleForProperty("date", "red");
+		assertStyleForProperty("customerDiscount", "blue");
+
+		assertStyleForProperty("customer___name", "green");
+		assertStyleForProperty("customer___address___street", "orange");
 	}
 	
 	@Test
@@ -2045,7 +2067,8 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Invoice.hideCustomer",
 			"Invoice.showCustomer",
 			"Invoice.hideAmounts",
-			"Invoice.showAmounts"  			
+			"Invoice.showAmounts",
+			"Invoice.setPropertyStyle"
 		};		
 		assertActions(initialActions); 
 				
@@ -2092,6 +2115,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 			"Invoice.showCustomer",
 			"Invoice.hideAmounts",
 			"Invoice.showAmounts",
+			"Invoice.setPropertyStyle",
 			"CollectionOpenInNewTab.openInNewTab"
 		};		
 		assertActions(aggregateListActions); 
@@ -2591,6 +2615,32 @@ public class InvoiceTest extends CustomizeListTestBase {
 		if (!calendar.isDisplayed()) return false;
 		String html = parent.asXml();
 		return html.contains("mdi-calendar") && html.contains("xava_date");
+	}
+	
+	private void assertStyleForProperty(String property, String expectedStyle) {
+		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
+		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
+		boolean found = false;
+		for (HtmlElement child : editor.getElementsByTagName("span")) {
+			String childClass = child.getAttribute("class");
+			if (childClass != null && childClass.contains(expectedStyle)) {
+				found = true;
+				break;
+			}
+		}
+		assertTrue("Style '" + expectedStyle + "' expected for property " + property + " inside editor, but not found. Editor HTML: " + editor.asXml(), found);
+	}
+	
+	private void assertNoStyleForProperty(String property) {
+		String editorId = Ids.decorate("openxavatest", "Invoice", "editor_" + property);
+		HtmlElement editor = getHtmlPage().getHtmlElementById(editorId);
+		for (HtmlElement child : editor.getElementsByTagName("span")) {
+			String childClass = child.getAttribute("class");
+			if (childClass != null) {
+				assertFalse("No style expected for property " + property + " but class is '" + childClass + "'", 
+					childClass.contains("red") || childClass.contains("blue") || childClass.contains("green") || childClass.contains("orange"));
+			}
+		}
 	}
 	
 	@Test

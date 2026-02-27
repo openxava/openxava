@@ -59,9 +59,12 @@ if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 String placeholder = !Is.empty(p.getPlaceholder()) ? "data-placeholder='" + p.getPlaceholder() + "'" : "";
 String required = view.isEditable() && p.isRequired() ? style.getRequiredEditor():"";
 String transientClass = p.isTransient() ? "xava_transient" : "";
+String propertyStyle = view.getStyle(p.getName());
 %>
 <span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + p.getName()%>'/>" class="xava_editor <%=required%> <%=transientClass%>" <%=placeholder%>>
+<% if (!Is.empty(propertyStyle)) { %><span class="<%=propertyStyle%>"><% } %>
 <xava:editor property="<%=p.getName()%>" editable="<%=editable%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
+<% if (!Is.empty(propertyStyle)) { %></span><% } %>
 </span>
 
 <% if (!(lastSearchKey && view.displayWithFrame())) { %> 
