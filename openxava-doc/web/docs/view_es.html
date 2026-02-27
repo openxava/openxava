@@ -53,6 +53,8 @@
             dinámicos (nuevo en v5.8)</a></div>
         <div style="margin-left: 3em;"><a href="#formato-grande-visualizacion">Formato
             grande de visualización (nuevo en v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#establecer-estilo-para-propiedad-programaticamente">Establecer
+            estilo para propiedad programáticamente (nuevo en v7.7)</a></div>
         <div style="margin-left: 2em;"><a href="#Vista-Personalizacion+de+referencia">Personalización
             de referencia</a></div>
         <div style="margin-left: 3em;"><a href="#Vista-Personalizacion+de+referencia-Escoger+vista">Escoger
@@ -928,6 +930,21 @@ BigDecimal porcentajeIVA;
       El código CSS lo puedes incluir en <i>custom.css</i> o en tu propio
       estilo como se explica en la <a href="custom-style_es.html">documentación
         sobre el estilo visual personalizado</a>.<br>
+      <h3><a name="establecer-estilo-para-propiedad-programaticamente"></a>Establecer estilo para propiedad programáticamente <em>(nuevo en
+          v7.7)</em></h3>
+      <div class="wiki" style="display: block;">Puedes establecer una clase CSS a una propiedad programáticamente usando el método <i>setStyle()</i> de <i>View</i>. Esto es útil cuando quieres cambiar la apariencia visual de una propiedad dinámicamente basándote en alguna condición o acción.</div>
+      <div class="wiki" style="display: block;">Primero, define tu clase CSS en <i>custom.css</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-css">.red input[type="text"], .red .xava_numeric, .red textarea {
+    color: red !important;
+}</code></pre> </div>
+      <div class="wiki" style="display: block;">Luego, aplica el estilo desde tu acción:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-java">getView().setStyle("date", "red");</code></pre> </div>
+      <div class="wiki" style="display: block;">Esto aplicará la clase CSS <i>red</i> a la propiedad <i>date</i>, haciendo que su texto aparezca en rojo. También puedes usar nombres de propiedad cualificados para propiedades dentro de referencias, como <i>"customer.name"</i> o <i>"customer.address.street"</i>.</div>
+      <div class="wiki" style="display: block;">Para quitar el estilo, simplemente llama a <i>setStyle()</i> con <i>null</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-java">getView().setStyle("date", null);</code></pre> </div>
       <h2><a name="Vista-Personalizacion+de+referencia"></a>Personalización de
         referencia</h2>
       Podemos refinar la forma de visualización y comportamiento de una
