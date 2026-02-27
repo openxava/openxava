@@ -748,6 +748,14 @@ public class ListTest extends WebDriverTestBase {
 			getDriver().switchTo().window(windowHandle);
         }
 
+		// Wait dynamically for PDF content to be available
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(4));
+		wait.until(driver -> {
+			String pageSource = driver.getPageSource();
+			return pageSource.contains("pdf_embedder.css") || 
+				   !driver.findElements(By.tagName("embed")).isEmpty();
+		});
+		
 		String pageSource = getDriver().getPageSource();
 		
 		// If page source indicates Chrome's built-in PDF viewer, verification passes
@@ -756,8 +764,6 @@ public class ListTest extends WebDriverTestBase {
 		}
 		
 		// Otherwise, verify using embed element
-		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofMillis(4000));
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("embed")));
 		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type");
 		assertEquals("application/pdf", contentType);
 	}

@@ -199,6 +199,7 @@ public class View implements java.io.Serializable {
 	private int collectionSize = -1;
 	private boolean dataChanged;  
 	private boolean labelsChanged;
+	private Map<String, String> propertyStyles;
 	
 	public static void setRefiner(Object newRefiner) {
 		refiner = newRefiner;
@@ -7481,4 +7482,103 @@ public class View implements java.io.Serializable {
 	private boolean isElementCollectionWithReferenceWithoutKey() {
 		return elementCollectionWithReferenceWithoutKey;
 	}
+
+	/**
+	 * Set the CSS style class for the specified property. <p>
+	 * 
+	 * The style is the name of a CSS class that will wrap the editor of the property.<br>
+	 * 
+	 * @param propertyName  Can be qualified, for example "address.street".
+	 * @param style  A string with the CSS class name. Can be null to remove the style.
+	 * @since 7.7
+	 */
+	public void setStyle(String propertyName, String style) {
+		if (propertyName == null) return;
+		int idx = propertyName.indexOf('.');
+		if (idx >= 0) {
+			String subviewName = propertyName.substring(0, idx);
+			String member = propertyName.substring(idx + 1);
+			try {
+				if (hasSubview(subviewName)) {
+					getSubview(subviewName).setStyle(member, style);
+					return;
+				}
+			} catch (XavaException ex) {
+				// Continue processing property as local
+			}
+		}
+		if (propertyStyles == null) propertyStyles = new HashMap<>();
+		String old = propertyStyles.put(propertyName, style);
+		if (!Is.equal(old, style)) {
+			if (formattedProperties == null) formattedProperties = new HashSet();
+			formattedProperties.add(propertyName);
+		}
+		
+		if (hasGroups()) {
+			Iterator it = getGroupsViews().values().iterator();
+			while (it.hasNext()) {
+				View v = (View) it.next();
+				v.setStyle(propertyName, style);
+			}
+		}
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				getSectionView(i).setStyle(propertyName, style);
+			}	
+		}
+	}
+	
+	/**
+	 * The CSS style class for the specified property. <p>
+	 * 
+	 * @param propertyName  Can be qualified, for example "address.street".
+	 * @return The CSS class name, or null if no style has been set.
+	 * @since 7.7
+	 */
+	public String getStyle(String propertyName) {
+		if (propertyName == null) return null;
+		int idx = propertyName.indexOf('.');
+		if (idx >= 0) {
+			String subviewName = propertyName.substring(0, idx);
+			String member = propertyName.substring(idx + 1);
+			try {
+				if (hasSubview(subviewName)) {
+					return getSubview(subviewName).getStyle(member);
+				}
+			} catch (XavaException ex) {
+				// Continue processing property as local
+			}
+		}
+		if (propertyStyles == null) return null;
+		return propertyStyles.get(propertyName);
+	}
+	
+	/**
+	 * Remove all CSS styles set with {@link #setStyle(String, String)}. <p>
+	 * 
+	 * @since 7.7
+	 */
+	public void clearStyles() {
+		if (propertyStyles != null) {
+			if (formattedProperties == null) formattedProperties = new HashSet();
+			formattedProperties.addAll(propertyStyles.keySet());
+			propertyStyles.clear();
+		}
+		
+		if (hasGroups()) {
+			Iterator it = getGroupsViews().values().iterator();
+			while (it.hasNext()) {
+				View v = (View) it.next();
+				v.clearStyles();
+			}
+		}
+		if (hasSections()) {
+			int count = getSections().size();
+			for (int i = 0; i < count; i++) {
+				getSectionView(i).clearStyles();
+			}	
+		}
+	}
+	
 }

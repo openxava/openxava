@@ -53,6 +53,8 @@
             combos (new in v5.8)</a></div>
         <div style="margin-left: 3em;"><a href="#large-display-format">Large
             display format (new in v7.4)</a></div>
+        <div style="margin-left: 3em;"><a href="#set-style-for-property-programmatically">Set
+            style for property programmatically (new in v7.7)</a></div>
         <div style="margin-left: 2em;"><a href="#View-Reference%20customization">Reference
             customization</a></div>
         <div style="margin-left: 3em;"><a href="#View-Reference%20customization-Choose%20view">Choose
@@ -922,6 +924,24 @@ BigDecimal vatPercentage;
         and <i>--large-display-icon-color</i>. You can include the CSS code in
         <i>custom.css</i> or in your own style as explained in the <a href="custom-style_en.html">documentation
           on custom visual styling</a>.</div>
+      <h3><a name="set-style-for-property-programmatically"></a>Set style for property programmatically <em>(new in
+          v7.7)</em></h3>
+      <div class="wiki" style="display: block;">You can set a CSS class to a property programmatically using the <i>setStyle()</i> method of <i>View</i>. This is useful when you want to change the visual appearance of a property dynamically based on some condition or action.</div>
+      <div class="wiki" style="display: block;">First, define your CSS class in <i>custom.css</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-css">.red input[type="text"], .red .xava_numeric, .red textarea {
+    color: red !important;
+}</code></pre> </div>
+      <div class="wiki" style="display: block;">Then, apply the style from your action:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-java">getView().setStyle("date", "red");</code></pre> </div>
+      <div class="wiki" style="display: block;">This will apply the <i>red</i> CSS class to the <i>date</i> property, making its text appear in red. You can also use qualified property names for properties inside references, like <i>"customer.name"</i> or <i>"customer.address.street"</i>.</div>
+      <div class="wiki" style="display: block;">To remove the style, simply call <i>setStyle()</i> with <i>null</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-java">getView().setStyle("date", null);</code></pre> </div>
+      <div class="wiki" style="display: block;">To remove all styles at once, you can use <i>clearStyles()</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-java">getView().clearStyles();</code></pre> </div>
       <h2 id="toc14"><a name="View-Reference customization"></a>Reference
         customization</h2>
       You can refine the visual aspect and behavior of a reference in a view

@@ -814,6 +814,9 @@
 			class="org.openxava.test.actions.TestContextObjectAction">
 			<set property="object" value="xava_chartTab"/>
 		</action>
+
+		<action name="setPropertyStyle" mode="detail"
+			class="org.openxava.test.actions.SetPropertyStyleAction"/>
 		
 	</controller>
 
