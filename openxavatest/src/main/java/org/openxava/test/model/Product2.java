@@ -142,6 +142,7 @@ public class Product2 {
 	private String description;
 	
 	@Stereotype("IMAGES_GALLERY")
+	@Column(length = 32) // tmr Quitar
 	private String photos;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
