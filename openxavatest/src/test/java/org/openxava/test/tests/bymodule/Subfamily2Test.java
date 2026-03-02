@@ -22,7 +22,7 @@ public class Subfamily2Test extends ModuleTestBase {
 		};
 		assertValidValues("family.number", familyValues);
 
-		// The above code is to verify that photos is not shown, you can adapt it to other changes in the collections if needed
+		// The following code is to verify that photos is not shown, you can adapt it to other changes in the collections if needed
 		//assertCollectionColumnCount("productsValues", 14);
 		assertLabelInCollection("productsValues", 0, "Number");
 		assertLabelInCollection("productsValues", 1, "Description");

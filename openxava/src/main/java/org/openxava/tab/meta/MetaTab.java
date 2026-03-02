@@ -12,7 +12,6 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
-import org.openxava.web.meta.*;
 
 /**
  * 
@@ -475,7 +474,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			if (getMetaModel().isHiddenKey(member)) continue;
 			if (getMetaModel().containsMetaProperty(member)) {
 				MetaProperty property = getMetaModel().getMetaProperty(member);
-				if (property.isHidden() || property.isTransient() || isStringOidWithoutListFormatter(property)) continue;
+				if (property.isHidden() || property.isTransient() || property.isUUIDNotFormattedInList()) continue;
 				result.add(member);
 			}
 			else if ((getMetaModel().containsMetaReference(member))) {
@@ -499,28 +498,6 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			}
 		}
 		return result;
-	}
-	
-	private boolean isStringOidWithoutListFormatter(MetaProperty property) {
-		if (property.getSize() != 32) return false;
-		if (!String.class.equals(property.getType())) return false;
-		try {
-			MetaEditor editor = null;
-			if (property.hasMetaModel()) {
-				editor = MetaWebEditors.getMetaEditorForModelProperty(property.getName(), property.getMetaModel().getName());
-			}
-			if (editor == null && property.hasStereotype()) {
-				editor = MetaWebEditors.getMetaEditorForStereotype(property.getStereotype());
-			}
-			if (editor == null) {
-				editor = MetaWebEditors.getMetaEditorForTypeOfProperty(property);
-			}
-			if (editor != null && !Is.emptyString(editor.getListFormatterClassName())) return false;
-		}
-		catch (Exception ex) {
-			// If we can't determine the editor, exclude it by default
-		}
-		return true;
 	}
 	
 	private boolean addPropertyIfExists(Collection result, MetaModel metaModel, String member, String ... properties) {
