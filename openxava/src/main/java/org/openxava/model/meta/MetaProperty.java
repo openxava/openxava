@@ -16,6 +16,7 @@ import org.openxava.mapping.*;
 import org.openxava.model.*;
 import org.openxava.util.*;
 import org.openxava.util.meta.*;
+import org.openxava.web.meta.*;
 import org.openxava.validators.*;
 import org.openxava.validators.meta.*;
 
@@ -1357,6 +1358,44 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			return dateTimeExpected;
 		}
 		return !dateTimeExpected;
+	}
+	
+	/**
+	 * Check if this property is a String of 32 characters (typical UUID/OID size)
+	 * whose editor does not have a list-formatter. <p>
+	 * 
+	 * Such properties typically show just a raw OID value in lists which is not useful
+	 * for users (e.g., IMAGES_GALLERY, DISCUSSION, FILES stereotipes).
+	 * Properties with a list-formatter (e.g., FILE stereotype with AttachedFile editor)
+	 * will return false because they display meaningful content.
+	 * 
+	 * @since 7.7
+	 */
+	public boolean isUUIDNotFormattedInList() {
+		try {
+			if (getSize() != 32) return false;
+		}
+		catch (XavaException ex) {
+			return false;
+		}
+		if (!String.class.equals(getType())) return false;
+		try {
+			MetaEditor editor = null;
+			if (hasMetaModel()) {
+				editor = MetaWebEditors.getMetaEditorForModelProperty(getName(), getMetaModel().getName());
+			}
+			if (editor == null && hasStereotype()) {
+				editor = MetaWebEditors.getMetaEditorForStereotype(getStereotype());
+			}
+			if (editor == null) {
+				editor = MetaWebEditors.getMetaEditorForTypeOfProperty(this);
+			}
+			if (editor != null && !Is.emptyString(editor.getListFormatterClassName())) return false;
+		}
+		catch (Exception ex) {
+			// If we can't determine the editor, exclude it by default
+		}
+		return true;
 	}
 	
 }

@@ -4370,7 +4370,7 @@ public class View implements java.io.Serializable {
 			Iterator it = getMetaModel().getPropertiesNames().iterator();
 			while (it.hasNext()) {
 				MetaProperty pr= getMetaModel().getMetaProperty((String) it.next());
-				if (!pr.isHidden()) {
+				if (!pr.isHidden() && !pr.isUUIDNotFormattedInList()) {
 					MetaProperty prList = pr.cloneMetaProperty();	
 					prList.setQualifiedName(pr.getName()); 
 					metaPropertiesList.add(prList);

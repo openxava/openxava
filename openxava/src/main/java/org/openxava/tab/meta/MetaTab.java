@@ -474,7 +474,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 			if (getMetaModel().isHiddenKey(member)) continue;
 			if (getMetaModel().containsMetaProperty(member)) {
 				MetaProperty property = getMetaModel().getMetaProperty(member);
-				if (property.isHidden() || property.isTransient() || property.getSize() == 32) continue; // We assume it is an oid
+				if (property.isHidden() || property.isTransient() || property.isUUIDNotFormattedInList()) continue;
 				result.add(member);
 			}
 			else if ((getMetaModel().containsMetaReference(member))) {

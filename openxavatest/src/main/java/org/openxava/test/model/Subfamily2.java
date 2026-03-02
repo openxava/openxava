@@ -40,7 +40,8 @@ public class Subfamily2 {
 	
 	@Stereotype("MEMO") @Column(length=400)
 	private String remarks;
-	
+
+	// With not @ListProperties to test a case
 	public Collection<Product2> getProductsValues() {
 		javax.persistence.Query query = XPersistence.getManager().createQuery("from Product2 where subfamily.number = :subfamilyNumber");
 		query.setParameter("subfamilyNumber", getNumber());
