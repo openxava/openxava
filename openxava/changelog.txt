@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Properties storing a UUID without a list formatter are not included by default in collections.
+- Properties storing a UUID are excluded by default in calculated, @ManyToMany and @OrderColumn collections.
+- Properties storing a UUID with a list formatter are included by default in collections.
 - New setStyle() and clearStyles() methods in View to set and clear property CSS classes programmatically.
 - An IFormatter for a @DescriptionsList can be defined via the descriptionsFormatter property of its editor.
 - editors.xml allows defining a custom editor for all @DescriptionsList references at the application level.
