@@ -1,14 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
-mysql, postgresql, oracle, Microsoft SQL Server, Firebird/Jaybird
-commons-lang3 3.20.0
-groovy 4.0.30
-jsoup 1.22.1
-htmlunit 4.21.0
-tomcat 9.0.115
-json 20251224
-
+- Commons Lang 3 upgraded to 3.20.0.
+- Groovy upgraded to 4.0.30.
+- JSoup upgraded to 1.22.1.
+- Htmlunit upgraded to 4.21.0.
+- JSon upgraded to 20251224.
+- Embedded Tomcat used in development upgraded to 9.0.115.
+- Driver version in doc/new projects upgraded for MySQL, PostgreSQL, Oracle, MS SQL Server and Firebird.
 - Easy way to customize the favicon for your own application.
 - Default favicon for all OpenXava applications.
 - Properties storing a UUID are excluded by default in calculated, @ManyToMany and @OrderColumn collections.
