@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Easy way to customize the favicon for your own application.
+- Default favicon for all OpenXava applications.
 - Properties storing a UUID are excluded by default in calculated, @ManyToMany and @OrderColumn collections.
 - Properties storing a UUID with a list formatter are included by default in collections.
 - New setStyle() and clearStyles() methods in View to set and clear property CSS classes programmatically.
