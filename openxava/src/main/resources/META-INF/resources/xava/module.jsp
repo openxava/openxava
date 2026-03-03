@@ -100,6 +100,7 @@
 
 <head>
 	<title><%=managerHome.getModuleDescription()%></title>
+	<link rel="icon" href="<%=contextPath%>/xava/images/favicon.ico">
 	
 	<%=style.getMetaTags()%>
 	

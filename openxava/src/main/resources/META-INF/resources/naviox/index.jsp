@@ -62,6 +62,7 @@ manager.registerAction("SessionLocker.lock");
 
 <head>
 	<title><%=title%></title>
+	<link rel="icon" href="<%=request.getContextPath()%>/xava/images/favicon.ico">
 	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.css?ox=<%=oxVersion%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.structure.css?ox=<%=oxVersion%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/smoothness/jquery-ui.css?ox=<%=oxVersion%>"/>
