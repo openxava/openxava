@@ -74,6 +74,9 @@
         <div style="margin-left: 2em;"><a href="#app-in-root-context">How to run
             your application in the root context (new in v6.3)?<br>
           </a></div>
+        <div style="margin-left: 2em;"><a href="#custom-favicon">How to use
+            your own favicon (new in v7.7)?<br>
+          </a></div>
       </div>
       <h2 id="toc1"><a name="How to ...-How to prevent from modifying certain fields in a view?"></a>How
         to prevent from modifying certain fields in a view?</h2>
@@ -5312,5 +5315,16 @@ class="sy0">;</span>
 </code></pre> </div>
     <div class="wiki" style="display: block;">Of course, you can use root
       context only for production and not for development, or vice versa.</div>
+    <div class="wiki" style="display: block;"> <a name="custom-favicon"></a>
+      <h2>How to use your own favicon <i>(new in v7.7)</i>?</h2>
+      OpenXava provides a default favicon for all applications. To use your own favicon, 
+      simply place your <i>favicon.ico</i> file in the <i>src/main/webapp/xava/images</i> folder 
+      of your project. If the <i>images</i> folder does not exist, create it inside the <i>xava</i> folder.</div>
+    <div class="wiki" style="display: block;">After adding your favicon, run:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-bash">mvn package
+</code></pre> </div>
+    <div class="wiki" style="display: block;">This will package your application with the new favicon. 
+      Restart your application to see the changes.</div>
   </body>
 </html>

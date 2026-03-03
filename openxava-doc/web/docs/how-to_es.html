@@ -73,6 +73,9 @@
         <div style="margin-left: 1em;"><a href="#aplicacion-en-contexto-raiz">¿Cómo
             correr tu aplicación en el contexto raíz (nuevo en v6.3)?<br>
           </a></div>
+        <div style="margin-left: 1em;"><a href="#favicon-personalizado">¿Cómo
+            usar tu propio favicon (nuevo en v7.7)?<br>
+          </a></div>
       </div>
       <h2 id="toc1"><a name="Como-evitar-que-se-pueda-modificar-cierto-campo-en-una-vista"></a>¿Cómo
         evitar que se pueda modificar cierto campo en una vista?</h2>
@@ -6158,5 +6161,16 @@ class="sy0">;</span>
       <div class="wiki" style="display: block;">Por supuesto, puedes usar el
         contexto raíz sólo en producción y no en desarrollo, o viceversa.</div>
     </div>
+    <div class="wiki" style="display: block;"> <a name="favicon-personalizado"></a>
+      <h2>¿Cómo usar tu propio favicon <i>(nuevo en v7.7)</i>?</h2>
+      OpenXava proporciona un favicon por defecto para todas las aplicaciones. Para usar tu propio favicon, 
+      simplemente coloca tu archivo <i>favicon.ico</i> en la carpeta <i>src/main/webapp/xava/images</i> 
+      de tu proyecto. Si la carpeta <i>images</i> no existe, créala dentro de la carpeta <i>xava</i>.</div>
+    <div class="wiki" style="display: block;">Después de añadir tu favicon, ejecuta:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-bash">mvn package
+</code></pre> </div>
+    <div class="wiki" style="display: block;">Esto empaquetará tu aplicación con el nuevo favicon. 
+      Reinicia tu aplicación para ver los cambios.</div>
   </body>
 </html>
