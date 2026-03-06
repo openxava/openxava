@@ -6,15 +6,39 @@
 
     <groupId>org.openxava</groupId>
     <artifactId>openxava-7.7-chat-jdk17</artifactId>
-    <version>7.7-SNAPSHOT</version>
+    <version>7.7</version>
     <name>OpenXava 7.7 Chat JDK17</name>
     <description>AI Chat functionality for OpenXava 7.7 requiring Java 17</description>
+
+    <url>https://www.openxava.org</url>
+
+    <licenses>
+        <license>
+            <name>GNU Library General Public License v2.1 or later</name>
+            <url>https://www.opensource.org/licenses/LGPL-2.1</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>openxava-team</id>
+            <name>The OpenXava Development Team</name>
+            <organization>OpenXava.org</organization>
+            <organizationUrl>https://openxava.org</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/openxava/openxava.git</connection>
+        <developerConnection>scm:git:ssh://github.com:openxava/openxava.git</developerConnection>
+        <url>https://github.com/openxava/openxava</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <openxava.version>7.7-SNAPSHOT</openxava.version>
+        <openxava.version>7.7</openxava.version>
     </properties>
 
     <dependencies>
@@ -44,5 +68,67 @@
             <version>0.24.0</version>
         </dependency>
     </dependencies>
+
+    <!-- Uncomment to deploy on Maven Central -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>
