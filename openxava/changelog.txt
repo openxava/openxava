@@ -1,6 +1,25 @@
 Change Log for OpenXava project
 ===============================
 
+- AI chat assistant available in all modules to query, filter, and modify data in natural language.
+- New projects include AGENTS.md and sample code to improve AI code assistant effectiveness.
+- Undo link to revert changes when modifying a value in an editable property in a list.
+- New @NewView annotation to choose the view used when creating new objects from references and collections.
+- New @EditView annotation to choose the view used when editing objects from references and collections.
+- @NewAction and @EditAction now work for references too.
+- An IFormatter for a @DescriptionsList can be defined via the descriptionsFormatter property of its editor.
+- editors.xml allows defining a custom editor for all @DescriptionsList references at the application level.
+- A custom editor for a specific @DescriptionsList can be defined combining @Editor and @DescriptionsList.
+- With @Editor + @DescriptionsList(showReferenceView=true), applies only to the combo, not detail view.
+- Easy way to customize the favicon for your own application.
+- Default favicon for all OpenXava applications.
+- Properties storing a UUID are excluded by default in calculated, @ManyToMany and @OrderColumn collections.
+- Properties storing a UUID with a list formatter are included by default in collections.
+- Actions invoked via executeAction() from a view now recognize the view previously set with setView().
+- Embedded Tomcat now stores temporary files in the target folder to avoid Windows file-locking issues.
+- New setStyle() and clearStyles() methods in View to set and clear property CSS classes programmatically.
+- IFilter can be applied to collections using the new filter attribute in @Condition.
+
 - Commons Lang 3 upgraded to 3.20.0.
 - Groovy upgraded to 4.0.30.
 - JSoup upgraded to 1.22.1.
@@ -8,29 +27,13 @@ Change Log for OpenXava project
 - JSon upgraded to 20251224.
 - Embedded Tomcat used in development upgraded to 9.0.115.
 - Driver version in doc/new projects upgraded for MySQL, PostgreSQL, Oracle, MS SQL Server and Firebird.
-- Easy way to customize the favicon for your own application.
-- Default favicon for all OpenXava applications.
-- Properties storing a UUID are excluded by default in calculated, @ManyToMany and @OrderColumn collections.
-- Properties storing a UUID with a list formatter are included by default in collections.
-- New setStyle() and clearStyles() methods in View to set and clear property CSS classes programmatically.
-- An IFormatter for a @DescriptionsList can be defined via the descriptionsFormatter property of its editor.
-- editors.xml allows defining a custom editor for all @DescriptionsList references at the application level.
-- A custom editor for a specific @DescriptionsList can be defined combining @Editor and @DescriptionsList.
-- With @Editor + @DescriptionsList(showReferenceView=true), applies only to the combo, not detail view.
-- IFilter can be applied to collections using the new filter attribute in @Condition.
-- @NewAction and @EditAction now work for references too.
-- Actions invoked via executeAction() from a view now recognize the view previously set with setView().
-- New @NewView annotation to choose the view used when creating new objects from references and collections.
-- New @EditView annotation to choose the view used when editing objects from references and collections.
-- Undo link to revert changes when modifying a value in an editable property in a list.
+
 - Documentation article on optimizing AI assistants' code generation.
-- New projects include AGENTS.md and sample code to improve AI code assistant effectiveness.
 - The Quick Start section in the documentation has been simplified to leave only one option.
 - New "Starting with OpenXava" video using IntelliJ and a recent OpenXava version.
 - Updated Getting Started guide using IntelliJ and a recent OpenXava version.
-- Embedded Tomcat now stores temporary files in the target folder to avoid Windows file-locking issues.
+
 - Fix: Validation error in web.xml reported by IntelliJ with no functional impact in new projects.
-- AI chat assistant available in all modules to query, filter, and modify data in natural language.
 
 OpenXava 7.6.4.1 (2026-1-26) (Archetypes only; framework unchanged)
 -------------------------------------------------------------------
