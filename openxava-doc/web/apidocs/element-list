@@ -13,6 +13,7 @@ org.openxava.annotations
 org.openxava.application.meta
 org.openxava.application.meta.xmlparse
 org.openxava.calculators
+org.openxava.chat
 org.openxava.component
 org.openxava.component.parse
 org.openxava.controller
