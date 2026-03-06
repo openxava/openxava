@@ -48,6 +48,34 @@
 
     <p>Para finalizar, revisa las instrucciones de abajo para adaptar tu código.</p>
     
+    <h2>Para migrar de OpenXava 7.6.4 a OpenXava 7.7</h2>
+    
+    <h3>Añadir dependencia para el Chat IA (opcional)</h3>
+    
+    <p>
+      Si quieres usar la funcionalidad del Chat IA, necesitas añadir la
+      siguiente dependencia a tu <i>pom.xml</i>:
+    </p>
+    
+    <pre><code class="language-xml">&lt;!-- AI Chat functionality (requires Java 17) --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+    &lt;artifactId&gt;openxava-7.7-chat-jdk17&lt;/artifactId&gt;
+    &lt;version&gt;${openxava.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+    
+    <p>
+      Sin esta dependencia, tu aplicación funcionará normalmente, pero la
+      funcionalidad del Chat IA no estará disponible.
+    </p>
+    
+    <p>
+      Ten en cuenta que el Chat IA requiere <b>Java 17</b>, mientras que el
+      resto de OpenXava sigue funcionando con Java 8. Si no añades esta
+      dependencia, puedes ejecutar tus aplicaciones con Java 8, pero sin la
+      funcionalidad del chat.
+    </p>
+    
     <h2>Para migrar de OpenXava 7.6.3 a OpenXava 7.6.4</h2>
     <p>No hay consideraciones.</p>    
     
