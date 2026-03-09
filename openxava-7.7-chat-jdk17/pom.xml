@@ -6,7 +6,7 @@
 
     <groupId>org.openxava</groupId>
     <artifactId>openxava-7.7-chat-jdk17</artifactId>
-    <version>7.7</version>
+    <version>7.7.1-SNAPSHOT</version>
     <name>OpenXava 7.7 Chat JDK17</name>
     <description>AI Chat functionality for OpenXava 7.7 requiring Java 17</description>
 
@@ -38,7 +38,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <openxava.version>7.7</openxava.version>
+        <openxava.version>7.7.1-SNAPSHOT</openxava.version>
     </properties>
 
     <dependencies>
@@ -69,7 +69,7 @@
         </dependency>
     </dependencies>
 
-    <!-- Uncomment to deploy on Maven Central -->
+    <!-- Uncomment to deploy on Maven Central
     <build>
         <plugins>
             <plugin>
@@ -129,6 +129,6 @@
             </plugin>
         </plugins>
     </build>
-
+    -->
 
 </project>

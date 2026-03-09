@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava-agents-examples</artifactId>
-	<version>7.7</version>
+	<version>7.7.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>OpenXava Agents Examples</name>
 	<description>Example files for AI agents working with OpenXava projects</description>
@@ -79,7 +79,7 @@
 					</execution>
 				</executions>
 			</plugin>
-		<!-- Uncomment to deploy on Maven Central -->
+		<!-- Uncomment to deploy on Maven Central
 			<plugin>
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
@@ -135,8 +135,10 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 
 		</plugins>
 	</build>
-	
+
+
 </project>

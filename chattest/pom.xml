@@ -4,11 +4,11 @@
 
 	<groupId>org.openxava</groupId>
 	<artifactId>chattest</artifactId>
-	<version>7.7-SNAPSHOT</version>
+	<version>7.7.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>7.7-SNAPSHOT</openxava.version>
+		<openxava.version>7.7.1-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
 		<maven.compiler.source>17</maven.compiler.source>
