@@ -10,8 +10,8 @@
   <properties>
     <openxava.version>7.7</openxava.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source> 
-    <maven.compiler.target>11</maven.compiler.target> 
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -19,7 +19,14 @@
       <groupId>org.openxava</groupId>
       <artifactId>openxava</artifactId>
       <version>${openxava.version}</version>
-    </dependency>    
+    </dependency>
+
+    <dependency>
+      <groupId>org.openxava</groupId>
+      <artifactId>openxava-7.7-chat-jdk17</artifactId>
+      <version>${openxava.version}</version>
+    </dependency>
+
   </dependencies>
   
   <build>
