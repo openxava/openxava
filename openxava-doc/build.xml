@@ -36,8 +36,9 @@
 	</target>
 	
 	<target name="compile" description="Compile Java sources">
+		<delete dir="web/WEB-INF/classes" quiet="true"/>
 		<mkdir dir="web/WEB-INF/classes"/>
-		<javac srcdir="web/WEB-INF/classes" 
+		<javac srcdir="src"
 		       destdir="web/WEB-INF/classes"
 		       includeantruntime="false"
 		       encoding="utf-8"
