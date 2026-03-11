@@ -56,6 +56,7 @@ public class EntityTools extends BaseEntityTools {
 	 */
 	@Tool("Get the list of available entities in the application. Use this when you need to know what data is available. Only returns entities the current user has permission to access.")
 	public List<String> getAvailableEntities() {
+		// TMR ME QUEDÉ POR AQUÍ: NO LLAMA A ESTO, QUIZÁS TENDRÍAMOS QUE OBLIGARLE A HACERLO ANTES DE getTab() y getView()
 		long startTime = System.currentTimeMillis();
 		log.debug("[TOOL] getAvailableEntities() called");
 		try {
