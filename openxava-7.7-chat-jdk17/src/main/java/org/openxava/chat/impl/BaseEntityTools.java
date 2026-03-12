@@ -10,6 +10,7 @@ import org.openxava.application.meta.*;
 import org.openxava.component.MetaComponent;
 import org.openxava.controller.*;
 import org.openxava.tab.Tab;
+import org.openxava.util.XavaResources;
 import org.openxava.view.View;
 
 import com.openxava.naviox.Modules;
@@ -104,7 +105,7 @@ public abstract class BaseEntityTools {
 	private void checkEntityAvailable(String entity) {
 		Set<String> availableEntities = getAvailableEntityNames();
 		if (!availableEntities.isEmpty() && !availableEntities.contains(entity)) {
-			throw new SecurityException("Module '" + entity + "' is not available for the current user.");
+			throw new SecurityException(XavaResources.getString("module_not_available_for_user", entity));
 		}
 	}
 	
@@ -112,6 +113,8 @@ public abstract class BaseEntityTools {
 	 * Returns the set of entity names the current user has access to.
 	 * Uses Modules from session to get the list.
 	 * Excludes transient entities and removes duplicates.
+	 * 
+	 * @since 7.7.1
 	 */
 	protected Set<String> getAvailableEntityNames() {
 		try {
@@ -137,7 +140,7 @@ public abstract class BaseEntityTools {
 			}
 			return result;
 		} catch (Exception ex) {
-			log.warn("Could not get available entities: " + ex.getMessage());
+			log.warn(XavaResources.getString("could_not_get_available_entities", ex.getMessage()));
 			return Collections.emptySet();
 		}
 	}
