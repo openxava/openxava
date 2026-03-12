@@ -1,5 +1,8 @@
 package org.openxava.test.tests.bymodule;
 
+import org.openxava.jpa.XPersistence;
+import org.openxava.test.model.Movie3;
+
 import java.util.*;
 
 /** 
@@ -13,6 +16,9 @@ public class Movie3Test extends MovieBaseTest {
 	}
 	
 	public void testShowFileNameForFileAnnotationWhenPrint() throws Exception {
+		Movie3 movie = Movie3.findById("ff80818150176f470150176ff2cb0000"); // NOVECENTO
+		assertEquals("NONEXISTENT", movie.getTrailer());
+
 		execute("Print.generatePdf");
 		assertContentTypeForPopup("application/pdf"); 
 		assertPopupPDFLine(4, "FORREST GUMP ROBERT ZEMECKIS ERIC ROTH Y WINSTON GROOM 7/6/1994 Forrest Gump Trailer.webm");

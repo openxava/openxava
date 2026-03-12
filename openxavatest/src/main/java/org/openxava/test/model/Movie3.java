@@ -40,7 +40,7 @@ public class Movie3 extends Identifiable {
 
 	
 	public static Movie3 findById(String id) {
-		Query query = XPersistence.getManager().createQuery("from Movie m where m.id = :id");
+		Query query = XPersistence.getManager().createQuery("from Movie3 m where m.id = :id");
 		query.setParameter("id", id);
 		return (Movie3) query.getSingleResult();
 	}
