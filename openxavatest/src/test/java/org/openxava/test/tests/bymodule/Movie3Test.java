@@ -15,7 +15,7 @@ public class Movie3Test extends MovieBaseTest {
 		super(testName, "Movie3"); 
 	}
 	
-	public void testShowFileNameForFileAnnotationWhenPrint() throws Exception {
+	public void testShowFileNameForFileAnnotationWhenPrint_generatePdfWithFileNotEmptyButNonExistent() throws Exception {
 		Movie3 movie = Movie3.findById("ff80818150176f470150176ff2cb0000"); // NOVECENTO
 		assertEquals("NONEXISTENT", movie.getTrailer());
 
