@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Generate PDF fails if the list contains a @File property with a value pointing to a nonexistent file.
+
 OpenXava 7.7 (2026-3-6)
 -----------------------
 - AI chat assistant available in all modules to query, filter, and modify data in natural language.
