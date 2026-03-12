@@ -125,9 +125,8 @@ public class GenerateReportServlet extends HttpServlet {
 	        }
 
 	        if (p.isFile(r)) {
-	        	AttachedFile file = new AttachedFile();
-	            file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-	            return (file.getName() != null) ? file.getName() : "";
+	        	AttachedFile file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+	            return (file != null && file.getName() != null) ? file.getName() : "";
 	        }
 	        return r;
 	    }
@@ -138,9 +137,8 @@ public class GenerateReportServlet extends HttpServlet {
 			if (metaProperty.isCompatibleWith(byte[].class)) 
 				return r==null?null:new ByteArrayInputStream((byte [])r); 
 			if (metaProperty.isFile(r)) {
-				AttachedFile file = new AttachedFile();
-				file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
-				return file.getName();
+				AttachedFile file = (AttachedFile) FilePersistorFactory.getInstance().find(r.toString());
+				return file != null ? file.getName() : "";
 			}
 			
 			String result = WebEditors.format(this.request, metaProperty, r, null, "", true);
