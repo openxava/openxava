@@ -1,13 +1,18 @@
 package org.openxava.chat.impl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.*;
+import org.openxava.application.meta.*;
+import org.openxava.component.MetaComponent;
 import org.openxava.controller.*;
 import org.openxava.tab.Tab;
 import org.openxava.view.View;
+
+import com.openxava.naviox.Modules;
 
 /**
  * Base class with common functionality for EntityTools and EntityModifyTools.
@@ -52,6 +57,7 @@ public abstract class BaseEntityTools {
 
 		Tab tab = tabs.get(entity);
 		if (tab == null) {
+			checkEntityAvailable(entity);
 			tab = new Tab();
 			// This code is also in execute.jsp, should we refactor?
 			ModuleManager manager = (ModuleManager) context.get(application, entity, "manager", "org.openxava.controller.ModuleManager");
@@ -80,6 +86,7 @@ public abstract class BaseEntityTools {
 	protected View getView(String module) {
 		View view = views.get(module);
 		if (view == null) {
+			checkEntityAvailable(module);
 			view = new View();
 			ModuleManager manager = (ModuleManager) context.get(application, module, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
@@ -92,6 +99,47 @@ public abstract class BaseEntityTools {
 			views.put(module, view);
 		}
 		return view;
+	}
+	
+	private void checkEntityAvailable(String entity) {
+		Set<String> availableEntities = getAvailableEntityNames();
+		if (!availableEntities.isEmpty() && !availableEntities.contains(entity)) {
+			throw new SecurityException("Module '" + entity + "' is not available for the current user.");
+		}
+	}
+	
+	/**
+	 * Returns the set of entity names the current user has access to.
+	 * Uses Modules from session to get the list.
+	 * Excludes transient entities and removes duplicates.
+	 */
+	protected Set<String> getAvailableEntityNames() {
+		try {
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) {
+				modules = new Modules();
+				session.setAttribute("modules", modules);
+			}
+			List<MetaModule> allModules = modules.getAll(null);
+			Set<String> result = new LinkedHashSet<>();
+			for (MetaModule module : allModules) {
+				String modelName = module.getModelName();
+				if (modelName == null) continue;
+				try {
+					MetaComponent component = MetaComponent.get(modelName);
+					if (component.isTransient()) {
+						continue;
+					}
+				} catch (Exception ex) {
+					// If we can't get the component, include it
+				}
+				result.add(modelName);
+			}
+			return result;
+		} catch (Exception ex) {
+			log.warn("Could not get available entities: " + ex.getMessage());
+			return Collections.emptySet();
+		}
 	}
 	
 }

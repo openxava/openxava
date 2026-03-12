@@ -55,37 +55,11 @@ public class EntityTools extends BaseEntityTools {
 	 * @return A list of entity names the user can access
 	 */
 	@Tool("Get the list of available entities in the application. Use this when you need to know what data is available. Only returns entities the current user has permission to access.")
-	public List<String> getAvailableEntities() {
-		// TMR ME QUEDÉ POR AQUÍ: NO LLAMA A ESTO, QUIZÁS TENDRÍAMOS QUE OBLIGARLE A HACERLO ANTES DE getTab() y getView()
+	public Collection<String> getAvailableEntities() {
 		long startTime = System.currentTimeMillis();
 		log.debug("[TOOL] getAvailableEntities() called");
 		try {
-			// Get the Modules object from session (uses cache)
-			Modules modules = (Modules) session.getAttribute("modules");
-			if (modules == null) {
-				modules = new Modules();
-				session.setAttribute("modules", modules);
-			}
-			
-			// Get all modules respecting user security
-			List<String> entityNames = new ArrayList<>();
-			List<MetaModule> allModules = modules.getAll(null);
-			for (MetaModule module : allModules) {
-				// Exclude transient modules
-				try {
-					String modelName = module.getModelName();
-					if (modelName != null) {
-						MetaComponent component = MetaComponent.get(modelName);
-						if (component.isTransient()) {
-							continue; // Skip transient entities
-						}
-					}
-				} catch (Exception ex) {
-					// If we can't get the component, skip this module
-					continue;
-				}
-				entityNames.add(module.getName());
-			}
+			Collection<String> entityNames = getAvailableEntityNames();
 			
 			log.debug("[TOOL] getAvailableEntities() returning: " + entityNames);
 			log.debug("[TOOL] getAvailableEntities() took " + (System.currentTimeMillis() - startTime) + " ms");
