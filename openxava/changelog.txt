@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Hovering over an item in a @DescriptionsList combo clears the text typed by the user for filtering.
 - Fix: Generate PDF fails if the list contains a @File property with a value pointing to a nonexistent file.
 
 OpenXava 7.7 (2026-3-6)

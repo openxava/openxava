@@ -68,7 +68,6 @@ openxava.addEditorInitFunction(function() {
 				descriptionsEditor.executeOnChange($(event.target));
 			},
 			focus: function( event, ui ) {
-				$(event.target).val(ui.item.label);
 				event.preventDefault();
 			},            
 			change: function( event, ui ) {
