@@ -4609,7 +4609,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public HttpServletRequest getRequest() {	
-		if (request == null) return parent.getRequest();
+		if (request == null) return parent==null?null:parent.getRequest();
 		return request;
 	}
 
