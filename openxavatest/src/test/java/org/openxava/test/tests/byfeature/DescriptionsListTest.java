@@ -339,6 +339,77 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFilterByNumber();
 	}
 
+	@Override
+	protected boolean isHeadless() {
+		return false; // tmr
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		// tmr
+	}
+
+	@Test
+	public void testMouseHoverDoesNotClearFilterText() throws Exception {
+		goModule("Product2");
+		execute("CRUD.new");
+
+		// Open the subfamily combo to load items (default family is HARDWARE with subfamilies: PC, PERIFERICOS, SERVIDORES)
+		WebElement subfamilyEditor = getDriver().findElement(By.id("ox_openxavatest_Product2__reference_editor_subfamily"));
+		WebElement openIcon = subfamilyEditor.findElement(By.className("mdi-menu-down"));
+		openIcon.click();
+		Thread.sleep(700);
+
+		// Close the combo
+		WebElement closeIcon = subfamilyEditor.findElement(By.className("mdi-menu-up"));
+		closeIcon.click();
+		Thread.sleep(300);
+
+		// Type "er" in the subfamily input to filter (should show SERVIDORES and PERIFERICOS)
+		WebElement subfamilyInput = subfamilyEditor.findElement(By.className("ui-autocomplete-input"));
+		subfamilyInput.sendKeys(Keys.CONTROL + "a");
+		subfamilyInput.sendKeys("\b");
+		subfamilyInput.sendKeys("er");
+		Thread.sleep(700);
+
+		// Verify the filtered list is shown with the expected items
+		WebElement subfamilyList = getDriver().findElement(By.id(getListId(1)));
+		assertTrue(subfamilyList.isDisplayed());
+		List<WebElement> filteredItems = subfamilyList.findElements(By.tagName("li"));
+		assertEquals(2, filteredItems.size());
+
+		// Verify the input still has the typed text before hovering
+		assertEquals("er", subfamilyInput.getAttribute("value"));
+
+		// Move the mouse from the input to the first item in the list using small incremental 
+		// movements, so the browser generates real pointermove/mousemove events that trigger 
+		// the jQuery UI menu focus just like a real user accidentally moving the mouse
+		moveMouseProgressively(subfamilyInput, filteredItems.get(0));
+		Thread.sleep(300);
+
+		// The typed filter text should still be preserved after hovering
+		assertEquals("er", subfamilyInput.getAttribute("value"));
+	}
+	
+	private void moveMouseProgressively(WebElement from, WebElement to) throws InterruptedException {
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(from).perform();
+		Thread.sleep(100);
+		// Move in small steps from 'from' to 'to' to generate real mouse movement events
+		int steps = 5;
+		for (int i = 1; i <= steps; i++) {
+			int xOffset = (to.getLocation().getX() - from.getLocation().getX()) * i / steps;
+			int yOffset = (to.getLocation().getY() - from.getLocation().getY()) * i / steps;
+			new Actions(getDriver())
+				.moveToElement(from, xOffset, yOffset)
+				.perform();
+			Thread.sleep(50);
+		}
+		// Final move directly onto the target element
+		new Actions(getDriver()).moveToElement(to).perform();
+		Thread.sleep(150);
+	}
+
 	private void assertFilterByNumber() throws Exception { 
 		goModule("DeliveryInvoiceAsDecriptionsList");
 		execute("CRUD.new");
