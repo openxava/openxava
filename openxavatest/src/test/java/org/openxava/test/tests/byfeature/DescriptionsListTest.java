@@ -334,24 +334,13 @@ public class DescriptionsListTest extends WebDriverTestBase {
 		assertFalse(familyList.isDisplayed());
 		
 		setFamilyDescription(1, "SOFTWARE"); 
-		removeWarehouseWithQuote(); 
+		removeWarehouseWithQuote();
 
+		assertMouseHoverDoesNotClearFilterText();
 		assertFilterByNumber();
 	}
 
-	@Override
-	protected boolean isHeadless() {
-		return false; // tmr
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		// tmr
-	}
-
-	@Test
-	public void testMouseHoverDoesNotClearFilterText() throws Exception {
-		goModule("Product2");
+	private void assertMouseHoverDoesNotClearFilterText() throws Exception {
 		execute("CRUD.new");
 
 		// Open the subfamily combo to load items (default family is HARDWARE with subfamilies: PC, PERIFERICOS, SERVIDORES)
