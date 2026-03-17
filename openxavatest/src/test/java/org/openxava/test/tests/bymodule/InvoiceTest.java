@@ -1925,7 +1925,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	
 	@Test
-	public void testValidationOnSaveAggregateAndModelValidatorReceivesReferenceAndCalculatedProperty() throws Exception {   		
+	public void testValidationOnSaveAggregateAndModelValidatorReceivesReferenceAndCalculatedProperty_cutAfterSaveDetailInDialogWithDescriptionsList() throws Exception {
 		// Create
 		execute("CRUD.new");						
 		assertExists("customer.number");
@@ -1972,7 +1972,11 @@ public class InvoiceTest extends CustomizeListTestBase {
 		setValue("unitPrice", getProductUnitPrice());
 		execute("Collection.save");		 
 		assertNoErrors();
-		assertNoDialog(); 
+		assertNoDialog();
+
+		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_section1_details");
+		assertNoErrors();
+		assertMessage("1 row cut from Details");
 		
 		// Delete
 		execute("CRUD.delete");		
