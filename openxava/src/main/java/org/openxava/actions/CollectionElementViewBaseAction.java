@@ -111,6 +111,7 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		if (isCloseDialogDisallowed()) {
 			getCollectionElementView().reset();
 		} else {
+			getCollectionElementView().setCollectionDetailVisible(false);
 			super.closeDialog();
 			dialogOpened = false;
 			collectionElementView = null; 

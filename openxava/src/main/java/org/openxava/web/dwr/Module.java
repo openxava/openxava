@@ -315,17 +315,8 @@ public class Module extends DWRBase {
 		Map changeParts = getChangedParts(values, propertiesUsedInCalculations, changedCollectionsTotals);
 		for (Iterator it = changeParts.entrySet().iterator(); it.hasNext(); ) { 
 			Map.Entry changedPart = (Map.Entry) it.next();
-			// tmr try {
-				String htmlContent = getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters); 
-				changedParts.put(changedPart.getKey(), htmlContent);
-			/* tmr
-			}
-			catch (Exception ex) {
-				// Temporal log to figure out this bug: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=2c9e83239adb7b84019ae3e0b2c50009
-				log.error("Exception retrieving part: " + changedPart.getKey(), ex); // If we keep, we should i18n
-				changedParts.put(changedPart.getKey(), "ERROR: PART NOT AVAILABLE");
-			}
-   		    */
+			String htmlContent = getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters);
+			changedParts.put(changedPart.getKey(), htmlContent);
 		}
 	
 		fillPropertiesUsedInCalculationsFromSumCollectionProperties(propertiesUsedInCalculations, changedCollectionsTotals);
