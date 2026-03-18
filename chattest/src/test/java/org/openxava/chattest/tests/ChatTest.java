@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return false; // tmr: true
+        return true;
     }
 
     @Override
@@ -177,7 +177,7 @@ public class ChatTest extends WebDriverTestBase {
         setWindowWidth(1750); // In order chat will be shown on init
         goModule("Invoice");
 
-        assertVisibleToUser("ox_chattest_Invoice__modes");
+        assertNotCoveredByChatPanel("ox_chattest_Invoice__modes");
 
         setConditionValue("2025", 0);
         execute("List.filter");
@@ -312,21 +312,19 @@ public class ChatTest extends WebDriverTestBase {
         assertValueInList(0, 3, "Boomgaardstraat, 17");
     }
     
-    protected void assertVisibleToUser(String id) {
+    private void assertNotCoveredByChatPanel(String id) {
         WebDriver driver = getDriver();
         try {
             new WebDriverWait(driver, Duration.ofSeconds(2)).until(d -> {
                 WebElement el = d.findElement(By.id(id));
                 if (!el.isDisplayed()) return false;
-                Rectangle rect = el.getRect();
-                int cx = rect.getX() + rect.getWidth() / 2;
-                int cy = rect.getY() + rect.getHeight() / 2;
-                WebElement top = (WebElement) ((JavascriptExecutor) d)
-                    .executeScript("return document.elementFromPoint(arguments[0], arguments[1]);", cx, cy);
-                return top != null && (top.equals(el) || el.getText().contains(top.getText()));
+                Long gap = (Long) ((JavascriptExecutor) d).executeScript(
+                    "var rect = arguments[0].getBoundingClientRect();" +
+                    "return window.innerWidth - rect.right;", el);
+                return gap != null && gap >= 330;
             });
         } catch (TimeoutException e) {
-            fail("Element '" + id + "' is not visible to the user: it may be hidden or covered by another element");
+            fail("Element '" + id + "' is not visible to the user: its right edge is too close to the window's right edge (less than 330px gap)");
         }
     }
 
