@@ -90,6 +90,10 @@ abstract public class WebDriverTestBase extends TestCase {
     protected void setDriver(WebDriver driver) {
         this.driver = driver;
     }
+
+    protected void setWindowWidth(int width) {
+        getDriver().manage().window().setSize(new Dimension(width, 850));
+    }
     
     protected void wait(WebDriver driver) throws Exception {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(300)); // 100 is too short, at least 300

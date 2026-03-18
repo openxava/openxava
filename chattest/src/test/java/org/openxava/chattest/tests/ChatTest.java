@@ -173,9 +173,12 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("chat_panel_hide should be visible when panel is visible", hideButton.isDisplayed());
     }
     
-    public void testTabBaseConditionAppliedToChat_recordsNoInListRecognized_multilingual() throws Exception {
+    public void testTabBaseConditionAppliedToChat_recordsNoInListRecognized_multilingual_chatNotHideModuleOnInit() throws Exception {
+        setWindowWidth(1750); // In order chat will be shown on init
         goModule("Invoice");
-        
+
+        assertNotCoveredByChatPanel("ox_chattest_Invoice__modes");
+
         setConditionValue("2025", 0);
         execute("List.filter");
         assertListRowCount(3);
@@ -309,6 +312,22 @@ public class ChatTest extends WebDriverTestBase {
         assertValueInList(0, 3, "Boomgaardstraat, 17");
     }
     
+    private void assertNotCoveredByChatPanel(String id) {
+        WebDriver driver = getDriver();
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(2)).until(d -> {
+                WebElement el = d.findElement(By.id(id));
+                if (!el.isDisplayed()) return false;
+                Long gap = (Long) ((JavascriptExecutor) d).executeScript(
+                    "var rect = arguments[0].getBoundingClientRect();" +
+                    "return window.innerWidth - rect.right;", el);
+                return gap != null && gap >= 330;
+            });
+        } catch (TimeoutException e) {
+            fail("Element '" + id + "' is not visible to the user: its right edge is too close to the window's right edge (less than 330px gap)");
+        }
+    }
+
     protected void assertChatPanelHidden() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatPanel = driver.findElement(By.id("chat_panel"));

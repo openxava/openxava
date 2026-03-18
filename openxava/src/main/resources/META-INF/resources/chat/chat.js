@@ -264,6 +264,10 @@ chat.initPanel = function() {
 	
 	chat.restorePanelState();
 	
+	if ($('#chat_panel').is(':visible')) {
+		$('.module-wrapper').css('margin-right', '330px');
+	}
+	
 	if (typeof chat !== 'undefined' && chat.init) {
 		chat.init();
 	}
