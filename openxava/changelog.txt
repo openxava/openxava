@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Getting Started video updated to use OpenXava 7.7 and a brief AI chat demo.
 - Fix: Right side of module not shown on initial load when chat panel is visible on large screens.
 - Fix: Exception when cutting a row in a collection after creating a new element with @DescriptionsList.
 - Fix: Hovering over an item in a @DescriptionsList combo clears the text typed by the user for filtering.
