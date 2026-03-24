@@ -839,7 +839,8 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .module-wrapper {
-	width: 100%; 
+	width: 100%;
+	min-width: 0;
 }
 
  #module_header {

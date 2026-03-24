@@ -98,4 +98,30 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		// Verify they still have the same width after reloading
 		assertEquals("Both inputs should still have the same width after reloading", detailsAmountWidthAfterReload, totalAmountWidthAfterReload);
 	}
+
+	public void testModuleLeftPartNotHiddenOnResizingWhenUsingElementCollectionWithSumAndTotals() throws Exception {
+		setWindowWidth(1300);
+		goModule("Receipt");
+
+		WebElement groupBySelect = getDriver().findElement(By.cssSelector("select.xava_group_by"));
+		
+		assertTrue("xava_group_by should be visible at 1300px width", groupBySelect.isDisplayed());
+		
+		int elementRight = groupBySelect.getLocation().getX() + groupBySelect.getSize().getWidth();
+		int windowWidth = getDriver().manage().window().getSize().getWidth();
+		assertTrue("xava_group_by right side should be within browser window at 1300px. Element right: " + elementRight + ", window width: " + windowWidth,
+			elementRight <= windowWidth);
+
+		setWindowWidth(1200);
+		
+		groupBySelect = getDriver().findElement(By.cssSelector("select.xava_group_by"));
+		
+		assertTrue("xava_group_by should be visible at 1200px width", groupBySelect.isDisplayed());
+		
+		elementRight = groupBySelect.getLocation().getX() + groupBySelect.getSize().getWidth();
+		windowWidth = getDriver().manage().window().getSize().getWidth();
+		assertTrue("xava_group_by right side should be within browser window at 1200px. Element right: " + elementRight + ", window width: " + windowWidth,
+			elementRight <= windowWidth);
+	}
+
 }
