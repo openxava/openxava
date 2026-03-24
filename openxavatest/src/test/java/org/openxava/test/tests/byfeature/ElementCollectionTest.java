@@ -99,16 +99,6 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		assertEquals("Both inputs should still have the same width after reloading", detailsAmountWidthAfterReload, totalAmountWidthAfterReload);
 	}
 
-	@Override
-	protected boolean isHeadless() {
-		return false; // tmr
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		// tmr
-	}
-
 	public void testModuleLeftPartNotHiddenOnResizingWhenUsingElementCollectionWithSumAndTotals() throws Exception {
 		setWindowWidth(1300);
 		goModule("Receipt");
