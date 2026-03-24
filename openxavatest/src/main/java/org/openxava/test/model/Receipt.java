@@ -12,6 +12,10 @@ import org.openxava.model.*;
 
 import lombok.*;
 
+// WARNING: DON'T CHANGE THE CODE OF THIS CLASS because it reproduces a bug
+//    with resizing the browser not reproducible in any other very similar cases,
+//    and we don't know the exact cause, although it's related to the collection
+//    with summation and totals, even when the problem arises in list mode.
 @Entity @Getter @Setter
 @View(members=
 	"year, number, date;" +
