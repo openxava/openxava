@@ -14,7 +14,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 	public ModulesMenuTest(String testName) {
 		super(testName);
 	}
-	
+
 	public void testHideShowModulesMenu() throws Exception {
 		goModule("Applicant"); // Whatever
 		showModulesList();
@@ -42,6 +42,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		assertTrue(modulesList.isDisplayed());
 		assertFalse(menuButton.isDisplayed());
 		assertFalse(extendedTitle.isDisplayed());
+		Thread.sleep(200);
 		assertTrue(hideButton.isDisplayed());
 		
 		hideButton.click();
@@ -56,6 +57,7 @@ public class ModulesMenuTest extends WebDriverTestBase {
 		assertTrue(modulesList.isDisplayed());
 		assertFalse(menuButton.isDisplayed());
 		assertFalse(extendedTitle.isDisplayed());
+		Thread.sleep(200);
 		assertTrue(hideButton.isDisplayed());					
 	}
 	
