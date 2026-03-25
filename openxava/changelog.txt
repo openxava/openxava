@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Adding an element to a @OneToMany breaks the module if it has a @ElementCollection.
 - Fix: Right side hidden when resizing browser in list mode with @ElementCollection in some cases.
 - Getting Started video updated to use OpenXava 7.7 and a brief AI chat demo.
 - Fix: Right side of module not shown on initial load when chat panel is visible on large screens.
