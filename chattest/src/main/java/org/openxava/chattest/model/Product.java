@@ -23,5 +23,8 @@ public class Product {
 	@Files
 	@Column(length=32)
 	String photos; 
+	
+	@Embedded
+	Features features;
 
 }
