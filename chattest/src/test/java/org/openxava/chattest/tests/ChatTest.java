@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.List;
 
 /**
+ * TMR ME QUEDÉ PARA AÑADIR UN TEST. PREGUNTANDO POR EL PESO DE UN PRODUCTO NO LO SABE (SI EL COLOR)
  * Tests for the chat functionality.
  * 
  * @author Javier Paniza
