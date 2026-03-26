@@ -192,7 +192,7 @@ public class ChatTest extends WebDriverTestBase {
         assertTrue("Response should contain '2025'", response.contains("2025"));
         assertFalse("Response should NOT contain '2020'", response.contains("2020"));
     }
-    
+
     public void testUseJustUpdatedData_consultFieldsNotShownInList_queryDataFromAModuleNotOpenedYet() throws Exception {
         goModule("Customer");
         assertListRowCount(9);
@@ -225,7 +225,16 @@ public class ChatTest extends WebDriverTestBase {
         response = waitForChatResponse();
         assertTrue("Response should contain '11'", response.contains("11"));
     }
-    
+
+    public void testConsultFieldsFromEmbeddableReferences() throws Exception {
+        goModule("Product");
+        // Ask just after opening the module at beginning, with other combinations could work
+        // Weight is the second property of an embeddable (Features), because the first one always worked
+        sendChatMessage("Tell me the weight of the BMW 330i");
+        String response = waitForChatResponse();
+        assertTrue("Response should contain '1500'", response.contains("1500"));
+    }
+
     public void testAccessElementCollectionData() throws Exception {
         goModule("Invoice");
         
