@@ -482,17 +482,24 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 				if (ref.getMetaCollectionFromReferencedModel() != null && representCollection()) continue;
 				
 				MetaModel refModel = ref.getMetaModelReferenced();
-				for (String key: refModel.getKeyPropertiesNames()) {
-					if (!refModel.isHiddenKey(key)) {
-						result.add(member + "." + key); 
+				if (ref.isAggregate()) {
+					for (String property: refModel.getPropertiesNamesWithoutHiddenNorTransient()) {
+						result.add(member + "." + property);
 					}
 				}
-				boolean added = addPropertyIfExists(result, refModel, member, "name", "nombre", "description", "descripcion", "title", "titulo");
-				if (!added) {
-					for (String property: refModel.getPropertiesNamesWithoutHiddenNorTransient()) {
-						if (refModel.isKeyOrSearchKey(property)) continue;
-						result.add(member + "." + property);
-						break;
+				else {
+					for (String key: refModel.getKeyPropertiesNames()) {
+						if (!refModel.isHiddenKey(key)) {
+							result.add(member + "." + key); 
+						}
+					}
+					boolean added = addPropertyIfExists(result, refModel, member, "name", "nombre", "description", "descripcion", "title", "titulo");
+					if (!added) {
+						for (String property: refModel.getPropertiesNamesWithoutHiddenNorTransient()) {
+							if (refModel.isKeyOrSearchKey(property)) continue;
+							result.add(member + "." + property);
+							break;
+						}
 					}
 				}
 			}
