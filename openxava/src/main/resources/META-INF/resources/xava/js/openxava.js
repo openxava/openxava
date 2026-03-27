@@ -1557,7 +1557,19 @@ openxava.filterList = function(filterValues) {
 		var id = openxava.decorateId(app, module, key);
 		var element = document.getElementById(id);
 		if (element) {
-			element.value = filterValues[key];
+			if (element.tagName === 'SELECT') {
+				var found = false;
+				for (var i = 0; i < element.options.length; i++) {
+					if (element.options[i].text === filterValues[key]) {
+						element.value = element.options[i].value;
+						found = true;
+						break;
+					}
+				}
+				if (!found) element.value = filterValues[key];
+			} else {
+				element.value = filterValues[key];
+			}
 		}
 	}
 	

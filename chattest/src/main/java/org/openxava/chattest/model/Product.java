@@ -19,6 +19,14 @@ public class Product {
 	
 	@Required
 	BigDecimal unitPrice;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@DescriptionsList
+	Category category;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@DescriptionsList
+	ProductState state;
 	
 	@Files
 	@Column(length=32)
@@ -28,3 +36,4 @@ public class Product {
 	Features features;
 
 }
+

@@ -104,7 +104,7 @@ int count = 0;
 <% if (index < 0) { %>
 <select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%>>
 <% } else {  %>
-<select name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
+<select id="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
 	data-collection-argv="<%=collectionArgv%>">
 
 <% } %>
