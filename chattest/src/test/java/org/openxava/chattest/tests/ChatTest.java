@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return true;
+        return false; // tmr
     }
 
     @Override
@@ -359,6 +359,7 @@ public class ChatTest extends WebDriverTestBase {
         assertFilterByMultipleFields();
         assertFilterByDate();
         assertFilterWithComparators();
+        assertFilterByDescriptionsList();
     }
     
     private void assertFilterListInModule() throws Exception {
@@ -500,4 +501,21 @@ public class ChatTest extends WebDriverTestBase {
         
         assertListRowCount(10);
     }
+
+    private void assertFilterByDescriptionsList() throws Exception {
+        goModule("Product");
+        assertListRowCount(10);
+        
+        clickNewConversation();
+        sendChatMessage("Show me all software products that are available");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        assertListRowCount(4);
+        for (int i = 0; i < 4; i++) {
+            assertValueInList(i, 3, "Software");
+            assertValueInList(i, 4, "Available");
+        }
+    }
+
 }
