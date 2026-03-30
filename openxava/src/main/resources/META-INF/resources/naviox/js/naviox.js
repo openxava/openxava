@@ -18,7 +18,9 @@ naviox.init = function() {
 	naviox.initModulesList();
 	naviox.initBookmark();
 	naviox.initModuleHeader();
-	chat.initPanel();
+	if (typeof chat !== 'undefined') {
+		chat.initPanel();
+	}
 }
 
 naviox.initLeftMenu = function() { 
