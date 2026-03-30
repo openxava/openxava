@@ -453,7 +453,7 @@ public class ChatTest extends WebDriverTestBase {
         assertListRowCount(1);
         assertValueInList(0, 2, "8/13/2024");
         assertValueInList(0, 3, "Carlos Ann");
-        //assertValue("conditionValue___2", "8/13/2024"); // Waiting to solve: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff80808182a6fae10182f389ede3006d
+        assertValue("conditionValue___2", "8/13/2024");
         
         // Clear and filter by month
         clickNewConversation();
