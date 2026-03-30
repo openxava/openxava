@@ -7,7 +7,9 @@ import org.apache.commons.logging.*;
 import javax.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
+import org.openxava.util.Messages;
 import org.openxava.view.View;
+import org.openxava.web.WebEditors;
 import org.openxava.model.MapFacade;
 import org.openxava.tab.Tab;
 import org.openxava.tab.impl.IXTableModel;
@@ -336,10 +338,10 @@ public class EntityTools extends BaseEntityTools {
 						Class<?> type = prop.getType();
 						log.debug("[DEBUG] Current locale: " + org.openxava.util.Locales.getCurrent());
 						if (java.time.LocalDate.class.isAssignableFrom(type)) {
-							value = prop.format(localDate, org.openxava.util.Locales.getCurrent());
+							value = WebEditors.format(null, prop, localDate, new Messages(), currentModuleName, true);
 						} else {
 							java.util.Date utilDate = java.sql.Date.valueOf(localDate);
-							value = prop.format(utilDate, org.openxava.util.Locales.getCurrent());
+							value = WebEditors.format(null, prop, utilDate, new Messages(), currentModuleName, true);
 						}
 						log.debug("[DEBUG] Converted date to UI format: " + value);
 					} catch (Exception e) {

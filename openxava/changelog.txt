@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Date in list filter fields changes to current year after filtering via chat.
 - Fix: Column resize handles sometimes appear above chat panel.
 - Fix: JavaScript error in the browser console when AI chat is unavailable.
 - Fix: Filtering lists by @DescriptionsList columns using AI chat does not work.
