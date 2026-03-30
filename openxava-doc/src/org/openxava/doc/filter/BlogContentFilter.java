@@ -58,10 +58,10 @@ public class BlogContentFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
-        // Only process HTML files
+        // Only process HTML files and exclude apidocs
         String requestURI = httpRequest.getRequestURI();
         
-        if (!requestURI.endsWith(".html")) {
+        if (!requestURI.endsWith(".html") || requestURI.contains("/apidocs/")) {
             chain.doFilter(request, response);
             return;
         }
