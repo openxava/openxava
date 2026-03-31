@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Maven package fails the first time for projects created from the Spanish invoicing Maven archetype.
 - Fix: Blog link incorrectly shown in Javadoc pages.
 - Fix: Date in list filter fields changes to current year after filtering via chat.
 - Fix: Column resize handles sometimes appear above chat panel.
