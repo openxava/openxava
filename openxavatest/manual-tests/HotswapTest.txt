@@ -5,10 +5,7 @@ Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
 - Create a new project:
 	- Use the project-management archetype, for example.
-	- Update project version:
-		- Put the latest SNAPSHOT in pom.xml.
-		- Maven clean.
-		- Maven install. No stacktrace.
+	- Update project OpenXava version to latest SNAPSHOT.
 - Start the project. No prints.
 
 Calculated properties:
@@ -23,7 +20,7 @@ Calculated properties:
 	- Fast. Less than 2 seconds.
 - Click on play again. No prints.	
 - Go to detail. The new property is there. No prints.
-- Add a new calculated property to Customer.
+- Add a new calculated property to Customer. TMR ME QUEDÉ POR AQUÍ: FALLA DE FORMA CONSISTENTE CON JAVA 25
 - Click on Refresh action. 
 	- The new property is shown.
 	- Prints, but not persistent prints.
