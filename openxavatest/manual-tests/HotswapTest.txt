@@ -5,10 +5,7 @@ Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
 - Create a new project:
 	- Use the project-management archetype, for example.
-	- Update project version:
-		- Put the latest SNAPSHOT in pom.xml.
-		- Maven clean.
-		- Maven install. No stacktrace.
+	- Update project OpenXava version to latest SNAPSHOT.
 - Start the project. No prints.
 
 Calculated properties:
@@ -108,7 +105,7 @@ Application: Test also with XavaPro
 	
 - Create a Dashboard transient class in dashboards package.
 - Reload browser. The Dashboard module is in left menu. Prints.
-- Click on Dashboard module. It works. No prints.	
+- Click on Dashboard module. It works. No prints.
 
 OpenXava annotations:
 - Go Issues.
@@ -171,7 +168,7 @@ OpenXava core:
 - Click on New. 
 	- The print in View is in log.
 	- Ugly exceptions in log.
-	- Mesagge in log about LinkageError and deleting Tomcat temp dirs.
+	- Message in log about LinkageError and deleting Tomcat temp dirs.
 	- The page is reloading, but it does not fail.
 	
 Production:

@@ -1,0 +1,157 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hot code reloading with OpenXava Studio / Java 11 - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body>
+    <div class="wiki" style="display: block;">
+      <h1 id="toc0"><a name="hot-code-reloading-studio-java11"></a> <span id="breadcrumbs">
+          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+              </a> </span> / <a href="index_en.html">documentation</a> / </span>Hot code reloading with OpenXava Studio / Java 11</h1>
+      <div id="toc">
+        <h1 class="nopad">Table of contents</h1>
+        <div style="margin-left: 1em;"><a href="#hot-code-reloading-studio-java11">Hot code reloading with OpenXava Studio / Java 11</a></div>
+        <div style="margin-left: 2em;"><a href="#java-included-in-openxava-studio-7-r4">Java included in OpenXava Studio 7 R4</a></div>
+        <div style="margin-left: 2em;"><a href="#intellij">IntelliJ</a></div>
+        <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
+      </div>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <p><i>This document covers hot code reloading for the now discontinued <strong>OpenXava Studio</strong> and for <strong>Java 11</strong>.
+      If you are using IntelliJ or a modern Java version (17, 21 or 25), please refer to the current documentation:
+      <a href="hot-code-reloading_en.html">Hot code reloading</a>.</i></p>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="java-included-in-openxava-studio-7-r4">Java included in OpenXava Studio 7 R4</h2>
+      For code reloading to work, it's necessary to run the application with the Java included in OpenXava Studio 7 R4. 
+      This Java is a JDK 11 based on DCEVM that integrates HotswapAgent, and is specially tuned to work well with 
+      OpenXava's hot reloading.</div>
+      
+    <div class="wiki" style="display: block;">
+      This JDK is found in the OpenXava Studio 7 R4 distribution, in <i>openxava-studio-7-r4/studio/jre</i>.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If you run OpenXava Studio on a clean machine without Java and in a new workspace, this Java should be used 
+      by default. However, if you already have other JDKs on your computer or have a workspace where you've registered 
+      other JDKs, your application might not be using the JDK with HotswapAgent and therefore class reloading won't work.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      You'll know if you're running the correct JDK if you see these lines in the log when starting your application:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
+Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If not, in OpenXava Studio, go to <i>Window > Preferences > Java > Installed JREs</i> and verify that you 
+      have a JRE pointing to <i>openxava-studio-7-r4/studio/jre</i>, as shown here:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <img src="files/openxava-studio-7r4-jre.png" alt="openxava-studio-7r4-jre.png" title="openxava-studio-7r4-jre.png"><br>
+      <div class="wiki" style="display: block;">
+        If it's not there, add it yourself. Also, remove any other Java 11 you have registered.
+        Try running your application again.
+      </div>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If it still doesn't run Java with HotswapAgent, you might have Java 1.8 recognized by OpenXava Studio and 
+      your project might be configured to work with Java 1.8, so it chooses Java 1.8 instead of Java 11 
+      (the one from OpenXava Studio). To fix this, go to your project's <i>pom.xml</i> and change:
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">To:</div>
+    
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-xml">&lt;properties&gt;
+    ...  
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+</code></pre>
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      Then right-click on your project and choose <i>Maven > Update Project...</i>
+      This should make it work.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      If you want to continue compiling with Java 1.8 and therefore don't want to change the <i>pom.xml</i>, 
+      that's not a problem. Go to <i>Run Configurations</i>:
+    </div>
+    
+    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png" title="eclipse-run-configurations.png">
+    
+    <div class="wiki" style="display: block;">
+      Find your application and in the JRE folder, make sure your application runs with the OpenXava Studio JDK:
+    </div>
+    
+    <img src="files/run-configuration-jre.png" alt="run-configuration-jre.png" title="run-configuration-jre.png">
+    
+    <div class="wiki" style="display: block;">
+      If not, change it - you might need to use the <i>Alternate JRE</i> option.
+    </div>
+    
+    <div class="wiki" style="display: block;">
+      <h2 id="intellij">IntelliJ</h2>
+      <p>You can also enjoy hot code reloading using IntelliJ. The trick is to run the application with the JDK 
+         included in OpenXava Studio 7 R4. You'll need to download OpenXava Studio, even if it's just to use its JDK.</p>
+      
+      <p>Register the JDK included in OpenXava Studio 7 R4 in your IntelliJ. Go to <i>File > Project Structure</i>. 
+         There in the SDKs section add the JDK found in <i>openxava-studio-7-r4/studio/jre</i>:</p>
+      
+      <img src="files/intellij-openxava-studio-jdk-definition.png" alt="intellij-openxava-studio-jdk-definition.png" 
+           title="intellij-openxava-studio-jdk-definition.png">
+      
+      <p>Then in the <i>Project</i> section, choose this JDK as the SDK for the project:</p>
+      
+      <img src="files/intellij-openxava-studio-jdk-for-project.png" alt="intellij-openxava-studio-jdk-for-project.png" 
+           title="intellij-openxava-studio-jdk-for-project.png">
+      <p>Keep in mind that IntelliJ does not compile the code automatically when the application is running, 
+         so after changing the code you have to press the <i>Build</i> button, the one with the little hammer, 
+         for it to compile and be able to see the updated changes.</p>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="visual-studio-code">Visual Studio Code</h2>
+      <p>To use hot code reloading with Visual Studio Code you need to run the application with the JDK included 
+         in OpenXava Studio 7 R4, so you'll need to download OpenXava Studio, even if it's just to use its JDK.<br>
+         For Visual Studio Code to recognize your JDK add this to your user's <i>settings.json</i>:</p>
+      <pre><code class="language-json">"java.configuration.runtimes": [
+    {
+        "name": "JavaSE-11",
+        "path": "/home/youruser/openxava-studio-7-r4/studio/jre",
+        "default": true
+    }
+]
+</code></pre>
+      
+      <p>Visual Studio Code compiles the code automatically as you edit it, just like OpenXava Studio, 
+         so you just have to touch the code and go to the browser to see the application changed immediately.</p>
+    </div>
+  </body>
+</html>

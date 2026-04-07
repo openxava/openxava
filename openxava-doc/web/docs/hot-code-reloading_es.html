@@ -19,9 +19,10 @@
         <h1 class="nopad">Tabla de contenidos</h1>
         <div style="margin-left: 1em;"><a href="#configuracion-para-kotlin">Carga de código en caliente</a></div>
         <div style="margin-left: 2em;"><a href="#añadir-dependencias-en-pom.xml">Cambios soportados</a></div>
-        <div style="margin-left: 2em;"><a href="#java-incluido-en-openxava-studio-7-r4">Java incluido en OpenXava Studio 7 R4</a></div>
         <div style="margin-left: 2em;"><a href="#intellij">IntelliJ</a></div>
-        <div style="margin-left: 2em;"><a href="#visual-studio-code">Visual Studio Code</a></div>
+        <div style="margin-left: 2em;"><a href="#sin-ide">Sin IDE</a></div>
+        <div style="margin-left: 2em;"><a href="#otros-ide">Otros IDE</a></div>
+        <div style="margin-left: 2em;"><a href="#openxava-studio-y-java-11">OpenXava Studio y Java 11</a></div>
         <div style="margin-left: 2em;"><a href="#rendimiento">Rendimiento</a></div>
         <div style="margin-left: 2em;"><a href="#classpaths-extra">Classpaths extra</a></div>
         <div style="margin-left: 2em;"><a href="#xavapro">XavaPro</a></div>
@@ -72,111 +73,107 @@
           las nuevas etiquetas.</li>
       </ul>
       <p>No es necesario arrancar en modo debug para que se reconozcan los
-        cambios, pero sí que hay que arrancar con el Java de OpenXava Studio 7
-        R4.</p>
-      <h2 id="java-incluido-en-openxava-studio-7-r4">Java incluido en OpenXava Studio 7 R4</h2>
-      Para que la recarga de código funcione es necesario ejecutar la aplicación
-      con el Java incluido en OpenXava Studio 7 R4. Este Java es un JDK 11
-      basado en DCEVM y que integra HotswapAgent, además de estar afinado
-      especialmente para funcionar bien con la recarga en caliente de OpenXava.</div>
-    <div class="wiki" style="display: block;">Este JDK se encuentra en la
-      distribución de OpenXava Studio 7 R4, en <i>openxava-studio-7-r4/studio/jre</i>.
+        cambios, pero sí que hay que usar un JDK de JetBrains con el agente
+        HotSwap configurado y arrancando con ciertas opciones, como se explica
+        más abajo.</p>
     </div>
-    <div class="wiki" style="display: block;">Si ejecutas el OpenXava Studio en
-      una máquina limpia, sin Java, y en un workspace nuevo, lo normal es que se
-      use este Java por defecto. Ahora bien, si ya tienes otros JDK en tu
-      ordenador o tienes un workspace donde hayas dado de alta otros JDK, puede
-      que tu aplicación no esté usando el JDK con HotswapAgent y por tanto no
-      funcione la recarga de clases.</div>
-    <div class="wiki" style="display: block;">Sabrás si estás ejecutando el JDK
-      correcto si ves estas líneas en el log al arrancar tu aplicación:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="language-xml">HOTSWAP AGENT: 13:40:23.126 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {1.4.1} - unlimited runtime class redefinition.
-Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap/hotswap-agent.jar'
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Si no es así, en OpenXava Studio,
-      ve a <i>Window &gt; Preferences &gt; Java &gt; Installed JREs</i> y
-      verifica que tienes un JRE que apunta <i>openxava-studio-7-r4/studio/jre</i>,
-      como ves aquí:</div>
-    <div class="wiki" style="display: block;"><img src="files/openxava-studio-7r4-jre.png"
-        alt="openxava-studio-7r4-jre.png" title="openxava-studio-7r4-jre.png"><br>
-      <div class="wiki" style="display: block;">Si no lo hubiese, añádelo tú
-        mismo. Además, elimina todos los demás Java 11 que tengas registrados.
-        Prueba de nuevo ejecutar tu aplicación.</div>
-    </div>
-    <div class="wiki" style="display: block;">Si todavía no ejecuta el Java con
-      HotswapAgent puede que tengas un Java 1.8 reconocido por OpenXava Studio y
-      tu proyecto esté configurado para trabajar con Java 1.8, y por eso escoge
-      el Java 1.8 en lugar del Java 11 (el de OpenXava Studio). Para arreglar
-      esto ve al <i>pom.xml</i> de tu proyecto y cambia:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="language-xml">&lt;properties&gt;
-    ...  
-    &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
-    &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
-&lt;/properties&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Por:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="language-xml">&lt;properties&gt;
-    ...  
-    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
-    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
-&lt;/properties&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Después con el botón derecho
-      encima de tu proyecto escoge <i>Maven &gt; Update Project... </i>Con
-      esto ya debería funcionar. </div>
-    <div class="wiki" style="display: block;">Si quieres seguir compilando con
-      Java 1.8 y por eso no quieres cambiar el <i>pom.xml</i>, no hay problema.
-      Ve a <i>Run Configurations</i>:</div>
-    <img src="files/eclipse-run-configurations.png" alt="eclipse-run-configurations.png"
-      title="eclipse-run-configurations.png">
-    <div class="wiki" style="display: block;">Busca tu aplicación y en la
-      carpeta JRE, asegúrate de que tu aplicación se ejecuta con el JDK del OpenXava
-      Studio:</div>
-    <img src="files/run-configuration-jre.png" alt="run-configuration-jre.png" title="run-configuration-jre.png">
-    <div class="wiki" style="display: block;">Si no es así cámbialo, quizás
-      tengas que usar la opción <i>Alternate JRE</i>.</div>
+
     <div class="wiki" style="display: block;">
       <h2 id="intellij">IntelliJ</h2>
-      <p>También puedes disfrutar de la recarga de código en caliente usando
-        IntelliJ. El truco es ejecutar la aplicación con el JDK incluido en
-        OpenXava Studio 7 R4. Tendrás que descargar OpenXava Studio, aunque solo
-        sea para usar su JDK.</p>
-      <p>Da de alta el JDK incluido en OpenXava Studio 7 R4 en tu IntelliJ. Ve a
-        <i>File &gt; Project Structure</i>. Allí en la sección SDKs añade el JDK
-        que se encuentra en <i>openxava-studio-7-r4/studio/jre</i>:</p>
-      <img src="files/intellij-openxava-studio-jdk-definition.png" alt="intellij-openxava-studio-jdk-definition.png"
-        title="intellij-openxava-studio-jdk-definition.png">
-      <p> Después en la sección <i>Project</i>, escoge este JDK como SDK para
-        el proyecto:</p>
-      <img src="files/intellij-openxava-studio-jdk-for-project.png" alt="intellij-openxava-studio-jdk-for-project.png"
-        title="intellij-openxava-studio-jdk-for-project.png">
-      <p>Ten en cuenta que IntelliJ no compila el código automáticamente si la
-        aplicación se está ejecutando, por eso después de cambiar el código has
-        de pulsar el botón de <i>Build</i>, el que tiene un martillito, para
-        que compile y poder ver los cambios actualizados.</p>
-      <h2 id="visual-studio-code">Visual Studio Code</h2>
-      <p>Para usar la recarga de código en caliente con Visual Studio Code has
-        de ejecutar la aplicación con el JDK incluido en OpenXava Studio 7 R4,
-        por eso tendrás que descargar OpenXava Studio, aunque solo sea para usar
-        su JDK.<br>
-        Para que Visual Studio Code reconozca tu JDK en el <i>settings.json</i>
-        para tu usuario añade:</p>
-      <pre><code class="language-json">"java.configuration.runtimes": [
-    {
-        "name": "JavaSE-11",
-        "path": "/home/youruser/openxava-studio-7-r4/studio/jre",
-        "default": true
-    }
-]
+      <p>IntelliJ es el IDE recomendado para la recarga de código en caliente con OpenXava.
+        Para usarlo es necesario un JDK de JetBrains: JBR 17, 21 o 25.
+        Usa la opción <i>Project Structure...</i> de IntelliJ para establecer uno de
+        estos JDK para el proyecto:</p>
+
+      <img src="files/jbr-17-in-intellij.png" alt="jbr-17-in-intellij.png" title="jbr-17-in-intellij.png">
+
+      <p>Si no tienes un JDK de JetBrains puedes descargarlo desde el propio IntelliJ en
+        <i>Project Structure...</i>, en la sección SDKs:</p>
+
+      <img src="files/download-jbr-intellij.png" alt="download-jbr-intellij.png" title="download-jbr-intellij.png">
+
+      <p>Además, hay que instalar un plugin llamado <b>HotSwapHelper</b>.
+        Ve a <i>Settings &gt; Plugins</i> y búscalo:</p>
+
+      <img src="files/hotswaphelper-intellij-plugin.png" alt="hotswaphelper-intellij-plugin.png" title="hotswaphelper-intellij-plugin.png">
+
+      <p>Con esto ya se puede ejecutar la aplicación, pero no de la forma habitual.
+        Hay que usar la opción <i>run with Hotswap debug</i> que ahora tenemos
+        disponible en el menú de ejecución de IntelliJ:</p>
+
+      <img src="files/run-with-hotswap-plugin.png" alt="run-with-hotswap-plugin.png" title="run-with-hotswap-plugin.png">
+
+      <p>Si todo va bien, en la salida del log, al principio, debería haber un
+        mensaje como este:</p>
+      <pre><code class="language-xml">Connected to the target VM, address: '127.0.0.1:54715', transport: 'socket'
+HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {2.0.2} - unlimited runtime class redefinition.
 </code></pre>
-      <p>Visual Studio Code compila el código automáticamente a medida que lo
-        editas, igual que OpenXava Studio, así que solo tienes que tocar el
-        código e ir al navegador para ver la aplicación cambiada de forma
-        inmediata.</p>
+
+      <p>Si es así, ya se puede cambiar el código y ver el efecto de forma inmediata.</p>
+
+      <p>Ten en cuenta que con Java 25 la aplicación se para de vez en cuando, con Java 21
+        falla mucho menos y con Java 17 no falla. Aun así es mucho más práctico que
+        reiniciar la aplicación por cada cambio. Lo normal es que a medida que salgan
+        nuevas versiones de mantenimiento de Java 25 sea cada vez más robusto.</p>
     </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="sin-ide">Sin IDE</h2>
+      <p>También se puede usar la recarga de clases en caliente fuera de IntelliJ y
+        sin usar ningún IDE, desde el terminal.</p>
+
+      <p>Para ello hay que descargar un JDK de JetBrains, que se puede hacer desde aquí:
+        <a href="https://github.com/JetBrains/JetBrainsRuntime/releases">https://github.com/JetBrains/JetBrainsRuntime/releases</a></p>
+
+      <p>Después de instalar el JDK de JetBrains, dentro de la carpeta <i>lib</i> hay
+        que crear una carpeta <i>hotswap</i> y copiar dentro un archivo
+        <i>hotswap-agent.jar</i>, sin número de versión. Este jar se puede descargar desde aquí:
+        <a href="https://github.com/HotswapProjects/HotswapAgent/releases">https://github.com/HotswapProjects/HotswapAgent/releases</a><br>
+        Importante: al copiarlo dentro de <i>lib/hotswap</i> hay que renombrarlo para
+        que se llame solo <i>hotswap-agent.jar</i>.</p>
+
+      <p>Ahora solo hay que arrancar la aplicación con este JDK enviando unas opciones
+        de arranque para activar el HotSwap.</p>
+
+      <p>Por ejemplo, en Linux:</p>
+      <pre><code class="language-bash">export MAVEN_OPTS="-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+export JAVA_HOME=/home/javi/.jdks/jbr-25.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+mvn exec:java
+</code></pre>
+
+      <p>En Windows:</p>
+      <pre><code class="language-bash">set MAVEN_OPTS=-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar
+set JAVA_HOME=C:\Users\youruser\.jdks\jbr-25.0.2
+set PATH=%JAVA_HOME%\bin;%PATH%
+mvn exec:java
+</code></pre>
+
+      <p>Si se hace bien, al ejecutar la aplicación deberíamos ver:</p>
+      <pre><code class="language-xml">Connected to the target VM, address: '127.0.0.1:54715', transport: 'socket'
+HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {2.0.3} - unlimited runtime class redefinition.
+</code></pre>
+
+      <p>Para más información ver: <a href="https://github.com/HotswapProjects/HotswapAgent">https://github.com/HotswapProjects/HotswapAgent</a></p>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="otros-ide">Otros IDE</h2>
+      <p>La recarga de clases en caliente puede funcionar desde cualquier IDE, como
+        Eclipse, NetBeans o Visual Studio Code. Solo hay que usar un JDK de JetBrains
+        y copiarle el <i>hotswap-agent.jar</i> como se describe en la sección
+        <a href="#sin-ide">Sin IDE</a>. Además, hay que configurar el arranque de la
+        aplicación en el IDE para que use las opciones
+        <code>-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar</code>.</p>
+    </div>
+
+    <div class="wiki" style="display: block;">
+      <h2 id="openxava-studio-y-java-11">OpenXava Studio y Java 11</h2>
+      <p>Si queremos usar OpenXava Studio o Java 11 debemos seguir la siguiente
+        documentación:
+        <a href="hot-code-reloading-studio-java11_es.html">Carga de código en caliente con OpenXava Studio / Java 11</a>.</p>
+    </div>
+
     <div class="wiki" style="display: block;">
       <h2 id="rendimiento">Rendimiento</h2>
       <p>El mecanismo de recarga en caliente está diseñado para un rendimiento
@@ -210,7 +207,7 @@ Starting HotswapAgent '/home/theuser/openxava-studio-7-r4/studio/jre/lib/hotswap
         <li>Cuando añades un nuevo módulo a una aplicación XavaPro, ya sea definiéndolo en <i>aplicacion.xml</i> o creando una nueva entidad JPA, 
             el módulo aparece inmediatamente en el menú, en la carpeta raíz.</li>
         <li>El nuevo módulo se asigna automáticamente al rol "user", si este rol existe.</li>
-        <li>De manera similar, si arrancas la aplicación con el JDK que incluye Hotswap Agent (el incluido en OpenXava Studio 7 R4), 
+        <li>De manera similar, si arrancas la aplicación con el JDK que incluye Hotswap Agent (un JDK de JetBrains), 
             cualquier módulo añadido mientras la aplicación estaba parada será reconocido cuando la aplicación arranque.</li>
       </ul>
       
