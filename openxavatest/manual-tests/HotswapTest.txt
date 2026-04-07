@@ -1,9 +1,7 @@
 The automated tests in this project do not include hotswap code feature.
 Therefore, when you touch any Hotswap code you have to test this.
 
-TMR - BUSCAR FALLA, PONERLOS COMO BUGS
-TMR - AÑADIR TAREA PARA PROBAR CON XAVAPRO EN 7.7.2
-TMR - REHACER DOC.
+TMR - REHACER DOC. FALLA 25 FALLA BASTANTE, JAVA 21 FALLA ALGO, JAVA 17 FUNCIONA
 
 Setup:
 - Add prints in all if (xxx < Hotswap.getXxx()).
@@ -20,11 +18,11 @@ Calculated properties:
 - Open network in browser. Clear.
 - Click on play:
 	- New property in list.
-	- ¿FALLA?: Prints about reloading, but not about persistence reloading.
+	- Prints about reloading, but not about persistence reloading.
 	- Fast. Less than 2 seconds.
 - Click on play again. No prints.	
 - Go to detail. The new property is there. No prints.
-- Add a new calculated property to Customer. FALLA DE FORMA CONSISTENTE CON JAVA 25, NO EN LINUX
+- Add a new calculated property to Customer.
 - Click on Refresh action. 
 	- The new property is shown.
 	- Prints, but not persistent prints.
@@ -63,8 +61,7 @@ Persistent properties:
 - Enter a value in the persistent property. Save.	
 - Go list. The just removed property is not present. No prints.
 - The not removed property has the valued entered in detail.
-- Remove the other property. FALLA EN LINUX DE FORMA CONSISTENTE
-	CON TODOS LOS HOTSWAP, Y JAVA 25. FUNCIONA CON JAVA 21 y 17
+- Remove the other property.
 - Reload the page. 
 	- The property is no longer there.
 	- Prints including persistent prints.
@@ -92,7 +89,7 @@ Controllers/i18n:
 - Click in any action. No prints.	
 - Add a label for the action. Add a message id and use it from the action.
 - Reload browser. Prints. (By now reloading page is needed to i18n changes be effective)
-- The label for action is changed. FALLA
+- The label for action is changed.
 - Click on the action. The i18n message is shown. No prints.
 - Remove the controller.
 - Click on any action. Action is not shown. Prints.
@@ -110,7 +107,7 @@ Application: Test also with XavaPro
 	
 - Create a Dashboard transient class in dashboards package.
 - Reload browser. The Dashboard module is in left menu. Prints.
-- Click on Dashboard module. It works. No prints. FALLA	
+- Click on Dashboard module. It works. No prints.
 
 OpenXava annotations:
 - Go Issues.
@@ -121,7 +118,7 @@ OpenXava annotations:
 Editor for annotations: 
 - Go Plans. Choose a plan.
 - Create two issues in that plan with value for hours.
-- Edit Plan entity and add hours in @ListProperties for issues. FALLA CON JAVA 21, FUNCIONA CON 17
+- Edit Plan entity and add hours in @ListProperties for issues.
 - Click on Refresh. The hours are shown in the list. (We're not testing this, but should work)
 - Add the @Chart annotation to issues collection.
 - Click on Refresh. The chart is shown. Prints.
