@@ -2913,7 +2913,6 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	public static Collection<String> getManagedClassNames() {
 		if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
-			System.out.println("AnnotatedClassParser.getManagedClassNames(): Hotswap.getPersistentModelVersion() changed");
         	managedClassNames = null;
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}

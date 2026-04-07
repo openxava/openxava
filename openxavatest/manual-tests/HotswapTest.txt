@@ -1,8 +1,6 @@
 The automated tests in this project do not include hotswap code feature.
 Therefore, when you touch any Hotswap code you have to test this.
 
-TMR ME QUEDÉ POR AQUÍ: TODO LO DE ABAJO PROBADO, FALTA:
-TMR - QUITAR LOS PRINTS
 TMR - BUSCAR FALLA, PONERLOS COMO BUGS
 TMR - AÑADIR TAREA PARA PROBAR CON XAVAPRO EN 7.7.2
 TMR - REHACER DOC.

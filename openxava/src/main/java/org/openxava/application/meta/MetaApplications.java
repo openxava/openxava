@@ -40,7 +40,6 @@ public class MetaApplications {
 	private static void configureMetaApplications() {
 		if (metaAplicacions != null) { 
         	if (applicationCodeVersion < Hotswap.getApplicationVersion()) {  
-				System.out.println("MetaApplications.configureMetaApplications(): Hotswap.getApplicationVersion() changed");
 	        	metaAplicacions = null;
 	        	applicationCodeVersion = Hotswap.getApplicationVersion();
         	}
