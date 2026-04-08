@@ -7,6 +7,7 @@ pdfbox 3.0.7
 tomcat 9.0.117
 jersey 2.48
 log4j 2.25.4
+Microsoft SQL Server, Informix, Db2, Firebird
 
 - Hot code reloading documentation updated for use with IntelliJ and recent Java versions (17, 21 and 25).
 - Fix: Maven package fails the first time for projects created from the Spanish invoicing Maven archetype.
