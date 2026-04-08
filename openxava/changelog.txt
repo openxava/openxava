@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Article in the documentation about OpenXava Studio.
 - Commons Logging upgraded to 1.3.6.
 - Groovy upgraded to 4.0.31.
 - PDFBox upgraded to 3.0.7.
