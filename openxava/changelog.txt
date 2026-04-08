@@ -1,7 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
-- Hot code reloading documentation updated for use with IntelliJ and recent Java versions (17+).
+- Commons Logging upgraded to 1.3.6.
+- Groovy upgraded to 4.0.31.
+- PDFBox upgraded to 3.0.7.
+- Jersey upgraded to 2.48.
+- Log4j upgraded to 2.25.4.
+- Embedded Tomcat used in development upgraded to 9.0.117.
+- Driver version in doc/new projects upgraded for Microsoft SQL Server, Informix, Db2 and Firebird.
+- Hot code reloading documentation updated for use with IntelliJ and recent Java versions (17, 21 and 25).
 - Fix: Maven package fails the first time for projects created from the Spanish invoicing Maven archetype.
 - Fix: Blog link incorrectly shown in Javadoc pages.
 - Fix: Date in list filter fields changes to current year after filtering via chat.
