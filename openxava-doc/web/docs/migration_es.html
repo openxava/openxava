@@ -48,6 +48,34 @@
 
     <p>Para finalizar, revisa las instrucciones de abajo para adaptar tu código.</p>
     
+    <h2>Para migrar de OpenXava 7.7 a OpenXava 7.7.1</h2>
+    
+    <h3>Todas las propiedades de referencias incrustadas se muestran por defecto en la lista (para pruebas JUnit)</h3>
+    
+    <p>
+      Ahora todas las propiedades de una referencia <i>@Embedded</i> se muestran por
+      defecto en la lista, en lugar de solo la primera. Por lo tanto, si compruebas
+      la cantidad de columnas de la lista o las etiquetas de las columnas en tus
+      pruebas JUnit, es posible que necesites actualizarlas para incluir las nuevas
+      columnas. Por ejemplo:
+    </p>
+    
+    <pre><code class="language-java">// ANTES (en 7.7 solo se mostraba la primera propiedad del incrustado)
+assertListColumnCount(3); // number, name, address.street
+assertLabelInList(0, "Number");
+assertLabelInList(1, "Name");
+assertLabelInList(2, "Address street");</code></pre>
+
+    <p>Por:</p>
+    
+    <pre><code class="language-java">// DESPUÉS (en 7.7.1 se muestran todas las propiedades del incrustado)
+assertListColumnCount(5); // number, name, address.street, address.zipCode, address.city
+assertLabelInList(0, "Number");
+assertLabelInList(1, "Name");
+assertLabelInList(2, "Address street");
+assertLabelInList(3, "Address zip code");
+assertLabelInList(4, "Address city");</code></pre>
+
     <h2>Para migrar de OpenXava 7.6.4 a OpenXava 7.7</h2>
     
     <h3>Añadir dependencia para el Chat IA (opcional)</h3>

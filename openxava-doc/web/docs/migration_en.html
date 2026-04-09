@@ -58,6 +58,33 @@
       Finally, revise the instructions below to adapt your code.
     </p>
     
+    <h2>Migration from OpenXava 7.7 to OpenXava 7.7.1</h2>
+    
+    <h3>All properties of embeddable references shown by default in list (for JUnit tests)</h3>
+    
+    <p>
+      Now all properties of an <i>@Embedded</i> reference are shown by default in the list,
+      instead of just the first one. Therefore, if you check the list column count
+      or the column labels in your JUnit tests, you may need to update them to include
+      the new columns. For example:
+    </p>
+    
+    <pre><code class="language-java">// BEFORE (in 7.7 only the first property of the embeddable was shown)
+assertListColumnCount(3); // number, name, address.street
+assertLabelInList(0, "Number");
+assertLabelInList(1, "Name");
+assertLabelInList(2, "Address street");</code></pre>
+
+    <p>By:</p>
+    
+    <pre><code class="language-java">// AFTER (in 7.7.1 all properties of the embeddable are shown)
+assertListColumnCount(5); // number, name, address.street, address.zipCode, address.city
+assertLabelInList(0, "Number");
+assertLabelInList(1, "Name");
+assertLabelInList(2, "Address street");
+assertLabelInList(3, "Address zip code");
+assertLabelInList(4, "Address city");</code></pre>
+
     <h2>Migration from OpenXava 7.6.4 to OpenXava 7.7</h2>
     
     <h3>Add AI Chat dependency (optional)</h3>
