@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Project templates documentation articles updated to use IntelliJ instead of OpenXava Studio.
 - Article in the documentation about OpenXava Studio.
 - Commons Logging upgraded to 1.3.6.
 - Groovy upgraded to 4.0.31.
