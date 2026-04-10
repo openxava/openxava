@@ -1,9 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.7.1 (2026-4-10)
+--------------------------
 - All properties of embeddable references are shown by default in the list.
 - Some new common use labels to be used in applications.
-
 - Commons Logging upgraded to 1.3.6.
 - Groovy upgraded to 4.0.31.
 - PDFBox upgraded to 3.0.7.
@@ -11,12 +12,10 @@ Change Log for OpenXava project
 - Log4j upgraded to 2.25.4.
 - Embedded Tomcat used in development upgraded to 9.0.117.
 - Driver version in doc/new projects upgraded for Microsoft SQL Server, Informix, Db2 and Firebird.
-
 - Hot code reloading documentation updated for use with IntelliJ and recent Java versions (17, 21 and 25).
 - Project templates documentation articles updated to use IntelliJ instead of OpenXava Studio.
 - Article in the documentation about OpenXava Studio.
 - Getting Started video updated to use OpenXava 7.7 and a brief AI chat demo.
-
 - Fix: Filtering lists by @DescriptionsList columns using AI chat does not work.
 - Fix: AI chat does not recognize all properties in embedded references.
 - Fix: Exception when cutting a row in a collection after creating a new element with @DescriptionsList.
