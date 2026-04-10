@@ -2,7 +2,7 @@
 
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
-	<property name="xava.version" value="7.7"/>
+	<property name="xava.version" value="7.7.1"/>
 	<property name="dist.dir" value="/home/javi/site"/>
 	<property name="local.deploy.dir" value="E:\java\apache-tomcat-9.0.55\webapps"/>
 	<!--
