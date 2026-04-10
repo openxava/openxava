@@ -1,8 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-- Project templates documentation articles updated to use IntelliJ instead of OpenXava Studio.
-- Article in the documentation about OpenXava Studio.
+- All properties of embeddable references are shown by default in the list.
+- Some new common use labels to be used in applications.
+
 - Commons Logging upgraded to 1.3.6.
 - Groovy upgraded to 4.0.31.
 - PDFBox upgraded to 3.0.7.
@@ -10,22 +11,24 @@ Change Log for OpenXava project
 - Log4j upgraded to 2.25.4.
 - Embedded Tomcat used in development upgraded to 9.0.117.
 - Driver version in doc/new projects upgraded for Microsoft SQL Server, Informix, Db2 and Firebird.
+
 - Hot code reloading documentation updated for use with IntelliJ and recent Java versions (17, 21 and 25).
-- Fix: Maven package fails the first time for projects created from the Spanish invoicing Maven archetype.
-- Fix: Blog link incorrectly shown in Javadoc pages.
+- Project templates documentation articles updated to use IntelliJ instead of OpenXava Studio.
+- Article in the documentation about OpenXava Studio.
+- Getting Started video updated to use OpenXava 7.7 and a brief AI chat demo.
+
+- Fix: Filtering lists by @DescriptionsList columns using AI chat does not work.
+- Fix: AI chat does not recognize all properties in embedded references.
+- Fix: Exception when cutting a row in a collection after creating a new element with @DescriptionsList.
+- Fix: Hovering over an item in a @DescriptionsList combo clears the text typed by the user for filtering.
 - Fix: Date in list filter fields changes to current year after filtering via chat.
 - Fix: Column resize handles sometimes appear above chat panel.
 - Fix: JavaScript error in the browser console when AI chat is unavailable.
-- Fix: Filtering lists by @DescriptionsList columns using AI chat does not work.
-- Fix: AI chat does not recognize all properties in embedded references.
-- All properties of embeddable references are shown by default in the list.
-- Some new common use labels to be used in applications.
 - Fix: Adding an element to a @OneToMany breaks the module if it has a @ElementCollection.
+- Fix: Maven package fails the first time for projects created from the Spanish invoicing Maven archetype.
+- Fix: Blog link incorrectly shown in Javadoc pages.
 - Fix: Right side hidden when resizing browser in list mode with @ElementCollection in some cases.
-- Getting Started video updated to use OpenXava 7.7 and a brief AI chat demo.
 - Fix: Right side of module not shown on initial load when chat panel is visible on large screens.
-- Fix: Exception when cutting a row in a collection after creating a new element with @DescriptionsList.
-- Fix: Hovering over an item in a @DescriptionsList combo clears the text typed by the user for filtering.
 - Fix: Generate PDF fails if the list contains a @File property with a value pointing to a nonexistent file.
 
 OpenXava 7.7 (2026-3-6)
