@@ -224,6 +224,10 @@ abstract public class WebDriverTestBase extends TestCase {
         assertEquals(expectedColumnCount, getCollectionColumnCount(collection));
     }
     
+    protected int getListColumnCount() {
+        return getCollectionColumnCount("list");
+    }
+    
     protected int getCollectionColumnCount(String collection) {
         int columnCount = getTable(collection).findElement(By.tagName("tr")).findElements(By.tagName("th")).size();
         return columnCount - 2;
@@ -317,6 +321,17 @@ abstract public class WebDriverTestBase extends TestCase {
         removeButton.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(1000));
         wait.until(ExpectedConditions.invisibilityOf(removeButton));
+        wait(driver);
+    }
+    
+    protected void removeListColumn(int columnIndex) throws Exception {
+        WebElement customizeBtn = driver.findElement(By.id("ox_chattest_" + module + "__customize_list"));
+        customizeBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement removeColumnBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector("a.xava_remove_column[data-column='ox_chattest_" + module + "__list_col" + columnIndex + "']")));
+        removeColumnBtn.click();
+        Thread.sleep(500);
         wait(driver);
     }
     

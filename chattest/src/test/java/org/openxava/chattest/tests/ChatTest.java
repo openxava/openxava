@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return false; // tmr
+        return true;
     }
 
     @Override
@@ -352,13 +352,13 @@ public class ChatTest extends WebDriverTestBase {
         assertFalse("chat_panel_hide should be hidden when panel is hidden", hideButton.isDisplayed());
     }
     
-    public void testFilterListByRemovedColumn() throws Exception {
+    private void assertFilterListByRemovedColumn() throws Exception {
         // 1. Go to Product module
         goModule("Product");
         
         // 2. Verify 10 rows in list
         assertListRowCount(10);
-        int originalColumnCount = getCollectionColumnCount("list");
+        int originalColumnCount = getListColumnCount();
         
         // 3. Ask to filter by price (unitPrice column is present)
         sendChatMessage("Show me the products that cost more than 1000");
@@ -373,15 +373,7 @@ public class ChatTest extends WebDriverTestBase {
         assertListRowCount(10);
         
         // 6. Remove the unitPrice column (column index 2)
-        WebDriver driver = getDriver();
-        WebElement customizeBtn = driver.findElement(By.id("ox_chattest_Product__customize_list"));
-        customizeBtn.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        WebElement removeColumnBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(
-            By.cssSelector("a.xava_remove_column[data-column='ox_chattest_Product__list_col2']")));
-        removeColumnBtn.click();
-        Thread.sleep(500);
-        wait(driver);
+        removeListColumn(2);
         assertListColumnCount(originalColumnCount - 1);
         
         // 7. New conversation and ask to filter by price (column no longer in list)
@@ -413,6 +405,7 @@ public class ChatTest extends WebDriverTestBase {
         assertFilterByDate();
         assertFilterWithComparators();
         assertFilterByDescriptionsList();
+        assertFilterListByRemovedColumn();
     }
     
     private void assertFilterListInModule() throws Exception {
@@ -569,6 +562,10 @@ public class ChatTest extends WebDriverTestBase {
             assertValueInList(i, 3, "Software");
             assertValueInList(i, 4, "Available");
         }
+
+        // Clear for next tests
+        clearListCondition();
+        assertListRowCount(10);
     }
 
 }
