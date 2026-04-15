@@ -321,6 +321,20 @@ public class EntityTools extends BaseEntityTools {
 			List<MetaProperty> filterableProperties = tab.getMetaPropertiesNotCalculated();
 			int propertyCount = filterableProperties.size();
 			
+			// Check if all requested filter properties are visible in the list
+			if (values != null && !values.isEmpty()) {
+				Set<String> visiblePropertyNames = new HashSet<>();
+				for (MetaProperty mp : filterableProperties) {
+					visiblePropertyNames.add(mp.getQualifiedName());
+				}
+				for (String requestedProperty : values.keySet()) {
+					if (!visiblePropertyNames.contains(requestedProperty)) {
+						log.debug("[DEBUG] Property '" + requestedProperty + "' is not visible in the list columns");
+						return "ERROR: Cannot filter. The property '" + requestedProperty + "' is not a visible column in the list. Use findEntitiesByCondition to return data in the chat instead.";
+					}
+				}
+			}
+			
 			// Build the filter values map for JavaScript
 			pendingFilterValues = new LinkedHashMap<>();
 			for (int i = 0; i < propertyCount; i++) {
