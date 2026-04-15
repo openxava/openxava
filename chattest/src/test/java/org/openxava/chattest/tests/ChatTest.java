@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return true;
+        return false; // tmr
     }
 
     @Override
@@ -350,6 +350,59 @@ public class ChatTest extends WebDriverTestBase {
         
         WebElement hideButton = driver.findElement(By.id("chat_panel_hide"));
         assertFalse("chat_panel_hide should be hidden when panel is hidden", hideButton.isDisplayed());
+    }
+    
+    public void testFilterListByRemovedColumn() throws Exception {
+        // 1. Go to Product module
+        goModule("Product");
+        
+        // 2. Verify 10 rows in list
+        assertListRowCount(10);
+        int originalColumnCount = getCollectionColumnCount("list");
+        
+        // 3. Ask to filter by price (unitPrice column is present)
+        sendChatMessage("Show me the products that cost more than 1000");
+        waitForChatResponse();
+        Thread.sleep(500);
+        
+        // 4. Should filter the list to 5 rows
+        assertListRowCount(5);
+        
+        // 5. Clear the list condition and verify 10 rows again
+        clearListCondition();
+        assertListRowCount(10);
+        
+        // 6. Remove the unitPrice column (column index 2)
+        WebDriver driver = getDriver();
+        WebElement customizeBtn = driver.findElement(By.id("ox_chattest_Product__customize_list"));
+        customizeBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement removeColumnBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(
+            By.cssSelector("a.xava_remove_column[data-column='ox_chattest_Product__list_col2']")));
+        removeColumnBtn.click();
+        Thread.sleep(500);
+        wait(driver);
+        assertListColumnCount(originalColumnCount - 1);
+        
+        // 7. New conversation and ask to filter by price (column no longer in list)
+        clickNewConversation();
+        sendChatMessage("Show me the products that cost more than 1000");
+        String response = waitForChatResponse();
+        Thread.sleep(500);
+        
+        // 8. List should still have 10 rows (filter not applied since column is removed)
+        assertListRowCount(10);
+        
+        // 9. Chat response should contain Volvo and BMW but not IntelliJ and JRebel
+        assertTrue("Response should contain 'Volvo'", response.contains("Volvo"));
+        assertTrue("Response should contain 'BMW'", response.contains("BMW"));
+        assertFalse("Response should NOT contain 'IntelliJ'", response.contains("IntelliJ"));
+        assertFalse("Response should NOT contain 'JRebel'", response.contains("JRebel"));
+        
+        // 10. Restore columns
+        execute("List.addColumns");
+        execute("AddColumns.restoreDefault");
+        assertListColumnCount(originalColumnCount);
     }
     
     public void testFilterList() throws Exception {
