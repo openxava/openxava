@@ -1680,14 +1680,16 @@ public class ModuleManager implements java.io.Serializable {
 		}
 
 		if (modelCodeVersion < Hotswap.getModelVersion()) {
+            System.out.println("ModuleManager.preInitModule() - modelCodeVersion < Hotswap.getModelVersion() - Reloading meta model");
         	getView().reloadMetaModel();
         	getTab().reloadMetaModel();
         	reloadViewNeeded = true;
         	modelCodeVersion = Hotswap.getModelVersion();
         }
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
+            System.out.println("ModuleManager.preInitModule() - controllersCodeVersion < Hotswap.getControllersVersion() - Resetting module controllers");
         	metaModule = null;
-        	setupModuleControllers();        	
+        	setupModuleControllers();
         	controllersCodeVersion = Hotswap.getControllersVersion();
         }        
 	}
