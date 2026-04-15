@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chat panel left shadow not visible in dark theme.
+
 OpenXava 7.7.1 (2026-4-10)
 --------------------------
 - All properties of embeddable references are shown by default in the list.

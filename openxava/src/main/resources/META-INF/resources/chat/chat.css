@@ -376,7 +376,7 @@
 	background: var(--background);
 	display: flex;
 	flex-direction: column;
-	box-shadow: 0px 0px 4px var(--shadow);
+	box-shadow: 0px 0px 4px var(--chat-panel-shadow, var(--shadow));
 	z-index: 20;
 }
 
