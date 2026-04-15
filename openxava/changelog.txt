@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Chat panel left shadow not visible in dark theme.
 
 OpenXava 7.7.1 (2026-4-10)
