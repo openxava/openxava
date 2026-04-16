@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
+
 - Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Chat panel left shadow not visible in dark theme.
 

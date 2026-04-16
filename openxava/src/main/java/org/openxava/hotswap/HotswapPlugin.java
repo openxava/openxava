@@ -38,6 +38,7 @@ public class HotswapPlugin {
 	private static int applicationVersion = 0; 
 	private static int persistentModelVersion = 0; 
 	private static int i18nResourcesVersion = 0; 
+	private static Set<String> initialManagedClassNames; 
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
@@ -58,6 +59,7 @@ public class HotswapPlugin {
         
     private static void onClassCreated(String className) {
     	try {
+    		if (initialManagedClassNames != null && initialManagedClassNames.contains(className)) return;
 			Class newClass = Class.forName(className);
 	    	if (isPersistentClass(newClass)) {
 	    		applicationVersion++;
@@ -75,7 +77,8 @@ public class HotswapPlugin {
 	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
 	    	monitorDirectory("target/classes/i18n", ENTRY_MODIFY); 
 	    	
-	    	Collection<String> managedClassNames = getManagedClassNames();	    	
+	    	Collection<String> managedClassNames = getManagedClassNames();
+	    	initialManagedClassNames = new HashSet<>(managedClassNames);	    	
 	        Set<String> monitoredDirectories = new HashSet<>();
 	        for (String className : managedClassNames) {
 	        	String packageName = Strings.noLastTokenWithoutLastDelim(className, ".");
@@ -109,6 +112,15 @@ public class HotswapPlugin {
 		Thread watcherThread = new Thread(() -> {
 			Path path = Paths.get(directoryPath);
 			try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
+				Set<String> existingFiles = new HashSet<>();
+				if (packageName != null) {
+					File dir = path.toFile();
+					if (dir.isDirectory()) {
+						for (String f : dir.list()) {
+							existingFiles.add(f);
+						}
+					}
+				}
 				path.register(watchService, kind);
 				
 				while (!Thread.currentThread().isInterrupted()) {
@@ -116,7 +128,13 @@ public class HotswapPlugin {
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == kind) {
 							if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
-							else onClassCreated(packageName + "." + event.context().toString().replaceAll(".class$", ""));
+							else {
+								String fileName = event.context().toString();
+								if (!existingFiles.contains(fileName)) {
+									existingFiles.add(fileName);
+									onClassCreated(packageName + "." + fileName.replaceAll(".class$", ""));
+								}
+							}
 						}
 					}
 					key.reset(); 
