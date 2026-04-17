@@ -123,6 +123,9 @@ public class HotswapPlugin {
 						}
 					}
 				}
+				while (!java.nio.file.Files.isDirectory(path) && !Thread.currentThread().isInterrupted()) {
+					Thread.sleep(1000);
+				}
 				path.register(watchService, kind);
 				
 				while (!Thread.currentThread().isInterrupted()) {
@@ -139,7 +142,12 @@ public class HotswapPlugin {
 							}
 						}
 					}
-					key.reset(); 
+					if (!key.reset()) {
+						while (!java.nio.file.Files.isDirectory(path) && !Thread.currentThread().isInterrupted()) {
+							Thread.sleep(1000);
+						}
+						path.register(watchService, kind);
+					}
 				}
 			} catch (IOException | InterruptedException ex) {
 				ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project
