@@ -75,7 +75,9 @@ public class HotswapPlugin {
 	public static void initResourcesMonitoring() {
 	    if (!resourcesMonitoring) {
 	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
+	    	monitorDirectory("target/classes/xava", ENTRY_CREATE);
 	    	monitorDirectory("target/classes/i18n", ENTRY_MODIFY); 
+	    	monitorDirectory("target/classes/i18n", ENTRY_CREATE);
 	    	
 	    	Collection<String> managedClassNames = getManagedClassNames();
 	    	initialManagedClassNames = new HashSet<>(managedClassNames);	    	
