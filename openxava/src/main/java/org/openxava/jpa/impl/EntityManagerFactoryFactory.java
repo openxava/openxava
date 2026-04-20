@@ -29,11 +29,7 @@ public class EntityManagerFactoryFactory {
      * @return A Map.Entry containing the original properties and the created EntityManagerFactory
      */
     public static Map.Entry<Map, EntityManagerFactory> createEntityManagerFactory(Map properties) {
-        long startTime = System.currentTimeMillis();
-        Map.Entry<Map, EntityManagerFactory> result = getProvider().createEntityManagerFactory(properties);
-        long elapsed = System.currentTimeMillis() - startTime;
-        System.out.println("EntityManagerFactory created in " + elapsed + " ms"); // tmr
-        return result;
+        return getProvider().createEntityManagerFactory(properties);
     }
     
     /**
@@ -44,12 +40,9 @@ public class EntityManagerFactoryFactory {
     private static IEntityManagerFactoryProvider getProvider() {
         if (provider == null) {
             try {
-                long startTime = System.currentTimeMillis();
                 provider = (IEntityManagerFactoryProvider) Class.forName(
                         XavaPreferences.getInstance().getEntityManagerFactoryProviderClass()).newInstance();
-                long elapsed = System.currentTimeMillis() - startTime;
-                System.out.println("Provider instantiated in " + elapsed + " ms"); // tmr
-            } 
+            }
             catch (Exception ex) {
                 log.warn(XavaResources.getString("provider_creation_error", "EntityManagerFactory"), ex);
                 throw new XavaException("provider_creation_error", "EntityManagerFactory");
