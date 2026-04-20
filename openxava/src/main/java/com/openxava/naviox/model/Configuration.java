@@ -100,6 +100,10 @@ public class Configuration implements java.io.Serializable {
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean privacyPolicyOnSignUp; 
 	
+	/** @since 8.0 */
+	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Column(columnDefinition="varchar(1) default 'N' not null")
+	private boolean autoGenerateAPI;
 	
 
 	@Hidden
@@ -286,6 +290,16 @@ public class Configuration implements java.io.Serializable {
 
 	public void setForceSpecialCharactersInPassword(boolean forceSpecialCharactersInPassword) {
 		this.forceSpecialCharactersInPassword = forceSpecialCharactersInPassword;
+	}
+
+	/** @since 8.0 */
+	public boolean isAutoGenerateAPI() {
+		return autoGenerateAPI;
+	}
+
+	/** @since 8.0 */
+	public void setAutoGenerateAPI(boolean autoGenerateAPI) {
+		this.autoGenerateAPI = autoGenerateAPI;
 	}
 
 }
