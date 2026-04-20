@@ -4,7 +4,6 @@ Change Log for OpenXava project
 - Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
 - Fix: Hot reload does not recognize transient classes when adding module to application.xml in IntelliJ.
 - Fix: Hot code reloading does not detect new labels and messages in i18n files when using IntelliJ.
-
 - Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Chat panel left shadow not visible in dark theme.
 
