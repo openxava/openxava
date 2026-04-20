@@ -175,7 +175,7 @@ public class XPersistence {
 	}	
 	
 	private static EntityManagerFactory getEntityManagerFactory() {
-    	if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) { 
+    	if (persistentModelCodeVersion < Hotswap.getPersistentModelVersion()) {
         	resetAllEntityManagerFactories();
         	persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
     	}

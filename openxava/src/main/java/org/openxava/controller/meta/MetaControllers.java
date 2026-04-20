@@ -41,7 +41,7 @@ public class MetaControllers {
 	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	metaControllers = null;
-        	controllersCodeVersion = Hotswap.getControllersVersion();     
+        	controllersCodeVersion = Hotswap.getControllersVersion();
         }		
 		if (metaControllers == null) {
 			setup();

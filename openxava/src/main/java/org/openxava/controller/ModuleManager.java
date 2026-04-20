@@ -1687,7 +1687,7 @@ public class ModuleManager implements java.io.Serializable {
         }
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	metaModule = null;
-        	setupModuleControllers();        	
+        	setupModuleControllers();
         	controllersCodeVersion = Hotswap.getControllersVersion();
         }        
 	}

@@ -38,6 +38,7 @@ public class HotswapPlugin {
 	private static int applicationVersion = 0; 
 	private static int persistentModelVersion = 0; 
 	private static int i18nResourcesVersion = 0; 
+	private static Set<String> initialManagedClassNames; 
 	
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void onClassModified() throws Exception {
@@ -55,9 +56,24 @@ public class HotswapPlugin {
     		i18nResourcesVersion++;
     	}
     }
+    
+    private static void onDirectoryRecreated(String directoryPath) {
+    	// Called when the monitored directory itself was deleted and recreated.
+    	// Some IDEs (e.g. IntelliJ) rebuild resources by removing and recreating
+    	// target/classes/i18n (and similar) instead of overwriting files in place,
+    	// which invalidates the WatchKey and drops the file-level events.
+    	if (directoryPath.endsWith("/i18n")) {
+    		i18nResourcesVersion++;
+    	}
+    	else if (directoryPath.endsWith("/xava")) {
+    		controllersVersion++;
+    		applicationVersion++;
+    	}
+    }
         
     private static void onClassCreated(String className) {
     	try {
+    		if (initialManagedClassNames != null && initialManagedClassNames.contains(className)) return;
 			Class newClass = Class.forName(className);
 	    	if (isPersistentClass(newClass)) {
 	    		applicationVersion++;
@@ -73,9 +89,12 @@ public class HotswapPlugin {
 	public static void initResourcesMonitoring() {
 	    if (!resourcesMonitoring) {
 	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
+	    	monitorDirectory("target/classes/xava", ENTRY_CREATE);
 	    	monitorDirectory("target/classes/i18n", ENTRY_MODIFY); 
+	    	monitorDirectory("target/classes/i18n", ENTRY_CREATE);
 	    	
-	    	Collection<String> managedClassNames = getManagedClassNames();	    	
+	    	Collection<String> managedClassNames = getManagedClassNames();
+	    	initialManagedClassNames = new HashSet<>(managedClassNames);	    	
 	        Set<String> monitoredDirectories = new HashSet<>();
 	        for (String className : managedClassNames) {
 	        	String packageName = Strings.noLastTokenWithoutLastDelim(className, ".");
@@ -109,6 +128,18 @@ public class HotswapPlugin {
 		Thread watcherThread = new Thread(() -> {
 			Path path = Paths.get(directoryPath);
 			try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
+				Set<String> existingFiles = new HashSet<>();
+				if (packageName != null) {
+					File dir = path.toFile();
+					if (dir.isDirectory()) {
+						for (String f : dir.list()) {
+							existingFiles.add(f);
+						}
+					}
+				}
+				while (!java.nio.file.Files.isDirectory(path) && !Thread.currentThread().isInterrupted()) {
+					Thread.sleep(1000);
+				}
 				path.register(watchService, kind);
 				
 				while (!Thread.currentThread().isInterrupted()) {
@@ -116,10 +147,27 @@ public class HotswapPlugin {
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == kind) {
 							if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
-							else onClassCreated(packageName + "." + event.context().toString().replaceAll(".class$", ""));
+							else {
+								String fileName = event.context().toString();
+								if (!existingFiles.contains(fileName)) {
+									existingFiles.add(fileName);
+									onClassCreated(packageName + "." + fileName.replaceAll(".class$", ""));
+								}
+							}
 						}
 					}
-					key.reset(); 
+					if (!key.reset()) {
+						while (!java.nio.file.Files.isDirectory(path) && !Thread.currentThread().isInterrupted()) {
+							Thread.sleep(1000);
+						}
+						path.register(watchService, kind);
+						// The directory was deleted and recreated (e.g. by IntelliJ rebuilding
+						// resources): events emitted during the recreation may have been lost
+						// because the WatchKey was already invalid. Notify so versions get bumped.
+						if (packageName == null) {
+							onDirectoryRecreated(directoryPath);
+						}
+					}
 				}
 			} catch (IOException | InterruptedException ex) {
 				ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project

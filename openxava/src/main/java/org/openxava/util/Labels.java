@@ -100,11 +100,11 @@ public class Labels {
 	/**
 	 * If there is not label return null.
 	 */
-	private static String get(String id, Locale locale, boolean qualified) { 
+	private static String get(String id, Locale locale, boolean qualified) {
 		String key = toKey(id, locale, qualified);
-    	if (i18nResourceCodeVersion < Hotswap.getI18nResourcesVersion()) {  
-    		labels.clear(); 
-    		ResourceBundle.clearCache(); 
+    	if (i18nResourceCodeVersion < Hotswap.getI18nResourcesVersion()) {
+    		labels.clear();
+    		ResourceBundle.clearCache();
         	i18nResourceCodeVersion = Hotswap.getI18nResourcesVersion();
     	}
 		String label = labels.get(key);

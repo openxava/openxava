@@ -42,7 +42,7 @@ public class EntityManagerFactoryFactory {
             try {
                 provider = (IEntityManagerFactoryProvider) Class.forName(
                         XavaPreferences.getInstance().getEntityManagerFactoryProviderClass()).newInstance();
-            } 
+            }
             catch (Exception ex) {
                 log.warn(XavaResources.getString("provider_creation_error", "EntityManagerFactory"), ex);
                 throw new XavaException("provider_creation_error", "EntityManagerFactory");

@@ -408,10 +408,10 @@ public class Modules implements Serializable {
 		return fixedModules;
 	}
 	
-	public List<MetaModule> getAll(HttpServletRequest request) {   
+	public List<MetaModule> getAll(HttpServletRequest request) {
         if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
-        	all = null; 
-        	applicationCodeVersion = Hotswap.getApplicationVersion();     
+        	all = null;
+        	applicationCodeVersion = Hotswap.getApplicationVersion();
         }				
 		if (all == null) {			
 			all = ModulesHelper.getAll(request); 

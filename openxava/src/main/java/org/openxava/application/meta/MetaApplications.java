@@ -38,8 +38,8 @@ public class MetaApplications {
 	}
 
 	private static void configureMetaApplications() {
-		if (metaAplicacions != null) { 
-        	if (applicationCodeVersion < Hotswap.getApplicationVersion()) {  
+		if (metaAplicacions != null) {
+        	if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
 	        	metaAplicacions = null;
 	        	applicationCodeVersion = Hotswap.getApplicationVersion();
         	}
