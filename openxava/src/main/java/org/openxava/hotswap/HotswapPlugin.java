@@ -56,6 +56,20 @@ public class HotswapPlugin {
     		i18nResourcesVersion++;
     	}
     }
+    
+    private static void onDirectoryRecreated(String directoryPath) {
+    	// Called when the monitored directory itself was deleted and recreated.
+    	// Some IDEs (e.g. IntelliJ) rebuild resources by removing and recreating
+    	// target/classes/i18n (and similar) instead of overwriting files in place,
+    	// which invalidates the WatchKey and drops the file-level events.
+    	if (directoryPath.endsWith("/i18n")) {
+    		i18nResourcesVersion++;
+    	}
+    	else if (directoryPath.endsWith("/xava")) {
+    		controllersVersion++;
+    		applicationVersion++;
+    	}
+    }
         
     private static void onClassCreated(String className) {
     	try {
@@ -147,6 +161,12 @@ public class HotswapPlugin {
 							Thread.sleep(1000);
 						}
 						path.register(watchService, kind);
+						// The directory was deleted and recreated (e.g. by IntelliJ rebuilding
+						// resources): events emitted during the recreation may have been lost
+						// because the WatchKey was already invalid. Notify so versions get bumped.
+						if (packageName == null) {
+							onDirectoryRecreated(directoryPath);
+						}
 					}
 				}
 			} catch (IOException | InterruptedException ex) {
