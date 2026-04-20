@@ -103,7 +103,6 @@ public class Labels {
 	private static String get(String id, Locale locale, boolean qualified) {
 		String key = toKey(id, locale, qualified);
     	if (i18nResourceCodeVersion < Hotswap.getI18nResourcesVersion()) {
-            System.out.println("Labels.get() - i18nResourceCodeVersion < Hotswap.getI18nResourcesVersion() - Clearing labels cache");
     		labels.clear();
     		ResourceBundle.clearCache();
         	i18nResourceCodeVersion = Hotswap.getI18nResourcesVersion();
