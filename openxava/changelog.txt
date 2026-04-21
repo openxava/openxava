@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sporadic component parse errors, such as "more than one default tab", under concurrency pressure.
 - New title attribute in <xava:link> taglib to customize the tooltip of the link.
 - Fix: Tooltip of sortable list column headers shows a generic description instead of the property name.
 - Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
@@ -8,7 +9,7 @@ Change Log for OpenXava project
 - Fix: Hot code reloading does not detect new labels and messages in i18n files when using IntelliJ.
 - Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Chat panel left shadow not visible in dark theme.
-- Fix: Concurrency hardening in MetaComponent cache to avoid sporadic parse errors (e.g. "cannot have more than one default tab") when custom servlet filters bypass OpenXava security/naviox.
+
 
 OpenXava 7.7.1 (2026-4-10)
 --------------------------
