@@ -182,8 +182,9 @@ else if (tab.isOrderDescending(property.getQualifiedName())) icon = style.getSor
 else if (tab.isOrderAscending2(property.getQualifiedName())) icon = style.getSortIndicator2() + " mdi mdi-arrow-up-bold";
 else if (tab.isOrderDescending2(property.getQualifiedName())) icon = style.getSortIndicator2() + " mdi mdi-arrow-down-bold";
 String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(label) + "<i class='" + icon + "'></i></nobr>"; 
+String orderByTitle = Labels.get("orderBy") + " " + Strings.firstLower(property.getQualifiedLabel(request));
 %>
-<xava:link action='List.orderBy' argv='<%="property="+property.getQualifiedName() + collectionArgv%>'><%=headerLabel%></xava:link>&nbsp;
+<xava:link action='List.orderBy' argv='<%="property="+property.getQualifiedName() + collectionArgv%>' title='<%=orderByTitle%>'><%=headerLabel%></xava:link>&nbsp;
 </span>
 <%
 		}

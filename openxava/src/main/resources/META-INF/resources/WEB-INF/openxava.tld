@@ -38,7 +38,12 @@
        <name>cssStyle</name>
        <required>false</required>
        <rtexprvalue>true</rtexprvalue>
-    </attribute>                    
+    </attribute>
+    <attribute>
+       <name>title</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>         
   
   <tag>

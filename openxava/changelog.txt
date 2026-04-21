@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Tooltip of sortable list column headers shows the property name, e.g. "Order by name".
 - Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
 - Fix: Hot reload does not recognize transient classes when adding module to application.xml in IntelliJ.
 - Fix: Hot code reloading does not detect new labels and messages in i18n files when using IntelliJ.

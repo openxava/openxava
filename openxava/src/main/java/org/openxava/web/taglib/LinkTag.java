@@ -19,6 +19,7 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 	
 	private String cssClass;
 	private String cssStyle;
+	private String title; 
 	private boolean hasBody;
 	private boolean available; 
 		
@@ -59,7 +60,8 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 				log.warn(XavaResources.getString("style_attribute_not_supported_in_tag", "Image", getAction(), getCssStyle()));
 			}
 			pageContext.getOut().print(" title='");
-			pageContext.getOut().print(filterApostrophes(getTooltip(metaAction))); 
+			String tooltip = Is.emptyString(getTitle()) ? getTooltip(metaAction) : getTitle();
+			pageContext.getOut().print(filterApostrophes(tooltip)); 
 			pageContext.getOut().print("'");		
 			if (metaAction.isLosesChangedData()) pageContext.getOut().print(" class='xava_action_loses_changed_data ");
 			else pageContext.getOut().print(" class='xava_action ");
@@ -129,6 +131,16 @@ public class LinkTag extends ActionTagBase implements IActionTag {
 
 	public void setCssStyle(String cssStyle) {
 		this.cssStyle = cssStyle;
+	}
+
+	/** @since 7.7.2 */
+	public String getTitle() {
+		return title;
+	}
+
+	/** @since 7.7.2 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 
