@@ -2,6 +2,7 @@ package org.openxava.component;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.parse.*;
@@ -29,7 +30,7 @@ import org.openxava.view.meta.*;
 public class MetaComponent implements Serializable {
 	
 	private static Log log = LogFactory.getLog(MetaComponent.class);
-	private static Map<String, MetaComponent> components = new HashMap<String, MetaComponent>(); 
+	private static Map<String, MetaComponent> components = new ConcurrentHashMap<String, MetaComponent>(); 
 	private static Properties packages;
 	private static boolean allComponentsLoaded = false;
 	private static Set allPackageNames;
@@ -49,6 +50,7 @@ public class MetaComponent implements Serializable {
 	private IPersistenceProvider persistenceProvider;  
 	private boolean metaDataCached = true; 
 	private boolean labelForModule = false; 
+	private boolean parsed = false; 
 		
 	/**
 	 * 
@@ -57,23 +59,36 @@ public class MetaComponent implements Serializable {
 	 */
 	public static MetaComponent get(String name) throws ElementNotFoundException, XavaException {
     	if (modelCodeVersion < Hotswap.getModelVersion()) {
-        	components.clear();
-        	modelCodeVersion = Hotswap.getModelVersion();
+    		synchronized (MetaComponent.class) {
+    			if (modelCodeVersion < Hotswap.getModelVersion()) {
+    				components.clear();
+    				modelCodeVersion = Hotswap.getModelVersion();
+    			}
+    		}
     	}
 		
-		MetaComponent r = (MetaComponent) components.get(name);
-		if (r == null) {		
-			if (name.indexOf('.') >= 0) { // A component never is qualified
-				throw new ElementNotFoundException("component_not_found", name);
-			}
-			r = parse(name);
-			if (r == null) {				
-				throw new ElementNotFoundException("component_not_found", name);
-			}
-			r.validate();	
-			if (r.isMetaDataCached()) { 
-				components.put(name, r); 
-			}
+		MetaComponent r = components.get(name);
+		if (r != null) return r;
+		return loadComponent(name);
+	}
+
+	private synchronized static MetaComponent loadComponent(String name) throws ElementNotFoundException, XavaException { 
+		MetaComponent r = components.get(name);
+		if (r != null) return r;
+		if (name.indexOf('.') >= 0) { // A component never is qualified
+			throw new ElementNotFoundException("component_not_found", name);
+		}
+		r = parse(name);
+		if (r == null) {				
+			throw new ElementNotFoundException("component_not_found", name);
+		}
+		if (!r.isParsed()) { 
+			// Reentrant partial component; the outer call will validate and cache it.
+			return r;
+		}
+		r.validate();	
+		if (r.isMetaDataCached()) { 
+			components.put(name, r); 
 		}
 		return r;
 	}
@@ -501,6 +516,24 @@ public class MetaComponent implements Serializable {
 
 	public void setMetaDataCached(boolean metaDataCached) {
 		this.metaDataCached = metaDataCached;
+	}
+
+	/**
+	 * Indicates that this component has been fully parsed. <p>
+	 *
+	 * Used to avoid caching partially parsed components during reentrant parses.
+	 *
+	 * @since 7.7.2
+	 */
+	public boolean isParsed() { 
+		return parsed;
+	}
+
+	/**
+	 * @since 7.7.2
+	 */
+	public void setParsed(boolean parsed) { 
+		this.parsed = parsed;
 	}
 
 	public boolean isLabelForModule() {

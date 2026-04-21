@@ -54,7 +54,7 @@ public class AnnotatedClassParser implements IComponentParser {
 	private static Collection<String> managedClassPackages;
 	private static Collection<String> managedClassSiblingPackages; 
 	private static Map<Class, Collection<Class>> entityFirstLevelSubclasses;
-	private static Map<String, MetaComponent> parsingComponents;
+	private static ThreadLocal<Map<String, MetaComponent>> parsingComponents = new ThreadLocal<>();
 	private static int persistentModelCodeVersion = Hotswap.getPersistentModelVersion();
 	
 	public MetaComponent parse(String name) throws Exception {
@@ -98,6 +98,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			// Other model level annotations
 			processAnnotations(entity, pojoClass);
 			
+			component.setParsed(true); 
 			return component;
 		}
 		finally {
@@ -119,26 +120,32 @@ public class AnnotatedClassParser implements IComponentParser {
 
 
 	private void removeParsingComponent(MetaComponent component) { 
-		if (parsingComponents == null) return; // Difficult
-		parsingComponents.remove(component.getName());
-		if (parsingComponents.isEmpty()) parsingComponents = null; 		
+		Map<String, MetaComponent> parsing = parsingComponents.get();
+		if (parsing == null) return; // Difficult
+		parsing.remove(component.getName());
+		if (parsing.isEmpty()) parsingComponents.remove(); 		
 	}
 
 
 	private void putParsingComponent(MetaComponent component) { 
-		if (parsingComponents == null) parsingComponents = new HashMap<String, MetaComponent>();
-		parsingComponents.put(component.getName(), component);
+		Map<String, MetaComponent> parsing = parsingComponents.get();
+		if (parsing == null) {
+			parsing = new HashMap<String, MetaComponent>();
+			parsingComponents.set(parsing);
+		}
+		parsing.put(component.getName(), component);
 	}
 
 
 	// precondition: isParsingComponent(name)
 	private MetaComponent getParsingComponent(String name) {
-		return parsingComponents.get(name);
+		return parsingComponents.get().get(name);
 	}
 
 
 	private boolean isParsingComponent(String name) { 		
-		return parsingComponents != null && parsingComponents.containsKey(name);
+		Map<String, MetaComponent> parsing = parsingComponents.get();
+		return parsing != null && parsing.containsKey(name);
 	}
 
 
