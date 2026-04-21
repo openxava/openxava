@@ -366,7 +366,9 @@ public class CustomerWithSectionTest extends CustomerTest {
 	}
 	
 	@Test
-	public void testDefaultValidator() throws Exception {
+	public void testColumnTooltipIncludesPropertyName_defaultValidator() throws Exception {
+		assertTrue("Sortable column header tooltip should include the property label",
+			getHtml().contains("title=\"Order by name\""));
 		execute("CRUD.new");
 		setValue("name", "x");
 		execute("Customer.save");
