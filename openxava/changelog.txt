@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Viewing detail fails with baseCondition for composite key refs when ref name lacks entity name.
 - Fix: Sporadic component parse errors, such as "more than one default tab", under concurrency pressure.
 - New title attribute in <xava:link> taglib to customize the tooltip of the link.
 - Fix: Tooltip of sortable list column headers shows a generic description instead of the property name.
