@@ -80,8 +80,9 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 			&& !tab.getMetaTab().getBaseCondition().isEmpty() 
 			&& tab.getModelName().equals(getView().getModelName())) {
 			Tab tab2 = tab.clone();
+			Map plainKeys = Maps.treeToPlain(keys);
 			int i = 0;
-			for (Object okeysEntry: keys.entrySet()) {
+			for (Object okeysEntry: plainKeys.entrySet()) {
 				Map.Entry keysEntry = (Map.Entry) okeysEntry;
 				tab2.addProperty(i++, keysEntry.getKey().toString());
 				tab2.setConditionValue(keysEntry.getKey().toString(), keysEntry.getValue());

@@ -9,6 +9,7 @@ Change Log for OpenXava project
 - Fix: Hot code reloading does not detect new labels and messages in i18n files when using IntelliJ.
 - Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Chat panel left shadow not visible in dark theme.
+- Fix: Viewing the detail from list of an entity with base condition and composite key with a reference fails.
 
 
 OpenXava 7.7.1 (2026-4-10)
