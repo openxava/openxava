@@ -132,7 +132,7 @@ openxava.addEditorInitFunction(function() {
                 } else {
                     $(instance.input).removeData("changedCancelled");
                     $(instance.input).attr('value', dateStr);
-                    $('.xava_date > input').change();
+                    $(instance.input).change();
                 }
                 dateCalendarEditor.calendarClosed = true;
             }

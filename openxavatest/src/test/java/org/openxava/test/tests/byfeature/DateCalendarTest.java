@@ -1,5 +1,6 @@
 package org.openxava.test.tests.byfeature;
 
+import java.text.*;
 import java.util.*;
 
 import org.junit.*;
@@ -12,6 +13,30 @@ import org.openqa.selenium.support.ui.*;
  * @author Chungyen Tsai
  */
 public class DateCalendarTest extends WebDriverTestBase {
+
+    @Test
+    public void testDateCalendarInElementCollectionNotAddExtraRowWithTheChosenDate() throws Exception {
+        goModule("Training");
+        assertElementCollectionRowCount("sessions", 1);
+        assertSessionsRowEmpty(0);
+
+        openCalendar(0);
+        WebElement today = getDriver().findElement(By.cssSelector("span.flatpickr-day.today"));
+        today.click();
+        Thread.sleep(200);
+
+        String expectedDate = new SimpleDateFormat("M/d/yyyy").format(new Date());
+        assertEquals(expectedDate, getDriver().findElement(By.id("ox_openxavatest_Training__sessions___0___date")).getAttribute("value"));
+
+        assertElementCollectionRowCount("sessions", 2);
+        assertSessionsRowEmpty(1);
+    }
+
+    private void assertSessionsRowEmpty(int row) {
+        assertEquals("", getDriver().findElement(By.id("ox_openxavatest_Training__sessions___" + row + "___description")).getAttribute("value"));
+        assertEquals("", getDriver().findElement(By.id("ox_openxavatest_Training__sessions___" + row + "___kms")).getAttribute("value"));
+        assertEquals("", getDriver().findElement(By.id("ox_openxavatest_Training__sessions___" + row + "___date")).getAttribute("value"));
+    }
 
     @Test
     public void testLocalDateTime() throws Exception { 
