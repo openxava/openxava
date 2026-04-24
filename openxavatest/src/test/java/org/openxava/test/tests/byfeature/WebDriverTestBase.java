@@ -242,6 +242,15 @@ abstract public class WebDriverTestBase extends TestCase {
         return rowCount - 1;
     }
     
+    protected void assertElementCollectionRowCount(String collection, int expectedRowCount) {
+        assertEquals(expectedRowCount, getElementCollectionRowCount(collection));
+    }
+    
+    protected int getElementCollectionRowCount(String collection) {
+        // Element collections have one extra hidden row and a totals row
+        return getCollectionRowCount(collection) - 2;
+    }
+    
     private WebElement getTable(String collection) { 
         return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
     }
