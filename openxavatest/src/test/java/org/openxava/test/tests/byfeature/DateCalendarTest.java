@@ -14,16 +14,6 @@ import org.openqa.selenium.support.ui.*;
  */
 public class DateCalendarTest extends WebDriverTestBase {
 
-    @Override
-    protected boolean isHeadless() { // tmr
-        return false;
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        // tmr
-    }
-
     @Test
     public void testDateCalendarInElementCollectionNotAddExtraRowWithTheChosenDate() throws Exception {
         goModule("Training");
