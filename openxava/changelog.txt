@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Misaligned labels when combining small and normal labels in the same row.
 - Fix: Date selection via calendar adds an extra row to all visible @ElementCollection with date fields.
 - Fix: Viewing detail fails with baseCondition for composite key refs when ref name lacks entity name.
 - Fix: Sporadic component parse errors, such as "more than one default tab", under concurrency pressure.

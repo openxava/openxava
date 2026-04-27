@@ -221,11 +221,35 @@ openxava.initUI = function(application, module, currentRow, viewSimple) {
 	openxava.initFrames(); 
 	openxava.initSubcontrollers(); 
 	openxava.initForms(); 
+	openxava.alignLabelsForTallEditors(); 
 	 
 	if (typeof currentRow != "undefined") {
 		openxava.initEditors(); 
 	}
   	$('#xava_save_list_configuration').fadeIn(1000, 'swing'); 
+}
+
+openxava.tallEditorThreshold = 80; 
+openxava.alignLabelsForTallEditors = function() { 
+	var updateOne = function(editor) {
+		var $label = $(editor).prev('.ox-label');
+		if (!$label.length) return;
+		if (editor.offsetHeight > openxava.tallEditorThreshold) {
+			$label.addClass('ox-label-tall-row');
+		} else {
+			$label.removeClass('ox-label-tall-row');
+		}
+	};
+	if (openxava.tallEditorsObserver) openxava.tallEditorsObserver.disconnect();
+	if (typeof ResizeObserver !== 'undefined') {
+		openxava.tallEditorsObserver = new ResizeObserver(function(entries) {
+			for (var i = 0; i < entries.length; i++) updateOne(entries[i].target);
+		});
+	}
+	$('.ox-editor-wrapper').each(function() {
+		updateOne(this);
+		if (openxava.tallEditorsObserver) openxava.tallEditorsObserver.observe(this);
+	});
 }
 
 openxava.initFocusKey = function() { }
