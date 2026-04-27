@@ -826,7 +826,11 @@ select:not([multiple]) {
 .ox-label { 
 	padding-right: 7px;
 	font-weight: bold;
-	vertical-align: middle;  
+	vertical-align: baseline;
+}
+
+.ox-label.ox-label-tall-row {
+	vertical-align: middle;
 }
 
 .ox-editor-wrapper { 
