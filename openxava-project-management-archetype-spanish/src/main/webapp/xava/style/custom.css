@@ -1,5 +1,6 @@
 /*
-Pon aqu� tu propio estilo
+TMR ME QUEDÉ POR AQUÍ: PONER ACENTO EN aqui: LOS 2 ARQUETIPOS HECHOS, FALTA PROBARLOS
+Pon aqui tu propio estilo
 */
 
 #logo {
@@ -56,4 +57,19 @@ Pon aqu� tu propio estilo
 
 #ox_${artifactId}_MiCalendario__core #xava_calendar {
 	margin-top: 20px;
+}
+
+/* Formato de fechas limite */
+.deadline-today {
+	color: red;
+	font-weight: bold;
+}
+
+.deadline-tomorrow {
+	color: orange;
+	font-weight: bold;
+}
+
+.deadline-day-after-tomorrow {
+	color: orange;
 }
