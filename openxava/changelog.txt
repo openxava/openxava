@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Documented the use of the 'Code changed' button and Ctrl+F9 in IntelliJ for hot code reloading.
 - Fix: Some Spanish archetypes omit the welcome.jsp page in generated projects.
 - Fix: Misaligned labels when combining small and normal labels in the same row.
 - Fix: Date selection via calendar adds an extra row to all visible @ElementCollection with date fields.
