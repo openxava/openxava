@@ -15,5 +15,11 @@ https://www.openxava.org/OpenXavaDoc/docs/customizing_en.html
 	
  	<editor name="YourEditor" url="yourEditor.jsp"/>
  	-->
+
+	<editor url="dateCalendarEditor.jsp">
+		<formatter class="org.openxava.formatters.LocalDateFormatter" />
+		<list-formatter class="com.yourcompany.yourapp.formatters.DeadlineDateListFormatter" />
+		<for-model-property model="Issue" property="plannedFor" />
+	</editor>
  	
 </editors>
