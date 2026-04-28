@@ -109,9 +109,19 @@
 HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {2.0.2} - unlimited runtime class redefinition.
 </code></pre>
 
-      <p>Si es así, ya se puede cambiar el código y ver el efecto de forma inmediata.</p>
+      <p>Si es así, ya se puede cambiar el código y ver el efecto de forma inmediata. Ten en cuenta
+        que IntelliJ no compila el código automáticamente, incluso aunque marques la opción de
+        compilar el código automáticamente (porque esa opción no funciona cuando la aplicación
+        esta en marcha). Lo que ocurrirá es que al cambiar el código, aparecerá un botón en el editor
+        de código de IntelliJ que indica 'Code changed', púlsalo para compilar y recargar el código:</p>
 
-      <p>Ten en cuenta que con Java 25 la aplicación se para de vez en cuando, con Java 21
+      <img src="files/code-changed-button-intellij.png" alt="Botón 'Code changed' dentro del editor de código de IntelliJ">
+
+      <p>A veces no aparece el botón, por ejemplo si cambias un archivo XML o el código Java
+      lo genera un asistente IA. En ese caso, pulsa <b>Ctrl + F9</b>. Esto compilará y recargará
+      el código cambiado.</p>
+
+      <p>Con Java 25 la aplicación se para de vez en cuando, con Java 21
         falla mucho menos y con Java 17 no falla. Aun así es mucho más práctico que
         reiniciar la aplicación por cada cambio. Lo normal es que a medida que salgan
         nuevas versiones de mantenimiento de Java 25 sea cada vez más robusto.</p>
