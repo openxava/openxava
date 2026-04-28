@@ -33,6 +33,7 @@
       <directory>src/main/webapp</directory>
       <includes>
         <include>**/*.xml</include>
+        <include>**/*.jsp</include>
       </includes>
     </fileSet>
     <fileSet encoding="ISO-8859-1">
