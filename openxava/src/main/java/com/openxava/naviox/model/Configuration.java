@@ -104,6 +104,10 @@ public class Configuration implements java.io.Serializable {
 	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean autoGenerateAPI;
+
+	/** @since 8.0 */
+	@Column(length=500)
+	private String apiAllowedOrigins;
 	
 
 	@Hidden
@@ -300,6 +304,23 @@ public class Configuration implements java.io.Serializable {
 	/** @since 8.0 */
 	public void setAutoGenerateAPI(boolean autoGenerateAPI) {
 		this.autoGenerateAPI = autoGenerateAPI;
+	}
+
+	/**
+	 * Comma-separated list of origins (scheme://host[:port]) allowed to call the
+	 * generated REST API from a browser via CORS. Use <code>*</code> to allow any
+	 * origin. If empty or null no CORS headers are sent and the API will only be
+	 * usable from same-origin pages or non-browser clients.
+	 *
+	 * @since 8.0
+	 */
+	public String getApiAllowedOrigins() {
+		return apiAllowedOrigins;
+	}
+
+	/** @since 8.0 */
+	public void setApiAllowedOrigins(String apiAllowedOrigins) {
+		this.apiAllowedOrigins = apiAllowedOrigins;
 	}
 
 }
