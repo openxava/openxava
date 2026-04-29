@@ -108,7 +108,7 @@ Al añadir una acción a una entidad en este proyecto, sigue estas reglas:
 <controlador nombre="Prospecto">
     <hereda-de controlador="Typical"/>
     <accion nombre="mostrarCorreoElectronico" modo="detail"
-        clase="${package}.${artifactId}.acciones.MostrarCorreoElectronicoAccion"/>
+        clase="${package}.${artifactId}.acciones.MostrarCorreoElectronico"/>
 </controlador>
 ```
 
@@ -119,7 +119,7 @@ import org.openxava.actions.*;
 import org.openxava.validators.*;
 import com.tuempresa.tuaplicacion.modelo.*;
 
-public class MostrarCorreoElectronicoAccion extends ViewBaseAction {
+public class MostrarCorreoElectronico extends ViewBaseAction {
 
     public void execute() throws Exception {
         String correoElectronico = (String) getView().getValue("correoElectronico");

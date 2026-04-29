@@ -108,7 +108,7 @@ Al añadir una acción a una entidad en este proyecto, sigue estas reglas:
 <controlador nombre="TuPrimeraEntidad">
     <hereda-de controlador="Typical"/>
     <accion nombre="mostrarImporte" modo="detail"
-        clase="${package}.${artifactId}.acciones.MostrarImporteAccion"/>
+        clase="${package}.${artifactId}.acciones.MostrarImporte"/>
 </controlador>
 ```
 
@@ -120,7 +120,7 @@ import org.openxava.validators.*;
 import com.tuempresa.tuaplicacion.modelo.*;
 import java.math.BigDecimal;
 
-public class MostrarImporteAccion extends ViewBaseAction {
+public class MostrarImporte extends ViewBaseAction {
 
     public void execute() throws Exception {
         BigDecimal importe = (BigDecimal) getView().getValue("importe");

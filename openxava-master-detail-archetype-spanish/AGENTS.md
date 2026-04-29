@@ -108,7 +108,7 @@ Al añadir una acción a una entidad en este proyecto, sigue estas reglas:
 <controlador nombre="Maestro">
     <hereda-de controlador="Typical"/>
     <accion nombre="mostrarTotal" modo="detail"
-        clase="${package}.${artifactId}.acciones.MostrarTotalAccion"/>
+        clase="${package}.${artifactId}.acciones.MostrarTotal"/>
 </controlador>
 ```
 
@@ -120,7 +120,7 @@ import org.openxava.validators.*;
 import com.tuempresa.tuaplicacion.modelo.*;
 import java.math.BigDecimal;
 
-public class MostrarTotalAccion extends ViewBaseAction {
+public class MostrarTotal extends ViewBaseAction {
 
     public void execute() throws Exception {
         BigDecimal total = (BigDecimal) getView().getValue("total");
