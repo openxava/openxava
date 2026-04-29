@@ -125,9 +125,9 @@ public class ShowAmountAction extends ViewBaseAction {
     public void execute() throws Exception {
         BigDecimal amount = (BigDecimal) getView().getValue("amount");
         if (amount == null) {
-            addError("amount_not_set");
+            addError("amount_not_set"); // Add amount_not_set to i18n messages file
         } else {
-            addMessage("amount_message", amount);
+            addMessage("amount_message", amount); // Add amount_message to i18n messages file
         }
     }
 }
