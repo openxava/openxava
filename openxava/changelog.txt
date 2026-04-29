@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Missing subheaders in AGENTS.md for new projects created from archetypes.
 - Project Management archetype: plannedFor uses different colors for today, tomorrow and the next day.
 - Documented the use of the 'Code changed' button and Ctrl+F9 in IntelliJ for hot code reloading.
 - Fix: Some Spanish archetypes omit the welcome.jsp page in generated projects.

@@ -1,18 +1,18 @@
 # AGENTS.md
 
-## Conventions for JPA Entities
+#[[##]]# Conventions for JPA Entities
 
 When creating an entity in this project, follow these rules:
 
-### Lombok
+#[[###]]# Lombok
 - Use **Lombok** to automatically generate getters and setters
 - Add the `@Getter` and `@Setter` annotations from Lombok at the class level
 
-### Field Visibility
+#[[###]]# Field Visibility
 - Fields **must NOT be `private`**
 - Use **package-level access** (no visibility modifier)
 
-### Correct Entity Example
+#[[###]]# Correct Entity Example
 
 ```java
 package ${package}.${artifactId}.model;
@@ -35,11 +35,11 @@ public class MyEntity {
 }
 ```
 
-### Master-Detail (Collections)
+#[[###]]# Master-Detail (Collections)
 
 When asked to create a master-detail structure, the detail collection in the master entity **must use `@ElementCollection`** instead of `@OneToMany`. The detail class must be annotated with `@Embeddable` instead of `@Entity`.
 
-#### Master-Detail Example
+#[[####]]# Master-Detail Example
 
 ```java
 package ${package}.${artifactId}.model;
@@ -87,7 +87,7 @@ public class InvoiceDetail {
 }
 ```
 
-### Summary
+#[[###]]# Summary
 - ✅ `@Getter @Setter` from Lombok
 - ✅ Fields without modifier (package access)
 - ✅ Use `@ElementCollection` + `@Embeddable` for master-detail collections
@@ -95,28 +95,71 @@ public class InvoiceDetail {
 - ❌ Do not write getters/setters manually
 - ❌ Do not use `@OneToMany` / `@Entity` for detail collections
 
-## The `.xava` Folder
+#[[##]]# Conventions for Actions
+
+When asked to add an action to an entity in this project, follow these rules:
+
+- Define the action in `src/main/resources/xava/controllers.xml` inside a `<controller>` whose `name` matches the entity name
+- The controller **must extend** the `Typical` controller using `<extends controller="Typical"/>` so the standard actions (new, save, delete, etc.) remain available
+- Create the action class in the `${package}.${artifactId}.actions` package, typically extending `ViewBaseAction`
+- **Do NOT modify the entity class** to register the action.
+
+```xml
+<controller name="YourFirstEntity">
+    <extends controller="Typical"/>
+    <action name="showAmount" mode="detail"
+        class="${package}.${artifactId}.actions.ShowAmountAction"/>
+</controller>
+```
+
+```java
+package ${package}.${artifactId}.actions;
+
+import org.openxava.actions.*;
+import org.openxava.validators.*;
+import com.yourcompany.yourapp.model.*;
+import java.math.BigDecimal;
+
+public class ShowAmountAction extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        BigDecimal amount = (BigDecimal) getView().getValue("amount");
+        if (amount == null) {
+            addError("amount_not_set");
+        } else {
+            addMessage("amount_message", amount);
+        }
+    }
+}
+```
+
+- ✅ Add `<extends controller="Typical"/>` in the controller
+- ✅ Match the controller `name` to the entity name
+- ✅ Place action classes under `${package}.${artifactId}.actions`
+- ❌ Do NOT modify the entity class to register an action
+
+#[[##]]# The `.xava` Folder
 
 This project relies on a `.xava` folder that contains agent resources (test examples, controller definitions, etc.). If the `.xava` folder does not exist in the project root:
 - **Run `mvn package`** to generate it
 - **Do NOT add `.xava` to `.gitignore`** — it must remain in the repository
 
-## Conventions for Automated Tests (JUnit)
+#[[##]]# Conventions for Automated Tests (JUnit)
 
 When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test`.
 
-### Test Examples Reference
+#[[###]]# Test Examples Reference
 - **Examples location**: `./.xava/agents/test`
 - **Available actions**: See `default-controllers.xml` inside `./.xava/agents/test`
 
-### Common Patterns to Follow
+#[[###]]# Common Patterns to Follow
 - We use **JUnit 4**
 - Extend `ModuleTestBase` for OpenXava module tests
 - **The first line of each test method must be `login("admin", "admin");`**
 - Follow the package structure by module as shown in the examples
 - **Do NOT try to run tests with `mvn`** — the user will run them from the IDE
 
-### Basic Test Example
+#[[###]]# Basic Test Example
 ```java
 package ${package}.${artifactId}.tests;
 
@@ -135,7 +178,7 @@ public class CustomerTest extends ModuleTestBase {
 }
 ```
 
-### Summary for Tests
+#[[###]]# Summary for Tests
 - ✅ Refer to examples in `./.xava/agents/test`
 - ✅ Use `ModuleTestBase` for module tests
 - ✅ First line of each test: `login("admin", "admin");`
