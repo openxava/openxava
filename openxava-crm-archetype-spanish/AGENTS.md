@@ -95,6 +95,48 @@ public class DetalleFactura {
 - ❌ No escribas getters/setters manualmente
 - ❌ No uses `@OneToMany` / `@Entity` para colecciones de detalles
 
+#[[##]]# Convenciones para Acciones
+
+Al añadir una acción a una entidad en este proyecto, sigue estas reglas:
+
+- Define la acción en `src/main/resources/xava/controladores.xml` dentro de un `<controlador>` cuyo `nombre` coincida con el nombre de la entidad
+- El controlador **debe extender** el controlador `Typical` usando `<hereda-de controlador="Typical"/>` para que las acciones estándar (nuevo, grabar, eliminar, etc.) sigan disponibles
+- Crea la clase de la acción en el paquete `${package}.${artifactId}.acciones`, normalmente extendiendo `ViewBaseAction`
+- **NO modifiques la clase de la entidad** para registrar la acción.
+
+```xml
+<controlador nombre="Prospecto">
+    <hereda-de controlador="Typical"/>
+    <accion nombre="mostrarCorreoElectronico" modo="detail"
+        clase="${package}.${artifactId}.acciones.MostrarCorreoElectronicoAccion"/>
+</controlador>
+```
+
+```java
+package ${package}.${artifactId}.acciones;
+
+import org.openxava.actions.*;
+import org.openxava.validators.*;
+import com.tuempresa.tuaplicacion.modelo.*;
+
+public class MostrarCorreoElectronicoAccion extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        String correoElectronico = (String) getView().getValue("correoElectronico");
+        if (correoElectronico == null) {
+            addError("correo_no_establecido"); // Añade correo_no_establecido al fichero de mensajes i18n
+        } else {
+            addMessage("correo_mensaje", correoElectronico); // Añade correo_mensaje al fichero de mensajes i18n
+        }
+    }
+}
+```
+
+- ✅ Añade `<hereda-de controlador="Typical"/>` en el controlador
+- ✅ Haz que el `nombre` del controlador coincida con el nombre de la entidad
+- ✅ Coloca las clases de acción en `${package}.${artifactId}.acciones`
+- ❌ NO modifiques la clase de la entidad para registrar una acción
+
 #[[##]]# La Carpeta `.xava`
 
 Este proyecto depende de una carpeta `.xava` que contiene recursos para agentes (ejemplos de tests, definiciones de controladores, etc.). Si la carpeta `.xava` no existe en la raíz del proyecto:
