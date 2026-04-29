@@ -95,6 +95,48 @@ public class InvoiceDetail {
 - ❌ Do not write getters/setters manually
 - ❌ Do not use `@OneToMany` / `@Entity` for detail collections
 
+#[[##]]# Conventions for Actions
+
+When asked to add an action to an entity in this project, follow these rules:
+
+- Define the action in `src/main/resources/xava/controllers.xml` inside a `<controller>` whose `name` matches the entity name
+- The controller **must extend** the `Typical` controller using `<extends controller="Typical"/>` so the standard actions (new, save, delete, etc.) remain available
+- Create the action class in the `${package}.${artifactId}.actions` package, typically extending `ViewBaseAction`
+- **Do NOT modify the entity class** to register the action.
+
+```xml
+<controller name="Issue">
+    <extends controller="Typical"/>
+    <action name="showTitle" mode="detail"
+        class="${package}.${artifactId}.actions.ShowTitleAction"/>
+</controller>
+```
+
+```java
+package ${package}.${artifactId}.actions;
+
+import org.openxava.actions.*;
+import org.openxava.validators.*;
+import com.yourcompany.yourapp.model.*;
+
+public class ShowTitleAction extends ViewBaseAction {
+
+    public void execute() throws Exception {
+        String title = (String) getView().getValue("title");
+        if (title == null) {
+            addError("title_not_set"); // Add title_not_set to i18n messages file
+        } else {
+            addMessage("title_message", title); // Add title_message to i18n messages file
+        }
+    }
+}
+```
+
+- ✅ Add `<extends controller="Typical"/>` in the controller
+- ✅ Match the controller `name` to the entity name
+- ✅ Place action classes under `${package}.${artifactId}.actions`
+- ❌ Do NOT modify the entity class to register an action
+
 #[[##]]# The `.xava` Folder
 
 This project relies on a `.xava` folder that contains agent resources (test examples, controller definitions, etc.). If the `.xava` folder does not exist in the project root:
