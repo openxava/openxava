@@ -1,5 +1,5 @@
 /*
-Pon aquï¿½ tu propio estilo
+Pon aquí tu propio estilo
 */
 
 #logo {
@@ -56,4 +56,19 @@ Pon aquï¿½ tu propio estilo
 
 #ox_${artifactId}_MiCalendario__core #xava_calendar {
 	margin-top: 20px;
+}
+
+/* Formato de fechas límite */
+.deadline-today {
+	color: red;
+	font-weight: bold;
+}
+
+.deadline-tomorrow {
+	color: orange;
+	font-weight: bold;
+}
+
+.deadline-day-after-tomorrow {
+	color: orange;
 }

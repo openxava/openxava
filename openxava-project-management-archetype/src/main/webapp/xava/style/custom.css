@@ -56,3 +56,18 @@ Put here your own style
 #ox_${artifactId}_MyCalendar__core #xava_calendar {
 	margin-top: 20px;
 }
+
+/* Deadline date formatting */
+.deadline-today {
+	color: red;
+	font-weight: bold;
+}
+
+.deadline-tomorrow {
+	color: orange;
+	font-weight: bold;
+}
+
+.deadline-day-after-tomorrow {
+	color: orange;
+}
