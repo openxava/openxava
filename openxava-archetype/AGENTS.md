@@ -184,3 +184,13 @@ public class CustomerTest extends ModuleTestBase {
 - ✅ First line of each test: `login("admin", "admin");`
 - ✅ Check `default-controllers.xml` for available actions
 - ❌ Do NOT run tests with `mvn`
+
+#[[##]]# Conventions for Dashboards
+
+When asked to create a dashboard, you **must review the following documentation first**:
+- https://openxava.org/OpenXavaDoc/docs/dashboard_en.html
+
+In addition, follow these rules:
+- If there are no existing dashboards, simply name the dashboard class `Dashboard`.
+- Create a `dashboards` package (e.g., `${package}.${artifactId}.dashboards`) and place the `Dashboard` class and its auxiliary classes in it.
+- Add the CSS rules indicated in the documentation to `custom.css` (usually located in `src/main/webapp/xava/style/custom.css`).
