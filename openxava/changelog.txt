@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Enable adding dashboards with a simple prompt during development (AGENTS.md improvements).
 - Refined AGENTS.md in new projects to improve AI code generation when adding actions.
 - Fix: Missing subheaders in AGENTS.md for new projects created from archetypes.
 - Project Management archetype: plannedFor uses different colors for today, tomorrow and the next day.
