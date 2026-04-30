@@ -183,3 +183,14 @@ public class ClienteTest extends ModuleTestBase {
 - ✅ Primera línea de cada test: `login("admin", "admin");`
 - ✅ Consulta `default-controllers.xml` para acciones disponibles
 - ❌ NO ejecutes tests con `mvn`
+
+## Convenciones para Cuadros de Mando (Dashboards)
+
+Cuando se te pida crear un cuadro de mando o un dashboard, **debes revisar la siguiente documentación primero**:
+- https://openxava.org/OpenXavaDoc/docs/dashboard_es.html
+
+Además, sigue estas reglas:
+- Si no hay cuadros de mando existentes, simplemente nombra la clase `CuadroMando`.
+- Crea un paquete `cuadrosmando` (ej. `${package}.${artifactId}.cuadrosmando`) y coloca la clase `CuadroMando` y sus clases auxiliares en él.
+- Añade las reglas CSS indicadas en la documentación a `custom.css` (normalmente ubicado en `src/main/webapp/xava/style/custom.css`).
+
