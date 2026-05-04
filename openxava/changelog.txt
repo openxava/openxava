@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- JSoup upgraded to 1.22.2.
+- Driver version in doc/new projects upgraded for MySQL and PostgreSQL.
 - Enable adding dashboards with a simple prompt during development (AGENTS.md improvements).
 - Refined AGENTS.md in new projects to improve AI code generation when adding actions.
 - Fix: Missing subheaders in AGENTS.md for new projects created from archetypes.
