@@ -1,25 +1,31 @@
 Change Log for OpenXava project
 ===============================
 
-- JSoup upgraded to 1.22.2.
-- Driver version in doc/new projects upgraded for MySQL and PostgreSQL.
 - Enable adding dashboards with a simple prompt during development (AGENTS.md improvements).
 - Refined AGENTS.md in new projects to improve AI code generation when adding actions.
-- Fix: Missing subheaders in AGENTS.md for new projects created from archetypes.
+- New title attribute in <xava:link> taglib to customize the tooltip of the link.
 - Project Management archetype: plannedFor uses different colors for today, tomorrow and the next day.
+
+- JSoup upgraded to 1.22.2.
+- Driver version in doc/new projects upgraded for MySQL and PostgreSQL.
+
 - Documented the use of the 'Code changed' button and Ctrl+F9 in IntelliJ for hot code reloading.
-- Fix: Some Spanish archetypes omit the welcome.jsp page in generated projects.
-- Fix: Misaligned labels when combining small and normal labels in the same row.
+
+- Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
 - Fix: Date selection via calendar adds an extra row to all visible @ElementCollection with date fields.
+- Fix: Misaligned labels when combining small and normal labels in the same row.
+- Fix: Chat panel left shadow not visible in dark theme.
 - Fix: Viewing detail fails with baseCondition for composite key refs when ref name lacks entity name.
 - Fix: Sporadic component parse errors, such as "more than one default tab", under concurrency pressure.
-- New title attribute in <xava:link> taglib to customize the tooltip of the link.
 - Fix: Tooltip of sortable list column headers shows a generic description instead of the property name.
-- Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
-- Fix: Hot reload does not recognize transient classes when adding module to application.xml in IntelliJ.
+- Fix: Missing subheaders in AGENTS.md for new projects created from archetypes.
+- Fix: Some Spanish archetypes omit the welcome.jsp page in generated projects.
 - Fix: Hot code reloading does not detect new labels and messages in i18n files when using IntelliJ.
-- Fix: Filtering by columns removed from the list via chat fails; results are now shown in chat.
-- Fix: Chat panel left shadow not visible in dark theme.
+- Fix: Hot reload does not recognize transient classes when adding module to application.xml in IntelliJ.
+- Fix: Hot code reload reinitializes persistence session after changing a calculated property in IntelliJ.
+
+
+
 
 
 OpenXava 7.7.1 (2026-4-10)
