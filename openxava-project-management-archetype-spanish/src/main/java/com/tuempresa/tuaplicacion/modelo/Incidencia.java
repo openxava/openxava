@@ -69,7 +69,7 @@ public class Incidencia extends Identifiable {
 	String creadoPor;
 
 	LocalDate planificadoPara;
-	public void setPlannedFor(LocalDate planificadoPara) {
+	public void setPlanificadoPara(LocalDate planificadoPara) {
 		if (Is.equal(this.planificadoPara, planificadoPara)) return;
 		if (this.planificadoPara != null) quitarRecordatorio();
 		this.planificadoPara = planificadoPara;
