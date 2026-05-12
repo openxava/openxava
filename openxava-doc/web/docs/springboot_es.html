@@ -1,249 +1,472 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Integrar OpenXava en Spring Boot</title>
+    <title>Spring Boot - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    
-    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
-    
-    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
-  <body>
-    <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span>Spring Boot</h1>
-      <a href="https://spring.io/projects/spring-boot">Spring Boot</a> es una
-      herramienta que hace que el desarrollo de aplicaciones web y
-      microservicios con Spring Framework sea más rápido y fácil.<br>
-      En esta publicación integraremos OpenXava en una aplicación Spring Boot
-      simple con servicios Rest y JPA para aprovechar la vista generada
-      automáticamente por OpenXava. Trabajaremos con nuestro proyecto <a href="https://github.com/openxava/openxava-spring-boot-example">ejemplar</a>
-      y lo importaremos en <a href="https://spring.io/tools">Spring Tool Suite
-        4 for Eclipse</a>. Así mismo vas a necesitar <a href="https://openxava.org/downloads/register">OpenXava
-        Studio</a> y <a href="https://dev.mysql.com/downloads/mysql/">MySQL</a>(usaremos
-      MySQL8 en este ejemplo). Al final levantaremos la aplicación en un
-      servidor <a href="https://tomcat.apache.org/download-90.cgi">Tomcat 9</a>.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Importar y configurar proyecto en Spring Tool Suite 4</h2>
-      <p><a href="https://github.com/openxava/openxava-spring-boot-example">Descarga</a>
-        el proyecto como archivo comprimido zip y descomprimelo.</p>
-      <p><img src="files/springboot_004.png" alt=""></p>
-      <p>Selecciona <em>Import projects</em> desde la vista de <em>Package
-          Explorer</em> o bien <em>File &gt; Import </em>y selecciona <em>Existing
-          Maven Projects.<br>
-        </em></p>
-      <p><img src="files/springboot_005.png" alt=""></p>
-      <p>Busca la carpeta donde has descomprimido el proyecto y seleccionalo.</p>
-      <p><img src="files/springboot_006.png" alt=""></p>
-      <p> Abre <em>application.properties</em> ubicado en <em>src/main/resources</em>,
-        adáptalo a tu base de datos MySQL con tu URL, username, password y
-        dialecto, recuerda tener levantado la base de datos MySQL.</p>
-      <pre><code class="language-xml">spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect</code></pre>
-      <p><img src="files/springboot_010.png" alt=""></p>
-      <ul>
-        <li>Tener base de datos MySQL levantado<i></i></li>
-        <li>Clic derecho en el proyecto<em> &gt; Maven &gt; Update Project<br>
-          </em></li>
-        <li>Clic derecho en el proyecto<em> &gt; Run As &gt; <i>Spring Boot App</i></em></li>
-      </ul>
-      <p><img src="files/springboot_020.png" alt=""></p>
-      <p>Crea algunos registros manualmente en MySQL, por ejemplo: </p>
-      <pre><code class="language-sql">INSERT INTO `yourdatabase`.`tutorials` (`id`, `description`, `published`, `title`) <br>VALUES ('1', 'description 1', 0, 'title 1');</code></pre>
-      <p><img src="files/springboot_007.png" alt=""></p>
-      <p>Comprueba que los servicios funcionen correctamente ingresando a <i><a
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> / <a href="index_es.html">documentación</a> /
+      </span>Spring Boot
+    </h1>
 
-            href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></p>
-      <div class="wiki" style="display: block;">
-        <h2 id="toc1">Crear y configurar proyecto en OpenXava</h2>
-        <p>Lo que necesitamos ahora es copiar los archivos de configuración que
-          genera OpenXava al crear un proyecto nuevo al proyecto Spring Boot,
-          para esto el proyecto debe tener las mismas configuraciones que el
-          proyecto Spring Boot.</p>
-        <p>Crea un nuevo proyecto OpenXava con OpenXava Studio.</p>
-        <p><img src="files/getting-started_es020.png" alt="getting-started_es020.png"
+    <p>Las aplicaciones OpenXava son aplicaciones web Java estándar.
+    Tradicionalmente se empaquetan como un WAR y se ejecutan en un Tomcat externo.
+    Sin embargo, también puedes añadir Spring Boot a una aplicación OpenXava existente
+    para que pueda arrancar con un Tomcat embebido, desde un método <code>main()</code> de Java,
+    manteniendo la estructura habitual de OpenXava.</p>
 
-            title="getting-started_es020.png"></p>
-        <p>Project name: <i>openxava-spring-boot-example</i></p>
-        <p>Group id: <i>com.example</i></p>
-        <p><img src="files/springboot_030.png" alt=""></p>
-        <p>Agrega el dialecto de MySQL8 en el archivo <i>persistence.xml</i>
-          ubicado en <i>src/main/resources/META-INF</i>.</p>
-        <pre><code class="language-xml">&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/&gt;</code></pre>
-        <p><img src="files/springboot_040.png" alt=""></p>
-        <p>Configura el archivo <em>context.xml</em> de la carpeta <em>src/main/webapp/META-INF</em>,
-          comenta el resource de HSQLDB, usa el de MySQL y configura la conexión
-          a la base de datos usando tu URL, usuario y contraseña.</p>
-        <p><img src="files/springboot_050.png" alt=""></p>
-        <code class="language-xml"> </code></div>
-      <div class="wiki" style="display: block;"> </div>
-      <div class="wiki" style="display: block;">
-        <h2 id="toc1">Reemplazar application.properties y copiar archivos al
-          proyecto Spring Boot</h2>
-        Ahora volvemos al proyecto en Spring Tool Suite 4 y procedemos a
-        integrar OpenXava en una aplicación Spring Boot, hay varias maneras de
-        hacerlas, nosotros usaremos una. Primero reemplaza el archivo <em>application.properties</em>
-        configurándolo manualmente creando una clase <em>@Configuration</em>.</div>
-      <div class="wiki" style="display: block;">Para esto crea una clase llamada
-        <em>AppConfig</em> en el paquete <em>com.example.openxava.spring.boot.example</em>,
-        dentro de <em>dataSource()</em> define las configuraciones de conexión
-        a la base de datos (url, usuario, contraseña), las entidades y
-        repositorios a leer, por ejemplo:</div>
-      <div class="wiki" style="display: block;">
-        <pre><code class="language-java">package com.example.openxava.spring.boot.example;
+    <p>En este tutorial vamos a partir de un proyecto OpenXava normal,
+    por ejemplo uno creado con el arquetipo Maven de OpenXava,
+    y a añadir la configuración mínima necesaria para ejecutarlo sobre Spring Boot.</p>
 
-import java.util.Properties;
+    <h2>Usar Spring Boot 2 con OpenXava 7</h2>
 
-import javax.sql.DataSource;
+    <p>OpenXava 7.x usa las APIs Java EE <code>javax.*</code>.
+    Por esta razón, usa Spring Boot 2.x, no Spring Boot 3.x,
+    porque Spring Boot 3 usa las APIs Jakarta EE <code>jakarta.*</code>.</p>
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+    <p>Los ejemplos siguientes usan OpenXava 7.7.2 y Spring Boot 2.7.18.
+    Añade estas propiedades al archivo <em>pom.xml</em> de tu proyecto,
+    sustituyendo la sección <code>&lt;properties&gt;</code> existente si es necesario:</p>
 
-@Configuration
-@EnableJpaRepositories("com.example.openxava.spring.boot.example.repository")
-@EnableTransactionManagement
-public class AppConfig {
+    <pre><code class="language-xml">&lt;properties&gt;
+    &lt;openxava.version&gt;7.7.2&lt;/openxava.version&gt;
+    &lt;spring-boot.version&gt;2.7.18&lt;/spring-boot.version&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;</code></pre>
 
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/yourdatabase?useSSL=false");
-        dataSource.setUsername("root");
-        dataSource.setPassword("");
-        return dataSource;
-    }
+    <h2>Añadir Spring Boot a pom.xml</h2>
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan("com.example.openxava.spring.boot.example.model");
-        entityManagerFactory.setPersistenceUnitName("com.example.openxava.spring.boot.example.model");
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.MYSQL);
-        vendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL8Dialect");
-        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
-        entityManagerFactory.setJpaProperties(hibernateProperties());
-        return entityManagerFactory;
-    }
+    <p>Primero, añade la gestión de dependencias de Spring Boot al archivo <em>pom.xml</em>
+    de tu proyecto, al mismo nivel que <code>&lt;dependencies&gt;</code> y <code>&lt;build&gt;</code>:</p>
 
-    private Properties hibernateProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-        return properties;
-    }
+    <pre><code class="language-xml">&lt;dependencyManagement&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+            &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+            &lt;type&gt;pom&lt;/type&gt;
+            &lt;scope&gt;import&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;</code></pre>
 
-}</code></pre>
-      </div>
-      <div class="wiki" style="display: block;"><img src="files/springboot_060.png"
+    <p>Después añade estas dependencias a la sección <code>&lt;dependencies&gt;</code>
+    del archivo <em>pom.xml</em> de tu proyecto.
+    El starter web de Spring Boot añade el servidor web embebido,
+    <code>spring-boot-starter-websocket</code> añade soporte para el chat de OpenXava,
+    mientras que <code>tomcat-embed-jasper</code> añade soporte para páginas JSP.
+    OpenXava usa JSPs, por lo que <code>tomcat-embed-jasper</code> es necesario
+    cuando se ejecuta con Tomcat embebido:</p>
 
-          alt=""></div>
-      <div class="wiki" style="display: block;">Elimina el archivo <em>application.properties</em>
-        y prueba que los servicios sigan funcionando correctamente ingresando a
-        <i><a href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i></div>
-      <img src="files/springboot_065.png" alt=""></div>
-    <div class="wiki" style="display: block;">Añade <em>extends
-        SpringBootServletInitializer</em> en <em>OpenxavaSpringBootExampleApplication</em>
-      ubicado en el paquete <em>com.example.openxava.spring.boot.example</em>:
-      <div class="wiki" style="display: block;">
-        <pre><code class="language-java">@SpringBootApplication
-public class OpenxavaSpringBootExampleApplication extends SpringBootServletInitializer {
+    <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(OpenxavaSpringBootExampleApplication.class, args);
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;
+    &lt;/dependency&gt;
 
-	}
-}
-</code></pre> </div>
-      <div class="wiki" style="display: block;">Ahora configura el <em>pom.xml</em>
-        agregando el packaging war, la dependencia de OpenXava (puedes usar la
-        última versión disponible, desde 7.1.1) El <em>finalName</em> es
-        opcional pero lo usaremos en este ejemplo:
-        <div class="wiki" style="display: block;">
-          <pre><code class="language-xml">&lt;packaging&gt;war&lt;/packaging&gt;<br><br>&lt;dependencies&gt;
-    ...
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+        &lt;artifactId&gt;tomcat-embed-jasper&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
     &lt;dependency&gt;
         &lt;groupId&gt;org.openxava&lt;/groupId&gt;
         &lt;artifactId&gt;openxava&lt;/artifactId&gt;
-        &lt;version&gt;7.1.1&lt;/version&gt;
+        &lt;version&gt;${openxava.version}&lt;/version&gt;
     &lt;/dependency&gt;
-&lt;/dependencies&gt;<br><br>&lt;build&gt;
-    &lt;finalName&gt;openxavaspringbootexample&lt;/finalName&gt;
-&lt;/build&gt;<br></code></pre>
-        </div>
-      </div>
-      <div class="wiki" style="display: block;">Por último, copia los siguientes
-        archivos y carpetas del proyecto OpenXava al proyecto Spring Boot bajo
-        la misma ruta:</div>
-      <ul>
-        <li>Todos los archivos y carpetas de <em>src/main/resources</em>.</li>
-        <li>La carpeta <em>webapp </em>ubicado en <em>src/main</em>.</li>
-      </ul>
-      <p><img src="files/springboot_070.png" alt=""></p>
-      <p>Debería quedar con estos cambios:</p>
-      <p><img src="files/springboot_090.png" alt=""></p>
-      <ul>
-      </ul>
-      <div class="wiki" style="display: block;">
-        <h2>Ejecutar aplicación</h2>
-        <p>Recuerda tener configurado <em>JAVA_HOME</em> y hacer los siguientes
-          pasos antes de ejecutar la aplicación:</p>
-        <ul>
-          <em> </em>
-          <li><em>Maven clean</em></li>
-          <em> </em>
-          <li><em>Maven package</em></li>
-        </ul>
-        <p>Copia el archivo <em>openxavaspringbootexample.war</em> de la
-          carpeta <em>target </em>a la carpeta <em>webapp </em>donde tienes
-          instalado Tomcat 9 y ejecuta <em>startup.bat</em> desde la carpeta <em>bin</em></p>
-        <p><img src="files/springboot_100.png" alt=""></p>
-        <p><img src="files/springboot_105.png" alt=""></p>
-        <p>Abre el navegador e ingresa al siguiente url para abrir la aplicación
-          OpenXava (inicia sesión con admin/admin si no has hecho el paso
-          opcional): <br>
-          <i><a href="http://localhost:8080/openxavaspringbootexample">http://localhost:8080/openxavaspringbootexample</a></i></p>
-        <p><img src="files/springboot_110.png" alt=""></p>
-        <p>Aprovechando las vistas que genera OpenXava con las entidades del
-          proyecto ya puedes realizar operaciones CRUD.</p>
-        <p>Comprueba que los servicios del proyecto Spring Boot estén
-          funcionando: <i><a href="http://localhost:8080/openxavaspringbootexample/api/tutorials">http://localhost:8080/openxavaspringbootexample/api/tutorials</a></i></p>
-        <p>Verás que en vez de devolver un json, está devolviendo un xml, esto
-          es debido al bug de la librería JasperReports que trae OpenXava, lo
-          resolveremos momentáneamente en este ejemplo excluyendo una
-          dependencia de esa librería, que no es recomendable hacerlo en
-          producción:</p>
-        <pre><code class="language-xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
-    &lt;artifactId&gt;openxava&lt;/artifactId&gt;
-    &lt;version&gt;7.1.1&lt;/version&gt;
-    &lt;exclusions&gt;
-        &lt;exclusion&gt;
-            &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;
-            &lt;artifactId&gt;jackson-dataformat-xml&lt;/artifactId&gt;
-        &lt;/exclusion&gt;
-    &lt;/exclusions&gt;
-&lt;/dependency&gt;<br></code></pre>
-        <p></p>
-        <p>Si deseas quitar <em>"openxavaspringbootexample"</em> del url,
-          simplemente renombra el archivo <em>openxavaspringbootexample.war</em>
-          a <em>ROOT.war</em> ubicado en la carpeta de <em>webapps</em>, luego
-          con el url <i><a href="http://localhost:8080">http://localhost:8080</a></i>
-          ingresas a la aplicación OpenXava y con <i><a href="http://localhost:8080/api/tutorials">http://localhost:8080/api/tutorials</a></i>
-          a los servicios.</p>
-        <p><img src="files/springboot_120.png" alt=""></p>
-        <p><br>
-        </p>
-      </div>
-    </div>
+
+    &lt;!-- Otras dependencias usadas por tu proyecto --&gt;
+&lt;/dependencies&gt;</code></pre>
+
+    <h2>Mantener las librerías de Tomcat en el WAR</h2>
+
+    <p>Un proyecto OpenXava normal excluye las librerías de Tomcat del WAR generado
+    porque espera ejecutarse en un Tomcat externo.
+    Con el Tomcat embebido de Spring Boot necesitas esas librerías,
+    por lo que debes eliminar esta exclusión de <code>&lt;packagingExcludes&gt;</code> en el
+    <code>maven-war-plugin</code> del archivo <em>pom.xml</em> de tu proyecto si está presente:</p>
+
+    <pre><code class="language-xml">WEB-INF/lib/tomcat-*.jar</code></pre>
+
+    <p>El <code>maven-war-plugin</code> del archivo <em>pom.xml</em> de tu proyecto puede seguir excluyendo otras librerías,
+        pero no las de Tomcat:</p>
+
+    <pre><code class="language-xml">&lt;plugin&gt;
+    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.3.2&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;packagingExcludes&gt;WEB-INF/lib/ecj-3*.jar,
+            WEB-INF/lib/fontbox-*.jar,
+            WEB-INF/lib/htmlunit-*.jar,
+            WEB-INF/lib/httpclient-*.jar,
+            WEB-INF/lib/httpcore-*.jar,
+            WEB-INF/lib/httpmime-*.jar,
+            WEB-INF/lib/jetty-*.jar,
+            WEB-INF/lib/junit-*.jar,
+            WEB-INF/lib/neko-htmlunit-*.jar,
+            WEB-INF/lib/pdfbox-*.jar,
+            WEB-INF/lib/serializer-*.jar,
+            WEB-INF/lib/websocket-*.jar,
+            WEB-INF/lib/xalan-*.jar,
+            WEB-INF/lib/xercesImpl-*.jar,
+            WEB-INF/lib/xml-apis-*.jar&lt;/packagingExcludes&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+
+    <h2>Añadir el plugin Maven de Spring Boot</h2>
+
+    <p>Añade este plugin Maven de Spring Boot a la sección <code>&lt;plugins&gt;</code>
+    del archivo <em>pom.xml</em> de tu proyecto,
+    indicando la clase principal que crearemos en la siguiente sección.
+    En este ejemplo la aplicación se llama <em>invoicing</em> y la clase principal es
+    <code>com.yourcompany.invoicing.InvoicingApplication</code>:</p>
+
+    <pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;mainClass&gt;com.yourcompany.invoicing.InvoicingApplication&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+
+    <h2>Ejemplo completo de pom.xml</h2>
+
+    <p>Después de aplicar todos los cambios explicados arriba,
+    el archivo <em>pom.xml</em> de tu proyecto podría quedar así.
+    Adapta <code>groupId</code>, <code>artifactId</code>, <code>version</code>, <code>finalName</code>
+    y la clase principal de Spring Boot a tu propia aplicación:</p>
+
+    <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.yourcompany&lt;/groupId&gt;
+    &lt;artifactId&gt;invoicing&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+
+    &lt;properties&gt;
+        &lt;openxava.version&gt;7.7.2&lt;/openxava.version&gt;
+        &lt;spring-boot.version&gt;2.7.18&lt;/spring-boot.version&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-dependencies&lt;/artifactId&gt;
+                &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+                &lt;type&gt;pom&lt;/type&gt;
+                &lt;scope&gt;import&lt;/scope&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-websocket&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.tomcat.embed&lt;/groupId&gt;
+            &lt;artifactId&gt;tomcat-embed-jasper&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+            &lt;artifactId&gt;openxava&lt;/artifactId&gt;
+            &lt;version&gt;${openxava.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+            &lt;artifactId&gt;openxava-7.7-chat-jdk17&lt;/artifactId&gt;
+            &lt;version&gt;${openxava.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;finalName&gt;invoicing&lt;/finalName&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;unpack&lt;/id&gt;
+                        &lt;phase&gt;package&lt;/phase&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;unpack&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;artifactItems&gt;
+                                &lt;artifactItem&gt;
+                                    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+                                    &lt;artifactId&gt;openxava&lt;/artifactId&gt;
+                                    &lt;version&gt;${openxava.version}&lt;/version&gt;
+                                    &lt;outputDirectory&gt;src/main/resources&lt;/outputDirectory&gt;
+                                    &lt;includes&gt;xava/dtds/*&lt;/includes&gt;
+                                &lt;/artifactItem&gt;
+                            &lt;/artifactItems&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.3.2&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;packagingExcludes&gt;WEB-INF/lib/ecj-3*.jar,
+                        WEB-INF/lib/fontbox-*.jar,
+                        WEB-INF/lib/htmlunit-*.jar,
+                        WEB-INF/lib/httpclient-*.jar,
+                        WEB-INF/lib/httpcore-*.jar,
+                        WEB-INF/lib/httpmime-*.jar,
+                        WEB-INF/lib/jetty-*.jar,
+                        WEB-INF/lib/junit-*.jar,
+                        WEB-INF/lib/neko-htmlunit-*.jar,
+                        WEB-INF/lib/pdfbox-*.jar,
+                        WEB-INF/lib/serializer-*.jar,
+                        WEB-INF/lib/websocket-*.jar,
+                        WEB-INF/lib/xalan-*.jar,
+                        WEB-INF/lib/xercesImpl-*.jar,
+                        WEB-INF/lib/xml-apis-*.jar&lt;/packagingExcludes&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.2.5&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;skipTests&gt;true&lt;/skipTests&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.1.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;mainClass&gt;${project.groupId}.${project.artifactId}.run.${project.artifactId}&lt;/mainClass&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;${spring-boot.version}&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;mainClass&gt;com.yourcompany.invoicing.InvoicingApplication&lt;/mainClass&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+&lt;/project&gt;</code></pre>
+
+    <h2>Crear application.properties</h2>
+
+    <p>Crea <em>src/main/resources/application.properties</em>.
+    Define el context path con el nombre de tu aplicación OpenXava.
+    Debe coincidir con el nombre en <em>xava/application.xml</em> y con el nombre final
+    del WAR si quieres mantener la misma URL cuando uses un Tomcat externo:</p>
+
+    <pre><code class="language-properties">server.servlet.context-path=/invoicing
+server.tomcat.additional-tld-skip-patterns=htmlunit-*.jar,jetty-*.jar</code></pre>
+
+    <p>La entrada <code>additional-tld-skip-patterns</code> evita escanear algunas librerías
+    que no son relevantes para las librerías de etiquetas JSP.</p>
+
+    <h2>Crear la clase de aplicación Spring Boot</h2>
+
+    <p>Crea una clase en el paquete raíz de tu aplicación.
+    Para una aplicación con paquetes bajo <code>com.yourcompany.invoicing</code>,
+    crea <em>src/main/java/com/yourcompany/invoicing/InvoicingApplication.java</em>:</p>
+
+    <pre><code class="language-java">package com.yourcompany.invoicing;
+
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+
+import org.apache.catalina.Context;
+import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.util.descriptor.web.ContextResource;
+import org.openxava.chat.ChatEndpoint;
+import org.openxava.util.DBServer;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import com.openxava.naviox.web.NaviOXFilter;
+
+@SpringBootApplication
+@ServletComponentScan(basePackages = { "org.openxava", "com.openxava" })
+public class InvoicingApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
+
+    public static void main(String[] args) throws Exception {
+        DBServer.start("invoicing-db");
+        SpringApplication.run(InvoicingApplication.class, args);
+    }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(InvoicingApplication.class);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/index.jsp");
+    }
+
+    @Bean
+    public FilterRegistrationBean&lt;NaviOXFilter&gt; naviOXFilter() {
+        FilterRegistrationBean&lt;NaviOXFilter&gt; registration = new FilterRegistrationBean&lt;&gt;();
+        registration.setFilter(new NaviOXFilter());
+        registration.setName("naviox");
+        registration.addUrlPatterns("*.jsp", "/modules/*", "/phone/index.jsp", "/m/*");
+        registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+        return registration;
+    }
+
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        ServerEndpointExporter exporter = new ServerEndpointExporter();
+        exporter.setAnnotatedEndpointClasses(ChatEndpoint.class);
+        return exporter;
+    }
+
+    @Bean
+    public TomcatServletWebServerFactory tomcatFactory() {
+        return new TomcatServletWebServerFactory() {
+
+            @Override
+            protected TomcatWebServer getTomcatWebServer(Tomcat tomcat) {
+                tomcat.enableNaming();
+                return super.getTomcatWebServer(tomcat);
+            }
+
+            @Override
+            protected void postProcessContext(Context context) {
+                ContextResource resource = new ContextResource();
+                resource.setName("jdbc/invoicingDS");
+                resource.setType("javax.sql.DataSource");
+                resource.setProperty("driverClassName", "org.hsqldb.jdbc.JDBCDriver");
+                resource.setProperty("url", "jdbc:hsqldb:hsql://localhost:1666");
+                resource.setProperty("username", "sa");
+                resource.setProperty("password", "");
+                resource.setProperty("maxTotal", "20");
+                resource.setProperty("maxIdle", "5");
+                resource.setProperty("maxWaitMillis", "10000");
+                context.getNamingResources().addResource(resource);
+            }
+        };
+    }
+
+}</code></pre>
+
+    <p>Hay varios detalles importantes en esta clase:</p>
+
+    <ul>
+      <li><code>@ServletComponentScan</code> escanea los componentes web anotados de OpenXava y NaviOX.</li>
+      <li><code>SpringBootServletInitializer</code> mantiene la aplicación desplegable como un WAR.</li>
+      <li><code>NaviOXFilter</code> se registra manualmente porque OpenXava lo define en un web fragment,
+          no como un bean de Spring.</li>
+      <li><code>ServerEndpointExporter</code> registra el endpoint WebSocket del chat de OpenXava
+          <code>ChatEndpoint</code> en el Tomcat embebido.</li>
+      <li><code>tomcat.enableNaming()</code> habilita JNDI en el Tomcat embebido.</li>
+      <li>El método <code>postProcessContext()</code> es donde se define el datasource para Spring Boot.
+          Crea el datasource JNDI que OpenXava espera desde <em>persistence.xml</em>.</li>
+    </ul>
+
+    <p>Esto es importante porque el Tomcat embebido de Spring Boot no usa
+    el archivo <em>src/main/webapp/META-INF/context.xml</em> para crear el datasource.
+    Por tanto, cuando se ejecuta con Spring Boot, el datasource debe definirse
+    programáticamente en <code>postProcessContext()</code>.
+    Si no usas el servidor HSQLDB embebido arrancado por OpenXava
+    durante el desarrollo, elimina la llamada a <code>DBServer.start()</code>
+    y configura tu propio driver JDBC, URL, usuario y contraseña
+    en el <code>ContextResource</code> creado dentro de <code>postProcessContext()</code>.</p>
+
+    <h2>Ejecutar la aplicación</h2>
+
+    <p>Ahora puedes ejecutar la aplicación desde tu IDE ejecutando
+    la clase lanzadora de Spring Boot.
+    En este tutorial la clase lanzadora es
+    <code>com.yourcompany.invoicing.InvoicingApplication</code>,
+    la clase que contiene el método <code>main()</code> con <code>SpringApplication.run()</code>.</p>
+
+    <p>También puedes ejecutarla desde Maven con el plugin de Spring Boot, desde la carpeta raíz de tu proyecto:</p>
+
+    <pre><code class="language-plaintext">mvn spring-boot:run</code></pre>
+
+    <p>Cuando la aplicación arranque, abre:</p>
+
+    <pre><code class="language-plaintext">http://localhost:8080/invoicing</code></pre>
+
+    <h2>Resumen</h2>
+
+    <p>Para ejecutar OpenXava sobre Spring Boot no tienes que reescribir tu aplicación OpenXava.
+    Mantienes tus entidades, controladores, recursos, JSPs, <em>xava/application.xml</em>,
+    <em>persistence.xml</em> y la estructura de aplicación web.
+    Los añadidos esenciales son las dependencias de Spring Boot, el soporte JSP,
+    una clase principal de Spring Boot, la configuración JNDI del Tomcat embebido,
+    el registro manual del filtro NaviOX y un pequeño <em>application.properties</em>.</p>
+
+    <p>Con esta configuración tu aplicación OpenXava puede ejecutarse como una aplicación Spring Boot,
+        mientras sigue empaquetándose como un WAR.</p>
+
+    <p>Esta integración también te permite usar las herramientas del ecosistema Spring
+    en tu aplicación OpenXava, por ejemplo crear servicios web usando
+    Spring MVC REST.</p>
+
+    <p><b><a href="https://github.com/openxava/openxava-spring-boot-example/">Descarga
+        y ejecuta un ejemplo completo y funcional basado en este tutorial
+    </a></b>
+    </p>
   </body>
 </html>
