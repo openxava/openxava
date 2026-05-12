@@ -1,7 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-
+- Some new common use labels to be used in applications.
+- Fix: Missing labels in newly created standard projects before any code is added.
 - Spring Boot integration article rewritten to be simpler and use the latest versions.
 
 OpenXava 7.7.2 (2026-5-8)
