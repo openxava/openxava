@@ -401,6 +401,29 @@ public class SellerTest extends CustomizeListTestBase {
 		assertValueInCollection("customers", 1, 0, "2");
 	}
 	
+	public void testRefreshUpdatesCollection() throws Exception { 
+		execute("List.viewDetail", "row=0");
+		assertValue("number", "1");
+		assertValueInCollection("customers", 0, 0, "1");
+		assertValueInCollection("customers", 0, 1, "Javi");
+		
+		try {
+			changeCustomerName(1, "Xavi");
+			execute("CRUD.refresh");
+			assertValueInCollection("customers", 0, 0, "1");
+			assertValueInCollection("customers", 0, 1, "Xavi");
+		}
+		finally {
+			changeCustomerName(1, "Javi");
+		}
+	}
+	
+	private void changeCustomerName(int number, String name) {
+		Customer customer = XPersistence.getManager().find(Customer.class, number);
+		customer.setName(name);
+		XPersistence.commit();
+	}
+	
 	private void assertCutRowStyle(int row) { 
 		assertTrue(hasCutRowStyle(row));
 	}
