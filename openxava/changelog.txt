@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Refresh action does not refresh collections.
 - Fix: Setting planificadoPara date does not start Quartz job in Spanish Project Management archetype.
 - Some new common use labels to be used in applications.
 - Fix: Missing labels in newly created standard projects before any code is added.

@@ -63,7 +63,8 @@ public class SearchByViewKeyAction extends ViewBaseAction {
 			}
 			getView().setEditable(true);	
 			getView().setKeyEditable(false);			
-			setValuesToView(values); 		
+			setValuesToView(values);
+			getView().refreshCollections();
 		}
 		catch (ObjectNotFoundException ex) {
 			String searchPropertiesAndValues = getSearchPropertiesAndValues(valuesForSearchByAnyProperty==null?keys:valuesForSearchByAnyProperty);	
