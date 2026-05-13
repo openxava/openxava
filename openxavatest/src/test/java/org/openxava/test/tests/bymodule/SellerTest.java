@@ -401,7 +401,12 @@ public class SellerTest extends CustomizeListTestBase {
 		assertValueInCollection("customers", 1, 0, "2");
 	}
 	
-	public void testRefreshUpdatesCollection() throws Exception { 
+	public void testRefreshUpdatesCollection_keepsOrderAfterClosingDialog() throws Exception { 
+		assertRefreshUpdatesCollection();
+		assertKeepsOrderAfterClosingDialog();
+	}
+	
+	private void assertRefreshUpdatesCollection() throws Exception { 
 		execute("List.viewDetail", "row=0");
 		assertValue("number", "1");
 		assertValueInCollection("customers", 0, 0, "1");
@@ -665,8 +670,7 @@ public class SellerTest extends CustomizeListTestBase {
 		assertMessage("Seller deleted successfully");
 	}
 	
-	public void testKeepsOrderAfterClosingDialog() throws Exception {
-		execute("List.viewDetail", "row=0");
+	private void assertKeepsOrderAfterClosingDialog() throws Exception {
 		assertValue("number", "1"); 
 		assertValueInCollection("customers", 0, "number", "1");
 		assertValueInCollection("customers", 1, "number", "2"); 
