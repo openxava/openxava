@@ -263,6 +263,9 @@ chat.initPanel = function() {
 	});
 	
 	chat.restorePanelState();
+	$(window).off('resize.oxchat').on('resize.oxchat', function() {
+		chat.restorePanelState();
+	});
 	
 	if ($('#chat_panel').is(':visible')) {
 		$('.module-wrapper').css('margin-right', '330px');
@@ -284,7 +287,7 @@ chat.restorePanelState = function() {
 		$('#chat_panel_show').hide();
 		$('#module_header_chat_button').hide();
 		$('.module-wrapper').css('margin-right', '330px');
-		$('#chat_panel').show();
+		$('#chat_panel').css('display', 'flex');
 		$('#chat_panel_hide').show();
 	} else if (!shouldBeOpen && isCurrentlyVisible) {
 		$('#chat_panel_hide').hide();
