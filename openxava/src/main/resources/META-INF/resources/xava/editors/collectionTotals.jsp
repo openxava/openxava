@@ -27,7 +27,7 @@ boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstan
 
 List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
 int mpListSize = 0;
-if (!keyPropertiesList.isEmpty()) {
+if (!keyPropertiesList.isEmpty() && elementCollection) {
 	mpListSize = subview.getMetaPropertiesList().size() - keyPropertiesList.size();
 }
 
