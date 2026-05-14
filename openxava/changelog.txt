@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chat panel overlaps the rightmost cards in card-format list view.
+- Fix: In card-format, cards do not use all available space, leaving too much blank space on the right.
 - Fix: Misaligned totals in calculated, @ManyToMany, and @OrderColumn collections with several references.
 - Fix: Collection changes via chat are not immediately reflected in the UI.
 - Fix: Refresh action does not refresh collections.
