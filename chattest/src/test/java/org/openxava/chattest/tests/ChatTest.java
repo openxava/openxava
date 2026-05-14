@@ -78,6 +78,27 @@ public class ChatTest extends WebDriverTestBase {
         assertChatPanelVisible();
     }
     
+    public void testChatPanelContentVisibleAfterBrowserResize() throws Exception {
+        setWindowWidth(1750);
+        goModule("Customer");
+        
+        assertChatPanelVisible();
+        assertChatPanelContentVisible();
+        
+        closeChatPanel();
+        assertChatPanelHidden();
+        
+        openChatPanelWithShowButton();
+        assertChatPanelVisible();
+        assertChatPanelContentVisible();
+        
+        getDriver().manage().window().setSize(new Dimension(900, 850));
+        Thread.sleep(300);
+        
+        assertChatPanelVisible();
+        assertChatPanelContentVisible();
+    }
+    
     protected void openChatPanel() throws Exception {
         WebDriver driver = getDriver();
         WebElement chatButton = driver.findElement(By.id("module_header_chat_button"));
@@ -171,6 +192,54 @@ public class ChatTest extends WebDriverTestBase {
         
         WebElement hideButton = driver.findElement(By.id("chat_panel_hide"));
         assertTrue("chat_panel_hide should be visible when panel is visible", hideButton.isDisplayed());
+    }
+    
+    protected void assertChatPanelContentVisible() {
+        WebDriver driver = getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.ignoring(StaleElementReferenceException.class);
+        try {
+            wait.until(d -> 
+                isElementVisibleWithSize(d.findElement(By.id("chat_panel_content"))) &&
+                isElementVisibleWithSize(d.findElement(By.cssSelector("#chat_panel .ox-chat-container"))) &&
+                isElementVisibleWithSize(d.findElement(By.cssSelector("#chat_panel .ox-chat-center-content"))) &&
+                isElementVisibleWithSize(d.findElement(By.id("chatInput"))) &&
+                isElementVisibleWithSize(d.findElement(By.id("chatSendBtn"))));
+        } catch (TimeoutException e) {
+            fail("Chat panel content should be visible and have size: " + getChatPanelContentState(driver));
+        }
+    }
+    
+    private boolean isElementVisibleWithSize(WebElement element) {
+        Dimension size = element.getSize();
+        return element.isDisplayed() && size.getWidth() > 0 && size.getHeight() > 0;
+    }
+    
+    private String getChatPanelContentState(WebDriver driver) {
+        StringBuilder result = new StringBuilder();
+        appendElementState(driver, result, "#chat_panel");
+        appendElementState(driver, result, "#chat_panel_content");
+        appendElementState(driver, result, "#chat_panel .ox-chat-container");
+        appendElementState(driver, result, "#chat_panel .ox-chat-center-content");
+        appendElementState(driver, result, "#chatInput");
+        appendElementState(driver, result, "#chatSendBtn");
+        return result.toString();
+    }
+    
+    private void appendElementState(WebDriver driver, StringBuilder result, String selector) {
+        List<WebElement> elements = driver.findElements(By.cssSelector(selector));
+        if (elements.isEmpty()) {
+            result.append(selector).append("=not found; ");
+            return;
+        }
+        WebElement element = elements.get(0);
+        Dimension size = element.getSize();
+        result.append(selector).
+            append(" displayed=").append(element.isDisplayed()).
+            append(" size=").append(size.getWidth()).append("x").append(size.getHeight()).
+            append(" class=").append(element.getAttribute("class")).
+            append(" style=").append(element.getAttribute("style")).
+            append("; ");
     }
     
     public void testTabBaseConditionAppliedToChat_recordsNoInListRecognized_multilingual_chatNotHideModuleOnInit() throws Exception {
