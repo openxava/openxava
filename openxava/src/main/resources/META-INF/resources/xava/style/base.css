@@ -2622,14 +2622,14 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-cards {
-	width: calc(100vw - 210px);  
-	display: inline-flex;
-	flex-wrap: wrap;
+	width: 100%;  
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 	padding: 0px 5px 3px 5px;
+	box-sizing: border-box;
 }
 
 .ox-card {
-	flex: 0 1 330px;
 	margin: 6px;
 	padding: 10px 10px 5px 10px;
 	color: var(--card-color); 

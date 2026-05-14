@@ -5,3 +5,10 @@ Module: Movie
 - The image is not shown at full size, but to a reasonable one.
 - The card with a link is not broken but has a correct layout.
 
+Module: Invoice
+- Change to Cards.
+- The card fill all the width with no blank space on right.
+- Open and close the chat panel. The panel does not hide the cards.
+- Resize the window. The cards fill all the width.
+- Card in latest row when alone is of the same size of the others.
+
