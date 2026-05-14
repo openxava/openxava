@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Chat panel disappears, leaving an empty space after resizing the browser window.
 - Fix: Chat panel overlaps the rightmost cards in card-format list view.
 - Fix: In card-format, cards do not use all available space, leaving too much blank space on the right.
 - Fix: Misaligned totals in calculated, @ManyToMany, and @OrderColumn collections with several references.
