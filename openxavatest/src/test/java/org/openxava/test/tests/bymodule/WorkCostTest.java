@@ -64,7 +64,7 @@ public class WorkCostTest extends WorkCostTestBase {
 		assertCollectionRowCount("invoices", 0);
 	}
 	
-	public void testCalculationAndEditableTotalsInCollections_notLoseChangesMessageWhenCalculationProperties_sumInCorrectColumnForCollectionNotFromModelWithTwoReferences() throws Exception {
+	public void testCalculationAndEditableTotalsInCollections_notLoseChangesMessageWhenCalculationProperties_sumInCorrectColumnForCollectionFromModelWithTwoReferences() throws Exception {
 		// Execute the base test
 		super.testCalculationAndEditableTotalsInCollections();
 
