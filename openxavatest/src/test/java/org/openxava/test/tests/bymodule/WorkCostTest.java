@@ -1,5 +1,8 @@
 package org.openxava.test.tests.bymodule;
 
+import org.htmlunit.html.*;
+import org.openxava.util.*;
+
 /**
  * This tests without @View. 
  *  
@@ -58,22 +61,60 @@ public class WorkCostTest extends WorkCostTestBase {
 		setValue("profitPercentage", "10");
 		checkAllCollection("invoices");
 		execute("Collection.removeSelected", "viewObject=xava_view_invoices");
-		assertCollectionRowCount("invoices", 0); 		
+		assertCollectionRowCount("invoices", 0);
 	}
 	
-	public void testCalculationAndEditableTotalsInCollections_notLoseChangesMessageWhenCalculationProperties() throws Exception { 
+	public void testCalculationAndEditableTotalsInCollections_notLoseChangesMessageWhenCalculationProperties_sumInCorrectColumnForCollectionFromModelWithTwoReferences() throws Exception {
 		// Execute the base test
-		super.testCalculationAndEditableTotalsInCollections(); 
+		super.testCalculationAndEditableTotalsInCollections();
+
 		execute("Navigation.first");
-		execute("CRUD.save"); 
+		execute("CRUD.save");
 
 		// Setup confirm handler to verify no confirmation dialog appears
 		MessageConfirmHandler confirmHandler = new MessageConfirmHandler();
-		getWebClient().setConfirmHandler(confirmHandler);		
-		
+		getWebClient().setConfirmHandler(confirmHandler);
+
 		// Verify that no confirmation dialog appears when creating a new record
 		execute("CRUD.new");
 		confirmHandler.assertNoMessage();
+
+		// Sum for total in total column
+		assertTextInVisibleCell("ox_openxavatest_WorkCost__invoices", 0, 9, "Total");
+		assertTextInVisibleCell("ox_openxavatest_WorkCost__invoices", 1, 9, "0.00");
+	}
+
+	private void assertTextInVisibleCell(String collection, int row, int column, String text) throws Exception {
+		HtmlTable table = getHtmlPage().getHtmlElementById(collection);
+		HtmlTableCell cell = getVisibleCell(table, row, column);
+		assertEquals(text, getTextIgnoringNotVisible(cell));
+	}
+	
+	private HtmlTableCell getVisibleCell(HtmlTable table, int row, int column) {
+		int visibleColumn = 0;
+		for (HtmlTableCell cell: table.getRow(row).getCells()) {
+			if (!isDisplayed(cell)) continue;
+			if (visibleColumn++ == column) return cell;
+		}
+		fail("Visible column not found: " + column);
+		return null;
+	}
+	
+	private String getTextIgnoringNotVisible(DomNode node) {
+		if (node instanceof DomElement && !isDisplayed((DomElement) node)) return "";
+		if (!node.hasChildNodes()) return node.getTextContent();
+		StringBuffer result = new StringBuffer();
+		for (DomNode child: node.getChildren()) {
+			String childText = getTextIgnoringNotVisible(child);
+			if (Is.emptyString(childText)) continue;
+			if (result.length() > 0) result.append(' ');
+			result.append(childText);
+		}
+		return result.toString().replace('\u00a0', ' ').replaceAll("\\s+", " ").trim();
+	}
+	
+	private boolean isDisplayed(DomElement element) {
+		return element.isDisplayed();
 	}
 	
 }
