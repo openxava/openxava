@@ -14,7 +14,7 @@ Mode.list			F9
 Print.generatePdf		Ctrl+Alt+P
 Print.generateExcel		Ctrl+Alt+X
 
-Falta actualizar la documentación y revisar los tests.
+Falta actualizar la documentación incluido migration y.
 
 - Fix: Chat panel disappears, leaving an empty space after resizing the browser window.
 - Fix: Chat panel overlaps the rightmost cards in card-format list view.
