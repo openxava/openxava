@@ -923,7 +923,7 @@ openxava.processKey = function(event) {
 	if ( !(event.keyCode >= 112 && event.keyCode <= 123 ||
 			event.ctrlKey || event.altKey || event.shiftKey) ) return;
 	
-	if (event.keyCode >= 49 && event.keyCode <= 57 && event.ctrlKey && !event.altKey) {				
+	if (event.keyCode >= 49 && event.keyCode <= 57 && event.altKey && !event.ctrlKey) {				
 		event.returnValue = false;
 		event.preventDefault();
 		openxava.executeAction(openxava.lastApplication, openxava.lastModule,
