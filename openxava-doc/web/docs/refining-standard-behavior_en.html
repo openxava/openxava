@@ -121,7 +121,7 @@
         class="org.openxava.actions.NewAction"
         image="new.gif"
         icon="library-plus"
-        keystroke="Control N"
+        keystroke="Alt N"
         loses-changed-data="true"&gt;
         &lt;!--
         name="new": Name to reference the action from other parts of the application
@@ -129,7 +129,7 @@
         image="images/new.gif": Image to show for this action,
             in case "useIconsInsteadOfImages = false" of "xava.properties"
         icon="library-plus": Icon to show for this action, this is by default
-        keystroke="Control N": Keys that the user can press to execute this action
+        keystroke="Alt N": Keys that the user can press to execute this action
         loses-changed-data="true": If the user clicks on this action without saving first
             the current data will be lose
         --&gt;
@@ -154,7 +154,7 @@
         image="delete.gif"
         icon="delete"
         available-on-new="false"
-        keystroke="Control D"/&gt;
+        keystroke="Alt X"/&gt;
         &lt;!--
         confirm="true" : Ask the user for confirmation before executing the action
         available-on-new="false" : action is not available when the user is creating a new entity
@@ -188,7 +188,7 @@
             class="com.yourcompany.invoicing.actions.DeleteInvoiceAction"
             icon="delete"
             available-on-new="false"
-            keystroke="Control D"/&gt;
+            keystroke="Alt X"/&gt;
  
     &lt;/controller&gt;
  
@@ -254,7 +254,7 @@ boolean deleted;
     class="com.yourcompany.invoicing.actions.InvoicingDeleteAction"
     icon="delete"
     available-on-new="false"
-    keystroke="Control D"/&gt;
+    keystroke="Alt X"/&gt;
 </code></pre> Now, rename your <em>DeleteInvoiceAction</em> to <em>InvoicingDeleteAction</em> and rewrite its code:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
@@ -295,7 +295,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
         class="com.yourcompany.invoicing.actions.InvoicingDeleteAction"
         icon="delete"
         available-on-new="false"
-        keystroke="Control D"/&gt;
+        keystroke="Alt X"/&gt;
  
 &lt;/controller&gt;
 </code></pre> As you already know, when you use the name of an entity, like <em>Invoice</em>, as controller name, that controller will be used by default for the module of that entity. Therefore, if we change the name of the controller, this controller will not be used for the entity. Indeed, the <em>Invoicing</em> controller is not used by any module since there is no entity called <em>Invoicing</em>.<br>
@@ -547,7 +547,7 @@ public class Order extends CommercialDocument { ... }
         process-selected-items="true"
         icon="delete"			 
         class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
-        keystroke="Control D"/&gt;				
+        keystroke="Alt X"/&gt;				
 	
     &lt;action name="deleteRow" mode="NONE" confirm="true"
         class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
@@ -711,7 +711,7 @@ public class Order extends CommercialDocument { ... }
       Yes, you're right. You can easily create a more generic action, an <em>UpdatePropertyAction</em> for example; and use it to declare your <em>deleteSelected</em> and restore actions, thereby:<br>
       <pre><code class="language-xml">&lt;action name="deleteSelected" mode="list" confirm="true"
     class="com.yourcompany.invoicing.actions.UpdatePropertyAction"
-    keystroke="Control D"&gt;
+    keystroke="Alt X"&gt;
     &lt;set property="property" value="deleted"/&gt;
     &lt;set property="value" value="true"/&gt;
 &lt;/action&gt;

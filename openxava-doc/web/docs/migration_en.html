@@ -58,6 +58,53 @@
       Finally, revise the instructions below to adapt your code.
     </p>
     
+    <h2>Migration from OpenXava 7.7.2 to OpenXava 7.7.3</h2>
+    
+    <h3>Changed keystrokes to avoid conflicts</h3>
+    
+    <p>
+      In version 7.7.3, several default keystrokes have been modified to avoid conflicts with modern web browsers and operating systems.
+      The updated keystrokes are:
+    </p>
+    
+    <ul>
+      <li><b>CRUD.new</b>: Alt+N</li>
+      <li><b>CRUD.save</b>: Ctrl+S</li>
+      <li><b>CRUD.refresh</b>: Alt+R</li>
+      <li><b>CRUD.delete/deleteSelected</b>: Alt+X</li>
+      <li><b>Sections.change</b>: Ctrl+1..9</li>
+      <li><b>Navigation.first</b>: Shift+Alt+Home</li>
+      <li><b>Navigation.previous</b>: Shift+Alt+Left</li>
+      <li><b>Navigation.next</b>: Shift+Alt+Right</li>
+      <li><b>Mode.list</b>: F9</li>
+      <li><b>Print.generatePdf</b>: Ctrl+Alt+P</li>
+      <li><b>Print.generateExcel</b>: Ctrl+Alt+X</li>
+    </ul>
+    
+    <p>
+      In theory, you do not need to change your code for these updates to take effect. However, if you have explicitly overridden any standard action and hardcoded the old keystroke in your <i>controllers.xml</i>, you should update it for consistency. For instance, if you have:
+    </p>
+    
+    <pre><code class="language-xml">&lt;controller name="MyCRUD"&gt;
+    &lt;extends controller="CRUD"/&gt;
+    &lt;action name="new" icon="library-plus" keystroke="Control N"
+        class="com.yourcompany.projects.actions.MyNewAction"&gt;
+    &lt;/action&gt;
+&lt;/controller&gt;</code></pre>
+
+    <p>You should change it to:</p>
+
+    <pre><code class="language-xml">&lt;controller name="MyCRUD"&gt;
+    &lt;extends controller="CRUD"/&gt;
+    &lt;action name="new" icon="library-plus" keystroke="Alt N"
+        class="com.yourcompany.projects.actions.MyNewAction"&gt;
+    &lt;/action&gt;
+&lt;/controller&gt;</code></pre>
+
+    <p>
+      This ensures your users have a consistent experience across all modules, instead of having different shortcuts for the same actions in customized modules.
+    </p>
+
     <h2>Migration from OpenXava 7.7.1 to OpenXava 7.7.2</h2>
     <p>No issues.</p>
     

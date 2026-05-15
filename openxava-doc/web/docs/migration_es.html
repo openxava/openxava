@@ -48,6 +48,53 @@
 
     <p>Para finalizar, revisa las instrucciones de abajo para adaptar tu código.</p>
     
+    <h2>Para migrar de OpenXava 7.7.2 a OpenXava 7.7.3</h2>
+
+    <h3>Cambio de atajos de teclado para evitar conflictos</h3>
+
+    <p>
+      En la versión 7.7.3 se han modificado algunos atajos de teclado por defecto para evitar conflictos con los navegadores web modernos y el sistema operativo. 
+      Los atajos actualizados son:
+    </p>
+
+    <ul>
+      <li><b>CRUD.new</b>: Alt+N</li>
+      <li><b>CRUD.save</b>: Ctrl+S</li>
+      <li><b>CRUD.refresh</b>: Alt+R</li>
+      <li><b>CRUD.delete/deleteSelected</b>: Alt+X</li>
+      <li><b>Sections.change</b>: Ctrl+1..9</li>
+      <li><b>Navigation.first</b>: Shift+Alt+Home</li>
+      <li><b>Navigation.previous</b>: Shift+Alt+Left</li>
+      <li><b>Navigation.next</b>: Shift+Alt+Right</li>
+      <li><b>Mode.list</b>: F9</li>
+      <li><b>Print.generatePdf</b>: Ctrl+Alt+P</li>
+      <li><b>Print.generateExcel</b>: Ctrl+Alt+X</li>
+    </ul>
+
+    <p>
+      En teoría, no necesitas cambiar nada en tu código para que estos atajos funcionen. Sin embargo, si en algún módulo has sobrescrito una acción estándar y has definido explícitamente el atajo antiguo en tu <i>controladores.xml</i>, deberías actualizarlo para mantener la consistencia. Por ejemplo, si tienes esto:
+    </p>
+
+    <pre><code class="language-xml">&lt;controlador nombre="MiCRUD"&gt;
+    &lt;hereda-de controlador="CRUD"/&gt;
+    &lt;accion nombre="new" icono="library-plus" atajo-de-teclado="Control N"
+        clase="com.tuempresa.proyectos.acciones.MiAccionNuevo"&gt;
+    &lt;/accion&gt;
+&lt;/controlador&gt;</code></pre>
+
+    <p>Sí que deberías cambiarlo por esto:</p>
+
+    <pre><code class="language-xml">&lt;controlador nombre="MiCRUD"&gt;
+    &lt;hereda-de controlador="CRUD"/&gt;
+    &lt;accion nombre="new" icono="library-plus" atajo-de-teclado="Alt N"
+        clase="com.tuempresa.proyectos.acciones.MiAccionNuevo"&gt;
+    &lt;/accion&gt;
+&lt;/controlador&gt;</code></pre>
+
+    <p>
+      Esto asegura una experiencia consistente de cara al usuario, para que en todos los módulos se use <i>Alt N</i> en vez de tener atajos diferentes para la misma acción en los módulos personalizados.
+    </p>
+
     <h2>Para migrar de OpenXava 7.7.1 a OpenXava 7.7.2</h2>
     <p>No hay consideraciones.</p>
     

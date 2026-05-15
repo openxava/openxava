@@ -60,7 +60,7 @@ here that you want to override.
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
 			icon="plus-box-multiple"
-			keystroke="Control N"
+			keystroke="Alt N"
 			loses-changed-data="true">
 			<set property="restoreModel" value="true"/>			
 		</action>
@@ -76,14 +76,14 @@ here that you want to override.
 			class="org.openxava.actions.SearchAction"
 			image="refresh.gif"
 			icon="refresh"
-			keystroke="control B"/>
+			keystroke="Alt R"/>
 		
 		<action name="delete" mode="detail" confirm="true"
 			class="org.openxava.actions.DeleteAction"
 			image="delete.gif"
 			icon="delete"
 			available-on-new="false"
-			keystroke="Control D"/>		
+			keystroke="Alt X"/>		
 		
 		<action name="searchByViewKey" hidden="true"			
 			class="org.openxava.actions.SearchByViewKeyAction"/>
@@ -99,7 +99,7 @@ here that you want to override.
 			image="delete.gif"
 			icon="delete"			 
 			class="org.openxava.actions.DeleteSelectedAction"
-			keystroke="Control D"/>				
+			keystroke="Alt X"/>				
 		
 		<action name="deleteRow" mode="NONE" confirm="true"
 			class="org.openxava.actions.DeleteSelectedAction"
@@ -250,7 +250,7 @@ here that you want to override.
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
 			icon="plus-box-multiple"
-			keystroke="Control N">
+			keystroke="Alt N">
 			<set property="restoreModel" value="true"/>			
 		</action>		
 	</controller>
@@ -283,7 +283,7 @@ here that you want to override.
 			class="org.openxava.actions.OpenSearchDialogAction" 
 			image="find.gif"
 			icon="magnify" 
-			keystroke="control B"/>
+			keystroke="Alt F"/>
 	</controller>
 							
 	<controller name="DetailOnly">
@@ -347,20 +347,17 @@ here that you want to override.
 		 
 		<action name="goPreviousPage"
 			class="org.openxava.actions.GoPreviousPageAction"
-			keystroke="Control A"
 			hidden="true"
 			mode="list"
 			icon="menu-left"/>
 		
 		<action name="goPage"
 			class="org.openxava.actions.GoPageAction"
-			keystroke="Control I"
 			hidden="true"
 			mode="list"/>	
 				
 		<action name="goNextPage"
 			class="org.openxava.actions.GoNextPageAction"
-			keystroke="Control S"
 			hidden="true"
 			mode="list"
 			icon="menu-right"/>			
@@ -503,7 +500,7 @@ here that you want to override.
 			icon="skip-backward"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"			
-			keystroke="control alt HOME"
+			keystroke="shift alt HOME"
 			loses-changed-data="true">
 			<set property="goFirst" value="true"/>
 		</action>
@@ -513,7 +510,7 @@ here that you want to override.
 			icon="skip-previous"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"
-			keystroke="control alt LEFT"
+			keystroke="shift alt LEFT"
 			loses-changed-data="true">
 			<set property="increment" value="-1"/>
 		</action>							
@@ -522,7 +519,7 @@ here that you want to override.
 			icon="skip-next"
 			class="org.openxava.actions.ViewDetailAction"
 			by-default="never"
-			keystroke="control alt RIGHT"
+			keystroke="shift alt RIGHT"
 			loses-changed-data="true">
 			<set property="increment" value="1"/>			
 		</action>									

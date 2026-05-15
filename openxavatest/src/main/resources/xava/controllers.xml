@@ -983,7 +983,7 @@
 		<action  name="new" 
 			class="org.openxava.test.actions.NewWarehouseAction"
 			image="new.gif"
-			keystroke="Control N">
+			keystroke="Alt N">
 			<set property="restoreModel" value="true"/>			
 		</action>
 	</controller>
@@ -994,7 +994,7 @@
 			class="org.openxava.test.actions.NewWarehouse2Action"
 			image="new.gif"
 			icon="library-plus"
-			keystroke="Control N">
+			keystroke="Alt N">
 			<set property="restoreModel" value="true"/>			
 		</action>
 	</controller>
@@ -1591,7 +1591,7 @@
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
 			icon="library-plus"
-			keystroke="Control N">
+			keystroke="Alt N">
 			<set property="restoreModel" value="true"/>			
 		</action>
 		
@@ -1605,7 +1605,7 @@
 			class="org.openxava.actions.NewAction"
 			image="new.gif"
 			icon="library-plus"
-			keystroke="Control N">
+			keystroke="Alt N">
 			<set property="restoreModel" value="true"/>			
 		</action>
 		
@@ -1666,7 +1666,7 @@
 			class="org.openxava.test.actions.ObtainDateNewAction"
 			image="new.gif"
 			icon="library-plus"
-			keystroke="Control N"/>
+			keystroke="Alt N"/>
 	</controller>
 	
 	<controller name="TreeContainer">
