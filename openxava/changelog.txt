@@ -1,23 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-Los siguientes atajos funcionan en Linux y Windows con Firefox y Chrome:
-CRUD.new			Alt+N
-CRUD.save			Ctrl+S
-CRUD.refresh			Alt+R
-CRUD.delete/deleteSelected	Alt+X
-Sections.change			Ctrl+1..9
-Navigation.first 		Shift+Alt+Home
-Navigation.previous 		Shift+Alt+Left
-Navigation.next 		Shift+Alt+Right
-Mode.list			F9
-Print.generatePdf		Ctrl+Alt+P
-Print.generateExcel		Ctrl+Alt+X
-
-Suite pasada al 100%
-
-Falta actualizar la documentación incluido migration.
-
+- Fix: Keystrokes for standard actions conflict with modern browsers and OS shortcuts.
 - Fix: Chat panel disappears, leaving an empty space after resizing the browser window.
 - Fix: Chat panel overlaps the rightmost cards in card-format list view.
 - Fix: In card-format, cards do not use all available space, leaving too much blank space on the right.
