@@ -222,7 +222,7 @@ public class ColorTest extends ModuleTestBase {
 		assertValue("name", "ROJO");
 		assertValue("sample", "RED");
 
-		assertLinkTooltip("CRUD.new", "New - control N - Create a new entity");
+		assertLinkTooltip("CRUD.new", "New - alt N - Create a new entity");
 		assertLinkTooltip("Reference.createNew", "Add");
 		assertInputTooltip("TypicalNotResetOnSave.save", "Save - control S - Save the current entity"); 
 		assertInputTooltip("Color.seeMessage", "See message"); 
