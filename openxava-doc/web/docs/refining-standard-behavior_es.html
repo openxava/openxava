@@ -125,7 +125,7 @@
         class="org.openxava.actions.NewAction"
         image="new.gif"
         icon="library-plus"
-        keystroke="Control N"
+        keystroke="Alt N"
         loses-changed-data="true"&gt;
         &lt;!--
         name="new": Nombre para referenciar la acción desde otras partes
@@ -133,7 +133,7 @@
         image="images/new.gif": Imagen a mostrar para esta acción,
             en caso "useIconsInsteadOfImages=false" de "xava.properties"
         icon="library-plus": Icono a mostrar para esta acción, ésta es por defecto
-        keystroke="Control N": Teclas que se pueden pulsar para ejecutar la acción
+        keystroke="Alt N": Teclas que se pueden pulsar para ejecutar la acción
         loses-changed-data="true": Si el usuario pulsa en esta acción sin grabar primero
             los datos actuales se perderan
         --&gt;
@@ -158,7 +158,7 @@
         image="delete.gif"
         icon="delete"
         available-on-new="false"
-        keystroke="Control D"/&gt;
+        keystroke="Alt X"/&gt;
         &lt;!--
         confirm="true" : Pide confirmación al usuario antes de ejecutar la acción
         available-on-new="false" : La acción no estará disponible mientras se crea una nueva entidad
@@ -191,7 +191,7 @@
             clase="com.tuempresa.facturacion.acciones.EliminarFactura"
             icono="delete"
             disponible-en-nuevo="false"
-            atajo-de-teclado="Control D"/&gt;
+            atajo-de-teclado="Alt X"/&gt;
  
     &lt;/controlador&gt;
  
@@ -258,7 +258,7 @@ boolean eliminado;
     clase="com.tuempresa.facturacion.acciones.EliminarParaFacturacion"
     icono="delete"
     disponible-en-nuevo="false"
-    atajo-de-teclado="Control D"/&gt;
+    atajo-de-teclado="Alt X"/&gt;
 </code></pre> Ahora, renombra tu <em>EliminarFactura</em> como <em>EliminarParaFacturacion</em> y reescribe su código:<br>
       <pre><code class="language-java">package com.tuempresa.facturacion.acciones;
  
@@ -297,7 +297,7 @@ public class EliminarParaFacturacion extends ViewBaseAction {
         clase="com.tuempresa.facturacion.acciones.EliminarParaFacturacion"
         icono="delete"
         disponible-en-nuevo="false"
-        atajo-de-teclado="Control D"/&gt;
+        atajo-de-teclado="Alt X"/&gt;
  
 &lt;/controlador&gt;
 </code></pre> Como ya sabes, cuando usas el nombre de una entidad, como <em>Factura</em>, como nombre de controlador, ese controlador será usado por defecto en el módulo de esa entidad. Por lo tanto, si cambiamos el nombre del controlador, este controlador no se usará para la entidad. De hecho el controlador <em>Facturacion</em> no es usado por ningún módulo, porque no hay ninguna entidad llamada "Facturacion".<br>
@@ -551,7 +551,7 @@ public class Pedido extends DocumentoComercial { ... }
         procesar-elementos-seleccionados="true"
         icono="delete"			 
         clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
-        atajo-de-teclado="Control D"/&gt;				
+        atajo-de-teclado="Alt X"/&gt;				
 	
     &lt;accion nombre="deleteRow" modo="NONE" confirmar="true"
         clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
@@ -711,7 +711,7 @@ public class Pedido extends DocumentoComercial { ... }
       Sí, estás en lo cierto. Con facilidad podemos crear una acción más genérica, una <em>ActualizarPropiedad</em> por ejemplo, y usarla para declarar tus acciones <em>deleteSelected</em> y <em>restaurar</em>, tal como se muestra a continuación:<br>
       <pre><code class="language-xml">&lt;accion nombre="deleteSelected" modo="list" confirmar="true"
     class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"
-    atajo-de-teclado="Control D"&gt;
+    atajo-de-teclado="Alt X"&gt;
     &lt;poner propiedad="propiedad" valor="eliminado" /&gt;
     &lt;poner propiedad="valor" valor="true" /&gt;
 &lt;/accion&gt;
