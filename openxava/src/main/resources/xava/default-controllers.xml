@@ -776,7 +776,7 @@ here that you want to override.
 	<controller name="Sections">
 		<action name="change" 
 			class="org.openxava.actions.ChangeSectionAction"
-			keystroke="Alt 1..9"/>
+			keystroke="Control 1..9"/>
 	</controller>
 			
 	<!-- 

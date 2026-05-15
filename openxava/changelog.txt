@@ -6,7 +6,7 @@ CRUD.new			Alt+N
 CRUD.save			Ctrl+S
 CRUD.refresh			Alt+R
 CRUD.delete/deleteSelected	Alt+X
-Sections.change			Alt+1..9
+Sections.change			Ctrl+1..9
 Navigation.first 		Shift+Alt+Home
 Navigation.previous 		Shift+Alt+Left
 Navigation.next 		Shift+Alt+Right
