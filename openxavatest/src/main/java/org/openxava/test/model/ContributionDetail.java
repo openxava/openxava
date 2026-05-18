@@ -23,7 +23,7 @@ public class ContributionDetail {
 	
 	@Money @ReadOnly
 	@Digits(integer=10, fraction=0)
-	@Calculation("amount * pieces * 1.003 - tax")
+	@Calculation("amount * pieces * 1.003 - tax") // It can generate decimals
 	BigDecimal total; 
 
 }
