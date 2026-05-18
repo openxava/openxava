@@ -3,6 +3,7 @@ package org.openxava.test.model;
 import java.math.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 
 import org.openxava.annotations.*;
 
@@ -21,7 +22,8 @@ public class ContributionDetail {
 	float tax; // float for test
 	
 	@Money @ReadOnly
-	@Calculation("amount * pieces - tax")
+	@Digits(integer=10, fraction=0)
+	@Calculation("amount * pieces * 1.003 - tax")
 	BigDecimal total; 
 
 }

@@ -16,17 +16,19 @@ public class AnnualContributionTest extends ModuleTestBase {
 		super(testName, "AnnualContribution");		
 	}
 			
-	public void testCalculationInElementCollection_doubleNotAddExtraRow() throws Exception {
+	public void testCalculationInElementCollection_doubleNotAddExtraRow_roundingInCalculation() throws Exception {
 		// By now we have no records, so we enter directly in detail mode
 		setValue("year", "2024");
 		setValueInCollection("contributions", 0, "description", "description");
 		setValueInCollection("contributions", 0, "amount", "100");
 		setValueInCollection("contributions", 0, "pieces", "2");
-		assertValueInCollection("contributions", 0, "total", "200.00");
+		assertValueInCollection("contributions", 0, "total", "201"); // 201 because we add 0.3% and total has not decimals
 		execute("CRUD.save");
+		assertNoErrors(); // It failed to save because of total rounding
 		execute("Mode.list");
 		execute("List.viewDetail", "row=0");
 		assertCollectionRowCount("contributions", 1);
+		assertValueInCollection("contributions", 0, "total", "201");
 		execute("CRUD.delete");
 	}
 				
