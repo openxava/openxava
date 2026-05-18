@@ -78,6 +78,14 @@ public class UploadTest extends WebDriverTestBase {
 			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='error']")).isEmpty());
 		assertTrue("FilePond item should not be in invalid state",
 			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='invalid']")).isEmpty());
+		
+		getDriver().navigate().refresh();
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".filepond--item")));
+		Thread.sleep(1000);
+		assertTrue("After refresh, FilePond item should not be in error state",
+			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='error']")).isEmpty());
+		assertTrue("After refresh, FilePond item should not be in invalid state",
+			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='invalid']")).isEmpty());
 	}
 	
 	private void uploadPhoto() throws Exception {

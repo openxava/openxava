@@ -105,6 +105,15 @@ openxava.addEditorInitFunction(function() {
                 if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
                     type = "text/csv";
                 }
+                if (type === "") {
+                    const dot = source.name.lastIndexOf(".");
+                    if (dot >= 0) {
+                        const ext = source.name.substring(dot).toLowerCase();
+                        const accept = (input.getAttribute("accept") || "").toLowerCase();
+                        const acceptList = accept.split(",").map(s => s.trim());
+                        if (acceptList.includes(ext)) type = ext;
+                    }
+                }
                 resolve(type);
             })
 
