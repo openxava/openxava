@@ -24,7 +24,7 @@ public class MoneyFormatter implements IMetaPropertyFormatter {
 	public Object parse(HttpServletRequest request, MetaProperty metaProperty, String string) throws Exception {
 		if (Is.emptyString(string)) return null; 
 		string = Strings.change(string, " ", ""); // In order to work with Polish		
-		return new BigDecimal(getFormat(metaProperty).parse(string).toString()).setScale(metaProperty.getScale(), RoundingMode.HALF_UP);
+		return new BigDecimal(getFormat(metaProperty).parse(string).toString());
 	}
 	
 	private NumberFormat getFormat(MetaProperty metaProperty) {
