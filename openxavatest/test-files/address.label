@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DieCutLabel Version="8.0" Units="twips">
+  <PaperName>30252 Address</PaperName>
+  <ObjectInfo>
+    <TextObject>
+      <Name>TextObject</Name>
+      <StyledText><Element><String>Default Text</String></Element></StyledText>
+    </TextObject>
+    <Bounds X="332" Y="150" Width="4455" Height="1260" />
+  </ObjectInfo>
+  <ObjectInfo>
+    <BarcodeObject>
+      <Name>BarcodeObject</Name>
+      <Text>1234567890</Text>
+      <Type>Code128Auto</Type>
+    </BarcodeObject>
+    <Bounds X="332" Y="1600" Width="4455" Height="1260" />
+  </ObjectInfo>
+</DieCutLabel>

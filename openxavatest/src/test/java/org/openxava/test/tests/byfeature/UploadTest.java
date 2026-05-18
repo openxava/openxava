@@ -51,6 +51,34 @@ public class UploadTest extends WebDriverTestBase {
 		// Assert of there is no photo
 		assertTrue(getDriver().findElements(By.className("filepond--image-preview-wrapper")).isEmpty());		
 	}
+
+	@Override
+	protected boolean isHeadless() { // tmr
+		return false;
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		// tmr
+	}
+
+	public void testLabelInAcceptFileTypes() throws Exception {
+		goModule("LabelPrinting");
+		
+		WebElement input = getDriver().findElement(By.className("filepond--browser"));
+		assertTrue("FilePond input should restrict to .label files", 
+			input.getAttribute("accept").contains(".label"));
+		
+		input.sendKeys(System.getProperty("user.dir") + "/test-files/address.label");
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.textToBe(By.className("filepond--file-status-main"), "Upload complete"));
+		wait(getDriver());
+		
+		assertTrue("FilePond item should not be in error state",
+			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='error']")).isEmpty());
+		assertTrue("FilePond item should not be in invalid state",
+			getDriver().findElements(By.cssSelector(".filepond--item[data-filepond-item-state*='invalid']")).isEmpty());
+	}
 	
 	private void uploadPhoto() throws Exception {
 		WebElement input = getDriver().findElement(By.className("filepond--browser"));
