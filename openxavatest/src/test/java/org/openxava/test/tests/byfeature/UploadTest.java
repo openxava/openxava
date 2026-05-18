@@ -52,16 +52,6 @@ public class UploadTest extends WebDriverTestBase {
 		assertTrue(getDriver().findElements(By.className("filepond--image-preview-wrapper")).isEmpty());		
 	}
 
-	@Override
-	protected boolean isHeadless() { // tmr
-		return false;
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-		// tmr
-	}
-
 	public void testLabelInAcceptFileTypes() throws Exception {
 		goModule("LabelPrinting");
 		
