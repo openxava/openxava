@@ -48,7 +48,7 @@ public @interface File {
   	 * </pre>
 	 * Only CSV and Excel files. As you can see in acceptFileTypes you put a 
 	 * <a href="https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types">list of mime types</a> 
-	 * separated by commas and you can use wildcards.
+	 * separated by commas and you can use wildcards. Since v7.7.3 you can also use file extensions, such as .label.
 	 */
 	String acceptFileTypes() default "";
 
