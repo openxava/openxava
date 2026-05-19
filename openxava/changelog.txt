@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Search missing for references in @ElementCollection when the referenced entity hidden id is shown.
 - Fix: Uploading a file fails if acceptFileTypes declares an extension with no known MIME type.
 - Fix: Saving fails for @Money @Calculation property with @Digits(fraction=0) because of trailing decimals.
 - Fix: Keystrokes for standard actions conflict with modern browsers and OS shortcuts.
