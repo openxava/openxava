@@ -1,8 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- Fix: Uploading a file fails with "File is of invalid type" when @File(acceptFileTypes) declares an extension (e.g. ".label") with no known MIME type.
-
+- Fix: Uploading a file fails if acceptFileTypes declares an extension with no known MIME type.
 - Fix: Saving fails for @Money @Calculation property with @Digits(fraction=0) because of trailing decimals.
 - Fix: Keystrokes for standard actions conflict with modern browsers and OS shortcuts.
 - Fix: Chat panel disappears, leaving an empty space after resizing the browser window.
