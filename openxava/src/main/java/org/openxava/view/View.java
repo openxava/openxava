@@ -4974,7 +4974,17 @@ public class View implements java.io.Serializable {
 			if (idx >= 0) {
 				String reference = propertyName.substring(0, idx);
 				String member = propertyName.substring(idx + 1);
-				return getSubview(reference).isLastSearchKey(member);
+				View refSubview = getSubview(reference);
+				if (isRepresentsElementCollection() && member.indexOf('.') < 0) {
+					try {
+						MetaProperty mp = refSubview.getMetaModel().getMetaProperty(member);
+						if (mp.isKey() && mp.isHidden()) return refSubview.isKeyEditable();
+					}
+					catch (ElementNotFoundException ex) {
+						// fall through
+					}
+				}
+				return refSubview.isLastSearchKey(member);
 			}				
 			return isLastSearchKey(getMetaView().getMetaProperty(propertyName));
 		}
