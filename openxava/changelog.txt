@@ -1,9 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-TMR FALTA:
-- SUITE.
-- DOC.
 - Fix: Uploading a file fails with "File is of invalid type" when @File(acceptFileTypes) declares an extension (e.g. ".label") with no known MIME type.
 
 - Fix: Saving fails for @Money @Calculation property with @Digits(fraction=0) because of trailing decimals.
