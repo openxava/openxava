@@ -102,9 +102,13 @@ openxava.addEditorInitFunction(function() {
 
             pond.fileValidateTypeLabelExpectedTypesMap = uploadEditor.fileValidateTypeLabelExpectedTypesMap;
             pond.fileValidateTypeDetectType = (source, type) => new Promise((resolve, reject) => {
-                if (type == "" && source.name.substr(-4).toLowerCase() === '.csv') {
-                    type = "text/csv";
-                }
+                const accept = (input.getAttribute("accept") || "").toLowerCase();
+                const acceptList = accept.split(",").map(s => s.trim()).filter(s => s);
+                const name = (source && source.name) ? source.name : (typeof source === 'string' ? source : '');
+                const dot = name.lastIndexOf(".");
+                const ext = dot >= 0 ? name.substring(dot).toLowerCase() : '';
+                if (type == "" && ext === '.csv') type = "text/csv";
+                if (ext && acceptList.includes(ext)) { resolve(ext); return; }
                 resolve(type);
             })
 

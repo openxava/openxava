@@ -1525,4 +1525,8 @@
 		<controller name="Typical"/>
 	</module>
 	
+	<module name="LabelPrinting">
+		<model name="LabelPrinting"/>
+	</module>
+	
 </application>

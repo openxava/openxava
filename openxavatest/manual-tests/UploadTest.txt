@@ -72,7 +72,7 @@ AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - The image preview is not cut.
 - Click in the script with image. The image is shown in another tab. (In the same tab with Firefox)
 - Click in the script that is a txt. The script is downloaded with the correct file title. 
-- Go to the third record "NOVECENTO".
+- Go to the third record "NOVECENTO". (Don't worry about error in trailer, it's for testing other case)
 - Upload in trailer a file with less than 90 Kb. It works.
 - Try to upload in trailer a file with more than 90Kb. It fails with a i18n error message.  
 
