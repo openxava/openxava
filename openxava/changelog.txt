@@ -2,8 +2,6 @@ Change Log for OpenXava project
 ===============================
 
 TMR FALTA:
-- PRUEBAS MANUALES.
-    TMR ME QUEDÉ PARA EMPEZAR: AttachedFile and AttachedFiles: Movie with Chrome and Firefox
 - SUITE.
 - DOC.
 - Fix: Uploading a file fails with "File is of invalid type" when @File(acceptFileTypes) declares an extension (e.g. ".label") with no known MIME type.
