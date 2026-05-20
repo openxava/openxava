@@ -11,10 +11,15 @@ import org.apache.commons.io.*;
 import org.apache.commons.logging.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.registry.*;
+import org.hibernate.cfg.*;
+import org.hibernate.engine.jdbc.connections.spi.*;
 import org.hibernate.internal.*;
 import org.hibernate.service.*;
-import org.hibernate.tool.hbm2ddl.*;
 import org.hibernate.tool.schema.*;
+import org.hibernate.tool.schema.spi.*;
+
+import static org.hibernate.cfg.SchemaToolingSettings.*;
+
 import org.openxava.jpa.*;
 import org.openxava.jpa.impl.*;
 import org.openxava.util.*;
@@ -124,16 +129,21 @@ public class SchemaTool {
 	
 			String fileName = Files.getOpenXavaBaseDir() + "ddl-" + UUID.randomUUID() + ".sql";
 			File file = new File(fileName);
-			java.sql.Connection connection = ((SessionImpl) XPersistence.getManager().getDelegate()).connection(); 
+			java.sql.Connection connection = serviceRegistry.getService(ConnectionProvider.class).getConnection(); 
 	    	DatabaseMetaData metaData = connection.getMetaData();
 	    	boolean supportsSchemasInIndexDefinitions = supportsSchemasInIndexDefinitions(metaData);
 	    	boolean supportsSemicolonAtEnd = supportsSemicolonAtEnd(metaData);
-	    	XPersistence.commit();			
+	    	XPersistence.commit();
+	    	Metadata metadataImplementor = metadata.buildMetadata();
+	    	
+	    	Map<String, Object> configuration = new HashMap<>();
+	    	configuration.put(JAKARTA_HBM2DDL_SCRIPTS_CREATE_TARGET, fileName);
+	    	
 	    	if (update) {
-				SchemaUpdate schemaUpdate = new SchemaUpdate();
-				schemaUpdate.setOutputFile(fileName);
-				schemaUpdate.execute(EnumSet.of(TargetType.SCRIPT), metadata.buildMetadata());
-				Collection<String> scripts = FileUtils.readLines(file);
+	    		configuration.put(JAKARTA_HBM2DDL_DATABASE_ACTION, "update");
+	    		configuration.put(JAKARTA_HBM2DDL_SCRIPTS_ACTION, "update");
+	    		SchemaManagementToolCoordinator.process(metadataImplementor, serviceRegistry, configuration, null);
+	    		Collection<String> scripts = FileUtils.readLines(file);
 		    	for (String script: scripts) {
 		    		script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
 		    		script = refineScript(script, supportsSemicolonAtEnd); 
@@ -148,13 +158,11 @@ public class SchemaTool {
 		    			XPersistence.rollback();
 		    		}
 		    	}
-		    	
 	    	}
 	    	else {
-				SchemaExport schemaExport = new SchemaExport();
-				schemaExport.setOutputFile(fileName);
-				schemaExport.createOnly(EnumSet.of(TargetType.SCRIPT), metadata.buildMetadata());
-				Collection<String> scripts = FileUtils.readLines(file);
+	    		configuration.put(JAKARTA_HBM2DDL_SCRIPTS_ACTION, "create");
+	    		SchemaManagementToolCoordinator.process(metadataImplementor, serviceRegistry, configuration, null);
+	    		Collection<String> scripts = FileUtils.readLines(file);
 				for (String script: scripts) {
 					if (onlySequences && !script.startsWith("create sequence ")) continue;
 					script = addSchema(script, supportsSchemasInIndexDefinitions, schema); 
