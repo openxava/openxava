@@ -1,4 +1,4 @@
 Change Log for OpenXava 8
 =========================
 
--
+- Java 17 as baseline. Dropped support for Java 8 and 11.
