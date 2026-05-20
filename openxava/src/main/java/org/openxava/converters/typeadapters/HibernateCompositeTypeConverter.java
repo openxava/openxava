@@ -23,7 +23,25 @@ public class HibernateCompositeTypeConverter extends HibernateTypeBaseConverter 
 	
 	public Object toJava() throws ConversionException {
 		try {		
-			return ((CompositeUserType) getHibernateType()).nullSafeGet(new ArrayOneRowResultSetAdapter(data), fields, null, null);
+			CompositeUserType userType = (CompositeUserType) getHibernateType();
+			// In Hibernate 7.2, CompositeUserType no longer has nullSafeGet
+			// We need to use instantiate() with ValueAccess, but that requires
+			// a different approach. For now, we'll try to use reflection
+			// to call the old method if it still exists in the implementation
+			try {
+				java.lang.reflect.Method method = userType.getClass().getMethod(
+					"nullSafeGet", 
+					java.sql.ResultSet.class, 
+					String[].class, 
+					org.hibernate.engine.spi.SharedSessionContractImplementor.class, 
+					Object.class
+				);
+				return method.invoke(userType, new ArrayOneRowResultSetAdapter(data), fields, null, null);
+			}
+			catch (NoSuchMethodException e) {
+				// The old method doesn't exist, this is a true Hibernate 7.2 type
+				throw new ConversionException("composite_usertype_hibernate72_not_supported", userType.getClass());
+			}
 		} 
 		catch (Exception ex) {
 			log.error(XavaResources.getString("hibernate_type_conversion_error", getType()), ex); 

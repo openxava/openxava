@@ -3,7 +3,6 @@ package org.openxava.converters.typeadapters;
 import java.sql.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.type.*;
 import org.hibernate.usertype.*;
 import org.openxava.converters.*;
 import org.openxava.util.*;
@@ -11,8 +10,7 @@ import org.openxava.util.*;
 /**
  * Adapter for using Hibernate types as converters in OpenXava. <p>
  * 
- * It works with <code>org.hibernate.usertype.UserType</code> and 
- * <code>org.hibernate.type.Type</code>.<br>
+ * It works with <code>org.hibernate.usertype.UserType</code>.<br>
  * 
  * @author Javier Paniza
  */
@@ -26,15 +24,11 @@ public class HibernateTypeConverter extends HibernateTypeBaseConverter implement
 		try {		
 			Object hibernateType = getHibernateType();
 			Object result = null;
-			if (hibernateType instanceof Type) {
-				result = ((Type) hibernateType).nullSafeGet(new ArrayOneRowResultSetAdapter(new Object[] { o }), "f1", null, null);
-			}
-			else if (hibernateType instanceof UserType) {
-				result = ((UserType) hibernateType).nullSafeGet(new ArrayOneRowResultSetAdapter(new Object[] { o }), fields, null, null); 
-				
+			if (hibernateType instanceof UserType) {
+				result = ((UserType) hibernateType).nullSafeGet(new ArrayOneRowResultSetAdapter(new Object[] { o }), 1, null); 
 			}
 			else {
-				throw new ConversionException("only_type_and_usertype", hibernateType.getClass());
+				throw new ConversionException("only_usertype_supported", hibernateType.getClass());
 			}
 			if (result instanceof Enum) {
 				// The EntityTab works with numbers (that converts back to Enums)
@@ -53,18 +47,13 @@ public class HibernateTypeConverter extends HibernateTypeBaseConverter implement
 		try {		
 			Object hibernateType = getHibernateType();
 			Object result = null;
-			if (hibernateType instanceof Type) {
-				ps = new ObjectPreparedStatementAdapter();
-				((Type) hibernateType).nullSafeSet(ps, o, 1, null);
-				result = ps.getObject();
-			}
-			else if (hibernateType instanceof UserType) {
+			if (hibernateType instanceof UserType) {
 				ps = new ObjectPreparedStatementAdapter();
 				((UserType) hibernateType).nullSafeSet(ps, o, 1, null); 
 				result = ps.getObject();
 			}
 			else {
-				throw new ConversionException("only_type_and_usertype", hibernateType.getClass()); 
+				throw new ConversionException("only_usertype_supported", hibernateType.getClass()); 
 			}
 			if (result instanceof Enum) {
 				// The EntityTab works with numbers
