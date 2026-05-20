@@ -1,0 +1,4 @@
+Change Log for OpenXava 8
+=========================
+
+-
