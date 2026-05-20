@@ -18,8 +18,8 @@ public class NotNullStringType implements UserType {
 	
 	private static Log log = LogFactory.getLog(NotNullStringType.class);
 
-	public int[] sqlTypes() {		
-		return new int[] { Types.VARCHAR };
+	public int getSqlType() {		
+		return Types.VARCHAR;
 	}
 
 	public Class returnedClass() {
@@ -35,8 +35,8 @@ public class NotNullStringType implements UserType {
 		return obj.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-		Object o = resultSet.getObject(names[0]);
+	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
+		Object o = resultSet.getObject(position);
     	return o == null?"":o;        	    
 	}
 

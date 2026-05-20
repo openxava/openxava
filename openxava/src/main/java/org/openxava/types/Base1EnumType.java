@@ -25,8 +25,8 @@ public class Base1EnumType implements UserType, ParameterizedType {
 	private String enumType;
 
 	
-	public int[] sqlTypes() {		
-		return new int[] { Types.INTEGER };
+	public int getSqlType() {		
+		return Types.INTEGER;
 	}
 
 	public Class returnedClass() {
@@ -43,8 +43,8 @@ public class Base1EnumType implements UserType, ParameterizedType {
 		return obj.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 	
-		Object o = resultSet.getObject(names[0]);
+	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 	
+		Object o = resultSet.getObject(position);
 		if (o == null) return null;
 		if (!(o instanceof Number)) { 
 			throw new HibernateException(XavaResources.getString("conversion_java_number_expected"));

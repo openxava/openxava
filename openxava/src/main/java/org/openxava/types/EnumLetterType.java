@@ -25,8 +25,8 @@ public class EnumLetterType implements UserType, ParameterizedType {
 	private String letters;
 	private String enumType;
 
-	public int[] sqlTypes() {		
-		return new int[] { Types.VARCHAR };
+	public int getSqlType() {		
+		return Types.VARCHAR;
 	}
 
 	public Class returnedClass() {
@@ -43,8 +43,8 @@ public class EnumLetterType implements UserType, ParameterizedType {
 		return obj.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-		Object o = resultSet.getObject(names[0]);
+	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
+		Object o = resultSet.getObject(position);
 		if (o == null) return null;
 		if (!(o instanceof String)) { 
 			throw new HibernateException(XavaResources.getString("conversion_java_string_expected"));

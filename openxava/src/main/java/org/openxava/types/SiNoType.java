@@ -6,9 +6,8 @@ import java.sql.*;
 import org.hibernate.dialect.*;
 import org.hibernate.engine.spi.*;
 import org.hibernate.type.*;
-import org.hibernate.type.descriptor.java.*;
-import org.hibernate.type.descriptor.java.BooleanTypeDescriptor;
-import org.hibernate.type.descriptor.sql.*;
+import org.hibernate.type.descriptor.java.BooleanJavaType;
+import org.hibernate.type.descriptor.jdbc.CharJdbcType;
 
 /**
  * Stores a boolean value as 'S' or 'N' in database. <p>
@@ -18,13 +17,12 @@ import org.hibernate.type.descriptor.sql.*;
 
 public class SiNoType 
 	extends AbstractSingleColumnStandardBasicType<Boolean>
-	implements PrimitiveType<Boolean>, DiscriminatorType<Boolean> 
 {
 	
-	public static final YesNoType INSTANCE = new YesNoType();
+	public static final SiNoType INSTANCE = new SiNoType();
 
 	public SiNoType() {
-		super( CharTypeDescriptor.INSTANCE, new BooleanTypeDescriptor('S', 'N') );
+		super( CharJdbcType.INSTANCE, new BooleanJavaType('S', 'N') );
 	}
 
 	public String getName() {
@@ -45,7 +43,7 @@ public class SiNoType
 
 	@SuppressWarnings({ "UnnecessaryUnboxing" })
 	public String objectToSQLString(Boolean value, Dialect dialect) throws Exception {
-		return StringType.INSTANCE.objectToSQLString( value.booleanValue() ? "S" : "N", dialect );
+		return "'" + (value.booleanValue() ? "S" : "N") + "'";
 	}
 	
 }

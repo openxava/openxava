@@ -23,6 +23,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.usertype.*;
 import org.openxava.annotations.*;
+import org.openxava.annotations.View;
 import org.openxava.calculators.*;
 import org.openxava.component.*;
 import org.openxava.converters.typeadapters.*;

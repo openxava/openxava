@@ -20,8 +20,8 @@ public class LocalDateNumericType implements UserType {
 	
     private static Log log = LogFactory.getLog(LocalDateNumericType.class);
 
-    public int[] sqlTypes() {       
-        return new int[] { Types.NUMERIC };
+    public int getSqlType() {       
+        return Types.NUMERIC;
     }
 
     public Class returnedClass() {
@@ -37,8 +37,8 @@ public class LocalDateNumericType implements UserType {
         return obj.hashCode();
     }
 
-    public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-        Object o = resultSet.getObject(names[0]);
+    public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
+        Object o = resultSet.getObject(position);
         if (o==null) {
             return null;
         }

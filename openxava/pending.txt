@@ -1,0 +1,33 @@
+Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
+----------------------------------------------------------------
+
+- Migración Type:
+    - Hay que documentarlo.
+    - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
+    - Abajamos tenemos una pequeña guía de migración.
+- Probar SchemaTools.
+
+
+
+
+Guía de migración de Hibernate Type (5.6 a 7.2)
+-----------------------------------------------
+Aquí tienes los pasos simplificados para migrar tipos personalizados a la API de Hibernate 6/7:
+
+1. Clases basadas en UserType (Mapeo a una columna)
+Método sqlTypes(): Reemplázalo por public int getSqlType(). Retorna directamente el código numérico único (ej. Types.VARCHAR o Types.INTEGER) en lugar de un array int[].
+Firma de nullSafeGet: Cambia la firma para recibir la posición de la columna como un entero (int position) en lugar de un array de nombres (String[] names).
+Antes: resultSet.getObject(names[0])
+Ahora: resultSet.getObject(position)
+Descriptores: Reemplaza BooleanTypeDescriptor por BooleanJavaType y CharTypeDescriptor por CharJdbcType.
+2. Clases basadas en CompositeUserType (Mapeo a múltiples columnas)
+Eliminación de métodos de metadatos: Elimina por completo los métodos obsoletos getPropertyNames() y getPropertyTypes().
+Uso de @Embeddable: Define una clase estática anidada o interna anotada con @jakarta.persistence.Embeddable que represente el grupo de columnas. Ordénalas alfabéticamente por nombre de propiedad.
+Implementación de embeddable(): Sobrescribe embeddable() para que devuelva la clase @Embeddable definida.
+Métodos getPropertyValue e instantiate:
+Hibernate asigna índices posicionales a los atributos del @Embeddable en orden alfabético.
+Implementa instantiate(ValueAccess values) para leer de forma segura dichos índices con values.getValue(index, Tipo.class).
+Eliminación de lectura/escritura JDBC manual: Ya no necesitas escribir lógica en nullSafeGet o nullSafeSet, ya que Hibernate mapea los campos del @Embeddable de forma nativa.
+3. Interfaces eliminadas
+PrimitiveType: Quítala de la declaración de tus clases; ya no existe en el sistema de tipos de Hibernate 6+.
+DiscriminatorType: Quítala; sus funcionalidades han sido integradas en mecanismos internos del motor de persistencia

@@ -19,8 +19,8 @@ public class StringArrayBytesType implements UserType {
 	
 	private static Log log = LogFactory.getLog(StringArrayBytesType.class);
 
-	public int[] sqlTypes() {		
-		return new int[] { Types.VARBINARY };
+	public int getSqlType() {		
+		return Types.VARBINARY;
 	}
 
 	public Class returnedClass() {
@@ -36,8 +36,8 @@ public class StringArrayBytesType implements UserType {
 		return obj.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-		Object o = resultSet.getObject(names[0]);
+	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
+		Object o = resultSet.getObject(position);
     	if (o == null) return "";        	    
     	try {
     		byte[] b = null;

@@ -1,115 +1,103 @@
 package org.openxava.types;
 
 import java.io.*;
-import java.sql.*;
-
 import org.hibernate.*;
-import org.hibernate.engine.spi.*;
-import org.hibernate.type.*;
+import org.hibernate.metamodel.spi.*;
 import org.hibernate.usertype.*;
 import org.openxava.util.*;
+import jakarta.persistence.Embeddable;
 
 /**
  * In java a <tt>java.util.Date</tt> and in database 3 columns of 
  * integer type. <p>
-
+ * 
  * @author Javier Paniza
  */
 
-public class Date3Type implements CompositeUserType {
+public class Date3Type implements CompositeUserType<java.util.Date> {
 
-	public String[] getPropertyNames() {
-		return new String[] { "year", "month", "day" }; 
+	@Embeddable
+	public static class Date3Component implements Serializable {
+		private int day;
+		private int month;
+		private int year;
+		public int getDay() { return day; }
+		public void setDay(int day) { this.day = day; }
+		public int getMonth() { return month; }
+		public void setMonth(int month) { this.month = month; }
+		public int getYear() { return year; }
+		public void setYear(int year) { this.year = year; }
 	}
 
-	public Type[] getPropertyTypes() {
-		return new Type[] { IntegerType.INSTANCE, IntegerType.INSTANCE, IntegerType.INSTANCE }; 
-		
-	}
-
-	public Object getPropertyValue(Object component, int property) throws HibernateException {
-		java.util.Date date = (java.util.Date) component;
+	@Override
+	public Object getPropertyValue(java.util.Date component, int property) throws HibernateException {
+		if (component == null) return null;
 		switch (property) {
 			case 0:
-				return Dates.getYear(date);
-			case 1:	
-				return Dates.getMonth(date);
+				return Dates.getDay(component);
+			case 1:
+				return Dates.getMonth(component);
 			case 2:
-				return Dates.getDay(date);				
+				return Dates.getYear(component);
 		}
 		throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));
 	}
 
-	public void setPropertyValue(Object component, int property, Object value) throws HibernateException {
-		java.util.Date date = (java.util.Date) component;
-		int intValue = value == null?0:((Number) value).intValue();
-		switch (property) {
-			case 0:
-				Dates.setYear(date, intValue);
-				break;
-			case 1:	
-				Dates.setMonth(date, intValue);
-				break;
-			case 2:
-				Dates.setDay(date, intValue); 
-				break;
-		}
-		throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));	
+	@Override
+	public java.util.Date instantiate(ValueAccess values) {
+		Integer day = values.getValue(0, Integer.class);
+		Integer month = values.getValue(1, Integer.class);
+		Integer year = values.getValue(2, Integer.class);
+		if (day == null || month == null || year == null) return null;
+		return Dates.create(day, month, year);
 	}
 
-	public Class returnedClass() {
+	@Override
+	public Class<?> embeddable() {
+		return Date3Component.class;
+	}
+
+	@Override
+	public Class<java.util.Date> returnedClass() {
 		return java.util.Date.class;
 	}
 
-	public boolean equals(Object x, Object y) throws HibernateException {
-		if (x==y) return true;
-		if (x==null || y==null) return false;
-		return !Dates.isDifferentDay((java.util.Date) x, (java.util.Date) y);
+	@Override
+	public boolean equals(java.util.Date x, java.util.Date y) {
+		if (x == y) return true;
+		if (x == null || y == null) return false;
+		return !Dates.isDifferentDay(x, y);
 	}
 
-	public int hashCode(Object x) throws HibernateException {
-		return x.hashCode();
+	@Override
+	public int hashCode(java.util.Date x) {
+		return x == null ? 0 : x.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException { 		
-		Number year = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[0], session, owner);
-		Number month = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[1], session, owner );
-		Number day = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[2], session, owner );		
-		
-		int iyear = year == null?0:year.intValue();
-		int imonth = month == null?0:month.intValue();
-		int iday = day == null?0:day.intValue();
-		
-		return Dates.create(iday, imonth, iyear);
-	}
-
-	public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session) throws HibernateException, SQLException { 
-		java.util.Date d = (java.util.Date) value;
-		IntegerType.INSTANCE.nullSafeSet(st, Dates.getYear(d), index, session);
-		IntegerType.INSTANCE.nullSafeSet(st, Dates.getMonth(d), index + 1, session);
-		IntegerType.INSTANCE.nullSafeSet(st, Dates.getDay(d), index + 2, session);		
-	}
-
-	public Object deepCopy(Object value) throws HibernateException {
-		java.util.Date d = (java.util.Date) value;
+	@Override
+	public java.util.Date deepCopy(java.util.Date value) {
 		if (value == null) return null;
-		return (java.util.Date) d.clone();
+		return (java.util.Date) value.clone();
 	}
 
+	@Override
 	public boolean isMutable() {
 		return true;
 	}
 
-	public Serializable disassemble(Object value, SharedSessionContractImplementor session) throws HibernateException { 
+	@Override
+	public Serializable disassemble(java.util.Date value) {
 		return (Serializable) deepCopy(value);
 	}
 
-	public Object assemble(Serializable cached, SharedSessionContractImplementor session, Object owner) throws HibernateException {  
-		return deepCopy(cached);
+	@Override
+	public java.util.Date assemble(Serializable cached, Object owner) {
+		return deepCopy((java.util.Date) cached);
 	}
 
-	public Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner) throws HibernateException {  		
-		return deepCopy(original); 
+	@Override
+	public java.util.Date replace(java.util.Date detached, java.util.Date managed, Object owner) {
+		return deepCopy(detached);
 	}
 
 }
