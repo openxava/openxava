@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Migración - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+        hljs.highlightAll();
+      });
+    </script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0"><a name="Migración"></a> 
+      <span id="breadcrumbs"> 
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a> 
+        </span> / 
+        <a href="index_es.html">documentación</a> / 
+      </span>
+      Migración
+    </h1>
+
+    <h2>¿Cómo actualizar tu proyecto a la última versión de OpenXava?</h2>
+
+    <p>Edita el archivo <i>pom.xml</i> de tu proyecto y cambia el valor de la 
+    propiedad <i>openxava.version</i> para que apunte a la última versión de 
+    OpenXava, así:</p>
+
+    <pre><code class="language-xml">&lt;properties&gt;
+    &lt;openxava.version&gt;8.0&lt;/openxava.version&gt;
+    ...
+&lt;/properties&gt;</code></pre>
+
+    <p>Reconstruye tu proyecto con:  <i>mvn clean package</i></p>
+
+    <p>Si tu versión actual es anterior a la 8.0 deberías seguir las instrucciones de la
+    sección <a href="#de-7.7.3-a-8.0">Para migrar de OpenXava 7.7.3 a OpenXava 8.0</a>
+    primero.</p>
+
+    <p>Para finalizar, revisa las instrucciones de abajo para adaptar tu código.</p>
+
+    <h2 id="de-7.7.3-a-8.0">Para migrar de OpenXava 7.7.3 a OpenXava 8.0</h2>
+
+    <h3>Java 17 como versión mínima</h3>
+
+    <p>Ahora Java 17 es la versión mínima soportada. Si tu proyecto todavía usa Java 8 u 11
+        deberías actualizarlo para que compile con Java 17, 21 o 25. Para ello modifica el pom.xml:</p>
+
+    <pre><code class="language-xml">&lt;properties&gt;
+    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+    ...
+&lt;/properties&gt;</code></pre>
+
+    <p>Asegúrate de tener instalado un JDK 17 (o superior) en tu sistema y configurado en tu IDE.</p>
+    <p>Puedes consultar <a href="https://docs.oracle.com/en/java/javase/17/migrate/index.html">
+    la documentación oficial de Java de migración a Java 17</a>  y si usas Java 8
+    <a href="https://docs.oracle.com/en/java/javase/17/migrate/migrating-jdk-8-later-jdk-releases.html">
+    la documentación de migración desde Java 8</a>.</p>
+
+    <h2>Para migrar a OpenXava 7.7.3</h2>
+
+    <p>Para migrar a OpenXava 7.7.3 desde cualquier versión anterior de OpenXava:</p>
+
+    <p style="font-size: larger"><b><a href="migration_es.html">Sigue las
+    instrucciones de migración para versiones anteriores</a></b></p>
+  </body>
+</html>
