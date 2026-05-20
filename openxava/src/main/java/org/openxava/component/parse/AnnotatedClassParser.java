@@ -809,23 +809,14 @@ public class AnnotatedClassParser implements IComponentParser {
 	
 	
 	private void addConverter(PropertyMapping mapping, Type type, Columns columns) throws Exception {
-		Class typeClass = null;
-		try {
-			typeClass = Class.forName(type.type());
-		}
-		catch (ClassNotFoundException ex) {
-			// If type.type() is a type name and not a class we do not add it, this is not a big problem
-			// since in JPA most data is obtained via JPA so converters are only used for a very few things.
-			
-			// If type.type() is a class name mistyped the JPA will complain, so we do not to do it here
-			return;
-		}
+		Class typeClass = type.value();
+		
 		if (CompositeUserType.class.isAssignableFrom(typeClass)) { 
 			mapping.setMultipleConverterClassName(HibernateCompositeTypeConverter.class.getName());
 			
 			MetaSet typeMetaSet = new MetaSet(); 
 			typeMetaSet.setPropertyName("type");
-			typeMetaSet.setValue(type.type());
+			typeMetaSet.setValue(typeClass.getName());
 			mapping.addMetaSet(typeMetaSet);
 			
 			if (columns != null) {				
@@ -835,7 +826,7 @@ public class AnnotatedClassParser implements IComponentParser {
 				mapping.addMetaSet(valueCountMetaSet);										
 
 				int valueIndex = 0;
-				for (Column column: columns.columns()) {
+				for (jakarta.persistence.Column column: columns.columns()) {
 					CmpField cmp = new CmpField();
 					cmp.setConverterPropertyName("value" + valueIndex++);
 					cmp.setColumn(column.name());
@@ -849,7 +840,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			mapping.setConverterClassName(HibernateTypeConverter.class.getName());
 			MetaSet metaSet = new MetaSet();
 			metaSet.setPropertyName("type");
-			metaSet.setValue(type.type());
+			metaSet.setValue(typeClass.getName());
 			mapping.addMetaSet(metaSet);
 		}
 		
