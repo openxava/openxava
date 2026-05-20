@@ -5,6 +5,10 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
     - Hay que documentarlo.
     - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
     - Abajamos tenemos una pequeña guía de migración.
+    - Cambiar:
+        Anterior: @org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+        Nuevo: @Convert(converter = org.hibernate.type.YesNoConverter.class)
+
 - Probar SchemaTools.
 
 
