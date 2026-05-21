@@ -8,7 +8,6 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
     - Cambiar:
         Anterior: @org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
         Nuevo: @Convert(converter = org.hibernate.type.YesNoConverter.class)
-- Ha repaquetado también validation.
 - Probar SchemaTools.
 
 
