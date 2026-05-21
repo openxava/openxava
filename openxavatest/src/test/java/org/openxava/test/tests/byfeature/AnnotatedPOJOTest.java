@@ -140,7 +140,7 @@ public class AnnotatedPOJOTest extends TestCase {
 			Customer.findByNumber(66); // 66 doesn't exist
 			fail("EntityNotFoundException expected"); 
 		}
-		catch (javax.persistence.NoResultException ex) {
+		catch (NoResultException ex) {
 			// All fine
 		}
 	}

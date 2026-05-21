@@ -2,8 +2,8 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -79,7 +79,7 @@ public class Seller {
 	private String [] regions;
 	
  	public static Seller findByNumber(int number) throws NoResultException { 			
- 		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Seller as o where o.number = :number"); 
+ 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Seller as o where o.number = :number"); 
 		query.setParameter("number", new Integer(number)); 
  		return (Seller) query.getSingleResult();		  		
  	} 

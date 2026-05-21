@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.*;
 
 import org.hibernate.annotations.Type;
