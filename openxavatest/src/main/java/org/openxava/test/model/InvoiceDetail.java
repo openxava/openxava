@@ -66,7 +66,7 @@ public class InvoiceDetail {
 	@Id @Hidden 
 	private String oid;
 	
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.InvoiceDetail$ServiceType")
 		}
@@ -84,7 +84,7 @@ public class InvoiceDetail {
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Product product;
 
-	@Type(type="org.openxava.types.Date3Type")
+	@CompositeType(org.openxava.types.Date3Type.class)
 	@Columns(columns = {
 		@Column(name="YEARDELIVERY"),
 		@Column(name="MONTHDELIVERY"),

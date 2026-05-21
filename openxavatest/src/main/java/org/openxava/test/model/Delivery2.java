@@ -42,7 +42,7 @@ public class Delivery2 {
 	@DescriptionsList
 	DeliveryType type;
 
-	@Type(type="org.openxava.types.Date3Type")
+	@CompositeType(org.openxava.types.Date3Type.class)
 	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)

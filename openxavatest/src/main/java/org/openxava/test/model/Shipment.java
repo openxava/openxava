@@ -27,7 +27,7 @@ public class Shipment {
 	@Id @Required
 	// @org.hibernate.annotations.Type is also specified in ShipmentKey 
 	// because a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361	
-	@org.hibernate.annotations.Type(type="org.openxava.types.EnumLetterType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.EnumLetterType.class, 
 		parameters={
 			@Parameter(name="letters", value="IE"), 
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Type")
@@ -39,7 +39,7 @@ public class Shipment {
 	@Id @Required
 	// @org.hibernate.annotations.Type is also specified in ShipmentKey 
 	// because a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361		
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Mode")
 		}

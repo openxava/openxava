@@ -267,7 +267,7 @@ public class Invoice {
 	@Column(length=50)
 	private String comment;
 
-	@Type(org.openxava.types.SiNoType.class)
+	@Type(value=org.openxava.types.SiNoType.class)
 	@ReadOnly(forViews="NestedSections") 
 	private boolean paid;
 		

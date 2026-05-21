@@ -40,7 +40,7 @@ public class Clerk {
 	private String endingTime;
 
 	// For testing a String property stored in a binary field in database
-	@Stereotype("MEMO") @Type(org.openxava.types.StringArrayBytesType.class)
+	@Stereotype("MEMO") @Type(value=org.openxava.types.StringArrayBytesType.class)
 	private String comments;
 	
 	private Boolean onVacation; 

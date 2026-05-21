@@ -23,7 +23,7 @@ public class ShipmentCharge {
 	private String oid;
 	
 	@Required
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.ShipmentCharge$Mode")
 		}
@@ -39,7 +39,7 @@ public class ShipmentCharge {
 	})
 	@DescriptionsList
 	private Shipment shipment;
-	@org.hibernate.annotations.Type(type="org.openxava.types.EnumLetterType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.EnumLetterType.class, 
 		parameters={
 			@Parameter(name="letters", value="IE"), 
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Type")
