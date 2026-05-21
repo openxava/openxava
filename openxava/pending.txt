@@ -34,3 +34,23 @@ Eliminación de lectura/escritura JDBC manual: Ya no necesitas escribir lógica 
 3. Interfaces eliminadas
 PrimitiveType: Quítala de la declaración de tus clases; ya no existe en el sistema de tipos de Hibernate 6+.
 DiscriminatorType: Quítala; sus funcionalidades han sido integradas en mecanismos internos del motor de persistencia
+
+Guía de Migración: JPA 2.2/Hibernate 5.6 → Jakarta Persistence 3.2/Hibernate 7.2
+--------------------------------------------------------------------------------
+Cambio principal: javax.persistence → jakarta.persistence
+Paso 1: Cambio global de imports
+
+Paso 2: Resolver ambigüedad de anotación View
+Los archivos que usan import org.hibernate.annotations.*; causan ambigüedad
+entre org.openxava.annotations.View y org.hibernate.annotations.View.
+Solución: Reemplazar el wildcard import con imports específicos:
+
+java
+// ANTES
+import org.hibernate.annotations.*;
+
+// DESPUÉS
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
