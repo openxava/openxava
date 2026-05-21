@@ -6,40 +6,46 @@ import java.sql.*;
 import java.time.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.hibernate.engine.spi.*;
+import org.hibernate.type.SqlTypes;
+import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.usertype.*;
 
 /**
  * Allows LocalDate work with numeric date values in format yyyymmdd from database. <p>
- * 
+ *
  * @since 7.4
  * @author Miguel Garbín
  */
-public class LocalDateNumericType implements UserType {
-	
+public class LocalDateNumericType implements UserType<LocalDate> {
+
     private static Log log = LogFactory.getLog(LocalDateNumericType.class);
 
-    public int getSqlType() {       
-        return Types.NUMERIC;
+    @Override
+    public int getSqlType() {
+        return SqlTypes.NUMERIC;
     }
 
-    public Class returnedClass() {
+    @Override
+    public Class<LocalDate> returnedClass() {
         return LocalDate.class;
     }
 
-    public boolean equals(Object obj1, Object obj2) throws HibernateException {
-        if (obj1 == null) return obj2 == null;
-        return obj1.equals(obj2);
+    @Override
+    public boolean equals(LocalDate x, LocalDate y) {
+        if (x == y) return true;
+        if (x == null || y == null) return false;
+        return x.equals(y);
     }
 
-    public int hashCode(Object obj) throws HibernateException {
-        return obj.hashCode();
+    @Override
+    public int hashCode(LocalDate x) {
+        return x == null ? 0 : x.hashCode();
     }
 
-    public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-        Object o = resultSet.getObject(position);
-        if (o==null) {
+    @Override
+    public LocalDate nullSafeGet(ResultSet rs, int position, WrapperOptions options) throws SQLException {
+        Object o = rs.getObject(position);
+        if (o == null) {
             return null;
         }
         else {
@@ -53,37 +59,43 @@ public class LocalDateNumericType implements UserType {
         }
     }
 
-    public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException {
+    @Override
+    public void nullSafeSet(PreparedStatement st, LocalDate value, int index, WrapperOptions options) throws SQLException {
         if (value == null) {
-            ps.setBigDecimal(index, null);
+            st.setBigDecimal(index, null);
         }
         else {
             String string = value.toString();
             int year = Integer.parseInt(string.substring(0, 4));
             int month = Integer.parseInt(string.substring(5, 7));
-            int day = Integer.parseInt(string.substring(8,10)); 
+            int day = Integer.parseInt(string.substring(8,10));
             int date = 10000*year + 100*month + day;
-            ps.setBigDecimal(index, BigDecimal.valueOf(date));
+            st.setBigDecimal(index, BigDecimal.valueOf(date));
         }
     }
 
-    public Object deepCopy(Object obj) throws HibernateException {      
-        return obj;
+    @Override
+    public LocalDate deepCopy(LocalDate value) {
+        return value; // LocalDate is immutable
     }
 
+    @Override
     public boolean isMutable() {
         return false;
     }
 
-    public Serializable disassemble(Object obj) throws HibernateException {
-        return (Serializable) obj;
+    @Override
+    public Serializable disassemble(LocalDate value) {
+        return value;
     }
 
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
-        return cached;
+    @Override
+    public LocalDate assemble(Serializable cached, Object owner) {
+        return (LocalDate) cached;
     }
 
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+    @Override
+    public LocalDate replace(LocalDate original, LocalDate target, Object owner) {
         return original;
     }
 

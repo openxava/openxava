@@ -5,8 +5,9 @@ import java.sql.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.hibernate.engine.spi.*;
+import org.hibernate.HibernateException;
+import org.hibernate.type.SqlTypes;
+import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.usertype.UserType;
 import org.hibernate.usertype.ParameterizedType;
 import org.openxava.util.*;
@@ -14,39 +15,45 @@ import org.openxava.util.*;
 /**
  * In java an Enum and in database a letter corresponding
  * to the position in the string that it's in property 'letters'. <p>
- * 
+ *
  * @author Javier Paniza
+ * @since 8.0
  */
 
-public class EnumLetterType implements UserType, ParameterizedType {
-	
+public class EnumLetterType implements UserType<Enum>, ParameterizedType {
+
 	private static Log log = LogFactory.getLog(EnumLetterType.class);
-		
+
 	private String letters;
 	private String enumType;
 
-	public int getSqlType() {		
-		return Types.VARCHAR;
+	@Override
+	public int getSqlType() {
+		return SqlTypes.VARCHAR;
 	}
 
-	public Class returnedClass() {
-		return Enum.class;		
+	@Override
+	public Class<Enum> returnedClass() {
+		return Enum.class;
 	}
 
-	public boolean equals(Object obj1, Object obj2) throws HibernateException {
-		if (obj1 == obj2) return true;
-		if (obj1 == null) return false;
-		return obj1.equals(obj2);
+	@Override
+	public boolean equals(Enum x, Enum y) {
+		if (x == y) return true;
+		if (x == null || y == null) return false;
+		return x.equals(y);
 	}
 
-	public int hashCode(Object obj) throws HibernateException {
-		return obj.hashCode();
+	@Override
+	public int hashCode(Enum x) {
+		return x == null ? 0 : x.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-		Object o = resultSet.getObject(position);
+	@Override
+	public Enum nullSafeGet(ResultSet rs, int position, WrapperOptions options) throws SQLException {
+		Object o = rs.getObject(position);
 		if (o == null) return null;
-		if (!(o instanceof String)) { 
+		if (!(o instanceof String)) {
 			throw new HibernateException(XavaResources.getString("conversion_java_string_expected"));
 		}
 		assertParameters();
@@ -57,25 +64,26 @@ public class EnumLetterType implements UserType, ParameterizedType {
 			throw new HibernateException(XavaResources.getString("conversion_java_valid_values", value,  letters));
 		}
 		try {
-			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null); 
-			return ((Object []) values)[idx];
-		} 
+			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null);
+			return (Enum) ((Object []) values)[idx];
+		}
 		catch (Exception ex) {
-			String message = XavaResources.getString("hibernate_type_enum_error", enumType, getClass()); 
+			String message = XavaResources.getString("hibernate_type_enum_error", enumType, getClass());
 			log.error(message, ex);
 			throw new HibernateException(message);
-		} 		
+		}
 	}
 
-	public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException { 		
+	@Override
+	public void nullSafeSet(PreparedStatement st, Enum value, int index, WrapperOptions options) throws SQLException {
 		if (value == null) {
 			if (log.isTraceEnabled()) {
 				log.trace( "binding '' to parameter: " + index );
-			}			
-			ps.setString(index, "");
+			}
+			st.setString(index, "");
 			return;
 		}
-		if (!(value instanceof Enum)) {		
+		if (!(value instanceof Enum)) {
 			throw new HibernateException(XavaResources.getString("conversion_db_enum_expected"));
 		}
 		assertParameters();
@@ -84,53 +92,58 @@ public class EnumLetterType implements UserType, ParameterizedType {
 			String letter = String.valueOf(letters.charAt(ivalue));
 			if (log.isTraceEnabled()) {
 				log.trace( "binding '" + letter + "' to parameter: " + index );
-			}			
-			ps.setString(index, letter);		
+			}
+			st.setString(index, letter);
 		}
 		catch (IndexOutOfBoundsException ex) {
-			throw new HibernateException(XavaResources.getString("conversion_db_valid_values", value, letters)); 
+			throw new HibernateException(XavaResources.getString("conversion_db_valid_values", value, letters));
 		}
 	}
-	
+
+	@Override
 	public void setParameterValues(Properties parameters) {
 		if (parameters == null) return;
 		letters = parameters.getProperty("letters");
 		enumType = parameters.getProperty("enumType");
 	}
-	
+
 	private void assertParameters() throws HibernateException {
 		if (Is.emptyString(letters)) {
-			throw new HibernateException(XavaResources.getString("conversion_valid_values_letters_required", getClass().getName())); 
+			throw new HibernateException(XavaResources.getString("conversion_valid_values_letters_required", getClass().getName()));
 		}
 		if (Is.emptyString(enumType)) {
-			throw new HibernateException(XavaResources.getString("hibernate_type_parameter_required", "enumType", getClass().getName())); 
-		}		
+			throw new HibernateException(XavaResources.getString("hibernate_type_parameter_required", "enumType", getClass().getName()));
+		}
 	}
 
-
-	public Object deepCopy(Object obj) throws HibernateException {
-		return obj;		
+	@Override
+	public Enum deepCopy(Enum value) {
+		return value; // Enum is immutable
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
-	public Serializable disassemble(Object obj) throws HibernateException {
-		return (Serializable) obj;
+	@Override
+	public Serializable disassemble(Enum value) {
+		return value;
 	}
 
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+	@Override
+	public Enum assemble(Serializable cached, Object owner) {
+		return (Enum) cached;
 	}
 
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
+	@Override
+	public Enum replace(Enum original, Enum target, Object owner) {
 		return original;
 	}
 
 	/**
 	 * Full qualified class for the Enum. <p>
-	 * 
+	 *
 	 * For example: "org.openxava.test.model.Delivery$Distance"
 	 */
 	public String getEnumType() {
@@ -138,7 +151,7 @@ public class EnumLetterType implements UserType, ParameterizedType {
 	}
 	/**
 	 * Full qualified class for the Enum. <p>
-	 * 
+	 *
 	 * For example: "org.openxava.test.model.Delivery$Distance"
 	 */
 	public void setEnumType(String enumType) {
@@ -147,7 +160,7 @@ public class EnumLetterType implements UserType, ParameterizedType {
 
 	/**
 	 * Letters string that corresponds with the valid values for this enum. <p>
-	 * 
+	 *
 	 * For example, "AEI", means:
 	 * <ul>
 	 * <li> ordinal 0 in Java Enum for 'A' in DB
@@ -161,7 +174,7 @@ public class EnumLetterType implements UserType, ParameterizedType {
 	}
 	/**
 	 * Letters string that corresponds with the valid values for this enum. <p>
-	 * 
+	 *
 	 * For example, "AEI", means:
 	 * <ul>
 	 * <li> ordinal 0 in Java Enum for 'A' in DB

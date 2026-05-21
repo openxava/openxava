@@ -40,7 +40,7 @@ public class Invoice3 {
 	@Column(length=50)
 	private String comment;
 	
-	@Type(type="org.openxava.types.SiNoType")
+	@Type(org.openxava.types.SiNoType.class)
 	private boolean paid;
 		
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

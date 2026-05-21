@@ -36,8 +36,8 @@ public class Invoice4 {
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date date;
-		
-	@Type(type="si_no")	
+
+	@Type(org.openxava.types.SiNoType.class)
 	private boolean paid;
 	
 	public Collection<InvoiceDetail> getDetails() { 

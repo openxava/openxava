@@ -83,14 +83,14 @@ public class InvoiceDetail {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Product product;
-	
-	@Type(type="org.openxava.types.Date3Type") 
-	@Columns(columns = { 
-		@Column(name="YEARDELIVERY"), 
-		@Column(name="MONTHDELIVERY"), 
-		@Column(name="DAYDELIVERY") 
-	})	
-	@DefaultValueCalculator(CurrentDateCalculator.class)	
+
+	@Type(type="org.openxava.types.Date3Type")
+	@Columns(columns = {
+		@Column(name="YEARDELIVERY"),
+		@Column(name="MONTHDELIVERY"),
+		@Column(name="DAYDELIVERY")
+	})
+	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date deliveryDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY) 	

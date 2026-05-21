@@ -192,9 +192,9 @@ public class Delivery {
 	})
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultType")
 	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class)
-	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber") 
+	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber")
 	private DeliveryType type;
-	
+
 	@Type(type="org.openxava.types.Date3Type")
 	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
 	@Required
@@ -203,10 +203,9 @@ public class Delivery {
 	
 	private String description;
 
-	
-	@Type(type="org.openxava.types.EnumLetterType", 
+	@Type(org.openxava.types.EnumLetterType.class,
 		parameters={
-			@Parameter(name="letters", value="LNI"), 
+			@Parameter(name="letters", value="LNI"),
 			@Parameter(name="enumType", value="org.openxava.test.model.Delivery$Distance")
 		}
 	)

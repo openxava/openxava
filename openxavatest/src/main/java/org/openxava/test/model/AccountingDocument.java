@@ -22,8 +22,8 @@ public class AccountingDocument extends Identifiable {
 	@Required
 	@Column(length = 4)
 	private int number;
-	
-	@Type(type="org.openxava.types.LocalDateNumericType") 
+
+	@Type(org.openxava.types.LocalDateNumericType.class)
 	@Column(name="DATE")
 	@Required
 	private LocalDate date; 

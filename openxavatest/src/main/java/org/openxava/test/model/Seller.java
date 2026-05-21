@@ -72,10 +72,10 @@ public class Seller {
 	private Collection<Customer> customers;
 			
 	@ManyToOne(fetch=FetchType.LAZY) @JoinColumn(name="BOSS")
-	private Seller boss;	
-	
-	@Stereotype("REGIONS") @Type(type="org.openxava.test.types.RegionsType")
-	@Editor(forViews="RegionsWithCheckBoxes", value="RegionsWithCheckBoxes") 
+	private Seller boss;
+
+	@Stereotype("REGIONS") @Type(org.openxava.test.types.RegionsType.class)
+	@Editor(forViews="RegionsWithCheckBoxes", value="RegionsWithCheckBoxes")
 	private String [] regions;
 	
  	public static Seller findByNumber(int number) throws NoResultException { 			
