@@ -5,9 +5,11 @@ import java.sql.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.hibernate.engine.spi.*;
-import org.hibernate.usertype.*;
+import org.hibernate.HibernateException;
+import org.hibernate.type.SqlTypes;
+import org.hibernate.type.descriptor.WrapperOptions;
+import org.hibernate.usertype.UserType;
+import org.hibernate.usertype.ParameterizedType;
 import org.openxava.util.*;
 
 /**
@@ -18,84 +20,98 @@ import org.openxava.util.*;
  * 
  * @author Javier Paniza
  */
-public class Base1EnumType implements UserType, ParameterizedType {
+public class Base1EnumType implements UserType<Enum>, ParameterizedType {
 	
-	private static Log log = LogFactory.getLog(EnumLetterType.class);
+	private static Log log = LogFactory.getLog(Base1EnumType.class);
 	
 	private String enumType;
 
 	
-	public int getSqlType() {		
-		return Types.INTEGER;
+	@Override
+	public int getSqlType() {
+		return SqlTypes.INTEGER;
 	}
 
-	public Class returnedClass() {
-		return Enum.class;		
+	@Override
+	public Class<Enum> returnedClass() {
+		return Enum.class;
 	}
 
-	public boolean equals(Object obj1, Object obj2) throws HibernateException {
-		if (obj1 == obj2) return true;
-		if (obj1 == null) return false;
-		return obj1.equals(obj2);
+	@Override
+	public boolean equals(Enum x, Enum y) {
+		if (x == y) return true;
+		if (x == null || y == null) return false;
+		return x.equals(y);
 	}
 
-	public int hashCode(Object obj) throws HibernateException {
-		return obj.hashCode();
+	@Override
+	public int hashCode(Enum x) {
+		return x == null ? 0 : x.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 	
-		Object o = resultSet.getObject(position);
+	@Override
+	public Enum nullSafeGet(ResultSet rs, int position, WrapperOptions options) throws SQLException {
+		Object o = rs.getObject(position);
 		if (o == null) return null;
-		if (!(o instanceof Number)) { 
+		if (!(o instanceof Number)) {
 			throw new HibernateException(XavaResources.getString("conversion_java_number_expected"));
 		}
 
-		int idx  = ((Number) o).intValue();
+		int idx = ((Number) o).intValue();
 		if (idx == 0) return null;
 		assertParameters();
 		try {
-			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null); 
-			return ((Object []) values)[idx - 1];
-		} 
+			Object values = Class.forName(enumType).getMethod("values", (Class<?> []) null).invoke(null, (Object []) null);
+			return (Enum) ((Object []) values)[idx - 1];
+		}
 		catch (Exception ex) {
-			String message = XavaResources.getString("hibernate_type_enum_error", enumType, getClass()); 
+			String message = XavaResources.getString("hibernate_type_enum_error", enumType, getClass());
 			log.error(message, ex);
 			throw new HibernateException(message);
 		}
 	}
 	
-	public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException { 
+	@Override
+	public void nullSafeSet(PreparedStatement st, Enum value, int index, WrapperOptions options) throws SQLException {
 		if (value == null) {
-			ps.setInt(index, 0);
+			if (log.isTraceEnabled()) {
+				log.trace( "binding '0' to parameter: " + index );
+			}
+			st.setInt(index, 0);
 			return;
 		}
-		if (!(value instanceof Enum)) {		
+		if (!(value instanceof Enum)) {
 			throw new HibernateException(XavaResources.getString("conversion_db_enum_expected"));
-		}	
-		int ivalue = ((Enum) value).ordinal() + 1;
+		}
+		int ivalue = value.ordinal() + 1;
 		if (log.isTraceEnabled()) {
 			log.trace( "binding '" + ivalue + "' to parameter: " + index );
 		}
-		ps.setInt(index, ivalue);				
+		st.setInt(index, ivalue);
 	}
 	
-	public Object deepCopy(Object obj) throws HibernateException {
-		return obj;		
+	@Override
+	public Enum deepCopy(Enum value) {
+		return value; // Enum is immutable
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
-	public Serializable disassemble(Object obj) throws HibernateException {
-		return (Serializable) obj;
+	@Override
+	public Serializable disassemble(Enum value) {
+		return value;
 	}
 
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+	@Override
+	public Enum assemble(Serializable cached, Object owner) {
+		return (Enum) cached;
 	}
 
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
+	@Override
+	public Enum replace(Enum original, Enum target, Object owner) {
 		return original;
 	}
 	
