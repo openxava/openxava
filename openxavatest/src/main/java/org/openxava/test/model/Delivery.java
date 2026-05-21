@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.CompositeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
@@ -195,7 +196,7 @@ public class Delivery {
 	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber")
 	private DeliveryType type;
 
-	@Type(type="org.openxava.types.Date3Type")
+	@CompositeType(org.openxava.types.Date3Type.class)
 	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
@@ -203,7 +204,7 @@ public class Delivery {
 	
 	private String description;
 
-	@Type(org.openxava.types.EnumLetterType.class,
+	@Type(value=org.openxava.types.EnumLetterType.class,
 		parameters={
 			@Parameter(name="letters", value="LNI"),
 			@Parameter(name="enumType", value="org.openxava.test.model.Delivery$Distance")

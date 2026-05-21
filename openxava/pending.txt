@@ -12,6 +12,7 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
         Anterior: @org.hibernate.annotations.Type(type="org.openxava.types.SiNoType")
         Nuevo: @org.hibernate.annotations.Type(org.openxava.types.SiNoType.class)
     - @TypeDef ya no existe.
+    - @CompositeType for CompositeUserType implementations
 - Probar SchemaTools.
 
 
