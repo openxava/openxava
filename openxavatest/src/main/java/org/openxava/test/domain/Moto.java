@@ -1,6 +1,6 @@
 package org.openxava.test.domain;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.model.*;
 
 /**

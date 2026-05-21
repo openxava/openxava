@@ -1,7 +1,7 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 /**
  * 

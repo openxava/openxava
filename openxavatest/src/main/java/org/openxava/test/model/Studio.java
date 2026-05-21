@@ -6,7 +6,7 @@ import java.util.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 

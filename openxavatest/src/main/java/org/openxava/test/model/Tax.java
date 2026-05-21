@@ -2,8 +2,8 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.Formula;
 

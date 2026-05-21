@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;

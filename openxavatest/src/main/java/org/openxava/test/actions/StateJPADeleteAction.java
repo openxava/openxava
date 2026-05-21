@@ -1,6 +1,6 @@
 package org.openxava.test.actions;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.actions.*;
 import org.openxava.jpa.*;

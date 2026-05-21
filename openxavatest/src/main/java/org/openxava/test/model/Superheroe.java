@@ -3,7 +3,7 @@ package org.openxava.test.model;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name="SUPERS")

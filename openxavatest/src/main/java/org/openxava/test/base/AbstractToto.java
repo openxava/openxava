@@ -1,7 +1,7 @@
 package org.openxava.test.base;
 
 import java.util.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 

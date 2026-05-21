@@ -15,8 +15,8 @@ import org.openxava.util.*;
 
 public class RegionsType implements UserType {
 
-	public int[] sqlTypes() {		
-		return new int[] { Types.VARCHAR };
+	public int getSqlType() {
+		return Types.VARCHAR;
 	}
 
 	public Class returnedClass() {

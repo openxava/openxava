@@ -3,7 +3,7 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.constraints.*;
 
 import org.openxava.annotations.*;

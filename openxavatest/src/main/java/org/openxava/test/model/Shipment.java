@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.sql.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
@@ -67,12 +67,12 @@ public class Shipment {
 	
 		
  	public static Collection findAll()  { 			
-		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Shipment as o"); 
+		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Shipment as o"); 
  		return query.getResultList();  		
  	}
  	
  	public static Collection findByMode(Mode mode)  { 		 			
- 		javax.persistence.Query query = XPersistence.getManager().createQuery("from Shipment as o where o.mode = :mode"); 
+ 		jakarta.persistence.Query query = XPersistence.getManager().createQuery("from Shipment as o where o.mode = :mode"); 
 		query.setParameter("mode", mode); 
  		return query.getResultList();  		 		
  	}

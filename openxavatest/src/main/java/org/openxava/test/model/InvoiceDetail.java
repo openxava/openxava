@@ -2,11 +2,12 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.actions.*;

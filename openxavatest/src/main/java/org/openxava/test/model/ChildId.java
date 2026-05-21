@@ -2,9 +2,9 @@ package org.openxava.test.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 public class ChildId implements Serializable {
 	private static final long serialVersionUID = 1L;

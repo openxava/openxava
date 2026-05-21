@@ -1,7 +1,7 @@
 package org.openxava.test.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 
 import org.openxava.annotations.DescriptionsList;
 

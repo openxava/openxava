@@ -5,7 +5,7 @@ package org.openxava.test.model;
 
 import java.io.Serializable;
 
-import javax.persistence.MappedSuperclass;
+import jakarta.persistence.MappedSuperclass;
 
 import org.openxava.model.Identifiable;
 

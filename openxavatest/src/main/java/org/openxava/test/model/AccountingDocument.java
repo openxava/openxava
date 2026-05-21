@@ -3,9 +3,9 @@ package org.openxava.test.model;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;

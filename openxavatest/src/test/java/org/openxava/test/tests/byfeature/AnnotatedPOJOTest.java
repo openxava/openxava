@@ -4,7 +4,7 @@ package org.openxava.test.tests.byfeature;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.validation.*;
 
 import org.openxava.jpa.*;

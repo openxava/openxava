@@ -2,13 +2,15 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;

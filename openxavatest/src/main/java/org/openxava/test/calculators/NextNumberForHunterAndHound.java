@@ -3,7 +3,7 @@ package org.openxava.test.calculators;
 import org.openxava.calculators.ICalculator;
 import org.openxava.jpa.XPersistence;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 @SuppressWarnings("serial")
 public class NextNumberForHunterAndHound implements ICalculator {
