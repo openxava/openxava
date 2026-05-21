@@ -11,8 +11,8 @@ import java.util.stream.*;
 import javax.inject.*;
 import jakarta.persistence.*;
 import javax.servlet.http.*;
-import jakarta.validation.*;
-import jakarta.validation.metadata.*;
+import javax.validation.*;
+import javax.validation.metadata.*;
 
 import org.apache.commons.collections.*;
 import org.apache.commons.fileupload.*;
@@ -900,16 +900,16 @@ public class ModuleManager implements java.io.Serializable {
 			errors.add(((ValidationException) ex).getErrors());
 			messages.removeAll();
 			doRollback();
-		} else if (ex instanceof jakarta.validation.ConstraintViolationException) {
+		} else if (ex instanceof javax.validation.ConstraintViolationException) {
 			manageConstraintViolationException(metaAction, errors, messages,
-					(jakarta.validation.ConstraintViolationException) ex);
+					(javax.validation.ConstraintViolationException) ex);
 		} else if (ex instanceof RollbackException) {
 			if (!errors.contains()) { 
-				if (ex.getCause() instanceof jakarta.validation.ConstraintViolationException) {
+				if (ex.getCause() instanceof javax.validation.ConstraintViolationException) {
 					manageConstraintViolationException(metaAction, errors, messages,
-							(jakarta.validation.ConstraintViolationException) ex.getCause());
+							(javax.validation.ConstraintViolationException) ex.getCause());
 				} else if (ex.getCause() != null
-						&& ex.getCause().getCause() instanceof jakarta.validation.ConstraintViolationException) {
+						&& ex.getCause().getCause() instanceof javax.validation.ConstraintViolationException) {
 					manageConstraintViolationException(metaAction, errors,
 							messages, (ConstraintViolationException) ex.getCause()
 									.getCause());
@@ -935,7 +935,7 @@ public class ModuleManager implements java.io.Serializable {
 				manageRegularException(metaAction, errors, messages, ex);
 			}
 			doRollback();
-		} else if (ex instanceof jakarta.validation.ValidationException) {
+		} else if (ex instanceof javax.validation.ValidationException) {
 			errors.add(ex.getMessage());
 			messages.removeAll();
 			doRollback();	
@@ -961,19 +961,19 @@ public class ModuleManager implements java.io.Serializable {
 
 	private static void manageConstraintViolationException(MetaAction metaAction,
 			Messages errors, Messages messages,
-			jakarta.validation.ConstraintViolationException ex) {
-		for (jakarta.validation.ConstraintViolation<?> violation : ex
+			javax.validation.ConstraintViolationException ex) {
+		for (javax.validation.ConstraintViolation<?> violation : ex
 				.getConstraintViolations()) {
 			String attrName = violation.getPropertyPath() == null ? null
 					: violation.getPropertyPath().toString();
 			String domainClass = violation.getRootBeanClass().getSimpleName();
 			String message = getMessage(violation);
 			message = removeBraces(message); 
-			jakarta.validation.metadata.ConstraintDescriptor<?> descriptor = violation
+			javax.validation.metadata.ConstraintDescriptor<?> descriptor = violation
 					.getConstraintDescriptor();
 			java.lang.annotation.Annotation annotation = descriptor
 					.getAnnotation();
-			if (annotation instanceof jakarta.validation.constraints.AssertTrue || 
+			if (annotation instanceof javax.validation.constraints.AssertTrue || 
 				annotation instanceof org.openxava.annotations.EntityValidator) 
 			{
 				Object bean = violation.getRootBean();

@@ -52,11 +52,11 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 			rollback(); 
 			throw ex;
 		}
-		catch (jakarta.validation.ConstraintViolationException ex) {
+		catch (javax.validation.ConstraintViolationException ex) {
 			rollback();
 			throw ex;
 		}
-		catch (jakarta.validation.ValidationException ex) { 
+		catch (javax.validation.ValidationException ex) { 
 			rollback();
 			throw new org.openxava.validators.ValidationException(ex.getMessage());
 		}		
@@ -73,7 +73,7 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 			throw new org.openxava.validators.ValidationException(XavaResources.getString("remove_error",
 					metaModel.getName(), XavaResources.getString(ex.getMessage())));
 		}
-		catch (jakarta.validation.ValidationException ex) {
+		catch (javax.validation.ValidationException ex) {
 			rollback();
 			throw new org.openxava.validators.ValidationException(XavaResources.getString("remove_error",
 					metaModel.getName(), XavaResources.getString(ex.getMessage())));

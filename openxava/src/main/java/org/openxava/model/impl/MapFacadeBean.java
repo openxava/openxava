@@ -30,7 +30,7 @@ import org.openxava.validators.meta.*;
 public class MapFacadeBean {
 	
 	private static Log log = LogFactory.getLog(MapFacadeBean.class);
-	private static jakarta.validation.ValidatorFactory validatorFactory; 
+	private static javax.validation.ValidatorFactory validatorFactory; 
 	private javax.ejb.SessionContext sessionContext = null;
 	private final static long serialVersionUID = 3206093459760846163L;
 	
@@ -1513,20 +1513,20 @@ public class MapFacadeBean {
 	}
 	
 	private void validateElements(Collection elements) { 
-		jakarta.validation.Validator validator = getValidatorFactory().getValidator();
-		Set<jakarta.validation.ConstraintViolation<?>> allViolations = new HashSet<jakarta.validation.ConstraintViolation<?>>(); 		
+		javax.validation.Validator validator = getValidatorFactory().getValidator();
+		Set<javax.validation.ConstraintViolation<?>> allViolations = new HashSet<javax.validation.ConstraintViolation<?>>(); 		
 		for (Object e: elements) {
-			Set<jakarta.validation.ConstraintViolation<Object>> violations = validator.validate(e);
+			Set<javax.validation.ConstraintViolation<Object>> violations = validator.validate(e);
 			allViolations.addAll(violations);
 		}
 		if (!allViolations.isEmpty()) {
-			throw new jakarta.validation.ConstraintViolationException(allViolations);
+			throw new javax.validation.ConstraintViolationException(allViolations);
 		}
 	}
 	
-	private jakarta.validation.ValidatorFactory getValidatorFactory() { 
+	private javax.validation.ValidatorFactory getValidatorFactory() { 
 		if (validatorFactory == null) {
-			validatorFactory = jakarta.validation.Validation.buildDefaultValidatorFactory(); 
+			validatorFactory = javax.validation.Validation.buildDefaultValidatorFactory(); 
 		}
 		return validatorFactory;	
 	}

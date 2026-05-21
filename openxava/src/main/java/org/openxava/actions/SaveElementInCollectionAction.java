@@ -4,8 +4,8 @@ import java.rmi.*;
 import java.util.*;
 
 import javax.ejb.*;
-import jakarta.validation.*;
-import jakarta.validation.metadata.*;
+import javax.validation.*;
+import javax.validation.metadata.*;
 
 import org.openxava.model.*;
 import org.openxava.util.*;
@@ -155,7 +155,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 		else if(ex instanceof ConstraintViolationException){
 			addConstraintViolationErrors((ConstraintViolationException) ex);					
 		} 
-		else if (ex instanceof jakarta.validation.ValidationException) {
+		else if (ex instanceof javax.validation.ValidationException) {
 			addError(ex.getMessage());
 		}
 	}
@@ -169,7 +169,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 			}				
 			ConstraintDescriptor<?> descriptor = violation.getConstraintDescriptor(); 
 			java.lang.annotation.Annotation annotation = descriptor.getAnnotation();
-			if(annotation instanceof jakarta.validation.constraints.AssertTrue) {							
+			if(annotation instanceof javax.validation.constraints.AssertTrue) {							
 				Object bean = violation.getRootBean();				
 				addError(message, bean);					
 			}

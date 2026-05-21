@@ -21,7 +21,7 @@
 	<for-stereotype name="FECHAHORA" size="19"/>  
 	<for-annotation class="org.openxava.annotations.DateTime" size="19"/> 
 	<for-stereotype name="EMAIL" size="50"/>
-	<for-annotation class="jakarta.validation.constraints.Email" size="50"/> 
+	<for-annotation class="javax.validation.constraints.Email" size="50"/> 
 	<for-annotation class="org.hibernate.validator.constraints.Email" size="50"/> 
 	<for-stereotype name="TELEPHONE" size="15"/>
 	<for-stereotype name="TELEFONO" size="15"/>

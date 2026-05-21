@@ -12,7 +12,7 @@
 package com.openxava.naviox.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.annotations.*;

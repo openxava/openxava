@@ -875,8 +875,8 @@ public class AnnotatedClassParser implements IComponentParser {
 
 		// size
 		boolean defaultSize = false; 
-		if (element.isAnnotationPresent(jakarta.validation.constraints.DecimalMax.class)) {
-			jakarta.validation.constraints.DecimalMax max = element.getAnnotation(jakarta.validation.constraints.DecimalMax.class);
+		if (element.isAnnotationPresent(javax.validation.constraints.DecimalMax.class)) {
+			javax.validation.constraints.DecimalMax max = element.getAnnotation(javax.validation.constraints.DecimalMax.class);
 			int size = max.value().length();
 			int idx = max.value().indexOf('.'); 
 			if (idx >= 0) {
@@ -886,8 +886,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			property.setSize(size);
 		}		
-		else if (element.isAnnotationPresent(jakarta.validation.constraints.Size.class)) {
-			jakarta.validation.constraints.Size size = element.getAnnotation(jakarta.validation.constraints.Size.class);			
+		else if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
+			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);			
 			property.setSize(size.max());
 		}
 		else if (element.isAnnotationPresent(Column.class)) {
@@ -916,13 +916,13 @@ public class AnnotatedClassParser implements IComponentParser {
 				property.setScale(column.scale()); // Even if 0 
 			}
 		}
-		else if (element.isAnnotationPresent(jakarta.validation.constraints.Digits.class)) {
-			jakarta.validation.constraints.Digits digits = element.getAnnotation(jakarta.validation.constraints.Digits.class);
+		else if (element.isAnnotationPresent(javax.validation.constraints.Digits.class)) {
+			javax.validation.constraints.Digits digits = element.getAnnotation(javax.validation.constraints.Digits.class);
 			property.setSize(digits.integer() + digits.fraction()); 
 			property.setScale(digits.fraction());
 		}
-		if (element.isAnnotationPresent(jakarta.validation.constraints.Max.class)) {
-			jakarta.validation.constraints.Max max = element.getAnnotation(jakarta.validation.constraints.Max.class);
+		if (element.isAnnotationPresent(javax.validation.constraints.Max.class)) {
+			javax.validation.constraints.Max max = element.getAnnotation(javax.validation.constraints.Max.class);
 			property.setSize((int) (Math.log10(max.value()) + 1));
 		}		
 				
@@ -931,11 +931,11 @@ public class AnnotatedClassParser implements IComponentParser {
 			property.setRequired(true);
 			property.setRequiredMessage(filterMessage(element.getAnnotation(Required.class).message()));
 		}
-		else if (element.isAnnotationPresent(jakarta.validation.constraints.Min.class)) {
-			jakarta.validation.constraints.Min min = element.getAnnotation(jakarta.validation.constraints.Min.class);
+		else if (element.isAnnotationPresent(javax.validation.constraints.Min.class)) {
+			javax.validation.constraints.Min min = element.getAnnotation(javax.validation.constraints.Min.class);
 			if (min.value() > 0) { 
 				property.setRequired(true);
-				property.setRequiredMessage(filterMessage(element.getAnnotation(jakarta.validation.constraints.Min.class).message()));
+				property.setRequiredMessage(filterMessage(element.getAnnotation(javax.validation.constraints.Min.class).message()));
 			}
 		}		
 		
@@ -1335,8 +1335,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			collection.setMetaCalculator(null); 
 		}		
 		
-		if (element.isAnnotationPresent(jakarta.validation.constraints.Size.class)) {
-			jakarta.validation.constraints.Size size = element.getAnnotation(jakarta.validation.constraints.Size.class);
+		if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
+			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);
 			collection.setMinimum(size.min());
 			collection.setMaximum(size.max());
 		}

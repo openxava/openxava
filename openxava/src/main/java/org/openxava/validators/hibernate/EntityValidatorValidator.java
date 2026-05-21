@@ -2,7 +2,7 @@ package org.openxava.validators.hibernate;
 
 import java.util.*;
 
-import jakarta.validation.*;
+import javax.validation.*;
 
 import org.openxava.annotations.*;
 import org.openxava.component.parse.*;
@@ -48,7 +48,7 @@ public class EntityValidatorValidator implements ConstraintValidator<EntityValid
 				   .addConstraintViolation();
 			return false;
 		}
-		catch (jakarta.validation.ValidationException|org.openxava.validators.ValidationException  ex) { 
+		catch (javax.validation.ValidationException|org.openxava.validators.ValidationException  ex) { 
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(ex.getMessage())
 				   .addConstraintViolation();
