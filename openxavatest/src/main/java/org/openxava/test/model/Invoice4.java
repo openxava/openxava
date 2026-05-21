@@ -16,11 +16,6 @@ import org.openxava.calculators.*;
  * @author Javier Paniza
  */
 
-@TypeDef( 
-	name="si_no",
-	typeClass=org.openxava.types.SiNoType.class
-)
-
 @Entity
 @IdClass(InvoiceKey.class)  // We reuse the key class for Invoice
 @Table(name="INVOICE")
