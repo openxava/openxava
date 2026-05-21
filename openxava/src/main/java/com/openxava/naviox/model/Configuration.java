@@ -11,8 +11,8 @@
 
 package com.openxava.naviox.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.annotations.*;

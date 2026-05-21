@@ -4,7 +4,7 @@ import java.rmi.*;
 import java.util.*;
 import java.util.stream.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;

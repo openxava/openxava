@@ -11,7 +11,7 @@
 
 package com.openxava.naviox.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 

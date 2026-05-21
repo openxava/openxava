@@ -13,7 +13,7 @@ package com.openxava.naviox.impl;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.application.meta.*;
 import org.openxava.component.parse.*;

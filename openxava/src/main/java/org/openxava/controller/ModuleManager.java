@@ -9,10 +9,10 @@ import java.util.logging.*;
 import java.util.stream.*;
 
 import javax.inject.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import javax.servlet.http.*;
-import javax.validation.*;
-import javax.validation.metadata.*;
+import jakarta.validation.*;
+import jakarta.validation.metadata.*;
 
 import org.apache.commons.collections.*;
 import org.apache.commons.fileupload.*;
@@ -900,16 +900,16 @@ public class ModuleManager implements java.io.Serializable {
 			errors.add(((ValidationException) ex).getErrors());
 			messages.removeAll();
 			doRollback();
-		} else if (ex instanceof javax.validation.ConstraintViolationException) {
+		} else if (ex instanceof jakarta.validation.ConstraintViolationException) {
 			manageConstraintViolationException(metaAction, errors, messages,
-					(javax.validation.ConstraintViolationException) ex);
+					(jakarta.validation.ConstraintViolationException) ex);
 		} else if (ex instanceof RollbackException) {
 			if (!errors.contains()) { 
-				if (ex.getCause() instanceof javax.validation.ConstraintViolationException) {
+				if (ex.getCause() instanceof jakarta.validation.ConstraintViolationException) {
 					manageConstraintViolationException(metaAction, errors, messages,
-							(javax.validation.ConstraintViolationException) ex.getCause());
+							(jakarta.validation.ConstraintViolationException) ex.getCause());
 				} else if (ex.getCause() != null
-						&& ex.getCause().getCause() instanceof javax.validation.ConstraintViolationException) {
+						&& ex.getCause().getCause() instanceof jakarta.validation.ConstraintViolationException) {
 					manageConstraintViolationException(metaAction, errors,
 							messages, (ConstraintViolationException) ex.getCause()
 									.getCause());
@@ -919,7 +919,7 @@ public class ModuleManager implements java.io.Serializable {
 			} 
 			doRollback();
 			
-		} else if (ex instanceof javax.persistence.PersistenceException) {
+		} else if (ex instanceof jakarta.persistence.PersistenceException) {
 			if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException
 					&& ((org.hibernate.exception.ConstraintViolationException) ex
 							.getCause()).getConstraintName() != null) {
@@ -930,12 +930,12 @@ public class ModuleManager implements java.io.Serializable {
 						(org.hibernate.exception.ConstraintViolationException) ex
 								.getCause());
 			} else if (ex.getCause() instanceof org.hibernate.exception.GenericJDBCException) {
-				manageSQLException(metaAction, errors, messages, (javax.persistence.PersistenceException)ex);
+				manageSQLException(metaAction, errors, messages, (jakarta.persistence.PersistenceException)ex);
 			} else {
 				manageRegularException(metaAction, errors, messages, ex);
 			}
 			doRollback();
-		} else if (ex instanceof javax.validation.ValidationException) {
+		} else if (ex instanceof jakarta.validation.ValidationException) {
 			errors.add(ex.getMessage());
 			messages.removeAll();
 			doRollback();	
@@ -961,19 +961,19 @@ public class ModuleManager implements java.io.Serializable {
 
 	private static void manageConstraintViolationException(MetaAction metaAction,
 			Messages errors, Messages messages,
-			javax.validation.ConstraintViolationException ex) {
-		for (javax.validation.ConstraintViolation<?> violation : ex
+			jakarta.validation.ConstraintViolationException ex) {
+		for (jakarta.validation.ConstraintViolation<?> violation : ex
 				.getConstraintViolations()) {
 			String attrName = violation.getPropertyPath() == null ? null
 					: violation.getPropertyPath().toString();
 			String domainClass = violation.getRootBeanClass().getSimpleName();
 			String message = getMessage(violation);
 			message = removeBraces(message); 
-			javax.validation.metadata.ConstraintDescriptor<?> descriptor = violation
+			jakarta.validation.metadata.ConstraintDescriptor<?> descriptor = violation
 					.getConstraintDescriptor();
 			java.lang.annotation.Annotation annotation = descriptor
 					.getAnnotation();
-			if (annotation instanceof javax.validation.constraints.AssertTrue || 
+			if (annotation instanceof jakarta.validation.constraints.AssertTrue || 
 				annotation instanceof org.openxava.annotations.EntityValidator) 
 			{
 				Object bean = violation.getRootBean();
@@ -1032,7 +1032,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	private static void manageSQLException(MetaAction metaAction, Messages errors,
-			Messages messages, javax.persistence.PersistenceException ex) {
+			Messages messages, jakarta.persistence.PersistenceException ex) {
 		boolean foundSQLException = false;
 		Throwable cause = ex;
 		while (cause != null) {

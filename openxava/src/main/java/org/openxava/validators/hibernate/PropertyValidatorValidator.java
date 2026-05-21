@@ -1,6 +1,6 @@
 package org.openxava.validators.hibernate;
 
-import javax.validation.*; 
+import jakarta.validation.*; 
 import org.openxava.annotations.*;
 import org.openxava.component.parse.*;
 import org.openxava.validators.*;

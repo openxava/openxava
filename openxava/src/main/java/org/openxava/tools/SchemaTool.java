@@ -4,8 +4,8 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.metamodel.*;
+import jakarta.persistence.*;
+import jakarta.persistence.metamodel.*;
 
 import org.apache.commons.io.*;
 import org.apache.commons.logging.*;

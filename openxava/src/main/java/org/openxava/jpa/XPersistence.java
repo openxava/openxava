@@ -2,7 +2,7 @@ package org.openxava.jpa;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.hotswap.*;

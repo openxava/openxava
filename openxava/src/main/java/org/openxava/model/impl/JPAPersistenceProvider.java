@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import javax.ejb.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
@@ -52,11 +52,11 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 			rollback(); 
 			throw ex;
 		}
-		catch (javax.validation.ConstraintViolationException ex) {
+		catch (jakarta.validation.ConstraintViolationException ex) {
 			rollback();
 			throw ex;
 		}
-		catch (javax.validation.ValidationException ex) { 
+		catch (jakarta.validation.ValidationException ex) { 
 			rollback();
 			throw new org.openxava.validators.ValidationException(ex.getMessage());
 		}		
@@ -73,7 +73,7 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 			throw new org.openxava.validators.ValidationException(XavaResources.getString("remove_error",
 					metaModel.getName(), XavaResources.getString(ex.getMessage())));
 		}
-		catch (javax.validation.ValidationException ex) {
+		catch (jakarta.validation.ValidationException ex) {
 			rollback();
 			throw new org.openxava.validators.ValidationException(XavaResources.getString("remove_error",
 					metaModel.getName(), XavaResources.getString(ex.getMessage())));
@@ -111,11 +111,11 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 	}
 
 	protected void setParameterToQuery(Object query, String name, Object value) {
-		((javax.persistence.Query) query).setParameter(name, value);
+		((jakarta.persistence.Query) query).setParameter(name, value);
 	}
 
 	protected Object getUniqueResult(Object query) {
-		Iterator it = ((javax.persistence.Query) query).getResultList().iterator();
+		Iterator it = ((jakarta.persistence.Query) query).getResultList().iterator();
 		if (!it.hasNext()) return null;
 		return it.next();
 	}

@@ -2,7 +2,7 @@ package org.openxava.session;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.jpa.*;
 

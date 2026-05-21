@@ -2,7 +2,7 @@ package org.openxava.tests;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
