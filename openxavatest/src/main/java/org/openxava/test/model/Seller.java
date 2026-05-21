@@ -5,7 +5,7 @@ import java.util.*;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 
 /**
@@ -14,20 +14,20 @@ import org.openxava.annotations.*;
  */
 
 @Entity
-@Views ({	
-	@View(members="number; name"),				
-	@View(name="Complete",	members="number; name; level; regions; customers"),	
-	@View(name="CompleteWithCustomersWithSellerInSection", members="number; name; level; regions; customers"), 
-	@View(name="RegionsWithCheckBoxes", members="number; name; regions"), 
-	@View(name="DecorateName", members="number; name"),	
+@Views ({
+	@View(members="number; name"),
+	@View(name="Complete",	members="number; name; level; regions; customers"),
+	@View(name="CompleteWithCustomersWithSellerInSection", members="number; name; level; regions; customers"),
+	@View(name="RegionsWithCheckBoxes", members="number; name; regions"),
+	@View(name="DecorateName", members="number; name"),
 	@View(name="ForCustomJSP", members="number; name; level"),
 	@View(name="CannotCreateCustomer", members=
-		"number; name; " +		
+		"number; name; " +
 		"customers { customers }"
 	),
 	@View(name="Simple", members="number; name; level"),
 	@View(name="SimpleNoNumber", members="name; level"),
-	@View(name="SimpleLevelFirst", members="level; number; name"), 
+	@View(name="SimpleLevelFirst", members="level; number; name"),
 	@View(name="CustomersAsAggregate", members="number; name; level; customers"),
 	@View(name="LevelNoDescriptionsList", members="number; name; level"),
 	@View(name="SearchListCondition", members="number; name;level;customers"),
@@ -78,10 +78,10 @@ public class Seller {
 	@Editor(forViews="RegionsWithCheckBoxes", value="RegionsWithCheckBoxes")
 	private String [] regions;
 	
- 	public static Seller findByNumber(int number) throws NoResultException { 			
- 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Seller as o where o.number = :number"); 
-		query.setParameter("number", new Integer(number)); 
- 		return (Seller) query.getSingleResult();		  		
+ 	public static Seller findByNumber(int number) throws NoResultException {
+ 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Seller as o where o.number = :number");
+		query.setParameter("number", Integer.valueOf(number));
+ 		return (Seller) query.getSingleResult();
  	} 
 
 
