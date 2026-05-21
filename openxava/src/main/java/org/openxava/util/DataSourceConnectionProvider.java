@@ -10,7 +10,7 @@ import javax.sql.*;
 import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.internal.*;
+import org.hibernate.Session;
 import org.openxava.component.*;
 import org.openxava.jpa.*;
 import org.openxava.jpa.impl.*;
@@ -154,10 +154,10 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 	
 	public Connection getConnection() throws SQLException {
 		if (isUseHibernateConnection()) {
-			SessionImpl session = (SessionImpl) XPersistence.createManager().getDelegate();
-			Connection con = session.connection(); 
+			Session session = XPersistence.createManager().unwrap(Session.class);
+			Connection con = session.doReturningWork(connection -> connection);
 			return con;
-		}			
+		}
 		try {
 			Connection con = null;
 			if (Is.emptyString(getUser())) {
@@ -165,17 +165,17 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 			}
 			else {
 				con = getDataSource().getConnection(getUser(), getPassword());
-			}		
+			}
 			refine(con);
 			return con;
 		}
 		catch (SQLException ex) {
-			throw ex;			
+			throw ex;
 		}
 		catch (Exception ex) {
-			log.error(XavaResources.getString("get_connection_error"), ex); 
-			throw new SQLException(ex.getLocalizedMessage());			
-		}			
+			log.error(XavaResources.getString("get_connection_error"), ex);
+			throw new SQLException(ex.getLocalizedMessage());
+		}
 	}
 	
 	private void refine(Connection con) throws Exception { 

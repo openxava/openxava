@@ -1,8 +1,6 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
-TMR ME QUEDÉ COMPILANDO openxava
-
 - Migración Type:
     - Hay que documentarlo.
     - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
