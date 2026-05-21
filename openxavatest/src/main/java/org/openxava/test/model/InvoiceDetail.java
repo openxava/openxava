@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CompositeType;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.actions.*;
@@ -74,8 +75,8 @@ public class InvoiceDetail {
 	private ServiceType serviceType;
 	public enum ServiceType { SPECIAL, URGENT }
 	
-	@Column(name="QTY", length=4) // The column name does not match the property name to test sumColum for this case 
-	@Required 
+	@Column(name="QTY", length=4) // The column name does not match the property name to test sumColum for this case
+	@Required
 	private int quantity;
 	
 	@Stereotype("MONEY") @Required
