@@ -340,9 +340,17 @@ public class JPATabProvider extends TabProviderBase {
 	protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings, 
 		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
 	{
-		if (entityReferencesMappings.contains(referenceMapping)) referenceMapping = referenceMapping.clone();  
+		String refName = referenceMapping.getReference();
+		for (ReferenceMapping existing : entityReferencesMappings) {
+			if (existing.getReference().equals(refName)) {
+				referenceMapping = existing;
+				break;
+			}
+		}
 		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
-		entityReferencesMappings.add(referenceMapping);
+		if (!entityReferencesMappings.contains(referenceMapping)) {
+			entityReferencesMappings.add(referenceMapping);
+		}
 	}
 	
 	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {
