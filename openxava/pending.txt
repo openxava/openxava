@@ -1,6 +1,20 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
+TMR ME QUEDÉ LANZANDO LA SUITE, DONDE FALLARÓN:
+- DescriptionsListTest
+- DiscussionTest
+- ListTest
+- AJAXTest
+- ApplicantTest
+- ApplicationUserTest
+- ArticleTest
+- CityTest
+- Color2Test
+- CorporationEmployeeTest
+- ...
+
+
 
 - Probar SchemaTools.
 - Actualizar documentación de Hibernate Validator.
