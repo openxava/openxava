@@ -2,6 +2,8 @@ package org.openxava.test.model;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.*;
+
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 
@@ -12,10 +14,10 @@ public class Position extends Identifiable {
 	@Column(length=40) @Required
 	private String name;
 	
-	@Column(scale=4, precision=4) 
+	@Digits(integer = 0, fraction = 4)
 	private float axisX;
 	
-	@Column(scale=7, precision=7) 
+	@Digits(integer = 0, fraction = 7)
 	private double axisY;
 
 	public String getName() {
