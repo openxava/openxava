@@ -1,6 +1,7 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
+TMR ME QUEDÉ PROBANDO INVOICE. FALLA AL ENTRAR EN MODO DETALLE POR EL COMPOSITETYPE
 - Probar SchemaTools.
 
 Migración
