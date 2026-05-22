@@ -109,6 +109,11 @@
 			<version>7.2.15.Final</version>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-scan-jandex</artifactId>
+			<version>7.2.15.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.2.5.Final</version>
