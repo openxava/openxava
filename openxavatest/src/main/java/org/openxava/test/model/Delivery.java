@@ -7,7 +7,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.CompositeType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -197,7 +196,11 @@ public class Delivery {
 	private DeliveryType type;
 
 	@CompositeType(org.openxava.types.Date3Type.class)
-	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
+	@AttributeOverrides({
+		@AttributeOverride(name="year", column=@Column(name="year")),
+		@AttributeOverride(name="month", column=@Column(name="month")),
+		@AttributeOverride(name="day", column=@Column(name="day"))
+	})
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date date;

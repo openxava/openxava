@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CompositeType;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -43,7 +43,11 @@ public class Delivery2 {
 	DeliveryType type;
 
 	@CompositeType(org.openxava.types.Date3Type.class)
-	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
+	@AttributeOverrides({
+		@AttributeOverride(name="year", column=@Column(name="year")),
+		@AttributeOverride(name="month", column=@Column(name="month")),
+		@AttributeOverride(name="day", column=@Column(name="day"))
+	})
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	Date date;
