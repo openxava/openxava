@@ -14,10 +14,10 @@ public class Position extends Identifiable {
 	@Column(length=40) @Required
 	private String name;
 	
-	@Digits(integer = 0, fraction = 4)
+	@DecimalMax("0.9999")
 	private float axisX;
-	
-	@Digits(integer = 0, fraction = 7)
+
+	@DecimalMax("0.9999999")
 	private double axisY;
 
 	public String getName() {

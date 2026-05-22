@@ -12,7 +12,8 @@ Migración
 - Eliminar: NonBatchingBatcherFactory ya no existe en Hibernate 7.2.
     <property name="hibernate.jdbc.factory_class"
             value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
-- Hibernate 7 no permite @Column(scale=..., precision=...) en tipos float/double:
+- Hibernate 7 no permite @Column(scale=..., precision=...)
+             ni @Digits(integer=..., fraction=...) en tipos float/double:
 
     java
     // ERROR en Hibernate 7
@@ -23,7 +24,7 @@ Migración
 
     java
     // Solución válida
-    @Digits(integer = 0, fraction = 7)
+    @DecimalMax("0.9999999")
     private double axisY;
 - Cambiar javax.validation por jakarta.validation y
     javax.validation.constraints por jakarta.validation.constraints
