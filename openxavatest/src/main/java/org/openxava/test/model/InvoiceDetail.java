@@ -5,7 +5,6 @@ import java.math.*;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.CompositeType;
@@ -86,10 +85,10 @@ public class InvoiceDetail {
 	private Product product;
 
 	@CompositeType(org.openxava.types.Date3Type.class)
-	@Columns(columns = {
-		@Column(name="YEARDELIVERY"),
-		@Column(name="MONTHDELIVERY"),
-		@Column(name="DAYDELIVERY")
+	@AttributeOverrides({
+		@AttributeOverride(name="year", column=@Column(name="YEARDELIVERY")),
+		@AttributeOverride(name="month", column=@Column(name="MONTHDELIVERY")),
+		@AttributeOverride(name="day", column=@Column(name="DAYDELIVERY"))
 	})
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date deliveryDate;
