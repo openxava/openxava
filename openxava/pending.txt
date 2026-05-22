@@ -1,24 +1,28 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
-- Migración Type:
-    - Hay que documentarlo.
-    - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
-    - Abajamos tenemos una pequeña guía de migración.
-    - Cambiar:
-        Anterior: @org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
-        Nuevo: @Convert(converter = org.hibernate.type.YesNoConverter.class)
-    - Cambiar:
-        Anterior: @org.hibernate.annotations.Type(type="org.openxava.types.SiNoType")
-        Nuevo: @org.hibernate.annotations.Type(org.openxava.types.SiNoType.class)
-    - @TypeDef ya no existe.
-    - @CompositeType for CompositeUserType implementations
-    - Hay que migrar los UserType antes que cualquier otra cosa, porque si hay un @Type apuntando
-        a una clase que no implementa UserType<T> correctamente, Lombok dejará de funcionar y
-        los errores serán confusos.
 - Probar SchemaTools.
 
+Migración
+- Eliminar: NonBatchingBatcherFactory ya no existe en Hibernate 7.2.
+    <property name="hibernate.jdbc.factory_class"
+            value="org.hibernate.jdbc.NonBatchingBatcherFactory"/>
 
+Migración Type:
+- Hay que documentarlo.
+- Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
+- Abajamos tenemos una pequeña guía de migración.
+- Cambiar:
+    Anterior: @org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+    Nuevo: @Convert(converter = org.hibernate.type.YesNoConverter.class)
+- Cambiar:
+    Anterior: @org.hibernate.annotations.Type(type="org.openxava.types.SiNoType")
+    Nuevo: @org.hibernate.annotations.Type(org.openxava.types.SiNoType.class)
+- @TypeDef ya no existe.
+- @CompositeType for CompositeUserType implementations
+- Hay que migrar los UserType antes que cualquier otra cosa, porque si hay un @Type apuntando
+    a una clase que no implementa UserType<T> correctamente, Lombok dejará de funcionar y
+    los errores serán confusos.
 
 
 Guía de migración de Hibernate Type (5.6 a 7.2)
