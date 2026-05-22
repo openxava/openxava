@@ -5,7 +5,7 @@ import java.time.*;
 import java.util.*;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.envers.*;
 
 /**
- * To test @javax.validation.constraints.Size with min and max elements on a 
+ * To test @jakarta.validation.constraints.Size with min and max elements on a 
  * collection that simulate embedding
  * 
  * @author Jeromy Altuna

@@ -4,7 +4,7 @@ import java.io.*;
 import java.math.*;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class ConversionFactor implements Serializable {

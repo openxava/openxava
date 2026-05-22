@@ -21,7 +21,7 @@ public class MotorVehicleDriver extends Identifiable {
 	@Column(length = 40)
 	private String name;
 	
-	@javax.validation.constraints.AssertTrue(
+	@jakarta.validation.constraints.AssertTrue(
 		message = "{disapproved_driving_test}")
 	private boolean approvedDrivingTest;
 	

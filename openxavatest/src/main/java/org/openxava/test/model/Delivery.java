@@ -5,7 +5,7 @@ import java.util.*;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
 import org.hibernate.annotations.CompositeType;
 import org.hibernate.annotations.GenericGenerator;

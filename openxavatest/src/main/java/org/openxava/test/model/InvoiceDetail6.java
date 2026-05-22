@@ -105,7 +105,7 @@ public class InvoiceDetail6 {
 
 	public void setInvoice(Invoice6 invoice) {
 		if (invoice != null && invoice.getAmountsSum().compareTo(new BigDecimal("100")) < 0) {
-			throw new javax.validation.ValidationException(
+			throw new jakarta.validation.ValidationException(
 	            XavaResources.getString("detail_not_added_invoice_amount_too_low")
 	        );
 		}

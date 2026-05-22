@@ -21,7 +21,7 @@ public class Training extends Identifiable {
 	@OnChange(forViews="WithSections", value=OnChangeYearAction.class)
 	private String description;
 	
-	@javax.validation.constraints.Size(min=1, max=3) 
+	@jakarta.validation.constraints.Size(min=1, max=3) 
 	@ElementCollection
 	private Collection<TrainingSession> sessions;
 	

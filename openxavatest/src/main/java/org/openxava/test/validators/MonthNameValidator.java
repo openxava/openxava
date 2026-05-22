@@ -13,7 +13,7 @@ public class MonthNameValidator implements IValidator {
 	
 	public void validate(Messages errors) throws Exception {
 	    if(!Is.anyEqual(monthName.toUpperCase(), "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER")) {
-            throw new javax.validation.ValidationException(XavaResources.getString("month_name_invalid", monthName)); 
+            throw new jakarta.validation.ValidationException(XavaResources.getString("month_name_invalid", monthName)); 
 	    }	
 	}
 

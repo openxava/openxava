@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.*;

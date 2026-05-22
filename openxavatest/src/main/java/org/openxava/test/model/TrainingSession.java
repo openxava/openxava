@@ -18,8 +18,8 @@ public class TrainingSession {
 	@Column(length=30) @Required
 	private String description;
 	
-	@javax.validation.constraints.Min(2) 
-	@javax.validation.constraints.Max(50) 	
+	@jakarta.validation.constraints.Min(2) 
+	@jakarta.validation.constraints.Max(50) 	
 	private int kms;
 	
 	@DefaultValueCalculator(CurrentDateCalculator.class) 

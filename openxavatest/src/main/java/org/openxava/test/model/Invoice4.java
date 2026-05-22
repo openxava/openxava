@@ -5,7 +5,7 @@ import java.util.*;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;

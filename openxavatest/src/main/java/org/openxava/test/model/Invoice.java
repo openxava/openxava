@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OrderBy;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;

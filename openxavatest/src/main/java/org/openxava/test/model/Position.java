@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import jakarta.persistence.*;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;

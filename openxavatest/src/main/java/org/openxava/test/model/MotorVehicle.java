@@ -34,7 +34,7 @@ public class MotorVehicle {
 	@ManyToOne
 	private MotorVehicleDriver driver;
 	
-	@javax.validation.constraints.AssertTrue(message="{not_roadworthy}")
+	@jakarta.validation.constraints.AssertTrue(message="{not_roadworthy}")
 	private boolean isRoadworthyToAssignTheDriver(){
 		return getDriver() == null || isRoadworthy();
 	}

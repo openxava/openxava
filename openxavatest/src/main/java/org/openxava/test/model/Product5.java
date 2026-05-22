@@ -4,7 +4,7 @@ import java.math.*;
 import java.util.*;
 
 import jakarta.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -148,7 +148,7 @@ public class Product5 {
 			throw new org.openxava.validators.ValidationException("openxava_not_saleable"); 
 		}
 		if (description.contains("ECLIPSE")) {
-			throw new javax.validation.ValidationException("eclipse_not_saleable"); 
+			throw new jakarta.validation.ValidationException("eclipse_not_saleable"); 
 		}
 		this.description = description;
 	}

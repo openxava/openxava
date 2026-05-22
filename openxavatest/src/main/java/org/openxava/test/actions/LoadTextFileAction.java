@@ -2,7 +2,7 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import javax.validation.*;
+import jakarta.validation.*;
 
 import org.apache.commons.fileupload.*;
 import org.openxava.actions.*;

@@ -9,7 +9,7 @@ import org.openxava.calculators.*;
 import org.openxava.util.*;
 
 /**
- * To test @javax.validation.constraints.Size with min and max elements on a 
+ * To test @jakarta.validation.constraints.Size with min and max elements on a 
  * Collection of entities not embeddable.
  * 	
  * @author Jeromy Altuna
@@ -32,7 +32,7 @@ public class Hound extends HunterAndHound {
 	@PreUpdate
 	private void validate() throws Exception {
 		if (hunter != null && !hasTraining()) {
-			throw new javax.validation.ValidationException(
+			throw new jakarta.validation.ValidationException(
 				XavaResources.getString("untrained_hound", getName())
 			);
 		}
