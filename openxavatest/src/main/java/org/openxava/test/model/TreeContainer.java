@@ -45,11 +45,11 @@ public class TreeContainer {
 	@Tree
 	private Collection<Step> steps;
 	
-	@Tree(pathProperty = "way", idProperties = "code", allowMoveNodes = false) 
+	@Tree(pathProperty = "way", idProperties = "code", allowMoveNodes = false)
 	@ListProperties("description")
 	@OrderBy("way, theOrder")
 	@OneToMany(mappedBy="parentContainer", cascade = CascadeType.REMOVE)
-	private Collection<TreeItemNoIdGeneration> treeItemNoIdGeneration;
+	private Collection<TreeItemNoIdGenerationForTreeContainer> treeItemNoIdGeneration;
 
 	public Integer getId() {
 		return id;
@@ -91,11 +91,11 @@ public class TreeContainer {
 		this.steps = steps;
 	}
 
-	public Collection<TreeItemNoIdGeneration> getTreeItemNoIdGeneration() {
+	public Collection<TreeItemNoIdGenerationForTreeContainer> getTreeItemNoIdGeneration() {
 		return treeItemNoIdGeneration;
 	}
 
-	public void setTreeItemNoIdGeneration(Collection<TreeItemNoIdGeneration> treeItemNoIdGeneration) {
+	public void setTreeItemNoIdGeneration(Collection<TreeItemNoIdGenerationForTreeContainer> treeItemNoIdGeneration) {
 		this.treeItemNoIdGeneration = treeItemNoIdGeneration;
 	}
 	

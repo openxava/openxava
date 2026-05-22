@@ -9,8 +9,9 @@ import org.openxava.annotations.*;
  * @author Federico Alcántara 
  */
 @Entity
+@Table(name = "TreeItemNoIdGeneration")
 @View(members="id;code;way;description;theOrder;parentContainer")
-public class TreeItemNoIdGeneration {
+public class TreeItemNoIdGenerationForTreeContainer {
 	@Id
 	private Integer id;
 	
@@ -26,7 +27,7 @@ public class TreeItemNoIdGeneration {
 	private int theOrder;
 	
 	@ManyToOne
-	private TreeContainerNoIdGeneration parentContainer;
+	private TreeContainer parentContainer;
 	
 	public Integer getId() {
 		return id;
@@ -68,11 +69,11 @@ public class TreeItemNoIdGeneration {
 		this.theOrder = theOrder;
 	}
 
-	public TreeContainerNoIdGeneration getParentContainer() {
+	public TreeContainer getParentContainer() {
 		return parentContainer;
 	}
 
-	public void setParentContainer(TreeContainerNoIdGeneration parentContainer) {
+	public void setParentContainer(TreeContainer parentContainer) {
 		this.parentContainer = parentContainer;
 	}
 
