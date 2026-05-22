@@ -186,8 +186,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		if (ex.getCause() instanceof ValidationException) {
 			throw (ValidationException) ex.getCause();
 		}	
-		if (ex.getCause() instanceof javax.validation.ValidationException) {
-			throw (javax.validation.ValidationException) ex.getCause();				
+		if (ex.getCause() instanceof jakarta.validation.ValidationException) {
+			throw (jakarta.validation.ValidationException) ex.getCause();				
 		}		
 	}
 			

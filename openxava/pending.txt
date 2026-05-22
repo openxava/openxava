@@ -1,8 +1,12 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
-TMR ME QUEDÉ PROBANDO INVOICE. FALLA AL ENTRAR EN MODO DETALLE POR EL COMPOSITETYPE
+
 - Probar SchemaTools.
+- Actualizar documentación de Hibernate Validator.
+
+Versiones
+- Jakarta Validator 3.1 con Hibernate Validator 9.1
 
 Migración
 - Eliminar: NonBatchingBatcherFactory ya no existe en Hibernate 7.2.
@@ -21,6 +25,8 @@ Migración
     // Solución válida
     @Digits(integer = 0, fraction = 7)
     private double axisY;
+- Cambiar javax.validation por jakarta.validation y
+    javax.validation.constraints por jakarta.validation.constraints
 
 Migración Type:
 - Hay que documentarlo.

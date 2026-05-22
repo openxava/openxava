@@ -29,7 +29,7 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 		}
 	}
 
-	public void executeSets(Map properties) throws javax.validation.ValidationException, RemoteException {
+	public void executeSets(Map properties) throws jakarta.validation.ValidationException, RemoteException {
 		try {
 			propertiesManager.executeSets(properties);	
 		}
@@ -37,8 +37,8 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 			if (ex.getTargetException() instanceof org.openxava.validators.ValidationException) {
 				throw (org.openxava.validators.ValidationException) ex.getTargetException(); 
 			}
-			if (ex.getTargetException() instanceof javax.validation.ValidationException) {
-				throw (javax.validation.ValidationException) ex.getTargetException(); 
+			if (ex.getTargetException() instanceof jakarta.validation.ValidationException) {
+				throw (jakarta.validation.ValidationException) ex.getTargetException(); 
 			}
 			log.error(ex.getMessage(), ex);
 			throw new RemoteException(XavaResources.getString("set_properties_error", ex.getLocalizedMessage()));			
