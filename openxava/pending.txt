@@ -13,6 +13,9 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
         Nuevo: @org.hibernate.annotations.Type(org.openxava.types.SiNoType.class)
     - @TypeDef ya no existe.
     - @CompositeType for CompositeUserType implementations
+    - Hay que migrar los UserType antes que cualquier otra cosa, porque si hay un @Type apuntando
+        a una clase que no implementa UserType<T> correctamente, Lombok dejará de funcionar y
+        los errores serán confusos.
 - Probar SchemaTools.
 
 
