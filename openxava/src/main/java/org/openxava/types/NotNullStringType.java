@@ -4,8 +4,8 @@ import java.io.*;
 import java.sql.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.*;
-import org.hibernate.engine.spi.*;
+import org.hibernate.type.SqlTypes;
+import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.usertype.*;
 
 /**
@@ -14,54 +14,64 @@ import org.hibernate.usertype.*;
  * @author Javier Paniza
  */
 
-public class NotNullStringType implements UserType {
-	
+public class NotNullStringType implements UserType<String> {
+
 	private static Log log = LogFactory.getLog(NotNullStringType.class);
 
-	public int getSqlType() {		
-		return Types.VARCHAR;
+	@Override
+	public int getSqlType() {
+		return SqlTypes.VARCHAR;
 	}
 
-	public Class returnedClass() {
+	@Override
+	public Class<String> returnedClass() {
 		return String.class;
 	}
 
-	public boolean equals(Object obj1, Object obj2) throws HibernateException {
+	@Override
+	public boolean equals(String obj1, String obj2) {
 		if (obj1 == null) return obj2 == null;
 		return obj1.equals(obj2);
 	}
 
-	public int hashCode(Object obj) throws HibernateException {
-		return obj.hashCode();
+	@Override
+	public int hashCode(String obj) {
+		return obj == null ? 0 : obj.hashCode();
 	}
 
-	public Object nullSafeGet(ResultSet resultSet, int position, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-		Object o = resultSet.getObject(position);
-    	return o == null?"":o;        	    
+	@Override
+	public String nullSafeGet(ResultSet resultSet, int position, WrapperOptions options) throws SQLException {
+		String value = resultSet.getString(position);
+		return value == null ? "" : value;
 	}
 
-	public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException { 
-		ps.setString(index, value==null?"":value.toString());
-		
+	@Override
+	public void nullSafeSet(PreparedStatement ps, String value, int index, WrapperOptions options) throws SQLException {
+		ps.setString(index, value == null ? "" : value);
 	}
 
-	public Object deepCopy(Object obj) throws HibernateException {		
-		return obj;
+	@Override
+	public String deepCopy(String value) {
+		return value;
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
-	public Serializable disassemble(Object obj) throws HibernateException {
-		return (Serializable) obj;
+	@Override
+	public Serializable disassemble(String value) {
+		return value;
 	}
 
-	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		return cached;
+	@Override
+	public String assemble(Serializable cached, Object owner) {
+		return (String) cached;
 	}
 
-	public Object replace(Object original, Object target, Object owner) throws HibernateException {
+	@Override
+	public String replace(String original, String target, Object owner) {
 		return original;
 	}
 

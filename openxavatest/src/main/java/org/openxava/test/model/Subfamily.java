@@ -61,7 +61,7 @@ public class Subfamily {
 	private String description;
 	
 	@Column(length=400) @Stereotype("MEMO") 
-	@org.hibernate.annotations.Type(org.openxava.types.NotNullStringType.class)
+	@Type(org.openxava.types.NotNullStringType.class)
 	private String remarks;
 	
 	@Transient @Column(length=40) @Hidden  
