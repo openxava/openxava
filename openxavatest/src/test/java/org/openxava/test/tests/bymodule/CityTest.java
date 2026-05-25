@@ -89,7 +89,7 @@ public class CityTest extends ModuleTestBase{
 		assertValue("code", "6");
 		assertValue("name", "Valencia");
 		execute("CRUD.delete");
-		assertNoErrors();
+		assertNoErrors(); // TMR ME QUEDÉ POR AQUÍ: FALLA
 		
 		execute("CRUD.new");
 		assertLocationNotMarkedAsError(); 
