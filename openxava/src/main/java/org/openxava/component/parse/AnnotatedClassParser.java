@@ -3006,6 +3006,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			Class<?> clazz = t.getJavaType();
 			if (clazz == null || clazz.isInterface()) continue;
 			if (clazz.isAnnotationPresent(MappedSuperclass.class)) continue; 
+			if (!clazz.isAnnotationPresent(Entity.class) && !clazz.isAnnotationPresent(Embeddable.class)) continue;
 			String className = clazz.getName();
 			managedClassNames.add(className);
 		}
