@@ -919,6 +919,18 @@ public class ModuleManager implements java.io.Serializable {
 			} 
 			doRollback();
 			
+		} else if (ex instanceof org.hibernate.exception.ConstraintViolationException) {
+			if (((org.hibernate.exception.ConstraintViolationException) ex).getConstraintName() != null) {
+				manageHibernateConstraintViolationlException(
+						metaAction,
+						errors,
+						messages,
+						(org.hibernate.exception.ConstraintViolationException) ex);
+			} else {
+				manageRegularException(metaAction, errors, messages, ex);
+			}
+			doRollback();
+			
 		} else if (ex instanceof jakarta.persistence.PersistenceException) {
 			if (ex.getCause() instanceof org.hibernate.exception.ConstraintViolationException
 					&& ((org.hibernate.exception.ConstraintViolationException) ex
