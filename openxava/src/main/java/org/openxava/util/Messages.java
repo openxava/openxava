@@ -133,6 +133,9 @@ public class Messages implements java.io.Serializable {
 					if (v.toString().startsWith("'") && v.toString().endsWith("'")) {					
 						result[i] = v.toString().substring(1, v.toString().length() - 1);
 					}
+					else if (v.toString().contains("://") || v.toString().startsWith("mailto:")) {
+						result[i] = v;
+					}
 					else{					
 						try {
 							result[i] = Labels.removeUnderlined(Labels.get((String)v, locale));

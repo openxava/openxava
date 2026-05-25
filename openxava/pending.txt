@@ -73,6 +73,53 @@ Migración
         LEFT JOIN e.lastJourney e_lastJourney
         ORDER BY e.name -- ¡Correcto! Se especifica 'e.name' de forma inequívoca
 
+- Claves Compuestas (@IdClass)
+  Con la actualización a Hibernate 6/7, la validación y el mapeo de claves compuestas (@IdClass)
+  se han vuelto estrictamente conformes con la especificación de JPA.
+
+  Si tienes una entidad donde uno de los campos de la clave compuesta (@Id) es una relación
+  asociativa (@ManyToOne), tu clase @IdClass no debe declarar la relación como entidad ni contener
+  anotaciones relacionales. Debe utilizar tipos simples.
+
+  Sigue estos sencillos pasos para adaptar tu código:
+
+  1. Cambia el tipo de dato de la relación por su clave primaria
+  En la clase de clave (la declarada en @IdClass), cambia el tipo de campo de la relación (ej. State) por el tipo de su clave primaria correspondiente (ej. String).
+
+  2. Elimina las anotaciones de mapeo relacional en la clase Key
+  Quita todas las anotaciones como @ManyToOne, @JoinColumn, u otras de presentación/validación sobre ese campo en la clase de clave. La clase de clave compuesta debe permanecer como un POJO plano estándar.
+
+  Ejemplo Práctico: Antes y Después
+  Antes (No compatible con Hibernate 6/7)
+
+  public class CityKey implements Serializable {
+
+      @ManyToOne(fetch=FetchType.LAZY)
+      @JoinColumn(name="STATE", referencedColumnName="ID")
+      @DescriptionsList
+      private State state; // ERROR: Tipo Entidad y anotaciones relacionales
+
+      private int code;
+
+      public State getState() { return state; }
+      public void setState(State state) { this.state = state; }
+      // ... hashCode y equals
+  }
+  Después (Adaptación estándar compatible)
+
+  public class CityKey implements Serializable {
+
+      private String state; // OK: Tipo String (clave primaria de State) y sin anotaciones
+
+      private int code;
+
+      public String getState() { return state; }
+      public void setState(String state) { this.state = state; }
+      // ... hashCode y equals adaptados a String
+  }
+  Nota: La entidad principal (ej. City.java) no requiere ningún tipo de cambio en su definición
+   de campos, anotaciones @Id o @ManyToOne.
+
 Migración Type:
 - Hay que documentarlo.
 - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.

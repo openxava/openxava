@@ -11,18 +11,15 @@ import org.openxava.annotations.*;
  */
 public class CityKey implements Serializable {
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="STATE", referencedColumnName="ID")
-	@DescriptionsList
-	private State state;
+	private String state;
 	
 	private int code;
 
-	public State getState() {
+	public String getState() {
 		return state;
 	}
 
-	public void setState(State state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 
