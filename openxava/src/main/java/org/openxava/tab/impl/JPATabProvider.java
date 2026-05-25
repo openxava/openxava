@@ -70,8 +70,8 @@ public class JPATabProvider extends TabProviderBase {
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				addJoin(entityAndJoins, reference, nestedReference);
 				if (!Is.emptyString(nestedReference)) {					
-					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
-					entityAndJoins.append(nestedReference);
+					entityAndJoins.append(".");
+					entityAndJoins.append(nestedReference.replace('_', '.'));
 				}				
 				entityAndJoins.append(".");
 				entityAndJoins.append(reference);				
@@ -219,7 +219,8 @@ public class JPATabProvider extends TabProviderBase {
 		for (String join: neededJoins) {
 			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
-			joins.append(Strings.changeLast(join, "_", ".")); 
+			String path = "e." + join.substring(2).replace('_', '.');
+			joins.append(path); 
 			joins.append(" ");
 			joins.append(join);
 		}
@@ -343,8 +344,11 @@ public class JPATabProvider extends TabProviderBase {
 		String refName = referenceMapping.getReference();
 		for (ReferenceMapping existing : entityReferencesMappings) {
 			if (existing.getReference().equals(refName)) {
-				referenceMapping = existing;
-				break;
+				String existingParent = entityReferencesReferenceNames.get(existing);
+				if (Objects.equals(existingParent, parentReference)) {
+					referenceMapping = existing;
+					break;
+				}
 			}
 		}
 		entityReferencesReferenceNames.put(referenceMapping, parentReference); 

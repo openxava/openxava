@@ -43,6 +43,21 @@ Migración
 - Cambiar javax.validation por jakarta.validation y
     javax.validation.constraints por jakarta.validation.constraints
 
+- Uniones Anidadas (Nested Joins)
+    [Antes] Uniones sobre Alias (Inválido en Hibernate 6+): No se permite usar el alias de un join
+    previo como prefijo para realizar un join anidado. Ejemplo incorrecto:
+
+        SELECT e FROM Product2 e
+        LEFT JOIN e.subfamily e_subfamily
+        LEFT JOIN e_subfamily.family e_subfamily_family -- ¡Falla aquí! e_subfamily no se reconoce como ruta
+
+    [Ahora] Uniones por Ruta Completa (Obligatorio en Hibernate 6+): Todas las uniones anidadas
+    deben declarar la ruta completa y explícita partiendo de la entidad raíz (e). Ejemplo correcto:
+
+        SELECT e FROM Product2 e
+        LEFT JOIN e.subfamily e_subfamily
+        LEFT JOIN e.subfamily.family e_subfamily_family -- ¡Correcto! Ruta d
+
 Migración Type:
 - Hay que documentarlo.
 - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
