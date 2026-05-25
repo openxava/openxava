@@ -56,7 +56,28 @@ Migración
 
         SELECT e FROM Product2 e
         LEFT JOIN e.subfamily e_subfamily
-        LEFT JOIN e.subfamily.family e_subfamily_family -- ¡Correcto! Ruta d
+        LEFT JOIN e.subfamily.family e_subfamily_family -- ¡Correcto! Ruta Ruta desde el alias raíz 'e'
+
+- Atributos no cualificados en uniones
+    Si ordenas o filtras por un campo común (como name, id, description, code, etc.) y
+    la consulta tiene JOINs, Hibernate lanzará la excepción: Ambiguous unqualified attribute
+    reference '...' (qualify the attribute reference by an identification variable)
+
+    Ejemplo incorrecto (falla en Hibernate 6+):
+
+        SELECT e FROM Traveler e
+        LEFT JOIN e.lastJourney e_lastJourney
+        ORDER BY name -- ¡Error! 'name' existe tanto en Traveler como en Journey
+
+    Solución: Calificar siempre con el alias de la entidad
+    Todas las referencias a propiedades en las cláusulas de consulta deben ir siempre precedidas
+    por el alias de su respectiva entidad (ej. e.).
+
+    Ejemplo correcto:
+
+        SELECT e FROM Traveler e
+        LEFT JOIN e.lastJourney e_lastJourney
+        ORDER BY e.name -- ¡Correcto! Se especifica 'e.name' de forma inequívoca
 
 Migración Type:
 - Hay que documentarlo.
