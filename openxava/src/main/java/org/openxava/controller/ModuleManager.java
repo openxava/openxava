@@ -919,6 +919,10 @@ public class ModuleManager implements java.io.Serializable {
 			} 
 			doRollback();
 			
+		} else if (ex instanceof org.hibernate.exception.GenericJDBCException) {
+			manageSQLException(metaAction, errors, messages, ex);
+			doRollback();
+			
 		} else if (ex instanceof org.hibernate.exception.ConstraintViolationException) {
 			if (((org.hibernate.exception.ConstraintViolationException) ex).getConstraintName() != null) {
 				manageHibernateConstraintViolationlException(
@@ -1044,7 +1048,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	private static void manageSQLException(MetaAction metaAction, Messages errors,
-			Messages messages, jakarta.persistence.PersistenceException ex) {
+			Messages messages, Exception ex) {
 		boolean foundSQLException = false;
 		Throwable cause = ex;
 		while (cause != null) {
