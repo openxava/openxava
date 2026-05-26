@@ -17,6 +17,7 @@ Failed tests:
 - Chat code.
 - Probar SchemaTools.
 - Actualizar documentación de Hibernate Validator.
+- Actualizar documentación de claves compuestas: three-level-composite-key_en.html
 
 Versiones
 - Jakarta Validator 3.1 con Hibernate Validator 9.1
@@ -188,7 +189,17 @@ Migración Type:
     		@AttributeOverride(name="day", column=@Column(name="DAYDELIVERY"))
     	})
 
+- Character -> String en Hibernate 7.2
+  Problema: Las consultas nativas a columnas CHAR ahora devuelven Character en lugar de String.
 
+  Solución: Reemplazar cast directo por toString():
+
+  // Antes (Hibernate 5.6)
+  String value = (String) query.getSingleResult();
+
+  // Después (Hibernate 7.2)
+  String value = query.getSingleResult().toString();
+  Esto funciona porque tanto Character.toString() como String.toString() devuelven el valor esperado.
 
 Guía de migración de Hibernate Type (5.6 a 7.2)
 -----------------------------------------------
