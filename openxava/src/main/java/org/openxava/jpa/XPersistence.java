@@ -309,6 +309,17 @@ public class XPersistence {
 	}
 	
 	/**
+	 * Checks if there is an active EntityManager on the current thread. <p>
+	 * 
+	 * @return true if an EntityManager exists and is open.
+	 * @since 8.0
+	 */
+	public static boolean isManagerActive() {
+		EntityManager s = (EntityManager) currentManager.get();
+		return s != null && s.isOpen();
+	}
+	
+	/**
 	 * Reset the info associated to the current thread. <p>
 	 * 
 	 * After call this method XPersistence works as default,

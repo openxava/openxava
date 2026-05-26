@@ -158,6 +158,11 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 			Connection con = session.doReturningWork(connection -> connection);
 			return con;
 		}
+		if (XPersistence.isManagerActive()) {
+			Session session = XPersistence.getManager().unwrap(Session.class);
+			Connection con = session.doReturningWork(connection -> connection);
+			return con;
+		}
 		try {
 			Connection con = null;
 			if (Is.emptyString(getUser())) {
