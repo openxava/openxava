@@ -1,7 +1,5 @@
 package org.openxava.test.model;
 
-import jakarta.persistence.*;
-
 import org.openxava.annotations.*;
 
 /**
@@ -9,10 +7,8 @@ import org.openxava.annotations.*;
  * @author Javier Paniza
  */
 public class AdditionalDetailKey implements java.io.Serializable {
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="SERVICE")
-	private Service service;
+
+	private int service;
 	@Hidden
 	private int counter;
 	
@@ -29,7 +25,7 @@ public class AdditionalDetailKey implements java.io.Serializable {
 	
 	@Override
 	public String toString() {
-		return "AdditionalDetailKey::" + service.getNumber() + ":" + counter;
+		return "AdditionalDetailKey::" + service + ":" + counter;
 	}
 
 	public int getCounter() {
@@ -40,11 +36,11 @@ public class AdditionalDetailKey implements java.io.Serializable {
 		this.counter = counter;
 	}
 
-	public Service getService() {
+	public int getService() {
 		return service;
 	}
 
-	public void setService(Service service) {
+	public void setService(int service) {
 		this.service = service;
 	}
 
