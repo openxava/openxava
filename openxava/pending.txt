@@ -2,7 +2,12 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
 
-
+Failed tests:
+- InvoiceTest
+- JournalTest
+- JourneyTest
+- Office2Test
+- ProductTest
 
 
 
