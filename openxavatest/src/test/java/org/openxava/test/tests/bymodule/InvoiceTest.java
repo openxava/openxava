@@ -1971,7 +1971,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 		
 		setValue("unitPrice", getProductUnitPrice());
 		execute("Collection.save");		 
-		assertNoErrors(); // TMR ME QUEDÉ POR AQUÍ. FALLA. CAMBIANDO CÓDIGO DE DataSourceConnectionProvider
+		assertNoErrors();
 		assertNoDialog();
 
 		execute("CollectionCopyPaste.cut", "row=0,viewObject=xava_view_section1_details");
