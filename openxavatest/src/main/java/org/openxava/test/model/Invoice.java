@@ -447,12 +447,14 @@ public class Invoice {
  	} 	
  	
  	public static Collection findPaidOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = true"); 
+ 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 		query.setParameter("paid", true);
  		return query.getResultList();  		 		
- 	}
+ 	} 	
  	
  	public static Collection findNotPaidOnes()  { 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = false"); 
+ 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 		query.setParameter("paid", false);
  		return query.getResultList();  		
  	} 	
  	

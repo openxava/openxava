@@ -121,6 +121,30 @@ Migración
   Nota: La entidad principal (ej. City.java) no requiere ningún tipo de cambio en su definición
    de campos, anotaciones @Id o @ManyToOne.
 
+- expresión o.loquesea = true en JPQL
+
+En versiones anteriores de Hibernate, la expresión o.paid = true resolvía el tipo izquierdo de la
+comparación y aplicaba el mapeo personalizado para traducir el literal a 'S'.
+A partir de Hibernate 6, los literales booleanos de HQL/JPQL se compilan directamente a
+ literales booleanos del dialecto SQL (como true o 1). Esto provoca que se intente comparar
+  un campo CHAR contra un booleano literal de SQL, rompiendo la compatibilidad en base de datos.
+
+  Cómo solucionarlo
+  Opción recomendada: Usar parámetros de consulta En lugar de incluir los literales true o false
+  directamente en el texto de la consulta, hay que parametrizarlos. Al pasar el valor como parámetro,
+   Hibernate fuerza el uso del UserType (SiNoType) para vincular y
+   convertir el valor de forma segura antes de enviarlo a la base de datos:
+
+  // INCORRECTO (Genera error en Hibernate 6+)
+  Query query = XPersistence.getManager()
+      .createQuery("from Invoice as o where o.paid = true");
+
+  // CORRECTO (Funciona en todas las versiones)
+  Query query = XPersistence.getManager()
+      .createQuery("from Invoice as o where o.paid = :paid");
+  query.setParameter("paid", true);
+
+
 Migración Type:
 - Hay que documentarlo.
 - Quitamos PrimitiveType<Boolean> de la declaración de la clase ya que esta interfaz fue eliminada en Hibernate 6+.
