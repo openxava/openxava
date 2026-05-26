@@ -3,9 +3,19 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 
 
 Failed tests:
--
+- ServiceTest
+- DeliveryTest
+- Delivery2Test
+- TransportChargeTest
+- SimulationMarginTest
+- DeliveryRemarks2002Test
+- InvoiceCalculatedDetailsInSectionTest
+- TransportChargeWithDescriptionsListShowingReferenceViewTest
 
 
+
+
+- Chat code.
 - Probar SchemaTools.
 - Actualizar documentación de Hibernate Validator.
 
