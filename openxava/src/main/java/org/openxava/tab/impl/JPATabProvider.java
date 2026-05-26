@@ -342,13 +342,27 @@ public class JPATabProvider extends TabProviderBase {
 		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
 	{
 		String refName = referenceMapping.getReference();
+		boolean found = false;
 		for (ReferenceMapping existing : entityReferencesMappings) {
 			if (existing.getReference().equals(refName)) {
 				String existingParent = entityReferencesReferenceNames.get(existing);
 				if (Objects.equals(existingParent, parentReference)) {
 					referenceMapping = existing;
+					found = true;
 					break;
 				}
+			}
+		}
+		if (!found) {
+			boolean hasExistingWithDifferentParent = false;
+			for (ReferenceMapping existing : entityReferencesMappings) {
+				if (existing.getReference().equals(refName)) {
+					hasExistingWithDifferentParent = true;
+					break;
+				}
+			}
+			if (hasExistingWithDifferentParent) {
+				referenceMapping = referenceMapping.clone();
 			}
 		}
 		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
