@@ -155,7 +155,12 @@ public class PropertiesManager implements java.io.Serializable {
 				value = nullToDefaultValue(pd.getPropertyType());
 			}
 			else if (value instanceof Map && !Map.class.isAssignableFrom(pd.getPropertyType())) {
-				value = mapToObject(pd.getPropertyType(), (Map) value);
+				if (isBasicType(pd.getPropertyType())) {
+					value = getValueFromMap(pd.getPropertyType(), (Map) value);
+				}
+				else {
+					value = mapToObject(pd.getPropertyType(), (Map) value);
+				}
 			}
 			Object[] arg = { value };
 			met.invoke(object, arg);
@@ -567,6 +572,26 @@ public class PropertiesManager implements java.io.Serializable {
 			return new BigInteger(value.toString());
 		}
 		return null;
+	}
+	
+	private boolean isBasicType(Class<?> type) {
+		if (type == null) return false;
+		return type.isPrimitive() || 
+			String.class.isAssignableFrom(type) ||
+			Number.class.isAssignableFrom(type) ||
+			Boolean.class.isAssignableFrom(type) ||
+			Character.class.isAssignableFrom(type) ||
+			java.util.Date.class.isAssignableFrom(type) ||
+			type.getName().startsWith("java.time.");
+	}
+
+	private Object getValueFromMap(Class<?> propertyType, Map<?, ?> map) {
+		if (map.isEmpty()) return null;
+		Object firstValue = map.values().iterator().next();
+		if (firstValue instanceof Map && isBasicType(propertyType)) {
+			return getValueFromMap(propertyType, (Map<?, ?>) firstValue);
+		}
+		return firstValue;
 	}
 	
 }
