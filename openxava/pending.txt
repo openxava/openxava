@@ -2,9 +2,6 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
 Failed tests:
-- DeliveryRemarks2002Test
-- InvoiceCalculatedDetailsInSectionTest
-- TransportChargeWithDescriptionsListShowingReferenceViewTest
 
 
 
