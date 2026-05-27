@@ -743,6 +743,14 @@ public class AnnotatedClassParser implements IComponentParser {
 				Type type = pd.getReadMethod().getAnnotation(Type.class);
 				addConverter(pMapping, type, pd.getReadMethod().getAnnotation(Columns.class));
 			}
+			else if (field != null && field.isAnnotationPresent(CompositeType.class)) {
+				CompositeType type = field.getAnnotation(CompositeType.class);
+				addConverter(pMapping, type, field.getAnnotation(AttributeOverrides.class), field.getAnnotation(AttributeOverride.class));
+			}
+			else if (pd.getReadMethod().isAnnotationPresent(CompositeType.class)) {
+				CompositeType type = pd.getReadMethod().getAnnotation(CompositeType.class);
+				addConverter(pMapping, type, pd.getReadMethod().getAnnotation(AttributeOverrides.class), pd.getReadMethod().getAnnotation(AttributeOverride.class));
+			}
 			else if (property.hasValidValues()) { 
 				// To convert the parameters sent for filtering in the tabs
 				setEnumConverter(pd, field, pMapping);
@@ -807,6 +815,44 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 	}
 	
+	
+	private void addConverter(PropertyMapping mapping, CompositeType type, AttributeOverrides overrides, AttributeOverride override) throws Exception {
+		Class typeClass = type.value();
+		
+		if (CompositeUserType.class.isAssignableFrom(typeClass)) { 
+			mapping.setMultipleConverterClassName(HibernateCompositeTypeConverter.class.getName());
+			
+			MetaSet typeMetaSet = new MetaSet(); 
+			typeMetaSet.setPropertyName("type");
+			typeMetaSet.setValue(typeClass.getName());
+			mapping.addMetaSet(typeMetaSet);
+			
+			List<AttributeOverride> list = new ArrayList<AttributeOverride>();
+			if (overrides != null) {
+				list.addAll(Arrays.asList(overrides.value()));
+			}
+			if (override != null) {
+				list.add(override);
+			}
+			
+			if (!list.isEmpty()) {				
+				MetaSet valueCountMetaSet = new MetaSet();
+				valueCountMetaSet.setPropertyName("valuesCount");
+				valueCountMetaSet.setValue(String.valueOf(list.size()));
+				mapping.addMetaSet(valueCountMetaSet);										
+
+				int valueIndex = 0;
+				for (AttributeOverride att: list) {
+					CmpField cmp = new CmpField();
+					cmp.setConverterPropertyName("value" + valueIndex++);
+					cmp.setColumn(att.column().name());
+					mapping.addCmpField(cmp);						
+				}
+			}	
+			
+			mapping.setColumn(""); 
+		}
+	}
 	
 	private void addConverter(PropertyMapping mapping, Type type, Columns columns) throws Exception {
 		Class typeClass = type.value();

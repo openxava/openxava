@@ -1,22 +1,7 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
-TMR ME QUEDÉ PROBANDO: DeliveryTest.testSearchingByAnyPropertyUsingRefresh
-
-La salida con Hibernate 5.6 es:
-
-DEBUG SearchByViewKeyAction - valuesForSearchByAnyProperty: {date=Tue May 26 00:00:00 CEST 2026, shipment={mode=null, number=null, type=null}, deliveredBy=null, distance=null, advice=IF YOU DRINK DO NOT DRIVE%, description=%SEARCHING%, type={number=null}, driverType=X%, vehicle=, number=null, carrier={}, shortcut=, transportMode=, invoice={number=null, year=null}, remarks=No remarks%}
-DEBUG MapFacade.getValuesByAnyProperty - searchingValues: {date=Tue May 26 00:00:00 CEST 2026, shipment={mode=null, number=null, type=null}, deliveredBy=null, distance=null, advice=IF YOU DRINK DO NOT DRIVE%, description=%SEARCHING%, type={number=null}, driverType=X%, vehicle=, number=null, carrier={}, shortcut=, transportMode=, invoice={number=null, year=null}, remarks=No remarks%}
-DEBUG POJOPersistenceProviderBase.findUsingQuery - query: from Delivery o where o.description like :description and o.driverType like :driverType and o.remarks like :remarks
-DEBUG POJOPersistenceProviderBase.findUsingQuery - parameters: [description=%SEARCHING%, driverType=X%, remarks=No remarks%]
-May 26, 2026 9:28:51 PM org.openxava.controller.ModuleManager log
-FINE: 0:0:0:0:0:0:0:1 admin CRUD.refresh 182ms
-DEBUG POJOPersistenceProviderBase.findUsingQuery - query: from Shipment o where o.mode = :mode and o.number = :number and o.type = :type
-DEBUG POJOPersistenceProviderBase.findUsingQuery - parameters: [mode=MEDIUM, number=5, type=INTERNAL]
-
-
 Failed tests:
-- DeliveryTest
 - Delivery2Test
 - TransportChargeTest
 - SimulationMarginTest
