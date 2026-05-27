@@ -1,11 +1,8 @@
 Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
-Failed tests:
 
-
-
-
+* All openxavatest passed.
 - Chat code.
 - Probar SchemaTools.
 - Actualizar documentación de Hibernate Validator.
