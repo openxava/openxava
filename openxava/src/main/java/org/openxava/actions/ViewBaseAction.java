@@ -25,7 +25,7 @@ abstract public class ViewBaseAction extends BaseAction {
 	@Inject 
 	private View view;
 	@Inject
-	private Stack previousViews;
+	private Stack<View> previousViews;
 	private boolean dialogShown = false; 
 	private boolean hasNextControllers = false; 
 		
@@ -120,7 +120,7 @@ abstract public class ViewBaseAction extends BaseAction {
 					tab.deselectAll();
 					tab.reset();
 				}
-				View previousView = (View) getPreviousViews().pop();
+				View previousView = getPreviousViews().pop();
 				previousView.setRequest(getRequest());
 				setView(previousView);
 				setNextMode((String) getView().getObject("xava.mode"));				
@@ -183,7 +183,7 @@ abstract public class ViewBaseAction extends BaseAction {
 		return previousViews;
 	}
 
-	public void setPreviousViews(Stack previousViews) {
+	public void setPreviousViews(Stack<View> previousViews) {
 		this.previousViews = previousViews;
 	}
 	

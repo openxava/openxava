@@ -39,7 +39,7 @@ import org.openxava.web.*;
 
 public class Tab implements java.io.Serializable, Cloneable { 
 	
-	public class Configuration implements java.io.Serializable, Comparable, Cloneable { 
+	public class Configuration implements java.io.Serializable, Comparable<Configuration>, Cloneable { 
 		
 		final private int COLLECTION_ID = "__COLLECTION__".hashCode();
 							
@@ -270,9 +270,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			return hasCustomName()?weight + 32503676400000l:weight; // We add the milliseconds for 1/1/3000 for named configurations
 		}
 						
-		public int compareTo(Object o) { 
-			if (!(o instanceof Configuration)) return 1;
-			Configuration other = (Configuration) o;
+		public int compareTo(Configuration other) { 
 			if (getOrderWeight() > other.getOrderWeight()) return -1;
 			if (getOrderWeight() < other.getOrderWeight()) return 1;
 			return 0;
@@ -488,13 +486,13 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private transient ModuleManager moduleManager; 
 	private boolean metaTabCloned = false;
 	private boolean titleVisible = false;
-	private transient List metaPropertiesKey;
+	private transient List<MetaProperty> metaPropertiesKey;
 	private String titleId = null;	
 	private boolean notResetPageNextTime;
 	private boolean rowsHidden;
 	private boolean persistentRowsHidden; 
 	private IFilter filter; 
-	private Map styles;
+	private Map<Integer, String> styles;
 	private View collectionView;
 	private boolean filterVisible=XavaPreferences.getInstance().isShowFilterByDefaultInList();
 	private Boolean customizeAllowed=null; 
@@ -541,7 +539,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	
 	public List<MetaProperty> getMetaProperties() { 
 		if (metaProperties == null) {
-			if (Is.emptyString(getModelName())) return Collections.EMPTY_LIST;
+			if (Is.emptyString(getModelName())) return Collections.emptyList();
 			metaProperties = getMetaTab().getMetaProperties();
 			setPropertiesLabels(metaProperties);
 		}	
@@ -587,8 +585,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.columnsToAddUntilSecondLevel = columnsToAddUntilSecondLevel;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Collection getColumnsToAdd() throws XavaException {
-		List result = new ArrayList(getRemainingPropertiesNames());
+		List<String> result = new ArrayList<String>((Collection<String>) getRemainingPropertiesNames());
 		
 		Collections.sort(result, new Comparator<String>() {
 			
@@ -604,7 +603,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	public List<MetaProperty> getMetaPropertiesNotCalculated() throws XavaException { 
 		if (metaPropertiesNotCalculated == null) {
-			metaPropertiesNotCalculated = new ArrayList();
+			metaPropertiesNotCalculated = new ArrayList<MetaProperty>();
 			Iterator it = getMetaProperties().iterator();			
 			while (it.hasNext()) {
 				MetaProperty p = (MetaProperty) it.next();
@@ -774,7 +773,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	public void setMetaRowStyles(Collection styles) throws XavaException {
+	public void setMetaRowStyles(Collection<org.openxava.tab.meta.MetaRowStyle> styles) throws XavaException {
 		// WARNING! This will change the row style for all tab with this MetaTab
 		getMetaTab().setMetaRowStyles(styles);
 	}
@@ -936,7 +935,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 					}
 					if (firstCondition) firstCondition = false;
 					else sb.append(" and ");
-					if (metaPropertiesKey == null) metaPropertiesKey = new ArrayList();
+					if (metaPropertiesKey == null) metaPropertiesKey = new ArrayList<MetaProperty>();
 					String value = convertStringArgument(this.conditionValues[i].toString());
 					if (conditionComparators[i].equals(NE_COMPARATOR) && (boolean.class.equals(p.getType()) || java.lang.Boolean.class.equals(p.getType()))) {
 						sb.append(buildNotTrueCondition(decorateConditionProperty(p, i)));
@@ -1211,7 +1210,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		if (conditionValuesToWhere == null || conditionValuesToWhere.length == 0) {
 			return filterKey(null);
 		}
-		Collection key = new ArrayList();
+		Collection<Object> key = new ArrayList<Object>();
 		for (int i = 0; i < this.conditionValuesToWhere.length; i++) {
 			Object value = this.conditionValuesToWhere[i];
 			if (!isEmpty(value)) {
@@ -1232,7 +1231,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 				else if (YEAR_COMPARATOR.equals(this.conditionComparatorsToWhere[i]) || MONTH_COMPARATOR.equals(this.conditionComparatorsToWhere[i])) {
 					value = convertStringArgument(value.toString());
 					try {					
-						key.add(new Integer(value.toString()));
+						key.add(Integer.valueOf(value.toString()));
 					}
 					catch (Exception ex) {
 						log.warn(XavaResources.getString("tab_key_value_warning"),ex);
@@ -1242,9 +1241,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 				else if (YEAR_MONTH_COMPARATOR.equals(this.conditionComparatorsToWhere[i])) { 
 					try {				
 						StringTokenizer st = new StringTokenizer(value.toString(), "/ ,:;");
-						if (st.hasMoreTokens()) key.add(new Integer(st.nextToken()));
+						if (st.hasMoreTokens()) key.add(Integer.valueOf(st.nextToken()));
 						else key.add(null);
-						if (st.hasMoreTokens()) key.add(new Integer(st.nextToken()));
+						if (st.hasMoreTokens()) key.add(Integer.valueOf(st.nextToken()));
 						else key.add(null);
 					}
 					catch (Exception ex) {
@@ -1346,6 +1345,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * Deprecated since 4.7
 	 * @deprecated use getSelectedKeys  
 	 */
+	@Deprecated
 	public int [] getSelected() {
 		if (selectedKeys == null) return new int[0];
 		try{
@@ -1353,7 +1353,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 			if (selectedKeys.size() > 0){
 				int end = getTableModel().getRowCount();
 				for (int i = 0; i < end; i++){
-					Map key = (Map)getTableModel().getObjectAt(i);
+					Map<?,?> key = (Map<?,?>) getTableModel().getObjectAt(i);
 					if (selectedKeys.contains(key)){
 						selected.add(i); 
 					}
@@ -1375,7 +1375,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	public void setAllSelectedKeys(Map[] values){
-		this.selectedKeys = new ArrayList(Arrays.asList(values)); 
+		this.selectedKeys = new ArrayList<Map>(Arrays.asList(values)); 
 	}
 	
 	/**
@@ -1384,6 +1384,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * Deprecated since 4.7
 	 * @deprecated use setAllSelectedKeys
 	 */
+	@Deprecated
 	public void setAllSelected(int [] values) {
 		selectedKeys = new ArrayList<Map>();
 		if (values != null && values.length > 0){
@@ -1919,7 +1920,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 
 	private String[] getConditionFilterParameters(String prefix) {
 		String conditionComparator = request.getParameter(prefix + "0");
-		Collection conditionComparators = new ArrayList();
+		Collection<String> conditionComparators = new ArrayList<String>();
 		for (int i=1; conditionComparator != null; i++) {
 			conditionComparators.add(Strings.removeXSS(conditionComparator)); 
 			conditionComparator = request.getParameter(prefix + i);
@@ -2076,7 +2077,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 
 	public Collection<Configuration> getConfigurations() {  
-		List<Configuration> result = new ArrayList(configurations.values());  
+		List<Configuration> result = new ArrayList<Configuration>(configurations.values());  
 		Collections.sort(result);
 		return result;
 	}
@@ -2300,7 +2301,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 	private String [] insertEmptyString(String [] array, int index) {  
 		if (array == null) return null;
 		if (index >= array.length) return array;  
-		return (String []) ArrayUtils.add(array, index, "");
+		String[] result = new String[array.length + 1];
+		System.arraycopy(array, 0, result, 0, index);
+		result[index] = "";
+		System.arraycopy(array, index, result, index + 1, array.length - index);
+		return result;
 	}
 	
 	public void addProperties(Collection properties) throws XavaException {
@@ -2476,8 +2481,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 			rowsHidden = persistentRowsHidden; 
 			filterVisible = preferences.getBoolean(FILTER_VISIBLE, filterVisible); 
 			pageRowCount = Math.min(preferences.getInt(PAGE_ROW_COUNT, pageRowCount), 50);
-			columnWidths = loadMapFromPreferences(preferences, columnWidths, COLUMN_WIDTH, true);
-			labels = loadMapFromPreferences(preferences, labels, COLUMN_LABEL, false);
+			columnWidths = loadColumnWidthsFromPreferences(preferences, columnWidths);
+			labels = loadLabelsFromPreferences(preferences, labels);
 			defaultCondition = getCondition();
 			editor = preferences.get(EDITOR, null);
 			if (editor != null && !WebEditors.getEditors(getMetaTab()).contains(editor)) editor = null; // If the developer changes @Tab(editors=) and the last used editor is no longer available
@@ -2488,14 +2493,27 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 		
-	private Map loadMapFromPreferences(Preferences preferences, Map map, String prefix, boolean toInt) throws Exception { 
+	private Map<String, Integer> loadColumnWidthsFromPreferences(Preferences preferences, Map<String, Integer> map) throws Exception { 
 		if (map!= null) map.clear();
 		for (String key: preferences.keys()) {
-			if (!key.startsWith(prefix)) continue;
+			if (!key.startsWith(COLUMN_WIDTH)) continue;
 			String value = preferences.get(key, null);
 			if (value != null) {
-				if (map == null) map = new HashMap();
-				map.put(key.substring(prefix.length()), toInt?Integer.parseInt(value):value);
+				if (map == null) map = new HashMap<String, Integer>();
+				map.put(key.substring(COLUMN_WIDTH.length()), Integer.valueOf(value));
+			}
+		}
+		return map;
+	}
+	
+	private Map<String, String> loadLabelsFromPreferences(Preferences preferences, Map<String, String> map) throws Exception { 
+		if (map!= null) map.clear();
+		for (String key: preferences.keys()) {
+			if (!key.startsWith(COLUMN_LABEL)) continue;
+			String value = preferences.get(key, null);
+			if (value != null) {
+				if (map == null) map = new HashMap<String, String>();
+				map.put(key.substring(COLUMN_LABEL.length()), value);
 			}
 		}
 		return map;
@@ -2612,9 +2630,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	private void saveMapInPreferences(Preferences preferences, Map map, String prefix) { 
+	private void saveMapInPreferences(Preferences preferences, Map<String, ?> map, String prefix) { 
 		if (map != null) { 
-			for (Map.Entry<String, Object> entry: ((Map<String, Object>) map).entrySet()) {
+			for (Map.Entry<String, ?> entry: map.entrySet()) {
 				preferences.put(
 					prefix + entry.getKey(),
 					entry.getValue().toString()
@@ -2642,7 +2660,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	public String getStyle(int row) { 
 		try {
 			if (styles != null && !styles.isEmpty()) {
-				String result = (String) styles.get(new Integer(row));
+				String result = styles.get(Integer.valueOf(row));
 				if (result != null) return result;
 			}
 			if (!getMetaTab().hasRowStyles()) return null;
@@ -2670,8 +2688,8 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @param  style  A string with the CSS style suitable to use in a 'class' attribute in HTML. 
 	 */	
 	public void setStyle(int row, String style) {
-		if (styles == null) styles = new HashMap();
-		styles.put(new Integer(row), style);
+		if (styles == null) styles = new HashMap<Integer, String>();
+		styles.put(Integer.valueOf(row), style);
 	}
 	
 	/**
@@ -2710,14 +2728,14 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * @return Never null
 	 */
 	public Map [] getAllKeys() { 
-		Collection allKeys = new ArrayList();
+		Collection<Map> allKeys = new ArrayList<Map>();
 		for (int i = 0; i < getTableModel().getRowCount(); i++) { 					
 			try {
-				allKeys.add(getTableModel().getObjectAt(i)); 				
+				allKeys.add((Map) getTableModel().getObjectAt(i)); 				
 			}
 			catch (Exception ex) {
-				allKeys.add(Collections.EMPTY_MAP);
-				log.warn(XavaResources.getString("tab_row_key_warning", new Integer(i)),ex);
+				allKeys.add(Collections.emptyMap());
+				log.warn(XavaResources.getString("tab_row_key_warning", Integer.valueOf(i)),ex);
 			}
 		}
 		Map [] keys = new Map[allKeys.size()];
@@ -2851,6 +2869,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	/**
 	 * @deprecated Since v4.7, use deselectAll() instead
 	 */
+	@Deprecated
 	public void clearSelected() {
 		deselectAll();
 	}
@@ -2937,7 +2956,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 	
 	private Map<String, List<String>> getTotalProperties() {  
-		if (getCollectionView() == null) return Collections.EMPTY_MAP;
+		if (getCollectionView() == null) return Collections.emptyMap();
 		return getCollectionView().getTotalProperties();
 	}
 	
@@ -2996,7 +3015,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 */
 	public Set<String> getSumPropertiesNames() {   
 		if (sumPropertiesNames == null) {			
-			sumPropertiesNames = new HashSet(getMetaTab().getSumPropertiesNames());
+			sumPropertiesNames = new HashSet<String>(getMetaTab().getSumPropertiesNames());
 		}	
 		return sumPropertiesNames;
 	}
