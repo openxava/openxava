@@ -4,8 +4,8 @@ package org.openxava.test.tests.byfeature;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.*;
+import jakarta.persistence.*;
+import jakarta.validation.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
@@ -140,7 +140,7 @@ public class AnnotatedPOJOTest extends TestCase {
 			Customer.findByNumber(66); // 66 doesn't exist
 			fail("EntityNotFoundException expected"); 
 		}
-		catch (javax.persistence.NoResultException ex) {
+		catch (NoResultException ex) {
 			// All fine
 		}
 	}
@@ -156,8 +156,8 @@ public class AnnotatedPOJOTest extends TestCase {
 		}
 		catch (RollbackException ex) {
 						
-			if (ex.getCause() instanceof  javax.validation.ConstraintViolationException) {
-				javax.validation.ConstraintViolationException vex = (javax.validation.ConstraintViolationException) ex.getCause();				
+			if (ex.getCause() instanceof  jakarta.validation.ConstraintViolationException) {
+				jakarta.validation.ConstraintViolationException vex = (jakarta.validation.ConstraintViolationException) ex.getCause();				
 				assertEquals("1 invalid value is expected", 1, vex.getConstraintViolations().size());
 				ConstraintViolation<?> violation = vex.getConstraintViolations().iterator().next();
 				assertEquals("Bean", "Artist", violation.getRootBeanClass().getSimpleName());

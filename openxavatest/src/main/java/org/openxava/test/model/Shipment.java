@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.sql.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
@@ -27,7 +27,7 @@ public class Shipment {
 	@Id @Required
 	// @org.hibernate.annotations.Type is also specified in ShipmentKey 
 	// because a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361	
-	@org.hibernate.annotations.Type(type="org.openxava.types.EnumLetterType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.EnumLetterType.class, 
 		parameters={
 			@Parameter(name="letters", value="IE"), 
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Type")
@@ -39,7 +39,7 @@ public class Shipment {
 	@Id @Required
 	// @org.hibernate.annotations.Type is also specified in ShipmentKey 
 	// because a bug in Hibernate, see http://opensource.atlassian.com/projects/hibernate/browse/ANN-361		
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Mode")
 		}
@@ -67,12 +67,12 @@ public class Shipment {
 	
 		
  	public static Collection findAll()  { 			
-		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Shipment as o"); 
+		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Shipment as o"); 
  		return query.getResultList();  		
  	}
  	
  	public static Collection findByMode(Mode mode)  { 		 			
- 		javax.persistence.Query query = XPersistence.getManager().createQuery("from Shipment as o where o.mode = :mode"); 
+ 		jakarta.persistence.Query query = XPersistence.getManager().createQuery("from Shipment as o where o.mode = :mode"); 
 		query.setParameter("mode", mode); 
  		return query.getResultList();  		 		
  	}

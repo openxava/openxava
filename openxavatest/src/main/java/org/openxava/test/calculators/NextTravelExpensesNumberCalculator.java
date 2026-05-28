@@ -2,7 +2,7 @@ package org.openxava.test.calculators;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;

@@ -1,6 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.openxava.jpa.XPersistence;
 import org.openxava.test.model.CallBackLog;

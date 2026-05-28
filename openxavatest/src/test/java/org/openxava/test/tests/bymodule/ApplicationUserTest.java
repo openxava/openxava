@@ -98,6 +98,7 @@ public class ApplicationUserTest extends ModuleTestBase {
 		execute("Mode.list");
 		assertListRowCount(2);
 		setConditionValues("POSITIONALGAMERII");
+		execute("List.filter");
 		execute("CRUD.deleteRow", "row=0");
 		changeModule("ApplicationUser");
 		execute("Mode.list"); 

@@ -5,16 +5,18 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OrderBy;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
+
+import org.openxava.annotations.View;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
@@ -25,7 +27,7 @@ import org.openxava.util.*;
 import lombok.*;
 
 /**
- * 
+ *
  * @author Javier Paniza
  */
 
@@ -264,8 +266,8 @@ public class Invoice {
 	
 	@Column(length=50)
 	private String comment;
-	
-	@Type(type="org.openxava.types.SiNoType")
+
+	@Type(value=org.openxava.types.SiNoType.class)
 	@ReadOnly(forViews="NestedSections") 
 	private boolean paid;
 		
@@ -445,12 +447,14 @@ public class Invoice {
  	} 	
  	
  	public static Collection findPaidOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = true"); 
+ 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 		query.setParameter("paid", true);
  		return query.getResultList();  		 		
- 	}
+ 	} 	
  	
  	public static Collection findNotPaidOnes()  { 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = false"); 
+ 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 		query.setParameter("paid", false);
  		return query.getResultList();  		
  	} 	
  	

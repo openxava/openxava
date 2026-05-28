@@ -67,6 +67,223 @@
     <a href="https://docs.oracle.com/en/java/javase/17/migrate/migrating-jdk-8-later-jdk-releases.html">
     la documentación de migración desde Java 8</a>.</p>
 
+    <h3>Jakarta Persistence 3.2 con Hibernate 7.2</h3>
+
+    <p>OpenXava 8.0 usa Jakarta Persistence 3.2 y Hibernate 7.2. Esto implica cambios
+    significativos respecto a las versiones anteriores. A continuación detallamos los problemas 
+    más comunes que puedes encontrar al migrar tu aplicación.</p>
+
+    <p>Puedes consultar la 
+    <a href="https://docs.hibernate.org/orm/7.2/migration-guide/">guía de 
+    migración oficial de Hibernate</a> para más información.</p>
+
+    <h4>Cambio de javax.persistence a jakarta.persistence</h4>
+
+    <p>El cambio principal es el reemplazo del namespace <i>javax</i> por <i>jakarta</i> en 
+    todas las anotaciones de JPA. Esto afecta a tus entidades, clases clave, y cualquier código 
+    que use anotaciones de persistencia.</p>
+
+    <pre><code class="language-java">// ANTES
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+// DESPUÉS
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;</code></pre>
+
+    <p>Además, si usas <i>import org.hibernate.annotations.*;</i> en tus archivos, esto puede 
+    causar ambigüedad entre <i>org.openxava.annotations.View</i> y 
+    <i>org.hibernate.annotations.View</i>. La solución es usar imports específicos:</p>
+
+    <pre><code class="language-java">// ANTES
+import org.hibernate.annotations.*;
+
+// DESPUÉS
+import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;</code></pre>
+
+    <h4>persistence.xml</h4>
+
+    <p>El archivo <i>persistence.xml</i> requiere actualizar el namespace a la versión 3.1 
+    de Jakarta Persistence:</p>
+
+    <pre><code class="language-xml">&lt;persistence version="3.1" 
+    xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+    https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
+
+    <h4>NonBatchingBatcherFactory eliminado</h4>
+
+    <p>La propiedad <i>hibernate.jdbc.factory_class</i> con valor 
+    <i>org.hibernate.jdbc.NonBatchingBatcherFactory</i> ya no es válida en Hibernate 7. 
+    Elimina esta propiedad de tu <i>persistence.xml</i>.</p>
+
+    <h4>@Column(scale/precision) y @Digits en tipos float/double</h4>
+
+    <p>Hibernate 7 ya no permite usar <i>@Column(scale=..., precision=...)</i> ni 
+    <i>@Digits(integer=..., fraction=...)</i> en tipos <i>float</i> o <i>double</i>:</p>
+
+    <pre><code class="language-java">// ERROR en Hibernate 7
+@Column(scale=7, precision=7)
+private double axisY;</code></pre>
+
+    <p>Solución: Usa <i>@DecimalMax</i> de Jakarta Validator en su lugar:</p>
+
+    <pre><code class="language-java">// Solución válida
+@DecimalMax("0.9999999")
+private double axisY;</code></pre>
+
+    <h4>Uniones anidadas (Nested Joins)</h4>
+
+    <p>En Hibernate 6+ las uniones anidadas deben usar la ruta completa desde la entidad 
+    raíz. No puedes usar el alias de un join previo como prefijo para un join anidado.</p>
+
+    <pre><code class="language-java">// INCORRECTO (Falla en Hibernate 6+)
+SELECT e FROM Product2 e
+LEFT JOIN e.subfamily e_subfamily
+LEFT JOIN e_subfamily.family e_subfamily_family -- ¡Error!
+
+// CORRECTO (Ruta completa desde la entidad raíz)
+SELECT e FROM Product2 e
+LEFT JOIN e.subfamily e_subfamily
+LEFT JOIN e.subfamily.family e_subfamily_family -- ¡Correcto!</code></pre>
+
+    <h4>Atributos no cualificados en consultas JPQL</h4>
+
+    <p>Si ordenas o filtras por un campo común (como <i>name</i>, <i>id</i>, 
+    <i>description</i>, <i>code</i>, etc.) y la consulta tiene JOINs, Hibernate lanzará 
+    la excepción <i>Ambiguous unqualified attribute reference</i>. Debes calificar siempre 
+    las referencias a propiedades con el alias de su entidad:</p>
+
+    <pre><code class="language-java">// INCORRECTO (Falla en Hibernate 6+)
+SELECT e FROM Traveler e
+LEFT JOIN e.lastJourney e_lastJourney
+ORDER BY name -- ¡Error! 'name' existe en Traveler y en Journey
+
+// CORRECTO
+SELECT e FROM Traveler e
+LEFT JOIN e.lastJourney e_lastJourney
+ORDER BY e.name -- ¡Correcto!</code></pre>
+
+    <h4>Claves compuestas (@IdClass) con relaciones</h4>
+
+    <p>Con Hibernate 6/7, las clases <i>@IdClass</i> que contienen campos que son 
+    relaciones <i>@ManyToOne</i> deben adaptarse:</p>
+
+    <ol>
+      <li>Cambia el tipo del campo de la relación por su clave primaria (ej. <i>String</i> 
+      en lugar de <i>State</i>)</li>
+      <li>Elimina las anotaciones de mapeo relacional (<i>@ManyToOne</i>, 
+      <i>@JoinColumn</i>, etc.) de la clase clave</li>
+    </ol>
+
+    <pre><code class="language-java">// ANTES (No compatible con Hibernate 6/7)
+public class CityKey implements Serializable {
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="STATE", referencedColumnName="ID")
+    private State state;
+    private int code;
+}
+
+// DESPUÉS (Compatible)
+public class CityKey implements Serializable {
+    private String state; // Tipo de la clave primaria de State
+    private int code;
+}</code></pre>
+
+    <p>La entidad principal no requiere cambios en sus anotaciones <i>@Id</i> o 
+    <i>@ManyToOne</i>.</p>
+
+    <h4>Expresiones booleanas en JPQL</h4>
+
+    <p>En Hibernate 6+ los literales booleanos se compilan directamente a literales 
+    booleanos del dialecto SQL, lo que puede romper la compatibilidad con bases de datos 
+    que usan tipos CHAR para booleanos (como OpenXava con SiNoType).</p>
+
+    <pre><code class="language-java">// INCORRECTO (Genera error en Hibernate 6+)
+Query query = XPersistence.getManager()
+    .createQuery("from Invoice as o where o.paid = true");
+
+// CORRECTO (Usa parámetros)
+Query query = XPersistence.getManager()
+    .createQuery("from Invoice as o where o.paid = :paid");
+query.setParameter("paid", true);</code></pre>
+
+    <h4>Tipos personalizados (UserType/CompositeUserType)</h4>
+
+    <p>Los tipos personalizados requieren varios cambios en Hibernate 7:</p>
+
+    <ul>
+      <li><b>PrimitiveType/DiscriminatorType:</b> Elimina estas interfaces de la 
+      declaración de tus clases</li>
+      <li><b>@TypeDef:</b> Eliminado, usa <i>@Convert</i> o <i>@CompositeType</i></li>
+      <li><b>@Type(type="org.hibernate.type.YesNoType"):</b> Cambia a 
+      <i>@Convert(converter = org.hibernate.type.YesNoConverter.class)</i></li>
+      <li><b>@Type(type="org.openxava.types.SiNoType"):</b> Cambia a 
+      <i>@Type(org.openxava.types.SiNoType.class)</i></li>
+    </ul>
+
+    <p>Los tipos personalizados (<i>UserType</i> y <i>CompositeUserType</i>) prácticamente 
+    requieren reescribirse para la nueva API de Hibernate 7. Los cambios son profundos e 
+    incluyen la eliminación de métodos, cambios en las firmas, y nuevo uso de 
+    <i>@Embeddable</i>. Consulta la documentación de Hibernate para los detalles completos.</p>
+
+    <p>Para <i>CompositeUserType</i> con múltiples columnas, cambia <i>@Columns</i> por 
+    <i>@AttributeOverrides</i>:</p>
+
+    <pre><code class="language-java">// ANTES
+@CompositeType(org.openxava.types.Date3Type.class)
+@Columns(columns = {
+    @Column(name="YEARDELIVERY"),
+    @Column(name="MONTHDELIVERY"),
+    @Column(name="DAYDELIVERY")
+})
+
+// DESPUÉS
+@CompositeType(org.openxava.types.Date3Type.class)
+@AttributeOverrides({
+    @AttributeOverride(name="year", column=@Column(name="YEARDELIVERY")),
+    @AttributeOverride(name="month", column=@Column(name="MONTHDELIVERY")),
+    @AttributeOverride(name="day", column=@Column(name="DAYDELIVERY"))
+})</code></pre>
+
+    <h4>Character a String en consultas nativas</h4>
+
+    <p>Las consultas nativas a columnas CHAR ahora devuelven <i>Character</i> en lugar de 
+    <i>String</i>. Usa <i>toString()</i> para convertir:</p>
+
+    <pre><code class="language-java">// Antes (Hibernate 5.6)
+String value = (String) query.getSingleResult();
+
+// Después (Hibernate 7.2)
+String value = query.getSingleResult().toString();</code></pre>
+
+    <h3>Jakarta Validator 3.1 con Hibernate Validator 9.1</h3>
+
+    <p>OpenXava 8.0 usa Jakarta Validator 3.1 y Hibernate Validator 9.1. Esto implica
+    cambios en las anotaciones de validación.</p>
+
+    <p>Puedes consultar la 
+    <a href="https://docs.hibernate.org/validator/9.1/migration/en-US/html_single/">guía 
+    de migración oficial de Hibernate Validator</a> para más información.</p>
+
+    <h4>Cambio de javax.validation a jakarta.validation</h4>
+
+    <p>Cambia los imports de validación:</p>
+
+    <pre><code class="language-java">// ANTES
+import javax.validation.constraints.*;
+import javax.validation.Payload;
+
+// DESPUÉS
+import jakarta.validation.constraints.*;
+import jakarta.validation.Payload;</code></pre>
+
     <h2>Para migrar a OpenXava 7.7.3</h2>
 
     <p>Para migrar a OpenXava 7.7.3 desde cualquier versión anterior de OpenXava:</p>

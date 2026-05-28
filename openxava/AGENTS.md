@@ -8,11 +8,11 @@ All new public or protected methods must include a `@since` Javadoc tag with the
 
 ```java
 /**
- * @since 7.7.3
+ * @since 8.0
  */
 public void myNewMethod() {
     // ...
 }
 ```
 
-The current version is **7.7.3**.
+The current version is **8.0**.

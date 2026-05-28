@@ -10,12 +10,12 @@ import java.util.*;
 import java.util.jar.*;
 import java.util.stream.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
-import javax.persistence.metamodel.*;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
+import jakarta.persistence.metamodel.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.annotations.*;
@@ -23,6 +23,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.usertype.*;
 import org.openxava.annotations.*;
+import org.openxava.annotations.View;
 import org.openxava.calculators.*;
 import org.openxava.component.*;
 import org.openxava.converters.typeadapters.*;
@@ -742,6 +743,14 @@ public class AnnotatedClassParser implements IComponentParser {
 				Type type = pd.getReadMethod().getAnnotation(Type.class);
 				addConverter(pMapping, type, pd.getReadMethod().getAnnotation(Columns.class));
 			}
+			else if (field != null && field.isAnnotationPresent(CompositeType.class)) {
+				CompositeType type = field.getAnnotation(CompositeType.class);
+				addConverter(pMapping, type, field.getAnnotation(AttributeOverrides.class), field.getAnnotation(AttributeOverride.class));
+			}
+			else if (pd.getReadMethod().isAnnotationPresent(CompositeType.class)) {
+				CompositeType type = pd.getReadMethod().getAnnotation(CompositeType.class);
+				addConverter(pMapping, type, pd.getReadMethod().getAnnotation(AttributeOverrides.class), pd.getReadMethod().getAnnotation(AttributeOverride.class));
+			}
 			else if (property.hasValidValues()) { 
 				// To convert the parameters sent for filtering in the tabs
 				setEnumConverter(pd, field, pMapping);
@@ -807,24 +816,53 @@ public class AnnotatedClassParser implements IComponentParser {
 	}
 	
 	
-	private void addConverter(PropertyMapping mapping, Type type, Columns columns) throws Exception {
-		Class typeClass = null;
-		try {
-			typeClass = Class.forName(type.type());
-		}
-		catch (ClassNotFoundException ex) {
-			// If type.type() is a type name and not a class we do not add it, this is not a big problem
-			// since in JPA most data is obtained via JPA so converters are only used for a very few things.
-			
-			// If type.type() is a class name mistyped the JPA will complain, so we do not to do it here
-			return;
-		}
+	private void addConverter(PropertyMapping mapping, CompositeType type, AttributeOverrides overrides, AttributeOverride override) throws Exception {
+		Class typeClass = type.value();
+		
 		if (CompositeUserType.class.isAssignableFrom(typeClass)) { 
 			mapping.setMultipleConverterClassName(HibernateCompositeTypeConverter.class.getName());
 			
 			MetaSet typeMetaSet = new MetaSet(); 
 			typeMetaSet.setPropertyName("type");
-			typeMetaSet.setValue(type.type());
+			typeMetaSet.setValue(typeClass.getName());
+			mapping.addMetaSet(typeMetaSet);
+			
+			List<AttributeOverride> list = new ArrayList<AttributeOverride>();
+			if (overrides != null) {
+				list.addAll(Arrays.asList(overrides.value()));
+			}
+			if (override != null) {
+				list.add(override);
+			}
+			
+			if (!list.isEmpty()) {				
+				MetaSet valueCountMetaSet = new MetaSet();
+				valueCountMetaSet.setPropertyName("valuesCount");
+				valueCountMetaSet.setValue(String.valueOf(list.size()));
+				mapping.addMetaSet(valueCountMetaSet);										
+
+				int valueIndex = 0;
+				for (AttributeOverride att: list) {
+					CmpField cmp = new CmpField();
+					cmp.setConverterPropertyName("value" + valueIndex++);
+					cmp.setColumn(att.column().name());
+					mapping.addCmpField(cmp);						
+				}
+			}	
+			
+			mapping.setColumn(""); 
+		}
+	}
+	
+	private void addConverter(PropertyMapping mapping, Type type, Columns columns) throws Exception {
+		Class typeClass = type.value();
+		
+		if (CompositeUserType.class.isAssignableFrom(typeClass)) { 
+			mapping.setMultipleConverterClassName(HibernateCompositeTypeConverter.class.getName());
+			
+			MetaSet typeMetaSet = new MetaSet(); 
+			typeMetaSet.setPropertyName("type");
+			typeMetaSet.setValue(typeClass.getName());
 			mapping.addMetaSet(typeMetaSet);
 			
 			if (columns != null) {				
@@ -834,7 +872,7 @@ public class AnnotatedClassParser implements IComponentParser {
 				mapping.addMetaSet(valueCountMetaSet);										
 
 				int valueIndex = 0;
-				for (Column column: columns.columns()) {
+				for (jakarta.persistence.Column column: columns.columns()) {
 					CmpField cmp = new CmpField();
 					cmp.setConverterPropertyName("value" + valueIndex++);
 					cmp.setColumn(column.name());
@@ -848,7 +886,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			mapping.setConverterClassName(HibernateTypeConverter.class.getName());
 			MetaSet metaSet = new MetaSet();
 			metaSet.setPropertyName("type");
-			metaSet.setValue(type.type());
+			metaSet.setValue(typeClass.getName());
 			mapping.addMetaSet(metaSet);
 		}
 		
@@ -883,8 +921,8 @@ public class AnnotatedClassParser implements IComponentParser {
 
 		// size
 		boolean defaultSize = false; 
-		if (element.isAnnotationPresent(javax.validation.constraints.DecimalMax.class)) {
-			javax.validation.constraints.DecimalMax max = element.getAnnotation(javax.validation.constraints.DecimalMax.class);
+		if (element.isAnnotationPresent(jakarta.validation.constraints.DecimalMax.class)) {
+			jakarta.validation.constraints.DecimalMax max = element.getAnnotation(jakarta.validation.constraints.DecimalMax.class);
 			int size = max.value().length();
 			int idx = max.value().indexOf('.'); 
 			if (idx >= 0) {
@@ -894,8 +932,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			}
 			property.setSize(size);
 		}		
-		else if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
-			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);			
+		else if (element.isAnnotationPresent(jakarta.validation.constraints.Size.class)) {
+			jakarta.validation.constraints.Size size = element.getAnnotation(jakarta.validation.constraints.Size.class);			
 			property.setSize(size.max());
 		}
 		else if (element.isAnnotationPresent(Column.class)) {
@@ -924,13 +962,13 @@ public class AnnotatedClassParser implements IComponentParser {
 				property.setScale(column.scale()); // Even if 0 
 			}
 		}
-		else if (element.isAnnotationPresent(javax.validation.constraints.Digits.class)) {
-			javax.validation.constraints.Digits digits = element.getAnnotation(javax.validation.constraints.Digits.class);
+		else if (element.isAnnotationPresent(jakarta.validation.constraints.Digits.class)) {
+			jakarta.validation.constraints.Digits digits = element.getAnnotation(jakarta.validation.constraints.Digits.class);
 			property.setSize(digits.integer() + digits.fraction()); 
 			property.setScale(digits.fraction());
 		}
-		if (element.isAnnotationPresent(javax.validation.constraints.Max.class)) {
-			javax.validation.constraints.Max max = element.getAnnotation(javax.validation.constraints.Max.class);
+		if (element.isAnnotationPresent(jakarta.validation.constraints.Max.class)) {
+			jakarta.validation.constraints.Max max = element.getAnnotation(jakarta.validation.constraints.Max.class);
 			property.setSize((int) (Math.log10(max.value()) + 1));
 		}		
 				
@@ -939,11 +977,11 @@ public class AnnotatedClassParser implements IComponentParser {
 			property.setRequired(true);
 			property.setRequiredMessage(filterMessage(element.getAnnotation(Required.class).message()));
 		}
-		else if (element.isAnnotationPresent(javax.validation.constraints.Min.class)) {
-			javax.validation.constraints.Min min = element.getAnnotation(javax.validation.constraints.Min.class);
+		else if (element.isAnnotationPresent(jakarta.validation.constraints.Min.class)) {
+			jakarta.validation.constraints.Min min = element.getAnnotation(jakarta.validation.constraints.Min.class);
 			if (min.value() > 0) { 
 				property.setRequired(true);
-				property.setRequiredMessage(filterMessage(element.getAnnotation(javax.validation.constraints.Min.class).message()));
+				property.setRequiredMessage(filterMessage(element.getAnnotation(jakarta.validation.constraints.Min.class).message()));
 			}
 		}		
 		
@@ -951,14 +989,14 @@ public class AnnotatedClassParser implements IComponentParser {
 		if (element.isAnnotationPresent(Hidden.class)) {  						
 			property.setHidden(true);
 		}
-		
+
 		// version
-		if (element.isAnnotationPresent(javax.persistence.Version.class)) {  						
+		if (element.isAnnotationPresent(jakarta.persistence.Version.class)) {
 			property.setVersion(true);
 		}
-		
+
 		// transient
-		if (element.isAnnotationPresent(javax.persistence.Transient.class)) {  						
+		if (element.isAnnotationPresent(jakarta.persistence.Transient.class)) {
 			property.setTransient(true);
 		}
 		
@@ -1343,8 +1381,8 @@ public class AnnotatedClassParser implements IComponentParser {
 			collection.setMetaCalculator(null); 
 		}		
 		
-		if (element.isAnnotationPresent(javax.validation.constraints.Size.class)) {
-			javax.validation.constraints.Size size = element.getAnnotation(javax.validation.constraints.Size.class);
+		if (element.isAnnotationPresent(jakarta.validation.constraints.Size.class)) {
+			jakarta.validation.constraints.Size size = element.getAnnotation(jakarta.validation.constraints.Size.class);
 			collection.setMinimum(size.min());
 			collection.setMaximum(size.max());
 		}
@@ -2090,9 +2128,9 @@ public class AnnotatedClassParser implements IComponentParser {
 			ref.setRequired(!manyToOne.optional());
 			ref.setAggregate(false); 
 		}
-		
+
 		// transient
-		if (element.isAnnotationPresent(javax.persistence.Transient.class)) {  						
+		if (element.isAnnotationPresent(jakarta.persistence.Transient.class)) {
 			ref.setTransient(true);
 		}
 		
@@ -3014,6 +3052,7 @@ public class AnnotatedClassParser implements IComponentParser {
 			Class<?> clazz = t.getJavaType();
 			if (clazz == null || clazz.isInterface()) continue;
 			if (clazz.isAnnotationPresent(MappedSuperclass.class)) continue; 
+			if (!clazz.isAnnotationPresent(Entity.class) && !clazz.isAnnotationPresent(Embeddable.class)) continue;
 			String className = clazz.getName();
 			managedClassNames.add(className);
 		}

@@ -2,7 +2,7 @@ package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.junit.*;
 import org.openqa.selenium.*;

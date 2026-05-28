@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.time.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.*;
 

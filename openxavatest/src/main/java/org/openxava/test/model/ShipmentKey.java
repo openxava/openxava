@@ -9,14 +9,14 @@ import org.openxava.test.model.Shipment.*;
  */
 public class ShipmentKey implements java.io.Serializable {
 
-	@org.hibernate.annotations.Type(type="org.openxava.types.EnumLetterType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.EnumLetterType.class, 
 		parameters={
 			@Parameter(name="letters", value="IE"), 
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Type")
 		}
 	)	
 	private Type type;
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Mode")
 		}

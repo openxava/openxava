@@ -2,8 +2,8 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -62,10 +62,10 @@ public class Product4 {
 			throw new org.openxava.validators.ValidationException("openxava_not_saleable"); 
 		}
 		if (getDescription().contains("ECLIPSE")) {
-			throw new javax.validation.ValidationException("eclipse_not_saleable"); 
+			throw new jakarta.validation.ValidationException("eclipse_not_saleable"); 
 		}
 		if (getNumber() == 666) {
-			throw new javax.validation.ValidationException(
+			throw new jakarta.validation.ValidationException(
 				XavaResources.getString("invalid_state", 
 					Labels.get("number"), Labels.get(getClass().getSimpleName()), 
 					XavaResources.getString("number_of_man"), getNumber()));
@@ -75,10 +75,10 @@ public class Product4 {
 	@PreRemove
 	public void validateOnRemove() { 		
 		if (number == 1) {
-			throw new javax.validation.ValidationException("one_not_deletable");			
+			throw new jakarta.validation.ValidationException("one_not_deletable");			
 		}		
 		if (number == 2) {
-			throw new javax.validation.ValidationException("two_not_deletable");
+			throw new jakarta.validation.ValidationException("two_not_deletable");
 		}				
 
 		if (family != null) {

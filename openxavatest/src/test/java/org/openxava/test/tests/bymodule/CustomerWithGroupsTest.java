@@ -6,7 +6,7 @@ package org.openxava.test.tests.bymodule;
 import java.time.*;
 import java.time.format.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.jpa.*;
 import org.openxava.tests.*;

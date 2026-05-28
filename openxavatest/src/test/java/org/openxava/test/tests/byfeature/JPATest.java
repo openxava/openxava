@@ -35,7 +35,7 @@ public class JPATest extends TestCase {
 		XPersistence.getManager().persist(sf);
 		XPersistence.getManager().flush();
 		
-		javax.persistence.Query query = XPersistence.getManager().createQuery(
+		jakarta.persistence.Query query = XPersistence.getManager().createQuery(
 				"select sf.remarks from Subfamily sf where sf.number = 77");
 		
 		String remarks = (String) query.getSingleResult();

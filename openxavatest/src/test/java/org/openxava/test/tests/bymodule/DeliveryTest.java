@@ -3,7 +3,7 @@ package org.openxava.test.tests.bymodule;
 import java.text.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.htmlunit.html.*;
 import org.junit.*;
@@ -874,7 +874,7 @@ public class DeliveryTest extends CustomizeListTestBase {
 		// Verifying database value
 		Query query = XPersistence.getManager().createNativeQuery("select d.distance from XAVATEST.Delivery as d where "
 				+ "invoice_year=2002 and invoice_number=1 and type=1 and number=66");		
-		String distanceDB = (String) query.getSingleResult();
+		String distanceDB = query.getSingleResult().toString();
 		assertEquals("distance in database incorrect", "N", distanceDB);
 																		
 		// Delete

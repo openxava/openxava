@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -26,7 +26,7 @@ public class TreeItemNoIdGeneration {
 	private int theOrder;
 	
 	@ManyToOne
-	private TreeContainer parentContainer;
+	private TreeContainerNoIdGeneration parentContainer;
 	
 	public Integer getId() {
 		return id;
@@ -68,11 +68,11 @@ public class TreeItemNoIdGeneration {
 		this.theOrder = theOrder;
 	}
 
-	public TreeContainer getParentContainer() {
+	public TreeContainerNoIdGeneration getParentContainer() {
 		return parentContainer;
 	}
 
-	public void setParentContainer(TreeContainer parentContainer) {
+	public void setParentContainer(TreeContainerNoIdGeneration parentContainer) {
 		this.parentContainer = parentContainer;
 	}
 

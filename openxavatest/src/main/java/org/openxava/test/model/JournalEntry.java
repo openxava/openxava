@@ -6,7 +6,7 @@ import org.openxava.test.validators.*;
 
 import java.math.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  *

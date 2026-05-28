@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -83,7 +83,7 @@ public class Invoice2 {
 	private Customer customer;
 	
 	@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)
-	@javax.validation.constraints.Size(min=1) 
+	@jakarta.validation.constraints.Size(min=1) 
 	@ListProperties("product.description, quantity, unitPrice, amount")
 	@XOrderBy("product.description desc")
 	@NoModify(forViews="NoModifyDetails")

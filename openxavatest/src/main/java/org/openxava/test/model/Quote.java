@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -48,7 +48,7 @@ public class Quote extends Identifiable {
 	Customer customer;
 	
 	@RemoveSelectedAction(forViews="QuoteWithRemoveElementCollection", value="Quote.removeDetail") 
-	@javax.validation.constraints.Size(min=1, max=3)  
+	@jakarta.validation.constraints.Size(min=1, max=3)  
 	@ElementCollection
 	
 	// The first below @ListProperties with no forViews or notForViews to test a case

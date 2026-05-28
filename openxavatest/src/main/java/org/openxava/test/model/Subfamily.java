@@ -1,9 +1,11 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 
 /**
@@ -59,7 +61,7 @@ public class Subfamily {
 	private String description;
 	
 	@Column(length=400) @Stereotype("MEMO") 
-	@org.hibernate.annotations.Type(type="org.openxava.types.NotNullStringType")
+	@Type(org.openxava.types.NotNullStringType.class)
 	private String remarks;
 	
 	@Transient @Column(length=40) @Hidden  

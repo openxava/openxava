@@ -5,7 +5,7 @@ import static org.openxava.jpa.XPersistence.getManager;
 import java.util.Date;
 import java.util.StringTokenizer;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 import org.htmlunit.html.HtmlElement;
 import org.openxava.tests.ModuleTestBase;

@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.test.calculators.*;

@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Tablet extends Computer {

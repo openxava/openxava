@@ -3,7 +3,7 @@ package org.openxava.jpa.impl;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 /**
  * Interface for creating the JPA EntityManagerFactory instances used by OpenXava.

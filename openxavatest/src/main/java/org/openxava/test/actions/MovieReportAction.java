@@ -2,7 +2,7 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.*;

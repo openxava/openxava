@@ -2,11 +2,11 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -62,7 +62,7 @@ public class Formula {
 	}		
 	
 	public static Formula findByName(java.lang.String name) throws NoResultException {
-		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Formula as o where o.name = :name"); 
+		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Formula as o where o.name = :name"); 
 		query.setParameter("name", name); 			
 		return (Formula) query.getSingleResult();		  		
 	}

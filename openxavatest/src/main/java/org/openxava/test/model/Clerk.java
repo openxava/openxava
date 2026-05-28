@@ -1,7 +1,7 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -36,11 +36,11 @@ public class Clerk {
 
 	// We test the two: java.sql.Time and TIME stereotype
 	private java.sql.Time arrivalTime;
-	@StringTime 
+	@StringTime
 	private String endingTime;
-	
+
 	// For testing a String property stored in a binary field in database
-	@Stereotype("MEMO") @Type(type="org.openxava.types.StringArrayBytesType")		
+	@Stereotype("MEMO") @Type(value=org.openxava.types.StringArrayBytesType.class)
 	private String comments;
 	
 	private Boolean onVacation; 

@@ -2,7 +2,7 @@ package org.openxava.annotations;
 
 import java.lang.annotation.*;
 
-import javax.validation.*;
+import jakarta.validation.*;
 
 import org.openxava.validators.hibernate.*;
 

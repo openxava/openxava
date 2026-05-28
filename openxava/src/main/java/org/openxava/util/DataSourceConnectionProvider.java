@@ -1,6 +1,7 @@
 package org.openxava.util;
 
 import java.io.*;
+import java.lang.reflect.*;
 import java.net.*;
 import java.sql.*;
 import java.util.*;
@@ -10,7 +11,7 @@ import javax.sql.*;
 import javax.xml.parsers.*;
 
 import org.apache.commons.logging.*;
-import org.hibernate.internal.*;
+import org.hibernate.Session;
 import org.openxava.component.*;
 import org.openxava.jpa.*;
 import org.openxava.jpa.impl.*;
@@ -152,12 +153,31 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 		this.dataSourceJNDI = dataSourceJDNI;
 	}
 	
+	/**
+	 * Returns a database connection.
+	 * <p>
+	 * By default the connection is obtained from the DataSource configured in JNDI.
+	 * If {@link #setUseHibernateConnection(boolean)} is set to true, the connection
+	 * is obtained directly from JPA/Hibernate.
+	 * <p>
+	 * <b>Since version 8.0</b>: If there is an active manager in {@code XPersistence.getManager()},
+	 * this method uses its connection instead of creating a new one. This avoids lock issues
+	 * with Hibernate 7 when the connection is closed by legacy code that does not expect
+	 * a Hibernate-managed connection. In this case, calling {@code close()} on the returned connection
+	 * has no effect because the connection will be closed automatically when {@code XPersistence.commit()}
+	 * is called at the end of OpenXava's action cycle.
+	 */
 	public Connection getConnection() throws SQLException {
+		if (XPersistence.isManagerActive()) {
+			Session session = XPersistence.getManager().unwrap(Session.class);
+			Connection con = session.doReturningWork(connection -> connection);
+			return wrapNoCloseConnection(con);
+		}
 		if (isUseHibernateConnection()) {
-			SessionImpl session = (SessionImpl) XPersistence.createManager().getDelegate();
-			Connection con = session.connection(); 
+			Session session = XPersistence.createManager().unwrap(Session.class);
+			Connection con = session.doReturningWork(connection -> connection);
 			return con;
-		}			
+		}
 		try {
 			Connection con = null;
 			if (Is.emptyString(getUser())) {
@@ -165,17 +185,17 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 			}
 			else {
 				con = getDataSource().getConnection(getUser(), getPassword());
-			}		
+			}
 			refine(con);
 			return con;
 		}
 		catch (SQLException ex) {
-			throw ex;			
+			throw ex;
 		}
 		catch (Exception ex) {
-			log.error(XavaResources.getString("get_connection_error"), ex); 
-			throw new SQLException(ex.getLocalizedMessage());			
-		}			
+			log.error(XavaResources.getString("get_connection_error"), ex);
+			throw new SQLException(ex.getLocalizedMessage());
+		}
 	}
 	
 	private void refine(Connection con) throws Exception { 
@@ -206,6 +226,19 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 	}
 	public String getUser() {
 		return user;
+	}
+	
+	private Connection wrapNoCloseConnection(Connection con) {
+		return (Connection) java.lang.reflect.Proxy.newProxyInstance(
+			Connection.class.getClassLoader(),
+			new Class[]{Connection.class},
+			(proxy, method, args) -> {
+				if ("close".equals(method.getName())) {
+					return null;
+				}
+				return method.invoke(con, args);
+			}
+		);
 	}
 	
 	public void setDefaultDataSource(String dataSourceName) {

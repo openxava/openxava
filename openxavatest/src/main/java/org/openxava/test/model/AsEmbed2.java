@@ -3,7 +3,7 @@ package org.openxava.test.model;
 import org.openxava.model.*;
 import org.openxava.test.actions.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 
 @Entity

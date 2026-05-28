@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
 import java.nio.file.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.hotswap.agent.annotation.*;
 import org.hotswap.agent.javassist.*;
@@ -197,15 +197,15 @@ public class HotswapPlugin {
     }
     
     private static boolean isPersistentClass(Class clazz) throws ClassNotFoundException {
-        return hasAnnotation(clazz, "javax.persistence.Entity") 
-        	|| hasAnnotation(clazz, "javax.persistence.MappedSuperclass")
-        	|| hasAnnotation(clazz, "javax.persistence.Embeddable");
-    }    
+        return hasAnnotation(clazz, "jakarta.persistence.Entity")
+        	|| hasAnnotation(clazz, "jakarta.persistence.MappedSuperclass")
+        	|| hasAnnotation(clazz, "jakarta.persistence.Embeddable");
+    }
 
     private static boolean isPersistentClass(CtClass ctClass) throws ClassNotFoundException {
-        return hasAnnotation(ctClass, "javax.persistence.Entity") 
-        	|| hasAnnotation(ctClass, "javax.persistence.MappedSuperclass")
-        	|| hasAnnotation(ctClass, "javax.persistence.Embeddable");
+        return hasAnnotation(ctClass, "jakarta.persistence.Entity")
+        	|| hasAnnotation(ctClass, "jakarta.persistence.MappedSuperclass")
+        	|| hasAnnotation(ctClass, "jakarta.persistence.Embeddable");
     }
     
     private static boolean hasAnnotation(AnnotatedElement element, String annotationClassName) throws ClassNotFoundException {
@@ -232,7 +232,7 @@ public class HotswapPlugin {
             int modifiers = field.getModifiers();
 
             // Exclude static fields, transient fields, and fields annotated with @Transient
-            if (Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers) || hasAnnotation(field, "javax.persistence.Transient")) {
+            if (Modifier.isStatic(modifiers) || Modifier.isTransient(modifiers) || hasAnnotation(field, "jakarta.persistence.Transient")) {
                 continue;
             }
 

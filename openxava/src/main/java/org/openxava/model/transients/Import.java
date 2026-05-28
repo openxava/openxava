@@ -2,7 +2,7 @@ package org.openxava.model.transients;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.util.*;

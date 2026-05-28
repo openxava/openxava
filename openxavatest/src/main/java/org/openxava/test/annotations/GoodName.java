@@ -1,7 +1,7 @@
 package org.openxava.test.annotations;
 
 import java.lang.annotation.*;
-import javax.validation.*;
+import jakarta.validation.*;
 import org.openxava.test.validators.constraints.*;
 
 /**

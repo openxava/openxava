@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import org.openxava.model.Identifiable;
 

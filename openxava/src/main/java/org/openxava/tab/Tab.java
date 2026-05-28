@@ -162,7 +162,11 @@ public class Tab implements java.io.Serializable, Cloneable {
 				if (condition.startsWith(" and ")) condition = condition.substring(5);
 			}
 			if (!Is.emptyString(getMetaTab().getDefaultOrder())) {
-				int idx = condition.indexOf(" order by " + getMetaTab().getDefaultOrder());
+				String defaultOrder = getMetaTab().getDefaultOrder();
+				int idx = condition.indexOf(" order by " + defaultOrder);
+				if (idx < 0) {
+					idx = condition.indexOf(" order by " + wrapPropertiesWithCurlyBraces(defaultOrder));
+				}
 				if (idx >= 0) condition = condition.substring(0, idx);					
 			}
 			return condition;
@@ -1060,7 +1064,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		else if (getMetaTab().hasDefaultOrder() && Is.emptyString(groupBy)) { 
 			if (sb.length() == 0) sb.append(" 1=1 ");
 			sb.append(" order by ");								
-			sb.append(getMetaTab().getDefaultOrder()); 
+			sb.append(wrapPropertiesWithCurlyBraces(getMetaTab().getDefaultOrder())); 
 		}		
 		
 		// 
@@ -3274,6 +3278,29 @@ public class Tab implements java.io.Serializable, Cloneable {
 			log.error(XavaResources.getString("error_checking_property_editable", propertyName), e);
 			return false;
 		}
+	}
+
+	private static String wrapPropertiesWithCurlyBraces(String order) {
+		if (Is.emptyString(order)) return order;
+		String[] tokens = order.split(",");
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < tokens.length; i++) {
+			if (i > 0) sb.append(", ");
+			String token = tokens[i].trim();
+			String[] parts = token.split("\\s+");
+			if (parts.length > 0) {
+				String property = parts[0];
+				if (!property.startsWith("${") && !property.contains("(")) {
+					sb.append("${").append(property).append("}");
+				} else {
+					sb.append(property);
+				}
+				if (parts.length > 1) {
+					sb.append(" ").append(parts[1]);
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 }

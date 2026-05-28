@@ -1,7 +1,7 @@
 package org.openxava.test.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 
 import org.openxava.annotations.DefaultValueCalculator;
 import org.openxava.annotations.ReadOnly;
