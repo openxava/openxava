@@ -1,6 +1,6 @@
 package org.openxava.chattest.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
 import lombok.*;

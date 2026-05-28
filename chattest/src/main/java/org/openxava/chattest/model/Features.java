@@ -1,7 +1,7 @@
 package org.openxava.chattest.model;
 
 import java.math.*;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Embeddable @Getter @Setter
