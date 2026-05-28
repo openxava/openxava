@@ -74,7 +74,7 @@
     más comunes que puedes encontrar al migrar tu aplicación.</p>
 
     <p>Puedes consultar la 
-    <a href="https://docs.jboss.org/hibernate/orm/7.0/quickstart/html_single/">guía de 
+    <a href="https://docs.hibernate.org/orm/7.2/migration-guide/">guía de 
     migración oficial de Hibernate</a> para más información.</p>
 
     <h4>Cambio de javax.persistence a jakarta.persistence</h4>
@@ -231,9 +231,7 @@ query.setParameter("paid", true);</code></pre>
     <p>Los tipos personalizados (<i>UserType</i> y <i>CompositeUserType</i>) prácticamente 
     requieren reescribirse para la nueva API de Hibernate 7. Los cambios son profundos e 
     incluyen la eliminación de métodos, cambios en las firmas, y nuevo uso de 
-    <i>@Embeddable</i>. Consulta la 
-    <a href="https://docs.jboss.org/hibernate/orm/7.0/migration_guide/mapping.html#user-type-migration">guía 
-    de migración de tipos de Hibernate</a> para los detalles completos.</p>
+    <i>@Embeddable</i>. Consulta la documentación de Hibernate para los detalles completos.</p>
 
     <p>Para <i>CompositeUserType</i> con múltiples columnas, cambia <i>@Columns</i> por 
     <i>@AttributeOverrides</i>:</p>
@@ -271,7 +269,7 @@ String value = query.getSingleResult().toString();</code></pre>
     cambios en las anotaciones de validación.</p>
 
     <p>Puedes consultar la 
-    <a href="https://docs.jboss.org/hibernate/validator/9.1/reference/en-US/html_single/#migration">guía 
+    <a href="https://docs.hibernate.org/validator/9.1/migration/en-US/html_single/">guía 
     de migración oficial de Hibernate Validator</a> para más información.</p>
 
     <h4>Cambio de javax.validation a jakarta.validation</h4>
