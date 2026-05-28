@@ -23,9 +23,9 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 
 	private static Log log = LogFactory.getLog(CollectionBaseAction.class);
 
-	private List mapValues = null;
-	private List<Map> mapsSelectedValues; 
-	private Map [] selectedKeys; 
+	private List<Map<String, Object>> mapValues = null;
+	private List<Map<String, Object>> mapsSelectedValues; 
+	private Map<String, Object> [] selectedKeys; 
 	private List objects;
 	private List selectedObjects;
 	private int row = -1;  
@@ -38,7 +38,7 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * The values only include the displayed data in the row.<br>
 	 * @return  Of type <tt>Map</tt>. Never null.
 	 */
-	protected List<Map> getMapValues() throws XavaException { 
+	protected List<Map<String, Object>> getMapValues() throws XavaException { 
 		if (mapValues == null) {
 			mapValues = getCollectionElementView().getCollectionValues();
 		}
@@ -56,7 +56,7 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * 
 	 * @return  Of type <tt>Map</tt>. Never null.
 	 */ 
-	protected List<Map> getMapsSelectedValues() throws XavaException {
+	protected List<Map<String, Object>> getMapsSelectedValues() throws XavaException {
 		if (mapsSelectedValues == null) {
 			if (row >= 0) {
 				mapsSelectedValues = Collections.singletonList(getMapValues().get(row)); 	
@@ -105,12 +105,12 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 			else {
 				
 				if (getCollectionElementView().isCollectionFromModel()) {
-					List<Map> selectedValues = getCollectionElementView().getCollectionSelectedValues();
+					List<Map<String, Object>> selectedValues = getCollectionElementView().getCollectionSelectedValues();
 					selectedKeys = new HashMap[selectedValues.size()];
 					MetaModel metaModel = getCollectionElementView().getMetaModel();
 					boolean elementCollection = getCollectionElementView().isRepresentsElementCollection();
 					int i = 0;
-					for (Map values: selectedValues) {
+					for (Map<String, Object> values: selectedValues) {
 						selectedKeys[i++] = elementCollection?values:metaModel.extractKeyValues(values); 
 					}
 				}
