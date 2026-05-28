@@ -2,15 +2,7 @@ Pending things for Hibernate 7.2 / Jakarta Persistence 3.2 (tmr)
 ----------------------------------------------------------------
 
 
-- Actualizar documentación de Hibernate Validator.
-- Actualizar documentación de claves compuestas: three-level-composite-key_en.html
-- ¿Documentación de embers?
-    Mirar que ahora la propiedad es:
-        <property name="org.hibernate.envers.audit_strategy"
-                  value="org.hibernate.envers.strategy.internal.ValidityAuditStrategy"/>
 
-Versiones
-- Jakarta Validator 3.1 con Hibernate Validator 9.1
 
 Migración
 - xmlns en el persistence.xml
