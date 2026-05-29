@@ -2,6 +2,8 @@ package org.openxava.actions;
 
 import java.util.*;
 
+import org.openxava.controller.ModuleManager;
+
 
 
 
@@ -18,18 +20,18 @@ import java.util.*;
 
 public class ResetPreviousControllersAction extends BaseAction {
 	
-	private Stack previousControllers;
+	private Stack<ModuleManager> previousControllers;
 	
 	
 	public void execute() throws Exception {
 		previousControllers.clear();
 	}
 
-	public Stack getPreviousControllers() {
+	public Stack<ModuleManager> getPreviousControllers() {
 		return previousControllers;
 	}
 
-	public void setPreviousControllers(Stack previousControllers) {
+	public void setPreviousControllers(Stack<ModuleManager> previousControllers) {
 		this.previousControllers = previousControllers;
 	}
 

@@ -29,15 +29,15 @@ public class MetaView extends MetaElement implements Cloneable {
 	private String parentName = null; // at momment for use in section
 	private Collection<MetaMember> allMetaMembers; 
 	private Map<String, MetaGroup> metaGroups; 
-	private Map metaProperties;
-	private Collection propertiesNamesThrowOnChange;	
+	private Map<String, MetaProperty> metaProperties;
+	private Collection<String> propertiesNamesThrowOnChange;	
 	private List<MetaView> sections = null; 
 	private Collection<MetaMember> metaMembers; 
-	private Collection _membersNames = new ArrayList(); // Of String
-	private Map metaViewsReferences;
-	private Map metaViewsProperties;
-	private Map metaViewsCollections;
-	private Map metaViewProperties;
+	private Collection<String> _membersNames = new ArrayList<>(); // Of String
+	private Map<String, MetaReferenceView> metaViewsReferences;
+	private Map<String, MetaPropertyView> metaViewsProperties;
+	private Map<String, MetaCollectionView> metaViewsCollections;
+	private Map<String, MetaProperty> metaViewProperties;
 	private MetaSearchAction metaSearchAction;
 		
 	private MetaModel metaModel;
@@ -60,7 +60,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	public void addMetaViewProperty(MetaProperty metaProperty) throws XavaException {
-		if (metaViewProperties == null) metaViewProperties = new HashMap();
+		if (metaViewProperties == null) metaViewProperties = new HashMap<>();
 		metaViewProperties.put(metaProperty.getName(), metaProperty);
 	}
 	
@@ -107,12 +107,12 @@ public class MetaView extends MetaElement implements Cloneable {
 		}
 		catch (ElementNotFoundException ex) {
 			if (metaProperties == null) {
-				metaProperties = new HashMap();
+				metaProperties = new HashMap<>();
 				Iterator it = getAllMetaMembers().iterator(); 
 				while (it.hasNext()) {
 					Object m = it.next();
 					if (m instanceof MetaProperty) {			
-						metaProperties.put(((MetaProperty) m).getName(), m);
+						metaProperties.put(((MetaProperty) m).getName(), (MetaProperty) m);
 					}
 				}
 			}			

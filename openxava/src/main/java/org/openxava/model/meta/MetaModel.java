@@ -32,59 +32,59 @@ abstract public class MetaModel extends MetaElement {
 	private Class pojoKeyClass;
 	private Collection<String> allKeyPropertiesNames; 
 	private Collection<String> allKeyPropertiesNamesOrderedAsInModel; 
-	private List metaCalculatorsPostCreate;
-	private List metaCalculatorsPostLoad;
-	private List metaCalculatorsPostModify;
-	private List metaCalculatorsPreRemove;
+	private List<MetaCalculator> metaCalculatorsPostCreate;
+	private List<MetaCalculator> metaCalculatorsPostLoad;
+	private List<MetaCalculator> metaCalculatorsPostModify;
+	private List<MetaCalculator> metaCalculatorsPreRemove;
 	private List<String> propertiesNamesWithoutHiddenNorTransient;  
 	private String containerReference; 
 	private String containerModelName;
 	private MetaModel metaModelContainer;
-	private Map mapMetaPropertiesView;
-	private Collection metaPropertiesViewWithDefaultCalculator;
-	private Collection metaValidators;
-	private Collection metaValidatorsRemove;
+	private Map<String, MetaProperty> mapMetaPropertiesView;
+	private Collection<MetaProperty> metaPropertiesViewWithDefaultCalculator;
+	private Collection<MetaValidator> metaValidators;
+	private Collection<MetaValidator> metaValidatorsRemove;
 	private MetaComponent metaComponent;
-	private transient Map propertyDescriptors;
-	private Map mapMetaProperties;
-	private Map mapMetaReferences;
-	private Map mapMetaCollections;
-	private Map mapMetaViews;
-	private Map mapMetaMethods;
+	private transient Map<String, PropertyDescriptor> propertyDescriptors;
+	private Map<String, MetaProperty> mapMetaProperties;
+	private Map<String, MetaReference> mapMetaReferences;
+	private Map<String, MetaCollection> mapMetaCollections;
+	private Map<String, MetaView> mapMetaViews;
+	private Map<String, MetaMethod> mapMetaMethods;
 	private Collection<String> membersNames = new ArrayList<String>(); 
-	private Collection calculatedPropertiesNames;
+	private Collection<String> calculatedPropertiesNames;
 	private MetaView metaViewByDefault;
 	private MetaView metaViewOnlyKeys; 
 	private boolean pojoGenerated;
-	private Collection keyReferencesNames; 
+	private Collection<String> keyReferencesNames; 
 	private Collection<String> keyPropertiesNames; 
 	private Collection<String> searchKeyPropertiesNames;
 	
-	private Collection metaPropertiesWithDefaultValueCalculator;
-	private List propertiesNames;
-	private Collection metaPropertiesWithDefaultValueCalcultaorOnCreate;
+	private Collection<MetaProperty> metaPropertiesWithDefaultValueCalculator;
+	private List<String> propertiesNames;
+	private Collection<MetaProperty> metaPropertiesWithDefaultValueCalcultaorOnCreate;
 	
-	private Collection metaFinders;
+	private Collection<MetaFinder> metaFinders;
 
 	private Collection<MetaProperty> metaPropertiesPersistents; 
 
-	private Collection persistentPropertiesNames;
-	private Collection interfaces;
-	private Collection recursiveQualifiedPropertiesNames;
-	private Collection recursiveQualifiedPropertiesNamesUntilSecondLevel;
+	private Collection<String> persistentPropertiesNames;
+	private Collection<String> interfaces;
+	private Collection<String> recursiveQualifiedPropertiesNames;
+	private Collection<String> recursiveQualifiedPropertiesNamesUntilSecondLevel;
 	private Collection<String> recursiveQualifiedPropertiesNamesIncludingCollections;
 	private Collection<String> recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections;
-	private Collection metaReferencesWithDefaultValueCalculator;
+	private Collection<MetaReference> metaReferencesWithDefaultValueCalculator;
 	private String qualifiedName;
 	private boolean hasDefaultCalculatorOnCreate = false;
 	private String pojoClassName;
-	private Collection metaReferencesToEntity;
+	private Collection<MetaReference> metaReferencesToEntity;
 	private boolean annotatedEJB3;
 	private boolean xmlComponent;  
 	private String versionPropertyName; 
 	private boolean versionPropertyNameObtained = false;
-	private Collection metaReferencesKey;
-	private Collection metaReferencesKeyAndSearchKey;
+	private Collection<MetaReference> metaReferencesKey;
+	private Collection<MetaReference> metaReferencesKeyAndSearchKey;
 	private List<MetaProperty> allMetaPropertiesKey; 
 	
 	private interface IKeyTester { 
@@ -184,47 +184,47 @@ abstract public class MetaModel extends MetaElement {
 	
 	
 	public void addMetaFinder(MetaFinder metaFinder) {
-		if (metaFinders == null) metaFinders = new ArrayList();
+		if (metaFinders == null) metaFinders = new ArrayList<>();
 		metaFinders.add(metaFinder);		
 		metaFinder.setMetaModel(this);
 	}
 	
 	public void addMetaMethod(MetaMethod metaMethod) {		
-		if (mapMetaMethods == null) mapMetaMethods = new HashMap();
+		if (mapMetaMethods == null) mapMetaMethods = new HashMap<>();
 		mapMetaMethods.put(metaMethod.getName(), metaMethod);
 	}
 	
 	public void addMetaCalculatorPostCreate(MetaCalculator metaCalculator) {		
-		if (metaCalculatorsPostCreate == null) metaCalculatorsPostCreate = new ArrayList();		
+		if (metaCalculatorsPostCreate == null) metaCalculatorsPostCreate = new ArrayList<>();		
 		metaCalculatorsPostCreate.add(metaCalculator);
 		someModelHasPostCreateCalculator = true;
 	}
 	
 	public void addMetaCalculatorPostLoad(MetaCalculator metaCalculator) {		
-		if (metaCalculatorsPostLoad == null) metaCalculatorsPostLoad = new ArrayList();		
+		if (metaCalculatorsPostLoad == null) metaCalculatorsPostLoad = new ArrayList<>();		
 		metaCalculatorsPostLoad.add(metaCalculator);
 		someModelHasPostLoadCalculator = true;
 	}
 		
 	public void addMetaCalculatorPostModify(MetaCalculator metaCalculator) {		
-		if (metaCalculatorsPostModify == null) metaCalculatorsPostModify = new ArrayList();		
+		if (metaCalculatorsPostModify == null) metaCalculatorsPostModify = new ArrayList<>();		
 		metaCalculatorsPostModify.add(metaCalculator);
 		someModelHasPostModifyCalculator = true;
 	}
 	
 	public void addMetaCalculatorPreRemove(MetaCalculator metaCalculator) {		
-		if (metaCalculatorsPreRemove == null) metaCalculatorsPreRemove = new ArrayList();		
+		if (metaCalculatorsPreRemove == null) metaCalculatorsPreRemove = new ArrayList<>();		
 		metaCalculatorsPreRemove.add(metaCalculator);
 		someModelHasPreRemoveCalculator = true;
 	}
 				
 	public void addMetaValidator(MetaValidator metaValidator) {
-		if (metaValidators == null) metaValidators = new ArrayList();
+		if (metaValidators == null) metaValidators = new ArrayList<>();
 		metaValidators.add(metaValidator);				
 	}
 	
 	public void addMetaValidatorRemove(MetaValidator metaValidator) {
-		if (metaValidatorsRemove == null) metaValidatorsRemove = new ArrayList();
+		if (metaValidatorsRemove == null) metaValidatorsRemove = new ArrayList<>();
 		metaValidatorsRemove.add(metaValidator);				
 	}	
 	
@@ -377,7 +377,7 @@ abstract public class MetaModel extends MetaElement {
 			try {
 				BeanInfo info = Introspector.getBeanInfo(getPropertiesClass());
 				PropertyDescriptor[] pds = info.getPropertyDescriptors();
-				propertyDescriptors = new HashMap();
+				propertyDescriptors = new HashMap<>();
 				for (int i = 0; i < pds.length; i++) {
 					propertyDescriptors.put(pds[i].getName(), pds[i]);
 				}
@@ -422,14 +422,14 @@ abstract public class MetaModel extends MetaElement {
 		
 	private Map getMapMetaProperties() {
 		if (mapMetaProperties == null) {
-			mapMetaProperties = new HashMap();
+			mapMetaProperties = new HashMap<>();
 		}
 		return mapMetaProperties;
 	}
 	
 	private Map getMapMetaViews() {
 		if (mapMetaViews == null) {
-			mapMetaViews = new HashMap();
+			mapMetaViews = new HashMap<>();
 		}
 		return mapMetaViews;
 	}
@@ -471,7 +471,7 @@ abstract public class MetaModel extends MetaElement {
 	
 	private Map getMapMetaReferences() {
 		if (mapMetaReferences == null) {
-			mapMetaReferences = new HashMap();
+			mapMetaReferences = new HashMap<>();
 		}
 		return mapMetaReferences;
 	}
@@ -513,7 +513,7 @@ abstract public class MetaModel extends MetaElement {
 		
 	private Map getMapMetaCollections() {
 		if (mapMetaCollections == null) {
-			mapMetaCollections = new HashMap();
+			mapMetaCollections = new HashMap<>();
 		}
 		return mapMetaCollections;
 	}
@@ -556,12 +556,12 @@ abstract public class MetaModel extends MetaElement {
 	public List getPropertiesNames() {
 		// We obtain it from memberNames to keep order 
 		if (propertiesNames == null) {
-			List result = new ArrayList();
+			List<String> result = new ArrayList<>();
 			Iterator it = getMembersNames().iterator();
 			while (it.hasNext()) {
 				Object name = it.next();
 				if (getMapMetaProperties().containsKey(name)) {
-					result.add(name);
+					result.add((String) name);
 				}
 			}		
 			propertiesNames = Collections.unmodifiableList(result);
@@ -574,7 +574,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getReferencesNames() {
 		// We wrap it inside array for make it serializable		
-		return Collections.unmodifiableCollection(new ArrayList(getMapMetaReferences().keySet()));
+		return Collections.unmodifiableCollection(new ArrayList<>(getMapMetaReferences().keySet()));
 	}
 	
 	/**
@@ -582,12 +582,12 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getColectionsNames() {
 		// We wrap it inside array for make it serializable		
-		return Collections.unmodifiableCollection(new ArrayList(getMapMetaCollections().keySet()));
+		return Collections.unmodifiableCollection(new ArrayList<>(getMapMetaCollections().keySet()));
 	}
 
 	public Collection getEntityReferencesNames() throws XavaException {
 		Iterator it = getMapMetaReferences().values().iterator();
-		ArrayList result = new ArrayList();
+		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
 			MetaReference r = (MetaReference) it.next();
 			if (!r.isAggregate()) {
@@ -599,7 +599,7 @@ abstract public class MetaModel extends MetaElement {
 	
 	public Collection getAggregateReferencesNames() throws XavaException {
 		Iterator it = getMapMetaReferences().values().iterator();
-		ArrayList result = new ArrayList();
+		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
 			MetaReference r = (MetaReference) it.next();
 			if (r.isAggregate()) {
@@ -615,7 +615,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getMetaCollectionsAgregate() throws XavaException {
 		Iterator it = getMapMetaCollections().values().iterator();
-		ArrayList result = new ArrayList();
+		ArrayList<MetaCollection> result = new ArrayList<>();
 		while (it.hasNext()) {
 			MetaCollection c = (MetaCollection) it.next();
 			if (c.getMetaReference().isAggregate()) {
@@ -630,7 +630,7 @@ abstract public class MetaModel extends MetaElement {
 	 */
 	public Collection getRequiredPropertiesNames() throws XavaException {
 		Iterator it = getMetaProperties().iterator();
-		ArrayList result = new ArrayList();
+		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
 			MetaProperty p = (MetaProperty) it.next();
 			if (p.isRequired()) {
@@ -1287,7 +1287,7 @@ abstract public class MetaModel extends MetaElement {
 	
 	private Map extractKeyValues(IKeyTester keyTester, Map values, boolean flattenEmbeddedIds) throws XavaException { 
 		Iterator it = values.keySet().iterator();
-		Map result = new HashMap();
+		Map<String, Object> result = new HashMap<>();
 		while (it.hasNext()) {
 			String name = (String) it.next();
 			if (isKey(keyTester, name)) {
@@ -1297,7 +1297,7 @@ abstract public class MetaModel extends MetaElement {
 							return (Map) values.get(name);
 						}
 						else {
-							Map embeddedId = new HashMap();
+							Map<String, Object> embeddedId = new HashMap<>();
 							embeddedId.put(name, values.get(name));
 							return embeddedId;
 						}
@@ -1442,7 +1442,7 @@ abstract public class MetaModel extends MetaElement {
 	
 	private Map getMapMetaPropertiesView() {
 		if (mapMetaPropertiesView == null) {
-			mapMetaPropertiesView = new HashMap();		
+			mapMetaPropertiesView = new HashMap<>();		
 			Iterator it = getMapMetaViews().values().iterator();
 			while (it.hasNext()) {
 				MetaView view = (MetaView) it.next();
@@ -1614,11 +1614,11 @@ abstract public class MetaModel extends MetaElement {
 	}
 		
 	private Map toMap(Object modelObject, boolean onlyKey) throws XavaException { 
-		if (modelObject == null) return new HashMap(); 
+		if (modelObject == null) return new HashMap<>(); 
 		
 		try {
 			PropertiesManager pm = new PropertiesManager(modelObject);
-			Map values = new HashMap();
+			Map<String, Object> values = new HashMap<>();
 			for (Iterator it = getMetaProperties().iterator(); it.hasNext();) {
 				MetaProperty property = (MetaProperty) it.next();
 				if (!onlyKey || property.isKey()) {

@@ -28,17 +28,17 @@ public class MetaEditor implements Cloneable {
 	private String propertiesURL;
 	private String name; 
 	private java.lang.String url;	
-	private Map properties;
-	private Collection stereotypesIDepend;
-	private Collection propertiesIDepend;
+	private Map<String, String> properties;
+	private Collection<String> stereotypesIDepend;
+	private Collection<String> propertiesIDepend;
 	private String formatterClassName;
-	private Collection formatterMetaSets;
+	private Collection<MetaSet> formatterMetaSets;
 	private boolean format = true;
 	private boolean frame = false;
 	private boolean alwaysReload = false; 
 	private boolean composite = false; 
 	private String listFormatterClassName;
-	private Collection listFormatterMetaSet;
+	private Collection<MetaSet> listFormatterMetaSet;
 	private Object listFormatter; 
 	private String icon; 
 	private String initAction; 
@@ -50,12 +50,12 @@ public class MetaEditor implements Cloneable {
 	private Set<String> stereotypeSet;
 
 	public void _addListFormatterMetaSet(MetaSet metaSet) {
-		if (listFormatterMetaSet == null) listFormatterMetaSet = new ArrayList();
+		if (listFormatterMetaSet == null) listFormatterMetaSet = new ArrayList<>();
 		listFormatterMetaSet.add(metaSet);
 	}
 	
 	public void _addFormatterMetaSet(MetaSet metaSet) {
-		if (formatterMetaSets == null) formatterMetaSets = new ArrayList();
+		if (formatterMetaSets == null) formatterMetaSets = new ArrayList<>();
 		formatterMetaSets.add(metaSet);
 	}
 	
@@ -68,7 +68,7 @@ public class MetaEditor implements Cloneable {
 	}
 
 	public void addProperty(String name, String value) {
-		if (properties == null) properties = new HashMap();
+		if (properties == null) properties = new HashMap<>();
 		properties.put(name, value);
 		propertiesURL = null;		
 	}
@@ -83,7 +83,7 @@ public class MetaEditor implements Cloneable {
 	}
 	
 	/** @since 7.7 */
-	public Map getProperties() {
+	public Map<String, String> getProperties() {
 		return properties;
 	}
 	
@@ -91,7 +91,7 @@ public class MetaEditor implements Cloneable {
 	public MetaEditor cloneMetaEditor()  { 
 		try {
 			MetaEditor r = (MetaEditor) clone();
-			if (properties != null) r.properties = new HashMap(properties);
+			if (properties != null) r.properties = new HashMap<>(properties);
 			return r;
 		} catch (CloneNotSupportedException e) {
 			return null; // Never
@@ -128,7 +128,7 @@ public class MetaEditor implements Cloneable {
 	public void setDependsStereotypes(String stereotypes) {
 		if (stereotypes == null) return;
 		StringTokenizer st = new StringTokenizer(stereotypes, ",");
-		stereotypesIDepend = new ArrayList();
+		stereotypesIDepend = new ArrayList<>();
 		while (st.hasMoreTokens()) {
 			stereotypesIDepend.add(st.nextToken().trim());			
 		}
@@ -137,7 +137,7 @@ public class MetaEditor implements Cloneable {
 	public void setDependsProperties(String properties) {				
 		if (properties == null) return;
 		StringTokenizer st = new StringTokenizer(properties, ",");
-		propertiesIDepend = new ArrayList();
+		propertiesIDepend = new ArrayList<>();
 		while (st.hasMoreTokens()) {
 			propertiesIDepend.add(st.nextToken().trim());			
 		}
@@ -199,14 +199,14 @@ public class MetaEditor implements Cloneable {
 	 * @throws XavaException For example, if className is empty string
 	 */
 	
-	private Object getFormatterObject(String className, Collection metaSets) throws XavaException{
+	private Object getFormatterObject(String className, Collection<MetaSet> metaSets) throws XavaException{
 		if (formatter == null) {
 			formatter = createFormatterObject(className, metaSets);
 		}
 		return formatter;
 	}
 
-	private Object createFormatterObject(String className, Collection metaSets) { 
+	private Object createFormatterObject(String className, Collection<MetaSet> metaSets) { 
 		if (Is.emptyString(className)) {
 			throw new XavaException("no_formatter_class_error");
 		}

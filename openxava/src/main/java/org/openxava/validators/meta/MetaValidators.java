@@ -14,10 +14,10 @@ public class MetaValidators {
 
 	private static Log log = LogFactory.getLog(MetaValidators.class);
 	
-	private static Collection primitiveTypes;
-	private static Map metaValidators;
-	private static Map metaValidatorsRequired;
-	private static Map metaValidatorsDefault;
+	private static Collection<String> primitiveTypes;
+	private static Map<String, MetaValidator> metaValidators;
+	private static Map<String, MetaValidatorFor> metaValidatorsRequired;
+	private static Map<String, MetaValidatorFor> metaValidatorsDefault;
 	
 	public static void _addMetaValidator(MetaValidator newMetaValidator) throws XavaException {
 		if (metaValidators == null) {

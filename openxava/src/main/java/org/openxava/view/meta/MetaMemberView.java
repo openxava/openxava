@@ -15,8 +15,8 @@ import java.util.*;
 
 public class MetaMemberView {
 	
-	private Collection actionsNames;
-	private Collection alwaysEnabledActionsNames;
+	private Collection<String> actionsNames;
+	private Collection<String> alwaysEnabledActionsNames;
 	private String editor;
 	private String searchListCondition;
 	private boolean collapsed;
@@ -25,18 +25,18 @@ public class MetaMemberView {
 	
 	
 	public void addActionName(String actionName) {
-		if (actionsNames == null) actionsNames = new ArrayList();
+		if (actionsNames == null) actionsNames = new ArrayList<>();
 		actionsNames.add(actionName);
 	}
-	public Collection getActionsNames() {		
+	public Collection<String> getActionsNames() {		
 		return actionsNames==null?Collections.EMPTY_LIST:actionsNames;
 	}
 	
 	public void addAlwaysEnabledActionName(String actionName) {
-		if (alwaysEnabledActionsNames == null) alwaysEnabledActionsNames = new ArrayList();
+		if (alwaysEnabledActionsNames == null) alwaysEnabledActionsNames = new ArrayList<>();
 		alwaysEnabledActionsNames.add(actionName);
 	}
-	public Collection getAlwaysEnabledActionsNames() {		
+	public Collection<String> getAlwaysEnabledActionsNames() {		
 		return alwaysEnabledActionsNames==null?Collections.EMPTY_LIST:alwaysEnabledActionsNames;
 	}
 	public String getEditor() {

@@ -58,8 +58,8 @@ abstract public class ModuleTestBase extends TestCase {
 	private static String host;
 	private static String port;
 	private static int loginFormIndex = -1;
-	private static Collection excludedActions;  
-	private static Collection ignoredActions;
+	private static Collection<String> excludedActions;  
+	private static Collection<String> ignoredActions;
 	private static Map<String, BrowserVersion> defaultBrowserVersions = new HashMap<>(); 
 	private static WebClient utilClient; 
 	
@@ -1310,9 +1310,9 @@ abstract public class ModuleTestBase extends TestCase {
 		return actions;				
 	}
 			
-	private static Collection getExcludedActions() { 
+	private static Collection<String> getExcludedActions() { 
 		if (excludedActions == null) {
-			excludedActions = new ArrayList();
+			excludedActions = new ArrayList<>();
 			// The next actions are always available since 5.2. We do this to avoid migration work for developers
 			excludedActions.add("List.moveColumnToRight");
 			excludedActions.add("List.moveColumnToLeft");
@@ -1323,9 +1323,9 @@ abstract public class ModuleTestBase extends TestCase {
 		return excludedActions;
 	}
 	
-	private static Collection getIgnoredActions() { 
+	private static Collection<String> getIgnoredActions() { 
 		if (ignoredActions == null) {
-			ignoredActions = new ArrayList();
+			ignoredActions = new ArrayList<>();
 			// The next actions is no longer available since 5.2. We do this to avoid migration work for developers
 			ignoredActions.add("List.customize");
 		}

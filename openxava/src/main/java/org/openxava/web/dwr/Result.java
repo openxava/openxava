@@ -9,9 +9,9 @@ import java.util.*;
 
 public class Result {
 	
-	private Map changedParts;
-	private Map strokeActions;
-	private Map selectedRows; 
+	private Map<String, Object> changedParts;
+	private Map<String, Object> strokeActions;
+	private Map<String, int[]> selectedRows; 
 	private String forwardURL;
 	private boolean forwardInNewWindow;
 	private String[] forwardURLs; 

@@ -14,7 +14,7 @@ import org.openxava.util.*;
 
 class TabConverter implements java.io.Serializable {
 	
-	private Map cmpFields;
+	private Map<CmpField, Integer> cmpFields;
 	private int index;
 	private String propertyName;
 	private IConverter converter;

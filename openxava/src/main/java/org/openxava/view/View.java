@@ -28,6 +28,7 @@ import org.openxava.util.*;
 import org.openxava.util.Strings;
 import org.openxava.util.meta.*;
 import org.openxava.view.meta.*;
+import org.openxava.tab.meta.*;
 import org.openxava.web.*;
 import org.openxava.web.DescriptionsLists;
 import org.openxava.web.meta.*;
@@ -145,7 +146,7 @@ public class View implements java.io.Serializable {
 	private transient Collection<MetaProperty> alreadyCalculatedMetaProperties;  
 	private Tab collectionTab; 	
 	private String propertiesListNames;
-	private Collection rowStyles; // Of type MetaRowStyle
+	private Collection<MetaRowStyle> rowStyles; // Of type MetaRowStyle
 	private Map<String, Object> oldValues; 
 	private boolean mustRefreshCollection; 
 	private Map<String, String> changedPropertiesActionsAndReferencesWithNotCompositeEditor;

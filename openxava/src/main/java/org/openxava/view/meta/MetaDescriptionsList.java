@@ -18,7 +18,7 @@ public class MetaDescriptionsList implements java.io.Serializable {
 	private String order;
 	private boolean orderByKey;
 	private boolean showReferenceView; 
-	private Collection dependsNames;
+	private Collection<String> dependsNames;
 	private Integer labelFormat; 
 	private String forTabs;
 	private String notForTabs;
@@ -70,10 +70,10 @@ public class MetaDescriptionsList implements java.io.Serializable {
 		return getDependsNames().contains(p.getName());		
 	}
 
-	private Collection getDependsNames() {
+	private Collection<String> getDependsNames() {
 		if (dependsNames == null) {
 			if (Is.emptyString(getDepends())) return Collections.EMPTY_LIST;
-			dependsNames = new ArrayList();
+			dependsNames = new ArrayList<>();
 			StringTokenizer st = new StringTokenizer(getDepends(), ",;");
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();

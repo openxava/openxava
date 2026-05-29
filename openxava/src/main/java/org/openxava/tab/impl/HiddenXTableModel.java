@@ -33,7 +33,7 @@ public class HiddenXTableModel extends XTableModelDecoratorBase {
 		super(toDecorate);
 		// assert(toDecorate);
 		int nc = toDecorate.getColumnCount();
-		Vector original = new Vector();
+		Vector<Integer> original = new Vector<>();
 		int i;
 		// put the original indexes
 		for (i=0; i<nc; i++) {

@@ -26,15 +26,15 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	
 	private final static int STILL_NO_OBTAINED = -1;
 	private int totalSize = STILL_NO_OBTAINED;
-	private Vector listeners;
+	private Vector<TableModelListener> listeners;
 	private IEntityTabImpl entityTab;
 	private String[] columnsClasses;
 	private String[] heading = new String[0];
 	private int[] indexesPK = { 0 };
-	private List propertiesNames; 
+	private List<String> propertiesNames; 
 	boolean allLoaded;
 
-	private Vector data;
+	private Vector<Object> data;
 
 	// rowCount always has one more that really loaded,
 	// thus when the last is try to load the deman more.
