@@ -149,7 +149,7 @@ public class View implements java.io.Serializable {
 	private Collection<MetaRowStyle> rowStyles; // Of type MetaRowStyle
 	private Map<String, Object> oldValues; 
 	private boolean mustRefreshCollection; 
-	private Map<String, String> changedPropertiesActionsAndReferencesWithNotCompositeEditor;
+	private Map<String, View> changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	private Map<String, String> changedLabels; 
 	private boolean sectionChanged;
 	private boolean reloadNeeded;
@@ -6199,7 +6199,7 @@ public class View implements java.io.Serializable {
 	 */
 	public Map<String, View> getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {
 		if (changedPropertiesActionsAndReferencesWithNotCompositeEditor == null) {
-			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap<String, View>();
+			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap<>();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
