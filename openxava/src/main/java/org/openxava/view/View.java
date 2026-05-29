@@ -1899,7 +1899,9 @@ public class View implements java.io.Serializable {
 						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
 						mapReturnValues = MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
 					}
-					collectionValues = (List<Map<String, Object>>) mapReturnValues.get(getMemberName());
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> values = (List<Map<String, Object>>) mapReturnValues.get(getMemberName());
+					collectionValues = values;
 				}
 				catch (ObjectNotFoundException ex) { // New one is creating
 					collectionValues = Collections.emptyList();
@@ -2168,7 +2170,9 @@ public class View implements java.io.Serializable {
 			boolean collectionFromModel = isCollectionFromModel();
 			Collection<String> sumProperties = (Collection<String>) (collectionFromModel?getSumProperties():getCollectionTab().getSumPropertiesNames());
 			if (!sumProperties.isEmpty()) {
-				totalProperties = (Map<String, List<String>>) (Map<?, ?>) Maps.recursiveCloneWithCollections(totalProperties);
+				@SuppressWarnings("unchecked")
+				Map<String, List<String>> cloned = (Map<String, List<String>>) (Map<?, ?>) Maps.recursiveCloneWithCollections(totalProperties);
+				totalProperties = cloned;
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (sumProperties.contains(p.getName())) {
 						List<String> properties = totalProperties.get(p.getName());

@@ -1,4 +1,21 @@
 Pending: Warning with Java 17 TMR
 ---------------------------------
 
+TMR ME QUEDÉ QUITANDO TODOS LOS WARNINGS DE View
+
+Debería quitar los warnings de View, porque quedan poco. Sin embargo, debería
+considerar no quitar todos los warnings de openxava y asumir que compila con warnings,
+porque el trabajo es monumental, incluso con IA, y no añade mucho valor.
+
+Pero ya que le he incado el diente podría parametrizar las colecciones de los métodos
+públicos de las clases más utilizadas, como:
+- MapFacade.
+- View. (YA ESTÁ)
+- Tab.
+- ¿BaseAction?
+
+Pero solo los públicos, y los protegidos para las clases bases. No hacer los meta o
+las clases de implementación.
+
+Sí que podría quitar los warning de openxavatest.
 
