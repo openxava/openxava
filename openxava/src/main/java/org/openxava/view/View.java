@@ -533,7 +533,7 @@ public class View implements java.io.Serializable {
 	 * is not changed. If you wish change displayed data
 	 * you have to use <code>setValues</code> or <code>setValue</code>.<br>
 	 */
-	public Map getValues() throws XavaException {
+	public Map<String, Object> getValues() throws XavaException {
 		return Maps.recursiveClone(getValues(false));
 	}
 
@@ -1754,11 +1754,11 @@ public class View implements java.io.Serializable {
 	}
 	
 	private Map<String, Object> createElementCollectionMembersNames() { 
-		Map<String, String> membersNames = new HashMap<String, String>();
+		Map<String, Object> membersNames = new HashMap<>();
 		for (MetaProperty p: getMetaPropertiesList()) {
 			membersNames.put(p.getName(), null);
 		}
-		return Maps.plainToTree((Map<String, Object>) (Map<?, ?>) membersNames);
+		return Maps.plainToTree(membersNames);
 	}
 
 	/**
@@ -1896,7 +1896,7 @@ public class View implements java.io.Serializable {
 						if (oParentObject == null) {
 							oParentObject = getParent().getMetaModel().getPOJOClass().newInstance();
 						}
-						getParent().getMetaModel().fillPOJO(oParentObject, (Map<String, Object>) getParent().getValues());
+						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
 						mapReturnValues = MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
 					}
 					collectionValues = (List<Map<String, Object>>) mapReturnValues.get(getMemberName());

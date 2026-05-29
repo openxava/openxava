@@ -104,15 +104,17 @@ public class Maps {
 	}
 	
 	/**
-	 * Does a recursive clone of map. <p>
+	 * Does a recursive clone of map with type safety. <p>
 	 * 
 	 * A recursive clone means that if some value is a map itself this method is
-	 * applied to it. 
+	 * applied to it.
+	 *
+	 * Since v8.0 it uses Map<String, Object> origin instead of Map.
 	 * 
-	 * @return <tt>instanceof  origen.getClass()</tt>
+	 * @return <tt>Map<String, Object></tt>
 	 * @param origin Cannot be null.  
 	 */
-	public static Map recursiveClone(Map origin) {
+	public static Map<String, Object> recursiveClone(Map<String, Object> origin) {
 		return recursiveClone(origin, true);
 	}
 	
