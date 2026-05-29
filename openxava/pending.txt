@@ -1,19 +1,4 @@
 Pending: Warning with Java 17 TMR
 ---------------------------------
 
-Quitar doble cast en View:
-
-
-(Iterator<MetaAction>) (Iterator) (Iterable) controller.getAllMetaActions().iterator()
-
-(Iterator<String>) (Iterator) (Iterable) mapping.getOverlappingPropertiesOfReference(getMemberName()).iterator()
-
-(Map<String, Object>) (Map) MapFacade.getValues
-(Map<String, Object>) (Map) MapFacade.getValuesByAnyProperty
-
-(Map<String, Object>[]) (Object[]) getCollectionTab().getAllKeys()
-(Map<String, Object>[]) (Object[]) getCollectionTab().getSelectedKeys()
-
-(Collection<MetaProperty>) (Collection) getMetaModel().getMetaPropertiesViewWithDefaultCalculator();
-
 
