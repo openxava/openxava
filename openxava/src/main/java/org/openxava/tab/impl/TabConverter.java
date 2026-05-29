@@ -39,7 +39,7 @@ class TabConverter implements java.io.Serializable {
 		while (it.hasNext()) {
 			CmpField field =  (CmpField) it.next();
 			int cmpIndex = columnsList.indexOf(table + "." + field.getColumn());
-			this.cmpFields.put(field, new Integer(cmpIndex));
+			this.cmpFields.put(field, Integer.valueOf(cmpIndex));
 		}		 
 	}
 		

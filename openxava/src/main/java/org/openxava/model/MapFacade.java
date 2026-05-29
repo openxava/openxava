@@ -142,6 +142,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
+	@Deprecated
 	public static Object createAggregate(String modelName, Map containerKey, int counter, Map values) 
 		throws
 			CreateException,ValidationException,
@@ -203,6 +204,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
+	@Deprecated
 	public static Object createAggregate(String modelName, Object container, int counter, Map values) 
 		throws
 			CreateException,ValidationException,
@@ -316,6 +318,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
+	@Deprecated
 	public static Map createAggregateReturningKey(String modelName, Map containerKey, int counter, Map values) 
 		throws
 			CreateException,ValidationException, 

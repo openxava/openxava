@@ -65,7 +65,7 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 			if(getCollectionElementView().getCollectionSize() - elementsToRemove < minimum) {
 				Messages errors = new Messages();
 				String elements = XavaResources.getString(minimum == 1?"element":"elements");
-				errors.add("minimum_elements", new Integer(minimum), "'" + elements + "'",	metaCollection.getName(), metaCollection.getMetaModel().getName());
+				errors.add("minimum_elements", Integer.valueOf(minimum), "'" + elements + "'",	metaCollection.getName(), metaCollection.getMetaModel().getName());
 				throw new ValidationException(errors);
 			}
 		}
@@ -77,7 +77,7 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		if(maximum > 0) { 
 			if(getCollectionElementView().getCollectionSize() + elementsToAdd > maximum) {
 				Messages errors = new Messages();
-				errors.add("maximum_elements", new Integer(maximum), metaCollection.getName(), metaCollection.getMetaModel().getName());
+				errors.add("maximum_elements", Integer.valueOf(maximum), metaCollection.getName(), metaCollection.getMetaModel().getName());
 				throw new ValidationException(errors);
 			}	
 		}

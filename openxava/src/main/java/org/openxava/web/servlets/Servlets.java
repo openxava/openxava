@@ -159,7 +159,7 @@ public class Servlets {
 		public List bytes = new ArrayList();
 
 		public void write(int b) throws IOException {
-			bytes.add(new Integer(b));		
+			bytes.add(Integer.valueOf(b));		
 		}
 			
 		public InputStream getInputStream() {

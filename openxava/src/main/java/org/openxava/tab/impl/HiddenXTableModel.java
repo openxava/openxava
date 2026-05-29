@@ -37,12 +37,12 @@ public class HiddenXTableModel extends XTableModelDecoratorBase {
 		int i;
 		// put the original indexes
 		for (i=0; i<nc; i++) {
-		  original.add(new Integer(i));
+		  original.add(Integer.valueOf(i));
 		}
 		// remove the hidden ones, if apply
 		if (hiddenIndexes != null) {
 		  for (i=0; i<hiddenIndexes.length; i++) {
-			original.remove(new Integer(hiddenIndexes[i]));
+			original.remove(Integer.valueOf(hiddenIndexes[i]));
 		  }
 		}
 		// Init columnCount and indexes

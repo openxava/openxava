@@ -14,8 +14,8 @@ import org.openxava.util.*;
 public class NotZeroValidator implements IPropertyValidator, IWithMessage {
 
 	private static BigDecimal ZERO_BIGDECIMAL = new BigDecimal("0");
-	private static Double ZERO_DOUBLE = new Double("0");
-	private static Float ZERO_FLOAT = new Float("0");
+	private static Double ZERO_DOUBLE = Double.valueOf("0");
+	private static Float ZERO_FLOAT = Float.valueOf("0");
 
 	private String message = "not_zero";
 	

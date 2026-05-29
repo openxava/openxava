@@ -28,7 +28,7 @@ public class NextLongCalculator implements IJDBCCalculator {
 	}
 
 	public Object calculate() throws Exception {					
-		return new Long(calculateNextLong());
+		return Long.valueOf(calculateNextLong());
 	}
 
 	public long calculateNextLong()

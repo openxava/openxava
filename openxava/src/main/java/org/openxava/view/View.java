@@ -2468,11 +2468,12 @@ public class View implements java.io.Serializable {
 	
 	/**
 	 * If the collection represents by this view is calculated. <p>
-	 * 
+	 *
 	 * In order to call this method <b>this view must represents a collection</b>.<p>
-	 * 
-	 * @deprecated  Since 5.3, use isCollectionFromModel() instead. 
+	 *
+	 * @deprecated  Since 5.3, use isCollectionFromModel() instead.
 	 */
+	@Deprecated
 	public boolean isCollectionCalculated() throws XavaException {
 		assertRepresentsCollection("isCollectionCalculated()");
 		return isCollectionFromModel(); // Not the most exact but the most practical, 

@@ -534,12 +534,12 @@ public class Strings {
 	  	
 	  	if (type.equals(Integer.TYPE) || type.equals(Integer.class)) {
 	  		try {
-		  		if (Is.emptyString(string)) return new Integer(0);
-		  		return new Integer(string.trim());
+		  		if (Is.emptyString(string)) return Integer.valueOf(0);
+		  		return Integer.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {	  			
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Integer(0);
+	  			return Integer.valueOf(0);
 	  		}
 	  	}
 	  	
@@ -556,56 +556,56 @@ public class Strings {
 	  	
 	  	if (type.equals(Double.TYPE) || type.equals(Double.class)) {
 	  		try {	  		
-		  		if (Is.emptyString(string)) return new Double(0);
-		  		return new Double(string.trim());
+		  		if (Is.emptyString(string)) return Double.valueOf(0);
+		  		return Double.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Double(0);
+	  			return Double.valueOf(0);
 	  		}		  				  		
 	  	}
 	  	
 	  	if (type.equals(Long.TYPE) || type.equals(Long.class)) {
 	  		try {	  		
-		  		if (Is.emptyString(string)) return new Long(0);
-		  		return new Long(string.trim());
+		  		if (Is.emptyString(string)) return Long.valueOf(0);
+		  		return Long.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Long(0);
+	  			return Long.valueOf(0);
 	  		}		  				  		
 	  	}
 	  	
 	  	if (type.equals(Float.TYPE) || type.equals(Float.class)) {
 	  		try {	  		
-		  		if (Is.emptyString(string)) return new Float(0);
-		  		return new Float(string.trim());
+		  		if (Is.emptyString(string)) return Float.valueOf(0);
+		  		return Float.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Float(0);
+	  			return Float.valueOf(0);
 	  		}		  				  		
 	  	}
 	  	
 	  	if (type.equals(Short.TYPE) || type.equals(Short.class)) {
 	  		try {	  		
-		  		if (Is.emptyString(string)) return new Short((short)0);
-		  		return new Short(string.trim());
+		  		if (Is.emptyString(string)) return Short.valueOf((short)0);
+		  		return Short.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Short((short)0);
+	  			return Short.valueOf((short)0);
 	  		}		  				  		
 	  	}
 	  	
 	  	if (type.equals(Byte.TYPE) || type.equals(Byte.class)) {
 	  		try {	  		
-		  		if (Is.emptyString(string)) return new Byte((byte)0);
-		  		return new Byte(string.trim());
+		  		if (Is.emptyString(string)) return Byte.valueOf((byte)0);
+		  		return Byte.valueOf(string.trim());
 	  		}
 	  		catch (NumberFormatException ex) {
 	  			log.warn(XavaResources.getString("string_convesion_zero_assumed_warning", string, type),ex);				  			
-	  			return new Byte((byte)0);
+	  			return Byte.valueOf((byte)0);
 	  		}		  				  		
 	  	}
 	  	

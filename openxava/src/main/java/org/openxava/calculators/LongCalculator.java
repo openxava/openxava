@@ -13,7 +13,7 @@ public class LongCalculator implements ICalculator {
 	
 
 	public Object calculate() throws Exception {
-		return new Long(value);
+		return Long.valueOf(value);
 	}
 
 	public long getValue() {

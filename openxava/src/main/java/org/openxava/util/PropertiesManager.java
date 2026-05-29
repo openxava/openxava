@@ -295,25 +295,25 @@ public class PropertiesManager implements java.io.Serializable {
 
 	private Object nullToDefaultValue(Class type) {
 		if (type.equals(java.lang.Integer.TYPE)) {
-			return new Integer(0);
+			return Integer.valueOf(0);
 		}
 		else if (type.equals(java.lang.Long.TYPE)) {
-			return new Long(0);
+			return Long.valueOf(0);
 		}
 		else if (type.equals(java.lang.Short.TYPE)) {
-			return new Short((short) 0);
+			return Short.valueOf((short) 0);
 		}
 		else if (type.equals(java.lang.Boolean.TYPE)) {
 			return Boolean.FALSE;
 		}
 		else if (type.equals(java.lang.Double.TYPE)) {
-			return new Double(0);
+			return Double.valueOf(0);
 		}
 		else if (type.equals(java.lang.Float.TYPE)) {
-			return new Float(0);
+			return Float.valueOf(0);
 		}
 		else if (type.equals(java.lang.Byte.TYPE)) {
-			return new Byte((byte) 0);
+			return Byte.valueOf((byte) 0);
 		}
 		return null;
 	}
@@ -530,43 +530,43 @@ public class PropertiesManager implements java.io.Serializable {
 		if (!(o instanceof Number)) return null;
 		Number value = (Number) o;		
 		if (type.equals(int.class)) {
-			return new Integer(value.intValue());
+			return Integer.valueOf(value.intValue());
 		}
 		else if (type.equals(Integer.class)) {
-			return new Integer(value.intValue());
+			return Integer.valueOf(value.intValue());
 		}
 		else if (type.equals(long.class)) {
-			return new Long(value.longValue());
+			return Long.valueOf(value.longValue());
 		}
 		else if (type.equals(Long.class)) {
-			return new Long(value.longValue());
+			return Long.valueOf(value.longValue());
 		}
 		else if (type.equals(float.class)) {
-			return new Float(value.floatValue());
+			return Float.valueOf(value.floatValue());
 		}
 		else if (type.equals(BigDecimal.class) ) {
 			return new BigDecimal(value.toString());
 		}
 		else if (type.equals(Float.class)) {
-			return new Float(value.floatValue());
+			return Float.valueOf(value.floatValue());
 		}
 		else if (type.equals(double.class)) {
-			return new Double(value.doubleValue());
+			return Double.valueOf(value.doubleValue());
 		}
 		else if (type.equals(Double.class)) {
-			return new Double(value.doubleValue());
+			return Double.valueOf(value.doubleValue());
 		}
 		else if (type.equals(short.class)) {
-			return new Short(value.shortValue());
+			return Short.valueOf(value.shortValue());
 		}
 		else if (type.equals(Short.class)) {
-			return new Short(value.shortValue());
+			return Short.valueOf(value.shortValue());
 		}
 		else if (type.equals(byte.class)) {
-			return new Byte(value.byteValue());
+			return Byte.valueOf(value.byteValue());
 		}
 		else if (type.equals(Byte.class)) {
-			return new Byte(value.byteValue());
+			return Byte.valueOf(value.byteValue());
 		}
 		else if (type.equals(BigInteger.class) ) {
 			return new BigInteger(value.toString());

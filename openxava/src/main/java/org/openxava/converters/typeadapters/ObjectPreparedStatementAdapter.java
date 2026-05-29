@@ -41,27 +41,27 @@ public class ObjectPreparedStatementAdapter implements PreparedStatement {
 	}
 
 	public void setByte(int parameterIndex, byte x) throws SQLException {
-		object = new Byte(x);
+		object = Byte.valueOf(x);
 	}
 
 	public void setShort(int parameterIndex, short x) throws SQLException {
-		object = new Short(x);
+		object = Short.valueOf(x);
 	}
 
 	public void setInt(int parameterIndex, int x) throws SQLException {
-		object = new Integer(x);
+		object = Integer.valueOf(x);
 	}
 
 	public void setLong(int parameterIndex, long x) throws SQLException {
-		object = new Long(x);
+		object = Long.valueOf(x);
 	}
 
 	public void setFloat(int parameterIndex, float x) throws SQLException {
-		object = new Float(x);
+		object = Float.valueOf(x);
 	}
 
 	public void setDouble(int parameterIndex, double x) throws SQLException {
-		object = new Double(x);
+		object = Double.valueOf(x);
 	}
 
 	public void setBigDecimal(int parameterIndex, BigDecimal x)	throws SQLException {

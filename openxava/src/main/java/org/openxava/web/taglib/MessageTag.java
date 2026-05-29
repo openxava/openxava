@@ -28,7 +28,7 @@ public class MessageTag extends TagSupport {
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 			String string = null;
 			if (getIntParam() > Integer.MIN_VALUE) {
-				string = XavaResources.getString(request, getKey(), new Integer(getIntParam())); 
+				string = XavaResources.getString(request, getKey(), Integer.valueOf(getIntParam())); 
 			}
 			else if (!Is.empty(getParam4())) {
 				string = XavaResources.getString(getKey(), getParam(), getParam1(), getParam2(), getParam3(), getParam4()); 

@@ -578,6 +578,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @deprecated Now the model is deduced automatically 
 	 */
+	@Deprecated
 	protected void setModel(String defaultModel) { 
 	}
 	
@@ -589,6 +590,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @deprecated Now this is done automatically
 	 */
+	@Deprecated
 	protected void setModelToModuleSetting() { 		
 	}
 	
@@ -869,6 +871,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @deprecated  The model is automatically deduced, so you can use just getValue(String name)
 	 */
+	@Deprecated
 	protected String getValue(String model, String name) throws Exception {		
 		return getFormValue(name);  
 	}
@@ -1221,6 +1224,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * 
 	 * @deprecated  Now model is deduced automatically, so you can use setValue(String model, String value)
 	 */
+	@Deprecated
 	protected void setValue(String model, String name, String value) throws Exception {  
 		setValue(name, value); 
 	}
@@ -1834,12 +1838,12 @@ abstract public class ModuleTestBase extends TestCase {
 	
 		
 	protected void assertValueInList(int row, String name, String value) throws Exception {
-		assertEquals(XavaResources.getString("unexpected_value_in_list", name, new Integer(row)), value, getValueInList(row, name));
+		assertEquals(XavaResources.getString("unexpected_value_in_list", name, Integer.valueOf(row)), value, getValueInList(row, name));
 	}
 	
 	/** @since 5.7 */
 	protected void assertValueInList(int row, String value) throws Exception { 
-		assertEquals(XavaResources.getString("unexpected_value_in_list", "", new Integer(row)), value, getValueInList(row));
+		assertEquals(XavaResources.getString("unexpected_value_in_list", "", Integer.valueOf(row)), value, getValueInList(row));
 	}
 	
 	/** @since 5.8 */
@@ -1850,20 +1854,20 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 	protected void assertValueInList(int row, int column, String value) throws Exception {
-		assertEquals(XavaResources.getString("unexpected_value_in_list", new Integer(column), new Integer(row)), value, getValueInList(row, column));
+		assertEquals(XavaResources.getString("unexpected_value_in_list", Integer.valueOf(column), Integer.valueOf(row)), value, getValueInList(row, column));
 	}
 	
 	protected void assertValueInCollection(String collection, int row, String name, String value) throws Exception {
-		assertEquals(XavaResources.getString("unexpected_value_in_collection", name, new Integer(row), collection), value, getValueInCollection(collection, row, name));
+		assertEquals(XavaResources.getString("unexpected_value_in_collection", name, Integer.valueOf(row), collection), value, getValueInCollection(collection, row, name));
 	}
 	
 	protected void assertValueInCollection(String collection, int row, int column, String value) throws Exception {
-		assertEquals(XavaResources.getString("unexpected_value_in_collection", new Integer(column), new Integer(row), collection), value, getValueInCollection(collection, row, column));
+		assertEquals(XavaResources.getString("unexpected_value_in_collection", Integer.valueOf(column), Integer.valueOf(row), collection), value, getValueInCollection(collection, row, column));
 	}
 	
 	protected void assertValueInCollectionIgnoringCase(String collection, int row, int column, String value) throws Exception {
 		String valueInCollection = getValueInCollection(collection, row, column);
-		assertTrue(XavaResources.getString("unexpected_value_in_collection", new Integer(column), new Integer(row), collection), value.equalsIgnoreCase(valueInCollection));
+		assertTrue(XavaResources.getString("unexpected_value_in_collection", Integer.valueOf(column), Integer.valueOf(row), collection), value.equalsIgnoreCase(valueInCollection));
 	}
 	
 	protected void assertLabelInCollection(String collection, int column, String label) throws Exception {
@@ -1928,7 +1932,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private void assertLabelInList(String tableId, String message, int column, String label) throws Exception {
 		HtmlTable table = getTable(tableId, message);
 		int increment = getColumnIncrement(table, column); 
-		assertEquals(XavaResources.getString("label_not_match", new Integer(column)), label, 
+		assertEquals(XavaResources.getString("label_not_match", Integer.valueOf(column)), label, 
 				table.getCellAt(0, column+increment).asNormalizedText().trim());
 	}
 	
@@ -1939,7 +1943,7 @@ abstract public class ModuleTestBase extends TestCase {
 		HtmlTableCell cell = table.getCellAt(rowInTable, column);
 		List<HtmlInput> inputs = cell.getElementsByAttribute("input", "type", "text");
 		String value = inputs.isEmpty()?cell.asNormalizedText().trim():inputs.get(0).getValue(); 
-		assertEquals(XavaResources.getString("total_not_match", new Integer(column)), total, value);
+		assertEquals(XavaResources.getString("total_not_match", Integer.valueOf(column)), total, value);
 	}		
 	
 	private int getColumnIncrement(HtmlTable table, int originalColumn) {
@@ -2168,7 +2172,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}	
 	
 	private void assertRowUnchecked(String id, int row) { 
-		assertTrue(XavaResources.getString("selected_row_unexpected", new Integer(row)), 
+		assertTrue(XavaResources.getString("selected_row_unexpected", Integer.valueOf(row)), 
 				!getCheckable(id, row).isChecked());
 	}
 	
@@ -2229,7 +2233,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
-				fail(XavaResources.getString("no_error_and_expected", new Integer(expectedCount)));
+				fail(XavaResources.getString("no_error_and_expected", Integer.valueOf(expectedCount)));
 			}
 			return;
 		}		
@@ -2243,7 +2247,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
-				fail(XavaResources.getString("no_message_and_expected", new Integer(expectedCount)));
+				fail(XavaResources.getString("no_message_and_expected", Integer.valueOf(expectedCount)));
 			}
 			return;
 		}				
@@ -2260,7 +2264,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
-				fail(XavaResources.getString("no_info_and_expected", new Integer(expectedCount))); 
+				fail(XavaResources.getString("no_info_and_expected", Integer.valueOf(expectedCount))); 
 			}
 			return;
 		}		
@@ -2277,7 +2281,7 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 		catch (org.htmlunit.ElementNotFoundException ex) {
 			if (expectedCount > 0) {
-				fail(XavaResources.getString("no_warning_and_expected", new Integer(expectedCount))); 
+				fail(XavaResources.getString("no_warning_and_expected", Integer.valueOf(expectedCount))); 
 			}
 			return;
 		}		

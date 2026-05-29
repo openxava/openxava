@@ -13,7 +13,7 @@ public class IntegerCalculator implements ICalculator {
 	
 	
 	public Object calculate() throws Exception {
-		return new Integer(value);
+		return Integer.valueOf(value);
 	}
 
 	public int getValue() {

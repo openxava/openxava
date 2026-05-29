@@ -9,7 +9,7 @@ package org.openxava.calculators;
  */
 public class ZeroLongCalculator implements ICalculator {
 	
-	private final static Long ZERO = new Long(0);
+	private final static Long ZERO = Long.valueOf(0);
 	
 
 	public Object calculate() throws Exception {

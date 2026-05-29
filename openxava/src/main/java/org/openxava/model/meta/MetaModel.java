@@ -1377,8 +1377,8 @@ abstract public class MetaModel extends MetaElement {
 	
 	public MetaCalculator getMetaCalculatorPostCreate(int idx) {
 		if (metaCalculatorsPostCreate == null) {
-			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", new Integer(idx)));
-		}		
+			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", Integer.valueOf(idx)));
+		}
 		return (MetaCalculator) metaCalculatorsPostCreate.get(idx);
 	}
 	
@@ -1392,8 +1392,8 @@ abstract public class MetaModel extends MetaElement {
 	
 	public MetaCalculator getMetaCalculatorPostLoad(int idx) {
 		if (metaCalculatorsPostLoad == null) {
-			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", new Integer(idx)));
-		}		
+			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", Integer.valueOf(idx)));
+		}
 		return (MetaCalculator) metaCalculatorsPostLoad.get(idx);
 	}
 	
@@ -1407,8 +1407,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	public MetaCalculator getMetaCalculatorPreRemove(int idx) {
 		if (metaCalculatorsPreRemove == null) {
-			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", new Integer(idx)));
-		}		
+			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", Integer.valueOf(idx)));
+
+		}
 		return (MetaCalculator) metaCalculatorsPreRemove.get(idx);
 	}
 		
@@ -1422,8 +1423,8 @@ abstract public class MetaModel extends MetaElement {
 	
 	public MetaCalculator getMetaCalculatorPostModify(int idx) {
 		if (metaCalculatorsPostModify == null) {
-			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", new Integer(idx)));
-		}		
+			throw new IndexOutOfBoundsException(XavaResources.getString("calculator_out_of_bound", Integer.valueOf(idx)));
+		}
 		return (MetaCalculator) metaCalculatorsPostModify.get(idx);
 	}
 				
@@ -1556,7 +1557,7 @@ abstract public class MetaModel extends MetaElement {
 					catch (IllegalArgumentException ex) {
 						if (property.hasValidValues()) {
 							if (value instanceof String) {
-								value = new Integer(property.getValidValueIndex(value));
+								value = Integer.valueOf(property.getValidValueIndex(value));
 								pm.executeSet((String)en.getKey(), value);
 							}
 							else if (value instanceof Number) {
