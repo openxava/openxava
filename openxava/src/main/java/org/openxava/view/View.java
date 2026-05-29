@@ -1637,12 +1637,12 @@ public class View implements java.io.Serializable {
 		if (isRepresentsElementCollection()) {
 			return getMembersNameForElementCollection();			
 		}
-		else if (isInsideElementCollection()) {			
-			return (Map<String, Object>) getParent().getMembersNamesForFindObject().get(getMemberName());
+		else if (isInsideElementCollection()) {
+			@SuppressWarnings("unchecked")
+			Map<String, Object> result = (Map<String, Object>) getParent().getMembersNamesForFindObject().get(getMemberName());
+			return result;
 		}
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.putAll(getMembersNamesWithHidden());
-		return result; 
+		return new HashMap<String, Object>(getMembersNamesWithHidden());
 	}
 	
 	private Map<String, Object> getMembersNameForElementCollection() { 
