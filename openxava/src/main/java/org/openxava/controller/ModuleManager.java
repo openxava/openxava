@@ -295,9 +295,9 @@ public class ModuleManager implements java.io.Serializable {
 	public Collection<MetaSubcontroller> getSubcontrollers() { 
 		if (metaSubControllers == null) {
 			metaSubControllers = new ArrayList<MetaSubcontroller>();
-			Iterator it = getMetaControllers().iterator();
+			Iterator<MetaController> it = getMetaControllers().iterator();
 			while (it.hasNext()) {
-				MetaController mc = (MetaController) it.next();
+				MetaController mc = it.next();
 				metaSubControllers.addAll(mc.getMetaSubcontrollers());
 			}
 		}
@@ -369,19 +369,19 @@ public class ModuleManager implements java.io.Serializable {
 				log.error(
 						XavaResources.getString("controller_init_action_error"),
 						ex);
-				return Collections.EMPTY_LIST;
+				return Collections.emptyList();
 			}
 		}
 		return metaActionsOnInit;
 	}
 	
-	public Collection getMetaActionsMode() {
+	public Collection<MetaAction> getMetaActionsMode() {
 		try {
 			return getMetaControllerMode().getAllNotHiddenMetaActions();
 		} catch (Exception ex) {
 			log.error(XavaResources.getString("controllers_actions_error",
 					getModeControllerName()), ex);
-			return new ArrayList();
+			return new ArrayList<MetaAction>();
 		}
 	}
 
@@ -390,7 +390,7 @@ public class ModuleManager implements java.io.Serializable {
 	 * <code>getMetaActionsMode()</code>.
 	 * <p>
 	 */
-	public Iterator getAllMetaActionsIterator() {
+	public Iterator<MetaAction> getAllMetaActionsIterator() {
 		return org.apache.commons.collections.IteratorUtils
 				.chainedIterator(new Iterator[] { getMetaActions().iterator(),
 						getMetaActionsMode().iterator() });
@@ -404,7 +404,7 @@ public class ModuleManager implements java.io.Serializable {
 		return metaControllerMode;
 	}
 
-	private Collection getMetaControllers() throws XavaException {
+	private Collection<MetaController> getMetaControllers() throws XavaException {
 		if (metaControllers == null) {
 			metaControllers = new ArrayList<MetaController>();
 			String[] names = getControllersNames(); 
@@ -523,9 +523,9 @@ public class ModuleManager implements java.io.Serializable {
 	private String getParameter(HttpServletRequest request, String parameter)
 			throws FileUploadException {
 		if (isFormUpload()) {
-			List items = (List) request.getAttribute("xava.upload.fileitems");
-			for (Iterator it = items.iterator(); it.hasNext();) {
-				FileItem item = (FileItem) it.next();
+			List<FileItem> items = (List<FileItem>) request.getAttribute("xava.upload.fileitems");
+			for (Iterator<FileItem> it = items.iterator(); it.hasNext();) {
+				FileItem item = it.next();
 				if (parameter.equals(Ids.undecorate(item.getFieldName())))
 					return item.getString();
 			}
@@ -848,14 +848,14 @@ public class ModuleManager implements java.io.Serializable {
 		}
 
 		if (action instanceof IProcessLoadedFileAction) {
-			List fileItems = (List) request
+			List<FileItem> fileItems = (List<FileItem>) request
 					.getAttribute("xava.upload.fileitems");
 			String error = (String) request
 					.getAttribute("xava.upload.error");
 			if (!Is.emptyString(error))
 				errors.add(error);
 			((IProcessLoadedFileAction) action)
-					.setFileItems(fileItems == null ? Collections.EMPTY_LIST
+					.setFileItems(fileItems == null ? Collections.<FileItem>emptyList()
 							: fileItems);
 		}
 		
