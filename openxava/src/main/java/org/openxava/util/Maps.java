@@ -291,8 +291,8 @@ public class Maps {
 	 * @param treeMap This argument is not changed. The keys must be strings. Mustn't be null
 	 * @return A map with the data in plain format.
 	 */
-	public static Map treeToPlain(Map treeMap) {		
-		Map result = new TreeMap(); 
+	public static Map<String, Object> treeToPlain(Map<?, ?> treeMap) {		
+		Map<String, Object> result = new TreeMap<>(); 
 		fillPlain(result, treeMap, "");
 		return result;
 	}
@@ -301,31 +301,31 @@ public class Maps {
 	/**
 	 * @since 5.9
 	 */
-	public static Map treeToPlainIncludingCollections(Map treeMap) {
+	public static Map<String, Object> treeToPlainIncludingCollections(Map<?, ?> treeMap) {
 		return treeToPlainIncludingCollections(treeMap, 0);
 	}
 
 	/**
 	 * @since 5.9
 	 */
-	public static Map treeToPlainIncludingCollections(Map treeMap, int baseIndex) {		
-		Map result = new TreeMap(); 
+	public static Map<String, Object> treeToPlainIncludingCollections(Map<?, ?> treeMap, int baseIndex) {		
+		Map<String, Object> result = new TreeMap<>(); 
 		fillPlain(result, treeMap, "", true, baseIndex); 
 		return result;
 	}
 	
-	private static void fillPlain(Map result, Map treeMap, String prefix) {
+	private static void fillPlain(Map<String, Object> result, Map<?, ?> treeMap, String prefix) {
 		fillPlain(result, treeMap, prefix, false, 0);
 	}
 	
-	private static void fillPlain(Map result, Map treeMap, String prefix, boolean includeCollection, int baseIndex) { 
-		for (Iterator it = treeMap.entrySet().iterator(); it.hasNext();) {
-			Map.Entry en = (Map.Entry) it.next();
+	private static void fillPlain(Map<String, Object> result, Map<?, ?> treeMap, String prefix, boolean includeCollection, int baseIndex) { 
+		for (Iterator<?> it = treeMap.entrySet().iterator(); it.hasNext();) {
+			Map.Entry<?, ?> en = (Map.Entry<?, ?>) it.next();
 			if (en.getValue() instanceof Map) {
-				fillPlain(result, (Map) en.getValue(), prefix + en.getKey() + ".");
+				fillPlain(result, (Map<?, ?>) en.getValue(), prefix + en.getKey() + ".");
 			}
 			else if (includeCollection && en.getValue() instanceof Collection) {
-				fillPlain(result, (Collection) en.getValue(), prefix + en.getKey() + ".", baseIndex);
+				fillPlain(result, (Collection<?>) en.getValue(), prefix + en.getKey() + ".", baseIndex);
 			}
 			else {
 				result.put(prefix + en.getKey(), en.getValue());
@@ -333,14 +333,14 @@ public class Maps {
 		}
 	}
 	
-	private static void fillPlain(Map result, Collection collection, String prefix, int baseIndex) { 
+	private static void fillPlain(Map<String, Object> result, Collection<?> collection, String prefix, int baseIndex) { 
 		int counter = baseIndex; 
 		for (Object element: collection) { 
 			if (element instanceof Map) {
-				fillPlain(result, (Map) element, prefix + (counter++) + ".");
+				fillPlain(result, (Map<?, ?>) element, prefix + (counter++) + ".");
 			}
 			else if (element instanceof Collection) {
-				fillPlain(result, (Collection) element, prefix + (counter++) + ".", baseIndex);
+				fillPlain(result, (Collection<?>) element, prefix + (counter++) + ".", baseIndex);
 			}
 			else {
 				result.put(prefix + (counter++), element);
@@ -360,10 +360,10 @@ public class Maps {
 	 * @since 5.7
 	 */
 	
-	public static Map toMap(Object ... values) { 
-		Map map = new HashMap();
+	public static Map<String, Object> toMap(Object ... values) { 
+		Map<String, Object> map = new HashMap<>();
 		for (int i=0; i<values.length; i += 2) {
-			map.put(values[i], values[i + 1]);
+			map.put(values[i].toString(), values[i + 1]);
 		}
 		return map;
 	}

@@ -178,12 +178,12 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * 
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
-	public Collection getMetaMembers() throws XavaException {
+	public Collection<MetaMember> getMetaMembers() throws XavaException {
 		if (metaMembers == null) {
-			metaMembers = new ArrayList();
-			Iterator it = getMembersNames().iterator();	
+			metaMembers = new ArrayList<>();
+			Iterator<String> it = getMembersNames().iterator();	
 			while (it.hasNext()) {
-				String name = (String) it.next();
+				String name = it.next();
 				if (name.startsWith("__GROUP__")) {
 					String groupName = name.substring("__GROUP__".length());					
 					metaMembers.add(getMetaGroup(groupName));
@@ -211,7 +211,7 @@ public class MetaView extends MetaElement implements Cloneable {
 						member = getMetaViewProperty(name);
 					}
 					member = modify(member);
-					addExtraSeparatorIfNeeded((List)metaMembers, member);
+					addExtraSeparatorIfNeeded((List<MetaMember>) metaMembers, member);
 					metaMembers.add(member);
 				}
 			}

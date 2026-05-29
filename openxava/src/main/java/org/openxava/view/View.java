@@ -660,7 +660,7 @@ public class View implements java.io.Serializable {
 	private void initDefaultValues() {
 		if (!isRepresentsElementCollection()) return;
 		reset();
-		defaultValues = (Map<String, Object>) (Map) Maps.treeToPlain(getAllValues());
+		defaultValues = Maps.treeToPlain(getAllValues());
 		clear();
 	}
 
@@ -1232,7 +1232,7 @@ public class View implements java.io.Serializable {
 	private Collection<String> createDefaultActionsForCollections(String defaultListController, boolean collectionFromModel) {
 		MetaController controller = MetaControllers.getMetaController(defaultListController); 
 		Collection<String> result = new ArrayList<String>();
-		for (Iterator<MetaAction> it = (Iterator<MetaAction>) (Iterator) (Iterable) controller.getAllMetaActions().iterator(); it.hasNext();) {
+		for (Iterator<MetaAction> it = controller.getAllMetaActions().iterator(); it.hasNext();) {
 			MetaAction action = it.next();
 			try {
 				if (collectionFromModel && TabBaseAction.class.isAssignableFrom(Class.forName(action.getClassName()))) continue; 
@@ -1414,11 +1414,11 @@ public class View implements java.io.Serializable {
 			if (hasSubview(name)) {	
 				View subview = getSubview(name);
 				if (!subview.isRepresentsCollection()) {
-					if (setValuesForSubviews) subview.setValuesChangingModel((Map<String, Object>)(Map)value); 
-					else subview.addValues((Map<String, Object>)(Map)value);
+					if (setValuesForSubviews) subview.setValuesChangingModel((Map) value); 
+					else subview.addValues((Map) value);
 				}
 				else {
-					subview.collectionValues = (List<Map<String, Object>>)(List)value;
+					subview.collectionValues = (List) value;
 					subview.refreshCollection(); 
 				}		
 			}
@@ -1589,7 +1589,7 @@ public class View implements java.io.Serializable {
 	
 	public Map<String, Object> getKeyValues() throws XavaException {		
 		Map<String, Object> values = getValues(false, true); 
-		Map<String, Object> result = getMetaModel().extractKeyValues(values);
+		Map<String, Object> result = (Map<String, Object>) getMetaModel().extractKeyValues(values);
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
@@ -1625,7 +1625,7 @@ public class View implements java.io.Serializable {
 			return getMembersNameForElementCollection();			
 		}
 		else if (isInsideElementCollection()) {			
-			return (Map<String, Object>) (Map) getParent().getMembersNamesForFindObject().get(getMemberName());
+			return (Map) getParent().getMembersNamesForFindObject().get(getMemberName());
 		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.putAll(getMembersNamesWithHidden());
@@ -1638,7 +1638,7 @@ public class View implements java.io.Serializable {
 			for (MetaProperty p: getMetaPropertiesList()) {
 				membersNames.put(p.getName(), null);				
 			}
-			membersNameForElementCollection = (Map<String, Object>) (Map) Maps.plainToTree(membersNames);			 
+			membersNameForElementCollection = Maps.plainToTree(membersNames);			 
 		}
 		return membersNameForElementCollection;
 	}
@@ -1745,7 +1745,7 @@ public class View implements java.io.Serializable {
 		for (MetaProperty p: getMetaPropertiesList()) {
 			membersNames.put(p.getName(), null);
 		}
-		return (Map<String, Object>) (Map) Maps.plainToTree(membersNames);
+		return Maps.plainToTree(membersNames);
 	}
 
 	/**
@@ -1874,7 +1874,7 @@ public class View implements java.io.Serializable {
 					Map<String, Object> mapReturnValues = null;
 					Map<String, Object> mapKeys = getParent().getKeyValues();					
 					if (null != mapKeys && !mapKeys.isEmpty() && model == null) { 
-						mapReturnValues = (Map<String, Object>) (Map) MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
+						mapReturnValues = (Map) MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
 					}
 					else {
 						// get transient view object model so that it might be used instead of keyValues, what is more fill
@@ -1884,9 +1884,9 @@ public class View implements java.io.Serializable {
 							oParentObject = getParent().getMetaModel().getPOJOClass().newInstance();
 						}
 						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
-						mapReturnValues = (Map<String, Object>) (Map) MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
+						mapReturnValues = (Map) MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
 					}
-					collectionValues = (List<Map<String, Object>>) (List) mapReturnValues.get(getMemberName());
+					collectionValues = (List) mapReturnValues.get(getMemberName());
 				}
 				catch (ObjectNotFoundException ex) { // New one is creating
 					collectionValues = Collections.emptyList();
@@ -2014,7 +2014,7 @@ public class View implements java.io.Serializable {
 					collectionTotals = Collections.emptyMap();
 				}
 				else if (isRepresentsElementCollection()) {
-					collectionTotals = (Map<String, Object>) (Map) MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
+					collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
 					removeKeys(getParent().getMetaModel(), collectionTotals); 
 				}
 				else {
@@ -2024,12 +2024,12 @@ public class View implements java.io.Serializable {
 						Object model = getParent().getModel();
 						if (model != null) getParent().updateModelFromView();
 						else model = getParent().getTransientPOJO();
-						collectionTotals = (Map<String, Object>) (Map) MapFacade.getValues(getParent().getModelName(), model, memberNames);
+						collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), model, memberNames);
 						removeKeys(getParent().getMetaModel(), collectionTotals);
 					}
 					else {
 						try {
-							collectionTotals = (Map<String, Object>) (Map) MapFacade.getValues(getParent().getModelName(), key, memberNames);
+							collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), key, memberNames);
 							removeKeys(getParent().getMetaModel(), collectionTotals);
 						}
 						catch (javax.ejb.ObjectNotFoundException ex) {
@@ -2155,7 +2155,7 @@ public class View implements java.io.Serializable {
 			boolean collectionFromModel = isCollectionFromModel();
 			Collection<String> sumProperties = (Collection<String>) (collectionFromModel?getSumProperties():getCollectionTab().getSumPropertiesNames());
 			if (!sumProperties.isEmpty()) {
-				totalProperties = (Map<String, List<String>>) (Map) Maps.recursiveCloneWithCollections(totalProperties);
+				totalProperties = (Map) Maps.recursiveCloneWithCollections(totalProperties);
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (sumProperties.contains(p.getName())) {
 						List<String> properties = totalProperties.get(p.getName());
@@ -2336,7 +2336,7 @@ public class View implements java.io.Serializable {
 		}
 		else { 
 			// If not calculated we obtain the data from the Tab
-			Map<String, Object>[] selectedKeys = (Map<String, Object>[]) (Object[]) getCollectionTab().getSelectedKeys();
+			Map<String, Object>[] selectedKeys = (Map[]) getCollectionTab().getSelectedKeys();
 			return selectedKeys == null ? Collections.emptyList() : getCollectionValues(selectedKeys);
 		}
 	}
@@ -2346,7 +2346,7 @@ public class View implements java.io.Serializable {
 		Map<String, Object> memberNames = new HashMap<String, Object>(getCollectionMemberNames());
 		for (int i = 0; i < keys.length; i++) {			
 			try {
-				Map<String, Object> values = (Map<String, Object>) (Map) MapFacade.getValues(getModelName(), keys[i], memberNames);
+				Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), keys[i], memberNames);
 				result.add(values);				
 			}
 			catch (Exception ex) {
@@ -2387,7 +2387,7 @@ public class View implements java.io.Serializable {
 			}				
 		}
 		else {
-			Map<String, Object>[] tabKeys = (Map<String, Object>[]) (Object[]) getCollectionTab().getAllKeys();
+			Map<String, Object>[] tabKeys = (Map[]) getCollectionTab().getAllKeys();
 			keys = tabKeys;
 		}
 		return getCollectionObjects(keys);						
@@ -2506,7 +2506,7 @@ public class View implements java.io.Serializable {
 		else {
 			String referenceName = propertyName.substring(0, idx);
 			String referencePropertyName = propertyName.substring(idx+1);			
-			Map<String, Object> ref = (Map<String, Object>) (Map) collectionMemberNames.get(referenceName);
+			Map<String, Object> ref = (Map) collectionMemberNames.get(referenceName);
 			if (ref == null) {
 				ref = new HashMap<String, Object>();
 				collectionMemberNames.put(referenceName, ref);
@@ -2647,8 +2647,8 @@ public class View implements java.io.Serializable {
 		}
 		// Properties
 		try {					
-			Collection<MetaProperty> properties = new ArrayList<MetaProperty>((Collection<MetaProperty>) (Collection) getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
-			Collection<MetaProperty> viewWithDefault = (Collection<MetaProperty>) (Collection) getMetaModel().getMetaPropertiesViewWithDefaultCalculator();
+			Collection<MetaProperty> properties = new ArrayList<>(getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
+			Collection<MetaProperty> viewWithDefault = (Collection<MetaProperty>) getMetaModel().getMetaPropertiesViewWithDefaultCalculator();
 			properties.addAll(viewWithDefault);
 			if (!properties.isEmpty()) {
 				Map<String, Object> membersNames = getMembersNames(); 
@@ -2743,7 +2743,7 @@ public class View implements java.io.Serializable {
 								Object value = ref.getDefaultValueCalculator().calculate();
 								MetaModel referencedModel = ref.getMetaModelReferenced();								
 								if (referencedModel.getPOJOClass().isInstance(value)) { 
-									Map<String, Object> values = (Map<String, Object>) (Map) referencedModel.toMap(value);
+									Map<String, Object> values = (Map) referencedModel.toMap(value);
 									trySetValue(ref.getName(), values);									
 									alreadyPut.addAll(
 									    referencedModel.getAllKeyPropertiesNames()
@@ -3332,7 +3332,7 @@ public class View implements java.io.Serializable {
 				}
 			}
 			if (containsReferences) {
-				Map<String, Object> elementTree = (Map<String, Object>) (Map) Maps.plainToTree(element);
+				Map<String, Object> elementTree = Maps.plainToTree(element);
 				element = elementTree;
 			}
 			collectionValues.add(element);
@@ -3415,7 +3415,7 @@ public class View implements java.io.Serializable {
 		Map<String, Object> referenceValues = new HashMap<String, Object>();  
 		fillReferenceValues(referenceValues, ref, value, qualifier, null); 
 		View subview = getSubview(ref.getName());
-		Map<String, Object> referenceValuesTree = (Map<String, Object>) (Map) Maps.plainToTree(referenceValues);
+		Map<String, Object> referenceValuesTree = Maps.plainToTree(referenceValues);
 		subview.addValues(referenceValuesTree); 
 		if (displayAsDescriptionsListAndReferenceView) { 
 			subview.oldValues = subview.values==null?null:new HashMap<String, Object>(subview.values);
@@ -3819,7 +3819,7 @@ public class View implements java.io.Serializable {
 				alternateKey.put(changedProperty.getName(), getValue(changedProperty.getName()));
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					Map<String, Object> values = (Map<String, Object>) (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					Map<String, Object> values = (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
@@ -3827,18 +3827,18 @@ public class View implements java.io.Serializable {
 				// If changed property is hidden key, although there are search member we search by key
 				clear();
 				if (!Maps.isEmptyOrZero(key)) {				
-					Map<String, Object> values = (Map<String, Object>) (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map<String, Object> alternateKey = getSearchKeyValues();
 				if (extraKeysForSearchingReference == null) return false;
-				Map<String, Object> extraKeys = (Map<String, Object>) (Map) extraKeysForSearchingReference;
+				Map<String, Object> extraKeys = (Map) extraKeysForSearchingReference;
 				alternateKey.putAll(extraKeys);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					Map<String, Object> values = (Map<String, Object>) (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					Map<String, Object> values = (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
 					setValues(values);
 				}				
 			}						
@@ -3847,7 +3847,7 @@ public class View implements java.io.Serializable {
 				clear();
 				if (extraKeysForSearchingReference == null) return false;
 				if (!Maps.isEmpty(key)) {				
-					Map<String, Object> values = (Map<String, Object>) (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
@@ -3871,7 +3871,7 @@ public class View implements java.io.Serializable {
 		Map<String, Object> key = getKeyValues();
 		try {			
 			if (Maps.isEmptyOrZero(key)) clear();				
-			else setValues((Map<String, Object>) MapFacade.getValues(getModelName(), key, getMembersNamesWithHidden()), false);				
+			else setValues((Map) MapFacade.getValues(getModelName(), key, getMembersNamesWithHidden()), false);				
 			refreshCollections(); 
 		}
 		catch (FinderException ex) {						
@@ -4131,7 +4131,7 @@ public class View implements java.io.Serializable {
 		}
 		refreshCollections();  
 		setModelName(model.getClass().getSimpleName());
-		Map<String, Object> values = (Map<String, Object>) MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden());
+		Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden());
 		setValues(values);
 	}
 	
