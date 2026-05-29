@@ -686,9 +686,9 @@ abstract public class ModelMapping implements java.io.Serializable {
 	/**
 	 * @return Of <tt>String</tt> and not null.
 	 */
-	public Collection getOverlappingPropertiesOfReference(String reference)
+	public Collection<String> getOverlappingPropertiesOfReference(String reference)
 		throws XavaException {
-		Collection overlappingPropertiesOfReference = new ArrayList();
+		Collection<String> overlappingPropertiesOfReference = new ArrayList<>();
 		Iterator it = getReferenceMapping(reference).getDetails().iterator();
 		while (it.hasNext()) {
 			ReferenceMappingDetail d = (ReferenceMappingDetail) it.next();			

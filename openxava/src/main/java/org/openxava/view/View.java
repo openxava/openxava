@@ -1596,7 +1596,7 @@ public class View implements java.io.Serializable {
 			if (isRepresentsEntityReference() && !isRepresentsCollection()) {				
 				ModelMapping mapping = getParent().getMetaModel().getMapping();
 				if (mapping.isReferenceOverlappingWithSomeProperty(getMemberName())) {					
-					Iterator<String> itProperties = (Iterator<String>) (Iterator) (Iterable) mapping.getOverlappingPropertiesOfReference(getMemberName()).iterator();					
+					Iterator<String> itProperties = mapping.getOverlappingPropertiesOfReference(getMemberName()).iterator();					
 					while (itProperties.hasNext()) {
 						String property = itProperties.next();						
 						String overlappedProperty = mapping.getOverlappingPropertyForReference(getMemberName(), property);
@@ -1899,7 +1899,7 @@ public class View implements java.io.Serializable {
 			}
 			else {
 				// If not calculated we obtain the data from the Tab			
-				collectionValues = getCollectionValues((Map<String, Object>[]) getCollectionTab().getAllKeys()); 
+				collectionValues = getCollectionValues(getCollectionTab().getAllKeys()); 
 			}
 		}
 		return collectionValues; 
@@ -2416,7 +2416,7 @@ public class View implements java.io.Serializable {
 			return selectedObjects;
 		}
 		else {				
-			selectedKeys = (Map<String, Object>[]) (Object[]) getCollectionTab().getSelectedKeys();
+			selectedKeys = getCollectionTab().getSelectedKeys();
 			return getCollectionObjects(selectedKeys);
 		}						
 	}

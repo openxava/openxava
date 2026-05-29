@@ -2716,7 +2716,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 		
-	public Map[] getSelectedKeys(){
+	public Map<String, Object>[] getSelectedKeys(){
 		if (selectedKeys == null || selectedKeys.isEmpty()) return new Map[0];
 		return selectedKeys.toArray(new Map[selectedKeys.size()]);
 	}
@@ -2727,18 +2727,18 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * 
 	 * @return Never null
 	 */
-	public Map [] getAllKeys() { 
-		Collection<Map> allKeys = new ArrayList<Map>();
+	public Map<String, Object> [] getAllKeys() { 
+		Collection<Map<String, Object>> allKeys = new ArrayList<Map<String, Object>>();
 		for (int i = 0; i < getTableModel().getRowCount(); i++) { 					
 			try {
-				allKeys.add((Map) getTableModel().getObjectAt(i)); 				
+				allKeys.add((Map<String, Object>) getTableModel().getObjectAt(i)); 				
 			}
 			catch (Exception ex) {
 				allKeys.add(Collections.emptyMap());
 				log.warn(XavaResources.getString("tab_row_key_warning", Integer.valueOf(i)),ex);
 			}
 		}
-		Map [] keys = new Map[allKeys.size()];
+		Map<String, Object> [] keys = new Map[allKeys.size()];
 		allKeys.toArray(keys);
 		return keys;		
 	}

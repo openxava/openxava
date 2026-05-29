@@ -950,12 +950,12 @@ abstract public class MetaModel extends MetaElement {
 		return metaPropertiesWithDefaultValueCalculator;
 	}
 	
-	public Collection getMetaPropertiesViewWithDefaultCalculator() {
+	public Collection<MetaProperty> getMetaPropertiesViewWithDefaultCalculator() {
 		if (metaPropertiesViewWithDefaultCalculator == null) {
-			Iterator it = getMetaPropertiesView().iterator();
-			ArrayList result = new ArrayList();
+			Iterator<MetaProperty> it = getMetaPropertiesView().iterator();
+			ArrayList<MetaProperty> result = new ArrayList<>();
 			while (it.hasNext()) {
-				MetaProperty p = (MetaProperty) it.next();
+				MetaProperty p = it.next();
 				if (p.hasDefaultValueCalculator()) {
 					result.add(p);
 				}
