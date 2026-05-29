@@ -22,8 +22,8 @@ import org.openxava.jpa.*;
 @Table(name = "IMAGES") 
 public class GalleryImage implements Serializable {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @GeneratedValue @Hidden 
+	@UuidGenerator
 	@Column(name="ID", length=32)
 	private String oid;
 	
