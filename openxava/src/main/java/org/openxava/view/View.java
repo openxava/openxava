@@ -1421,12 +1421,17 @@ public class View implements java.io.Serializable {
 			}
 			if (hasSubview(name)) {	
 				View subview = getSubview(name);
+
 				if (!subview.isRepresentsCollection()) {
-					if (setValuesForSubviews) subview.setValuesChangingModel((Map<String, Object>) value);
-					else subview.addValues((Map<String, Object>) value);
+					@SuppressWarnings("unchecked")
+					Map<String, Object> referenceValues = (Map<String, Object>) value;
+					if (setValuesForSubviews) subview.setValuesChangingModel(referenceValues);
+					else subview.addValues(referenceValues);
 				}
 				else {
-					subview.collectionValues = (List<Map<String, Object>>) value;
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> collectionValues = (List<Map<String, Object>>) value;
+					subview.collectionValues = collectionValues;
 					subview.refreshCollection(); 
 				}		
 			}

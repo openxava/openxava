@@ -77,8 +77,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		return rowStyles != null;
 	}
 	
-	public Collection getMetaRowStyles() {
-		return rowStyles==null?Collections.EMPTY_LIST:rowStyles;
+	public Collection<MetaRowStyle> getMetaRowStyles() {
+		return rowStyles==null?Collections.emptyList():rowStyles;
 	}
 	
 	
