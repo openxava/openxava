@@ -126,33 +126,34 @@ public class Maps {
 	 * @param origin Cannot be null.  
 	 * @since 5.9
 	 */
-	public static Map recursiveCloneWithCollections(Map origin) { 
+	public static Map<String, Object> recursiveCloneWithCollections(Map<?, ?> origin) { 
 		return recursiveClone(origin, true);
 	}
 	
-	private static Map recursiveClone(Map origin, boolean withCollection) { 
-		Map result = null;
+	@SuppressWarnings("unchecked")
+	private static Map<String, Object> recursiveClone(Map<?, ?> origin, boolean withCollection) { 
+		Map<String, Object> result = null;
 		try {
-			result = (Map) origin.getClass().newInstance();
+			result = (Map<String, Object>) origin.getClass().newInstance();
 		}
 		catch (Exception ex) {
-			result = new HashMap(origin);
+			result = new HashMap<String, Object>((Map<String, Object>) origin);
 		}
 		Iterator it = origin.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry en = (Map.Entry) it.next();
 			Object value = en.getValue();
 			if (value instanceof Map) {
-				result.put(en.getKey(), recursiveCloneWithCollections((Map)value)); 
+				result.put((String) en.getKey(), recursiveCloneWithCollections((Map<?, ?>) value)); 
 			}
 			else if (withCollection && value instanceof List) {
-				result.put(en.getKey(), new ArrayList((List)value)); 
+				result.put((String) en.getKey(), new ArrayList((List)value)); 
 			}
 			else if (withCollection && value instanceof Set) {
-				result.put(en.getKey(), new HashSet((Set)value)); 
+				result.put((String) en.getKey(), new HashSet((Set)value)); 
 			}				
 			else {
-				result.put(en.getKey(), value);
+				result.put((String) en.getKey(), value);
 			}
 		}
 		return result;
@@ -221,8 +222,8 @@ public class Maps {
 	 * @param plainMap This argument is not changed. The keys must be strings. Mustn't be null
 	 * @return A map with the data in tree format.
 	 */
-	public static Map plainToTree(Map plainMap) {		
-		Map result = new HashMap();
+	public static Map<String, Object> plainToTree(Map<String, Object> plainMap) {		
+		Map<String, Object> result = new HashMap<String, Object>();
 		for (Iterator it = plainMap.keySet().iterator(); it.hasNext();) {
 			String key = (String) it.next();
 			int idx = key.indexOf('.'); 
@@ -232,9 +233,9 @@ public class Maps {
 			else {
 				String branchName = key.substring(0, idx);
 				String subKey = key.substring(idx + 1);
-				Map branch = (Map) result.get(branchName);
+				Map<String, Object> branch = (Map<String, Object>) result.get(branchName);
 				if (branch == null) {
-					branch = new HashMap();
+					branch = new HashMap<String, Object>();
 					result.put(branchName, branch);
 				}
 				branch.put(subKey, plainMap.get(key));
@@ -245,7 +246,7 @@ public class Maps {
 		for (Iterator it = result.entrySet().iterator(); it.hasNext();) {
 			Map.Entry en = (Map.Entry) it.next();
 			if (en.getValue() instanceof Map) {
-				result.put(en.getKey(), plainToTree((Map) en.getValue()));
+				result.put((String) en.getKey(), plainToTree((Map<String, Object>) en.getValue()));
 			}
 		}
 		

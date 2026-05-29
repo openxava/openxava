@@ -392,6 +392,14 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
+	private void removeHiddenSections(List<MetaView> sections) {
+		Iterator<MetaView> it = sections.iterator();
+		while (it.hasNext()) {			
+			MetaView section = it.next(); 
+			if (hiddenMembers.contains(section.getName())) it.remove();
+		}
+	}
+	
 	private void removeOverlapedProperties(Collection<MetaMember> metaMembers) throws XavaException { 		
 		if (!(representsEntityReference && !isRepresentsCollection())) return; 
 		if (getParent().isRepresentsAggregate()) return; // At momment references to entity in aggregage can not be overlapped
@@ -1414,11 +1422,11 @@ public class View implements java.io.Serializable {
 			if (hasSubview(name)) {	
 				View subview = getSubview(name);
 				if (!subview.isRepresentsCollection()) {
-					if (setValuesForSubviews) subview.setValuesChangingModel((Map) value); 
-					else subview.addValues((Map) value);
+					if (setValuesForSubviews) subview.setValuesChangingModel((Map<String, Object>) value); 
+					else subview.addValues((Map<String, Object>) value);
 				}
 				else {
-					subview.collectionValues = (List) value;
+					subview.collectionValues = (List<Map<String, Object>>) value;
 					subview.refreshCollection(); 
 				}		
 			}
@@ -1625,7 +1633,7 @@ public class View implements java.io.Serializable {
 			return getMembersNameForElementCollection();			
 		}
 		else if (isInsideElementCollection()) {			
-			return (Map) getParent().getMembersNamesForFindObject().get(getMemberName());
+			return (Map<String, Object>) getParent().getMembersNamesForFindObject().get(getMemberName());
 		}
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.putAll(getMembersNamesWithHidden());
@@ -1745,7 +1753,7 @@ public class View implements java.io.Serializable {
 		for (MetaProperty p: getMetaPropertiesList()) {
 			membersNames.put(p.getName(), null);
 		}
-		return Maps.plainToTree(membersNames);
+		return Maps.plainToTree((Map<String, Object>) (Map<?, ?>) membersNames);
 	}
 
 	/**
@@ -1874,7 +1882,7 @@ public class View implements java.io.Serializable {
 					Map<String, Object> mapReturnValues = null;
 					Map<String, Object> mapKeys = getParent().getKeyValues();					
 					if (null != mapKeys && !mapKeys.isEmpty() && model == null) { 
-						mapReturnValues = (Map) MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
+						mapReturnValues = MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
 					}
 					else {
 						// get transient view object model so that it might be used instead of keyValues, what is more fill
@@ -1884,9 +1892,9 @@ public class View implements java.io.Serializable {
 							oParentObject = getParent().getMetaModel().getPOJOClass().newInstance();
 						}
 						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
-						mapReturnValues = (Map) MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
+						mapReturnValues = MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
 					}
-					collectionValues = (List) mapReturnValues.get(getMemberName());
+					collectionValues = (List<Map<String, Object>>) mapReturnValues.get(getMemberName());
 				}
 				catch (ObjectNotFoundException ex) { // New one is creating
 					collectionValues = Collections.emptyList();
@@ -2014,7 +2022,7 @@ public class View implements java.io.Serializable {
 					collectionTotals = Collections.emptyMap();
 				}
 				else if (isRepresentsElementCollection()) {
-					collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
+					collectionTotals = MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
 					removeKeys(getParent().getMetaModel(), collectionTotals); 
 				}
 				else {
@@ -2024,12 +2032,12 @@ public class View implements java.io.Serializable {
 						Object model = getParent().getModel();
 						if (model != null) getParent().updateModelFromView();
 						else model = getParent().getTransientPOJO();
-						collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), model, memberNames);
+						collectionTotals = MapFacade.getValues(getParent().getModelName(), model, memberNames);
 						removeKeys(getParent().getMetaModel(), collectionTotals);
 					}
 					else {
 						try {
-							collectionTotals = (Map) MapFacade.getValues(getParent().getModelName(), key, memberNames);
+							collectionTotals = MapFacade.getValues(getParent().getModelName(), key, memberNames);
 							removeKeys(getParent().getMetaModel(), collectionTotals);
 						}
 						catch (javax.ejb.ObjectNotFoundException ex) {
@@ -2155,7 +2163,7 @@ public class View implements java.io.Serializable {
 			boolean collectionFromModel = isCollectionFromModel();
 			Collection<String> sumProperties = (Collection<String>) (collectionFromModel?getSumProperties():getCollectionTab().getSumPropertiesNames());
 			if (!sumProperties.isEmpty()) {
-				totalProperties = (Map) Maps.recursiveCloneWithCollections(totalProperties);
+				totalProperties = (Map<String, List<String>>) (Map<?, ?>) Maps.recursiveCloneWithCollections(totalProperties);
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (sumProperties.contains(p.getName())) {
 						List<String> properties = totalProperties.get(p.getName());
@@ -2336,7 +2344,7 @@ public class View implements java.io.Serializable {
 		}
 		else { 
 			// If not calculated we obtain the data from the Tab
-			Map<String, Object>[] selectedKeys = (Map[]) getCollectionTab().getSelectedKeys();
+			Map<String, Object>[] selectedKeys = getCollectionTab().getSelectedKeys();
 			return selectedKeys == null ? Collections.emptyList() : getCollectionValues(selectedKeys);
 		}
 	}
@@ -2346,7 +2354,7 @@ public class View implements java.io.Serializable {
 		Map<String, Object> memberNames = new HashMap<String, Object>(getCollectionMemberNames());
 		for (int i = 0; i < keys.length; i++) {			
 			try {
-				Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), keys[i], memberNames);
+				Map<String, Object> values = MapFacade.getValues(getModelName(), keys[i], memberNames);
 				result.add(values);				
 			}
 			catch (Exception ex) {
@@ -2387,7 +2395,7 @@ public class View implements java.io.Serializable {
 			}				
 		}
 		else {
-			Map<String, Object>[] tabKeys = (Map[]) getCollectionTab().getAllKeys();
+			Map<String, Object>[] tabKeys = getCollectionTab().getAllKeys();
 			keys = tabKeys;
 		}
 		return getCollectionObjects(keys);						
@@ -2506,7 +2514,7 @@ public class View implements java.io.Serializable {
 		else {
 			String referenceName = propertyName.substring(0, idx);
 			String referencePropertyName = propertyName.substring(idx+1);			
-			Map<String, Object> ref = (Map) collectionMemberNames.get(referenceName);
+			Map<String, Object> ref = (Map<String, Object>) collectionMemberNames.get(referenceName);
 			if (ref == null) {
 				ref = new HashMap<String, Object>();
 				collectionMemberNames.put(referenceName, ref);
@@ -2743,7 +2751,7 @@ public class View implements java.io.Serializable {
 								Object value = ref.getDefaultValueCalculator().calculate();
 								MetaModel referencedModel = ref.getMetaModelReferenced();								
 								if (referencedModel.getPOJOClass().isInstance(value)) { 
-									Map<String, Object> values = (Map) referencedModel.toMap(value);
+									Map<String, Object> values = referencedModel.toMap(value);
 									trySetValue(ref.getName(), values);									
 									alreadyPut.addAll(
 									    referencedModel.getAllKeyPropertiesNames()
@@ -3819,7 +3827,7 @@ public class View implements java.io.Serializable {
 				alternateKey.put(changedProperty.getName(), getValue(changedProperty.getName()));
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					Map<String, Object> values = (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					Map<String, Object> values = MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
@@ -3827,18 +3835,18 @@ public class View implements java.io.Serializable {
 				// If changed property is hidden key, although there are search member we search by key
 				clear();
 				if (!Maps.isEmptyOrZero(key)) {				
-					Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					Map<String, Object> values = MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
 				Map<String, Object> alternateKey = getSearchKeyValues();
 				if (extraKeysForSearchingReference == null) return false;
-				Map<String, Object> extraKeys = (Map) extraKeysForSearchingReference;
+				Map<String, Object> extraKeys = (Map<String, Object>) extraKeysForSearchingReference;
 				alternateKey.putAll(extraKeys);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					Map<String, Object> values = (Map) MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					Map<String, Object> values = MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
 					setValues(values);
 				}				
 			}						
@@ -3847,7 +3855,7 @@ public class View implements java.io.Serializable {
 				clear();
 				if (extraKeysForSearchingReference == null) return false;
 				if (!Maps.isEmpty(key)) {				
-					Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					Map<String, Object> values = MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
 					setValues(values);
 				}
 			}
@@ -3871,7 +3879,7 @@ public class View implements java.io.Serializable {
 		Map<String, Object> key = getKeyValues();
 		try {			
 			if (Maps.isEmptyOrZero(key)) clear();				
-			else setValues((Map) MapFacade.getValues(getModelName(), key, getMembersNamesWithHidden()), false);				
+			else setValues(MapFacade.getValues(getModelName(), key, getMembersNamesWithHidden()), false);				
 			refreshCollections(); 
 		}
 		catch (FinderException ex) {						
@@ -4038,19 +4046,19 @@ public class View implements java.io.Serializable {
 	}
 	
 	private Object getTransientPOJO() throws Exception {
-		Map values = getParentIfSectionOrGroup().getValues(); 
+		Map<String, Object> values = getParentIfSectionOrGroup().getValues(); 
 		Object pojo = getMetaModel().toPOJO(values);
 		loadPOJOReferences(pojo, values);
 		return pojo;
 	}
 
-	private void loadPOJOReferences(Object pojo, Map values) throws Exception	{ 
+	private void loadPOJOReferences(Object pojo, Map<String, Object> values) throws Exception	{ 
 		PropertiesManager pm = new PropertiesManager(pojo);
 		for (Object oen: values.entrySet()) {
 			Map.Entry en = (Map.Entry) oen;
 			if (en.getValue() instanceof Map) {
 				String name = (String) en.getKey();
-				Map key = (Map) en.getValue();
+				Map<String, Object> key = (Map<String, Object>) en.getValue();
 				if (getMetaModel().containsMetaReference(name) && !Maps.isEmpty(key)) {
 					MetaReference ref = getMetaModel().getMetaReference(name);
 					if (!ref.isAggregate()) {
@@ -4104,7 +4112,7 @@ public class View implements java.io.Serializable {
 	 */
 	public void updateModelFromView() { 
 		if (model != null) {
-			Map values = getParentIfSectionOrGroup().getValues(); 
+			Map<String, Object> values = getParentIfSectionOrGroup().getValues(); 
 			getMetaModel().fillPOJO(model, values);
 			try {
 				loadPOJOReferences(model, values);
@@ -4131,7 +4139,7 @@ public class View implements java.io.Serializable {
 		}
 		refreshCollections();  
 		setModelName(model.getClass().getSimpleName());
-		Map<String, Object> values = (Map) MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden());
+		Map<String, Object> values = MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden());
 		setValues(values);
 	}
 	
@@ -4368,12 +4376,12 @@ public class View implements java.io.Serializable {
 		return metaPropertiesIncludingGroups;
 	}
 		
-	private Collection getMetaMembersIncludingGroups() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingGroups() throws XavaException { 
 		if (!hasGroups()) return getMetaMembers();
 		if (metaMembersIncludingGroups == null) {
-			metaMembersIncludingGroups = new ArrayList(getMetaMembers());	
-			for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {
-				View group = (View) it.next();
+			metaMembersIncludingGroups = new ArrayList<MetaMember>(getMetaMembers());	
+			for (Iterator<View> it = getGroupsViews().values().iterator(); it.hasNext();) {
+				View group = it.next();
 				metaMembersIncludingGroups.addAll(group.getMetaMembersIncludingGroups());
 			}			
 		}
@@ -4456,10 +4464,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private List<MetaProperty> processLabelIdForMetaProperties(List<MetaProperty> mpList) {
-		List<MetaProperty> newList = new ArrayList();
-		Iterator it = mpList.iterator();
+		List<MetaProperty> newList = new ArrayList<MetaProperty>();
+		Iterator<MetaProperty> it = mpList.iterator();
 		while (it.hasNext()) {
-			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
+			MetaProperty p = it.next().cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
 				p.setName(p.getQualifiedName());
 			}
@@ -4492,9 +4500,9 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 
-	private Map getMapStereotypesProperties() {
+	private Map<String, String> getMapStereotypesProperties() {
 		if (mapStereotypesProperties == null) {
-			mapStereotypesProperties = new HashMap();
+			mapStereotypesProperties = new HashMap<String, String>();
 		}
 		return mapStereotypesProperties;		
 	}
@@ -4502,10 +4510,10 @@ public class View implements java.io.Serializable {
 	/**	  
 	 * @param propertiesList Properties names comma separated
 	 */
-	public Collection getPropertiesNamesFromPropertiesList(String propertiesList) throws XavaException {
+	public Collection<String> getPropertiesNamesFromPropertiesList(String propertiesList) throws XavaException {
 		if (Is.emptyString(propertiesList)) return Collections.EMPTY_LIST;
 		StringTokenizer st = new StringTokenizer(propertiesList, ", ");
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
 			String property = st.nextToken().trim();
 			r.add(property);
@@ -4776,12 +4784,12 @@ public class View implements java.io.Serializable {
 		return false;
 	}
 		
-	private Collection getDepends() throws XavaException {
+	private Collection<String> getDepends() throws XavaException {
 		if (depends == null) {
-			depends = new ArrayList();
-			Iterator it = getMetaView().getMetaDescriptionsLists().iterator();
+			depends = new ArrayList<String>();
+			Iterator<MetaDescriptionsList> it = getMetaView().getMetaDescriptionsLists().iterator();
 			while (it.hasNext()) {
-				MetaDescriptionsList metaDescriptionsList = (MetaDescriptionsList) it.next();					
+				MetaDescriptionsList metaDescriptionsList = it.next();					
 				StringTokenizer st = new StringTokenizer(metaDescriptionsList.getDepends(), ",");
 				while (st.hasMoreTokens()) {
 					String token = st.nextToken().trim();
@@ -5070,7 +5078,7 @@ public class View implements java.io.Serializable {
 		}
 		if (hiddenMembers == null) {
 			if (!hidden) return;		
-			hiddenMembers = new HashSet();
+			hiddenMembers = new HashSet<String>();
 		}
 		// getSubview() is for starting the process that creates subviews and groups
 		// before to hide any member
@@ -5240,8 +5248,8 @@ public class View implements java.io.Serializable {
 		if (!getMetaView().hasSections()) return;
 		Object preSection = sections==null || sections.isEmpty()?null:sections.get(activeSection); 
 		if (hiddenMembers != null && !hiddenMembers.isEmpty()) {
-			List newSections = new ArrayList(getMetaView().getSections());			
-			removeHidden(newSections);			
+			List<MetaView> newSections = new ArrayList<MetaView>(getMetaView().getSections());			
+			removeHiddenSections(newSections);			
 			sections = newSections;
 		}
 		else {
@@ -5360,7 +5368,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * Has sense if the subview represents a collection, although always works.	 
 	 */
-	public void setActionsNamesDetail(Collection collection) {		
+	public void setActionsNamesDetail(Collection<String> collection) {		
 		actionsNamesDetail = collection;
 	}
 	
@@ -5370,7 +5378,7 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void addDetailAction(String qualifiedActionName) {		
-		if (actionsNamesDetail == null) actionsNamesDetail = new ArrayList();
+		if (actionsNamesDetail == null) actionsNamesDetail = new ArrayList<String>();
 		actionsNamesDetail.add(qualifiedActionName);
 	}
 
@@ -5390,18 +5398,18 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void addListAction(String qualifiedActionName) {		
-		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections()); 
+		if (actionsNamesList == null) actionsNamesList = new ArrayList<String>(getDefaultListActionsForCollections()); 
 		if (actionsNamesList.contains(qualifiedActionName))	return;
 		refreshCollection(); 
 		if (getFullOrderActionsNamesList().contains(qualifiedActionName)) {
 			// If already in order we insert it in the correct position
-			ArrayList list = (ArrayList) actionsNamesList;
+			ArrayList<String> list = (ArrayList<String>) actionsNamesList;
 			int position = 0;
 			for (Object o : getFullOrderActionsNamesList()) {
 				if (actionsNamesList.contains(o))
 					position++;
 				else if (o.equals(qualifiedActionName)) {
-					((ArrayList) actionsNamesList).add(position, o);
+					list.add(position, (String) o);
 					return;
 				}
 			}
@@ -5415,18 +5423,18 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void addRowAction(String qualifiedActionName) {	
-		if (actionsNamesRow == null) actionsNamesRow = new ArrayList(getDefaultRowActionsForCollections()); 
+		if (actionsNamesRow == null) actionsNamesRow = new ArrayList<String>(getDefaultRowActionsForCollections()); 
 		if (actionsNamesRow.contains(qualifiedActionName))	return;
 		refreshCollection(); 
 		if (getFullOrderActionsNamesRow().contains(qualifiedActionName)) {
 			// If already in order we insert it in the correct position
-			ArrayList row = (ArrayList) actionsNamesRow;	// no se si row seria el nombre apropiado, para que se usa row?
+			ArrayList<String> row = (ArrayList<String>) actionsNamesRow;	// no se si row seria el nombre apropiado, para que se usa row?
 			int position = 0;
 			for (Object o : getFullOrderActionsNamesRow()) {
 				if (actionsNamesRow.contains(o))
 					position++;
 				else if (o.equals(qualifiedActionName)) {
-					((ArrayList) actionsNamesRow).add(position, o);
+					row.add(position, (String) o);
 					return;
 				}
 			}
@@ -5452,7 +5460,7 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void removeListAction(String qualifiedActionName) {		
-		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections()); 
+		if (actionsNamesList == null) actionsNamesList = new ArrayList<String>(getDefaultListActionsForCollections()); 
 		actionsNamesList.remove(qualifiedActionName);
 		actionsNamesListRefined = false; 
 		subcontrollersNamesListRefined = false; 
@@ -7042,25 +7050,25 @@ public class View implements java.io.Serializable {
 		this.title = title;
 	}		 
 	
-	private Collection getFullOrderActionsNamesList() {
+	private Collection<String> getFullOrderActionsNamesList() {
 		if (fullOrderActionsNamesList==null) {
-			fullOrderActionsNamesList = new ArrayList();
+			fullOrderActionsNamesList = new ArrayList<String>();
 		}
 		return fullOrderActionsNamesList; 
 	}
 	
-	private void setFullOrderActionsNamesList(Collection collection) { 
+	private void setFullOrderActionsNamesList(Collection<String> collection) { 
 		fullOrderActionsNamesList = collection; 
 	}
 	
-	private Collection getFullOrderActionsNamesRow() {
+	private Collection<String> getFullOrderActionsNamesRow() {
 		if (fullOrderActionsNamesRow==null) {
-			fullOrderActionsNamesRow = new ArrayList();
+			fullOrderActionsNamesRow = new ArrayList<String>();
 		}
 		return fullOrderActionsNamesRow; 
 	}
 	
-	private void setFullOrderActionsNamesRow(Collection collection) { 
+	private void setFullOrderActionsNamesRow(Collection<String> collection) { 
 		fullOrderActionsNamesRow = collection; 
 	}	
 	

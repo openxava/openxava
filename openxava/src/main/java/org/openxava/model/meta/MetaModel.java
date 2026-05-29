@@ -1272,20 +1272,20 @@ abstract public class MetaModel extends MetaElement {
 	 * @param values  Not null
 	 * @return Not null
 	 */
-	public Map extractKeyValues(Map values) throws XavaException {
+	public Map<String, Object> extractKeyValues(Map<String, Object> values) throws XavaException {
 		return extractKeyValues(keyTester, values, false);
 	}
 	
-	public Map extractSearchKeyValues(Map values) throws XavaException {
+	public Map<String, Object> extractSearchKeyValues(Map<String, Object> values) throws XavaException {
 		return extractKeyValues(searchKeyTester, values, false); 
 	}
 	
 	/** @since 6.2.2 */
-	public Map extractKeyValuesFlattenEmbeddedIds(Map values) throws XavaException { 
+	public Map<String, Object> extractKeyValuesFlattenEmbeddedIds(Map<String, Object> values) throws XavaException { 
 		return extractKeyValues(keyTester, values, true); 
 	}
 	
-	private Map extractKeyValues(IKeyTester keyTester, Map values, boolean flattenEmbeddedIds) throws XavaException { 
+	private Map<String, Object> extractKeyValues(IKeyTester keyTester, Map<String, Object> values, boolean flattenEmbeddedIds) throws XavaException { 
 		Iterator it = values.keySet().iterator();
 		Map<String, Object> result = new HashMap<>();
 		while (it.hasNext()) {
@@ -1294,7 +1294,7 @@ abstract public class MetaModel extends MetaElement {
 				if (isReference(name)) {
 					if (getMetaReference(name).isAggregate()) { // @EmbeddedId case  
 						if (flattenEmbeddedIds) {
-							return (Map) values.get(name);
+							return (Map<String, Object>) values.get(name);
 						}
 						else {
 							Map<String, Object> embeddedId = new HashMap<>();
@@ -1305,7 +1305,7 @@ abstract public class MetaModel extends MetaElement {
 					else {
 						Object value = values.get(name);
 						if (value instanceof Map) {
-							result.put(name, getMetaReference(name).getMetaModelReferenced().extractKeyValues((Map) value));
+							result.put(name, getMetaReference(name).getMetaModelReferenced().extractKeyValues((Map<String, Object>) value));
 						}
 						else {
 							result.put(name, value);
