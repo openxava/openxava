@@ -3,11 +3,6 @@ Pending: Warning with Java 17 TMR
 
 Quitar doble cast en View:
 
-(Collection<String>) (Collection) metaCollectionView.getPropertiesListNames()
-(Collection<String>) (Collection) metaCollectionView.getActionsDetailNames()
-(Collection<String>) (Collection) metaCollectionView.getActionsListNames()
-(Collection<String>) (Collection) metaCollectionView.getSubcontrollersListNames()
-(Collection<String>) (Collection) metaCollectionView.getActionsRowNames()
 
 (Iterator<MetaAction>) (Iterator) (Iterable) controller.getAllMetaActions().iterator()
 

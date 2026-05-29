@@ -1084,7 +1084,7 @@ public class View implements java.io.Serializable {
 				if (metaCollectionView.isAsAggregate()) {
 					newView.setRepresentsAggregate(true); 
 				}
-				Collection<String> propertiesListNames = (Collection<String>) (Collection) metaCollectionView.getPropertiesListNames();
+				Collection<String> propertiesListNames = metaCollectionView.getPropertiesListNames();
 				if (!propertiesListNames.isEmpty()) {					
 					newView.setMetaPropertiesList(newView.namesToMetaPropertiesPurgingNames(propertiesListNames));
 					newView.setPropertiesListNames(Strings.toString(propertiesListNames));
@@ -1092,7 +1092,7 @@ public class View implements java.io.Serializable {
 				if (metaCollectionView.hasRowStyles()) { 
 					newView.setRowStyles(metaCollectionView.getMetaRowStyles());					
 				}				
-				Collection<String> actionsDetailNames = (Collection<String>) (Collection) metaCollectionView.getActionsDetailNames();
+				Collection<String> actionsDetailNames = metaCollectionView.getActionsDetailNames();
 				if (!actionsDetailNames.isEmpty()) {
 					newView.setActionsNamesDetail(new ArrayList<String>(actionsDetailNames));
 				}
@@ -1137,18 +1137,18 @@ public class View implements java.io.Serializable {
 					metaCollectionView.isEditOnly() ) &&
 					metaCollectionView.isModifyReference());
 				newView.setViewName(metaCollectionView.getViewName());
-				Collection<String> actionsListNames = (Collection<String>) (Collection) metaCollectionView.getActionsListNames();
+				Collection<String> actionsListNames = metaCollectionView.getActionsListNames();
 				if (!actionsListNames.isEmpty()) {	
 					Collection<String> actions = new ArrayList<String>(actionsListNames);
 					actions.addAll(newView.getDefaultListActionsForCollections());
 					newView.setActionsNamesList(actions);
 				}
-				Collection<String> subcontrollerListNames = (Collection<String>) (Collection) metaCollectionView.getSubcontrollersListNames();
+				Collection<String> subcontrollerListNames = metaCollectionView.getSubcontrollersListNames();
 				if (!subcontrollerListNames.isEmpty()) {					
 					Collection<String> subcontroller = new ArrayList<String>(subcontrollerListNames);
 					newView.setSubcontrollersNamesList(subcontroller);
 				}
-				Collection<String> actionsRowNames = (Collection<String>) (Collection) metaCollectionView.getActionsRowNames();
+				Collection<String> actionsRowNames = metaCollectionView.getActionsRowNames();
 				if (!actionsRowNames.isEmpty()) {
 					Collection<String> actions = new ArrayList<String>(actionsRowNames);
 					actions.addAll(newView.getDefaultRowActionsForCollections());
