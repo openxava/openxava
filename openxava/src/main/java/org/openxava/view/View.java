@@ -5596,7 +5596,6 @@ public class View implements java.io.Serializable {
 		if (changedActions == null) return metaActions;
 		initializeActionsForProperty(p.getName());
 		Collection<String> addedActions = getChangedActionsByProperty().get(p.getName());
-		@SuppressWarnings("unchecked")
 		boolean hasKey = changedActions.containsKey(p.getName());
 		if (!hasKey) return metaActions;
 		if (addedActions.isEmpty()) return metaActions;
