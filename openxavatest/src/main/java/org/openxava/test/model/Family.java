@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.*;
 import org.openxava.annotations.*;
 
@@ -24,8 +23,7 @@ import org.openxava.annotations.*;
 public class Family {
 	
 		 
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
 	private String oid;
 	
 	@Max(999) @Required 

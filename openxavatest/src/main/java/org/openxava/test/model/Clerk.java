@@ -47,9 +47,9 @@ public class Clerk {
 	
  	public static Clerk findByZoneNumberOfficeNumberNumber(int zoneNumber,int officeNumber,int number) throws NoResultException { 	 			
  		Query query = XPersistence.getManager().createQuery("from Clerk as o where o.zoneNumber = :zoneNumber and officeNumber = :officeNumber and number = :number"); 
-		query.setParameter("zoneNumber", new Integer(zoneNumber)); 
-		query.setParameter("officeNumber", new Integer(officeNumber)); 
-		query.setParameter("number", new Integer(number)); 
+		query.setParameter("zoneNumber", Integer.valueOf(zoneNumber)); 
+		query.setParameter("officeNumber", Integer.valueOf(officeNumber)); 
+		query.setParameter("number", Integer.valueOf(number)); 
  		return (Clerk) query.getSingleResult();
  	} 
 

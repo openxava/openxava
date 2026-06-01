@@ -9,7 +9,7 @@ import org.openxava.actions.*;
 public class GenerateDeliveryNumberAction extends ViewBaseAction {
 
 	public void execute() throws Exception {		
-		getView().setValue("number", new Integer(77)); 
+		getView().setValue("number", Integer.valueOf(77)); 
 	}
 
 }

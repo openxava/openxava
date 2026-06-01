@@ -9,7 +9,7 @@ import org.openxava.actions.*;
 public class CreateNewFamilyAction extends ViewBaseAction implements IChangeModeAction {
 
 	public void execute() throws Exception {
-		getView().setValue("number", new Integer(99));
+		getView().setValue("number", Integer.valueOf(99));
 		getView().setValue("description", "NOVA FAMILIA");
 	}
 

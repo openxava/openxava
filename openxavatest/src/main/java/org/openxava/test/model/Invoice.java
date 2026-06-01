@@ -378,7 +378,7 @@ public class Invoice {
 			ps.setInt(2, getNumber());
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			Integer result = new Integer(rs.getInt(1)); 
+			Integer result = Integer.valueOf(rs.getInt(1)); 
 			ps.close();
 			return result;			
 		}
@@ -460,8 +460,8 @@ public class Invoice {
  	
  	public static Invoice findByYearNumber(int year,int number) throws NoResultException { 			
  		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Invoice as o where o.year = :year and number = :number"); 
-		query.setParameter("year", new Integer(year)); 
-		query.setParameter("number", new Integer(number)); 
+		query.setParameter("year", Integer.valueOf(year)); 
+		query.setParameter("number", Integer.valueOf(number)); 
 		return (Invoice) query.getSingleResult();
  	} 
 

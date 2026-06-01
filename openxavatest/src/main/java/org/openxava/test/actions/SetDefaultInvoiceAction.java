@@ -12,8 +12,8 @@ public class SetDefaultInvoiceAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
 		View invoiceView = getView().getSubview("invoice");
-		invoiceView.setValue("year", new Integer(2002));
-		invoiceView.setValue("number", new Integer(1));
+		invoiceView.setValue("year", Integer.valueOf(2002));
+		invoiceView.setValue("number", Integer.valueOf(1));
 		invoiceView.findObject();
 	}
 

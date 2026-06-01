@@ -14,7 +14,7 @@ public class CurrentYearFilter implements IFilter {
 	public Object filter(Object o) throws FilterException {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new java.util.Date());		
-		Integer year = new Integer(cal.get(Calendar.YEAR));
+		Integer year = Integer.valueOf(cal.get(Calendar.YEAR));
 		Object [] r = null;
 		if (o == null) {
 			r = new Object[1];

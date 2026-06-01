@@ -18,7 +18,7 @@ public class DeliveryTypeRemoveValidator implements IRemoveValidator {
 
 	public void validate(Messages errors) throws Exception {
 		if 	(!deliveryType.getDeliveries().isEmpty()) {
-			errors.add("not_remove_delivery_type_if_in_deliveries", new Integer(getNumber()));	
+			errors.add("not_remove_delivery_type_if_in_deliveries", Integer.valueOf(getNumber()));	
 		}
 	}
 

@@ -134,7 +134,7 @@ public class Product5 {
 	
  	public static Product5 findByNumber(long number) throws NoResultException { 	 			
  		Query query = XPersistence.getManager().createQuery("from Product2 as o where o.number = :number"); 
-		query.setParameter("number", new Long(number));  	
+		query.setParameter("number", Long.valueOf(number));  	
 		return (Product5) query.getSingleResult();
 	} 
 

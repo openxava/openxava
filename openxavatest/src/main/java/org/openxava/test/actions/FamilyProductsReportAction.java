@@ -49,7 +49,7 @@ public class FamilyProductsReportAction extends JasperReportBaseAction implement
 	private Subfamily2 getSubfamily() throws Exception {
 		if (subfamily == null) {
 			int subfamilyNumber = getView().getValueInt("subfamily.number");
-			subfamily = XPersistence.getManager().find(Subfamily2.class, new Integer(subfamilyNumber));
+			subfamily = XPersistence.getManager().find(Subfamily2.class, Integer.valueOf(subfamilyNumber));
 		}
 		return subfamily;
 	}

@@ -9,7 +9,7 @@ import org.openxava.test.model.*;
  */
 public class OnChangeWarehouseAction extends OnChangePropertyBaseAction {
 	
-	private final static Integer ONE = new Integer(1);
+	private final static Integer ONE = Integer.valueOf(1);
 
 	public void execute() throws Exception {
 		// We obtain the warehouse data from entity (also could be view, but we need to test a case with getEntity()) 

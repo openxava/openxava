@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -29,8 +28,7 @@ import org.openxava.annotations.*;
 public class Formula {
 	
 	@Id @Hidden
-	@GeneratedValue(generator="system-uuid") 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@GeneratedValue(strategy = GenerationType.UUID) 
 	@Column(name="ID")	
 	private String oid;
 	

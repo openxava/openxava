@@ -397,7 +397,7 @@ public class Customer implements IWithName {
 		
  	public static Customer findByNumber(int number) throws NoResultException { 	 			
  		Query query = XPersistence.getManager().createQuery("from Customer as o where o.number = :number"); 
-		query.setParameter("number", new Integer(number)); 
+		query.setParameter("number", Integer.valueOf(number)); 
 		return (Customer) query.getSingleResult();
  	} 	
 	

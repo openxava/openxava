@@ -32,7 +32,7 @@ public class YearParameterFilter implements IRequestFilter {
 
 	private Integer getYearParameter() throws FilterException {
 		String year = request.getParameter("year");
-		return year == null?new Integer(0):new Integer(year);
+		return year == null ? Integer.valueOf(0) : Integer.valueOf(year);
 	}
 
 	public void setRequest(HttpServletRequest request) {

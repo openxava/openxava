@@ -4,13 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.jpa.XPersistence;
 
@@ -24,8 +24,7 @@ import org.openxava.jpa.XPersistence;
 public class Ingredient {
 	
 	@Id @Hidden
-	@GeneratedValue(generator="system-uuid") 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@GeneratedValue(strategy = GenerationType.UUID) 
 	@Column(name="ID")
 	private String oid;
 	
