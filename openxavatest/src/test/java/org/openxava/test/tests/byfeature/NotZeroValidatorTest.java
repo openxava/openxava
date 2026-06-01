@@ -22,74 +22,74 @@ public class NotZeroValidatorTest extends TestCase {
 	
 	public void testIntegerPositive() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Integer(1), "Test", "test");
+		validator.validate(errors, 1, "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testIntegerZero() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Integer(0), "Test", "test");
+		validator.validate(errors, 0, "Test", "test");
 		assertTrue(errors.contains());
 	}
 	
 	public void testIntegerNegative() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Integer(-1), "Test", "test");
+		validator.validate(errors, -1, "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testShortPositive() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Short((short)1), "Test", "test");
+		validator.validate(errors, Short.valueOf((short)1), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testShortZero() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Short((short)0), "Test", "test");
+		validator.validate(errors, Short.valueOf((short)0), "Test", "test");
 		assertTrue(errors.contains());
 	}
 	
 	public void testShortNegative() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Short((short)-1), "Test", "test");
+		validator.validate(errors, Short.valueOf((short)-1), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testFloatPositive() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Float(0.0001), "Test", "test");
+		validator.validate(errors, Float.valueOf(0.0001f), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testFloatZero() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Float(0), "Test", "test");
+		validator.validate(errors, Float.valueOf(0.0f), "Test", "test");
 		assertTrue(errors.contains());
 	}
 	
 	public void testFloatNegative() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Float(-0.0001), "Test", "test");
+		validator.validate(errors, Float.valueOf(-0.0001f), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 
 	public void testDoublePositive() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Double(0.0000000001), "Test", "test");
+		validator.validate(errors, Double.valueOf(0.0000000001), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	
 	public void testDoubleZero() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Double(0), "Test", "test");
+		validator.validate(errors, Double.valueOf(0.0), "Test", "test");
 		assertTrue(errors.contains());
 	}
 	
 	public void testDoubleNegative() throws Exception {
 		Messages errors = new Messages();
-		validator.validate(errors, new Double(-0.0000000001), "Test", "test");
+		validator.validate(errors, Double.valueOf(-0.0000000001), "Test", "test");
 		assertTrue(errors.isEmpty());
 	}
 	

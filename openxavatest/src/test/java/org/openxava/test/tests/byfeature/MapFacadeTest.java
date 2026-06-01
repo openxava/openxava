@@ -31,7 +31,7 @@ public class MapFacadeTest extends TestCase {
 	
 	public void testCreateReturningKey() throws Exception { 
 		Map values = new HashMap();
-		values.put("year", new Integer(2007));
+		values.put("year", Integer.valueOf(2007));
 		values.put("description", "JUNIT FROM MapFacade");
 		Map key = MapFacade.createReturningKey("Course", values); 
 		Number number = (Number) key.get("number");		
@@ -61,9 +61,9 @@ public class MapFacadeTest extends TestCase {
 	
 	public void testMapArgumentByValue() throws Exception {
 		Map key = new HashMap();
-		key.put("number", new Integer("4"));
+		key.put("number", Integer.valueOf("4"));
 		Map newValues = new HashMap();
-		newValues.put("number", new Integer("4"));
+		newValues.put("number", Integer.valueOf("4"));
 		newValues.put("name", "Cuatrero");
 		assertEquals(2, newValues.size());
 		MapFacade.setValues("Customer", key, newValues);
