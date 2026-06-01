@@ -5592,8 +5592,7 @@ public class View implements java.io.Serializable {
 			                                                                                                                                                                                                                                                                                                                                                                                                                   
 	public Collection<String> getActionsNamesForProperty(MetaProperty p, boolean editable) throws XavaException {		
 		Map<String, Collection<String>> changedActions = getParentIfSectionOrGroup().changedActionsByProperty;
-		@SuppressWarnings("unchecked")
-		Collection<String> metaActions = (Collection<String>) getMetaView().getActionsNamesForProperty(p, editable);
+		Collection<String> metaActions = getMetaView().getActionsNamesForProperty(p, editable);
 		if (changedActions == null) return metaActions;
 		initializeActionsForProperty(p.getName());
 		@SuppressWarnings("unchecked")

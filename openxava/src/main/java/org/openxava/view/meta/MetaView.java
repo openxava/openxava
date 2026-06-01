@@ -609,10 +609,6 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaDescriptionsList;
 	}
 		
-	/**
-	 * @return of type <tt>MetaDescriptionsList</tt>
-	 * @since 8.0
-	 */
 	public Collection<MetaDescriptionsList> getMetaDescriptionsLists() {
 		Collection<MetaDescriptionsList> metaDescriptionsLists = new ArrayList<>();
 		if (metaViewsReferences == null) return metaDescriptionsLists;
@@ -870,9 +866,9 @@ public class MetaView extends MetaElement implements Cloneable {
 		return clon;
 	}
 
-	public Collection getActionsNamesForProperty(MetaProperty p, boolean editable) {
+	public Collection<String> getActionsNamesForProperty(MetaProperty p, boolean editable) {
 		MetaMemberView metaPropertyView = getMetaPropertyViewFor(p.getName());
-		if (metaPropertyView == null) return Collections.EMPTY_LIST;
+		if (metaPropertyView == null) return Collections.emptyList();
 		return editable?metaPropertyView.getActionsNames():metaPropertyView.getAlwaysEnabledActionsNames();
 	}
 	
