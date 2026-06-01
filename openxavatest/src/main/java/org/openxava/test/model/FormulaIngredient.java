@@ -17,8 +17,8 @@ public class FormulaIngredient {
 	@JoinColumn(name="FORMULA")
 	private Formula formula;
 
-	@Id @Hidden
-	@GeneratedValue(strategy = GenerationType.UUID) 
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	

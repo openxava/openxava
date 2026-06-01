@@ -27,8 +27,8 @@ import org.openxava.annotations.*;
 @Tab(properties="name, recipe") 
 public class Formula {
 	
-	@Id @Hidden
-	@GeneratedValue(strategy = GenerationType.UUID) 
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")	
 	private String oid;
 	

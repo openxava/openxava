@@ -24,8 +24,8 @@ import org.openxava.jpa.XPersistence;
 @View(name="Sections", members="section1{ name; section2 { partOf, favouriteFormula } }")
 public class Ingredient {
 	
-	@Id @Hidden
-	@GeneratedValue(strategy = GenerationType.UUID) 
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	
