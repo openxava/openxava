@@ -4,6 +4,6 @@ Pending: Warning with Java 17 TMR
 * View. Sin warnings.
 * MapFacade. Colecciones públicas parametrizadas.
 * Tab. Colecciones públicas parametrizadas.
-- openxavatest. Sin warnings.
+* openxavatest. Sin warnings.
 
 
