@@ -5,5 +5,13 @@ Pending: Warning with Java 17 TMR
 * MapFacade. Colecciones públicas parametrizadas.
 * Tab. Colecciones públicas parametrizadas.
 * openxavatest. Sin warnings.
+- Test fallidos:
+    - EditableValidValuesTest
+    - AppointmentTest
+    - DeliveryNoXMLTest
+    - FormulaTest
+    - MotorVehicleDriver2Test
+    - Product2WithFormulaAsAggregateTest
+    - Product2WithFormulaTest
 
 
