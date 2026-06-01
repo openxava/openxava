@@ -6551,7 +6551,7 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @return In each entry the key is the qualified id and value of the new label
 	 */  
-	public Map getChangedLabels() {
+	public Map<String, String> getChangedLabels() {
 		return changedLabels == null?Collections.EMPTY_MAP:changedLabels; 
 	}
 
@@ -7483,11 +7483,11 @@ public class View implements java.io.Serializable {
 	 * @return A map with value/label pairs.
 	 * @since 5.8
 	 */
-	public Map getValidValues(String property) {
+	public Map<Object, String> getValidValues(String property) {
 		if (isSection() || isGroup()) return getParent().getValidValues(property);
 		if (validValuesByProperty == null) return null;
 		MetaProperty metaProperty = getMetaProperty(property);
-		Map validValues = validValuesByProperty.get(metaProperty);
+		Map<Object, String> validValues = validValuesByProperty.get(metaProperty);
 		return validValues;		
 	}
 	

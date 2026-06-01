@@ -585,8 +585,7 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.columnsToAddUntilSecondLevel = columnsToAddUntilSecondLevel;
 	}
 	
-	@SuppressWarnings("unchecked")
-	public Collection getColumnsToAdd() throws XavaException {
+	public Collection<String> getColumnsToAdd() throws XavaException {
 		List<String> result = new ArrayList<String>((Collection<String>) getRemainingPropertiesNames());
 		
 		Collections.sort(result, new Comparator<String>() {
