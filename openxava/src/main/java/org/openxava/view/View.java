@@ -2522,7 +2522,8 @@ public class View implements java.io.Serializable {
 		}
 		else {
 			String referenceName = propertyName.substring(0, idx);
-			String referencePropertyName = propertyName.substring(idx+1);			
+			String referencePropertyName = propertyName.substring(idx+1);
+			@SuppressWarnings("unchecked")
 			Map<String, Object> ref = (Map<String, Object>) collectionMemberNames.get(referenceName);
 			if (ref == null) {
 				ref = new HashMap<String, Object>();
@@ -4067,6 +4068,7 @@ public class View implements java.io.Serializable {
 			Map.Entry en = (Map.Entry) oen;
 			if (en.getValue() instanceof Map) {
 				String name = (String) en.getKey();
+				@SuppressWarnings("unchecked")
 				Map<String, Object> key = (Map<String, Object>) en.getValue();
 				if (getMetaModel().containsMetaReference(name) && !Maps.isEmpty(key)) {
 					MetaReference ref = getMetaModel().getMetaReference(name);
@@ -4796,7 +4798,8 @@ public class View implements java.io.Serializable {
 	private Collection<String> getDepends() throws XavaException {
 		if (depends == null) {
 			depends = new ArrayList<String>();
-			Iterator<MetaDescriptionsList> it = getMetaView().getMetaDescriptionsLists().iterator();
+			@SuppressWarnings("unchecked")
+			Iterator<MetaDescriptionsList> it = (Iterator<MetaDescriptionsList>) getMetaView().getMetaDescriptionsLists().iterator();
 			while (it.hasNext()) {
 				MetaDescriptionsList metaDescriptionsList = it.next();					
 				StringTokenizer st = new StringTokenizer(metaDescriptionsList.getDepends(), ",");
@@ -5589,18 +5592,27 @@ public class View implements java.io.Serializable {
 	}
 			                                                                                                                                                                                                                                                                                                                                                                                                                   
 	public Collection<String> getActionsNamesForProperty(MetaProperty p, boolean editable) throws XavaException {		
-		if (getParentIfSectionOrGroup().changedActionsByProperty == null) return getMetaView().getActionsNamesForProperty(p, editable);
+		@SuppressWarnings("unchecked")
+		Map<String, Collection<String>> changedActions = getParentIfSectionOrGroup().changedActionsByProperty;
+		@SuppressWarnings("unchecked")
+		Collection<String> metaActions = (Collection<String>) getMetaView().getActionsNamesForProperty(p, editable);
+		if (changedActions == null) return metaActions;
 		initializeActionsForProperty(p.getName());
-		if (!getChangedActionsByProperty().containsKey(p.getName())) return getMetaView().getActionsNamesForProperty(p, editable);
-		Collection<String> addedActions = getChangedActionsByProperty().get(p.getName()); 
-		if (addedActions.isEmpty()) return getMetaView().getActionsNamesForProperty(p, editable);
-		Collection<String> result = new ArrayList<>(getMetaView().getActionsNamesForProperty(p, editable));
+		@SuppressWarnings("unchecked")
+		Collection<String> addedActions = (Collection<String>) getChangedActionsByProperty().get(p.getName());
+		@SuppressWarnings("unchecked")
+		boolean hasKey = changedActions.containsKey(p.getName());
+		if (!hasKey) return metaActions;
+		if (addedActions.isEmpty()) return metaActions;
+		Collection<String> result = new ArrayList<>(metaActions);
 		result.addAll(addedActions);
 		return result;
 	}
 	
 	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) throws XavaException { 
-		return getMetaView().getActionsNamesForReference(ref, editable);
+		@SuppressWarnings("unchecked")
+		Collection<String> result = (Collection<String>) getMetaView().getActionsNamesForReference(ref, editable);
+		return result;
 	}
 	
 	/**
@@ -6328,7 +6340,9 @@ public class View implements java.io.Serializable {
 		}	
 		
 		if (hasEditableChanged()) {
-			for (Iterator<String> it = getMetaView().getNotAlwaysEnabledViewActionsNames().iterator(); it.hasNext(); ) {
+			@SuppressWarnings("unchecked")
+			Iterator<String> it = (Iterator<String>) getMetaView().getNotAlwaysEnabledViewActionsNames().iterator();
+			while (it.hasNext()) {
 				String action = it.next();
 				result.put(getPropertyPrefix() + action, this);
 			}
