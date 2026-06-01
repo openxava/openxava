@@ -6,6 +6,6 @@ Pending: Warning with Java 17 TMR
 * Tab. Colecciones públicas parametrizadas.
 * openxavatest. Sin warnings.
 - Test fallidos:
-    - MotorVehicleDriver2Test
+    - MotorVehicleDriver2Test: TMR ME QUEDÉ POR AQUI. FALLA
 
 
