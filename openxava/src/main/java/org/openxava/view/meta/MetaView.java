@@ -872,9 +872,9 @@ public class MetaView extends MetaElement implements Cloneable {
 		return editable?metaPropertyView.getActionsNames():metaPropertyView.getAlwaysEnabledActionsNames();
 	}
 	
-	public Collection getActionsNamesForReference(MetaReference ref, boolean editable) {
+	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) {
 		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
-		if (metaReferenceView == null) return Collections.EMPTY_LIST;
+		if (metaReferenceView == null) return Collections.emptyList();
 		return editable?metaReferenceView.getActionsNames():metaReferenceView.getAlwaysEnabledActionsNames();
 	}
 	

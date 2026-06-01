@@ -5605,9 +5605,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) throws XavaException { 
-		@SuppressWarnings("unchecked")
-		Collection<String> result = (Collection<String>) getMetaView().getActionsNamesForReference(ref, editable);
-		return result;
+		return getMetaView().getActionsNamesForReference(ref, editable);
 	}
 	
 	/**
