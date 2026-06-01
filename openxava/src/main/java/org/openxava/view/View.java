@@ -4798,8 +4798,7 @@ public class View implements java.io.Serializable {
 	private Collection<String> getDepends() throws XavaException {
 		if (depends == null) {
 			depends = new ArrayList<String>();
-			@SuppressWarnings("unchecked")
-			Iterator<MetaDescriptionsList> it = (Iterator<MetaDescriptionsList>) getMetaView().getMetaDescriptionsLists().iterator();
+			Iterator<MetaDescriptionsList> it = getMetaView().getMetaDescriptionsLists().iterator();
 			while (it.hasNext()) {
 				MetaDescriptionsList metaDescriptionsList = it.next();					
 				StringTokenizer st = new StringTokenizer(metaDescriptionsList.getDepends(), ",");

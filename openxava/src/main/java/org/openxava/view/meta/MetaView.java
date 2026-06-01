@@ -611,13 +611,14 @@ public class MetaView extends MetaElement implements Cloneable {
 		
 	/**
 	 * @return of type <tt>MetaDescriptionsList</tt>
+	 * @since 8.0
 	 */
-	public Collection getMetaDescriptionsLists() {
-		Collection metaDescriptionsLists = new ArrayList();
+	public Collection<MetaDescriptionsList> getMetaDescriptionsLists() {
+		Collection<MetaDescriptionsList> metaDescriptionsLists = new ArrayList<>();
 		if (metaViewsReferences == null) return metaDescriptionsLists;
-		Iterator it = metaViewsReferences.values().iterator();
+		Iterator<MetaReferenceView> it = metaViewsReferences.values().iterator();
 		while (it.hasNext()) {
-			MetaReferenceView referenceView = (MetaReferenceView) it.next();
+			MetaReferenceView referenceView = it.next();
 			MetaDescriptionsList descriptionsList = referenceView.getMetaDescriptionsList(); 
 			if (descriptionsList != null) {
 				metaDescriptionsLists.add(descriptionsList);
