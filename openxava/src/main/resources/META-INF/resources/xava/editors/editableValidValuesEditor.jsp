@@ -22,7 +22,7 @@ MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value") == null ? "" : request.getAttribute(propertyKey + ".value");
-Map<Object, Object> validValues = view.getValidValues(p.getName()) == null ? Collections.emptyMap(): view.getValidValues(p.getName()) ;
+Map<Object, String> validValues = view.getValidValues(p.getName()) == null ? Collections.emptyMap(): view.getValidValues(p.getName()) ;
 Object description = validValues.get(value);
 String optionHidden = new String(new char[p.getSize()]).replace("\0", "A");
 String firstOption = "";
