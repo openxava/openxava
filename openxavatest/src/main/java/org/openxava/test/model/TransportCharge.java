@@ -56,7 +56,7 @@ public class TransportCharge {
 	private BigDecimal amount; 
 	
 	public static Collection<TransportCharge> findAll() {
-		Query query = XPersistence.getManager().createQuery("from TransportCharge as o"); 
+		TypedQuery<TransportCharge> query = XPersistence.getManager().createQuery("SELECT o FROM TransportCharge o", TransportCharge.class); 
  		return (Collection<TransportCharge>) query.getResultList();  				
 	}	
 

@@ -40,8 +40,8 @@ public class ProjectTask extends Identifiable {
 	private Date dueDate;
 	
 	public static long count() { 
-		Query query = XPersistence.getManager().createQuery("select count(*) from ProjectTask");
-		return (Long) query.getSingleResult();
+		TypedQuery<Long> query = XPersistence.getManager().createQuery("SELECT COUNT(p) FROM ProjectTask p", Long.class);
+		return query.getSingleResult();
 	}
 	
 	public Project getProject() {

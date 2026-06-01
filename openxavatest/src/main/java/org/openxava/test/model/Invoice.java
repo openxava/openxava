@@ -441,28 +441,28 @@ public class Invoice {
 		totalCalculationsCount = 0;
 	}	
 		
- 	public static Collection findAll()  {  		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice"); 
+ 	public static Collection<Invoice> findAll()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT i FROM Invoice i", Invoice.class); 
  		return query.getResultList();  		 		
  	} 	
  	
- 	public static Collection findPaidOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 	public static Collection<Invoice> findPaidOnes()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT o FROM Invoice o WHERE o.paid = :paid", Invoice.class); 
  		query.setParameter("paid", true);
  		return query.getResultList();  		 		
  	} 	
  	
- 	public static Collection findNotPaidOnes()  { 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = :paid"); 
+ 	public static Collection<Invoice> findNotPaidOnes()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT o FROM Invoice o WHERE o.paid = :paid", Invoice.class); 
  		query.setParameter("paid", false);
  		return query.getResultList();  		
  	} 	
  	
  	public static Invoice findByYearNumber(int year,int number) throws NoResultException { 			
- 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Invoice as o where o.year = :year and number = :number"); 
+ 		TypedQuery<Invoice> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT i FROM Invoice i WHERE i.year = :year AND i.number = :number", Invoice.class); 
 		query.setParameter("year", Integer.valueOf(year)); 
 		query.setParameter("number", Integer.valueOf(number)); 
-		return (Invoice) query.getSingleResult();
+		return query.getSingleResult();
  	} 
 
 	public BigDecimal getVatPercentage() {

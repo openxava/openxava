@@ -97,11 +97,11 @@ public class Carrier {
 		// At the moment you must write a code that returns the same result
 		// of the @Condition. 
 		if (getWarehouse() == null) return Collections.EMPTY_LIST; 
-		Query query = XPersistence.getManager().createQuery("from Carrier c where " +
+		TypedQuery<Carrier> query = XPersistence.getManager().createQuery("SELECT c FROM Carrier c WHERE " +
 			"c.warehouse.zoneNumber = :zone AND " + 
 			"c.warehouse.number = :warehouseNumber AND " + 
 			"NOT (c.number = :number) " +
-			"order by c.number");  
+			"order by c.number", Carrier.class);  
 		query.setParameter("zone", getWarehouse().getZoneNumber());
 		query.setParameter("warehouseNumber", getWarehouse().getNumber());
 		query.setParameter("number",  getNumber());
@@ -128,7 +128,7 @@ public class Carrier {
 	private Integer fellowCarriersCalculatedSize;
 	
 	public static Collection<Carrier> findAll() {
-		Query query = XPersistence.getManager().createQuery("from Carrier as o"); 
+		TypedQuery<Carrier> query = XPersistence.getManager().createQuery("SELECT o FROM Carrier o", Carrier.class); 
  		return query.getResultList();  				
 	}	
 

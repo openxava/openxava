@@ -93,7 +93,7 @@ public class Invoice2 {
 	private Collection<InvoiceDetail2> details;
 	
  	public static Collection<Invoice2> findAll()  {  		 			
-		Query query = XPersistence.getManager().createQuery("from Invoice2"); 
+		TypedQuery<Invoice2> query = XPersistence.getManager().createQuery("SELECT i FROM Invoice2 i", Invoice2.class); 
  		return query.getResultList();  		 		
  	}
  	

@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.XPersistence;
@@ -41,9 +42,9 @@ public class Ingredient {
 	private Formula favouriteFormula; // For testing cyclic references
 
 	public static Ingredient findByName(String name) throws NoResultException {
-		Query query = XPersistence.getManager().createQuery("from Ingredient where name = :name"); 
+		TypedQuery<Ingredient> query = XPersistence.getManager().createQuery("SELECT i FROM Ingredient i WHERE i.name = :name", Ingredient.class); 
 		query.setParameter("name", name); 			
-		return (Ingredient) query.getSingleResult();		  		
+		return query.getSingleResult();		  		
 	}
 	
 	public Formula getFavouriteFormula() {

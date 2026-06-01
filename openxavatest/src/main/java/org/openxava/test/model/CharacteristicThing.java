@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import org.openxava.annotations.DescriptionsList;
 import org.openxava.annotations.Hidden;
@@ -33,9 +34,9 @@ public class CharacteristicThing {
 	private String description;
 
 	public static CharacteristicThing findByNumber(int number) throws NoResultException {
-		Query query = XPersistence.getManager().createQuery("from CharacteristicThing where number = :number");
+		TypedQuery<CharacteristicThing> query = XPersistence.getManager().createQuery("SELECT c FROM CharacteristicThing c WHERE c.number = :number", CharacteristicThing.class);
 		query.setParameter("number", number);
-		return (CharacteristicThing) query.getSingleResult();
+		return query.getSingleResult();
 	}
 	
 	public Integer getNumber() {

@@ -120,8 +120,8 @@ public class Color {
 	public int actionNumber;
 	
 	public static Collection<Color> findAll() {
-		Query query = XPersistence.getManager().createQuery("from Color");
-		return (Collection<Color>) query.getResultList();
+		TypedQuery<Color> query = XPersistence.getManager().createQuery("SELECT c FROM Color c", Color.class);
+		return query.getResultList();
 	}
 	
 	public String getName() {

@@ -79,9 +79,9 @@ public class Seller {
 	private String [] regions;
 	
  	public static Seller findByNumber(int number) throws NoResultException {
- 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Seller as o where o.number = :number");
+ 		TypedQuery<Seller> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT s FROM Seller s WHERE s.number = :number", Seller.class);
 		query.setParameter("number", Integer.valueOf(number));
- 		return (Seller) query.getSingleResult();
+ 		return query.getSingleResult();
  	} 
 
 

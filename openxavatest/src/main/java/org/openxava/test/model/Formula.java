@@ -60,9 +60,9 @@ public class Formula {
 	}		
 	
 	public static Formula findByName(java.lang.String name) throws NoResultException {
-		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Formula as o where o.name = :name"); 
+		jakarta.persistence.TypedQuery<Formula> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT f FROM Formula f WHERE f.name = :name", Formula.class); 
 		query.setParameter("name", name); 			
-		return (Formula) query.getSingleResult();		  		
+		return query.getSingleResult();		  		
 	}
 	
 	public String getOid() {
