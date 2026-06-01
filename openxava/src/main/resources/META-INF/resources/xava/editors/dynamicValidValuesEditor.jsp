@@ -17,7 +17,7 @@ MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 boolean editable = "true".equals(request.getParameter("editable")); 
 boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
 Object value = request.getAttribute(propertyKey + ".value");
-Map<Object, Object> validValues = view.getValidValues(p.getName());
+Map<Object, String> validValues = view.getValidValues(p.getName());
 Object description = validValues.get(value);
 %>
 

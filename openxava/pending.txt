@@ -7,8 +7,6 @@ Pending: Warning with Java 17 TMR
 * openxavatest. Sin warnings.
 - Test fallidos:
     - EditableValidValuesTest
-    - AppointmentTest
-    - DeliveryNoXMLTest
     - FormulaTest
     - MotorVehicleDriver2Test
     - Product2WithFormulaAsAggregateTest
