@@ -1,6 +1,9 @@
 Change Log for OpenXava 8
 =========================
 
+- UUID32 annotation added.
+- Parametrized collections.
+
 - Java 17 as baseline. Dropped support for Java 8 and 11.
 - Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
 - Jakarta Validator 3.1 support. Dropped support for Bean Validation 2.0.
