@@ -23,7 +23,8 @@ import org.openxava.annotations.*;
 public class Family {
 	
 		 
-	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
+	@Id @Hidden 
+	@UUID32
 	private String oid;
 	
 	@Max(999) @Required 

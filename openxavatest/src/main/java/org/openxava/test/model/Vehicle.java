@@ -20,7 +20,8 @@ import org.openxava.annotations.*;
 })
 public class Vehicle {
 	
-	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden 
+	@Id @Hidden 
+	@UUID32 
 	private String oid;
 	
 	@Column(length=5)

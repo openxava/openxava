@@ -16,7 +16,8 @@ import org.openxava.annotations.*;
 @Tab(properties="mode, amount+, shipment.number, slow, shipment.description") 
 public class ShipmentCharge {
 	
-	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	

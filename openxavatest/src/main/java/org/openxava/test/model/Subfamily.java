@@ -46,7 +46,8 @@ import org.openxava.annotations.*;
 )
 public class Subfamily {
 	
-	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
+	@Id @Hidden 
+	@UUID32
 	private String oid;
 	
 	@Column(length=3) @Required @ZerosFilled
