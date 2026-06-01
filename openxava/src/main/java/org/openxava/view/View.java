@@ -6333,8 +6333,7 @@ public class View implements java.io.Serializable {
 		}	
 		
 		if (hasEditableChanged()) {
-			@SuppressWarnings("unchecked")
-			Iterator<String> it = (Iterator<String>) getMetaView().getNotAlwaysEnabledViewActionsNames().iterator();
+			Iterator<String> it = getMetaView().getNotAlwaysEnabledViewActionsNames().iterator();
 			while (it.hasNext()) {
 				String action = it.next();
 				result.put(getPropertyPrefix() + action, this);

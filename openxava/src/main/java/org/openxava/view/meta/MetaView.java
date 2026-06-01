@@ -48,7 +48,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	private boolean alignedByColumns = false; 
 		
 	private String mediatorClassName;
-	private Collection notAlwaysEnabledViewActionsNames;
+	private Collection<String> notAlwaysEnabledViewActionsNames;
 	private String extendsView; 
 	private boolean extendedFromExtendsView = false;
 	
@@ -956,20 +956,20 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	
-	public Collection getNotAlwaysEnabledViewActionsNames() { 
+	public Collection<String> getNotAlwaysEnabledViewActionsNames() { 
 		if (notAlwaysEnabledViewActionsNames == null) {
 			for (Iterator it = getMetaMembers().iterator(); it.hasNext(); ) {
 				Object member = it.next();
 				if (member instanceof MetaViewAction) {
 					MetaViewAction action = (MetaViewAction) member;
 					if (!action.isAlwaysEnabled()) {
-						if (notAlwaysEnabledViewActionsNames == null) notAlwaysEnabledViewActionsNames = new ArrayList();
+						if (notAlwaysEnabledViewActionsNames == null) notAlwaysEnabledViewActionsNames = new ArrayList<>();
 						notAlwaysEnabledViewActionsNames.add(action.getName()); 
 					}
 				}
 			}
 			if (notAlwaysEnabledViewActionsNames == null) {
-				notAlwaysEnabledViewActionsNames = Collections.EMPTY_LIST; 
+				notAlwaysEnabledViewActionsNames = Collections.emptyList(); 
 			}			
 		}
 		return notAlwaysEnabledViewActionsNames;
