@@ -88,7 +88,7 @@ public class CustomerSellerAsAggregateTest extends ModuleTestBase {
 	}
 
 	private void assertSellerExist(int number) {		
-		if (XPersistence.getManager().find(Seller.class, new Integer(number)) == null) {					
+		if (XPersistence.getManager().find(Seller.class, number) == null) {					
 			fail("Seller " + number + " does not exist, and it should");
 		}		
 	}
