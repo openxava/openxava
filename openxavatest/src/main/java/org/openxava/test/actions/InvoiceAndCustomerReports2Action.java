@@ -30,7 +30,7 @@ public class InvoiceAndCustomerReports2Action extends JasperMultipleReportBaseAc
 		Messages errors = MapFacade.validate("Invoice", getView().getValues());
 		if (errors.contains()) throw new ValidationException(errors);
 
-		Map parameters1 = new HashMap();
+		Map<String, Object> parameters1 = new HashMap<>();
 		parameters1.put("number", getInvoice().getYear() + "/" + getInvoice().getNumber());								
 		parameters1.put("customer", getInvoice().getCustomer().getName());
 		parameters1.put("address", getInvoice().getCustomer().getAddress().getAsString());
@@ -40,7 +40,7 @@ public class InvoiceAndCustomerReports2Action extends JasperMultipleReportBaseAc
 		parameters1.put("total", getInvoice().getTotal());		
 		addParameters(parameters1);
 
-		Map parameters2 = new HashMap();
+		Map<String, Object> parameters2 = new HashMap<>();
 		parameters2.put("number", getInvoice().getCustomer().getNumber());								
 		parameters2.put("name", getInvoice().getCustomer().getName());		
 		addParameters(parameters2);

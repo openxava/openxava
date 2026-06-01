@@ -21,7 +21,7 @@ public class YearParameterFilter implements IRequestFilter {
 			return new Object [] { getYearParameter() };
 		}		
 		if (o instanceof Object []) {			
-			List c = new ArrayList(Arrays.asList((Object []) o));
+			List<Object> c = new ArrayList<>(Arrays.asList((Object []) o));
 			c.add(0, getYearParameter());
 			return c.toArray();			
 		} 

@@ -12,7 +12,7 @@ import org.openxava.actions.*;
 public class SearchArtistSomeMembersReadOnlyAction extends SearchByViewKeyAction {
 	
 	public void execute() throws Exception {
-		Map key = getView().getKeyValues();
+		Map<String, Object> key = getView().getKeyValues();
 		getView().setViewName("SomeMembersReadOnly");
 		getView().setValues(key);
 		super.execute();

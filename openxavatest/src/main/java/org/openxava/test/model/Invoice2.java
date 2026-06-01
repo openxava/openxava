@@ -175,7 +175,7 @@ public class Invoice2 {
 	}
 
 	public Collection<InvoiceDetail2> getDetails() {
-		if (details == null) details = new ArrayList(); 
+		if (details == null) details = new ArrayList<>(); 
 		return details;
 	}
 

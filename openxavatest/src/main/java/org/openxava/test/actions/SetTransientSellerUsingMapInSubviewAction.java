@@ -12,7 +12,7 @@ import org.openxava.util.*;
 public class SetTransientSellerUsingMapInSubviewAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		Map ref = Maps.toMap("number", 7, "name", "THE SEVEN"); 
+		Map<String, Object> ref = Maps.toMap("number", 7, "name", "THE SEVEN"); 
 		getView().getSubview("transientSeller").setValues(ref); // In subview to test a case
 	}
 

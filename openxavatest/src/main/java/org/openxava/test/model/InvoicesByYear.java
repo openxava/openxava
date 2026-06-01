@@ -42,7 +42,7 @@ public class InvoicesByYear {
 	public BigDecimal getTotalSum() {
 		Query query = XPersistence.getManager().createQuery("from Invoice i where i.year = :year");
 		query.setParameter("year", year);
-		Collection<Invoice> invoices = query.getResultList(); 
+		Collection<Invoice> invoices = (Collection<Invoice>) query.getResultList(); 
 		return invoices.stream()
 			.map(Invoice::getTotal)
 			.reduce(BigDecimal.ZERO, BigDecimal::add);

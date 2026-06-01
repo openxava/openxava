@@ -57,7 +57,7 @@ public class TransportCharge {
 	
 	public static Collection<TransportCharge> findAll() {
 		Query query = XPersistence.getManager().createQuery("from TransportCharge as o"); 
- 		return query.getResultList();  				
+ 		return (Collection<TransportCharge>) query.getResultList();  				
 	}	
 
 	public Delivery getDelivery() {

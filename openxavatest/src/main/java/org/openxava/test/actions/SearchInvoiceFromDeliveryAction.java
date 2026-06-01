@@ -15,10 +15,10 @@ public class SearchInvoiceFromDeliveryAction extends ViewBaseAction {
 	
 	public void execute() throws Exception {		 
 		try {			
-			Map key = (Map) getView().getKeyValues().get("invoice");		
+			Map<String, Object> key = (Map<String, Object>) getView().getKeyValues().get("invoice");		
 			getView().setModelName("Invoice");			
-			Map membersNames = getView().getMembersNames();
-			Map values = MapFacade.getValues(getModelName(), key, membersNames);
+			Map<String, Object> membersNames = getView().getMembersNames();
+			Map<String, Object> values = MapFacade.getValues(getModelName(), key, membersNames);
 			getView().setValues(values);			
 			getView().setKeyEditable(false);
 			getView().setEditable(true);

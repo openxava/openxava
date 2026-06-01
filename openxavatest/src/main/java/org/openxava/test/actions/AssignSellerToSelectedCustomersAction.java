@@ -18,14 +18,14 @@ public class AssignSellerToSelectedCustomersAction extends TabBaseAction {
 
 	public void execute() throws Exception {
 		int sellerNumber = getView().getValueInt("seller.number");
-		Map newSellerValues = new HashMap();
+		Map<String, Object> newSellerValues = new HashMap<>();
 		if (sellerNumber == 0) {
 			newSellerValues.put("seller", null);
 		}
 		else {
 			Maps.putValueFromQualifiedName(newSellerValues, "seller.number", sellerNumber);
 		}
-		for (Map customerKey: getSelectedKeys()) {
+		for (Map<String, Object> customerKey: getSelectedKeys()) {
 			MapFacade.setValues("Customer", customerKey, newSellerValues);
 		}
 		closeDialog();

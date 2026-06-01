@@ -121,7 +121,7 @@ public class Color {
 	
 	public static Collection<Color> findAll() {
 		Query query = XPersistence.getManager().createQuery("from Color");
-		return query.getResultList();
+		return (Collection<Color>) query.getResultList();
 	}
 	
 	public String getName() {

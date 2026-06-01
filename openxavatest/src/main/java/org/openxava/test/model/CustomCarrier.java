@@ -34,7 +34,7 @@ public class CustomCarrier {
 			"NOT (c.number = :number) " +
 			"order by c.number");  
 		query.setParameter("number",  getNumber());
-		return query.getResultList();
+		return (Collection<Carrier>) query.getResultList();
 	}
 
 }

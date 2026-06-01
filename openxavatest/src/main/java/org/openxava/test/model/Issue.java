@@ -40,10 +40,10 @@ public class Issue {
 	 */ 
 	@Condition("${issue.id} = ${this.id}")
 	public Collection<Comment> getCommentsWithCondition(){
-		if (Is.empty(this.id)) return Collections.EMPTY_LIST;
+		if (Is.empty(this.id)) return Collections.emptyList();
 		Query query = XPersistence.getManager().createQuery("from Comment where issue.id = :id");
 		query.setParameter("id", this.id);
-		return query.getResultList();
+		return (Collection<Comment>) query.getResultList();
 	}
 	
 	public String getId() {

@@ -45,7 +45,7 @@ public class Subfamily2 {
 	public Collection<Product2> getProductsValues() {
 		jakarta.persistence.Query query = XPersistence.getManager().createQuery("from Product2 where subfamily.number = :subfamilyNumber");
 		query.setParameter("subfamilyNumber", getNumber());
-		return query.getResultList();					
+		return (Collection<Product2>) query.getResultList();					
 	}
 
 	public String getDescription() {

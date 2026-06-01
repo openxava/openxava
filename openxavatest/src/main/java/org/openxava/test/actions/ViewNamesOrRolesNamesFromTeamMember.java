@@ -14,7 +14,7 @@ public class ViewNamesOrRolesNamesFromTeamMember extends CollectionBaseAction{
 	private boolean roles = false;
 	
 	public void execute() throws Exception {
-		Collection<TeamMember> members = getObjects();
+		Collection<TeamMember> members = (Collection<TeamMember>) getObjects();
 		String message = "";
 		for (TeamMember member : members){
 			if (!Is.empty(message)) message += ", ";

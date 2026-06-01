@@ -48,7 +48,7 @@ public class TransportCharge2 {
 	
 	public static Collection<TransportCharge2> findAll() {
 		Query query = XPersistence.getManager().createQuery("from TransportCharge2 as o"); 
- 		return query.getResultList();  				
+ 		return (Collection<TransportCharge2>) query.getResultList();  				
 	}
 	
 	public int getYear() {

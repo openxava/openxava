@@ -28,7 +28,7 @@ public class InvoiceAndCustomerReportsAction extends JasperMultipleReportBaseAct
 	protected Map getParameters(int index) throws Exception  {
 		Messages errors = MapFacade.validate("Invoice", getView().getValues());
 		if (errors.contains()) throw new ValidationException(errors);
-		Map parameters = new HashMap();
+		Map<String, Object> parameters = new HashMap<>();
 		switch (index) {
 			case 0:								
 				parameters.put("number", getInvoice().getYear() + "/" + getInvoice().getNumber());								

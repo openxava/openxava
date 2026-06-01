@@ -19,11 +19,11 @@ public class ViewNameFellowCarriersSelectedAction extends ViewBaseAction{
 
 	public void execute() throws Exception {
 		View carriers = getView().getSubview("fellowCarriersCalculated");
-		List carriersSelected = carriers.getCollectionSelectedValues();
+		List<Map<String, Object>> carriersSelected = carriers.getCollectionSelectedValues();
 		if (carriersSelected.isEmpty()) return;
 		StringBuffer sb = new StringBuffer("");
-		for (Iterator it = carriersSelected.iterator(); it.hasNext(); ) {
-			Map carrierKey = (Map) it.next();
+		for (Iterator<Map<String, Object>> it = carriersSelected.iterator(); it.hasNext(); ) {
+			Map<String, Object> carrierKey = it.next();
 			Carrier carrier = (Carrier) MapFacade.findEntity(getView().getModelName(), carrierKey);
 			sb.append(carrier.getName() + " ");
 		}
