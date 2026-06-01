@@ -96,7 +96,7 @@ public class Carrier {
 	public Collection<Carrier> getFellowCarriers() { 
 		// At the moment you must write a code that returns the same result
 		// of the @Condition. 
-		if (getWarehouse() == null) return Collections.EMPTY_LIST; 
+		if (getWarehouse() == null) return Collections.emptyList(); 
 		TypedQuery<Carrier> query = XPersistence.getManager().createQuery("SELECT c FROM Carrier c WHERE " +
 			"c.warehouse.zoneNumber = :zone AND " + 
 			"c.warehouse.number = :warehouseNumber AND " + 
