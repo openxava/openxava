@@ -683,8 +683,8 @@ public class AnnotatedClassParser implements IComponentParser {
 		
 		if (!property.isRequired() && property.isKey()) {
 			if (!(
-					(field != null && field.isAnnotationPresent(GeneratedValue.class)) ||							
-					pd.getReadMethod().isAnnotationPresent(GeneratedValue.class)
+					isIdGenerator(field) ||							
+					isIdGenerator(pd.getReadMethod())
 				)
 				&&
 				!(
@@ -909,6 +909,17 @@ public class AnnotatedClassParser implements IComponentParser {
 		}		
 	}
 
+	private boolean isIdGenerator(AnnotatedElement element) {
+		if (element == null) return false;
+		if (element.isAnnotationPresent(GeneratedValue.class)) return true;
+		for (Annotation annotation : element.getAnnotations()) {
+			if (annotation.annotationType().isAnnotationPresent(org.hibernate.annotations.IdGeneratorType.class)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private void processAnnotations(MetaProperty property, AnnotatedElement element) throws XavaException {
 		if (element == null) return;
 		// key
@@ -1018,7 +1029,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 		
 		// generated value
-		if (element.isAnnotationPresent(GeneratedValue.class)) {
+		if (isIdGenerator(element)) {
 			// The MetaCalculator does not have class because is only for having a 
 			// calculator on-create
 			MetaCalculator metaCalculator = new MetaCalculator();
