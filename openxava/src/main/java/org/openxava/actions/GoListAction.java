@@ -23,7 +23,7 @@ public class GoListAction extends BaseAction implements IChangeModeAction, INavi
 	@Inject
 	private Tab mainTab;
 	@Inject
-	private Stack previousViews;
+	private Stack<View> previousViews;
 	
 		
 	public String getNextMode() {		

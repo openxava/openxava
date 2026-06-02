@@ -14,8 +14,8 @@ import org.openxava.annotations.*;
 @MappedSuperclass
 public class Identifiable {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(length=32)
 	private String id;
 

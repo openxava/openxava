@@ -20,7 +20,7 @@ public class PhoneNumberValidator implements IPropertyValidator {
 
         //Check if input is a number
         try {
-          phoneNumber = new  Long(value.toString());
+          phoneNumber = Long.valueOf(value.toString());
         } catch(NumberFormatException ex){
            errors.add("phone_valid_number_error", propertyName);
            return;
@@ -29,7 +29,7 @@ public class PhoneNumberValidator implements IPropertyValidator {
 
         //Check if input length is at least greater than specified minimum length
         if ( phoneNumber.toString().length() < minSize) {
-            errors.add("phone_minimum_size_error", propertyName, "digits", new Long(minSize));
+            errors.add("phone_minimum_size_error", propertyName, "digits", Long.valueOf(minSize));
             return;
         }
 

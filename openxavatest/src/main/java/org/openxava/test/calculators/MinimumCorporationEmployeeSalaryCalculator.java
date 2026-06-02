@@ -21,7 +21,7 @@ public class MinimumCorporationEmployeeSalaryCalculator implements IJDBCCalculat
 				"select min(SALARY) from XAVATEST.CorporationEmployee");
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			Integer result = new Integer(rs.getInt(1));
+			Integer result = Integer.valueOf(rs.getInt(1));
 			ps.close();
 			return result;
 		}

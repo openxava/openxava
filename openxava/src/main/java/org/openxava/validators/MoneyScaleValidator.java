@@ -21,7 +21,7 @@ public class MoneyScaleValidator implements IPropertyValidator {
 		}
 		BigDecimal number = new BigDecimal( value.toString() );
 		if (number.scale() > MAX_SCALE) {
-			errors.add("max_scale", propertyName, modelName, new Integer(MAX_SCALE)); 
+			errors.add("max_scale", propertyName, modelName, Integer.valueOf(MAX_SCALE)); 
 		}
 	}
 

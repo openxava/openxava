@@ -333,10 +333,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 			// from raw JDBC and in the DB the column is NUMERIC or DECIMAL
 			// This code is for support this case
 			if (int.class.isAssignableFrom(property.getType())) { 
-				result = new Integer(((Number) result).intValue()); 
+				result = Integer.valueOf(((Number) result).intValue()); 
 			} 
 			else if (long.class.isAssignableFrom(property.getType())) { 
-				result = new Long(((Number) result).longValue()); 
+				result = Long.valueOf(((Number) result).longValue()); 
 			}  
 		}
 		

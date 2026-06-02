@@ -19,6 +19,7 @@ import org.openxava.util.meta.*;
 import org.openxava.web.meta.*;
 import org.openxava.validators.*;
 import org.openxava.validators.meta.*;
+import org.openxava.validators.IPropertyValidator;
 
 
 /**
@@ -28,24 +29,24 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	
 	private static Log log = LogFactory.getLog(MetaProperty.class);
 		
-	private Collection metaValidators;	
-	private Collection validators;
-	private Collection onlyOnCreateValidators;
-	private Class type;
+	private Collection<MetaValidator> metaValidators; 
+	private Collection<IPropertyValidator> validators;
+	private Collection<IPropertyValidator> onlyOnCreateValidators;
+	private Class<?> type;
 	private int size;
 	private Integer scale;
 	private boolean required;
 	private boolean hidden;
 	private boolean version; 
 	private java.lang.String stereotype;
-	private List validValues;
+	private List<Object> validValues;
 	private boolean readOnly;
 	private boolean readOnlyCalculated = false;
 	private boolean notFieldBackedAndNotCalculated = false; 
 	private MetaCalculator metaCalculator;	
 	private MetaCalculator metaCalculatorDefaultValue;
 	private boolean metaCalculatorRefined = false;
-	private Collection dependentPropertiesNames;
+	private Collection<String> dependentPropertiesNames;
 	private String typeName;
 	private boolean key;
 	private boolean searchKey; 
@@ -83,7 +84,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 		}
 		catch (IndexOutOfBoundsException ex) {
-			log.error(XavaResources.getString("valid_value_not_found_for_index_warning", new Integer(i)), ex); 			
+			log.error(XavaResources.getString("valid_value_not_found_for_index_warning", Integer.valueOf(i)), ex); 			
 			return "[" + i  + "]"; 
 		}
 	}
@@ -103,7 +104,8 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * Deprecated since 3.1.
 	 * 
 	 * @deprecated Use getValidValueLabel(int i) instead  
-	 */	
+	 */
+	@Deprecated
 	public String getValidValueLabel(ServletRequest request, int i) throws XavaException { 	
 		return getValidValueLabel(i);
 	}
@@ -121,6 +123,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * 
 	 * @deprecated Use getValidValue(Object value) instead  
 	 */
+	@Deprecated
 	public String getValidValueLabel(ServletRequest request, Object value) { 	
 		return getValidValueLabel(value);
 	}
@@ -226,7 +229,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				return new TolerantValidator();
 			}
 			validatorClass = vr.getValidatorClass();
-			IPropertyValidator validator = (IPropertyValidator) Class.forName(validatorClass).newInstance();
+			IPropertyValidator validator = (IPropertyValidator) Class.forName(validatorClass).getDeclaredConstructor().newInstance();
 			if (validator instanceof IWithMessage) {
 				((IWithMessage) validator).setMessage(requiredMessage);
 			}
@@ -257,7 +260,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			if (vr == null) return null; 
 			validatorClass = vr.getValidatorClass();
-			return (IPropertyValidator) Class.forName(validatorClass).newInstance();
+			return (IPropertyValidator) Class.forName(validatorClass).getDeclaredConstructor().newInstance();
 		} catch (ClassCastException ex) {
 			log.error(ex.getMessage(), ex);
 			throw new XavaException("property_validator_invalid_class", validatorClass); 
@@ -410,7 +413,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return t;
 	}
 
-	public Class getType() throws XavaException {				
+	public Class<?> getType() throws XavaException {				
 		if (type == null) {			
 			if (Is.emptyString(getTypeName())) {				
 				type = obtainTypeFromModel(getName());
@@ -538,15 +541,15 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	/**
 	 * @return of IPropertyValidator
 	 */
-	private Collection getValidators() throws XavaException {
+	private Collection<IPropertyValidator> getValidators() throws XavaException {
 		if (validators == null) {
-			validators = new ArrayList();
+			validators = new ArrayList<IPropertyValidator>();
 			if (metaValidators != null) {
-				Iterator it = metaValidators.iterator();
+				Iterator<MetaValidator> it = metaValidators.iterator();
 				while (it.hasNext()) {
-					MetaValidator metaValidator = (MetaValidator) it.next();
+					MetaValidator metaValidator = it.next();
 					if (metaValidator.isOnlyOnCreate()) {						
-						if (onlyOnCreateValidators == null) onlyOnCreateValidators = new ArrayList();						
+						if (onlyOnCreateValidators == null) onlyOnCreateValidators = new ArrayList<IPropertyValidator>();						
 						onlyOnCreateValidators.add(metaValidator.createPropertyValidator());						
 					}
 					else {
@@ -567,14 +570,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return metaValidators;
 	}
 	
-	private Collection getOnlyOnCreateValidators() throws XavaException {
+	private Collection<IPropertyValidator> getOnlyOnCreateValidators() throws XavaException {
 		return onlyOnCreateValidators;
 	}
 	
 		
-	private List getValidValues() {
+	private List<Object> getValidValues() {
 		if (validValues == null) {
-			validValues = new ArrayList();
+			validValues = new ArrayList<Object>();
 		}
 		return validValues;
 	}
@@ -693,7 +696,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		}
 	}
 		
-	public Iterator validValues() {
+	public Iterator<Object> validValues() {
 		return getValidValues().iterator();	
 	}
 	
@@ -705,14 +708,15 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * Deprecated since 3.1.
 	 * 
 	 * @deprecated Use validValuesLabels() instead
-	 */ 
+	 */
+	@Deprecated
 	public Iterator validValuesLabels(ServletRequest request) { 
 		return validValuesLabels();
 	}
 	
 	public Iterator validValuesLabels(Locale locale) {
-		Iterator it = validValues();
-		Collection labels = new ArrayList();
+		Iterator<Object> it = validValues();
+		Collection<String> labels = new ArrayList<String>();
 		while (it.hasNext()) {
 			labels.add(obtainValidValueLabel(locale, it.next()));
 		}
@@ -808,9 +812,9 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return !getDependentPropertiesNames().isEmpty();
 	}
 	
-	public Collection getDependentPropertiesNames() throws XavaException {
+	public Collection<String> getDependentPropertiesNames() throws XavaException {
 		if (dependentPropertiesNames == null) {
-			dependentPropertiesNames = new ArrayList();	
+			dependentPropertiesNames = new ArrayList<String>();	
 			if (hasMetaModel()) {
 				fillDependedPropertiesNames(getMetaModel().getMetaPropertiesCalculated(), false);
 				fillDependedPropertiesNames(getMetaModel().getMetaPropertiesWithDefaultValueCalculator(), true);
@@ -935,7 +939,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		value = value.trim();
 		try { 
 			if (Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type)) { 
-				return emptyString? null : new Integer(value); // we needed null
+				return emptyString? null : Integer.valueOf(value); // we needed null
 			}
 			
 			if (BigDecimal.class.isAssignableFrom(type)) {
@@ -972,25 +976,25 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			
 			if (Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type)) {
-				return emptyString ? null : new Long(value);
+				return emptyString ? null : Long.valueOf(value);
 			}
 			
 			if (Short.class.isAssignableFrom(type) || short.class.isAssignableFrom(type)) {
-				return emptyString ? null : new Short(value);
+				return emptyString ? null : Short.valueOf(value);
 			}
 			
 			if (Float.class.isAssignableFrom(type) || float.class.isAssignableFrom(type)) {
 				if (emptyString) return null;
 				value = Strings.change(value, " ", ""); // In order to work with Polish
 				Number n = NumberFormat.getNumberInstance(locale).parse(value);
-				return new Float(n.floatValue());
+				return Float.valueOf(n.floatValue());
 			}
 			
 			if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type)) {
 				if (emptyString) return null;	
 				value = Strings.change(value, " ", ""); // In order to work with Polish					
 				Number n = NumberFormat.getNumberInstance(locale).parse(value);
-				return new Double(n.doubleValue());
+				return Double.valueOf(n.doubleValue());
 			}
 			
 			if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {							
@@ -1005,7 +1009,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			}
 			
 			// This is for processing Java 5 enums, but the code compile and works with a Java 1.4
-			Class enumClass = getEnumClass(); 
+			Class<?> enumClass = getEnumClass(); 
 			if (enumClass != null && enumClass.isAssignableFrom(type)) {
 				return parseEnum(value);				
 			}
@@ -1046,14 +1050,14 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	 * 
 	 * @since 6.6
 	 */
-	public boolean isCompatibleWith(Class type) { 
+	public boolean isCompatibleWith(Class<?> type) { 
 		if (type.isAssignableFrom(getType())) return true;
 		if (!Is.emptyString(getStereotype())) { 
 			try {
 				String typeName = TypeStereotypeDefault.forStereotype(getStereotype());
 				typeName = fixTypeName(typeName);
 				if (typeName == null) return false;
-				Class stereotypeType = Class.forName(typeName);
+				Class<?> stereotypeType = Class.forName(typeName);
 				return type.isAssignableFrom(stereotypeType);
 			}
 			catch (ClassNotFoundException ex) {
@@ -1070,7 +1074,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				String typeName = TypeAnnotationDefault.forAnnotation(annotation);
 				typeName = fixTypeName(typeName);
 				if (typeName == null) continue;
-				Class annotationForType = Class.forName(typeName);
+				Class<?> annotationForType = Class.forName(typeName);
 				return type.isAssignableFrom(annotationForType);
 			}
 			catch (ClassNotFoundException ex) {
@@ -1098,7 +1102,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		// We parse as an int
 		if (Is.emptyString(value) || "null".equals(value)) return null;
 		try {
-			Integer ordinal = new Integer(value);
+			Integer ordinal = Integer.valueOf(value);
 			return getValidValue(ordinal.intValue());			
 		}
 		catch (NumberFormatException ex) {
@@ -1110,12 +1114,13 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		
 	private Object parseModelObject(String string) throws Exception {		
 		if (Is.emptyString(string)) return null;
-		Object model = getType().newInstance(); 
+		Object model = getType().getDeclaredConstructor().newInstance(); 
 		StringTokenizer stringValues = new StringTokenizer(string, "[.]");
 		parseModelObject(model, stringValues, "");
 		return model;
 	}
 	 
+	@SuppressWarnings("unchecked")
 	private void parseModelObject(Object model, StringTokenizer stringValues, String prefix) throws Exception {
 		java.lang.reflect.Field [] fields = model.getClass().getDeclaredFields();
 		Arrays.sort(fields, FieldComparator.getInstance());
@@ -1126,7 +1131,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 				if (metaModel.containsMetaReference(fields[i].getName())) {
 					Object ref = pm.executeGet(fields[i].getName());
 					if (ref == null) {
-						ref = metaModel.getMetaReference(fields[i].getName()).getMetaModelReferenced().getPOJOClass().newInstance();
+						ref = metaModel.getMetaReference(fields[i].getName()).getMetaModelReferenced().getPOJOClass().getDeclaredConstructor().newInstance();
 						pm.executeSet(fields[i].getName(), ref);
 					}
 					parseModelObject(ref, stringValues, prefix + fields[i].getName() + ".");
@@ -1201,7 +1206,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 			if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
 				return Boolean.toString((Boolean) value);				
 			}			
-			Class enumClass = getEnumClass(); 
+			Class<?> enumClass = getEnumClass(); 
 			if (enumClass != null && enumClass.isAssignableFrom(type)) {
 				return value.toString();
 			}
@@ -1220,7 +1225,7 @@ public class MetaProperty extends MetaMember implements Cloneable {
 	}
 		
 	public void addMetaValidator(MetaValidator metaValidator) {
-		if (metaValidators == null) metaValidators = new ArrayList();
+		if (metaValidators == null) metaValidators = new ArrayList<MetaValidator>();
 		metaValidators.add(metaValidator);		
 	}
 	

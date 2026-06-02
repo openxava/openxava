@@ -23,11 +23,11 @@ public class DeleteSelectedAction extends TabBaseAction implements IModelAction 
 					MapFacade.remove(model, key);				
 				}
 				catch (ValidationException ex) {
-					addError("no_delete_row", new Integer(i), key);
+					addError("no_delete_row", Integer.valueOf(i), key);
 					addErrors(ex.getErrors());
 				}								
 				catch (Exception ex) { 
-					addError("no_delete_row", new Integer(i), key);
+					addError("no_delete_row", Integer.valueOf(i), key);
 				}						
 			}
 			getTab().deselectAll();

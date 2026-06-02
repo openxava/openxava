@@ -32,7 +32,7 @@ public class FamilyProductsReportAction extends JasperReportBaseAction implement
 	public Map getParameters() throws Exception  {		
 		Messages errors = MapFacade.validate("FilterBySubfamily", getView().getValues());
 		if (errors.contains()) throw new ValidationException(errors);
-		Map parameters = new HashMap();				
+		Map<String, Object> parameters = new HashMap<>();				
 		parameters.put("family", getSubfamily().getFamily().getDescription());				
 		parameters.put("subfamily", getSubfamily().getDescription());
 		return parameters;
@@ -49,7 +49,7 @@ public class FamilyProductsReportAction extends JasperReportBaseAction implement
 	private Subfamily2 getSubfamily() throws Exception {
 		if (subfamily == null) {
 			int subfamilyNumber = getView().getValueInt("subfamily.number");
-			subfamily = XPersistence.getManager().find(Subfamily2.class, new Integer(subfamilyNumber));
+			subfamily = XPersistence.getManager().find(Subfamily2.class, Integer.valueOf(subfamilyNumber));
 		}
 		return subfamily;
 	}

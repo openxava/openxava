@@ -30,7 +30,7 @@ public class LoadPhotoIntoGalleryAction extends ViewBaseAction implements INavig
 			}
 		}		
 		if (c == 1)	addMessage("image_added_to_gallery");
-		else if (c > 1) addMessage("images_added_to_gallery", new Integer(c));
+		else if (c > 1) addMessage("images_added_to_gallery", Integer.valueOf(c));
 		
 	}
 		

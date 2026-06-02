@@ -30,9 +30,9 @@ public class CustomCarrier {
 
 	@CarriersNames
 	public Collection<Carrier> getFellowCarriers() { 
-		Query query = XPersistence.getManager().createQuery("from Carrier c where " +
+		TypedQuery<Carrier> query = XPersistence.getManager().createQuery("SELECT c FROM Carrier c WHERE " +
 			"NOT (c.number = :number) " +
-			"order by c.number");  
+			"order by c.number", Carrier.class);  
 		query.setParameter("number",  getNumber());
 		return query.getResultList();
 	}

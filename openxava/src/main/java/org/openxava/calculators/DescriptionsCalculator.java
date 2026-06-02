@@ -180,7 +180,7 @@ public class DescriptionsCalculator implements ICalculator {
             }
         }
 		Collection<String> descriptionsPropertiesNames = Strings.toCollection(getDescriptionProperties());
-		Map<String, Map> descriptionsProperties = new HashMap<>();
+		Map<String, Object> descriptionsProperties = new HashMap<>();
 		boolean tree = false;
 		for (String descriptionPropertyName: descriptionsPropertiesNames) {
 			if (descriptionPropertyName.contains(".")) {

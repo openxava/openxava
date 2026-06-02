@@ -5,7 +5,6 @@ import java.math.*;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 
@@ -20,8 +19,7 @@ import org.openxava.calculators.*;
 @Tab(name="OnlyFirst", properties="year, number, description", baseCondition="${number} = 1")
 public class ServiceInvoice {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
 	private String oid;
 
 	@SearchKey

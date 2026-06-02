@@ -4,7 +4,6 @@ import java.math.*;
 
 import jakarta.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 
@@ -17,8 +16,8 @@ import org.openxava.annotations.*;
 @Tab(properties="mode, amount+, shipment.number, slow, shipment.description") 
 public class ShipmentCharge {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	

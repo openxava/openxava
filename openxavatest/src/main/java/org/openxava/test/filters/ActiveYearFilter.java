@@ -17,7 +17,7 @@ public class ActiveYearFilter extends BaseContextFilter {
 			return new Object [] { getActiveYear() };
 		}		
 		if (o instanceof Object []) {			
-			List c = new ArrayList(Arrays.asList((Object []) o));
+			List<Object> c = new ArrayList<>(Arrays.asList((Object []) o));
 			c.add(0, getActiveYear());
 			return c.toArray();			
 		} 

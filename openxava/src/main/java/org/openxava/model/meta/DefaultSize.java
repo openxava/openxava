@@ -25,14 +25,14 @@ public class DefaultSize {
 		if (stereotypes == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addForStereotype");
 		}		
-		stereotypes.put(name, new Integer(length));
+		stereotypes.put(name, Integer.valueOf(length));
 	}
 	
 	public static void _addForType(String className, int length) throws XavaException {
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addForType");
 		}			
-		types.put(className, new Integer(length));
+		types.put(className, Integer.valueOf(length));
 	}
 	
 	public static void _addForAnnotation(String className, int length) throws XavaException { 
@@ -46,14 +46,14 @@ public class DefaultSize {
 		if (stereotypes == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addScaleForStereotype");
 		}		
-		scaleStereotypes.put(name, new Integer(length));
+		scaleStereotypes.put(name, Integer.valueOf(length));
 	}
 	
 	public static void _addScaleForType(String className, int length) throws XavaException {
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addScaleForType");
 		}			
-		scaleTypes.put(className, new Integer(length));
+		scaleTypes.put(className, Integer.valueOf(length));
 	}
 	
 	public static void _addScaleForAnnotation(String className, int length) throws XavaException { 

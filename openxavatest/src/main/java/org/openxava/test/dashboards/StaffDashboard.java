@@ -104,7 +104,7 @@ public class StaffDashboard {
 	@SimpleList 
 	public Collection<Worker> getMoreSeniorWorkers() {
 		// An example using JPA, note the setMaxResults(5) to limit the size
-		return XPersistence.getManager().createQuery("from Worker").setMaxResults(5).getResultList();
+		return XPersistence.getManager().createQuery("from Worker", Worker.class).setMaxResults(5).getResultList();
 	}
 	
 }

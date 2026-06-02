@@ -28,6 +28,7 @@ import org.openxava.util.*;
 import org.openxava.util.Strings;
 import org.openxava.util.meta.*;
 import org.openxava.view.meta.*;
+import org.openxava.tab.meta.*;
 import org.openxava.web.*;
 import org.openxava.web.DescriptionsLists;
 import org.openxava.web.meta.*;
@@ -49,16 +50,16 @@ public class View implements java.io.Serializable {
 	
 	private static Log log = LogFactory.getLog(View.class);
 	private static final long serialVersionUID = -7582669617830655121L;
-	private static Collection defaultListActionsForTabCollections;
-	private static Collection defaultRowActionsForTabCollections;	
-	private static Collection defaultListActionsForCollectionsFromModel;
-	private static Collection defaultRowActionsForCollectionsFromModel;	
+	private static Collection<String> defaultListActionsForTabCollections;
+	private static Collection<String> defaultRowActionsForTabCollections;	
+	private static Collection<String> defaultListActionsForCollectionsFromModel;
+	private static Collection<String> defaultRowActionsForCollectionsFromModel;	
 	private static Object refiner;
 	private static Object polisher; 
 	
 	private String viewObject;  
 	private String propertyPrefix; 
-	private Map objects = null; 	
+	private Map<String, Object> objects = null; 	
 	private String editCollectionElementAction;
 	private String viewCollectionElementAction;
 	private String addCollectionElementAction;  
@@ -71,19 +72,19 @@ public class View implements java.io.Serializable {
 	private String removeSelectedCollectionElementsAction;
 	private String deleteSelectedCollectionElementsAction;
 	private String onSelectCollectionElementAction; 
-	private Collection subcontrollersNamesList; 
+	private Collection<String> subcontrollersNamesList; 
 	private boolean focusForward;
 	private String focusPropertyId;
 	private String focusCurrentId; 
-	private transient Map membersNamesWithHidden;
-	private transient Map groupsViews;
-	private Collection membersNamesInGroup;
-	private Map collectionMemberNames;
+	private transient Map<String, Object> membersNamesWithHidden;
+	private transient Map<String, View> groupsViews;
+	private Collection<String> membersNamesInGroup;
+	private Map<String, Object> collectionMemberNames;
 	private static int nextOid = 0;	
 	private int collectionEditingRow = -1;
 	private boolean searchingObject;
-	private transient Collection membersNamesWithoutSections;
-	private transient Collection membersNamesWithoutSectionsAndCollections;
+	private transient Collection<String> membersNamesWithoutSections;
+	private transient Collection<String> membersNamesWithoutSectionsAndCollections;
 	private View parent;
 	private View realParent; 
 	private transient List<MetaProperty> metaPropertiesList;
@@ -93,16 +94,16 @@ public class View implements java.io.Serializable {
 	private String lastPropertyKeyName;
 	private String nameOflastPropertyMarkedAsSearchKey;
 	private transient Map<String, View> subviews;
-	private transient Set hiddenMembers;
+	private transient Set<String> hiddenMembers;
 	private int oid;
-	private transient List metaProperties;
-	private transient Collection metaPropertiesQualified;
-	private Map calculatedPropertiesNames;
-	private Map mapStereotypesProperties;
-	private Map membersNames;
+	private transient List<MetaProperty> metaProperties;
+	private transient Collection<MetaProperty> metaPropertiesQualified;
+	private Map<String, Object> calculatedPropertiesNames;
+	private Map<String, String> mapStereotypesProperties;
+	private Map<String, Object> membersNames;
 	private transient MetaModel metaModel;
-	private transient Collection metaMembers;
-	private Map values; 
+	private transient Collection<MetaMember> metaMembers;
+	private Map<String, Object> values; 
 	private transient MetaView metaView;
 	private boolean keyEditable = true;
 	private boolean editable = true;
@@ -117,10 +118,10 @@ public class View implements java.io.Serializable {
 	private boolean collectionDetailVisible = false;
 	private Messages messages; 
 	private Messages errors;
-	private Set notEditableMembersNames;
+	private Set<String> notEditableMembersNames;
 	private transient HttpServletRequest request;
 	private transient ModuleManager moduleManager;
-	private Collection depends;
+	private Collection<String> depends;
 	private boolean hasToSearchOnChangeIfSubview = true;
 	private transient Map<MetaView, View> sectionsViews;
 	private int activeSection;
@@ -134,45 +135,45 @@ public class View implements java.io.Serializable {
 	private int [] listSelected;
 	private boolean readOnly; // Always not editable, marked from xml
 	private boolean onlyThrowsOnChange; 
-	private Collection metaPropertiesIncludingSections;
-	private Collection metaPropertiesIncludingGroups;
-	private Collection metaMembersIncludingGroups; 
-	private transient Collection metaMembersIncludingHiddenKey;
+	private Collection<MetaProperty> metaPropertiesIncludingSections;
+	private Collection<MetaProperty> metaPropertiesIncludingGroups;
+	private Collection<MetaMember> metaMembersIncludingGroups; 
+	private Collection<MetaMember> metaMembersIncludingHiddenKey;
 	private transient Collection<MetaMember> metaMembersIncludingCollectionTotals;
-	private Map labels;
-	private Collection executedActions;	
+	private Map<String, String> labels;
+	private Collection<String> executedActions;	
 	private boolean registeringExecutedActions = false;
 	private transient Collection<MetaProperty> alreadyCalculatedMetaProperties;  
 	private Tab collectionTab; 	
 	private String propertiesListNames;
-	private Collection rowStyles; // Of type MetaRowStyle
-	private Map oldValues; 
+	private Collection<MetaRowStyle> rowStyles; // Of type MetaRowStyle
+	private Map<String, Object> oldValues; 
 	private boolean mustRefreshCollection; 
-	private Map changedPropertiesActionsAndReferencesWithNotCompositeEditor;
-	private Map changedLabels; 
+	private Map<String, View> changedPropertiesActionsAndReferencesWithNotCompositeEditor;
+	private Map<String, String> changedLabels; 
 	private boolean sectionChanged;
 	private boolean reloadNeeded;
 	private boolean oldEditable; 
 	private boolean oldKeyEditable;
 	private String changedProperty;
-	private Collection formattedProperties;
+	private Collection<String> formattedProperties;
 	private boolean refreshDescriptionsLists;
-	private Collection oldNotEditableMembersNames;
+	private Collection<String> oldNotEditableMembersNames;
 	private boolean defaultListActionsForCollectionsIncluded = true;
 	private boolean defaultRowActionsForCollectionsIncluded = true; 
 	private String title; 
 	private String titleId; 
 	private Object [] titleArguments;
-	private Collection fullOrderActionsNamesList;
-	private Collection fullOrderActionsNamesRow; 
-	private Map collectionTotals; 
+	private Collection<String> fullOrderActionsNamesList;
+	private Collection<String> fullOrderActionsNamesRow; 
+	private Map<String, Object> collectionTotals; 
 	private int collectionTotalsCount = -1;
 	private transient Collection<MetaProperty> recalculatedMetaProperties;
 	private List<Map<String, Object>> collectionValues; 
 	private Map<String, Collection<String>> changedActionsByProperty = null; 
-	private Collection propertiesWithChangedActions;
+	private Collection<String> propertiesWithChangedActions;
 	private transient Object model;
-	private transient List sections;
+	private transient List<MetaView> sections;
 	private boolean polished = true;
 	private boolean actionsNamesListRefined = false; 
 	private boolean actionsNamesRowRefined = false; 
@@ -188,10 +189,10 @@ public class View implements java.io.Serializable {
 	private boolean firstLevel;
 
 	private String rootModelName;
-	private Map defaultValues;
-	private Map oldCollectionTotals;    
-	private Map membersNameForElementCollection;
-	private Map<MetaProperty, Map> validValuesByProperty;
+	private Map<String, Object> defaultValues;
+	private Map<String, Object> oldCollectionTotals;    
+	private Map<String, Object> membersNameForElementCollection;
+	private Map<MetaProperty, Map<Object, String>> validValuesByProperty;
 	private Set<String> noBlankValidValuesProperties; 
 	private Collection<String> sumProperties;  
 	private Map<String, List<String>> totalProperties; 
@@ -227,7 +228,7 @@ public class View implements java.io.Serializable {
 		return metaMembersIncludingCollectionTotals;
 	}
 	
-	private Collection getMetaMembersIncludingHiddenKey() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingHiddenKey() throws XavaException { 
 		if (metaMembersIncludingHiddenKey == null) {
 			metaMembersIncludingHiddenKey = createMetaMembers(false);
 			if (!isRepresentsAggregate()) {
@@ -243,12 +244,12 @@ public class View implements java.io.Serializable {
 		return metaMembersIncludingHiddenKey;		
 	}
 	
-	private Collection createMetaMembers(boolean hiddenIncluded) throws XavaException { 
+	private Collection<MetaMember> createMetaMembers(boolean hiddenIncluded) throws XavaException { 
 		return createMetaMembers(hiddenIncluded, hiddenIncluded);
 	}
 	
-	private Collection createMetaMembers(boolean hiddenIncluded, boolean collectionTotalsIncluded) throws XavaException {   
-		if (getModelName() == null) return Collections.EMPTY_LIST;
+	private Collection<MetaMember> createMetaMembers(boolean hiddenIncluded, boolean collectionTotalsIncluded) throws XavaException {   
+		if (getModelName() == null) return Collections.emptyList();
 		Collection<MetaMember> metaMembers = new ArrayList<MetaMember>(getMetaView().getMetaMembers());
 		if (isRepresentsElementCollection()) {
 			removeNotInListProperties(metaMembers);
@@ -347,16 +348,16 @@ public class View implements java.io.Serializable {
 		return parent.isViewInParents(modelName, viewName);
 	}
 
-	private Collection extractAggregateRecursiveReference(Collection metaMembers) {  		
-		Set parentNames = new HashSet();
+	private Collection<MetaMember> extractAggregateRecursiveReference(Collection<MetaMember> metaMembers) {  		
+		Set<String> parentNames = new HashSet<String>();
 		if (isRepresentsCollection()) {
 			parentNames.add(getMetaCollection().getMetaReference().getRole());
 		}
 
-		Collection filtered = new ArrayList();
-		Iterator it = metaMembers.iterator();
+		Collection<MetaMember> filtered = new ArrayList<MetaMember>();
+		Iterator<MetaMember> it = metaMembers.iterator();
 		while (it.hasNext()) {
-			MetaMember m = (MetaMember) it.next();
+			MetaMember m = it.next();
 			if (m instanceof MetaReference) {						
 				MetaReference ref = (MetaReference) m;				
 				if (!parentNames.contains(ref.getName())) {
@@ -371,9 +372,9 @@ public class View implements java.io.Serializable {
 		return metaMembers;
 	}
 	
-	private void removeFirstAndLastSeparator(Collection metaMembers) {
-		Iterator it = metaMembers.iterator();
-		Object member = null;
+	private void removeFirstAndLastSeparator(Collection<MetaMember> metaMembers) {
+		Iterator<MetaMember> it = metaMembers.iterator();
+		MetaMember member = null;
 		if (it.hasNext()) member = it.next();
 		if (PropertiesSeparator.INSTANCE.equals(member)) {
 			it.remove();
@@ -383,22 +384,30 @@ public class View implements java.io.Serializable {
 		if (PropertiesSeparator.INSTANCE.equals(member)) it.remove();
 	}
 
-	private void removeHidden(Collection metaElements) { 
-		Iterator it = metaElements.iterator();
+	private void removeHidden(Collection<MetaMember> metaElements) { 
+		Iterator<MetaMember> it = metaElements.iterator();
 		while (it.hasNext()) {			
-			MetaElement member = (MetaElement) it.next(); 
+			MetaElement member = it.next(); 
 			if (hiddenMembers.contains(member.getName())) it.remove();
 		}
 	}
 	
-	private void removeOverlapedProperties(Collection metaMembers) throws XavaException { 		
+	private void removeHiddenSections(List<MetaView> sections) {
+		Iterator<MetaView> it = sections.iterator();
+		while (it.hasNext()) {			
+			MetaView section = it.next(); 
+			if (hiddenMembers.contains(section.getName())) it.remove();
+		}
+	}
+	
+	private void removeOverlapedProperties(Collection<MetaMember> metaMembers) throws XavaException { 		
 		if (!(representsEntityReference && !isRepresentsCollection())) return; 
 		if (getParent().isRepresentsAggregate()) return; // At momment references to entity in aggregage can not be overlapped
 		ModelMapping parentMapping = getParent().getMetaModel().getMapping();
 		String referenceName = getMemberName();
-		Iterator it = metaMembers.iterator();		
+		Iterator<MetaMember> it = metaMembers.iterator();		
 		while (it.hasNext()) {
-			Object m = it.next();
+			MetaMember m = it.next();
 			if (!(m instanceof MetaProperty)) continue;
 			MetaProperty p = (MetaProperty) m;			
 			if (!p.isKey()) continue; // In references only key is matter			
@@ -458,7 +467,7 @@ public class View implements java.io.Serializable {
 		return app.getMetaModule(modelName);
 	}
 
-	public void setMetaMembers(Collection metaMembers) {			
+	public void setMetaMembers(Collection<MetaMember> metaMembers) {			
 		if (Is.equal(this.metaMembers, metaMembers)) return;
 		this.metaMembers = metaMembers;
 		this.membersNames = null;
@@ -524,7 +533,7 @@ public class View implements java.io.Serializable {
 	 * is not changed. If you wish change displayed data
 	 * you have to use <code>setValues</code> or <code>setValue</code>.<br>
 	 */
-	public Map getValues() throws XavaException {
+	public Map<String, Object> getValues() throws XavaException {
 		return Maps.recursiveClone(getValues(false));
 	}
 
@@ -535,27 +544,27 @@ public class View implements java.io.Serializable {
 	 * is not changed. If you wish change displayed data
 	 * you have to use <code>setValues</code> or <code>setValue</code>.<br>
 	 */	
-	public Map getAllValues() throws XavaException {
-		return new HashMap(getValues(true));
+	public Map<String, Object> getAllValues() throws XavaException {
+		return new HashMap<String, Object>(getValues(true));
 	}
 
-	private Map getValues(boolean all) throws XavaException {  
+	private Map<String, Object> getValues(boolean all) throws XavaException {  
 		return getValues(all, false); 
 	}
 	
-	private Map getValues(boolean all, boolean onlyKeyFromSubviews) throws XavaException {
-		Map hiddenKeyAndVersion = null;
+	private Map<String, Object> getValues(boolean all, boolean onlyKeyFromSubviews) throws XavaException {
+		Map<String, Object> hiddenKeyAndVersion = null;
 		if (values == null) {
-			values = new HashMap();  
+			values = new HashMap<String, Object>();  
 		} 
 		else { 
 			hiddenKeyAndVersion = getHiddenKeyAndVersion(values); 
 		}
 		if (hasSubviews()) { 
-			Iterator it = getSubviews().entrySet().iterator(); 
+			Iterator<Map.Entry<String, View>> it = getSubviews().entrySet().iterator(); 
 			while (it.hasNext()) { 
-				Map.Entry en = (Map.Entry) it.next(); 
-				View v = (View) en.getValue();
+				Map.Entry<String, View> en = it.next(); 
+				View v = en.getValue();
 				if (v.isRepresentsCollection()) {
 					if (v.getMetaCollection().isElementCollection()) {
 						values.put(en.getKey(), v.getCollectionValues());  
@@ -571,9 +580,9 @@ public class View implements java.io.Serializable {
 		} 
 		
 		if (hasGroups()) { 
-			Iterator it = getGroupsViews().values().iterator(); 
+			Iterator<View> it = getGroupsViews().values().iterator(); 
 			while (it.hasNext()) { 
-				View v = (View) it.next(); 
+				View v = it.next(); 
 				values.putAll(v.getValues(all, onlyKeyFromSubviews)); 				
 			}  
 		} 
@@ -592,12 +601,12 @@ public class View implements java.io.Serializable {
 		return values; 
 	} 	
 	
-	private Map getHiddenKeyAndVersion(Map keyValues) throws XavaException { 
-		Map result = null;
-		for (Iterator it=keyValues.keySet().iterator(); it.hasNext(); ) {
-			String property = (String) it.next();
+	private Map<String, Object> getHiddenKeyAndVersion(Map<String, Object> keyValues) throws XavaException { 
+		Map<String, Object> result = null;
+		for (Iterator<String> it=keyValues.keySet().iterator(); it.hasNext(); ) {
+			String property = it.next();
 			if (getMetaModel().isHiddenKey(property) || getMetaModel().isVersion(property)) { 
-				if (result == null) result = new HashMap();
+				if (result == null) result = new HashMap<String, Object>();
 				result.put(property, keyValues.get(property));
 			}
 		}
@@ -609,16 +618,16 @@ public class View implements java.io.Serializable {
 		return groupsViews != null && !groupsViews.isEmpty();
 	}
 	
-	public void addValues(Map values) throws XavaException { 
+	public void addValues(Map<String, Object> values) throws XavaException { 
 		addValues(values, false);
 	}
  
-	private void addValues(Map values, boolean setValuesForSubviews) throws XavaException {		
-		values = values==null?Collections.EMPTY_MAP:values; 		
-		Iterator it = values.entrySet().iterator();
+	private void addValues(Map<String, Object> values, boolean setValuesForSubviews) throws XavaException {		
+		values = values==null?Collections.emptyMap():values; 		
+		Iterator<Map.Entry<String, Object>> it = values.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry en = (Map.Entry) it.next(); 
-			String key = (String) en.getKey();
+			Map.Entry<String, Object> en = it.next(); 
+			String key = en.getKey();
 			Object value = en.getValue();			
 			int idx = key.indexOf('.');
 			if (idx < 0) {				
@@ -632,7 +641,7 @@ public class View implements java.io.Serializable {
 		}											
 	}
 
-	public void setValues(Map values) throws XavaException {
+	public void setValues(Map<String, Object> values) throws XavaException {
 		if (isRepresentsEntityReference() && getParent().isRepresentsElementCollection()) {
 			if (Is.empty(getParent().values)) getParent().calculateDefaultValues(true);
 		}
@@ -640,7 +649,7 @@ public class View implements java.io.Serializable {
 		setDataChanged(!isFirstLevel() && !isRepresentsTransientReference());
 	}
 	
-	public void setValuesChangingModel(Map values) throws XavaException {
+	public void setValuesChangingModel(Map<String, Object> values) throws XavaException {
 		boolean modelChanged = false;
 		if (values != null) {
 			String modelName = (String) values.get(MapFacade.MODEL_NAME);
@@ -671,7 +680,7 @@ public class View implements java.io.Serializable {
 		return defaultValues.get(qualifiedPropertyName);
 	}
 	
-	private void setValues(Map map, boolean closeCollections) throws XavaException { 
+	private void setValues(Map<String, Object> map, boolean closeCollections) throws XavaException { 
 		clearValues(); 
 		if (closeCollections) resetCollections(true);
 		resetCollectionTotals();
@@ -681,10 +690,10 @@ public class View implements java.io.Serializable {
 
 	private void resetCollections(boolean root) throws XavaException { 
 		if (hasSubviews()) { 
-			Iterator it = getSubviews().values().iterator();
+			Iterator<View> it = getSubviews().values().iterator();
 
 			while (it.hasNext()) {
-				View subview = (View) it.next();
+				View subview = it.next();
 				subview.setCollectionDetailVisible(false);
 				subview.setCollectionEditingRow(-1);
 				if (subview.isRepresentsCollection() && !subview.isCollectionFromModel()) {
@@ -695,7 +704,7 @@ public class View implements java.io.Serializable {
 		}
 				
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
 				View subview = (View) it.next();
 				subview.setCollectionDetailVisible(false);
@@ -725,18 +734,18 @@ public class View implements java.io.Serializable {
 	private void resetCollectionTotals() throws XavaException {
 		collectionTotals = null;
 		if (hasSubviews()) { 
-			Iterator it = getSubviews().values().iterator();
+			Iterator<View> it = getSubviews().values().iterator();
 
 			while (it.hasNext()) {
-				View subview = (View) it.next();
+				View subview = it.next();
 				subview.resetCollectionTotals();										
 			}
 		}
 				
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
-				View subview = (View) it.next();
+				View subview = it.next();
 				subview.resetCollectionTotals();
 			}
 		}
@@ -755,7 +764,7 @@ public class View implements java.io.Serializable {
 	 * Set the values and execute the on-change actions associated to
 	 * the assigned properties. <p>
 	 */
-	public void setValuesExecutingOnChangeActions(Map values) throws XavaException {		
+	public void setValuesExecutingOnChangeActions(Map<String, Object> values) throws XavaException {		
 		setOnlyThrowsOnChange(true);
 		try {
 			setValuesNotifying(values);
@@ -768,7 +777,7 @@ public class View implements java.io.Serializable {
 	/**
 	 * Set the values and throws are events associated to the changed values. 
 	 */
-	public void setValuesNotifying(Map values) throws XavaException {			 
+	public void setValuesNotifying(Map<String, Object> values) throws XavaException {			 
 		getRoot().registeringExecutedActions = true;			
 		try {
 			moveCollectionValuesToViewValues();
@@ -1083,7 +1092,7 @@ public class View implements java.io.Serializable {
 				if (metaCollectionView.isAsAggregate()) {
 					newView.setRepresentsAggregate(true); 
 				}
-				Collection propertiesListNames = metaCollectionView.getPropertiesListNames();
+				Collection<String> propertiesListNames = metaCollectionView.getPropertiesListNames();
 				if (!propertiesListNames.isEmpty()) {					
 					newView.setMetaPropertiesList(newView.namesToMetaPropertiesPurgingNames(propertiesListNames));
 					newView.setPropertiesListNames(Strings.toString(propertiesListNames));
@@ -1091,9 +1100,9 @@ public class View implements java.io.Serializable {
 				if (metaCollectionView.hasRowStyles()) { 
 					newView.setRowStyles(metaCollectionView.getMetaRowStyles());					
 				}				
-				Collection actionsDetailNames = metaCollectionView.getActionsDetailNames();
+				Collection<String> actionsDetailNames = metaCollectionView.getActionsDetailNames();
 				if (!actionsDetailNames.isEmpty()) {
-					newView.setActionsNamesDetail(new ArrayList(actionsDetailNames));
+					newView.setActionsNamesDetail(new ArrayList<String>(actionsDetailNames));
 				}
 				
 				if (!metaCollectionView.isModifyReference()) {
@@ -1136,20 +1145,20 @@ public class View implements java.io.Serializable {
 					metaCollectionView.isEditOnly() ) &&
 					metaCollectionView.isModifyReference());
 				newView.setViewName(metaCollectionView.getViewName());
-				Collection actionsListNames = metaCollectionView.getActionsListNames();
+				Collection<String> actionsListNames = metaCollectionView.getActionsListNames();
 				if (!actionsListNames.isEmpty()) {	
-					Collection actions = new ArrayList(actionsListNames);
+					Collection<String> actions = new ArrayList<String>(actionsListNames);
 					actions.addAll(newView.getDefaultListActionsForCollections());
 					newView.setActionsNamesList(actions);
 				}
-				Collection subcontrollerListNames = metaCollectionView.getSubcontrollersListNames();
+				Collection<String> subcontrollerListNames = metaCollectionView.getSubcontrollersListNames();
 				if (!subcontrollerListNames.isEmpty()) {					
-					Collection subcontroller = new ArrayList(subcontrollerListNames);
+					Collection<String> subcontroller = new ArrayList<String>(subcontrollerListNames);
 					newView.setSubcontrollersNamesList(subcontroller);
 				}
-				Collection actionsRowNames = metaCollectionView.getActionsRowNames();
+				Collection<String> actionsRowNames = metaCollectionView.getActionsRowNames();
 				if (!actionsRowNames.isEmpty()) {
-					Collection actions = new ArrayList(actionsRowNames);
+					Collection<String> actions = new ArrayList<String>(actionsRowNames);
 					actions.addAll(newView.getDefaultRowActionsForCollections());
 					newView.setActionsNamesRow(actions);
 				}		
@@ -1184,9 +1193,9 @@ public class View implements java.io.Serializable {
 		subviews.put(member.getName(), newView);
 	} 
 
-	private Collection getDefaultListActionsForCollections() {
+	private Collection<String> getDefaultListActionsForCollections() {
 		try {
-			if (!isDefaultListActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST; 
+			if (!isDefaultListActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.emptyList(); 
 			if (isCollectionFromModel()) {
 				if (defaultListActionsForCollectionsFromModel == null) {			
 					defaultListActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultListActionsForCollections",  true); 
@@ -1202,13 +1211,13 @@ public class View implements java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.warn(XavaResources.getString("default_list_action_controllers_warning"), ex);
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 	}
 	
-	private Collection getDefaultRowActionsForCollections() { 
+	private Collection<String> getDefaultRowActionsForCollections() { 
 		try {
-			if (!isDefaultRowActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.EMPTY_LIST;
+			if (!isDefaultRowActionsForCollectionsIncluded() || !isCollectionHasDefaultActions()) return Collections.emptyList();
 			if (isCollectionFromModel()) {
 				if (defaultRowActionsForCollectionsFromModel == null) {			
 					defaultRowActionsForCollectionsFromModel = createDefaultActionsForCollections("DefaultRowActionsForCollections", true);
@@ -1224,15 +1233,15 @@ public class View implements java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.warn(XavaResources.getString("default_row_action_controllers_warning"), ex);
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 	}
 
-	private Collection createDefaultActionsForCollections(String defaultListController, boolean collectionFromModel) {
+	private Collection<String> createDefaultActionsForCollections(String defaultListController, boolean collectionFromModel) {
 		MetaController controller = MetaControllers.getMetaController(defaultListController); 
-		Collection result = new ArrayList();
-		for (Iterator it = controller.getAllMetaActions().iterator(); it.hasNext();) {
-			MetaAction action = (MetaAction) it.next();
+		Collection<String> result = new ArrayList<String>();
+		for (Iterator<MetaAction> it = controller.getAllMetaActions().iterator(); it.hasNext();) {
+			MetaAction action = it.next();
 			try {
 				if (collectionFromModel && TabBaseAction.class.isAssignableFrom(Class.forName(action.getClassName()))) continue; 
 				if (!action.isHidden()) {
@@ -1250,16 +1259,16 @@ public class View implements java.io.Serializable {
 		this.propertiesListNames = propertiesListNames; 		
 	}
 
-	private Map getGroupsViews() throws XavaException {
+	private Map<String, View> getGroupsViews() throws XavaException {
 		if (groupsViews == null) {
-			groupsViews = new HashMap();
+			groupsViews = new HashMap<String, View>();
 			getSubviews(); // in order to start the process that create subviews and groups
 		}
 		return groupsViews;
 	}
 
 	private List<MetaProperty> namesToMetaPropertiesPurgingNames(Collection<String> names) throws XavaException {  
-		List<MetaProperty> metas = new ArrayList();
+		List<MetaProperty> metas = new ArrayList<MetaProperty>();
 		Iterator<String> it = names.iterator();
 		while (it.hasNext()) {			
 			String name = it.next();
@@ -1305,10 +1314,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private Map<String, View> getSubviews() throws XavaException { 
-		if (getModelName() == null) return Collections.EMPTY_MAP;		
+		if (getModelName() == null) return Collections.emptyMap();		
 		if (subviews == null) {
 			if (isRepresentsCollection() && !isCollectionDetailVisible()) {
-				return Collections.EMPTY_MAP;
+				return Collections.emptyMap();
 			}			
 			createSubviews(); 
 		}
@@ -1317,10 +1326,10 @@ public class View implements java.io.Serializable {
 
 	private void createSubviews() {
 		if (subviews != null) return; 
-		subviews = new HashMap();		
-		Iterator it = getMetaMembers().iterator();
+		subviews = new HashMap<String, View>();		
+		Iterator<MetaMember> it = getMetaMembers().iterator();
 		while (it.hasNext()) {
-			MetaMember member = (MetaMember) it.next();			
+			MetaMember member = it.next();			
 			createAndAddSubview(member);
 		}			
 		removeTotalEditablePropertiesInCollections(getMetaMembers()); 
@@ -1412,24 +1421,29 @@ public class View implements java.io.Serializable {
 			}
 			if (hasSubview(name)) {	
 				View subview = getSubview(name);
+
 				if (!subview.isRepresentsCollection()) {
-					if (setValuesForSubviews) subview.setValuesChangingModel((Map)value); 
-					else subview.addValues((Map)value);
+					@SuppressWarnings("unchecked")
+					Map<String, Object> referenceValues = (Map<String, Object>) value;
+					if (setValuesForSubviews) subview.setValuesChangingModel(referenceValues);
+					else subview.addValues(referenceValues);
 				}
 				else {
-					subview.collectionValues = (List) value;
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> collectionValues = (List<Map<String, Object>>) value;
+					subview.collectionValues = collectionValues;
 					subview.refreshCollection(); 
 				}		
 			}
 			else { 		
-				if (values == null) values = new HashMap();					
+				if (values == null) values = new HashMap<String, Object>();					
 				value = Strings.removeXSS(value);
 				values.put(name, value);
 				resetElementCollectionTotalsForProperty(name); 
 			}	
 		} 
 		else if (displayAsDescriptionsList()) {
-			if (values == null) values = new HashMap();					
+			if (values == null) values = new HashMap<String, Object>();					
 			value = Strings.removeXSS(value);
 			values.put(name, value);			
 		}
@@ -1439,10 +1453,10 @@ public class View implements java.io.Serializable {
 			View subview = getSubview(subviewName);
 			if (subview.isRepresentsElementCollection()) { 	
 				int elementIndex = Integer.parseInt(Strings.firstToken(member, "."));
-				List collectionValues = subview.getCollectionValues();
+				List<Map<String, Object>> collectionValues = subview.getCollectionValues();
 				if (elementIndex < 0) return false;
 				if (elementIndex >= collectionValues.size()) growCollection(collectionValues, elementIndex + 1);
-				Map element = (Map) collectionValues.get(elementIndex);
+				Map<String, Object> element = collectionValues.get(elementIndex);
 				String collectionMember = Strings.noFirstTokenWithoutFirstDelim(member, ".");
 				Maps.putValueFromQualifiedName(element, collectionMember, value);
 				subview.setCollectionEditingRow(elementIndex);
@@ -1457,10 +1471,10 @@ public class View implements java.io.Serializable {
 	
 	private void resetElementCollectionTotalsForProperty(String name) { 
 		if (hasSubviews()) { 
-			Iterator it = getSubviews().values().iterator();
+			Iterator<View> it = getSubviews().values().iterator();
 
 			while (it.hasNext()) {
-				View subview = (View) it.next();
+				View subview = it.next();
 				if (subview.isRepresentsElementCollection()) {
 					if (subview.collectionTotals != null && subview.collectionTotals.containsKey(name)) {
 						if (isEditable(name)) subview.collectionTotals = null;
@@ -1497,16 +1511,16 @@ public class View implements java.io.Serializable {
 		getFirstLevelView().dataChanged = dataChanged;
 	}
 	
-	private void growCollection(Collection collection, int newSize) { 
-		while (collection.size() < newSize) collection.add(new HashMap());
+	private void growCollection(Collection<Map<String, Object>> collection, int newSize) { 
+		while (collection.size() < newSize) collection.add(new HashMap<String, Object>());
 	}
 
-	private Collection getMembersNamesInGroup() throws XavaException { 
+	private Collection<String> getMembersNamesInGroup() throws XavaException { 
 		if (membersNamesInGroup == null) {
-			membersNamesInGroup = new ArrayList();		
-			Iterator it = getGroupsViews().values().iterator();		
+			membersNamesInGroup = new ArrayList<String>();		
+			Iterator<View> it = getGroupsViews().values().iterator();		
 			while (it.hasNext()) {
-				View subview = (View) it.next();																
+				View subview = it.next();																
 				membersNamesInGroup.addAll(subview.getMembersNamesWithHidden().keySet()); 
 			}		
 		}
@@ -1514,9 +1528,9 @@ public class View implements java.io.Serializable {
 	}
 
 	private void trySetValueInGroups(String name, Object value) throws XavaException {		
-		Iterator it = getGroupsViews().values().iterator();
+		Iterator<View> it = getGroupsViews().values().iterator();
 		while (it.hasNext()) {
-			View subview = (View) it.next();
+			View subview = it.next();
 			subview.trySetValue(name, value);			
 		}				
 	}
@@ -1564,12 +1578,12 @@ public class View implements java.io.Serializable {
 	/**
 	 * Excludes those values that are null, zero or empty string.
 	 */
-	public Map getKeyValuesWithValue() throws XavaException {		
-		Map values = getValues(false, true); 
-		Iterator it = values.keySet().iterator();
-		Map result = new HashMap();
+	public Map<String, Object> getKeyValuesWithValue() throws XavaException {		
+		Map<String, Object> values = getValues(false, true); 
+		Iterator<String> it = values.keySet().iterator();
+		Map<String, Object> result = new HashMap<String, Object>();
 		while (it.hasNext()) {
-			String name = (String) it.next();			
+			String name = it.next();			
 			if (getMetaModel().isKey(name)) {
 				Object value = values.get(name);
 				if (isEmptyValue(value)) continue;
@@ -1586,18 +1600,18 @@ public class View implements java.io.Serializable {
 		return false;		
 	}
 	
-	public Map getKeyValues() throws XavaException {		
-		Map values = getValues(false, true); 
-		Map result = getMetaModel().extractKeyValues(values);
+	public Map<String, Object> getKeyValues() throws XavaException {		
+		Map<String, Object> values = getValues(false, true); 
+		Map<String, Object> result = (Map<String, Object>) getMetaModel().extractKeyValues(values);
 
 		if (getParent() != null && !getParent().isRepresentsAggregate()) {			
 			// At the moment reference to entity within aggregate can not be part of key
 			if (isRepresentsEntityReference() && !isRepresentsCollection()) {				
 				ModelMapping mapping = getParent().getMetaModel().getMapping();
 				if (mapping.isReferenceOverlappingWithSomeProperty(getMemberName())) {					
-					Iterator itProperties = mapping.getOverlappingPropertiesOfReference(getMemberName()).iterator();					
+					Iterator<String> itProperties = mapping.getOverlappingPropertiesOfReference(getMemberName()).iterator();					
 					while (itProperties.hasNext()) {
-						String property = (String) itProperties.next();						
+						String property = itProperties.next();						
 						String overlappedProperty = mapping.getOverlappingPropertyForReference(getMemberName(), property);
 						boolean overlappedPropertyIsInView = getMembersNames().containsKey(overlappedProperty);
 						if (!overlappedPropertyIsInView) overlappedPropertyIsInView = getParent().getMembersNames().containsKey(overlappedProperty);
@@ -1611,7 +1625,7 @@ public class View implements java.io.Serializable {
 		return result; 
 	}
 	
-	public Map getMembersNamesWithHidden() throws XavaException {
+	public Map<String, Object> getMembersNamesWithHidden() throws XavaException {
 		if (membersNamesWithHidden == null) {
 			membersNamesWithHidden = createMembersNames(true);
 		}
@@ -1619,19 +1633,21 @@ public class View implements java.io.Serializable {
 	}
 	
 	
-	private Map getMembersNamesForFindObject() throws XavaException { 
+	private Map<String, Object> getMembersNamesForFindObject() throws XavaException { 
 		if (isRepresentsElementCollection()) {
 			return getMembersNameForElementCollection();			
 		}
-		else if (isInsideElementCollection()) {			
-			return (Map) getParent().getMembersNamesForFindObject().get(getMemberName());
+		else if (isInsideElementCollection()) {
+			@SuppressWarnings("unchecked")
+			Map<String, Object> result = (Map<String, Object>) getParent().getMembersNamesForFindObject().get(getMemberName());
+			return result;
 		}
-		return getMembersNamesWithHidden(); 
+		return new HashMap<String, Object>(getMembersNamesWithHidden());
 	}
 	
-	private Map getMembersNameForElementCollection() { 
+	private Map<String, Object> getMembersNameForElementCollection() { 
 		if (membersNameForElementCollection == null) {
-			Map membersNames = new HashMap(); 
+			Map<String, Object> membersNames = new HashMap<String, Object>(); 
 			for (MetaProperty p: getMetaPropertiesList()) {
 				membersNames.put(p.getName(), null);				
 			}
@@ -1662,43 +1678,43 @@ public class View implements java.io.Serializable {
 	}
 
 
-	public Map getMembersNames() throws XavaException {		
+	public Map<String, Object> getMembersNames() throws XavaException {		
 		if (membersNames == null) {
 			membersNames = createMembersNames(false);
 		}
 		return membersNames;
 	}	
 	
-	public Map getCalculatedPropertiesNames() throws XavaException {		
+	public Map<String, Object> getCalculatedPropertiesNames() throws XavaException {		
 		if (calculatedPropertiesNames == null) { 
 			calculatedPropertiesNames = createCalculatedPropertiesNames();
 		}
 		return calculatedPropertiesNames;
 	}
 	
-	private Map createCalculatedPropertiesNames() throws XavaException {
-		Map memberNames = new HashMap();
-		Iterator it = createMetaMembers(false).iterator();
+	private Map<String, Object> createCalculatedPropertiesNames() throws XavaException {
+		Map<String, Object> memberNames = new HashMap<String, Object>();
+		Iterator<MetaMember> it = createMetaMembers(false).iterator();
 		while (it.hasNext()) {
-			MetaMember m = (MetaMember) it.next();								
+			MetaMember m = it.next();								
 			if (isMetaProperty(m)) {
 				if (((MetaProperty)m).isCalculated()) {
 					memberNames.put(m.getName(), null);
 				}
 			}
 			else if (m instanceof MetaReference) {
-				Map names = getSubview(m.getName()).createCalculatedPropertiesNames();
+				Map<String, Object> names = getSubview(m.getName()).createCalculatedPropertiesNames();
 				if (!names.isEmpty()) memberNames.put(m.getName(), names);				
 			}
 			else if (m instanceof MetaGroup) {
-				Map names = getGroupView(m.getName()).createCalculatedPropertiesNames();
+				Map<String, Object> names = getGroupView(m.getName()).createCalculatedPropertiesNames();
 				if (!names.isEmpty()) memberNames.putAll(names);
 			}
 		}			
 		if (hasSections()) {
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
-				Map names = getSectionView(i).createCalculatedPropertiesNames();
+				Map<String, Object> names = getSectionView(i).createCalculatedPropertiesNames();
 				if (!names.isEmpty()) memberNames.putAll(names);
 			}
 		}			
@@ -1706,8 +1722,8 @@ public class View implements java.io.Serializable {
 	}
 	
 			
-	private Map createMembersNames(boolean hiddenIncluded) throws XavaException {
-		Map membersNames = new HashMap();
+	private Map<String, Object> createMembersNames(boolean hiddenIncluded) throws XavaException {
+		Map<String, Object> membersNames = new HashMap<String, Object>();
 		Collection<MetaMember> metaMembers = createMetaMembers(hiddenIncluded);
 		Iterator<MetaMember> it = metaMembers.iterator();
 		while (it.hasNext()) {
@@ -1737,8 +1753,8 @@ public class View implements java.io.Serializable {
 		return membersNames; 	
 	}
 	
-	private Map createElementCollectionMembersNames() { 
-		Map membersNames = new HashMap();
+	private Map<String, Object> createElementCollectionMembersNames() { 
+		Map<String, Object> membersNames = new HashMap<>();
 		for (MetaProperty p: getMetaPropertiesList()) {
 			membersNames.put(p.getName(), null);
 		}
@@ -1799,10 +1815,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void collectionTabLabels(Tab collectionTab){
-		Collection properties = collectionTab.getMetaProperties();
-		Iterator it = properties.iterator();
+		Collection<MetaProperty> properties = collectionTab.getMetaProperties();
+		Iterator<MetaProperty> it = properties.iterator();
 		while (it.hasNext()) {
-			MetaProperty property = (MetaProperty) it.next();
+			MetaProperty property = it.next();
 			if (!Is.empty(getParent()) && !Is.empty(getParent().getModelName()) ){
 				String labelId = property.getLabelId();
 				if (Is.empty(labelId)) continue;
@@ -1823,9 +1839,9 @@ public class View implements java.io.Serializable {
 		
 	private String createBaseConditionForCollectionTab() throws XavaException {
 		String referenceToParent = getMetaCollection().getMetaReference().getRole();
-		Collection keyNames = getParent().getMetaModel().getAllKeyPropertiesNames();
+		Collection<String> keyNames = getParent().getMetaModel().getAllKeyPropertiesNames();
 		StringBuffer condition = new StringBuffer();
-		for (Iterator it = keyNames.iterator(); it.hasNext();) {
+		for (Iterator<String> it = keyNames.iterator(); it.hasNext();) {
 			condition.append("${");
 			condition.append(referenceToParent);
 			condition.append('.');
@@ -1865,11 +1881,11 @@ public class View implements java.io.Serializable {
 			if (getMetaCollection().isElementCollection()) collectionValues = new ArrayList<>(); 
 			else if (isCollectionFromModel() ||	!isDefaultListActionsForCollectionsIncluded() || !isDefaultRowActionsForCollectionsIncluded()) {				
 				// If calculated we obtain the data directly from the model object
-				Map mapMembersNames = new HashMap();
-				mapMembersNames.put(getMemberName(), new HashMap(getCollectionMemberNames()));
+				Map<String, Object> mapMembersNames = new HashMap<String, Object>();
+				mapMembersNames.put(getMemberName(), new HashMap<String, Object>(getCollectionMemberNames()));
 				try	{
-					Map mapReturnValues = null;
-					Map mapKeys = getParent().getKeyValues();					
+					Map<String, Object> mapReturnValues = null;
+					Map<String, Object> mapKeys = getParent().getKeyValues();					
 					if (null != mapKeys && !mapKeys.isEmpty() && model == null) { 
 						mapReturnValues = MapFacade.getValues(getParent().getModelName(), mapKeys, mapMembersNames);	
 					}
@@ -1883,10 +1899,12 @@ public class View implements java.io.Serializable {
 						getParent().getMetaModel().fillPOJO(oParentObject, getParent().getValues());
 						mapReturnValues = MapFacade.getValues(getParent().getModelName(), oParentObject, mapMembersNames);
 					}
-					collectionValues = (List) mapReturnValues.get(getMemberName());
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> values = (List<Map<String, Object>>) mapReturnValues.get(getMemberName());
+					collectionValues = values;
 				}
 				catch (ObjectNotFoundException ex) { // New one is creating
-					collectionValues = Collections.EMPTY_LIST;
+					collectionValues = Collections.emptyList();
 				}
 				catch (Exception ex) {
 					log.error(ex.getMessage(), ex);
@@ -1996,10 +2014,10 @@ public class View implements java.io.Serializable {
 		throw new XavaException("total_properties_not_found", qualifiedPropertyName, getMemberName());
 	}
 
-	private Map getCollectionTotals() {
+	private Map<String, Object> getCollectionTotals() {
 		if (collectionTotals == null) {
 			try { 
-				Map memberNames = new HashMap();
+				Map<String, Object> memberNames = new HashMap<String, Object>();
 				for (List<String> propertyList: getTotalProperties().values()) {
 					for (String property: propertyList) {
 						if (!property.startsWith("__SUM__")) { 
@@ -2008,14 +2026,14 @@ public class View implements java.io.Serializable {
 					}				
 				}
 				if (memberNames.isEmpty()) {
-					collectionTotals = Collections.EMPTY_MAP;
+					collectionTotals = Collections.emptyMap();
 				}
 				else if (isRepresentsElementCollection()) {
 					collectionTotals = MapFacade.getValues(getParent().getModelName(), getParent().getTransientPOJO(), memberNames);
 					removeKeys(getParent().getMetaModel(), collectionTotals); 
 				}
 				else {
-					Map key = getParent().getKeyValues();
+					Map<String, Object> key = getParent().getKeyValues();
 					
 					if (key.isEmpty() || hasNull(key)) { 
 						Object model = getParent().getModel();
@@ -2030,7 +2048,7 @@ public class View implements java.io.Serializable {
 							removeKeys(getParent().getMetaModel(), collectionTotals);
 						}
 						catch (javax.ejb.ObjectNotFoundException ex) {
-							collectionTotals = Collections.EMPTY_MAP;
+							collectionTotals = Collections.emptyMap();
 						}				
 					}
 				}
@@ -2043,7 +2061,7 @@ public class View implements java.io.Serializable {
 			for (List<String> propertyList: getTotalProperties().values()) {
 				for (String property: propertyList) {
 					if (property.startsWith("__SUM__")) {
-						if (collectionTotals == null || collectionTotals == Collections.EMPTY_MAP) collectionTotals = new HashMap();
+						if (collectionTotals == null || collectionTotals == Collections.<String, Object>emptyMap()) collectionTotals = new HashMap<String, Object>();
 						String propertyName = removeTotalPropertyPrefix(property);
 						collectionTotals.put(propertyName, calculateCollectionSum(propertyName)); 
 					}
@@ -2053,10 +2071,10 @@ public class View implements java.io.Serializable {
 		return collectionTotals;
 	}	
 	
-	private void removeKeys(MetaModel metaModel, Map collectionTotals) { 
-		Iterator it = collectionTotals.keySet().iterator();
-		for (Object key = it.next(); it.hasNext(); key = it.next() ) {
-			if (metaModel.isKey((String) key)) it.remove(); 
+	private void removeKeys(MetaModel metaModel, Map<String, Object> collectionTotals) { 
+		Iterator<String> it = collectionTotals.keySet().iterator();
+		for (String key = it.next(); it.hasNext(); key = it.next() ) {
+			if (metaModel.isKey(key)) it.remove(); 
 		}
 		
 	}
@@ -2064,7 +2082,7 @@ public class View implements java.io.Serializable {
 	private Object calculateCollectionSum(String property) {
 		BigDecimal sum = new BigDecimal("0");  
 		List<Map<String, Object>> values = getCollectionValues(); 
-		for (Map entry: values) {
+		for (Map<String, Object> entry: values) {
 			Object ovalue = Maps.getValueFromQualifiedName(entry, property);
 			if (ovalue != null) { 
 				BigDecimal value = ovalue instanceof BigDecimal?(BigDecimal) ovalue:new BigDecimal(ovalue.toString());
@@ -2074,7 +2092,7 @@ public class View implements java.io.Serializable {
 		return sum;
 	}
 
-	private boolean hasNull(Map key) {
+	private boolean hasNull(Map<String, Object> key) {
 		for (Object value: key.values()) {
 			if (value == null) return true;
 		}
@@ -2148,14 +2166,16 @@ public class View implements java.io.Serializable {
 	public Map<String, List<String>> getTotalProperties() {
 		if (totalProperties == null) { 
 			MetaCollectionView metaCollectionView = getParent().getMetaView().getMetaCollectionView(getMemberName());
-			totalProperties = metaCollectionView==null?Collections.EMPTY_MAP:metaCollectionView.getTotalProperties();
+			totalProperties = metaCollectionView==null?Collections.<String, List<String>>emptyMap():metaCollectionView.getTotalProperties();
 			boolean collectionFromModel = isCollectionFromModel();
-			Collection<String> sumProperties = collectionFromModel?getSumProperties():getCollectionTab().getSumPropertiesNames();
+			Collection<String> sumProperties = (Collection<String>) (collectionFromModel?getSumProperties():getCollectionTab().getSumPropertiesNames());
 			if (!sumProperties.isEmpty()) {
-				totalProperties = Maps.recursiveCloneWithCollections(totalProperties);
+				@SuppressWarnings("unchecked")
+				Map<String, List<String>> cloned = (Map<String, List<String>>) (Map<?, ?>) Maps.recursiveCloneWithCollections(totalProperties);
+				totalProperties = cloned;
 				for (MetaProperty p: getMetaPropertiesList()) {
 					if (sumProperties.contains(p.getName())) {
-						List properties = totalProperties.get(p.getName());
+						List<String> properties = totalProperties.get(p.getName());
 						if (properties != null) properties.add(0, "__SUM__" + p.getName());
 						else if (collectionFromModel) totalProperties.put(p.getName(), Strings.toList("__SUM__" + p.getName())); 
 					}
@@ -2222,7 +2242,7 @@ public class View implements java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.warn(XavaResources.getString("impossible_load_sum_properties"),ex);  
-			return new HashSet();
+			return new HashSet<String>();
 		}
 	}
 	
@@ -2319,13 +2339,13 @@ public class View implements java.io.Serializable {
 	 * The values only include the displayed data in the row.<br>
 	 * @return  Of type <tt>Map</tt>. Never null.
 	 */
-	public List getCollectionSelectedValues() throws XavaException {
+	public List<Map<String, Object>> getCollectionSelectedValues() throws XavaException {
 		assertRepresentsCollection("getCollectionSelectedValues()");
 		if (isCollectionFromModel()) {
 			// If calculated we obtain the data directly from the model object
-			if (listSelected == null) return Collections.EMPTY_LIST;
-			List result = new ArrayList();
-			List all = getCollectionValues();
+			if (listSelected == null) return Collections.emptyList();
+			List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+			List<Map<String, Object>> all = getCollectionValues();
 			for (int i=0; i<listSelected.length; i++) {
 				result.add(all.get(listSelected[i]));
 			}
@@ -2333,17 +2353,17 @@ public class View implements java.io.Serializable {
 		}
 		else { 
 			// If not calculated we obtain the data from the Tab
-			Map[] selectedKeys = getCollectionTab().getSelectedKeys();
-			return selectedKeys == null ? Collections.EMPTY_LIST : getCollectionValues(selectedKeys);
+			Map<String, Object>[] selectedKeys = getCollectionTab().getSelectedKeys();
+			return selectedKeys == null ? Collections.emptyList() : getCollectionValues(selectedKeys);
 		}
 	}
 
-	private List getCollectionValues(Map [] keys) throws XavaException { 
-		List result = new ArrayList();
-		Map memberNames = new HashMap(getCollectionMemberNames());
+	private List<Map<String, Object>> getCollectionValues(Map<String, Object>[] keys) throws XavaException { 
+		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+		Map<String, Object> memberNames = new HashMap<String, Object>(getCollectionMemberNames());
 		for (int i = 0; i < keys.length; i++) {			
 			try {
-				Map values = MapFacade.getValues(getModelName(), keys[i], memberNames);
+				Map<String, Object> values = MapFacade.getValues(getModelName(), keys[i], memberNames);
 				result.add(values);				
 			}
 			catch (Exception ex) {
@@ -2365,9 +2385,9 @@ public class View implements java.io.Serializable {
 	 *  
 	 * @return  Never null.
 	 */		
-	public List getCollectionObjects() throws XavaException {   		
+	public List<Object> getCollectionObjects() throws XavaException {   		
 		assertRepresentsCollection("getCollectionObjects()");		
-		Map [] keys = null;
+		Map<String, Object>[] keys = null;
 		if (isCollectionFromModel()) { 
 			try {
 				Object model = getParent().getModel();
@@ -2376,15 +2396,16 @@ public class View implements java.io.Serializable {
 					PersistenceFacade.refreshIfManaged(model); 
 				}
 				PropertiesManager modelProperties = new PropertiesManager(model);
-				return new ArrayList((Collection) modelProperties.executeGet(getMemberName()));
+				return new ArrayList<Object>((Collection<?>) modelProperties.executeGet(getMemberName()));
 			}
 			catch (Exception ex) {
 				log.error(XavaResources.getString("collection_error", getMemberName()), ex);				
 				throw new XavaException("collection_error", getMemberName());
 			}				
 		}
-		else {				
-			keys = getCollectionTab().getAllKeys(); 
+		else {
+			Map<String, Object>[] tabKeys = getCollectionTab().getAllKeys();
+			keys = tabKeys;
 		}
 		return getCollectionObjects(keys);						
 	}
@@ -2399,25 +2420,26 @@ public class View implements java.io.Serializable {
 	 *  
 	 * @return  Never null.
 	 */
-	public List getCollectionSelectedObjects() throws XavaException {  
+	public List<Object> getCollectionSelectedObjects() throws XavaException {
 		assertRepresentsCollection("getCollectionSelectedObjects()");		
-		Map [] selectedKeys = null;
+		Map<String, Object>[] selectedKeys = null;
 		if (isCollectionFromModel()) {
-			if (listSelected == null) return Collections.EMPTY_LIST;
-			List selectedObjects = new ArrayList();
-			List objects = getCollectionObjects();
+			if (listSelected == null) return Collections.emptyList();
+			List<Object> selectedObjects = new ArrayList<Object>();
+			List<Object> objects = getCollectionObjects();
 			for (int i=0; i<listSelected.length; i++) {
 				selectedObjects.add(objects.get(listSelected[i]));
 			}
 			return selectedObjects;
 		}
 		else {				
-			return getCollectionObjects(getCollectionTab().getSelectedKeys());
+			selectedKeys = getCollectionTab().getSelectedKeys();
+			return getCollectionObjects(selectedKeys);
 		}						
 	}
 
-	private List getCollectionObjects(Map[] keys) throws XavaException {
-		List result = new ArrayList();		
+	private List<Object> getCollectionObjects(Map<String, Object>[] keys) throws XavaException {
+		List<Object> result = new ArrayList<Object>();		
 		for (int i = 0; i < keys.length; i++) {			
 			try {
 				Object object = MapFacade.findEntity(getModelName(), keys[i]);
@@ -2432,10 +2454,10 @@ public class View implements java.io.Serializable {
 		return result;
 	}
 	
-	private List getCollectionObjects(Collection<Map> keys) throws XavaException { 
-		List result = new ArrayList();
+	private List<Object> getCollectionObjects(Collection<Map<String, Object>> keys) throws XavaException { 
+		List<Object> result = new ArrayList<Object>();
 		if (keys == null || keys.isEmpty()) return result;
-		for (Map key : keys) {			
+		for (Map<String, Object> key : keys) {			
 			try {
 				Object object = MapFacade.findEntity(getModelName(), key);
 				result.add(object);				
@@ -2466,11 +2488,12 @@ public class View implements java.io.Serializable {
 	
 	/**
 	 * If the collection represents by this view is calculated. <p>
-	 * 
+	 *
 	 * In order to call this method <b>this view must represents a collection</b>.<p>
-	 * 
-	 * @deprecated  Since 5.3, use isCollectionFromModel() instead. 
+	 *
+	 * @deprecated  Since 5.3, use isCollectionFromModel() instead.
 	 */
+	@Deprecated
 	public boolean isCollectionCalculated() throws XavaException {
 		assertRepresentsCollection("isCollectionCalculated()");
 		return isCollectionFromModel(); // Not the most exact but the most practical, 
@@ -2478,12 +2501,12 @@ public class View implements java.io.Serializable {
 	}
 
 	
-	private Map getCollectionMemberNames() throws XavaException {
+	private Map<String, Object> getCollectionMemberNames() throws XavaException {
 		if (collectionMemberNames == null) {   		
-			Map result = new HashMap();			
-			Iterator it = getMetaPropertiesList().iterator();
+			Map<String, Object> result = new HashMap<String, Object>();			
+			Iterator<MetaProperty> it = getMetaPropertiesList().iterator();
 			while (it.hasNext()) {
-				MetaProperty pr = (MetaProperty) it.next();
+				MetaProperty pr = it.next();
 				String propertyName = pr.getName();				
 				addQualifiedMemberToMap(propertyName, result);
 			}	
@@ -2492,17 +2515,18 @@ public class View implements java.io.Serializable {
 		return collectionMemberNames;
 	}
 	
-	private void addQualifiedMemberToMap(String propertyName, Map collectionMemberNames) { 
+	private void addQualifiedMemberToMap(String propertyName, Map<String, Object> collectionMemberNames) { 
 		int idx = propertyName.indexOf('.');
 		if (idx < 0) {
 			collectionMemberNames.put(propertyName, null);				
 		}
 		else {
 			String referenceName = propertyName.substring(0, idx);
-			String referencePropertyName = propertyName.substring(idx+1);			
-			Map ref = (Map) collectionMemberNames.get(referenceName);
+			String referencePropertyName = propertyName.substring(idx+1);
+			@SuppressWarnings("unchecked")
+			Map<String, Object> ref = (Map<String, Object>) collectionMemberNames.get(referenceName);
 			if (ref == null) {
-				ref = new HashMap();
+				ref = new HashMap<String, Object>();
 				collectionMemberNames.put(referenceName, ref);
 			}
 			if (referencePropertyName.indexOf('.') < 0) {
@@ -2514,12 +2538,12 @@ public class View implements java.io.Serializable {
 		}			
 	}
 	
-	public Collection getMembersNamesWithoutSectionsAndCollections() throws XavaException {   
+	public Collection<String> getMembersNamesWithoutSectionsAndCollections() throws XavaException {   
 		if (membersNamesWithoutSectionsAndCollections == null) {
-			Iterator it = createMetaMembers(true).iterator();						
-			membersNamesWithoutSectionsAndCollections = new ArrayList();
+			Iterator<MetaMember> it = createMetaMembers(true).iterator();
+			membersNamesWithoutSectionsAndCollections = new ArrayList<String>();
 			while (it.hasNext()) {
-				MetaMember m = (MetaMember) it.next();
+				MetaMember m = it.next();
 				if (isMetaProperty(m)) {					
 					membersNamesWithoutSectionsAndCollections.add(m.getName());
 				}
@@ -2535,12 +2559,12 @@ public class View implements java.io.Serializable {
 	}
 	
 
-	private Collection getMembersNamesWithoutSections() throws XavaException {   
+	private Collection<String> getMembersNamesWithoutSections() throws XavaException {   
 		if (membersNamesWithoutSections==null) { 	
-			Iterator it = createMetaMembers(true).iterator();						
-			membersNamesWithoutSections = new ArrayList();
+			Iterator<MetaMember> it = createMetaMembers(true).iterator();
+			membersNamesWithoutSections = new ArrayList<String>();
 			while (it.hasNext()) {
-				MetaMember m = (MetaMember) it.next();
+				MetaMember m = it.next();
 				if (isMetaProperty(m)) {		
 					membersNamesWithoutSections.add(m.getName());
 				}
@@ -2602,24 +2626,24 @@ public class View implements java.io.Serializable {
 		resetRecalculatedProperties();
 		resetAlreadyCalculatedProperties(); 
 		if (values == null) return;
-		Iterator it = values.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> it = values.entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry e = (Map.Entry) it.next();
+			Map.Entry<String, Object> e = it.next();
 			// The next if is for a bug with Java 8
 			if (getMembersNames().containsKey(e.getKey())) values.put(e.getKey(), null); 
 			else it.remove();
 		}
 		if (hasSubviews()) {
-			Iterator itSubviews = getSubviews().values().iterator();
+			Iterator<View> itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();
+				View subview = itSubviews.next();
 				subview.clear();
 			}
 		}
 		if (hasGroups()) {
-			Iterator itSubviews = getGroupsViews().values().iterator();
+			Iterator<View> itSubviews = getGroupsViews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();
+				View subview = itSubviews.next();
 				subview.clear();
 			}
 		}						
@@ -2641,14 +2665,15 @@ public class View implements java.io.Serializable {
 		}
 		// Properties
 		try {					
-			Collection properties = new ArrayList(getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
-			properties.addAll(getMetaModel().getMetaPropertiesViewWithDefaultCalculator());
+			Collection<MetaProperty> properties = new ArrayList<>(getMetaModel().getMetaPropertiesWithDefaultValueCalculator());			
+			Collection<MetaProperty> viewWithDefault = (Collection<MetaProperty>) getMetaModel().getMetaPropertiesViewWithDefaultCalculator();
+			properties.addAll(viewWithDefault);
 			if (!properties.isEmpty()) {
-				Map membersNames = getMembersNames(); 
-				Iterator it = properties.iterator();
-				Collection alreadyPut = new ArrayList();				
+				Map<String, Object> membersNames = getMembersNames(); 
+				Iterator<MetaProperty> it = properties.iterator();
+				Collection<String> alreadyPut = new ArrayList<String>();				
 				while (it.hasNext()) {
-					MetaProperty p = (MetaProperty) it.next();
+					MetaProperty p = it.next();
 					if (p.hasCalculatorDefaultValueOnCreate()) continue;  
 					if (membersNames.containsKey(p.getName()) || isTotalPropertyInAnyCollection(p.getName())) { 
 						try {
@@ -2723,20 +2748,20 @@ public class View implements java.io.Serializable {
 			}
 			
 			// References			
-			Collection references = getMetaModel().getMetaReferencesWithDefaultValueCalculator();				
+			Collection<MetaReference> references = getMetaModel().getMetaReferencesWithDefaultValueCalculator();				
 			if (!references.isEmpty()) {		
-				Map membersNames = getMembersNames();
-				Iterator it = references.iterator();
-				Collection alreadyPut = new ArrayList();						
+				Map<String, Object> membersNames = getMembersNames();
+				Iterator<MetaReference> it = references.iterator();
+				Collection<String> alreadyPut = new ArrayList<String>();						
 				while (it.hasNext()) {
-					MetaReference ref = (MetaReference) it.next();
+					MetaReference ref = it.next();
 					if (membersNames.containsKey(ref.getName())) {
 						try {							
 							if (!ref.getMetaCalculatorDefaultValue().containsMetaSetsWithoutValue()) { // This way to avoid calculated dependend ones
 								Object value = ref.getDefaultValueCalculator().calculate();
 								MetaModel referencedModel = ref.getMetaModelReferenced();								
 								if (referencedModel.getPOJOClass().isInstance(value)) { 
-									Map values = referencedModel.toMap(value);
+									Map<String, Object> values = referencedModel.toMap(value);
 									trySetValue(ref.getName(), values);									
 									alreadyPut.addAll(
 									    referencedModel.getAllKeyPropertiesNames()
@@ -2746,11 +2771,11 @@ public class View implements java.io.Serializable {
 									);								
 								}
 								else {
-									Collection keys = referencedModel.getAllKeyPropertiesNames();
+									Collection<String> keys = referencedModel.getAllKeyPropertiesNames();
 									if (keys.size() != 1) {
 										throw new XavaException("reference_calculator_with_multiple_key_requires_key_class", ref.getName(), referencedModel.getPOJOClass());
 									}
-									String propertyKeyName = ref.getName() + "." + (String) keys.iterator().next();
+									String propertyKeyName = ref.getName() + "." + keys.iterator().next();
 									trySetValue(propertyKeyName, value); 
 									alreadyPut.add(propertyKeyName);
 								}
@@ -2809,7 +2834,7 @@ public class View implements java.io.Serializable {
 	
 	private void registerExecutedAction(String name, Object action) {
 		if (!getRoot().registeringExecutedActions) return;		
-		if (getRoot().executedActions == null) getRoot().executedActions = new HashSet();
+		if (getRoot().executedActions == null) getRoot().executedActions = new HashSet<String>();
 		getRoot().executedActions.add(getModelName() + "::" + getMemberName() + "::" + name + "::" + action.getClass()); 
 	}
 	
@@ -2987,9 +3012,9 @@ public class View implements java.io.Serializable {
 		}
 		
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
-				View v = (View) it.next();
+				View v = it.next();
 				v.setEditable(name, editable);
 			}
 		}
@@ -3005,7 +3030,7 @@ public class View implements java.io.Serializable {
 		if (isReadOnly()) return false;
 		
 		if (isRepresentsAggregate()) {
-			Set parentNotEditableMembersNames = getParentIfSectionOrGroup().getParent().notEditableMembersNames; 
+			Set<String> parentNotEditableMembersNames = getParentIfSectionOrGroup().getParent().getNotEditableMembersNames(); 
 			if (parentNotEditableMembersNames != null) {
 				if (parentNotEditableMembersNames.contains(getMemberName())) return false;
 			}
@@ -3112,7 +3137,7 @@ public class View implements java.io.Serializable {
 			if (firstLevel || !isRepresentsCollection()) {
 				assignValuesToMembers(qualifier, isSubview()?getMetaMembersIncludingHiddenKey():getMetaMembersIncludingCollectionTotals());
 			}
-			oldValues = values==null?null:new HashMap(values);
+			oldValues = values==null?null:new HashMap<String, Object>(values);
 			mustRefreshCollection = false;
 			reloadNeeded = false;			
 			changedPropertiesActionsAndReferencesWithNotCompositeEditor = null;
@@ -3122,7 +3147,7 @@ public class View implements java.io.Serializable {
 			oldEditable = editable;
 			changedLabels = null;
 			refreshDescriptionsLists = false;
-			oldNotEditableMembersNames = notEditableMembersNames==null?null:new HashSet(notEditableMembersNames);
+			oldNotEditableMembersNames = notEditableMembersNames==null?null:new HashSet<String>(notEditableMembersNames);
 			
 			throwElementCollectionTotalsChanged(); 
 						
@@ -3191,7 +3216,7 @@ public class View implements java.io.Serializable {
 					if (isNeededToVerifyHasBeenFormatted(p)) {
 						String formattedValue = WebEditors.formatNoFilterSpecialCharacters(getRequest(), p, value, getErrors(), getViewName()); 
 						if (results != null && !equals(formattedValue, results[0])) {
-							if (formattedProperties == null) formattedProperties = new HashSet();
+							if (formattedProperties == null) formattedProperties = new HashSet<String>();
 							formattedProperties.add(p.getName()); 
 						}
 					}
@@ -3240,7 +3265,7 @@ public class View implements java.io.Serializable {
 		if (!isCollectionMembersEditables()) return;
 		int oldCount = collectionValues == null?0:collectionValues.size(); 
 		List<Map<String, Object>> oldCollectionValues = collectionValues;
-		collectionValues = new ArrayList();		
+		collectionValues = new ArrayList<Map<String, Object>>();		
 		mustRefreshCollection = false;
 		String lastLineScannedProperty = getMetaPropertiesList().get(0).getName();
 		boolean lastLineScannedPropertyisDescriptionsList = false;
@@ -3274,8 +3299,8 @@ public class View implements java.io.Serializable {
 			if (i >= collectionNewSize && hasBoolean) break; 
 			boolean containsReferences = false;
 			Set<String> falseBooleans = null; 
-			Map element = new HashMap(); 
-			Map originalValues = null; 
+			Map<String, Object> element = new HashMap<String, Object>(); 
+			Map<String, Object> originalValues = null; 
 			for (MetaProperty p: getMetaPropertiesList()) {
 				String propertyKey= qualifier + i + "." + p.getName();
 				String [] results = getRequest().getParameterValues(propertyKey);
@@ -3300,14 +3325,14 @@ public class View implements java.io.Serializable {
 					}
 				}		
 				if (results == null && (p.getType().equals(boolean.class) || p.getType().equals(Boolean.class))) {
-					if (falseBooleans == null) falseBooleans = new HashSet();
+					if (falseBooleans == null) falseBooleans = new HashSet<String>();
 					falseBooleans.add(p.getName());
 					if (!hasBoolean) hasBoolean = true;
 				}
 				if (results == null || !WebEditors.mustToFormat(p, getViewName())) { 
 					if (oldCollectionValues != null && i < oldCollectionValues.size()) {
 						Object originalValue = oldCollectionValues.get(i).get(p.getName());
-						if (originalValues == null) originalValues = new HashMap();
+						if (originalValues == null) originalValues = new HashMap<String, Object>();
 						originalValues.put(p.getName(), originalValue);
 					}
 					continue;
@@ -3324,7 +3349,10 @@ public class View implements java.io.Serializable {
 					element.put(property, false); 
 				}
 			}
-			if (containsReferences) element = Maps.plainToTree(element);
+			if (containsReferences) {
+				Map<String, Object> elementTree = Maps.plainToTree(element);
+				element = elementTree;
+			}
 			collectionValues.add(element);
 		}
 		setCollectionEditionRowFromChangedProperty();
@@ -3359,7 +3387,7 @@ public class View implements java.io.Serializable {
 	}
 
 	private void setOldStateInElementCollection() {  		
-		oldValues = values==null?null:new HashMap(values);
+		oldValues = values==null?null:new HashMap<String, Object>(values);
 		oldEditable = editable; 
 		oldKeyEditable = keyEditable;
 		for (View subview: getSubviews().values()) {
@@ -3402,19 +3430,20 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void assignReferenceValue(String qualifier, MetaReference ref, String value, boolean displayAsDescriptionsListAndReferenceView) throws XavaException {  
-		Map referenceValues = new HashMap();  
+		Map<String, Object> referenceValues = new HashMap<String, Object>();  
 		fillReferenceValues(referenceValues, ref, value, qualifier, null); 
 		View subview = getSubview(ref.getName());
-		subview.addValues(Maps.plainToTree(referenceValues)); 
+		Map<String, Object> referenceValuesTree = Maps.plainToTree(referenceValues);
+		subview.addValues(referenceValuesTree); 
 		if (displayAsDescriptionsListAndReferenceView) { 
-			subview.oldValues = subview.values==null?null:new HashMap(subview.values);
+			subview.oldValues = subview.values==null?null:new HashMap<String, Object>(subview.values);
 			subview.oldKeyEditable = subview.keyEditable; 
 			subview.oldEditable = subview.editable;
 			subview.refreshDescriptionsLists = false;
 		}
 	}
 
-	private void fillReferenceValues(Map referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix) {
+	private void fillReferenceValues(Map<String, Object> referenceValues, MetaReference ref, String value, String qualifier, String propertyPrefix) {
 		// Delegating to the common implementation in DescriptionsLists
 		// Using emptyIfNotBracketed=true to maintain original View behavior
 		org.openxava.web.DescriptionsLists.fillReferenceValues(
@@ -3478,22 +3507,22 @@ public class View implements java.io.Serializable {
 		if (isGroup()) return getParent().isFirstPropertyAndViewHasNoKeys(pr); 
 		if (!pr.hasMetaModel()) return false; // maybe a view property
 		if (getMetaProperties().isEmpty()) return false;
-		MetaProperty first = (MetaProperty) getMetaProperties().get(0);
+		MetaProperty first = getMetaProperties().get(0);
 		return first.equals(pr) && !hasKeyProperties(); 
 	}
 	
 	public boolean hasKeyProperties() throws XavaException {		
-		for (Iterator it=getMetaProperties().iterator(); it.hasNext();) {
-			MetaProperty pr = (MetaProperty) it.next();
+		for (Iterator<MetaProperty> it=getMetaProperties().iterator(); it.hasNext();) {
+			MetaProperty pr = it.next();
 			if (pr.isKey()) {
 				return true;
 			}
 		}
 
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
-				View v = (View) it.next();
+				View v = it.next();
 				if (v.hasKeyProperties()) return true;				
 			}			
 		}
@@ -3503,10 +3532,10 @@ public class View implements java.io.Serializable {
 		
 	private String getLastPropertyKeyName() throws XavaException {
 		if (lastPropertyKeyName == null) {
-			Iterator it = getMetaPropertiesIncludingGroups().iterator(); 
+			Iterator<MetaProperty> it = getMetaPropertiesIncludingGroups().iterator(); 
 			lastPropertyKeyName = "";
 			while (it.hasNext()) {
-				MetaProperty p = (MetaProperty) it.next();
+				MetaProperty p = it.next();
 				if (p.isKey()) {
 					lastPropertyKeyName = p.getName();
 				}
@@ -3517,10 +3546,10 @@ public class View implements java.io.Serializable {
 	
 	private String getNameOfLastPropertyMarkedAsSearchKey() throws XavaException { 
 		if (nameOflastPropertyMarkedAsSearchKey == null) {
-			Iterator it = getMetaMembersIncludingGroups().iterator();  
+			Iterator<MetaMember> it = getMetaMembersIncludingGroups().iterator();  
 			nameOflastPropertyMarkedAsSearchKey = "";
 			while (it.hasNext()) {
-				MetaMember member = (MetaMember) it.next();
+				MetaMember member = it.next();
 				if (member instanceof MetaProperty) {
 					if (((MetaProperty) member).isSearchKey()) {
 						nameOflastPropertyMarkedAsSearchKey = member.getName();
@@ -3564,7 +3593,7 @@ public class View implements java.io.Serializable {
 					referencedModel = getMetaModel().getMetaCollection(collectionName).getMetaReference().getMetaModelReferenced().getMetaReference(refName2).getMetaModelReferenced();
 				}
 				
-				Iterator itKeyProperties = referencedModel.getKeyPropertiesNames().iterator();
+				Iterator<String> itKeyProperties = referencedModel.getKeyPropertiesNames().iterator();
 				while (itKeyProperties.hasNext()) {
 					propertyChanged(refName + "." + itKeyProperties.next());								
 				}
@@ -3795,36 +3824,40 @@ public class View implements java.io.Serializable {
 	 * @return true if the object is found
 	 * @since 7.4.1
 	 */
-	public boolean findObject(MetaProperty changedProperty, Map extraKeysForSearchingReference) throws Exception { 
+	public boolean findObject(MetaProperty changedProperty, Map<String, Object> extraKeysForSearchingReference) throws Exception { 
 		return findObjectWithBaseCondition(changedProperty, extraKeysForSearchingReference);
 	}
 	
-	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map extraKeysForSearchingReference) throws Exception { 
-		Map key = getKeyValues();
+	private boolean findObjectWithBaseCondition(MetaProperty changedProperty, Map<String, Object> extraKeysForSearchingReference) throws Exception { 
+		Map<String, Object> key = getKeyValues();
 		try {			
 			if (isRepresentsEntityReference() && isFirstPropertyAndViewHasNoKeys(changedProperty) && isKeyEditable()) {
 				// Searching by the first visible property: Useful for searching from a reference with hidden key
-				Map alternateKey = new HashMap();
+				Map<String, Object> alternateKey = new HashMap<String, Object>();
 				alternateKey.put(changedProperty.getName(), getValue(changedProperty.getName()));
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
+					Map<String, Object> values = MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					setValues(values);
 				}
 			}
 			else if (isRepresentsEntityReference() && changedProperty != null && changedProperty.isHidden() && changedProperty.isKey()) {
 				// If changed property is hidden key, although there are search member we search by key
 				clear();
 				if (!Maps.isEmptyOrZero(key)) {				
-					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject()));					
+					Map<String, Object> values = MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					setValues(values);
 				}
 			}
 			else if (isRepresentsEntityReference() && hasSearchMemberKeys()) {
-				Map alternateKey = getSearchKeyValues();
+				Map<String, Object> alternateKey = getSearchKeyValues();
 				if (extraKeysForSearchingReference == null) return false;
-				alternateKey.putAll(extraKeysForSearchingReference);
+				Map<String, Object> extraKeys = (Map<String, Object>) extraKeysForSearchingReference;
+				alternateKey.putAll(extraKeys);
 				clear();
 				if (!Maps.isEmptyOrZero(alternateKey)) {
-					setValues(MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject())); 
+					Map<String, Object> values = MapFacade.getValuesByAnyProperty(getModelName(), alternateKey, getMembersNamesForFindObject());
+					setValues(values);
 				}				
 			}						
 			else {
@@ -3832,12 +3865,13 @@ public class View implements java.io.Serializable {
 				clear();
 				if (extraKeysForSearchingReference == null) return false;
 				if (!Maps.isEmpty(key)) {				
-					setValues(MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject())); 
+					Map<String, Object> values = MapFacade.getValues(getModelName(), key, getMembersNamesForFindObject());
+					setValues(values);
 				}
 			}
 			// To force AJAX reload of keys in a @DescriptionsList with showReferenceView=true
 			if (oldValues != null && displayAsDescriptionsListAndReferenceView()) {
-				for (Object keyName: key.keySet()) {
+				for (String keyName: key.keySet()) {
 					oldValues.remove(keyName);
 				}
 			}
@@ -3852,7 +3886,7 @@ public class View implements java.io.Serializable {
 	 * Refresh the displayed data from database. <p> 
 	 */
 	public void refresh() {
-		Map key = getKeyValues();
+		Map<String, Object> key = getKeyValues();
 		try {			
 			if (Maps.isEmptyOrZero(key)) clear();				
 			else setValues(MapFacade.getValues(getModelName(), key, getMembersNamesWithHidden()), false);				
@@ -3864,10 +3898,10 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private Map getSearchKeyValues() { 
-		Map values = new HashMap();
-		for (Iterator it = getMetaMembers().iterator(); it.hasNext();) {
-			MetaMember member = (MetaMember) it.next();
+	private Map<String, Object> getSearchKeyValues() { 
+		Map<String, Object> values = new HashMap<String, Object>();
+		for (Iterator<MetaMember> it = getMetaMembers().iterator(); it.hasNext();) {
+			MetaMember member = it.next();
 			if (member instanceof MetaProperty && isSearchKey((MetaProperty) member)) {
 				values.put(member.getName(), getValue(member.getName()));
 			}
@@ -3948,7 +3982,7 @@ public class View implements java.io.Serializable {
 				View subview = getSubview(col.getName());
 				if (!subview.getCollectionTotals().containsKey(propertyName)) continue;
 				if (subview.isRepresentsElementCollection() || subview.isCollectionFromModel()) {
-					if (subview.oldCollectionTotals == null) subview.oldCollectionTotals = new HashMap(subview.getCollectionTotals());
+					if (subview.oldCollectionTotals == null) subview.oldCollectionTotals = new HashMap<String, Object>(subview.getCollectionTotals());
 					subview.oldCollectionTotals.put(propertyName, oldValue);
 				}
 				else subview.refreshCollection();
@@ -4022,19 +4056,20 @@ public class View implements java.io.Serializable {
 	}
 	
 	private Object getTransientPOJO() throws Exception {
-		Map values = getParentIfSectionOrGroup().getValues(); 
+		Map<String, Object> values = (Map<String, Object>) getParentIfSectionOrGroup().getValues(); 
 		Object pojo = getMetaModel().toPOJO(values);
 		loadPOJOReferences(pojo, values);
 		return pojo;
 	}
 
-	private void loadPOJOReferences(Object pojo, Map values) throws Exception	{ 
+	private void loadPOJOReferences(Object pojo, Map<String, Object> values) throws Exception	{ 
 		PropertiesManager pm = new PropertiesManager(pojo);
 		for (Object oen: values.entrySet()) {
 			Map.Entry en = (Map.Entry) oen;
 			if (en.getValue() instanceof Map) {
 				String name = (String) en.getKey();
-				Map key = (Map) en.getValue();
+				@SuppressWarnings("unchecked")
+				Map<String, Object> key = (Map<String, Object>) en.getValue();
 				if (getMetaModel().containsMetaReference(name) && !Maps.isEmpty(key)) {
 					MetaReference ref = getMetaModel().getMetaReference(name);
 					if (!ref.isAggregate()) {
@@ -4088,7 +4123,7 @@ public class View implements java.io.Serializable {
 	 */
 	public void updateModelFromView() { 
 		if (model != null) {
-			Map values = getParentIfSectionOrGroup().getValues(); 
+			Map<String, Object> values = getParentIfSectionOrGroup().getValues(); 
 			getMetaModel().fillPOJO(model, values);
 			try {
 				loadPOJOReferences(model, values);
@@ -4115,7 +4150,8 @@ public class View implements java.io.Serializable {
 		}
 		refreshCollections();  
 		setModelName(model.getClass().getSimpleName());
-		setValues(MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden()));
+		Map<String, Object> values = MapFacade.getValues(getModelName(), model, getMembersNamesWithHidden());
+		setValues(values);
 	}
 	
 	/**
@@ -4129,10 +4165,9 @@ public class View implements java.io.Serializable {
 	private boolean hasDependentsProperties(MetaProperty p) {		
 		try {			
 			// In this view						
-			for (Iterator it = getParentIfGroup().getMetaPropertiesQualified().iterator(); it.hasNext();) { 
-				Object element = it.next();				
-				if (isMetaProperty(element)) {
-					MetaProperty pro = (MetaProperty) element;
+			for (Iterator<MetaProperty> it = getParentIfGroup().getMetaPropertiesQualified().iterator(); it.hasNext();) { 
+				MetaProperty pro = it.next();				
+				if (isMetaProperty(pro)) {
 					if (WebEditors.depends(pro, p, getViewName())) {
 						return true;
 					}
@@ -4176,7 +4211,7 @@ public class View implements java.io.Serializable {
 	
 	private Collection<MetaProperty> getMetaPropertiesQualified() throws XavaException { 		
 		if (metaPropertiesQualified == null) {
-			metaPropertiesQualified = new ArrayList();
+			metaPropertiesQualified = new ArrayList<MetaProperty>();
 			fillMetaPropertiesQualified(this, metaPropertiesQualified, null); 
 			if (hasSections()) {
 				int count = getSections().size();
@@ -4188,10 +4223,10 @@ public class View implements java.io.Serializable {
 		return metaPropertiesQualified;
 	}
 	
-	private void fillMetaPropertiesQualified(View view, Collection properties, String prefix) throws XavaException {		
-		Iterator it = view.getMetaMembersIncludingCollectionTotals().iterator(); 
+	private void fillMetaPropertiesQualified(View view, Collection<MetaProperty> properties, String prefix) throws XavaException {		
+		Iterator<?> it = view.getMetaMembersIncludingCollectionTotals().iterator(); 
 		while (it.hasNext()) {
-			Object element = (Object) it.next();
+			Object element = it.next();
 			if (isMetaProperty(element)) {
 				MetaProperty pro = (MetaProperty) element;
 				if (prefix == null) properties.add(pro);
@@ -4218,10 +4253,10 @@ public class View implements java.io.Serializable {
 	/**	  
 	 * @param stereotypesList Comma separated
 	 */
-	public Collection getPropertiesNamesFromStereotypesList(String stereotypesList) throws XavaException {		
-		if (Is.emptyString(stereotypesList)) return Collections.EMPTY_LIST;
+	public Collection<String> getPropertiesNamesFromStereotypesList(String stereotypesList) throws XavaException {		
+		if (Is.emptyString(stereotypesList)) return Collections.emptyList();
 		StringTokenizer st = new StringTokenizer(stereotypesList, ", ");
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
 			String stereotype = st.nextToken().trim();
 			String property = getPropertyNameFromStereotype(stereotype);
@@ -4238,12 +4273,12 @@ public class View implements java.io.Serializable {
 	
 	private String getPropertyNameFromStereotype(String stereotype) {		
 		if (getParent() != null) return getParent().getPropertyNameFromStereotype(stereotype);
-		String property = (String) getMapStereotypesProperties().get(stereotype);
-		if (property != null) return property;
+		Object property = getMapStereotypesProperties().get(stereotype);
+		if (property != null) return (String) property;
 		try {			
-			Iterator it = getMetaPropertiesIncludingSections().iterator();
+			Iterator<MetaProperty> it = getMetaPropertiesIncludingSections().iterator();
 			while (it.hasNext()) {
-				MetaProperty p = (MetaProperty) it.next();				
+				MetaProperty p = it.next();				
 				if (stereotype.equals(p.getStereotype())) {
 					getMapStereotypesProperties().put(stereotype, p.getName());
 					return p.getName();					
@@ -4258,12 +4293,12 @@ public class View implements java.io.Serializable {
 	
 	public List<MetaProperty> getMetaProperties() throws XavaException { 		
 		if (metaProperties == null) {
-			Iterator it = getMetaMembersIncludingCollectionTotals().iterator();  
-			metaProperties = new ArrayList();
+			Iterator<MetaMember> it = getMetaMembersIncludingCollectionTotals().iterator();  
+			metaProperties = new ArrayList<MetaProperty>();
 			while (it.hasNext()) {
-				Object element = (Object) it.next();
+				MetaMember element = it.next();
 				if (isMetaProperty(element)) {
-					metaProperties.add(element);					
+					metaProperties.add((MetaProperty) element);					
 				}
 			}			
 		}
@@ -4328,10 +4363,10 @@ public class View implements java.io.Serializable {
 		return getMetaModel().getMetaReference(name);
 	}
 	
-	private Collection getMetaPropertiesIncludingSections() throws XavaException {
+	private Collection<MetaProperty> getMetaPropertiesIncludingSections() throws XavaException {
 		if (!hasSections()) return getMetaProperties();
 		if (metaPropertiesIncludingSections == null) { 
-			metaPropertiesIncludingSections = new ArrayList(getMetaProperties());
+			metaPropertiesIncludingSections = new ArrayList<MetaProperty>(getMetaProperties());
 			int count = getSections().size();
 			for (int i = 0; i < count; i++) {
 				metaPropertiesIncludingSections.addAll(getSectionView(i).getMetaProperties());
@@ -4340,24 +4375,24 @@ public class View implements java.io.Serializable {
 		return metaPropertiesIncludingSections;
 	}
 	
-	private Collection getMetaPropertiesIncludingGroups() throws XavaException {
+	private Collection<MetaProperty> getMetaPropertiesIncludingGroups() throws XavaException {
 		if (!hasGroups()) return getMetaProperties();
 		if (metaPropertiesIncludingGroups == null) {
-			metaPropertiesIncludingGroups = new ArrayList(getMetaProperties());	
-			for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {
-				View group = (View) it.next();
+			metaPropertiesIncludingGroups = new ArrayList<MetaProperty>(getMetaProperties());	
+			for (Iterator<View> it = getGroupsViews().values().iterator(); it.hasNext();) {
+				View group = it.next();
 				metaPropertiesIncludingGroups.addAll(group.getMetaPropertiesIncludingGroups()); 
 			}			
 		}
 		return metaPropertiesIncludingGroups;
 	}
 		
-	private Collection getMetaMembersIncludingGroups() throws XavaException { 
+	private Collection<MetaMember> getMetaMembersIncludingGroups() throws XavaException { 
 		if (!hasGroups()) return getMetaMembers();
 		if (metaMembersIncludingGroups == null) {
-			metaMembersIncludingGroups = new ArrayList(getMetaMembers());	
-			for (Iterator it = getGroupsViews().values().iterator(); it.hasNext();) {
-				View group = (View) it.next();
+			metaMembersIncludingGroups = new ArrayList<MetaMember>(getMetaMembers());	
+			for (Iterator<View> it = getGroupsViews().values().iterator(); it.hasNext();) {
+				View group = it.next();
 				metaMembersIncludingGroups.addAll(group.getMetaMembersIncludingGroups());
 			}			
 		}
@@ -4440,10 +4475,10 @@ public class View implements java.io.Serializable {
 	}
 	
 	private List<MetaProperty> processLabelIdForMetaProperties(List<MetaProperty> mpList) {
-		List<MetaProperty> newList = new ArrayList();
-		Iterator it = mpList.iterator();
+		List<MetaProperty> newList = new ArrayList<MetaProperty>();
+		Iterator<MetaProperty> it = mpList.iterator();
 		while (it.hasNext()) {
-			MetaProperty p = ((MetaProperty) it.next()).cloneMetaProperty();
+			MetaProperty p = it.next().cloneMetaProperty();
 			if (p.getQualifiedName().contains(".") && !p.getName().contains(".")) {
 				p.setName(p.getQualifiedName());
 			}
@@ -4476,9 +4511,9 @@ public class View implements java.io.Serializable {
 		return true;
 	}
 
-	private Map getMapStereotypesProperties() {
+	private Map<String, String> getMapStereotypesProperties() {
 		if (mapStereotypesProperties == null) {
-			mapStereotypesProperties = new HashMap();
+			mapStereotypesProperties = new HashMap<String, String>();
 		}
 		return mapStereotypesProperties;		
 	}
@@ -4486,10 +4521,10 @@ public class View implements java.io.Serializable {
 	/**	  
 	 * @param propertiesList Properties names comma separated
 	 */
-	public Collection getPropertiesNamesFromPropertiesList(String propertiesList) throws XavaException {
-		if (Is.emptyString(propertiesList)) return Collections.EMPTY_LIST;
+	public Collection<String> getPropertiesNamesFromPropertiesList(String propertiesList) throws XavaException {
+		if (Is.emptyString(propertiesList)) return Collections.emptyList();
 		StringTokenizer st = new StringTokenizer(propertiesList, ", ");
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
 			String property = st.nextToken().trim();
 			r.add(property);
@@ -4601,9 +4636,9 @@ public class View implements java.io.Serializable {
 		this.messages = messages;		
 	}
 	
-	private Set getNotEditableMembersNames() {
+	private Set<String> getNotEditableMembersNames() {
 		if (notEditableMembersNames == null) {
-			notEditableMembersNames = new HashSet();
+			notEditableMembersNames = new HashSet<String>();
 		}
 		return notEditableMembersNames;
 	}
@@ -4760,12 +4795,12 @@ public class View implements java.io.Serializable {
 		return false;
 	}
 		
-	private Collection getDepends() throws XavaException {
+	private Collection<String> getDepends() throws XavaException {
 		if (depends == null) {
-			depends = new ArrayList();
-			Iterator it = getMetaView().getMetaDescriptionsLists().iterator();
+			depends = new ArrayList<String>();
+			Iterator<MetaDescriptionsList> it = getMetaView().getMetaDescriptionsLists().iterator();
 			while (it.hasNext()) {
-				MetaDescriptionsList metaDescriptionsList = (MetaDescriptionsList) it.next();					
+				MetaDescriptionsList metaDescriptionsList = it.next();					
 				StringTokenizer st = new StringTokenizer(metaDescriptionsList.getDepends(), ",");
 				while (st.hasMoreTokens()) {
 					String token = st.nextToken().trim();
@@ -5054,7 +5089,7 @@ public class View implements java.io.Serializable {
 		}
 		if (hiddenMembers == null) {
 			if (!hidden) return;		
-			hiddenMembers = new HashSet();
+			hiddenMembers = new HashSet<String>();
 		}
 		// getSubview() is for starting the process that creates subviews and groups
 		// before to hide any member
@@ -5224,8 +5259,8 @@ public class View implements java.io.Serializable {
 		if (!getMetaView().hasSections()) return;
 		Object preSection = sections==null || sections.isEmpty()?null:sections.get(activeSection); 
 		if (hiddenMembers != null && !hiddenMembers.isEmpty()) {
-			List newSections = new ArrayList(getMetaView().getSections());			
-			removeHidden(newSections);			
+			List<MetaView> newSections = new ArrayList<MetaView>(getMetaView().getSections());			
+			removeHiddenSections(newSections);			
 			sections = newSections;
 		}
 		else {
@@ -5338,13 +5373,13 @@ public class View implements java.io.Serializable {
 	 * Has sense if the subview represents a collection, although always works.	 
 	 */
 	public Collection<String> getActionsNamesDetail() {		
-		return actionsNamesDetail==null?Collections.EMPTY_LIST:actionsNamesDetail;
+		return actionsNamesDetail==null?Collections.emptyList():actionsNamesDetail;
 	}
 
 	/**
 	 * Has sense if the subview represents a collection, although always works.	 
 	 */
-	public void setActionsNamesDetail(Collection collection) {		
+	public void setActionsNamesDetail(Collection<String> collection) {		
 		actionsNamesDetail = collection;
 	}
 	
@@ -5354,7 +5389,7 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void addDetailAction(String qualifiedActionName) {		
-		if (actionsNamesDetail == null) actionsNamesDetail = new ArrayList();
+		if (actionsNamesDetail == null) actionsNamesDetail = new ArrayList<String>();
 		actionsNamesDetail.add(qualifiedActionName);
 	}
 
@@ -5374,18 +5409,18 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void addListAction(String qualifiedActionName) {		
-		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections()); 
+		if (actionsNamesList == null) actionsNamesList = new ArrayList<String>(getDefaultListActionsForCollections()); 
 		if (actionsNamesList.contains(qualifiedActionName))	return;
 		refreshCollection(); 
 		if (getFullOrderActionsNamesList().contains(qualifiedActionName)) {
 			// If already in order we insert it in the correct position
-			ArrayList list = (ArrayList) actionsNamesList;
+			ArrayList<String> list = (ArrayList<String>) actionsNamesList;
 			int position = 0;
 			for (Object o : getFullOrderActionsNamesList()) {
 				if (actionsNamesList.contains(o))
 					position++;
 				else if (o.equals(qualifiedActionName)) {
-					((ArrayList) actionsNamesList).add(position, o);
+					list.add(position, (String) o);
 					return;
 				}
 			}
@@ -5399,18 +5434,18 @@ public class View implements java.io.Serializable {
 	}
 	
 	public void addRowAction(String qualifiedActionName) {	
-		if (actionsNamesRow == null) actionsNamesRow = new ArrayList(getDefaultRowActionsForCollections()); 
+		if (actionsNamesRow == null) actionsNamesRow = new ArrayList<String>(getDefaultRowActionsForCollections()); 
 		if (actionsNamesRow.contains(qualifiedActionName))	return;
 		refreshCollection(); 
 		if (getFullOrderActionsNamesRow().contains(qualifiedActionName)) {
 			// If already in order we insert it in the correct position
-			ArrayList row = (ArrayList) actionsNamesRow;	// no se si row seria el nombre apropiado, para que se usa row?
+			ArrayList<String> row = (ArrayList<String>) actionsNamesRow;	// no se si row seria el nombre apropiado, para que se usa row?
 			int position = 0;
 			for (Object o : getFullOrderActionsNamesRow()) {
 				if (actionsNamesRow.contains(o))
 					position++;
 				else if (o.equals(qualifiedActionName)) {
-					((ArrayList) actionsNamesRow).add(position, o);
+					row.add(position, (String) o);
 					return;
 				}
 			}
@@ -5423,7 +5458,7 @@ public class View implements java.io.Serializable {
 	}	
 	
 	public void removeRowAction(String qualifiedActionName) { 		
-		if (actionsNamesRow == null) actionsNamesRow = new ArrayList(getDefaultRowActionsForCollections()); 
+		if (actionsNamesRow == null) actionsNamesRow = new ArrayList<>(getDefaultRowActionsForCollections()); 
 		actionsNamesRow.remove(qualifiedActionName);
 		actionsNamesRowRefined = false;
 		refreshCollection(); 
@@ -5436,7 +5471,7 @@ public class View implements java.io.Serializable {
 	 * @param qualifiedActionName  Qualified name (controller.action) as in controllers.xml 	 
 	 */	
 	public void removeListAction(String qualifiedActionName) {		
-		if (actionsNamesList == null) actionsNamesList = new ArrayList(getDefaultListActionsForCollections()); 
+		if (actionsNamesList == null) actionsNamesList = new ArrayList<String>(getDefaultListActionsForCollections()); 
 		actionsNamesList.remove(qualifiedActionName);
 		actionsNamesListRefined = false; 
 		subcontrollersNamesListRefined = false; 
@@ -5509,7 +5544,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	public Collection<String> getSubcontrollersNamesList(){
-		if (subcontrollersNamesList == null) return Collections.EMPTY_LIST;
+		if (subcontrollersNamesList == null) return Collections.emptyList();
 		if (!subcontrollersNamesListRefined) {
 			refine(subcontrollersNamesList);
 			subcontrollersNamesListRefined = true;
@@ -5522,26 +5557,26 @@ public class View implements java.io.Serializable {
 		return true;	// because RemoveSelectedInCollectionAction is always present (at the moment)
 	}
 	
-	public void setActionsNamesList(Collection collection) {		
+	public void setActionsNamesList(Collection<String> collection) {		
 		actionsNamesList = collection;
 		actionsNamesListRefined = false; 
 		subcontrollersNamesListRefined = false; 
 		if (fullOrderActionsNamesList == null) {
-			fullOrderActionsNamesList = new ArrayList(collection);
+			fullOrderActionsNamesList = new ArrayList<>(collection);
 		}
 		refreshCollection();
 	}
 	
-	public void setSubcontrollersNamesList(Collection collection) {		
+	public void setSubcontrollersNamesList(Collection<String> collection) {		
 		subcontrollersNamesList = collection;
 		refreshCollection();
 	}
 	
-	public void setActionsNamesRow(Collection collection) { 		
+	public void setActionsNamesRow(Collection<String> collection) { 		
 		actionsNamesRow = collection;
 		actionsNamesRowRefined = false;
 		if (fullOrderActionsNamesRow == null) {
-			fullOrderActionsNamesRow = new ArrayList(collection);
+			fullOrderActionsNamesRow = new ArrayList<>(collection);
 		}
 		refreshCollection();
 	}	
@@ -5555,13 +5590,16 @@ public class View implements java.io.Serializable {
 		return actionsNamesRow;
 	}
 			                                                                                                                                                                                                                                                                                                                                                                                                                   
-	public Collection getActionsNamesForProperty(MetaProperty p, boolean editable) throws XavaException {		
-		if (getParentIfSectionOrGroup().changedActionsByProperty == null) return getMetaView().getActionsNamesForProperty(p, editable);
+	public Collection<String> getActionsNamesForProperty(MetaProperty p, boolean editable) throws XavaException {		
+		Map<String, Collection<String>> changedActions = getParentIfSectionOrGroup().changedActionsByProperty;
+		Collection<String> metaActions = getMetaView().getActionsNamesForProperty(p, editable);
+		if (changedActions == null) return metaActions;
 		initializeActionsForProperty(p.getName());
-		if (!getChangedActionsByProperty().containsKey(p.getName())) return getMetaView().getActionsNamesForProperty(p, editable);
-		Collection addedActions = getChangedActionsByProperty().get(p.getName()); 
-		if (addedActions.isEmpty()) return getMetaView().getActionsNamesForProperty(p, editable);
-		Collection result = new ArrayList(getMetaView().getActionsNamesForProperty(p, editable));
+		Collection<String> addedActions = getChangedActionsByProperty().get(p.getName());
+		boolean hasKey = changedActions.containsKey(p.getName());
+		if (!hasKey) return metaActions;
+		if (addedActions.isEmpty()) return metaActions;
+		Collection<String> result = new ArrayList<>(metaActions);
 		result.addAll(addedActions);
 		return result;
 	}
@@ -5573,11 +5611,11 @@ public class View implements java.io.Serializable {
 	/**
 	 * If this is a view that represents a reference
 	 */
-	public Collection getActionsNamesForReference(boolean editable) throws XavaException {		
-		if (!isRepresentsEntityReference()) return Collections.EMPTY_LIST;
+	public Collection<String> getActionsNamesForReference(boolean editable) throws XavaException {		
+		if (!isRepresentsEntityReference()) return Collections.emptyList();
 		if (isGroup()) return getParent().getActionsNamesForReference(editable); 
 		View parent = getParent();
-		if (parent == null) return Collections.EMPTY_LIST; // Impossible?
+		if (parent == null) return Collections.emptyList(); // Impossible?
 		MetaReference ref = null;
 		try {
 			ref = parent.getMetaModel().getMetaReference(getMemberName());
@@ -5857,9 +5895,9 @@ public class View implements java.io.Serializable {
 
 	public void recalculateProperties() {
 		try {												
-			Map names = getCalculatedPropertiesNames();
+			Map<String, Object> names = getCalculatedPropertiesNames();
 			if (!names.isEmpty()) {
-				Map values = MapFacade.getValues(getModelName(), getKeyValues(), names);
+				Map<String, Object> values = MapFacade.getValues(getModelName(), getKeyValues(), names);
 				addValues(values);
 				recalculateRecalculatedProperties();
 			}			
@@ -5920,10 +5958,10 @@ public class View implements java.io.Serializable {
 			getSubview(subviewName).setLabelId(member, id);
 			return;
 		}
-		if (getLabels() == null) setLabels(new HashMap());
+		if (getLabels() == null) setLabels(new HashMap<String, String>());
 		String old = (String) getLabels().put(property, id);		
 		if (!Is.equal(old, id)) {
-			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap();
+			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap<String, String>();
 			int sectionIndex = getIndexOfSection(property);
 			if (sectionIndex >= 0) {
 				String sectionId = getViewObject() + "_section" + sectionIndex + "_sectionName";
@@ -5961,13 +5999,13 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private Map getLabels() {
+	private Map<String, String> getLabels() {
 		View root = getRoot();
 		if (this == root) return labels;
 		return root.getLabels();
 	}
 	
-	private void setLabels(Map labels) {
+	private void setLabels(Map<String, String> labels) {
 		labelsChanged = true;
 		View root = getRoot();
 		if (this == root) {
@@ -6130,7 +6168,7 @@ public class View implements java.io.Serializable {
 	 * @param object The object to associate.
 	 */
 	public void putObject(String name, Object object) { 
-		if (objects == null) objects = new HashMap();
+		if (objects == null) objects = new HashMap<String, Object>();
 		objects.put(name, object);
 	}
 	
@@ -6156,11 +6194,11 @@ public class View implements java.io.Serializable {
 		objects.remove(name);
 	}
 
-	private Collection getRowStyles() {
+	private Collection<MetaRowStyle> getRowStyles() {
 		return rowStyles;
 	}
 
-	private void setRowStyles(Collection rowStyles) {
+	private void setRowStyles(Collection<MetaRowStyle> rowStyles) {
 		this.rowStyles = rowStyles;
 	}
 	
@@ -6173,15 +6211,15 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @return In each entry the key is the qualified id and value the container view 
 	 */
-	public Map getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {
+	public Map<String, View> getChangedPropertiesActionsAndReferencesWithNotCompositeEditor() {
 		if (changedPropertiesActionsAndReferencesWithNotCompositeEditor == null) {
-			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap();
+			changedPropertiesActionsAndReferencesWithNotCompositeEditor = new HashMap<>();
 			fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(changedPropertiesActionsAndReferencesWithNotCompositeEditor);
 		}		
 		return changedPropertiesActionsAndReferencesWithNotCompositeEditor;
 	}
 	
-	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map result) { 
+	private void propertiesAndReferencesWithReadOnlywithOnCreateFalse(Map<String, View> result) { 
 		if (!hasKeyEditableChanged()) return; 
 		for (MetaMember m : getMetaMembers()) {
 			if (m instanceof MetaProperty) {
@@ -6214,7 +6252,7 @@ public class View implements java.io.Serializable {
 		}
 	}
 	
-	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map result) {
+	private void fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(Map<String, View> result) {
 		if (modelName == null) return; // To avoid NullPointerException filtering a list in the dialog to choose an element for a reference
 		
 		propertiesAndReferencesWithReadOnlywithOnCreateFalse(result);
@@ -6266,11 +6304,11 @@ public class View implements java.io.Serializable {
 			result.put(getPropertyPrefix().replace(".", ""), getViewForChangedProperty()); 
 		}
 				
-		if (oldValues == null) oldValues = Collections.EMPTY_MAP;
-		if (values == null) values = new HashMap();
-		for (Iterator it=values.entrySet().iterator(); it.hasNext(); ) { 
-			Map.Entry en = (Map.Entry) it.next();
-			boolean isKey = getMetaModel().isKeyOrSearchKey((String) en.getKey());
+		if (oldValues == null) oldValues = Collections.emptyMap();
+		if (values == null) values = new HashMap<String, Object>();
+		for (Iterator<Map.Entry<String, Object>> it=values.entrySet().iterator(); it.hasNext(); ) { 
+			Map.Entry<String, Object> en = it.next();
+			boolean isKey = getMetaModel().isKeyOrSearchKey(en.getKey());
 			if (!oldValues.containsKey(en.getKey()) && en.getValue() != null || 
 				!equals(en.getValue(), oldValues.get(en.getKey())) || 					
 				isKey && hasKeyEditableChanged() || 
@@ -6284,8 +6322,8 @@ public class View implements java.io.Serializable {
 			}
 			oldValues.remove(en.getKey());			
 		}
-		for (Iterator it=oldValues.entrySet().iterator(); it.hasNext(); ) {
-			Map.Entry en = (Map.Entry) it.next();
+		for (Iterator<Map.Entry<String, Object>> it=oldValues.entrySet().iterator(); it.hasNext(); ) {
+			Map.Entry<String, Object> en = it.next();
 			if (!equals(en.getValue(), values.get(en.getKey())) ||
 				editorMustBeReloaded((String) en.getKey()) ||
 				hasKeyEditableChanged())  
@@ -6295,16 +6333,17 @@ public class View implements java.io.Serializable {
 		}	
 		
 		if (hasEditableChanged()) {
-			for (Iterator it = getMetaView().getNotAlwaysEnabledViewActionsNames().iterator(); it.hasNext(); ) {
-				String action = (String) it.next();
+			Iterator<String> it = getMetaView().getNotAlwaysEnabledViewActionsNames().iterator();
+			while (it.hasNext()) {
+				String action = it.next();
 				result.put(getPropertyPrefix() + action, this);
 			}
 		}		
 			
 		if (hasSubviews()) {
-			Iterator itSubviews = getSubviews().values().iterator();
+			Iterator<View> itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();
+				View subview = itSubviews.next();
 				if (isHidden(subview.getMemberName())) continue; 
 				if (subview.isRepresentsElementCollection()) {
 					subview.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(result);
@@ -6329,11 +6368,11 @@ public class View implements java.io.Serializable {
 		}
 
 		if (hasGroups()) {
-			Iterator itSubviews = getGroupsViews().entrySet().iterator();
+			Iterator<Map.Entry<String, View>> itSubviews = getGroupsViews().entrySet().iterator();
 			while (itSubviews.hasNext()) {
-				Map.Entry en = (Map.Entry) itSubviews.next(); 
-				String name = (String) en.getKey();
-				View subview = (View) en.getValue();
+				Map.Entry<String, View> en = itSubviews.next(); 
+				String name = en.getKey();
+				View subview = en.getValue();
 				if (!isHidden(name)) { 
 					subview.fillChangedPropertiesActionsAndReferencesWithNotCompositeEditor(result);
 				}
@@ -6395,7 +6434,7 @@ public class View implements java.io.Serializable {
 		return oldKeyEditable != keyEditable;
 	}
 
-	private void addChangedPropertyOrReferenceWithSingleEditor(Map result, String name) { 
+	private void addChangedPropertyOrReferenceWithSingleEditor(Map<String, View> result, String name) { 
 		if (!isHidden(name)) {
 			if (displayReferenceWithNotCompositeEditor()) { 		
 				result.put(getPropertyPrefix(), getParent().getViewForChangedProperty());
@@ -6512,7 +6551,7 @@ public class View implements java.io.Serializable {
 	 * 
 	 * @return In each entry the key is the qualified id and value of the new label
 	 */  
-	public Map getChangedLabels() {
+	public Map<String, String> getChangedLabels() {
 		return changedLabels == null?Collections.EMPTY_MAP:changedLabels; 
 	}
 
@@ -6525,7 +6564,7 @@ public class View implements java.io.Serializable {
 	 * @return In each entry the key is the qualified id and value the container view 
 	 */	
 	public Map<String, View> getChangedCollections() { 
-		Map result = new HashMap();
+		Map<String, View> result = new HashMap<String, View>();
 		fillChangedCollections(result);
 		return result;
 	}
@@ -6535,11 +6574,11 @@ public class View implements java.io.Serializable {
 		return !getChangedCollections().isEmpty();
 	}
 	
-	private void fillChangedCollections(Map result) { 
+	private void fillChangedCollections(Map<String, View> result) { 
 		if (hasSubviews()) {
-			Iterator itSubviews = getSubviews().values().iterator();
+			Iterator<View> itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();
+				View subview = itSubviews.next();
 				if (subview.isRepresentsCollection() && 
 					subview.mustRefreshCollection() && isShown() &&
 					!isHidden(subview.getMemberName()))  
@@ -6550,9 +6589,9 @@ public class View implements java.io.Serializable {
 			}
 		}
 		if (hasGroups()) {
-			Iterator itSubviews = getGroupsViews().values().iterator();
+			Iterator<View> itSubviews = getGroupsViews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();				
+				View subview = itSubviews.next();				
 				subview.fillChangedCollections(result);
 			}
 		}						
@@ -6571,8 +6610,8 @@ public class View implements java.io.Serializable {
 	 * @since 5.9
 	 */	
 	public Map<View, Integer> getChangedCollectionSizesInSections() {  
-		if (!hasSections()) return Collections.EMPTY_MAP;
-		Map<View, Integer> result = new HashMap();
+		if (!hasSections()) return Collections.emptyMap();
+		Map<View, Integer> result = new HashMap<View, Integer>();
 		fillCollectionSizesInSections(result);
 		return result;
 	}
@@ -6658,16 +6697,16 @@ public class View implements java.io.Serializable {
 	 * @since 4.5
 	 */	
 	public Map<String, int []> getChangedCollectionsSelectedRows() { 		
-		Map result = new HashMap();
+		Map<String, int[]> result = new HashMap<String, int[]>();
 		fillChangedCollectionsSelectedRows(result);
 		return result;
 	}
 	
 	private void fillChangedCollectionsSelectedRows(Map<String, int []> result) {  
 		if (hasSubviews()) {
-			Iterator itSubviews = getSubviews().values().iterator();
+			Iterator<View> itSubviews = getSubviews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();				
+				View subview = itSubviews.next();				
 				if (subview.isRepresentsCollection() && 
 					!subview.mustRefreshCollection() && isShown() &&
 					!isHidden(subview.getMemberName()))  
@@ -6683,9 +6722,9 @@ public class View implements java.io.Serializable {
 			}
 		}
 		if (hasGroups()) {
-			Iterator itSubviews = getGroupsViews().values().iterator();
+			Iterator<View> itSubviews = getGroupsViews().values().iterator();
 			while (itSubviews.hasNext()) {
-				View subview = (View) itSubviews.next();				
+				View subview = itSubviews.next();				
 				subview.fillChangedCollectionsSelectedRows(result);
 			}
 		}						
@@ -6922,13 +6961,13 @@ public class View implements java.io.Serializable {
 	}
 
 	public boolean isVariousCollectionsInSameLine(MetaMember metaMember){
-		Collection metaMembersLine = getMetaMembersInLine(metaMember.getName());
+		Collection<MetaMember> metaMembersLine = getMetaMembersInLine(metaMember.getName());
 		if (metaMembersLine.size() <= 1) return false;
 		
-		Iterator it = metaMembersLine.iterator();
+		Iterator<MetaMember> it = metaMembersLine.iterator();
 		boolean allCollection = true;
 		while(it.hasNext() && allCollection){
-			MetaMember mm = (MetaMember) it.next();
+			MetaMember mm = it.next();
 			if (!(mm instanceof MetaCollection)) allCollection = false;
 		}
 		
@@ -6942,25 +6981,25 @@ public class View implements java.io.Serializable {
 	/**
 	 * MetaMembers in same line
 	 */
-	private Collection getMetaMembersInLine(String property){
-		Collection members = getMetaMembers();
-		Iterator it = members.iterator();
+	private Collection<MetaMember> getMetaMembersInLine(String property){
+		Collection<MetaMember> members = getMetaMembers();
+		Iterator<MetaMember> it = members.iterator();
 		boolean found = false;
-		Collection line = new ArrayList();
+		Collection<MetaMember> line = new ArrayList<MetaMember>();
 		while (it.hasNext() && !found){
-			MetaMember metaMember = (MetaMember) it.next();
+			MetaMember metaMember = it.next();
 			if (property.equals(metaMember.getName())) found = true;
 			if (found){
 				line.add(metaMember);
 				boolean finLinea = false;
 				while (it.hasNext() && !finLinea){
-					MetaMember metaMember2 = (MetaMember) it.next();
+					MetaMember metaMember2 = it.next();
 					if (PropertiesSeparator.INSTANCE.equals(metaMember2)) finLinea = true;
 					else line.add(metaMember2);
 				}
 			}
 			else {
-				if (PropertiesSeparator.INSTANCE.equals(metaMember)) line = new ArrayList();
+				if (PropertiesSeparator.INSTANCE.equals(metaMember)) line = new ArrayList<MetaMember>();
 				else line.add(metaMember);
 			}
 		}
@@ -6969,7 +7008,7 @@ public class View implements java.io.Serializable {
 
 	public boolean isFirstInLine(MetaMember metaMember){
 		String property = metaMember.getName(); 
-		return property.equals(((MetaMember) getMetaMembersInLine(property).iterator().next()).getName());
+		return property.equals(getMetaMembersInLine(property).iterator().next().getName());
 	}
 	
 	public boolean isDefaultListActionsForCollectionsIncluded() {
@@ -7026,25 +7065,25 @@ public class View implements java.io.Serializable {
 		this.title = title;
 	}		 
 	
-	private Collection getFullOrderActionsNamesList() {
+	private Collection<String> getFullOrderActionsNamesList() {
 		if (fullOrderActionsNamesList==null) {
-			fullOrderActionsNamesList = new ArrayList();
+			fullOrderActionsNamesList = new ArrayList<String>();
 		}
 		return fullOrderActionsNamesList; 
 	}
 	
-	private void setFullOrderActionsNamesList(Collection collection) { 
+	private void setFullOrderActionsNamesList(Collection<String> collection) { 
 		fullOrderActionsNamesList = collection; 
 	}
 	
-	private Collection getFullOrderActionsNamesRow() {
+	private Collection<String> getFullOrderActionsNamesRow() {
 		if (fullOrderActionsNamesRow==null) {
-			fullOrderActionsNamesRow = new ArrayList();
+			fullOrderActionsNamesRow = new ArrayList<String>();
 		}
 		return fullOrderActionsNamesRow; 
 	}
 	
-	private void setFullOrderActionsNamesRow(Collection collection) { 
+	private void setFullOrderActionsNamesRow(Collection<String> collection) { 
 		fullOrderActionsNamesRow = collection; 
 	}	
 	
@@ -7143,7 +7182,7 @@ public class View implements java.io.Serializable {
 	}
 	
 	private void addPropertyWithChangedActions(String property) { 		
-		if (getParentIfSectionOrGroup().propertiesWithChangedActions == null) getParentIfSectionOrGroup().propertiesWithChangedActions = new HashSet();
+		if (getParentIfSectionOrGroup().propertiesWithChangedActions == null) getParentIfSectionOrGroup().propertiesWithChangedActions = new HashSet<String>();
 		getParentIfSectionOrGroup().propertiesWithChangedActions.add(property);
 	}
 	
@@ -7313,10 +7352,10 @@ public class View implements java.io.Serializable {
 			throw new XavaException("property_not_found", property, getModelName()); 
 		}	
 		MetaProperty metaProperty = getMetaProperty(property);
-		if (validValuesByProperty == null) validValuesByProperty = new HashMap<MetaProperty, Map>();
-		Map validValues = validValuesByProperty.get(metaProperty);
+		if (validValuesByProperty == null) validValuesByProperty = new HashMap<MetaProperty, Map<Object, String>>();
+		Map<Object, String> validValues = validValuesByProperty.get(metaProperty);
 		if (validValues == null) {
-			validValues = new LinkedHashMap();
+			validValues = new LinkedHashMap<Object, String>();
 			validValuesByProperty.put(metaProperty, validValues);
 		}
 		validValues.put(value, label);
@@ -7444,11 +7483,11 @@ public class View implements java.io.Serializable {
 	 * @return A map with value/label pairs.
 	 * @since 5.8
 	 */
-	public Map getValidValues(String property) {
+	public Map<Object, String> getValidValues(String property) {
 		if (isSection() || isGroup()) return getParent().getValidValues(property);
 		if (validValuesByProperty == null) return null;
 		MetaProperty metaProperty = getMetaProperty(property);
-		Map validValues = validValuesByProperty.get(metaProperty);
+		Map<Object, String> validValues = validValuesByProperty.get(metaProperty);
 		return validValues;		
 	}
 	
@@ -7520,14 +7559,14 @@ public class View implements java.io.Serializable {
 		if (propertyStyles == null) propertyStyles = new HashMap<>();
 		String old = propertyStyles.put(propertyName, style);
 		if (!Is.equal(old, style)) {
-			if (formattedProperties == null) formattedProperties = new HashSet();
+			if (formattedProperties == null) formattedProperties = new HashSet<String>();
 			formattedProperties.add(propertyName);
 		}
 		
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
-				View v = (View) it.next();
+				View v = it.next();
 				v.setStyle(propertyName, style);
 			}
 		}
@@ -7571,15 +7610,15 @@ public class View implements java.io.Serializable {
 	 */
 	public void clearStyles() {
 		if (propertyStyles != null) {
-			if (formattedProperties == null) formattedProperties = new HashSet();
+			if (formattedProperties == null) formattedProperties = new HashSet<String>();
 			formattedProperties.addAll(propertyStyles.keySet());
 			propertyStyles.clear();
 		}
 		
 		if (hasGroups()) {
-			Iterator it = getGroupsViews().values().iterator();
+			Iterator<View> it = getGroupsViews().values().iterator();
 			while (it.hasNext()) {
-				View v = (View) it.next();
+				View v = it.next();
 				v.clearStyles();
 			}
 		}

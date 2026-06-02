@@ -12,7 +12,7 @@ package org.openxava.converters;
  */
 public class IntegerNumberConverter implements IConverter {
 	
-	private final static Integer ZERO = new Integer(0);
+	private final static Integer ZERO = Integer.valueOf(0);
 	private static IConverter instance;
 	private boolean nullToZero = true;
 	
@@ -32,7 +32,7 @@ public class IntegerNumberConverter implements IConverter {
 		if (!(o instanceof Number)) {		
 			throw new ConversionException("conversion_java_number_expected");
 		}
-		return new Integer(((Number) o).intValue());
+		return Integer.valueOf(((Number) o).intValue());
 	}
 
 	/**

@@ -30,21 +30,21 @@ public class ValidValuesStringConverter implements IConverter {
 			return chains[value];			
 		}
 		catch (IndexOutOfBoundsException ex) {
-			throw new ConversionException("conversion_db_valid_values", new Integer(value), getWords());
+			throw new ConversionException("conversion_db_valid_values", Integer.valueOf(value), getWords());
 		}
 	}
 	
 	public Object toJava(Object o) throws ConversionException {
-		if (o == null) return new Integer(0);
+		if (o == null) return Integer.valueOf(0);
 		if (!(o instanceof String)) {		
 			throw new ConversionException("conversion_java_string_expected");
 		}
 		assertWords();
 		String value  = (String) o;
-		if (Is.emptyString(value)) return new Integer(0);
+		if (Is.emptyString(value)) return Integer.valueOf(0);
 		chains = getChains();
 		for (int chainIndex=1; chainIndex < chains.length; chainIndex++) {
-			if (value.equals(chains[chainIndex]))  return new Integer (chainIndex);				 
+			if (value.equals(chains[chainIndex]))  return Integer.valueOf(chainIndex);				 
 		}
 		
 		throw new ConversionException("conversion_java_valid_values", value,  getWords());

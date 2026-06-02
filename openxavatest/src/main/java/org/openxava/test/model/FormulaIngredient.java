@@ -3,7 +3,6 @@ package org.openxava.test.model;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 
 /**
@@ -18,9 +17,8 @@ public class FormulaIngredient {
 	@JoinColumn(name="FORMULA")
 	private Formula formula;
 
-	@Id @Hidden
-	@GeneratedValue(generator="system-uuid") 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	

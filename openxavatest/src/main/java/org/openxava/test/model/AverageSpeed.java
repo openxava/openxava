@@ -2,7 +2,6 @@ package org.openxava.test.model;
 
 import jakarta.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -14,8 +13,8 @@ import org.openxava.annotations.*;
 // DO NOT ADD @Tab we use this class to test default properties without @Tab
 public class AverageSpeed {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy="uuid")
+	@Id @Hidden 
+	@UUID32
 	private String oid;
 	
 	@ReferenceView("Simple")		

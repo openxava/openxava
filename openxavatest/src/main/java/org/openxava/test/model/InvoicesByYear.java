@@ -40,9 +40,9 @@ public class InvoicesByYear {
 	Collection<Invoice> activeInvoicesPlusYear;
 	
 	public BigDecimal getTotalSum() {
-		Query query = XPersistence.getManager().createQuery("from Invoice i where i.year = :year");
+		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT i FROM Invoice i WHERE i.year = :year", Invoice.class);
 		query.setParameter("year", year);
-		Collection<Invoice> invoices = query.getResultList(); 
+		Collection<Invoice> invoices = (Collection<Invoice>) query.getResultList(); 
 		return invoices.stream()
 			.map(Invoice::getTotal)
 			.reduce(BigDecimal.ZERO, BigDecimal::add);

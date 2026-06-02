@@ -14,10 +14,9 @@ import org.openxava.web.editors.*;
 public class NewTreeViewItemAction extends CollectionElementViewBaseAction {
 	private static Log log = LogFactory.getLog(NewTreeViewItemAction.class);
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void execute() throws Exception {
 		String fullPath = null;
-		List<Map> keyValues = getCollectionElementView().getCollectionSelectedValues(); 
+		List<Map<String, Object>> keyValues = getCollectionElementView().getCollectionSelectedValues(); 
 		if (getCollectionElementView().isRepresentsAggregate()) {
 			getCollectionElementView().reset();				
 		}

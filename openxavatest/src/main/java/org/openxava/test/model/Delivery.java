@@ -293,7 +293,7 @@ public class Delivery {
 	}
 	
 	public static Collection<Delivery> findAll() {
-		Query query = XPersistence.getManager().createQuery("from Delivery as o"); 
+		TypedQuery<Delivery> query = XPersistence.getManager().createQuery("SELECT o FROM Delivery o", Delivery.class); 
  		return query.getResultList();  				
 	}	
 

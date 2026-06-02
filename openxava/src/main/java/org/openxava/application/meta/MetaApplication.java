@@ -19,9 +19,9 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	private static Log log = LogFactory.getLog(MetaApplication.class);
 
 	private Map<String, MetaModule> metaModules = new HashMap<>(); 
-	private Collection modulesNames = new ArrayList(); // to preserve the order
-	private Collection folders;
-	private Collection controllersForDefaultModule;
+	private Collection<String> modulesNames = new ArrayList<>(); // to preserve the order
+	private Collection<String> folders;
+	private Collection<String> controllersForDefaultModule;
 	private boolean defaultModulesGenerated = false;
 	private int controllersCodeVersion = Hotswap.getControllersVersion(); 
 	
@@ -46,9 +46,9 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	}
 	
 	
-	public Collection getFolders() throws XavaException { 
+	public Collection<String> getFolders() throws XavaException { 
 		if (folders == null) {
-			folders = new HashSet();
+			folders = new HashSet<>();
 			for (Iterator it = getMetaModules().iterator(); it.hasNext(); ) {
 				MetaModule metaModule = (MetaModule) it.next(); 
 				folders.add(metaModule.getFolder());
@@ -99,7 +99,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	private void generateDefaultModulesFromJPAEntities() throws XavaException {
 		boolean generateDefaultModules = XavaPreferences.getInstance().isGenerateDefaultModules();
 		try {
-			Collection classNames = AnnotatedClassParser.getManagedClassNamesFromFileClassPath();
+			Collection<String> classNames = AnnotatedClassParser.getManagedClassNamesFromFileClassPath();
 			for (Iterator it=classNames.iterator(); it.hasNext(); ) {
 				String className = (String) it.next();
 				String modelName = Strings.lastToken(className, ".");
@@ -119,7 +119,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 *  
 	 * @return of <tt>String</tt>. Not null.
 	 */	
-	public Collection getModulesNames() {
+	public Collection<String> getModulesNames() {
 		generateDefaultModules(); 
 		return modulesNames;
 	}
@@ -131,9 +131,9 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @return of <tt>String</tt>. Not null.
 	 * @throws XavaException 
 	 */	
-	public Collection getModulesNamesByFolder(String folder) throws XavaException {
+	public Collection<String> getModulesNamesByFolder(String folder) throws XavaException {
 		if (Is.emptyString(folder) || folder.trim().equals("/")) folder = ""; 
-		Collection result = new ArrayList();
+		Collection<String> result = new ArrayList<>();
 		for (Iterator it=getModulesNames().iterator(); it.hasNext();) {
 			String moduleName = (String) it.next();
 			String moduleFolder = getMetaModule(moduleName).getFolder();
@@ -192,11 +192,11 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	}
 	
 	public void addControllerForDefaultModule(String controllerName) { 
-		if (controllersForDefaultModule == null) controllersForDefaultModule = new ArrayList();
+		if (controllersForDefaultModule == null) controllersForDefaultModule = new ArrayList<>();
 		controllersForDefaultModule.add(controllerName);
 	}
 
-	private Collection getControllersForDefaultModule() { 
+	private Collection<String> getControllersForDefaultModule() { 
 		if (controllersForDefaultModule == null) return Collections.EMPTY_LIST;
 		return controllersForDefaultModule;
 	}

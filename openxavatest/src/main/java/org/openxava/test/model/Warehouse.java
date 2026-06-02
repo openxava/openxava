@@ -46,10 +46,10 @@ public class Warehouse {
 	private long time; 
 
 	public static Warehouse findByZoneNumberNumber(int zoneNumber, int number) throws NoResultException { 	 			
- 		Query query = XPersistence.getManager().createQuery("from Warehouse as o where o.zoneNumber = :zoneNumber and number = :number"); 
+ 		TypedQuery<Warehouse> query = XPersistence.getManager().createQuery("SELECT o FROM Warehouse o WHERE o.zoneNumber = :zoneNumber AND number = :number", Warehouse.class); 
 		query.setParameter("zoneNumber", zoneNumber); 
 		query.setParameter("number", number); 
- 		return (Warehouse) query.getSingleResult();
+ 		return query.getSingleResult();
 	} 
 
 	public String getName() {

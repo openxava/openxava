@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 
 /**
@@ -28,9 +27,8 @@ import org.openxava.annotations.*;
 @Tab(properties="name, recipe") 
 public class Formula {
 	
-	@Id @Hidden
-	@GeneratedValue(generator="system-uuid") 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")	
 	private String oid;
 	
@@ -62,9 +60,9 @@ public class Formula {
 	}		
 	
 	public static Formula findByName(java.lang.String name) throws NoResultException {
-		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Formula as o where o.name = :name"); 
+		jakarta.persistence.TypedQuery<Formula> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT f FROM Formula f WHERE f.name = :name", Formula.class); 
 		query.setParameter("name", name); 			
-		return (Formula) query.getSingleResult();		  		
+		return query.getSingleResult();		  		
 	}
 	
 	public String getOid() {

@@ -167,7 +167,7 @@ public class Assert {
 	 */
 	static public void assertEquals(String message, double expected, double actual, double delta) {
 		if (!(Math.abs(expected-actual) <= delta)) // Because comparison with NaN always returns false
-			failNotEquals(message, new Double(expected), new Double(actual));
+			failNotEquals(message, Double.valueOf(expected), Double.valueOf(actual));
 	}
 	/**
 	 * Asserts that two longs are equal.
@@ -177,7 +177,7 @@ public class Assert {
 	 * @exception AssertException  If assert is not fulfilled	 
 	 */
 	static public void assertEquals(String message, long expected, long actual) {
-	    assertEquals(message, new Long(expected), new Long(actual));
+	    assertEquals(message, Long.valueOf(expected), Long.valueOf(actual));
 	}
 	/** 
 	 * Asserts that two objects are equal. If they are not

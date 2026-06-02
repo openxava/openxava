@@ -25,14 +25,14 @@ public class MetaWebEditors {
 	
 	public static Log log = LogFactory.getLog(MetaEditor.class);
 		
-	private static Map editorsByName; 
-	private static Map editorsByType;
-	private static Map editorsByStereotype;
+	private static Map<String, MetaEditor> editorsByName; 
+	private static Map<String, MetaEditor> editorsByType;
+	private static Map<String, MetaEditor> editorsByStereotype;
 	private static Map<String, MetaEditor> editorsByAnnotation; 
-	private static Map editorsByModelProperty;
-	private static Map editorsByReferenceModel;
-	private static Map editorsByCollectionModel; 
-	private static Map editorsByTabModel; 
+	private static Map<String, MetaEditor> editorsByModelProperty;
+	private static Map<String, MetaEditor> editorsByReferenceModel;
+	private static Map<String, MetaEditor> editorsByCollectionModel; 
+	private static Map<String, MetaEditor> editorsByTabModel; 
 	private static MetaEditor editorForReferences;
 	private static MetaEditor editorForCollections;
 	private static MetaEditor editorForElementCollections; 
@@ -210,7 +210,7 @@ public class MetaWebEditors {
 		return (MetaEditor) getEditorsByName().get(name);
 	}	
 		
-	private synchronized static Map getEditorsByType() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	private synchronized static Map<String, MetaEditor> getEditorsByType() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByType == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -226,7 +226,7 @@ public class MetaWebEditors {
 		return editorsByAnnotation;
 	}
 	
-	private synchronized static Map getEditorsByReferenceModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
+	private synchronized static Map<String, MetaEditor> getEditorsByReferenceModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
 		if (editorsByReferenceModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -234,7 +234,7 @@ public class MetaWebEditors {
 		return editorsByReferenceModel;
 	}
 	
-	private synchronized static Map getEditorsByCollectionModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)  
+	private synchronized static Map<String, MetaEditor> getEditorsByCollectionModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)  
 		if (editorsByCollectionModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -242,7 +242,7 @@ public class MetaWebEditors {
 		return editorsByCollectionModel;
 	}
 	
-	private synchronized static Map getEditorsByTabModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)   
+	private synchronized static Map<String, MetaEditor> getEditorsByTabModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)   
 		if (editorsByTabModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -251,7 +251,7 @@ public class MetaWebEditors {
 	}	
 	
 	
-	private synchronized static Map getEditorsByStereotype() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	private synchronized static Map<String, MetaEditor> getEditorsByStereotype() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByStereotype == null) {
 			init();
 			EditorsParser.setupEditors();								
@@ -259,7 +259,7 @@ public class MetaWebEditors {
 		return editorsByStereotype;
 	}
 	
-	private synchronized static Map getEditorsByModelProperty() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)		
+	private synchronized static Map<String, MetaEditor> getEditorsByModelProperty() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)		
 		if (editorsByModelProperty == null) {
 			init();
 			EditorsParser.setupEditors();			
@@ -267,7 +267,7 @@ public class MetaWebEditors {
 		return editorsByModelProperty;
 	}
 	
-	private synchronized static Map getEditorsByName() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	private synchronized static Map<String, MetaEditor> getEditorsByName() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByName == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -276,14 +276,14 @@ public class MetaWebEditors {
 	}	
 		
 	private static void init() { 
-		editorsByType = new HashMap();
-		editorsByStereotype = new HashMap();
+		editorsByType = new HashMap<>();
+		editorsByStereotype = new HashMap<>();
 		editorsByAnnotation = new HashMap<>(); 
-		editorsByModelProperty = new HashMap();
-		editorsByName = new HashMap();
-		editorsByReferenceModel = new HashMap(); 
-		editorsByCollectionModel = new HashMap();
-		editorsByTabModel = new HashMap(); 
+		editorsByModelProperty = new HashMap<>();
+		editorsByName = new HashMap<>();
+		editorsByReferenceModel = new HashMap<>(); 
+		editorsByCollectionModel = new HashMap<>();
+		editorsByTabModel = new HashMap<>(); 
 		editorsForTabs = new ArrayList<MetaEditor>(); 
 	}
 

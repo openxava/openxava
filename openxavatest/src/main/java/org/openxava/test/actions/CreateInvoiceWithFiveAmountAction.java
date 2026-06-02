@@ -15,8 +15,8 @@ import org.openxava.util.*;
 public class CreateInvoiceWithFiveAmountAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		Map key = getView().getKeyValues();
-		Map values = getView().getValues();
+		Map<String, Object> key = getView().getKeyValues();
+		Map<String, Object> values = getView().getValues();
 		values.put("amount", 5);
 		MapFacade.create(getModelName(), values);
 	}

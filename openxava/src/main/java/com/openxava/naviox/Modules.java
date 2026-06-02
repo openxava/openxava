@@ -245,7 +245,7 @@ public class Modules implements Serializable {
 		
 	private void loadFixedModules(HttpServletRequest request) {  
 		String fixedModulesOnMenu = NaviOXPreferences.getInstance().getFixModulesOnTopMenu();
-		fixedModules = new ArrayList();
+		fixedModules = new ArrayList<MetaModule>();
 		if (Is.emptyString(fixedModulesOnMenu)) return;
 		for (String moduleName: Strings.toCollection(fixedModulesOnMenu)) {
 			loadModule(request, fixedModules, moduleName); 												
@@ -397,13 +397,13 @@ public class Modules implements Serializable {
 		return preferencesNodeName;
 	}
 	
-	public Collection getBookmarkModules(HttpServletRequest request) {  
+	public Collection<MetaModule> getBookmarkModules(HttpServletRequest request) {  
 		if (bookmarkModules == null) loadBookmarkModules(request);
 		return bookmarkModules;
 	}
 	
 	/** @since 6.0 */
-	public Collection getFixedModules(HttpServletRequest request) {  
+	public Collection<MetaModule> getFixedModules(HttpServletRequest request) {  
 		if (fixedModules == null) loadFixedModules(request); 
 		return fixedModules;
 	}
@@ -429,10 +429,10 @@ public class Modules implements Serializable {
 	}
 	
 	/** @since 6.0 */
-	public List getRegularModules(HttpServletRequest request) {  
+	public List<MetaModule> getRegularModules(HttpServletRequest request) {  
 		if (getBookmarkModules(request).isEmpty() && getFixedModules(request).isEmpty()) return getAll(request);  
 		if (regularModules == null) {			
-			regularModules = new ArrayList(getAll(request));  
+			regularModules = new ArrayList<MetaModule>(getAll(request));  
 			regularModules.removeAll(getBookmarkModules(request)); 
 		}
 		return regularModules;

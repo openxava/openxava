@@ -256,9 +256,9 @@ public class Product2 {
 	}	
 	
  	public static Product2 findByNumber(long number) throws NoResultException { 	 			
- 		Query query = XPersistence.getManager().createQuery("from Product2 as o where o.number = :number"); 
-		query.setParameter("number", new Long(number));  	
-		return (Product2) query.getSingleResult();
+ 		TypedQuery<Product2> query = XPersistence.getManager().createQuery("SELECT o FROM Product2 o WHERE o.number = :number", Product2.class); 
+		query.setParameter("number", Long.valueOf(number));  	
+		return query.getSingleResult();
 	} 
 
 	

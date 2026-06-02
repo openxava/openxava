@@ -97,7 +97,7 @@ public class CallBackLogTest extends ModuleTestBase {
 		log.setTestName("CREATE_TEST");
 		em.persist(log);
 		
-		CallBackLog savedLog = em.find(CallBackLog.class, new Long(1l));
+		CallBackLog savedLog = em.find(CallBackLog.class, Long.valueOf(1));
 		assertEquals("Test name wrongfully saved", 1l, savedLog.getId());
 		assertEquals("Callbacks failed", "PRE_CREATE,PRE_PERSIST,POST_CREATE", savedLog.getCallbacks());
 	}
@@ -108,10 +108,10 @@ public class CallBackLogTest extends ModuleTestBase {
 		log.setTestName("DELETE_TEST");
 		em.persist(log);
 		// Let's Delete it
-		log = em.find(CallBackLog.class, new Long(1l));
+		log = em.find(CallBackLog.class, Long.valueOf(1));
 		em.remove(log);
 		
-		CallBackLog deletedLog = em.find(CallBackLog.class, new Long(101l));
+		CallBackLog deletedLog = em.find(CallBackLog.class, Long.valueOf(101));
 		assertEquals("Test name wrongfully saved", 101l, deletedLog.getId());
 		assertEquals("Callbacks failed", "PRE_REMOVE,PRE_CREATE,PRE_PERSIST,POST_CREATE", deletedLog.getCallbacks());
 	}

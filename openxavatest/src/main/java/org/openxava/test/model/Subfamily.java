@@ -3,7 +3,6 @@ package org.openxava.test.model;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
@@ -47,8 +46,8 @@ import org.openxava.annotations.*;
 )
 public class Subfamily {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	private String oid;
 	
 	@Column(length=3) @Required @ZerosFilled

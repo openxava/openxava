@@ -23,7 +23,7 @@ public class OnChangeSimulationMarginDetailSellingPriceAction extends OnChangePr
 			return;
 		}
 		
-		Map values = MapFacade.getValues(getView().getParent().getModelName(), simulationMargin, getView().getParent().getMembersNames());
+		Map<String, Object> values = MapFacade.getValues(getView().getParent().getModelName(), simulationMargin, getView().getParent().getMembersNames());
 		
 		getView().getParent().setValues(values); // Here was the error
 		

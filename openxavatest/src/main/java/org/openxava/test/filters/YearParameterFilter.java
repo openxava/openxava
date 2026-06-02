@@ -21,7 +21,7 @@ public class YearParameterFilter implements IRequestFilter {
 			return new Object [] { getYearParameter() };
 		}		
 		if (o instanceof Object []) {			
-			List c = new ArrayList(Arrays.asList((Object []) o));
+			List<Object> c = new ArrayList<>(Arrays.asList((Object []) o));
 			c.add(0, getYearParameter());
 			return c.toArray();			
 		} 
@@ -32,7 +32,7 @@ public class YearParameterFilter implements IRequestFilter {
 
 	private Integer getYearParameter() throws FilterException {
 		String year = request.getParameter("year");
-		return year == null?new Integer(0):new Integer(year);
+		return year == null ? Integer.valueOf(0) : Integer.valueOf(year);
 	}
 
 	public void setRequest(HttpServletRequest request) {

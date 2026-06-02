@@ -4,6 +4,7 @@ import java.sql.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.usertype.*;
+import org.hibernate.type.descriptor.WrapperOptions;
 import org.openxava.converters.*;
 import org.openxava.util.*;
 
@@ -25,7 +26,7 @@ public class HibernateTypeConverter extends HibernateTypeBaseConverter implement
 			Object hibernateType = getHibernateType();
 			Object result = null;
 			if (hibernateType instanceof UserType) {
-				result = ((UserType) hibernateType).nullSafeGet(new ArrayOneRowResultSetAdapter(new Object[] { o }), 1, null); 
+				result = ((UserType) hibernateType).nullSafeGet(new ArrayOneRowResultSetAdapter(new Object[] { o }), 1, (WrapperOptions) null); 
 			}
 			else {
 				throw new ConversionException("only_usertype_supported", hibernateType.getClass());
@@ -49,7 +50,7 @@ public class HibernateTypeConverter extends HibernateTypeBaseConverter implement
 			Object result = null;
 			if (hibernateType instanceof UserType) {
 				ps = new ObjectPreparedStatementAdapter();
-				((UserType) hibernateType).nullSafeSet(ps, o, 1, null); 
+				((UserType) hibernateType).nullSafeSet(ps, o, 1, (WrapperOptions) null); 
 				result = ps.getObject();
 			}
 			else {

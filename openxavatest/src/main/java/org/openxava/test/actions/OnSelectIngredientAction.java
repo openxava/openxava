@@ -21,7 +21,7 @@ public class OnSelectIngredientAction extends OnSelectElementBaseAction {
 		// size
 		int size = getView().getValueInt("selectedIngredientSize");
 		size = isSelected() ? size + 1 : size - 1;		
-		getView().setValue("selectedIngredientSize", new Integer(size));
+		getView().setValue("selectedIngredientSize", Integer.valueOf(size));
 		// names
 		String names = getView().getValueString("selectedIngredientNames");
 		

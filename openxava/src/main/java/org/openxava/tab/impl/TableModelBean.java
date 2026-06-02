@@ -26,15 +26,15 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	
 	private final static int STILL_NO_OBTAINED = -1;
 	private int totalSize = STILL_NO_OBTAINED;
-	private Vector listeners;
+	private Vector<TableModelListener> listeners;
 	private IEntityTabImpl entityTab;
 	private String[] columnsClasses;
 	private String[] heading = new String[0];
 	private int[] indexesPK = { 0 };
-	private List propertiesNames; 
+	private List<String> propertiesNames; 
 	boolean allLoaded;
 
-	private Vector data;
+	private Vector<Object> data;
 
 	// rowCount always has one more that really loaded,
 	// thus when the last is try to load the deman more.
@@ -80,7 +80,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 				rs = Class.forName(columnsClasses[columnIndex]);
 			}
 			catch (ClassNotFoundException ex) {
-				log.error(XavaResources.getString("class_not_found_for_column_warning", new Integer(columnIndex)), ex);
+				log.error(XavaResources.getString("class_not_found_for_column_warning", Integer.valueOf(columnIndex)), ex);
 			}
 			catch (IndexOutOfBoundsException ex) {
 			}
@@ -190,10 +190,10 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 		if (object == null) return null;
 		if (object.getClass().equals(BigDecimal.class)) {
 			if (Integer.class.equals(getColumnClass(columnIndex))) {
-				return new Integer(((Number) object).intValue());
+				return Integer.valueOf(((Number) object).intValue());
 			}
 			if (Long.class.equals(getColumnClass(columnIndex))) {
-				return new Long(((Number) object).longValue());
+				return Long.valueOf(((Number) object).longValue());
 			}						
 		}				
 		return object;		 

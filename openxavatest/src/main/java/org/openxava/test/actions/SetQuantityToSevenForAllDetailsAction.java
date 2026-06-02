@@ -12,8 +12,8 @@ import org.openxava.test.model.*;
 public class SetQuantityToSevenForAllDetailsAction extends ViewBaseAction {
 
 	public void execute() throws Exception {
-		Collection<Map> details = (Collection<Map>) getView().getValue("details");
-		for (Map detail: details) {
+		Collection<Map<String, Object>> details = (Collection<Map<String, Object>>) getView().getValue("details");
+		for (Map<String, Object> detail: details) {
 			detail.put("quantity", 7);
 		}
 		getView().setValue("details", details);

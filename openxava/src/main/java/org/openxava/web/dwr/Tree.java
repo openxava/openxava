@@ -154,13 +154,13 @@ public class Tree extends DWRBase {
 	    	    }
 			}
 
-			Map<String, String> pathIdMap = new HashMap<>();
+			Map<String, Object> pathIdMap = new HashMap<>();
 			pathIdMap.put(pathProperty, null);
 			pathIdMap.put(idProperties, null);
 			Map<String, Object> newNodeValue = new HashMap<>();
 			newNodeValue.put(pathProperty, newPath);
 
-			Map<String, String> pathValueMap = new HashMap<>();
+			Map<String, Object> pathValueMap = new HashMap<>();
 			Set<String> parentsValues = new HashSet<>();
 
 			for (String row : newOrderMap.keySet()) {

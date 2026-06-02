@@ -30,7 +30,7 @@ public class IsTest extends TestCase {
 	
 	public void testEmptyString() {
 		assertTrue(Is.emptyString(""));
-		assertTrue(Is.emptyString(null));
+		assertTrue(Is.emptyString((String) null));
 		assertFalse(Is.emptyString("a"));
 		assertTrue(Is.emptyString("", "", ""));
 		assertTrue(Is.emptyString("a", "", "b"));

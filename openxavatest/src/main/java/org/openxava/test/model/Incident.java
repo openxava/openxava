@@ -23,8 +23,8 @@ import org.openxava.web.editors.*;
 public class Incident extends Identifiable {
 	
 	public static Incident findFirst() { 
-		Query query = XPersistence.getManager().createQuery("from Incident"); 
- 		return (Incident) query.getResultList().get(0);  				
+		TypedQuery<Incident> query = XPersistence.getManager().createQuery("SELECT o FROM Incident o", Incident.class); 
+ 		return query.getResultList().get(0);
 	}
 	
 	@Column(length=50) @Required

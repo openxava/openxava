@@ -9,7 +9,7 @@ import org.openxava.actions.*;
 public class OnChangePhoneAreaCodeAction extends OnChangePropertyBaseAction {
 
 	public void execute() throws Exception {
-		if (new Integer(34).equals(getNewValue())) {
+		if (Integer.valueOf(34).equals(getNewValue())) {
 			getView().setHidden("phoneExtension", true);
 			
 		}

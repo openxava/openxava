@@ -40,7 +40,7 @@ public class GenerateReportServlet extends HttpServlet {
 	public static class TableModelDecorator implements TableModel {
 							 
 		private TableModel original;		
-		private List metaProperties;
+		private List<MetaProperty> metaProperties;
 		private boolean withValidValues = false;
 		private Locale locale;
 		private boolean labelAsHeader = false;

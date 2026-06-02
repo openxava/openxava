@@ -66,18 +66,18 @@ public class Shipment {
 	private CustomerContactPerson customerContactPerson;
 	
 		
- 	public static Collection findAll()  { 			
-		jakarta.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Shipment as o"); 
+ 	public static Collection<Shipment> findAll()  {
+		jakarta.persistence.TypedQuery<Shipment> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT s FROM Shipment s", Shipment.class); 
  		return query.getResultList();  		
  	}
  	
- 	public static Collection findByMode(Mode mode)  { 		 			
- 		jakarta.persistence.Query query = XPersistence.getManager().createQuery("from Shipment as o where o.mode = :mode"); 
+ 	public static Collection<Shipment> findByMode(Mode mode)  {
+ 		jakarta.persistence.TypedQuery<Shipment> query = XPersistence.getManager().createQuery("SELECT o FROM Shipment o WHERE o.mode = :mode", Shipment.class); 
 		query.setParameter("mode", mode); 
  		return query.getResultList();  		 		
  	}
  	
- 	public static Collection findByMode(int ordinal)  {
+ 	public static Collection<Shipment> findByMode(int ordinal)  {
  		return findByMode(Mode.values()[ordinal]);
  	} 	
  	

@@ -19,7 +19,7 @@ import org.openxava.util.*;
 
 public class DataChunk implements java.io.Serializable {
 
-	private List data;
+	private List<Object> data;
 	private boolean last;
 	private int indexNext;
 	

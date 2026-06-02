@@ -17,7 +17,7 @@ public class TreeViewReaderTestImpl implements ITreeViewReader {
 	private String collectionModelName;
 	
 	@SuppressWarnings("rawtypes")
-	private Map[] allKeys;
+	private Map<String, Object>[] allKeys;
 	
 	private int lastReadRow = -1;
 	

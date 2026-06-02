@@ -140,7 +140,7 @@ public class Is {
 	}
 		
 	private static Long toLong(Object integer) {
-		return new Long(((Number) integer).longValue());
+		return Long.valueOf(((Number) integer).longValue());
 	}
 
 	private static boolean isInteger(Object o) {		

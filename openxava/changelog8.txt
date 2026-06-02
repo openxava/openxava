@@ -1,9 +1,11 @@
 Change Log for OpenXava 8
 =========================
 
+- New UUID32 annotation for 32-character UUID support in Hibernate 7.
+- Replaced raw collection types with generics in View, Tab, MapFacade and other core classes.
+- Cleaned up unchecked warnings in OpenXava codebase.
 - Java 17 as baseline. Dropped support for Java 8 and 11.
 - Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
 - Jakarta Validator 3.1 support. Dropped support for Bean Validation 2.0.
 - Hibernate Validator upgraded to 9.1.0.
 - Hibernate upgraded to 7.2.15.
--

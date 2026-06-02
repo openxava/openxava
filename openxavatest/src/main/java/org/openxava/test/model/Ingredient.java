@@ -4,13 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.jpa.XPersistence;
 
@@ -23,9 +24,8 @@ import org.openxava.jpa.XPersistence;
 @View(name="Sections", members="section1{ name; section2 { partOf, favouriteFormula } }")
 public class Ingredient {
 	
-	@Id @Hidden
-	@GeneratedValue(generator="system-uuid") 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	
@@ -42,9 +42,9 @@ public class Ingredient {
 	private Formula favouriteFormula; // For testing cyclic references
 
 	public static Ingredient findByName(String name) throws NoResultException {
-		Query query = XPersistence.getManager().createQuery("from Ingredient where name = :name"); 
+		TypedQuery<Ingredient> query = XPersistence.getManager().createQuery("SELECT i FROM Ingredient i WHERE i.name = :name", Ingredient.class); 
 		query.setParameter("name", name); 			
-		return (Ingredient) query.getSingleResult();		  		
+		return query.getSingleResult();		  		
 	}
 	
 	public Formula getFavouriteFormula() {
