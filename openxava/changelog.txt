@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Fixed 7 security vulnerabilities in dependencies, 3 of them critical.
+- Groovy upgraded to 4.0.32.
+- json upgraded to 20260522.
+- Embedded Tomcat used in development upgraded to 9.0.118.
+- Driver version in doc/new projects upgraded for MySQL, Oracle and Informix.
 - Completed French and German translations for labels and messages.
 - Fix: Search missing for references in @ElementCollection when the referenced entity hidden id is shown.
 - Fix: Uploading a file fails if acceptFileTypes declares an extension with no known MIME type.
