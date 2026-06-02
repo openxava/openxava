@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+MySQL: 8.4.0 → 9.7.0 (actualizado)
+Oracle: 23.26.1.0.0 → 23.26.2.0.0 (actualizado)
+Informix: 4.50.13.1
+
 - Tomcat 9.0.118
 - Groovy 4.0.32
 - json 20260522
