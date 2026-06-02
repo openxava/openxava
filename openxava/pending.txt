@@ -1,0 +1,6 @@
+Pending dwr migration (tmr)
+---------------------------
+- Discussion: TMR ME QUEDÉ PROBANDOLO, FALLA.
+- Revisar nomenclatura, paquetes, URIs, etc.
+- Mirar los i18n de los JS.
+- Borrar los .md con planes.
