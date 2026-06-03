@@ -8,7 +8,7 @@ import org.openxava.application.meta.*;
  * @since 5.3
  * @author Javier Paniza 
  */
-class TableId { 
+public class TableId { 
 	
 	private String application;
 	private String module;

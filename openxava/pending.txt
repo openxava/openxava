@@ -1,9 +1,14 @@
 Pending dwr migration (tmr)
 ---------------------------
 
-- Discussion.
+* Discussion.
 - Tab.
+    - ¿Quitar Tab de openxava.js?
+    - ¿Move TableIde a otro sitio? ¿Hacerlo acceso paquete otra vez?
 - Refactorizar.
 - Revisar nomenclatura, paquetes, URIs, etc.
 - Mirar los i18n de los JS.
+- Mirar una forma de sacar error cuando haya fallo.
 - Borrar los .md con planes.
+
+

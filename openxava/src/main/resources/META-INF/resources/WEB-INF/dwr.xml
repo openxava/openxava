@@ -10,10 +10,6 @@
       <param name="class" value="org.openxava.web.dwr.Module"/>
     </create>
     
-    <create creator="new" javascript="Tab">
-      <param name="class" value="org.openxava.web.dwr.Tab"/>
-    </create>
-    
     <create creator="new" javascript="View">
       <param name="class" value="org.openxava.web.dwr.View"/>
     </create>
