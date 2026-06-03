@@ -49,7 +49,8 @@ discussionEditor.sendComment = function(application, module, discussionId, comme
 		method: "POST",
 		credentials: "same-origin",
 		headers: {
-			"Content-Type": "application/x-www-form-urlencoded"
+			"Content-Type": "application/x-www-form-urlencoded",
+			"xavawindowid": $("#xava_window_id").val()
 		},
 		body: params
 	})
