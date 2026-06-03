@@ -1,7 +1,9 @@
 Pending dwr migration (tmr)
 ---------------------------
-- Discussion. TMR ME QUEDÉ POR AQUÍ. FUNCIONÓ, PERO TODAVÍA FALTA PROBARLO A FONDO.
-- Comentarios en inglés.
+
+- Discussion.
+- Tab.
+- Refactorizar.
 - Revisar nomenclatura, paquetes, URIs, etc.
 - Mirar los i18n de los JS.
 - Borrar los .md con planes.
