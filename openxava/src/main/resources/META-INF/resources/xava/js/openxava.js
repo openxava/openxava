@@ -1,7 +1,7 @@
 if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
-var Tab = {
+openxava.tab = {
 	setFilterVisible: function(application, module, filterVisible, tabObject) {
 		var params = new URLSearchParams();
 		params.append("action", "setFilterVisible");
@@ -9,55 +9,9 @@ var Tab = {
 		params.append("module", module);
 		params.append("filterVisible", filterVisible);
 		params.append("tabObject", tabObject);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.setFilterVisible:", error);
-			alert("Error: " + error.message);
-		});
+		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
-	
-	updateValue: function(application, module, row, property, value, callback) {
-		var params = new URLSearchParams();
-		params.append("action", "updateValue");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("row", row);
-		params.append("property", property);
-		params.append("value", value);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-			return response.text();
-		})
-		.then(function(text) {
-			if (callback) callback(text);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.updateValue:", error);
-			alert("Error: " + error.message);
-			if (callback) callback("ERROR: " + error.message);
-		});
-	},
-	
+
 	removeProperty: function(application, module, property, tabObject) {
 		var params = new URLSearchParams();
 		params.append("action", "removeProperty");
@@ -65,98 +19,34 @@ var Tab = {
 		params.append("module", module);
 		params.append("property", property);
 		params.append("tabObject", tabObject);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.removeProperty:", error);
-			alert("Error: " + error.message);
-		});
+		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
-	
+
 	moveProperty: function(tableId, from, to) {
 		var params = new URLSearchParams();
 		params.append("action", "moveProperty");
 		params.append("tableId", tableId);
 		params.append("from", from);
 		params.append("to", to);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.moveProperty:", error);
-			alert("Error: " + error.message);
-		});
+		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
-	
+
 	setColumnWidth: function(columnId, index, width) {
 		var params = new URLSearchParams();
 		params.append("action", "setColumnWidth");
 		params.append("columnId", columnId);
 		params.append("index", index);
 		params.append("width", width);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.setColumnWidth:", error);
-			alert("Error: " + error.message);
-		});
+		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
-	
+
 	filterColumns: function(application, module, searchWord, callback) {
 		var params = new URLSearchParams();
 		params.append("action", "filterColumns");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("searchWord", searchWord);
-		
-		fetch(openxava.contextPath + "/xava/tab", {
-			method: "POST",
-			headers: { 
-				"Content-Type": "application/x-www-form-urlencoded",
-				"xavawindowid": $("#xava_window_id").val()
-			},
-			body: params
-		})
-		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
-			return response.text();
-		})
-		.then(function(text) {
-			if (callback) callback(text);
-		})
-		.catch(function(error) {
-			console.error("Error in Tab.filterColumns:", error);
-			alert("Error: " + error.message);
-		});
+		openxava.post(openxava.contextPath + "/xava/tab", params, callback);
 	}
 };
 
@@ -776,7 +666,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
+			openxava.tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -793,7 +683,7 @@ openxava.initLists = function(application, module) {
 	    	ui.item.css("width", "");
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
+	    	openxava.tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			setTimeout(function() {
 			    openxava.renumberListColumns(table);
 			}, 200);
@@ -1159,7 +1049,7 @@ openxava.setFilterVisible = function(application, module, id, tabObject, visible
     	$(hideLink).hide(); 
     	$(showLink).show(); 
     }
-	Tab.setFilterVisible(application, module, visible, tabObject);
+	openxava.tab.setFilterVisible(application, module, visible, tabObject);
 }
 
 openxava.customizeList = function(application, module, id) { 	
@@ -1190,7 +1080,7 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 		openxava.renumberListColumns(table);
   	});
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	Tab.removeProperty(application, module, property, tabObject);
+	openxava.tab.removeProperty(application, module, property, tabObject);
 }
 
 openxava.setPageRowCount = function(application, module, collection, select) {	
@@ -1757,4 +1647,29 @@ openxava.filterList = function(filterValues) {
 	}
 	
 	openxava.executeAction(app, module, '', false, 'List.filter');
+};
+
+openxava.post = function(url, params, callback) {
+	var fetchOptions = {
+		method: "POST",
+		credentials: "same-origin",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"xavawindowid": $("#xava_window_id").val()
+		},
+		body: params
+	};
+	fetch(url, fetchOptions)
+		.then(function(response) {
+			if (!response.ok) throw new Error("HTTP status " + response.status);
+			if (callback) return response.text();
+		})
+		.then(function(text) {
+			if (callback) callback(text);
+		})
+		.catch(function(error) {
+			console.error("Error in openxava.post:", error);
+			alert("Error: " + error.message);
+			if (callback) callback("ERROR: " + error.message);
+		});
 };

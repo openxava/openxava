@@ -38,31 +38,12 @@ discussionEditor.postMessageHtmlUnit = function(application, module, discussionI
 }
 
 discussionEditor.sendComment = function(application, module, discussionId, commentContent) {
-	var url = openxava.contextPath + "/xava/discussion";
 	var params = new URLSearchParams();
 	params.append("application", application);
 	params.append("module", module);
 	params.append("discussionId", discussionId);
 	params.append("commentContent", commentContent);
-
-	fetch(url, {
-		method: "POST",
-		credentials: "same-origin",
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded",
-			"xavawindowid": $("#xava_window_id").val()
-		},
-		body: params
-	})
-	.then(function(response) {
-		if (!response.ok) {
-			throw new Error("HTTP status " + response.status);
-		}
-	})
-	.catch(function(error) {
-		console.error("Error posting discussion comment:", error);
-		alert("Error: Discussion comment not added");
-	});
+	openxava.post(openxava.contextPath + "/xava/discussion", params);
 }
 
 discussionEditor.cancel = function(discussionId) {
