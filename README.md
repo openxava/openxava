@@ -36,18 +36,23 @@ Then start the application again.
 
 ## New project from other archetypes
 Apart from the basic archetype, there are other OpenXava archetypes, so you don't have to start your application from scratch.
+
+### Master-Detail
 For a project with an initial Master-Detail structure, use openxava-master-detail-archetype, in this way:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-master-detail-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourmasterdetail -DinteractiveMode=false
 	
+### CRM
 For a basic CRM use openxava-crm-archetype, thus:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-crm-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourcrm -DinteractiveMode=false
 	
+### Project management
 For a project management application use openxava-project-management-archetype:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-project-management-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourtracker -DinteractiveMode=false
 	
+### Invoicing
 For an invoicing application use openxava-invoicing-archetype:
 
 	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-invoicing-archetype -DarchetypeVersion=RELEASE -DgroupId=com.yourcompany -DartifactId=yourinvoicing -DinteractiveMode=false	
