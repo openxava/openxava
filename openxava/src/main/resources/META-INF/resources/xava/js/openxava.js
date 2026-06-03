@@ -1,6 +1,10 @@
 if (openxava == null) var openxava = {};
 if (openxava.browser == null) openxava.browser = {};
 
+openxava.deselected = [];
+openxava.loadedScripts = [];
+openxava.calculations = {};
+
 openxava.tab = {
 	setFilterVisible: function(application, module, filterVisible, tabObject) {
 		var params = new URLSearchParams();
@@ -49,10 +53,6 @@ openxava.tab = {
 		openxava.post(openxava.contextPath + "/xava/tab", params, callback);
 	}
 };
-
-openxava.deselected = [];
-openxava.loadedScripts = [];
-openxava.calculations = {};  
 
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
