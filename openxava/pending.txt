@@ -5,7 +5,7 @@ Pending dwr migration (tmr)
 * Tab.
 * Refactorizar JS.
 * ¿Quitar Tab de openxava.js?
-- Refactorizar Servlet. TMR ME QUEDÉ HACIENDO ESTO: PROVAR PEDIR QUE USA JAX-RS EN LUGAR DEL SERVLET, PARA VER COMO QUEDA
+- Refactorizar Servlet. TMR ME QUEDÉ HACIENDO ESTO: PROBAR PEDIR QUE USA JAX-RS EN LUGAR DEL SERVLET, PARA VER COMO QUEDA
 - ¿Incluir application y module por defecto en openxava.post?
 - ¿Cambiar el nombre de openxava.post?
 - ¿Mover TableId a otro sitio? ¿Hacerlo acceso paquete otra vez?
