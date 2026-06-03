@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Added extra headers to README.md to make specific archetypes easier to find.
+- Moved the Project Templates article to the Quick Start section of the documentation.
 - Fixed 7 security vulnerabilities in dependencies, 3 of them critical.
 - Groovy upgraded to 4.0.32.
 - json upgraded to 20260522.
