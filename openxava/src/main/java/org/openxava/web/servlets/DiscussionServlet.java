@@ -7,12 +7,10 @@ import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
-import org.openxava.controller.*;
 import org.openxava.formatters.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
-import org.openxava.web.*;
 import org.openxava.web.editors.*;
 
 /**
@@ -22,7 +20,7 @@ import org.openxava.web.editors.*;
  * @since 8.0
  */
 @WebServlet(name = "discussion", urlPatterns = "/xava/discussion")
-public class DiscussionServlet extends ServletBase {
+public class DiscussionServlet extends BaseServlet {
 
     private static final long serialVersionUID = 1L;
 

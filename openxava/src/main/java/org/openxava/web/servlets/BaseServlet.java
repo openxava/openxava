@@ -12,7 +12,7 @@ import org.openxava.web.style.*;
  * @author Javier Paniza
  * @since 8.0
  */
-public class ServletBase extends HttpServlet {
+public class BaseServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 

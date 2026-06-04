@@ -14,7 +14,7 @@ Pending dwr migration (tmr)
 * Mirar una forma de sacar error cuando haya fallo.
 * Quitar prints de Tab y Discussion.
 * Probar Tab a fondo.
-- ¿ServletBase o BaseServlet? ¿otro nombre?
+* ¿ServletBase o BaseServlet? ¿otro nombre?
 - Rehacer plan.md.
 - Seguir migrando.
 - Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.

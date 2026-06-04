@@ -12,8 +12,6 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
 import org.openxava.web.dwr.*;
-import org.openxava.web.editors.*;
-import org.openxava.web.style.*;
 
 /**
  * Servlet for Tab operations without DWR.
@@ -22,7 +20,7 @@ import org.openxava.web.style.*;
  * @since 8.0
  */
 @WebServlet(name = "tab", urlPatterns = "/xava/tab")
-public class TabServlet extends ServletBase {
+public class TabServlet extends BaseServlet {
 
     private static final long serialVersionUID = 1L;
     private static Log log = LogFactory.getLog(TabServlet.class);
