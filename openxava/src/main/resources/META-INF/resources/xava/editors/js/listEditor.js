@@ -108,7 +108,7 @@ listEditor.showUndoResult = function(message) {
 
 listEditor.updateValue = function(application, module, row, property, value, callback) {
 	var params = new URLSearchParams();
-	params.append("action", "updateValue");
+	params.append("operation", "updateValue");
 	params.append("application", application);
 	params.append("module", module);
 	params.append("row", row);
