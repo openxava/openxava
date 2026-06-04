@@ -37,25 +37,23 @@ public class TabServlet extends HttpServlet {
         }
 
         try {
+            String application = request.getParameter("application");
+            String module = request.getParameter("module");
+            initRequest(request, response, application, module);
+
             if ("setFilterVisible".equals(action)) {
-                String application = request.getParameter("application");
-                String module = request.getParameter("module");
                 boolean filterVisible = Boolean.parseBoolean(request.getParameter("filterVisible"));
                 String tabObject = request.getParameter("tabObject");
 
-                initRequest(request, response, application, module);
                 org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
                 tab.setFilterVisible(filterVisible);
                 response.setStatus(HttpServletResponse.SC_OK);
 
             } else if ("updateValue".equals(action)) {
-                String application = request.getParameter("application");
-                String module = request.getParameter("module");
                 int row = Integer.parseInt(request.getParameter("row"));
                 String property = request.getParameter("property");
                 String value = request.getParameter("value");
 
-                initRequest(request, response, application, module);
                 String result = updateValue(request, application, module, row, property, value);
                 
                 response.setContentType("text/plain; charset=UTF-8");
@@ -65,12 +63,9 @@ public class TabServlet extends HttpServlet {
 
             } else if ("removeProperty".equals(action)) {
                 System.out.println("[TabServlet] Executing removeProperty"); // tmr
-                String application = request.getParameter("application");
-                String module = request.getParameter("module");
                 String property = request.getParameter("property");
                 String tabObject = request.getParameter("tabObject");
 
-                initRequest(request, response, application, module);
                 org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
                 tab.removeProperty(property);
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -88,8 +83,7 @@ public class TabServlet extends HttpServlet {
                     return;
                 }
 
-                initRequest(request, response, id.getApplication(), id.getModule());
-                org.openxava.tab.Tab tab = getTab(request, id.getApplication(), id.getModule(), id.getTabObject());
+                org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
                 tab.moveProperty(from, to);
                 response.setStatus(HttpServletResponse.SC_OK);
 
@@ -105,13 +99,12 @@ public class TabServlet extends HttpServlet {
                     return;
                 }
 
-                initRequest(request, response, id.getApplication(), id.getModule());
                 try {
-                    org.openxava.tab.Tab tab = getTab(request, id.getApplication(), id.getModule(), id.getTabObject());
+                    org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
                     tab.setColumnWidth(index, width);
                 } catch (ElementNotFoundException ex) {
                     // If it has not tab maybe it's a calculated collection
-                    org.openxava.view.View view = (org.openxava.view.View) getContext(request).get(id.getApplication(), id.getModule(), "xava_view");
+                    org.openxava.view.View view = (org.openxava.view.View) getContext(request).get(application, module, "xava_view");
                     org.openxava.view.View collectionView = view.getSubview(id.getCollection());
                     if (collectionView.isCollectionFromModel() || collectionView.isRepresentsElementCollection()) {
                         String column = columnId.substring(columnId.lastIndexOf("_col") + 4);
@@ -124,11 +117,8 @@ public class TabServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
 
             } else if ("filterColumns".equals(action)) {
-                String application = request.getParameter("application");
-                String module = request.getParameter("module");
                 String searchWord = request.getParameter("searchWord");
 
-                initRequest(request, response, application, module);
                 String result = Servlets.getURIAsString(request, response, "/xava/editors/selectColumns.jsp?application=" + application + "&module=" + module + "&searchWord=" + searchWord);
                 
                 response.setContentType("text/plain; charset=UTF-8");

@@ -26,18 +26,22 @@ openxava.tab = {
 		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
 
-	moveProperty: function(tableId, from, to) {
+	moveProperty: function(application, module, tableId, from, to) {
 		var params = new URLSearchParams();
 		params.append("action", "moveProperty");
+		params.append("application", application);
+		params.append("module", module);
 		params.append("tableId", tableId);
 		params.append("from", from);
 		params.append("to", to);
 		openxava.post(openxava.contextPath + "/xava/tab", params);
 	},
 
-	setColumnWidth: function(columnId, index, width) {
+	setColumnWidth: function(application, module, columnId, index, width) {
 		var params = new URLSearchParams();
 		params.append("action", "setColumnWidth");
+		params.append("application", application);
+		params.append("module", module);
 		params.append("columnId", columnId);
 		params.append("index", index);
 		params.append("width", width);
@@ -666,7 +670,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			openxava.tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
+			openxava.tab.setColumnWidth(application, module, event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -683,7 +687,7 @@ openxava.initLists = function(application, module) {
 	    	ui.item.css("width", "");
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	openxava.tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
+	    	openxava.tab.moveProperty(application, module, tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			setTimeout(function() {
 			    openxava.renumberListColumns(table);
 			}, 200);
