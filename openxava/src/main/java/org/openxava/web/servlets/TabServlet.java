@@ -31,6 +31,7 @@ public class TabServlet extends ServletBase {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String operation = request.getParameter("operation");
         System.out.println("[TabServlet] operation=" + operation); // tmr
+        if (true) throw new RuntimeException("KASKO: " + operation); // tmr
         if (operation == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
             return;

@@ -8,12 +8,15 @@ Pending dwr migration (tmr)
 * ¿Incluir application y module por defecto en openxava.post? NO
 * Refactorizar Servlet.
 * Enviar contexto en openxava.post
-- ¿Mover TableId a otro sitio? ¿Hacerlo acceso paquete otra vez?
-- Revisar nomenclatura, paquetes, URIs, etc.
-- ¿Cambiar el nombre de openxava.post?
+* Revisar nomenclatura, paquetes, URIs, etc.
+* ¿Cambiar el nombre de openxava.post? No
 - Mirar los i18n de los JS.
 - Mirar una forma de sacar error cuando haya fallo.
+- Quitar prints de Tab y Discussion.
 - Probar Tab a fondo.
+- Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
+- Rehacer plan.md.
+- Seguir migrando.
 - Documentar en migration.
 - Borrar los .md con planes.
 

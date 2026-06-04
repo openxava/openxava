@@ -276,7 +276,8 @@ if (manager.isResetFormPostNeeded()) {
 		openxava.showFiltersMessage = '<xava:message key="show_filters"/>';
 		openxava.hideFiltersMessage = '<xava:message key="hide_filters"/>';
 		openxava.confirmLoseChangesMessage = '<xava:message key="confirm_lose_changes"/>';
-		openxava.confirmRemoveFileMessage = '<xava:message key="confirm_remove_file"/>';   
+		openxava.confirmRemoveFileMessage = '<xava:message key="confirm_remove_file"/>';
+		openxava.postErrorMessage = '<xava:message key="no_execute_action" param="" param1=""/>';
 		openxava.selectedRowClass = '<%=style.getSelectedRow()%>';
 		openxava.currentRowClass = '<%=style.getCurrentRow()%>';
 		openxava.currentRowCellClass = '<%=style.getCurrentRowCell()%>';
