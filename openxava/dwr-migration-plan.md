@@ -309,8 +309,8 @@ y del paquete `org.openxava.web.dwr`:
 | `Discussion` | **Migrado** | A | `DiscussionServlet` (`/xava/discussion`). Plantilla de operación única. |
 | `Tab` | **Migrado** | B | `TabServlet` (`/xava/tab`). Plantilla de multi-operación. |
 | `Module` | Pendiente | B | **La más compleja** (~35 KB). Núcleo del ciclo de petición/render. Migrar al final. |
-| `View` | Pendiente | B | Pequeña; buen siguiente candidato. |
-| `Calendar` | Pendiente | B | ~18 KB. Usa `CalendarEvent` como bean de transferencia -> serializar a JSON. |
+| `View` | **Migrado** | B | `ViewServlet` (`/xava/view`). |
+| `Calendar` | Pendiente | B | ~18 KB. Usa `CalendarEvent` as bean de transferencia -> serializar a JSON. |
 | `Tree` | Pendiente | B | ~10 KB. |
 | `Descriptions` | Pendiente | B | ~10 KB. Listas de descripciones / combos dependientes. |
 | `Modules` (naviox) | Pendiente | - | En `com.openxava.naviox.web.dwr`, fuera de este repo base. |
