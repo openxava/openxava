@@ -8,7 +8,7 @@ openxava.calculations = {};
 openxava.tab = {
 	setFilterVisible: function(application, module, filterVisible, tabObject) {
 		var params = new URLSearchParams();
-		params.append("action", "setFilterVisible");
+		params.append("operation", "setFilterVisible");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("filterVisible", filterVisible);
@@ -18,7 +18,7 @@ openxava.tab = {
 
 	removeProperty: function(application, module, property, tabObject) {
 		var params = new URLSearchParams();
-		params.append("action", "removeProperty");
+		params.append("operation", "removeProperty");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("property", property);
@@ -28,7 +28,7 @@ openxava.tab = {
 
 	moveProperty: function(application, module, tableId, from, to) {
 		var params = new URLSearchParams();
-		params.append("action", "moveProperty");
+		params.append("operation", "moveProperty");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("tableId", tableId);
@@ -39,7 +39,7 @@ openxava.tab = {
 
 	setColumnWidth: function(application, module, columnId, index, width) {
 		var params = new URLSearchParams();
-		params.append("action", "setColumnWidth");
+		params.append("operation", "setColumnWidth");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("columnId", columnId);
@@ -50,7 +50,7 @@ openxava.tab = {
 
 	filterColumns: function(application, module, searchWord, callback) {
 		var params = new URLSearchParams();
-		params.append("action", "filterColumns");
+		params.append("operation", "filterColumns");
 		params.append("application", application);
 		params.append("module", module);
 		params.append("searchWord", searchWord);

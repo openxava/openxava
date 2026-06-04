@@ -29,10 +29,10 @@ public class TabServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        System.out.println("[TabServlet] action=" + action); // tmr
-        if (action == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing action parameter");
+        String operation = request.getParameter("operation");
+        System.out.println("[TabServlet] operation=" + operation); // tmr
+        if (operation == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
             return;
         }
 
@@ -41,98 +41,19 @@ public class TabServlet extends HttpServlet {
             String module = request.getParameter("module");
             initRequest(request, response, application, module);
 
-            if ("setFilterVisible".equals(action)) {
-                boolean filterVisible = Boolean.parseBoolean(request.getParameter("filterVisible"));
-                String tabObject = request.getParameter("tabObject");
-
-                org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
-                tab.setFilterVisible(filterVisible);
-                response.setStatus(HttpServletResponse.SC_OK);
-
-            } else if ("updateValue".equals(action)) {
-                int row = Integer.parseInt(request.getParameter("row"));
-                String property = request.getParameter("property");
-                String value = request.getParameter("value");
-
-                String result = updateValue(request, application, module, row, property, value);
-                
-                response.setContentType("text/plain; charset=UTF-8");
-                PrintWriter writer = response.getWriter();
-                writer.print(result);
-                writer.flush();
-
-            } else if ("removeProperty".equals(action)) {
-                System.out.println("[TabServlet] Executing removeProperty"); // tmr
-                String property = request.getParameter("property");
-                String tabObject = request.getParameter("tabObject");
-
-                org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
-                tab.removeProperty(property);
-                response.setStatus(HttpServletResponse.SC_OK);
-                System.out.println("[TabServlet] removeProperty executed"); // tmr
-
-            } else if ("moveProperty".equals(action)) {
-                String tableId = request.getParameter("tableId");
-                int from = Integer.parseInt(request.getParameter("from"));
-                int to = Integer.parseInt(request.getParameter("to"));
-
-                TableId id = new TableId(tableId, 0);
-                if (!id.isValid()) {
-                    log.warn(XavaResources.getString("impossible_store_column_movement"));
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tableId");
-                    return;
-                }
-
-                org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
-                tab.moveProperty(from, to);
-                response.setStatus(HttpServletResponse.SC_OK);
-
-            } else if ("setColumnWidth".equals(action)) {
-                String columnId = request.getParameter("columnId");
-                int index = Integer.parseInt(request.getParameter("index"));
-                int width = Integer.parseInt(request.getParameter("width"));
-
-                TableId id = new TableId(columnId, 1);
-                if (!id.isValid()) {
-                    log.warn(XavaResources.getString("impossible_store_column_width"));
-                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid columnId");
-                    return;
-                }
-
-                try {
-                    org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
-                    tab.setColumnWidth(index, width);
-                } catch (ElementNotFoundException ex) {
-                    // If it has not tab maybe it's a calculated collection
-                    org.openxava.view.View view = (org.openxava.view.View) getContext(request).get(application, module, "xava_view");
-                    org.openxava.view.View collectionView = view.getSubview(id.getCollection());
-                    if (collectionView.isCollectionFromModel() || collectionView.isRepresentsElementCollection()) {
-                        String column = columnId.substring(columnId.lastIndexOf("_col") + 4);
-                        int columnIndex = Integer.parseInt(column);
-                        collectionView.setCollectionColumnWidth(columnIndex, width);
-                    } else {
-                        collectionView.setCollectionColumnWidth(index, width);
-                    }
-                }
-                response.setStatus(HttpServletResponse.SC_OK);
-
-            } else if ("filterColumns".equals(action)) {
-                String searchWord = request.getParameter("searchWord");
-
-                String result = Servlets.getURIAsString(request, response, "/xava/editors/selectColumns.jsp?application=" + application + "&module=" + module + "&searchWord=" + searchWord);
-                
-                response.setContentType("text/plain; charset=UTF-8");
-                PrintWriter writer = response.getWriter();
-                writer.print(result);
-                writer.flush();
-
-            } else {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown action: " + action);
+            switch (operation) {
+                case "setFilterVisible" -> handleSetFilterVisible(request, response, application, module);
+                case "updateValue" -> handleUpdateValue(request, response, application, module);
+                case "removeProperty" -> handleRemoveProperty(request, response, application, module);
+                case "moveProperty" -> handleMoveProperty(request, response, application, module);
+                case "setColumnWidth" -> handleSetColumnWidth(request, response, application, module);
+                case "filterColumns" -> handleFilterColumns(request, response, application, module);
+                default -> response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown operation: " + operation);
             }
         } catch (SecurityException e) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         } catch (Exception e) {
-            log.error("Error processing tab action: " + action, e);
+            log.error("Error processing tab operation: " + operation, e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         } finally {
             cleanRequest();
@@ -150,6 +71,96 @@ public class TabServlet extends HttpServlet {
 
     private void cleanRequest() {
         Requests.clean();
+    }
+
+    private void handleSetFilterVisible(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        boolean filterVisible = Boolean.parseBoolean(request.getParameter("filterVisible"));
+        String tabObject = request.getParameter("tabObject");
+
+        org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
+        tab.setFilterVisible(filterVisible);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void handleUpdateValue(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        int row = Integer.parseInt(request.getParameter("row"));
+        String property = request.getParameter("property");
+        String value = request.getParameter("value");
+
+        String result = updateValue(request, application, module, row, property, value);
+
+        response.setContentType("text/plain; charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(result);
+        writer.flush();
+    }
+
+    private void handleRemoveProperty(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        System.out.println("[TabServlet] Executing removeProperty"); // tmr
+        String property = request.getParameter("property");
+        String tabObject = request.getParameter("tabObject");
+
+        org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
+        tab.removeProperty(property);
+        response.setStatus(HttpServletResponse.SC_OK);
+        System.out.println("[TabServlet] removeProperty executed"); // tmr
+    }
+
+    private void handleMoveProperty(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        String tableId = request.getParameter("tableId");
+        int from = Integer.parseInt(request.getParameter("from"));
+        int to = Integer.parseInt(request.getParameter("to"));
+
+        TableId id = new TableId(tableId, 0);
+        if (!id.isValid()) {
+            log.warn(XavaResources.getString("impossible_store_column_movement"));
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tableId");
+            return;
+        }
+
+        org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
+        tab.moveProperty(from, to);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void handleSetColumnWidth(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException, ElementNotFoundException {
+        String columnId = request.getParameter("columnId");
+        int index = Integer.parseInt(request.getParameter("index"));
+        int width = Integer.parseInt(request.getParameter("width"));
+
+        TableId id = new TableId(columnId, 1);
+        if (!id.isValid()) {
+            log.warn(XavaResources.getString("impossible_store_column_width"));
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid columnId");
+            return;
+        }
+
+        try {
+            org.openxava.tab.Tab tab = getTab(request, application, module, id.getTabObject());
+            tab.setColumnWidth(index, width);
+        } catch (ElementNotFoundException ex) {
+            org.openxava.view.View view = (org.openxava.view.View) getContext(request).get(application, module, "xava_view");
+            org.openxava.view.View collectionView = view.getSubview(id.getCollection());
+            if (collectionView.isCollectionFromModel() || collectionView.isRepresentsElementCollection()) {
+                String column = columnId.substring(columnId.lastIndexOf("_col") + 4);
+                int columnIndex = Integer.parseInt(column);
+                collectionView.setCollectionColumnWidth(columnIndex, width);
+            } else {
+                collectionView.setCollectionColumnWidth(index, width);
+            }
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
+
+    private void handleFilterColumns(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException, ServletException {
+        String searchWord = request.getParameter("searchWord");
+
+        String result = Servlets.getURIAsString(request, response, "/xava/editors/selectColumns.jsp?application=" + application + "&module=" + module + "&searchWord=" + searchWord);
+
+        response.setContentType("text/plain; charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(result);
+        writer.flush();
     }
 
     private static ModuleContext getContext(HttpServletRequest request) {
