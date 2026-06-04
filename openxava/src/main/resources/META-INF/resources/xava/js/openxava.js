@@ -58,6 +58,25 @@ openxava.tab = {
 	}
 };
 
+var View = {
+	setFrameClosed: function(frameId, closed) {
+		var params = new URLSearchParams();
+		params.append("operation", "setFrameClosed");
+		params.append("frameId", frameId);
+		params.append("closed", closed);
+		openxava.post("/xava/view", params);
+	},
+
+	moveCollectionElement: function(tableId, from, to) {
+		var params = new URLSearchParams();
+		params.append("operation", "moveCollectionElement");
+		params.append("tableId", tableId);
+		params.append("from", from);
+		params.append("to", to);
+		openxava.post("/xava/view", params);
+	}
+};
+
 openxava.init = function(application, module, initUI) { 
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
