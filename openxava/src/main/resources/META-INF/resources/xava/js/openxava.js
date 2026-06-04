@@ -1592,7 +1592,7 @@ openxava.watchColumnsSearch = function() {
 }
 
 openxava.filterColumns = function() {
-	Tab.filterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
+	openxava.tab.filterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
 }
 
 openxava.refreshColumnsList = function(columnsList) { 
