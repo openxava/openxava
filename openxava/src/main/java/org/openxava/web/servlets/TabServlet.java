@@ -22,7 +22,7 @@ import org.openxava.web.style.*;
  * @since 8.0
  */
 @WebServlet(name = "tab", urlPatterns = "/xava/tab")
-public class TabServlet extends HttpServlet {
+public class TabServlet extends ServletBase {
 
     private static final long serialVersionUID = 1L;
     private static Log log = LogFactory.getLog(TabServlet.class);
@@ -58,19 +58,6 @@ public class TabServlet extends HttpServlet {
         } finally {
             cleanRequest();
         }
-    }
-
-    private void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
-        Servlets.setCharacterEncoding(request, response);
-        ModuleContext context = getContext(request);
-        if (context != null) context.setCurrentWindowId(request);
-        checkSecurity(request, application, module);
-        request.setAttribute("style", Style.getInstance());
-        Requests.partialInit(request, application, module);
-    }
-
-    private void cleanRequest() {
-        Requests.clean();
     }
 
     private void handleSetFilterVisible(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
@@ -161,27 +148,6 @@ public class TabServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.print(result);
         writer.flush();
-    }
-
-    private static ModuleContext getContext(HttpServletRequest request) {
-        return (ModuleContext) request.getSession().getAttribute("context");
-    }
-
-    private static void checkSecurity(HttpServletRequest request, String application, String module) {
-        ModuleContext context = getContext(request);
-        if (context == null) {
-            throw new SecurityException("6859");
-        }
-        if (!context.exists(application, module, "manager")) {
-            throw new SecurityException("9876");
-        }
-        if (context.exists(application, module, "naviox_locked")) {
-            Boolean locking = (Boolean) context.get(application, module, "naviox_locking");
-            if (!locking) {
-                Boolean locked = (Boolean) context.get(application, module, "naviox_locked");
-                if (locked) throw new SecurityException("3923");
-            }
-        }
     }
 
     private static org.openxava.tab.Tab getTab(HttpServletRequest request, String application, String module, String tabObject) {

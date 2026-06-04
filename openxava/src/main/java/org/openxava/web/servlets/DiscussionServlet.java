@@ -22,7 +22,7 @@ import org.openxava.web.editors.*;
  * @since 8.0
  */
 @WebServlet(name = "discussion", urlPatterns = "/xava/discussion")
-public class DiscussionServlet extends HttpServlet {
+public class DiscussionServlet extends ServletBase {
 
     private static final long serialVersionUID = 1L;
 
@@ -54,39 +54,6 @@ public class DiscussionServlet extends HttpServlet {
                 XPersistence.commit();
             } finally {
                 cleanRequest();
-            }
-        }
-    }
-
-    private void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
-        Servlets.setCharacterEncoding(request, response);
-        ModuleContext context = getContext(request);
-        if (context != null) context.setCurrentWindowId(request);
-        checkSecurity(request, application, module);
-        Requests.partialInit(request, application, module);
-    }
-
-    private void cleanRequest() {
-        Requests.clean();
-    }
-
-    private ModuleContext getContext(HttpServletRequest request) {
-        return (ModuleContext) request.getSession().getAttribute("context");
-    }
-
-    private void checkSecurity(HttpServletRequest request, String application, String module) {
-        ModuleContext context = getContext(request);
-        if (context == null) {
-            throw new SecurityException("6859");
-        }
-        if (!context.exists(application, module, "manager")) {
-            throw new SecurityException("9876");
-        }
-        if (context.exists(application, module, "naviox_locked")) {
-            Boolean locking = (Boolean) context.get(application, module, "naviox_locking");
-            if (!locking) {
-                Boolean locked = (Boolean) context.get(application, module, "naviox_locked");
-                if (locked) throw new SecurityException("3923");
             }
         }
     }
