@@ -1,69 +1,114 @@
-# Plan de Migración de DWR a Fetch + Servlet en OpenXava: Módulo Discussion
+# Plan genérico de migración de DWR a Fetch + Servlet en OpenXava
 
-Este documento detalla el plan paso a paso para migrar el módulo de discusiones (`Discussion`) de OpenXava, actualmente implementado con Direct Web Remoting (DWR), hacia un enfoque moderno utilizando JavaScript `fetch` nativo en el cliente y un `HttpServlet` estándar en el servidor. 
+Este documento es la **guía de referencia** para eliminar progresivamente el uso de
+Direct Web Remoting (DWR) en OpenXava, sustituyéndolo por un enfoque moderno:
+JavaScript `fetch` nativo en el cliente y `HttpServlet` estándar en el servidor.
 
-Esta migración servirá como prototipo y base de aprendizaje para eliminar completamente el uso de DWR en el framework.
+Ya hay **dos migraciones completas y funcionando** que sirven de plantilla:
 
----
+- **`Discussion`** -> patrón de **operación única** (un solo método).
+- **`Tab`** -> patrón de **multi-operación** (varias acciones bajo un mismo servlet).
 
-## 1. Análisis de la Implementación Actual
-
-El flujo actual con DWR se compone de los siguientes elementos:
-
-1. **Servidor (Clase DWR)**:
-   - `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/dwr/Discussion.java`: Define el método `postComment(...)` que gestiona la persistencia del comentario, auditoría de modificaciones mediante `AccessTracker` y control de transacciones. Extiende de `DWRBase` para obtener control de seguridad, inicialización del contexto y codificación de caracteres.
-2. **Configuración de DWR**:
-   - `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/WEB-INF/dwr.xml`: Define el creador para exponer el componente Java bajo el alias JavaScript `Discussion`.
-3. **Cliente (Frontend)**:
-   - `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/xava/editors/js/discussionEditor.js`: Carga dinámicamente el script de DWR `/dwr/interface/Discussion.js` e invoca directamente `Discussion.postComment(application, module, discussionId, commentContent)`.
+Las clases DWR pendientes están en
+`@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/dwr`.
 
 ---
 
-## 2. Nueva Arquitectura Propuesta
+## 1. Arquitectura objetivo
 
-La nueva arquitectura elimina por completo DWR para el componente `Discussion` sustituyéndolo por:
+El reemplazo de DWR se apoya en tres piezas reutilizables ya creadas:
 
-1. **Cliente**: Un envío HTTP POST asíncrono estándar mediante la API `fetch` nativa del navegador.
-2. **Servidor**: Un servlet Java registrado mediante anotaciones estándar de Java Servlet (`@WebServlet`) mapeado en la ruta `/xava/discussion`.
+### 1.1 Servidor: `BaseServlet`
+
+Toda la lógica común de DWR (`DWRBase`) se ha extraído a una clase base de la que
+heredan todos los servlets de migración:
+
+- **Ruta**: `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/servlets/BaseServlet.java`
+
+Proporciona:
+
+- **`initRequest(request, response, application, module)`**: fija el encoding, el
+  `windowId` actual, ejecuta `checkSecurity(...)`, pone el `style` en el request e
+  invoca `Requests.partialInit(...)`. Es el equivalente exacto a `DWRBase.initRequest`.
+- **`checkSecurity(request, application, module)`**: lanza `SecurityException` con los
+  códigos `6859` (sin sesión), `9876` (módulo no ejecutado) o `3923` (módulo bloqueado).
+- **`cleanRequest()`**: llama a `Requests.clean()` (invocar siempre en el `finally`).
+- **`getContext(request)`**: recupera el `ModuleContext` de la sesión.
+- **`sendError(response, statusCode, message)`**: responde con texto plano, evitando la
+  página de error de Tomcat (que revela la versión del servidor).
+
+> Cualquier servlet nuevo **debe** extender `BaseServlet` y **no** reimplementar esta lógica.
+
+### 1.2 Cliente: `openxava.post`
+
+Helper único que centraliza todas las llamadas `fetch`:
+
+- **Ruta**: `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/xava/js/openxava.js`
+
+```javascript
+openxava.post = function(url, params, callback) {
+	var fullUrl = url.indexOf("://") >= 0 ? url : openxava.contextPath + url;
+	var fetchOptions = {
+		method: "POST",
+		credentials: "same-origin",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"xavawindowid": $("#xava_window_id").val()
+		},
+		body: params
+	};
+	fetch(fullUrl, fetchOptions)
+		.then(function(response) {
+			if (!response.ok) {
+				return response.text().then(function(text) {
+					throw new Error("HTTP Status " + response.status + " - " + text);
+				});
+			}
+			if (callback) return response.text();
+		})
+		.then(function(text) { if (callback) callback(text); })
+		.catch(function(error) {
+			console.error("Error in openxava.post:", error);
+			openxava.showError(openxava.postErrorMessage);
+			if (callback) callback("ERROR: " + error.message);
+		});
+};
+```
+
+Puntos clave que ya resuelve por nosotros:
+
+- **`contextPath`** se antepone automáticamente (pasar siempre rutas tipo `/xava/...`).
+- **`xavawindowid`** se envía en la cabecera, imprescindible para que el servlet
+  recupere el `ModuleContext`/ventana correctos (lo usa `context.setCurrentWindowId(request)`).
+- **`credentials: same-origin`** envía las cookies de sesión.
+- **`callback(text)`**: si se pasa, recibe el cuerpo de la respuesta como texto; en caso
+  de error recibe una cadena que empieza por `"ERROR:"`.
+
+### 1.3 Cliente: objeto de espacio de nombres
+
+Cada interfaz DWR se sustituye por un objeto JS con la **misma firma de métodos** que la
+clase Java original, de modo que el código que la invoca no necesita cambiar (o cambia
+mínimamente). Hay dos ubicaciones según el caso:
+
+- **Global de framework** (p. ej. `Tab`): se define como `openxava.tab` dentro de
+  `openxava.js`.
+- **De editor** (p. ej. `Discussion`): se define en el `*.js` del editor
+  (`discussionEditor.js`).
 
 ---
 
-## 3. Plan de Migración Paso a Paso
+## 2. Los dos patrones de servlet
 
-### Paso 1: Implementar el Servlet en Servidor (`DiscussionServlet.java`)
+### 2.1 Patrón A - Operación única (`DiscussionServlet`)
 
-Se creará una nueva clase en el paquete de servlets de OpenXava para recibir las peticiones de discusión, procesar la petición, inicializar el contexto del módulo, realizar las validaciones de seguridad pertinentes (adaptadas de `DWRBase`) y persistir el comentario de la discusión.
+Cuando la clase DWR expone esencialmente **un método**, el servlet implementa
+directamente `doPost` con parámetros fijos.
 
-- **Ruta del nuevo archivo**: `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/servlets/DiscussionServlet.java`
-
-#### Blueprint de `DiscussionServlet.java`
+- **Ruta**: `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/servlets/DiscussionServlet.java`
 
 ```java
-package org.openxava.web.servlets;
-
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
-import org.openxava.controller.*;
-import org.openxava.formatters.*;
-import org.openxava.jpa.*;
-import org.openxava.util.*;
-import org.openxava.view.*;
-import org.openxava.web.*;
-import org.openxava.web.editors.*;
-
-/**
- * Servlet para gestionar los comentarios de discusión sin DWR.
- * 
- * @author Javier Paniza / Migración Fetch
- * @since 8.0
- */
 @WebServlet(name = "discussion", urlPatterns = "/xava/discussion")
-public class DiscussionServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
+public class DiscussionServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,217 +116,214 @@ public class DiscussionServlet extends HttpServlet {
         String module = request.getParameter("module");
         String discussionId = request.getParameter("discussionId");
         String commentContent = request.getParameter("commentContent");
-
         try {
             initRequest(request, response, application, module);
-            
-            DiscussionComment comment = new DiscussionComment();
-            comment.setDiscussionId(discussionId);
-            comment.setUserName(Users.getCurrent());
-            comment.setComment(commentContent);
-            XPersistence.getManager().persist(comment);
-            
-            trackModification(request, application, module, discussionId, commentContent);
-            
+            // ... lógica de negocio ...
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SecurityException e) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         } finally {
-            try {
-                XPersistence.commit();
-            } finally {
-                cleanRequest();
-            }
+            try { XPersistence.commit(); } finally { cleanRequest(); }
         }
-    }
-
-    private void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
-        Servlets.setCharacterEncoding(request, response);
-        ModuleContext context = getContext(request);
-        if (context != null) context.setCurrentWindowId(request);
-        checkSecurity(request, application, module);
-        Requests.partialInit(request, application, module);
-    }
-
-    private void cleanRequest() {
-        Requests.clean();
-    }
-
-    private ModuleContext getContext(HttpServletRequest request) {
-        return (ModuleContext) request.getSession().getAttribute("context");
-    }
-
-    private void checkSecurity(HttpServletRequest request, String application, String module) {
-        ModuleContext context = getContext(request);
-        if (context == null) {
-            throw new SecurityException("6859");
-        }
-        if (!context.exists(application, module, "manager")) {
-            throw new SecurityException("9876");
-        }
-        if (context.exists(application, module, "naviox_locked")) {
-            Boolean locking = (Boolean) context.get(application, module, "naviox_locking");
-            if (!locking) {
-                Boolean locked = (Boolean) context.get(application, module, "naviox_locked");
-                if (locked) throw new SecurityException("3923");
-            }
-        }
-    }
-
-    private void trackModification(HttpServletRequest request, String application, String module, String discussionId, String commentContent) {
-        View view = (View) getContext(request).get(application, module, "xava_view");
-        String property = getDiscussionProperty(view.getValues(), discussionId);
-        Map<String, Object> oldChangedValues = new HashMap<>();
-        oldChangedValues.put(property, XavaResources.getString("discussion_new_comment"));
-        Map<String, Object> newChangedValues = new HashMap<>();
-        String formattedContent = formatContent(request, commentContent);
-        newChangedValues.put(property, formattedContent);
-        AccessTracker.modified(view.getModelName(), view.getKeyValues(), oldChangedValues, newChangedValues);
-    }
-
-    private String formatContent(HttpServletRequest request, String commentContent) {
-        try {
-            return new HtmlTextListFormatter().format(request, commentContent);
-        } catch (Exception e) {
-            return commentContent;
-        }
-    }
-
-    private String getDiscussionProperty(Map<?, ?> values, String discussionId) {
-        return (String) Maps.getKeyFromValue(values, discussionId, "DISCUSSION");
     }
 }
 ```
 
----
-
-### Paso 2: Adaptar el Frontend (`discussionEditor.js`)
-
-Se modificará el inicializador del editor de discusiones para eliminar la carga del archivo autogenerado de DWR y se reescribirán los métodos que envían el comentario para realizar un `fetch` POST HTTP estándar hacia el nuevo servlet.
-
-- **Ruta del archivo a modificar**: `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/xava/editors/js/discussionEditor.js`
-
-#### Cambios requeridos en `discussionEditor.js`
-
-1. **Eliminar la línea de carga de DWR**:
-   ```javascript
-   // Eliminar esta línea
-   openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js"); 
-   ```
-
-2. **Reescribir `discussionEditor.postMessage` y `discussionEditor.postMessageHtmlUnit` para usar Fetch**:
+Cliente correspondiente (`discussionEditor.js`):
 
 ```javascript
-if (discussionEditor == null) var discussionEditor = {};
-
-openxava.addEditorInitFunction(function() {
-	$('.ox-discussion-add-button').off('click').click(function() {
-		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
-	});
-	$('.ox-discussion-cancel-button').off('click').click(function() {
-		discussionEditor.cancel($(this).parent().data("discussion-id"));
-	});	
-});
-
-discussionEditor.postMessage = function(application, module, discussionId) {
-	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
-	var comments = $('#xava_comments_' + discussionId);
-	var lastComment = comments.children().last(); 
-	var template = lastComment.clone();
-	var commentContent = newComment.getContent(); 
-	lastComment.find(".ox-discussion-comment-content").html(commentContent);
-	lastComment.slideDown(); 
-	newComment.resetContent(""); 
-
-	// Reemplazo de DWR.postComment por fetch API nativo
-	discussionEditor.sendComment(application, module, discussionId, commentContent);
-
-	comments.append(template);
-	discussionEditor.clear(discussionId); 
-}
-
-discussionEditor.postMessageHtmlUnit = function(application, module, discussionId, commentContent) {
-	var comments = $('#xava_comments_' + discussionId);
-	var lastComment = comments.children().last(); 
-	var template = lastComment.clone();
-	lastComment.find(".ox-discussion-comment-content").html(commentContent);
-	lastComment.show(); 
-
-	// Reemplazo de DWR.postComment por fetch API nativo
-	discussionEditor.sendComment(application, module, discussionId, commentContent);
-
-	comments.append(template);
-}
-
-// Nueva función auxiliar para encapsular la llamada HTTP fetch
 discussionEditor.sendComment = function(application, module, discussionId, commentContent) {
-	var url = openxava.contextPath + "/xava/discussion";
 	var params = new URLSearchParams();
 	params.append("application", application);
 	params.append("module", module);
 	params.append("discussionId", discussionId);
 	params.append("commentContent", commentContent);
-
-	fetch(url, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/x-www-form-urlencoded"
-		},
-		body: params
-	})
-	.then(function(response) {
-		if (!response.ok) {
-			throw new Error("HTTP status " + response.status);
-		}
-	})
-	.catch(function(error) {
-		console.error("Error posting discussion comment:", error);
-		alert("Error: Discussion comment not added");
-	});
-}
-
-discussionEditor.cancel = function(discussionId) {
-	discussionEditor.clear(discussionId);
-}
-
-discussionEditor.clear = function(discussionId) {
-	$("#xava_new_comment_" + discussionId + "_buttons input").fadeOut();
-	$('.ox-button-bar-button').fadeIn();
-	$('.ox-bottom-buttons').css("visibility", "visible");  
-	$('.ox-bottom-buttons').children().fadeIn(); 
-	tinymce.get('xava_new_comment_' + discussionId).resetContent(); 
+	openxava.post("/xava/discussion", params);
 }
 ```
 
+### 2.2 Patrón B - Multi-operación (`TabServlet`)
+
+Cuando la clase DWR expone **varios métodos**, se usa un único servlet con un parámetro
+`operation` y un `switch` que despacha a un método privado por operación. Así se evita
+crear decenas de servlets.
+
+- **Ruta**: `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/servlets/TabServlet.java`
+
+```java
+@WebServlet(name = "tab", urlPatterns = "/xava/tab")
+public class TabServlet extends BaseServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String operation = request.getParameter("operation");
+        if (operation == null) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
+            return;
+        }
+        try {
+            String application = request.getParameter("application");
+            String module = request.getParameter("module");
+            initRequest(request, response, application, module);
+            switch (operation) {
+                case "setFilterVisible" -> handleSetFilterVisible(request, response, application, module);
+                case "updateValue"      -> handleUpdateValue(request, response, application, module);
+                case "removeProperty"   -> handleRemoveProperty(request, response, application, module);
+                case "moveProperty"     -> handleMoveProperty(request, response, application, module);
+                case "setColumnWidth"   -> handleSetColumnWidth(request, response, application, module);
+                case "filterColumns"    -> handleFilterColumns(request, response, application, module);
+                default -> sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Unknown operation: " + operation);
+            }
+        } catch (SecurityException e) {
+            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        } catch (Exception e) {
+            log.error("Error processing tab operation: " + operation, e);
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+        } finally {
+            cleanRequest();
+        }
+    }
+}
+```
+
+Cliente correspondiente: objeto `openxava.tab` en `openxava.js` (un método por operación)
+y, donde aplica, helpers en el editor (`listEditor.updateValue`). Cada método construye un
+`URLSearchParams` con `operation` + parámetros y llama a `openxava.post("/xava/tab", params[, callback])`.
+
+```javascript
+openxava.tab = {
+	setFilterVisible: function(application, module, filterVisible, tabObject) {
+		var params = new URLSearchParams();
+		params.append("operation", "setFilterVisible");
+		params.append("application", application);
+		params.append("module", module);
+		params.append("filterVisible", filterVisible);
+		params.append("tabObject", tabObject);
+		openxava.post("/xava/tab", params);
+	},
+	// ... resto de operaciones ...
+	filterColumns: function(application, module, searchWord, callback) {
+		var params = new URLSearchParams();
+		params.append("operation", "filterColumns");
+		params.append("application", application);
+		params.append("module", module);
+		params.append("searchWord", searchWord);
+		openxava.post("/xava/tab", params, callback); // operación con retorno
+	}
+};
+```
+
+### 2.3 ¿Cuándo usar cada patrón?
+
+- **1 método** o métodos sin relación con otros editores -> **Patrón A**.
+- **2+ métodos** de un mismo componente de framework -> **Patrón B**.
+
 ---
 
-### Paso 3: Limpieza de la configuración de DWR
+## 3. Convenciones de respuesta
 
-Una vez verificado que el nuevo enfoque funciona correctamente, se eliminarán las referencias a la clase `Discussion` de DWR:
+DWR devolvía objetos Java serializados; con `fetch` trabajamos con **texto plano** y
+**códigos de estado HTTP**:
 
-1. **Editar `dwr.xml`**:
-   - Eliminar el bloque de creación del bean de discusión en `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/WEB-INF/dwr.xml`:
-     ```xml
-     <!-- ELIMINAR ESTE BLOQUE -->
-     <create creator="new" javascript="Discussion">
-       <param name="class" value="org.openxava.web.dwr.Discussion"/>
-     </create>
-     ```
+- **Sin retorno** (acción "fire-and-forget"): `response.setStatus(SC_OK)`. El cliente
+  llama a `openxava.post(url, params)` sin callback.
+- **Con retorno**: escribir el resultado como `text/plain; charset=UTF-8` y consumirlo en
+  el `callback(text)`. Ejemplo en `TabServlet.handleUpdateValue` /
+  `handleFilterColumns`.
+- **Errores de negocio dentro de una operación con retorno**: devolver una cadena que
+  empiece por `"ERROR: "` (convención que ya interpreta el cliente, p. ej. en
+  `listEditor.updateValue`).
+- **Errores de seguridad / fallo de servidor**: usar `sendError(...)` con
+  `SC_FORBIDDEN` / `SC_INTERNAL_SERVER_ERROR`; `openxava.post` los detecta vía
+  `response.ok` y dispara `openxava.showError`.
 
-2. **Eliminar la clase DWR heredada**:
-   - Borrar el archivo `@/E:/IdeaProjects/openxava/openxava/src/main/java/org/openxava/web/dwr/Discussion.java`.
+> Si una operación DWR devolvía un objeto complejo, serializarlo a JSON
+> (`response.setContentType("application/json")`) y parsearlo en el callback con
+> `JSON.parse`.
 
 ---
 
-## 4. Estrategia de Migración para el Resto de DWR (Futuro)
+## 4. Receta paso a paso para migrar una clase DWR
 
-Tras consolidar con éxito la migración de `Discussion`, se abordarán las restantes clases de DWR en `org.openxava.web.dwr` (siendo la más compleja `Module`):
+Para cada clase de `org.openxava.web.dwr`:
 
-1. **Identificación de clases a migrar**:
-   - `Module`, `Tab`, `View`, `Calendar`, `Tree`, `Descriptions`.
-2. **Centralización vs Servlets Múltiples**:
-   - Para no saturar con decenas de servlets específicos, se propone crear un servlet general de despacho (ej. `org.openxava.web.servlets.XavaAjaxServlet`) que acepte un parámetro como `action` o `method` y enrute a la clase de servicio correspondiente, actuando de forma similar a un controlador frontal AJAX.
-3. **Extracción de la Lógica Común de Seguridad**:
-   - Las validaciones de seguridad de `DWRBase` deberán ser extraídas a una clase de utilidad (por ejemplo, en `Servlets.java` o `Requests.java`) para que cualquier nuevo servlet o manejador AJAX pueda verificar que el usuario actual tenga acceso legítimo a la aplicación y al módulo.
+1. **Inventariar** los métodos públicos invocados desde el cliente y sus parámetros /
+   tipos de retorno (buscar `NombreClase.metodo(` en los `*.js`).
+2. **Elegir patrón** (A o B, sección 2.3) y crear el servlet en
+   `org.openxava.web.servlets` extendiendo `BaseServlet`, mapeado en `/xava/<nombre>`.
+3. **Trasladar la lógica** del método DWR al servlet:
+   - Sustituir el preámbulo de `DWRBase` por `initRequest(...)` / `cleanRequest()`.
+   - Recuperar objetos de sesión con `getContext(request).get(application, module, "...")`
+     (p. ej. `xava_view`, `xava_tab`).
+   - Mantener el control de transacciones donde la clase original lo hiciera
+     (p. ej. `XPersistence.commit()` en el `finally`).
+4. **Crear/actualizar el objeto JS** con la misma firma:
+   - Framework global -> `openxava.<nombre>` en `openxava.js`.
+   - Editor concreto -> en su `*.js`.
+   - Cada método construye `URLSearchParams` y delega en `openxava.post`.
+5. **Eliminar la carga del script DWR** autogenerado en el cliente:
+   ```javascript
+   openxava.getScript(openxava.contextPath + "/dwr/interface/<Nombre>.js"); // ELIMINAR
+   ```
+   y/o el `<script src=".../dwr/interface/<Nombre>.js">` en JSPs
+   (`module.jsp`, `naviox/index.jsp`, etc.).
+6. **Probar** la funcionalidad (incluida la ruta HtmlUnit si existe, como
+   `discussionEditor.postMessageHtmlUnit`).
+7. **Limpiar DWR** (sección 5).
+
+---
+
+## 5. Limpieza de DWR tras verificar
+
+1. **`dwr.xml`** - eliminar el `<create>` de la clase migrada:
+   `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/WEB-INF/dwr.xml`
+   ```xml
+   <!-- ELIMINAR -->
+   <create creator="new" javascript="Nombre">
+     <param name="class" value="org.openxava.web.dwr.Nombre"/>
+   </create>
+   ```
+   Si la clase usaba `<convert>` (p. ej. `Result`, `StrokeAction`) y deja de ser
+   necesaria, eliminar también esa entrada.
+2. **Borrar la clase DWR** en `org.openxava.web.dwr` (y clases auxiliares que queden
+   huérfanas).
+3. Cuando **todas** las clases estén migradas: eliminar la dependencia de DWR del
+   `pom.xml`, el servlet de DWR de los `web.xml` y este patrón quedará completamente
+   retirado.
+
+> Nota: `TableId` se hizo `public` para poder reutilizarse desde `org.openxava.web.servlets`.
+> Cualquier clase auxiliar de `dwr` que un servlet necesite debe promoverse a `public`
+> (o moverse al paquete `servlets`).
+
+---
+
+## 6. Inventario de clases DWR pendientes
+
+Estado actual de `@/E:/IdeaProjects/openxava/openxava/src/main/resources/META-INF/resources/WEB-INF/dwr.xml`
+y del paquete `org.openxava.web.dwr`:
+
+| Clase DWR | Estado | Patrón sugerido | Notas |
+|-----------|--------|-----------------|-------|
+| `Discussion` | **Migrado** | A | `DiscussionServlet` (`/xava/discussion`). Plantilla de operación única. |
+| `Tab` | **Migrado** | B | `TabServlet` (`/xava/tab`). Plantilla de multi-operación. |
+| `Module` | Pendiente | B | **La más compleja** (~35 KB). Núcleo del ciclo de petición/render. Migrar al final. |
+| `View` | Pendiente | B | Pequeña; buen siguiente candidato. |
+| `Calendar` | Pendiente | B | ~18 KB. Usa `CalendarEvent` como bean de transferencia -> serializar a JSON. |
+| `Tree` | Pendiente | B | ~10 KB. |
+| `Descriptions` | Pendiente | B | ~10 KB. Listas de descripciones / combos dependientes. |
+| `Modules` (naviox) | Pendiente | - | En `com.openxava.naviox.web.dwr`, fuera de este repo base. |
+| `Folders` (naviox) | Pendiente | - | Idem naviox. |
+| `PhoneList` (phone) | Pendiente | - | En `com.openxava.phone.web.dwr`. |
+
+Clases auxiliares (no exponen métodos al cliente, se migran/eliminan con su clase):
+`DWRBase` (sustituida por `BaseServlet`), `ViewBase`, `Result`, `StrokeAction`,
+`CalendarEvent`, `TableId` (ya `public`).
+
+### Orden recomendado
+
+1. `View` (sencilla, consolida el patrón B fuera de Tab).
+2. `Descriptions`, `Tree`, `Calendar`.
+3. Clases de naviox/phone.
+4. `Module` (la última, por su tamaño y por ser el corazón del framework).
