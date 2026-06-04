@@ -13,7 +13,7 @@ openxava.tab = {
 		params.append("module", module);
 		params.append("filterVisible", filterVisible);
 		params.append("tabObject", tabObject);
-		openxava.post(openxava.contextPath + "/xava/tab", params);
+		openxava.post("/xava/tab", params);
 	},
 
 	removeProperty: function(application, module, property, tabObject) {
@@ -23,7 +23,7 @@ openxava.tab = {
 		params.append("module", module);
 		params.append("property", property);
 		params.append("tabObject", tabObject);
-		openxava.post(openxava.contextPath + "/xava/tab", params);
+		openxava.post("/xava/tab", params);
 	},
 
 	moveProperty: function(application, module, tableId, from, to) {
@@ -34,7 +34,7 @@ openxava.tab = {
 		params.append("tableId", tableId);
 		params.append("from", from);
 		params.append("to", to);
-		openxava.post(openxava.contextPath + "/xava/tab", params);
+		openxava.post("/xava/tab", params);
 	},
 
 	setColumnWidth: function(application, module, columnId, index, width) {
@@ -45,7 +45,7 @@ openxava.tab = {
 		params.append("columnId", columnId);
 		params.append("index", index);
 		params.append("width", width);
-		openxava.post(openxava.contextPath + "/xava/tab", params);
+		openxava.post("/xava/tab", params);
 	},
 
 	filterColumns: function(application, module, searchWord, callback) {
@@ -54,7 +54,7 @@ openxava.tab = {
 		params.append("application", application);
 		params.append("module", module);
 		params.append("searchWord", searchWord);
-		openxava.post(openxava.contextPath + "/xava/tab", params, callback);
+		openxava.post("/xava/tab", params, callback);
 	}
 };
 
@@ -1654,6 +1654,7 @@ openxava.filterList = function(filterValues) {
 };
 
 openxava.post = function(url, params, callback) {
+	var fullUrl = url.indexOf("://") >= 0 ? url : openxava.contextPath + url;
 	var fetchOptions = {
 		method: "POST",
 		credentials: "same-origin",
@@ -1663,7 +1664,7 @@ openxava.post = function(url, params, callback) {
 		},
 		body: params
 	};
-	fetch(url, fetchOptions)
+	fetch(fullUrl, fetchOptions)
 		.then(function(response) {
 			if (!response.ok) throw new Error("HTTP status " + response.status);
 			if (callback) return response.text();

@@ -43,7 +43,7 @@ discussionEditor.sendComment = function(application, module, discussionId, comme
 	params.append("module", module);
 	params.append("discussionId", discussionId);
 	params.append("commentContent", commentContent);
-	openxava.post(openxava.contextPath + "/xava/discussion", params);
+	openxava.post("/xava/discussion", params);
 }
 
 discussionEditor.cancel = function(discussionId) {

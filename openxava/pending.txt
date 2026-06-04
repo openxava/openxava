@@ -7,10 +7,10 @@ Pending dwr migration (tmr)
 * ¿Quitar Tab de openxava.js?
 * ¿Incluir application y module por defecto en openxava.post? NO
 * Refactorizar Servlet.
-- ¿Enviar contexto en openxava.post?
-- ¿Cambiar el nombre de openxava.post?
+* Enviar contexto en openxava.post
 - ¿Mover TableId a otro sitio? ¿Hacerlo acceso paquete otra vez?
 - Revisar nomenclatura, paquetes, URIs, etc.
+- ¿Cambiar el nombre de openxava.post?
 - Mirar los i18n de los JS.
 - Mirar una forma de sacar error cuando haya fallo.
 - Probar Tab a fondo.

@@ -114,6 +114,6 @@ listEditor.updateValue = function(application, module, row, property, value, cal
 	params.append("row", row);
 	params.append("property", property);
 	params.append("value", value);
-	openxava.post(openxava.contextPath + "/xava/tab", params, callback);
+	openxava.post("/xava/tab", params, callback);
 };
 
