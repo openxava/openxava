@@ -58,26 +58,7 @@ openxava.tab = {
 	}
 };
 
-var View = {
-	setFrameClosed: function(frameId, closed) {
-		var params = new URLSearchParams();
-		params.append("operation", "setFrameClosed");
-		params.append("frameId", frameId);
-		params.append("closed", closed);
-		openxava.post("/xava/view", params);
-	},
-
-	moveCollectionElement: function(tableId, from, to) {
-		var params = new URLSearchParams();
-		params.append("operation", "moveCollectionElement");
-		params.append("tableId", tableId);
-		params.append("from", from);
-		params.append("to", to);
-		openxava.post("/xava/view", params);
-	}
-};
-
-openxava.init = function(application, module, initUI) { 
+openxava.init = function(application, module, initUI) {
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
 	if (initUI) openxava.initUI(application, module); 
@@ -721,7 +702,7 @@ openxava.initLists = function(application, module) {
 	    stop: function( event, ui ) {
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
+	    	openxava.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
 	    }	
 	});
@@ -1476,7 +1457,7 @@ openxava.showFrame = function(id) {
 	$("#"+id+"header").children().fadeOut(2000); 
 	$("#"+id+"hide").show();
 	$("#"+id+"show").hide();
-	View.setFrameClosed(id, false);
+	openxava.setFrameClosed(id, false);
 }
 
 openxava.hideFrame = function(id) {
@@ -1484,7 +1465,7 @@ openxava.hideFrame = function(id) {
 	$("#"+id+"header").children().fadeIn(2000); 
 	$("#"+id+"hide").hide();
 	$("#"+id+"show").show();
-	View.setFrameClosed(id, true);
+	openxava.setFrameClosed(id, true);
 }
 
 openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,labelFrom,labelInValues) {
@@ -1700,4 +1681,21 @@ openxava.post = function(url, params, callback) {
 			openxava.showError(openxava.postErrorMessage);
 			if (callback) callback("ERROR: " + error.message);
 		});
+};
+
+openxava.setFrameClosed = function(frameId, closed) {
+	var params = new URLSearchParams();
+	params.append("operation", "setFrameClosed");
+	params.append("frameId", frameId);
+	params.append("closed", closed);
+	openxava.post("/xava/view", params);
+};
+
+openxava.moveCollectionElement = function(tableId, from, to) {
+	var params = new URLSearchParams();
+	params.append("operation", "moveCollectionElement");
+	params.append("tableId", tableId);
+	params.append("from", from);
+	params.append("to", to);
+	openxava.post("/xava/view", params);
 };
