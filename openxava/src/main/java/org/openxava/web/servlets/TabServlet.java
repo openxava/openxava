@@ -30,8 +30,6 @@ public class TabServlet extends ServletBase {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String operation = request.getParameter("operation");
-        System.out.println("[TabServlet] operation=" + operation); // tmr
-        if (true) throw new RuntimeException("KASKO: " + operation); // tmr
         if (operation == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
             return;
@@ -84,14 +82,12 @@ public class TabServlet extends ServletBase {
     }
 
     private void handleRemoveProperty(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
-        System.out.println("[TabServlet] Executing removeProperty"); // tmr
         String property = request.getParameter("property");
         String tabObject = request.getParameter("tabObject");
 
         org.openxava.tab.Tab tab = getTab(request, application, module, tabObject);
         tab.removeProperty(property);
         response.setStatus(HttpServletResponse.SC_OK);
-        System.out.println("[TabServlet] removeProperty executed"); // tmr
     }
 
     private void handleMoveProperty(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {

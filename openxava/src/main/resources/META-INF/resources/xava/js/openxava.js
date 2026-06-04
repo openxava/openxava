@@ -1674,8 +1674,7 @@ openxava.post = function(url, params, callback) {
 		})
 		.catch(function(error) {
 			console.error("Error in openxava.post:", error);
-			// TMR ME QUEDÉ POR AQUÍ: MEJORANDO LOS ERRORES
-			alert(openxava.postErrorMessage + error.message);
+			openxava.showError(openxava.postErrorMessage);
 			if (callback) callback("ERROR: " + error.message);
 		});
 };

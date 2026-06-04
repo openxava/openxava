@@ -10,9 +10,9 @@ Pending dwr migration (tmr)
 * Enviar contexto en openxava.post
 * Revisar nomenclatura, paquetes, URIs, etc.
 * ¿Cambiar el nombre de openxava.post? No
-- Mirar los i18n de los JS.
-- Mirar una forma de sacar error cuando haya fallo.
-- Quitar prints de Tab y Discussion.
+* Mirar los i18n de los JS.
+* Mirar una forma de sacar error cuando haya fallo.
+* Quitar prints de Tab y Discussion.
 - Probar Tab a fondo.
 - Rehacer plan.md.
 - Seguir migrando.
