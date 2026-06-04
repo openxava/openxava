@@ -46,9 +46,9 @@ public class DiscussionServlet extends ServletBase {
             
             response.setStatus(HttpServletResponse.SC_OK);
         } catch (SecurityException e) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         } finally {
             try {
                 XPersistence.commit();

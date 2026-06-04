@@ -1666,7 +1666,11 @@ openxava.post = function(url, params, callback) {
 	};
 	fetch(fullUrl, fetchOptions)
 		.then(function(response) {
-			if (!response.ok) throw new Error("HTTP status " + response.status);
+			if (!response.ok) {
+				return response.text().then(function(text) {
+					throw new Error("HTTP Status " + response.status + " - " + text);
+				});
+			}
 			if (callback) return response.text();
 		})
 		.then(function(text) {

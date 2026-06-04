@@ -1,5 +1,6 @@
 package org.openxava.web.servlets;
 
+import java.io.IOException;
 import javax.servlet.http.*;
 import org.openxava.controller.*;
 import org.openxava.web.*;
@@ -59,6 +60,17 @@ public class ServletBase extends HttpServlet {
                 if (locked) throw new SecurityException("3923");
             }
         }
+    }
+
+    /**
+     * Send an error response with a plain text message.
+     * This avoids the default Tomcat error page that reveals server version.
+     * @since 8.0
+     */
+    protected void sendError(HttpServletResponse response, int statusCode, String message) throws IOException {
+        response.setStatus(statusCode);
+        response.setContentType("text/plain; charset=UTF-8");
+        response.getWriter().print(message);
     }
 
 }

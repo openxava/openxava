@@ -31,7 +31,7 @@ public class TabServlet extends ServletBase {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String operation = request.getParameter("operation");
         if (operation == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
             return;
         }
 
@@ -47,13 +47,13 @@ public class TabServlet extends ServletBase {
                 case "moveProperty" -> handleMoveProperty(request, response, application, module);
                 case "setColumnWidth" -> handleSetColumnWidth(request, response, application, module);
                 case "filterColumns" -> handleFilterColumns(request, response, application, module);
-                default -> response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unknown operation: " + operation);
+                default -> sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Unknown operation: " + operation);
             }
         } catch (SecurityException e) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
         } catch (Exception e) {
             log.error("Error processing tab operation: " + operation, e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         } finally {
             cleanRequest();
         }
@@ -98,7 +98,7 @@ public class TabServlet extends ServletBase {
         TableId id = new TableId(tableId, 0);
         if (!id.isValid()) {
             log.warn(XavaResources.getString("impossible_store_column_movement"));
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid tableId");
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid tableId");
             return;
         }
 
@@ -115,7 +115,7 @@ public class TabServlet extends ServletBase {
         TableId id = new TableId(columnId, 1);
         if (!id.isValid()) {
             log.warn(XavaResources.getString("impossible_store_column_width"));
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid columnId");
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Invalid columnId");
             return;
         }
 
