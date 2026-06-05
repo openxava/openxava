@@ -1,18 +1,17 @@
 Change Log for OpenXava project
 ===============================
 
+OpenXava 7.7.3 (2026-6-5)
+-------------------------
 - Completed French and German translations for labels and messages.
 - Some new common use labels to be used in applications.
-
 - Groovy upgraded to 4.0.32.
 - json upgraded to 20260522.
 - Embedded Tomcat used in development upgraded to 9.0.118.
 - Driver version in doc/new projects upgraded for MySQL, Oracle and Informix.
-
 - Spring Boot integration article rewritten to be simpler and use the latest versions.
 - Added extra headers to README.md to make specific archetypes easier to find.
 - Moved the Project Templates article to the Quick Start section of the documentation.
-
 - Fixed 7 security vulnerabilities in dependencies, 3 of them critical.
 - Fix: Search missing for references in @ElementCollection when the referenced entity hidden id is shown.
 - Fix: Uploading a file fails if acceptFileTypes declares an extension with no known MIME type.
@@ -26,8 +25,6 @@ Change Log for OpenXava project
 - Fix: Missing labels in newly created standard projects before any code is added.
 - Fix: Chat panel overlaps the rightmost cards in card-format list view.
 - Fix: Collection changes via chat are not immediately reflected in the UI.
-
-
 
 OpenXava 7.7.2 (2026-5-8)
 -------------------------
