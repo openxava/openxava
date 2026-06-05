@@ -1,4 +1,4 @@
-package org.openxava.web.dwr;
+package org.openxava.web.servlets;
 
 import org.openxava.application.meta.*;
 
@@ -8,7 +8,7 @@ import org.openxava.application.meta.*;
  * @since 5.3
  * @author Javier Paniza 
  */
-public class TableId { 
+class TableId {
 	
 	private String application;
 	private String module;
@@ -21,7 +21,7 @@ public class TableId {
 		String shortTableId = tableId.replace(application, "");
 		String [] id = shortTableId.split("_+");
 		if (!"ox".equals(id[0])) {
-			// Bad format. This method relies in the id format by Ids class
+			// Bad format. This method relies on the id format by Ids class
 			valid = false;
 			return;
 		}		

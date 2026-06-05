@@ -11,7 +11,6 @@ import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.dwr.*;
 
 /**
  * Servlet for Tab operations without DWR.
