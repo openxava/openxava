@@ -26,10 +26,6 @@
       <param name="class" value="org.openxava.web.dwr.Calendar"/>
     </create>
     
-    <create creator="new" javascript="Tree">
-      <param name="class" value="org.openxava.web.dwr.Tree"/>
-    </create>
-         
     <convert converter="bean" match="org.openxava.web.dwr.Result"/>    
     <convert converter="bean" match="org.openxava.web.dwr.StrokeAction"/>
         

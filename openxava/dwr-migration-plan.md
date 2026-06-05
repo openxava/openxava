@@ -316,7 +316,7 @@ y del paquete `org.openxava.web.dwr`:
 | `Module` | Pendiente | B | **La más compleja** (~35 KB). Núcleo del ciclo de petición/render. Migrar al final. |
 | `View` | **Migrado** | B | `ViewServlet` (`/xava/view`). |
 | `Calendar` | Pendiente | B | ~18 KB. Usa `CalendarEvent` as bean de transferencia -> serializar a JSON. |
-| `Tree` | Pendiente | B | ~10 KB. |
+| `Tree` | **Migrado** | B | `TreeServlet` (`/xava/tree`). |
 | `Descriptions` | **Migrado** | B | `DescriptionsServlet` (`/xava/descriptions`). Listas de descripciones / combos dependientes. |
 | `Modules` (naviox) | Pendiente | - | En `com.openxava.naviox.web.dwr`, fuera de este repo base. |
 | `Folders` (naviox) | Pendiente | - | Idem naviox. |

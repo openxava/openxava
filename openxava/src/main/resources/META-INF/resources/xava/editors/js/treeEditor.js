@@ -24,7 +24,7 @@ treeEditor.initTree = function() {
             if (dialogs.length > 0) isInsideDialog = treeEditor.isDialogOpenOrTreeNotInDialog($focusedElement, dialogs, oxTree);
 
             if (!isInsideDialog) {
-                Tree.getNodes(application, module, collectionName, collectionViewParentName, function(array) {
+                treeEditor.getNodes(application, module, collectionName, collectionViewParentName, function(array) {
                     var nodes = JSON.parse(array);
                     var plugins = ["checkbox", "state"];
                     if (allowMoveNodes) plugins.push("dnd");
@@ -150,7 +150,7 @@ $(document).on('dnd_stop.vakata', function(e, data) {
 		i++;
 	});
 
-    Tree.updateNode(application, module, collectionName,
+    treeEditor.updateNode(application, module, collectionName,
         collectionViewParentName, newPath,
         rows, childRows, newNodesOrder);
 });
@@ -213,3 +213,33 @@ openxava.addEditorInitFunction(function() {
         });
     });
 });
+
+treeEditor.getNodes = function(application, module, collectionName, collectionViewParentName, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "getNodes");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("collectionName", collectionName);
+	params.append("collectionViewParentName", collectionViewParentName);
+	openxava.post("/xava/tree", params, callback);
+}
+
+treeEditor.updateNode = function(application, module, collectionName, collectionViewParentName, newPath, rows, childRows, newOrder, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "updateNode");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("collectionName", collectionName);
+	params.append("collectionViewParentName", collectionViewParentName);
+	params.append("newPath", newPath);
+	rows.forEach(function(row) {
+		params.append("rows", row);
+	});
+	childRows.forEach(function(childRow) {
+		params.append("childRows", childRow);
+	});
+	newOrder.forEach(function(order) {
+		params.append("newOrder", order);
+	});
+	openxava.post("/xava/tree", params, callback);
+}
