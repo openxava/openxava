@@ -69,7 +69,7 @@ naviox.initModuleHeader = function() {
             var index = moduleList.index(module);
             if (module.length) {
                 var selected = module.find('.selected');
-                Modules.closeModule(naviox.application, naviox.module, index);
+                naviox.closeModule(naviox.application, naviox.module, index);
                 if (selected.length) {
                     var nextElement = module.next().length ? module.next() : module.prev();
                     if (nextElement.length) {
@@ -115,10 +115,10 @@ naviox.bookmark = function() {
 	var bookmark = $('#bookmark').children(":first"); 
 	var bookmarkClass = bookmark.attr('class');
 	if (naviox.changeBookmark(bookmark, bookmarkClass, "star-outline", "star")) {
-		Modules.bookmarkCurrentModule();
+		naviox.bookmarkCurrentModule();
 	}
 	else if (naviox.changeBookmark(bookmark, bookmarkClass, "star", "star-outline")) {
-		Modules.unbookmarkCurrentModule();
+		naviox.unbookmarkCurrentModule();
 	}		
 }
 
@@ -131,15 +131,15 @@ naviox.changeBookmark = function(bookmark, bookmarkClass, from, to) {
 }
 
 naviox.filterModules = function() {
-	Modules.filter($("#search_modules_text").val(), naviox.refreshSearchModulesList);
+	naviox.modulesFilter($("#search_modules_text").val(), naviox.refreshSearchModulesList);
 }
 
 naviox.displayModulesList = function() { 
-	Modules.displayModulesList(naviox.refreshModulesList);  
+	naviox.modulesDisplayModulesList(naviox.refreshModulesList);  
 }
 
 naviox.displayAllModulesList = function(searchWord) {  
-	Modules.displayAllModulesList(searchWord, naviox.refreshModulesList);  
+	naviox.modulesDisplayAllModulesList(searchWord, naviox.refreshModulesList);  
 }
 
 naviox.hideModulesList = function(application, module) {
@@ -161,15 +161,15 @@ naviox.showModulesList = function(application, module) {
 }
 
 naviox.goFolder = function(folderOid) {
-	Folders.goFolder(folderOid, naviox.refreshFolderModulesList);
+	naviox.foldersGoFolder(folderOid, naviox.refreshFolderModulesList);
 }
 
 naviox.goBack = function() { 
-	Folders.goBack(naviox.refreshFolderBackModulesList);
+	naviox.foldersGoBack(naviox.refreshFolderBackModulesList);
 }
 
 naviox.goHome = function() { 
-	Folders.goHome(naviox.refreshFolderBackModulesList);
+	naviox.foldersGoHome(naviox.refreshFolderBackModulesList);
 }
 
 naviox.refreshModulesList = function(modulesList) { 
@@ -250,5 +250,81 @@ naviox.refreshFolderBackModulesList = function(modulesList) {
     		naviox.postRefreshFolderBackModulesList(); 
     	}
     );
+}
+
+naviox.modulesDisplayModulesList = function(callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "displayModulesList");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	openxava.post("/xava/modules", params, callback);
+}
+
+naviox.modulesDisplayAllModulesList = function(searchWord, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "displayAllModulesList");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	params.append("searchWord", searchWord);
+	openxava.post("/xava/modules", params, callback);
+}
+
+naviox.modulesFilter = function(searchWord, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "filter");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	params.append("searchWord", searchWord);
+	openxava.post("/xava/modules", params, callback);
+}
+
+naviox.bookmarkCurrentModule = function() {
+	var params = new URLSearchParams();
+	params.append("operation", "bookmarkCurrentModule");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	openxava.post("/xava/modules", params);
+}
+
+naviox.unbookmarkCurrentModule = function() {
+	var params = new URLSearchParams();
+	params.append("operation", "unbookmarkCurrentModule");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	openxava.post("/xava/modules", params);
+}
+
+naviox.closeModule = function(application, module, index) {
+	var params = new URLSearchParams();
+	params.append("operation", "closeModule");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("index", index);
+	openxava.post("/xava/modules", params);
+}
+
+naviox.foldersGoFolder = function(folderOid, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "goFolder");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	params.append("folderOid", folderOid);
+	openxava.post("/xava/folders", params, callback);
+}
+
+naviox.foldersGoBack = function(callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "goBack");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	openxava.post("/xava/folders", params, callback);
+}
+
+naviox.foldersGoHome = function(callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "goHome");
+	params.append("application", naviox.application);
+	params.append("module", naviox.module);
+	openxava.post("/xava/folders", params, callback);
 }
 

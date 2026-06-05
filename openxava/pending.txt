@@ -20,6 +20,7 @@ Pending dwr migration (tmr)
 * Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
 - Seguir migrando.
 - Documentar en migration.
+- ¿Mover PhoneListServlet a XavaPro? Si sí, apuntarlo como una tarea para XavaPro. ¿Y FoldersServlet?
 - Borrar los .md con planes.
 
 

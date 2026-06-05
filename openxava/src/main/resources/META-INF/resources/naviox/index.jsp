@@ -79,8 +79,6 @@ manager.registerAction("SessionLocker.lock");
 	</script>	
 	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=oxVersion%>'></script>
 	<% request.setAttribute("xava.dwr.loaded", true); %>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Folders.js?ox=<%=oxVersion%>'></script>
 </head>
 
 <body <%=XavaStyle.getBodyClass(request)%>>

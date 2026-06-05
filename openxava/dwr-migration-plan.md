@@ -318,9 +318,9 @@ y del paquete `org.openxava.web.dwr`:
 | `Calendar` | **Migrado** | B | `CalendarServlet` (`/xava/calendar`). ~18 KB. Usa `CalendarEvent` como bean de transferencia -> serializar a JSON. |
 | `Tree` | **Migrado** | B | `TreeServlet` (`/xava/tree`). |
 | `Descriptions` | **Migrado** | B | `DescriptionsServlet` (`/xava/descriptions`). Listas de descripciones / combos dependientes. |
-| `Modules` (naviox) | Pendiente | - | En `com.openxava.naviox.web.dwr`, fuera de este repo base. |
-| `Folders` (naviox) | Pendiente | - | Idem naviox. |
-| `PhoneList` (phone) | Pendiente | - | En `com.openxava.phone.web.dwr`. |
+| `Modules` (naviox) | **Migrado** | B | `ModulesServlet` (`/xava/modules`). Funciones en `naviox.js` bajo `naviox.*`. |
+| `Folders` (naviox) | **Migrado** | B | `FoldersServlet` (`/xava/folders`). Funciones en `naviox.js` bajo `naviox.*`. |
+| `PhoneList` (phone) | **Migrado** | A | `PhoneListServlet` (`/xava/phoneList`). Función en `openxava.js` bajo `PhoneList.*`. |
 
 Clases auxiliares (no exponen métodos al cliente, se migran/eliminan con su clase):
 `DWRBase` (sustituida por `BaseServlet`), `ViewBase`, `Result`, `StrokeAction`,
