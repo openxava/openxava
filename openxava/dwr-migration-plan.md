@@ -317,7 +317,7 @@ y del paquete `org.openxava.web.dwr`:
 | `View` | **Migrado** | B | `ViewServlet` (`/xava/view`). |
 | `Calendar` | Pendiente | B | ~18 KB. Usa `CalendarEvent` as bean de transferencia -> serializar a JSON. |
 | `Tree` | Pendiente | B | ~10 KB. |
-| `Descriptions` | Pendiente | B | ~10 KB. Listas de descripciones / combos dependientes. |
+| `Descriptions` | **Migrado** | B | `DescriptionsServlet` (`/xava/descriptions`). Listas de descripciones / combos dependientes. |
 | `Modules` (naviox) | Pendiente | - | En `com.openxava.naviox.web.dwr`, fuera de este repo base. |
 | `Folders` (naviox) | Pendiente | - | Idem naviox. |
 | `PhoneList` (phone) | Pendiente | - | En `com.openxava.phone.web.dwr`. |
