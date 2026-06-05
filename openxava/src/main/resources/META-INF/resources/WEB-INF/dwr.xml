@@ -22,10 +22,6 @@
       <param name="class" value="com.openxava.phone.web.dwr.PhoneList"/>
     </create>
     
-    <create creator="new" javascript="Calendar">
-      <param name="class" value="org.openxava.web.dwr.Calendar"/>
-    </create>
-    
     <convert converter="bean" match="org.openxava.web.dwr.Result"/>    
     <convert converter="bean" match="org.openxava.web.dwr.StrokeAction"/>
         
