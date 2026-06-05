@@ -1,28 +1,33 @@
 Change Log for OpenXava project
 ===============================
 
-- Added extra headers to README.md to make specific archetypes easier to find.
-- Moved the Project Templates article to the Quick Start section of the documentation.
-- Fixed 7 security vulnerabilities in dependencies, 3 of them critical.
+- Completed French and German translations for labels and messages.
+- Some new common use labels to be used in applications.
+
 - Groovy upgraded to 4.0.32.
 - json upgraded to 20260522.
 - Embedded Tomcat used in development upgraded to 9.0.118.
 - Driver version in doc/new projects upgraded for MySQL, Oracle and Informix.
-- Completed French and German translations for labels and messages.
+
+- Spring Boot integration article rewritten to be simpler and use the latest versions.
+- Added extra headers to README.md to make specific archetypes easier to find.
+- Moved the Project Templates article to the Quick Start section of the documentation.
+
+- Fixed 7 security vulnerabilities in dependencies, 3 of them critical.
 - Fix: Search missing for references in @ElementCollection when the referenced entity hidden id is shown.
 - Fix: Uploading a file fails if acceptFileTypes declares an extension with no known MIME type.
 - Fix: Saving fails for @Money @Calculation property with @Digits(fraction=0) because of trailing decimals.
 - Fix: Keystrokes for standard actions conflict with modern browsers and OS shortcuts.
 - Fix: Chat panel disappears, leaving an empty space after resizing the browser window.
-- Fix: Chat panel overlaps the rightmost cards in card-format list view.
 - Fix: In card-format, cards do not use all available space, leaving too much blank space on the right.
 - Fix: Misaligned totals in calculated, @ManyToMany, and @OrderColumn collections with several references.
-- Fix: Collection changes via chat are not immediately reflected in the UI.
 - Fix: Refresh action does not refresh collections.
 - Fix: Setting planificadoPara date does not start Quartz job in Spanish Project Management archetype.
-- Some new common use labels to be used in applications.
 - Fix: Missing labels in newly created standard projects before any code is added.
-- Spring Boot integration article rewritten to be simpler and use the latest versions.
+- Fix: Chat panel overlaps the rightmost cards in card-format list view.
+- Fix: Collection changes via chat are not immediately reflected in the UI.
+
+
 
 OpenXava 7.7.2 (2026-5-8)
 -------------------------
