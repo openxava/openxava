@@ -19,6 +19,7 @@ Pending dwr migration (tmr)
 * Eliminar el objeto tab de openxava.js.
 * Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
 - Seguir migrando.
+- ¿Renombrar ajaxRequest en openxava.js? Lo de AJAX ya suena a manido.
 - Documentar en migration.
 - ¿Mover PhoneListServlet a XavaPro? Si sí, apuntarlo como una tarea para XavaPro. ¿Y FoldersServlet?
 - Borrar los .md con planes.
