@@ -16,7 +16,7 @@ Pending dwr migration (tmr)
 * Probar Tab a fondo.
 * ¿ServletBase o BaseServlet? ¿otro nombre?
 * Rehacer plan.md.
-- Considerar eliminar el objeto tab de openxava.js. TMR ME QUEDÉ HACIENDO ESTO
+* Eliminar el objeto tab de openxava.js.
 - Seguir migrando.
 - Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
 - Documentar en migration.

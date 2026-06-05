@@ -84,14 +84,18 @@ Puntos clave que ya resuelve por nosotros:
 - **`callback(text)`**: si se pasa, recibe el cuerpo de la respuesta como texto; en caso
   de error recibe una cadena que empieza por `"ERROR:"`.
 
-### 1.3 Cliente: objeto de espacio de nombres
+### 1.3 Cliente: funciones de espacio de nombres
 
-Cada interfaz DWR se sustituye por un objeto JS con la **misma firma de métodos** que la
-clase Java original, de modo que el código que la invoca no necesita cambiar (o cambia
+Cada interfaz DWR se sustituye por funciones JS con la **misma firma** que los métodos de
+la clase Java original, de modo que el código que las invoca no necesita cambiar (o cambia
 mínimamente). Hay dos ubicaciones según el caso:
 
-- **Global de framework** (p. ej. `Tab`): se define como `openxava.tab` dentro de
-  `openxava.js`.
+- **Global de framework** (p. ej. `Tab`): se definen como funciones planas a nivel de
+  `openxava` dentro de `openxava.js`, siguiendo el estilo del resto del fichero (todas las
+  funciones cuelgan directamente de `openxava`, sin objetos anidados). Para conservar el
+  agrupamiento temático y evitar colisiones de nombres con funciones de UI ya existentes
+  (p. ej. `openxava.setFilterVisible` o `openxava.filterColumns`), se prefijan con el tema:
+  `openxava.tabSetFilterVisible`, `openxava.tabFilterColumns`, etc.
 - **De editor** (p. ej. `Discussion`): se define en el `*.js` del editor
   (`discussionEditor.js`).
 
@@ -188,31 +192,32 @@ public class TabServlet extends BaseServlet {
 }
 ```
 
-Cliente correspondiente: objeto `openxava.tab` en `openxava.js` (un método por operación)
-y, donde aplica, helpers en el editor (`listEditor.updateValue`). Cada método construye un
-`URLSearchParams` con `operation` + parámetros y llama a `openxava.post("/xava/tab", params[, callback])`.
+Cliente correspondiente: funciones planas `openxava.tab*` en `openxava.js` (una por
+operación) y, donde aplica, helpers en el editor (`listEditor.updateValue`). Cada función
+construye un `URLSearchParams` con `operation` + parámetros y llama a
+`openxava.post("/xava/tab", params[, callback])`.
 
 ```javascript
-openxava.tab = {
-	setFilterVisible: function(application, module, filterVisible, tabObject) {
-		var params = new URLSearchParams();
-		params.append("operation", "setFilterVisible");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("filterVisible", filterVisible);
-		params.append("tabObject", tabObject);
-		openxava.post("/xava/tab", params);
-	},
-	// ... resto de operaciones ...
-	filterColumns: function(application, module, searchWord, callback) {
-		var params = new URLSearchParams();
-		params.append("operation", "filterColumns");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("searchWord", searchWord);
-		openxava.post("/xava/tab", params, callback); // operación con retorno
-	}
-};
+openxava.tabSetFilterVisible = function(application, module, filterVisible, tabObject) {
+	var params = new URLSearchParams();
+	params.append("operation", "setFilterVisible");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("filterVisible", filterVisible);
+	params.append("tabObject", tabObject);
+	openxava.post("/xava/tab", params);
+}
+
+// ... resto de operaciones ...
+
+openxava.tabFilterColumns = function(application, module, searchWord, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "filterColumns");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("searchWord", searchWord);
+	openxava.post("/xava/tab", params, callback); // operación con retorno
+}
 ```
 
 ### 2.3 ¿Cuándo usar cada patrón?

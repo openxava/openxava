@@ -5,59 +5,6 @@ openxava.deselected = [];
 openxava.loadedScripts = [];
 openxava.calculations = {};
 
-openxava.tab = {
-	setFilterVisible: function(application, module, filterVisible, tabObject) {
-		var params = new URLSearchParams();
-		params.append("operation", "setFilterVisible");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("filterVisible", filterVisible);
-		params.append("tabObject", tabObject);
-		openxava.post("/xava/tab", params);
-	},
-
-	removeProperty: function(application, module, property, tabObject) {
-		var params = new URLSearchParams();
-		params.append("operation", "removeProperty");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("property", property);
-		params.append("tabObject", tabObject);
-		openxava.post("/xava/tab", params);
-	},
-
-	moveProperty: function(application, module, tableId, from, to) {
-		var params = new URLSearchParams();
-		params.append("operation", "moveProperty");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("tableId", tableId);
-		params.append("from", from);
-		params.append("to", to);
-		openxava.post("/xava/tab", params);
-	},
-
-	setColumnWidth: function(application, module, columnId, index, width) {
-		var params = new URLSearchParams();
-		params.append("operation", "setColumnWidth");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("columnId", columnId);
-		params.append("index", index);
-		params.append("width", width);
-		openxava.post("/xava/tab", params);
-	},
-
-	filterColumns: function(application, module, searchWord, callback) {
-		var params = new URLSearchParams();
-		params.append("operation", "filterColumns");
-		params.append("application", application);
-		params.append("module", module);
-		params.append("searchWord", searchWord);
-		openxava.post("/xava/tab", params, callback);
-	}
-};
-
 openxava.init = function(application, module, initUI) {
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
@@ -670,7 +617,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			openxava.tab.setColumnWidth(application, module, event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
+			openxava.tabSetColumnWidth(application, module, event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -687,7 +634,7 @@ openxava.initLists = function(application, module) {
 	    	ui.item.css("width", "");
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	openxava.tab.moveProperty(application, module, tableId, ui.item.startPos - 2, ui.item.index() - 2);
+	    	openxava.tabMoveProperty(application, module, tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			setTimeout(function() {
 			    openxava.renumberListColumns(table);
 			}, 200);
@@ -1053,7 +1000,7 @@ openxava.setFilterVisible = function(application, module, id, tabObject, visible
     	$(hideLink).hide(); 
     	$(showLink).show(); 
     }
-	openxava.tab.setFilterVisible(application, module, visible, tabObject);
+	openxava.tabSetFilterVisible(application, module, visible, tabObject);
 }
 
 openxava.customizeList = function(application, module, id) { 	
@@ -1084,7 +1031,7 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 		openxava.renumberListColumns(table);
   	});
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	openxava.tab.removeProperty(application, module, property, tabObject);
+	openxava.tabRemoveProperty(application, module, property, tabObject);
 }
 
 openxava.setPageRowCount = function(application, module, collection, select) {	
@@ -1592,7 +1539,7 @@ openxava.watchColumnsSearch = function() {
 }
 
 openxava.filterColumns = function() {
-	openxava.tab.filterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
+	openxava.tabFilterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
 }
 
 openxava.refreshColumnsList = function(columnsList) { 
@@ -1699,3 +1646,54 @@ openxava.moveCollectionElement = function(tableId, from, to) {
 	params.append("to", to);
 	openxava.post("/xava/view", params);
 };
+
+openxava.tabSetFilterVisible = function(application, module, filterVisible, tabObject) {
+	var params = new URLSearchParams();
+	params.append("operation", "setFilterVisible");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("filterVisible", filterVisible);
+	params.append("tabObject", tabObject);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabRemoveProperty = function(application, module, property, tabObject) {
+	var params = new URLSearchParams();
+	params.append("operation", "removeProperty");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("property", property);
+	params.append("tabObject", tabObject);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabMoveProperty = function(application, module, tableId, from, to) {
+	var params = new URLSearchParams();
+	params.append("operation", "moveProperty");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("tableId", tableId);
+	params.append("from", from);
+	params.append("to", to);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabSetColumnWidth = function(application, module, columnId, index, width) {
+	var params = new URLSearchParams();
+	params.append("operation", "setColumnWidth");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("columnId", columnId);
+	params.append("index", index);
+	params.append("width", width);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabFilterColumns = function(application, module, searchWord, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "filterColumns");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("searchWord", searchWord);
+	openxava.post("/xava/tab", params, callback);
+}
