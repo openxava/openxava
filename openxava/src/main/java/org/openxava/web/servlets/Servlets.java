@@ -7,7 +7,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import org.apache.commons.logging.*;
-import org.directwebremoting.util.*;
 import org.openxava.util.*;
 
 
@@ -178,6 +177,62 @@ public class Servlets {
 		}
 
 	}
-	
+
+    static private class SwallowingHttpServletResponse extends HttpServletResponseWrapper {
+        private final StringWriter sout;
+        private final String encoding;
+        private ServletOutputStream out;
+        private PrintWriter writer;
+
+        public SwallowingHttpServletResponse(HttpServletResponse response, StringWriter sout, String encoding) {
+            super(response);
+            this.sout = sout;
+            this.encoding = encoding;
+        }
+
+        @Override
+        public String getCharacterEncoding() {
+            return encoding != null ? encoding : super.getCharacterEncoding();
+        }
+
+        @Override
+        public ServletOutputStream getOutputStream() throws IOException {
+            if (writer != null) throw new IllegalStateException("getWriter() has already been called");
+            if (out == null) {
+                out = new ServletOutputStream() {
+                    private ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    @Override
+                    public void write(int b) throws IOException {
+                        baos.write(b);
+                    }
+                    @Override
+                    public void flush() throws IOException {
+                        super.flush();
+                        sout.write(baos.toString(encoding != null ? encoding : "UTF-8"));
+                        baos.reset();
+                    }
+                    @Override
+                    public void close() throws IOException {
+                        super.close();
+                        flush();
+                    }
+                    @Override
+                    public boolean isReady() { return true; }
+                    @Override
+                    public void setWriteListener(WriteListener writeListener) {}
+                };
+            }
+            return out;
+        }
+
+        @Override
+        public PrintWriter getWriter() throws IOException {
+            if (out != null) throw new IllegalStateException("getOutputStream() has already been called");
+            if (writer == null) {
+                writer = new PrintWriter(sout);
+            }
+            return writer;
+        }
+    }
 	
 }

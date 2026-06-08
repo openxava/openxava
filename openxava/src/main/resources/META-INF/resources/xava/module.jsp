@@ -11,7 +11,7 @@
 <%@page import="org.openxava.util.Strings"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.XavaPreferences"%> 
-<%@page import="org.openxava.web.dwr.Module"%>
+<%@page import="org.openxava.web.servlets.ModuleRequests"%>
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.web.Requests"%>
@@ -75,7 +75,7 @@
 	
 	boolean restoreLastMessage = false;
 	if (manager.isFormUpload()) {
-		new Module().requestMultipart(request, response, app, module);
+		ModuleRequests.requestMultipart(request, response, app, module);
 	}
 	else {
 		restoreLastMessage = true;
@@ -123,16 +123,6 @@
 	}
 	%>	
 
-	<% if (request.getAttribute("xava.dwr.loaded") == null) { %>
-	<script type='text/javascript' <xava:nonce/>> 
-		if (typeof dwr == 'undefined') dwr = {};
-		if (!dwr.engine) dwr.engine = {};
-		dwr.engine._contextPath = "<%=contextPath%>";
-	</script>
-	<script type='text/javascript' src='<%=contextPath%>/xava/js/dwr-engine.js?ox=<%=version%>'></script>	
-	<% } %>
-	<script type='text/javascript' src='<%=contextPath%>/dwr/util.js?ox=<%=version%>'></script>
-	<script type='text/javascript' src='<%=contextPath%>/dwr/interface/Module.js?ox=<%=version%>'></script>
 	<script type='text/javascript' src='<%=contextPath%>/xava/js/openxava.js?ox=<%=version%>'></script>
 	<script type='text/javascript' <xava:nonce/>> 
 		openxava.lastApplication='<%=app%>'; 		
@@ -186,7 +176,7 @@
 <% 
 boolean coreViaAJAX = manager.isCoreViaAJAX(request);
 if (!coreViaAJAX && restoreLastMessage) {
-	Module.restoreLastMessages(request, app, module);
+	ModuleRequests.restoreLastMessages(request, app, module);
 }	
 
 if (manager.isResetFormPostNeeded()) {
@@ -311,7 +301,7 @@ if (manager.isResetFormPostNeeded()) {
 		<%}%>
 		<%if (coreViaAJAX) {%>
 		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", false);
-		openxava.ajaxRequest("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);	
+		openxava.request("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);	
 		<%} else {%>
 		openxava.init("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>", true);
 		openxava.setFocus("<%=manager.getApplicationName()%>", "<%=manager.getModuleName()%>"); 

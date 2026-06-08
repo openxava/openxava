@@ -20,7 +20,7 @@ openxava.init = function(application, module, initUI) {
 	openxava.dataChanged = false; 
 }
 
-openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
+openxava.request = function(application, module, firstRequest, inNewWindow) {
 	if (openxava.isRequesting(application, module)) return;
 	openxava.setRequesting(application, module);
 	document.throwPropertyChange = false;
@@ -33,15 +33,32 @@ openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) 
 		openxava.newWindow = window.open('', '_blank'); 
 	}
 	openxava.preRequestEditors(); 
-	Module.request(
-			application, module, document.additionalParameters,			
-			openxava.getFormValues(openxava.getForm(application, module)), 
-			openxava.getMultipleValues(application, module), 
-			openxava.getSelectedValues(application, module),
-			openxava.deselected,
-			firstRequest,
-			openxava.baseFolder, 
-			openxava.refreshPage);	
+
+	var params = new URLSearchParams();
+	params.append("application", application);
+	params.append("module", module);
+	params.append("additionalParameters", document.additionalParameters || "");
+	params.append("values", JSON.stringify(openxava.getFormValues(openxava.getForm(application, module))));
+	params.append("multipleValues", JSON.stringify(openxava.getMultipleValues(application, module)));
+	params.append("selected", JSON.stringify(openxava.getSelectedValues(application, module)));
+	params.append("deselected", JSON.stringify(openxava.deselected));
+	params.append("firstRequest", firstRequest ? "true" : "false");
+	params.append("baseFolder", openxava.baseFolder || "");
+
+	openxava.post("/xava/hotwire", params, function(text) {
+		if (text && text.indexOf("ERROR:") === 0) {
+			openxava.showError(openxava.postErrorMessage);
+			return;
+		}
+		try {
+			var result = JSON.parse(text);
+			openxava.refreshPage(result);
+		} catch (e) {
+			console.error("Error parsing JSON in openxava.request", e);
+			openxava.showError(openxava.postErrorMessage);
+		}
+	});
+
 	$(window).unbind('resize');
 	openxava.deselected = [];
 }
@@ -100,7 +117,7 @@ openxava.refreshPage = function(result) {
 		document.getElementById("xava_last_module_change").value=result.module + "::" + result.nextModule;		
 		if (openxava.dialogLevel > 0) openxava.closeDialog(result);							
 		openxava.resetRequesting(result); 
-		openxava.ajaxRequest(result.application, result.nextModule); 
+		openxava.request(result.application, result.nextModule); 
 		return;
 	}	
 	else {		
@@ -126,7 +143,7 @@ openxava.refreshPage = function(result) {
 		for (var id in changedParts) {			
 			changed = changed + id + ", ";  			
 			try {
-				openxava.setHtml(id, changedParts[id].replace(/_#C#_/g, ",")); 
+				openxava.setHtml(id, changedParts[id]); 
 			}
 			catch (ex) {
 				changed = changed + " ERROR";
@@ -412,7 +429,12 @@ openxava.initViewSimple = function(application, module, viewSimple) {
 }
 
 openxava.initStrokeActions = function(application, module) { 
-	Module.getStrokeActions(application, module, openxava.setStrokeActions);
+	var params = new URLSearchParams();
+	params.append("application", application);
+	params.append("module", module);
+	openxava.post("/xava/strokeActions", params, function(text) {
+		openxava.setStrokeActions(text ? JSON.parse(text) : null);
+	});
 }
 
 openxava.initBeforeShowDialog = function() { 
@@ -424,7 +446,6 @@ openxava.initWindowId = function() {
 		document.cookie = "XAVA_WINDOW_ID=" + $("#xava_window_id").val() + ";SameSite=Strict"; 
 	});		
 	document.cookie="XAVA_WINDOW_ID=;SameSite=Strict";	
-	dwr.engine.setHeaders({ xavawindowid: $("#xava_window_id").val() }); 
 }
 
 openxava.selectRows = function(application, module, selectedRows) {
@@ -954,6 +975,18 @@ openxava.getSelectedValues = function(application, module) {
 	return result;
 }
 
+openxava.toDescriptiveString = function(value) {
+    if (Array.isArray(value)) {
+        var str = "[\n";
+        for (var i = 0; i < value.length; i++) {
+            str += '  "' + value[i] + '"\n';
+        }
+        str += "]";
+        return str;
+    }
+    return value == null ? "" : String(value);
+}
+
 openxava.getMultipleValues = function(application, module) { 
 	var result = new Object();
 	var multiple = document.getElementsByName(openxava.decorateId(application, module, "xava_multiple"));  
@@ -961,7 +994,7 @@ openxava.getMultipleValues = function(application, module) {
   		var propertyName = multiple[i].value; 
   		var elements = document.getElementsByName(propertyName);
   		if (elements.length == 1) {
-  			result[propertyName] = dwr.util.toDescriptiveString(dwr.util.getValue(propertyName), 2);
+  			result[propertyName] = openxava.toDescriptiveString($(elements[0]).val());
   		}
   		else {  	  			
   			for (var j=0; j<elements.length; j++) {
@@ -1095,7 +1128,7 @@ openxava.getFormValues = function(ele) { // A refinement of dwr.util.getFormValu
 
 openxava.getFormValue = function(ele) { // A refinement of dwr.util.getValue
 	
-	if (dwr.util._isHTMLElement(ele, "select")) {
+	if (ele.tagName === "SELECT") {
 	    // Using "type" property instead of "multiple" as "type" is an official 
 	    // client-side property since JS 1.1
 	    if (ele.type == "select-multiple") {
@@ -1117,7 +1150,7 @@ openxava.getFormValue = function(ele) { // A refinement of dwr.util.getValue
 	    }
 	}
 
-	if (dwr.util._isHTMLElement(ele, "input")) {
+	if (ele.tagName === "INPUT") {
 		if (ele.type == "checkbox" || ele.type == "radio") {
 	      return ele.checked?ele.value:null; 
 	    }
