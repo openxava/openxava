@@ -11,7 +11,8 @@
 <%@page import="org.openxava.util.Strings"%>
 <%@page import="org.openxava.util.Is"%>
 <%@page import="org.openxava.util.XavaPreferences"%> 
-<%@page import="org.openxava.web.servlets.ModuleRequests"%>
+<%@page import="org.openxava.web.Multiparts"%>
+<%@page import="org.openxava.web.LastMessages"%>
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.web.Requests"%>
@@ -75,7 +76,7 @@
 	
 	boolean restoreLastMessage = false;
 	if (manager.isFormUpload()) {
-		ModuleRequests.requestMultipart(request, response, app, module);
+		Multiparts.request(request, response, app, module);
 	}
 	else {
 		restoreLastMessage = true;
@@ -176,7 +177,7 @@
 <% 
 boolean coreViaAJAX = manager.isCoreViaAJAX(request);
 if (!coreViaAJAX && restoreLastMessage) {
-	ModuleRequests.restoreLastMessages(request, app, module);
+	LastMessages.restore(request, app, module);
 }	
 
 if (manager.isResetFormPostNeeded()) {

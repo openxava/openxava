@@ -18,11 +18,12 @@ Pending dwr migration (tmr)
 * Rehacer plan.md.
 * Eliminar el objeto tab de openxava.js.
 * Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
-- Migrar dwr.Module. TMR ME QUEDÉ POR AQUÍ. CÓDIGO MIGRADO, PERO SIN PROBAR.
-    - ¿ModuleRequests en ese paquete?
-    - Revisar Result y StrokeAction. ¿Cómo se usan?
-
-
+* Migrar dwr.Module.
+* ¿ModuleRequests en ese paquete?
+- Revisar Result y StrokeAction. ¿Cómo se usan?
+- @author en nuevo código.
+- Revisar todas las referencias a DWR.
+- Suite.
 - Documentar en migration.
 - ¿Mover PhoneListServlet a XavaPro? Si sí, apuntarlo como una tarea para XavaPro. ¿Y FoldersServlet?
 - Borrar los .md con planes.

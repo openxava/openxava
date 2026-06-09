@@ -783,11 +783,11 @@ public class HotwireServlet extends BaseServlet {
         }
 
         private void memorizeLastMessages(String module) {
-            ModuleRequests.memorizeLastMessages(request, application, module);
+            LastMessages.memorize(request, application, module);
         }
 
         private void restoreLastMessages() {
-            ModuleRequests.restoreLastMessages(request, application, module);
+            LastMessages.restore(request, application, module);
         }
 
         private String getURI(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws UnsupportedEncodingException {
