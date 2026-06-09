@@ -40,8 +40,8 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 	params.append("additionalParameters", document.additionalParameters || "");
 	params.append("values", JSON.stringify(openxava.getFormValues(openxava.getForm(application, module)) || null));
 	params.append("multipleValues", JSON.stringify(openxava.getMultipleValues(application, module) || null));
-	params.append("selected_rows", JSON.stringify(openxava.getSelectedValues(application, module) || null));
-	params.append("deselected_rows", JSON.stringify(openxava.deselected || null));
+	params.append("selectedRows", JSON.stringify(openxava.getSelectedValues(application, module) || null));
+	params.append("deselectedRows", JSON.stringify(openxava.deselected || null));
 	params.append("firstRequest", firstRequest ? "true" : "false");
 	params.append("baseFolder", openxava.baseFolder || "");
 

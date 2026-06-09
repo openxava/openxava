@@ -46,8 +46,8 @@ public class HotwireServlet extends BaseServlet {
 
             Map<String, Object> values = jsonToMap(request.getParameter("values"));
             Map<String, Object> multipleValues = jsonToMap(request.getParameter("multipleValues"));
-            String[] selected = jsonToStringArray(request.getParameter("selected_rows"));
-            String[] deselected = jsonToStringArray(request.getParameter("deselected_rows"));
+            String[] selected = jsonToStringArray(request.getParameter("selectedRows"));
+            String[] deselected = jsonToStringArray(request.getParameter("deselectedRows"));
 
             Result result = executeRequest(request, response, application, module, additionalParameters,
                     values, multipleValues, selected, deselected, firstRequest, baseFolder);
