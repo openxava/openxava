@@ -46,8 +46,8 @@ public class HotwireServlet extends BaseServlet {
 
             Map<String, Object> values = jsonToMap(request.getParameter("values"));
             Map<String, Object> multipleValues = jsonToMap(request.getParameter("multipleValues"));
-            String[] selected = jsonToStringArray(request.getParameter("selected"));
-            String[] deselected = jsonToStringArray(request.getParameter("deselected"));
+            String[] selected = jsonToStringArray(request.getParameter("selected_rows"));
+            String[] deselected = jsonToStringArray(request.getParameter("deselected_rows"));
 
             Result result = executeRequest(request, response, application, module, additionalParameters,
                     values, multipleValues, selected, deselected, firstRequest, baseFolder);
@@ -81,8 +81,8 @@ public class HotwireServlet extends BaseServlet {
     private static Map<String, Object> jsonToMap(String jsonStr) {
         if (jsonStr == null || "null".equals(jsonStr) || "undefined".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
         try {
-            System.out.println("jsonStr: " + jsonStr); // tmr
             JSONObject json = new JSONObject(jsonStr);
+            if (json.length() == 0) return null; // Empty object {} treated as null (no values)
             Map<String, Object> map = new HashMap<>();
             for (String key : json.keySet()) {
                 Object val = json.get(key);
@@ -110,6 +110,7 @@ public class HotwireServlet extends BaseServlet {
         if (jsonStr == null || "null".equals(jsonStr) || "undefined".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
         try {
             JSONArray json = new JSONArray(jsonStr);
+            if (json.length() == 0) return null; // Empty array [] treated as null
             String[] array = new String[json.length()];
             for (int i = 0; i < json.length(); i++) {
                 array[i] = json.optString(i, null);
