@@ -24,8 +24,6 @@ Pending dwr migration (tmr)
 * @author en nuevo código.
 * Revisar todas las referencias a DWR.
 - Tests fallidos:
-    - ListTest.
-    - TreeTest.
     - AJAXTest.
     - AccountingInvoiceTest.
     - AnnualContributionTest
