@@ -204,7 +204,7 @@ openxava.refreshPage = function(result) {
 	}	
 	openxava.getElementById(result.application, result.module, "loaded_parts").value=changed;
 	openxava.getElementById(result.application, result.module, "loading").value=false;
-	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember;
+	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember || "";
 	openxava.lastApplication=result.application;
 	openxava.lastModule=result.module;
 	openxava.hasOnSelectAll(result.application, result.module);
