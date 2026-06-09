@@ -24,6 +24,7 @@ import org.openxava.web.*;
  * Servlet handling "Hotwire-like" AJAX HTML over-the-wire execution,
  * replacing the legacy DWR Module remote class.
  * 
+ * @author Javier Paniza
  * @since 8.0
  */
 @WebServlet(name = "hotwire", urlPatterns = "/xava/hotwire")

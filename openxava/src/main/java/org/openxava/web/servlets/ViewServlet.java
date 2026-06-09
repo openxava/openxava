@@ -8,6 +8,12 @@ import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.util.*;
 
+/**
+ * Servlet for View operations without DWR.
+ * 
+ * @author Javier Paniza
+ * @since 8.0
+ */
 @WebServlet(name = "view", urlPatterns = "/xava/view")
 public class ViewServlet extends BaseServlet {
 

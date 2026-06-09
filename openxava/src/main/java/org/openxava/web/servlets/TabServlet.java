@@ -15,7 +15,7 @@ import org.openxava.web.*;
 /**
  * Servlet for Tab operations without DWR.
  * 
- * @author Migracion Fetch
+ * @author Javier Paniza
  * @since 8.0
  */
 @WebServlet(name = "tab", urlPatterns = "/xava/tab")

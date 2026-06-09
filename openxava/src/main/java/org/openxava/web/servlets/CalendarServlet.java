@@ -29,6 +29,7 @@ import org.openxava.web.*;
 /**
  * Servlet to handle calendar operations, replacing the legacy DWR Calendar class.
  * 
+ * @author Javier Paniza
  * @since 8.0
  */
 @WebServlet(name = "calendar", urlPatterns = "/xava/calendar")
