@@ -24,17 +24,37 @@ Pending dwr migration (tmr)
 * @author en nuevo código.
 * Revisar todas las referencias a DWR.
 - Tests fallidos:
-    - AJAXTest.
-    - AccountingInvoiceTest.
-    - AnnualContributionTest
-    - ApplicantTest
-    - ApplicationUserTest.
-    - AppointmentTest.
-    - ArticleDescriptionSelectionTest.
-    - ArticleTest.
-    - ArtistSomeMembersReadOnlyTest.
-    - ArtistTest.
-    -
+    - DiscussionTest
+    - ApplicationUserTest
+    - ArtistTest
+    - Artist_SnakeTest
+    - CarrierTest
+    - ColorTest
+    - CommunityEditableMembersTest
+    - CommunityTest
+    - CustomerGroupTest
+    - ExamTest
+    - ExperienceTest
+    - ExperienceWithSimplestProgrammerTest
+    - HumanTest
+    - HunterTest
+    - Invoice2002Test
+    - Invoice2Test
+    - InvoiceCalculatedDetailsTest
+    - InvoiceCalculatedDetailsWithVatPercentageTest
+    - InvoiceDetailsWithSectionsTest
+    - InvoiceDetailsWithTotalsTest
+    - InvoiceDetailsWithVatPercentageTest
+    - InvoiceListManyTypesTest
+    - InvoiceNoSectionsTest
+    - InvoiceTest
+    - InvoiceByYearTest
+    - IssueChangeDBTest
+    - IssueTest
+    - JavaProgrammerTest
+    - OrderTest
+    - ParentTest
+    ...
 
 - Suite.
 - Documentar en migration.
