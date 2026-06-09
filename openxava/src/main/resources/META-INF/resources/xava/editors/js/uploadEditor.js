@@ -88,7 +88,7 @@ openxava.addEditorInitFunction(function() {
             pond.allowRevert = false;
             pond.onerror = function(error) {
                 if (error && error.code == 406) {
-                    openxava.ajaxRequest(input.dataset.application, input.dataset.module, false, false);
+                    openxava.request(input.dataset.application, input.dataset.module, false, false);
                 }
             }
 

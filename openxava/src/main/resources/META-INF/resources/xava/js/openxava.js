@@ -1097,7 +1097,7 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 		} 
 	} 
 	else {
-		openxava.ajaxRequest(application, module, false, inNewWindow); 
+		openxava.request(application, module, false, inNewWindow); 
 	}				
 }
 
@@ -1212,7 +1212,7 @@ openxava.parseFloat = function(value) {
 
 openxava.requestOnChange = function(application, module) {
 	if (document.throwPropertyChange)  {
-		openxava.ajaxRequest(application, module);
+		openxava.request(application, module);
 	}			
 }
 
