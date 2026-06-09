@@ -24,34 +24,12 @@ Pending dwr migration (tmr)
 * @author en nuevo código.
 * Revisar todas las referencias a DWR.
 - Tests fallidos:
-    - Artist_SnakeTest
-    - CarrierTest
-    - ColorTest
-    - CommunityEditableMembersTest
-    - CommunityTest
-    - CustomerGroupTest
-    - ExamTest
-    - ExperienceTest
-    - ExperienceWithSimplestProgrammerTest
-    - HumanTest
-    - HunterTest
+    - CollectionTest
     - Invoice2002Test
-    - Invoice2Test
-    - InvoiceCalculatedDetailsTest
-    - InvoiceCalculatedDetailsWithVatPercentageTest
     - InvoiceDetailsWithSectionsTest
-    - InvoiceDetailsWithTotalsTest
-    - InvoiceDetailsWithVatPercentageTest
     - InvoiceListManyTypesTest
-    - InvoiceNoSectionsTest
-    - InvoiceTest
-    - InvoiceByYearTest
-    - IssueChangeDBTest
-    - IssueTest
-    - JavaProgrammerTest
-    - OrderTest
-    - ParentTest
-    ...
+    - SellerWithSearchListConditionTest
+    - UserWithNicknameTest
 
 - Suite.
 - Documentar en migration.
