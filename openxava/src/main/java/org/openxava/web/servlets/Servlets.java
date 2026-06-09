@@ -117,8 +117,7 @@ public class Servlets {
 	 * @throws ServletException 
 	 */
 	private static String getURIAsString(HttpServletRequest request, HttpServletResponse response, String uri, String encoding) throws ServletException, IOException { 		
-		// Copied with some slight modifications from WebContext.forwardToString of DWR
-        StringWriter sout = new StringWriter();
+		StringWriter sout = new StringWriter();
         StringBuffer buffer = sout.getBuffer();
  
         HttpServletResponse fakeResponse = new SwallowingHttpServletResponse(response, sout, encoding);         

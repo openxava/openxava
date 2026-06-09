@@ -13,7 +13,7 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * Servlet for Tab operations without DWR.
+ * Servlet for Tab operations.
  * 
  * @author Javier Paniza
  * @since 8.0

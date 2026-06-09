@@ -15,8 +15,7 @@ import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 
 /**
- * Servlet handling keystroke/stroke actions retrieval,
- * replacing the legacy DWR Module.getStrokeActions remote call.
+ * Servlet handling keystroke/stroke actions retrieval.
  * 
  * @author Javier Paniza
  * @since 8.0

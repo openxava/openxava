@@ -9,7 +9,7 @@ import org.openxava.jpa.*;
 import org.openxava.util.*;
 
 /**
- * Servlet for View operations without DWR.
+ * Servlet for View operations.
  * 
  * @author Javier Paniza
  * @since 8.0

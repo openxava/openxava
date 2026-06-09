@@ -27,7 +27,7 @@ import org.openxava.view.View;
 import org.openxava.web.*;
 
 /**
- * Servlet to handle calendar operations, replacing the legacy DWR Calendar class.
+ * Servlet to handle calendar operations.
  * 
  * @author Javier Paniza
  * @since 8.0

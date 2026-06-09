@@ -3206,7 +3206,7 @@ public class View implements java.io.Serializable {
 				if (!mustToFormat) continue;
 				String propertyKey= qualifier + p.getName();
 				String valueKey = propertyKey + ".value"; 
-				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in dwr.Module class
+				if (Is.anyEqual(propertyKey, "application", "module")) propertyKey += "_VALUE_"; // This _VALUE_ is set in HotwireServlet class
 				String [] results = getRequest().getParameterValues(propertyKey);	
 				Object value = WebEditors.parse(getRequest(), p, results, getErrors(), getViewName());
 				boolean isHiddenKeyWithoutValue = p.isHidden() && (results == null); // for not reset hidden values					
@@ -6791,7 +6791,7 @@ public class View implements java.io.Serializable {
 			return parent.getPropertyPrefix();			
 		}
 		if (isRepresentsElementCollection()) { 
-			return getParent().getPropertyPrefix() + ":" + getMemberName() + // The : are decoded in dwr.Module  
+			return getParent().getPropertyPrefix() + ":" + getMemberName() + // The : are decoded in HotwireServlet  
 					"." + getCollectionEditingRow() + "."; 
 		}
 		View parent = getParent();

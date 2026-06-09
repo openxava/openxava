@@ -7,7 +7,7 @@ import lombok.*;
 /**
  * To sum two IFilter. <p>
  * 
- * Used in {@link org.openxava.web.dwr.Calendar} to nest filters. 
+ * Used in {@link org.openxava.web.servlets.CalendarServlet} to nest filters. 
  * 
  * @since 7.1.5
  * @author Chungyen Tsai

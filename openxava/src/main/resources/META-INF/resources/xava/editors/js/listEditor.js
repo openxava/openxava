@@ -31,7 +31,7 @@ openxava.addEditorInitFunction(function() {
                     }
                 }                
                 
-                // Call the DWR method to update the value in the server
+                // Call the servlet to update the value in the server
                 listEditor.lastRow = row;
                 listEditor.lastProperty = property;
                 listEditor.lastEditor = editor;

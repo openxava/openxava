@@ -14,7 +14,7 @@ import org.openxava.view.*;
 import org.openxava.web.editors.*;
 
 /**
- * Servlet to manage discussion comments without DWR.
+ * Servlet to manage discussion comments.
  * 
  * @author Javier Paniza
  * @since 8.0

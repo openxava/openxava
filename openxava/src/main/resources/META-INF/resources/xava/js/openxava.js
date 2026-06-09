@@ -1101,7 +1101,7 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 	}				
 }
 
-openxava.getFormValues = function(ele) { // A refinement of dwr.util.getFormValues
+openxava.getFormValues = function(ele) {
 	if (ele != null) {
 		if (ele.elements == null) {
 			alert("getFormValues() requires an object or reference to a form element.");
@@ -1126,7 +1126,7 @@ openxava.getFormValues = function(ele) { // A refinement of dwr.util.getFormValu
 	}
 }
 
-openxava.getFormValue = function(ele) { // A refinement of dwr.util.getValue
+openxava.getFormValue = function(ele) {
 	
 	if (ele.tagName === "SELECT") {
 	    // Using "type" property instead of "multiple" as "type" is an official 
