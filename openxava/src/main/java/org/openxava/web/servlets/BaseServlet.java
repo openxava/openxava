@@ -1,6 +1,7 @@
 package org.openxava.web.servlets;
 
 import java.io.IOException;
+import javax.servlet.*;
 import javax.servlet.http.*;
 import org.openxava.controller.*;
 import org.openxava.web.*;
@@ -15,6 +16,12 @@ import org.openxava.web.style.*;
 public class BaseServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Servlets.setCharacterEncoding(request, response);
+        super.service(request, response);
+    }
 
     /**
      * @since 8.0
