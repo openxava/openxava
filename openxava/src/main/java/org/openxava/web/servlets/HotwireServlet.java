@@ -79,8 +79,9 @@ public class HotwireServlet extends BaseServlet {
     }
 
     private static Map<String, Object> jsonToMap(String jsonStr) {
-        if (jsonStr == null || "null".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
+        if (jsonStr == null || "null".equals(jsonStr) || "undefined".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
         try {
+            System.out.println("jsonStr: " + jsonStr); // tmr
             JSONObject json = new JSONObject(jsonStr);
             Map<String, Object> map = new HashMap<>();
             for (String key : json.keySet()) {
@@ -106,7 +107,7 @@ public class HotwireServlet extends BaseServlet {
     }
 
     private static String[] jsonToStringArray(String jsonStr) {
-        if (jsonStr == null || "null".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
+        if (jsonStr == null || "null".equals(jsonStr) || "undefined".equals(jsonStr) || jsonStr.trim().isEmpty()) return null;
         try {
             JSONArray json = new JSONArray(jsonStr);
             String[] array = new String[json.length()];
@@ -218,7 +219,7 @@ public class HotwireServlet extends BaseServlet {
             this.selected = selected;
             this.deselected = deselected;
             this.firstRequest = firstRequest;
-            this.baseFolder = baseFolder == null ? "/xava/" : "/" + baseFolder + "/";
+            this.baseFolder = Is.emptyString(baseFolder) ? "/xava/" : "/" + baseFolder + "/";
         }
 
         public Result request() throws Exception {
