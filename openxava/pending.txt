@@ -20,7 +20,7 @@ Pending dwr migration (tmr)
 * Mover TableId a otro sitio y hacerlo acceso paquete de nuevo.
 * Migrar dwr.Module.
 * ¿ModuleRequests en ese paquete?
-- Revisar Result y StrokeAction. ¿Cómo se usan?
+* Revisar Result y StrokeAction. ¿Cómo se usan?
 - @author en nuevo código.
 - Revisar todas las referencias a DWR.
 - Suite.

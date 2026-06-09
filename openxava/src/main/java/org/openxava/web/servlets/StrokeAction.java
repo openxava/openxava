@@ -3,11 +3,12 @@ package org.openxava.web.servlets;
 import java.io.Serializable;
 
 /**
- * StrokeAction bean used to define a keystroke action mapping, now part of servlets.
- * 
+ * StrokeAction bean used to define a keystroke action mapping.
+ *
+ * @author Javier Paniza
  * @since 8.0
  */
-public class StrokeAction implements Serializable {
+class StrokeAction implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
