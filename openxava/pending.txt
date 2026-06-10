@@ -23,11 +23,6 @@ Pending dwr migration (tmr)
 * Revisar Result y StrokeAction. ¿Cómo se usan?
 * @author en nuevo código.
 * Revisar todas las referencias a DWR.
-- Tests fallidos:
-    - InvoiceListManyTypesTest
-    - SellerWithSearchListConditionTest
-    - UserWithNicknameTest
-
 - Suite.
 - Documentar en migration.
 - ¿Mover PhoneListServlet a XavaPro? Si sí, apuntarlo como una tarea para XavaPro. ¿Y FoldersServlet?
