@@ -41,7 +41,7 @@ abstract public class CustomizeListTestBase extends ModuleTestBase {
 	// This is not an exact mirror of the real behavior. 
 	// It does not do drag & drop and it does a reload().
 	protected void moveColumn(int from, int to) throws Exception { 
-		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_openxavatest_" + module +"__list', " + from + ", " + to + ")");
+		getHtmlPage().executeJavaScript("openxava.tabMoveProperty('openxavatest', '" + module + "' ,'ox_openxavatest_" + module +"__list', " + from + ", " + to + ")");
 		Thread.sleep(30);
 		reload();		
 	}
