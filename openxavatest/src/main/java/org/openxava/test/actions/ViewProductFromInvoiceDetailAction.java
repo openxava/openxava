@@ -20,7 +20,7 @@ public class ViewProductFromInvoiceDetailAction
 		try {			
 			setInvoiceValues(getView().getValues());
 			Object number = getCollectionElementView().getValue("product.number");
-			Map key = new HashMap();
+			Map<String, Object> key = new HashMap<>();
 			key.put("number", number);
 			getView().setModelName("Product");			
 			getParentView().setValues(key); // It's possible to use getParentView() as

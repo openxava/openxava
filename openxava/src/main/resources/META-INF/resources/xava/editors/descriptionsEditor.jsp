@@ -103,7 +103,7 @@ if (calculator == null) {
 }
 
 // Ensure configuration is present even if calculator existed already
-// This mirrors the DWR behavior and guarantees proper key parsing on reload
+// This mirrors the servlet behavior and guarantees proper key parsing on reload
 {
     String condParam = request.getParameter("condition");
     if (condParam == null) condParam = request.getParameter("condicion");
@@ -139,7 +139,7 @@ if (calculator == null) {
     if (obkParam == null) obkParam = request.getParameter("ordenadoPorClave");
     if (!Is.emptyString(obkParam)) calculator.setOrderByKey(obkParam);
 }
-// Ensure filters expecting application/module see them in request attributes (as in DWR)
+// Ensure filters expecting application/module see them in request attributes (as in the servlet)
 {
     String appParam = request.getParameter("application");
     if (appParam == null) appParam = request.getParameter("aplicacion");

@@ -2,13 +2,13 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.hibernate.envers.*;
 import org.openxava.annotations.*;
 
 /**
- * To test @javax.validation.constraints.Size with min and max elements on a 
+ * To test @jakarta.validation.constraints.Size with min and max elements on a 
  * collection that simulate embedding
  *  
  * @author Jeromy Altuna
@@ -24,7 +24,7 @@ public class Exam extends Nameable {
 	@Column(length=32) @Stereotype("FILE") @NotAudited
 	private String file;
 	
-	@javax.validation.constraints.Size(min=1, max=4)
+	@jakarta.validation.constraints.Size(min=1, max=4)
 	@OneToMany(mappedBy="exam", cascade=CascadeType.ALL)
 	private Collection<Question> questioning = new ArrayList<>(); // With the new ArrayList<>() to test a case
 	

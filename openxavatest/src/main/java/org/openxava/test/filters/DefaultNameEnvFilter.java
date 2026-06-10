@@ -11,7 +11,7 @@ public class DefaultNameEnvFilter extends BaseContextFilter {
 			return new Object [] { getDefaultName() };
 		}		
 		if (o instanceof Object []) {			
-			List c = new ArrayList(Arrays.asList((Object []) o));
+			List<Object> c = new ArrayList<>(Arrays.asList((Object []) o));
 			c.add(0, getDefaultName());
 			return c.toArray();			
 		} 

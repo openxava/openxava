@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -43,9 +43,9 @@ public class Subfamily2 {
 
 	// With not @ListProperties to test a case
 	public Collection<Product2> getProductsValues() {
-		javax.persistence.Query query = XPersistence.getManager().createQuery("from Product2 where subfamily.number = :subfamilyNumber");
+		jakarta.persistence.TypedQuery<Product2> query = XPersistence.getManager().createQuery("SELECT p FROM Product2 p WHERE p.subfamily.number = :subfamilyNumber", Product2.class);
 		query.setParameter("subfamilyNumber", getNumber());
-		return query.getResultList();					
+		return (Collection<Product2>) query.getResultList();					
 	}
 
 	public String getDescription() {

@@ -24,10 +24,8 @@ public class CollectionTest extends WebDriverTestBase {
         setValue("year", "2002");
         setValue("number", "1");
         execute("Sections.change", "activeSection=1");
-        Thread.sleep(600);
         assertCollectionRowCount("details", (0+2));
         execute("CRUD.refresh");
-        Thread.sleep(300); 
         assertCollectionRowCount("details", (2+2)); 
 
         goModule("CustomerWithSection");

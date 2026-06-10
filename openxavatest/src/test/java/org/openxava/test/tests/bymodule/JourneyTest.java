@@ -1,6 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.htmlunit.html.*;
 import org.openxava.jpa.*;

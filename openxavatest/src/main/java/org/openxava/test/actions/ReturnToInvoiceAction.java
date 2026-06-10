@@ -14,7 +14,7 @@ import org.openxava.actions.*;
 public class ReturnToInvoiceAction extends ViewBaseAction implements INavigationAction {
 
 	@Inject
-	private Map invoiceValues;
+	private Map<String, Object> invoiceValues;
 	
 	public void execute() throws Exception {
 		getView().setModelName("Invoice");
@@ -29,7 +29,7 @@ public class ReturnToInvoiceAction extends ViewBaseAction implements INavigation
 		return invoiceValues;
 	}
 
-	public void setInvoiceValues(Map map) {
+	public void setInvoiceValues(Map<String, Object> map) {
 		invoiceValues = map;
 	}
 

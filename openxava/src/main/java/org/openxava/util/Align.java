@@ -64,7 +64,7 @@ public class Align implements java.io.Serializable {
 			case RIGHT_CODE:
 				return RIGHT;
 			default:
-				throw new IllegalArgumentException(XavaResources.getString("align_invalid_code", new Integer(code)));
+				throw new IllegalArgumentException(XavaResources.getString("align_invalid_code", Integer.valueOf(code)));
 		}
 	}
 	

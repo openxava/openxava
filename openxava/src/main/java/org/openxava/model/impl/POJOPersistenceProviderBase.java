@@ -66,8 +66,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 	
 	protected Object find(MetaModel metaModel, Map keyValues, boolean useQueryForFind) throws FinderException {
-		try {							
-			Object key = null;		
+		try {
+			Object key = null;
 			// The second question (metaModel.getMetaPropertiesKey().isEmpty())  
 			// is for the case of one key reference with only one column in it, 
 			// this case must be treated as multiple key
@@ -80,7 +80,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 				}
 			}
 			else {
-				if (useQueryForFind) { 
+				if (useQueryForFind) {
 					return findByKeyUsingQuery(metaModel, keyValues);
 				}
 				else {
@@ -90,8 +90,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 			if (key == null) {
 				throw new ObjectNotFoundException(XavaResources.getString(
 						"object_with_key_not_found", metaModel.getName(), keyValues));
-			}						
-			Object result = find(metaModel.getPOJOClass(), (Serializable) key);				
+			}
+			Object result = find(metaModel.getPOJOClass(), (Serializable) key);
 			if (result == null) {
 				throw new ObjectNotFoundException(XavaResources.getString(
 						"object_with_key_not_found", metaModel.getName(), keyValues));
@@ -186,8 +186,8 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		if (ex.getCause() instanceof ValidationException) {
 			throw (ValidationException) ex.getCause();
 		}	
-		if (ex.getCause() instanceof javax.validation.ValidationException) {
-			throw (javax.validation.ValidationException) ex.getCause();				
+		if (ex.getCause() instanceof jakarta.validation.ValidationException) {
+			throw (jakarta.validation.ValidationException) ex.getCause();				
 		}		
 	}
 			
@@ -308,7 +308,6 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		if (result == null) {
 			throw new ObjectNotFoundException(XavaResources.getString("object_by_any_property_not_found", values));
 		}				
-		refreshIfManaged(result); 
 		return result;
 	}
 		
@@ -334,10 +333,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 			// from raw JDBC and in the DB the column is NUMERIC or DECIMAL
 			// This code is for support this case
 			if (int.class.isAssignableFrom(property.getType())) { 
-				result = new Integer(((Number) result).intValue()); 
+				result = Integer.valueOf(((Number) result).intValue()); 
 			} 
 			else if (long.class.isAssignableFrom(property.getType())) { 
-				result = new Long(((Number) result).longValue()); 
+				result = Long.valueOf(((Number) result).longValue()); 
 			}  
 		}
 		

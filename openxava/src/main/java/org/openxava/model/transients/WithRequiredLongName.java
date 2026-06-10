@@ -1,6 +1,6 @@
 package org.openxava.model.transients; 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 

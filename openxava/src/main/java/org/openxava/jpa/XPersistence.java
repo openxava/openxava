@@ -2,7 +2,7 @@ package org.openxava.jpa;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.hotswap.*;
@@ -306,6 +306,17 @@ public class XPersistence {
 		if (Is.emptyString(defaultSchema)) properties.remove(getHibernateDefaultSchemaPropertyName());
 		else properties.put(getHibernateDefaultSchemaPropertyName(), defaultSchema);		
 		setPersistenceUnitProperties(properties);
+	}
+	
+	/**
+	 * Checks if there is an active EntityManager on the current thread. <p>
+	 * 
+	 * @return true if an EntityManager exists and is open.
+	 * @since 8.0
+	 */
+	public static boolean isManagerActive() {
+		EntityManager s = (EntityManager) currentManager.get();
+		return s != null && s.isOpen();
 	}
 	
 	/**

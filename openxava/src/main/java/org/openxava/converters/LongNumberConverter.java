@@ -11,7 +11,7 @@ package org.openxava.converters;
  */
 public class LongNumberConverter implements IConverter {
 	
-	private final static Long ZERO = new Long(0);
+	private final static Long ZERO = Long.valueOf(0);
 	private static IConverter instance;
 	private boolean nullToZero = true;
 	
@@ -32,7 +32,7 @@ public class LongNumberConverter implements IConverter {
 		if (!(o instanceof Number)) {		
 			throw new ConversionException("conversion_java_number_expected");
 		}
-		return new Long(((Number) o).longValue());
+		return Long.valueOf(((Number) o).longValue());
 	}
 			
 	/**

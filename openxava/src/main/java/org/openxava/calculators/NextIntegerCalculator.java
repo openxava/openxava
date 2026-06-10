@@ -28,7 +28,7 @@ public class NextIntegerCalculator implements IJDBCCalculator {
 	}
 
 	public Object calculate() throws Exception {
-		return new Integer(calculateNextInteger());
+		return Integer.valueOf(calculateNextInteger());
 	}
 
 	public int calculateNextInteger()

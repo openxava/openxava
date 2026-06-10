@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.io.*;
 import java.math.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 public class ConversionFactor implements Serializable {

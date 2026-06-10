@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -26,8 +26,8 @@ public class Receptionist {
 	@Column(length=30) @Required
 	private String name;
 	
- 	public static Collection findAll()  { 			
- 		javax.persistence.Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Receptionist as o"); 
+ 	public static Collection<Receptionist> findAll()  {
+ 		jakarta.persistence.TypedQuery<Receptionist> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT r FROM Receptionist r", Receptionist.class); 
  		return query.getResultList();  		
  	} 
 

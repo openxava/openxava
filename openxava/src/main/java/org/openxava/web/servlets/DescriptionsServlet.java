@@ -1,53 +1,82 @@
-package org.openxava.web.dwr;
+package org.openxava.web.servlets;
 
 import java.io.*;
 import java.text.*;
 import java.util.*;
-
+import javax.servlet.*;
+import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-
 import org.apache.commons.logging.*;
+import org.json.*;
 import org.openxava.calculators.*;
 import org.openxava.controller.*;
 import org.openxava.formatters.*;
 import org.openxava.util.*;
 
 /**
- * DWR endpoint to fetch descriptions incrementally for @DescriptionsList.
- * Keeps compatibility with server-side filtering/formatting used by descriptionsEditor.jsp
+ * Servlet for incremental Descriptions fetching.
  * 
- * @since 7.6
  * @author Javier Paniza
+ * @since 8.0
  */
-public class Descriptions extends DWRBase {
+@WebServlet(name = "descriptions", urlPatterns = "/xava/descriptions")
+public class DescriptionsServlet extends BaseServlet {
 
-    private static final Log log = LogFactory.getLog(Descriptions.class);
+    private static final long serialVersionUID = 1L;
+    private static final Log log = LogFactory.getLog(DescriptionsServlet.class);
 
     @Override
     protected void initRequest(HttpServletRequest request, HttpServletResponse response, String application, String module) {
         super.initRequest(request, response, application, module);
         
         // Ensure before-each-request actions are executed; throw if errors are produced
-        //   In this way all the custom initialization by request done in actions,
-        //   like schema settting, are executed, maintining compatilibity with previous
-        //   versions (7.5 and before) when data was filled at editor rendering time.
         executeBeforeEachRequestActions(request, application, module);
     }
 
-    /**
-     * Returns up to "limit" suggestions filtered by "term" for the given property in the current view/module.
-     */
-    public List<Map<String, String>> getDescriptions(
-            HttpServletRequest request, HttpServletResponse response,
-            String application, String module,
-            String propertyKey,
-            String term, int limit,
-            int offset
-    ) {
-        List<Map<String, String>> out = new ArrayList<>();        
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String operation = request.getParameter("operation");
+        if (operation == null) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Missing operation parameter");
+            return;
+        }
+
         try {
+            String application = request.getParameter("application");
+            String module = request.getParameter("module");
             initRequest(request, response, application, module);
 
+            switch (operation) {
+                case "getDescriptions" -> handleGetDescriptions(request, response, application, module);
+                case "getDescription" -> handleGetDescription(request, response, application, module);
+                default -> sendError(response, HttpServletResponse.SC_BAD_REQUEST, "Unknown operation: " + operation);
+            }
+        } catch (SecurityException e) {
+            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        } catch (Exception e) {
+            log.error("Error processing descriptions operation: " + operation, e);
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+        } finally {
+            cleanRequest();
+        }
+    }
+
+    private void handleGetDescriptions(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        String propertyKey = request.getParameter("propertyKey");
+        String term = request.getParameter("term");
+        int limit = 60;
+        try {
+            String limitStr = request.getParameter("limit");
+            if (limitStr != null) limit = Integer.parseInt(limitStr);
+        } catch (NumberFormatException e) {}
+        int offset = 0;
+        try {
+            String offsetStr = request.getParameter("offset");
+            if (offsetStr != null) offset = Integer.parseInt(offsetStr);
+        } catch (NumberFormatException e) {}
+
+        List<Map<String, String>> out = new ArrayList<>();        
+        try {
             // Set application and module parameters for filters that expect them in request
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
@@ -60,10 +89,8 @@ public class Descriptions extends DWRBase {
                 throw new XavaException("descriptions_calculator_not_found", descriptionsCalculatorKey); 
             }
 
-            // No filter/formatter/parameters accepted via DWR for security; use the preconfigured calculator from JSP
             // Retrieve preconfigured formatter from session (set by JSP) without accepting class names from client
             IFormatter formatter = (IFormatter) request.getSession().getAttribute(propertyKey + ".descriptionsFormatter");
-            
 
             // Get descriptions using database-level pagination
             int max = sanitizeLimit(limit);
@@ -77,15 +104,13 @@ public class Descriptions extends DWRBase {
                 descriptions = calculator.getDescriptions(max, offset, qt);
             }
             
-            // removed debug logging
-
             int count = 0;
             java.util.Iterator it = descriptions.iterator();
             
             // Create simple {label, value} objects for jQuery UI
             List<Map<String, String>> simpleItems = new ArrayList<>();
             
-            // Process results (filtering already done in calculator when needed)
+            // Process results
             while (it.hasNext()) {
                 KeyAndDescription kd = (KeyAndDescription) it.next();
                 // Ensure that showCode is false so the code is not displayed in the UI
@@ -94,7 +119,6 @@ public class Descriptions extends DWRBase {
                 // Encode to transport-safe U+XXXX sequences for diacritics, non-ASCII and backslash
                 label = encodeToUPlusCodes(label);
                 
-                // No additional filtering needed - calculator already filtered if term was provided
                 Map<String, String> item = new HashMap<>(2);
                 item.put("label", label); // Visible description
                 item.put("value", encodeToUPlusCodes(String.valueOf(kd.getKey()))); // Value for the hidden input
@@ -104,10 +128,7 @@ public class Descriptions extends DWRBase {
                 if (count >= max) break;
             }
             
-            // Assign to the final result
             out = simpleItems;
-            
-            return out;
         }
         catch (Exception ex) {
             log.error(XavaResources.getString("getting_descriptions_error"), ex); 
@@ -118,28 +139,28 @@ public class Descriptions extends DWRBase {
             errorItem.put("position", "0");
             out.add(errorItem);
         }
-        finally {
-            cleanRequest();
+
+        // Serialize out to JSONArray
+        JSONArray array = new JSONArray();
+        for (Map<String, String> item : out) {
+            JSONObject obj = new JSONObject();
+            obj.put("label", item.get("label"));
+            obj.put("value", item.get("value"));
+            obj.put("position", item.get("position"));
+            array.put(obj);
         }
-        return out;
+
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(array.toString());
+        writer.flush();
     }
 
-    /**
-     * Returns the label (description) for a given key/value of a @DescriptionsList property.
-     * Uses the same preconfigured calculator and formatter stored in session by the JSP.
-     *
-     * @since 7.6
-     */
-    public String getDescription(
-            HttpServletRequest request, HttpServletResponse response,
-            String application, String module,
-            String propertyKey,
-            String value
-    ) {
-        try {
-            initRequest(request, response, application, module);
-            
+    private void handleGetDescription(HttpServletRequest request, HttpServletResponse response, String application, String module) throws IOException {
+        String propertyKey = request.getParameter("propertyKey");
+        String value = request.getParameter("value");
 
+        try {
             // Ensure filters can access application/module context
             request.setAttribute("xava.application", application);
             request.setAttribute("xava.module", module);
@@ -152,27 +173,33 @@ public class Descriptions extends DWRBase {
 
             IFormatter formatter = (IFormatter) request.getSession().getAttribute(propertyKey + ".descriptionsFormatter");
 
-            if (Is.emptyString(value)) return "";
+            if (Is.emptyString(value)) {
+                sendResponse(response, "");
+                return;
+            }
 
             KeyAndDescription kd = calculator.findDescriptionByKey(value);
             if (kd == null) {
-                return "";
+                sendResponse(response, "");
+                return;
             }
 
             kd.setShowCode(false);
             String label = formatter == null ? String.valueOf(kd.getDescription()) : formatter.format(request, kd.getDescription());
-            return encodeToUPlusCodes(label);
+            sendResponse(response, encodeToUPlusCodes(label));
         }
         catch (Exception ex) {
             log.error(XavaResources.getString("getting_descriptions_error"), ex);
-            return "";
-        }
-        finally {
-            cleanRequest();
+            sendResponse(response, "");
         }
     }
 
-    // ---- helpers ----
+    private void sendResponse(HttpServletResponse response, String text) throws IOException {
+        response.setContentType("text/plain; charset=UTF-8");
+        PrintWriter writer = response.getWriter();
+        writer.print(text);
+        writer.flush();
+    }
 
     /** Executes before-each-request actions and throws if any error is produced. */
     private void executeBeforeEachRequestActions(HttpServletRequest request, String application, String module) {
@@ -188,20 +215,13 @@ public class Descriptions extends DWRBase {
         }
     }
 
-    private static String nvl(String a, String b) { return Is.emptyString(a) ? (b == null ? "" : b) : a; }
-
     private static int sanitizeLimit(int limit) {
         if (limit <= 0) return 60;
         return Math.min(limit, 100);
     }
 
-
     /**
      * Encodes text to transport-safe "U+XXXX" sequences.
-     * - Normalize to NFD so accents become combining marks.
-     * - Replace any combining mark (U+0300–U+036F), any non-ASCII code point (>= 0x80),
-     *   and the ASCII backslash (U+005C) with "U+XXXX" (uppercase hex), keeping other ASCII as-is.
-     * Intended to avoid client/DWR/JSON issues; the client converts back to characters.
      */
     private static String encodeToUPlusCodes(String s) {
         if (s == null) return "";

@@ -40,10 +40,10 @@ public class PasteElementsIntoCollectionAction extends SaveElementInCollectionAc
 		}
 		String collectionLabel = getCollectionLabel();		
 		addMessage(added>1?"elements_pasted_into_collection":"element_pasted_into_collection", 
-			new Integer(added), collectionLabel);		
+			Integer.valueOf(added), collectionLabel);		
 		if (failed > 0) {
 			addError(failed>1?"elements_not_pasted_into_collection":"element_not_pasted_into_collection", 
-				new Integer(failed), collectionLabel);
+				Integer.valueOf(failed), collectionLabel);
 		}
 		if (added > 0) {
 			refreshSourceCollection();

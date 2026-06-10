@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.annotations.File;
@@ -40,9 +40,9 @@ public class Movie3 extends Identifiable {
 
 	
 	public static Movie3 findById(String id) {
-		Query query = XPersistence.getManager().createQuery("from Movie3 m where m.id = :id");
+		TypedQuery<Movie3> query = XPersistence.getManager().createQuery("SELECT m FROM Movie3 m WHERE m.id = :id", Movie3.class);
 		query.setParameter("id", id);
-		return (Movie3) query.getSingleResult();
+		return query.getSingleResult();
 	}
 
 	public String getTitle() {

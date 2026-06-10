@@ -2,8 +2,8 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
@@ -40,7 +40,7 @@ public class Invoice3 {
 	@Column(length=50)
 	private String comment;
 	
-	@Type(type="org.openxava.types.SiNoType")
+	@Type(org.openxava.types.SiNoType.class)
 	private boolean paid;
 		
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)

@@ -2501,7 +2501,7 @@ public class InvoiceTest extends CustomizeListTestBase {
 	
 	private Product getProduct() throws Exception {
 		if (product == null) {
-			product = (Product) XPersistence.getManager().find(Product.class, new Long(2));
+			product = (Product) XPersistence.getManager().find(Product.class, Long.valueOf(2));
 		}
 		return product;
 	}

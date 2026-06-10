@@ -3,7 +3,7 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -56,8 +56,8 @@ public class TransportCharge {
 	private BigDecimal amount; 
 	
 	public static Collection<TransportCharge> findAll() {
-		Query query = XPersistence.getManager().createQuery("from TransportCharge as o"); 
- 		return query.getResultList();  				
+		TypedQuery<TransportCharge> query = XPersistence.getManager().createQuery("SELECT o FROM TransportCharge o", TransportCharge.class); 
+ 		return (Collection<TransportCharge>) query.getResultList();  				
 	}	
 
 	public Delivery getDelivery() {

@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 import java.util.prefs.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;

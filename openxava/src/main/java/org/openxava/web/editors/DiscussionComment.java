@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;

@@ -1,9 +1,8 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.filters.*;
@@ -17,8 +16,7 @@ import org.openxava.filters.*;
 @Tab(filter=UserFilter.class, baseCondition="${user} = ?")
 public class Task {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @GeneratedValue(strategy = GenerationType.UUID) @Hidden
 	@Column(name="ID")
 	private String oid;
 	

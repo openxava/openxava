@@ -4,7 +4,7 @@ import static org.openxava.jpa.XPersistence.*;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * An implementation of {@link IFilePersistor} <p>

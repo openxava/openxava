@@ -13,7 +13,7 @@ public class ViewCustomerFromInvoiceAction extends ViewBaseAction {
 	public void execute() throws Exception {				
 		try {			
 			Object number = getView().getValue("customer.number");
-			Map key = new HashMap();
+			Map<String, Object> key = new HashMap<>();
 			key.put("number", number);
 			showNewView();
 			getView().setModelName("Customer");

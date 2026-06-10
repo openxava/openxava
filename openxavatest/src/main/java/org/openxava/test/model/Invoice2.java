@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
@@ -83,7 +83,7 @@ public class Invoice2 {
 	private Customer customer;
 	
 	@OneToMany (mappedBy="invoice", cascade=CascadeType.REMOVE)
-	@javax.validation.constraints.Size(min=1) 
+	@jakarta.validation.constraints.Size(min=1) 
 	@ListProperties("product.description, quantity, unitPrice, amount")
 	@XOrderBy("product.description desc")
 	@NoModify(forViews="NoModifyDetails")
@@ -93,7 +93,7 @@ public class Invoice2 {
 	private Collection<InvoiceDetail2> details;
 	
  	public static Collection<Invoice2> findAll()  {  		 			
-		Query query = XPersistence.getManager().createQuery("from Invoice2"); 
+		TypedQuery<Invoice2> query = XPersistence.getManager().createQuery("SELECT i FROM Invoice2 i", Invoice2.class); 
  		return query.getResultList();  		 		
  	}
  	
@@ -175,7 +175,7 @@ public class Invoice2 {
 	}
 
 	public Collection<InvoiceDetail2> getDetails() {
-		if (details == null) details = new ArrayList(); 
+		if (details == null) details = new ArrayList<>(); 
 		return details;
 	}
 

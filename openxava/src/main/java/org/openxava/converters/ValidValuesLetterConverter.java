@@ -28,23 +28,23 @@ public class ValidValuesLetterConverter implements IConverter {
 			return String.valueOf(getLetters().charAt (value - 1));		
 		}
 		catch (IndexOutOfBoundsException ex) {
-			throw new ConversionException("conversion_db_valid_values", new Integer(value), getLetters());
+			throw new ConversionException("conversion_db_valid_values", Integer.valueOf(value), getLetters());
 		}
 	}
 	
 	public Object toJava(Object o) throws ConversionException {				
-		if (o == null) return new Integer(0);
+		if (o == null) return Integer.valueOf(0);
 		if (!(o instanceof String)) {		
 			throw new ConversionException("conversion_java_string_expected");
 		}
 		assertLetters();
 		String value  = (String) o;
-		if (Is.emptyString(value)) return new Integer(0);
+		if (Is.emptyString(value)) return Integer.valueOf(0);
 		int idx = getLetters().indexOf(value);
 		if (idx < 0) {
 			throw new ConversionException("conversion_java_valid_values", value,  getLetters());
 		}
-		return new Integer(idx + 1);
+		return Integer.valueOf(idx + 1);
 	}
 	
 	private void assertLetters() throws ConversionException {

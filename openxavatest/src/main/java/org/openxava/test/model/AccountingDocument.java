@@ -3,9 +3,9 @@ package org.openxava.test.model;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -22,8 +22,8 @@ public class AccountingDocument extends Identifiable {
 	@Required
 	@Column(length = 4)
 	private int number;
-	
-	@Type(type="org.openxava.types.LocalDateNumericType") 
+
+	@Type(value=org.openxava.types.LocalDateNumericType.class)
 	@Column(name="DATE")
 	@Required
 	private LocalDate date; 

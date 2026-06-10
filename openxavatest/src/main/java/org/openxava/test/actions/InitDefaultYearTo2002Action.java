@@ -20,7 +20,7 @@ public class InitDefaultYearTo2002Action extends BaseAction {
 	public void execute() throws Exception {
 		defaultYear = 2002; // This changes defaultYear in context because of @Inject
 		tab.setTitleVisible(true);
-		tab.setTitleArgument(new Integer(2002));
+		tab.setTitleArgument(Integer.valueOf(2002));
 	}
 
 	public Tab getTab() {

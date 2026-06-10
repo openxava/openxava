@@ -1,7 +1,7 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -36,21 +36,21 @@ public class Clerk {
 
 	// We test the two: java.sql.Time and TIME stereotype
 	private java.sql.Time arrivalTime;
-	@StringTime 
+	@StringTime
 	private String endingTime;
-	
+
 	// For testing a String property stored in a binary field in database
-	@Stereotype("MEMO") @Type(type="org.openxava.types.StringArrayBytesType")		
+	@Stereotype("MEMO") @Type(value=org.openxava.types.StringArrayBytesType.class)
 	private String comments;
 	
 	private Boolean onVacation; 
 	
  	public static Clerk findByZoneNumberOfficeNumberNumber(int zoneNumber,int officeNumber,int number) throws NoResultException { 	 			
- 		Query query = XPersistence.getManager().createQuery("from Clerk as o where o.zoneNumber = :zoneNumber and officeNumber = :officeNumber and number = :number"); 
-		query.setParameter("zoneNumber", new Integer(zoneNumber)); 
-		query.setParameter("officeNumber", new Integer(officeNumber)); 
-		query.setParameter("number", new Integer(number)); 
- 		return (Clerk) query.getSingleResult();
+ 		TypedQuery<Clerk> query = XPersistence.getManager().createQuery("SELECT o FROM Clerk o WHERE o.zoneNumber = :zoneNumber AND officeNumber = :officeNumber AND number = :number", Clerk.class); 
+		query.setParameter("zoneNumber", Integer.valueOf(zoneNumber)); 
+		query.setParameter("officeNumber", Integer.valueOf(officeNumber)); 
+		query.setParameter("number", Integer.valueOf(number)); 
+ 		return query.getSingleResult();
  	} 
 
 

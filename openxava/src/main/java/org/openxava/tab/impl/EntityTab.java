@@ -6,6 +6,7 @@ import java.util.*;
 import javax.ejb.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.calculators.*;
 import org.openxava.component.*;
 import org.openxava.mapping.*;
 import org.openxava.model.meta.*;
@@ -29,7 +30,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	public static final int DEFAULT_CHUNK_SIZE = 120; 
 	
 	private int chunkSize = DEFAULT_CHUNK_SIZE;
-	private static Map dataProviders;	 
+	private static Map<String, ITabProvider> dataProviders;	 
 	private String selectBase;
 	private String componentName;
 	private String tabName;
@@ -40,8 +41,8 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	private transient MetaModel metaModel = null;
 	private transient ModelMapping mapping = null;
 	private int[] indexesPK = null;	
-	private Map keyIndexes = null;
-	private List tabCalculators;	
+	private Map<String, Integer> keyIndexes = null;
+	private List<TabCalculator> tabCalculators;	
 	private boolean	knowIfHasPropertiesWithValidValues = false;
 	private boolean _hasPropertiesWithValidValues;
 	
@@ -109,7 +110,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	 */
 	public Object findEntity(Object[] key) throws FinderException, RemoteException {
 		try {
-			Map result = new HashMap();
+			Map<String, Object> result = new HashMap<>();
 			for (int i = 0; i < key.length; i++) {
 				int iProperty = getIndexesPK()[i];
 				String name = getPropertiesNames().get(iProperty);
@@ -344,7 +345,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	 */
 	private Collection getTabCalculators() throws XavaException {
 		if (tabCalculators == null) {
-			tabCalculators = new ArrayList();			
+			tabCalculators = new ArrayList<>();			
 			Iterator it = metaTab.getMetaPropertiesHiddenCalculated().iterator();
 			
 			while (it.hasNext()) {
@@ -397,12 +398,12 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	private Map getKeyIndexes() {
 		if (keyIndexes == null) {	
 			Iterator<String> it = getPropertiesNames().iterator();
-			keyIndexes = new HashMap();
+			keyIndexes = new HashMap<>();
 			int i = 0;
 			while (it.hasNext()) {
 				String propertyName = it.next();
 				if (getMetaModel().isKey(propertyName)) {					
-					keyIndexes.put(propertyName, new Integer(i));
+					keyIndexes.put(propertyName, Integer.valueOf(i));
 				}
 				i++;
 			}		
@@ -454,7 +455,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		
 	private static Map getDataProviders() {
 		if (dataProviders == null) {
-			dataProviders = new HashMap();
+			dataProviders = new HashMap<>();
 		}
 		return dataProviders;
 	}

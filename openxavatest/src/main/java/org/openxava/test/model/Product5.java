@@ -3,8 +3,8 @@ package org.openxava.test.model;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -133,9 +133,9 @@ public class Product5 {
 	}
 	
  	public static Product5 findByNumber(long number) throws NoResultException { 	 			
- 		Query query = XPersistence.getManager().createQuery("from Product2 as o where o.number = :number"); 
-		query.setParameter("number", new Long(number));  	
-		return (Product5) query.getSingleResult();
+ 		TypedQuery<Product5> query = XPersistence.getManager().createQuery("SELECT o FROM Product2 o WHERE o.number = :number", Product5.class); 
+		query.setParameter("number", Long.valueOf(number));  	
+		return query.getSingleResult();
 	} 
 
 	
@@ -148,7 +148,7 @@ public class Product5 {
 			throw new org.openxava.validators.ValidationException("openxava_not_saleable"); 
 		}
 		if (description.contains("ECLIPSE")) {
-			throw new javax.validation.ValidationException("eclipse_not_saleable"); 
+			throw new jakarta.validation.ValidationException("eclipse_not_saleable"); 
 		}
 		this.description = description;
 	}

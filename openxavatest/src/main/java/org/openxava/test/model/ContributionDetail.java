@@ -2,8 +2,8 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.Digits;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 
 import org.openxava.annotations.*;
 

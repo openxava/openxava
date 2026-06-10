@@ -3,7 +3,7 @@ package org.openxava.test.model;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -396,37 +396,37 @@ public class Customer implements IWithName {
 	}
 		
  	public static Customer findByNumber(int number) throws NoResultException { 	 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o where o.number = :number"); 
-		query.setParameter("number", new Integer(number)); 
-		return (Customer) query.getSingleResult();
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o WHERE o.number = :number", Customer.class); 
+		query.setParameter("number", Integer.valueOf(number)); 
+		return query.getSingleResult();
  	} 	
 	
- 	public static Collection findAll()  {
-		Query query = XPersistence.getManager().createQuery("from Customer as o"); 
+ 	public static Collection<Customer> findAll()  {
+		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o", Customer.class); 
 		return query.getResultList();  		
  	} 
  	
- 	public static Collection findByNameLike(String name)  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o where o.name like :name order by o.name desc"); 
+ 	public static Collection<Customer> findByNameLike(String name)  {
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o WHERE o.name LIKE :name ORDER BY o.name DESC", Customer.class); 
 		query.setParameter("name", name); 
  		return query.getResultList();  		 		
  	} 	 	
  	
- 	public static Collection findNormalOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o where o.type = 0"); 
+ 	public static Collection<Customer> findNormalOnes()  {
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o WHERE o.type = 0", Customer.class); 
  		return query.getResultList();  		 		
  	} 	
- 	public static Collection findSteadyOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o where o.type = 1"); 
+ 	public static Collection<Customer> findSteadyOnes()  {
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o WHERE o.type = 1", Customer.class); 
  		return query.getResultList();  		 		
  	} 	
- 	public static Collection findByStreet(java.lang.String street)  { 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o where o.address.street = :street"); 
+ 	public static Collection<Customer> findByStreet(java.lang.String street)  {
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o WHERE o.address.street = :street", Customer.class); 
 		query.setParameter("street", street); 
  		return query.getResultList();  		
  	} 	
- 	public static Collection findOrderedByState()  { 			
- 		Query query = XPersistence.getManager().createQuery("from Customer as o order by o.address.state.name"); 
+ 	public static Collection<Customer> findOrderedByState()  {
+ 		TypedQuery<Customer> query = XPersistence.getManager().createQuery("SELECT o FROM Customer o ORDER BY o.address.state.name", Customer.class); 
  		return query.getResultList();  		
  	} 	 	
  		

@@ -2,13 +2,13 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.View;
 import org.openxava.annotations.Views;
 
 /**
- * To test @javax.validation.constraints.Size with min and max elements on a 
+ * To test @jakarta.validation.constraints.Size with min and max elements on a 
  * collection of entities not embeddable.
  *
  * @author Jeromy Altuna
@@ -24,7 +24,7 @@ import org.openxava.annotations.Views;
 public class Hunter extends HunterAndHound {
 	
 	@OneToMany(mappedBy="hunter")
-	@javax.validation.constraints.Size(min=1, max=2) 
+	@jakarta.validation.constraints.Size(min=1, max=2) 
 	private Collection<Hound> hounds;
 	
 //	public Hunter() {

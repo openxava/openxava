@@ -4,7 +4,7 @@ import java.rmi.*;
 import java.util.*;
 import java.util.stream.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
@@ -70,8 +70,8 @@ public class JPATabProvider extends TabProviderBase {
 				String nestedReference = (String) getEntityReferencesReferenceNames().get(referenceMapping);
 				addJoin(entityAndJoins, reference, nestedReference);
 				if (!Is.emptyString(nestedReference)) {					
-					entityAndJoins.append(isAggregate(nestedReference)?".":"_");
-					entityAndJoins.append(nestedReference);
+					entityAndJoins.append(".");
+					entityAndJoins.append(nestedReference.replace('_', '.'));
 				}				
 				entityAndJoins.append(".");
 				entityAndJoins.append(reference);				
@@ -219,7 +219,8 @@ public class JPATabProvider extends TabProviderBase {
 		for (String join: neededJoins) {
 			if (selectBase.contains(" " + join + " ") || selectBase.endsWith(" " + join)) continue;  
 			joins.append(" left join ");
-			joins.append(Strings.changeLast(join, "_", ".")); 
+			String path = "e." + join.substring(2).replace('_', '.');
+			joins.append(path); 
 			joins.append(" ");
 			joins.append(join);
 		}
@@ -340,9 +341,34 @@ public class JPATabProvider extends TabProviderBase {
 	protected void addEntityReferenceMapping(Collection<ReferenceMapping> entityReferencesMappings, 
 		Map<ReferenceMapping, String> entityReferencesReferenceNames, ReferenceMapping referenceMapping, String parentReference) 
 	{
-		if (entityReferencesMappings.contains(referenceMapping)) referenceMapping = referenceMapping.clone();  
+		String refName = referenceMapping.getReference();
+		boolean found = false;
+		for (ReferenceMapping existing : entityReferencesMappings) {
+			if (existing.getReference().equals(refName)) {
+				String existingParent = entityReferencesReferenceNames.get(existing);
+				if (Objects.equals(existingParent, parentReference)) {
+					referenceMapping = existing;
+					found = true;
+					break;
+				}
+			}
+		}
+		if (!found) {
+			boolean hasExistingWithDifferentParent = false;
+			for (ReferenceMapping existing : entityReferencesMappings) {
+				if (existing.getReference().equals(refName)) {
+					hasExistingWithDifferentParent = true;
+					break;
+				}
+			}
+			if (hasExistingWithDifferentParent) {
+				referenceMapping = referenceMapping.clone();
+			}
+		}
 		entityReferencesReferenceNames.put(referenceMapping, parentReference); 
-		entityReferencesMappings.add(referenceMapping);
+		if (!entityReferencesMappings.contains(referenceMapping)) {
+			entityReferencesMappings.add(referenceMapping);
+		}
 	}
 	
 	private StringBuffer addJoin(StringBuffer entityAndJoins, String reference, String nestedReference) {

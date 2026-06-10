@@ -19,7 +19,7 @@ public class MinimumSizeValidator implements IPropertyValidator {
 		if (size == 0) return;
 		if (value == null || value.toString().length() < size) {
 			String units = value instanceof Number?"digits":"characters";
-			errors.add("minimum_size_error", propertyName, units, new Integer(size));
+			errors.add("minimum_size_error", propertyName, units, Integer.valueOf(size));
 		}
 	}
 

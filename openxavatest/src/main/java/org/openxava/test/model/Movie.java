@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -54,9 +54,9 @@ public class Movie extends Identifiable {
 	private String photographs;
 	
 	public static Movie findById(String id) {
-		Query query = XPersistence.getManager().createQuery("from Movie m where m.id = :id");
+		TypedQuery<Movie> query = XPersistence.getManager().createQuery("SELECT m FROM Movie m WHERE m.id = :id", Movie.class);
 		query.setParameter("id", id);
-		return (Movie) query.getSingleResult();
+		return query.getSingleResult();
 	}
 
 	public String getTitle() {

@@ -2,11 +2,12 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CompositeType;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.actions.*;
@@ -65,7 +66,7 @@ public class InvoiceDetail {
 	@Id @Hidden 
 	private String oid;
 	
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.InvoiceDetail$ServiceType")
 		}
@@ -73,8 +74,8 @@ public class InvoiceDetail {
 	private ServiceType serviceType;
 	public enum ServiceType { SPECIAL, URGENT }
 	
-	@Column(name="QTY", length=4) // The column name does not match the property name to test sumColum for this case 
-	@Required 
+	@Column(name="QTY", length=4) // The column name does not match the property name to test sumColum for this case
+	@Required
 	private int quantity;
 	
 	@Stereotype("MONEY") @Required
@@ -82,14 +83,14 @@ public class InvoiceDetail {
 	
 	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	private Product product;
-	
-	@Type(type="org.openxava.types.Date3Type") 
-	@Columns(columns = { 
-		@Column(name="YEARDELIVERY"), 
-		@Column(name="MONTHDELIVERY"), 
-		@Column(name="DAYDELIVERY") 
-	})	
-	@DefaultValueCalculator(CurrentDateCalculator.class)	
+
+	@CompositeType(org.openxava.types.Date3Type.class)
+	@AttributeOverrides({
+		@AttributeOverride(name="year", column=@Column(name="YEARDELIVERY")),
+		@AttributeOverride(name="month", column=@Column(name="MONTHDELIVERY")),
+		@AttributeOverride(name="day", column=@Column(name="DAYDELIVERY"))
+	})
+	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date deliveryDate;
 	
 	@ManyToOne(fetch=FetchType.LAZY) 	

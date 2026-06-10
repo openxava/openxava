@@ -2,9 +2,9 @@ package org.openxava.session;
 
 import java.io.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -22,8 +22,8 @@ import org.openxava.jpa.*;
 @Table(name = "IMAGES") 
 public class GalleryImage implements Serializable {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID", length=32)
 	private String oid;
 	

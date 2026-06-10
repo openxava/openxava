@@ -133,6 +133,9 @@ public class Messages implements java.io.Serializable {
 					if (v.toString().startsWith("'") && v.toString().endsWith("'")) {					
 						result[i] = v.toString().substring(1, v.toString().length() - 1);
 					}
+					else if (v.toString().contains("://") || v.toString().startsWith("mailto:")) {
+						result[i] = v;
+					}
 					else{					
 						try {
 							result[i] = Labels.removeUnderlined(Labels.get((String)v, locale));
@@ -164,8 +167,8 @@ public class Messages implements java.io.Serializable {
 		}
 	}
 	
-	private Collection messages; 
-	private Collection members;
+	private Collection<Message> messages; 
+	private Collection<String> members;
 	private boolean closed = false;	
 	
 	public boolean contains(String idMessage) {
@@ -208,7 +211,7 @@ public class Messages implements java.io.Serializable {
 				addMember(ids[0], ids[1]);
 			} 
 		}
-		if (messages == null) messages = new ArrayList(); 
+		if (messages == null) messages = new ArrayList<Message>(); 
 		messages.add(new Message(type, idMessage, ids));
 	}
 	
@@ -221,8 +224,8 @@ public class Messages implements java.io.Serializable {
 			Object id = null;
 			if (model instanceof String) id = model + "." + member; 		
 			else id = member;						
-			if (members == null) members = new ArrayList();		
-			members.add(id);
+			if (members == null) members = new ArrayList<String>();		
+			members.add((String) id);
 		}
 	}
 	
@@ -248,11 +251,11 @@ public class Messages implements java.io.Serializable {
 	public void add(Messages messages) {	
 		if (closed) return;
 		if (messages.messages != null) {
-			if (this.messages == null) this.messages = new ArrayList();
+			if (this.messages == null) this.messages = new ArrayList<Message>();
 			this.messages.addAll(messages.messages);
 		}		
 		if (messages.members != null) {
-			if (this.members == null) this.members = new ArrayList();
+			if (this.members == null) this.members = new ArrayList<String>();
 			this.members.addAll(messages.members);
 		}
 	}
@@ -260,46 +263,46 @@ public class Messages implements java.io.Serializable {
 	/**
 	 * List of all message texts translated using the default locale.
 	 */
-	public Collection getStrings() {
+	public Collection<String> getStrings() {
 		return getStrings(Locale.getDefault());
 	}
 
 	/**
 	 * List of all message texts translated using the locale of the request.
 	 */	
-	public Collection getStrings(ServletRequest request) {
+	public Collection<String> getStrings(ServletRequest request) {
 		return getStrings(XavaResources.getLocale(request));
 	}
 
 	/**
 	 * List of all message texts translated using the indicated locale.
 	 */	
-	public Collection getStrings(Locale locale) {
-		if (messages == null) return Collections.EMPTY_LIST; 
+	public Collection<String> getStrings(Locale locale) {
+		if (messages == null) return Collections.emptyList(); 
 		Iterator it = messages.iterator();
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (it.hasNext()) {
 			r.add(((Message) it.next()).toString(locale));
 		}
 		return r;
 	}
 	
-	public Collection getMessagesStrings(ServletRequest request) { 
+	public Collection<String> getMessagesStrings(ServletRequest request) { 
 		return getStrings(Type.MESSAGE, request);
 	}
 	
-	public Collection getWarningsStrings(ServletRequest request) { 
+	public Collection<String> getWarningsStrings(ServletRequest request) { 
 		return getStrings(Type.WARNING, request);
 	}	
 	
-	public Collection getInfosStrings(ServletRequest request) { 
+	public Collection<String> getInfosStrings(ServletRequest request) { 
 		return getStrings(Type.INFO, request);
 	}
 	
-	private Collection getStrings(Type type, ServletRequest request) { 
-		if (messages == null) return Collections.EMPTY_LIST;  
+	private Collection<String> getStrings(Type type, ServletRequest request) { 
+		if (messages == null) return Collections.emptyList();  
 		Iterator it = messages.iterator();
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (it.hasNext()) {
 			Message message = (Message) it.next();
 			if (message.getType() == type) {
@@ -314,10 +317,10 @@ public class Messages implements java.io.Serializable {
 	 * List of all ids of the messages
 	 * @return
 	 */
-	public Collection getIds() {
-		if (messages == null) return Collections.EMPTY_LIST; 
+	public Collection<String> getIds() {
+		if (messages == null) return Collections.emptyList(); 
 		Iterator it = messages.iterator();
-		Collection r = new ArrayList();
+		Collection<String> r = new ArrayList<String>();
 		while (it.hasNext()) {
 			r.add(((Message) it.next()).getId());
 		}
@@ -333,8 +336,8 @@ public class Messages implements java.io.Serializable {
 	/**
 	 * Qualified names of the members affected for this errors. <p>  
 	 */
-	public Collection getMembers() {
-		return members==null?Collections.EMPTY_LIST:members;
+	public Collection<String> getMembers() {
+		return members==null?Collections.emptyList():members;
 	}
 	
 }

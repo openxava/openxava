@@ -22,17 +22,17 @@ public class ValidValuesBase0Converter implements IConverter {
 		
 		int value = ((Integer) o).intValue();
 		if (value == 0) return null;
-		return new Integer(value - 1);		
+		return Integer.valueOf(value - 1);		
 	}
 	
 	public Object toJava(Object o) throws ConversionException {
-		if (o == null) return new Integer(0);		
+		if (o == null) return Integer.valueOf(0);		
 		if (!(o instanceof Number)) {		
 			throw new ConversionException("conversion_java_number_expected");
 		}
 		
 		int value  = ((Number) o).intValue();		
-		return new Integer(value + 1);
+		return Integer.valueOf(value + 1);
 	}
 	
 }

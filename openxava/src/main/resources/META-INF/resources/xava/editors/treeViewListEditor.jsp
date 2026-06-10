@@ -134,8 +134,6 @@ if(!Is.empty(key)){
 	data-k-value="<%=kValue%>"
 	</div>
 
-	<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Tree.js?ox=<%=version%>'>
-	</script>
 	<%
 }
 %>

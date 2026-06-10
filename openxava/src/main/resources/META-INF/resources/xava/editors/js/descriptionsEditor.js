@@ -1,8 +1,5 @@
 if (descriptionsEditor == null) var descriptionsEditor = {};
 
-// Load DWR script using OpenXava helper (same approach as discussionEditor.js)
-openxava.getScript(openxava.contextPath + "/dwr/interface/Descriptions.js");
-
 openxava.addEditorInitFunction(function() {
 	
 	$(".xava_select").each(function() { 
@@ -123,18 +120,16 @@ openxava.addEditorInitFunction(function() {
 						offset = $(input).data("allItems") ? $(input).data("allItems").length : 0;
 					}
 					
-					// Check DWR availability
-						if (typeof Descriptions === 'undefined' || !Descriptions.getDescriptions) {
-							response([]);
-							return;
-						}
+					var params = new URLSearchParams();
+					params.append("operation", "getDescriptions");
+					params.append("application", openxava.lastApplication);
+					params.append("module", openxava.lastModule);
+					params.append("propertyKey", propertyKey);
+					params.append("term", request.term);
+					params.append("limit", limit);
+					params.append("offset", offset);
 					
-					Descriptions.getDescriptions(
-						openxava.lastApplication, openxava.lastModule,
-						propertyKey,
-						request.term, limit,
-						offset,
-						function(items) { 
+					openxava.post("/xava/descriptions", params, function(items) { 
 							// Discard stale responses: if user kept typing and lastTerm changed, ignore this callback
 							if (currentTerm !== $(input).data("lastTerm")) {
 								// Clear loading flag so infinite scroll can continue working
@@ -144,16 +139,20 @@ openxava.addEditorInitFunction(function() {
 							// Normalize items into an array of {value,label,...}
 							var list = [];
 							if (typeof items === 'string') {
-								// Server returns a JSON-like string with unquoted keys; fix and parse
-								var fixedJson = items
-									.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
-									.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
-									.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
+								try {
+									list = JSON.parse(items);
+								} catch (e) {
+									// Server returns a JSON-like string with unquoted keys; fix and parse
+									var fixedJson = items
+										.replace(/([{,])\s*([a-zA-Z0-9_]+)\s*:/g, '$1"$2":')
+										.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2')
+										.replace(/:\s*"([^"]*)"\s*([,}])/g, ':"$1"$2');
 									try {
 										list = JSON.parse(fixedJson);
-									} catch (e) {
+									} catch (e2) {
 										list = [];
 									}
+								}
 							} else if ($.isArray(items)) {
 								list = items;
 							} else {
@@ -276,32 +275,29 @@ descriptionsEditor.val = function(input, defaultValue) {
         return;
     }
 
-    // Prefer server-side label retrieval via DWR
     try {
-        var hasDwr = (typeof Descriptions !== 'undefined');
-        var hasGetDescription = hasDwr && (typeof Descriptions.getDescription === 'function');
-        if (hasGetDescription) {
-            var propertyKey = input.attr('id');
-            Descriptions.getDescription(
-                openxava.lastApplication,
-                openxava.lastModule,
-                propertyKey,
-                defaultValue,
-                function(label) {
-                    // Decode server-encoded label
-                    var lbl = label || "";
-                    lbl = descriptionsEditor._convertUPlusToBackslashU(lbl);
-                    lbl = descriptionsEditor._decodeUnicodeEscapes(lbl);
-                    if (lbl && typeof lbl.normalize === 'function') lbl = lbl.normalize('NFC');
-                    control.val(lbl);
-                    input.next().val(lbl);
-                }
-            );
-        } else {
-            // Fallback: clear labels if service not available
-            control.val("");
-            input.next().val("");
-        }
+        var propertyKey = input.attr('id');
+        var params = new URLSearchParams();
+        params.append("operation", "getDescription");
+        params.append("application", openxava.lastApplication);
+        params.append("module", openxava.lastModule);
+        params.append("propertyKey", propertyKey);
+        params.append("value", defaultValue);
+
+        openxava.post("/xava/descriptions", params, function(label) {
+            if (label && label.indexOf("ERROR: ") === 0) {
+                control.val("");
+                input.next().val("");
+                return;
+            }
+            // Decode server-encoded label
+            var lbl = label || "";
+            lbl = descriptionsEditor._convertUPlusToBackslashU(lbl);
+            lbl = descriptionsEditor._decodeUnicodeEscapes(lbl);
+            if (lbl && typeof lbl.normalize === 'function') lbl = lbl.normalize('NFC');
+            control.val(lbl);
+            input.next().val(lbl);
+        });
     } catch (e) {
         control.val("");
         input.next().val("");

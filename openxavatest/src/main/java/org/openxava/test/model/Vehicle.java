@@ -1,9 +1,8 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
 
 /**
@@ -21,8 +20,8 @@ import org.openxava.annotations.*;
 })
 public class Vehicle {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy="uuid")
+	@Id @Hidden 
+	@UUID32 
 	private String oid;
 	
 	@Column(length=5)
@@ -103,7 +102,7 @@ public class Vehicle {
 
 	public void setCity(City city) {
 		this.city = city;
-		this.cityCode = city == null ? new Integer(0) : new Integer(city.getCode());
+		this.cityCode = city == null ? Integer.valueOf(0) : Integer.valueOf(city.getCode());
 	}
 
 	public Integer getCityCode() {

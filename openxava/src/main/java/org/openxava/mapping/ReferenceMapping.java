@@ -16,9 +16,9 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 	private ModelMapping container;
 	private String reference;
 	private ModelMapping referencedMapping;
-	private Map details = new HashMap();
+	private Map<String, ReferenceMappingDetail> details = new HashMap<>();
 	private String referencedModelName;
-	private Collection columns = null;
+	private Collection<String> columns = null;
 	
 
 	public ReferenceMapping clone() {
@@ -83,7 +83,7 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 	/**
 	 * @return Not null.
 	 */
-	public Collection getDetails() {
+	public Collection<ReferenceMappingDetail> getDetails() {
 		return details.values();
 	}
 	
@@ -109,12 +109,12 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		this.reference = reference;
 	}
 	
-	public Collection getColumns() throws XavaException {
+	public Collection<String> getColumns() throws XavaException {
 		if (columns == null) {
-			columns = new ArrayList();			
-			Collection keyProperties = getContainer().getMetaModel().getMetaReference(getReference()).getMetaModelReferenced().getAllKeyPropertiesNames();
-			for (Iterator it = keyProperties.iterator(); it.hasNext();) {
-				columns.add(getColumnForReferencedModelProperty((String) it.next()));
+			columns = new ArrayList<String>();			
+			Collection<String> keyProperties = getContainer().getMetaModel().getMetaReference(getReference()).getMetaModelReferenced().getAllKeyPropertiesNames();
+			for (Iterator<String> it = keyProperties.iterator(); it.hasNext();) {
+				columns.add(getColumnForReferencedModelProperty(it.next()));
 			}
 		}
 		return columns;
@@ -127,10 +127,10 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		return "_" + Strings.change(Strings.firstUpper(getReference()) + "_" + propertyNameOfReferencedModel, ".", "_");
 	}
 
-	public Collection getCmpFields() throws XavaException {
-		Collection fields = new ArrayList();  
-		for (Iterator it=getDetails().iterator(); it.hasNext();) {
-			ReferenceMappingDetail d = (ReferenceMappingDetail) it.next();
+	public Collection<CmpField> getCmpFields() throws XavaException {
+		Collection<CmpField> fields = new ArrayList<CmpField>();  
+		for (Iterator<ReferenceMappingDetail> it=getDetails().iterator(); it.hasNext();) {
+			ReferenceMappingDetail d = it.next();
 			CmpField field = new CmpField();
 			field.setCmpPropertyName( 
 					"_" + Strings.firstUpper(getReference()) + "_" + 

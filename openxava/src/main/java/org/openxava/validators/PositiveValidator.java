@@ -14,8 +14,8 @@ import org.openxava.util.*;
 public class PositiveValidator implements IPropertyValidator, IWithMessage {
 
 	private static BigDecimal CERO_BIGDECIMAL = new BigDecimal("0");
-	private static Double CERO_DOUBLE = new Double("0");
-	private static Float CERO_FLOAT = new Float("0");	
+	private static Double CERO_DOUBLE = Double.valueOf("0");
+	private static Float CERO_FLOAT = Float.valueOf("0");	
 	
 	private String message = "positive"; 
 

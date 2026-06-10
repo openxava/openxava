@@ -27,7 +27,7 @@ public class BigDecimalValidator implements IPropertyValidator {
         int integerLength = bigDecimal.toBigInteger().toString().length();
 
         if (integerLength > getMaximumIntegerDigits()) {
-        	int maximumValue = new Integer("1" + Strings.repeat(maximumIntegerDigits, "0")).intValue();
+        	int maximumValue = Integer.valueOf("1" + Strings.repeat(maximumIntegerDigits, "0")).intValue();
         	errors.add("greater_than_the_awaited", propertyName, modelName, String.valueOf(maximumValue));
         }
         if (decimalLength > getMaximumFractionDigits()) {

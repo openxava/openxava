@@ -5,16 +5,18 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OrderBy;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OrderBy;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
+
+import org.openxava.annotations.View;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
@@ -25,7 +27,7 @@ import org.openxava.util.*;
 import lombok.*;
 
 /**
- * 
+ *
  * @author Javier Paniza
  */
 
@@ -264,8 +266,8 @@ public class Invoice {
 	
 	@Column(length=50)
 	private String comment;
-	
-	@Type(type="org.openxava.types.SiNoType")
+
+	@Type(value=org.openxava.types.SiNoType.class)
 	@ReadOnly(forViews="NestedSections") 
 	private boolean paid;
 		
@@ -376,7 +378,7 @@ public class Invoice {
 			ps.setInt(2, getNumber());
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			Integer result = new Integer(rs.getInt(1)); 
+			Integer result = Integer.valueOf(rs.getInt(1)); 
 			ps.close();
 			return result;			
 		}
@@ -439,26 +441,28 @@ public class Invoice {
 		totalCalculationsCount = 0;
 	}	
 		
- 	public static Collection findAll()  {  		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice"); 
+ 	public static Collection<Invoice> findAll()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT i FROM Invoice i", Invoice.class); 
  		return query.getResultList();  		 		
  	} 	
  	
- 	public static Collection findPaidOnes()  { 		 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = true"); 
+ 	public static Collection<Invoice> findPaidOnes()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT o FROM Invoice o WHERE o.paid = :paid", Invoice.class); 
+ 		query.setParameter("paid", true);
  		return query.getResultList();  		 		
- 	}
+ 	} 	
  	
- 	public static Collection findNotPaidOnes()  { 			
- 		Query query = XPersistence.getManager().createQuery("from Invoice as o where o.paid = false"); 
+ 	public static Collection<Invoice> findNotPaidOnes()  {
+ 		TypedQuery<Invoice> query = XPersistence.getManager().createQuery("SELECT o FROM Invoice o WHERE o.paid = :paid", Invoice.class); 
+ 		query.setParameter("paid", false);
  		return query.getResultList();  		
  	} 	
  	
  	public static Invoice findByYearNumber(int year,int number) throws NoResultException { 			
- 		Query query = org.openxava.jpa.XPersistence.getManager().createQuery("from Invoice as o where o.year = :year and number = :number"); 
-		query.setParameter("year", new Integer(year)); 
-		query.setParameter("number", new Integer(number)); 
-		return (Invoice) query.getSingleResult();
+ 		TypedQuery<Invoice> query = org.openxava.jpa.XPersistence.getManager().createQuery("SELECT i FROM Invoice i WHERE i.year = :year AND i.number = :number", Invoice.class); 
+		query.setParameter("year", Integer.valueOf(year)); 
+		query.setParameter("number", Integer.valueOf(number)); 
+		return query.getSingleResult();
  	} 
 
 	public BigDecimal getVatPercentage() {

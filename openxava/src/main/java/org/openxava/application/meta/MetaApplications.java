@@ -13,7 +13,7 @@ import org.openxava.util.*;
  */
 public class MetaApplications {
 	
-	private static Collection applicationNames;
+	private static Collection<String> applicationNames;
 
 	private static Map<String, MetaApplication> metaAplicacions; 
 	private static MetaApplication mainMetaApplication; 
@@ -82,9 +82,9 @@ public class MetaApplications {
 		return result;
 	}
 
-	public static Collection getApplicationsNames() throws XavaException {
+	public static Collection<String> getApplicationsNames() throws XavaException {
 		if (applicationNames == null) {
-			applicationNames = new ArrayList();
+			applicationNames = new ArrayList<>();
 			Iterator it = getMetaApplications().iterator();
 			while (it.hasNext()) {
 				MetaApplication ap = (MetaApplication) it.next();

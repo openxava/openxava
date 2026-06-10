@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -120,7 +120,7 @@ public class Color {
 	public int actionNumber;
 	
 	public static Collection<Color> findAll() {
-		Query query = XPersistence.getManager().createQuery("from Color");
+		TypedQuery<Color> query = XPersistence.getManager().createQuery("SELECT c FROM Color c", Color.class);
 		return query.getResultList();
 	}
 	

@@ -12,7 +12,7 @@ public class CurrentMonthCalculator implements ICalculator {
 	public Object calculate() throws Exception {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime( new java.util.Date() );
-		return new Integer(cal.get(Calendar.MONTH) + 1);
+		return Integer.valueOf(cal.get(Calendar.MONTH) + 1);
 	}
 
 }

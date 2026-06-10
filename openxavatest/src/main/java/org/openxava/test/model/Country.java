@@ -3,7 +3,7 @@ package org.openxava.test.model;
 
 import org.openxava.model.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Country extends Identifiable {

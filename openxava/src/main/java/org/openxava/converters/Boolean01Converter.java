@@ -19,7 +19,7 @@ public class Boolean01Converter implements IConverter {
 		if (!(o instanceof Boolean)) {		
 			throw new ConversionException("conversion_db_boolean_expected");
 		}
-		return new Integer(booleanToInt(((Boolean) o).booleanValue()));
+		return Integer.valueOf(booleanToInt(((Boolean) o).booleanValue()));
 	}
 	
 	public Object toJava(Object o) throws ConversionException {

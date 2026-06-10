@@ -1,9 +1,10 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 
 /**
@@ -45,8 +46,8 @@ import org.openxava.annotations.*;
 )
 public class Subfamily {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	private String oid;
 	
 	@Column(length=3) @Required @ZerosFilled
@@ -59,7 +60,7 @@ public class Subfamily {
 	private String description;
 	
 	@Column(length=400) @Stereotype("MEMO") 
-	@org.hibernate.annotations.Type(type="org.openxava.types.NotNullStringType")
+	@Type(org.openxava.types.NotNullStringType.class)
 	private String remarks;
 	
 	@Transient @Column(length=40) @Hidden  

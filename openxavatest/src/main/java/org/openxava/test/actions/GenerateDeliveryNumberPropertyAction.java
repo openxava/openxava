@@ -13,7 +13,7 @@ public class GenerateDeliveryNumberPropertyAction extends BaseAction implements 
     private String property;
  
     public void execute() throws Exception {
-        view.setValue(property, new Integer(88));
+        view.setValue(property, Integer.valueOf(88));
     }
  
     public void setProperty(String property) {

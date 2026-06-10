@@ -78,12 +78,12 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 				metaCalculador = getMetaCalculatorDefaultValue();
 			}
 			else {
-				propertyNamesThatIDepend = Collections.EMPTY_LIST;
+				propertyNamesThatIDepend = Collections.emptyList();
 				return propertyNamesThatIDepend;
 			}
 				
 			if (!metaCalculador.containsMetaSets()) {
-				propertyNamesThatIDepend = Collections.EMPTY_LIST;
+				propertyNamesThatIDepend = Collections.emptyList();
 				return propertyNamesThatIDepend;
 			} 
 			
@@ -175,7 +175,7 @@ abstract public class MetaMember extends MetaElement implements Comparable<MetaM
 	}
 
 	private Annotation[] getAnnotationsFromGetter(Annotation[] result, String prefix) throws NoSuchMethodException {   
-		AnnotatedElement element = getMetaModel().getPOJOClass().getMethod(prefix + Strings.firstUpper(getSimpleName()));
+		AnnotatedElement element = ((Class<?>) getMetaModel().getPOJOClass()).getMethod(prefix + Strings.firstUpper(getSimpleName()));
 		Annotation[] getterAnnotations = Classes.getAnnotationsWithRepeatables(element); 
 		if (getterAnnotations.length > 0) {
 			Collection<Annotation> annotations = new ArrayList<>();

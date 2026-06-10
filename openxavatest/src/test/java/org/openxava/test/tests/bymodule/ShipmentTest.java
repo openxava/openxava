@@ -1,6 +1,6 @@
 package org.openxava.test.tests.bymodule;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.jpa.*;
 import org.openxava.test.model.*;
@@ -240,7 +240,7 @@ public class ShipmentTest extends ModuleTestBase {
 	}
 	
 	private void deleteCustomerAndContactPerson(int number) throws Exception {
-		Customer customer = (Customer) XPersistence.getManager().find(Customer.class, new Integer(number));
+		Customer customer = XPersistence.getManager().find(Customer.class, number);
 		if (customer == null) return;		
 		Query query = XPersistence.getManager().createQuery("from CustomerContactPerson as o where o.customer.number = :customerNumber"); 
 		query.setParameter("customerNumber", customer.getNumber());  		

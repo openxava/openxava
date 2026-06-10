@@ -13,7 +13,6 @@ import org.openxava.util.*;
 import org.openxava.validators.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.dwr.Module;
 import org.openxava.web.meta.*;
 
 
@@ -70,7 +69,7 @@ public class UploadServlet extends HttpServlet {
 			if (fileId != null) propertyValues = propertyValues + ",fileId=" + fileId; 
 			manager.executeAction(action, errors, messages, propertyValues, request);
 			if (errors.contains()) {
-				Module.memorizeLastMessages(request, request.getParameter("application"), request.getParameter("module"));
+				LastMessages.memorize(request, request.getParameter("application"), request.getParameter("module"));
 				response.sendError(406);
 			}
 		}

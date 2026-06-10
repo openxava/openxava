@@ -3,7 +3,7 @@ package org.openxava.session;
 import java.io.*;
 import java.util.prefs.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.actions.*;
 import org.openxava.annotations.*;

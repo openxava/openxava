@@ -14,8 +14,8 @@ public class CarriersSearchAction extends SearchByViewKeyAction {
 	private static final long serialVersionUID = 1L;
 	private static final String NAME = "TRES";
 	
-	protected Map getValuesFromView() throws Exception {
-		Map values = new HashMap(super.getValuesFromView());		
+	protected Map<String, Object> getValuesFromView() throws Exception {
+		Map<String, Object> values = new HashMap<>(super.getValuesFromView());		
 		values.put("name", NAME);		
 		return values;
 	}

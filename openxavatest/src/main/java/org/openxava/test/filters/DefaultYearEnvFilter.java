@@ -18,7 +18,7 @@ public class DefaultYearEnvFilter extends BaseContextFilter {
 			return new Object [] { getDefaultYear() };
 		}		
 		if (o instanceof Object []) {			
-			List c = new ArrayList(Arrays.asList((Object []) o));
+			List<Object> c = new ArrayList<>(Arrays.asList((Object []) o));
 			c.add(0, getDefaultYear());
 			return c.toArray();			
 		} 
@@ -29,7 +29,7 @@ public class DefaultYearEnvFilter extends BaseContextFilter {
 
 	private Integer getDefaultYear() throws FilterException {
 		try {
-			int year = new Integer(getEnvironment().getValue("XAVATEST_DEFAULT_YEAR"));
+			int year = Integer.valueOf(getEnvironment().getValue("XAVATEST_DEFAULT_YEAR"));
 			return year != 0 ? year : LocalDate.now().getYear();			
 		}
 		catch (Exception ex) {

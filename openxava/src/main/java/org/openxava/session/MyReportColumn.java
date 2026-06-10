@@ -4,7 +4,7 @@ import java.text.*;
 import java.util.*;
 import java.util.prefs.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
@@ -212,7 +212,7 @@ public class MyReportColumn implements java.io.Serializable {
 			throw new BackingStoreException(message);
 		}
 		String booleanValue = preferences.get(COLUMN + index + "." + BOOLEAN_VALUE, null);
-		this.booleanValue = booleanValue == null?null:new Boolean(booleanValue);
+		this.booleanValue = booleanValue == null?null:Boolean.valueOf(booleanValue);
 		validValuesValue = preferences.getInt(COLUMN + index + "." + VALID_VALUES_VALUE, 0);
 		descriptionsListValue = preferences.get(COLUMN + index + "." + DESCRIPTIONS_LIST_VALUE, null);
 		calculated = preferences.getBoolean(COLUMN + index + "." + CALCULATED, false);		

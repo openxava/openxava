@@ -11,8 +11,8 @@
 
 package com.openxava.naviox.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.annotations.*;
@@ -39,21 +39,21 @@ public class Configuration implements java.io.Serializable {
 	@Max(30)
 	private int passwordMinLength;
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(name="forceLetterAndNumbersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceLetterAndNumbersInPassword;
 
 	/** @since 7.6 */
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(name="forceUpperAndLowerCaseInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceUpperAndLowerCaseInPassword;
 
 	/** @since 7.6 */
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(name="forceSpecialCharactersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean forceSpecialCharactersInPassword;
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null") 
 	private boolean recentPasswordsNotAllowed; 
 	
@@ -71,32 +71,32 @@ public class Configuration implements java.io.Serializable {
 	private int inactiveDaysBeforeDisablingUser;
 	
 	/** @since 7.4 */
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")	
 	private boolean allowSeveralSessionsPerUser;   	
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'Y' not null")
 	private boolean guestCanCreateAccount;  
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(name="guestCanCreateAccountInOrgs", columnDefinition="varchar(1) default 'Y' not null") 
 	private boolean guestCanCreateAccountInOrganizations;  
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(name="sharedUsersBetweenOrgs", columnDefinition="varchar(1) default 'N' not null") 
 	private boolean sharedUsersBetweenOrganizations;
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean useEmailAsUserName; 
 	
 	/** @since 6.6 */
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")	
 	private boolean caseSensitiveUserName;
 	
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
+	@Convert(converter = org.hibernate.type.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean privacyPolicyOnSignUp; 
 	

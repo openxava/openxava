@@ -2,9 +2,8 @@ package org.openxava.test.model;
 
 import java.math.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 
@@ -17,13 +16,13 @@ import org.openxava.annotations.*;
 @Tab(properties="mode, amount+, shipment.number, slow, shipment.description") 
 public class ShipmentCharge {
 	
-	@Id @GeneratedValue(generator="system-uuid") @Hidden 
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	@Id @Hidden 
+	@UUID32
 	@Column(name="ID")
 	private String oid;
 	
 	@Required
-	@org.hibernate.annotations.Type(type="org.openxava.types.Base1EnumType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.Base1EnumType.class, 
 		parameters={			
 			@Parameter(name="enumType", value="org.openxava.test.model.ShipmentCharge$Mode")
 		}
@@ -39,7 +38,7 @@ public class ShipmentCharge {
 	})
 	@DescriptionsList
 	private Shipment shipment;
-	@org.hibernate.annotations.Type(type="org.openxava.types.EnumLetterType", 
+	@org.hibernate.annotations.Type(value=org.openxava.types.EnumLetterType.class, 
 		parameters={
 			@Parameter(name="letters", value="IE"), 
 			@Parameter(name="enumType", value="org.openxava.test.model.Shipment$Type")

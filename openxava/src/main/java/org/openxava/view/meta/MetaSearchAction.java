@@ -13,7 +13,7 @@ public class MetaSearchAction implements Serializable, Cloneable {
 	
 	private String className = "puntocom.xava.xvista.swing.AccionBuscar"; // only for spanish/swing version
 
-	private Map propertiesValues;
+	private Map<String, String> propertiesValues;
 	private String actionName;
 	
 	
@@ -32,13 +32,13 @@ public class MetaSearchAction implements Serializable, Cloneable {
 		this.className = className;
 	}
 	
-	public Map getPropertiesValues() {		
-		return propertiesValues==null?new HashMap():propertiesValues;				
+	public Map<String, String> getPropertiesValues() {		
+		return propertiesValues==null?new HashMap<>():propertiesValues;				
 	}
 
 	public void addPropertyValue(String name, String value) {
 		if (propertiesValues == null) {
-			propertiesValues = new HashMap();
+			propertiesValues = new HashMap<>();
 		}
 		propertiesValues.put(name, value);
 	}
@@ -53,7 +53,7 @@ public class MetaSearchAction implements Serializable, Cloneable {
 	
 	public Object clone() throws CloneNotSupportedException { 
 		MetaSearchAction clon = (MetaSearchAction) super.clone();
-		if (propertiesValues != null) clon.propertiesValues = new HashMap(propertiesValues);
+		if (propertiesValues != null) clon.propertiesValues = new HashMap<>(propertiesValues);
 		return clon;
 	}
 

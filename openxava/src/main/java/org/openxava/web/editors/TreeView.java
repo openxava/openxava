@@ -3,7 +3,7 @@ package org.openxava.web.editors;
 import java.lang.reflect.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.apache.commons.beanutils.*;
 import org.apache.commons.logging.*;
@@ -235,7 +235,7 @@ public class TreeView {
 	 */
 	@SuppressWarnings("unchecked")
 	private void parseEntityObject() {
-		entityObject = nodeClass.isAnnotationPresent(javax.persistence.Entity.class);
+		entityObject = nodeClass.isAnnotationPresent(jakarta.persistence.Entity.class);
 	}
 	
 	/**

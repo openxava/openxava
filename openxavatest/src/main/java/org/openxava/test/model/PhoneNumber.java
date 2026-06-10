@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Embeddable;
+import jakarta.persistence.Embeddable;
 
 import org.openxava.annotations.*;
 import org.openxava.test.actions.*;

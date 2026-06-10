@@ -2,10 +2,10 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -15,11 +15,6 @@ import org.openxava.calculators.*;
  * 
  * @author Javier Paniza
  */
-
-@TypeDef( 
-	name="si_no",
-	typeClass=org.openxava.types.SiNoType.class
-)
 
 @Entity
 @IdClass(InvoiceKey.class)  // We reuse the key class for Invoice
@@ -36,8 +31,8 @@ public class Invoice4 {
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private java.util.Date date;
-		
-	@Type(type="si_no")	
+
+	@Type(org.openxava.types.SiNoType.class)
 	private boolean paid;
 	
 	public Collection<InvoiceDetail> getDetails() { 

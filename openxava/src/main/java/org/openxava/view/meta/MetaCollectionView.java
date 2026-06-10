@@ -25,11 +25,11 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private boolean defaultActions = true;
 	private String nextActionName;
 	private String previousActionName;
-	private Collection actionsDetailNames;
-	private Collection actionsListNames;
-	private Collection subcontrollersListNames;
-	private Collection actionsRowNames;  
-	private List propertiesListNames;
+	private Collection<String> actionsDetailNames;
+	private Collection<String> actionsListNames;
+	private Collection<String> subcontrollersListNames;
+	private Collection<String> actionsRowNames;  
+	private List<String> propertiesListNames;
 	private String collectionName;
 	private String mediatorClassName;
 	private String viewName;
@@ -41,7 +41,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private boolean asAggregate = false;
 	
 	private String propertiesListNamesAsString;
-	private Collection rowStyles; 
+	private Collection<MetaRowStyle> rowStyles; 
 	private String onSelectElementActionName;
 	private Tree path;
 	private Map<String, List<String>> totalProperties;
@@ -49,27 +49,27 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	private String editViewName;
 	
 	public void addActionDetailName(String actionName) {
-		if (actionsDetailNames == null) actionsDetailNames = new ArrayList();
+		if (actionsDetailNames == null) actionsDetailNames = new ArrayList<>();
 		actionsDetailNames.add(actionName);
 	}
 	
 	public void addActionListName(String actionName) {
-		if (actionsListNames == null) actionsListNames = new ArrayList();
+		if (actionsListNames == null) actionsListNames = new ArrayList<>();
 		actionsListNames.add(actionName);		
 	}
 	
 	public void addSubcontrollerListName(String subcontroller){
-		if (subcontrollersListNames == null) subcontrollersListNames = new ArrayList();
+		if (subcontrollersListNames == null) subcontrollersListNames = new ArrayList<>();
 		subcontrollersListNames.add(subcontroller);
 	}
 	
 	public void addActionRowName(String actionName) { 
-		if (actionsRowNames == null) actionsRowNames = new ArrayList();
+		if (actionsRowNames == null) actionsRowNames = new ArrayList<>();
 		actionsRowNames.add(actionName);		
 	}
 	
 	public void addMetaRowStyle(MetaRowStyle style) {
-		if (rowStyles == null) rowStyles = new ArrayList();
+		if (rowStyles == null) rowStyles = new ArrayList<>();
 		rowStyles.add(style);
 	}
 	
@@ -77,8 +77,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		return rowStyles != null;
 	}
 	
-	public Collection getMetaRowStyles() {
-		return rowStyles==null?Collections.EMPTY_LIST:rowStyles;
+	public Collection<MetaRowStyle> getMetaRowStyles() {
+		return rowStyles==null?Collections.emptyList():rowStyles;
 	}
 	
 	
@@ -118,8 +118,8 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		return propertiesListNames != null && !propertiesListNames.isEmpty();
 	}
 	
-	public List getPropertiesListNames() {
-		return propertiesListNames == null?Collections.EMPTY_LIST:propertiesListNames;
+	public List<String> getPropertiesListNames() {
+		return propertiesListNames == null?Collections.emptyList():propertiesListNames;
 	}
 	
 	public String getPropertiesListNamesAsString() { 
@@ -129,7 +129,7 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 	public void setPropertiesList(String listProperties) {	
 		if (!Is.emptyString(listProperties)) {
 			propertiesListNamesAsString = listProperties;
-			propertiesListNames = new ArrayList();
+			propertiesListNames = new ArrayList<>();
 			StringTokenizer st = new StringTokenizer(listProperties, ",;");
 			totalProperties = null; 
 			while (st.hasMoreTokens()) {
@@ -182,20 +182,20 @@ public class MetaCollectionView extends MetaMemberView implements Serializable {
 		editOnly = b;
 	}
 
-	public Collection getActionsDetailNames() {		
-		return actionsDetailNames==null?Collections.EMPTY_LIST:actionsDetailNames;
+	public Collection<String> getActionsDetailNames() {		
+		return actionsDetailNames==null?Collections.emptyList():actionsDetailNames;
 	}
 	
-	public Collection getActionsListNames() {		
-		return actionsListNames==null?Collections.EMPTY_LIST:actionsListNames;
+	public Collection<String> getActionsListNames() {		
+		return actionsListNames==null?Collections.emptyList():actionsListNames;
 	}
 	
-	public Collection getSubcontrollersListNames() {		
-		return subcontrollersListNames==null?Collections.EMPTY_LIST:subcontrollersListNames;
+	public Collection<String> getSubcontrollersListNames() {		
+		return subcontrollersListNames==null?Collections.emptyList():subcontrollersListNames;
 	}
 	
-	public Collection getActionsRowNames() { 		
-		return actionsRowNames==null?Collections.EMPTY_LIST:actionsRowNames;
+	public Collection<String> getActionsRowNames() { 		
+		return actionsRowNames==null?Collections.emptyList():actionsRowNames;
 	}
 	
 	public String getEditActionName() {

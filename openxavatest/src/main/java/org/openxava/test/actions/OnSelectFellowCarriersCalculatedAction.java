@@ -12,7 +12,7 @@ public class OnSelectFellowCarriersCalculatedAction extends OnSelectElementBaseA
 	public void execute() throws Exception {
 		int size = getView().getValueInt("fellowCarriersCalculatedSize");
 		size = isSelected() ? size + 1 : size - 1;
-		getView().setValue("fellowCarriersCalculatedSize", new Integer(size));
+		getView().setValue("fellowCarriersCalculatedSize", Integer.valueOf(size));
 		
 		StringBuffer selectedOnes = new StringBuffer();
 		for (Object ocarrier: getSelectedObjects()) { // To test getSelectedObjects()

@@ -29,15 +29,15 @@ public class MetaView extends MetaElement implements Cloneable {
 	private String parentName = null; // at momment for use in section
 	private Collection<MetaMember> allMetaMembers; 
 	private Map<String, MetaGroup> metaGroups; 
-	private Map metaProperties;
-	private Collection propertiesNamesThrowOnChange;	
+	private Map<String, MetaProperty> metaProperties;
+	private Collection<String> propertiesNamesThrowOnChange;	
 	private List<MetaView> sections = null; 
 	private Collection<MetaMember> metaMembers; 
-	private Collection _membersNames = new ArrayList(); // Of String
-	private Map metaViewsReferences;
-	private Map metaViewsProperties;
-	private Map metaViewsCollections;
-	private Map metaViewProperties;
+	private Collection<String> _membersNames = new ArrayList<>(); // Of String
+	private Map<String, MetaReferenceView> metaViewsReferences;
+	private Map<String, MetaPropertyView> metaViewsProperties;
+	private Map<String, MetaCollectionView> metaViewsCollections;
+	private Map<String, MetaProperty> metaViewProperties;
 	private MetaSearchAction metaSearchAction;
 		
 	private MetaModel metaModel;
@@ -48,7 +48,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	private boolean alignedByColumns = false; 
 		
 	private String mediatorClassName;
-	private Collection notAlwaysEnabledViewActionsNames;
+	private Collection<String> notAlwaysEnabledViewActionsNames;
 	private String extendsView; 
 	private boolean extendedFromExtendsView = false;
 	
@@ -60,7 +60,7 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	public void addMetaViewProperty(MetaProperty metaProperty) throws XavaException {
-		if (metaViewProperties == null) metaViewProperties = new HashMap();
+		if (metaViewProperties == null) metaViewProperties = new HashMap<>();
 		metaViewProperties.put(metaProperty.getName(), metaProperty);
 	}
 	
@@ -107,12 +107,12 @@ public class MetaView extends MetaElement implements Cloneable {
 		}
 		catch (ElementNotFoundException ex) {
 			if (metaProperties == null) {
-				metaProperties = new HashMap();
+				metaProperties = new HashMap<>();
 				Iterator it = getAllMetaMembers().iterator(); 
 				while (it.hasNext()) {
 					Object m = it.next();
 					if (m instanceof MetaProperty) {			
-						metaProperties.put(((MetaProperty) m).getName(), m);
+						metaProperties.put(((MetaProperty) m).getName(), (MetaProperty) m);
 					}
 				}
 			}			
@@ -178,12 +178,12 @@ public class MetaView extends MetaElement implements Cloneable {
 	 * 
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
 	 */
-	public Collection getMetaMembers() throws XavaException {
+	public Collection<MetaMember> getMetaMembers() throws XavaException {
 		if (metaMembers == null) {
-			metaMembers = new ArrayList();
-			Iterator it = getMembersNames().iterator();	
+			metaMembers = new ArrayList<>();
+			Iterator<String> it = getMembersNames().iterator();	
 			while (it.hasNext()) {
-				String name = (String) it.next();
+				String name = it.next();
 				if (name.startsWith("__GROUP__")) {
 					String groupName = name.substring("__GROUP__".length());					
 					metaMembers.add(getMetaGroup(groupName));
@@ -211,7 +211,7 @@ public class MetaView extends MetaElement implements Cloneable {
 						member = getMetaViewProperty(name);
 					}
 					member = modify(member);
-					addExtraSeparatorIfNeeded((List)metaMembers, member);
+					addExtraSeparatorIfNeeded((List<MetaMember>) metaMembers, member);
 					metaMembers.add(member);
 				}
 			}
@@ -609,15 +609,12 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaDescriptionsList;
 	}
 		
-	/**
-	 * @return of type <tt>MetaDescriptionsList</tt>
-	 */
-	public Collection getMetaDescriptionsLists() {
-		Collection metaDescriptionsLists = new ArrayList();
+	public Collection<MetaDescriptionsList> getMetaDescriptionsLists() {
+		Collection<MetaDescriptionsList> metaDescriptionsLists = new ArrayList<>();
 		if (metaViewsReferences == null) return metaDescriptionsLists;
-		Iterator it = metaViewsReferences.values().iterator();
+		Iterator<MetaReferenceView> it = metaViewsReferences.values().iterator();
 		while (it.hasNext()) {
-			MetaReferenceView referenceView = (MetaReferenceView) it.next();
+			MetaReferenceView referenceView = it.next();
 			MetaDescriptionsList descriptionsList = referenceView.getMetaDescriptionsList(); 
 			if (descriptionsList != null) {
 				metaDescriptionsLists.add(descriptionsList);
@@ -869,15 +866,15 @@ public class MetaView extends MetaElement implements Cloneable {
 		return clon;
 	}
 
-	public Collection getActionsNamesForProperty(MetaProperty p, boolean editable) {
+	public Collection<String> getActionsNamesForProperty(MetaProperty p, boolean editable) {
 		MetaMemberView metaPropertyView = getMetaPropertyViewFor(p.getName());
-		if (metaPropertyView == null) return Collections.EMPTY_LIST;
+		if (metaPropertyView == null) return Collections.emptyList();
 		return editable?metaPropertyView.getActionsNames():metaPropertyView.getAlwaysEnabledActionsNames();
 	}
 	
-	public Collection getActionsNamesForReference(MetaReference ref, boolean editable) {
+	public Collection<String> getActionsNamesForReference(MetaReference ref, boolean editable) {
 		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(ref.getName());
-		if (metaReferenceView == null) return Collections.EMPTY_LIST;
+		if (metaReferenceView == null) return Collections.emptyList();
 		return editable?metaReferenceView.getActionsNames():metaReferenceView.getAlwaysEnabledActionsNames();
 	}
 	
@@ -959,20 +956,20 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 	
 	
-	public Collection getNotAlwaysEnabledViewActionsNames() { 
+	public Collection<String> getNotAlwaysEnabledViewActionsNames() { 
 		if (notAlwaysEnabledViewActionsNames == null) {
 			for (Iterator it = getMetaMembers().iterator(); it.hasNext(); ) {
 				Object member = it.next();
 				if (member instanceof MetaViewAction) {
 					MetaViewAction action = (MetaViewAction) member;
 					if (!action.isAlwaysEnabled()) {
-						if (notAlwaysEnabledViewActionsNames == null) notAlwaysEnabledViewActionsNames = new ArrayList();
+						if (notAlwaysEnabledViewActionsNames == null) notAlwaysEnabledViewActionsNames = new ArrayList<>();
 						notAlwaysEnabledViewActionsNames.add(action.getName()); 
 					}
 				}
 			}
 			if (notAlwaysEnabledViewActionsNames == null) {
-				notAlwaysEnabledViewActionsNames = Collections.EMPTY_LIST; 
+				notAlwaysEnabledViewActionsNames = Collections.emptyList(); 
 			}			
 		}
 		return notAlwaysEnabledViewActionsNames;

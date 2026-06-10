@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.test.actions.*;
@@ -34,7 +34,7 @@ public class MotorVehicle {
 	@ManyToOne
 	private MotorVehicleDriver driver;
 	
-	@javax.validation.constraints.AssertTrue(message="{not_roadworthy}")
+	@jakarta.validation.constraints.AssertTrue(message="{not_roadworthy}")
 	private boolean isRoadworthyToAssignTheDriver(){
 		return getDriver() == null || isRoadworthy();
 	}

@@ -93,7 +93,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
-	public static Object create(String modelName, Map values) 
+	public static Object create(String modelName, Map<String, Object> values) 
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -142,7 +142,8 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
-	public static Object createAggregate(String modelName, Map containerKey, int counter, Map values) 
+	@Deprecated
+	public static Object createAggregate(String modelName, Map<String, Object> containerKey, int counter, Map<String, Object> values) 
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -171,7 +172,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
-	public static Object createAggregate(String modelName, Map containerKey, String collectionName, Map values)  
+	public static Object createAggregate(String modelName, Map<String, Object> containerKey, String collectionName, Map<String, Object> values)  
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -203,7 +204,8 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction. 
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
-	public static Object createAggregate(String modelName, Object container, int counter, Map values) 
+	@Deprecated
+	public static Object createAggregate(String modelName, Object container, int counter, Map<String, Object> values) 
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -230,7 +232,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static Map createReturningValues(String modelName, Map values)
+	public static Map<String, Object> createReturningValues(String modelName, Map<String, Object> values)
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -257,7 +259,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static Map createReturningKey(String modelName, Map values)
+	public static Map<String, Object> createReturningKey(String modelName, Map<String, Object> values)
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -285,7 +287,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static Map createNotValidatingCollections(String modelName, Map values)
+	public static Map<String, Object> createNotValidatingCollections(String modelName, Map<String, Object> values)
 		throws
 			CreateException,ValidationException,
 			XavaException, SystemException
@@ -316,7 +318,8 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static Map createAggregateReturningKey(String modelName, Map containerKey, int counter, Map values) 
+	@Deprecated
+	public static Map<String, Object> createAggregateReturningKey(String modelName, Map<String, Object> containerKey, int counter, Map<String, Object> values) 
 		throws
 			CreateException,ValidationException, 
 			XavaException, SystemException 
@@ -345,7 +348,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static Map createAggregateReturningKey(String modelName, Map containerKey, String collectionName, Map values) 
+	public static Map<String, Object> createAggregateReturningKey(String modelName, Map<String, Object> containerKey, String collectionName, Map<String, Object> values) 
 		throws
 			CreateException,ValidationException, 
 			XavaException, SystemException 
@@ -386,10 +389,10 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static Map getValues(
+	public static Map<String, Object> getValues(
 		String modelName,
-		Map keyValues,
-		Map memberNames)
+		Map<String, Object> keyValues,
+		Map<String, Object> memberNames)
 		throws FinderException, XavaException, SystemException 
 	{							
 		Assert.arg(modelName, keyValues, memberNames);		
@@ -433,10 +436,10 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static Map getValuesNotTracking(
+	public static Map<String, Object> getValuesNotTracking(
 		String modelName,
-		Map keyValues,
-		Map memberNames)
+		Map<String, Object> keyValues,
+		Map<String, Object> memberNames)
 		throws FinderException, XavaException, SystemException 
 	{							
 		Assert.arg(modelName, keyValues, memberNames);		
@@ -497,10 +500,10 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */		
-	public static Map getValuesByAnyProperty(  
+	public static Map<String, Object> getValuesByAnyProperty(  
 		String modelName,
-		Map searchingValues,
-		Map memberNames)
+		Map<String, Object> searchingValues,
+		Map<String, Object> memberNames)
 		throws FinderException, XavaException, SystemException 
 	{						
 		// WARNING! This method does no do tracking, maybe it is an omission or bug to solve in the future
@@ -539,7 +542,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static Map getValues(String modelName, Object entity, Map memberNames)
+	public static Map<String, Object> getValues(String modelName, Object entity, Map<String, Object> memberNames)
 		throws XavaException, SystemException 
 	{		
 		Assert.arg(modelName, entity, memberNames);
@@ -560,7 +563,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava.
 	 * @exception SystemException  System problem.
 	 */	
-	public static Map getKeyValues(String modelName, Object entity) 
+	public static Map<String, Object> getKeyValues(String modelName, Object entity) 
 		throws XavaException, SystemException 
 	{		
 		Assert.arg(modelName, entity);
@@ -583,7 +586,7 @@ public class MapFacade {
 	 * @exception FinderException  Logic problem on find.	
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */ 
-	public static Object findEntity(String modelName, Map keyValues)
+	public static Object findEntity(String modelName, Map<String, Object> keyValues)
 		throws ObjectNotFoundException, FinderException, SystemException 
 	{	
 		if (keyValues==null) return null;
@@ -606,7 +609,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static void remove(String modelName, Map keyValues)
+	public static void remove(String modelName, Map<String, Object> keyValues)
 		throws RemoveException, SystemException, XavaException, ValidationException {		
 		Assert.arg(modelName, keyValues);
 		try {
@@ -629,7 +632,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static void setValues(String modelName, Map keyValues, Map values)
+	public static void setValues(String modelName, Map<String, Object> keyValues, Map<String, Object> values)
 		throws ObjectNotFoundException, FinderException, ValidationException,
 				XavaException, SystemException 
 	{		
@@ -658,7 +661,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static void setValuesNotTracking(String modelName, Map keyValues, Map values) 
+	public static void setValuesNotTracking(String modelName, Map<String, Object> keyValues, Map<String, Object> values) 
 		throws ObjectNotFoundException, FinderException, ValidationException,
 				XavaException, SystemException 
 	{		
@@ -683,7 +686,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static Messages validate(String modelName, Map values)
+	public static Messages validate(String modelName, Map<String, Object> values)
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
@@ -708,7 +711,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static Messages validateIncludingMissingRequired(String modelName, Map values)
+	public static Messages validateIncludingMissingRequired(String modelName, Map<String, Object> values)
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
@@ -720,7 +723,7 @@ public class MapFacade {
 		}
 	}
 	
-	public static Messages validateIncludingMissingRequired(String modelName, Map values, String containerReference) 
+	public static Messages validateIncludingMissingRequired(String modelName, Map<String, Object> values, String containerReference) 
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
@@ -742,7 +745,7 @@ public class MapFacade {
 	/**
 	 * Convert from a map with primary key values to primary key object. <p> 
 	 */		
-	public static Object toPrimaryKey(String entityName, Map keyValues) throws XavaException {
+	public static Object toPrimaryKey(String entityName, Map<String, Object> keyValues) throws XavaException {
 		try {
 			MetaEntity m = (MetaEntity) MetaComponent.get(entityName).getMetaEntity();
 			return getImpl().getKey(m, keyValues);
@@ -777,7 +780,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
-	public static void removeCollectionElement(String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+	public static void removeCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, Map<String, Object> collectionElementKeyValues) 
 		throws ObjectNotFoundException, FinderException, ValidationException, RemoveException,
 			XavaException, SystemException 
 	{
@@ -807,7 +810,7 @@ public class MapFacade {
 	 * @exception XavaException  Any problem related to OpenXava. Rollback transaction.
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */	
-	public static void addCollectionElement(String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues) 
+	public static void addCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, Map<String, Object> collectionElementKeyValues) 
 		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException 
 	{
 		Assert.arg(modelName, keyValues, collectionName, collectionElementKeyValues);
@@ -837,9 +840,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */ 
 	public static void moveCollectionElementToAnotherCollection( 
-		String sourceContainerModelName, Map sourceContainerKeyValues, String sourceCollectionName, 
-		String targetContainerModelName, Map targetContainerKeyValues, String targetCollectionName,
-		Map collectionElementKeyValues) 
+		String sourceContainerModelName, Map<String, Object> sourceContainerKeyValues, String sourceCollectionName, 
+		String targetContainerModelName, Map<String, Object> targetContainerKeyValues, String targetCollectionName,
+		Map<String, Object> collectionElementKeyValues) 
 		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException
 	{
 		Assert.arg(sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, targetContainerModelName, targetContainerKeyValues, targetCollectionName, collectionElementKeyValues);
@@ -870,7 +873,7 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 * @since 5.6.1
 	 */	
-	public static void moveCollectionElement(String modelName, Map keyValues, String collectionName, int from, int to) 
+	public static void moveCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, int from, int to) 
 		throws ObjectNotFoundException, FinderException, XavaException, SystemException 
 	{
 		Assert.arg(modelName, keyValues, collectionName);

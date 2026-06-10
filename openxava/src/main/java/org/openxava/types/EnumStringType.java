@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
-import org.hibernate.engine.spi.*;
+import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.usertype.UserType;
 import org.hibernate.usertype.ParameterizedType;
 import org.openxava.util.*;
@@ -39,8 +39,8 @@ public class EnumStringType implements UserType, ParameterizedType {
     private String enumType;
     private String[] splitStrings;
 
-    public int[] sqlTypes() {       
-        return new int[] { Types.VARCHAR };
+    public int getSqlType() {
+        return Types.VARCHAR;
     }
 
     public Class returnedClass() {
@@ -57,8 +57,8 @@ public class EnumStringType implements UserType, ParameterizedType {
         return obj.hashCode();
     }
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor sessionImplementor, Object owner) throws HibernateException, SQLException { 
-        Object o = resultSet.getObject(names[0]);
+	public Object nullSafeGet(ResultSet resultSet, int index, WrapperOptions options) throws HibernateException, SQLException {
+        Object o = resultSet.getObject(index);
         if (o == null) return null;
         if (!(o instanceof String)) { 
             throw new HibernateException(XavaResources.getString("conversion_java_string_expected"));
@@ -87,7 +87,7 @@ public class EnumStringType implements UserType, ParameterizedType {
         }       
     }
 
-	public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor sessionImplementor) throws HibernateException, SQLException { 		
+	public void nullSafeSet(PreparedStatement ps, Object value, int index, WrapperOptions options) throws HibernateException, SQLException {
         if (value == null) {
             if (log.isTraceEnabled()) {
                 log.trace( "binding '' to parameter: " + index );

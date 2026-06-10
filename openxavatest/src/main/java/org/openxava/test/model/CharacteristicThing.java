@@ -1,14 +1,15 @@
 package org.openxava.test.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 import org.openxava.annotations.DescriptionsList;
 import org.openxava.annotations.Hidden;
@@ -33,9 +34,9 @@ public class CharacteristicThing {
 	private String description;
 
 	public static CharacteristicThing findByNumber(int number) throws NoResultException {
-		Query query = XPersistence.getManager().createQuery("from CharacteristicThing where number = :number");
+		TypedQuery<CharacteristicThing> query = XPersistence.getManager().createQuery("SELECT c FROM CharacteristicThing c WHERE c.number = :number", CharacteristicThing.class);
 		query.setParameter("number", number);
-		return (CharacteristicThing) query.getSingleResult();
+		return query.getSingleResult();
 	}
 	
 	public Integer getNumber() {

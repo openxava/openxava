@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import org.openxava.jpa.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 /**
  * 
@@ -16,7 +16,7 @@ public class Orphan extends Nameable {
 	private Orphanage orphanage;
 	
 	static public int count() {
-		Query query = XPersistence.getManager().createQuery("select count(o) from Orphan o");
+		TypedQuery<Long> query = XPersistence.getManager().createQuery("SELECT COUNT(o) FROM Orphan o", Long.class);
 		return ((Number) query.getSingleResult()).intValue();
 	}
 

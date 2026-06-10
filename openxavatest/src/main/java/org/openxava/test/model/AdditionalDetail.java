@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -46,7 +46,7 @@ public class AdditionalDetail {
 		
 		// That is the technique of org.openxava.calculators.IAggregateOidCalculator
 		// is deprecated in OX3 
-		counter = new Long(System.currentTimeMillis()).intValue();
+		counter = Long.valueOf(System.currentTimeMillis()).intValue();
 	}
 
 

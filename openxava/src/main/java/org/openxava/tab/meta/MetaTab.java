@@ -24,29 +24,29 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	private String defaultOrder;
 	private String sQLBaseCondition;
-	private Collection metaPropertiesHiddenCalculated;
-	private Collection metaPropertiesHidden;
+	private Collection<MetaProperty> metaPropertiesHiddenCalculated;
+	private Collection<MetaProperty> metaPropertiesHidden;
 	private String name;
 	private MetaComponent metaComponent;
 	private List<String> propertiesNames = null; 
 	private List<String> propertiesNamesWithKeyAndHidden;
 	private List<MetaProperty> metaProperties = null; 
-	private List metaPropertiesCalculated = null;
+	private List<MetaProperty> metaPropertiesCalculated = null;
 	
 	private String properties; // separated by commas, like in xml file	
 	private String select;	
-	private Collection tableColumns;
+	private Collection<String> tableColumns;
 	private String modelName; 
 	private MetaModel metaModel;
 	private boolean excludeAll = false;
 	private boolean excludeByKey = false;
 	private MetaFilter metaFilter;
 	private IFilter filter;
-	private List hiddenPropertiesNames;
-	private Collection hiddenTableColumns;
+	private List<String> hiddenPropertiesNames;
+	private Collection<String> hiddenTableColumns;
 	private String baseCondition;
-	private Map metaPropertiesTab;
-	private Collection rowStyles;
+	private Map<String, List<MetaProperty>> metaPropertiesTab;
+	private Collection<MetaRowStyle> rowStyles;
 	private String defaultPropertiesNames;
 	private String id;
 	private Collection<String> sumPropertiesNames;
@@ -226,20 +226,20 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return buildFilterConditionForContent(content, null);
 	}
 	
-	public Collection getMetaPropertiesHidden() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesHidden() throws XavaException {
 		if (metaPropertiesHidden == null) {
 			metaPropertiesHidden = namesToMetaProperties(getHiddenPropertiesNames());
 		}
 		return metaPropertiesHidden;
 	}
 
-	public List<MetaProperty> namesToMetaProperties(Collection names) throws XavaException {
-		List<MetaProperty> metaProperties = new ArrayList();
-		Iterator it = names.iterator();
+	public List<MetaProperty> namesToMetaProperties(Collection<String> names) throws XavaException {
+		List<MetaProperty> metaProperties = new ArrayList<MetaProperty>();
+		Iterator<String> it = names.iterator();
 		int i = -1;
 		while (it.hasNext()) {
 			i++;
-			String name = (String) it.next();
+			String name = it.next();
 			MetaProperty metaPropertyTab = null;
 			try {
 				MetaProperty metaProperty = getMetaModel().getMetaProperty( 
@@ -296,12 +296,12 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
 	 */
-	public Collection getMetaPropertiesCalculated() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesCalculated() throws XavaException {
 		if (metaPropertiesCalculated == null) {
-			metaPropertiesCalculated = new ArrayList();
-			Iterator it = getMetaProperties().iterator();
+			metaPropertiesCalculated = new ArrayList<MetaProperty>();
+			Iterator<MetaProperty> it = getMetaProperties().iterator();
 			while (it.hasNext()) {
-				MetaProperty metaProperty = (MetaProperty) it.next();					
+				MetaProperty metaProperty = it.next();					
 				if (metaProperty.isCalculated() || metaProperty.isNotFieldBackedAndNotCalculated()) { // For list properties with not backed by a field are considered as calculated 
 					metaPropertiesCalculated.add(metaProperty);
 				}
@@ -314,12 +314,12 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
 	 */
-	public Collection getMetaPropertiesHiddenCalculated() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesHiddenCalculated() throws XavaException {
 		if (metaPropertiesHiddenCalculated == null) {
-			metaPropertiesHiddenCalculated = new ArrayList();
-			Iterator it = getMetaPropertiesHidden().iterator();
+			metaPropertiesHiddenCalculated = new ArrayList<MetaProperty>();
+			Iterator<MetaProperty> it = getMetaPropertiesHidden().iterator();
 			while (it.hasNext()) {
-				MetaProperty metaProperty = (MetaProperty) it.next();
+				MetaProperty metaProperty = it.next();
 				if (metaProperty.isCalculated()) {
 					metaPropertiesHiddenCalculated.add(metaProperty);
 				}
@@ -345,7 +345,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	/**
 	 * @return Not null, read only and of type <tt>String</tt>.
 	 */
-	public Collection getHiddenTableColumns() throws XavaException {
+	public Collection<String> getHiddenTableColumns() throws XavaException {
 		if (hiddenTableColumns == null) {
 			hiddenTableColumns = getTableColumns(getHiddenPropertiesNames());
 			hiddenTableColumns
@@ -354,12 +354,12 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return hiddenTableColumns;
 	}
 
-	private Collection getTableColumns(Collection propertyNames)
+	private Collection<String> getTableColumns(Collection<String> propertyNames)
 			throws XavaException {
-		Collection tableColumns = new ArrayList();
-		Iterator it = propertyNames.iterator();
+		Collection<String> tableColumns = new ArrayList<String>();
+		Iterator<String> it = propertyNames.iterator();
 		while (it.hasNext()) {
-			String name = (String) it.next();
+			String name = it.next();
 			try {
 				tableColumns
 						.add(getMapping().getQualifiedColumn(name));
@@ -405,29 +405,29 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * 
 	 * @return Not null, read only and of type <tt>String</tt>.
 	 */
-	public List getHiddenPropertiesNames() throws XavaException {
+	public List<String> getHiddenPropertiesNames() throws XavaException {
 		if (hiddenPropertiesNames == null) {
-			hiddenPropertiesNames = getMetaModel().isAnnotatedEJB3()?Collections.EMPTY_LIST:obtainPropertiesNamesUsedToCalculate();
+			hiddenPropertiesNames = getMetaModel().isAnnotatedEJB3()?Collections.emptyList():obtainPropertiesNamesUsedToCalculate();
 			
 		}
 		return hiddenPropertiesNames;
 	}
 
-	private List obtainPropertiesNamesUsedToCalculate()
+	private List<String> obtainPropertiesNamesUsedToCalculate()
 			throws XavaException {
-		Set result = new HashSet();
-		Iterator itProperties = getMetaPropertiesCalculated().iterator();
+		Set<String> result = new HashSet<String>();
+		Iterator<MetaProperty> itProperties = getMetaPropertiesCalculated().iterator();
 		while (itProperties.hasNext()) {
-			MetaProperty metaProperty = (MetaProperty) itProperties.next();
+			MetaProperty metaProperty = itProperties.next();
 			if (!metaProperty.hasCalculator())
 				continue;
 			MetaSetsContainer metaCalculator = metaProperty
 					.getMetaCalculator();
 			if (!metaCalculator.containsMetaSets())
 				continue;
-			Iterator itSets = metaCalculator.getMetaSets().iterator();
+			Iterator<MetaSet> itSets = metaCalculator.getMetaSets().iterator();
 			while (itSets.hasNext()) {
-				MetaSet set = (MetaSet) itSets.next();
+				MetaSet set = itSets.next();
 				String propertyNameFrom = set.getPropertyNameFrom();
 				if (!Is.emptyString(propertyNameFrom)) {
 					String qualifiedName = metaProperty.getQualifiedName();
@@ -440,7 +440,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 				}				
 			}
 		}		
-		return new ArrayList(result);
+		return new ArrayList<String>(result);
 	}
 
 	private boolean areAllProperties() {
@@ -448,9 +448,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 
 	// assert(!areAllProperties());
-	private List createPropertiesNames() {
+	private List<String> createPropertiesNames() {
 		StringTokenizer st = new StringTokenizer(removeTotalProperties(properties), ",;");
-		List result = new ArrayList();
+		List<String> result = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
 			String name = st.nextToken().trim();		
 			if (name.endsWith("+")) {
@@ -468,8 +468,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return properties.replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
-	private List createAllPropertiesNames() throws XavaException {
-		List result = new ArrayList();
+	private List<String> createAllPropertiesNames() throws XavaException {
+		List<String> result = new ArrayList<String>();
 		for (String member: getMetaModel().getMembersNames()) {
 			if (getMetaModel().isHiddenKey(member)) continue;
 			if (getMetaModel().containsMetaProperty(member)) {
@@ -507,7 +507,7 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return result;
 	}
 	
-	private boolean addPropertyIfExists(Collection result, MetaModel metaModel, String member, String ... properties) {
+	private boolean addPropertyIfExists(Collection<String> result, MetaModel metaModel, String member, String ... properties) {
 		boolean added = false;
 		for (String property: properties) {
 			if (metaModel.containsMetaProperty(property)) {
@@ -599,19 +599,19 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return select.toString();
 	}
 		
-	public Collection getCmpFieldsColumnsInMultipleProperties() 
+	public Collection<String> getCmpFieldsColumnsInMultipleProperties() 
 			throws XavaException {
-		Collection cmpFieldsColumnsInMultipleProperties = new ArrayList();
-		Iterator it = getMetaProperties().iterator();
+		Collection<String> cmpFieldsColumnsInMultipleProperties = new ArrayList<String>();
+		Iterator<MetaProperty> it = getMetaProperties().iterator();
 		String table = getMapping().getTableToQualifyColumn();
 		while (it.hasNext()) {
-			MetaProperty p = (MetaProperty) it.next();
+			MetaProperty p = it.next();
 			PropertyMapping mapping = p.getMapping();
 			if (mapping != null) {
 				if (mapping.hasMultipleConverter()) {
-					Iterator itFields = mapping.getCmpFields().iterator();
+					Iterator<CmpField> itFields = mapping.getCmpFields().iterator();
 					while (itFields.hasNext()) {
-						CmpField field = (CmpField) itFields.next();
+						CmpField field = itFields.next();
 						cmpFieldsColumnsInMultipleProperties.add(table + "."
 								+ field.getColumn());
 					}
@@ -689,9 +689,14 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	public void addMetaProperty(MetaProperty metaProperty) {
 		if (metaPropertiesTab == null) {
-			metaPropertiesTab = new HashMap();
+			metaPropertiesTab = new HashMap<String, List<MetaProperty>>();
 		}
-		metaPropertiesTab.put(metaProperty.getName(), metaProperty);
+		List<MetaProperty> list = metaPropertiesTab.get(metaProperty.getName());
+		if (list == null) {
+			list = new ArrayList<MetaProperty>();
+			metaPropertiesTab.put(metaProperty.getName(), list);
+		}
+		list.add(metaProperty);
 	}
 
 	/**
@@ -855,39 +860,39 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		try {			
 			MetaTab r = (MetaTab) clone();
 			if (r.metaPropertiesHiddenCalculated != null) {
-				r.metaPropertiesHiddenCalculated = new ArrayList(
+				r.metaPropertiesHiddenCalculated = new ArrayList<MetaProperty>(
 						metaPropertiesHiddenCalculated);
 			}
 			if (r.metaPropertiesHidden != null) {
-				r.metaPropertiesHidden = new ArrayList(metaPropertiesHidden);
+				r.metaPropertiesHidden = new ArrayList<MetaProperty>(metaPropertiesHidden);
 			}
 			if (r.propertiesNames != null) {
-				r.propertiesNames = new ArrayList(propertiesNames);
+				r.propertiesNames = new ArrayList<String>(propertiesNames);
 			}
 			if (r.metaProperties != null) {
-				r.metaProperties = new ArrayList(metaProperties);
+				r.metaProperties = new ArrayList<MetaProperty>(metaProperties);
 			}
 			if (r.metaPropertiesCalculated != null) {
-				r.metaPropertiesCalculated = new ArrayList(
+				r.metaPropertiesCalculated = new ArrayList<MetaProperty>(
 						metaPropertiesCalculated);
 			}
 			if (r.tableColumns != null) {
-				r.tableColumns = new ArrayList(tableColumns);
+				r.tableColumns = new ArrayList<String>(tableColumns);
 			}
 			if (r.hiddenPropertiesNames != null) {
-				r.hiddenPropertiesNames = new ArrayList(hiddenPropertiesNames);
+				r.hiddenPropertiesNames = new ArrayList<String>(hiddenPropertiesNames);
 			}
 			if (r.editableProperties != null) {
 				r.editableProperties = new ArrayList<String>(editableProperties);
 			}
 			if (r.propertiesNamesWithKeyAndHidden != null) {
-				r.propertiesNamesWithKeyAndHidden = new ArrayList(propertiesNamesWithKeyAndHidden);
+				r.propertiesNamesWithKeyAndHidden = new ArrayList<String>(propertiesNamesWithKeyAndHidden);
 			} 
 			if (r.hiddenTableColumns != null) {
-				r.hiddenTableColumns = new ArrayList(hiddenTableColumns);
+				r.hiddenTableColumns = new ArrayList<String>(hiddenTableColumns);
 			}
 			if (r.metaPropertiesTab != null) {
-				r.metaPropertiesTab = new HashMap(metaPropertiesTab);
+				r.metaPropertiesTab = new HashMap<String, List<MetaProperty>>(metaPropertiesTab);
 			}
 			return r;
 		} catch (CloneNotSupportedException ex) {
@@ -906,15 +911,15 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	/**
 	 * @since 5.2
 	 */
-	public List getRemainingPropertiesNamesUntilSecondLevel() throws XavaException {  
-		List result = new ArrayList(getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections()); 
+	public List<String> getRemainingPropertiesNamesUntilSecondLevel() throws XavaException {  
+		List<String> result = new ArrayList<String>(getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections()); 
 		result.removeAll(getPropertiesNames());
 		removeDroppedMembers(result); 
 		return result;
 	}
 
 
-	private void removeDroppedMembers(List result) { 
+	private void removeDroppedMembers(List<String> result) { 
 		if (droppedMembers == null) return;
 		for (String droppedMember: droppedMembers) {
 			for (String member: new ArrayList<String>(result)) {
@@ -928,11 +933,11 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	}
 
 	public void addMetaRowStyle(MetaRowStyle style) {
-		if (rowStyles == null) rowStyles = new ArrayList();
+		if (rowStyles == null) rowStyles = new ArrayList<MetaRowStyle>();
 		rowStyles.add(style);
 	}
 	
-	public void setMetaRowStyles(Collection styles) { 
+	public void setMetaRowStyles(Collection<MetaRowStyle> styles) { 
 		rowStyles = styles;
 	}
 	
@@ -940,8 +945,8 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return rowStyles != null;
 	}
 	
-	public Collection getMetaRowStyles() {
-		return rowStyles==null?Collections.EMPTY_LIST:rowStyles;
+	public Collection<MetaRowStyle> getMetaRowStyles() {
+		return rowStyles==null?Collections.emptyList():rowStyles;
 	}
 
 	public String getModelName() {
@@ -976,17 +981,17 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 */
 	public Collection<String> getSumPropertiesNames() {
 		if (sumPropertiesNames == null) {
-			if (defaultPropertiesNames == null) return Collections.EMPTY_SET;
+			if (defaultPropertiesNames == null) return Collections.emptySet();
 			StringTokenizer st = new StringTokenizer(removeTotalProperties(defaultPropertiesNames), ",;");
 			while (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();			
 				if (name.endsWith("+")) {
 					name = name.substring(0, name.length() - 1);
-					if (sumPropertiesNames == null) sumPropertiesNames = new HashSet();
+					if (sumPropertiesNames == null) sumPropertiesNames = new HashSet<String>();
 					sumPropertiesNames.add(name);
 				}
 			}		
-			if (sumPropertiesNames == null) sumPropertiesNames = Collections.EMPTY_SET; 
+			if (sumPropertiesNames == null) sumPropertiesNames = Collections.emptySet(); 
 		}
 		return sumPropertiesNames;
 	}

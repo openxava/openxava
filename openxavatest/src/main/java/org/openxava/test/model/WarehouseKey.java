@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.io.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 
 /**

@@ -26,7 +26,7 @@ public class LongBigDecimalConverter implements IConverter {
 		if (!(o instanceof BigDecimal)) {		
 			throw new ConversionException("conversion_java_bigdecimal_expected");
 		}
-		return new Long(((BigDecimal) o).toString());
+		return Long.valueOf(((BigDecimal) o).toString());
 	}
 			
 }

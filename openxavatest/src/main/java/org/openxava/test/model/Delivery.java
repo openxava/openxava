@@ -2,13 +2,15 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Size;
 
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CompositeType;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.jpa.*;
@@ -190,21 +192,24 @@ public class Delivery {
 	})
 	@Action(forViews="DEFAULT, MoreSections", value="Delivery.setDefaultType")
 	@OnChange(forViews="DEFAULT", value = OnChangeDeliveryTypeAction.class)
-	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber") 
+	@ReferenceView(forViews="TypeAsView", value="ReadOnlyNumber")
 	private DeliveryType type;
-	
-	@Type(type="org.openxava.types.Date3Type")
-	@Columns(columns = { @Column(name="year"), @Column(name="month"), @Column(name="day") })
+
+	@CompositeType(org.openxava.types.Date3Type.class)
+	@AttributeOverrides({
+		@AttributeOverride(name="year", column=@Column(name="year")),
+		@AttributeOverride(name="month", column=@Column(name="month")),
+		@AttributeOverride(name="day", column=@Column(name="day"))
+	})
 	@Required
 	@DefaultValueCalculator(CurrentDateCalculator.class)
 	private Date date;
 	
 	private String description;
 
-	
-	@Type(type="org.openxava.types.EnumLetterType", 
+	@Type(value=org.openxava.types.EnumLetterType.class,
 		parameters={
-			@Parameter(name="letters", value="LNI"), 
+			@Parameter(name="letters", value="LNI"),
 			@Parameter(name="enumType", value="org.openxava.test.model.Delivery$Distance")
 		}
 	)
@@ -288,7 +293,7 @@ public class Delivery {
 	}
 	
 	public static Collection<Delivery> findAll() {
-		Query query = XPersistence.getManager().createQuery("from Delivery as o"); 
+		TypedQuery<Delivery> query = XPersistence.getManager().createQuery("SELECT o FROM Delivery o", Delivery.class); 
  		return query.getResultList();  				
 	}	
 

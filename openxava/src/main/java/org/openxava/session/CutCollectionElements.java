@@ -10,13 +10,13 @@ public class CutCollectionElements implements java.io.Serializable {
 
 	private String parentModel;
 	
-	private Map parentKey;
+	private Map<String, Object> parentKey;
 	
 	private String collectionName;
 	
 	private String collectionModel;
 	
-	private Collection<Map> elements;
+	private Collection<Map<String, Object>> elements;
 	
 	public void clear() {
 		parentModel = null;
@@ -25,8 +25,8 @@ public class CutCollectionElements implements java.io.Serializable {
 		elements = null;
 	}
 	
-	public void addElement(Map element) {
-		if (elements == null) elements = new ArrayList();
+	public void addElement(Map<String, Object> element) {
+		if (elements == null) elements = new ArrayList<>();
 		elements.add(element);
 	}
 	
@@ -43,15 +43,15 @@ public class CutCollectionElements implements java.io.Serializable {
 		this.parentModel = parentModel;
 	}
 
-	public Map getParentKey() {
+	public Map<String, Object> getParentKey() {
 		return parentKey;
 	}
 
-	public void setParentKey(Map parentKey) {
+	public void setParentKey(Map<String, Object> parentKey) {
 		this.parentKey = parentKey;
 	}
 
-	public Collection<Map> getElements() {
+	public Collection<Map<String, Object>> getElements() {
 		return elements == null?Collections.EMPTY_LIST:elements;
 	}
 

@@ -8,6 +8,56 @@ calendarEditor.outApplication;
 calendarEditor.outModule;
 calendarEditor.requesting = false;
 
+calendarEditor.getEvents = function(application, module, monthYear, dateSimpleName, callbackOrOptions) {
+    var params = new URLSearchParams();
+    params.append("operation", "getEvents");
+    params.append("application", application);
+    params.append("module", module);
+    params.append("monthYear", monthYear);
+    params.append("dateSimpleName", dateSimpleName);
+
+    var callback = typeof callbackOrOptions === "function" ? callbackOrOptions : (callbackOrOptions ? callbackOrOptions.callback : null);
+    var errorHandler = callbackOrOptions && typeof callbackOrOptions !== "function" ? callbackOrOptions.errorHandler : null;
+
+    openxava.post("/xava/calendar", params, function(response) {
+        if (response.startsWith("ERROR: ")) {
+            if (errorHandler) errorHandler(response);
+        } else {
+            if (callback) callback(response);
+        }
+    });
+};
+
+calendarEditor.changeDateProperty = function(application, module, dateSimpleName, dateLabel, monthYear, callback) {
+    var params = new URLSearchParams();
+    params.append("operation", "changeDateProperty");
+    params.append("application", application);
+    params.append("module", module);
+    params.append("dateSimpleName", dateSimpleName);
+    params.append("dateLabel", dateLabel);
+    params.append("monthYear", monthYear);
+
+    openxava.post("/xava/calendar", params, function(response) {
+        if (response.startsWith("ERROR: ")) {
+            console.error("Error in changeDateProperty:", response);
+        } else {
+            if (callback) callback(response);
+        }
+    });
+};
+
+calendarEditor.dragAndDrop = function(application, module, calendarKey, dropDate, dropDateString) {
+    var params = new URLSearchParams();
+    params.append("operation", "dragAndDrop");
+    params.append("application", application);
+    params.append("module", module);
+    params.append("calendarKey", calendarKey);
+    params.append("dropDate", dropDate);
+    params.append("dropDateString", dropDateString);
+
+    openxava.post("/xava/calendar", params);
+};
+
 calendarEditor.setEvents = function(calendarEvents) {
     try {
         var arr = JSON.parse(calendarEvents);
@@ -75,7 +125,7 @@ openxava.addEditorInitFunction(function() {
 		const initialDateMonth = parseInt(dateParts[1]) - 1;
 		const initialDateMonthYear = initialDateMonth + "_" + initialDateYear;
 		
-		Calendar.getEvents(application, module, initialDateMonthYear, selectedValue, {
+		calendarEditor.getEvents(application, module, initialDateMonthYear, selectedValue, {
 			callback: function(events) {
 				clearCalendarState(application, module);
 				calendarEditor.setEvents(events);
@@ -153,7 +203,7 @@ openxava.addEditorInitFunction(function() {
                             let currentDate = new Date();
                             let currentMonth = currentDate.getMonth();
                             calendarEditor.calendar.today();
-                            Calendar.getEvents(application, module, currentMonth, "", calendarEditor.setEvents);
+                            calendarEditor.getEvents(application, module, currentMonth, "", calendarEditor.setEvents);
                         }
                     }
                 },
@@ -182,7 +232,7 @@ openxava.addEditorInitFunction(function() {
 					hideTooltip();
                 },
                 eventDrop: function(e) {
-                    Calendar.dragAndDrop(application, module, e.event.extendedProps.key, reformatDate(e.event.startStr), e.event.extendedProps.startName);
+                    calendarEditor.dragAndDrop(application, module, e.event.extendedProps.key, reformatDate(e.event.startStr), e.event.extendedProps.startName);
                 },
             });
             calendarEditor.calendar.render();
@@ -233,7 +283,7 @@ openxava.addEditorInitFunction(function() {
                     source.remove();
                 });
                 var selectedValue = $('#xava_calendar_date_preferences').val();
-                Calendar.getEvents(application, module, monthYear, selectedValue, calendarEditor.setEvents);
+                calendarEditor.getEvents(application, module, monthYear, selectedValue, calendarEditor.setEvents);
             }
         }
 
@@ -313,7 +363,7 @@ openxava.addEditorInitFunction(function() {
             let currentMonth = currentViewDate.getMonth();
             let currentYear = currentViewDate.getFullYear();
             let monthYear = currentMonth + "_" + currentYear;
-            Calendar.changeDateProperty(application, module, selectedValue, selectedText, monthYear, calendarEditor.setEvents);
+            calendarEditor.changeDateProperty(application, module, selectedValue, selectedText, monthYear, calendarEditor.setEvents);
         });
 		
 		function saveCalendarState(application, module, defaultDate, defaultView) {

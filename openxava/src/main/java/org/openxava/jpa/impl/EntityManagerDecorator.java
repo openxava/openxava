@@ -8,9 +8,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.persistence.criteria.*;
-import javax.persistence.metamodel.Metamodel;
+import jakarta.persistence.*;
+import jakarta.persistence.criteria.*;
+import jakarta.persistence.metamodel.Metamodel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -132,8 +132,22 @@ public class EntityManagerDecorator implements EntityManager {
 		return decoratedManager.createQuery(arg0, arg1);
 	}
 
+	/**
+	 * @since 8.0
+	 */
+	public <T> TypedQuery<T> createQuery(TypedQueryReference<T> arg0) {
+		return decoratedManager.createQuery(arg0);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <T> TypedQuery<T> createQuery(CriteriaSelect<T> arg0) {
+		return decoratedManager.createQuery(arg0);
+	}
+
 	public void detach(Object arg0) {
-		decoratedManager.detach(arg0);		
+		decoratedManager.detach(arg0);
 	}
 
 	public <T> T find(Class<T> arg0, Object arg1) {
@@ -151,6 +165,20 @@ public class EntityManagerDecorator implements EntityManager {
 	public <T> T find(Class<T> arg0, Object arg1, LockModeType arg2,
 			Map<String, Object> arg3) {
 		return decoratedManager.find(arg0, arg1, arg2, arg3);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <T> T find(EntityGraph<T> arg0, Object arg1, FindOption... arg2) {
+		return decoratedManager.find(arg0, arg1, arg2);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <T> T find(Class<T> arg0, Object arg1, FindOption... arg2) {
+		return decoratedManager.find(arg0, arg1, arg2);
 	}
 
 	public void flush() {
@@ -173,6 +201,34 @@ public class EntityManagerDecorator implements EntityManager {
 		return decoratedManager.getFlushMode();
 	}
 
+	/**
+	 * @since 8.0
+	 */
+	public CacheStoreMode getCacheStoreMode() {
+		return decoratedManager.getCacheStoreMode();
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public CacheRetrieveMode getCacheRetrieveMode() {
+		return decoratedManager.getCacheRetrieveMode();
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public void setCacheStoreMode(CacheStoreMode arg0) {
+		decoratedManager.setCacheStoreMode(arg0);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public void setCacheRetrieveMode(CacheRetrieveMode arg0) {
+		decoratedManager.setCacheRetrieveMode(arg0);
+	}
+
 	public LockModeType getLockMode(Object arg0) {
 		return decoratedManager.getLockMode(arg0);
 	}
@@ -187,6 +243,13 @@ public class EntityManagerDecorator implements EntityManager {
 
 	public <T> T getReference(Class<T> arg0, Object arg1) {
 		return decoratedManager.getReference(arg0, arg1);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <T> T getReference(T arg0) {
+		return decoratedManager.getReference(arg0);
 	}
 
 	public EntityTransaction getTransaction() {
@@ -206,7 +269,14 @@ public class EntityManagerDecorator implements EntityManager {
 	}
 
 	public void lock(Object arg0, LockModeType arg1, Map<String, Object> arg2) {
-		decoratedManager.lock(arg0, arg1, arg2);		
+		decoratedManager.lock(arg0, arg1, arg2);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public void lock(Object arg0, LockModeType arg1, LockOption... arg2) {
+		decoratedManager.lock(arg0, arg1, arg2);
 	}
 
 	public <T> T merge(T arg0) {
@@ -226,7 +296,14 @@ public class EntityManagerDecorator implements EntityManager {
 	}
 
 	public void refresh(Object arg0, LockModeType arg1, Map<String, Object> arg2) {
-		decoratedManager.refresh(arg0, arg1, arg2);		
+		decoratedManager.refresh(arg0, arg1, arg2);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public void refresh(Object arg0, RefreshOption... arg1) {
+		decoratedManager.refresh(arg0, arg1);
 	}
 
 	public void setFlushMode(FlushModeType arg0) {
@@ -281,8 +358,22 @@ public class EntityManagerDecorator implements EntityManager {
 		return decoratedManager.getEntityGraphs(arg0);
 	}
 
-	public boolean isJoinedToTransaction() { 
+	public boolean isJoinedToTransaction() {
 		return decoratedManager.isJoinedToTransaction();
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <C, T> T callWithConnection(ConnectionFunction<C, T> function) {
+		return decoratedManager.callWithConnection(function);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public <C> void runWithConnection(ConnectionConsumer<C> consumer) {
+		decoratedManager.runWithConnection(consumer);
 	}
 
 }

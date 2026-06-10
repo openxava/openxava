@@ -2,7 +2,7 @@ package org.openxava.test.model;
 
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -40,10 +40,10 @@ public class Issue {
 	 */ 
 	@Condition("${issue.id} = ${this.id}")
 	public Collection<Comment> getCommentsWithCondition(){
-		if (Is.empty(this.id)) return Collections.EMPTY_LIST;
-		Query query = XPersistence.getManager().createQuery("from Comment where issue.id = :id");
+		if (Is.empty(this.id)) return Collections.emptyList();
+		TypedQuery<Comment> query = XPersistence.getManager().createQuery("SELECT c FROM Comment c WHERE c.issue.id = :id", Comment.class);
 		query.setParameter("id", this.id);
-		return query.getResultList();
+		return (Collection<Comment>) query.getResultList();
 	}
 	
 	public String getId() {

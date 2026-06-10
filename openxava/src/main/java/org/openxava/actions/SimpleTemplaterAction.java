@@ -195,12 +195,12 @@ implements IModelAction {
 			Object value = getValue(entity, name);
 			if (value != null && isPrintable(value)) {
 				parameters.put(parentName + name, getPrintableValue(value));
-			} else if (fields[i].isAnnotationPresent(javax.persistence.ManyToOne.class)) {
-				Map<String, String> mtoParameters = getEntityParameters(value, fields[i].getType(), 
+			} else if (fields[i].isAnnotationPresent(jakarta.persistence.ManyToOne.class)) {
+				Map<String, String> mtoParameters = getEntityParameters(value, fields[i].getType(),
 						parentName + name + ".", depth + 1);
 				if (mtoParameters.size() > 0) parameters.putAll(mtoParameters);
-			} else if (fields[i].isAnnotationPresent(javax.persistence.OneToMany.class) || 
-					fields[i].isAnnotationPresent(javax.persistence.ManyToMany.class)) {
+			} else if (fields[i].isAnnotationPresent(jakarta.persistence.OneToMany.class) ||
+					fields[i].isAnnotationPresent(jakarta.persistence.ManyToMany.class)) {
 				parameters.put(parentName + name, COLLECTION);			
 			} else {
 				parameters.put(parentName + name, "");

@@ -14,7 +14,7 @@ import org.openxava.util.*;
  */
 public class TypeStereotypeDefault {
 		
-	private static Map stereotypes;
+	private static Map<String, String> stereotypes;
 	
 	
 	
@@ -38,7 +38,7 @@ public class TypeStereotypeDefault {
 	}
 			
 	private static void configure() throws XavaException {
-		stereotypes = new HashMap();		
+		stereotypes = new HashMap<>();		
 		StereotypeTypeDefaultParser.configureStereotypeTypeDefault();
 	}
 	

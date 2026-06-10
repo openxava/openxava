@@ -14,7 +14,7 @@ public class PropertyMapping extends MetaSetsContainer {
 	
 	private static Log log = LogFactory.getLog(PropertyMapping.class);
 	
-	private ArrayList cmpFields;
+	private ArrayList<CmpField> cmpFields;
 	private String property;
 	private String column;
 	private String converterClassName;
@@ -89,7 +89,7 @@ public class PropertyMapping extends MetaSetsContainer {
 		return !Is.emptyString(multipleConverterClassName); 
 	}
 	
-	public Collection getCmpFields() throws XavaException {
+	public Collection<CmpField> getCmpFields() throws XavaException {
 		if (cmpFields == null) return Collections.singletonList(toCmpField());
 		return cmpFields;		
 	}
@@ -182,7 +182,7 @@ public class PropertyMapping extends MetaSetsContainer {
 	}
 	
 	public void addCmpField(CmpField cmp) {
-		if (cmpFields == null) cmpFields = new ArrayList();
+		if (cmpFields == null) cmpFields = new ArrayList<CmpField>();
 		cmp.setCmpPropertyName(getProperty() + "_" + cmp.getConverterPropertyName());
 		cmpFields.add(cmp);		
 	}
