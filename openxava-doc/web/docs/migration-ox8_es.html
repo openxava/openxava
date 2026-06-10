@@ -284,6 +284,34 @@ import javax.validation.Payload;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Payload;</code></pre>
 
+    <h3>DWR eliminado</h3>
+
+    <p>Direct Web Remoting (DWR) se ha eliminado por completo de OpenXava. DWR era una librería
+    sin mantenimiento desde 2016, lo que representaba un problema de seguridad importante. Además,
+    DWR no soporta el espacio de nombres de Jakarta, por lo que no podría funcionar en contenedores
+    de servlets modernos como Tomcat 11. Esto significa que DWR no está incluido, pero tampoco se
+    puede añadir a proyectos de OpenXava 8 porque no funcionará.</p>
+
+    <p>DWR se utilizaba principalmente de forma interna en OpenXava, por lo que los proyectos estándar
+    no deberían verse afectados. Sin embargo, si has desarrollado tu propio editor personalizado
+    copiando un editor de OpenXava que dependía de DWR, deberás migrarlo. Una opción sencilla y robusta
+    es migrar de DWR a <i>fetch</i> de JavaScript con un <i>Servlet</i> Java simple y llano.</p>
+
+    <p>Puedes consultar el siguiente ejemplo de esta migración en OpenXava:</p>
+
+    <ul>
+      <li><b>Antes (con DWR):</b> 
+        <a href="https://github.com/openxava/openxava/blob/7.7.3/openxava/src/main/java/org/openxava/web/dwr/Tree.java">Tree.java</a> y 
+        <a href="https://github.com/openxava/openxava/blob/7.7.3/openxava/src/main/resources/META-INF/resources/xava/editors/js/treeEditor.js">treeEditor.js</a>
+      </li>
+      <li><b>Después (con Fetch + Servlet):</b> 
+        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/java/org/openxava/web/servlets/TreeServlet.java">TreeServlet.java</a> y 
+        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/editors/js/treeEditor.js">treeEditor.js</a>
+      </li>
+    </ul>
+
+    <p>Pedir a un asistente de IA que migre tu lógica de DWR a <i>fetch</i> + servlet es altamente recomendable y suele dar muy buen resultado.</p>
+
     <h2>Para migrar a OpenXava 7.7.3</h2>
 
     <p>Para migrar a OpenXava 7.7.3 desde cualquier versión anterior de OpenXava:</p>
