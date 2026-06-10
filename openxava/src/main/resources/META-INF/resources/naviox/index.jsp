@@ -72,15 +72,6 @@ manager.registerAction("SessionLocker.lock");
 	<% if (XavaPreferences.getInstance().isChatAvailable() && Users.getCurrent() != null && modules.isChatAvailable()) { %>
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/chat/chat.css?ox=<%=oxVersion%>">
 	<% } %>
-	<script type='text/javascript' <xava:nonce/>> 
-		if (typeof dwr == 'undefined') dwr = {};
-		if (!dwr.engine) dwr.engine = {};
-		dwr.engine._contextPath = "<%=request.getContextPath()%>";
-	</script>	
-	<script type='text/javascript' src='<%=request.getContextPath()%>/xava/js/dwr-engine.js?ox=<%=oxVersion%>'></script>
-	<% request.setAttribute("xava.dwr.loaded", true); %>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Modules.js?ox=<%=oxVersion%>'></script>
-	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/Folders.js?ox=<%=oxVersion%>'></script>
 </head>
 
 <body <%=XavaStyle.getBodyClass(request)%>>

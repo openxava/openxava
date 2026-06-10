@@ -5,7 +5,6 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Arrays"%>
-<%@ page import="org.openxava.web.dwr.Calendar"%>
 <%@ page import="java.util.prefs.Preferences" %>
 <%@ page import="org.openxava.util.Users" %>
 <%@ page import="org.openxava.view.View"%>
@@ -102,5 +101,3 @@ if (datePropertyList.size() > 1) {
 	<input type="hidden" id="xava_calendar_prevYear" value="<xava:label key="prevYear"/>">
 </div>
 <div id='xava_calendar' class='xava_calendar'></div>
-
-<script type='text/javascript' <xava:nonce/> src='<%=contextPath%>/dwr/interface/Calendar.js?ox=<%=version%>'></script>

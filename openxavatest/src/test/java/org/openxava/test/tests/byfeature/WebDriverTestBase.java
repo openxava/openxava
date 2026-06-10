@@ -252,7 +252,10 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     private WebElement getTable(String collection) { 
-        return driver.findElement(By.id("ox_openxavatest_" + module + "__" + collection));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        By tableLocator = By.id("ox_openxavatest_" + module + "__" + collection);
+        wait.until(ExpectedConditions.presenceOfElementLocated(tableLocator));
+        return driver.findElement(tableLocator);
     }
     
     protected void assertValueInList(int row, int column, String expectedValue) { // Duplicated with DescriptionsListTest, refactoring pending 

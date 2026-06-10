@@ -3,9 +3,9 @@ if (openxava.browser == null) openxava.browser = {};
 
 openxava.deselected = [];
 openxava.loadedScripts = [];
-openxava.calculations = {};  
+openxava.calculations = {};
 
-openxava.init = function(application, module, initUI) { 
+openxava.init = function(application, module, initUI) {
 	openxava.initWindowId(); 
 	document.onkeydown = openxava.processKey;
 	if (initUI) openxava.initUI(application, module); 
@@ -20,7 +20,7 @@ openxava.init = function(application, module, initUI) {
 	openxava.dataChanged = false; 
 }
 
-openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) {
+openxava.request = function(application, module, firstRequest, inNewWindow) {
 	if (openxava.isRequesting(application, module)) return;
 	openxava.setRequesting(application, module);
 	document.throwPropertyChange = false;
@@ -33,15 +33,32 @@ openxava.ajaxRequest = function(application, module, firstRequest, inNewWindow) 
 		openxava.newWindow = window.open('', '_blank'); 
 	}
 	openxava.preRequestEditors(); 
-	Module.request(
-			application, module, document.additionalParameters,			
-			openxava.getFormValues(openxava.getForm(application, module)), 
-			openxava.getMultipleValues(application, module), 
-			openxava.getSelectedValues(application, module),
-			openxava.deselected,
-			firstRequest,
-			openxava.baseFolder, 
-			openxava.refreshPage);	
+
+	var params = new URLSearchParams();
+	params.append("application", application);
+	params.append("module", module);
+	params.append("additionalParameters", document.additionalParameters || "");
+	params.append("values", JSON.stringify(openxava.getFormValues(openxava.getForm(application, module)) || null));
+	params.append("multipleValues", JSON.stringify(openxava.getMultipleValues(application, module) || null));
+	params.append("selectedRows", JSON.stringify(openxava.getSelectedValues(application, module) || null));
+	params.append("deselectedRows", JSON.stringify(openxava.deselected || null));
+	params.append("firstRequest", firstRequest ? "true" : "false");
+	params.append("baseFolder", openxava.baseFolder || "");
+
+	openxava.post("/xava/hotwire", params, function(text) {
+		if (text && text.indexOf("ERROR:") === 0) {
+			openxava.showError(openxava.postErrorMessage);
+			return;
+		}
+		try {
+			var result = JSON.parse(text);
+			openxava.refreshPage(result);
+		} catch (e) {
+			console.error("Error parsing JSON in openxava.request", e);
+			openxava.showError(openxava.postErrorMessage);
+		}
+	});
+
 	$(window).unbind('resize');
 	openxava.deselected = [];
 }
@@ -100,7 +117,7 @@ openxava.refreshPage = function(result) {
 		document.getElementById("xava_last_module_change").value=result.module + "::" + result.nextModule;		
 		if (openxava.dialogLevel > 0) openxava.closeDialog(result);							
 		openxava.resetRequesting(result); 
-		openxava.ajaxRequest(result.application, result.nextModule); 
+		openxava.request(result.application, result.nextModule); 
 		return;
 	}	
 	else {		
@@ -126,7 +143,7 @@ openxava.refreshPage = function(result) {
 		for (var id in changedParts) {			
 			changed = changed + id + ", ";  			
 			try {
-				openxava.setHtml(id, changedParts[id].replace(/_#C#_/g, ",")); 
+				openxava.setHtml(id, changedParts[id]); 
 			}
 			catch (ex) {
 				changed = changed + " ERROR";
@@ -187,7 +204,7 @@ openxava.refreshPage = function(result) {
 	}	
 	openxava.getElementById(result.application, result.module, "loaded_parts").value=changed;
 	openxava.getElementById(result.application, result.module, "loading").value=false;
-	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember;
+	openxava.getElementById(result.application, result.module, "view_member").value=result.viewMember || "";
 	openxava.lastApplication=result.application;
 	openxava.lastModule=result.module;
 	openxava.hasOnSelectAll(result.application, result.module);
@@ -412,7 +429,12 @@ openxava.initViewSimple = function(application, module, viewSimple) {
 }
 
 openxava.initStrokeActions = function(application, module) { 
-	Module.getStrokeActions(application, module, openxava.setStrokeActions);
+	var params = new URLSearchParams();
+	params.append("application", application);
+	params.append("module", module);
+	openxava.post("/xava/strokeActions", params, function(text) {
+		openxava.setStrokeActions(text ? JSON.parse(text) : null);
+	});
 }
 
 openxava.initBeforeShowDialog = function() { 
@@ -424,7 +446,6 @@ openxava.initWindowId = function() {
 		document.cookie = "XAVA_WINDOW_ID=" + $("#xava_window_id").val() + ";SameSite=Strict"; 
 	});		
 	document.cookie="XAVA_WINDOW_ID=;SameSite=Strict";	
-	dwr.engine.setHeaders({ xavawindowid: $("#xava_window_id").val() }); 
 }
 
 openxava.selectRows = function(application, module, selectedRows) {
@@ -617,7 +638,7 @@ openxava.initLists = function(application, module) {
 			$("." + event.target.id).width(newWidth);
 		},
 		stop: function(event, ui) {			
-			Tab.setColumnWidth(event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
+			openxava.tabSetColumnWidth(application, module, event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
 	openxava.resetListsSize(application, module); 
@@ -634,7 +655,7 @@ openxava.initLists = function(application, module) {
 	    	ui.item.css("width", "");
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	Tab.moveProperty(tableId, ui.item.startPos - 2, ui.item.index() - 2);
+	    	openxava.tabMoveProperty(application, module, tableId, ui.item.startPos - 2, ui.item.index() - 2);
 			setTimeout(function() {
 			    openxava.renumberListColumns(table);
 			}, 200);
@@ -649,7 +670,7 @@ openxava.initLists = function(application, module) {
 	    stop: function( event, ui ) {
 	    	var table = $(event.target).closest("table");
 	    	var tableId = table.attr("id");
-	    	View.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
+	    	openxava.moveCollectionElement(tableId, ui.item.startPos - 1, ui.item.index() - 1);
 	    	openxava.renumberCollection(table);
 	    }	
 	});
@@ -954,6 +975,18 @@ openxava.getSelectedValues = function(application, module) {
 	return result;
 }
 
+openxava.toDescriptiveString = function(value) {
+    if (Array.isArray(value)) {
+        var str = "[\n";
+        for (var i = 0; i < value.length; i++) {
+            str += '  "' + value[i] + '"\n';
+        }
+        str += "]";
+        return str;
+    }
+    return value == null ? "" : String(value);
+}
+
 openxava.getMultipleValues = function(application, module) { 
 	var result = new Object();
 	var multiple = document.getElementsByName(openxava.decorateId(application, module, "xava_multiple"));  
@@ -961,7 +994,7 @@ openxava.getMultipleValues = function(application, module) {
   		var propertyName = multiple[i].value; 
   		var elements = document.getElementsByName(propertyName);
   		if (elements.length == 1) {
-  			result[propertyName] = dwr.util.toDescriptiveString(dwr.util.getValue(propertyName), 2);
+  			result[propertyName] = openxava.toDescriptiveString($(elements[0]).val());
   		}
   		else {  	  			
   			for (var j=0; j<elements.length; j++) {
@@ -1000,7 +1033,7 @@ openxava.setFilterVisible = function(application, module, id, tabObject, visible
     	$(hideLink).hide(); 
     	$(showLink).show(); 
     }
-	Tab.setFilterVisible(application, module, visible, tabObject);
+	openxava.tabSetFilterVisible(application, module, visible, tabObject);
 }
 
 openxava.customizeList = function(application, module, id) { 	
@@ -1031,7 +1064,7 @@ openxava.removeColumn = function(application, module, columnId, tabObject) {
 		openxava.renumberListColumns(table);
   	});
 	var property = $("#" + columnId).closest("th").attr("data-property");
-	Tab.removeProperty(application, module, property, tabObject);
+	openxava.tabRemoveProperty(application, module, property, tabObject);
 }
 
 openxava.setPageRowCount = function(application, module, collection, select) {	
@@ -1064,11 +1097,11 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 		} 
 	} 
 	else {
-		openxava.ajaxRequest(application, module, false, inNewWindow); 
+		openxava.request(application, module, false, inNewWindow); 
 	}				
 }
 
-openxava.getFormValues = function(ele) { // A refinement of dwr.util.getFormValues
+openxava.getFormValues = function(ele) {
 	if (ele != null) {
 		if (ele.elements == null) {
 			alert("getFormValues() requires an object or reference to a form element.");
@@ -1093,9 +1126,9 @@ openxava.getFormValues = function(ele) { // A refinement of dwr.util.getFormValu
 	}
 }
 
-openxava.getFormValue = function(ele) { // A refinement of dwr.util.getValue
+openxava.getFormValue = function(ele) {
 	
-	if (dwr.util._isHTMLElement(ele, "select")) {
+	if (ele.tagName === "SELECT") {
 	    // Using "type" property instead of "multiple" as "type" is an official 
 	    // client-side property since JS 1.1
 	    if (ele.type == "select-multiple") {
@@ -1117,7 +1150,7 @@ openxava.getFormValue = function(ele) { // A refinement of dwr.util.getValue
 	    }
 	}
 
-	if (dwr.util._isHTMLElement(ele, "input")) {
+	if (ele.tagName === "INPUT") {
 		if (ele.type == "checkbox" || ele.type == "radio") {
 	      return ele.checked?ele.value:null; 
 	    }
@@ -1179,7 +1212,7 @@ openxava.parseFloat = function(value) {
 
 openxava.requestOnChange = function(application, module) {
 	if (document.throwPropertyChange)  {
-		openxava.ajaxRequest(application, module);
+		openxava.request(application, module);
 	}			
 }
 
@@ -1404,7 +1437,7 @@ openxava.showFrame = function(id) {
 	$("#"+id+"header").children().fadeOut(2000); 
 	$("#"+id+"hide").show();
 	$("#"+id+"show").hide();
-	View.setFrameClosed(id, false);
+	openxava.setFrameClosed(id, false);
 }
 
 openxava.hideFrame = function(id) {
@@ -1412,7 +1445,7 @@ openxava.hideFrame = function(id) {
 	$("#"+id+"header").children().fadeIn(2000); 
 	$("#"+id+"hide").hide();
 	$("#"+id+"show").show();
-	View.setFrameClosed(id, true);
+	openxava.setFrameClosed(id, true);
 }
 
 openxava.onChangeComparator = function(id,idConditionValue,idConditionValueTo,labelFrom,labelInValues) {
@@ -1539,7 +1572,7 @@ openxava.watchColumnsSearch = function() {
 }
 
 openxava.filterColumns = function() {
-	Tab.filterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
+	openxava.tabFilterColumns($("#xava_application").val(), $("#xava_module").val(), $("#xava_search_columns_text").val(), openxava.refreshColumnsList);
 }
 
 openxava.refreshColumnsList = function(columnsList) { 
@@ -1599,3 +1632,101 @@ openxava.filterList = function(filterValues) {
 	
 	openxava.executeAction(app, module, '', false, 'List.filter');
 };
+
+openxava.post = function(url, params, callback) {
+	var fullUrl = url.indexOf("://") >= 0 ? url : openxava.contextPath + url;
+	var fetchOptions = {
+		method: "POST",
+		credentials: "same-origin",
+		headers: {
+			"Content-Type": "application/x-www-form-urlencoded",
+			"xavawindowid": $("#xava_window_id").val()
+		},
+		body: params
+	};
+	fetch(fullUrl, fetchOptions)
+		.then(function(response) {
+			if (!response.ok) {
+				return response.text().then(function(text) {
+					throw new Error("HTTP Status " + response.status + " - " + text);
+				});
+			}
+			if (callback) return response.text();
+		})
+		.then(function(text) {
+			if (callback) callback(text);
+		})
+		.catch(function(error) {
+			console.error("Error in openxava.post:", error);
+			openxava.showError(openxava.postErrorMessage);
+			if (callback) callback("ERROR: " + error.message);
+		});
+};
+
+openxava.setFrameClosed = function(frameId, closed) {
+	var params = new URLSearchParams();
+	params.append("operation", "setFrameClosed");
+	params.append("frameId", frameId);
+	params.append("closed", closed);
+	openxava.post("/xava/view", params);
+};
+
+openxava.moveCollectionElement = function(tableId, from, to) {
+	var params = new URLSearchParams();
+	params.append("operation", "moveCollectionElement");
+	params.append("tableId", tableId);
+	params.append("from", from);
+	params.append("to", to);
+	openxava.post("/xava/view", params);
+};
+
+openxava.tabSetFilterVisible = function(application, module, filterVisible, tabObject) {
+	var params = new URLSearchParams();
+	params.append("operation", "setFilterVisible");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("filterVisible", filterVisible);
+	params.append("tabObject", tabObject);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabRemoveProperty = function(application, module, property, tabObject) {
+	var params = new URLSearchParams();
+	params.append("operation", "removeProperty");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("property", property);
+	params.append("tabObject", tabObject);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabMoveProperty = function(application, module, tableId, from, to) {
+	var params = new URLSearchParams();
+	params.append("operation", "moveProperty");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("tableId", tableId);
+	params.append("from", from);
+	params.append("to", to);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabSetColumnWidth = function(application, module, columnId, index, width) {
+	var params = new URLSearchParams();
+	params.append("operation", "setColumnWidth");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("columnId", columnId);
+	params.append("index", index);
+	params.append("width", width);
+	openxava.post("/xava/tab", params);
+}
+
+openxava.tabFilterColumns = function(application, module, searchWord, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "filterColumns");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("searchWord", searchWord);
+	openxava.post("/xava/tab", params, callback);
+}

@@ -31,11 +31,9 @@ public class InvoiceDetailsWithSectionsTest extends CustomizeListTestBase {
 		assertListRowCount(3);
 		execute("List.saveConfiguration");
 		execute("SaveListConfiguration.save");
-		// moveColumn() is better than JavaScript, but for this case it didn't work, so we use JS + reload, enough to reproduce the error
-		getHtmlPage().executeJavaScript("Tab.moveProperty('ox_openxavatest_InvoiceDetailsWithSections__list', 6, 1)"); 
-		waitAJAX();
-		reload();
-		
+
+		moveColumn(6, 1);
+
 		assertLabelInList(0, "Year");
 		assertLabelInList(1, "Paid");
 		assertLabelInList(2, "Number");

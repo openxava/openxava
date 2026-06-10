@@ -31,11 +31,11 @@ openxava.addEditorInitFunction(function() {
                     }
                 }                
                 
-                // Call the DWR method to update the value in the server
+                // Call the servlet to update the value in the server
                 listEditor.lastRow = row;
                 listEditor.lastProperty = property;
                 listEditor.lastEditor = editor;
-                Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
+                listEditor.updateValue(openxava.lastApplication, openxava.lastModule, row, property, newValue, listEditor.showMessage);
                 editor.parent().removeClass("ox-error-editor");
             });
         });
@@ -93,7 +93,7 @@ listEditor.undo = function() {
 			}
 		}
 	});
-	Tab.updateValue(openxava.lastApplication, openxava.lastModule, row, property, oldValue, listEditor.showUndoResult);
+	listEditor.updateValue(openxava.lastApplication, openxava.lastModule, row, property, oldValue, listEditor.showUndoResult);
 }
 
 listEditor.showUndoResult = function(message) {
@@ -105,3 +105,15 @@ listEditor.showUndoResult = function(message) {
 		openxava.showMessage(listEditor.undoRestoreMessage);
 	}
 }
+
+listEditor.updateValue = function(application, module, row, property, value, callback) {
+	var params = new URLSearchParams();
+	params.append("operation", "updateValue");
+	params.append("application", application);
+	params.append("module", module);
+	params.append("row", row);
+	params.append("property", property);
+	params.append("value", value);
+	openxava.post("/xava/tab", params, callback);
+};
+

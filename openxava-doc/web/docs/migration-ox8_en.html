@@ -284,6 +284,34 @@ import javax.validation.Payload;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Payload;</code></pre>
 
+    <h3>DWR removed</h3>
+
+    <p>Direct Web Remoting (DWR) has been completely removed from OpenXava. DWR was a library
+    unmaintained since 2016, which represented a significant security risk. Furthermore, DWR 
+    does not support the Jakarta namespace, meaning it cannot function on modern servlet containers 
+    like Tomcat 11. Therefore, DWR is neither included nor can it be added to OpenXava 8.0 projects 
+    since it will not work.</p>
+
+    <p>DWR was primarily used internally by OpenXava, so standard projects should not be affected. 
+    However, if you have developed your own custom editor by copying an OpenXava editor that relied 
+    on DWR, you must migrate it. A simple and robust option is to migrate from DWR to JavaScript 
+    <i>fetch</i> combined with a standard Java <i>Servlet</i>.</p>
+
+    <p>You can refer to the following example of this migration in OpenXava:</p>
+
+    <ul>
+      <li><b>Before (with DWR):</b> 
+        <a href="https://github.com/openxava/openxava/blob/7.7.3/openxava/src/main/java/org/openxava/web/dwr/Tree.java">Tree.java</a> and 
+        <a href="https://github.com/openxava/openxava/blob/7.7.3/openxava/src/main/resources/META-INF/resources/xava/editors/js/treeEditor.js">treeEditor.js</a>
+      </li>
+      <li><b>After (with Fetch + Servlet):</b> 
+        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/java/org/openxava/web/servlets/TreeServlet.java">TreeServlet.java</a> and 
+        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/editors/js/treeEditor.js">treeEditor.js</a>
+      </li>
+    </ul>
+
+    <p>Using an AI assistant to migrate your DWR logic to modern <i>fetch</i> + servlet is highly recommended and usually yields excellent results.</p>
+
     <h2>To migrate to OpenXava 7.7.3</h2>
 
     <p>To migrate to OpenXava 7.7.3 from any previous version of OpenXava:</p>

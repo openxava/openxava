@@ -1,7 +1,5 @@
 if (discussionEditor == null) var discussionEditor = {};
 
-openxava.getScript(openxava.contextPath + "/dwr/interface/Discussion.js"); 
-
 openxava.addEditorInitFunction(function() {
 	$('.ox-discussion-add-button').off('click').click(function() {
 		discussionEditor.postMessage(openxava.lastApplication, openxava.lastModule, $(this).parent().data("discussion-id"))
@@ -12,10 +10,6 @@ openxava.addEditorInitFunction(function() {
 });
 
 discussionEditor.postMessage = function(application, module, discussionId) {
-	if (typeof Discussion === 'undefined') {
-		alert("Error: Discussion comment not added");
-		return;
-	}
 	var newComment = tinymce.get('xava_new_comment_' + discussionId); 
 	var comments = $('#xava_comments_' + discussionId);
 	var lastComment = comments.children().last(); 
@@ -24,7 +18,9 @@ discussionEditor.postMessage = function(application, module, discussionId) {
 	lastComment.find(".ox-discussion-comment-content").html(commentContent);
 	lastComment.slideDown(); 
 	newComment.resetContent(""); 
-	Discussion.postComment(application, module, discussionId, commentContent);
+
+	discussionEditor.sendComment(application, module, discussionId, commentContent);
+
 	comments.append(template);
 	discussionEditor.clear(discussionId); 
 }
@@ -35,8 +31,19 @@ discussionEditor.postMessageHtmlUnit = function(application, module, discussionI
 	var template = lastComment.clone();
 	lastComment.find(".ox-discussion-comment-content").html(commentContent);
 	lastComment.show(); 
-	Discussion.postComment(application, module, discussionId, commentContent);
+
+	discussionEditor.sendComment(application, module, discussionId, commentContent);
+
 	comments.append(template);
+}
+
+discussionEditor.sendComment = function(application, module, discussionId, commentContent) {
+	var params = new URLSearchParams();
+	params.append("application", application);
+	params.append("module", module);
+	params.append("discussionId", discussionId);
+	params.append("commentContent", commentContent);
+	openxava.post("/xava/discussion", params);
 }
 
 discussionEditor.cancel = function(discussionId) {

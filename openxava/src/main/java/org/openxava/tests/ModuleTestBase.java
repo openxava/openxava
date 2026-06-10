@@ -2931,6 +2931,7 @@ abstract public class ModuleTestBase extends TestCase {
 		newClient.getOptions().setThrowExceptionOnScriptError(false);
 		newClient.getOptions().setCssEnabled(false);
 		newClient.getOptions().setUseInsecureSSL(true);
+		newClient.getOptions().setFetchPolyfillEnabled(true);
 		newClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    newClient.setCssErrorHandler(new SilentCssErrorHandler());
 	    newClient.setIncorrectnessListener((message, origin) -> {});
