@@ -1,11 +1,7 @@
 Pending para migración a Servlet 6.1 (tmr)
 ------------------------------------------
 
-- Crear un plan para chattest, invoicedemo y arquetipos.
 - ¿Afecta alguna documentación? ¿La de customizing quizás?
+- Prueba sencilla de subir archivos
+- Copiar plan MIGRATION-SERVLET-6.1-TOMCAT-11.md
 
-
-En migración
-- commons-fileupload → commons-fileupload2-jakarta-servlet6:
-    FileItem está expuesto en la API pública de OpenXava
-    (WithFileItem, @FileItemUpload, IProcessLoadedFileAction)
