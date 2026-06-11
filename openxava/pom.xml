@@ -185,6 +185,16 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>11.0.22</version>
 		</dependency>
+		<!--
+			Explicitly declare ecj to override the old transitive dependency from jasperreports (3.21.0).
+			tomcat-embed-jasper:11.0.22 brings ecj:3.45.0 which supports Java 17/21.
+			Without this, JDTCompiler falls back to Java 13 maximum causing warnings.
+		-->
+		<dependency>
+			<groupId>org.eclipse.jdt</groupId>
+			<artifactId>ecj</artifactId>
+			<version>3.45.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-websocket</artifactId>
