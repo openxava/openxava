@@ -121,7 +121,7 @@ public class Servlets {
         StringBuffer buffer = sout.getBuffer();
  
         HttpServletResponse fakeResponse = new SwallowingHttpServletResponse(response, sout, encoding);         
-        request.getSession().getServletContext().getRequestDispatcher(uri).forward(request, fakeResponse);
+        request.getSession().getServletContext().getRequestDispatcher(uri).include(request, fakeResponse);
         
         return buffer.toString();                
 	}
