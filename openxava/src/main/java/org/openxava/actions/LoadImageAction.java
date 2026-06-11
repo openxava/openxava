@@ -1,7 +1,7 @@
 package org.openxava.actions;
 
 import java.util.*;
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.util.*;
 
 /**

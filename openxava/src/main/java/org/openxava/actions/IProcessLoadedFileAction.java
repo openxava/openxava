@@ -16,7 +16,7 @@ public interface IProcessLoadedFileAction extends IAction {
 	
 	/**
 	 * 
-	 * @param fileItems List of <code>org.apache.commons.fileupload.FileItem</code> 
+	 * @param fileItems List of <code>org.apache.commons.fileupload2.core.FileItem</code> 
 	 */
 	void setFileItems(List fileItems);
 

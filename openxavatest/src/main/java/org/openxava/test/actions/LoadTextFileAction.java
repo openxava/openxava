@@ -4,7 +4,7 @@ import java.util.*;
 
 import jakarta.validation.*;
 
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.actions.*;
 import org.openxava.util.*;
 

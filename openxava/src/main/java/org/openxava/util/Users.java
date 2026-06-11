@@ -2,7 +2,7 @@ package org.openxava.util;
 
 import java.util.prefs.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.impl.*;

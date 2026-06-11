@@ -2,8 +2,8 @@ package org.openxava.web;
 
 import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 /**
  * Utility class to generate nonce numbers for using in inline JavaScript.

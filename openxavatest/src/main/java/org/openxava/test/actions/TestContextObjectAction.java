@@ -1,6 +1,6 @@
 package org.openxava.test.actions;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.actions.*;
 import org.openxava.controller.*;

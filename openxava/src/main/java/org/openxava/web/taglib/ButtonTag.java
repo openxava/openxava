@@ -1,7 +1,7 @@
 package org.openxava.web.taglib;
 
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.jsp.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.controller.meta.*;

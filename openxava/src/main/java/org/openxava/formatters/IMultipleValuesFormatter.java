@@ -1,6 +1,6 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 /**
  * For convert to String [] (used in HTML page) to Object (used in java side),

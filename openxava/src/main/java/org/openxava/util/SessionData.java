@@ -1,6 +1,6 @@
 package org.openxava.util;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 /**
  * To access session data without having access to HttpServletRequest or HttpSession. <p>

@@ -1,6 +1,6 @@
 package org.openxava.web.style;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.web.*;
 

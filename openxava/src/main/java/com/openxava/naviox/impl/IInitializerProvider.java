@@ -11,7 +11,7 @@
 
 package com.openxava.naviox.impl;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 /**
  * @since 7.0

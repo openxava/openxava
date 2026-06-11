@@ -8,7 +8,7 @@ import java.text.*;
 import java.time.format.*;
 import java.util.*;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;

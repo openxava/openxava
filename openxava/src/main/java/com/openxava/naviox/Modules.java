@@ -14,8 +14,8 @@ import java.io.*;
 import java.util.*;
 import java.util.prefs.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;

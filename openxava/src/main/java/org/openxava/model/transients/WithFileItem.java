@@ -1,6 +1,6 @@
 package org.openxava.model.transients;
 
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.annotations.*;
 
 /**

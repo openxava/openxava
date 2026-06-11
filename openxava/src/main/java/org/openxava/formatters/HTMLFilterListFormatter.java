@@ -1,6 +1,6 @@
 package org.openxava.formatters;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.openxava.formatters.IFormatter;
 import org.openxava.util.Is;

@@ -5,7 +5,7 @@ If you modify this file please past the manual tests in
 openxavatest/manual-tests/PrettyPrintingTest.txt 
 --%>
 
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <%@ page import="java.util.List" %> 
 <%@ page import="java.util.Collection" %> 

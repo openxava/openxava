@@ -1,6 +1,6 @@
 package org.openxava.web;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.openxava.controller.ModuleContext;
 import org.openxava.jpa.XPersistence;

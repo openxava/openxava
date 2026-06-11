@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
  
 public class StringTimeFormatter extends TimeBaseFormatter {
 	private static final DateFormat format5 = new SimpleDateFormat("HH:mm");

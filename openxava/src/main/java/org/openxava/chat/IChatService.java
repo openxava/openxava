@@ -1,6 +1,6 @@
 package org.openxava.chat;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * Interface for AI chat service implementations.

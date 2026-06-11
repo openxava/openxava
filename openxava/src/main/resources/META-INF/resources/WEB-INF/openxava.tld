@@ -1,246 +1,248 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
-
-<taglib>
-   <tlibversion>1.0</tlibversion>
-   <jspversion>1.1</jspversion>
-   <shortname>OpenXava</shortname>
+<taglib xmlns="https://jakarta.ee/xml/ns/jakartaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+        https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_1.xsd"
+        version="3.1">
+   <tlib-version>1.0</tlib-version>
+   <jsp-version>3.1</jsp-version>
+   <short-name>OpenXava</short-name>
    <uri></uri>
    <info>OpenXava tag library</info>
 
   <tag>
     <name>link</name>
-    <tagclass>org.openxava.web.taglib.LinkTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+    <tag-class>org.openxava.web.taglib.LinkTag</tag-class>
+    <body-content>JSP</body-content>
     <info>JavaScript link to execute xava action</info>
     <attribute>
        <name>action</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>argv</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>    
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>                      
     <attribute>
        <name>cssClass</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>cssStyle</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>title</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
   </tag>         
   
   <tag>
     <name>button</name>
-    <tagclass>org.openxava.web.taglib.ButtonTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.ButtonTag</tag-class>
+    <body-content>empty</body-content>
     <info>JavaScript button to execute xava action</info>
     <attribute>
        <name>action</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>argv</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>                      
   </tag>         
   
   <tag>
     <name>image</name>
-    <tagclass>org.openxava.web.taglib.ImageTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.ImageTag</tag-class>
+    <body-content>empty</body-content>
     <info>JavaScript image to execute xava action</info>
     <attribute>
        <name>action</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>argv</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>                      
     <attribute>
        <name>cssClass</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>cssStyle</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>                                   
   </tag>         
   
   <tag>
     <name>action</name>
-    <tagclass>org.openxava.web.taglib.ActionTag</tagclass>
-    <bodycontent>JSP</bodycontent>
+    <tag-class>org.openxava.web.taglib.ActionTag</tag-class>
+    <body-content>JSP</body-content>
     <info>Link or Image with javascript to execute a xava action</info>
     <attribute>
        <name>action</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>argv</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>    
     <attribute>
        <name>alwaysAvailable</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>                      
   </tag>         
   
   <tag>
     <name>editor</name>
-    <tagclass>org.openxava.web.taglib.EditorTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.EditorTag</tag-class>
+    <body-content>empty</body-content>
     <info>Display the appropriate editor for the specified property</info>
     <attribute>
        <name>property</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>editable</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>    
     <attribute>
        <name>throwPropertyChanged</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>value</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>        
   </tag>         
   
   <tag>
     <name>message</name>
-    <tagclass>org.openxava.web.taglib.MessageTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.MessageTag</tag-class>
+    <body-content>empty</body-content>
     <info>Shows the message from key using XavaResources class for obtaining translation</info>
     <attribute>
        <name>key</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>param</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>param1</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
 	<attribute>
        <name>param2</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>param3</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>param4</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>intParam</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>        
   </tag>         
 
   <tag>
     <name>label</name>
-    <tagclass>org.openxava.web.taglib.LabelTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.LabelTag</tag-class>
+    <body-content>empty</body-content>
     <info>Shows the label from key using Labels class for obtaining translation</info>
     <attribute>
        <name>key</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
   </tag>         
 
   <tag>
     <name>descriptionsList</name>
-    <tagclass>org.openxava.web.taglib.DescriptionsListTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.DescriptionsListTag</tag-class>
+    <body-content>empty</body-content>
     <info>Display a reference in descriptions list (combo) format</info>
     <attribute>
        <name>reference</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>descriptionValue</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
     <attribute>
        <name>readOnlyAsLabel</name>
        <required>false</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
   </tag> 
 
   <tag>
     <name>id</name>
-    <tagclass>org.openxava.web.taglib.IdTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.IdTag</tag-class>
+    <body-content>empty</body-content>
     <info>Generates an id suitable for HTML parts. Used internally by OpenXava</info>
     <attribute>
        <name>name</name>
        <required>true</required>
-       <rtexprvalue>true</rtexprvalue>
+       <rtexpr-value>true</rtexpr-value>
     </attribute>
   </tag>
   
   <tag>
     <name>nonce</name>
-    <tagclass>org.openxava.web.taglib.NonceTag</tagclass>
-    <bodycontent>empty</bodycontent>
+    <tag-class>org.openxava.web.taglib.NonceTag</tag-class>
+    <body-content>empty</body-content>
     <info>Generates a nonce attribute to add to inline JavaScript scripts</info>
   </tag>  
                 

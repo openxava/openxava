@@ -13,8 +13,8 @@ package com.openxava.naviox.impl;
 
 import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.application.meta.*;
 import org.openxava.util.*;

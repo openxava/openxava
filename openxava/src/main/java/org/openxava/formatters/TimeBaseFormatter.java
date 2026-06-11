@@ -2,7 +2,7 @@ package org.openxava.formatters;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.Is;

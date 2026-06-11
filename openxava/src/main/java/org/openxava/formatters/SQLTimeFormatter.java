@@ -5,7 +5,7 @@
 package org.openxava.formatters;
 
 import java.text.ParseException;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class SQLTimeFormatter extends TimeBaseFormatter {
 	

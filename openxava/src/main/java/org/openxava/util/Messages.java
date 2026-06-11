@@ -4,7 +4,7 @@ import java.text.*;
 import java.util.*;
 import java.util.regex.*;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.model.meta.*;

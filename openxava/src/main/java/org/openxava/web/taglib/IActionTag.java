@@ -1,6 +1,6 @@
 package org.openxava.web.taglib;
 
-import javax.servlet.jsp.tagext.*;
+import jakarta.servlet.jsp.tagext.*;
 
 /**
  * @author Javier Paniza

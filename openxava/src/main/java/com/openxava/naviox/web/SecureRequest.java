@@ -11,8 +11,8 @@
 
 package com.openxava.naviox.web;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 /** 
  * @author Javier Paniza

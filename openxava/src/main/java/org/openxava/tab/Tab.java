@@ -9,7 +9,7 @@ import java.util.function.*;
 import java.util.prefs.*;
 import java.util.stream.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.lang3.*;
 import org.apache.commons.logging.*;

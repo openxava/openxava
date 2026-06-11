@@ -3,7 +3,7 @@ package org.openxava.formatters;
 import java.math.*;
 import java.text.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.model.meta.*;
 import org.openxava.util.*;

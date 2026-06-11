@@ -6,7 +6,7 @@ import java.text.*;
 import java.util.*;
 import java.util.Date;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.openxava.jpa.*;
 import org.openxava.util.*;
