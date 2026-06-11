@@ -31,8 +31,10 @@
       <p>Crea el web listener en <em>src/main/java/com/yourcompany/projects/web/QuartzSchedulerListener.java</em>:</p>
         <pre><code class="language-java">package com.yourcompany.projects.web;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
+// import javax.servlet.*; // Para versiones anteriores a 8.0
+// import javax.servlet.annotation.*; // Para versiones anteriores a 8.0
+import jakarta.servlet.*; // Desde v8.0
+import jakarta.servlet.annotation.*; // Desde v8.0
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;

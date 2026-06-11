@@ -492,7 +492,8 @@ public class MyCustomLDAPAuthenticatorProvider extends ProLDAPAuthenticatorProvi
     <div class="wiki" style="display: block;">
       <pre><code class="language-java">package com.mycompany.myapp.impl;
 
-import javax.servlet.*;
+// import javax.servlet.*; // For versions prior to 8.0
+import jakarta.servlet.*; // Since v8.0
 import org.openxava.util.*;
 import com.openxava.naviox.impl.*;
 
