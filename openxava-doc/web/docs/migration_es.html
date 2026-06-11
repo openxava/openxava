@@ -331,6 +331,37 @@ import jakarta.servlet.jsp.*;</code></pre>
 &lt;%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %&gt;
 &lt;%@ taglib uri="jakarta.tags.functions" prefix="fn" %&gt;</code></pre>
 
+    <h3>Commons FileUpload 2</h3>
+
+    <p>OpenXava 8.0 ha actualizado la biblioteca de subida de archivos a Apache Commons FileUpload 2. 
+    Esta versión incluye cambios importantes en los nombres de paquetes y el diseño de la API, particularmente 
+    alrededor de la interfaz <i>FileItem</i>, que se expone en varias APIs públicas de OpenXava (como 
+    <i>WithFileItem</i>, <i>IProcessLoadedFileAction</i> y la anotación <i>@FileItemUpload</i>).</p>
+
+    <h4>Cambios en los nombres de paquetes</h4>
+
+    <p>Todas las clases del paquete <i>org.apache.commons.fileupload</i> se han movido. Si tus acciones 
+    personalizadas procesan archivos subidos, debes actualizar los imports:</p>
+
+    <pre><code class="language-java">// ANTES
+import org.apache.commons.fileupload.FileItem;
+
+// DESPUÉS
+import org.apache.commons.fileupload2.core.FileItem;</code></pre>
+
+    <h4>DiskFileItemFactory y JakartaServletFileUpload</h4>
+
+    <p>Si tu aplicación instancia fábricas o controladores de subida manualmente, ten en cuenta que <i>DiskFileItemFactory</i> 
+    ahora utiliza un patrón builder, y <i>ServletFileUpload</i> ha sido reemplazado por la implementación específica para Jakarta:</p>
+
+    <pre><code class="language-java">// ANTES
+DiskFileItemFactory factory = new DiskFileItemFactory();
+ServletFileUpload upload = new ServletFileUpload(factory);
+
+// DESPUÉS
+DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
+JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);</code></pre>
+
     <h3>DWR eliminado</h3>
 
     <p>Direct Web Remoting (DWR) se ha eliminado por completo de OpenXava. DWR era una librería
