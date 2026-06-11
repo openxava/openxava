@@ -3,7 +3,7 @@ package org.openxava.controller.meta;
 
 import java.util.*;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;

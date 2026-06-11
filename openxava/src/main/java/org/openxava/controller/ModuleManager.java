@@ -10,14 +10,13 @@ import java.util.stream.*;
 
 import javax.inject.*;
 import jakarta.persistence.*;
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 import jakarta.validation.*;
 import jakarta.validation.metadata.*;
 
 import org.apache.commons.collections.*;
-import org.apache.commons.fileupload.*;
-import org.apache.commons.fileupload.disk.*;
-import org.apache.commons.fileupload.servlet.*;
+import org.apache.commons.fileupload2.core.*;
+import org.apache.commons.fileupload2.jakarta.servlet6.*;
 import org.apache.commons.logging.*;
 import org.openxava.actions.*;
 import org.openxava.application.meta.*;
@@ -527,7 +526,12 @@ public class ModuleManager implements java.io.Serializable {
 			for (Iterator<FileItem> it = items.iterator(); it.hasNext();) {
 				FileItem item = it.next();
 				if (parameter.equals(Ids.undecorate(item.getFieldName())))
-					return item.getString();
+					try {
+						return item.getString();
+					} catch (java.io.IOException e) {
+						log.warn("Error reading uploaded file parameter: " + e.getMessage());
+						return null;
+					}
 			}
 			return null;
 		} else {
@@ -1142,16 +1146,17 @@ public class ModuleManager implements java.io.Serializable {
 
 	public void parseMultipartRequest(HttpServletRequest request)
 			throws FileUploadException {
-		List fileItems = (List) request.getAttribute("xava.upload.fileitems");
+		List<FileItem> fileItems = (List<FileItem>) request.getAttribute("xava.upload.fileitems");
 		if (fileItems != null) return;
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-		factory.setSizeThreshold(1000000);
-		ServletFileUpload upload = new ServletFileUpload(factory);
+		DiskFileItemFactory factory = DiskFileItemFactory.builder()
+			.setThreshold(1000000)
+			.get();
+		JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);
 		try {  
 			request.setAttribute("xava.upload.fileitems",
 				upload.parseRequest(request));
 		}
-		catch (FileUploadBase.InvalidContentTypeException ex) {
+		catch (FileUploadException ex) {
 			request.setAttribute("xava.upload.fileitems", Collections.EMPTY_LIST);
 			log.warn(XavaResources.getString("invalid_content_parsing_multipart") + ": " + ex.getMessage());
 		}
@@ -2181,7 +2186,7 @@ public class ModuleManager implements java.io.Serializable {
 	 */	
 	public void setModuleURL(HttpServletRequest request) {
 		this.moduleURL = request.getScheme() + "://" + request.getServerName() + ":" + 
-				request.getServerPort() + request.getAttribute("javax.servlet.forward.request_uri");
+				request.getServerPort() + request.getAttribute("jakarta.servlet.forward.request_uri");
 	}
 
 	/**

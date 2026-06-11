@@ -2,7 +2,7 @@ package org.openxava.util;
 
 import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 
 

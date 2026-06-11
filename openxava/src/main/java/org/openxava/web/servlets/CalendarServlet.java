@@ -9,9 +9,9 @@ import java.util.*;
 import java.util.prefs.*;
 import java.util.regex.*;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.commons.logging.*;

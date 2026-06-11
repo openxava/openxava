@@ -323,7 +323,8 @@ if (editable || !label) { // 5
       the code of the formatter:<br>
       <pre><code class="language-java">package org.openxava.formatters;
 
-import javax.servlet.http.*;
+// import javax.servlet.http.*; // For versions prior to 8.0
+import jakarta.servlet.http.*; // Since v8.0
 
 /**
  * @author Javier Paniza
@@ -587,7 +588,8 @@ for (int c=0; it.hasNext() &amp;&amp; c &lt; 3; c++) {
       descriptions to 10 characters:<br>
       <pre><code class="language-java">package org.openxava.test.formatters;
 
-import javax.servlet.http.*;
+// import javax.servlet.http.*; // For versions prior to 8.0
+import jakarta.servlet.http.*; // Since v8.0
 import org.openxava.formatters.*;
 
 public class TruncateDescriptionsFormatter implements IFormatter {

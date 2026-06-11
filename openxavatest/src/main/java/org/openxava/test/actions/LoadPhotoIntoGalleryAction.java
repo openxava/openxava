@@ -2,7 +2,7 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.actions.*;
 import org.openxava.session.*;
 import org.openxava.util.*;

@@ -1300,12 +1300,13 @@ public class FamilyProductsReportAction extends JasperReportBaseAction {        
       file provided by the client, without page reloading and using drag &amp;
       drop.</div>
 <div class="wiki" style="display: block;">The first step is to create a
-      transient class that includes a property of type <i>org.apache.commons.fileupload.FileItem</i>:</div>
+      transient class that includes a property of type <i>org.apache.commons.fileupload2.core.FileItem</i> (or <i>org.apache.commons.fileupload.FileItem</i> for versions prior to 8.0):</div>
 <div class="wiki" style="display: block;">
 <pre><code class="language-java">package com.yourcompany.uploadtest.model;
 
 import java.time.*;
-import org.apache.commons.fileupload.*;
+// import org.apache.commons.fileupload.*; // For versions prior to 8.0
+import org.apache.commons.fileupload2.core.FileItem; // Since v8.0
 import org.openxava.annotations.*;
 
 public class ShowFile {
@@ -1364,7 +1365,8 @@ public class ShowFile {
 
 import java.time.*;
 
-import org.apache.commons.fileupload.*;
+// import org.apache.commons.fileupload.*; // For versions prior to 8.0
+import org.apache.commons.fileupload2.core.FileItem; // Since v8.0
 import org.openxava.actions.*;
 
 public class ShowFileAction extends ViewBaseAction {
@@ -1477,7 +1479,7 @@ public class ShowFileAction extends ViewBaseAction {
       The action implements <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/IProcessLoadedFileAction.html" rel="nofollow">IProcessLoadedFileAction</a></em> (1), thus the action
       must have a method <em>setFileItem()</em> (5) to receive the list of
       uploaded files. This list can be processed in <em>execute()</em> (2). The
-      elements of the collection are of type <em><a class="wiki_link_ext" href="http://commons.apache.org/fileupload/apidocs/org/apache/commons/fileupload/FileItem.html" rel="nofollow">org.apache.commons.fileupload.FileItem</a></em> (4)
+      elements of the collection are of type <i>org.apache.commons.fileupload2.core.FileItem</i> (or <em><a class="wiki_link_ext" href="http://commons.apache.org/fileupload/apidocs/org/apache/commons/fileupload/FileItem.html" rel="nofollow">org.apache.commons.fileupload.FileItem</a></em> for versions prior to 8.0) (4)
       (from fileupload project of apache commons). Only calling to get() (4) in
       the file item you will access to the content of the uploaded file.<br/>
 <h2 id="toc18"><a name="Controllers-Override the default controllers (new in v2.0.3)"></a>Override

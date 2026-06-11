@@ -4,7 +4,7 @@ import java.util.*;
 
 import javax.inject.*;
 
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.calculators.*;
 import org.openxava.model.*;
 import org.openxava.util.*;

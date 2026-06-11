@@ -3,7 +3,7 @@ package org.openxava.util.jxls;
 import java.io.*;
 import java.util.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 import javax.swing.table.*;
 
 import org.apache.poi.hssf.usermodel.*;

@@ -1464,12 +1464,13 @@ public class InformeProductosDeFamiliaAction extends JasperReportBaseAction {  /
       Esta caracteristica te permite subir un archivo binario desde el navegador
       del cliente, sin recargar la página y usando arrastrar y soltar.
       <div class="wiki" style="display: block;">El primer paso es crear una
-        clase transitoria que incluya una propiedad de tipo <i>org.apache.commons.fileupload.FileItem</i>:</div>
+        clase transitoria que incluya una propiedad de tipo <i>org.apache.commons.fileupload2.core.FileItem</i> (o <i>org.apache.commons.fileupload.FileItem</i> para versiones anteriores a 8.0):</div>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">package com.tuempresa.tuaplicacion.modelo;
 
 import java.time.*;
-import org.apache.commons.fileupload.*;
+// import org.apache.commons.fileupload.*; // Para versiones anteriores a 8.0
+import org.apache.commons.fileupload2.core.FileItem; // Desde v8.0
 import org.openxava.annotations.*;
 
 public class MostrarFichero {
@@ -1528,7 +1529,8 @@ public class MostrarFichero {
         <pre><code class="language-java">package com.tuempresa.tuaplicacion.acciones;
 
 import java.time.*;
-import org.apache.commons.fileupload.*;
+// import org.apache.commons.fileupload.*; // Para versiones anteriores a 8.0
+import org.apache.commons.fileupload2.core.FileItem; // Desde v8.0
 import org.openxava.actions.*;
 
 public class AccionMostrarFichero extends ViewBaseAction {
@@ -1654,11 +1656,11 @@ public class AccionMostrarFichero extends ViewBaseAction {
             rel="nofollow">IProcessLoadedFileAction</a></em> (1), así la acción
         tiene que tener un método <em>setFileItem()</em> (5) para recibir la
         lista de los archivos descargados. Esta lista puede procesarse en <em>execute()</em>
-        (2). Los elementos de la colección son del tipo <em><a class="wiki_link_ext"
+        (2). Los elementos de la colección son del tipo <i>org.apache.commons.fileupload2.core.FileItem</i> (o <em><a class="wiki_link_ext"
 
             href="http://commons.apache.org/fileupload/apidocs/org/apache/commons/fileupload/FileItem.html"
 
-            rel="nofollow">org.apache.commons.fileupload.FileItem</a></em> (4)
+            rel="nofollow">org.apache.commons.fileupload.FileItem</a></em> para versiones anteriores a 8.0) (4)
         (del proyecto fileupload de apache commons). Llamando a <em>get()</em>
         (4) en el <em>file item</em> podemos acceder al contenido del archivo
         cargado.<br>

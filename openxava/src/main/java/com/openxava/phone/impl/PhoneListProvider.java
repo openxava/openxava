@@ -11,7 +11,7 @@
 
 package com.openxava.phone.impl;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 /**
  * 

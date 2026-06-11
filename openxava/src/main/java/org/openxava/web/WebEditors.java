@@ -3,7 +3,7 @@ package org.openxava.web;
 import java.util.*;
 import java.util.regex.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.filters.meta.*;

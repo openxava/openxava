@@ -2,7 +2,7 @@ package org.openxava.web;
 
 import java.util.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.model.meta.*;
 import org.openxava.util.*;

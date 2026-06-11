@@ -1,6 +1,6 @@
 package org.openxava.test.formatters;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.formatters.*;
 

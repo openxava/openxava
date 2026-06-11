@@ -3,8 +3,8 @@ package org.openxava.web.servlets;
 import java.io.*;
 import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
@@ -121,7 +121,7 @@ public class Servlets {
         StringBuffer buffer = sout.getBuffer();
  
         HttpServletResponse fakeResponse = new SwallowingHttpServletResponse(response, sout, encoding);         
-        request.getSession().getServletContext().getRequestDispatcher(uri).forward(request, fakeResponse);
+        request.getSession().getServletContext().getRequestDispatcher(uri).include(request, fakeResponse);
         
         return buffer.toString();                
 	}

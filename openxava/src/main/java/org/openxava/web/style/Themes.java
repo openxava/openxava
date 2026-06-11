@@ -3,7 +3,7 @@ package org.openxava.web.style;
 import java.util.*;
 import java.util.prefs.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;

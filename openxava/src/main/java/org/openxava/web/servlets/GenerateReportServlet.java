@@ -5,9 +5,9 @@ import java.math.*;
 import java.text.*;
 import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
+import jakarta.servlet.http.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 

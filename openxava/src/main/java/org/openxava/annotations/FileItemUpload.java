@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * Configure the way files can be uploaded in a FileItem property. <p>
  * 
- * Applies to properties of org.apache.commons.fileupload.FileItem type.<br>
+ * Applies to properties of org.apache.commons.fileupload2.core.FileItem type.<br>
  * 
  * Example:
  * <pre>

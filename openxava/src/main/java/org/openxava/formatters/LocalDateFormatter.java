@@ -3,7 +3,7 @@ package org.openxava.formatters;
 import java.time.*;
 import java.time.format.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.util.*;
 

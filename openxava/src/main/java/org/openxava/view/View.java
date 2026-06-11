@@ -7,7 +7,7 @@ import java.util.prefs.*;
 import java.util.stream.*;
 
 import javax.ejb.*;
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.collections.*;
 import org.apache.commons.lang3.*;

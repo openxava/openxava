@@ -2,7 +2,7 @@ package org.openxava.formatters;
 
 import java.text.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.codec.binary.*;
 

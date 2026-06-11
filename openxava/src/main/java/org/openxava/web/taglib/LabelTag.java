@@ -2,9 +2,9 @@ package org.openxava.web.taglib;
 
 import java.util.Locale;
 
-import javax.servlet.http.*;
-import javax.servlet.jsp.*;
-import javax.servlet.jsp.tagext.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.jsp.*;
+import jakarta.servlet.jsp.tagext.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;

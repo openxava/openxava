@@ -4,7 +4,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;

@@ -5,7 +5,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 import org.openxava.util.*;
 

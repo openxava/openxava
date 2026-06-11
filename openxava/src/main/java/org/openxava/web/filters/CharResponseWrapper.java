@@ -2,7 +2,7 @@ package org.openxava.web.filters;
 
 import java.io.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 /**
  * @since 6.5.3

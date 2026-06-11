@@ -284,6 +284,84 @@ import javax.validation.Payload;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Payload;</code></pre>
 
+    <h3>Jakarta Servlet 6.1 con Tomcat 11</h3>
+
+    <p>OpenXava 8.0 ha migrado toda su capa web a la moderna especificación Jakarta Servlet 6.1
+    sobre Tomcat 11. Esto requiere ajustar cualquier componente servlet personalizado, vistas JSP y configuraciones web
+    en tu aplicación.</p>
+
+    <h4>Cambio de javax.servlet a jakarta.servlet</h4>
+
+    <p>Las clases estándar de Java Servlet han cambiado su espacio de nombres de paquetes. Si tu aplicación define
+    filtros, servlets, listeners u otras clases personalizadas relacionadas con servlets, debes renombrar los imports:</p>
+
+    <pre><code class="language-java">// ANTES
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.jsp.*;
+
+// DESPUÉS
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import jakarta.servlet.jsp.*;</code></pre>
+
+    <h4>web.xml</h4>
+
+    <p>Tu archivo <i>web.xml</i> debe actualizarse para hacer referencia al espacio de nombres de Servlet 6.1. Actualiza la etiqueta raíz en 
+    <i>src/main/webapp/WEB-INF/web.xml</i> de la siguiente manera:</p>
+
+    <pre><code class="language-xml">&lt;web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
+         version="6.1"&gt;</code></pre>
+
+    <h4>JSTL y taglibs de JSP</h4>
+
+    <p>Las URIs de la biblioteca de etiquetas estándar de JavaServer Pages (JSTL) han cambiado de sus ubicaciones legadas en <i>sun.com</i> 
+    al nuevo espacio de nombres <i>jakarta.tags</i>. Si tienes archivos JSP personalizados, debes actualizar las directivas taglib:</p>
+
+    <pre><code class="language-jsp">&lt;%-- ANTES --%&gt;
+&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %&gt;
+&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %&gt;
+&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %&gt;
+
+&lt;%-- DESPUÉS --%&gt;
+&lt;%@ taglib uri="jakarta.tags.core" prefix="c" %&gt;
+&lt;%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %&gt;
+&lt;%@ taglib uri="jakarta.tags.functions" prefix="fn" %&gt;</code></pre>
+
+    <h3>Commons FileUpload 2</h3>
+
+    <p>OpenXava 8.0 ha actualizado la biblioteca de subida de archivos a Apache Commons FileUpload 2. 
+    Esta versión incluye cambios importantes en los nombres de paquetes y el diseño de la API, particularmente 
+    alrededor de la interfaz <i>FileItem</i>, que se expone en varias APIs públicas de OpenXava (como 
+    <i>WithFileItem</i>, <i>IProcessLoadedFileAction</i> y la anotación <i>@FileItemUpload</i>).</p>
+
+    <h4>Cambios en los nombres de paquetes</h4>
+
+    <p>Todas las clases del paquete <i>org.apache.commons.fileupload</i> se han movido. Si tus acciones 
+    personalizadas procesan archivos subidos, debes actualizar los imports:</p>
+
+    <pre><code class="language-java">// ANTES
+import org.apache.commons.fileupload.FileItem;
+
+// DESPUÉS
+import org.apache.commons.fileupload2.core.FileItem;</code></pre>
+
+    <h4>DiskFileItemFactory y JakartaServletFileUpload</h4>
+
+    <p>Si tu aplicación instancia fábricas o controladores de subida manualmente, ten en cuenta que <i>DiskFileItemFactory</i> 
+    ahora utiliza un patrón builder, y <i>ServletFileUpload</i> ha sido reemplazado por la implementación específica para Jakarta:</p>
+
+    <pre><code class="language-java">// ANTES
+DiskFileItemFactory factory = new DiskFileItemFactory();
+ServletFileUpload upload = new ServletFileUpload(factory);
+
+// DESPUÉS
+DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
+JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);</code></pre>
+
     <h3>DWR eliminado</h3>
 
     <p>Direct Web Remoting (DWR) se ha eliminado por completo de OpenXava. DWR era una librería

@@ -1,6 +1,6 @@
 package org.openxava.test.model;
 
-import org.apache.commons.fileupload.*;
+import org.apache.commons.fileupload2.core.*;
 import org.openxava.annotations.*;
 
 /**

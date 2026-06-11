@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.Collections;
 import java.util.stream.*;
 
-import javax.servlet.*;
+import jakarta.servlet.*;
 
 import org.openxava.util.*;
 

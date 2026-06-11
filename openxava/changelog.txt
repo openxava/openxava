@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
+- Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
 - DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
 - New UUID32 annotation for 32-character UUID support in Hibernate 7.
 - Replaced raw collection types with generics in View, Tab, MapFacade and other core classes.

@@ -2,7 +2,7 @@ package org.openxava.util;
 
 import java.util.*;
 
-import javax.servlet.http.*;
+import jakarta.servlet.http.*;
 
 /**
  * By default it get parameters from i18n.

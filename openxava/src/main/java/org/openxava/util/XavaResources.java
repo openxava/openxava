@@ -2,8 +2,8 @@ package org.openxava.util;
 
 import java.util.*;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
 
