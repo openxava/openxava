@@ -1,6 +1,0 @@
-Pending para migración a Servlet 6.1 (tmr)
-------------------------------------------
-
-- Prueba sencilla de subir archivos
-- Copiar plan MIGRATION-SERVLET-6.1-TOMCAT-11.md
-
