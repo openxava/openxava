@@ -1,0 +1,11 @@
+Pending para migración a Servlet 6.1 (tmr)
+------------------------------------------
+
+- Crear un plan para chattest, invoicedemo y arquetipos.
+- ¿Afecta alguna documentación? ¿La de customizing quizás?
+
+
+En migración
+- commons-fileupload → commons-fileupload2-jakarta-servlet6:
+    FileItem está expuesto en la API pública de OpenXava
+    (WithFileItem, @FileItemUpload, IProcessLoadedFileAction)
