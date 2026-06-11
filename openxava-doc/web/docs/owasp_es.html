@@ -110,9 +110,12 @@
         servir:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+// import javax.servlet.*; // Para versiones anteriores a 8.0
+// import javax.servlet.annotation.*; // Para versiones anteriores a 8.0
+// import javax.servlet.http.*; // Para versiones anteriores a 8.0
+import jakarta.servlet.*; // Desde v8.0
+import jakarta.servlet.annotation.*; // Desde v8.0
+import jakarta.servlet.http.*; // Desde v8.0
 
 @WebFilter("/*") 
 public class ContentSecurityPolicyFilter implements Filter {
