@@ -263,6 +263,31 @@ String value = (String) query.getSingleResult();
 // After (Hibernate 7.2)
 String value = query.getSingleResult().toString();</code></pre>
 
+    <h4>@OrderBy with nested paths on associations</h4>
+
+    <p>Hibernate 7.2 strictly enforces the JPA specification for the <code>@OrderBy</code> annotation. 
+    Using a nested path (such as <code>association.property</code>) in <code>@OrderBy</code> will throw a 
+    <code>NullPointerException</code> on startup during the SessionFactory building.</p>
+
+    <p>According to the JPA specification, <code>@OrderBy</code> must refer directly to basic attributes of the target entity. 
+    If you need to sort a collection based on an attribute of an associated entity, you must expose that column in the target 
+    entity as a read-only field and sort by it.</p>
+
+    <pre><code class="language-java">// INCORRECT (Fails with NullPointerException in Hibernate 7.2)
+@OneToMany(mappedBy="role")
+@OrderBy("module.name asc")
+private Collection&lt;ModuleRights&gt; modulesRights;
+
+// CORRECT
+// 1. Map the join column as a read-only basic property in the target entity (ModuleRights):
+@Column(name="modules_name", insertable=false, updatable=false)
+private String moduleName;
+
+// 2. Sort by the basic property in the parent entity:
+@OneToMany(mappedBy="role")
+@OrderBy("moduleName asc")
+private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
+
     <h3>Jakarta Validator 3.1 with Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 uses Jakarta Validator 3.1 and Hibernate Validator 9.1. This implies

@@ -263,6 +263,31 @@ String value = (String) query.getSingleResult();
 // Después (Hibernate 7.2)
 String value = query.getSingleResult().toString();</code></pre>
 
+    <h4>@OrderBy con rutas anidadas en asociaciones</h4>
+
+    <p>Hibernate 7.2 es mucho más estricto al cumplir la especificación JPA para la anotación <code>@OrderBy</code>. 
+    Usar una ruta anidada (como <code>asociacion.propiedad</code>) en <code>@OrderBy</code> lanzará un 
+    <code>NullPointerException</code> al arrancar la aplicación durante la creación de la SessionFactory.</p>
+
+    <p>De acuerdo con la especificación JPA, <code>@OrderBy</code> debe referirse directamente a atributos básicos de la entidad destino. 
+    Si necesitas ordenar una colección basándote en un atributo de una entidad asociada, debes exponer esa columna en la entidad destino 
+    como un campo de solo lectura y ordenar por él.</p>
+
+    <pre><code class="language-java">// INCORRECTO (Falla con NullPointerException en Hibernate 7.2)
+@OneToMany(mappedBy="role")
+@OrderBy("module.name asc")
+private Collection&lt;ModuleRights&gt; modulesRights;
+
+// CORRECTO
+// 1. Mapea la columna de unión como propiedad básica de solo lectura en la entidad destino (ModuleRights):
+@Column(name="modules_name", insertable=false, updatable=false)
+private String moduleName;
+
+// 2. Ordena por la propiedad básica en la entidad padre:
+@OneToMany(mappedBy="role")
+@OrderBy("moduleName asc")
+private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
+
     <h3>Jakarta Validator 3.1 con Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 usa Jakarta Validator 3.1 y Hibernate Validator 9.1. Esto implica
