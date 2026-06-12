@@ -84,8 +84,7 @@
       desde tus objetos a la base de datos y viceversa. JPA lo hace para ti.<br>
       Este lección es una introducción a JPA. Para una completa inmersión en
       esta tecnología estándar necesitarías leer un libro completo sobre JPA, de
-      hecho, se citan algunos en el sumario de esta lección. OpenXava soporta
-      JPA 2.2 desde v6.1.<br>
+      hecho, se citan algunos en el sumario de esta lección. OpenXava soporta Jakarta Persistence 3.2 desde v8.0 (y JPA 2.2 desde v6.1 hasta v7.x).<br>
       Por otra parte, si ya conoces JPA puedes saltarte esta lección.<br>
       <h2 id="toc1"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA"></a>Anotaciones
         JPA</h2>
@@ -2935,7 +2934,7 @@ class="br0">{</span>
         <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
 import java.time.*;<br>import java.util.*;
-import javax.persistence.*;
+import jakarta.persistence.*; // javax.persistence.* antes de OpenXava 8.0
 import org.openxava.annotations.*;
  
 @Entity
@@ -3005,7 +3004,7 @@ public class FacturaKey implements java.io.Serializable { // La clase key tiene 
       de datos de desde tu propio código.<br>
       <h2 id="toc7"><a name="Apendice+B:+Java+Persistence+API-API+JPA"></a>API
         JPA</h2>
-      La clase de JPA más importante es <em>javax.persistence.EntityManager</em>.
+      La clase de JPA más importante es <em>jakarta.persistence.EntityManager</em> (<em>javax.persistence.EntityManager</em> antes de OpenXava 8.0).
       Un <em>EntityManager</em> te permite grabar, modificar y buscar
       entidades.<br>
       El siguiente código muestra la forma típica de usar JPA en una aplicación
@@ -3874,18 +3873,13 @@ class="sy0">;</span>  <span class="co1">// Para obtener una colección de entida
       avanzados de JPA en el transcurso de este curso. Y si aun quieres aprender
       más, lee libros y referencias, como por ejemplo:<br>
       <ul>
-        <li><em><a class="wiki_link_ext" href="https://jcp.org/en/jsr/detail?id=338"
+        <li><em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/"
 
-              rel="nofollow">Java Persistence API Specification</a></em> por
-          Linda DeMichiel.</li>
-        <li><em><a class="wiki_link_ext" href="https://books.google.es/books?id=Mh5KDwAAQBAJ"
+              rel="nofollow">Jakarta Persistence Specification</a></em> por la
+          Fundación Eclipse.</li>
+        <li><em><a class="wiki_link_ext" href="https://www.apress.com/gp/book/9781484274422"
 
-              rel="nofollow">Pro JPA 2</a></em> por Mike Keith and Merrick
-          Schincariol.</li>
-        <li><em><a class="wiki_link_ext" href="http://www.amazon.com/Java-Persistence-Hibernate-Christian-Bauer/dp/1617290459/"
-
-              rel="nofollow">Java Persistence with Hibernate</a></em> por
-          Christian Bauer y Gavin King.</li>
+              rel="nofollow">Pro Jakarta Persistence in Jakarta EE 10</a></em> por Lukas Jungmann, Mike Keith, Merrick Schincariol y Massimo Nardone.</li>
       </ul>
       JPA es una tecnología indisputable en el universo Java de empresa, por
       tanto todo el conocimiento y código que acumulemos alrededor de JPA es
