@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Object/relational mapping - OpenXava</title>
+    <title>Object/relational mapping in OpenXava 7 - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link href="highlight/highlight.css" rel="stylesheet"/>
     <link href="highlight/highlightjs-copy.css" rel="stylesheet"/><script src="highlight/highlight.js"></script>
@@ -13,7 +13,7 @@
 
             id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava </a> </span> / <a
 
-            href="index_en.html">documentation</a> / </span> Object/relational mapping </h1>
+            href="index_en.html">documentation</a> / </span> Object/relational mapping in OpenXava 7 </h1>
       <strong>Reference guide</strong>: <a class="wiki_link" href="model_en.html">Model</a> | <a
 
         class="wiki_link" href="view_en.html">View</a> | <a class="wiki_link"
@@ -42,8 +42,8 @@
         <div style="margin-left: 3em;"><a href="#Object/relational%20mapping-Unique%20Constraints-Other%20dialects">Other dialects</a></div>
       </div>
     </div>
-    <div class="wiki" style="display: block;"><i>If you're using an OpenXava version older than 8.0 look at the <a
-          href="mapping-ox7_en.html">old instructions</a></i><br>
+    <div class="wiki" style="display: block;"><i>If you're using OpenXava 8.0 or newer look at the <a
+          href="mapping_en.html">new instructions</a></i><br>
       <br>
       Object relational mapping allows you to declare in which tables and columns of your database the entity data will be stored.<br>
       Object/relational tools allow you to work with objects instead of tables and columns, and to generate automatically the SQL code to read and update the database. In this way you do not need direct access to the SQL database. Of course you have to define precisely how to map your classes to your tables, and this work is done using JPA mapping annotations.<br>
@@ -55,17 +55,17 @@
 
         class="wiki_link_ext" href="http://www.hibernate.org/hib_docs/annotations/reference/en/html/entity.html"
 
-        rel="nofollow">the documentation of Hibernate Annotations</a> (the JPA implementation used by OpenXava by default), or whatever JPA manual you want. OpenXava 8.0 and better uses Jakarta Persistence 3.2.<br>
+        rel="nofollow">the documentation of Hibernate Annotations</a> (the JPA implementation used by OpenXava by default), or whatever JPA manual you want. OpenXava 6.1 and better uses JPA 2.2.<br>
       <h2 id="toc1"><a name="Object/relational mapping-Entity mapping"></a>Entity mapping</h2>
-      The <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/table"
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
 
           rel="nofollow">@Table</a></em> annotation specifies the primary table for the annotated entity. Additional tables may be specified using <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/secondarytable"
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
 
           rel="nofollow">@SecondaryTable</a></em> or <em><a class="wiki_link_ext"
 
-          href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/secondarytables"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTables.html"
 
           rel="nofollow">@SecondaryTables</a></em> annotation.<br>
       If no <em>@Table</em> annotation is specified for an entity class, the default values apply.<br>
@@ -74,7 +74,7 @@
 @Table(name="CUST", schema="XAVATEST")
 public class Customer {</code></pre>
       <h2 id="toc2"><a name="Object/relational mapping-Property mapping"></a>Property mapping</h2>
-      The <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/column"
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Column.html"
 
           rel="nofollow">@Column</a></em> annotation is used to specify a mapped column for a persistent property or field. If no <em>@Column</em> annotation is specified, the default values are applied.<br>
       A simple example:<br>
@@ -93,7 +93,7 @@ private String description;
 @Column(name="ORDER_COST", updatable=false, precision=12, scale=2)
 private BigDecimal cost;</code></pre>
       <h2 id="toc3"><a name="Object/relational mapping-Reference mapping"></a>Reference mapping</h2>
-      The <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/joincolumn"
+      The <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
 
           rel="nofollow">@JoinColumn</a></em> annotation is used to specify a mapped column for a reference.<br>
       Example:<br>
@@ -108,16 +108,28 @@ private Customer customer;</code></pre>
 @JoinColumn(name="INV_NUMBER", referencedColumnName="NUMBER")
 private Invoice invoice;</code></pre>
       </div>
+      For OpenXava versions older than 6.1 (that used the old JPA 2.1) you need to use <em><a
+
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
+
+          rel="nofollow">@JoinColumns</a></em>. This annotation groups <em>@JoinColumn</em> annotations for the same reference.<br>
+      Example:<br>
+<pre><code class="language-java">@ManyToOne
+@JoinColumns({ // Only needed until OpenXava 6.0.2/JPA 2.1
+  @JoinColumn(name="INV_YEAR", referencedColumnName="YEAR"),
+  @JoinColumn(name="INV_NUMBER", referencedColumnName="NUMBER")
+})
+private Invoice invoice;</code></pre>
       <h2 id="toc4"><a name="Object/relational mapping-Collection mapping"></a>Collection mapping</h2>
-      When you use <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/onetomany"
+      When you use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/OneToMany.html"
 
           rel="nofollow">@OneToMany</a></em> for a collection the mapping depends of the reference used in the other part of the association, that is, usually it's not needed to do anything. But if you are using <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/manytomany"
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/ManyToMany.html"
 
           rel="nofollow">@ManyToMany</a></em>, maybe it's useful to declare the <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/jointable"
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinTable.html"
 
           rel="nofollow">@JoinTable</a></em>, as following:<br>
 <pre><code class="language-java">@ManyToMany
@@ -128,15 +140,15 @@ private Invoice invoice;</code></pre>
 private Collection&lt;State&gt; states;</code></pre>
       If <em>@JoinTable</em> is missing the default values apply.<br>
       <br>
-      When you use <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/elementcollection"
+      When you use <em><a class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/ElementCollection.html"
 
           rel="nofollow">@ElementCollection</a></em> <em>(new in v5.0)</em> for a collection you can use <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/collectiontable"
+          class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/CollectionTable.html"
 
           rel="nofollow">@CollectionTable</a></em> and <em><a class="wiki_link_ext"
 
-          href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/attributeoverride"
+          href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverride.html"
 
           rel="nofollow">@AttributeOverride</a></em>, as following:<br>
 <pre><code class="language-java">@ElementCollection
@@ -148,10 +160,30 @@ private Collection&lt;State&gt; states;</code></pre>
 @AttributeOverride(name="state",
     column=@Column(name="HOME_STATE"))
 private Collection&lt;Address&gt; vacationHomes;</code></pre>
-      If <em>@CollectionTable</em> and <em>@AttributeOverride</em> are missing the default values apply.<br>
+      If you're using an OpenXava older than 6.1 (so with JPA 2.1) you have to wrapt the <i>@AttributeOverride</i> annotations with <em><a
+
+          class="wiki_link_ext" href="http://docs.oracle.com/javaee/6/api/javax/persistence/AttributeOverrides.html"
+
+          rel="nofollow">@AttributeOverrides</a></em>, thus:<br>
+      <div class="wiki" id="content_view">
+<pre><code class="language-java">@ElementCollection
+@CollectionTable(name="HOMES") // Uses default join column name
+@AttributeOverrides({ // Only needed until OpenXava 6.0.2/JPA 2.1
+    @AttributeOverride(name="street",
+        column=@Column(name="HOME_STREET")),
+    @AttributeOverride(name="city",
+        column=@Column(name="HOME_CITY")),
+    @AttributeOverride(name="state",
+        column=@Column(name="HOME_STATE"))
+})
+private Collection&lt;Address&gt; vacationHomes;</code></pre>
+        If <em>@CollectionTable</em> and <em>@AttributeOverride</em> are missing the default values apply.<br>
+        <h2 id="toc5"><br>
+        </h2>
+      </div>
       <h2 id="toc5"><a name="Object/relational mapping-Embedded reference mapping"></a>Embedded reference mapping</h2>
       An <a class="wiki_link" href="model_en.html#Model-References-Embedded%20reference">embedded reference</a> contains data that in the relational model are stored in the same table as the main entity. For example, if you have an embeddable <em>Address</em> associated to a <em>Customer</em>, the address data is stored in the same data table as the customer data. How can you map this case with JPA?<br>
-      Just use several <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/attributeoverride"
+      Just use several <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverride.html"
 
           rel="nofollow">@AttributeOverride</a></em> annotations, in this way:<br>
 <pre><code class="language-java">@Embedded
@@ -160,7 +192,22 @@ private Collection&lt;Address&gt; vacationHomes;</code></pre>
 @AttributeOverride(name="city", column=@Column("ADDR_CITY"))
 @AttributeOverride(name="country", column=@Column("ADDR_COUNTRY"))
 private Address address;</code></pre>
+      For OpenXava older than 6.1 (with JPA 2.1) use <em><a class="wiki_link_ext"
+
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/AttributeOverrides.html"
+
+          rel="nofollow">@AttributeOverrides</a></em> annotation:<br>
+      <div class="wiki">
+<pre><code class="language-java">@Embedded
+@AttributeOverrides({ // Only until OpenXava 6.0.2/JPA 2.1
+  @AttributeOverride(name="street", column=@Column("ADDR_STREET")),
+  @AttributeOverride(name="zip", column=@Column("ADDR_ZIP")),
+  @AttributeOverride(name="city", column=@Column("ADDR_CITY")),
+  @AttributeOverride(name="country", column=@Column("ADDR_COUNTRY"))
+})
+private Address address;</code></pre>
         If you do not use <em>@AttributeOverride</em> default values are assumed.<br>
+      </div>
       <h2 id="toc6"><a name="Object/relational mapping-Type conversion"></a>Type conversion</h2>
       The type conversion between Java and the relational database is a work for the JPA implementation (OpenXava uses Hibernate by default). Usually, the default type conversion is good for most cases, but if you work with legacy database perhaps you need to use the tips here.<br>
       Given that OpenXava uses the type conversion facility provided by Hibernate you can learn more on <a
@@ -169,7 +216,7 @@ private Address address;</code></pre>
       <h3 id="toc7"><a name="Object/relational mapping-Type conversion-Property conversion"></a>Property conversion</h3>
       When the type of a Java property and the type of its corresponding column in DB do not match you need to write a Hibernate Type in order to do your custom type conversion.<br>
       For example, if you have a property of type <em>String []</em>, and you want to store its value concatenating it in a single table column of VARCHAR type. Then you must declare the conversion for your property in this way:<br>
-<pre><code class="language-java">@Type(org.openxava.test.types.RegionsType.class)
+<pre><code class="language-java">@Type(type="org.openxava.test.types.RegionsType")
 private String [] regions;</code></pre>
       The conversion logic in <em>RegionsType</em> is:<br>
 <pre><code class="language-java">package org.openxava.test.types;
@@ -177,41 +224,40 @@ private String [] regions;</code></pre>
 import java.io.*;
 import java.sql.*;
 
-import org.hibernate.type.SqlTypes;
-import org.hibernate.type.descriptor.WrapperOptions;
+import org.apache.commons.logging.*;
+import org.hibernate.*;
+import org.hibernate.engine.spi.*; // Since OpenXava 5.3 that uses Hibernate 4.3
 import org.hibernate.usertype.*;
 import org.openxava.util.*;
 
 /**
  *
  * @author Javier Paniza
- * @since 8.0
  */
-public class RegionsType implements UserType&lt;String[]&gt; { // 1
+public class RegionsType implements UserType { // 1
 
-    @Override
-    public int getSqlType() {
-        return SqlTypes.VARCHAR;
+    public int[] sqlTypes() {
+        return new int[] { Types.VARCHAR };
     }
 
-    @Override
-    public Class&lt;String[]&gt; returnedClass() {
+    public Class returnedClass() {
         return String[].class;
     }
 
-    @Override
-    public boolean equals(String[] x, String[] y) {
-        return Is.equal(x, y);
+    public boolean equals(Object obj1, Object obj2) throws HibernateException {
+        return Is.equal(obj1, obj2);
     }
 
-    @Override
-    public int hashCode(String[] x) {
-        return x == null ? 0 : x.hashCode();
+    public int hashCode(Object obj) throws HibernateException {
+        return obj.hashCode();
     }
 
-    @Override
-    public String[] nullSafeGet(ResultSet rs, int position, WrapperOptions options) throws SQLException { // 2
-        Object o = rs.getObject(position);
+    // SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3
+   public Object nullSafeGet(ResultSet resultSet, String[] names, SharedSessionContractImplementor implementor, Object owner) // 2
+        throws HibernateException, SQLException
+    {
+        Object o = resultSet.getObject(names[0]);
         if (o == null) return new String[0];
         String dbValue = (String) o;
         String [] javaValue = new String [dbValue.length()];
@@ -221,48 +267,47 @@ public class RegionsType implements UserType&lt;String[]&gt; { // 1
         return javaValue;
     }
 
-    @Override
-    public void nullSafeSet(PreparedStatement st, String[] value, int index, WrapperOptions options) throws SQLException { // 3
+    // SessionImplementer argument since OpenXava 5.3 that uses Hibernate 4.3
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3
+   public void nullSafeSet(PreparedStatement ps, Object value, int index, SharedSessionContractImplementor implementor) // 3
+        throws HibernateException, SQLException
+    {
         if (value == null) {
-            st.setString(index, "");
+            ps.setString(index, "");
             return;
         }
+        String [] javaValue = (String []) value;
         StringBuffer dbValue = new StringBuffer();
-        for (int i = 0; i &lt; value.length; i++) {
-            dbValue.append(value[i]);
+        for (int i = 0; i &lt; javaValue.length; i++) {
+            dbValue.append(javaValue[i]);
         }
-        st.setString(index, dbValue.toString());
+        ps.setString(index, dbValue.toString());
     }
 
-    @Override
-    public String[] deepCopy(String[] value) {
-        return value == null ? null : value.clone();
+    public Object deepCopy(Object obj) throws HibernateException {
+        return obj == null?null:((String []) obj).clone();
     }
 
-    @Override
     public boolean isMutable() {
         return true;
     }
 
-    @Override
-    public Serializable disassemble(String[] value) {
-        return value;
+    public Serializable disassemble(Object obj) throws HibernateException {
+        return (Serializable) obj;
     }
 
-    @Override
-    public String[] assemble(Serializable cached, Object owner) {
-        return (String[]) cached;
+    public Object assemble(Serializable cached, Object owner) throws HibernateException {
+        return cached;
     }
 
-    @Override
-    public String[] replace(String[] original, String[] target, Object owner) {
+    public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return original;
     }
 
 }</code></pre>
       The type converter has to implement <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/UserType.html"
+          href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/UserType.html"
 
           rel="nofollow">org.hibernate.usertype.UserType</a></em> (1). The main methods are <em>nullSafeGet</em> (2) for read from database and to convert to Java, and <em>nullSafeSet</em> (3) for writing the Java value into database.<br>
       OpenXava has generic Hibernate type converters in the <em><a class="wiki_link_ext"
@@ -277,7 +322,7 @@ public class RegionsType implements UserType&lt;String[]&gt; { // 1
 <pre><code class="language-java">private Distance distance;
 public enum Distance { LOCAL, NATIONAL, INTERNATIONAL };</code></pre>
       In this Java property 'LOCAL' is 1, 'NATIONAL' is 2 and 'INTERNATIONAL' is 3 when the property is stored in database. But what happens, if in the database a single letter ('L', 'N' or 'I') is stored? In this case you can use <em>EnumLetterType</em> in this way:<br>
-<pre><code class="language-java">@Type(value=org.openxava.types.EnumLetterType.class,
+<pre><code class="language-java">@Type(type="org.openxava.types.EnumLetterType",
     parameters={
         @Parameter(name="letters", value="LNI"),
         @Parameter(name="enumType", value="org.openxava.test.model.Delivery$Distance")
@@ -287,7 +332,7 @@ private Distance distance;
 public enum Distance { LOCAL, NATIONAL, INTERNATIONAL };</code></pre>
       As you put 'LNI' as a value to <em>letters</em>, the type converter matches the 'L' to 1, the 'N' to 2 and the 'I' to 3. You also see how type converters are configurable using its properties and this makes the converters more reusable.<br>
       <h3 id="toc8"><a name="Object/relational mapping-Type conversion-Multiple column conversion"></a>Multiple column conversion</h3>
-      With <em><a class="wiki_link_ext" href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+      With <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
           rel="nofollow">CompositeUserType</a></em> you can map several table columns to a single Java property. This is useful if you have properties of custom class that have itself several attributes to store. Also it is used when you have to deal with legacy database schemes.<br>
       A typical example is the generic converter <em><a class="wiki_link_ext"
@@ -295,121 +340,160 @@ public enum Distance { LOCAL, NATIONAL, INTERNATIONAL };</code></pre>
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/types/Date3Type.html"
 
           rel="nofollow">Date3Type</a></em>, that allows to store in the database 3 columns and in Java a single property of type <em>java.util.Date</em>.<br>
-<pre><code class="language-java">@CompositeType(org.openxava.types.Date3Type.class)
-@AttributeOverrides({
-    @AttributeOverride(name="year", column=@Column(name="YEARDELIVERY")),
-    @AttributeOverride(name="month", column=@Column(name="MONTHDELIVERY")),
-    @AttributeOverride(name="day", column=@Column(name="DAYDELIVERY"))
+<pre><code class="language-java">@Type(type="org.openxava.types.Date3Type")
+@Columns(columns = {
+    @Column(name="YEARDELIVERY"),
+    @Column(name="MONTHDELIVERY"),
+    @Column(name="DAYDELIVERY")
 })
 private java.util.Date deliveryDate;</code></pre>
       DAYDELIVERY, MONTHDELIVERY and YEARDELIVERY are 3 columns in database that store the delivery date. And here <em>Date3Type</em>:<br>
 <pre><code class="language-java">package org.openxava.types;
 
 import java.io.*;
+import java.sql.*;
+
 import org.hibernate.*;
-import org.hibernate.metamodel.spi.*;
+import org.hibernate.engine.*; // Until OpenXava 5.2.x
+import org.hibernate.engine.spi.*; // Since OpenXava 5.3 that uses Hibernate 4.3
+import org.hibernate.type.*;
 import org.hibernate.usertype.*;
 import org.openxava.util.*;
-import jakarta.persistence.Embeddable;
 
 /**
- * In java a &lt;tt&gt;java.util.Date&lt;/tt&gt; and in database 3 columns of 
+ * In java a &lt;tt&gt;java.util.Date&lt;/tt&gt; and in database 3 columns of
  * integer type. &lt;p&gt;
- * 
+ *
  * @author Javier Paniza
  */
-public class Date3Type implements CompositeUserType&lt;java.util.Date&gt; { // 1
+public class Date3Type implements CompositeUserType { // 1
 
-    @Embeddable
-    public static class Date3Component implements Serializable {
-        private int day;
-        private int month;
-        private int year;
-        public int getDay() { return day; }
-        public void setDay(int day) { this.day = day; }
-        public int getMonth() { return month; }
-        public void setMonth(int month) { this.month = month; }
-        public int getYear() { return year; }
-        public void setYear(int year) { this.year = year; }
+    public String[] getPropertyNames() {
+        return new String[] { "year", "month", "day" };
     }
 
-    @Override
-    public Object getPropertyValue(java.util.Date component, int property) throws HibernateException { // 2
-        if (component == null) return null;
+    public Type[] getPropertyTypes() {
+        // return new Type[] { Hibernate.INTEGER, Hibernate.INTEGER, Hibernate.INTEGER }; // Before OpenXava 5.3/Hibernate 4.3
+        return new Type[] { IntegerType.INSTANCE, IntegerType.INSTANCE, IntegerType.INSTANCE }; // Since OpenXava 5.3/Hibernate 4.3
+    }
+
+    public Object getPropertyValue(Object component, int property) throws HibernateException { // 2
+        java.util.Date date = (java.util.Date) component;
         switch (property) {
             case 0:
-                return Dates.getDay(component);
+                return Dates.getYear(date);
             case 1:
-                return Dates.getMonth(component);
+                return Dates.getMonth(date);
             case 2:
-                return Dates.getYear(component);
+                return Dates.getDay(date);
         }
         throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));
     }
 
-    @Override
-    public java.util.Date instantiate(ValueAccess values) { // 3
-        Integer day = values.getValue(0, Integer.class);
-        Integer month = values.getValue(1, Integer.class);
-        Integer year = values.getValue(2, Integer.class);
-        if (day == null || month == null || year == null) return null;
-        return Dates.create(day, month, year);
+    public void setPropertyValue(Object component, int property, Object value)
+        throws HibernateException // 3
+    {
+        java.util.Date date = (java.util.Date) component;
+        int intValue = value == null?0:((Number) value).intValue();
+        switch (property) {
+            case 0:
+                Dates.setYear(date, intValue);
+            case 1:
+                Dates.setMonth(date, intValue);
+            case 2:
+                Dates.setDay(date, intValue);
+        }
+        throw new HibernateException(XavaResources.getString("date3_type_only_3_properties"));
     }
 
-    @Override
-    public Class&lt;?&gt; embeddable() {
-        return Date3Component.class;
-    }
-
-    @Override
-    public Class&lt;java.util.Date&gt; returnedClass() {
+    public Class returnedClass() {
         return java.util.Date.class;
     }
 
-    @Override
-    public boolean equals(java.util.Date x, java.util.Date y) {
-        if (x == y) return true;
-        if (x == null || y == null) return false;
-        return !Dates.isDifferentDay(x, y);
+    public boolean equals(Object x, Object y) throws HibernateException {
+        if (x==y) return true;
+        if (x==null || y==null) return false;
+        return !Dates.isDifferentDay((java.util.Date) x, (java.util.Date) y);
     }
 
-    @Override
-    public int hashCode(java.util.Date x) {
-        return x == null ? 0 : x.hashCode();
+    public int hashCode(Object x) throws HibernateException {
+        return x.hashCode();
     }
 
-    @Override
-    public java.util.Date deepCopy(java.util.Date value) {
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3
+   public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
+        throws HibernateException, SQLException // 4
+    {
+        /* Before OpenXava 5.3/Hibernate 4.3
+        Number year = (Number) Hibernate.INTEGER.nullSafeGet( rs, names[0] );
+        Number month = (Number) Hibernate.INTEGER.nullSafeGet( rs, names[1] );
+        Number day = (Number) Hibernate.INTEGER.nullSafeGet( rs, names[2] );
+        */
+        // Since OpenXava 5.3/Hibernate 4.3
+        Number year = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[0], session, owner);
+        Number month = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[1], session, owner );
+        Number day = (Number) IntegerType.INSTANCE.nullSafeGet( rs, names[2], session, owner );
+
+        int iyear = year == null?0:year.intValue();
+        int imonth = month == null?0:month.intValue();
+        int iday = day == null?0:day.intValue();
+
+        return Dates.create(iday, imonth, iyear);
+    }
+
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3
+    public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
+        throws HibernateException, SQLException // 5
+    {
+        java.util.Date d = (java.util.Date) value;
+        /* Before OpenXava 5.3/Hibernate 4.3
+        Hibernate.INTEGER.nullSafeSet(st, Dates.getYear(d), index);
+        Hibernate.INTEGER.nullSafeSet(st, Dates.getMonth(d), index + 1);
+        Hibernate.INTEGER.nullSafeSet(st, Dates.getDay(d), index + 2);
+        */
+        // Since OpenXava 5.3/Hibernate 4.3
+        IntegerType.INSTANCE.nullSafeSet(st, Dates.getYear(d), index, session);
+        IntegerType.INSTANCE.nullSafeSet(st, Dates.getMonth(d), index + 1, session);
+        IntegerType.INSTANCE.nullSafeSet(st, Dates.getDay(d), index + 2, session);
+    }
+
+    public Object deepCopy(Object value) throws HibernateException {
+        java.util.Date d = (java.util.Date) value;
         if (value == null) return null;
-        return (java.util.Date) value.clone();
+        return (java.util.Date) d.clone();
     }
 
-    @Override
     public boolean isMutable() {
         return true;
     }
 
-    @Override
-    public Serializable disassemble(java.util.Date value) {
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3 
+   public Serializable disassemble(Object value, SharedSessionContractImplementor session)
+        throws HibernateException
+    {
         return (Serializable) deepCopy(value);
     }
 
-    @Override
-    public java.util.Date assemble(Serializable cached, Object owner) {
-        return deepCopy((java.util.Date) cached);
+    // SharedSessionContractImplementor instead of SessionImplementer argument since OpenXava 6.1 that uses Hibernate 5.3 
+   public Object assemble(Serializable cached, SharedSessionContractImplementor session, Object owner)
+        throws HibernateException
+    {
+        return deepCopy(cached);
     }
 
-    @Override
-    public java.util.Date replace(java.util.Date detached, java.util.Date managed, Object owner) {
-        return deepCopy(detached);
+    // SharedSessionContractImplementor instead of SharedSessionContractImplementor argument since OpenXava 6.1 that uses Hibernate 5.3 
+   public Object replace(Object original, Object target, SessionImplementor session, Object owner)
+        throws HibernateException
+    {
+        return deepCopy(original);
     }
 
 }</code></pre>
       As you see the type converter implements <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+          href="http://docs.jboss.org/hibernate/orm/5.3/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
-          rel="nofollow">CompositeUserType</a></em> (1). The key methods are <em>getPropertyValue</em> (2) to get the values from the properties of the object, and <em>instantiate</em> (3) for creating a new instance of the object from its constituent column values.<br>
+          rel="nofollow">CompositeUserType</a></em> (1). The key methods are <em>getPropertyValue</em> (2) and <em>setPropertyValue</em> (3) to get and to set values in the properties of the object of the composite type, and <em>nullSafeGet</em> (4) and <em>nullSafeSet</em> (5) for reading and storing this object from and to database.<br>
       <h3 id="toc9"><a name="Object/relational mapping-Type conversion-Reference conversion"></a>Reference conversion</h3>
       Reference conversion is not supported directly by Hibernate. But in some very rare circumstances maybe you need to do conversion in the reference. In this section we explain how to do it.<br>
       For example, you may have a reference to driver licence using two columns, DRIVINGLICENCE_LEVEL and DRIVINGLICENCE_TYPE, and the DRIVINGLICENCE_TYPE column does not admit null, but it's possible that the object can have no reference to driving lincence in which case the column DRIVINGLICENCE_TYPE hold an empty string. This is not a normal case if you design the database using foreign keys, but if the database was designed by a RPG programmer, for example, this was done in this way, because RPG programmer are not used to cope with nulls.<br>
@@ -451,11 +535,11 @@ public void setDrivingLicence(DrivingLicence licence) { // 4
 private void drivingLicenceConversion() { // 5
  if (this.drivingLicence_type == null) this.drivingLicence_type = "";
 }</code></pre>
-      First, you have to use <em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/joincolumns"
+      First, you have to use <em><a class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumns.html"
 
           rel="nofollow">@JoinColumns</a></em> with <em>insertable=false</em> and <em>updatable=false</em> on all <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/joincolumn"
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/JoinColumn.html"
 
           rel="nofollow">@JoinColumn</a></em> (1), in this way the reference is readed from database, but it is not write. Also define plain properties for storing the foreign key of the reference (2).<br>
       Now you must write a getter, <em>getDrivingLicence()</em> (3), for returning null when the reference is not found; and a setter, <em>setDrivingLicence()</em> (4), for assigning the key of the reference to the correspoding plain properties.<br>
@@ -464,11 +548,11 @@ private void drivingLicenceConversion() { // 5
       <h2 id="toc10"><a name="Object/relational mapping-Unique Constraints"></a>Unique Constraints</h2>
       Since v4.9 openxava lets you to customize messages of declared constraints in the element <em>uniqueConstraints</em> of <em><a
 
-          class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/table"
+          class="wiki_link_ext" href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/Table.html"
 
           rel="nofollow">@Table</a></em> and <em><a class="wiki_link_ext"
 
-          href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/secondarytable"
+          href="http://docs.jboss.org/hibernate/jpa/2.2/api/javax/persistence/SecondaryTable.html"
 
           rel="nofollow">@SecondaryTable</a></em>, as well as <em>@Column(unique = true)</em>. To do this, keep in mind some preliminary considerations regarding Hibernate (The JPA implementation used by default by openxava).<br>
       Example:<br>
@@ -549,8 +633,120 @@ alter table APPLICATIONUSER_INFO
    unique key `not_repeat_nic` (nic)
 )</code></pre>
       <ul>
+        <li>If the dialect is not adequate we redefine it:</li>
+      </ul>
+<pre><code class="language-java">package dialect;
+
+import java.sql.*;
+import org.hibernate.dialect.*;
+import org.hibernate.exception.*;
+
+public class XMySQL5Dialect extends MySQL5Dialect {
+
+    public XMySQL5Dialect(){}
+
+    private static ViolatedConstraintNameExtracter EXTRACTER = new TemplatedViolatedConstraintNameExtracter() {
+        public String extractConstraintName(SQLException sqle) {
+            try {
+                int sqlState = Integer.valueOf( JDBCExceptionHelper.extractSqlState(sqle)).intValue();
+                switch (sqlState) {
+                    case 23000: return extractUsingTemplate("for key '","'", sqle.getMessage());
+                    default: return null;
+                }
+            } catch (NumberFormatException nfe) {
+                return null;
+            }
+        }
+    };
+
+    @Override
+    public ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter() {
+        return EXTRACTER;
+    }
+}</code></pre>
+      <ul>
+        <li>We assign the new dialect in <strong><em>persistence.xml</em></strong> of our project:</li>
+      </ul>
+<pre><code class="language-xml">...
+&lt;property name="hibernate.dialect"value="dialect.XMySQL5Dialect"/&gt;
+...</code></pre>
+      <ul>
         <li>Finally, We declare the names assigned to the constraints as message identifiers in the i18n file of our application.</li>
       </ul>
+      <h3 id="toc11"><a name="Object/relational mapping-Unique Constraints-Other dialects"></a>Other dialects</h3>
+<pre><code class="language-java">import java.sql.*;
+
+import org.hibernate.dialect.*;
+import org.hibernate.exception.*;
+
+public class XPostgreSQLDialect extends PostgreSQLDialect {
+
+  public XPostgreSQLDialect(){}
+
+  private static ViolatedConstraintNameExtracter EXTRACTER = new TemplatedViolatedConstraintNameExtracter() {
+    public String extractConstraintName(SQLException sqle) {
+        try {
+            int sqlState = Integer.valueOf( JDBCExceptionHelper.extractSqlState(sqle)).intValue();
+            switch (sqlState) {
+                // CHECK VIOLATION
+                case 23514: return extractUsingTemplate("violates check constraint \"","\"", sqle.getMessage());
+                // UNIQUE VIOLATION
+                case 23505:
+                    if (sqle.getMessage().indexOf("violates unique constraint \"") &gt; -1)
+                        return extractUsingTemplate("violates unique constraint \"","\"", sqle.getMessage());
+                    else if (sqle.getNextException() != null )
+                        return extractConstraintName(sqle.getNextException());
+                    else
+                        return "UNIQUE_CONSTRAINT_VIOLATION_UNKNOWN";
+                // FOREIGN KEY VIOLATION
+                case 23503: return extractUsingTemplate("violates foreign key constraint \"","\"", sqle.getMessage());
+                // NOT NULL VIOLATION
+                case 23502: return extractUsingTemplate("null value in column \"","\" violates not-null constraint", sqle.getMessage());
+                // RESTRICT VIOLATION
+                case 23001: return null;
+                // ALL OTHER
+                default: return null;
+                }
+            } catch (NumberFormatException nfe) {
+                return null;
+            }
+        }
+    };
+
+  @Override
+  public ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter() {
+            return EXTRACTER;
+  }
+}</code></pre>
+<pre><code class="language-java">import java.sql.*;
+import org.hibernate.dialect.*;
+import org.hibernate.exception.*;
+
+public class XSQLServerDialect extends SQLServer2008Dialect {
+
+   public XSQLServerDialect() {}
+
+   private static ViolatedConstraintNameExtracter EXTRACTER = new TemplatedViolatedConstraintNameExtracter() {
+    public String extractConstraintName(SQLException sqle) {
+        try {
+            int sqlState = Integer.valueOf(JDBCExceptionHelper.extractSqlState(sqle)).intValue();
+            switch (sqlState) {
+                case 23000:
+                    return extractUsingTemplate("UNIQUE KEY '", "'", sqle.getMessage());
+                default:
+                    return null;
+            }
+        } catch (NumberFormatException nfe) {
+            return null;
+        }
+    }
+    };
+
+    @Override
+     public ViolatedConstraintNameExtracter getViolatedConstraintNameExtracter() {
+     return EXTRACTER;
+     }
+}</code></pre>
     </div>
   </body>
 </html>
