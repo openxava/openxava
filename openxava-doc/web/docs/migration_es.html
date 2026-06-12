@@ -222,8 +222,8 @@ query.setParameter("paid", true);</code></pre>
       <li><b>PrimitiveType/DiscriminatorType:</b> Elimina estas interfaces de la 
       declaración de tus clases</li>
       <li><b>@TypeDef:</b> Eliminado, usa <i>@Convert</i> o <i>@CompositeType</i></li>
-      <li><b>@Type(type="org.hibernate.type.YesNoType"):</b> Cambia a 
-      <i>@Convert(converter = org.hibernate.type.YesNoConverter.class)</i></li>
+      <li><b>@Type(type="org.hibernate.type.YesNoType"):</b> Cambia a
+      <i>@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)</i></li>
       <li><b>@Type(type="org.openxava.types.SiNoType"):</b> Cambia a 
       <i>@Type(org.openxava.types.SiNoType.class)</i></li>
     </ul>
