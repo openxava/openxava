@@ -69,55 +69,55 @@
             JPA</a></div>
         <div style="margin-left: 2em;"><a href="#Apendice+B:+Java+Persistence+API-Resumen">Resumen</a></div>
       </div>
-      Java Persistence API (JPA) es el estándar Java para hacer mapeo
+      <p>Java Persistence API (JPA) es el estándar Java para hacer mapeo
       objeto-relacional. El mapeo objeto-relacional te permite acceder a los
       datos en una base de datos relacional usando un estilo orientado a
       objetos. En tu aplicación solo trabajas con objetos, estos objetos se
       declaran como persistentes, y es responsabilidad del motor JPA leer y
-      grabar los objetos desde la base de datos a la aplicación.<br>
-      JPA mitiga el famoso problema de desajuste de impedancia, que se produce
+      grabar los objetos desde la base de datos a la aplicación.</p>
+      <p>JPA mitiga el famoso problema de desajuste de impedancia, que se produce
       porque las bases de datos relacionales tienen una estructura, tablas y
       columnas con datos simples, y las aplicaciones orientadas a objetos otra,
       clases con referencias, colecciones, interfaces, herencia, etc. Es decir,
       si en tu aplicación estás usando clases Java para representar conceptos de
       negocio, tendrás que escribir bastante código SQL para escribir los datos
-      desde tus objetos a la base de datos y viceversa. JPA lo hace para ti.<br>
-      Este lección es una introducción a JPA. Para una completa inmersión en
+      desde tus objetos a la base de datos y viceversa. JPA lo hace para ti.</p>
+      <p>Este lección es una introducción a JPA. Para una completa inmersión en
       esta tecnología estándar necesitarías leer un libro completo sobre JPA, de
-      hecho, se citan algunos en el sumario de esta lección. OpenXava soporta Jakarta Persistence 3.2 desde v8.0 (y JPA 2.2 desde v6.1 hasta v7.x).<br>
-      Por otra parte, si ya conoces JPA puedes saltarte esta lección.<br>
+      hecho, se citan algunos en el sumario de esta lección. OpenXava soporta Jakarta Persistence 3.2 desde v8.0 (y JPA 2.2 desde v6.1 hasta v7.x).</p>
+      <p>Por otra parte, si ya conoces JPA puedes saltarte esta lección.</p>
       <h2 id="toc1"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA"></a>Anotaciones
         JPA</h2>
-      JPA tiene 2 aspectos diferenciados, el primero es un conjunto de
+      <p>JPA tiene 2 aspectos diferenciados, el primero es un conjunto de
       anotaciones Java para añadir a tus clases marcándolas como persistentes y
       dando detalles acerca del mapeo entre las clases y las tablas. Y el
       segundo es un API para leer y escribir objetos desde tu aplicación. Veamos
-      primero las anotaciones.<br>
+      primero las anotaciones.</p>
       <h3 id="toc2"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Entidad"></a>Entidad</h3>
-      En la nomenclatura JPA a una clase persistente se le llama entidad.
+      <p>En la nomenclatura JPA a una clase persistente se le llama entidad.
       Podemos decir que una entidad es una clase cuyas instancias se graban en
       la base de datos. Usualmente cada entidad representa un concepto del
       dominio, por lo tanto usamos una entidad JPA como base para definir un
       componente de negocio en OpenXava, de hecho puedes crear un aplicación
       completa de OpenXava a partir de simples entidades JPA. Una entidad JPA se
-      define así:<br>
+      define así:</p>
       <pre><code class="language-java">@Entity  // Para definir esta clase como persistente
 @Table(name="GSTCST")  // Para indicar la tabla de la base de datos (opcional)
 public class Cliente {</code></pre>
-      Como puedes ver solo has de marcar tu clase con la anotación <em>@Entity</em>
+      <p>Como puedes ver solo has de marcar tu clase con la anotación <em>@Entity</em>
       y opcionalmente también con la anotación <em>@Table</em>, en este caso
       estamos diciendo que la entidad <em>Cliente</em> se graba en la tabla
       GSTCST de la base de datos. De ahora en adelante, JPA guardará y
       recuperará información entre los objetos Cliente en la aplicación y la
-      tabla GSTCST en la base de datos, como se muestra aquí:<br>
-      <img src="files/jpa_es010.png" alt="jpa_es010.png" title="jpa_es010.png"><br>
+      tabla GSTCST en la base de datos, como se muestra aquí:</p>
+      <p><img src="files/jpa_es010.png" alt="jpa_es010.png" title="jpa_es010.png"></p>
       Además, marcar Cliente con <em>@Entity</em> es suficiente para que
       OpenXava la reconozca como un componente de negocio. Sí, en OpenXava
-      “entidad” es sinónimo de componente de negocio.<br>
+      “entidad” es sinónimo de componente de negocio.</p>
       <h3 id="toc3"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Propiedades"></a>Propiedades</h3>
-      El estado básico de una entidad se representa mediante propiedades. Las
+      <p>El estado básico de una entidad se representa mediante propiedades. Las
       propiedades de una entidad son propiedades Java convencionales, con <em>getters</em>
-      y <em>setters</em>:<br>
+      y <em>setters</em>:</p>
       <pre><code class="language-java">private String nombre;
 
 public String getNombre() {
@@ -127,10 +127,10 @@ public String getNombre() {
 public void setNombre(String nombre) {
     this.nombre = nombre;
 }</code></pre>
-      Por defecto las propiedades son persistentes, es decir, JPA asume que la
+      <p>Por defecto las propiedades son persistentes, es decir, JPA asume que la
       propiedad <em>nombre</em> se almacena en la columna llamada 'nombre' de
       la tabla en la base de datos. Si quieres que una determinada propiedad no
-      se guarde en la base de datos has de marcarla como <em>@Transient</em>:<br>
+      se guarde en la base de datos has de marcarla como <em>@Transient</em>:</p>
       <pre><code class="language-java">@Transient  // Marcada como transitoria, no se almacena en la base de datos
 private String nombre;
 
@@ -141,8 +141,8 @@ public String getNombre() {
 public void setNombre(String nombre) {
     this.nombre = nombre;
 }</code></pre>
-      Nota que hemos anotado el campo, puedes anotar el <em>getter</em> en su
-      lugar, si así lo prefieres:<br>
+      <p>Nota que hemos anotado el campo, puedes anotar el <em>getter</em> en su
+      lugar, si así lo prefieres:</p>
       <pre><code class="language-java">private String nombre;
 
 @Transient  // Marcamos el getter, por tanto todas las anotaciones JPA
@@ -153,13 +153,13 @@ public String getNombre() {  //  en esta entidad tienen que estar en los getters
 public void setNombre(String nombre) {
     this.nombre = nombre;
 }</code></pre>
-      Esta norma aplica a todas la anotaciones JPA, puedes anotar el campo
+      <p>Esta norma aplica a todas la anotaciones JPA, puedes anotar el campo
       (acceso basado en el campo) o el <em>getter</em> (acceso basado en la
-      propiedad), pero no mezcles los dos estilos en la misma entidad.<br>
-      Otras anotaciones útiles para las propiedades son <em>@Column</em> para
+      propiedad), pero no mezcles los dos estilos en la misma entidad.</p>
+      <p>Otras anotaciones útiles para las propiedades son <em>@Column</em> para
       especificar el nombre y longitud de la columna de la tabla, e <em>@Id</em>
       para indicar que propiedad es la propiedad clave. Puedes ver el uso de
-      estas anotaciones en la ya utilizable entidad <em>Cliente</em>:<br>
+      estas anotaciones en la ya utilizable entidad <em>Cliente</em>:</p>
       <pre><code class="language-java">@Entity
 @Table(name="GSTCST")
 public class Cliente {
@@ -188,21 +188,21 @@ public class Cliente {
     }
 
 }</code></pre>
-      Es obligatorio que al menos una propiedad sea clave (1). Has de marcar la
+      <p>Es obligatorio que al menos una propiedad sea clave (1). Has de marcar la
       propiedad clave con <em>@Id</em> y normalmente se mapea contra la columna
       clave de la tabla. <em>@Column</em> puede usarse para indicar la longitud
       sin el nombre de columna (2). La longitud es usada por el motor JPA para
       la generación de esquema, pero también es usada por OpenXava para conocer
       el tamaño del editor en la interfaz de usuario. A partir del código de la
       entidad <em>Cliente</em> OpenXava genera la siguiente interfaz de
-      usuario:<br>
-      <img src="files/jpa_es020.png" alt="jpa_es020.png" title="jpa_es020.png"><br>
-      Ahora que ya sabes como definir propiedades básicas en tu entidad,
-      aprendamos como declarar relaciones entre entidades usando referencias y
-      colecciones.<br>
+      usuario:</p>
+      <p><img src="files/jpa_es020.png" alt="jpa_es020.png" title="jpa_es020.png"></p>
+      <p>Ahora que ya sabes como definir propiedades básicas en tu entidad,
+      aprendemos como declarar relaciones entre entidades usando referencias y
+      colecciones.</p>
       <h3 id="toc4"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Referencias"></a>Referencias</h3>
-      Una entidad puede hacer referencia a otra entidad. Únicamente has de
-      definir una referencia Java convencional anotada con la anotación JPA @<em>ManyToOne</em>:<br>
+      <p>Una entidad puede hacer referencia a otra entidad. Únicamente has de
+      definir una referencia Java convencional anotada con la anotación JPA @<em>ManyToOne</em>:</p>
       <pre><code class="language-java">@Entity
 public class Factura {
 
@@ -213,45 +213,45 @@ public class Factura {
     private Cliente cliente;  // Una referencia Java convencional (4)
 
     // Getter y setter para cliente</code></pre>
-      Como puedes ver hemos declarado una referencia a <em>Cliente</em> dentro
+      <p>Como puedes ver hemos declarado una referencia a <em>Cliente</em> dentro
       de <em>Factura</em> en un estilo Java simple y llano (4). <em>@ManyToOne</em>
       (1) es para indicar que esta referencia se almacenará en la base de datos
       como una relación muchos-a-uno entre la tabla para <em>Factura</em> y la
       tabla para <em>Cliente</em>, usando la columna INVCST (3) como clave
       foránea. <em>@JoinColumn</em> (3) es opcional. JPA asume valores por
-      defecto para las columnas de unión (CLIENTE_NUMERO en este caso).<br>
-      Si usas <em>fetch=FetchType.LAZY</em> (3) los datos del objeto <em>Cliente</em>
+      defecto para las columnas de unión (CLIENTE_NUMERO en este caso).</p>
+      <p>Si usas <em>fetch=FetchType.LAZY</em> (3) los datos del objeto <em>Cliente</em>
       no se cargarán hasta que se usen por primera vez. Es decir, en el momento
       justo que uses la referencia a <em>Cliente</em>, por ejemplo, llamando al
       método <em>factura.getCliente().getNombre()</em> los datos del <em>Cliente</em>
       son cargados desde la base de datos. Es aconsejable usar siempre <em>lazy
-        fetching</em>.<br>
-      Una referencia Java convencional normalmente corresponde a una relación <em>@ManyToOne</em>
-      en JPA y a una asociación *..1 en UML:<br>
-      <img src="files/jpa_es030.png" alt="jpa_es030.png" title="jpa_es030.png"><br>
-      Esta es la interfaz de usuario que OpenXava genera automáticamente para
-      una referencia:<br>
-      <img src="files/jpa_es040.png" alt="jpa_es040.png" title="jpa_es040.png"><br>
-      Has visto como hacer referencia a otras entidades, pero también puedes
+        fetching</em>.</p>
+      <p>Una referencia Java convencional normalmente corresponde a una relación <em>@ManyToOne</em>
+      en JPA y a una asociación *..1 en UML:</p>
+      <p><img src="files/jpa_es030.png" alt="jpa_es030.png" title="jpa_es030.png"></p>
+      <p>Esta es la interfaz de usuario que OpenXava genera automáticamente para
+      una referencia:</p>
+      <p><img src="files/jpa_es040.png" alt="jpa_es040.png" title="jpa_es040.png"></p>
+      <p>Has visto como hacer referencia a otras entidades, pero también puedes
       hacer referencia a otros objetos que no son entidades, por ejemplo, a
-      objetos incrustados.<br>
+      objetos incrustados.</p>
       <h3 id="toc5"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clases+incrustables"></a>Clases
         incrustables</h3>
-      Además de entidades puedes usar clases incrustables para modelar algunos
+      <p>Además de entidades puedes usar clases incrustables para modelar algunos
       conceptos de tu dominio. Si tienes una entidad A que tiene una referencia
-      a B, modelarías B como una clase incrustable cuando:<br>
+      a B, modelarías B como una clase incrustable cuando:</p>
       <ul>
         <li>Puedas decir que A tiene un B.</li>
         <li>Si A es borrado su B es borrado también.</li>
         <li>B no es compartido.</li>
       </ul>
-      A veces el mismo concepto puede ser modelado como incrustable o como
+      <p>A veces el mismo concepto puede ser modelado como incrustable o como
       entidad. Por ejemplo, el concepto de dirección. Si una dirección es
       compartida por varias personas entonces tienes que usar una referencia a
       una entidad, mientras que si cada persona tiene su propia dirección quizás
-      un objeto incrustable sea mejor opción.<br>
-      Modelemos una dirección como una clase incrustable. Es fácil, simplemente
-      crea una simple clase Java y anótala como <em>@Embeddable</em>:<br>
+      un objeto incrustable sea mejor opción.</p>
+      <p>Modelemos una dirección como una clase incrustable. Es fácil, simplemente
+      crea una simple clase Java y anótala como <em>@Embeddable</em>:</p>
       <pre><code class="language-java">@Embeddable  // Para definir esta clase como incrustable
 public class Direccion {
 
@@ -267,9 +267,9 @@ public class Direccion {
     // Getters y setters
     ...
 }</code></pre>
-      Y ahora, crear una referencia a <em>Direccion</em> desde una entidad
+      <p>Y ahora, crear una referencia a <em>Direccion</em> desde una entidad
       también es fácil. Se trata simplemente de una referencia Java normal
-      anotada como <em>@Embedded</em>:<br>
+      anotada como <em>@Embedded</em>:</p>
       <pre><code class="language-java">@Entity
 @Table(name="GSTCST")
 public class Cliente {
@@ -281,17 +281,17 @@ public class Cliente {
     // Getter y setter para address
     ...
 }</code></pre>
-      Desde el punto de vista de la persistencia un objeto incrustable se
+      <p>Desde el punto de vista de la persistencia un objeto incrustable se
       almacena en la misma tabla que su entidad contenedora. En este caso las
       columnas viaPublica, codigoPostal y poblacion están en la tabla para <em>Cliente</em>.
-      <em>Direccion</em> no tiene tabla propia.<br>
-      OpenXava genera automáticamente para una referencia a una clase
-      incrustable una interfaz de usuario como esta:<br>
-      <img src="files/jpa_es050.png" alt="jpa_es050.png" title="jpa_es050.png"><br>
+      <em>Direccion</em> no tiene tabla propia.</p>
+      <p>OpenXava genera automáticamente para una referencia a una clase
+      incrustable una interfaz de usuario como esta:</p>
+      <p><img src="files/jpa_es050.png" alt="jpa_es050.png" title="jpa_es050.png"></p>
       <h3 id="toc6"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Colecciones"></a>Colecciones</h3>
-      Una entidad puede tener una colección de entidades. Sólo has de definir
+      <p>Una entidad puede tener una colección de entidades. Sólo has de definir
       una colección de Java convencional anotada con las anotaciones JPA <em>@OneToMany</em>
-      o <em>@ManyToMany</em>:<br>
+      o <em>@ManyToMany</em>:</p>
       <pre><code class="language-java">@Entity
 public class Cliente {
 
@@ -303,21 +303,21 @@ public class Cliente {
     // Getter y setter para facturas
     ...
 }</code></pre>
-      Como puedes ver declaramos una colección de entidades <em>Factura</em>
+      <p>Como puedes ver declaramos una colección de entidades <em>Factura</em>
       dentro de <em>Cliente</em> en un estilo Java plano (3). <em>@OneToMany</em>
       (1) es para indicar que esta colección se almacena en la base de datos con
       una relación uno-a-muchos entre la tabla para <em>Cliente</em> y la tabla
       para <em>Factura</em>, usando la columna de <em>cliente</em> en <em>Factura</em>
       (normalmente una clave foránea hacia la tabla de <em>Cliente</em> desde
-      la tabla de <em>Factura</em>) .<br>
-      Una colección de entidades en Java corresponde a una relación <em>@OneToMany</em>
+      la tabla de <em>Factura</em>) .</p>
+      <p>Una colección de entidades en Java corresponde a una relación <em>@OneToMany</em>
       o <em>@ManyToMany</em> en JPA y a una asociación con una multiplicidad
-      1..* o *..* en UML:<br>
-      <span style="font-family: 'Albany AMT',sans-serif; line-height: 0px; overflow: hidden;"><img
+      1..* o *..* en UML:</p>
+      <p><span style="font-family: 'Albany AMT',sans-serif; line-height: 0px; overflow: hidden;"><img
 
-          src="files/jpa_es060.png" alt="jpa_es060.png" title="jpa_es060.png"></span><br>
-      Se puede simular la semántica de los objetos incrustados usando una
-      colección de entidades con el atributo <em>cascade</em> de <em>@OneToMany</em>:<br>
+          src="files/jpa_es060.png" alt="jpa_es060.png" title="jpa_es060.png"></span></p>
+      <p>Se puede simular la semántica de los objetos incrustados usando una
+      colección de entidades con el atributo <em>cascade</em> de <em>@OneToMany</em>:</p>
       <pre><code class="language-java">@Entity
 public class Factura {
 
@@ -328,26 +328,26 @@ public class Factura {
     // Getter y setter para detalles
     ...
 }</code></pre>
-      Ahora definamos la entidad <em>DetalleFactura</em>:<br>
-      <em>DetalleFactura</em> es una entidad:<br>
+      <p>Ahora definamos la entidad <em>DetalleFactura</em>:</p>
+      <p><em>DetalleFactura</em> es una entidad:</p>
       <pre><code class="language-java">@Entity
 public class DetalleFactura {
 ...
 }</code></pre>
-      Así, cuando una factura se borra sus líneas de detalle se borran también.
-      Podemos decir que una factura tiene líneas de detalle.<br>
-      Esta es la interfaz de usuario que OpenXava genera automáticamente para
-      una colección de entidades:<br>
-      <img src="files/jpa_es070.png" alt="jpa_es070.png" title="jpa_es070.png"><br>
-      <span style="line-height: 1.5;">Hay algunas ligeras diferencias en el
+      <p>Así, cuando una factura se borra sus líneas de detalle se borran también.
+      Podemos decir que una factura tiene líneas de detalle.</p>
+      <p>Esta es la interfaz de usuario que OpenXava genera automáticamente para
+      una colección de entidades:</p>
+      <p><img src="files/jpa_es070.png" alt="jpa_es070.png" title="jpa_es070.png"></p>
+      <p><span style="line-height: 1.5;">Hay algunas ligeras diferencias en el
         comportamiento de la interfaz de usuario si usas cascade REMOVE o ALL.
         Con <em>cascade</em> REMOVE o ALL cuando el usuario pulsa para añadir
         un nuevo elemento, puede introducir todos los datos del elemento, por
         otra parte si tu colección no es <em>cascade</em> REMOVE o ALL , cuando
         el usuario pulsa para añadir un nuevo elemento se muestra una lista de
-        entidades para escoger.</span><br>
-      Además, se puede definir una colección de auténticos objetos embebidos.
-      Podriamos reescribir el ejemplo de los detalles de factura así:<br>
+        entidades para escoger.</span></p>
+      <p>Además, se puede definir una colección de auténticos objetos embebidos.
+      Podriamos reescribir el ejemplo de los detalles de factura así:</p>
       <pre><code class="language-java">@Entity
 public class Factura {
 
@@ -357,33 +357,33 @@ private Collection<DetalleFactura> detalles;
 // Getter and setter for details
 ...
 }</code></pre>
-      Fíjate que anotamos la colección con <em>@ElementCollection</em>. En este
-      caso <em>DetalleFactura</em> es una clase incrustada anotada con <em>@Embeddable</em>:<br>
+      <p>Fíjate que anotamos la colección con <em>@ElementCollection</em>. En este
+      caso <em>DetalleFactura</em> es una clase incrustada anotada con <em>@Embeddable</em>:</p>
       <pre><code class="language-java">@Embeddable
 public class DetalleFactura {
 ...
 }</code></pre>
-      La interfaz de usuario que OpenXava genera para una <em>@ElementCollection</em>:<br>
-      <img src="files/jpa_es080.png" alt="jpa_es080.png" title="jpa_es080.png"><br>
-      En una colección de elementos (<em>@ElementCollection</em>) el usuario
+      <p>La interfaz de usuario que OpenXava genera para una <em>@ElementCollection</em>:</p>
+      <p><img src="files/jpa_es080.png" alt="jpa_es080.png" title="jpa_es080.png"></p>
+      <p>En una colección de elementos (<em>@ElementCollection</em>) el usuario
       puede editar cualquier propiedad de cualquier fila en cualquier momento.
       También se puede quitar y añadir filas, pero los datos no se grabarán en
-      la base de datos hasta que la entidad principal se grabe.<br>
-      Hay muchos casos que se pueden modelar con <em>@OneToMany(cascade=CascadeType.REMOVE)</em>
+      la base de datos hasta que la entidad principal se grabe.</p>
+      <p>Hay muchos casos que se pueden modelar con <em>@OneToMany(cascade=CascadeType.REMOVE)</em>
       o <em>@ElementCollection</em>. Ambas opciones borran los elementos de la
       colección cuando la entidad contenedora se borra. Ambas opciones tiene la
       semántica de incrustado, es decir podemos decir "tiene un". Escoger una
       opción es fácil para un programador OpenXava, porque cada opción genera
-      una interfaz de usuario totalmente diferente.<br>
+      una interfaz de usuario totalmente diferente.</p>
       <h3 id="toc6"><a name="Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta"></a>Clave
         compuesta</h3>
-      Es mejor evitar el uso de claves compuestas. Siempre tienes la opción de
+      <p>Es mejor evitar el uso de claves compuestas. Siempre tienes la opción de
       usar un identificador oculto autogenerado. Aunque, algunas veces tienes la
       necesidad de conectarte a bases de datos legadas o puede que el diseño del
       esquema lo haya hecho alguien que le gustan las claves compuestas, y no
       tengas otra opción que usar claves compuestas aunque no sea lo ideal. Por
-      lo tanto, vamos a aprender como usar una clave compuesta.<br>
-      Veamos una versión sencilla de una entidad <em>Factura</em>:
+      lo tanto, vamos a aprender como usar una clave compuesta.</p>
+      <p>Veamos una versión sencilla de una entidad <em>Factura</em>:</p>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
@@ -413,11 +413,11 @@ public class Factura {
  
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Si quieres usar <em>anyo</em> y
+      <div class="wiki" style="display: block;"><p>Si quieres usar <em>anyo</em> y
         <em>numero</em> como clave compuesta para <em>Factura</em>, una forma
         de hacerlo, es marcándolos con <em>@Id</em> (2), y además tener una
         clase id (1). La clase id tiene que tener <em>anyo</em> y <em>numero</em>
-        como propiedades. Puedes ver <em>FacturaKey</em> aquí:</div>
+        como propiedades. Puedes ver <em>FacturaKey</em> aquí:</p></div>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
  
@@ -443,26 +443,26 @@ public class FacturaKey implements java.io.Serializable { // La clase key tiene 
  
 }
 </code></pre> </div>
-      <div class="wiki" style="display: block;">En este código se ven algunos de
+      <div class="wiki" style="display: block;"><p>En este código se ven algunos de
         los requerimientos para una clase id, como el ser serializable e
         implementar <em>hashCode()</em> y <em>equals()</em>. OpenXava Studio
         (o Eclipse) puede generartelos con <em>Source &gt; Generate hashCode()
-          and equals()...</em></div>
+          and equals()...</em></p></div>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;"> <br>
-      Has visto como escribir tus entidades usando anotaciones JPA, y como
+      <p>Has visto como escribir tus entidades usando anotaciones JPA, y como
       OpenXava las interpreta para así generar una interfaz de usuario adecuada.
       Ahora vas a aprender como usar el API JPA para leer y escribir de la base
-      de datos de desde tu propio código.<br>
+      de datos de desde tu propio código.</p>
       <h2 id="toc7"><a name="Apendice+B:+Java+Persistence+API-API+JPA"></a>API
         JPA</h2>
-      La clase de JPA más importante es <em>jakarta.persistence.EntityManager</em> (<em>javax.persistence.EntityManager</em> antes de OpenXava 8.0).
+      <p>La clase de JPA más importante es <em>jakarta.persistence.EntityManager</em> (<em>javax.persistence.EntityManager</em> antes de OpenXava 8.0).
       Un <em>EntityManager</em> te permite grabar, modificar y buscar
-      entidades.<br>
-      El siguiente código muestra la forma típica de usar JPA en una aplicación
-      no OpenXava:<br>
+      entidades.</p>
+      <p>El siguiente código muestra la forma típica de usar JPA en una aplicación
+      no OpenXava:</p>
       <pre><code class="language-java">EntityManagerFactory f =  // Necesitas un EntityManagerFactory para crear un  manager
     Persistence.createEntityManagerFactory("default");
 EntityManager manager = f.createEntityManager();  // Creas el manager
@@ -474,29 +474,29 @@ manager.persist(cliente);  // persist marca el objeto como persistente
 manager.getTransaction().commit();      // Al confirmar la transacción los cambios se
                                                 // efectúan en la base de datos
 manager.close();  // Has de cerrar el manager</code></pre>
-      Ves como es una forma muy verbosa de trabajar. Demasiado código
+      <p>Ves como es una forma muy verbosa de trabajar. Demasiado código
       burocrático. Si así lo prefieres puedes usar código como éste dentro de
       tus aplicaciones OpenXava, aunque OpenXava te ofrece una forma más sucinta
-      de hacerlo:<br>
+      de hacerlo:</p>
       <pre><code class="language-java">Cliente cliente = new Cliente();
 cliente.setNumero(1);
 cliente.setNombre("PEDRO");
 XPersistence.getManager().persist(cliente);  // Esto es suficiente (1)</code></pre>
-      Dentro de un aplicación OpenXava puedes obtener el <em>manager</em>
+      <p>Dentro de un aplicación OpenXava puedes obtener el <em>manager</em>
       mediante la clase <em>org.openxava.jpa.XPersistence</em>. No necesitas
       cerrar el <em>manager</em>, ni arrancar y parar la transacción. Este
       trabajo sucio lo hace OpenXava por ti. El código de arriba es suficiente
-      para grabar una nueva entidad en la base de datos (1).<br>
-      Si quieres modificar una entidad existente has de hacerlo así:<br>
+      para grabar una nueva entidad en la base de datos (1).</p>
+      <p>Si quieres modificar una entidad existente has de hacerlo así:</p>
       <pre><code class="language-java">Cliente cliente = XPersistence.getManager()
     .find(Cliente.class, 1);  // Primero, buscas el objeto a modificar (1)
 cliente.setNombre("PEDRITO");  // Entonces, cambias el estado del objeto. Nada más</code></pre>
-      Para modificar un objeto solo has de buscarlo y modificarlo. JPA es
+      <p>Para modificar un objeto solo has de buscarlo y modificarlo. JPA es
       responsable de grabar los cambios en la base de datos al confirmar la
       transacción (a veces antes), y OpenXava confirma las transacciones JPA
-      automáticamente.<br>
-      Has visto como encontrar por clave primaria, usando <em>find()</em>.
-      Además, JPA te permite usar consultas:<br>
+      automáticamente.</p>
+      <p>Has visto como encontrar por clave primaria, usando <em>find()</em>.
+      Además, JPA te permite usar consultas:</p>
       <pre><code class="language-java">Cliente pedro = (Cliente) XPersistence.getManager()
     .createQuery(
         "from Cliente c where c.nombre = 'PEDRO'")  // Consulta JPQL (1)
@@ -506,22 +506,22 @@ List pedros = XPersistence.getManager()
     .createQuery(
         "from Cliente c where c.nombre like 'PEDRO%'")  // Consulta JPQL
     .getResultList();  // Para obtener una colección de entidades (3)</code></pre>
-      Puedes usar el lenguaje de consultas de JPA (Java Persistence Query
+      <p>Puedes usar el lenguaje de consultas de JPA (Java Persistence Query
       Language, JPQL, 1) para crear consultas complejas sobre tu base de datos,
       y obtener una entidad única, usando el método <em>getSingleResult()</em>
       (2), o una colección de entidades mediante el <em>getResultList()</em>
-      (3).<br>
+      (3).</p>
       <h2 id="toc8"><a name="Apendice+B:+Java+Persistence+API-Resumen"></a>Resumen</h2>
-      Esta lección ha sido una breve introducción a la tecnología JPA. Por
+      <p>Esta lección ha sido una breve introducción a la tecnología JPA. Por
       desgracia, muchas e interesantes cosas sobre JPA se nos han quedado en el
       tintero, como la herencia, el polimorfismo, las claves compuestas,
       relaciones uno a uno y muchos a muchos, relaciones unidireccionales,
       métodos de retrollamada, consultas avanzadas, etc. De hecho, hay más de 80
       anotaciones en JPA. Necesitaríamos varios libros completos para aprender
-      todos los detalles sobre JPA.<br>
-      Afortunadamente, tendrás la oportunidad de aprender algunos casos de uso
+      todos los detalles sobre JPA.</p>
+      <p>Afortunadamente, tendrás la oportunidad de aprender algunos casos de uso
       avanzados de JPA en el transcurso de este curso. Y si aun quieres aprender
-      más, lee libros y referencias, como por ejemplo:<br>
+      más, lee libros y referencias, como por ejemplo:</p>
       <ul>
         <li><em><a class="wiki_link_ext" href="https://jakarta.ee/specifications/persistence/3.2/"
 
@@ -531,9 +531,9 @@ List pedros = XPersistence.getManager()
 
               rel="nofollow">Pro Jakarta Persistence in Jakarta EE 10</a></em> por Lukas Jungmann, Mike Keith, Merrick Schincariol y Massimo Nardone.</li>
       </ul>
-      JPA es una tecnología indisputable en el universo Java de empresa, por
+      <p>JPA es una tecnología indisputable en el universo Java de empresa, por
       tanto todo el conocimiento y código que acumulemos alrededor de JPA es
-      siempre una buena inversión.<br>
+      siempre una buena inversión.</p>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
