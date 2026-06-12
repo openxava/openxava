@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
 - Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
 - Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
 - DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
