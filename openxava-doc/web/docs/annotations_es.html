@@ -80,8 +80,8 @@
       varios libros de los gordos.<br>
       <h2 id="toc1"><a name="Apéndice C: Anotaciones-Validación"></a>Validación</h2>
       OpenXava incluye un marco de validación fácil de usar y extensible. Además
-      soporta <a class="wiki_link_ext" href="http://beanvalidation.org/" rel="nofollow">Bean
-        Validation</a> e <a class="wiki_link_ext" href="http://hibernate.org/validator/"
+      soporta <a class="wiki_link_ext" href="https://jakarta.ee/specifications/bean-validation/" rel="nofollow">Jakarta
+        Validation</a> (Bean Validation en OpenXava 7) e <a class="wiki_link_ext" href="http://hibernate.org/validator/"
         rel="nofollow">Hibernate Validator</a>.<br>
       <h3 id="toc2"><a name="Apéndice C: Anotaciones-Validación-Validación declarativa"></a>Validación
         declarativa</h3>
@@ -328,9 +328,9 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           </tr>
         </tbody>
       </table>
-      Las anotaciones de Bean Validation (<i>javax.validation.constraints</i>)
+      Las anotaciones de Jakarta Validation (<i>jakarta.validation.constraints</i> desde OpenXava 8.0, o Bean Validation <i>javax.validation.constraints</i> para OpenXava 7)
       son reconocidas por OpenXava, por tanto puedes usar todas las anotaciones
-      predefinidas de Bean Validation en tus aplicaciones OpenXava:<br>
+      predefinidas de Jakarta / Bean Validation en tus aplicaciones OpenXava:<br>
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -455,8 +455,8 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
           </tr>
         </tbody>
       </table>
-      A partir de OpenXava 6.1 se soporta Bean Validation 2.0, por lo que
-      también tenemos disponibles las siguientes anotaciones en <i>javax.validation.constraints</i>:
+      A partir de OpenXava 8.0 se soporta Jakarta Validation (desde OpenXava 6.1 se soportaba Bean Validation 2.0 con el paquete <i>javax.validation.constraints</i>), por lo que
+      también tenemos disponibles las siguientes anotaciones en <i>jakarta.validation.constraints</i>:
       <table class="wiki_table">
         <tbody>
           <tr>
@@ -557,7 +557,7 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
           </tr>
           <tr>
-            <td>@NotEmpty <b><i>Obsoleto, usa el @NotEmpty estándar en su lugar</i></b><br>
+            <td>@NotEmpty <b><i>Obsoleto (usa el @NotEmpty estándar en su lugar). Ya no está disponible desde OpenXava 8.0</i></b><br>
             </td>
             <td>Propiedad (cadena, array, colección, mapa)<br>
             </td>
@@ -573,7 +573,7 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
           </tr>
           <tr>
-            <td>@Email <b><i>Obsoleto, usa el @Email estándar en su lugar</i></b>
+            <td>@Email <b><i>Obsoleto (usa el @Email estándar en su lugar). Ya no está disponible desde OpenXava 8.0</i></b>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
@@ -610,6 +610,14 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
           </tr>
           <tr>
+            <td>@ModCheck(multiplier=, startIndex=, endIndex=) <b><i>Obsoleto (usa @Mod10Check o @Mod11Check en su lugar). Ya no está disponible desde OpenXava 8.0</i></b>
+            </td>
+            <td>Propiedad (cadena)<br>
+            </td>
+            <td>Comprueba que los dígitos en la cadena pasen el algoritmo de redondeo genérico<br>
+            </td>
+          </tr>
+          <tr>
             <td>@Mod10Check(multiplier=, weight=, startIndex=, endIndex=,
               checkDigitIndex=, ignoreNonDigitCharacters=)<br>
             </td>
@@ -631,7 +639,7 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             </td>
           </tr>
           <tr>
-            <td>@NotBlank <b><i>Obsoleto, usa el @NotBlank estándar en su lugar</i></b>
+            <td>@NotBlank <b><i>Obsoleto (usa el @NotBlank estándar en su lugar). Ya no está disponible desde OpenXava 8.0</i></b>
             </td>
             <td>Propiedad (cadena)<br>
             </td>
@@ -711,6 +719,38 @@ class="kw21">String</span></a> nombre<span class="sy0">;</span></pre>
             <td>Comprueba que cada uno de los objetos de la colección es único,
               es decir, no podemos encontrar 2 elementos iguales en la colección<br>
             </td>
+          </tr>
+        </tbody>
+      </table>
+      A partir de OpenXava 8.0 se soporta Hibernate Validator 9.1, por lo que
+      también tenemos disponibles las siguientes anotaciones en <i>org.hibernate.validator.constraints</i>:
+      <table class="wiki_table">
+        <tbody>
+          <tr>
+            <th>Anotación<br>
+            </th>
+            <th>Aplica a<br>
+            </th>
+            <th>Validación<br>
+            </th>
+          </tr>
+          <tr>
+            <td>@UUID<br>
+            </td>
+            <td>Propiedad (cadena)</td>
+            <td>Comprueba si la cadena representa un UUID válido</td>
+          </tr>
+          <tr>
+            <td>@KorRRN(validateCheckDigit=)<br>
+            </td>
+            <td>Propiedad (cadena)</td>
+            <td>Comprueba si la cadena representa un número de registro de residente coreano válido (RRN)</td>
+          </tr>
+          <tr>
+            <td>@BitcoinAddress(value=)<br>
+            </td>
+            <td>Propiedad (cadena)</td>
+            <td>Comprueba si la cadena representa una dirección BTC (Bitcoin) bien formada</td>
           </tr>
         </tbody>
       </table>
@@ -1149,8 +1189,7 @@ class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Id de mensa
       Esta es una forma sencilla de hacer tus propias validaciones, además la
       lógica de validación en tus validadores puede reutilizarse por toda tu
       aplicación. Aunque, si lo que quieres es crear validaciones reutilizables
-      una opción mejor es crear tu propia anotación de validación usando Bean
-      Validation; es más largo que usar una clase validador, pero es más
+      una opción mejor es crear tu propia anotación de validación usando Jakarta Validation (Bean Validation en OpenXava 7); es más largo que usar una clase validador, pero es más
       elegante si reutilizas la validación muchas veces.<br>
       <h2 id="toc5"><a name="Apéndice C: Anotaciones-Interfaz de usuario"></a>Interfaz
         de usuario</h2>
