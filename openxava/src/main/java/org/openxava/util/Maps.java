@@ -363,10 +363,12 @@ public class Maps {
 	 * @since 5.7
 	 */
 	
-	public static Map<String, Object> toMap(Object ... values) { 
-		Map<String, Object> map = new HashMap<>();
+	public static <V> Map<String, V> toMap(Object ... values) { 
+		Map<String, V> map = new HashMap<>();
 		for (int i=0; i<values.length; i += 2) {
-			map.put(values[i].toString(), values[i + 1]);
+			@SuppressWarnings("unchecked")
+			V value = (V) values[i + 1];
+			map.put(values[i].toString(), value);
 		}
 		return map;
 	}
