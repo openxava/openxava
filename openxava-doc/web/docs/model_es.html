@@ -1861,7 +1861,8 @@ private Direccion direccion;
       Y hemos de definir la clase <em>Direccion</em> como incrustable:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
  
 /**
@@ -2130,7 +2131,8 @@ private Collection&lt;LineaFactura&gt; lineas;</code></pre>
  
 import java.math.*;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
@@ -2764,7 +2766,8 @@ private void antesDeModificar() {
           rel="nofollow">@MappedSuperclass</a></em>) de esta manera:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -2796,7 +2799,8 @@ public class Identificable {
       ejemplo:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 import org.openxava.annotations.*;
  
@@ -2825,7 +2829,8 @@ public class ConNombre extends Identifiable {
       definir nuestra entidades, como sigue:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 /**
  *
@@ -2858,7 +2863,8 @@ public class Humano extends ConNombre {
       otra entidad:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 /**
  *
@@ -2926,7 +2932,8 @@ public class Programador extends Humano {
           rel="nofollow">@Id</a></em> en nuestra entidad:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -2984,7 +2991,8 @@ public class Almacen {
       <pre><code class="language-java">package org.openxava.test.model;
  
 import java.io.*;
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 /**
  *
@@ -3043,7 +3051,8 @@ public class AlmacenKey implements Serializable {
           rel="nofollow">@EmbeddedId</a></em>:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 import org.openxava.annotations.*;
  
@@ -3083,7 +3092,8 @@ public class Almacen {
       clave:<br>
       <pre><code class="language-java">package org.openxava.test.model;
  
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
  
 /**
  *
@@ -3162,10 +3172,12 @@ public class AlmacenKey implements java.io.Serializable {
           rel="nofollow">AssertTrue</a></em>. Por ejemplo:<br>
       En este caso tenemos a <em>@AssertTrue</em> anotando el campo de la
       Entidad:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Hasta OpenXava 7.x
+import jakarta.validation.constraints.*;
  
 @Entity
 public class Conductor extends Identifiable{
@@ -3190,10 +3202,12 @@ public class Conductor extends Identifiable{
       <br>
       En este caso tenemos a <em>@AssertTrue</em> anotando un método de la
       Entidad:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Hasta OpenXava 7.x
+import jakarta.validation.constraints.*;
  
 @Entity
 public class Vehiculo extends Identifiable{

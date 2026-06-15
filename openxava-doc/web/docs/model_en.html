@@ -1826,7 +1826,8 @@ private Address address;
       And you have to define the <em>Address</em> class as embeddable:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 
 /**
@@ -2096,7 +2097,8 @@ private Collection details;
 
 import java.math.*;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
@@ -2717,7 +2719,8 @@ public void onPreCreate() {
           rel="nofollow">@MappedSuperclass</a></em> in this way:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -2749,7 +2752,8 @@ public class Identifiable {
       one, for example:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -2778,7 +2782,8 @@ public class Nameable extends Identifiable {
       your entities, as following:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -2810,7 +2815,8 @@ public class Human extends Nameable {
       And now, the real entity inheritance, an entity that extends other entity:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -2875,7 +2881,8 @@ public class Programmer extends Human {
           rel="nofollow">@Id</a></em> in your entity:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -2934,7 +2941,8 @@ public class Warehouse {
 
 import java.io.*;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 
 /**
@@ -2991,7 +2999,8 @@ public class WarehouseKey implements Serializable {
           rel="nofollow">@EmbeddedId</a></em>:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -3029,7 +3038,8 @@ public class Warehouse {
       And you key is an embeddable class that holds the key properties:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -3108,10 +3118,12 @@ public class WarehouseKey implements java.io.Serializable {
           rel="nofollow">@AssertTrue</a></em>. Example:<br>
       In this case we have an <em>@AssertTrue</em> annotating a field of the
       entity:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Until OpenXava 7.x
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Driver extends Identifiable{
@@ -3139,10 +3151,12 @@ public class Driver extends Identifiable{
       <br>
       In this case we have an <em>@AssertTrue</em> annotating a method of the
       entity:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Until OpenXava 7.x
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Vehicle extends Identifiable{
