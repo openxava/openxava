@@ -3220,7 +3220,8 @@ public enum EntregadoPor { TRABAJADOR, TRANSPORTISTA }</code></pre>
       relacionadas con ninguna tabla de la base de datos.<br>
       Un ejemplo puede ser:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-import javax.persistence.*;
+// import javax.persistence.*; // Hasta OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 /**
  * Ejemplo de una clase OpenXava transitoria (no persistente) del modelo. &lt;p&gt;
