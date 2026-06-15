@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Object/relational mapping article in the Reference Guide updated for Jakarta Persistence 3.2/Hibernate 7.
 - Annotations doc updated to include all new annotations from Jakarta Validation and Hibernate Validator.
 - JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
 - Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
