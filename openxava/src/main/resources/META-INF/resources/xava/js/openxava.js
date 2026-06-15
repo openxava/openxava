@@ -1648,6 +1648,10 @@ openxava.post = function(url, params, callback) {
 		.then(function(response) {
 			if (!response.ok) {
 				return response.text().then(function(text) {
+					if (response.status === 403 && text === "6859") {
+						window.location.reload();
+						throw new Error("SESSION_EXPIRED");
+					}
 					throw new Error("HTTP Status " + response.status + " - " + text);
 				});
 			}
@@ -1657,6 +1661,7 @@ openxava.post = function(url, params, callback) {
 			if (callback) callback(text);
 		})
 		.catch(function(error) {
+			if (error.message === "SESSION_EXPIRED") return;
 			console.error("Error in openxava.post:", error);
 			openxava.showError(openxava.postErrorMessage);
 			if (callback) callback("ERROR: " + error.message);
