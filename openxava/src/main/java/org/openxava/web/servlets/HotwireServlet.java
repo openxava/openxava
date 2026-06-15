@@ -281,8 +281,6 @@ public class HotwireServlet extends BaseServlet {
             String application = request.getParameter("application");
             String module = request.getParameter("module");
 
-            initRequest(request, response, application, module);
-
             String additionalParameters = request.getParameter("additionalParameters");
             boolean firstRequest = "true".equals(request.getParameter("firstRequest"));
             String baseFolder = request.getParameter("baseFolder");
