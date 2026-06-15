@@ -263,6 +263,27 @@ String value = (String) query.getSingleResult();
 // After (Hibernate 7.2)
 String value = query.getSingleResult().toString();</code></pre>
 
+    <h4>UUID length change</h4>
+
+    <p>In Hibernate 5 the default UUID was 32 characters (without dashes), but in Hibernate 7 
+    it is 36 characters (with dashes). If you have existing tables with columns sized for 32 
+    characters, you need to use <i>@UUID32</i> annotation from OpenXava to keep the 32-character 
+    format:</p>
+
+    <pre><code class="language-java">// BEFORE (Hibernate 5)
+@Id @GeneratedValue(generator="system-uuid") @Hidden 
+@GenericGenerator(name="system-uuid", strategy = "uuid")
+@Column(length=32)
+private String id;
+
+// AFTER (Hibernate 7 with @UUID32)
+@Id @Hidden 
+@UUID32
+@Column(length=32)
+private String id;</code></pre>
+
+    <p>Import: <i>import org.openxava.annotations.UUID32;</i></p>
+
     <h3>Jakarta Validator 3.1 with Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 uses Jakarta Validator 3.1 and Hibernate Validator 9.1. This implies
