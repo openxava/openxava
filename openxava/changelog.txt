@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- WebSocket upgraded to Jakarta WebSocket 2.2.
 - Reference Guide updated for Jakarta EE 11.
 - Object/relational mapping article in the Reference Guide updated for Jakarta Persistence 3.2/Hibernate 7.
 - Annotations doc updated to include all new annotations from Jakarta Validation and Hibernate Validator.
