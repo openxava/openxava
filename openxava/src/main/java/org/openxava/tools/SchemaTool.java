@@ -173,8 +173,20 @@ public class SchemaTool {
 					else {
 						script = refineScript(script, supportsSemicolonAtEnd); 
 						log.info(XavaResources.getString("executing") + ": " + script);
-						Query query = XPersistence.getManager().createNativeQuery(script);						
-						query.executeUpdate();
+						// tmr try {
+							Query query = XPersistence.getManager().createNativeQuery(script);						
+							query.executeUpdate();
+						/* tmr TMR ME QUEDÉ POR AQUÍ. LO RESUELVE PERO NO ME CONVENCE
+								PORQUE SI LO QUITO, SIGUE FALLANDO, ¿POR QUÉ ANTES IBA?
+								El test que falla InvoiceNoSectionsTest.testDefaultOrganization()
+							XPersistence.commit();
+						}
+						catch (Exception ex) {
+							// For example, a shared sequence already created in another tenancy schema 
+							XPersistence.rollback();
+						}
+						*/
+
 					}
 				}
 	    	}

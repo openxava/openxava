@@ -117,6 +117,19 @@ import org.hibernate.annotations.Type;</code></pre>
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
     https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
 
+    <h4>Actualizar propiedades de persistence al namespace jakarta</h4>
+
+    <p>Si usas propiedades para generación de esquema en tu <i>persistence.xml</i>, 
+    debes actualizarlas de <i>javax.persistence.*</i> a <i>jakarta.persistence.*</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- ANTIGUO (javax) --&gt;
+&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt;
+
+&lt;!-- NUEVO (jakarta) --&gt;
+&lt;property name="jakarta.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="jakarta.persistence.create-database-schemas" value="true"/&gt;</code></pre>
+
     <h4>NonBatchingBatcherFactory eliminado</h4>
 
     <p>La propiedad <i>hibernate.jdbc.factory_class</i> con valor 
