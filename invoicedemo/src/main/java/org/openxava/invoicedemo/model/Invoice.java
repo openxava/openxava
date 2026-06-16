@@ -4,7 +4,7 @@ import java.math.*;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
