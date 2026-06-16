@@ -1,0 +1,4 @@
+Pending for Spring Boot migration (tmr):
+
+- invoicedemo suite: ME QUEDÉ POR AQUÍ: FALLA InvoiceTest.testCreateReadUpdateDelete
+- Borrar planes .md.

@@ -9,10 +9,23 @@
 
   <properties>
     <openxava.version>8.0-SNAPSHOT</openxava.version>
+    <spring-boot.version>4.1.0</spring-boot.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -20,7 +33,18 @@
       <artifactId>openxava</artifactId>
       <version>${openxava.version}</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomcat.embed</groupId>
+      <artifactId>tomcat-embed-jasper</artifactId>
+    </dependency>
   </dependencies>
   
   <build>
@@ -67,7 +91,6 @@
 			WEB-INF/lib/neko-htmlunit-*.jar,
 			WEB-INF/lib/pdfbox-*.jar,
 			WEB-INF/lib/serializer-*.jar,
-			WEB-INF/lib/tomcat-*.jar,
 			WEB-INF/lib/websocket-*.jar,
 			WEB-INF/lib/xalan-*.jar,
 			WEB-INF/lib/xercesImpl-*.jar,
@@ -82,6 +105,15 @@
         <version>3.2.5</version>
         <configuration>
           <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+        <configuration>
+          <mainClass>org.openxava.invoicedemo.InvoicedemoApplication</mainClass>
         </configuration>
       </plugin>
     </plugins>
