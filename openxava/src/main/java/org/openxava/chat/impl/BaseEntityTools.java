@@ -3,7 +3,7 @@ package org.openxava.chat.impl;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.logging.*;
 import org.openxava.application.meta.*;
@@ -143,6 +143,15 @@ public abstract class BaseEntityTools {
 			log.warn(XavaResources.getString("could_not_get_available_entities", ex.getMessage()));
 			return Collections.emptySet();
 		}
+	}
+	
+	/**
+	 * Updates the HTTP session (needed for each request in ChatServiceImpl).
+	 * 
+	 * @param session The HTTP session
+	 */
+	public void setSession(HttpSession session) {
+		this.session = session;
 	}
 	
 }

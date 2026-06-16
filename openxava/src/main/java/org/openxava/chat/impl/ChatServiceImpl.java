@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
@@ -102,7 +102,7 @@ public class ChatServiceImpl implements IChatService {
 					.chatMemory(chatMemory)
 					.tools(entityTools);
 				
-				// Add modify tools only if enabled
+				// Only add modification tools if enabled
 				if (XavaPreferences.getInstance().isChatModifyDataAvailable()) {
 					EntityModifyTools entityModifyTools = new EntityModifyTools(moduleContext, httpSession, application);
 					entityModifyToolsMap.put(sessionId, entityModifyTools);
@@ -110,17 +110,32 @@ public class ChatServiceImpl implements IChatService {
 				}
 				
 				assistant = aiServicesBuilder.build();
-				
 				assistants.put(sessionId, assistant);
 			}
 			
-			// Process the message with the assistant (which has memory)
+			// Update session in EntityTools for each request
+			EntityTools entityTools = entityToolsMap.get(sessionId);
+			if (entityTools != null) {
+				entityTools.setSession(httpSession);
+			}
+			EntityModifyTools entityModifyTools = entityModifyToolsMap.get(sessionId);
+			if (entityModifyTools != null) {
+				entityModifyTools.setSession(httpSession);
+			}
+			
+			// Call the assistant
 			String response = assistant.chat(message);
 			
 			// Convert markdown to HTML
-			return markdownToHtml(response);
-		} catch (Exception e) {
-			throw new ChatException(e.getMessage(), e);
+			Node document = markdownParser.parse(response);
+			String htmlResponse = htmlRenderer.render(document);
+			
+			return htmlResponse;
+			
+		} catch (ChatException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new ChatException(ex.getMessage());
 		}
 	}
 	
@@ -135,27 +150,15 @@ public class ChatServiceImpl implements IChatService {
 	@Override
 	public Map<String, String> consumePendingFilterValues(String sessionId) {
 		EntityTools entityTools = entityToolsMap.get(sessionId);
-		if (entityTools != null) {
-			return entityTools.consumePendingFilterValues();
-		}
-		return null;
+		if (entityTools == null) return null;
+		return entityTools.consumePendingFilterValues();
 	}
 	
 	@Override
 	public boolean consumeRefreshUINeeded(String sessionId) {
 		EntityModifyTools entityModifyTools = entityModifyToolsMap.get(sessionId);
-		if (entityModifyTools != null) {
-			return entityModifyTools.consumeRefreshUINeeded();
-		}
-		return false;
-	}
-	
-	/**
-	 * Converts markdown to HTML using commonmark.
-	 */
-	private String markdownToHtml(String markdown) {
-		Node document = markdownParser.parse(markdown);
-		return htmlRenderer.render(document);
+		if (entityModifyTools == null) return false;
+		return entityModifyTools.consumeRefreshUINeeded();
 	}
 	
 }
