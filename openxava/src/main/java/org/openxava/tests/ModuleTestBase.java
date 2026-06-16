@@ -2931,7 +2931,7 @@ abstract public class ModuleTestBase extends TestCase {
 		newClient.getOptions().setThrowExceptionOnScriptError(false);
 		newClient.getOptions().setCssEnabled(false);
 		newClient.getOptions().setUseInsecureSSL(true);
-		newClient.getOptions().setFetchPolyfillEnabled(true);
+		newClient.getOptions().setFetchPolyfillEnabled(true); // Needed since OpenXava 8.0 becase it uses fetch in JavaScript
 		newClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    newClient.setCssErrorHandler(new SilentCssErrorHandler());
 	    newClient.setIncorrectnessListener((message, origin) -> {});
