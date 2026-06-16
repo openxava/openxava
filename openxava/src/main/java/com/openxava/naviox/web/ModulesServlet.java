@@ -129,7 +129,11 @@ public class ModulesServlet extends BaseServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
             }
         } catch (SecurityException e) {
-            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            try {
+                request.getSession().invalidate();
+            } catch (Exception ex) {}
+            response.setContentType("text/html; charset=UTF-8");
+            response.getWriter().print("null");
         } catch (Exception e) {
             log.error("Error processing modules operation: " + operation, e);
             sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());

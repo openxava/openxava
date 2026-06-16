@@ -60,7 +60,11 @@ public class FoldersServlet extends BaseServlet {
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().print(result != null ? result : "");
         } catch (SecurityException e) {
-            sendError(response, HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+            try {
+                request.getSession().invalidate();
+            } catch (Exception ex) {}
+            response.setContentType("text/html; charset=UTF-8");
+            response.getWriter().print("null");
         } catch (Exception e) {
             log.error("Error processing folders operation: " + operation, e);
             sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
