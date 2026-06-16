@@ -67,6 +67,23 @@
     <a href="https://docs.oracle.com/en/java/javase/17/migrate/migrating-jdk-8-later-jdk-releases.html">
     la documentación de migración desde Java 8</a>.</p>
 
+    <h3>Eliminar la dependencia openxava-7.7-chat-jdk17</h3>
+
+    <p>Si estabas usando la funcionalidad de chat con IA en la versión 7.7, tenías que añadir la 
+    dependencia <i>openxava-7.7-chat-jdk17</i> a tu pom.xml. En la versión 8.0 esta dependencia 
+    ya no es necesaria porque la funcionalidad de chat ahora está incluida en el núcleo de OpenXava.</p>
+
+    <p>Elimina la siguiente dependencia de tu pom.xml:</p>
+
+    <pre><code class="language-xml">&lt;!-- Elimina esta dependencia --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+    &lt;artifactId&gt;openxava-7.7-chat-jdk17&lt;/artifactId&gt;
+    &lt;version&gt;${openxava.version}&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+    <p>Si no la eliminas, tu build fallará porque este artefacto no existe en la versión 8.0.</p>
+
     <h3>Jakarta Persistence 3.2 con Hibernate 7.2</h3>
 
     <p>OpenXava 8.0 usa Jakarta Persistence 3.2 y Hibernate 7.2. Esto implica cambios
