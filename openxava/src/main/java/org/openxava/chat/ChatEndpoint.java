@@ -176,8 +176,8 @@ public class ChatEndpoint {
 					log.info("No chat service implementation found.");
 				}
 			} catch (Throwable e) {
-				// Catches both Exception and Error (like ServiceConfigurationError when Java 17 classes can't load)
-				log.warn(XavaResources.getString("no_chat_service_implementation"));
+				// Catches both Exception and Error
+				log.error(XavaResources.getString("no_chat_service_implementation"), e);
 			}
 		}
 		return chatService;
