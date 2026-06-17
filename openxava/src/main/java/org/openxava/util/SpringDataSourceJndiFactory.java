@@ -1,7 +1,6 @@
-package org.openxava.invoicedemo;
+package org.openxava.util;
 
 import java.util.Hashtable;
-
 import javax.naming.Context;
 import javax.naming.Name;
 import javax.naming.spi.ObjectFactory;
@@ -9,14 +8,13 @@ import javax.sql.DataSource;
 
 /**
  * JNDI {@link ObjectFactory} that returns the {@link DataSource} created and
- * managed by Spring Boot (the HikariCP pool configured with
- * <code>spring.datasource.*</code> in application.properties).
+ * managed by Spring Boot.
  * <p>
  * It is registered in the embedded Tomcat naming context under the JNDI name
- * expected by OpenXava (<code>jdbc/invoicedemoDS</code>), so both Hibernate
- * (via <code>non-jta-data-source</code> in persistence.xml) and OpenXava's
+ * expected by OpenXava, so both Hibernate and OpenXava's
  * {@code DataSourceConnectionProvider} resolve the very same Spring-managed pool.
  *
+ * @author Javier Paniza
  * @since 8.0
  */
 public class SpringDataSourceJndiFactory implements ObjectFactory {

@@ -1,1 +1,2 @@
 com.openxava.naviox.web.NaviOXAutoConfiguration
+org.openxava.web.OpenXavaAutoConfiguration

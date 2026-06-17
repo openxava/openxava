@@ -1,18 +1,10 @@
 package org.openxava.invoicedemo;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.startup.Tomcat;
-import org.apache.tomcat.util.descriptor.web.ContextResource;
-
-import javax.sql.DataSource;
-
 import org.openxava.chat.ChatEndpoint;
 import org.openxava.util.DBServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
-import org.springframework.boot.tomcat.TomcatWebServer;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
@@ -61,42 +53,6 @@ public class InvoicedemoApplication extends SpringBootServletInitializer impleme
 		ServerEndpointExporter exporter = new ServerEndpointExporter();
 		exporter.setAnnotatedEndpointClasses(ChatEndpoint.class);
 		return exporter;
-	}
-
-	/**
-	 * Exposes the Spring Boot managed {@link DataSource} (HikariCP pool configured
-	 * with <code>spring.datasource.*</code>) in the embedded Tomcat JNDI context,
-	 * so OpenXava and Hibernate resolve it by the name declared in persistence.xml.
-	 *
-	 * @since 8.0
-	 */
-	@Bean
-	public TomcatServletWebServerFactory tomcatFactory(DataSource dataSource) {
-		SpringDataSourceJndiFactory.setDataSource(dataSource);
-		return new TomcatServletWebServerFactory() {
-			
-			/**
-			 * @since 8.0
-			 */
-			@Override
-			protected TomcatWebServer getTomcatWebServer(Tomcat tomcat) {
-				tomcat.enableNaming();
-				return super.getTomcatWebServer(tomcat);
-			}
-
-			/**
-			 * @since 8.0
-			 */
-			@Override
-			protected void postProcessContext(Context context) {
-				ContextResource resource = new ContextResource();
-				resource.setName("jdbc/invoicedemoDS");
-				resource.setType("javax.sql.DataSource");
-				resource.setProperty("factory", SpringDataSourceJndiFactory.class.getName());
-				resource.setSingleton(true);
-				context.getNamingResources().addResource(resource);
-			}
-		};
 	}
 
 }

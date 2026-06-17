@@ -73,6 +73,20 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 		return result;
 	}
 	
+	/**
+	 * Returns the clean JNDI name of the default JPA data source (without 'java:comp/env/' prefix).
+	 * 
+	 * @since 8.0
+	 */
+	public static String getCleanJPADataSourceName() {
+		String jndi = getJPADataSource();
+		if (Is.emptyString(jndi)) return null;
+		if (jndi.startsWith("java:comp/env/")) {
+			return jndi.substring("java:comp/env/".length());
+		}
+		return jndi;
+	}
+	
 	private static String getDataSourceFromElement(Element element) { 
 		String dataSource = getNodeValue(element, "non-jta-data-source");
 		if (!Is.emptyString(dataSource)) return dataSource;
