@@ -26,7 +26,9 @@ public class EditorsResources {
 		if (cssFiles == null) {
 			cssFiles = new ArrayList<>();
 			fillFilesFromFileSystem(cssFiles, realPath, "style", "css");
-			fillFilesFromJar(cssFiles, "style", "css"); 
+			if (!fillFilesFromSpring(cssFiles, "style", "css")) {
+				fillFilesFromJar(cssFiles, "style", "css"); 
+			}
 		}
 		return cssFiles;
 	}
@@ -35,9 +37,41 @@ public class EditorsResources {
 		if (jsFiles == null) {
 			jsFiles = new ArrayList<>();
 			fillFilesFromFileSystem(jsFiles, realPath, "js", "js");
-			fillFilesFromJar(jsFiles, "js", "js"); 
+			if (!fillFilesFromSpring(jsFiles, "js", "js")) {
+				fillFilesFromJar(jsFiles, "js", "js"); 
+			}
 		}
 		return jsFiles;
+	}
+	
+	private static boolean fillFilesFromSpring(List<String> result, String folder, String extension) {
+		try {
+			ClassLoader cl = EditorsResources.class.getClassLoader();
+			Class<?> resolverClass = Class.forName("org.springframework.core.io.support.PathMatchingResourcePatternResolver", true, cl);
+			Object resolver = resolverClass.getConstructor(ClassLoader.class).newInstance(cl);
+			java.lang.reflect.Method getResourcesMethod = resolverClass.getMethod("getResources", String.class);
+			Object[] resources = (Object[]) getResourcesMethod.invoke(resolver, "classpath*:META-INF/resources/xava/editors/" + folder + "/**/*." + extension);
+			Class<?> resourceClass = Class.forName("org.springframework.core.io.Resource", true, cl);
+			java.lang.reflect.Method getURLMethod = resourceClass.getMethod("getURL");
+			boolean loaded = false;
+			for (Object resource : resources) {
+				URL url = (URL) getURLMethod.invoke(resource);
+				String urlStr = url.toString();
+				int index = urlStr.indexOf("META-INF/resources/xava/editors/");
+				if (index != -1) {
+					String name = urlStr.substring(index + "META-INF/resources/xava/editors/".length());
+					if (!result.contains(name)) result.add(name);
+					loaded = true;
+				}
+			}
+			java.util.Collections.sort(result);
+			return loaded;
+		} catch (ClassNotFoundException e) {
+			return false;
+		} catch (Exception ex) {
+			log.warn(XavaResources.getString("editors_resources_spring_resolver_failed", ex.getMessage()), ex);
+			return false;
+		}
 	}
 	
 	private static void fillFilesFromJar(List<String> result, String folder, String extension) {  

@@ -1,6 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
-- invoicedemo suite: ME QUEDÉ POR AQUÍ: FALLA InvoiceTest.testCreateReadUpdateDelete
+- invoicedemo suite
 - Mover código a OpenXava.
 - Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
 - Probar con Java 25
