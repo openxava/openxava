@@ -1,4 +1,13 @@
 Pending for Spring Boot migration (tmr):
 
 - invoicedemo suite: ME QUEDÉ POR AQUÍ: FALLA InvoiceTest.testCreateReadUpdateDelete
+- Mover código a OpenXava.
+- Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
+- Probar con Java 25
+- openxava-archetype:
+    - Quitar lanzador.
+    - Quitar configuración en maven para exec:java
+- openxavatest
+- Configuración de log. Documentar
+- Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Borrar planes .md.
