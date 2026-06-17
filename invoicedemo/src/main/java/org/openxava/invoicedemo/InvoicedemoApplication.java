@@ -3,6 +3,9 @@ package org.openxava.invoicedemo;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
+
+import javax.sql.DataSource;
+
 import org.openxava.chat.ChatEndpoint;
 import org.openxava.util.DBServer;
 import org.springframework.boot.SpringApplication;
@@ -61,10 +64,15 @@ public class InvoicedemoApplication extends SpringBootServletInitializer impleme
 	}
 
 	/**
+	 * Exposes the Spring Boot managed {@link DataSource} (HikariCP pool configured
+	 * with <code>spring.datasource.*</code>) in the embedded Tomcat JNDI context,
+	 * so OpenXava and Hibernate resolve it by the name declared in persistence.xml.
+	 *
 	 * @since 8.0
 	 */
 	@Bean
-	public TomcatServletWebServerFactory tomcatFactory() {
+	public TomcatServletWebServerFactory tomcatFactory(DataSource dataSource) {
+		SpringDataSourceJndiFactory.setDataSource(dataSource);
 		return new TomcatServletWebServerFactory() {
 			
 			/**
@@ -84,13 +92,8 @@ public class InvoicedemoApplication extends SpringBootServletInitializer impleme
 				ContextResource resource = new ContextResource();
 				resource.setName("jdbc/invoicedemoDS");
 				resource.setType("javax.sql.DataSource");
-				resource.setProperty("driverClassName", "org.hsqldb.jdbcDriver");
-				resource.setProperty("url", "jdbc:hsqldb:hsql://localhost:1666");
-				resource.setProperty("username", "sa");
-				resource.setProperty("password", "");
-				resource.setProperty("maxTotal", "20");
-				resource.setProperty("maxIdle", "5");
-				resource.setProperty("maxWaitMillis", "10000");
+				resource.setProperty("factory", SpringDataSourceJndiFactory.class.getName());
+				resource.setSingleton(true);
 				context.getNamingResources().addResource(resource);
 			}
 		};

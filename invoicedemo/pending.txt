@@ -1,11 +1,17 @@
 Pending for Spring Boot migration (tmr):
 
-- The web-fragment.xml from NaviOX should be removed;
-    otherwise, we risk it being started twice in a WAR on Tomcat—once by Tomcat and
-    once by Spring Boot. This is because Spring Boot does not support web-fragments.xml,
-    but in a WAR the Spring Boot startup logic is still executed.
-  We can replace it with servlet annotations or let Spring handle the startup.
+- Datasource
+    - Quitar context.xml, ¿poner mismo ejemplos en application.properties?
+    - Mover a OPenXava:
+        SpringDataSourceJndiFactory
+        Código en InvoicedemoApplication
+    - ¿Cómo se configura db de producción?
+    - ¿Quieres que lo dejemos así, o prefieres que avancemos también hacia
+        la opción 3 (que OpenXava obtenga el DataSource/EntityManagerFactory
+        directamente del contexto de Spring) como objetivo de OpenXava 8?
 - Mover código a OpenXava.
+    - Adelgazar InvoicedemoApplication
+    - Incluir Spring Boot en el pom.xml de OpenXava
 - Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
 - Probar con Java 25
 - openxava-archetype:
@@ -14,4 +20,7 @@ Pending for Spring Boot migration (tmr):
 - openxavatest
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
+- Probar WAR en Tomcat.
+- Doc:
+    - DataSource en application.properties y no más context.xml (también en migration)
 - Borrar planes .md.
