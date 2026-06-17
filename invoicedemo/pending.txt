@@ -1,5 +1,10 @@
 Pending for Spring Boot migration (tmr):
 
+- The web-fragment.xml from NaviOX should be removed;
+    otherwise, we risk it being started twice in a WAR on Tomcat—once by Tomcat and
+    once by Spring Boot. This is because Spring Boot does not support web-fragments.xml,
+    but in a WAR the Spring Boot startup logic is still executed.
+  We can replace it with servlet annotations or let Spring handle the startup.
 - Mover código a OpenXava.
 - Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
 - Probar con Java 25

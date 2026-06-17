@@ -1,9 +1,5 @@
 package org.openxava.invoicedemo;
 
-import java.util.EnumSet;
-
-import jakarta.servlet.DispatcherType;
-
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
@@ -14,15 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.tomcat.TomcatWebServer;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
-
-import com.openxava.naviox.web.NaviOXFilter;
 
 /**
  * Spring Boot application class to launch invoicedemo with Spring Boot 4.1.
@@ -55,19 +48,6 @@ public class InvoicedemoApplication extends SpringBootServletInitializer impleme
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("forward:/index.jsp");
-	}
-
-	/**
-	 * @since 8.0
-	 */
-	@Bean
-	public FilterRegistrationBean<NaviOXFilter> naviOXFilter() {
-		FilterRegistrationBean<NaviOXFilter> registration = new FilterRegistrationBean<>();
-		registration.setFilter(new NaviOXFilter());
-		registration.setName("naviox");
-		registration.addUrlPatterns("*.jsp", "/modules/*", "/phone/index.jsp", "/m/*");
-		registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
-		return registration;
 	}
 
 	/**
