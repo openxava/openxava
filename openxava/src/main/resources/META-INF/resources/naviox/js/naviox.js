@@ -216,13 +216,17 @@ naviox.refreshFolderModulesList = function(modulesList) {
 }
 
 naviox.postRefreshFolderModulesList = function() { 
-	$('#modules_list_content').children().first().remove();
-	naviox.reinitModulesList();
+	if ($('#modules_list_content').children().length > 1) {
+		$('#modules_list_content').children().first().remove();
+		naviox.reinitModulesList();
+	}
 }
 
 naviox.postRefreshFolderBackModulesList = function() { 
-	$('#modules_list_content').children().last().remove();
-	naviox.reinitModulesList();
+	if ($('#modules_list_content').children().length > 1) {
+		$('#modules_list_content').children().last().remove();
+		naviox.reinitModulesList();
+	}
 }
 
 naviox.reinitModulesList = function() { 
