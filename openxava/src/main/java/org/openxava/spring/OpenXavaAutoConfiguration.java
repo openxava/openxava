@@ -6,21 +6,29 @@ import org.apache.catalina.Context;
 import org.apache.catalina.core.NamingContextListener;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
+import org.openxava.chat.ChatEndpoint;
 import org.openxava.util.DataSourceConnectionProvider;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
- * Spring Boot Auto-configuration for OpenXava core components.
+ * Spring Boot auto-configuration for OpenXava.
  * <p>
- * If a Spring-managed {@link DataSource} is present and an embedded Tomcat
- * container is used, this configuration registers the DataSource in the Tomcat
- * naming context under the JNDI name specified in <code>persistence.xml</code>.
+ * Registers servlet components (via {@code @ServletComponentScan}), the default
+ * view controller for the root path, the WebSocket endpoint for chat, and 
+ * if a Spring-managed {@link DataSource} is present with an embedded Tomcat
+ * container, registers the DataSource in the Tomcat naming context under the
+ * JNDI name specified in <code>persistence.xml</code>.
  * This ensures that both JPA/Hibernate and OpenXava JDBC utilities can resolve it.
  *
  * @author Javier Paniza
@@ -28,7 +36,28 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @ConditionalOnClass({ Tomcat.class, TomcatServletWebServerFactory.class })
-public class OpenXavaAutoConfiguration {
+@ServletComponentScan(basePackages = { "org.openxava", "com.openxava" })
+public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
+
+	/**
+	 * @since 8.0
+	 */
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("forward:/index.jsp");
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	@Bean
+	@ConditionalOnClass(ServerEndpointExporter.class)
+	@ConditionalOnMissingBean
+	public ServerEndpointExporter serverEndpointExporter() {
+		ServerEndpointExporter exporter = new ServerEndpointExporter();
+		exporter.setAnnotatedEndpointClasses(ChatEndpoint.class);
+		return exporter;
+	}
 
 	/**
 	 * @since 8.0

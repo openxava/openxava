@@ -1,16 +1,10 @@
 package org.openxava.invoicedemo;
 
-import org.openxava.chat.ChatEndpoint;
 import org.openxava.util.DBServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * Spring Boot application class to launch invoicedemo with Spring Boot 4.1.
@@ -18,8 +12,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  * @since 8.0
  */
 @SpringBootApplication
-@ServletComponentScan(basePackages = { "org.openxava", "com.openxava" })
-public class InvoicedemoApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
+public class InvoicedemoApplication extends SpringBootServletInitializer {
 
 	/**
 	 * @since 8.0
@@ -35,24 +28,6 @@ public class InvoicedemoApplication extends SpringBootServletInitializer impleme
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(InvoicedemoApplication.class);
-	}
-
-	/**
-	 * @since 8.0
-	 */
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/index.jsp");
-	}
-
-	/**
-	 * @since 8.0
-	 */
-	@Bean
-	public ServerEndpointExporter serverEndpointExporter() {
-		ServerEndpointExporter exporter = new ServerEndpointExporter();
-		exporter.setAnnotatedEndpointClasses(ChatEndpoint.class);
-		return exporter;
 	}
 
 }
