@@ -1,7 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - Datasource
-    - Quitar context.xml, ¿poner mismo ejemplos en application.properties?
     - Paquete y nombre para para OpenXavaAutoConfiguration
     - Paquete para SpringDataSourceJndiFactory
     - ¿Cómo se configura db de producción? Hay formas estandar en Spring Boot ¿documentar?
@@ -21,5 +20,6 @@ Pending for Spring Boot migration (tmr):
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Probar WAR en Tomcat.
 - Doc:
+    - Instrucciones para bootificar. En migration.
     - DataSource en application.properties y no más context.xml (también en migration)
 - Borrar planes .md.
