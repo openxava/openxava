@@ -87,6 +87,24 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 		return jndi;
 	}
 	
+	/**
+	 * Returns the clean JNDI name of the default JPA data source (without 'java:comp/env/' prefix),
+	 * reading it directly from persistence.xml without triggering Hibernate initialization.
+	 * 
+	 * @since 8.0
+	 */
+	public static String getDefaultCleanJPADataSourceName() {
+		if (jpaDataSources == null) {
+			loadJPADataSources();
+		}
+		String jndi = (String) jpaDataSources.get(DEFAULT_JPA_PERSISTENCE_UNIT);
+		if (Is.emptyString(jndi)) return null;
+		if (jndi.startsWith("java:comp/env/")) {
+			return jndi.substring("java:comp/env/".length());
+		}
+		return jndi;
+	}
+	
 	private static String getDataSourceFromElement(Element element) { 
 		String dataSource = getNodeValue(element, "non-jta-data-source");
 		if (!Is.emptyString(dataSource)) return dataSource;
