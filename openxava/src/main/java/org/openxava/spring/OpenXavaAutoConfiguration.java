@@ -1,4 +1,4 @@
-package org.openxava.web;
+package org.openxava.spring;
 
 import javax.sql.DataSource;
 
@@ -7,7 +7,6 @@ import org.apache.catalina.core.NamingContextListener;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.openxava.util.DataSourceConnectionProvider;
-import org.openxava.util.SpringDataSourceJndiFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -43,7 +42,7 @@ public class OpenXavaAutoConfiguration {
 
 			DataSource dataSource = dataSourceProvider.getIfAvailable();
 			if (dataSource != null) {
-				SpringDataSourceJndiFactory.setDataSource(dataSource);
+				DataSourceJndiFactory.setDataSource(dataSource);
 			}
 
 			// Enable JNDI in Tomcat (equivalent to tomcat.enableNaming())
@@ -66,7 +65,7 @@ public class OpenXavaAutoConfiguration {
 				ContextResource resource = new ContextResource();
 				resource.setName(jndiName);
 				resource.setType("javax.sql.DataSource");
-				resource.setProperty("factory", SpringDataSourceJndiFactory.class.getName());
+				resource.setProperty("factory", DataSourceJndiFactory.class.getName());
 				resource.setSingleton(true);
 				context.getNamingResources().addResource(resource);
 			});

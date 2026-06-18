@@ -1,4 +1,4 @@
-package org.openxava.util;
+package org.openxava.spring;
 
 import java.util.Hashtable;
 import javax.naming.Context;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
  * @author Javier Paniza
  * @since 8.0
  */
-public class SpringDataSourceJndiFactory implements ObjectFactory {
+public class DataSourceJndiFactory implements ObjectFactory {
 
 	private static volatile DataSource dataSource;
 
@@ -25,7 +25,7 @@ public class SpringDataSourceJndiFactory implements ObjectFactory {
 	 * @since 8.0
 	 */
 	public static void setDataSource(DataSource dataSource) {
-		SpringDataSourceJndiFactory.dataSource = dataSource;
+		DataSourceJndiFactory.dataSource = dataSource;
 	}
 
 	/**

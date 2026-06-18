@@ -1,12 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- Datasource
-    - Paquete y nombre para para OpenXavaAutoConfiguration
-    - Paquete para SpringDataSourceJndiFactory
-    - ¿Cómo se configura db de producción? Hay formas estandar en Spring Boot ¿documentar?
-    - ¿Quieres que lo dejemos así, o prefieres que avancemos también hacia
-        la opción 3 (que OpenXava obtenga el DataSource/EntityManagerFactory
-        directamente del contexto de Spring) como objetivo de OpenXava 8?
 - Mover código a OpenXava.
     - Adelgazar InvoicedemoApplication
     - Incluir Spring Boot en el pom.xml de OpenXava
@@ -22,4 +15,5 @@ Pending for Spring Boot migration (tmr):
 - Doc:
     - Instrucciones para bootificar. En migration.
     - DataSource en application.properties y no más context.xml (también en migration)
+        - ¿Explicar cómo configurar en producción? Hay formas estándar en Spring Boot
 - Borrar planes .md.
