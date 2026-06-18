@@ -33,7 +33,20 @@
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
+		<spring-boot.version>4.1.0</spring-boot.version>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -132,6 +145,24 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.21.5</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.dataformat</groupId>
+					<artifactId>jackson-dataformat-xml</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
@@ -220,22 +251,6 @@
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		<!-- Jersey 3 requires Java 11 so we stay on 2 -->
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>2.48</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>2.48</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-binding</artifactId>
-			<version>2.48</version>
-		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -268,11 +283,39 @@
 			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j</artifactId>
 			<version>1.10.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>dev.langchain4j</groupId>
 			<artifactId>langchain4j-open-ai</artifactId>
 			<version>1.10.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.commonmark</groupId>
@@ -283,25 +326,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot</artifactId>
 			<version>4.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 			<version>4.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>4.1.0</version>
-			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<version>4.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 			<version>4.1.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
