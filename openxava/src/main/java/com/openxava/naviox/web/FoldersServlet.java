@@ -43,7 +43,6 @@ public class FoldersServlet extends BaseServlet {
         String application = request.getParameter("application");
         String module = request.getParameter("module");
         try {
-            initRequest(request, response, application, module);
             String result = null;
             switch (operation) {
                 case "goFolder" -> {

@@ -42,7 +42,6 @@ public class ModulesServlet extends BaseServlet {
         String application = request.getParameter("application");
         String module = request.getParameter("module");
         try {
-            initRequest(request, response, application, module);
             String result = null;
             boolean hasResponse = false;
             switch (operation) {
