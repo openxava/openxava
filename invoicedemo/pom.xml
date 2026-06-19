@@ -9,7 +9,6 @@
 
   <properties>
     <openxava.version>8.0-SNAPSHOT</openxava.version>
-    <spring-boot.version>4.1.0</spring-boot.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
@@ -85,13 +84,41 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.12.0</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.40</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
+          <version>4.1.0</version>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>repackage</goal>  
+                  </goals>
+              </execution>
+          </executions>
         <configuration>
           <mainClass>org.openxava.invoicedemo.InvoicedemoApplication</mainClass>
         </configuration>
       </plugin>
+
+
     </plugins>
   </build>
   
