@@ -1,6 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- Mover código a OpenXava.
 - Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
 - Probar con Java 25
 - openxava-archetype:
