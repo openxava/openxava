@@ -4,8 +4,10 @@ import javax.sql.DataSource;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.core.NamingContextListener;
+import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
+import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
 import org.openxava.chat.ChatEndpoint;
 import org.openxava.util.DataSourceConnectionProvider;
 import org.springframework.beans.factory.ObjectProvider;
@@ -66,6 +68,14 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> openXavaTomcatCustomizer(
 			ObjectProvider<DataSource> dataSourceProvider) {
 		return factory -> {
+			// SameSite=Lax for all cookies, to pass the ZAP test (OWASP CSRF)
+			// "Strict" does not work with Azure AD and "None" does not work with Chrome
+			factory.addContextCustomizers((TomcatContextCustomizer) context -> {
+				Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
+				processor.setSameSiteCookies("Lax");
+				((StandardContext) context).setCookieProcessor(processor);
+			});
+
 			String jndiName = DataSourceConnectionProvider.getDefaultCleanJPADataSourceName();
 			if (jndiName == null) return;
 

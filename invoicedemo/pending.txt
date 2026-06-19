@@ -1,6 +1,14 @@
 Pending for Spring Boot migration (tmr):
 
 - Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
+    - TMR ME QUEDÉ POR AQUÍ:
+        - AÑADIMOS A OpenXavaAutoConfiguration LA SEGURIDAD OWASAP DE AppServer
+        - FALTA:
+            - COMPROBAR SI TODAVÍA NECESITO LOS html DE ERROR GENÉRICO.
+            - FALTA BORRA AppServer.
+            - PROBAR. SOLO SI FUNCIONA. NO PASAR TEST ZAP.
+            - VERIFICAR DOCUMENTACIÓN.
+
 - Probar con Java 25
 - openxava-archetype:
     - Quitar lanzador.
