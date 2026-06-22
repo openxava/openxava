@@ -1,6 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- Probar con Java 25
 - openxava-archetype:
     - Quitar lanzador.
     - Quitar configuración en maven para exec:java
