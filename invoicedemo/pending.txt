@@ -1,6 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- Revisar docs de database configurations, para quitar pantallazos de studio y ¿videos?
 - openxava-archetype:
     - Quitar lanzador.
     - Quitar configuración en maven para exec:java
