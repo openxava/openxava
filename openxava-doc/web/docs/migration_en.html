@@ -85,6 +85,117 @@
     <p>If you don't remove it, your build will fail because this artifact does not exist 
     in version 8.0.</p>
 
+    <h3>From the AppServer launcher to Spring Boot</h3>
+
+    <p>In OpenXava 7.7 the application was started with a custom launcher class located in the 
+    <i>run</i> package, which called <i>AppServer.run()</i> to start an embedded Tomcat, and it was 
+    executed with <i>mvn exec:java</i> (configured through the <i>exec-maven-plugin</i>). In 
+    OpenXava 8.0 the application is a standard <b>Spring Boot</b> application started with 
+    <i>mvn spring-boot:run</i>.</p>
+
+    <h4>Replace the launcher class</h4>
+
+    <p>Remove your old launcher class (the one in the <i>run</i> package) and create a Spring Boot 
+    application class that extends <i>org.openxava.spring.OpenXavaApplication</i>. Place it in the 
+    root package of your application:</p>
+
+    <pre><code class="language-java">// BEFORE: src/main/java/com/yourcompany/yourapp/run/yourapp.java
+package com.yourcompany.yourapp.run;
+
+import org.openxava.util.*;
+
+public class yourapp {
+    public static void main(String[] args) throws Exception {
+        DBServer.start("yourapp-db");
+        AppServer.run("yourapp");
+    }
+}
+
+// AFTER: src/main/java/com/yourcompany/yourapp/YourappApplication.java
+package com.yourcompany.yourapp;
+
+import org.openxava.util.DBServer;
+import org.openxava.spring.OpenXavaApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class YourappApplication extends OpenXavaApplication {
+    public static void main(String[] args) throws Exception {
+        DBServer.start("yourapp-db"); // Only for the bundled HSQLDB, remove it if you use your own database
+        SpringApplication.run(YourappApplication.class, args);
+    }
+}</code></pre>
+
+    <p>Extending <i>OpenXavaApplication</i> (which extends <i>SpringBootServletInitializer</i>) makes 
+    the application work both when launched with Spring Boot and when deployed as a WAR in an external 
+    servlet container.</p>
+
+    <h4>Replace exec-maven-plugin with spring-boot-maven-plugin</h4>
+
+    <p>In your <i>pom.xml</i>, remove the <i>exec-maven-plugin</i> and add the 
+    <i>spring-boot-maven-plugin</i> pointing to your new application class:</p>
+
+    <pre><code class="language-xml">&lt;!-- REMOVE this plugin --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;mainClass&gt;${project.groupId}.${project.artifactId}.run.${project.artifactId}&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+
+&lt;!-- ADD this plugin --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;repackage&lt;/goal&gt;
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+    &lt;configuration&gt;
+        &lt;mainClass&gt;com.yourcompany.yourapp.YourappApplication&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+
+    <p>Also, since the embedded server is now provided by Spring Boot, you must <b>not</b> exclude 
+    the Tomcat jars from your WAR. Remove the <i>WEB-INF/lib/tomcat-*.jar</i> line from the 
+    <i>packagingExcludes</i> of the <i>maven-war-plugin</i> if it is present.</p>
+
+    <h4>Move the database configuration to application.properties</h4>
+
+    <p>In OpenXava 7.7 the datasource was declared via JNDI in 
+    <i>src/main/webapp/META-INF/context.xml</i>. With Spring Boot you delete that file and define the 
+    datasource in <i>src/main/resources/application.properties</i> instead. OpenXava binds this Spring 
+    datasource to the JNDI name used in <i>persistence.xml</i>, so you don't need to change 
+    <i>persistence.xml</i>.</p>
+
+    <pre><code class="language-properties">server.servlet.context-path=/yourapp
+server.tomcat.additional-tld-skip-patterns=htmlunit-*.jar,jetty-*.jar
+
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.connection-timeout=10000
+
+# HSQLDB
+spring.datasource.url=jdbc:hsqldb:hsql://localhost:1666
+spring.datasource.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <h4>Run the application</h4>
+
+    <p>To start the application use:</p>
+
+    <pre><code class="language-bash">mvn spring-boot:run</code></pre>
+
+    <p>The old <i>mvn exec:java</i> command no longer applies.</p>
+
     <h3>Jakarta Persistence 3.2 with Hibernate 7.2</h3>
 
     <p>OpenXava 8.0 uses Jakarta Persistence 3.2 and Hibernate 7.2. This implies significant

@@ -12,8 +12,6 @@ Pending for Spring Boot migration (tmr):
     - Verificar si es necesario lo de Same site cookies de OWASP
 - Probar en context roor. Documentar how-to_en.html
 - Doc:
-    - Instrucciones para bootificar. En migration.
-        - Incluido cambiar la vieja clase lanzadora por la nueva.
     - DataSource en application.properties y no más context.xml (también en migration)
         - ¿Explicar cómo configurar en producción? Hay formas estándar en Spring Boot
 - Borrar planes .md.
