@@ -83,7 +83,19 @@ $ mvn install
 </code></pre>
         <p>Fíjate en el <i>tcp no delay=true</i> al final de la URL.</p>
         <h2>Quitar DBServer.start() para arrancar más rápido</h2>
-        <p>Cuando creas un nuevo proyecto OpenXava, la clase lanzadora (en el paquete <i>run</i> con el mismo nombre que tu proyecto) incluye una línea <i>DBServer.start()</i> para arrancar la base de datos HSQLDB por defecto. Dado que ahora usas AS/400, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
+        <p>Cuando usas OpenXava con HSQLDB (el valor por defecto), la clase lanzadora incluye una línea <i>DBServer.start()</i> para arrancar la base de datos. Dado que ahora usas AS/400, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
+        <p><b>OpenXava 8.0 o posterior (Spring Boot):</b> Clase lanzadora en el paquete raíz (miaplicacion)</p>
+        <pre><code class="language-java">@SpringBootApplication
+public class MiAplicacion extends OpenXavaApplication {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("miaplicacion-db"); // Comenta o elimina, HSQLDB ya no es necesario
+        SpringApplication.run(MiAplicacion.class, args);
+    }
+
+}
+</code></pre>
+        <p><b>OpenXava 7.x o anterior:</b> Clase lanzadora en el paquete <i>run</i></p>
         <pre><code class="language-java">public class miaplicacion {
 
     public static void main(String[] args) throws Exception {
