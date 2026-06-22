@@ -30,8 +30,21 @@
     <div class="wiki" style="display: block;"> </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Adjust your datasource definition</h2>
-      Edit <i>src/main/webapp/META-INF/context.xml</i> of your project and comment the HSQLDB section:</div>
-    <div class="wiki" style="display: block;">
+      <p><b>OpenXava 8.0 or later (Spring Boot):</b> Edit <i>src/main/resources/application.properties</i> of your project
+      and comment the HSQLDB entries, then add the datasource to point to MariaDB, something like this:</p>
+      <pre><code class="language-properties">#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.datasource.url=jdbc:hsqldb:hsql://localhost:1666
+#spring.datasource.driver-class-name=org.hsqldb.jdbc.JDBCDriver
+
+spring.datasource.username=root
+spring.datasource.password=ao49fmsk
+spring.datasource.url=jdbc:mariadb://localhost:3306/myappdb
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver</code></pre>
+      <p>Instead of <i>localhost</i> you should put the address of the server that hosts MariaDB and instead of <i>myappdb</i>
+      the name of your database. Also put the correct <i>username</i> and <i>password</i>. <b>Don't forget to comment or remove the
+      datasource entries for HSQLDB</b> (the default one when you create a new OpenXava project), only one datasource should be active.</p>
+      <p><b>OpenXava 7.x or earlier:</b> Edit <i>src/main/webapp/META-INF/context.xml</i> of your project and comment the HSQLDB section:</p>
       <pre><code class="language-xml">&lt;!-- HSQLDB
     &lt;Resource name="jdbc/testDS" auth="Container" type="javax.sql.DataSource"
           maxTotal="20" maxIdle="5" maxWaitMillis="10000"
@@ -39,17 +52,20 @@
           driverClassName="org.hsqldb.jdbc.JDBCDriver"
           url="jdbc:hsqldb:hsql://localhost:1666"/&gt;
     --&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">when, to have add the datasource to point to MariaDB, something like this:</div>
-    <div class="wiki" style="display: block;">
+</code></pre>
+      <p>Then, add the datasource to point to MariaDB, something like this:</p>
       <pre><code class="language-xml">&lt;Resource name="jdbc/myappDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="20" maxIdle="5" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
     driverClassName="org.mariadb.jdbc.Driver"
     url="jdbc:mariadb://localhost:3306/myappdb"/&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i> and the <i>url</i>. Obviously, instead of <i>localhost</i> you should put the address of the server that hosts MariaDB and instead of <i>myappdb</i> the name of your database. Also put the correct <i>username</i> and <i>password</i>. <b>Don't forget to comment or remove the datasource for HSQLDB</b> (the default one when you create a new OpenXava project), only one datasource (with the same name) should be active.</div>
+</code></pre>
+      <p>The differences are the <i>driverClassName</i> and the <i>url</i>. Obviously, instead of <i>localhost</i> you should put
+      the address of the server that hosts MariaDB and instead of <i>myappdb</i> the name of your database. Also put the correct
+      <i>username</i> and <i>password</i>. <b>Don't forget to comment or remove the datasource for HSQLDB</b> (the default one when
+      you create a new OpenXava project), only one datasource (with the same name) should be active.</p>
+    </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc1">Create schema manually</h2>
       <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
@@ -68,8 +84,8 @@ $ mvn install
 </code></pre>
       <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven build, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i> for goal.</p>
       <h2>Run your application</h2>
-      <p>Run your application, it should work nicely against your MariaDB database. If it fails, verify that your database server is up, that the user and password in <i>context.xml</i> are correct, that the server IP is correct. Also verify that the user has rights to create databases and tables (if you want to use the automatic schema generation of OpenXava, not needed if the tables already exist).</p>
-      <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, <i>context.xml</i> (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
+      <p>Run your application, it should work nicely against your MariaDB database. If it fails, verify that your database server is up, that the user and password in your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) are correct, that the server IP is correct. Also verify that the user has rights to create databases and tables (if you want to use the automatic schema generation of OpenXava, not needed if the tables already exist).</p>
+      <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
     </div>
     <div class="wiki" style="display: block;">
       <h2>Remove DBServer.start() for faster startup</h2>

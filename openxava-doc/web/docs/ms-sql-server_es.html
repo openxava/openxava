@@ -35,16 +35,32 @@
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Ajustar la definición de la fuente de datos</h2>
-        Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y ajusta la definición de tu fuente de datos para que apunte a MS SQL Server, algo así:</div>
-      <div class="wiki" style="display: block;">
+        <p><b>OpenXava 8.0 o posterior (Spring Boot):</b> Edita <i>src/main/resources/application.properties</i> de tu proyecto
+        para ajustar la fuente de datos para que apunte a MS SQL Server, algo así:</p>
+        <pre><code class="language-properties">spring.datasource.username=root
+spring.datasource.password=ao49fmsk
+spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=miaplicaciondb
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver</code></pre>
+        <p>En lugar de <i>localhost</i> deberías poner la dirección del servidor que alberga MS SQL Server y en lugar de <i>miaplicaciondb</i>
+        el nombre de tu base de datos. También pon el <i>username</i> y <i>password</i> correctos. No olvides comentar o quitar
+        las entradas de la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una
+        fuente de datos debería estar activa.</p>
+        <p><b>OpenXava 7.x o anterior:</b> Edita <i>src/main/webapp/META-INF/context.xml</i> de tu proyecto y ajusta la definición
+        de tu fuente de datos para que apunte a MS SQL Server, algo así:</p>
         <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
     url="jdbc:sqlserver://localhost:1433;databaseName=miaplicaciondb"/&gt;
-</code></pre> </div>
-      <div class="wiki" style="display: block;">La diferencia está en <i>driverClassName</i> y <i>url</i>. La parte final de la url, <i>miaplicaciondb</i> en este ejemplo, es el nombre de tu base de datos MS SQL Server. Obviamente, en lugar de <i>localhost</i> deberías poner la dirección del servidor que alberga MS SQL Server. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el mismo nombre) debería estar activa.</div>
+</code></pre>
+        <p>La diferencia está en <i>driverClassName</i> y <i>url</i>. La parte final de la url, <i>miaplicaciondb</i> en este ejemplo,
+        es el nombre de tu base de datos MS SQL Server. Obviamente, en lugar de <i>localhost</i> deberías poner la dirección del
+        servidor que alberga MS SQL Server. También pon el <i>username</i> y <i>password</i> correctos. Puede que el código de arriba
+        ya esté en tu <i>context.xml</i> pero comentado, en ese caso simplemente descoméntalo. No olvides comentar o quitar la
+        fuente de datos para HSQLDB (incluida por defecto al crear un nuevo proyecto OpenXava), sólo una fuente de datos (con el
+        mismo nombre) debería estar activa.</p>
+      </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Crear manualmente el esquema</h2>
         <div class="wiki" style="display: block;">La versión 5.6 de Hibernate tiene un bug que no crea ya automáticamente el esquema, por lo que las tablas tampoco. Si te encuentras con este error, la solución es crear manualmente el esquema en la base de datos ejecutando la sentencia:</div>
@@ -64,22 +80,25 @@ $ mvn install
 </code></pre>
         <p>Nota de optimización: En lugar de <i>mvn install</i>, que hace un <i>build</i> de Maven completo, puedes usar <i>mvn war:exploded</i>, suficiente para aplicar los cambios de arriba para desarrollo. Puedes llamar a <i>mvn war:exploded</i> desde el OpenXava Studio con <i>Run As &gt; Maven build...</i> y tecleando <i>war:exploded</i> para <i>goal</i>.</p>
         <h2>Ejecutar aplicacion</h2>
-        <p>Ejecuta tu aplicación, debería funcionar bien contra tu base de datos MS SQL Server. Si fallara, verifica que tu base de datos está funcionando, que el usuario y la contraseña son correctos, que la IP del servidor es correcta. Verifica también que el usuario tiene privilegios para crear bases de datos y tablas (si quieres usar la generación automática de esquema de OpenXava, no necesario si las tablas ya existen).</p>
+        <p>Ejecuta tu aplicación, debería funcionar bien contra tu base de datos MS SQL Server. Si fallara, verifica que tu base de datos está funcionando, que el usuario y la contraseña en tu configuración de fuente de datos (<i>application.properties</i> en 8.0+, <i>context.xml</i> en 7.x) son correctos, que la IP del servidor es correcta. Verifica también que el usuario tiene privilegios para crear bases de datos y tablas (si quieres usar la generación automática de esquema de OpenXava, no necesario si las tablas ya existen).</p>
         <h2>Problema con conexión segura</h2>
         <p>Si al ejecutar la aplicación no funciona y en algún punto de la traza de error te encuentras esto:</p>
         <pre><code class="language-text">
 Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The driver could not establish a secure connection to SQL Server by using Secure Sockets Layer (SSL) encryption. <br>Error: "PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target". ClientConnectionId:6b818518-97bd-4b0d-adb2-153605134e2e
 </code></pre>
-        <p>Para resolver el problema añade el sufijo <i>;encrypt=true;trustServerCertificate=true; </i>a la URL de conexión, dejando tu definición de fuente de datos en <i>context.xml</i> de esta forma:</p>
+        <p>Para resolver el problema añade el sufijo <i>;encrypt=true;trustServerCertificate=true;</i> a la URL de conexión.
+        En <b>OpenXava 8.0+</b> edita tu <i>application.properties</i>:
+        <pre><code class="language-properties">spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=miaplicaciondb;encrypt=true;trustServerCertificate=true;</code></pre>
+        En <b>OpenXava 7.x</b> edita tu <i>context.xml</i>:
         <pre><code class="language-xml">&lt;Resource name="jdbc/MiAplicacionDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
     url="jdbc:sqlserver://localhost:1433;databaseName=miaplicaciondb;encrypt=true;trustServerCertificate=true;"/&gt;
-</code></pre>
+</code></pre></p>
         <h2>Otros problemas</h2>
-        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, <i>context.xml</i> (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
+        <p>Si sigue fallando pregúntanos en el <a href="https://sourceforge.net/p/openxava/discussion/437013/">foro de ayuda de OpenXava</a>. Incluye el contenido de tu <i>persistence.xml</i>, tu configuración de fuente de datos (<i>application.properties</i> en 8.0+, <i>context.xml</i> en 7.x) (quita las contraseñas) y sobre todo la traza generada, puedes encontrar la traza en la pestaña <i>Console</i> del OpenXava Studio.</p>
         <h2>Quitar DBServer.start() para arrancar más rápido</h2>
         <p>Cuando usas OpenXava con HSQLDB (el valor por defecto), la clase lanzadora incluye una línea <i>DBServer.start()</i> para arrancar la base de datos. Dado que ahora usas MS SQL Server, esta línea ya no es necesaria. Puedes comentarla o eliminarla para mejorar el rendimiento de arranque:</p>
         <p><b>OpenXava 8.0 o posterior (Spring Boot):</b> Clase lanzadora en el paquete raíz (miaplicacion)</p>

@@ -1,5 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
+- Revisar docs de database configurations, para quitar pantallazos de studio y ¿videos?
 - openxava-archetype:
     - Quitar lanzador.
     - Quitar configuración en maven para exec:java
@@ -10,8 +11,5 @@ Pending for Spring Boot migration (tmr):
     - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
         En el Tomcat Embebido de Spring Boot no son necesarias
     - Verificar si es necesario lo de Same site cookies de OWASP
-- Probar en context roor. Documentar how-to_en.html
-- Doc:
-    - DataSource en application.properties y no más context.xml (también en migration)
-        - ¿Explicar cómo configurar en producción? Hay formas estándar en Spring Boot
+- Probar en context root. Documentar how-to_en.html
 - Borrar planes .md.
