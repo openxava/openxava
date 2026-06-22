@@ -1,11 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- Quitar AppServer
-        - FALTA:
-            - FALTA BORRA AppServer.
-            - PROBAR. SOLO SI FUNCIONA. NO PASAR TEST ZAP.
-            - VERIFICAR DOCUMENTACIÓN.
-
 - Probar con Java 25
 - openxava-archetype:
     - Quitar lanzador.
@@ -17,6 +11,7 @@ Pending for Spring Boot migration (tmr):
     - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
         En el Tomcat Embebido de Spring Boot no son necesarias
     - Verificar si es necesario lo de Same site cookies de OWASP
+- Probar en context roor. Documentar how-to_en.html
 - Doc:
     - Instrucciones para bootificar. En migration.
         - Incluido cambiar la vieja clase lanzadora por la nueva.
