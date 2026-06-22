@@ -1,10 +1,7 @@
 Pending for Spring Boot migration (tmr):
 
-- Quitar AppServer Revisar asuntos de OWASAP en OWASAP ¿Qué hacer con este tema?
-    - TMR ME QUEDÉ POR AQUÍ:
-        - AÑADIMOS A OpenXavaAutoConfiguration LA SEGURIDAD OWASAP DE AppServer
+- Quitar AppServer
         - FALTA:
-            - COMPROBAR SI TODAVÍA NECESITO LOS html DE ERROR GENÉRICO.
             - FALTA BORRA AppServer.
             - PROBAR. SOLO SI FUNCIONA. NO PASAR TEST ZAP.
             - VERIFICAR DOCUMENTACIÓN.
@@ -17,8 +14,12 @@ Pending for Spring Boot migration (tmr):
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Probar WAR en Tomcat.
+    - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
+        En el Tomcat Embebido de Spring Boot no son necesarias
+    - Verificar si es necesario lo de Same site cookies de OWASP
 - Doc:
     - Instrucciones para bootificar. En migration.
+        - Incluido cambiar la vieja clase lanzadora por la nueva.
     - DataSource en application.properties y no más context.xml (también en migration)
         - ¿Explicar cómo configurar en producción? Hay formas estándar en Spring Boot
 - Borrar planes .md.
