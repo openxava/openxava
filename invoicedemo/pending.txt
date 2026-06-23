@@ -1,14 +1,30 @@
 Pending for Spring Boot migration (tmr):
 
-- openxava-archetype:
-    - Quitar lanzador.
-    - Quitar configuración en maven para exec:java
+- openxava-archetype: DONE
+    - Quitar lanzador. DONE
+    - Quitar configuración en maven para exec:java. DONE
+    - Mejorar nombre en la clase lanzadora.
+    - Mejorar comentarios en la clase lanzadora.
+    - ¿Qué hacer con DBManager? Podemos moverlos a una carpeta tools.
+    - Revisar el nombre de la clase lanzadora, ¿usa variables?
+    - ¿.something sigue siendo necesario?
+    - Fixed JNDI name: java://comp/env/ → java:comp/env/
+        ¿Es realmente necesario? ¿Está en la migración?
+    - Removed naviox model class declarations (auto-discovered in 8.0): Revisar esto
+    - removed obsolete #applicationPort=8080,
+        updated chat comment (no external dependency needed in 8.0), updated header comment
+        Revisar
+    - Revisar como queda el welcome
+    - Revisar como queda el application.xml
+    - Revisar como quedan los archivos i18n
+
 - openxavatest
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Probar WAR en Tomcat.
     - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
         En el Tomcat Embebido de Spring Boot no son necesarias
+        Si es necesario igual hay que volver a ponerl en el web.xml de los arquetipos.
     - Verificar si es necesario lo de Same site cookies de OWASP
 - Probar en context root. Documentar how-to_en.html
 - Borrar planes .md.

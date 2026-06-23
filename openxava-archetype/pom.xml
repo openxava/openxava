@@ -11,7 +11,7 @@
 	<properties>
 		<openxava.version>8.0-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- OpenXava applications work nicely with Java 1.8, 11, 17, 21 and 25 -->
+		<!-- OpenXava applications work nicely with Java 17, 21 and 25 -->
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
@@ -177,7 +177,6 @@
 						WEB-INF/lib/neko-htmlunit-*.jar,
 						WEB-INF/lib/pdfbox-*.jar,
 						WEB-INF/lib/serializer-*.jar,
-						WEB-INF/lib/tomcat-*.jar,
 						WEB-INF/lib/websocket-*.jar,
 						WEB-INF/lib/xalan-*.jar,
 						WEB-INF/lib/xercesImpl-*.jar,
@@ -196,11 +195,18 @@
 			</plugin>
 			
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.1.0</version> 
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>4.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<mainClass>${project.groupId}.${project.artifactId}.run.${project.artifactId}</mainClass>
+					<mainClass>${project.groupId}.${project.artifactId}.Application</mainClass>
 				</configuration>
 			</plugin>
 		

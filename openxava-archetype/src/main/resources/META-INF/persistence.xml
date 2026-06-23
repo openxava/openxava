@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
-             version="1.0">
+<persistence version="3.1" 
+    xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+    https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd">
              
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<non-jta-data-source>java://comp/env/jdbc/yourappDS</non-jta-data-source>
+    	<non-jta-data-source>java:comp/env/jdbc/yourappDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
-    	<class>com.openxava.naviox.model.ConfigurationRecord</class>
-    	<class>com.openxava.naviox.model.Folder</class>
-    	<class>com.openxava.naviox.model.History</class>
-    	<class>com.openxava.naviox.model.Module</class>
-    	<class>com.openxava.naviox.model.ModuleRights</class>
-    	<class>com.openxava.naviox.model.Organization</class>
-    	<class>com.openxava.naviox.model.Role</class>
-    	<class>com.openxava.naviox.model.SessionRecord</class>
-    	<class>com.openxava.naviox.model.SSORecord</class>
-    	<class>com.openxava.naviox.model.User</class>
-		<class>com.openxava.naviox.model.LDAPConfiguration</class>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+            <property name="jakarta.persistence.create-database-schemas" value="true"/>
+            <property name="hibernate.jdbc.use_streams_for_binary" value="true"/>
         </properties>
     </persistence-unit>
                     
@@ -31,17 +23,6 @@
     <persistence-unit name="junit">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     	<class>org.openxava.web.editors.DiscussionComment</class>
-    	<class>com.openxava.naviox.model.ConfigurationRecord</class>
-    	<class>com.openxava.naviox.model.Folder</class>
-    	<class>com.openxava.naviox.model.History</class>
-    	<class>com.openxava.naviox.model.Module</class>
-    	<class>com.openxava.naviox.model.ModuleRights</class>
-    	<class>com.openxava.naviox.model.Organization</class>
-    	<class>com.openxava.naviox.model.Role</class>
-    	<class>com.openxava.naviox.model.SessionRecord</class>
-    	<class>com.openxava.naviox.model.SSORecord</class>
-    	<class>com.openxava.naviox.model.User</class>
-		<class>com.openxava.naviox.model.LDAPConfiguration</class>
         <properties>
 			<property name="hibernate.connection.url" value="jdbc:hsqldb:hsql://localhost:1666"/>
         </properties>

@@ -17,7 +17,7 @@ When creating an entity in this project, follow these rules:
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -44,7 +44,7 @@ When asked to create a master-detail structure, the detail collection in the mas
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -69,7 +69,7 @@ public class Invoice {
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
