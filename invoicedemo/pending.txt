@@ -1,9 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - openxava-archetype: DONE
-    - Quitar lanzador. DONE
-    - Quitar configuración en maven para exec:java. DONE
-    - Mejorar nombre en la clase lanzadora.
     - Mejorar comentarios en la clase lanzadora.
     - ¿Qué hacer con DBManager? Podemos moverlos a una carpeta tools.
     - Revisar el nombre de la clase lanzadora, ¿usa variables?
