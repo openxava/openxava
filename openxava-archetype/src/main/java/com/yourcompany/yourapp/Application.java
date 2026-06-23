@@ -6,9 +6,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Spring Boot application class to launch yourapp with Spring Boot.
+ * Main class to launch the application.
  *
- * To start the application use: mvn spring-boot:run
+ * Run it directly from your IDE or use
+ * <code>mvn spring-boot:run</code> from the command line.
  */
 @SpringBootApplication
 public class Application extends OpenXavaApplication {
