@@ -2,6 +2,9 @@ Pending for Spring Boot migration (tmr):
 
 - openxava-archetype: DONE
     - ¿Qué hacer con DBManager? Podemos moverlos a una carpeta tools.
+        TMR ME QUEDÉ POR AQUÍ: DBManager PUESTO EN PAQUETE tools
+        TMR FALTA ACTUALIZAR LA DOCUMENTACIÓN, INCLUYENDO PANTALLAZO
+        - Actualizar entity-inheritance_en.html SOLO SE MENCIONA AQUÍ
     - Revisar el nombre de la clase lanzadora, ¿usa variables?
     - ¿.something sigue siendo necesario?
     - Fixed JNDI name: java://comp/env/ → java:comp/env/
