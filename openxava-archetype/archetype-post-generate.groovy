@@ -26,6 +26,7 @@ if (javaRoot.exists()) {
 }
 if (appFile != null) {
     def text = appFile.getText("UTF-8")
+    text = text.replace("__artifactId__", artifactId)
     text = text.replace("class Application extends", "class ${newClass} extends")
     text = text.replace("SpringApplication.run(Application.class", "SpringApplication.run(${newClass}.class")
     def newFile = new File(appFile.parentFile, "${newClass}.java")

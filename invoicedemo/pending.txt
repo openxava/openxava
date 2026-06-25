@@ -1,8 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - openxava-archetype: DONE
-    - Revisar el nombre de la clase lanzadora, ¿usa variables?
-    - ¿.something sigue siendo necesario?
     - Fixed JNDI name: java://comp/env/ → java:comp/env/
         ¿Es realmente necesario? ¿Está en la migración?
     - Removed naviox model class declarations (auto-discovered in 8.0): Revisar esto

@@ -1,4 +1,4 @@
-package com.yourcompany.yourapp;
+package com.yourcompany.__artifactId__;
 
 import org.openxava.util.DBServer;
 import org.openxava.spring.OpenXavaApplication;
