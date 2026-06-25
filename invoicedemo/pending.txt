@@ -1,12 +1,5 @@
 Pending for Spring Boot migration (tmr):
 
-- openxava-archetype: DONE
-    - updated chat comment (no external dependency needed in 8.0),
-    - updated header comment
-    - Revisar como queda el welcome
-    - Revisar como queda el application.xml
-    - Revisar como quedan los archivos i18n
-
 - openxavatest
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
