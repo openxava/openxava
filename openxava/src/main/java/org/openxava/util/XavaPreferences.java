@@ -286,11 +286,6 @@ public class XavaPreferences {
 		return getProperties().getProperty("currencySymbol");
 	}
 
-	/** @since 6.4.2 */
-	public int getApplicationPort() { 
-		return Integer.parseInt(getProperties().getProperty("applicationPort", "8080"));
-	}
-
 
 	public void setDuplicateComponentWarnings(boolean duplicateComponentWarnings) {
 		this.duplicateComponentWarnings = duplicateComponentWarnings;
