@@ -246,6 +246,18 @@ import org.hibernate.annotations.Type;</code></pre>
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
     https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
 
+    <h4>JNDI data source name format</h4>
+
+    <p>The JNDI name format for the data source in <i>persistence.xml</i> has changed.
+    In OpenXava 7.x the name used <i>java://</i> as prefix, but in OpenXava 8.0 you must use
+    <i>java:</i> (without the double slash). The old format with <i>//</i> does not work in 8.0:</p>
+
+    <pre><code class="language-xml">&lt;!-- BEFORE (7.x) --&gt;
+&lt;non-jta-data-source&gt;java://comp/env/jdbc/yourappDS&lt;/non-jta-data-source&gt;
+
+&lt;!-- AFTER (8.0) --&gt;
+&lt;non-jta-data-source&gt;java:comp/env/jdbc/yourappDS&lt;/non-jta-data-source&gt;</code></pre>
+
     <h4>NonBatchingBatcherFactory removed</h4>
 
     <p>The <i>hibernate.jdbc.factory_class</i> property with value 

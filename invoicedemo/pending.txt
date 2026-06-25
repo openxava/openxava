@@ -1,8 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - openxava-archetype: DONE
-    - Fixed JNDI name: java://comp/env/ → java:comp/env/
-        ¿Es realmente necesario? ¿Está en la migración?
     - Removed naviox model class declarations (auto-discovered in 8.0): Revisar esto
     - removed obsolete #applicationPort=8080,
         updated chat comment (no external dependency needed in 8.0), updated header comment
