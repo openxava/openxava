@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- DBManager in new projects is now located in the tools package. The run package no longer exists.
 - AppServer class removed. Launcher class should now extend OpenXavaApplication.
 - DataSource definition moved from context.xml to application.properties.
 - All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
