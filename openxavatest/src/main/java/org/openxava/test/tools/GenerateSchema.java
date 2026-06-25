@@ -1,4 +1,4 @@
-package org.openxava.test.run;
+package org.openxava.test.tools;
 
 import org.openxava.tools.*;
 
