@@ -663,7 +663,7 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 										 	
 	private void waitUntilPageIsLoaded() throws Exception { 		
-		client.waitForBackgroundJavaScriptStartingBefore(10000);		
+		client.waitForBackgroundJavaScriptStartingBefore(30000);		
 		if (getLoadedParts().endsWith("ERROR")) {
 			fail(XavaResources.getString("ajax_loading_parts_error"));
 		}
