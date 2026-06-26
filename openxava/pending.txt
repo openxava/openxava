@@ -1,11 +1,9 @@
 Pending for Spring Boot migration (tmr):
 
-- Poner en multischema_en.html como se definen varias bases de datos.
-    - Antes limpiar multischema_en.html
-    - En migration está como se hace ahora.
-    - Poner para antes y despúés de v8.
-    - Cambiar el título para incluir multidatabase, por SEO.
 - openxavatest
+    - Failed tests:
+        - TestServletTest
+        - IssueChangeDBTest
 
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
@@ -15,4 +13,5 @@ Pending for Spring Boot migration (tmr):
         Si es necesario igual hay que volver a ponerl en el web.xml de los arquetipos.
     - Verificar si es necesario lo de Same site cookies de OWASP
 - Probar en context root. Documentar how-to_en.html
+- Actualizar doc.
 - Borrar planes .md.

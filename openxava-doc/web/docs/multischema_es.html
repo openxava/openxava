@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Aplicaciones multiesquema - OpenXava</title>
+    <title>Aplicaciones multiesquema y multidatabase - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <link rel="stylesheet" href="highlight/highlightjs-copy.css">
@@ -24,7 +24,7 @@
         </span> /
         <a href="index_es.html">documentación</a> /
       </span>
-      Aplicaciones multiesquema
+      Aplicaciones multiesquema y multidatabase
     </h1>
 
     <div id="toc">
@@ -74,7 +74,65 @@
       instrucciones de abajo cambiando el controlador <em>DefaultSchema</em>
       por <em>PersistenceUnit</em> y <em>SetDefaultSchemaAction</em> por <em>SetPersistenceUnitAction</em>.
       Además, has de definir varias unidades de persistencia en <em>persistence.xml</em>,
-      una por cada base de datos.</p>
+      una por cada base de datos. Cada persistence-unit secundaria necesita su propia fuente de datos (datasource).</p>
+
+    <h3><em>Desde v8.0</em></h3>
+
+    <p>Desde OpenXava 8.0, las fuentes de datos adicionales se declaran de forma declarativa en
+      <em>application.properties</em> usando el prefijo <i>openxava.datasources.&lt;nombre&gt;.*</i>.
+      OpenXava crea automáticamente cada datasource y lo enlaza al nombre JNDI especificado en su
+      propiedad <i>jndi</i>, que debe coincidir con el usado en <em>persistence.xml</em>:</p>
+
+    <pre><code class="language-properties">openxava.datasources.companya.jndi=jdbc/companyaDS
+openxava.datasources.companya.url=jdbc:hsqldb:file:data/company-a-db
+openxava.datasources.companya.username=sa
+openxava.datasources.companya.password=
+openxava.datasources.companya.driver-class-name=org.hsqldb.jdbcDriver
+openxava.datasources.companya.maximum-pool-size=20
+openxava.datasources.companya.minimum-idle=5
+openxava.datasources.companya.connection-timeout=10000
+
+openxava.datasources.companyb.jndi=jdbc/companybDS
+openxava.datasources.companyb.url=jdbc:hsqldb:file:data/company-b-db
+openxava.datasources.companyb.username=sa
+openxava.datasources.companyb.password=
+openxava.datasources.companyb.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <p>En <em>persistence.xml</em> cada persistence-unit secundaria referencia su datasource:</p>
+
+    <pre><code class="language-xml">&lt;persistence-unit name="companyA"&gt;
+    &lt;non-jta-data-source&gt;jdbc/companyaDS&lt;/non-jta-data-source&gt;
+    ...
+&lt;/persistence-unit&gt;
+
+&lt;persistence-unit name="companyB"&gt;
+    &lt;non-jta-data-source&gt;jdbc/companybDS&lt;/non-jta-data-source&gt;
+    ...
+&lt;/persistence-unit&gt;</code></pre>
+
+    <h3><em>Hasta v7.x</em></h3>
+
+    <p>En versiones anteriores a OpenXava 8.0, las fuentes de datos adicionales se definían en
+      <em>src/main/webapp/META-INF/context.xml</em> de Tomcat:</p>
+
+    <pre><code class="language-xml">&lt;Context&gt;
+    &lt;Resource name="jdbc/companyaDS" auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="org.hsqldb.jdbcDriver"
+        url="jdbc:hsqldb:file:data/company-a-db"
+        username="sa" password=""
+        maxTotal="20" maxIdle="5" maxWaitMillis="10000"/&gt;
+
+    &lt;Resource name="jdbc/companybDS" auth="Container"
+        type="javax.sql.DataSource"
+        driverClassName="org.hsqldb.jdbcDriver"
+        url="jdbc:hsqldb:file:data/company-b-db"
+        username="sa" password=""
+        maxTotal="20" maxIdle="5" maxWaitMillis="10000"/&gt;
+&lt;/Context&gt;</code></pre>
+
+    <p>El nombre JNDI (<i>jdbc/companyaDS</i>, <i>jdbc/companybDS</i>) debe coincidir con el
+      especificado en <em>persistence.xml</em> para cada persistence-unit secundaria.</p>
 
     <h2 id="toc3"><a name="Aplicaciones multiesquema-Un ejemplo"></a>Un
       ejemplo</h2>
