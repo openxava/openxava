@@ -42,11 +42,19 @@ public class DataSourceJndiFactory implements ObjectFactory {
 
 	/**
 	 * Registers a datasource under the given JNDI name.
+	 * <p>
+	 * Also registers it under its leaf name (the part after the last '/'),
+	 * because Tomcat's {@code ObjectFactory} callback receives only the leaf
+	 * name when the JNDI name contains a subcontext (e.g. {@code jdbc/}).
 	 *
 	 * @since 8.0
 	 */
 	public static void register(String jndiName, DataSource dataSource) {
 		dataSources.put(jndiName, dataSource);
+		int lastSlash = jndiName.lastIndexOf('/');
+		if (lastSlash >= 0) {
+			dataSources.put(jndiName.substring(lastSlash + 1), dataSource);
+		}
 	}
 
 	/**
