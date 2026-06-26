@@ -1,7 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - openxavatest
-    - BookService no compila
     - Revisar AdditionalDataSourcesConfiguration y MultiDataSourceJndiFactory,
         ¿hay otra forma de hacerlo? Documentar
 - Configuración de log. Documentar

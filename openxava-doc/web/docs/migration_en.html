@@ -188,6 +188,33 @@ spring.datasource.hikari.connection-timeout=10000
 spring.datasource.url=jdbc:hsqldb:hsql://localhost:1666
 spring.datasource.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
 
+    <h4>Several datasources</h4>
+
+    <p>If your application uses more than one datasource (for example because it has secondary 
+    <i>persistence-unit</i>s in <i>persistence.xml</i>), declare the additional ones in the same 
+    <i>application.properties</i> using the <i>openxava.datasources.&lt;name&gt;.*</i> prefix. The 
+    default datasource keeps using <i>spring.datasource.*</i>. OpenXava creates each additional 
+    datasource and binds it to the JNDI name declared in its <i>jndi</i> property, which must match 
+    the one used in <i>persistence.xml</i>. There is no need for any Java configuration class:</p>
+
+    <pre><code class="language-properties">openxava.datasources.companya.jndi=jdbc/companyaDS
+openxava.datasources.companya.url=jdbc:hsqldb:file:data/company-a-db
+openxava.datasources.companya.username=sa
+openxava.datasources.companya.password=
+openxava.datasources.companya.driver-class-name=org.hsqldb.jdbcDriver
+openxava.datasources.companya.maximum-pool-size=20
+openxava.datasources.companya.minimum-idle=5
+openxava.datasources.companya.connection-timeout=10000
+
+openxava.datasources.companyb.jndi=jdbc/companybDS
+openxava.datasources.companyb.url=jdbc:hsqldb:file:data/company-b-db
+openxava.datasources.companyb.username=sa
+openxava.datasources.companyb.password=
+openxava.datasources.companyb.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <p>This way the whole database configuration of your application stays in a single declarative 
+    file, equivalent to the old <i>context.xml</i> but in the standard Spring Boot style.</p>
+
     <h4>Run the application</h4>
 
     <p>To start the application use:</p>
