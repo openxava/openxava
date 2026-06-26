@@ -524,6 +524,25 @@ ServletFileUpload upload = new ServletFileUpload(factory);
 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);</code></pre>
 
+    <h3>JAX-RS 3.1 and Jakarta JSON Binding 3.0</h3>
+
+    <p>OpenXava 8.0 has migrated the REST client (JAX-RS, implemented by Jersey) and the JSON 
+    binding API to the Jakarta namespace. JAX-RS has been upgraded to 3.1 (Jersey 3.1) and 
+    Jakarta JSON Binding to 3.0. If your application uses the JAX-RS client or JSON-B 
+    annotations (for example in a service that consumes a REST web service), the only change 
+    needed is to update the imports from the <i>javax</i> namespace to <i>jakarta</i>:</p>
+
+    <pre><code class="language-java">// BEFORE
+import javax.ws.rs.client.*;
+import javax.json.bind.annotation.*;
+
+// AFTER
+import jakarta.ws.rs.client.*;
+import jakarta.json.bind.annotation.*;</code></pre>
+
+    <p>The API of these classes (such as <i>ClientBuilder</i>, <i>@JsonbProperty</i>, etc.) 
+    remains the same, so no further changes are required in your code.</p>
+
     <h3>DWR removed</h3>
 
     <p>Direct Web Remoting (DWR) has been completely removed from OpenXava. DWR was a library

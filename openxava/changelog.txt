@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- JAX-RS 3.1 support. Dropped support for JAX-RS 2.1.
+- Jersey upgraded to 3.1.10.
+- Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
 - applicationPort property removed from xava.properties; configure the port using Spring Boot settings.
 - DBManager in new projects is now located in the tools package. The run package no longer exists.
 - AppServer class removed. Launcher class should now extend OpenXavaApplication.
