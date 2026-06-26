@@ -1,8 +1,12 @@
 Pending for Spring Boot migration (tmr):
 
+- Poner en multischema_en.html como se definen varias bases de datos.
+    - Antes limpiar multischema_en.html
+    - En migration está como se hace ahora.
+    - Poner para antes y despúés de v8.
+    - Cambiar el título para incluir multidatabase, por SEO.
 - openxavatest
-    - Revisar AdditionalDataSourcesConfiguration y MultiDataSourceJndiFactory,
-        ¿hay otra forma de hacerlo? Documentar
+
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Probar WAR en Tomcat.
