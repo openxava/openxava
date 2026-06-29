@@ -963,10 +963,12 @@ public class HotwireServlet extends BaseServlet {
                 String qualifiedName = (String) en.getKey();
                 String name = qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1);
                 View containerView = (View) en.getValue();
-                put(result, "frame_" + qualifiedName + "header",
-                    "collectionFrameHeader.jsp?collectionName=" + name +
-                    "&viewObject=" + containerView.getViewObject() +
-                    "&propertyPrefix=" + containerView.getPropertyPrefix());
+                if (baseFolder.equals("/xava/")) {
+                    put(result, "frame_" + qualifiedName + "header",
+                        "collectionFrameHeader.jsp?collectionName=" + name +
+                        "&viewObject=" + containerView.getViewObject() +
+                        "&propertyPrefix=" + containerView.getPropertyPrefix());
+                }
                 put(result, "collection_" + qualifiedName + ".",
                     "collection.jsp?collectionName=" + name +
                     "&viewObject=" + containerView.getViewObject() +
