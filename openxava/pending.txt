@@ -1,8 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 - openxavatest
-    - Failed tests:
-        - TestServletTest: TMR ME QUEDÉ POR AQUÍ, PARA PROBAR ESTE
     - No usa Hibernate 7.4
 
 - Configuración de log. Documentar
