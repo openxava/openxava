@@ -1,7 +1,7 @@
 Pending for Spring Boot migration (tmr):
 
-- openxavatest
-    - Suite
+
+TMR ME QUEDÉ PARA EMPEZAR EL SIGUIENTE PUNTO. SUITE DE openxavatest PASADA AL 100%
 
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
