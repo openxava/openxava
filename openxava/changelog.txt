@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
 - JAX-RS 3.1 support. Dropped support for JAX-RS 2.1.
 - Jersey upgraded to 3.1.10.
 - Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
