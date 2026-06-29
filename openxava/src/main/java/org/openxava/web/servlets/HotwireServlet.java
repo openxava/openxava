@@ -963,7 +963,7 @@ public class HotwireServlet extends BaseServlet {
                 String qualifiedName = (String) en.getKey();
                 String name = qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1);
                 View containerView = (View) en.getValue();
-                if (baseFolder.equals("/xava/")) {
+                if (baseFolder.equals("/xava/")) { // collectionFrameHeader.jsp only exists in /xava/, not in /phone/. The phone UI renders the collection header inline in collection.jsp.
                     put(result, "frame_" + qualifiedName + "header",
                         "collectionFrameHeader.jsp?collectionName=" + name +
                         "&viewObject=" + containerView.getViewObject() +
