@@ -223,6 +223,44 @@ openxava.datasources.companyb.driver-class-name=org.hsqldb.jdbcDriver</code></pr
 
     <p>The old <i>mvn exec:java</i> command no longer applies.</p>
 
+    <h4>Servlets with @WebServlet annotation instead of web.xml</h4>
+
+    <p>When the application runs with Spring Boot's embedded Tomcat, the 
+    <i>src/main/webapp/WEB-INF/web.xml</i> file is <b>not processed</b>. This means that any 
+    servlets, filters, or listeners declared in <i>web.xml</i> will not be registered. You must 
+    declare your custom servlets using the <i>@WebServlet</i> annotation (and <i>@WebFilter</i>, 
+    <i>@WebListener</i> for filters and listeners) in the Java class itself:</p>
+
+    <pre><code class="language-xml">&lt;!-- BEFORE: src/main/webapp/WEB-INF/web.xml --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;testServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.yourcompany.yourapp.servlets.TestServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;testServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/test&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;</code></pre>
+
+    <pre><code class="language-java">// AFTER: src/main/java/com/yourcompany/yourapp/servlets/TestServlet.java
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+
+@WebServlet("/test")
+public class TestServlet extends HttpServlet {
+    // ...
+}</code></pre>
+
+    <p>OpenXava's auto-configuration already scans the <i>org.openxava</i> and <i>com.openxava</i> 
+    packages for <i>@WebServlet</i>, <i>@WebFilter</i>, and <i>@WebListener</i> annotations, so if 
+    your servlets are in those packages they will be picked up automatically. If your servlets are 
+    in a different package, add <i>@ServletComponentScan</i> to your application class with the 
+    appropriate base packages.</p>
+
+    <p>Since <i>web.xml</i> is no longer needed, you should <b>delete</b> the 
+    <i>src/main/webapp/WEB-INF/web.xml</i> file. When the application is deployed as a WAR in an 
+    external servlet container, the annotations are processed by the container automatically, so 
+    <i>web.xml</i> is not required in either scenario.</p>
+
     <h3>Jakarta Persistence 3.2 with Hibernate 7.2</h3>
 
     <p>OpenXava 8.0 uses Jakarta Persistence 3.2 and Hibernate 7.2. This implies significant
@@ -494,10 +532,16 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.jsp.*;</code></pre>
 
-    <h4>web.xml</h4>
+    <h4>web.xml removal</h4>
 
-    <p>Your <i>web.xml</i> file must be updated to reference the Servlet 6.1 namespace. Update the root tag in 
-    <i>src/main/webapp/WEB-INF/web.xml</i> as follows:</p>
+    <p>Since OpenXava 8.0 uses Spring Boot, the <i>web.xml</i> file is no longer processed when 
+    running with the embedded Tomcat. As explained in the 
+    <a href="#from-7.7.3-to-8.0">Spring Boot migration section</a>, you should delete 
+    <i>src/main/webapp/WEB-INF/web.xml</i> and declare your servlets, filters, and listeners using 
+    annotations (<i>@WebServlet</i>, <i>@WebFilter</i>, <i>@WebListener</i>) instead.</p>
+
+    <p>If for any reason you need to keep <i>web.xml</i> (for example for a WAR-only deployment in 
+    an external servlet container), it must be updated to reference the Servlet 6.1 namespace:</p>
 
     <pre><code class="language-xml">&lt;web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
