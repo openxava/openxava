@@ -220,21 +220,17 @@
 			<artifactId>jakarta.json.bind-api</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-		<!-- Jersey 3.1.x implements JAX-RS 3.1 (jakarta.ws.rs), compatible with Jakarta EE 11 / Spring Boot 4.1 -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>3.1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
-			<version>3.1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-binding</artifactId>
-			<version>3.1.10</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>

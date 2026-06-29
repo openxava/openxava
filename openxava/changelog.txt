@@ -2,8 +2,8 @@ Change Log for OpenXava project
 ===============================
 
 - web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
-- JAX-RS 3.1 support. Dropped support for JAX-RS 2.1.
-- Jersey upgraded to 3.1.10.
+- JAX-RS 4.0 support. Dropped support for JAX-RS 2.1.
+- Jersey upgraded to 4.0.2.
 - Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
 - applicationPort property removed from xava.properties; configure the port using Spring Boot settings.
 - DBManager in new projects is now located in the tools package. The run package no longer exists.

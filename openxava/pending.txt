@@ -1,7 +1,7 @@
 Pending for Spring Boot migration (tmr):
 
 - openxavatest
-    - No usa Hibernate 7.4
+    - Suite
 
 - Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
