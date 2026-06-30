@@ -2520,19 +2520,23 @@ private int subfamilyNumber;</code></pre>
             </td>
           </tr>
           <tr>
-            <td>hibernateJavaLoggingLevel<br>
+            <td>hibernateJavaLoggingLevel <em>(eliminado en v8.0)</em><br>
             </td>
             <td>Nivel para la bitácora de Hibernate. Los valores pueden ser:
-              SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL, OFF<br>
+              SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL, OFF.<br>
+              Eliminado en 8.0, usa <i>logging.level.org.hibernate</i> en
+              <i>application.properties</i> en su lugar.<br>
             </td>
             <td>INFO<br>
             </td>
           </tr>
           <tr>
-            <td>javaLoggingLevel<br>
+            <td>javaLoggingLevel <em>(eliminado en v8.0)</em><br>
             </td>
             <td>Nivel para la bitácora de Java. Los valores válidos son: SEVERE,
-              WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL, OFF<br>
+              WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL, OFF.<br>
+              Eliminado en 8.0, usa <i>logging.level.org.openxava</i> en
+              <i>application.properties</i> en su lugar.<br>
             </td>
             <td>INFO<br>
             </td>
