@@ -135,6 +135,19 @@ import org.hibernate.annotations.Type;</code></pre>
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
     https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
 
+    <h4>Update persistence properties to jakarta namespace</h4>
+
+    <p>If you use properties for schema generation in your <i>persistence.xml</i>, 
+    you must update them from <i>javax.persistence.*</i> to <i>jakarta.persistence.*</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- OLD (javax) --&gt;
+&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt;
+
+&lt;!-- NEW (jakarta) --&gt;
+&lt;property name="jakarta.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="jakarta.persistence.create-database-schemas" value="true"/&gt;</code></pre>
+
     <h4>NonBatchingBatcherFactory removed</h4>
 
     <p>The <i>hibernate.jdbc.factory_class</i> property with value 
@@ -241,7 +254,7 @@ query.setParameter("paid", true);</code></pre>
       declarations</li>
       <li><b>@TypeDef:</b> Removed, use <i>@Convert</i> or <i>@CompositeType</i></li>
       <li><b>@Type(type="org.hibernate.type.YesNoType"):</b> Change to 
-      <i>@Convert(converter = org.hibernate.type.YesNoConverter.class)</i></li>
+      <i>@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)</i></li>
       <li><b>@Type(type="org.openxava.types.SiNoType"):</b> Change to 
       <i>@Type(org.openxava.types.SiNoType.class)</i></li>
     </ul>
@@ -301,6 +314,31 @@ private String id;
 private String id;</code></pre>
 
     <p>Import: <i>import org.openxava.annotations.UUID32;</i></p>
+
+    <h4>@OrderBy with nested paths on associations</h4>
+
+    <p>Hibernate 7.2 strictly enforces the JPA specification for the <code>@OrderBy</code> annotation. 
+    Using a nested path (such as <code>association.property</code>) in <code>@OrderBy</code> will throw a 
+    <code>NullPointerException</code> on startup during the SessionFactory building.</p>
+
+    <p>According to the JPA specification, <code>@OrderBy</code> must refer directly to basic attributes of the target entity. 
+    If you need to sort a collection based on an attribute of an associated entity, you must expose that column in the target 
+    entity as a read-only field and sort by it.</p>
+
+    <pre><code class="language-java">// INCORRECT (Fails with NullPointerException in Hibernate 7.2)
+@OneToMany(mappedBy="role")
+@OrderBy("module.name asc")
+private Collection&lt;ModuleRights&gt; modulesRights;
+
+// CORRECT
+// 1. Map the join column as a read-only basic property in the target entity (ModuleRights):
+@Column(name="modules_name", insertable=false, updatable=false)
+private String moduleName;
+
+// 2. Sort by the basic property in the parent entity:
+@OneToMany(mappedBy="role")
+@OrderBy("moduleName asc")
+private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
 
     <h3>Jakarta Validator 3.1 with Hibernate Validator 9.1</h3>
 

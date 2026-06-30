@@ -12,6 +12,7 @@ import org.openxava.jpa.*;
  * @author Jeromy Altuna
  */
 @Entity
+@Tab(defaultOrder="${name}")
 @View(members=
     "user ["            +
     "   name; nickname" +

@@ -134,6 +134,19 @@ import org.hibernate.annotations.Type;</code></pre>
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
     https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
 
+    <h4>Actualizar propiedades de persistence al namespace jakarta</h4>
+
+    <p>Si usas propiedades para generación de esquema en tu <i>persistence.xml</i>, 
+    debes actualizarlas de <i>javax.persistence.*</i> a <i>jakarta.persistence.*</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- ANTIGUO (javax) --&gt;
+&lt;property name="javax.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="javax.persistence.create-database-schemas" value="true"/&gt;
+
+&lt;!-- NUEVO (jakarta) --&gt;
+&lt;property name="jakarta.persistence.schema-generation.database.action" value="update"/&gt;
+&lt;property name="jakarta.persistence.create-database-schemas" value="true"/&gt;</code></pre>
+
     <h4>NonBatchingBatcherFactory eliminado</h4>
 
     <p>La propiedad <i>hibernate.jdbc.factory_class</i> con valor 
@@ -240,7 +253,7 @@ query.setParameter("paid", true);</code></pre>
       declaración de tus clases</li>
       <li><b>@TypeDef:</b> Eliminado, usa <i>@Convert</i> o <i>@CompositeType</i></li>
       <li><b>@Type(type="org.hibernate.type.YesNoType"):</b> Cambia a 
-      <i>@Convert(converter = org.hibernate.type.YesNoConverter.class)</i></li>
+      <i>@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)</i></li>
       <li><b>@Type(type="org.openxava.types.SiNoType"):</b> Cambia a 
       <i>@Type(org.openxava.types.SiNoType.class)</i></li>
     </ul>
@@ -300,6 +313,31 @@ private String id;
 private String id;</code></pre>
 
     <p>Import: <i>import org.openxava.annotations.UUID32;</i></p>
+
+    <h4>@OrderBy con rutas anidadas en asociaciones</h4>
+
+    <p>Hibernate 7.2 es mucho más estricto al cumplir la especificación JPA para la anotación <code>@OrderBy</code>. 
+    Usar una ruta anidada (como <code>asociacion.propiedad</code>) en <code>@OrderBy</code> lanzará un 
+    <code>NullPointerException</code> al arrancar la aplicación durante la creación de la SessionFactory.</p>
+
+    <p>De acuerdo con la especificación JPA, <code>@OrderBy</code> debe referirse directamente a atributos básicos de la entidad destino. 
+    Si necesitas ordenar una colección basándote en un atributo de una entidad asociada, debes exponer esa columna en la entidad destino 
+    como un campo de solo lectura y ordenar por él.</p>
+
+    <pre><code class="language-java">// INCORRECTO (Falla con NullPointerException en Hibernate 7.2)
+@OneToMany(mappedBy="role")
+@OrderBy("module.name asc")
+private Collection&lt;ModuleRights&gt; modulesRights;
+
+// CORRECTO
+// 1. Mapea la columna de unión como propiedad básica de solo lectura en la entidad destino (ModuleRights):
+@Column(name="modules_name", insertable=false, updatable=false)
+private String moduleName;
+
+// 2. Ordena por la propiedad básica en la entidad padre:
+@OneToMany(mappedBy="role")
+@OrderBy("moduleName asc")
+private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
 
     <h3>Jakarta Validator 3.1 con Hibernate Validator 9.1</h3>
 

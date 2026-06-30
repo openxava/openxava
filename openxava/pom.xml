@@ -213,7 +213,21 @@
 		<dependency>
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-			<version>3.0.0</version>
+			<version>3.0.2</version>
+			<exclusions>
+				<!--
+                Avoid dragging jakarta.servlet-api:6.0.0 (Servlet 6.0) transitively
+                into the applications' WAR. It conflicts with the Servlet 6.1 classes
+                provided by tomcat-embed-core 11, causing
+                AbstractMethodError: Response.sendRedirect(String) is abstract.
+                The Servlet API must come only from the container (provided 6.1.0).
+                -->
+				<exclusion>
+					<groupId>jakarta.servlet</groupId>
+					<artifactId>jakarta.servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.web</groupId>

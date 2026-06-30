@@ -1654,7 +1654,10 @@ openxava.post = function(url, params, callback) {
 			if (callback) return response.text();
 		})
 		.then(function(text) {
-			if (callback) callback(text);
+			if (callback) {
+				if (text === "null") callback(null);
+				else callback(text);
+			}
 		})
 		.catch(function(error) {
 			console.error("Error in openxava.post:", error);
