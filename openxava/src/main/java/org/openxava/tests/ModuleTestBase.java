@@ -80,8 +80,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private String [] popupPDFLines;
 	private int popupPDFPageCount;
 	
-	static {		
-		XSystem._setLogLevelFromJavaLoggingLevelOfXavaPreferences();
+	static {
 		Logger.getLogger("com.gargoylesoftware").setLevel(Level.SEVERE);
 		DataSourceConnectionProvider.setUseHibernateConnection(true);
 		System.setProperty("java.awt.headless", "true"); // To work with a headless Java
