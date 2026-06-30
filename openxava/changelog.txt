@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Added YesNoConverter JPA converter to improve compatibility with databases that use PAD SPACE collation.
 - All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
 - WebSocket upgraded to Jakarta WebSocket 2.2.
 - Reference Guide updated for Jakarta EE 11.
