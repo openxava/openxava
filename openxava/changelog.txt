@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
 - web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
 - JAX-RS 4.0 support. Dropped support for JAX-RS 2.1.
 - Jersey upgraded to 4.0.2.

@@ -1,7 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 
-- Configuración de log. Documentar
 - Velocidad de arranque se múltiplica por 3. ¿Poner en changelog?
 - Probar WAR en Tomcat.
     - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
