@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
+- WebSocket upgraded to Jakarta WebSocket 2.2.
+- Reference Guide updated for Jakarta EE 11.
+- Object/relational mapping article in the Reference Guide updated for Jakarta Persistence 3.2/Hibernate 7.
+- Annotations doc updated to include all new annotations from Jakarta Validation and Hibernate Validator.
+- JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
 - Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
 - Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
 - DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
@@ -9,7 +15,7 @@ Change Log for OpenXava project
 - Cleaned up unchecked warnings in OpenXava codebase.
 - Java 17 as baseline. Dropped support for Java 8 and 11.
 - Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
-- Jakarta Validator 3.1 support. Dropped support for Bean Validation 2.0.
+- Jakarta Validation 3.1 support. Dropped support for Bean Validation 2.0.
 - Hibernate Validator upgraded to 9.1.0.
 - Hibernate upgraded to 7.2.15.
 

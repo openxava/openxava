@@ -129,12 +129,12 @@
       <h2 id="toc1"><a name="Model-Business Component"></a>Business Component</h2>
       The basic unit to create an OpenXava application is the business
       component. A business component is defined using a Java class called <em>Entity</em>.
-      This class is a regular EJB3 entity, or in other words, a <a class="wiki_link_ext"
+      This class is a regular entity, or in other words, a <a class="wiki_link_ext"
 
         href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object" rel="nofollow">POJO</a>
       class with annotations that follows the <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Java_Persistence_API"
 
-        rel="nofollow">Java Persistence API</a> (JPA) standard.<br>
+        rel="nofollow">Jakarta Persistence API</a> (or Java Persistence API in OpenXava versions prior to 8.0).<br>
       JPA is the Java standard for persistence, that is, for objects that store
       its state in a database. If you know how to develop using POJOs with JPA,
       you already know how to develop OpenXava applications.<br>
@@ -456,7 +456,8 @@ public void setPropertyName(type newValue) { ... }                         // 13
             (new in v6.6), </i>SIMPLE_HTML_TEXT, TEXTO_HTML_SIMPLE (<em>new in
             v5.6</em>, like HTML_TEXT with a simplified UI)</li>
         <li>IMAGE_LABEL, ETIQUETA_IMAGEN (image depending on property content)</li>
-        <li><i>@Email</i> (from <i>javax.validation.constraints</i>) <i>(new
+        <li><i>@Email</i> (from <i>jakarta.validation.constraints</i>, <i>from
+            v8.0; before it was from javax.validation.constraints</i>) <i>(new
             in v6.6)</i>, EMAIL</li>
         <li><i><a href="https://openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Telephone.html">@Telephone</a>
             (new in v6.6), </i>TELEPHONE, TELEFONO</li>
@@ -1826,7 +1827,8 @@ private Address address;
       And you have to define the <em>Address</em> class as embeddable:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 
 /**
@@ -2096,7 +2098,8 @@ private Collection details;
 
 import java.math.*;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
@@ -2717,7 +2720,8 @@ public void onPreCreate() {
           rel="nofollow">@MappedSuperclass</a></em> in this way:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.hibernate.annotations.*;
 import org.openxava.annotations.*;
@@ -2749,7 +2753,8 @@ public class Identifiable {
       one, for example:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -2778,7 +2783,8 @@ public class Nameable extends Identifiable {
       your entities, as following:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -2810,7 +2816,8 @@ public class Human extends Nameable {
       And now, the real entity inheritance, an entity that extends other entity:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -2875,7 +2882,8 @@ public class Programmer extends Human {
           rel="nofollow">@Id</a></em> in your entity:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;
@@ -2934,7 +2942,8 @@ public class Warehouse {
 
 import java.io.*;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 
 /**
@@ -2991,7 +3000,8 @@ public class WarehouseKey implements Serializable {
           rel="nofollow">@EmbeddedId</a></em>:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 
@@ -3029,7 +3039,8 @@ public class Warehouse {
       And you key is an embeddable class that holds the key properties:<br>
       <pre><code class="language-java">package org.openxava.test.model;
 
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 
 /**
  *
@@ -3067,7 +3078,7 @@ public class WarehouseKey implements java.io.Serializable {
       OpenXava has full support for the Java standard for <a class="wiki_link_ext"
 
         href="http://beanvalidation.org/" rel="nofollow">Bean Validation</a>
-      (1.1 JSR-349 since v5.3 and 1.0 JSR-303 since v4.1). You can define your
+      (Jakarta Validation 3.1 since v8.0, 1.1 JSR-349 since v5.3 and 1.0 JSR-303 since v4.1). You can define your
       own constraints for your entities as explained in Bean Validation
       specification, and OpenXava will recognize them, showing the corresponding
       validation messages to the user. Consult the latest <a class="wiki_link_ext"
@@ -3075,8 +3086,8 @@ public class WarehouseKey implements java.io.Serializable {
         href="https://docs.jboss.org/hibernate/validator/6.0/reference/en-US/html_single/"
 
         rel="nofollow">Hibernate Validator documentation</a> to learn how to
-      write a JSR-349 validator, since the current version of Hibernate
-      Validator implements JSR-349.<br>
+      write a validator, since the current version of Hibernate
+      Validator implements Jakarta Validation.<br>
       Moreover, since v5.3 the OpenXava annotations <em><a class="wiki_link_ext"
 
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/annotations/Required.html"
@@ -3108,10 +3119,12 @@ public class WarehouseKey implements java.io.Serializable {
           rel="nofollow">@AssertTrue</a></em>. Example:<br>
       In this case we have an <em>@AssertTrue</em> annotating a field of the
       entity:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Until OpenXava 7.x
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Driver extends Identifiable{
@@ -3139,10 +3152,12 @@ public class Driver extends Identifiable{
       <br>
       In this case we have an <em>@AssertTrue</em> annotating a method of the
       entity:<br>
-      <pre><code class="language-java">import javax.persistence.*;
+      <pre><code class="language-java">// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import org.openxava.model.*;
-import javax.validation.constraints.*;
+// import javax.validation.constraints.*; // Until OpenXava 7.x
+import jakarta.validation.constraints.*;
 
 @Entity
 public class Vehicle extends Identifiable{

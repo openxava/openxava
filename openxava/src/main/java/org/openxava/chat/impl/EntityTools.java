@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.apache.commons.logging.*;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
 import org.openxava.util.Messages;

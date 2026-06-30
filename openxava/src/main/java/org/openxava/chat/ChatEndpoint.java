@@ -76,7 +76,7 @@ public class ChatEndpoint {
 			IChatService service = getChatService();
 			if (service == null) {
 				// No implementation available - return generic message
-				String message = XavaResources.getString("chat_requires_java17");
+				String message = XavaResources.getString("no_chat_service_implementation");
 				String disableHint = XavaResources.getString("chat_disable_hint");
 				session.getBasicRemote().sendText("<p>" + message + "<br/><br/>" + disableHint + "</p>");
 				return;
@@ -173,11 +173,11 @@ public class ChatEndpoint {
 					chatService = iterator.next();
 					log.info("Chat service implementation found: " + chatService.getClass().getName());
 				} else {
-					log.info("No chat service implementation found. AI chat requires openxava-7.7-chat-jdk17 dependency.");
+					log.info("No chat service implementation found.");
 				}
 			} catch (Throwable e) {
-				// Catches both Exception and Error (like ServiceConfigurationError when Java 17 classes can't load)
-				log.warn(XavaResources.getString("chat_requires_java17"));
+				// Catches both Exception and Error
+				log.error(XavaResources.getString("no_chat_service_implementation"), e);
 			}
 		}
 		return chatService;

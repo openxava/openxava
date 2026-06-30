@@ -2,7 +2,7 @@ package org.openxava.chat.impl;
 
 import java.util.*;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.logging.*;
 import org.openxava.controller.*;

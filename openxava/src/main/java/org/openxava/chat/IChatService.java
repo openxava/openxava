@@ -5,7 +5,8 @@ import jakarta.servlet.http.HttpSession;
 /**
  * Interface for AI chat service implementations.
  * This interface allows the chat functionality to work with different AI providers.
- * The default implementation requires Java 17 and LangChain4j, available in openxava-7.7-chat-jdk17.
+ * The default implementation requires Java 17 and LangChain4j,
+ * available in openxava-7.7-chat-jdk17 if you use OpenXava 7.7.
  * 
  * @author Javier Paniza
  * @since 7.7

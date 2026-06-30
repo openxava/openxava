@@ -3169,7 +3169,8 @@ public enum DeliveredBy { EMPLOYEE, CARRIER }</code></pre>
       data in database.<br>
       An example can be:<br>
       <pre><code class="language-java">package org.openxava.test.model;
-import javax.persistence.*;
+// import javax.persistence.*; // Until OpenXava 7.x
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 /**
  * Example of an transient OpenXava model class (not persistent). &lt;p&gt;
