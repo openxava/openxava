@@ -261,6 +261,25 @@ public class TestServlet extends HttpServlet {
     external servlet container, the annotations are processed by the container automatically, so 
     <i>web.xml</i> is not required in either scenario.</p>
 
+    <h4>Logging configuration</h4>
+
+    <p>With Spring Boot the logging system has changed, so the <i>javaLoggingLevel</i> and 
+    <i>hibernateJavaLoggingLevel</i> properties in <i>xava.properties</i> no longer have effect. 
+    Now you configure the log level in <i>application.properties</i> instead.</p>
+
+    <p><b>Before</b> in <i>xava.properties</i>:</p>
+
+    <pre><code class="language-properties">javaLoggingLevel=FINE
+hibernateJavaLoggingLevel=FINE</code></pre>
+
+    <p><b>After</b> in <i>application.properties</i>:</p>
+
+    <pre><code class="language-properties">logging.level.org.openxava=DEBUG
+logging.level.org.hibernate=DEBUG</code></pre>
+
+    <p>The equivalent levels are: <i>SEVERE</i> = <i>ERROR</i>, <i>WARNING</i> = <i>WARN</i>, 
+    <i>INFO</i> = <i>INFO</i>, <i>FINE</i> = <i>DEBUG</i>, <i>FINER/FINEST</i> = <i>TRACE</i>.</p>
+
     <h3>Jakarta Persistence 3.2 with Hibernate 7.2</h3>
 
     <p>OpenXava 8.0 uses Jakarta Persistence 3.2 and Hibernate 7.2. This implies significant
