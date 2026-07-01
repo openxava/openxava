@@ -1,7 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 
-- Mezclar desde el master.
 - Suite.
 - Actualizar doc.
 - Borrar planes .md.
