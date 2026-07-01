@@ -7,5 +7,7 @@ Pending for Spring Boot migration (tmr):
         Si es necesario igual hay que volver a ponerl en el web.xml de los arquetipos.
     - Verificar si es necesario lo de Same site cookies de OWASP
 - Probar en context root. Documentar how-to_en.html
+- Mezclar desde el master.
+- Suite.
 - Actualizar doc.
 - Borrar planes .md.
