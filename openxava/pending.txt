@@ -5,3 +5,4 @@ Pending for Spring Boot migration (tmr):
 - Suite.
 - Actualizar doc.
 - Borrar planes .md.
+- Añadir entrada en changelog
