@@ -1,12 +1,6 @@
 Pending for Spring Boot migration (tmr):
 
 
-- Probar WAR en Tomcat.
-    - Comprobar que pasa si hay un error 500, ¿necesito mantener error500.html y error404.html en OpenXava?
-        En el Tomcat Embebido de Spring Boot no son necesarias
-        Si es necesario igual hay que volver a ponerl en el web.xml de los arquetipos.
-    - Verificar si es necesario lo de Same site cookies de OWASP
-- Probar en context root. Documentar how-to_en.html
 - Mezclar desde el master.
 - Suite.
 - Actualizar doc.
