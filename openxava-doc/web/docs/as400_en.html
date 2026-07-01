@@ -30,16 +30,31 @@
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Adjust your datasource definition</h2>
-        Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to adjust the datasource to point to AS/400, something like this:</div>
-      <div class="wiki" style="display: block;">
+        <p><b>OpenXava 8.0 or later (Spring Boot):</b> Edit <i>src/main/resources/application.properties</i> of your project
+        to adjust the datasource to point to AS/400, something like this:</p>
+        <pre><code class="language-properties">spring.datasource.username=java
+spring.datasource.password=ao49fmsk
+spring.datasource.url=jdbc:as400:192.168.1.8/mylib
+spring.datasource.driver-class-name=com.ibm.as400.access.AS400JDBCDriver</code></pre>
+        <p>Instead of <i>192.168.1.8</i> you should put the IP of your AS/400 and instead of <i>mylib</i> the name of the library
+        where your tables are in your AS/400. Also put the correct <i>username</i> and <i>password</i>. Don't forget to comment or
+        remove the datasource entries for HSQLDB (the default one when you create a new OpenXava project), only one datasource
+        should be active.</p>
+        <p><b>OpenXava 7.x or earlier:</b> Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to adjust the
+        datasource to point to AS/400, something like this:</p>
         <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="java" password="ao49fmsk"
     driverClassName="com.ibm.as400.access.AS400JDBCDriver"
     url="jdbc:as400:192.168.1.8/mylib"/&gt;
-</code></pre> </div>
-      <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i> and the <i>url</i>. Obviously, instead of <i>192.168.1.8</i> you should put the IP of your AS/400 and instead of <i>mylib</i> put the name of the library where your tables are in your AS/400. Also put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i> but commented, in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one when you create a new OpenXava project), only one datasource (with the same name) should be active.</div>
+</code></pre>
+        <p>The differences are the <i>driverClassName</i> and the <i>url</i>. Obviously, instead of <i>192.168.1.8</i> you should put
+        the IP of your AS/400 and instead of <i>mylib</i> put the name of the library where your tables are in your AS/400. Also
+        put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i> but commented,
+        in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one when you
+        create a new OpenXava project), only one datasource (with the same name) should be active.</p>
+      </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Update persistence.xml</h2>
         You don't need to touch the <i>default</i> persistence unit of <i>persistence.xml</i> (in <i>src/main/resources/META-INF</i>), unless you use <i>hibernate.dialect</i> property in which case just remove <i>hibernate.dialect</i> property. Moreover, you should specify the <i>hibernate.default_schema</i> property for all the persistence units, to indicate in which library of your AS/400 are the tables of your application (unless you use <i>@Table(schema=)</i> in every entity). </div>
@@ -69,10 +84,13 @@ $ mvn install
 </code></pre>
         <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven build, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i> for goal.</p>
         <h2>Run your application</h2>
-        <p>Run your application, it should work nicely against your IBM i. If it fails, verify that the user and password in <i>context.xml</i> are correct, that the server IP is correct. Also verify that the journal has been created and the tables added to it, as explained above.</p>
-        <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, <i>context.xml</i> (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
+        <p>Run your application, it should work nicely against your IBM i. If it fails, verify that the user and password in your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) are correct, that the server IP is correct. Also verify that the journal has been created and the tables added to it, as explained above.</p>
+        <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
         <h2>Performance problem with Windows Server</h2>
-        <p>If your Java application is running on a Windows Server and you are experiencing performance issues, it may not necessarily be an issue with the AS/400 but rather a network configuration problem on the Windows Server. Don't worry, the problem is easy to fix, simply add the parameter <i>tcp no delay=true</i> to the database connection URL. That is, the definition of the data source in the <i>context.xml</i> could be:</p>
+        <p>If your Java application is running on a Windows Server and you are experiencing performance issues, it may not necessarily be an issue with the AS/400 but rather a network configuration problem on the Windows Server. Don't worry, the problem is easy to fix, simply add the parameter <i>tcp no delay=true</i> to the database connection URL. That is, the definition of the data source could be:</p>
+        <p>In <b>OpenXava 8.0+</b> edit your <i>application.properties</i>:</p>
+        <pre><code class="language-properties">spring.datasource.url=jdbc:as400:192.168.1.8/mylib;tcp no delay=true</code></pre>
+        <p>In <b>OpenXava 7.x</b> edit your <i>context.xml</i>:</p>
         <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
@@ -82,7 +100,19 @@ $ mvn install
 </code></pre>
         <p>Note the <i>tcp no delay=true</i> at the end of the URL.</p>
         <h2>Remove DBServer.start() for faster startup</h2>
-        <p>When you create a new OpenXava project, the launcher class (located in the <i>run</i> package with the same name as your project) includes a line <i>DBServer.start()</i> to start the default HSQLDB database. Since you're now using AS/400, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <p>When you use OpenXava with HSQLDB (the default), the launcher class includes a line <i>DBServer.start()</i> to start the database. Since you're now using AS/400, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <p><b>OpenXava 8.0 or later (Spring Boot):</b> Launcher class in root package (myapp)</p>
+        <pre><code class="language-java">@SpringBootApplication
+public class MyApplication extends OpenXavaApplication {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("myapp-db"); // Comment or remove, HSQLDB no longer needed
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</code></pre>
+        <p><b>OpenXava 7.x or earlier:</b> Launcher class in <i>run</i> package</p>
         <pre><code class="language-java">public class myapp {
 
     public static void main(String[] args) throws Exception {

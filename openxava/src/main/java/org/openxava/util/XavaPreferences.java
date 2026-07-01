@@ -2,7 +2,6 @@ package org.openxava.util;
 
 import java.io.*;
 import java.util.*;
-import java.util.logging.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.view.meta.*;
@@ -13,7 +12,6 @@ import org.openxava.view.meta.*;
 public class XavaPreferences {
 
 	private final static String FILE_PROPERTIES = "xava.properties";
-	private final static String JAVA_LOGGING_LEVEL_DEFAULT_VALUE = "INFO";
 	private static Log log = LogFactory.getLog(XavaPreferences.class);
 
 	private static XavaPreferences instance;
@@ -23,8 +21,6 @@ public class XavaPreferences {
 	private boolean duplicateComponentWarningsLoaded = false;
 	private boolean duplicateComponentWarnings = false;
 	private int maxSizeForTextEditor;
-	private Level javaLoggingLevel;
-	private Level hibernateJavaLoggingLevel;
 	private int pageRowCount;
 	private int rowActionsPopupThreshold = -1; 
 	
@@ -286,56 +282,10 @@ public class XavaPreferences {
 		return getProperties().getProperty("currencySymbol");
 	}
 
-	/** @since 6.4.2 */
-	public int getApplicationPort() { 
-		return Integer.parseInt(getProperties().getProperty("applicationPort", "8080"));
-	}
-
 
 	public void setDuplicateComponentWarnings(boolean duplicateComponentWarnings) {
 		this.duplicateComponentWarnings = duplicateComponentWarnings;
 		duplicateComponentWarningsLoaded = true;
-	}
-
-	public Level getJavaLoggingLevel() {
-		if (javaLoggingLevel == null) {
-			String log = getProperties().getProperty("javaLoggingLevel",
-					JAVA_LOGGING_LEVEL_DEFAULT_VALUE).trim();
-			try {
-				javaLoggingLevel = Level.parse(log);
-			} catch (Exception ex) {
-				// Because it's a log error, we don't use log, but direct
-				// System.err
-				javaLoggingLevel = Level
-						.parse(JAVA_LOGGING_LEVEL_DEFAULT_VALUE);
-				System.err.println("[XavaPreferences.getJavaLoggingLevel] "
-						+ XavaResources.getString("incorrect_log_level", log,
-								JAVA_LOGGING_LEVEL_DEFAULT_VALUE));
-			}
-		}
-		return javaLoggingLevel;
-	}
-
-	public Level getHibernateJavaLoggingLevel() {
-		if (hibernateJavaLoggingLevel == null) {
-			String log = getProperties().getProperty(
-					"hibernateJavaLoggingLevel",
-					JAVA_LOGGING_LEVEL_DEFAULT_VALUE).trim();
-			try {
-				hibernateJavaLoggingLevel = Level.parse(log);
-			} catch (Exception ex) {
-				// Because it's a log error, we don't use log, but direct
-				// System.err
-				hibernateJavaLoggingLevel = Level
-						.parse(JAVA_LOGGING_LEVEL_DEFAULT_VALUE);
-				System.err
-						.println("[XavaPreferences.getHibernateJavaLoggingLevel] "
-								+ XavaResources.getString(
-										"incorrect_log_level", log,
-										JAVA_LOGGING_LEVEL_DEFAULT_VALUE));
-			}
-		}
-		return hibernateJavaLoggingLevel;
 	}
 
 	/**

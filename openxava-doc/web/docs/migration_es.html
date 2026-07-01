@@ -84,6 +84,201 @@
 
     <p>Si no la eliminas, tu build fallará porque este artefacto no existe en la versión 8.0.</p>
 
+    <h3>Del lanzador AppServer a Spring Boot</h3>
+
+    <p>En OpenXava 7.7 la aplicación se arrancaba con una clase lanzadora personalizada ubicada en el 
+    paquete <i>run</i>, que llamaba a <i>AppServer.run()</i> para iniciar un Tomcat embebido, y se 
+    ejecutaba con <i>mvn exec:java</i> (configurado mediante el <i>exec-maven-plugin</i>). En 
+    OpenXava 8.0 la aplicación es una aplicación <b>Spring Boot</b> estándar que se arranca con 
+    <i>mvn spring-boot:run</i>.</p>
+
+    <h4>Sustituir la clase lanzadora</h4>
+
+    <p>Elimina tu antigua clase lanzadora (la del paquete <i>run</i>) y crea una clase de aplicación 
+    Spring Boot que extienda <i>org.openxava.spring.OpenXavaApplication</i>. Colócala en el paquete 
+    raíz de tu aplicación:</p>
+
+    <pre><code class="language-java">// ANTES: src/main/java/com/yourcompany/yourapp/run/yourapp.java
+package com.yourcompany.yourapp.run;
+
+import org.openxava.util.*;
+
+public class yourapp {
+    public static void main(String[] args) throws Exception {
+        DBServer.start("yourapp-db");
+        AppServer.run("yourapp");
+    }
+}
+
+// DESPUÉS: src/main/java/com/yourcompany/yourapp/YourappApplication.java
+package com.yourcompany.yourapp;
+
+import org.openxava.util.DBServer;
+import org.openxava.spring.OpenXavaApplication;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class YourappApplication extends OpenXavaApplication {
+    public static void main(String[] args) throws Exception {
+        DBServer.start("yourapp-db"); // Solo para el HSQLDB incluido, elimínalo si usas tu propia base de datos
+        SpringApplication.run(YourappApplication.class, args);
+    }
+}</code></pre>
+
+    <p>Extender <i>OpenXavaApplication</i> (que a su vez extiende <i>SpringBootServletInitializer</i>) 
+    hace que la aplicación funcione tanto al lanzarla con Spring Boot como al desplegarla como WAR en 
+    un contenedor de servlets externo.</p>
+
+    <h4>Sustituir exec-maven-plugin por spring-boot-maven-plugin</h4>
+
+    <p>En tu <i>pom.xml</i>, elimina el <i>exec-maven-plugin</i> y añade el 
+    <i>spring-boot-maven-plugin</i> apuntando a tu nueva clase de aplicación:</p>
+
+    <pre><code class="language-xml">&lt;!-- ELIMINA este plugin --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;mainClass&gt;${project.groupId}.${project.artifactId}.run.${project.artifactId}&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+
+&lt;!-- AÑADE este plugin --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;4.1.0&lt;/version&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;repackage&lt;/goal&gt;
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+    &lt;configuration&gt;
+        &lt;mainClass&gt;com.yourcompany.yourapp.YourappApplication&lt;/mainClass&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+
+    <p>Además, como ahora el servidor embebido lo proporciona Spring Boot, <b>no</b> debes excluir 
+    los jars de Tomcat de tu WAR. Elimina la línea <i>WEB-INF/lib/tomcat-*.jar</i> de los 
+    <i>packagingExcludes</i> del <i>maven-war-plugin</i> si está presente.</p>
+
+    <h4>Mover la configuración de la base de datos a application.properties</h4>
+
+    <p>En OpenXava 7.7 el datasource se declaraba mediante JNDI en 
+    <i>src/main/webapp/META-INF/context.xml</i>. Con Spring Boot eliminas ese fichero y defines el 
+    datasource en <i>src/main/resources/application.properties</i> en su lugar. OpenXava enlaza este 
+    datasource de Spring con el nombre JNDI usado en <i>persistence.xml</i>, así que no necesitas 
+    cambiar <i>persistence.xml</i>.</p>
+
+    <pre><code class="language-properties">server.servlet.context-path=/yourapp
+server.tomcat.additional-tld-skip-patterns=htmlunit-*.jar,jetty-*.jar
+
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.hikari.maximum-pool-size=20
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.connection-timeout=10000
+
+# HSQLDB
+spring.datasource.url=jdbc:hsqldb:hsql://localhost:1666
+spring.datasource.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <h4>Varios datasources</h4>
+
+    <p>Si tu aplicación usa más de un datasource (por ejemplo porque tiene <i>persistence-unit</i> 
+    secundarias en <i>persistence.xml</i>), declara los adicionales en el mismo 
+    <i>application.properties</i> usando el prefijo <i>openxava.datasources.&lt;nombre&gt;.*</i>. El 
+    datasource por defecto sigue usando <i>spring.datasource.*</i>. OpenXava crea cada datasource 
+    adicional y lo enlaza al nombre JNDI declarado en su propiedad <i>jndi</i>, que debe coincidir 
+    con el usado en <i>persistence.xml</i>. No hace falta ninguna clase de configuración Java:</p>
+
+    <pre><code class="language-properties">openxava.datasources.companya.jndi=jdbc/companyaDS
+openxava.datasources.companya.url=jdbc:hsqldb:file:data/company-a-db
+openxava.datasources.companya.username=sa
+openxava.datasources.companya.password=
+openxava.datasources.companya.driver-class-name=org.hsqldb.jdbcDriver
+openxava.datasources.companya.maximum-pool-size=20
+openxava.datasources.companya.minimum-idle=5
+openxava.datasources.companya.connection-timeout=10000
+
+openxava.datasources.companyb.jndi=jdbc/companybDS
+openxava.datasources.companyb.url=jdbc:hsqldb:file:data/company-b-db
+openxava.datasources.companyb.username=sa
+openxava.datasources.companyb.password=
+openxava.datasources.companyb.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <p>Así toda la configuración de base de datos de tu aplicación queda en un único fichero 
+    declarativo, equivalente al antiguo <i>context.xml</i> pero al estilo estándar de Spring Boot.</p>
+
+    <h4>Ejecutar la aplicación</h4>
+
+    <p>Para arrancar la aplicación usa:</p>
+
+    <pre><code class="language-bash">mvn spring-boot:run</code></pre>
+
+    <p>El antiguo comando <i>mvn exec:java</i> ya no se aplica.</p>
+
+    <h4>Servlets con anotación @WebServlet en lugar de web.xml</h4>
+
+    <p>Cuando la aplicación se ejecuta con el Tomcat embebido de Spring Boot, el archivo 
+    <i>src/main/webapp/WEB-INF/web.xml</i> <b>no se procesa</b>. Esto significa que cualquier 
+    servlet, filtro o listener declarado en <i>web.xml</i> no se registrará. Debes declarar tus 
+    servlets personalizados usando la anotación <i>@WebServlet</i> (y <i>@WebFilter</i>, 
+    <i>@WebListener</i> para filtros y listeners) en la propia clase Java:</p>
+
+    <pre><code class="language-xml">&lt;!-- ANTES: src/main/webapp/WEB-INF/web.xml --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;testServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.yourcompany.yourapp.servlets.TestServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;testServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/test&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;</code></pre>
+
+    <pre><code class="language-java">// DESPUÉS: src/main/java/com/yourcompany/yourapp/servlets/TestServlet.java
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+
+@WebServlet("/test")
+public class TestServlet extends HttpServlet {
+    // ...
+}</code></pre>
+
+    <p>La auto-configuración de OpenXava ya escanea los paquetes <i>org.openxava</i> y 
+    <i>com.openxava</i> en busca de anotaciones <i>@WebServlet</i>, <i>@WebFilter</i> y 
+    <i>@WebListener</i>, por lo que si tus servlets están en esos paquetes se detectarán 
+    automáticamente. Si tus servlets están en un paquete diferente, añade 
+    <i>@ServletComponentScan</i> a tu clase de aplicación con los paquetes base correspondientes.</p>
+
+    <p>Dado que <i>web.xml</i> ya no es necesario, deberías <b>eliminar</b> el archivo 
+    <i>src/main/webapp/WEB-INF/web.xml</i>. Cuando la aplicación se despliega como WAR en un 
+    contenedor de servlets externo, las anotaciones son procesadas por el contenedor 
+    automáticamente, por lo que <i>web.xml</i> no es necesario en ningún escenario.</p>
+
+    <h4>Configuración del logging</h4>
+
+    <p>Con Spring Boot el sistema de logging ha cambiado, por lo que las propiedades 
+    <i>javaLoggingLevel</i> y <i>hibernateJavaLoggingLevel</i> de <i>xava.properties</i> ya no tienen 
+    efecto. Ahora configuras el nivel de logging en <i>application.properties</i>.</p>
+
+    <p><b>Antes</b> en <i>xava.properties</i>:</p>
+
+    <pre><code class="language-properties">javaLoggingLevel=FINE
+hibernateJavaLoggingLevel=FINE</code></pre>
+
+    <p><b>Después</b> en <i>application.properties</i>:</p>
+
+    <pre><code class="language-properties">logging.level.org.openxava=DEBUG
+logging.level.org.hibernate=DEBUG</code></pre>
+
+    <p>Los niveles equivalentes son: <i>SEVERE</i> = <i>ERROR</i>, <i>WARNING</i> = <i>WARN</i>, 
+    <i>INFO</i> = <i>INFO</i>, <i>FINE</i> = <i>DEBUG</i>, <i>FINER/FINEST</i> = <i>TRACE</i>.</p>
+
     <h3>Jakarta Persistence 3.2 con Hibernate 7.2</h3>
 
     <p>OpenXava 8.0 usa Jakarta Persistence 3.2 y Hibernate 7.2. Esto implica cambios
@@ -133,6 +328,18 @@ import org.hibernate.annotations.Type;</code></pre>
     xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
     https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"&gt;</code></pre>
+
+    <h4>Formato del nombre JNDI de la fuente de datos</h4>
+
+    <p>El formato del nombre JNDI de la fuente de datos en <i>persistence.xml</i> ha cambiado.
+    En OpenXava 7.x el nombre usaba <i>java://</i> como prefijo, pero en OpenXava 8.0 debes usar
+    <i>java:</i> (sin la doble barra). El formato anterior con <i>//</i> no funciona en 8.0:</p>
+
+    <pre><code class="language-xml">&lt;!-- ANTES (7.x) --&gt;
+&lt;non-jta-data-source&gt;java://comp/env/jdbc/yourappDS&lt;/non-jta-data-source&gt;
+
+&lt;!-- DESPUÉS (8.0) --&gt;
+&lt;non-jta-data-source&gt;java:comp/env/jdbc/yourappDS&lt;/non-jta-data-source&gt;</code></pre>
 
     <h4>Actualizar propiedades de persistence al namespace jakarta</h4>
 
@@ -381,10 +588,17 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.jsp.*;</code></pre>
 
-    <h4>web.xml</h4>
+    <h4>Eliminación de web.xml</h4>
 
-    <p>Tu archivo <i>web.xml</i> debe actualizarse para hacer referencia al espacio de nombres de Servlet 6.1. Actualiza la etiqueta raíz en 
-    <i>src/main/webapp/WEB-INF/web.xml</i> de la siguiente manera:</p>
+    <p>Dado que OpenXava 8.0 usa Spring Boot, el archivo <i>web.xml</i> ya no se procesa cuando 
+    se ejecuta con el Tomcat embebido. Como se explica en la 
+    <a href="#de-7.7.3-a-8.0">sección de migración a Spring Boot</a>, deberías eliminar 
+    <i>src/main/webapp/WEB-INF/web.xml</i> y declarar tus servlets, filtros y listeners usando 
+    anotaciones (<i>@WebServlet</i>, <i>@WebFilter</i>, <i>@WebListener</i>) en su lugar.</p>
+
+    <p>Si por alguna razón necesitas mantener <i>web.xml</i> (por ejemplo para un despliegue 
+    solo como WAR en un contenedor de servlets externo), debe actualizarse para hacer referencia 
+    al espacio de nombres de Servlet 6.1:</p>
 
     <pre><code class="language-xml">&lt;web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -437,6 +651,25 @@ ServletFileUpload upload = new ServletFileUpload(factory);
 // DESPUÉS
 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);</code></pre>
+
+    <h3>JAX-RS 3.1 y Jakarta JSON Binding 3.0</h3>
+
+    <p>OpenXava 8.0 ha migrado el cliente REST (JAX-RS, implementado por Jersey) y la API de 
+    JSON Binding al espacio de nombres Jakarta. JAX-RS se ha actualizado a 3.1 (Jersey 3.1) y 
+    Jakarta JSON Binding a 3.0. Si tu aplicación usa el cliente JAX-RS o las anotaciones de 
+    JSON-B (por ejemplo en un servicio que consume un servicio web REST), el único cambio 
+    necesario es actualizar los imports del espacio de nombres <i>javax</i> a <i>jakarta</i>:</p>
+
+    <pre><code class="language-java">// ANTES
+import javax.ws.rs.client.*;
+import javax.json.bind.annotation.*;
+
+// DESPUÉS
+import jakarta.ws.rs.client.*;
+import jakarta.json.bind.annotation.*;</code></pre>
+
+    <p>La API de estas clases (como <i>ClientBuilder</i>, <i>@JsonbProperty</i>, etc.) 
+    no cambia, por lo que no es necesario realizar ningún otro cambio en tu código.</p>
 
     <h3>DWR eliminado</h3>
 

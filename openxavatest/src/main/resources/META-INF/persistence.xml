@@ -7,7 +7,7 @@
                      
     <persistence-unit name="default">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    	<non-jta-data-source>java://comp/env/jdbc/openxavatestDS</non-jta-data-source>
+    	<non-jta-data-source>java:comp/env/jdbc/openxavatestDS</non-jta-data-source>
     	<class>org.openxava.session.GalleryImage</class>
     	<class>org.openxava.web.editors.AttachedFile</class>
     	<class>org.openxava.web.editors.DiscussionComment</class>
@@ -24,7 +24,7 @@
                             
     <persistence-unit name="companyA">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>    	
-    	<non-jta-data-source>java://comp/env/jdbc/companyaDS</non-jta-data-source>    	
+    	<non-jta-data-source>java:comp/env/jdbc/companyaDS</non-jta-data-source>    	
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.show_sql" value="false"/>
@@ -33,7 +33,7 @@
             
     <persistence-unit name="companyB">
     	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>    	
-    	<non-jta-data-source>java://comp/env/jdbc/companybDS</non-jta-data-source>    	
+    	<non-jta-data-source>java:comp/env/jdbc/companybDS</non-jta-data-source>    	
     	<class>org.openxava.session.GalleryImage</class>
         <properties>
             <property name="hibernate.show_sql" value="false"/>

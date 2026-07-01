@@ -33,16 +33,31 @@
       <div class="wiki" style="display: block;"> </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Adjust your datasource definition</h2>
-        Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to adjust the datasource to point to Db2, something like this:</div>
-      <div class="wiki" style="display: block;">
+        <p><b>OpenXava 8.0 or later (Spring Boot):</b> Edit <i>src/main/resources/application.properties</i> of your project
+        to adjust the datasource to point to Db2, something like this:</p>
+        <pre><code class="language-properties">spring.datasource.username=root
+spring.datasource.password=ao49fmsk
+spring.datasource.url=jdbc:db2://localhost:50000/myappdb
+spring.datasource.driver-class-name=com.ibm.db2.jcc.DB2Driver</code></pre>
+        <p>Instead of <i>localhost</i> you should put the address of the server that hosts Db2 and instead of <i>myappdb</i>
+        the name of your database. Also put the correct <i>username</i> and <i>password</i>. Don't forget to comment or remove
+        the datasource entries for HSQLDB (the default one when you create a new OpenXava project), only one datasource
+        should be active.</p>
+        <p><b>OpenXava 7.x or earlier:</b> Edit <i>src/main/webapp/META-INF/context.xml</i> of your project to adjust the
+        datasource to point to Db2, something like this:</p>
         <pre><code class="language-xml">&lt;Resource name="jdbc/MyAppDS" auth="Container"
     type="javax.sql.DataSource"
     maxTotal="100" maxIdle="20" maxWaitMillis="10000"
     username="root" password="ao49fmsk"
     driverClassName="com.ibm.db2.jcc.DB2Driver"
     url="jdbc:db2://localhost:50000/myappdb"/&gt;
-</code></pre> </div>
-      <div class="wiki" style="display: block;">The differences are the <i>driverClassName</i> and the <i>url</i>. The final part of the url, <i>myappdb</i> in this example, is the name of your Db2 database. Obviously, instead of <i>localhost</i> you should put the address of the server that hosts Db2. Also put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i> but commented, in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one when you create a new OpenXava project), only one datasource (with the same name) should be active.</div>
+</code></pre>
+        <p>The differences are the <i>driverClassName</i> and the <i>url</i>. The final part of the url, <i>myappdb</i> in this example,
+        is the name of your Db2 database. Obviously, instead of <i>localhost</i> you should put the address of the server that
+        hosts Db2. Also put the correct <i>username</i> and <i>password</i>. Maybe the above code is already in your <i>context.xml</i>
+        but commented, in that case just uncomment it. Don't forget to comment or remove the datasource for HSQLDB (the default one
+        when you create a new OpenXava project), only one datasource (with the same name) should be active.</p>
+      </div>
       <div class="wiki" style="display: block;">
         <h2 id="toc1">Create schema manually</h2>
         <div class="wiki" style="display: block;">Hibernate version 5.6 has a bug that no longer creates schema automatically, thus neither the tables. If you encounter this error, the solution is create manually the schema in the database by executing the statement:</div>
@@ -63,10 +78,22 @@ $ mvn install
 </code></pre>
         <p>Optimization note: Instead of a <i>mvn install</i>, that do a complete Maven build, you can use <i>mvn war:exploded</i>, enough to apply the above changes for development. You can run <i>mvn war:exploded</i> from OpenXava Studio with <i>Run As &gt; Maven build...</i> and typing <i>war:exploded</i> for goal.</p>
         <h2>Run your application</h2>
-        <p>Run your application, it should work nicely against your Db2 database. If it fails, verify that your database server is up, that the user and password in <i>context.xml</i> are correct, that the server IP is correct. Also verify that the user has rights to create databases and tables (if you want to use the automatic schema generation of OpenXava, not needed if the tables already exist).</p>
-        <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, <i>context.xml</i> (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
+        <p>Run your application, it should work nicely against your Db2 database. If it fails, verify that your database server is up, that the user and password in your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) are correct, that the server IP is correct. Also verify that the user has rights to create databases and tables (if you want to use the automatic schema generation of OpenXava, not needed if the tables already exist).</p>
+        <p>If it still fails ask us in the <a href="https://sourceforge.net/p/openxava/discussion/419690/">OpenXava Help forum</a>. Include the content of your <i>persistence.xml</i>, your datasource configuration (<i>application.properties</i> in 8.0+, <i>context.xml</i> in 7.x) (remove the passwords) and specially the stacktrace produced, you can find the trace in the <i>Console</i> tab of OpenXava Studio.</p>
         <h2>Remove DBServer.start() for faster startup</h2>
-        <p>When you create a new OpenXava project, the launcher class (located in the <i>run</i> package with the same name as your project) includes a line <i>DBServer.start()</i> to start the default HSQLDB database. Since you're now using Db2, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <p>When you use OpenXava with HSQLDB (the default), the launcher class includes a line <i>DBServer.start()</i> to start the database. Since you're now using Db2, this line is no longer needed. You can comment or remove it to improve startup performance:</p>
+        <p><b>OpenXava 8.0 or later (Spring Boot):</b> Launcher class in root package (myapp)</p>
+        <pre><code class="language-java">@SpringBootApplication
+public class MyApplication extends OpenXavaApplication {
+
+    public static void main(String[] args) throws Exception {
+        // DBServer.start("myapp-db"); // Comment or remove, HSQLDB no longer needed
+        SpringApplication.run(MyApplication.class, args);
+    }
+
+}
+</code></pre>
+        <p><b>OpenXava 7.x or earlier:</b> Launcher class in <i>run</i> package</p>
         <pre><code class="language-java">public class myapp {
 
     public static void main(String[] args) throws Exception {

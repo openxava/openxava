@@ -23,6 +23,13 @@ if %errorlevel% neq 0 (
     exit /b %errorlevel%
 )
 
-REM Step 5: Deploy from generated archetype directory
+REM Step 5: Copy archetype-post-generate.groovy (renames launcher class to <ArtifactId>Application)
+copy archetype-post-generate.groovy target\generated-sources\archetype\src\main\resources\META-INF
+if %errorlevel% neq 0 (
+    echo ERROR: copy archetype-post-generate.groovy failed
+    exit /b %errorlevel%
+)
+
+REM Step 6: Deploy from generated archetype directory
 cd target\generated-sources\archetype
 call mvn clean deploy

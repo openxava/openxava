@@ -117,7 +117,12 @@ public class Customer {
       <img src="files/leanxcale-configuration_es70.png" alt="leanxcale-configuration_es70.png"
 
         title="leanxcale-configuration_es70.png"><br>
-      Then edit the <i>context.xml</i> file located in <i>src/main/webapp/MEFA-INF</i> folder:
+      Then edit the datasource configuration of your project. In <b>OpenXava 8.0+</b> edit <i>src/main/resources/application.properties</i>:
+      <pre><code class="language-properties">spring.datasource.username=app
+spring.datasource.password=app
+spring.datasource.url=jdbc:leanxcale://a5357d898f9318f2a75b.lxc-db.com:1522/db
+spring.datasource.driver-class-name=com.leanxcale.client.Driver</code></pre>
+      In <b>OpenXava 7.x</b> edit <i>src/main/webapp/META-INF/context.xml</i>:
       <pre><code class="language-xml">&lt;Resource name="jdbc/invoicingDS" auth="Container" type="javax.sql.DataSource"
 	  maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	  username="app" password="app" 

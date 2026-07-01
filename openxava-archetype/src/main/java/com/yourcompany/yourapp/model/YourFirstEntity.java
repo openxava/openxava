@@ -3,7 +3,7 @@ package com.yourcompany.yourapp.model;
 import java.math.*;
 import java.time.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.model.*;

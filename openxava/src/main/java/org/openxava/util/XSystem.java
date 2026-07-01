@@ -1,10 +1,8 @@
 package org.openxava.util;
 
 import java.util.*;
-import java.util.logging.*;
 
 import org.apache.commons.logging.*;
-import org.openxava.component.*;
 
 /**
  * Global utilities about the system. <p>
@@ -43,27 +41,6 @@ public class XSystem {
 	}
 
 	
-	public static void _setLogLevelFromJavaLoggingLevelOfXavaPreferences() {		
-		Logger rootLogger = Logger.getLogger("");
-		Handler [] rootHandler = rootLogger.getHandlers();		
-		for (int i=0; i<rootHandler.length; i++) {
-			if (rootHandler[i] instanceof ConsoleHandler)
-				rootHandler[i].setLevel(Level.ALL);
-		}		
-		Logger.getLogger("org.openxava").setLevel(XavaPreferences.getInstance().getJavaLoggingLevel());
-		Logger.getLogger("com.openxava").setLevel(XavaPreferences.getInstance().getJavaLoggingLevel()); 
-		try {
-			for (Iterator it = MetaComponent.getAllPackageNames().iterator(); it.hasNext(); ) {
-				String packageName = (String) it.next();
-				Logger.getLogger(packageName).setLevel(XavaPreferences.getInstance().getJavaLoggingLevel());
-			}			
-		}
-		catch (Exception ex) {
-			log.warn(XavaResources.getString("logging_level_not_set"));
-		}
-		Logger.getLogger("org.hibernate").setLevel(XavaPreferences.getInstance().getHibernateJavaLoggingLevel());
-	}
-
 	/**
 	 * To use for XML encoding and for web requests and responses encoding. <p>
 	 */
