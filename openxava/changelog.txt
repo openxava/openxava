@@ -1,16 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
-- javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
-- web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
-- JAX-RS 4.0 support. Dropped support for JAX-RS 2.1.
-- Jersey upgraded to 4.0.2.
-- Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
-- applicationPort property removed from xava.properties; configure the port using Spring Boot settings.
-- DBManager in new projects is now located in the tools package. The run package no longer exists.
-- AppServer class removed. Launcher class should now extend OpenXavaApplication.
-- DataSource definition moved from context.xml to application.properties.
-- Several datasources can be declared in application.properties with the openxava.datasources.* prefix.
+- Added YesNoConverter JPA converter to improve compatibility with databases that use PAD SPACE collation.
 - All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
 - WebSocket upgraded to Jakarta WebSocket 2.2.
 - Reference Guide updated for Jakarta EE 11.

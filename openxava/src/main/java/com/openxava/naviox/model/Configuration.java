@@ -39,22 +39,22 @@ public class Configuration implements java.io.Serializable {
 	@Max(30)
 	private int passwordMinLength;
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(name="forceLetterAndNumbersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(name="forceLetterAndNumbersInPasswd", columnDefinition="varchar(1) default 'N' not null")
 	private boolean forceLetterAndNumbersInPassword;
 
 	/** @since 7.6 */
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(name="forceUpperAndLowerCaseInPasswd", columnDefinition="varchar(1) default 'N' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(name="forceUpperAndLowerCaseInPasswd", columnDefinition="varchar(1) default 'N' not null")
 	private boolean forceUpperAndLowerCaseInPassword;
 
 	/** @since 7.6 */
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(name="forceSpecialCharactersInPasswd", columnDefinition="varchar(1) default 'N' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(name="forceSpecialCharactersInPasswd", columnDefinition="varchar(1) default 'N' not null")
 	private boolean forceSpecialCharactersInPassword;
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(columnDefinition="varchar(1) default 'N' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean recentPasswordsNotAllowed; 
 	
 	@Max(999)
@@ -71,32 +71,32 @@ public class Configuration implements java.io.Serializable {
 	private int inactiveDaysBeforeDisablingUser;
 	
 	/** @since 7.4 */
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(columnDefinition="varchar(1) default 'N' not null")	
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean allowSeveralSessionsPerUser;   	
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'Y' not null")
 	private boolean guestCanCreateAccount;  
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(name="guestCanCreateAccountInOrgs", columnDefinition="varchar(1) default 'Y' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(name="guestCanCreateAccountInOrgs", columnDefinition="varchar(1) default 'Y' not null")
 	private boolean guestCanCreateAccountInOrganizations;  
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(name="sharedUsersBetweenOrgs", columnDefinition="varchar(1) default 'N' not null") 
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(name="sharedUsersBetweenOrgs", columnDefinition="varchar(1) default 'N' not null")
 	private boolean sharedUsersBetweenOrganizations;
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean useEmailAsUserName; 
 	
 	/** @since 6.6 */
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
-	@Column(columnDefinition="varchar(1) default 'N' not null")	
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean caseSensitiveUserName;
 	
-	@Convert(converter = org.hibernate.type.YesNoConverter.class)
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(columnDefinition="varchar(1) default 'N' not null")
 	private boolean privacyPolicyOnSignUp; 
 	

@@ -173,8 +173,8 @@ public class SchemaTool {
 					else {
 						script = refineScript(script, supportsSemicolonAtEnd); 
 						log.info(XavaResources.getString("executing") + ": " + script);
-						Query query = XPersistence.getManager().createNativeQuery(script);						
-						query.executeUpdate();
+							Query query = XPersistence.getManager().createNativeQuery(script);
+							query.executeUpdate();
 					}
 				}
 	    	}
@@ -211,7 +211,14 @@ public class SchemaTool {
 		if (!supportsSchemasInIndexDefinitions || Is.emptyString(schema)) return script;
 		// Needed at least for AS/400 where supportsSchemasInIndexDefinitions is true 
 		// but the dialect does to prefix the FK on alter table, something that AS/400 requires
-		return script.replace("add constraint FK", "add constraint " + schema + ".FK");
+		script = script.replace("add constraint FK", "add constraint " + schema + ".FK");
+		// Hibernate 7.x does not include schema in sequence DDL, so we add it manually
+		// Only for databases that support schema prefix in sequences (HSQLDB, Oracle, AS/400)
+		// PostgreSQL and SQL Server return false from supportsSchemasInIndexDefinitions
+		if (script.startsWith("create sequence ") && supportsSchemasInIndexDefinitions) {
+			script = script.replace("create sequence ", "create sequence " + schema + ".");
+		}
+		return script;
 	}
 
 	public boolean isCommitOnFinish() {

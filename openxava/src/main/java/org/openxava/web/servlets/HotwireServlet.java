@@ -281,8 +281,6 @@ public class HotwireServlet extends BaseServlet {
             String application = request.getParameter("application");
             String module = request.getParameter("module");
 
-            initRequest(request, response, application, module);
-
             String additionalParameters = request.getParameter("additionalParameters");
             boolean firstRequest = "true".equals(request.getParameter("firstRequest"));
             String baseFolder = request.getParameter("baseFolder");
@@ -965,10 +963,12 @@ public class HotwireServlet extends BaseServlet {
                 String qualifiedName = (String) en.getKey();
                 String name = qualifiedName.substring(qualifiedName.lastIndexOf('.') + 1);
                 View containerView = (View) en.getValue();
-                put(result, "frame_" + qualifiedName + "header",
-                    "collectionFrameHeader.jsp?collectionName=" + name +
-                    "&viewObject=" + containerView.getViewObject() +
-                    "&propertyPrefix=" + containerView.getPropertyPrefix());
+                if (baseFolder.equals("/xava/")) { // collectionFrameHeader.jsp only exists in /xava/, not in /phone/. The phone UI renders the collection header inline in collection.jsp.
+                    put(result, "frame_" + qualifiedName + "header",
+                        "collectionFrameHeader.jsp?collectionName=" + name +
+                        "&viewObject=" + containerView.getViewObject() +
+                        "&propertyPrefix=" + containerView.getPropertyPrefix());
+                }
                 put(result, "collection_" + qualifiedName + ".",
                     "collection.jsp?collectionName=" + name +
                     "&viewObject=" + containerView.getViewObject() +
