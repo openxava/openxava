@@ -31,7 +31,9 @@ Change Log for OpenXava project
 - Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
 - Jakarta Validation 3.1 support. Dropped support for Bean Validation 2.0.
 - Hibernate Validator upgraded to 9.1.0.
-- Hibernate upgraded to 7.2.15.
+- Hibernate upgraded to 7.4.1.
+- Hibernate version no longer fixed in pom.xml; it now uses the version provided by the Spring Boot BOM.
+- @Columns annotation removed by Hibernate; use @CompositeType with @AttributeOverrides instead.
 
 OpenXava 7.7.3 (2026-6-5)
 -------------------------

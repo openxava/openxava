@@ -279,14 +279,14 @@ logging.level.org.hibernate=DEBUG</code></pre>
     <p>Los niveles equivalentes son: <i>SEVERE</i> = <i>ERROR</i>, <i>WARNING</i> = <i>WARN</i>, 
     <i>INFO</i> = <i>INFO</i>, <i>FINE</i> = <i>DEBUG</i>, <i>FINER/FINEST</i> = <i>TRACE</i>.</p>
 
-    <h3>Jakarta Persistence 3.2 con Hibernate 7.2</h3>
+    <h3>Jakarta Persistence 3.2 con Hibernate 7.4</h3>
 
-    <p>OpenXava 8.0 usa Jakarta Persistence 3.2 y Hibernate 7.2. Esto implica cambios
+    <p>OpenXava 8.0 usa Jakarta Persistence 3.2 y Hibernate 7.4. Esto implica cambios
     significativos respecto a las versiones anteriores. A continuación detallamos los problemas 
     más comunes que puedes encontrar al migrar tu aplicación.</p>
 
     <p>Puedes consultar la 
-    <a href="https://docs.hibernate.org/orm/7.2/migration-guide/">guía de 
+    <a href="https://docs.hibernate.org/orm/7.4/migration-guide/">guía de 
     migración oficial de Hibernate</a> para más información.</p>
 
     <h4>Cambio de javax.persistence a jakarta.persistence</h4>
@@ -313,7 +313,6 @@ import jakarta.persistence.ManyToOne;</code></pre>
 import org.hibernate.annotations.*;
 
 // DESPUÉS
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;</code></pre>
@@ -497,7 +496,7 @@ query.setParameter("paid", true);</code></pre>
     <pre><code class="language-java">// Antes (Hibernate 5.6)
 String value = (String) query.getSingleResult();
 
-// Después (Hibernate 7.2)
+// Después (Hibernate 7.4)
 String value = query.getSingleResult().toString();</code></pre>
 
     <h4>Cambio en la longitud del UUID</h4>
@@ -523,15 +522,15 @@ private String id;</code></pre>
 
     <h4>@OrderBy con rutas anidadas en asociaciones</h4>
 
-    <p>Hibernate 7.2 es mucho más estricto al cumplir la especificación JPA para la anotación <code>@OrderBy</code>. 
-    Usar una ruta anidada (como <code>asociacion.propiedad</code>) en <code>@OrderBy</code> lanzará un 
-    <code>NullPointerException</code> al arrancar la aplicación durante la creación de la SessionFactory.</p>
+    <p>Hibernate 7.4 es mucho más estricto al cumplir la especificación JPA para la anotación <i>@OrderBy</i>. 
+    Usar una ruta anidada (como <i>asociacion.propiedad</i>) en <i>@OrderBy</i> lanzará un 
+    <i>NullPointerException</i> al arrancar la aplicación durante la creación de la SessionFactory.</p>
 
-    <p>De acuerdo con la especificación JPA, <code>@OrderBy</code> debe referirse directamente a atributos básicos de la entidad destino. 
+    <p>De acuerdo con la especificación JPA, <i>@OrderBy</i> debe referirse directamente a atributos básicos de la entidad destino. 
     Si necesitas ordenar una colección basándote en un atributo de una entidad asociada, debes exponer esa columna en la entidad destino 
     como un campo de solo lectura y ordenar por él.</p>
 
-    <pre><code class="language-java">// INCORRECTO (Falla con NullPointerException en Hibernate 7.2)
+    <pre><code class="language-java">// INCORRECTO (Falla con NullPointerException en Hibernate 7.4)
 @OneToMany(mappedBy="role")
 @OrderBy("module.name asc")
 private Collection&lt;ModuleRights&gt; modulesRights;

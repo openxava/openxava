@@ -272,7 +272,7 @@ public class RegionesType implements UserType&lt;String[]&gt; { // 1
 }</code></pre>
       El conversor de tipo ha de implementar <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/UserType.html"
+          href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/UserType.html"
 
           rel="nofollow">org.hibernate.usertype.UserType</a></em> (1). Los métodos principales son <em>nullSafeGet</em> (2) para leer de la base de datos y convertir a Java, y <em>nullSafeSet</em> (3) para escribir el valor Java en la base de datos.<br>
       OpenXava tiene conversores de tipo de Hibernate genéricos en el paquete <em><a
@@ -297,7 +297,7 @@ private Distancia distancia;
 public enum Distancia { LOCAL, NACIONAL, INTERNACIONAL }</code></pre>
       Al poner 'LNI' como valor para <em>letters</em>, hace corresponder la 'L' con 1, la 'N' con 2 y la 'I' con 3. Vemos como el que se puedan configurar propiedades del conversor de tipos nos permite hacer conversores reutilizables.<br>
       <h3 id="toc8"><a name="Mapeo objeto/relacional-Conversion+de+tipo-Conversion+con+multiples+columnas"></a>Conversión con múltiples columnas</h3>
-      Con <em><a class="wiki_link_ext" href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+      Con <em><a class="wiki_link_ext" href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
           rel="nofollow">CompositeUserType</a></em> podemos hacer que varias columnas de la tabla de base de datos correspondan a una propiedad en Java. Esto es útil, por ejemplo cuando tenemos propiedades cuyo tipo Java son clases definidas por nosotros que tienen a su vez varias propiedades susceptibles de ser almacenadas, y también se usa mucho cuando nos enfrentamos a esquemas de bases de datos legados.<br>
       Un ejemplo típico sería usar el conversor genérico <em><a class="wiki_link_ext"
@@ -417,7 +417,7 @@ public class Date3Type implements CompositeUserType&lt;java.util.Date&gt; { // 1
 }</code></pre>
       Como se ve el conversor de tipo implementa <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+          href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
           rel="nofollow">CompositeUserType</a></em> (1). Los métodos clave son <em>getPropertyValue</em> (2) para obtener los valores de las propiedades del objeto, y <em>instantiate</em> (3) para crear una nueva instancia del objeto a partir de los valores de las columnas.<br>
       <h3 id="toc9"><a name="Mapeo objeto/relacional-Conversion+de+tipo-Conversion+de+referencia"></a>Conversión de referencia</h3>
