@@ -52,8 +52,11 @@
         production Tomcat, your application may not be completely secure, nor
         pass the ZAP. You have to configure some details. </div>
       <div class="wiki" style="display: block;">
-        <h3 id="error-pages">Error pages</h3>
+        <h3 id="error-pages">Error pages <i>(until v7.7.x)</i></h3>
       </div>
+      <div class="wiki" style="display: block;"><i>Since OpenXava 8.0 this
+        section is no longer needed, thanks to Spring Boot Whitelabel Error
+        Pages, even when deployed as a WAR on Tomcat.</i></div>
       <div class="wiki" style="display: block;">To pass the ZAP, error pages
         cannot offer information about the server that is being used, let alone
         display an error trace. When you start the application from the embedded
@@ -75,7 +78,8 @@
 &lt;/error-page&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">There is no need to create <i>error404.html</i>
-        or <i>error500.html</i>, because they are included in <i>openxava.jar</i>.</div>
+        or <i>error500.html</i>, because they are included in <i>openxava.jar</i>. From v8.0
+        <i>error404.html</i> and <i>error500.html</i> are no longer included in <i>openxava.jar</i>.</div>
       <div class="wiki" style="display: block;">
         <h3 id="same-site-cookies">Same site cookies</h3>
       </div>

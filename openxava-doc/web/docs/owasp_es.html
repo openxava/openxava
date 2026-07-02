@@ -53,8 +53,11 @@
         completamente segura, ni pase el ZAP. Tienes que configurar algunos
         detalles. </div>
       <div class="wiki" style="display: block;">
-        <h3 id="paginas-error">Páginas de error</h3>
+        <h3 id="paginas-error">Páginas de error <i>(until v7.7.x)</i></h3>
       </div>
+      <div class="wiki" style="display: block;"><i>Desde OpenXava 8.0 esta
+        sección ya no es necesaria. A partir de la v8.0 las aplicaciones usan
+        Spring Boot Whitelabel Error Pages, incluso al desplegarse como WAR en un Tomcat.</i></div>
       <div class="wiki" style="display: block;">Para pasar el ZAP las páginas de
         error no pueden ofrecer información sobre el servidor que se está usando
         y menos aún visualizar una traza de error. Cuando arrancas la aplicación
@@ -76,7 +79,8 @@
 &lt;/error-page&gt;
 </code></pre> </div>
       <div class="wiki" style="display: block;">No hace falta crear <i>error404.html</i>
-        ni <i>error500.html</i>, porque están incluidos en <i>openxava.jar</i>.</div>
+        ni <i>error500.html</i>, porque están incluidos en <i>openxava.jar</i>. A partir de v8.0
+        <i>error404.html</i> y <i>error500.html</i> ya no se incluyen en <i>openxava.jar</i>.</div>
       <div class="wiki" style="display: block;">
         <h3 id="same-site-cookies">Same site cookies</h3>
       </div>

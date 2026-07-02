@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- error404.html and error500.html no longer included; Spring Boot whitelabel error pages used instead.
 - Dependency versions are now aligned with Spring Boot 4.1.
 - Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
 - javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
