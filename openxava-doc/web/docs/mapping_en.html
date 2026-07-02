@@ -262,7 +262,7 @@ public class RegionsType implements UserType&lt;String[]&gt; { // 1
 }</code></pre>
       The type converter has to implement <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/UserType.html"
+          href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/UserType.html"
 
           rel="nofollow">org.hibernate.usertype.UserType</a></em> (1). The main methods are <em>nullSafeGet</em> (2) for read from database and to convert to Java, and <em>nullSafeSet</em> (3) for writing the Java value into database.<br>
       OpenXava has generic Hibernate type converters in the <em><a class="wiki_link_ext"
@@ -287,7 +287,7 @@ private Distance distance;
 public enum Distance { LOCAL, NATIONAL, INTERNATIONAL };</code></pre>
       As you put 'LNI' as a value to <em>letters</em>, the type converter matches the 'L' to 1, the 'N' to 2 and the 'I' to 3. You also see how type converters are configurable using its properties and this makes the converters more reusable.<br>
       <h3 id="toc8"><a name="Object/relational mapping-Type conversion-Multiple column conversion"></a>Multiple column conversion</h3>
-      With <em><a class="wiki_link_ext" href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+      With <em><a class="wiki_link_ext" href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
           rel="nofollow">CompositeUserType</a></em> you can map several table columns to a single Java property. This is useful if you have properties of custom class that have itself several attributes to store. Also it is used when you have to deal with legacy database schemes.<br>
       A typical example is the generic converter <em><a class="wiki_link_ext"
@@ -407,7 +407,7 @@ public class Date3Type implements CompositeUserType&lt;java.util.Date&gt; { // 1
 }</code></pre>
       As you see the type converter implements <em><a class="wiki_link_ext"
 
-          href="https://docs.hibernate.org/orm/7.2/javadocs/org/hibernate/usertype/CompositeUserType.html"
+          href="https://docs.hibernate.org/orm/7.4/javadocs/org/hibernate/usertype/CompositeUserType.html"
 
           rel="nofollow">CompositeUserType</a></em> (1). The key methods are <em>getPropertyValue</em> (2) to get the values from the properties of the object, and <em>instantiate</em> (3) for creating a new instance of the object from its constituent column values.<br>
       <h3 id="toc9"><a name="Object/relational mapping-Type conversion-Reference conversion"></a>Reference conversion</h3>
