@@ -522,11 +522,11 @@ private String id;</code></pre>
 
     <h4>@OrderBy con rutas anidadas en asociaciones</h4>
 
-    <p>Hibernate 7.4 es mucho más estricto al cumplir la especificación JPA para la anotación <code>@OrderBy</code>. 
-    Usar una ruta anidada (como <code>asociacion.propiedad</code>) en <code>@OrderBy</code> lanzará un 
-    <code>NullPointerException</code> al arrancar la aplicación durante la creación de la SessionFactory.</p>
+    <p>Hibernate 7.4 es mucho más estricto al cumplir la especificación JPA para la anotación <i>@OrderBy</i>. 
+    Usar una ruta anidada (como <i>asociacion.propiedad</i>) en <i>@OrderBy</i> lanzará un 
+    <i>NullPointerException</i> al arrancar la aplicación durante la creación de la SessionFactory.</p>
 
-    <p>De acuerdo con la especificación JPA, <code>@OrderBy</code> debe referirse directamente a atributos básicos de la entidad destino. 
+    <p>De acuerdo con la especificación JPA, <i>@OrderBy</i> debe referirse directamente a atributos básicos de la entidad destino. 
     Si necesitas ordenar una colección basándote en un atributo de una entidad asociada, debes exponer esa columna en la entidad destino 
     como un campo de solo lectura y ordenar por él.</p>
 
