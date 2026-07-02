@@ -96,22 +96,18 @@
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>7.2.15.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-envers</artifactId>
-			<version>7.2.15.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-ant</artifactId>
-			<version>7.2.15.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-scan-jandex</artifactId>
-			<version>7.2.15.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>

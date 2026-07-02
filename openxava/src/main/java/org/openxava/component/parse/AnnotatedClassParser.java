@@ -737,11 +737,11 @@ public class AnnotatedClassParser implements IComponentParser {
 			// Converter (from Hibernate Type)
 			if (field != null && field.isAnnotationPresent(Type.class)) {				
 				Type type = field.getAnnotation(Type.class);
-				addConverter(pMapping, type, field.getAnnotation(Columns.class));
+				addConverter(pMapping, type);
 			}
 			else if (pd.getReadMethod().isAnnotationPresent(Type.class)) {
 				Type type = pd.getReadMethod().getAnnotation(Type.class);
-				addConverter(pMapping, type, pd.getReadMethod().getAnnotation(Columns.class));
+				addConverter(pMapping, type);
 			}
 			else if (field != null && field.isAnnotationPresent(CompositeType.class)) {
 				CompositeType type = field.getAnnotation(CompositeType.class);
@@ -854,7 +854,7 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 	}
 	
-	private void addConverter(PropertyMapping mapping, Type type, Columns columns) throws Exception {
+	private void addConverter(PropertyMapping mapping, Type type) throws Exception {
 		Class typeClass = type.value();
 		
 		if (CompositeUserType.class.isAssignableFrom(typeClass)) { 
@@ -864,21 +864,6 @@ public class AnnotatedClassParser implements IComponentParser {
 			typeMetaSet.setPropertyName("type");
 			typeMetaSet.setValue(typeClass.getName());
 			mapping.addMetaSet(typeMetaSet);
-			
-			if (columns != null) {				
-				MetaSet valueCountMetaSet = new MetaSet();
-				valueCountMetaSet.setPropertyName("valuesCount");
-				valueCountMetaSet.setValue(String.valueOf(columns.columns().length));
-				mapping.addMetaSet(valueCountMetaSet);										
-
-				int valueIndex = 0;
-				for (jakarta.persistence.Column column: columns.columns()) {
-					CmpField cmp = new CmpField();
-					cmp.setConverterPropertyName("value" + valueIndex++);
-					cmp.setColumn(column.name());
-					mapping.addCmpField(cmp);						
-				}
-			}	
 			
 			mapping.setColumn(""); 
 		}

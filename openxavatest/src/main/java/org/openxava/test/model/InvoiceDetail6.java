@@ -4,9 +4,6 @@ import java.math.*;
 
 import jakarta.persistence.*;
 
-import org.hibernate.annotations.Columns;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.Parameter;
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;
 import org.openxava.test.validators.*;
