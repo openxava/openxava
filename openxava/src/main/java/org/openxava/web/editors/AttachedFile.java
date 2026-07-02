@@ -16,6 +16,7 @@ import org.openxava.model.*;
 public class AttachedFile extends Identifiable {
 	
 	private String name;	
+	@Lob
 	private byte[] data;
 	
 	@Column(length=32) 
