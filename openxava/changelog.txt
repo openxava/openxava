@@ -1,8 +1,6 @@
 Change Log for OpenXava project
 ===============================
 
-TMR Comprobar versión de hibernate-validator
-
 - Dependency versions are now aligned with Spring Boot 4.1.
 - Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
 - javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
