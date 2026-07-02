@@ -545,6 +545,30 @@ private String moduleName;
 @OrderBy("moduleName asc")
 private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
 
+    <h4>@Column(columnDefinition=...) con valores por defecto para migración de esquema</h4>
+
+    <p>Hibernate 7.4 genera DDL inválido cuando se usa <i>@Column(columnDefinition=...)</i> con
+    una definición de columna completa que incluye una cláusula <i>DEFAULT</i> y el modo de
+    migración de esquema (<i>jakarta.persistence.schema-generation.database.action=update</i>)
+    está activado. Esto ocurre porque Hibernate concatena todo el <i>columnDefinition</i> como
+    el tipo de columna en la sentencia <i>ALTER COLUMN ... SET DATA TYPE</i>, produciendo SQL
+    que bases de datos como HSQLDB rechazan con <i>unexpected token: DEFAULT</i>.</p>
+
+    <pre><code class="language-java">// INCORRECTO (Genera DDL ALTER inválido en Hibernate 7.4)
+@Column(columnDefinition="varchar(1) default 'Y' not null")
+private boolean active;
+
+// CORRECTO (Usar atributos JPA estándar + @ColumnDefault)
+@Column(length=1, nullable=false)
+@org.hibernate.annotations.ColumnDefault("'Y'")
+private boolean active;</code></pre>
+
+    <p>Este problema se manifiesta típicamente al arrancar, cuando Hibernate intenta migrar el
+    esquema de tablas existentes. La solución es reemplazar el <i>columnDefinition</i> crudo con
+    atributos JPA estándar (<i>length</i>, <i>nullable</i>) para los metadatos de la columna y
+    <i>@org.hibernate.annotations.ColumnDefault</i> para el valor por defecto, que Hibernate
+    trata como metadatos separados en lugar de concatenarlo en la cláusula de tipo.</p>
+
     <h3>Jakarta Validator 3.1 con Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 usa Jakarta Validator 3.1 y Hibernate Validator 9.1. Esto implica

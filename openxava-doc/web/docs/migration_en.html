@@ -546,6 +546,30 @@ private String moduleName;
 @OrderBy("moduleName asc")
 private Collection&lt;ModuleRights&gt; modulesRights;</code></pre>
 
+    <h4>@Column(columnDefinition=...) with default values for schema migration</h4>
+
+    <p>Hibernate 7.4 generates invalid DDL when using <i>@Column(columnDefinition=...)</i> with
+    a full column definition that includes a <i>DEFAULT</i> clause and the schema migration mode
+    (<i>jakarta.persistence.schema-generation.database.action=update</i>) is enabled. This happens
+    because Hibernate concatenates the entire <i>columnDefinition</i> as the column type in the
+    <i>ALTER COLUMN ... SET DATA TYPE</i> statement, producing SQL that databases like HSQLDB
+    reject with <i>unexpected token: DEFAULT</i>.</p>
+
+    <pre><code class="language-java">// INCORRECT (Generates invalid ALTER DDL in Hibernate 7.4)
+@Column(columnDefinition="varchar(1) default 'Y' not null")
+private boolean active;
+
+// CORRECT (Use standard JPA attributes + @ColumnDefault)
+@Column(length=1, nullable=false)
+@org.hibernate.annotations.ColumnDefault("'Y'")
+private boolean active;</code></pre>
+
+    <p>This issue typically manifests at startup when Hibernate tries to migrate the schema
+    for existing tables. The fix is to replace the raw <i>columnDefinition</i> with standard
+    JPA attributes (<i>length</i>, <i>nullable</i>) for the column metadata and
+    <i>@org.hibernate.annotations.ColumnDefault</i> for the default value, which Hibernate
+    treats as separate metadata instead of concatenating it into the type clause.</p>
+
     <h3>Jakarta Validator 3.1 with Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 uses Jakarta Validator 3.1 and Hibernate Validator 9.1. This implies
