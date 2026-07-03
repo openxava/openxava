@@ -1,9 +1,12 @@
 package org.openxava.spring;
 
+import java.lang.reflect.Field;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
+import jakarta.servlet.ServletContext;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.core.NamingContextListener;
@@ -24,7 +27,9 @@ import org.springframework.boot.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
@@ -37,10 +42,13 @@ import com.zaxxer.hikari.HikariDataSource;
  * <p>
  * Registers servlet components (via {@code @ServletComponentScan}), the default
  * view controller for the root path, the WebSocket endpoint for chat, and 
- * if a Spring-managed {@link DataSource} is present with an embedded Tomcat
- * container, registers the DataSource in the Tomcat naming context under the
- * JNDI name specified in <code>persistence.xml</code>.
- * This ensures that both JPA/Hibernate and OpenXava JDBC utilities can resolve it.
+ * if a Spring-managed {@link DataSource} is present, registers it in the Tomcat
+ * naming context under the JNDI name specified in <code>persistence.xml</code>,
+ * regardless of whether Tomcat is embedded (running with {@code spring-boot:run}
+ * or the main class) or external (the app deployed as a WAR on a standalone
+ * Tomcat). This ensures that both JPA/Hibernate and OpenXava JDBC utilities can
+ * resolve it, with the datasource configuration declared only once, in
+ * <code>application.properties</code>.
  * <p>
  * It also creates and registers any additional datasource declared in
  * <code>application.properties</code> with the <code>openxava.datasources.*</code>
@@ -77,11 +85,19 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 	}
 
 	/**
+	 * Prepares the embedded Tomcat container so that JNDI resources can be
+	 * registered afterward, regardless of whether it ends up embedded or
+	 * external. It only sets the cookie processor and, when there is at least
+	 * one datasource to expose through JNDI, enables JNDI in the embedded
+	 * Tomcat (an external Tomcat already has it enabled by default).
+	 * <p>
+	 * The actual datasource creation and JNDI registration is done once, for
+	 * both embedded and external Tomcat, by {@link #openXavaJndiRegistrar}.
+	 *
 	 * @since 8.0
 	 */
 	@Bean
 	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> openXavaTomcatCustomizer(
-			ObjectProvider<DataSource> dataSourceProvider,
 			OpenXavaDataSourcesProperties dataSourcesProperties) {
 		return factory -> {
 			// SameSite=Lax for all cookies, to pass the ZAP test (OWASP CSRF)
@@ -92,17 +108,7 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 				((StandardContext) context).setCookieProcessor(processor);
 			});
 
-			String defaultJndiName = DataSourceConnectionProvider.getDefaultCleanJPADataSourceName();
-			if (defaultJndiName != null) {
-				DataSource dataSource = dataSourceProvider.getIfAvailable();
-				if (dataSource != null) {
-					DataSourceJndiFactory.setDataSource(dataSource);
-				}
-			}
-
-			Map<String, DataSource> additionalDataSources = createAdditionalDataSources(dataSourcesProperties);
-
-			if (defaultJndiName == null && additionalDataSources.isEmpty()) return;
+			if (!hasJndiDataSources(dataSourcesProperties)) return;
 
 			// Enable JNDI in Tomcat (equivalent to tomcat.enableNaming())
 			System.setProperty("catalina.useNaming", "true");
@@ -120,13 +126,56 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 					"org.apache.naming.java.javaURLContextFactory");
 			}
 			factory.addContextLifecycleListeners(new NamingContextListener());
-			factory.addContextCustomizers((TomcatContextCustomizer) context -> {
-				if (defaultJndiName != null) registerJndiResource(context, defaultJndiName);
-				for (String jndiName : additionalDataSources.keySet()) {
-					registerJndiResource(context, jndiName);
-				}
-			});
 		};
+	}
+
+	/**
+	 * Creates the Spring-managed datasources declared for JNDI (the default
+	 * one plus any declared with the <code>openxava.datasources.*</code>
+	 * prefix) and registers them in the Tomcat naming context, both when
+	 * Tomcat is embedded and when the application is deployed as a WAR on an
+	 * external Tomcat. This way the datasource configuration only needs to be
+	 * declared once, in <code>application.properties</code>.
+	 *
+	 * @since 8.0
+	 */
+	@Bean
+	public ApplicationListener<ContextRefreshedEvent> openXavaJndiRegistrar(
+			ObjectProvider<DataSource> dataSourceProvider,
+			OpenXavaDataSourcesProperties dataSourcesProperties,
+			ObjectProvider<ServletContext> servletContextProvider) {
+		return event -> {
+			String defaultJndiName = DataSourceConnectionProvider.getDefaultCleanJPADataSourceName();
+			Map<String, DataSource> additionalDataSources = createAdditionalDataSources(dataSourcesProperties);
+			if (defaultJndiName == null && additionalDataSources.isEmpty()) return;
+
+			if (defaultJndiName != null) {
+				DataSource dataSource = dataSourceProvider.getIfAvailable();
+				if (dataSource != null) {
+					DataSourceJndiFactory.setDataSource(dataSource);
+				}
+			}
+
+			ServletContext servletContext = servletContextProvider.getIfAvailable();
+			Context catalinaContext = servletContext == null ? null : getCatalinaContext(servletContext);
+			if (catalinaContext == null) return;
+
+			if (defaultJndiName != null) registerJndiResource(catalinaContext, defaultJndiName);
+			for (String jndiName : additionalDataSources.keySet()) {
+				registerJndiResource(catalinaContext, jndiName);
+			}
+		};
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	private boolean hasJndiDataSources(OpenXavaDataSourcesProperties properties) {
+		if (DataSourceConnectionProvider.getDefaultCleanJPADataSourceName() != null) return true;
+		for (DataSourceDefinition definition : properties.getDatasources().values()) {
+			if (!Is.emptyString(definition.getJndi())) return true;
+		}
+		return false;
 	}
 
 	/**
@@ -145,6 +194,29 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 			result.put(definition.getJndi(), dataSource);
 		}
 		return result;
+	}
+
+	/**
+	 * Obtains the Catalina {@link Context} (embedded or from an external
+	 * Tomcat) behind the given {@link ServletContext}, so a JNDI resource can
+	 * be registered in it dynamically. Returns {@code null} if the container
+	 * is not Tomcat (e.g. another Jakarta EE 11 server), in which case the
+	 * JNDI datasource must be declared in that server's own configuration.
+	 *
+	 * @since 8.0
+	 */
+	private Context getCatalinaContext(ServletContext servletContext) {
+		try {
+			Field facadeField = servletContext.getClass().getDeclaredField("context");
+			facadeField.setAccessible(true);
+			Object applicationContext = facadeField.get(servletContext);
+			Field contextField = applicationContext.getClass().getDeclaredField("context");
+			contextField.setAccessible(true);
+			return (Context) contextField.get(applicationContext);
+		}
+		catch (Exception ex) {
+			return null;
+		}
 	}
 
 	/**
