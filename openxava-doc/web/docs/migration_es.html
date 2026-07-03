@@ -169,7 +169,8 @@ public class YourappApplication extends OpenXavaApplication {
     <h4>Mover la configuración de la base de datos a application.properties</h4>
 
     <p>En OpenXava 7.7 el datasource se declaraba mediante JNDI en 
-    <i>src/main/webapp/META-INF/context.xml</i>. Con Spring Boot eliminas ese fichero y defines el 
+    <i>src/main/webapp/META-INF/context.xml</i>. Con Spring Boot eliminas de ese fichero las 
+    declaraciones del datasource (las entradas <i>&lt;Resource&gt;</i>) y defines el 
     datasource en <i>src/main/resources/application.properties</i> en su lugar. OpenXava enlaza este 
     datasource de Spring con el nombre JNDI usado en <i>persistence.xml</i>, así que no necesitas 
     cambiar <i>persistence.xml</i>.</p>
