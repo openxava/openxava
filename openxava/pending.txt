@@ -1,0 +1,8 @@
+Pending Standalong executable WAR (tmr)
+---------------------------------------
+Failed tests:
+- CollectionChartTest
+- ApplicantTest
+- CorporationEmployeeTest
+- CorporationTest
+- StaffDashboardTest
