@@ -293,7 +293,12 @@ public class Modules implements Serializable {
 	public boolean isModuleAuthorized(HttpServletRequest request) {
 		try {
 			if (request.getRequestURI().contains("module.jsp")) return false;
-			if (Users.getCurrent() == null && request.getRequestURI().contains("/phone/")) return false; 
+			if (Users.getCurrent() == null && request.getRequestURI().contains("/phone/")) {
+				String phoneModuleName = request.getParameter("module");
+				if (Is.emptyString(phoneModuleName)) return false;
+				if (phoneModuleName.equals("SignIn")) return true;
+				return isModuleAuthorized(request, MetaModuleFactory.create(MetaModuleFactory.getApplication(), phoneModuleName));
+			}
 			if (!(request.getRequestURI().startsWith(request.getContextPath() + "/m/") ||
 					request.getRequestURI().startsWith(request.getContextPath() + "/p/") || 
 					request.getRequestURI().startsWith(request.getContextPath() + "/modules/"))) return true;
