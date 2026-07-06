@@ -90,6 +90,7 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 				Rfc6265CookieProcessor processor = new Rfc6265CookieProcessor();
 				processor.setSameSiteCookies("Lax");
 				((StandardContext) context).setCookieProcessor(processor);
+				context.addWelcomeFile("index.jsp");
 			});
 
 			String defaultJndiName = DataSourceConnectionProvider.getDefaultCleanJPADataSourceName();
