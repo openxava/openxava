@@ -1,7 +1,6 @@
 Pending Spring Boot for XavaPro (tmr)
 -------------------------------------
 
-- Mezclar desde master
 - HHH160246. El código es correcto y funciona. Mutear el warning para evitar quejas de usuarios.
 - Probar prueba manual de subida de archivos. Hemos puesto @Lob en AttachedFile
     Si funciona quizás deberíamos indicar en la migración que es necesario poner @Lob en los byte[]
