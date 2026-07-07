@@ -1,4 +1,0 @@
-Pending Standad alone WAR (tmr)
--------------------------------
-
-- Buscar otra documentación sobre arranca standalone.
