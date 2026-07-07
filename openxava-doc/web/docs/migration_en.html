@@ -571,6 +571,33 @@ private boolean active;</code></pre>
     <i>@org.hibernate.annotations.ColumnDefault</i> for the default value, which Hibernate
     treats as separate metadata instead of concatenating it into the type clause.</p>
 
+    <h4>byte[] properties require @Lob</h4>
+
+    <p>In Hibernate 7.4, <i>byte[]</i> properties without <i>@Lob</i> are mapped to a
+    <i>varbinary(255)</i> column by default. This is too small for most binary data (files,
+    images, documents, etc.) and causes a <i>string data, right truncation</i> error at
+    startup when Hibernate tries to migrate the schema of existing tables that contain data
+    larger than 255 bytes:</p>
+
+    <pre><code class="language-java">// ERROR in Hibernate 7.4 (varbinary(255) is too small)
+private byte[] data;</code></pre>
+
+    <p>Add <i>@Lob</i> so that Hibernate maps the column to a large binary type (BLOB) instead
+    of <i>varbinary(255)</i>:</p>
+
+    <pre><code class="language-java">// CORRECT
+@Lob
+private byte[] data;</code></pre>
+
+    <p>If you use MySQL and need to support files larger than 16 MB, also add
+    <i>@Column(length = Integer.MAX_VALUE)</i> so that MySQL uses <i>LONGBLOB</i> instead of
+    <i>TINYBLOB</i> or <i>MEDIUMBLOB</i>:</p>
+
+    <pre><code class="language-java">// For MySQL with files larger than 16 MB
+@Lob
+@Column(length = Integer.MAX_VALUE)
+private byte[] data;</code></pre>
+
     <h3>Jakarta Validator 3.1 with Hibernate Validator 9.1</h3>
 
     <p>OpenXava 8.0 uses Jakarta Validator 3.1 and Hibernate Validator 9.1. This implies
