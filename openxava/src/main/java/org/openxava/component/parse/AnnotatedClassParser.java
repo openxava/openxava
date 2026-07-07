@@ -2867,19 +2867,42 @@ public class AnnotatedClassParser implements IComponentParser {
 	            if (processedResources.contains(simpleName)) continue;
 	            processedResources.add(simpleName);
 	            if (resource.getProtocol().equals("jar")) {
-	                String jarPath = resource.getPath().substring(5, resource.getPath().indexOf("!"));
+	                String path = resource.getPath();
+	                String jarPath;
+	                String entryPathInJar;
+	                if (path.startsWith("nested:")) {
+	                    // Spring Boot nested JAR/WAR format:
+	                    // nested:/path/to.war/!WEB-INF/classes/!/org/openxava/test
+	                    String nestedPath = path.substring("nested:".length());
+	                    int firstSep = nestedPath.indexOf("/!");
+	                    jarPath = nestedPath.substring(0, firstSep);
+	                    String rest = nestedPath.substring(firstSep + 2);
+	                    int secondSep = rest.indexOf("!/");
+	                    String innerEntry = secondSep >= 0 ? rest.substring(0, secondSep) : "";
+	                    if (innerEntry.endsWith("/")) innerEntry = innerEntry.substring(0, innerEntry.length() - 1);
+	                    entryPathInJar = innerEntry + "/" + packagePath;
+	                } else {
+	                    // Standard jar:file:/path/to.jar!/package/path
+	                    jarPath = path.substring(5, path.indexOf("!"));
+	                    entryPathInJar = path.substring(path.indexOf("!") + 1);
+	                    if (entryPathInJar.startsWith("/")) entryPathInJar = entryPathInJar.substring(1);
+	                }
+	                if (entryPathInJar.endsWith("/")) entryPathInJar = entryPathInJar.substring(0, entryPathInJar.length() - 1);
+	                String prefix = entryPathInJar.length() >= packagePath.length()
+	                        ? entryPathInJar.substring(0, entryPathInJar.length() - packagePath.length())
+	                        : "";
 	                try (JarFile jarFile = new JarFile(jarPath)) {
 	                    Enumeration<JarEntry> entries = jarFile.entries();
 	                    while (entries.hasMoreElements()) {
 	                        JarEntry entry = entries.nextElement();
 	                        String entryName = entry.getName();
-	                        if (entryName.startsWith(packagePath) && entryName.length() > packagePath.length() + 1) {
-	                        	int idx = entryName.indexOf('/', packagePath.length() + 1);
+	                        if (entryName.startsWith(entryPathInJar) && entryName.length() > entryPathInJar.length() + 1) {
+	                        	int idx = entryName.indexOf('/', entryPathInJar.length() + 1);
 	                        	if (idx >= 0) {
-		                            String subpackage = entryName.substring(0, idx).replace('/', '.');
-		                            if (!subpackages.contains(subpackage)) {
-		                                subpackages.add(subpackage);
-		                            }
+	                            String subpackage = entryName.substring(prefix.length(), idx).replace('/', '.');
+	                            if (!subpackages.contains(subpackage)) {
+	                                subpackages.add(subpackage);
+	                            }
 	                        	}
 	                        }
 	                    }

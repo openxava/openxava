@@ -117,7 +117,7 @@
 	<link rel="stylesheet" type="text/css" media="all" href="<%=contextPath%>/xava/style/custom.css?ox=<%=version%>"/>
 
 	<%
-	for (String styleEditor: EditorsResources.listCSSFiles(realPath)) {
+	for (String styleEditor: EditorsResources.listCSSFiles(realPath, request.getSession().getServletContext())) {
 	%>
 	<link href="<%=contextPath%>/xava/editors/<%=styleEditor%>?ox=<%=version%>" rel="stylesheet" type="text/css">
 	<%
@@ -148,7 +148,7 @@
 	<%
 	String browser = request.getHeader("user-agent"); 
 	boolean browserIsHtmlUnit = browser != null && browser.contains("HtmlUnit");
-	for (String editorJS: EditorsResources.listJSFiles(realPath)) {
+	for (String editorJS: EditorsResources.listJSFiles(realPath, request.getSession().getServletContext())) {
 		if (browserIsHtmlUnit && editorJS.equals("js/tinymce.js")) continue; // Ad hoc, we should move this outside OpenXava core, in a file or following convention
         String encoding = editorJS.toLowerCase().endsWith("-utf8.js") ? "UTF-8" : "ISO-8859-1"; 
     %>

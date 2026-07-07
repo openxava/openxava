@@ -13,7 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author Javier Paniza
  * @since 8.0
  */
-public class OpenXavaApplication extends SpringBootServletInitializer {
+public abstract class OpenXavaApplication extends SpringBootServletInitializer {
 
 	/**
 	 * @since 8.0

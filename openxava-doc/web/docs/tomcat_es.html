@@ -9,121 +9,104 @@
     
     <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
-  <body>
-    <div class="wiki" style="display: block;">
-      <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava"> <a href="https://www.openxava.org/">
-              <span>o</span>pen<span>x</span>ava </a> </span> / <a href="index_es.html">documentación</a>
-          / </span> Desplegar en producción con Tomcat</h1>
-      <i>Si estás usando una versión de OpenXava anterior a la 7.0 mira las <a
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> /
+        <a href="index_es.html">documentación</a> /
+      </span>
+      Desplegar en producción con Tomcat
+    </h1>
 
-          href="tomcat-ox6_es.html">instrucciones antiguas</a></i></div>
-    <div class="wiki" style="display: block;"> Puedes desplegar tus aplicaciones
-      OpenXava en cualquier servidor de aplicaciones Java con soporte de Servlet
-      3.1 o superior. Para esta guía vamos a usar Apache Tomcat para desplegar
-      tu aplicación OpenXava. Tomcat es el servidor de aplicaciones Java más
-      usado y robusto, ideal para entornos de producción.<br>
-      <h2 id="toc1">Descargar e instalar Tomcat</h2>
-      <a href="https://tomcat.apache.org/download-90.cgi">Descarga Tomcat 9</a>
-      desde Apache. OpenXava también funciona bien con Tomcat 8 and Tomcat 10.
-      Descomprime el Tomcat en una carpeta de tu elección. Ve a la carpeta <i>webapps</i>
-      y borra las carpetas que hay dentro: <i>docs, examples, host-manager,
-        manager</i> and <i>ROOT</i>. Son aplicaciones de ejemplo y
-      administración que no deberías tener en un sistema de producción.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Crear y desplegar el WAR<br>
-      </h2>
-      Para desplegar tu aplicación en Tomcat has de crear un archivo WAR desde
-      tu proyecto. Para ello, pulsa con el botón derecho del ratón en tu
-      proyecto y escoge <i>Run As &gt; Maven build...</i>:</div>
-    <img src="files/run-as-maven-build.png">
-    <div class="wiki" style="display: block;">En el diálogo pon <i>package</i>
-      para el campo <i>Goals</i>:</div>
-    <img src="files/maven-build-package_es.png">
-    <div class="wiki" style="display: block;">Adicionalmente, puedes poner un
-      nombre mejor como <i>facturacion package</i> en este caso. Pulsa en <i>Run</i>.
-      Espera a que termine la ejecución.</div>
-    <div class="wiki" style="display: block;">O si tienes Maven instalado en tu
-      ordenador y prefieres usar la línea de órdenes:
-      <pre><code class="language-bash">$ cd facturacion
-$ mvn package
-</code></pre> Después coge el archivo <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>)
-      de la carpeta <i>target</i> de tu proyecto y cópialo en la carpeta <i>webapps</i>
-      de tu Tomcat. Tu aplicación ya está desplegada. ¡Ojo! Para Tomcat 10 has
-      de crear una carpeta llamada <i>webapps-javaee</i> dentro de la carpeta
-      del Tomcat 10 y después copia ahí el war, en lugar de a <i>webapps</i>. </div>
-    <div class="wiki" style="display: block;">
-      <h2>Ejecutar Tomcat</h2>
-      <h2><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Para
-          arrancar tu Tomcat, con Windows pulsa el botón de </span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">Inicio</em><span
+    <p><i>Si estás usando OpenXava 7.x o anterior mira las
+    <a href="tomcat-ox7_es.html">instrucciones para OpenXava 7</a></i></p>
 
-          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>,
-          </span>teclea<span> </span></span><em style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;">cmd</em><span
+    <p>Puedes desplegar tus aplicaciones OpenXava en cualquier servidor de aplicaciones
+    Java con soporte de Jakarta Servlet 6.1 o superior. Para esta guía vamos a usar Apache
+    Tomcat para desplegar tu aplicación OpenXava. Tomcat es el servidor de aplicaciones Java
+    más usado y robusto, ideal para entornos de producción. Las aplicaciones OpenXava son
+    aplicaciones Spring Boot, así que además de ejecutarlas directamente con su Tomcat
+    embebido, también puedes generar un WAR estándar y desplegarlo en un Tomcat externo,
+    tal como has hecho siempre.</p>
 
-          style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>
-          </span>y pulsa INTRO, entonces:</span><span style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">:</span></h2>
-    </div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="language-shell">set JAVA_HOME=C:\Program Files\Java\jdk-11.0.3
-cd tomcat-9.0.64\bin
+    <h2 id="toc1">Cuándo usar Tomcat frente a un WAR ejecutable</h2>
+
+    <p>Desde OpenXava 8.0 tienes dos formas de ejecutar tu aplicación en producción:
+    desplegar el WAR en un Tomcat externo, como se explica en esta guía, o ejecutar el WAR
+    directamente con <code>java -jar</code> como un
+    <a href="executable-war_es.html">WAR ejecutable</a>. Usa Tomcat si quieres tener varias
+    aplicaciones en el mismo servidor, o si ya tienes un Tomcat instalado y quieres
+    reutilizarlo. Usa el WAR ejecutable si solo tienes una aplicación, o si tienes pensado
+    desplegar en Docker o Kubernetes, ya que el WAR ejecutable es un artefacto
+    autocontenido fácil de containerizar.</p>
+
+    <h2 id="toc1">Descargar e instalar Tomcat</h2>
+
+    <p><a href="https://tomcat.apache.org/download-11.cgi">Descarga Tomcat 11</a> desde
+    Apache. Descomprime el Tomcat en una carpeta de tu elección. Ve a la carpeta
+    <i>webapps</i> y borra las carpetas que hay dentro: <i>docs</i>, <i>examples</i>,
+    <i>host-manager</i>, <i>manager</i> y <i>ROOT</i>. Son aplicaciones de ejemplo y
+    administración que no deberías tener en un sistema de producción.</p>
+
+    <h2 id="toc1">Crear y desplegar el WAR</h2>
+
+    <p>Para desplegar tu aplicación en Tomcat has de crear un archivo WAR desde tu proyecto.
+    Abre un terminal, o usa el terminal de tu IDE, y ejecuta Maven desde la carpeta raíz de
+    tu proyecto:</p>
+
+    <pre><code class="language-bash">$ cd facturacion
+$ mvn clean package</code></pre>
+
+    <p>Después coge el archivo <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>)
+    de la carpeta <i>target</i> de tu proyecto y cópialo en la carpeta <i>webapps</i> de tu
+    Tomcat. Tu aplicación ya está desplegada.</p>
+
+    <h2 id="toc1">Ejecutar Tomcat</h2>
+
+    <p>Para arrancar tu Tomcat, con Windows pulsa el botón de <i>Inicio</i>, teclea <i>cmd</i>
+    y pulsa INTRO, entonces:</p>
+
+    <pre><code class="language-shell">set JAVA_HOME=C:\Program Files\Java\jdk-17.0.9
+cd tomcat-11.0.23\bin
 startup</code></pre>
-    </div>
-    <div class="wiki" style="display: block;">Con Linux/Mac:
-      <div class="wiki" style="display: block;">
-        <pre><code class="language-shell">export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-cd tomcat-9.0.64/bin
-./startup.sh</code></pre>
-      </div>
-      <div class="wiki" style="display: block;">Por supuesto, ajusta las URLs
-        para tus propios directorios del Tomcat y Java.</div>
-      <div class="wiki" style="display: block;">¡Enhorabuena! Tu aplicación ya
-        está funcionando en producción, ya puedes usar tu navegador para
-        probarla.</div>
-    </div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc1">Configurar contra la base de datos de producción</h2>
-      Por defecto tu aplicación va contra la misma base de datos que usas en
-      desarrollo, la que tienes definida en la fuente de datos en <i>src/main/webapp/META-INF/context.xml</i>
-      de tu proyecto. La mayoría de las veces vas a querer una base de datos
-      diferente para producción. Para sobreescribir la base datos usada por tu
-      aplicación has de definir la fuente de datos en el <i>context.xml</i> que
-      se encuentra en la carpeta <i>conf</i> de tu Tomcat. Para nuestro
-      ejemplo, deberíamos editar <i>tomcat-9.0.64/conf/context.xml</i> y
-      dejarlos de la siguiente manera:</div>
-    <div class="wiki" style="display: block;">
-      <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
-&lt;!-- The contents of this file will be loaded for each web application --&gt;
+    <p>Con Linux/Mac:</p>
+
+    <pre><code class="language-shell">export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+cd tomcat-11.0.23/bin
+./startup.sh</code></pre>
+
+    <p>Por supuesto, ajusta las rutas para tus propios directorios del Tomcat y Java.</p>
+
+    <p>¡Enhorabuena! Tu aplicación ya está funcionando en producción, ya puedes usar tu
+    navegador para probarla.</p>
+
+    <h2 id="toc1">Configurar contra la base de datos de producción</h2>
+
+    <p>Por defecto tu aplicación va contra la misma base de datos que usas en desarrollo,
+    la que tienes definida con las propiedades <i>spring.datasource.*</i> en
+    <i>application.properties</i> de tu proyecto. La mayoría de las veces vas a querer
+    una base de datos diferente para producción. Para este caso debes usar el mecanismo
+    clásico de Tomcat, añadir tu fuente de datos al <i>context.xml</i> situado en la
+    carpeta <i>conf</i> de tu Tomcat.</p>
+
+    <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
 &lt;Context&gt;
 
-    &lt;!-- Default set of monitored resources. If one of these changes, the    --&gt;
-    &lt;!-- web application will be reloaded.                                   --&gt;
-    &lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
-    &lt;WatchedResource&gt;WEB-INF/tomcat-web.xml&lt;/WatchedResource&gt;
-    &lt;WatchedResource&gt;${catalina.base}/conf/web.xml&lt;/WatchedResource&gt;
+    &lt;Resource name="jdbc/facturacionDS" auth="Container" type="javax.sql.DataSource"
+        maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+        username="facturacion" password="afj30" driverClassName="org.hsqldb.jdbcDriver"
+        url="jdbc:hsqldb:hsql://dbserver:1999"/&gt;
 
-    &lt;!-- Uncomment this to disable session persistence across Tomcat restarts --&gt;
-    &lt;!--
-    &lt;Manager pathname="" /&gt;
-    --&gt;
-	
-	 &lt;Resource name="jdbc/facturacionDS" auth="Container" type="javax.sql.DataSource"
-	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
-	      username="facturacion" password="afj30" driverClassName="org.hsqldb.jdbcDriver"
-	      url="jdbc:hsqldb:hsql://localhost:1999"/&gt;
-	
-&lt;/Context&gt;
-</code></pre> </div>
-    <div class="wiki" style="display: block;">Usamos <i>facturacionDS</i> como
-      nombre de fuente de datos, el mismo que en el <i>context.xml</i> incluido
-      en tu WAR, pero definiendo <i>url, username</i> y <i>password</i>
-      diferentes.</div>
-    <div class="wiki" style="display: block;">
-      <div class="wiki" style="display: block;">
-        <h2 id="toc1"><br>
-        </h2>
-      </div>
-    </div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
+&lt;/Context&gt;</code></pre>
+
+    <p>Usamos <i>facturacionDS</i> como nombre de fuente de datos, el mismo nombre JNDI
+    declarado para la fuente de datos por defecto en el <i>persistence.xml</i> de tu
+    proyecto.</p>
   </body>
 </html>

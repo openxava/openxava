@@ -59,6 +59,15 @@ public class Resources {
 			InputStream stream = Resources.class.getResourceAsStream(prefix + resourceName);
 			if (stream != null) return stream;
 		}
+		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+		if (contextClassLoader != null && contextClassLoader != Resources.class.getClassLoader()) {
+			for (String prefix: prefixes) {
+				String path = (prefix + resourceName).replace("//", "/");
+				if (path.startsWith("/")) path = path.substring(1);
+				InputStream stream = contextClassLoader.getResourceAsStream(path);
+				if (stream != null) return stream;
+			}
+		}
 		return null;
 	}
 	
