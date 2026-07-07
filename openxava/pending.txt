@@ -1,8 +1,11 @@
 Pending Spring Boot for XavaPro (tmr)
 -------------------------------------
 
-- HHH160246. El código es correcto y funciona. Mutear el warning para evitar quejas de usuarios.
 - Probar prueba manual de subida de archivos. Hemos puesto @Lob en AttachedFile
+    - Prueba simple en openxavatest
+    - Aplicación nueva contra HSQLDB.
+    - Aplicación nueva contra MySQL.
+    - UploadTest.txt
     Si funciona quizás deberíamos indicar en la migración que es necesario poner @Lob en los byte[]
     El error que daba sin eso al actualizar el esquema era:
         "alter table PUBLIC.OXFILES alter column data set data type varbinary(255)"
