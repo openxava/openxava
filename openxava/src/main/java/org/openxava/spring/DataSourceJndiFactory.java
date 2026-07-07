@@ -60,6 +60,13 @@ public class DataSourceJndiFactory implements ObjectFactory {
 	/**
 	 * @since 8.0
 	 */
+	public static boolean isRegistered(String jndiName) {
+		return dataSources.containsKey(jndiName);
+	}
+
+	/**
+	 * @since 8.0
+	 */
 	@Override
 	public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable<?, ?> environment) {
 		if (name != null) {

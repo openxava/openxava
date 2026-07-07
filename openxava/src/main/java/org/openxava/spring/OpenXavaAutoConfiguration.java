@@ -86,19 +86,22 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 
 	/**
 	 * Prepares the embedded Tomcat container so that JNDI resources can be
-	 * registered afterward, regardless of whether it ends up embedded or
-	 * external. It only sets the cookie processor and, when there is at least
-	 * one datasource to expose through JNDI, enables JNDI in the embedded
-	 * Tomcat (an external Tomcat already has it enabled by default).
+	 * registered, and registers the datasources in the Tomcat naming context
+	 * during context customization (before filter initialization). This is
+	 * critical for embedded Tomcat, where filters (e.g. NaviOXFilter) may
+	 * trigger JPA/Hibernate initialization during their {@code init()} method,
+	 * before {@code ContextRefreshedEvent} fires.
 	 * <p>
-	 * The actual datasource creation and JNDI registration is done once, for
-	 * both embedded and external Tomcat, by {@link #openXavaJndiRegistrar}.
+	 * For external Tomcat (WAR deployment), where context customizers do not
+	 * run, the datasource registration is done by {@link #openXavaJndiRegistrar}
+	 * on {@code ContextRefreshedEvent}.
 	 *
 	 * @since 8.0
 	 */
 	@Bean
 	public WebServerFactoryCustomizer<TomcatServletWebServerFactory> openXavaTomcatCustomizer(
-			OpenXavaDataSourcesProperties dataSourcesProperties) {
+			OpenXavaDataSourcesProperties dataSourcesProperties,
+			ObjectProvider<DataSource> dataSourceProvider) {
 		return factory -> {
 			// SameSite=Lax for all cookies, to pass the ZAP test (OWASP CSRF)
 			// "Strict" does not work with Azure AD and "None" does not work with Chrome
@@ -126,6 +129,25 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 				System.setProperty("java.naming.factory.initial",
 					"org.apache.naming.java.javaURLContextFactory");
 			}
+
+			factory.addContextCustomizers((TomcatContextCustomizer) context -> {
+				String defaultJndiName = DataSourceConnectionProvider.getDefaultCleanJPADataSourceName();
+				Map<String, DataSource> additionalDataSources = createAdditionalDataSources(dataSourcesProperties);
+				if (defaultJndiName == null && additionalDataSources.isEmpty()) return;
+
+				if (defaultJndiName != null) {
+					DataSource dataSource = dataSourceProvider.getIfAvailable();
+					if (dataSource != null) {
+						DataSourceJndiFactory.setDataSource(dataSource);
+					}
+				}
+
+				if (defaultJndiName != null) registerJndiResource(context, defaultJndiName);
+				for (String jndiName : additionalDataSources.keySet()) {
+					registerJndiResource(context, jndiName);
+				}
+			});
+
 			factory.addContextLifecycleListeners(new NamingContextListener());
 		};
 	}
@@ -190,6 +212,7 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 		Map<String, DataSource> result = new LinkedHashMap<>();
 		for (DataSourceDefinition definition : properties.getDatasources().values()) {
 			if (Is.emptyString(definition.getJndi())) continue;
+			if (DataSourceJndiFactory.isRegistered(definition.getJndi())) continue;
 			DataSource dataSource = createDataSource(definition);
 			DataSourceJndiFactory.register(definition.getJndi(), dataSource);
 			result.put(definition.getJndi(), dataSource);
