@@ -1,0 +1,107 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Desplegar en producción como WAR ejecutable - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> /
+        <a href="index_es.html">documentación</a> /
+      </span>
+      Desplegar en producción como WAR ejecutable
+    </h1>
+
+    <p>Desde OpenXava 8.0 tus aplicaciones son aplicaciones Spring Boot. Esto significa
+    que el archivo WAR que generas con Maven es un WAR ejecutable, puedes ejecutarlo
+    directamente con Java sin necesitar un servidor de aplicaciones externo. Esta es una
+    alternativa a <a href="tomcat_es.html">desplegar en Tomcat</a>, más sencilla e
+    ideal para muchos entornos de producción.</p>
+
+    <h2 id="toc1">Cuándo usar un WAR ejecutable frente a Tomcat</h2>
+
+    <p>Usa el WAR ejecutable si solo tienes una aplicación, o si tienes pensado desplegar
+    en Docker o Kubernetes, ya que el WAR ejecutable es un artefacto autocontenido fácil
+    de containerizar. Usa <a href="tomcat_es.html">Tomcat</a> en cambio si quieres tener
+    varias aplicaciones en el mismo servidor, o si ya tienes un Tomcat instalado y quieres
+    reutilizarlo.</p>
+
+    <h2 id="toc1">Generar el WAR</h2>
+
+    <p>Abre un terminal, o usa el terminal de tu IDE, y ejecuta Maven desde la carpeta
+    raíz de tu proyecto:</p>
+
+    <pre><code class="language-bash">$ cd facturacion
+$ mvn clean package</code></pre>
+
+    <p>Esto genera <i>facturacion.war</i> (o <i>tunombreaplicacion.war</i>) dentro de la
+    carpeta <i>target</i> de tu proyecto.</p>
+
+    <h2 id="toc1">Ejecutar el WAR</h2>
+
+    <p>Asegúrate de tener Java 17 o superior instalado y <i>JAVA_HOME</i> configurado.
+    Luego, simplemente ejecuta el WAR con Java:</p>
+
+    <pre><code class="language-bash">$ java -jar facturacion.war</code></pre>
+
+    <p>Tu aplicación ya está funcionando. Usa tu navegador para acceder a
+    <i>http://localhost:8080/facturacion</i>.</p>
+
+    <h2 id="toc1">Ejecutar como servicio en segundo plano</h2>
+
+    <p>En un servidor de producción normalmente quieres ejecutar la aplicación en segundo
+    plano y mantenerla funcionando después de cerrar la sesión. Una forma sencilla es usar
+    <i>nohup</i> en Linux/Mac:</p>
+
+    <pre><code class="language-bash">$ nohup java -jar facturacion.war &amp;</code></pre>
+
+    <p>Para una configuración más robusta considera usar un gestor de servicios como
+    <i>systemd</i> o un gestor de procesos como <i>Supervisor</i> para gestionar el ciclo
+    de vida de tu aplicación.</p>
+
+    <h2 id="toc1">Configurar contra la base de datos de producción</h2>
+
+    <p>Por defecto tu aplicación va contra la misma base de datos que usas en desarrollo,
+    la que tienes definida con las propiedades <i>spring.datasource.*</i> en
+    <i>application.properties</i> de tu proyecto. La mayoría de las veces vas a querer
+    una base de datos diferente para producción. Puedes sobrescribir la configuración de
+    la base de datos sin modificar el WAR usando la configuración externalizada de Spring
+    Boot.</p>
+
+    <p>Coloca un archivo <i>application.properties</i> en la misma carpeta donde ejecutas
+    el WAR y se cargará automáticamente:</p>
+
+    <pre><code class="language-properties">spring.datasource.url=jdbc:hsqldb:hsql://dbserver:1999
+spring.datasource.username=facturacion
+spring.datasource.password=afj30
+spring.datasource.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <p>Alternativamente, puedes pasar las propiedades como argumentos de línea de
+    comandos:</p>
+
+    <pre><code class="language-bash">$ java -jar facturacion.war \
+  --spring.datasource.url=jdbc:hsqldb:hsql://dbserver:1999 \
+  --spring.datasource.username=facturacion \
+  --spring.datasource.password=afj30</code></pre>
+
+    <p>O usar variables de entorno:</p>
+
+    <pre><code class="language-bash">$ export SPRING_DATASOURCE_URL=jdbc:hsqldb:hsql://dbserver:1999
+$ export SPRING_DATASOURCE_USERNAME=facturacion
+$ export SPRING_DATASOURCE_PASSWORD=afj30
+$ java -jar facturacion.war</code></pre>
+
+    <p>Estos enfoques te permiten usar el mismo WAR contra diferentes bases de datos en
+    distintos entornos sin tener que recompilar.</p>
+  </body>
+</html>

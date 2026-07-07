@@ -33,6 +33,17 @@
     embebido, también puedes generar un WAR estándar y desplegarlo en un Tomcat externo,
     tal como has hecho siempre.</p>
 
+    <h2 id="toc1">Cuándo usar Tomcat frente a un WAR ejecutable</h2>
+
+    <p>Desde OpenXava 8.0 tienes dos formas de ejecutar tu aplicación en producción:
+    desplegar el WAR en un Tomcat externo, como se explica en esta guía, o ejecutar el WAR
+    directamente con <code>java -jar</code> como un
+    <a href="executable-war_es.html">WAR ejecutable</a>. Usa Tomcat si quieres tener varias
+    aplicaciones en el mismo servidor, o si ya tienes un Tomcat instalado y quieres
+    reutilizarlo. Usa el WAR ejecutable si solo tienes una aplicación, o si tienes pensado
+    desplegar en Docker o Kubernetes, ya que el WAR ejecutable es un artefacto
+    autocontenido fácil de containerizar.</p>
+
     <h2 id="toc1">Descargar e instalar Tomcat</h2>
 
     <p><a href="https://tomcat.apache.org/download-11.cgi">Descarga Tomcat 11</a> desde

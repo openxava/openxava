@@ -33,6 +33,16 @@
     you can also build a standard WAR and deploy it in an external Tomcat, exactly as you
     always did.</p>
 
+    <h2 id="toc1">When to use Tomcat vs an executable WAR</h2>
+
+    <p>Since OpenXava 8.0 you have two ways to run your application in production: deploy
+    the WAR in an external Tomcat, as explained in this guide, or run the WAR directly
+    with <code>java -jar</code> as an <a href="executable-war_en.html">executable WAR</a>.
+    Use Tomcat if you want to host several applications in the same server, or if you
+    already have a Tomcat installed and want to reuse it. Use the executable WAR if you
+    only have one application, or if you plan to deploy in Docker or Kubernetes, since the
+    executable WAR is a self-contained artifact easy to containerize.</p>
+
     <h2 id="toc1">Download and install Tomcat</h2>
 
     <p><a href="https://tomcat.apache.org/download-11.cgi">Download Tomcat 11</a> from

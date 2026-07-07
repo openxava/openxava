@@ -1,6 +1,4 @@
 Pending Standad alone WAR (tmr)
 -------------------------------
 
-TMR ME QUEDÉ PARA HACER LA DOC. LA SUITE PASÓ AL 100%
-- Documentación como alternativa a desplegar en Tomcat.
 - Buscar otra documentación sobre arranca standalone.

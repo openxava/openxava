@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Deploy in production as an executable WAR - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
+    
+    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> /
+        <a href="index_en.html">documentation</a> /
+      </span>
+      Deploy in production as an executable WAR
+    </h1>
+
+    <p>Since OpenXava 8.0 your applications are Spring Boot applications. This means
+    that the WAR file you generate with Maven is an executable WAR, you can run it
+    directly with Java without needing an external application server. This is an
+    alternative to <a href="tomcat_en.html">deploying in Tomcat</a>, simpler and
+    ideal for many production environments.</p>
+
+    <h2 id="toc1">When to use an executable WAR vs Tomcat</h2>
+
+    <p>Use the executable WAR if you only have one application, or if you plan to deploy
+    in Docker or Kubernetes, since the executable WAR is a self-contained artifact easy
+    to containerize. Use <a href="tomcat_en.html">Tomcat</a> instead if you want to host
+    several applications in the same server, or if you already have a Tomcat installed and
+    want to reuse it.</p>
+
+    <h2 id="toc1">Build the WAR</h2>
+
+    <p>Open a terminal, or use the terminal of your IDE, and execute Maven from the
+    root folder of your project:</p>
+
+    <pre><code class="language-bash">$ cd invoicing
+$ mvn clean package</code></pre>
+
+    <p>This generates <i>invoicing.war</i> (or <i>yourapplicationname.war</i>) inside
+    the <i>target</i> folder of your project.</p>
+
+    <h2 id="toc1">Run the WAR</h2>
+
+    <p>Make sure you have Java 17 or better installed and <i>JAVA_HOME</i> configured.
+    Then, just run the WAR with Java:</p>
+
+    <pre><code class="language-bash">$ java -jar invoicing.war</code></pre>
+
+    <p>Your application is already running. Use your browser to access it at
+    <i>http://localhost:8080/invoicing</i>.</p>
+
+    <h2 id="toc1">Run as a background service</h2>
+
+    <p>In a production server you usually want to run the application in the background
+    and keep it running after you log out. A simple way is to use <i>nohup</i> in
+    Linux/Mac:</p>
+
+    <pre><code class="language-bash">$ nohup java -jar invoicing.war &amp;</code></pre>
+
+    <p>For a more robust setup consider using a service manager like <i>systemd</i> or
+    a process manager like <i>Supervisor</i> to manage the lifecycle of your
+    application.</p>
+
+    <h2 id="toc1">Configure against production database</h2>
+
+    <p>By default your application goes against the same database you're using in
+    development, the one defined with the <i>spring.datasource.*</i> properties in
+    <i>application.properties</i> of your project. Most times you want to use a
+    different database for production. You can override the database configuration
+    without modifying the WAR by using Spring Boot externalized configuration.</p>
+
+    <p>Place an <i>application.properties</i> file in the same folder where you run
+    the WAR, and it will be picked up automatically:</p>
+
+    <pre><code class="language-properties">spring.datasource.url=jdbc:hsqldb:hsql://dbserver:1999
+spring.datasource.username=invoicing
+spring.datasource.password=sfh4tjdl
+spring.datasource.driver-class-name=org.hsqldb.jdbcDriver</code></pre>
+
+    <p>Alternatively, you can pass the properties as command-line arguments:</p>
+
+    <pre><code class="language-bash">$ java -jar invoicing.war \
+  --spring.datasource.url=jdbc:hsqldb:hsql://dbserver:1999 \
+  --spring.datasource.username=invoicing \
+  --spring.datasource.password=sfh4tjdl</code></pre>
+
+    <p>Or use environment variables:</p>
+
+    <pre><code class="language-bash">$ export SPRING_DATASOURCE_URL=jdbc:hsqldb:hsql://dbserver:1999
+$ export SPRING_DATASOURCE_USERNAME=invoicing
+$ export SPRING_DATASOURCE_PASSWORD=sfh4tjdl
+$ java -jar invoicing.war</code></pre>
+
+    <p>These approaches allow you to use the same WAR against different databases in
+    different environments without rebuilding.</p>
+  </body>
+</html>
