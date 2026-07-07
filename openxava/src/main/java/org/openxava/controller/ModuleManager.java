@@ -5,7 +5,6 @@ import java.lang.reflect.*;
 import java.net.*;
 import java.util.*;
 import java.util.Collections;
-import java.util.logging.*;
 import java.util.stream.*;
 
 import javax.inject.*;
@@ -43,7 +42,6 @@ public class ModuleManager implements java.io.Serializable {
 
 	static {
 		MetaControllers.setContext(MetaControllers.WEB);
-		Logger.getLogger("org.directwebremoting").setLevel(Level.SEVERE); 
 		setVersionInfo();
 		log.info(getProduct() + " " + getVersion() + " (" + getVersionDate() + ")");
 		verifyLatestVersion();

@@ -15,7 +15,10 @@ import org.openxava.model.*;
 @Table(name="OXFILES", indexes = {@Index(columnList = "libraryId")}) 
 public class AttachedFile extends Identifiable {
 	
-	private String name;	
+	private String name;
+
+	@Lob 
+	@Column(length = Integer.MAX_VALUE)
 	private byte[] data;
 	
 	@Column(length=32) 

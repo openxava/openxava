@@ -3,8 +3,6 @@ package org.openxava.jpa.impl;
 import java.util.Map;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -15,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.openxava.util.XavaResources;
 import org.openxava.jpa.impl.PersistenceXml;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of IEntityManagerFactoryProvider.
@@ -42,7 +41,8 @@ public class EntityManagerFactoryProvider implements IEntityManagerFactoryProvid
                 factoryProperties = new HashMap(properties);
                 factoryProperties.put("hibernate.implicit_naming_strategy", "legacy-jpa"); 
             }
-            Logger.getLogger("org.hibernate.boot.registry.classloading.internal").setLevel(Level.SEVERE); // To avoid a warning exception with Envers in development environment
+            silenceLogger("org.hibernate.boot.registry.classloading.internal"); // To avoid a warning exception with Envers in development environment
+            silenceLogger("org.hibernate.orm.boot"); // To avoid HHH160246 warning about @OrderColumn on mappedBy associations
             entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit, factoryProperties);
         }
         catch (NoSuchFieldError ex) {
@@ -64,4 +64,14 @@ public class EntityManagerFactoryProvider implements IEntityManagerFactoryProvid
         
         return new SimpleEntry<>(properties, entityManagerFactory);
     }
+
+	private static void silenceLogger(String loggerName) {
+		try {
+			((ch.qos.logback.classic.Logger) LoggerFactory.getLogger(loggerName))
+				.setLevel(ch.qos.logback.classic.Level.ERROR);
+		}
+		catch (NoClassDefFoundError | ClassCastException ex) {
+			java.util.logging.Logger.getLogger(loggerName).setLevel(java.util.logging.Level.SEVERE);
+		}
+	}
 }

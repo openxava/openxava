@@ -84,8 +84,7 @@ private String descripcion;</code></pre>
 <pre><code class="language-java">@Column(name="DESC", nullable=false, length=512)
 public String getDescripcion() { return descripcion; }</code></pre>
       Otros ejemplos:<br>
-<pre><code class="language-java">@Column(name="DESC",
- columnDefinition="CLOB NOT NULL",
+<pre><code class="language-java">@Column(name="DESC", nullable=false,
  table="EMP_DETAIL")
 @Lob
 private String descripcion;

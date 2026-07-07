@@ -16,12 +16,32 @@ import org.springframework.context.annotation.Bean;
 public class NaviOXAutoConfiguration {
 
 	@Bean
-	public FilterRegistrationBean<NaviOXFilter> naviOXFilter() {
+	public FilterRegistrationBean<NaviOXFilter> naviOXFilterJSP() {
 		FilterRegistrationBean<NaviOXFilter> registration = new FilterRegistrationBean<>();
 		registration.setFilter(new NaviOXFilter());
-		registration.setName("naviox");
-		registration.addUrlPatterns("*.jsp", "/modules/*", "/phone/index.jsp", "/m/*");
+		registration.setName("naviox-jsp");
+		registration.addUrlPatterns("*.jsp");
+		registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST));
+		return registration;
+	}
+
+	@Bean
+	public FilterRegistrationBean<NaviOXFilter> naviOXFilterModules() {
+		FilterRegistrationBean<NaviOXFilter> registration = new FilterRegistrationBean<>();
+		registration.setFilter(new NaviOXFilter());
+		registration.setName("naviox-modules");
+		registration.addUrlPatterns("/modules/*", "/phone/index.jsp");
 		registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD));
+		return registration;
+	}
+
+	@Bean
+	public FilterRegistrationBean<NaviOXFilter> naviOXFilterServlets() {
+		FilterRegistrationBean<NaviOXFilter> registration = new FilterRegistrationBean<>();
+		registration.setFilter(new NaviOXFilter());
+		registration.setName("naviox-servlets");
+		registration.addUrlPatterns("/m/*", "/p/*");
+		registration.setDispatcherTypes(EnumSet.of(DispatcherType.REQUEST));
 		return registration;
 	}
 
