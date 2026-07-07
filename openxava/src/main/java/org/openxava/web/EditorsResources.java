@@ -5,6 +5,8 @@ import java.net.*;
 import java.util.*;
 import java.util.zip.*;
 
+import jakarta.servlet.ServletContext;
+
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
 
@@ -23,9 +25,17 @@ public class EditorsResources {
 	private static List<String> jsFiles; 
 	
 	public static Collection<String> listCSSFiles(String realPath) { 
+		return listCSSFiles(realPath, null);
+	}
+	
+	/**
+	 * @since 8.0
+	 */
+	public static Collection<String> listCSSFiles(String realPath, ServletContext servletContext) { 
 		if (cssFiles == null) {
 			cssFiles = new ArrayList<>();
 			fillFilesFromFileSystem(cssFiles, realPath, "style", "css");
+			fillFilesFromServletContext(cssFiles, servletContext, "style", "css");
 			if (!fillFilesFromSpring(cssFiles, "style", "css")) {
 				fillFilesFromJar(cssFiles, "style", "css"); 
 			}
@@ -34,9 +44,17 @@ public class EditorsResources {
 	}
 	
 	public static Collection<String> listJSFiles(String realPath) { 
+		return listJSFiles(realPath, null);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public static Collection<String> listJSFiles(String realPath, ServletContext servletContext) { 
 		if (jsFiles == null) {
 			jsFiles = new ArrayList<>();
 			fillFilesFromFileSystem(jsFiles, realPath, "js", "js");
+			fillFilesFromServletContext(jsFiles, servletContext, "js", "js");
 			if (!fillFilesFromSpring(jsFiles, "js", "js")) {
 				fillFilesFromJar(jsFiles, "js", "js"); 
 			}
@@ -106,6 +124,7 @@ public class EditorsResources {
 	}
 	
 	private static void fillFilesFromFileSystem(Collection<String> result, String realPath, String folder, String extension) {  
+		if (realPath == null) return;
 		File resourcesFolder = new File(realPath + "/xava/editors/" + folder);		
 		String[] resources = resourcesFolder.list();
 		if (resources == null) return;
@@ -114,6 +133,27 @@ public class EditorsResources {
 			if (resources[i].endsWith("." + extension)) {
 				String name = folder + "/" + resources[i]; 
 				if (!result.contains(name)) result.add(name);
+			}
+		}
+	}
+	
+	private static void fillFilesFromServletContext(Collection<String> result, ServletContext servletContext, String folder, String extension) {
+		if (servletContext == null) return;
+		fillFilesFromServletContextPath(result, servletContext, "/xava/editors/" + folder + "/", extension);
+	}
+	
+	private static void fillFilesFromServletContextPath(Collection<String> result, ServletContext servletContext, String path, String extension) {
+		Set<String> resources = servletContext.getResourcePaths(path);
+		if (resources == null) return;
+		for (String resource : resources) {
+			if (resource.endsWith("/")) {
+				fillFilesFromServletContextPath(result, servletContext, resource, extension);
+			} else if (resource.endsWith("." + extension)) {
+				String prefix = "/xava/editors/";
+				if (resource.startsWith(prefix)) {
+					String name = resource.substring(prefix.length());
+					if (!result.contains(name)) result.add(name);
+				}
 			}
 		}
 	}

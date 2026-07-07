@@ -102,6 +102,10 @@ public class CSSServlet extends HttpServlet {
 		} catch (FileNotFoundException e) {
 		}
 		if (!isEmpty) {
+			stream = getServletContext().getResourceAsStream(prefix + resourceName);
+			if (stream != null) {
+				return stream;
+			}
 			stream = getClass().getClassLoader().getResourceAsStream("META-INF/resources" + prefix + resourceName);
 			if (stream != null) {
 				return stream;
