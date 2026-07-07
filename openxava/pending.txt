@@ -2,15 +2,15 @@ Pending Spring Boot for XavaPro (tmr)
 -------------------------------------
 
 - Probar prueba manual de subida de archivos. Hemos puesto @Lob en AttachedFile
-    - Prueba simple en openxavatest
-    - Aplicación nueva contra HSQLDB.
-    - Aplicación nueva contra MySQL.
-    - UploadTest.txt
     Si funciona quizás deberíamos indicar en la migración que es necesario poner @Lob en los byte[]
     El error que daba sin eso al actualizar el esquema era:
         "alter table PUBLIC.OXFILES alter column data set data type varbinary(255)"
         via JDBC [data exception: string data, right truncation in statement
         [alter table PUBLIC.OXFILES alter column data set data type varbinary(255)]]"
-    Podriamos probar XavaProjects. Adjuntando algo, migrando a 8.0 y viendo sí se puede ver lo adjunto.
+
+Ha sido imposible ejecutar la acción Load: Unknown entity type
+    'org.openxava.web.editors.AttachedFile'
+    ('AttachedFile' does not belong to this persistence unit)
+
 - Suite openxava
 - Suite xavapro
