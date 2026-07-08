@@ -4,8 +4,7 @@ import java.io.*;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-import javax.ejb.ObjectNotFoundException;
+import org.openxava.model.*;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;

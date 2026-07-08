@@ -3,8 +3,7 @@ package org.openxava.model.impl;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.util.*;

@@ -4,7 +4,7 @@ import java.math.*;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 import javax.swing.event.*;
 
 import org.apache.commons.logging.*;

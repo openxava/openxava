@@ -2,7 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 /**
  * Allows search specifying a concrete condition. <p>

@@ -2,7 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.tab.meta.*;

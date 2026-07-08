@@ -73,10 +73,7 @@ public class MetaObject {
 			log.error(ex.getMessage(),ex);
 			throw new XavaException("create_error", name);
 		}
-		catch (NoClassDefFoundError ex) {						
-			if (ex.getMessage().indexOf("javax/ejb") >= 0) {
-				throw new NoClassDefFoundError(ex.getMessage() + ": " + XavaResources.getString("make_sure_ejb_jar_in_lib"));
-			}
+		catch (NoClassDefFoundError ex) {
 			throw ex;
 		}		
 	}

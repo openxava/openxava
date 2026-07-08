@@ -3,7 +3,6 @@ package org.openxava.actions;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
 import jakarta.validation.*;
 import jakarta.validation.metadata.*;
 

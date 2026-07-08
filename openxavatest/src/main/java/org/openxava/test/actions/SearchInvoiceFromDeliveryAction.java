@@ -2,8 +2,6 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import javax.ejb.*;
-
 import org.openxava.actions.*;
 import org.openxava.model.*;
 

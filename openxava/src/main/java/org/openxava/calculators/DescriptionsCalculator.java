@@ -4,7 +4,6 @@ import java.text.*;
 import java.util.*;
 import java.util.Collections;
 
-import javax.ejb.ObjectNotFoundException;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;

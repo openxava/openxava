@@ -3,8 +3,7 @@ package org.openxava.model.impl;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-import javax.ejb.ObjectNotFoundException;
+import org.openxava.model.*;
 
 import org.hibernate.*;
 import org.openxava.model.meta.*;

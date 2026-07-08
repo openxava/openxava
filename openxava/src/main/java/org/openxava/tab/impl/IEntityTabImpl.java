@@ -2,7 +2,7 @@ package org.openxava.tab.impl;
 
 import java.rmi.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 /**
  * Interface to facilite a remote <b>impl</b>ementation of

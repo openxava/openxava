@@ -4,8 +4,6 @@ import java.lang.reflect.*;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-
 import org.apache.commons.collections.*;
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
@@ -30,9 +28,7 @@ import org.openxava.validators.meta.*;
 public class MapFacadeBean {
 	
 	private static Log log = LogFactory.getLog(MapFacadeBean.class);
-	private static jakarta.validation.ValidatorFactory validatorFactory; 
-	private javax.ejb.SessionContext sessionContext = null;
-	private final static long serialVersionUID = 3206093459760846163L;
+	private static jakarta.validation.ValidatorFactory validatorFactory;
 	
 	
 	
@@ -1147,26 +1143,12 @@ public class MapFacadeBean {
 		return hiddenKeyNotPresent;
 	}
 
-	public void ejbActivate() throws java.rmi.RemoteException {
-	}
-	public void ejbCreate()
-		throws javax.ejb.CreateException, java.rmi.RemoteException {
-	}
-	public void ejbPassivate() throws java.rmi.RemoteException {
-	}
-	public void ejbRemove() throws java.rmi.RemoteException {
-	}
-
 	private Object getReferencedObject(MetaModel metaModel, Object container, String memberName) throws XavaException, RemoteException {
 		if (container == null) return null;
 		IPropertiesContainer r = getPersistenceProvider(metaModel).toPropertiesContainer(null, container);	
 		return r.executeGets(memberName).get(memberName);
 	}
 
-	public javax.ejb.SessionContext getSessionContext() {
-		return sessionContext;
-	}
-	
 	private Map getValues( 	
 		MetaModel metaModel,
 		Map keyValues,
@@ -1651,11 +1633,6 @@ public class MapFacadeBean {
 		return errors;		
 	}
 		
-	public void setSessionContext(javax.ejb.SessionContext ctx)
-		throws java.rmi.RemoteException {
-		sessionContext = ctx;
-	}
-	
 	private void setValues(MetaModel metaModel, Map keyValues, Map values) 
 		throws FinderException, ValidationException, XavaException 
 	{

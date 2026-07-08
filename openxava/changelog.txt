@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed javax.ejb dependency. EJB exceptions (CreateException, FinderException, ObjectNotFoundException, RemoveException, DuplicateKeyException) replaced by OpenXava's own exceptions in org.openxava.model package.
 - Upgraded from javax.inject (JSR 330) to Jakarta Dependency Injection 2.0.1.
 - Root context configuration done in application.properties instead of AppServer.run("").
 - Documentation article on deploying in production as a standalone application without Tomcat.

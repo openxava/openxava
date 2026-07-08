@@ -3,8 +3,6 @@ package org.openxava.model;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
 import org.openxava.model.impl.*;

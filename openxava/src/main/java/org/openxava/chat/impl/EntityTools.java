@@ -10,7 +10,7 @@ import org.openxava.controller.*;
 import org.openxava.util.Messages;
 import org.openxava.view.View;
 import org.openxava.web.WebEditors;
-import org.openxava.model.MapFacade;
+import org.openxava.model.*;
 import org.openxava.tab.Tab;
 import org.openxava.tab.impl.IXTableModel;
 import org.openxava.application.meta.MetaModule;
@@ -212,7 +212,7 @@ public class EntityTools extends BaseEntityTools {
 				}
 				try {
 					record.put("hiddenKey", tableModel.getObjectAt(row));
-				} catch (javax.ejb.FinderException ex) {
+				} catch (FinderException ex) {
 					log.warn(ex.getMessage(), ex); // TODO Handle this better
 				}
 				records.add(record);

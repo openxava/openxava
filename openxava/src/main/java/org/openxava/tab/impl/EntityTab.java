@@ -3,7 +3,7 @@ package org.openxava.tab.impl;
 import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;

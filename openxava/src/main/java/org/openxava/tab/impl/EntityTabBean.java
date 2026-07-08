@@ -11,9 +11,7 @@ public class EntityTabBean implements IEntityTabDataProvider {
 	
 	private EntityTabDataProvider dataProvider = new EntityTabDataProvider();
 	
-	
-	
-	public void ejbCreate() {		
+	public EntityTabBean() {
 	}
 	
 	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexs) throws RemoteException {

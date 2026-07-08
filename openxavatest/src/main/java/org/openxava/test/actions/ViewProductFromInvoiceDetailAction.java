@@ -1,10 +1,10 @@
 package org.openxava.test.actions;
 
 import java.util.*;
-import javax.ejb.*;
 import jakarta.inject.*;
 
 import org.openxava.actions.*;
+import org.openxava.model.*;
 
 /**
  * @author Javier Paniza

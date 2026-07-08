@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.prefs.*;
 import java.util.stream.*;
 
-import javax.ejb.*;
 import jakarta.servlet.http.*;
 
 import org.apache.commons.collections.*;
@@ -2047,7 +2046,7 @@ public class View implements java.io.Serializable {
 							collectionTotals = MapFacade.getValues(getParent().getModelName(), key, memberNames);
 							removeKeys(getParent().getMetaModel(), collectionTotals);
 						}
-						catch (javax.ejb.ObjectNotFoundException ex) {
+						catch (ObjectNotFoundException ex) {
 							collectionTotals = Collections.emptyMap();
 						}				
 					}

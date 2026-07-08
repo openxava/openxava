@@ -1,0 +1,7 @@
+Pending EJB removal (tmr)
+
+- Compilar y arrancar proyecto. TMR ME QUEDÉ PARA HACER ESTO. EJB QUITADO DEL POM Y CÓDIGO REFACTORIZADO
+- Ver que hacemos con RemoteException.
+- Suite
+- Migración: deben cambiar import javax.ejb.*
+    por import org.openxava.model.* en sus acciones que capturen ObjectNotFoundException

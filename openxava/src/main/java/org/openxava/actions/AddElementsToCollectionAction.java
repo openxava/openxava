@@ -2,7 +2,6 @@ package org.openxava.actions;
 
 import java.util.*;
 
-import javax.ejb.*;
 import jakarta.inject.*;
 import org.apache.commons.logging.*;
 import org.openxava.tab.*;
