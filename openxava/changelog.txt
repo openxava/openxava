@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Root context configuration done in application.properties instead of AppServer.run("").
 - Documentation article on deploying in production as a standalone application without Tomcat.
 - Generated WAR is executable directly via java -jar, without an application server.
 - Tomcat deployment documentation updated for OpenXava 8 and Tomcat 11.

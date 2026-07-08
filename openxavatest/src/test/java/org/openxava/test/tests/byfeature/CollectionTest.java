@@ -120,7 +120,7 @@ public class CollectionTest extends WebDriverTestBase {
         }
 
         getDriver().switchTo().window(newWindow);
-        assertEquals("http://localhost:8080/openxavatest/m/InvoiceDetail?detail=2002:1:0", getCurrentUrl());
+        assertEquals("http://" + getHost() + ":" + getPort() + getContextPath() + "m/InvoiceDetail?detail=2002:1:0", getCurrentUrl());
         wait(getDriver());
         WebElement number = getDriver().findElement(By.id("ox_openxavatest_InvoiceDetail__product___number"));
         assertEquals("2", number.getAttribute("value"));
@@ -144,7 +144,7 @@ public class CollectionTest extends WebDriverTestBase {
         }
 
         getDriver().switchTo().window(newWindow);
-        assertEquals("http://localhost:8080/openxavatest/m/ProjectMember?detail=ff8080824d095a71014d0967110a0005", getCurrentUrl());
+        assertEquals("http://" + getHost() + ":" + getPort() + getContextPath() + "m/ProjectMember?detail=ff8080824d095a71014d0967110a0005", getCurrentUrl());
         wait(getDriver());
 
         getDriver().close();
