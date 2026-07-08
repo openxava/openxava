@@ -4,7 +4,7 @@ import java.math.*;
 import java.util.*;
 import java.util.regex.*;
 
-import javax.inject.*;
+import jakarta.inject.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.model.*;

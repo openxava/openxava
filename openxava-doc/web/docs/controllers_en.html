@@ -31,8 +31,8 @@
             (new in v4.8)</a></div>
 <div style="margin-left: 2em;"><a href="#Controllers-Dependency%20injection">Dependency
             injection</a></div>
-<div style="margin-left: 3em;"><a href="#Controllers-Dependency%20injection-@Inject%20%28JSR-330%29%20%28new%20in%20v4m2%29">@Inject
-            (JSR-330) (new in v4m2)</a></div>
+<div style="margin-left: 3em;"><a href="#Controllers-Dependency%20injection-@Inject%20%28new%20in%20v4m2%29">@Inject
+            (new in v4m2)</a></div>
 <div style="margin-left: 3em;"><a href="#Controllers-Dependency%20injection-Using%20%20for%20dependency%20injection">Using
             &lt;use-object /&gt; for dependency injection</a></div>
 <div style="margin-left: 2em;"><a href="#Controllers-Controllers%20inheritance">Controllers
@@ -474,11 +474,11 @@ public class HideShowPropertyAction extends ViewBaseAction {    // 1
         injection</h2>
       Using <a class="wiki_link_ext" href="http://en.wikipedia.org/wiki/Dependency_injection" rel="nofollow">Dependency injection</a> the value of a field or property
       is set by the framework, not by the developer.<br/>
-<h3 id="toc6"><a name="Controllers-Dependency injection-@Inject (JSR-330) (new in v4m2)"></a>@Inject
-        (JSR-330) <em>(new in v4m2)</em></h3>
-      Since v4m2 OpenXava supports <a class="wiki_link_ext" href="http://jcp.org/en/jsr/detail?id=330" rel="nofollow">JSR-330</a>, the Java standard for dependency injection.
+<h3 id="toc6"><a name="Controllers-Dependency injection-@Inject (new in v4m2)"></a>@Inject
+        <em>(new in v4m2)</em></h3>
+      Since v4m2 OpenXava supports <em>@Inject</em>, the Java standard for dependency injection.
       In order to inject a session object in an action you only have to annotate
-      a field with <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Inject.html" rel="nofollow">@javax.inject.Inject</a></em> . Thas is, if you have a
+      a field with <em>@Inject</em> (from <em>jakarta.inject</em> since v8.0, <em>javax.inject</em> before v8.0). That is, if you have a
       session object and an action in your <em>controllers.xml</em> as
       following:<br/>
 <pre><code class="language-xml">&lt;controllers&gt;
@@ -510,7 +510,7 @@ public class HideShowPropertyAction extends ViewBaseAction {    // 1
       from inside an action, even with immutable and primitive types.<br/>
       As you see, the default name of the session object to inject is the name
       of the attribute ignoring the prefix (ignoring <em>xavatest_</em> in this
-      case). Although you can use <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Named.html" rel="nofollow">@Named</a></em> (also JSR-330 standard) to specify a
+      case). Although you can use <em>@Named</em> (also part of the dependency injection standard) to specify a
       different name for session object and field:<br/>
 <pre><code class="language-java">public class ChangeActiveYearAction extends ViewBaseAction {
  
@@ -587,12 +587,12 @@ public class HideShowPropertyAction extends ViewBaseAction {    // 1
     }
  
 }</code></pre>
-      You see how <em>action-property</em> is the counterpart of <em>@Name</em>
-      of JSR-330.<br/>
+      You see how <em>action-property</em> is the counterpart of <em>@Named</em>
+      of the dependency injection standard.<br/>
 <br/>
 <br/>
       You can use both <em>&lt;use-object/&gt;</em> and <em>@Inject</em> for
-      dependency injection, but given that JSR-330 is the Java standard it's the
+      dependency injection, but given that <em>@Inject</em> is the Java standard it's the
       favorite one.<br/>
 <em>(New in v4.7)</em> If the session object to be injected has a property
       named <em>request</em>, this property is populated with the current <em>HttpServletRequest</em>
@@ -902,7 +902,7 @@ public class SearchDeliveryAction extends SearchByViewKeyAction {      // 1
       And in your action:<br/>
 <pre><code class="language-java">package org.openxava.test.actions;
  
-import javax.inject.*;
+import jakarta.inject.*; // Before v8.0: import javax.inject.*;
 import org.openxava.actions.*;
 import org.openxava.tab.*;
  

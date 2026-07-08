@@ -2,11 +2,8 @@ package org.openxava.test.actions;
 
 import java.util.*;
 
-import javax.inject.Inject;
-
 import org.openxava.actions.*;
 import org.openxava.model.*;
-import org.openxava.tab.Tab;
 import org.openxava.util.*;
 
 /**

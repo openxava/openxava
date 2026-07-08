@@ -3,7 +3,7 @@ package org.openxava.test.actions;
 import java.util.Collection;
 import java.util.Iterator;
 
-import javax.inject.*;
+import jakarta.inject.*;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

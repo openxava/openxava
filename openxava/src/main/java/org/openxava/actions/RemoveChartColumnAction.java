@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.openxava.session.Chart;
 import org.openxava.tab.Tab;

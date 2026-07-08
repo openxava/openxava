@@ -1,6 +1,6 @@
 package org.openxava.test.actions;
 
-import javax.inject.*;
+import jakarta.inject.*;
 
 import org.openxava.actions.*;
 

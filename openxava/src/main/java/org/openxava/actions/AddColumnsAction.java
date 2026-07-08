@@ -1,7 +1,7 @@
 package org.openxava.actions;
 
 import java.util.Arrays;
-import javax.inject.*;
+import jakarta.inject.*;
 import org.openxava.tab.Tab;
 import org.openxava.util.*;
 
