@@ -42,7 +42,7 @@ public class ReportTest extends ModuleTestBase {
 		setLocale("zh");
 		execute("Mode.list");
 		assertListRowCount(0);
-		assertCharactersShown(getHtmlPage().getAnchorByHref("/openxavatest/m/Invoice?retainOrder=true"));
+		assertCharactersShown(getHtmlPage().getAnchorByHref(getContextPath() + "m/Invoice?retainOrder=true"));
 		execute("Print.generatePdf");
 		assertCharactersShown((HtmlPage) getWebClient().getWebWindows().get(1).getEnclosedPage());
 	}

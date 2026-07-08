@@ -14,7 +14,7 @@ public class PermalinkTest extends WebDriverTestBase {
 	public void testAccessingRecordByPermalinkWhenHasTabBaseCondition() throws Exception {
 		goModule("CustomerLessThanFour");
 		assertListRowCount(3);
-		getDriver().get("http://localhost:8080/openxavatest/m/CustomerLessThanFour?detail=4");
+		getDriver().get("http://" + getHost() + ":" + getPort() + getContextPath() + "m/CustomerLessThanFour?detail=4");
 		wait(getDriver());
 		assertFalse(getValue("number").equals("4"));
 

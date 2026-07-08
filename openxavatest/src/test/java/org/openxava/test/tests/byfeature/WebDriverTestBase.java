@@ -10,6 +10,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.support.ui.*;
+import org.openxava.tests.ModuleTestBase;
 import org.openxava.util.*;
 import org.openxava.web.*;
 
@@ -52,7 +53,7 @@ abstract public class WebDriverTestBase extends TestCase {
      */
     protected void resetPreferences() throws Exception {
         WebDriver driver = getDriver();
-        driver.get("http://localhost:8080/openxavatest/xava/resetPreferences.jsp?zxy=HOljkso83");
+        driver.get("http://" + getHost() + ":" + getPort() + getContextPath() + "xava/resetPreferences.jsp?zxy=HOljkso83");
     }
     
     protected WebDriver createWebDriver(String lang) {
@@ -188,6 +189,19 @@ abstract public class WebDriverTestBase extends TestCase {
         this.headless = headless;
     }
     
+    protected static String getHost() {
+        return ModuleTestBase.getXavaJUnitProperty("host", "localhost");
+    }
+    
+    protected static String getPort() {
+        return ModuleTestBase.getXavaJUnitProperty("port", "8080");
+    }
+    
+    protected String getContextPath() {
+        String application = ModuleTestBase.getXavaJUnitProperty("application", "openxavatest");
+        return ModuleTestBase.getXavaJUnitProperty("contextPath", "/" + application + "/");
+    }
+    
     protected void blur(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].blur();", element);
@@ -195,7 +209,7 @@ abstract public class WebDriverTestBase extends TestCase {
     
     protected void goModule(String module) throws Exception {
     	if (driver == null) driver = createWebDriver(getLang());
-        driver.get("http://localhost:8080/openxavatest/m/" + module);
+        driver.get("http://" + getHost() + ":" + getPort() + getContextPath() + "m/" + module);
         acceptInDialogJS(driver);
         wait(driver);
         this.module = module;
