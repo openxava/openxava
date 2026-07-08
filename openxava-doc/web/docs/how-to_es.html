@@ -6142,8 +6142,19 @@ class="sy0">;</span>
       <div class="wiki" style="display: block;">Para producción es suficiente
         con llamar <i>ROOT.war</i> al war a desplegar en Tomcat, no necesitas
         cambiar tu código.</div>
-      <div class="wiki" style="display: block;">Para desarrollo puedes modificar
-        la clase lanzadora (<i>com.tuempresa.tuaplicacion.run.tuaplicacion</i> a
+      <div class="wiki" style="display: block;">Para desarrollo, a partir de v8.0
+        (Spring Boot), simplemente elimina la entrada
+        <i>server.servlet.context-path</i> de tu <i>application.properties</i>
+        (el contexto raíz es el valor por defecto), o ponla explícitamente a <i>/</i>:</div>
+      <div class="wiki" style="display: block;">
+        <pre><code class="language-properties">server.servlet.context-path=/
+</code></pre> </div>
+      <div class="wiki" style="display: block;">Si ejecutas tu aplicación como jar
+        (<i>java -jar</i>) en producción, aplica lo mismo: omite
+        <i>server.servlet.context-path</i> o ponla a <i>/</i>. También puedes usar la
+        variable de entorno <i>SERVER_SERVLET_CONTEXT_PATH=/</i>.</div>
+      <div class="wiki" style="display: block;">Para desarrollo, hasta v7.x, puedes
+        modificar la clase lanzadora (<i>com.tuempresa.tuaplicacion.run.tuaplicacion</i> a
         partir de v7.0 o <i>_Run_TuAplicacion</i> con v6.x) cambiando:</div>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">AppServer.run("TuAplicacion");

@@ -5298,7 +5298,17 @@ class="sy0">;</span>
       this: <i>https://localhost:8080/</i></div>
     <div class="wiki" style="display: block;">For production calling the war <i>ROOT.war</i>
       to deploy on Tomcat is enough, you don't need any change in your code.</div>
-    <div class="wiki" style="display: block;">For development you can modify the
+    <div class="wiki" style="display: block;">For development, since v8.0 (Spring Boot),
+      just remove the <i>server.servlet.context-path</i> entry from your <i>application.properties</i>
+      (the root context is the default), or set it explicitly to <i>/</i>:</div>
+    <div class="wiki" style="display: block;">
+      <pre><code class="language-properties">server.servlet.context-path=/
+</code></pre> </div>
+    <div class="wiki" style="display: block;">If you run your application as a jar
+      (<i>java -jar</i>) in production, the same applies: omit
+      <i>server.servlet.context-path</i> or set it to <i>/</i>. You can also use the
+      environment variable <i>SERVER_SERVLET_CONTEXT_PATH=/</i>.</div>
+    <div class="wiki" style="display: block;">For development, until v7.x, you can modify the
       launcher class (<i>com.yourcompany.yourapp.run.yourapp</i> since v7.0 or <i>_Run_YourApplication
         </i>in v6.x) changing:</div>
     <div class="wiki" style="display: block;">
