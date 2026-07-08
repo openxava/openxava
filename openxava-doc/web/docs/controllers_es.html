@@ -37,8 +37,8 @@
             (nuevo en v4.8)</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Inyeccion+de+dependencias">Inyección
             de dependencias</a></div>
-        <div style="margin-left: 3em;"><a href="#Controladores-Inyeccion+de+dependencias-@Inject+%28JSR-330%29+%28nuevo+en+v4m2%29">@Inject
-            (JSR-330) (nuevo en v4m2)</a></div>
+        <div style="margin-left: 3em;"><a href="#Controladores-Inyeccion+de+dependencias-@Inject+(nuevo+en+v4m2)">@Inject
+            (nuevo en v4m2)</a></div>
         <div style="margin-left: 3em;"><a href="#Controladores-Inyeccion+de+dependencias-Usar++para+inyeccion+de+dependencias">Usar
             un módulo con una acción</a></div>
         <div style="margin-left: 2em;"><a href="#Controladores-Herencia%20de%20controladores">Herencia
@@ -555,15 +555,11 @@ public class OcultarMostrarPropiedad extends ViewBaseAction {   // 1
 
         rel="nofollow">Inyección de dependencias</a> el valor para un campo o
       propiedad lo establece el marco de trabajo, y no el desarrollador.<br>
-      <h3 id="toc6"><a name="Controladores-Inyeccion+de+dependencias-@Inject+(JSR-330)+(nuevo+en+v4m2)"></a>@Inject
-        (JSR-330) <em>(nuevo en v4m2)</em></h3>
-      A partir de v4m2 OpenXava soporta <a class="wiki_link_ext" href="http://jcp.org/en/jsr/detail?id=330"
-
-        rel="nofollow">JSR-330</a>, el estándar Java para inyección de
+      <h3 id="toc6"><a name="Controladores-Inyeccion+de+dependencias-@Inject+(nuevo+en+v4m2)"></a>@Inject
+        <em>(nuevo en v4m2)</em></h3>
+      A partir de v4m2 OpenXava soporta <em>@Inject</em>, el estándar Java para inyección de
       dependencias. Para inyectar un objeto de sesión en una acción solo hemos
-      de anotar un campo con <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Inject.html"
-
-          rel="nofollow">@javax.inject.Inject</a></em>. Es decir, si tenemos un
+      de anotar un campo con <em>@Inject</em> (de <em>jakarta.inject</em> a partir de v8.0, <em>javax.inject</em> antes de v8.0). Es decir, si tenemos un
       objeto de sesión y una acción en nuestro <em>controladores.xml</em> como
       los que siguen:<br>
 <pre><code class="language-xml">&lt;controladores&gt;
@@ -594,9 +590,7 @@ public class OcultarMostrarPropiedad extends ViewBaseAction {   // 1
       con tipos inmutables o primitivos.<br>
       Como se puede ver, el nombre por defecto del objeto de sesión a inyectar
       es el nombre del atributo ignorando el prefijo (ignorando <em>xavatest_</em>
-      en este caso). Aunque podemos usar <em><a class="wiki_link_ext" href="http://java.sun.com/javaee/6/docs/api/javax/inject/Named.html"
-
-          rel="nofollow">@Named</a></em> (también parte del estándar JSR-330)
+      en este caso). Aunque podemos usar <em>@Named</em> (también parte del estándar de inyección de dependencias)
       para especificar un nombre diferente para el objeto de sesión y el campo:<br>
 <pre><code class="language-java">public class CambiarAnoActivo extends ViewBaseAction {
 
@@ -672,12 +666,12 @@ public class OcultarMostrarPropiedad extends ViewBaseAction {   // 1
     }
 
 }</code></pre>
-      Vemos como <em>propiedad-accion</em> es el homólogo de <em>@Name</em> de
-      JSR-330.<br>
+      Vemos como <em>propiedad-accion</em> es el homólogo de <em>@Named</em> de
+      la inyección de dependencias.<br>
       <br>
       <br>
       Podemos usar ambos <em>&lt;usa-objeto/&gt;</em> e <em>@Inject</em> para
-      inyección de dependencias, pero dado que JSR-330 es el estándar de Java es
+      inyección de dependencias, pero dado que <em>@Inject</em> es el estándar de Java es
       el preferido.<br>
       <em>(Nuevo en v4.7)</em> Si el objeto de sesión a ser inyectado tiene una
       propiedad llamada <em>request</em>, esta propiedad se llena con el <em>HttpServletRequest</em>
@@ -1030,7 +1024,7 @@ public class BuscarAlbaran extends SearchByViewKeyAction {                    //
       Y en nuestra acción:<br>
 <pre><code class="language-java">package org.openxava.test.acciones;
 
-import javax.inject.*;
+import jakarta.inject.*; // Antes de v8.0: import javax.inject.*;
 import org.openxava.actions.*;
 import org.openxava.tab.*;
 
@@ -1114,7 +1108,7 @@ public class IniciarAñoDefectoA2002 extends BaseAction {
 
 import java.util.*;
 
-import javax.inject.*;
+import jakarta.inject.*; // Antes de v8.0: import javax.inject.*;
 import org.openxava.actions.*;
 import org.openxava.controller.*;
 import org.openxava.tab.*;
