@@ -2,7 +2,7 @@ package org.openxava.actions;
 
 import java.util.*;
 
-import javax.inject.*;
+import jakarta.inject.*;
 
 
 

@@ -1,6 +1,6 @@
 package org.openxava.actions;
 
-import javax.inject.*;
+import jakarta.inject.*;
 
 /**
  * @author Javier Paniza

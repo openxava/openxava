@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.Collections;
 import java.util.stream.*;
 
-import javax.inject.*;
+import jakarta.inject.*;
 import jakarta.persistence.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
