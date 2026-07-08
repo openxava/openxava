@@ -722,6 +722,32 @@ import jakarta.json.bind.annotation.*;</code></pre>
     <p>The API of these classes (such as <i>ClientBuilder</i>, <i>@JsonbProperty</i>, etc.) 
     remains the same, so no further changes are required in your code.</p>
 
+    <h3>Jakarta Dependency Injection 2.0.1</h3>
+
+    <p>OpenXava 8.0 has migrated from <i>javax.inject:1</i> (JSR 330) to
+    <i>Jakarta Dependency Injection 2.0.1</i> (<i>jakarta.inject:jakarta.inject-api:2.0.1</i>).
+    This is the Jakarta EE equivalent of the same JSR 330 specification, with the only change
+    being the package namespace from <i>javax.inject</i> to <i>jakarta.inject</i>.
+    The <i>@Inject</i> and <i>@Named</i> annotations work exactly the same way, so if your
+    actions or controllers use dependency injection, you just need to update the imports:</p>
+
+    <pre><code class="language-java">// BEFORE
+import javax.inject.*;
+
+// AFTER
+import jakarta.inject.*;</code></pre>
+
+    <p>The semantics of <i>@Inject</i> and <i>@Named</i> remain unchanged. For example,
+    the following action code requires no modification beyond the import:</p>
+
+    <pre><code class="language-java">public class AddColumnsAction extends ViewBaseAction {
+
+    @Inject @Named("xava_customizingTab")
+    private Tab tab;
+
+    // ...
+}</code></pre>
+
     <h3>DWR removed</h3>
 
     <p>Direct Web Remoting (DWR) has been completely removed from OpenXava. DWR was a library
