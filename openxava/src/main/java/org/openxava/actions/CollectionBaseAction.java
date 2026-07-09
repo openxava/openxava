@@ -1,6 +1,5 @@
 package org.openxava.actions;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -131,7 +130,7 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 *  
 	 * @return  Never null.
 	 */	
-	protected List getObjects() throws RemoteException, FinderException, XavaException {
+	protected List getObjects() throws SystemException, FinderException, XavaException {
 		if (objects == null) {
 			objects = getCollectionElementView().getCollectionObjects(); 
 		}
@@ -149,7 +148,7 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 *  
 	 * @return  Never null.
 	 */	
-	protected List getSelectedObjects() throws RemoteException, FinderException, XavaException {
+	protected List getSelectedObjects() throws SystemException, FinderException, XavaException {
 		if (selectedObjects == null) {
 			if (row >= 0) {
 				try {

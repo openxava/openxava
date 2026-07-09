@@ -1,6 +1,5 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -51,7 +50,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 	
 	
-	public void search(String condition, Object key) throws FinderException, RemoteException {
+	public void search(String condition, Object key) throws FinderException, SystemException {
 		try {
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
@@ -88,7 +87,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_search_error", ex.getLocalizedMessage()));
+			throw new SystemException(XavaResources.getString("tab_search_error", ex.getLocalizedMessage()));
 		}		
 	}
 	
@@ -108,7 +107,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	/**
 	 * Return a map with key values.
 	 */
-	public Object findEntity(Object[] key) throws FinderException, RemoteException {
+	public Object findEntity(Object[] key) throws FinderException, SystemException {
 		try {
 			Map<String, Object> result = new HashMap<>();
 			for (int i = 0; i < key.length; i++) {
@@ -120,7 +119,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(
+			throw new SystemException(
 				XavaResources.getString("tab_entity_find_error"));
 		}
 	}
@@ -186,14 +185,14 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 
 
-	public IXTableModel getTable()  throws RemoteException { 
+	public IXTableModel getTable()  throws SystemException { 
 		try {
 			table.setEntityTab(this);
 			return new HiddenXTableModel(table, getIndexesPK()); 
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_tablemodel_error", ex.getLocalizedMessage()));
+			throw new SystemException(XavaResources.getString("tab_tablemodel_error", ex.getLocalizedMessage()));
 		}   
 	}
 
@@ -255,7 +254,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return getMapping().getTable();
 	}
 
-	public DataChunk nextChunk() throws RemoteException {		
+	public DataChunk nextChunk() throws SystemException {		
 		Collection tabCalculators = null;
 		Map keyIndexes = null;
 		List propertiesNames = null;
@@ -268,7 +267,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_next_chunk_error"));
+			throw new SystemException(XavaResources.getString("tab_next_chunk_error"));
 		}
 		DataChunk tv = null; 		
 		try {
@@ -294,7 +293,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_valid_values_error"));
+			throw new SystemException(XavaResources.getString("tab_valid_values_error"));
 		}
 		return tv;		
 	}
@@ -435,7 +434,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 	
 	
-	private static IEntityTabDataProvider getDataProvider(String componentName) throws RemoteException {
+	private static IEntityTabDataProvider getDataProvider(String componentName) throws SystemException {
 		try {
 			String packageName = MetaComponent.get(componentName).getPackageNameWithSlashWithoutModel();			
 			IEntityTabDataProvider dataProvider = (IEntityTabDataProvider) getDataProviders().get(packageName);
@@ -449,7 +448,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException("tab_remote_error");
+			throw new SystemException("tab_remote_error");
 		}						
 	}
 		
@@ -470,18 +469,18 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}		
 	}	
 	
-	public int getResultSize() throws RemoteException {
+	public int getResultSize() throws SystemException {
 		if (!XavaPreferences.getInstance().isShowCountInList()) {
 			return table.getRowCount(); 
 		}		
 		return getDataProvider(getComponentName()).getResultSize(tabProvider);
 	}
 	
-	public Number getSum(String property) throws RemoteException {
+	public Number getSum(String property) throws SystemException {
 		return getDataProvider(getComponentName()).getSum(tabProvider, property);  		
 	}
 
-	public void reset() throws RemoteException {
+	public void reset() throws SystemException {
 		tabProvider.reset();
 	}
 

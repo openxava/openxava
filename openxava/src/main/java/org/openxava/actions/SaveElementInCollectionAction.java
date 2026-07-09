@@ -1,6 +1,5 @@
 package org.openxava.actions;
 
-import java.rmi.*;
 import java.util.*;
 
 import jakarta.validation.*;
@@ -81,7 +80,7 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 		addMessage(isEntity?"entity_created_and_associated":"aggregate_created", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 	}
 
-	protected void associateEntity(Map keyValues) throws ValidationException, XavaException, ObjectNotFoundException, FinderException, RemoteException {		
+	protected void associateEntity(Map keyValues) throws ValidationException, XavaException, ObjectNotFoundException, FinderException, SystemException {		
 		MapFacade.addCollectionElement(
 				getCollectionElementView().getParent().getMetaModel().getName(),
 				getCollectionElementView().getParent().getKeyValues(),

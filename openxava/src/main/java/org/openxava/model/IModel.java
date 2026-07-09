@@ -1,7 +1,5 @@
 package org.openxava.model;
 
-import java.rmi.*;
-
 import org.openxava.model.meta.*;
 import org.openxava.util.*;
 
@@ -20,8 +18,8 @@ public interface IModel {
 	 * 
 	 * @return  Not null.
 	 * @exception XavaException  Any problem related to OpenXava.
-	 * @exception RemoteException  System problem.
+	 * @exception SystemException  System problem.
 	 */
-	MetaModel getMetaModel() throws XavaException, RemoteException;
+	MetaModel getMetaModel() throws XavaException, SystemException;
 
 }

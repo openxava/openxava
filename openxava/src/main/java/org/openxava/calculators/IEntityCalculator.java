@@ -1,7 +1,5 @@
 package org.openxava.calculators;
 
-import java.rmi.*;
-
 
 /**
  * @deprecated Since OpenXava 2.0. Use IModelCalculator instead     
@@ -10,6 +8,6 @@ import java.rmi.*;
 @Deprecated
 public interface IEntityCalculator extends ICalculator {
 	
-	void setEntity(Object entity) throws RemoteException;
+	void setEntity(Object entity);
 
 }

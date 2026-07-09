@@ -1,7 +1,6 @@
 package org.openxava.tab.impl;
 
 import java.io.*;
-import java.rmi.*;
 import java.util.*;
 
 
@@ -27,14 +26,14 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	private IConnectionProvider connectionProvider;
 	private boolean xmlComponent;
 		
-	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) throws RemoteException {		
+	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) throws SystemException {		
 		DataChunk tv = null;
 		try {
 			tv = tabProvider.nextChunk();
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_next_chunk_error"));
+			throw new SystemException(XavaResources.getString("tab_next_chunk_error"));
 		}
 		
 		List data = tv.getData();
@@ -51,7 +50,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_conversion_error"));
+			throw new SystemException(XavaResources.getString("tab_conversion_error"));
 		}
 				
 		// Calculations
@@ -64,20 +63,20 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_calculate_properties_error"));
+			throw new SystemException(XavaResources.getString("tab_calculate_properties_error"));
 		}
 
 		return tv;
 	}
 	
-	public IConnectionProvider getConnectionProvider() throws RemoteException {
+	public IConnectionProvider getConnectionProvider() throws SystemException {
 		if (connectionProvider == null) {			 		
 			try {
 				connectionProvider = DataSourceConnectionProvider.createByComponent(getComponentName());
 			}
 			catch (Exception ex) {
 				log.error(ex.getMessage(), ex);
-				throw new RemoteException(XavaResources.getString("error_obtaining_connection_provider"));
+				throw new SystemException(XavaResources.getString("error_obtaining_connection_provider"));
 			}
 		}
 		return connectionProvider;		
@@ -157,7 +156,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	 * @exception  NullPointerException  If <tt>row == null</tt>.
 	 */
 	private Object getEntity(String modelName, Object[] row, Map keyIndexes)
-		throws FinderException, XavaException, RemoteException {
+		throws FinderException, XavaException, SystemException {
 		if (keyIndexes == null) return null;
 		Iterator it = keyIndexes.entrySet().iterator();
 		Map key = new HashMap();		

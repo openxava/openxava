@@ -1,6 +1,5 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -82,11 +81,11 @@ public class XTableModelDecoratorBase
 		impl.setValueAt(aValue, rowIndex, columnIndex);
 	}
 
-	public int getTotalSize() throws RemoteException {
+	public int getTotalSize() throws SystemException {
 		return impl.getTotalSize();		
 	}
 
-	public Number getSum(String property) throws RemoteException { 
+	public Number getSum(String property) throws SystemException { 
 		return impl.getSum(property);		
 	}
 		

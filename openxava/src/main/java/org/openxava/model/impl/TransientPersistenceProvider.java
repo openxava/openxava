@@ -1,6 +1,5 @@
 package org.openxava.model.impl;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -50,7 +49,7 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, RemoteException, XavaException {
+	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, SystemException, XavaException {
 		throw new UnsupportedOperationException(); 
 	}
 

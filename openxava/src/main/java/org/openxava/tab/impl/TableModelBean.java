@@ -1,7 +1,6 @@
 package org.openxava.tab.impl;
 
 import java.math.*;
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -114,7 +113,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	
 	// Warning!, it can return null, for example it's empty
 	// Load data on demand if you request a row not loaded yet
-	private Object[] getRow(int rowIndex) throws RemoteException {
+	private Object[] getRow(int rowIndex) throws SystemException {
 		if (!allLoaded
 			&& rowIndex >= rowCount - 1) { // If you request the last and there are more
 			long iniNextChunk = System.currentTimeMillis();
@@ -155,7 +154,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 			}
 			return entityTab.findEntity(key);
 		}
-		catch (RemoteException ex) {
+		catch (SystemException ex) {
 			throw new FinderException(
 					XavaResources.getString("tab_entity_find_error"));
 		}
@@ -169,7 +168,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	private void updateRowCountIfTotalSizeIsZero() { 
 		try {
 			getTotalSize();
-		} catch (RemoteException e) {
+		} catch (SystemException e) {
 		}
 	}
 	
@@ -279,7 +278,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 			+ getColumnCount();
 	}
 	
-	public int getTotalSize() throws RemoteException {
+	public int getTotalSize() throws SystemException {
 		if (totalSize == STILL_NO_OBTAINED) {
 			try {
 				totalSize = entityTab.getResultSize();
@@ -292,7 +291,7 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 		return totalSize; 
 	}
 	
-	public Number getSum(String property) throws RemoteException {		
+	public Number getSum(String property) throws SystemException {		
 		Number result = entityTab.getSum(property);
 		return (Number) convert(result, getPropertiesNames().indexOf(property)); 
 	}

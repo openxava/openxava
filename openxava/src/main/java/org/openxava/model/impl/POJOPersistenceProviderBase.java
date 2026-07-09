@@ -1,7 +1,6 @@
 package org.openxava.model.impl;
 
 import java.io.*;
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -247,7 +246,7 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}
 	}
 
-	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, RemoteException, XavaException {
+	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, SystemException, XavaException {
 		return create(metaModel, values);
 	}
 	

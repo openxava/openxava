@@ -1,6 +1,5 @@
 package org.openxava.model.impl;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -86,7 +85,7 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	 */	
 	Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer,
 			Object containerModel, int number)
-			throws CreateException, ValidationException, RemoteException, XavaException;
+			throws CreateException, ValidationException, SystemException, XavaException;
 	
 	/**
 	 * Return an object that can be used as primary key in model layer. <p>

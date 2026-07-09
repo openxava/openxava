@@ -2,7 +2,6 @@ package org.openxava.model.meta;
 
 import java.lang.annotation.Annotation;
 import java.math.*;
-import java.rmi.*;
 import java.sql.*;
 import java.text.*;
 import java.time.format.*;
@@ -657,30 +656,30 @@ public class MetaProperty extends MetaMember implements Cloneable {
 		return validValues.size() > 0;
 	}
 			
-	public void validate(Messages errors, Object object) throws RemoteException {		
+	public void validate(Messages errors, Object object) throws SystemException {		
 		try {
 			validate(errors, object, getValidators(), null); 
 		} 
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(
+			throw new SystemException(
 					XavaResources.getString("validate_error", getName(), getMetaModel().getName()));					
 		}
 	}
 	
-	public void validate(Messages errors, Object object, boolean creating) throws RemoteException {
+	public void validate(Messages errors, Object object, boolean creating) throws SystemException {
 		validate(errors, object, creating, null);
 	}
 	
 	/** @since 6.2.1 */
-	public void validate(Messages errors, Object object, boolean creating, String container) throws RemoteException { 
+	public void validate(Messages errors, Object object, boolean creating, String container) throws SystemException { 
 		try {
 			validate(errors, object, getValidators(), container);
 			if (creating) validate(errors, object, getOnlyOnCreateValidators(), container);
 		} 
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(
+			throw new SystemException(
 					XavaResources.getString("validate_error", getName(), getMetaModel().getName()));					
 		}
 	}

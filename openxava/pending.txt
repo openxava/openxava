@@ -1,7 +1,10 @@
 Pending EJB removal (tmr)
 
-- Ver que hacemos con RemoteException.
+- Quitar excepciones runtime de los throws.
 - Suite
 - Migración: deben cambiar import javax.ejb.*
     por import org.openxava.model.* en sus acciones que capturen ObjectNotFoundException
+    Dejamos de usar RemoteException
+- Changelog:
+    - Dejamos de usar RemoteException
 - Borrar .md de planes

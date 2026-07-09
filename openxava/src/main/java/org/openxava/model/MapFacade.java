@@ -1,6 +1,5 @@
 package org.openxava.model;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -26,8 +25,7 @@ import org.openxava.validators.*;
  * etc) with the typical semantic associated to each. Although the implementation
  * does not use EJB.<br>
  *
- * Since version 3.0 MapFacade uses runtime exception for system errors,
- * before (in v2.x) it used RemoteException.<br>
+ * MapFacade uses the runtime exception {@link SystemException} for system errors.<br>
  * 
  * The first parameter of each method is <code>modelName</code>, this is a
  * name of a OpenXava component (Customer, Invoice, etc) or a qualified aggregate 
@@ -97,12 +95,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().create(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) { 
-			throw new SystemException(ex);
-		}
+		return getImpl().create(Users.getCurrentUserInfo(), modelName, values);
 	}
 		
 		
@@ -147,12 +140,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 	}
 	
 	/**
@@ -176,12 +164,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 	}
 
 	
@@ -209,12 +192,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, container, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
 	}
 	
 	/**	
@@ -236,12 +214,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createReturningValues(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().createReturningValues(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	
@@ -263,12 +236,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createReturningKey(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createReturningKey(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	/**
@@ -291,12 +259,7 @@ public class MapFacade {
 			XavaException, SystemException
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 				
@@ -323,12 +286,7 @@ public class MapFacade {
 			XavaException, SystemException 
 	{
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 	}
 	
 	/**
@@ -352,12 +310,7 @@ public class MapFacade {
 			XavaException, SystemException 
 	{
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 	}
 	
 	
@@ -397,12 +350,7 @@ public class MapFacade {
 		if (keyValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
 	}
 	
 	/**
@@ -444,12 +392,7 @@ public class MapFacade {
 		if (keyValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
 	}
 
 	/**
@@ -510,12 +453,7 @@ public class MapFacade {
 		if (searchingValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}			
+		return getImpl().getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
 	}
 				
 	/**
@@ -544,12 +482,7 @@ public class MapFacade {
 		throws XavaException, SystemException 
 	{		
 		Assert.arg(modelName, entity, memberNames);
-		try {
-			return getImpl().getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
 	}
 	
 	/** 
@@ -565,12 +498,7 @@ public class MapFacade {
 		throws XavaException, SystemException 
 	{		
 		Assert.arg(modelName, entity);
-		try {
-			return getImpl().getKeyValues(Users.getCurrentUserInfo(), modelName, entity); 
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		return getImpl().getKeyValues(Users.getCurrentUserInfo(), modelName, entity); 
 	}
 	
 	
@@ -589,12 +517,7 @@ public class MapFacade {
 	{	
 		if (keyValues==null) return null;
 		Assert.arg(modelName, keyValues);
-		try {
-			return getImpl().findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
 	}	
 
 	/**
@@ -610,12 +533,7 @@ public class MapFacade {
 	public static void remove(String modelName, Map<String, Object> keyValues)
 		throws RemoveException, SystemException, XavaException, ValidationException {		
 		Assert.arg(modelName, keyValues);
-		try {
-			getImpl().delete(Users.getCurrentUserInfo(), modelName, keyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		getImpl().delete(Users.getCurrentUserInfo(), modelName, keyValues);
 	}
 
 	/**
@@ -635,12 +553,7 @@ public class MapFacade {
 				XavaException, SystemException 
 	{		
 		Assert.arg(modelName, keyValues, values);
-		try {
-			getImpl().setValues(Users.getCurrentUserInfo(), modelName, keyValues, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		getImpl().setValues(Users.getCurrentUserInfo(), modelName, keyValues, values);
 	}
 	
 	/**
@@ -664,12 +577,7 @@ public class MapFacade {
 				XavaException, SystemException 
 	{		
 		Assert.arg(modelName, keyValues, values);
-		try {
-			getImpl().setValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, values);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		getImpl().setValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, values);
 	}
 	
 	/**	 
@@ -688,12 +596,7 @@ public class MapFacade {
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validate(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		return getImpl().validate(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	
@@ -713,24 +616,14 @@ public class MapFacade {
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 
 	}
 	
 	public static Messages validateIncludingMissingRequired(String modelName, Map<String, Object> values, String containerReference) 
 		throws XavaException, SystemException 
 	{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}			
+		return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);
 	}									
 	
 	private static MapFacadeBean getImpl() throws SystemException {
@@ -747,10 +640,6 @@ public class MapFacade {
 		try {
 			MetaEntity m = (MetaEntity) MetaComponent.get(entityName).getMetaEntity();
 			return getImpl().getKey(m, keyValues);
-		}
-		catch (RemoteException ex) { 
-			log.error(ex.getMessage(), ex);
-			throw new XavaException(ex.getMessage());
 		}
 		catch (ClassCastException ex) {
 			log.error(ex.getMessage(), ex);
@@ -783,12 +672,7 @@ public class MapFacade {
 			XavaException, SystemException 
 	{
 		Assert.arg(modelName, keyValues, collectionName, collectionElementKeyValues);
-		try {
-			getImpl().removeCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		getImpl().removeCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
 	}
 	
 	/** 
@@ -812,12 +696,7 @@ public class MapFacade {
 		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException 
 	{
 		Assert.arg(modelName, keyValues, collectionName, collectionElementKeyValues);
-		try {
-			getImpl().addCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		getImpl().addCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
 	}	
 	
 	/** 
@@ -844,15 +723,10 @@ public class MapFacade {
 		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException
 	{
 		Assert.arg(sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, targetContainerModelName, targetContainerKeyValues, targetCollectionName, collectionElementKeyValues);
-		try {
-			getImpl().moveCollectionElementToAnotherCollection(Users.getCurrentUserInfo(),
-				sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, 
-				targetContainerModelName, targetContainerKeyValues, targetCollectionName,
-				collectionElementKeyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		getImpl().moveCollectionElementToAnotherCollection(Users.getCurrentUserInfo(),
+			sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, 
+			targetContainerModelName, targetContainerKeyValues, targetCollectionName,
+			collectionElementKeyValues);
 	}
 	
 	/** 
@@ -875,12 +749,7 @@ public class MapFacade {
 		throws ObjectNotFoundException, FinderException, XavaException, SystemException 
 	{
 		Assert.arg(modelName, keyValues, collectionName);
-		try {
-			getImpl().moveCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, from, to);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		getImpl().moveCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, from, to);
 	}	
 	
 }

@@ -1,7 +1,5 @@
 package org.openxava.calculators;
 
-import java.rmi.*;
-
 
 /**
  * Calculator that receives a model object (entity or aggregate) that is used as source to execute the calculation. <p>
@@ -25,6 +23,6 @@ public interface IModelCalculator extends ICalculator {
 	/**
 	 * The model object that contains the member that uses the calculator. <p>
 	 */
-	void setModel(Object model) throws RemoteException;
+	void setModel(Object model);
 
 }

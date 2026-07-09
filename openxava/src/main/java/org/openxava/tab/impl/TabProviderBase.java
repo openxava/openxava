@@ -1,6 +1,5 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 import java.util.*;
 import java.util.regex.*;
 
@@ -54,7 +53,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return metaTab;
 	}	
 		
-	public void search(String condition, Object key) throws FinderException, RemoteException {
+	public void search(String condition, Object key) throws FinderException, SystemException {
 		current = 0;
 		eof = false;
 		this.key = toArray(key);		
@@ -182,7 +181,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	public void setCurrent(int i) {
 		current = i;
 	}
-	public int getResultSize() throws RemoteException { 
+	public int getResultSize() throws SystemException { 
 		return executeNumberSelect(this.selectSize, "tab_result_size_error").intValue();
 	}
 	
@@ -223,7 +222,7 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return sb.toString();
 	}
 	
-	public void reset() throws RemoteException {
+	public void reset() throws SystemException {
 		current = 0;
 		eof = false;
 	}

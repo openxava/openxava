@@ -2,7 +2,6 @@ package org.openxava.model.meta;
 
 
 import java.beans.*;
-import java.rmi.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -1940,7 +1939,7 @@ abstract public class MetaModel extends MetaElement {
 			try {
 				return ((IModel) pojo).getMetaModel();
 			} 
-			catch (RemoteException ex) {
+			catch (SystemException ex) {
 				throw new XavaException(ex.getMessage()); // Really difficult 
 			} 
 		}

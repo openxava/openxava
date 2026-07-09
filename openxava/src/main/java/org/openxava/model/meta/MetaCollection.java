@@ -1,6 +1,5 @@
 package org.openxava.model.meta;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.filters.meta.*;
@@ -91,7 +90,7 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		Object object,
 		String objectName,
 		String propertyName)
-		throws RemoteException {			
+		throws SystemException {			
 		object = (object == null)?Collections.EMPTY_SET:object;	
 		if (!(object instanceof Collection)) {
 			throw new IllegalArgumentException(XavaResources.getString("only_validate_collection"));

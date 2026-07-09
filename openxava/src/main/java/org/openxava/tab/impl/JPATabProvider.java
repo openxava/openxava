@@ -1,6 +1,5 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -262,7 +261,7 @@ public class JPATabProvider extends TabProviderBase {
 		return getMetaModel().containsMetaCollection(collection);
 	}
 
-	public DataChunk nextChunk() throws RemoteException {
+	public DataChunk nextChunk() throws SystemException {
 		if (getSelect() == null || isEOF()) { // search not called yet
 			return new DataChunk(Collections.EMPTY_LIST, true, getCurrent()); // Empty
 		}		
@@ -281,7 +280,7 @@ public class JPATabProvider extends TabProviderBase {
 		}
 		catch (Exception ex) {
 			log.error(XavaResources.getString("select_error", getSelect()), ex);
-			throw new RemoteException(XavaResources.getString("select_error", getSelect()));
+			throw new SystemException(XavaResources.getString("select_error", getSelect()));
 		}
 	}
 		

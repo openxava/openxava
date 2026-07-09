@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import org.openxava.util.*;
 import java.util.*;
 
 import org.openxava.model.*;
@@ -36,8 +36,8 @@ public interface IXTableModel extends IObjectTableModel, IRefreshTableModel {
 	 * <code>getRowCount()</code> in another side, 
 	 * return the loaded objects count, not total.<br>
 	 */
-	int getTotalSize() throws RemoteException;
-	Number getSum(String property) throws RemoteException;
+	int getTotalSize() throws SystemException;
+	Number getSum(String property) throws SystemException;
 	
 	
 	/** @since 5.7 */

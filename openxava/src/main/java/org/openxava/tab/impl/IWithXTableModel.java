@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import org.openxava.util.*;
 
 /**
  * Something with a {@link IXTableModel}. <p>
@@ -10,6 +10,6 @@ import java.rmi.*;
 
 public interface IWithXTableModel {
 
-  IXTableModel getTable() throws RemoteException;
+  IXTableModel getTable() throws SystemException;
   
 }
