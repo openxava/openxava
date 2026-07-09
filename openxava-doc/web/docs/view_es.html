@@ -2527,51 +2527,60 @@ private Collection&lt;InvoiceDetail&gt; lineas;</code></pre>
 &lt;/controlador&gt;</code></pre>
       Y el código de nuestra acción:<br>
       <pre><code class="language-java">package org.openxava.test.acciones;
+
 import java.util.*;
-import javax.ejb.*;
+// import javax.ejb.*; // Antes de v8.0
 import org.openxava.actions.*;
+import org.openxava.model.ObjectNotFoundException;
+
 /**
  * @author Javier Paniza
  */
 public class VerProductoDesdeLineaFactura
- extends CollectionElementViewBaseAction // 1
- implements INavigationAction {
- @Inject // A partir de v4m2
- private Map valoresFactura;
- public void execute() throws Exception {
- try {
- setValoresFactura(getView().getValues());
- Object codigo =
- getCollectionElementView().getValue("producto.codigo"); // 2
- Map clave = new HashMap();
- clave.put("codigo", codigo);
- getView().setModelName("Producto"); // 3
- getView().setValues(clave); // Desde v4m5 puedes user getParentView()
- getView().findObject(); // como alternativa a getView()
- getView().setKeyEditable(false);
- getView().setEditable(false);
- }
- catch (ObjectNotFoundException ex) {
- getView().clear();
- addError("object_not_found");
- }
- catch (Exception ex) {
- ex.printStackTrace();
- addError("system_error");
- }
- }
- public String[] getNextControllers() {
- return new String [] { "ProductoDesdeFactura" };
- }
- public String getCustomView() {
- return SAME_VIEW;
- }
- public Map getValoresFactura() {
- return valoresFactura;
- }
- public void setValoresFactura(Map map) {
- valoresFactura = map;
- }
+    extends CollectionElementViewBaseAction // 1
+    implements INavigationAction {
+
+    @Inject // A partir de v4m2
+    private Map valoresFactura;
+
+    public void execute() throws Exception {
+        try {
+            setValoresFactura(getView().getValues());
+            Object codigo =
+                getCollectionElementView().getValue("producto.codigo"); // 2
+            Map clave = new HashMap();
+            clave.put("codigo", codigo);
+            getView().setModelName("Producto"); // 3
+            getView().setValues(clave); // Desde v4m5 puedes usar getParentView()
+            getView().findObject(); // como alternativa a getView()
+            getView().setKeyEditable(false);
+            getView().setEditable(false);
+        }
+        catch (ObjectNotFoundException ex) {
+            getView().clear();
+            addError("object_not_found");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            addError("system_error");
+        }
+    }
+
+    public String[] getNextControllers() {
+        return new String[] { "ProductoDesdeFactura" };
+    }
+
+    public String getCustomView() {
+        return SAME_VIEW;
+    }
+
+    public Map getValoresFactura() {
+        return valoresFactura;
+    }
+
+    public void setValoresFactura(Map map) {
+        valoresFactura = map;
+    }
 }</code></pre>
       Vemos como desciende de <em>CollectionElementViewBaseAction</em> (1) y
       así tiene disponible la vista que visualiza el elemento de la colección
