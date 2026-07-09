@@ -21,42 +21,60 @@ public class DefaultSize {
 	private static Map<String, Integer> scaleTypes;
 	private static Map<String, Integer> scaleAnnotations; 
 	
-	public static void _addForStereotype(String name, int length) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForStereotype(String name, int length) {
 		if (stereotypes == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addForStereotype");
 		}		
 		stereotypes.put(name, Integer.valueOf(length));
 	}
 	
-	public static void _addForType(String className, int length) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForType(String className, int length) {
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addForType");
 		}			
 		types.put(className, Integer.valueOf(length));
 	}
 	
-	public static void _addForAnnotation(String className, int length) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForAnnotation(String className, int length) { 
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addForAnnotation");
 		}			
 		annotations.put(className, length);
 	}
 	
-	public static void _addScaleForStereotype(String name, int length) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addScaleForStereotype(String name, int length) {
 		if (stereotypes == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addScaleForStereotype");
 		}		
 		scaleStereotypes.put(name, Integer.valueOf(length));
 	}
 	
-	public static void _addScaleForType(String className, int length) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addScaleForType(String className, int length) {
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addScaleForType");
 		}			
 		scaleTypes.put(className, Integer.valueOf(length));
 	}
 	
-	public static void _addScaleForAnnotation(String className, int length) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void _addScaleForAnnotation(String className, int length) { 
 		if (types == null) {
 			throw new XavaException("only_from_parse", "DefaultSize._addScaleForAnnotation");
 		}			
@@ -71,7 +89,7 @@ public class DefaultSize {
 	 * @throws ElementNotFoundException
 	 * @throws XavaException
 	 */
-	public static int forStereotype(String name) throws ElementNotFoundException, XavaException {
+	public static int forStereotype(String name) throws ElementNotFoundException {
 		if (stereotypes == null) {
 			configure();
 		}
@@ -89,7 +107,7 @@ public class DefaultSize {
 	 * @throws ElementNotFoundException
 	 * @throws XavaException
 	 */
-	public static int forAnnotation(Annotation annotation) throws ElementNotFoundException, XavaException { 
+	public static int forAnnotation(Annotation annotation) throws ElementNotFoundException { 
 		if (stereotypes == null) {
 			configure();
 		}
@@ -107,7 +125,7 @@ public class DefaultSize {
 	 * @throws ElementNotFoundException
 	 * @throws XavaException
 	 */
-	public static int forType(Class className) throws ElementNotFoundException, XavaException {
+	public static int forType(Class className) throws ElementNotFoundException {
 		if (types == null) {
 			configure();
 		}
@@ -118,7 +136,10 @@ public class DefaultSize {
 		return result.intValue();		
 	}
 	
-	private static void configure() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void configure() {
 		stereotypes = new HashMap<>();
 		types = new HashMap<>();
 		annotations = new HashMap<>(); 
@@ -135,7 +156,7 @@ public class DefaultSize {
 	 * @throws ElementNotFoundException
 	 * @throws XavaException
 	 */
-	public static int scaleForStereotype(String name) throws ElementNotFoundException, XavaException {
+	public static int scaleForStereotype(String name) throws ElementNotFoundException {
 		if (stereotypes == null) {
 			configure();
 		}
@@ -153,7 +174,7 @@ public class DefaultSize {
 	 * @throws ElementNotFoundException
 	 * @throws XavaException
 	 */
-	public static int scaleForType(Class className) throws ElementNotFoundException, XavaException {
+	public static int scaleForType(Class className) throws ElementNotFoundException {
 		if (types == null) {
 			configure();
 		}
@@ -164,7 +185,10 @@ public class DefaultSize {
 		return result.intValue();		
 	}
 	
-	public static int scaleForAnnotation(Annotation annotation) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static int scaleForAnnotation(Annotation annotation) throws ElementNotFoundException { 
 		if (types == null) {
 			configure();
 		}

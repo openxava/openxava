@@ -15,7 +15,10 @@ public class CollectionWithConditionInViewFilter extends CollectionInViewBaseFil
 		
 	private Collection conditionArgumentsPropertyNames;
 
-	protected Collection getKeyValues() throws XavaException { 		
+	/**
+	* @throws XavaException
+	 */
+	protected Collection getKeyValues() { 		
 		Collection keyNames = getConditionArgumentsPropertyNames();  
 		Collection values = new ArrayList();			
 		for (Iterator it = keyNames.iterator(); it.hasNext();) {

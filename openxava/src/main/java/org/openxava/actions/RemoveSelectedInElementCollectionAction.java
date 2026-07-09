@@ -35,7 +35,10 @@ public class RemoveSelectedInElementCollectionAction extends RemoveSelectedInCol
 		collectionValues.remove(idx);
 	}
 	
-	protected View getCollectionElementView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected View getCollectionElementView() {
 		if (collectionElementView == null) {
 			View rootView = (View) getContext().get(getRequest(), "xava_view");
 			String collectionName = Strings.lastToken(getViewObject(), "_");
@@ -45,7 +48,10 @@ public class RemoveSelectedInElementCollectionAction extends RemoveSelectedInCol
 		return collectionElementView;
 	}
 	
-	protected boolean isEntityReferencesCollection() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected boolean isEntityReferencesCollection() {
 		return false;
 	}
 	

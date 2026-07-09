@@ -14,7 +14,10 @@ public class EntityTabBean implements IEntityTabDataProvider {
 	public EntityTabBean() {
 	}
 	
-	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexs) throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexs) {
 		return dataProvider.nextChunk(tabProvider, modelName, propertiesNames, tabCalculators, keyIndexs);
 	}
 

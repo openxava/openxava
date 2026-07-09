@@ -32,8 +32,9 @@ public class ModuleContext implements java.io.Serializable {
 	/**
 	 * Return a object associated to the specified module
 	 * in 'application' and 'module' of request.
+	 * @throws XavaException
 	 */
-	public Object get(HttpServletRequest request, String objectName) throws XavaException {  
+	public Object get(HttpServletRequest request, String objectName) {  
 		String application = request.getParameter("application");
 		application = Is.emptyString(application) ? (String) request.getAttribute("xava.application") : application; 
 		if (Is.emptyString(application)) throw new XavaException("application_and_module_required_in_request");
@@ -48,8 +49,9 @@ public class ModuleContext implements java.io.Serializable {
 	/**
 	 * Return a object asociate to the specified module
 	 * in 'application' and 'module' of request.
+	 * @throws XavaException
 	 */
-	public Object get(HttpServletRequest request, String objectName, String className) throws XavaException { 
+	public Object get(HttpServletRequest request, String objectName, String className) { 
 		String application = request.getParameter("application");
 		if (Is.emptyString(application)) {
 			throw new XavaException("application_and_module_required_in_request");
@@ -62,7 +64,10 @@ public class ModuleContext implements java.io.Serializable {
 	}
 	
 	
-	public Object get(String application, String module, String objectName, String className) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object get(String application, String module, String objectName, String className) {
 		Map context = getContext(application, module, objectName); 
 		Object o = context.get(objectName);
 		if (o == null) {
@@ -74,7 +79,10 @@ public class ModuleContext implements java.io.Serializable {
 	
 	
 
-	private Object createObjectFromClass(String className) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object createObjectFromClass(String className) {
 		try {
 			return Class.forName(className).newInstance();
 		}
@@ -86,8 +94,9 @@ public class ModuleContext implements java.io.Serializable {
 
 	/**
 	 * If does not exist the it create one, as defined in controllers.xml. <p>
+	 * @throws XavaException
 	 */	
-	public Object get(String application, String module, String objectName) throws XavaException {
+	public Object get(String application, String module, String objectName) {
 		Map context = getContext(application, module, objectName);
 		Object o = context.get(objectName);
 		if (o == null) {
@@ -97,12 +106,18 @@ public class ModuleContext implements java.io.Serializable {
 		return o;
 	}
 	
-	public boolean exists(String application, String module, String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean exists(String application, String module, String objectName) {
 		Map context = getContext(application, module, objectName); 
 		return context.containsKey(objectName);
 	}
 	
-	public boolean exists(HttpServletRequest request, String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean exists(HttpServletRequest request, String objectName) {
 		String application = request.getParameter("application");
 		if (Is.emptyString(application)) {
 			throw new XavaException("application_and_module_required_in_request");
@@ -115,22 +130,34 @@ public class ModuleContext implements java.io.Serializable {
 	}	
 
 
-	public void put(HttpServletRequest request, String objectName, Object value) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void put(HttpServletRequest request, String objectName, Object value) {
 		Map context = getContext(request, objectName); 
 		context.put(objectName, value);
 	}
 		
-	public void put(String application, String module, String objectName, Object value) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void put(String application, String module, String objectName, Object value) {
 		Map context = getContext(application, module, objectName);
 		context.put(objectName, value);
 	}
 
-	public void remove(HttpServletRequest request, String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void remove(HttpServletRequest request, String objectName) {
 		Map context = getContext(request, objectName);
 		context.remove(objectName);		
 	}
 		
-	public void remove(String application, String module, String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void remove(String application, String module, String objectName) {
 		Map context = getContext(application, module, objectName); 
 		context.remove(objectName);
 	}
@@ -150,7 +177,10 @@ public class ModuleContext implements java.io.Serializable {
 		return module;
 	}
 			
-	private Object createObject(String objectName) throws XavaException{			
+	/**
+	* @throws XavaException
+	 */
+	private Object createObject(String objectName) {			
 		return MetaControllers.getMetaObject(objectName).createObject();
 	}
 	
@@ -158,8 +188,9 @@ public class ModuleContext implements java.io.Serializable {
 	 * Reset all the context state for the module. Actually reinit the module. <p>
 	 * 
 	 * @since 6.0
+	 * @throws XavaException
 	 */
-	public void resetModule(HttpServletRequest request) throws XavaException {
+	public void resetModule(HttpServletRequest request) {
 		getContext(request, null).clear(); 
 	}
 
@@ -167,8 +198,9 @@ public class ModuleContext implements java.io.Serializable {
 	 * Reset all the context state for all the module but the current one. Actually reinit the modules. <p>
 	 * 
 	 * @since 6.0.2
+	 * @throws XavaException
 	 */	
-	public void resetAllModulesExceptCurrent(HttpServletRequest request) throws XavaException { 
+	public void resetAllModulesExceptCurrent(HttpServletRequest request) { 
 		Map current = getContext(request, null);
 		for (Map context: getContexts().values()) {
 			if (context != current) { 
@@ -178,7 +210,10 @@ public class ModuleContext implements java.io.Serializable {
 	}
 
 	
-	public Map getContext(HttpServletRequest request, String objectName) throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	public Map getContext(HttpServletRequest request, String objectName) {  
 		String application = request.getParameter("application");
 		if (Is.emptyString(application)) {
 			throw new XavaException("application_and_module_required_in_request");
@@ -190,7 +225,10 @@ public class ModuleContext implements java.io.Serializable {
 		return getContext(application, module, objectName); 
 	}
 
-	private Map getContext(String application, String module, String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Map getContext(String application, String module, String objectName) {
 		if (isGlobal(objectName)) {
 			return getGlobalContext();
 		}
@@ -207,7 +245,10 @@ public class ModuleContext implements java.io.Serializable {
 		return context;
 	}
 	
-	private boolean isGlobal(String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean isGlobal(String objectName) {
 		try {
 			return MetaControllers.getMetaObject(objectName).isGlobal();
 		}

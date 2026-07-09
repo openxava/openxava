@@ -20,6 +20,6 @@ public interface IModel {
 	 * @exception XavaException  Any problem related to OpenXava.
 	 * @exception SystemException  System problem.
 	 */
-	MetaModel getMetaModel() throws XavaException, SystemException;
+	MetaModel getMetaModel() ;
 
 }

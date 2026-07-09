@@ -47,7 +47,10 @@ public class MetaObject {
 		value = string;
 	}
 	
-	public Object createObject() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object createObject() {
 		try {		
 			Class clase = Class.forName(this.className);
 			if (Is.emptyString(value)) {

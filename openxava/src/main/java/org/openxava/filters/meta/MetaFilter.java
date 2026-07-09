@@ -27,7 +27,10 @@ public class MetaFilter implements Serializable {
 		metaSets.add(metaSet);		
 	}
 	
-	public IFilter createFilter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IFilter createFilter() {
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof IFilter)) {
@@ -89,11 +92,17 @@ public class MetaFilter implements Serializable {
 		this.className = className;
 	}
 
-	public Object filter(Object[] objects) throws FilterException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object filter(Object[] objects) throws FilterException {
 		return getFilter().filter(objects);		
 	}
 	
-	public IFilter getFilter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IFilter getFilter() {
 		if (filter == null) {
 			filter = createFilter();
 		}

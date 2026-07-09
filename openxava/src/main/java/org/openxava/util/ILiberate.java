@@ -24,6 +24,6 @@ public interface ILiberate {
    *
    * @exception SystemException  Any problem releasing resources
    */
-  void liberate() throws SystemException;
+  void liberate() ;
   
 }

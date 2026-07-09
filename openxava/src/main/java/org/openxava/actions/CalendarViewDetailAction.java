@@ -13,7 +13,10 @@ public class CalendarViewDetailAction extends ViewDetailAction{
 	
 	private String calendarKey;
 	
-	public void execute() throws XavaException, ParseException {
+	/**
+	* @throws XavaException
+	 */
+	public void execute() throws ParseException {
 		getView().setModelName(model);
 		getView().setViewName(getManager().getXavaViewName());
 		setAtListBegin(false);

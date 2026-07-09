@@ -34,8 +34,9 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * 
 	 * The values only include the displayed data in the row.<br>
 	 * @return  Of type <tt>Map</tt>. Never null.
+	 * @throws XavaException
 	 */
-	protected List<Map<String, Object>> getMapValues() throws XavaException { 
+	protected List<Map<String, Object>> getMapValues() { 
 		if (mapValues == null) {
 			mapValues = getCollectionElementView().getCollectionValues();
 		}
@@ -52,8 +53,9 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * The values only include the displayed data in the row.<br>
 	 * 
 	 * @return  Of type <tt>Map</tt>. Never null.
+	 * @throws XavaException
 	 */ 
-	protected List<Map<String, Object>> getMapsSelectedValues() throws XavaException {
+	protected List<Map<String, Object>> getMapsSelectedValues() {
 		if (mapsSelectedValues == null) {
 			if (row >= 0) {
 				mapsSelectedValues = Collections.singletonList(getMapValues().get(row)); 	
@@ -76,8 +78,9 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * 
 	 * @return  Never null.
 	 * @since 6.0.2
+	 * @throws XavaException
 	 */ 	
-	protected Map [] getSelectedKeys() throws XavaException {  
+	protected Map [] getSelectedKeys() {  
 		if (selectedKeys == null) {
 			if (row >= 0) {
 				Map key;
@@ -129,8 +132,11 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * the they will be EntityBeans (of EJB2).<br> 
 	 *  
 	 * @return  Never null.
+	 * @throws SystemException
+	 * @throws FinderException
+	 * @throws XavaException
 	 */	
-	protected List getObjects() throws SystemException, FinderException, XavaException {
+	protected List getObjects() throws FinderException {
 		if (objects == null) {
 			objects = getCollectionElementView().getCollectionObjects(); 
 		}
@@ -147,8 +153,10 @@ abstract public class CollectionBaseAction extends CollectionElementViewBaseActi
 	 * will contain the object of that row only.<br>
 	 *  
 	 * @return  Never null.
+	 * @throws SystemException
+	 * @throws XavaException
 	 */	
-	protected List getSelectedObjects() throws SystemException, FinderException, XavaException {
+	protected List getSelectedObjects() throws FinderException {
 		if (selectedObjects == null) {
 			if (row >= 0) {
 				try {

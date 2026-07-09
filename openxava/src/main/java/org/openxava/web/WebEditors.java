@@ -23,7 +23,10 @@ public class WebEditors {
 	private static Log log = LogFactory.getLog(WebEditors.class);
 	final private static String PREFIX = "editors/";
 	
-	public static boolean mustToFormat(MetaProperty p, String viewName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static boolean mustToFormat(MetaProperty p, String viewName) { 
 		try {
 			return getMetaEditorFor(p, viewName).isFormat(); 
 		}
@@ -32,7 +35,10 @@ public class WebEditors {
 		}
 	}
 	
-	public static boolean hasMultipleValuesFormatter(MetaProperty p, String viewName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static boolean hasMultipleValuesFormatter(MetaProperty p, String viewName) { 
 		try {
 			return getMetaEditorFor(p, viewName).hasMultipleValuesFormatter();
 		}
@@ -41,7 +47,10 @@ public class WebEditors {
 		}
 	}	
 	
-	public static boolean hasFrame(MetaProperty p, String viewName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static boolean hasFrame(MetaProperty p, String viewName) { 
 		try {
 			return getMetaEditorFor(p, viewName).isFrame(); 
 		}
@@ -50,7 +59,10 @@ public class WebEditors {
 		}
 	}
 
-	public static Object parse(HttpServletRequest request, MetaProperty p, String [] strings, Messages errors, String viewName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static Object parse(HttpServletRequest request, MetaProperty p, String [] strings, Messages errors, String viewName) { 
 		try {
 			if (!(p.isKey() && p.isHidden())) {
 				MetaEditor ed = getMetaEditorFor(p, viewName);
@@ -87,25 +99,36 @@ public class WebEditors {
 		throw new XavaException("formatter_incorrect_class"); 
 	}
 		
-	public static Object parse(HttpServletRequest request, MetaProperty p, String string, Messages errors, String viewName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static Object parse(HttpServletRequest request, MetaProperty p, String string, Messages errors, String viewName) { 
 		String [] strings = string == null?null:new String [] { string };
 		return parse(request, p, strings, errors, viewName); 
 	}
 	
-	/** @since 7.3 */
-	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException { 
+	/** @since 7.3
+	* @throws XavaException
+	 */
+	public static String formatNoFilterSpecialCharacters(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, false);
 		if (result instanceof String []) return arrayToString((String []) result);		
 		return (String) result;
 	}
 		
-	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName) {
 		Object result = formatToStringOrArray(request, p, object, errors, viewName, false);
 		if (result instanceof String []) return arrayToString((String []) result);		
 		return (String) result;
 	}
 	
-	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String format(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) {
 		Object result = formatToStringOrArray(request, p, object, errors, viewName, fromList);
 		if (result instanceof String []) return arrayToString((String []) result);		
 		return (String) result;
@@ -123,8 +146,9 @@ public class WebEditors {
 
 	/** 
 	 * @return If has a multiple converter return a array of string else return a string
+	 * @throws XavaException
 	 */
-	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {
+	public static Object formatToStringOrArray(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) {
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);	
 		if (result == null) return null;
 		if (result instanceof String) {
@@ -153,7 +177,10 @@ public class WebEditors {
         return sb.toString();
 	}
 	
-	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static Object formatTitle(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) { 
 		Object result = formatToStringOrArrayImpl(request, p, object, errors, viewName, fromList);
 		if (result != null && hasMarkup(result)) {
 			return p.getLabel(); 
@@ -166,7 +193,10 @@ public class WebEditors {
 		return result.toString().contains("<") && result.toString().contains(">");
 	}
 
-	private static Object formatToStringOrArrayImpl(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	private static Object formatToStringOrArrayImpl(HttpServletRequest request, MetaProperty p, Object object, Messages errors, String viewName, boolean fromList) {  
 		try {
 			MetaEditor ed = getMetaEditorFor(p, viewName);
 			if (fromList && !Is.empty(ed.getListFormatterClassName())){
@@ -206,7 +236,10 @@ public class WebEditors {
 		throw new XavaException("formatter_incorrect_class");
 	}
 	
-	public static String getUrl(MetaProperty p, String viewName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String getUrl(MetaProperty p, String viewName) {
 		try {				
 			return PREFIX + getMetaEditorFor(p, viewName).getUrl();
 		}
@@ -216,7 +249,10 @@ public class WebEditors {
 		}		
 	}	
 	
-	public static String getUrl(MetaTab metaTab) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String getUrl(MetaTab metaTab) throws ElementNotFoundException {
 		try {					
 			String editor = metaTab.getEditor();
 			if (!Is.emptyString(editor)) {
@@ -235,7 +271,10 @@ public class WebEditors {
 		}		
 	}
 	
-	public static Collection<String> getEditors(MetaTab metaTab) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static Collection<String> getEditors(MetaTab metaTab) throws ElementNotFoundException { 
 		if (!Is.emptyString(metaTab.getEditors())) {
 			if (!Is.emptyString(metaTab.getEditor())) {
 				log.warn(XavaResources.getString("editors_over_editor", metaTab.getEditor(), metaTab.getName(), metaTab.getModelName()));
@@ -253,7 +292,10 @@ public class WebEditors {
 		return editors;
 	}
 	
-	public static String getUrl(String editor, MetaTab metaTab) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static String getUrl(String editor, MetaTab metaTab) throws ElementNotFoundException { 
 		if (!Is.emptyString(editor)) {
 			try {
 				return PREFIX + MetaWebEditors.getMetaEditorByName(editor).getUrl();
@@ -268,8 +310,9 @@ public class WebEditors {
 	/**
 	 * 
 	 * @return Null if the editor does not exists. A default value if exists but has not icon or the param is null or empty.  
+	 * @throws XavaException
 	 */
-	public static String getIcon(String editor) throws ElementNotFoundException, XavaException { 
+	public static String getIcon(String editor) throws ElementNotFoundException { 
 		if (Is.emptyString(editor)) return "view-list"; // A good default because icon is only used for list, by now. If we remove this line test with a editor for tabs with no name
 		MetaEditor metaEditor = MetaWebEditors.getMetaEditorByName(editor);
 		if (metaEditor == null) {
@@ -280,7 +323,10 @@ public class WebEditors {
 		return Is.emptyString(result)?"view-list":result; 
 	}	
 		
-	public static MetaEditor getMetaEditorFor(MetaMember m, String viewName) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaEditor getMetaEditorFor(MetaMember m, String viewName) throws ElementNotFoundException {
 		if (m.getMetaModel() != null) {
 			try {				
 				MetaView metaView = m.getMetaModel().getMetaView(viewName);				
@@ -400,8 +446,9 @@ public class WebEditors {
 	
 	/**
 	 * @since 7.7
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForDescriptionsList(MetaReference ref, String viewName) throws XavaException {
+	public static MetaEditor getMetaEditorForDescriptionsList(MetaReference ref, String viewName) {
 		if (ref.getMetaModel() != null) {
 			try {				
 				MetaView metaView = ref.getMetaModel().getMetaView(viewName);				

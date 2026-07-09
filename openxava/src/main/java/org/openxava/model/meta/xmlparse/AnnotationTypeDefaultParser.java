@@ -19,21 +19,30 @@ public class AnnotationTypeDefaultParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void configureAnnotationTypeDefault() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureAnnotationTypeDefault() {
 		AnnotationTypeDefaultParser enParser = new AnnotationTypeDefaultParser("annotation-type-default.xml", ENGLISH);
 		enParser.parse();		
 		AnnotationTypeDefaultParser esParser = new AnnotationTypeDefaultParser("tipo-anotacion-defecto.xml", ESPANOL);
 		esParser.parse();
 	}
 	
-	private void createForAnnotation(Node n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void createForAnnotation(Node n) {		
 		Element el = (Element) n;
 		String annotation = el.getAttribute(xannotation[lang]);		
 		String type = el.getAttribute(xtype[lang]);			
 		TypeAnnotationDefault._addForAnnotation(annotation, type);		
 	}
 	
-	private void createForAnnotations() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void createForAnnotations() {		
 		NodeList l = getRoot().getElementsByTagName(xfor[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -41,7 +50,10 @@ public class AnnotationTypeDefaultParser extends ParserBase {
 		}
 	}
 			
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createForAnnotations();	
 	}
 			

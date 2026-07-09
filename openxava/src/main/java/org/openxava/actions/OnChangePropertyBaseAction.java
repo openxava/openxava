@@ -25,7 +25,10 @@ abstract public class OnChangePropertyBaseAction
 		return changedProperty;
 	}
 	
-	protected MetaProperty getChangedMetaProperty() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	protected MetaProperty getChangedMetaProperty() { 
 		return getView().getMetaProperty(changedProperty);
 	}
 	

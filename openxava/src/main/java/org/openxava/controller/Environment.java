@@ -26,8 +26,9 @@ public class Environment implements java.io.Serializable {
 
 	/**
 	 * @return Null if does not exists.
+	 * @throws XavaException
 	 */
-	public String getValue(String name) throws XavaException {
+	public String getValue(String name) {
 		String value = null;
 		if (localVariables != null) {
 			value = (String) localVariables.get(name);

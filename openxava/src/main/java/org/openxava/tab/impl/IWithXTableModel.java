@@ -10,6 +10,9 @@ import org.openxava.util.*;
 
 public interface IWithXTableModel {
 
-  IXTableModel getTable() throws SystemException;
+  /**
+  * @throws SystemException
+   */
+  IXTableModel getTable() ;
   
 }

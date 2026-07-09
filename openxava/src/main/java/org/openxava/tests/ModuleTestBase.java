@@ -564,7 +564,10 @@ abstract public class ModuleTestBase extends TestCase {
 	}
 	
 		
-	protected String getModuleURL() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	protected String getModuleURL() { 
 		return "http://" + getHost() + ":" + getPort() + getContextPath() + "modules/" + module + "?modulesLimit=0"; 
 	}
 	
@@ -2384,28 +2387,40 @@ abstract public class ModuleTestBase extends TestCase {
 		}
 	}
 	
-	private MetaTab getMetaTab() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaTab getMetaTab() {
 		if (metaTab == null) {			
 			metaTab = MetaComponent.get(getMetaModule().getModelName()).getMetaTab(getMetaModule().getTabName());			
 		}
 		return metaTab;
 	}
 	
-	private MetaView getMetaView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaView getMetaView() {
 		if (metaView == null) {						 			
 			metaView = getMetaModel().getMetaView(getMetaModule().getViewName());			
 		}
 		return metaView;
 	}
 	
-	private MetaModel getMetaModel() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModel getMetaModel() {
 		if (metaModel == null) {			
 			metaModel = MetaComponent.get(getMetaModule().getModelName()).getMetaEntity(); 									
 		}
 		return metaModel;
 	}	
 	
-	private MetaModule getMetaModule() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModule getMetaModule() {
 		if (metaModule == null) {
 			metaModule = MetaApplications.getMetaApplication(this.application).getMetaModule(this.module);
 		}

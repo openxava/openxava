@@ -39,7 +39,10 @@ abstract public class ParserBase extends XmlElementsNames {
 		this.lang = language;
 	}
 	
-	abstract protected void createObjects() throws XavaException;
+	/**
+	* @throws XavaException
+	 */
+	abstract protected void createObjects() ;
 	
 	protected boolean getBoolean(Element el, String label) {
 		return ParserUtil.getBoolean(el, label);
@@ -57,11 +60,17 @@ abstract public class ParserBase extends XmlElementsNames {
 		return ParserUtil.getElement(el, label);
 	}
 	
-	protected int getInt(Element el, String label) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected int getInt(Element el, String label) {
 		return ParserUtil.getInt(el, label);
 	}
 	
-	protected int getAttributeInt(Element el, String label) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected int getAttributeInt(Element el, String label) {
 		return ParserUtil.getAttributeInt(el, label);
 	}
 	
@@ -73,7 +82,10 @@ abstract public class ParserBase extends XmlElementsNames {
 		return ParserUtil.getString(el, label);
 	}
 	
-	public void parse() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void parse() {
 		String xmlFileCompleteURL = null;
 		try {						
 			Enumeration resources = getClass().getClassLoader().getResources("xava/" + xmlFileURL); 
@@ -110,7 +122,10 @@ abstract public class ParserBase extends XmlElementsNames {
 	    return path;
 	}
 
-	private void _parse(String xmlFileCompleteURL) throws XavaException, URISyntaxException {
+	/**
+	* @throws XavaException
+	 */
+	private void _parse(String xmlFileCompleteURL) throws URISyntaxException {
 		try {						
 			xmlFileCompleteURL = encodeURL(xmlFileCompleteURL); 
 			Document doc = getDocumentBuilder().parse(xmlFileCompleteURL);			

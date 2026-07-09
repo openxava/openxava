@@ -33,7 +33,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 	private boolean aggregate;
 	private boolean usedForCollection;  
 	
-	public MetaCollection getMetaCollectionFromReferencedModel() throws XavaException { 				
+	/**
+	* @throws XavaException
+	 */
+	public MetaCollection getMetaCollectionFromReferencedModel() { 				
 		Iterator it = getMetaModelReferenced().getMetaCollections().iterator();
 		String modelName = getMetaModel().getName();
 		while (it.hasNext()) {
@@ -47,17 +50,26 @@ public class MetaReference extends MetaMember implements Cloneable {
 		return null;		
 	}
 	
-	public String getOrderFromReferencedModel() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getOrderFromReferencedModel() {
 		MetaCollection metaCollection = getMetaCollectionFromReferencedModel();
 		return metaCollection==null?null:metaCollection.getOrder();
 	}
 	
-	private boolean orderHasQualifiedProperties() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private boolean orderHasQualifiedProperties() { 
 		MetaCollection metaCollection = getMetaCollectionFromReferencedModel();
 		return metaCollection==null?false:metaCollection.orderHasQualifiedProperties();
 	}
 	
-	public MetaModel getMetaModelReferenced() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaModel getMetaModelReferenced() {
 		if (metaModelReferenced == null) {
 			ElementName modelName = new ElementName(getReferencedModelName());			
 			if (modelName.isQualified()) {
@@ -91,7 +103,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 		return metaModelReferenced;
 	}
 	
-	public boolean isAggregate() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isAggregate() {
 		if (explicitAggregate) return aggregate;
 		return getMetaModelReferenced() instanceof MetaAggregate;
 	}
@@ -152,7 +167,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 		key = b;
 	}
 	
-	public MetaReference cloneMetaReference() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaReference cloneMetaReference() {
 		try {
 			return (MetaReference) super.clone();			
 		}
@@ -166,7 +184,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 		return metaCalculatorDefaultValue;
 	}
 	public void setMetaCalculatorDefaultValue(
-			MetaCalculator metaCalculatorDefaultValue) throws XavaException {
+			/**
+			* @throws XavaException
+			 */
+			MetaCalculator metaCalculatorDefaultValue) {
 		if (metaCalculatorDefaultValue != null && metaCalculatorDefaultValue.isOnCreate()) {
 			throw new XavaException("reference_not_default_values_on_create", getName());
 		}
@@ -176,8 +197,9 @@ public class MetaReference extends MetaMember implements Cloneable {
 	/**
 	 * 
 	 * @return null if this does not have default value calculator
+	 * @throws XavaException
 	 */
-	public ICalculator getDefaultValueCalculator() throws XavaException {
+	public ICalculator getDefaultValueCalculator() {
 		if (!hasDefaultValueCalculator()) return null;
 		if (defaultValueCalculator == null) {
 			defaultValueCalculator = metaCalculatorDefaultValue.createCalculator();
@@ -192,8 +214,9 @@ public class MetaReference extends MetaMember implements Cloneable {
 	/**
 	 * 
 	 * @return null if this does not have calculator for default value
+	 * @throws XavaException
 	 */
-	public ICalculator createDefaultValueCalculator() throws XavaException {  
+	public ICalculator createDefaultValueCalculator() {  
 		if (!hasDefaultValueCalculator()) return null;
 		return metaCalculatorDefaultValue.createCalculator();		
 	}
@@ -218,12 +241,17 @@ public class MetaReference extends MetaMember implements Cloneable {
 		this.searchKey = searchKey;
 	}
 	
-	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView) { 
 		return getParameterValuesPropertiesInDescriptionsList(metaView, metaView);
 	}
 	
-	/** @since 7.0.3 */
-	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView, MetaView rootMetaView) throws XavaException { 
+	/** @since 7.0.3
+	* @throws XavaException
+	 */
+	public String getParameterValuesPropertiesInDescriptionsList(MetaView metaView, MetaView rootMetaView) { 
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
 		String depends = descriptionsList.getDepends();		
@@ -270,8 +298,10 @@ public class MetaReference extends MetaMember implements Cloneable {
 		return false;
 	}
 	
-	/** @since 6.4 */
-	public String getFilterInDescriptionsList(MetaView metaView) throws XavaException { 
+	/** @since 6.4
+	* @throws XavaException
+	 */
+	public String getFilterInDescriptionsList(MetaView metaView) { 
 		MetaDescriptionsList descriptionsList = metaView.getMetaDescriptionList(this);		
 		if (descriptionsList == null) return "";
 		MetaFilter filter = descriptionsList.getMetaFilter();

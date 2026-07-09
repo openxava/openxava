@@ -22,7 +22,10 @@ public class MetaGroup extends MetaMember implements Cloneable {
 		this.metaViewParent = parent;
 	}
 	
-	public MetaView getMetaView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaView getMetaView() {
 		if (metaView == null) {
 			try {
 				metaView = (MetaView) metaViewParent.clone();

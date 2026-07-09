@@ -53,7 +53,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return metaTab;
 	}	
 		
-	public void search(String condition, Object key) throws FinderException, SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public void search(String condition, Object key) throws FinderException {
 		current = 0;
 		eof = false;
 		this.key = toArray(key);		
@@ -181,7 +184,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 	public void setCurrent(int i) {
 		current = i;
 	}
-	public int getResultSize() throws SystemException { 
+	/**
+	* @throws SystemException
+	 */
+	public int getResultSize() { 
 		return executeNumberSelect(this.selectSize, "tab_result_size_error").intValue();
 	}
 	
@@ -222,7 +228,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return sb.toString();
 	}
 	
-	public void reset() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public void reset() {
 		current = 0;
 		eof = false;
 	}
@@ -244,7 +253,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		entityReferencesReferenceNames = null; 		
 	}
 
-	protected boolean hasReferences() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected boolean hasReferences() {
 		return !getEntityReferencesMappings().isEmpty();
 	}
 	
@@ -252,7 +264,10 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		return entityReferencesReferenceNames;
 	}
 	
-	protected Collection<ReferenceMapping> getEntityReferencesMappings() throws XavaException { 	
+	/**
+	* @throws XavaException
+	 */
+	protected Collection<ReferenceMapping> getEntityReferencesMappings() { 	
 		if (entityReferencesMappings == null) {
 			entityReferencesMappings = new ArrayList<>(); 
 			entityReferencesReferenceNames = new HashMap<>(); 
@@ -281,11 +296,17 @@ abstract public class TabProviderBase implements ITabProvider, java.io.Serializa
 		resetEntityReferencesMappings();
 	}
 	
-	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix) { 
 		fillEntityReferencesMappings(result, property, metaModel, parentReference, aggregatePrefix, null);
 	}
 	
-	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix, MetaModel parentMetaModel) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void fillEntityReferencesMappings(Collection<ReferenceMapping> result, String property, MetaModel metaModel, String parentReference, String aggregatePrefix, MetaModel parentMetaModel) {		
 		int idx = property.indexOf('.');
 		if (idx >= 0) {
 			String referenceName = property.substring(0, idx);	

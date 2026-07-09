@@ -392,7 +392,10 @@ public class ModuleManager implements java.io.Serializable {
 						getMetaActionsMode().iterator() });
 	}
 
-	private MetaController getMetaControllerMode() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaController getMetaControllerMode() {
 		if (metaControllerMode == null) {
 			metaControllerMode = MetaControllers
 					.getMetaController(getModeControllerName());
@@ -400,7 +403,10 @@ public class ModuleManager implements java.io.Serializable {
 		return metaControllerMode;
 	}
 
-	private Collection<MetaController> getMetaControllers() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Collection<MetaController> getMetaControllers() {
 		if (metaControllers == null) {
 			metaControllers = new ArrayList<MetaController>();
 			String[] names = getControllersNames(); 
@@ -415,7 +421,10 @@ public class ModuleManager implements java.io.Serializable {
 		return metaControllers;
 	}
 
-	private void setupModuleControllers() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void setupModuleControllers() {
 		Collection<String> controllers = getMetaModule().getControllersNames();
 		String[] names = new String[controllers.size()];
 		controllers.toArray(names);
@@ -1079,7 +1088,10 @@ public class ModuleManager implements java.io.Serializable {
 			setModeName(previousMode);
 	}
 
-	private View getSubview(View view, String memberName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private View getSubview(View view, String memberName) {
 		memberName = Ids.undecorate(memberName);
 		if (memberName.indexOf('.') < 0) {
 			return view.getSubview(memberName);
@@ -1163,7 +1175,10 @@ public class ModuleManager implements java.io.Serializable {
 		formUploadNextTime = true;
 	}
 
-	public Environment getEnvironment() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Environment getEnvironment() {
 		return getMetaModule().getEnvironment();
 	}
 
@@ -1178,7 +1193,10 @@ public class ModuleManager implements java.io.Serializable {
 		metaControllerElements = null;
 	}
 
-	public void restorePreviousControllers() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void restorePreviousControllers() {
 		Stack previousControllers = getPreviousControllers();
 		if (previousControllers.isEmpty()) {
 			setupModuleControllers();
@@ -1198,7 +1216,10 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
-	private void restorePreviousCustomView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void restorePreviousCustomView() {
 		Stack previousCustomViews = (Stack) getObjectFromContext("xava_previousCustomViews");
 		if (previousCustomViews.isEmpty()) {
 			setViewName(ICustomViewAction.DEFAULT_VIEW);
@@ -1208,7 +1229,10 @@ public class ModuleManager implements java.io.Serializable {
 		setViewName(view);
 	}
 
-	public void memorizeControllers() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void memorizeControllers() {
 		Stack<Object> previousControllers = getPreviousControllers();
 		if (Arrays.equals(this.controllersNames, MODIFIED_CONTROLLERS)) {
 			previousControllers.push(this.metaControllerElements); 
@@ -1222,7 +1246,10 @@ public class ModuleManager implements java.io.Serializable {
 		return previousControllers;
 	}
 
-	private void memorizeCustomView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void memorizeCustomView() {
 		Stack<String> previousCustomViews = (Stack<String>) getObjectFromContext("xava_previousCustomViews");
 		previousCustomViews.push(this.viewName);
 	}
@@ -1264,8 +1291,11 @@ public class ModuleManager implements java.io.Serializable {
 		return xavaValues == null ? Collections.emptyMap() : xavaValues;
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void getObjectsFromAction(IAction action, MetaAction metaAction)
-			throws XavaException {
+			{
 		getObjectsFromActionUseObjects(action, metaAction);
 		getObjectsFromActionInjectFields(action, metaAction);
 	}
@@ -1343,7 +1373,10 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	private void setObjectsInAction(IAction action, MetaAction metaAction,
-			HttpServletRequest request) throws XavaException {
+			/**
+			* @throws XavaException
+			 */
+			HttpServletRequest request) {
 		setObjectsToActionUseObjects(action, metaAction, request);
 		setObjectsToActionInjectFields(action, metaAction, request);
 	}
@@ -1419,7 +1452,10 @@ public class ModuleManager implements java.io.Serializable {
 		}
 	}
 
-	private Object getObjectFromContext(String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object getObjectFromContext(String objectName) {
 		return getContext().get(getApplicationName(), getModuleName(),
 				toExactContextObjectName(objectName));
 	}
@@ -1442,8 +1478,11 @@ public class ModuleManager implements java.io.Serializable {
 		return exactName;
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void setObjectInContext(String objectName, Object value)
-			throws XavaException {
+			{
 		getContext().put(getApplicationName(), getModuleName(),
 				toExactContextObjectName(objectName), value);
 	}
@@ -1452,7 +1491,10 @@ public class ModuleManager implements java.io.Serializable {
 		return (ModuleContext) getSession().getAttribute("context");
 	}
 
-	private Object createObject(String objectName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object createObject(String objectName) {
 		MetaObject metaObject = MetaControllers.getMetaObject(objectName);
 		return metaObject.createObject();
 	}
@@ -1489,7 +1531,10 @@ public class ModuleManager implements java.io.Serializable {
 		return viewName;
 	}
 
-	private void setViewName(String newView) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void setViewName(String newView) {
 		if (ICustomViewAction.DEFAULT_VIEW.equals(newView)) {
 			viewName = defaultView;
 		} else {
@@ -1501,7 +1546,10 @@ public class ModuleManager implements java.io.Serializable {
 		return applicationName;
 	}
 
-	public void setApplicationName(String newName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setApplicationName(String newName) {
 		if (Is.equal(applicationName, newName))
 			return;
 		applicationName = newName;
@@ -1516,8 +1564,9 @@ public class ModuleManager implements java.io.Serializable {
 
 	/**
 	 * @return <tt>true</tt> if is new.
+	 * @throws XavaException
 	 */
-	public void setModuleName(String newModule) throws XavaException {
+	public void setModuleName(String newModule) {
 		if (Is.equal(moduleName, newModule))
 			return;
 		moduleName = newModule;
@@ -1546,8 +1595,10 @@ public class ModuleManager implements java.io.Serializable {
 		return controllersNames == null ? new String[0] : controllersNames;
 	}
 
-	public MetaModule getMetaModule() throws ElementNotFoundException, 
-			XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaModule getMetaModule() throws ElementNotFoundException {
 		if (metaModule == null) {
 			if (Is.emptyString(applicationName, moduleName)) {
 				throw new XavaException("application_and_module_required");
@@ -1576,11 +1627,17 @@ public class ModuleManager implements java.io.Serializable {
 		this.moduleDescription = moduleDescription;
 	}
 
-	public String getModelName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getModelName() {
 		return getMetaModule().getModelName();
 	}
 
-	public String getTabName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getTabName() {
 		return getMetaModule().getTabName();
 	}
 
@@ -1650,7 +1707,10 @@ public class ModuleManager implements java.io.Serializable {
 		return MetaControllers.getMetaAction(getDefaultActionQualifiedName());
 	}
 
-	public boolean isXavaView(HttpServletRequest request) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isXavaView(HttpServletRequest request) {
 		// For that a upload form does not delete the view data.
 		// It's a ad hoc solution. It can be improved
 		if (isFormUpload())	return false;
@@ -1672,7 +1732,10 @@ public class ModuleManager implements java.io.Serializable {
 		return false;
 	}
 
-	public String getXavaViewName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getXavaViewName() {
 		return getMetaModule().getViewName();
 	}
 

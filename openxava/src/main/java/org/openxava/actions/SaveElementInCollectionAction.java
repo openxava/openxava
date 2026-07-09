@@ -80,7 +80,11 @@ public class SaveElementInCollectionAction extends CollectionElementViewBaseActi
 		addMessage(isEntity?"entity_created_and_associated":"aggregate_created", getCollectionElementView().getModelName(), getCollectionElementView().getParent().getModelName());
 	}
 
-	protected void associateEntity(Map keyValues) throws ValidationException, XavaException, ObjectNotFoundException, FinderException, SystemException {		
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	protected void associateEntity(Map keyValues) throws ValidationException, ObjectNotFoundException, FinderException {		
 		MapFacade.addCollectionElement(
 				getCollectionElementView().getParent().getMetaModel().getName(),
 				getCollectionElementView().getParent().getKeyValues(),

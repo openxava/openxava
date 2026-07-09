@@ -61,7 +61,10 @@ abstract public class TabBaseAction extends ViewBaseAction {
 		}
 	}
 
-	protected Tab getTab() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected Tab getTab() {
 		if (tab == null ) {
 			String tabObject = Is.emptyString(getCollection())?"xava_tab":Tab.COLLECTION_PREFIX + Strings.change(getCollection(), ".", "_");
 			tab = (Tab) getContext().get(getRequest(), tabObject);

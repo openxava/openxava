@@ -22,7 +22,10 @@ public class AggregateMapping extends ModelMapping {
 	}
 
 
-	public MetaModel getMetaModel() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public MetaModel getMetaModel() {		
 		return getMetaComponent().getMetaAggregate(getModelName());
 	}
 		

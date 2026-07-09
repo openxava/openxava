@@ -113,7 +113,10 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 	
 	// Warning!, it can return null, for example it's empty
 	// Load data on demand if you request a row not loaded yet
-	private Object[] getRow(int rowIndex) throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	private Object[] getRow(int rowIndex) {
 		if (!allLoaded
 			&& rowIndex >= rowCount - 1) { // If you request the last and there are more
 			long iniNextChunk = System.currentTimeMillis();
@@ -278,7 +281,10 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 			+ getColumnCount();
 	}
 	
-	public int getTotalSize() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public int getTotalSize() {
 		if (totalSize == STILL_NO_OBTAINED) {
 			try {
 				totalSize = entityTab.getResultSize();
@@ -291,7 +297,10 @@ public class TableModelBean implements IXTableModel, java.io.Serializable {
 		return totalSize; 
 	}
 	
-	public Number getSum(String property) throws SystemException {		
+	/**
+	* @throws SystemException
+	 */
+	public Number getSum(String property) {		
 		Number result = entityTab.getSum(property);
 		return (Number) convert(result, getPropertiesNames().indexOf(property)); 
 	}

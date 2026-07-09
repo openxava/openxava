@@ -22,8 +22,9 @@ public class MetaCalculator extends MetaSetsContainer implements Serializable {
 	/**
 	 * Create a calculator whenever this method is called,
 	 * congured with values assigned in xml. <p> 
+	 * @throws XavaException
 	 */
-	public ICalculator createCalculator() throws XavaException {		
+	public ICalculator createCalculator() {		
 		try {			
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof ICalculator)) {
@@ -47,8 +48,9 @@ public class MetaCalculator extends MetaSetsContainer implements Serializable {
 	/**
 	 * Create a <code>IHibernateIdGeneratorCalculator</code> whenever this method is called, 
 	 * congured with values assigned in xml. <p> 
+	 * @throws XavaException
 	 */
-	public IHibernateIdGeneratorCalculator createHibernateIdGeneratorCalculator() throws XavaException { 		
+	public IHibernateIdGeneratorCalculator createHibernateIdGeneratorCalculator() { 		
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			IHibernateIdGeneratorCalculator calculator = (IHibernateIdGeneratorCalculator) o;

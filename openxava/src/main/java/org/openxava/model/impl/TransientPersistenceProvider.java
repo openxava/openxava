@@ -25,11 +25,17 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 		return instance;
 	}
 
-	public Object findByAnyProperty(MetaModel metaModel, Map searchingValues) throws ObjectNotFoundException, FinderException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object findByAnyProperty(MetaModel metaModel, Map searchingValues) throws ObjectNotFoundException, FinderException {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Object find(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object find(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException {
 		throw new UnsupportedOperationException(); 
 	}
 
@@ -37,31 +43,53 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 		throw new UnsupportedOperationException(); 
 	}
 	
-	public IPropertiesContainer toPropertiesContainer(MetaModel metaModel, Object modelObject) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IPropertiesContainer toPropertiesContainer(MetaModel metaModel, Object modelObject) {
 		return new POJOPropertiesContainerAdapter(modelObject);
 	}
 
-	public Object create(MetaModel metaModel, Map values) throws DuplicateKeyException, CreateException, ValidationException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object create(MetaModel metaModel, Map values) throws DuplicateKeyException, CreateException, ValidationException {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public void moveCollectionElement(MetaModel metaModel, Map keyValues, String collectionName, int from, int to) throws FinderException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void moveCollectionElement(MetaModel metaModel, Map keyValues, String collectionName, int from, int to) throws FinderException {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, SystemException, XavaException {
+	/**
+	* @throws SystemException
+	* @throws XavaException
+	 */
+	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Object getKey(MetaModel metaModel, Map keyValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object getKey(MetaModel metaModel, Map keyValues) {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Map keyToMap(MetaModel metaModel, Object key) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Map keyToMap(MetaModel metaModel, Object key) {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public void remove(MetaModel metaModel, Map keyValues) throws RemoveException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void remove(MetaModel metaModel, Map keyValues) throws RemoveException {
 		throw new UnsupportedOperationException(); 
 	}
 
@@ -81,7 +109,10 @@ public class TransientPersistenceProvider implements IPersistenceProvider {
 		throw new UnsupportedOperationException(); 
 	}
 
-	public Object getContainer(MetaModel metaModel, Map containerKeyValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object getContainer(MetaModel metaModel, Map containerKeyValues) {
 		throw new UnsupportedOperationException(); 
 	}
 

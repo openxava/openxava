@@ -34,7 +34,7 @@ public class Charts {
 	 * @throws XavaException
 	 * @throws BackingStoreException
 	 */
-	public static void updateView(HttpServletRequest request, View view, Tab tab, Chart chart) throws XavaException, BackingStoreException {
+	public static void updateView(HttpServletRequest request, View view, Tab tab, Chart chart) throws BackingStoreException {
 		if (!chart.isRendered()) {
 			chart.setRendered(true);
 			MetaProperty labelMetaProperty = null;
@@ -89,7 +89,10 @@ public class Charts {
 		getContext(request).put(request, "xava_chartTab", chartTab); 
 	}
 	
-	public static void release(HttpServletRequest request) throws XavaException, BackingStoreException {
+	/**
+	* @throws XavaException
+	 */
+	public static void release(HttpServletRequest request) throws BackingStoreException {
 		getContext(request).remove(request, "xava_chartTab"); 
 	}
 		

@@ -57,7 +57,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 
 	
-	public static String getTitleI18n(Locale locale, String modelName, String tabName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String getTitleI18n(Locale locale, String modelName, String tabName) {
 		String id = null;
 		if (Is.emptyString(tabName)) {
 			id = modelName + ".tab.title"; 
@@ -73,7 +76,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	public MetaModel getMetaModel() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaModel getMetaModel() {
 		return metaModel;
 	}
 	public void setMetaModel(MetaModel metaModel) {
@@ -82,7 +88,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		this.modelName = metaModel.getName();		
 	}
 
-	public static MetaTab createDefault(MetaComponent component) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaTab createDefault(MetaComponent component) {
 		MetaTab tab = new MetaTab();
 		tab.setMetaComponent(component);
 		tab.setDefaultValues(); 
@@ -97,8 +106,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	/**
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
+	 * @throws XavaException
 	 */
-	public List<MetaProperty> getMetaProperties() throws XavaException { 
+	public List<MetaProperty> getMetaProperties() { 
 		if (metaProperties == null) {
 			metaProperties = namesToMetaProperties(getPropertiesNames());
 		}
@@ -113,8 +123,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * @param propertiesToUse  Qualified property names to include in the filter;
 	 *                         if null, all non-calculated visible properties of the tab are used
 	 * @since 7.6.3
+	 * @throws XavaException
 	 */
-	public String buildFilterConditionForContent(String content, Collection<String> propertiesToUse) throws XavaException {
+	public String buildFilterConditionForContent(String content, Collection<String> propertiesToUse) {
 		if (Is.emptyString(content)) return "";
 		// Same sanitizing as Tab.filterByContentInAnyProperty to avoid SQL injection
 		content = content.replaceAll("[\"'%;]", "");
@@ -221,19 +232,26 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * properties of this tab.
 	 *
 	 * @since 7.6.3
+	 * @throws XavaException
 	 */
-	public String buildFilterConditionForContent(String content) throws XavaException {
+	public String buildFilterConditionForContent(String content) {
 		return buildFilterConditionForContent(content, null);
 	}
 	
-	public Collection<MetaProperty> getMetaPropertiesHidden() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<MetaProperty> getMetaPropertiesHidden() {
 		if (metaPropertiesHidden == null) {
 			metaPropertiesHidden = namesToMetaProperties(getHiddenPropertiesNames());
 		}
 		return metaPropertiesHidden;
 	}
 
-	public List<MetaProperty> namesToMetaProperties(Collection<String> names) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public List<MetaProperty> namesToMetaProperties(Collection<String> names) {
 		List<MetaProperty> metaProperties = new ArrayList<MetaProperty>();
 		Iterator<String> it = names.iterator();
 		int i = -1;
@@ -295,8 +313,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * Hidden ones are not included
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesCalculated() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesCalculated() {
 		if (metaPropertiesCalculated == null) {
 			metaPropertiesCalculated = new ArrayList<MetaProperty>();
 			Iterator<MetaProperty> it = getMetaProperties().iterator();
@@ -313,8 +332,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	/**
 	 * 
 	 * @return Not null, read only and of type <tt>MetaProperty</tt>.
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesHiddenCalculated() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesHiddenCalculated() {
 		if (metaPropertiesHiddenCalculated == null) {
 			metaPropertiesHiddenCalculated = new ArrayList<MetaProperty>();
 			Iterator<MetaProperty> it = getMetaPropertiesHidden().iterator();
@@ -328,14 +348,18 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return metaPropertiesHiddenCalculated;
 	}
 
-	public boolean hasCalculatedProperties() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean hasCalculatedProperties() {
 		return !getMetaPropertiesCalculated().isEmpty();
 	}
 
 	/**
 	 * @return Not null, read only and of type <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	public Collection getTableColumns() throws XavaException {
+	public Collection getTableColumns() {
 		if (tableColumns == null) {
 			tableColumns = getTableColumns(getPropertiesNames());
 		}
@@ -344,8 +368,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	/**
 	 * @return Not null, read only and of type <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	public Collection<String> getHiddenTableColumns() throws XavaException {
+	public Collection<String> getHiddenTableColumns() {
 		if (hiddenTableColumns == null) {
 			hiddenTableColumns = getTableColumns(getHiddenPropertiesNames());
 			hiddenTableColumns
@@ -354,8 +379,11 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return hiddenTableColumns;
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private Collection<String> getTableColumns(Collection<String> propertyNames)
-			throws XavaException {
+			{
 		Collection<String> tableColumns = new ArrayList<String>();
 		Iterator<String> it = propertyNames.iterator();
 		while (it.hasNext()) {
@@ -373,8 +401,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	/**
 	 * @return Not null, read only of type <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	public List<String> getPropertiesNames() throws XavaException { 
+	public List<String> getPropertiesNames() { 
 		if (propertiesNames == null) {
 			if (!areAllProperties()) {
 				propertiesNames = createPropertiesNames();
@@ -386,7 +415,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return propertiesNames;
 	}
 	
-	public List<String> getPropertiesNamesWithKeyAndHidden() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public List<String> getPropertiesNamesWithKeyAndHidden() { 
 		if (propertiesNamesWithKeyAndHidden == null) {
 			propertiesNamesWithKeyAndHidden = new ArrayList<String>();
 			propertiesNamesWithKeyAndHidden.addAll(getMetaModel().getAllKeyPropertiesNames());
@@ -404,8 +436,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * The keys are excluded. <br>
 	 * 
 	 * @return Not null, read only and of type <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	public List<String> getHiddenPropertiesNames() throws XavaException {
+	public List<String> getHiddenPropertiesNames() {
 		if (hiddenPropertiesNames == null) {
 			hiddenPropertiesNames = getMetaModel().isAnnotatedEJB3()?Collections.emptyList():obtainPropertiesNamesUsedToCalculate();
 			
@@ -413,8 +446,11 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return hiddenPropertiesNames;
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private List<String> obtainPropertiesNamesUsedToCalculate()
-			throws XavaException {
+			{
 		Set<String> result = new HashSet<String>();
 		Iterator<MetaProperty> itProperties = getMetaPropertiesCalculated().iterator();
 		while (itProperties.hasNext()) {
@@ -468,7 +504,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return properties.replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
-	private List<String> createAllPropertiesNames() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private List<String> createAllPropertiesNames() {
 		List<String> result = new ArrayList<String>();
 		for (String member: getMetaModel().getMembersNames()) {
 			if (getMetaModel().isHiddenKey(member)) continue;
@@ -543,18 +582,27 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		this.select = null;
 	}
 
-	ModelMapping getMapping() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	ModelMapping getMapping() {		
 		return getMetaModel().getMapping();
 	}
 
-	public String getSelect() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public String getSelect() { 
 		if (select == null) {  
 			select = createSelect();
 		}
 		return select;
 	}
 
-	private String createSelect() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createSelect() {
 		if (hasBaseCondition()) {
 			String baseCondition = getBaseCondition();
 			if (baseCondition.trim().toUpperCase().startsWith("SELECT ")) {
@@ -599,8 +647,11 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		return select.toString();
 	}
 		
+	/**
+	* @throws XavaException
+	 */
 	public Collection<String> getCmpFieldsColumnsInMultipleProperties() 
-			throws XavaException {
+			{
 		Collection<String> cmpFieldsColumnsInMultipleProperties = new ArrayList<String>();
 		Iterator<MetaProperty> it = getMetaProperties().iterator();
 		String table = getMapping().getTableToQualifyColumn();
@@ -673,14 +724,18 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 
 	/**
 	 * Apply the filter associated to this tab if there is is.
+	 * @throws XavaException
 	 */
-	Object filterParameters(Object o) throws XavaException {
+	Object filterParameters(Object o) {
 		if (getMetaFilter() == null)
 			return o;
 		return getFilter().filter(o);
 	}
 
-	private IFilter getFilter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private IFilter getFilter() {
 		if (filter == null) {
 			filter = getMetaFilter().createFilter();
 		}
@@ -815,9 +870,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	 * Apply the tab filter to sent objects.
 	 * <p>
 	 * It's used to filter arguments. <br>
+	 * @throws XavaException
 	 */
-	public Object filter(Object[] objects) throws FilterException,
-			XavaException {
+	public Object filter(Object[] objects) throws FilterException {
 		if (getMetaFilter() == null)
 			return objects;
 		return getMetaFilter().filter(objects);
@@ -901,7 +956,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 		}
 	}
 
-	public List<String> getRemainingPropertiesNames() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public List<String> getRemainingPropertiesNames() { 
 		List<String> result = new ArrayList<String>(getMetaModel().getRecursiveQualifiedPropertiesNamesIncludingCollections()); 
 		result.removeAll(getPropertiesNames());
 		removeDroppedMembers(result);
@@ -910,8 +968,9 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	
 	/**
 	 * @since 5.2
+	 * @throws XavaException
 	 */
-	public List<String> getRemainingPropertiesNamesUntilSecondLevel() throws XavaException {  
+	public List<String> getRemainingPropertiesNamesUntilSecondLevel() {  
 		List<String> result = new ArrayList<String>(getMetaModel().getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections()); 
 		result.removeAll(getPropertiesNames());
 		removeDroppedMembers(result); 
@@ -952,7 +1011,10 @@ public class MetaTab implements java.io.Serializable, Cloneable {
 	public String getModelName() {
 		return modelName;
 	}
-	public void setModelName(String modelName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setModelName(String modelName) {
 		this.modelName = modelName;		
 		this.metaModel = MetaModel.get(modelName);
 		this.metaComponent = this.metaModel.getMetaComponent();

@@ -30,7 +30,10 @@ public class ChangeSectionAction extends BaseAction implements IModuleContextAct
 		this.context = context;
 	}
 	
-	private View getView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private View getView() {
 		return (View) context.get(getRequest(), viewObject==null?"xava_view":viewObject);
 	}
 

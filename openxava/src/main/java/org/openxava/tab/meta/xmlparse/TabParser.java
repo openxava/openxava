@@ -18,7 +18,10 @@ public class TabParser extends XmlElementsNames {
 
 	
 	
-	public static MetaTab parseTab(Node n, int lang) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaTab parseTab(Node n, int lang) {
 		Element el = (Element) n;
 		MetaTab e = new MetaTab();
 		e.setName(el.getAttribute(xname[lang]));
@@ -40,7 +43,10 @@ public class TabParser extends XmlElementsNames {
 		return e;
 	}
 		
-	private static MetaFilter createFilter(Element el, int lang) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static MetaFilter createFilter(Element el, int lang) {
 		NodeList l = el.getChildNodes();				
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -52,8 +58,11 @@ public class TabParser extends XmlElementsNames {
 		return null;		
 	}
 			
+	/**
+	* @throws XavaException
+	 */
 	private static void fillRowStyles(Element el, MetaTab container, int lang)
-		throws XavaException {
+		{
 		NodeList l = el.getChildNodes();
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -66,7 +75,10 @@ public class TabParser extends XmlElementsNames {
 		}
 	}
 	
-	public static MetaRowStyle createRowStyle(Node n, int lang) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaRowStyle createRowStyle(Node n, int lang) {
 		Element el = (Element) n;
 		MetaRowStyle style = new MetaRowStyle();
 		style.setStyle(el.getAttribute(xstyle[lang]));

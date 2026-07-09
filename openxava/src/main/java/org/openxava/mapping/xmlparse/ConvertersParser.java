@@ -18,7 +18,10 @@ public class ConvertersParser extends ParserBase {
 		super(urlArchivoXml, language);
 	}
 	
-	public static void configureConverters() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureConverters() {
 		ConvertersParser parserDefault = new ConvertersParser("default-converters.xml", ENGLISH);
 		parserDefault.parse();		
 		ConvertersParser enParser = new ConvertersParser("converters.xml", ENGLISH);
@@ -27,7 +30,10 @@ public class ConvertersParser extends ParserBase {
 		esParser.parse();		
 	}
 	
-	private void createForStereotype(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createForStereotype(Node n) {
 		Element el = (Element) n;
 		String stereotype = el.getAttribute(xstereotype[lang]);		
 		String converterClass = el.getAttribute(xconverter_class[lang]);
@@ -35,7 +41,10 @@ public class ConvertersParser extends ParserBase {
 		Converters._addForStereotype(stereotype, converterClass, cmpType);
 	}
 	
-	private void createForType(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createForType(Node n) {
 		Element el = (Element) n;
 		String type = el.getAttribute(xtype[lang]);
 		String converterClass = el.getAttribute(xconverter_class[lang]);
@@ -43,7 +52,10 @@ public class ConvertersParser extends ParserBase {
 		Converters._addForType(type, converterClass, cmpType);
 	}
 		
-	private void createForStereotypes() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createForStereotypes() {
 		NodeList l = getRoot().getElementsByTagName(xfor_stereotype[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -51,7 +63,10 @@ public class ConvertersParser extends ParserBase {
 		}
 	}
 	
-	private void createForTypes() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createForTypes() {
 		NodeList l = getRoot().getElementsByTagName(xfor_type[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -59,7 +74,10 @@ public class ConvertersParser extends ParserBase {
 		}
 	}	
 	
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createForStereotypes();
 		createForTypes();
 	}

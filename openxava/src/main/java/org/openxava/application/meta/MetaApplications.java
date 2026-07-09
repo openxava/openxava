@@ -21,8 +21,9 @@ public class MetaApplications {
 	
 	/**
 	 * Only call this from parser.
+	 * @throws XavaException
 	 */
-	public static void _addMetaApplication(MetaApplication application) throws XavaException {
+	public static void _addMetaApplication(MetaApplication application) {
 		if (metaAplicacions == null) {
 			throw new XavaException("only_from_parse", "MetaApplications._addMetaApplication");
 		}
@@ -31,8 +32,9 @@ public class MetaApplications {
 	
 	/**
 	 * @return Collection of <tt>MetaApplication</tt>. Not null.
+	 * @throws XavaException
 	 */
-	public static Collection<MetaApplication> getMetaApplications() throws XavaException {
+	public static Collection<MetaApplication> getMetaApplications() {
         configureMetaApplications();
 		return metaAplicacions.values();
 	}
@@ -68,12 +70,18 @@ public class MetaApplications {
 	}
 
 	
-	private static void configure() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void configure() {
 		metaAplicacions = new HashMap();
 		ApplicationParser.configureApplications();
 	}
 	
-	public static MetaApplication getMetaApplication(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaApplication getMetaApplication(String name) throws ElementNotFoundException {
 		configureMetaApplications();
 		MetaApplication result = (MetaApplication) metaAplicacions.get(name);
 		if (result == null) {
@@ -82,7 +90,10 @@ public class MetaApplications {
 		return result;
 	}
 
-	public static Collection<String> getApplicationsNames() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static Collection<String> getApplicationsNames() {
 		if (applicationNames == null) {
 			applicationNames = new ArrayList<>();
 			Iterator it = getMetaApplications().iterator();

@@ -59,12 +59,18 @@ public class MetaView extends MetaElement implements Cloneable {
 		_membersNames.add(memberName);
 	}
 
-	public void addMetaViewProperty(MetaProperty metaProperty) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaViewProperty(MetaProperty metaProperty) {
 		if (metaViewProperties == null) metaViewProperties = new HashMap<>();
 		metaViewProperties.put(metaProperty.getName(), metaProperty);
 	}
 	
-	public void addMetaViewReference(MetaReferenceView metaReferenceView) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaViewReference(MetaReferenceView metaReferenceView) {
 		if (metaViewsReferences == null) metaViewsReferences = new HashMap();
 		else {
 			if (metaViewsReferences.containsKey(metaReferenceView.getReferenceName())) {
@@ -74,7 +80,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		metaViewsReferences.put(metaReferenceView.getReferenceName(), metaReferenceView);		
 	}
 	
-	public void addMetaViewProperty(MetaPropertyView metaPropertyView) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaViewProperty(MetaPropertyView metaPropertyView) {
 		if (metaViewsProperties == null) metaViewsProperties = new HashMap();
 		else {
 			if (metaViewsProperties.containsKey(metaPropertyView.getPropertyName())) {
@@ -84,7 +93,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		metaViewsProperties.put(metaPropertyView.getPropertyName(), metaPropertyView);
 	}	
 	
-	public void addMetaViewCollection(MetaCollectionView metaCollectionView) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaViewCollection(MetaCollectionView metaCollectionView) {
 		if (metaViewsCollections == null) metaViewsCollections = new HashMap();
 		else {
 			if (metaViewsCollections.containsKey(metaCollectionView.getCollectionName())) {
@@ -96,12 +108,16 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	/**
 	 * Including if property is inside a section  
+	 * @throws XavaException
 	 */
-	public MetaProperty getMetaProperty(String name) throws XavaException {
+	public MetaProperty getMetaProperty(String name) {
 		return getMetaProperty(name, true);
 	}
 	
-	private MetaProperty getMetaProperty(String name, boolean searchInGroups) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaProperty getMetaProperty(String name, boolean searchInGroups) {
 		try {
 			return getMetaViewProperty(name);
 		}
@@ -127,7 +143,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		}
 	}
 	
-	private MetaProperty getMetaPropertyInGroup(String name) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private MetaProperty getMetaPropertyInGroup(String name) { 
 		if (metaGroups == null) return null;
 		for (Iterator it = metaGroups.values().iterator(); it.hasNext(); ) {
 			MetaGroup metaGroup = (MetaGroup) it.next();
@@ -141,7 +160,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	}
 
 	// Including members inside sections
-	private Collection<MetaMember> getAllMetaMembers() throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	private Collection<MetaMember> getAllMetaMembers() {  
 		if (!hasSections()) {
 			accumulateDuplicatedProperties = true;
 			countDuplicatedProperties = 0;
@@ -164,8 +186,9 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	/**
 	 * Property only of the view, not in model	 
+	 * @throws XavaException
 	 */
-	private MetaProperty getMetaViewProperty(String name) throws XavaException {
+	private MetaProperty getMetaViewProperty(String name) {
 		if (metaViewProperties == null) 
 			throw new ElementNotFoundException("view_property_not_found", name, getName(), getModelName());
 		MetaProperty p = (MetaProperty) metaViewProperties.get(name);
@@ -177,8 +200,9 @@ public class MetaView extends MetaElement implements Cloneable {
 	/**
 	 * 
 	 * @return Not null, of type <tt>MetaMember</tt> and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaMember> getMetaMembers() throws XavaException {
+	public Collection<MetaMember> getMetaMembers() {
 		if (metaMembers == null) {
 			metaMembers = new ArrayList<>();
 			Iterator<String> it = getMembersNames().iterator();	
@@ -277,7 +301,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return true;
 	}
 
-	private MetaMember modify(MetaMember member) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaMember modify(MetaMember member) {
 		if (member instanceof MetaProperty) {
 			MetaProperty property = (MetaProperty) member;
 			MetaProperty newProperty = property.cloneMetaProperty();
@@ -303,12 +330,16 @@ public class MetaView extends MetaElement implements Cloneable {
 	/**
 	 * 
 	 * @return Not null
+	 * @throws XavaException
 	 */
-	public MetaModel getMetaModel() throws XavaException {
+	public MetaModel getMetaModel() {
 		return metaModel;
 	}
 	
-	public void setMetaModel(MetaModel metaModel) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setMetaModel(MetaModel metaModel) {
 		this.metaModel = metaModel;
 		if (hasSections()) {
 			Iterator it = getSections().iterator();
@@ -319,11 +350,17 @@ public class MetaView extends MetaElement implements Cloneable {
 		}
 	}
 	
-	public java.lang.String getModelName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public java.lang.String getModelName() {
 		return modelName;
 	}
 	
-	public void setModelName(String modelName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setModelName(String modelName) {
 		this.modelName = modelName;
 		Iterator it = getSections().iterator();
 		while (it.hasNext()) {
@@ -359,16 +396,18 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	/**
 	 * If does not have members to visualize.
+	 * @throws XavaException
 	 */
-	public boolean isEmpty() throws XavaException {
+	public boolean isEmpty() {
 		return getMetaMembers().size() == 0;
 	}
 	
 	/**
 	 * 
 	 * @return Not nul, of type <tt>String</tt> and read only.
+	 * @throws XavaException
 	 */
-	public Collection getMembersNames() throws XavaException {
+	public Collection getMembersNames() {
 		if (isAllMembers() && !membersNamesByDefaultCreated && 
 			_membersNames.isEmpty() && Is.emptyString(getExtendsView()))  
 		{						
@@ -467,20 +506,25 @@ public class MetaView extends MetaElement implements Cloneable {
 	/**
 	 *
 	 * @param membersNames  Names separated by commas or spaces.
+	 * @throws XavaException
 	 */
-	public void setMembersNames(String membersNames) throws XavaException {
+	public void setMembersNames(String membersNames) {
 		setMembersNames(membersNames, true);
 	}
 
 	/**
 	 *
 	 * @param membersNames  Names separated by commas or spaces.
+	 * @throws XavaException
 	 */
-	public void setMembersNamesNotResetSections(String membersNames) throws XavaException {
+	public void setMembersNamesNotResetSections(String membersNames) {
 		setMembersNames(membersNames, false);
 	}
 
-	private void setMembersNames(String membersNames, boolean resetSection) throws XavaException {			
+	/**
+	* @throws XavaException
+	 */
+	private void setMembersNames(String membersNames, boolean resetSection) {			
 		init(resetSection);				
 		if (membersNames == null) membersNames = "";
 		if (membersNames.trim().equals("*")) {
@@ -515,7 +559,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		metaMembers = null;		
 	}
 
-	private void createMembersNamesByDefault() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createMembersNamesByDefault() {
 		MetaModel metaModel = getMetaModel();
 		if (metaModel != null) {
 			Iterator it = metaModel.getMembersNames().iterator();			
@@ -541,7 +588,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaVistaPropiedad.hasOnChangeAction(); 
 	}
 		
-	public IOnChangePropertyAction createOnChangeAction(String qualifiedPropertyName) throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	public IOnChangePropertyAction createOnChangeAction(String qualifiedPropertyName) {  
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(qualifiedPropertyName);		
 		if (metaPropertyView == null) {
 			throw new XavaException("on_change_action_not_found", qualifiedPropertyName);
@@ -549,7 +599,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaPropertyView.createOnChangeAction();
 	}
 	
-	public IOnChangePropertyAction createOnChangeSearchAction(String refName) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public IOnChangePropertyAction createOnChangeSearchAction(String refName) { 
 		MetaReferenceView metaReferenceView = getMetaReferenceViewFor(refName);		
 		if (metaReferenceView != null && 
 			!Is.emptyString(metaReferenceView.getOnChangeSearchActionClassName())) {
@@ -577,8 +630,9 @@ public class MetaView extends MetaElement implements Cloneable {
 	
 	/**
 	 * @return Null if not found
+	 * @throws XavaException
 	 */
-	public MetaDescriptionsList getMetaDescriptionList(MetaReference r) throws XavaException {
+	public MetaDescriptionsList getMetaDescriptionList(MetaReference r) {
 		if (!hasMetaReferenceViewFor(r)) return null;
 		MetaReferenceView metaReferenceView = getMetaReferenceView(r);
 		MetaDescriptionsList metaDescriptionsList = metaReferenceView.getMetaDescriptionsList();
@@ -591,7 +645,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaDescriptionsList;
 	}
 
-	private void calculateDefaultValuesForDescriptionsList(MetaReference r, MetaDescriptionsList metaDescriptionsList) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void calculateDefaultValuesForDescriptionsList(MetaReference r, MetaDescriptionsList metaDescriptionsList) {
 		Collection<String> properties = r.getMetaModelReferenced().getPropertiesNames();
 		for (String propertyName: XavaPreferences.getInstance().getDefaultDescriptionPropertiesValueForDescriptionsList()) {
 			if (properties.contains(propertyName.trim())) { // trim() to support space after comma, thus: defaultDescriptionPropertiesValueForDescriptionsList=descripcion, description, nombre, name 
@@ -603,7 +660,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		throw new XavaException("description_property_required", r.getReferencedModelName(), r.getName(), r.getMetaModel().getName());
 	}
 	
-	public MetaDescriptionsList createMetaDescriptionList(MetaReference r) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaDescriptionsList createMetaDescriptionList(MetaReference r) {
 		MetaDescriptionsList metaDescriptionsList = new MetaDescriptionsList();
 		calculateDefaultValuesForDescriptionsList(r, metaDescriptionsList);  
 		return metaDescriptionsList;
@@ -623,19 +683,26 @@ public class MetaView extends MetaElement implements Cloneable {
 		return metaDescriptionsLists;  
 	}
 	
-	public MetaView getMetaViewOnlyKeys(MetaReference r) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaView getMetaViewOnlyKeys(MetaReference r) {
 		return r.getMetaModelReferenced().getMetaViewOnlyKeys();
 	}
 	
-	public MetaView getMetaView(MetaReference r) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public MetaView getMetaView(MetaReference r) { 
 		return getMetaView(r, r.getMetaModelReferenced());
 	}
 	
 	/**
 	 * 
 	 * @since 5.3.1
+	 * @throws XavaException
 	 */
-	public MetaView getMetaView(MetaReference r, MetaModel metaModelReferenced) throws XavaException { 
+	public MetaView getMetaView(MetaReference r, MetaModel metaModelReferenced) { 
 		MetaView result = null;		
 		if (hasMetaReferenceViewFor(r)) {			
 			MetaReferenceView metaReferenceView = getMetaReferenceView(r);
@@ -701,7 +768,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return (MetaReferenceView) metaViewsReferences.get(ref);
 	}		
 	
-	public List<MetaView> getSections() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public List<MetaView> getSections() { 
 		if (metaModel != null) copyMembersFromExtendedView(); // We ask for metaModel because getSections() is used from setMetaModel()
 		return sections == null?Collections.EMPTY_LIST:sections;		
 	}
@@ -709,8 +779,9 @@ public class MetaView extends MetaElement implements Cloneable {
 	/**
 	 * 
 	 * @return The added section
+	 * @throws XavaException
 	 */
-	public MetaView addSection(String name, String label, String members, boolean alignedByColumns) throws XavaException {
+	public MetaView addSection(String name, String label, String members, boolean alignedByColumns) {
 		if (sections == null) sections = new ArrayList();		
 		MetaView section = new MetaView();
 		section.setSection(true);
@@ -725,7 +796,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return section; 
 	}
 	
-	public void addMetaGroup(String name, String label, String members, boolean alignedByColumns) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaGroup(String name, String label, String members, boolean alignedByColumns) {
 		if (metaGroups == null) metaGroups = new HashMap();
 		MetaGroup metaGroup = new MetaGroup(this);
 		metaGroup.setName(name); 		
@@ -735,7 +809,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		metaGroups.put(name, metaGroup);		
 	}
 		
-	private MetaGroup getMetaGroup(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaGroup getMetaGroup(String name) {
 		if (metaGroups == null) {
 			throw new ElementNotFoundException("group_not_found_no_groups", name);
 		}
@@ -746,8 +823,11 @@ public class MetaView extends MetaElement implements Cloneable {
 		return (MetaGroup) result;
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void promote(MetaView view)
-		throws XavaException {
+		{
 		view.setMetaSearchAction(this.getMetaSearchAction());
 		view.setMetaModel(this.getMetaModel());
 				
@@ -778,7 +858,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		sections =  null;
 	}			
 		
-	public String getMediatorClassName() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public String getMediatorClassName() {		
 		return mediatorClassName;
 	}
 
@@ -908,7 +991,10 @@ public class MetaView extends MetaElement implements Cloneable {
 	}	
 	
 	// @Trifon
-	public int getDisplaySizeForProperty(MetaProperty p) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public int getDisplaySizeForProperty(MetaProperty p) {
 		MetaPropertyView metaPropertyView = getMetaPropertyViewFor(p.getName());
 		if (metaPropertyView == null) 
 			return -1;
@@ -997,7 +1083,10 @@ public class MetaView extends MetaElement implements Cloneable {
 		return descriptionsList.getLabelStyle();		
 	}
 	
-	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void verifyMembersDuplicated(Collection<MetaMember> allMetaMembers) {
 		Iterator<MetaMember> it = allMetaMembers.iterator();
 		String modelName = getModelName();
 		String viewName = getName().length() > 1 ? " " + getName() + " " : " ";

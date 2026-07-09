@@ -25,20 +25,29 @@ public class MetaControllers {
 	private static int controllersCodeVersion = Hotswap.getControllersVersion(); 
 	
 	
-	public static void _addMetaController(MetaController newController) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addMetaController(MetaController newController) {
 		if (metaControllers == null) {
 			throw new XavaException("only_from_parse", "MetaControllers._addMetaController");
 		}
 		metaControllers.put(newController.getName(), newController);
 	}
 	
-	private synchronized static void setup() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static void setup() {
 		if (metaControllers != null) return;
 		metaControllers = new HashMap();
 		ControllersParser.configureControllers(context);		
 	}
 		
-	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public synchronized static MetaController getMetaController(String name) throws ElementNotFoundException {
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	metaControllers = null;
         	controllersCodeVersion = Hotswap.getControllersVersion();
@@ -53,7 +62,10 @@ public class MetaControllers {
 		return result;
 	}
 	
-	public static boolean contains(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static boolean contains(String name) {
 		try {
 			getMetaController(name);
 			return true;
@@ -74,7 +86,10 @@ public class MetaControllers {
 		}
 	}
 	
-	public static MetaAction getMetaAction(String qualifiedName) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaAction getMetaAction(String qualifiedName) throws ElementNotFoundException {
 		if (metaControllers == null) {
 			setup();
 		}		
@@ -99,7 +114,10 @@ public class MetaControllers {
 	}
 	
 	
-	public static MetaObject getMetaObject(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaObject getMetaObject(String name) throws ElementNotFoundException {
 		if (metaControllers == null) {
 			setup();
 		}						
@@ -132,8 +150,9 @@ public class MetaControllers {
 	
 	/**	 	
 	 * @return Null if it does not exist.	 
+	 * @throws XavaException
 	 */
-	public static String getEnvironmentVariable(String name) throws XavaException {
+	public static String getEnvironmentVariable(String name) {
 		if (metaControllers == null) {
 			setup();
 		}

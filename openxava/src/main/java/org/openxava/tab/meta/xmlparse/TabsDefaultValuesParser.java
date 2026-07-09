@@ -14,7 +14,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void setupTabs() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void setupTabs() {
 		TabsDefaultValuesParser enParser = new TabsDefaultValuesParser("tabs-default-values.xml", ENGLISH);
 		enParser.parse();
 		
@@ -22,7 +25,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		esParser.parse();
 	}
 	
-	private void addTabs(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addTabs(Element el) {
 		MetaTab tab = TabParser.parseTab(el, lang);		
 		
 		addTabsForModel(tab, el);		
@@ -32,7 +38,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 	
 
 	
-	private void addTabsForModel(MetaTab tab, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addTabsForModel(MetaTab tab, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_model[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -41,7 +50,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		}		
 	}
 	
-	private void addTabsExceptForModel(MetaTab tab, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addTabsExceptForModel(MetaTab tab, Element n) {		
 		NodeList l = n.getElementsByTagName(xexcept_for_model[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -50,7 +62,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		}		
 	}
 	
-	private void addDefaultTab(MetaTab tab, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addDefaultTab(MetaTab tab, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_all_models[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -59,7 +74,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		}		
 	}
 					
-	private void createTabs() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createTabs() {
 		NodeList l = getRoot().getElementsByTagName(xtab[lang]);
 		int c = l.getLength();		
 		for (int i = 0; i < c; i++) {
@@ -68,7 +86,10 @@ public class TabsDefaultValuesParser extends ParserBase {
 		}						
 	}
 			
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createTabs();				
 	}
 		

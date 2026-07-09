@@ -19,10 +19,14 @@ public interface IEntityTabImpl extends IWithXTableModel, ISearch, IDataReader {
    * Ususally thie key is obtained from columns of table (IXTableModel).<br>
    * This method is used from IXTableModel.getObjectAt. It is not normal
    * that a application programmer call this method directly.<br>
+   * @throws SystemException
    */
-  Object findEntity(Object [] clave) throws FinderException, SystemException;
+  Object findEntity(Object [] clave) throws FinderException ;
 
-  Number getSum(String property) throws SystemException; 
+  /**
+  * @throws SystemException
+   */
+  Number getSum(String property) ; 
   
   /** @since 5.7 */
   int getChunkSize(); 

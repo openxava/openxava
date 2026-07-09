@@ -25,6 +25,6 @@ public interface ISearch {
    * @exception FinderException  Any logic problem on search
    * @exception SystemException  Any system problem on search
    */  
-  void search(String condition, Object key) throws FinderException, SystemException;
+  void search(String condition, Object key) throws FinderException ;
   
 }

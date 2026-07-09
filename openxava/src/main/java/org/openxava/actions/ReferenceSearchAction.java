@@ -83,7 +83,10 @@ public class ReferenceSearchAction extends ReferenceBaseAction implements ICusto
 		setControllers(getNextControllers()); 
 	}
 
-	private MetaReference getMetaReference(MetaModel metaRootModel, String referenceName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaReference getMetaReference(MetaModel metaRootModel, String referenceName) {
 		try {
 			return metaRootModel.getMetaReference(referenceName);
 		}

@@ -152,7 +152,10 @@ public class Messages implements java.io.Serializable {
 			return result;
 		}
 
-		private String getMessage(String id, Locale locale) throws MissingResourceException, XavaException {
+		/**
+		* @throws XavaException
+		 */
+		private String getMessage(String id, Locale locale) throws MissingResourceException {
 			return XavaResources.getString(locale, id);
 		}
 		

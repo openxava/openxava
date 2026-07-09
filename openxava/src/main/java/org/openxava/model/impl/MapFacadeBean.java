@@ -31,8 +31,12 @@ public class MapFacadeBean {
 	
 	
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Object create(UserInfo userInfo, String modelName, Map values)
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -94,32 +98,44 @@ public class MapFacadeBean {
 		getPersistenceProvider(metaModel).commit();
 		HibernateValidatorInhibitor.setInhibited(false);		
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	public Map getValues(
 			UserInfo userInfo, 
 			String modelName,
 			Map keyValues,
 			Map membersNames)
-			throws FinderException, XavaException, SystemException {
+			throws FinderException {
 		return getValues(userInfo, modelName, keyValues, membersNames, true);
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	public Map getValuesNotTracking(
 			UserInfo userInfo, 
 			String modelName,
 			Map keyValues,
 			Map membersNames)
-			throws FinderException, XavaException, SystemException {
+			throws FinderException {
 		return getValues(userInfo, modelName, keyValues, membersNames, false);
-	}	
-	
+	}
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues(
 			UserInfo userInfo, 
 			String modelName,
 			Map keyValues,
 			Map membersNames,
 			boolean tracking)
-			throws FinderException, XavaException, SystemException {		
+			throws FinderException {		
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
 		membersNames = Maps.recursiveClone(membersNames);
@@ -163,14 +179,18 @@ public class MapFacadeBean {
 			}
 		}
 		return result;
-	}	
+	}
 
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	public Map getValuesByAnyProperty( 
 			UserInfo userInfo, 
 			String modelName,
 			Map searchingValues,
 			Map membersNames)
-			throws FinderException, XavaException, SystemException {
+			throws FinderException {
 		// WARNING! This method does no do tracking, maybe it is an omission or bug to solve in the future
 		//  but when we'll fix it, WE SHOULD MODIFY DescriptionsCalculator		
 		Users.setCurrentUserInfo(userInfo);
@@ -205,9 +225,12 @@ public class MapFacadeBean {
 	}
 	
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void delete(UserInfo userInfo, String modelName, Map keyValues)
-		throws RemoveException, ValidationException, XavaException, SystemException 
-	{		
+		throws RemoveException, ValidationException {		
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 		
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -234,21 +257,30 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void setValues(UserInfo userInfo, String modelName, Map keyValues, Map values) 
-		throws FinderException, ValidationException, XavaException, SystemException  
-	{							
+		throws FinderException, ValidationException {							
 		setValues(userInfo, modelName, keyValues, values, true);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void setValuesNotTracking(UserInfo userInfo, String modelName, Map keyValues, Map values) 
-		throws FinderException, ValidationException, XavaException, SystemException  
-	{							
+		throws FinderException, ValidationException {							
 		setValues(userInfo, modelName, keyValues, values, false);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void setValues(UserInfo userInfo, String modelName, Map keyValues, Map values, boolean tracking) 
-		throws FinderException, ValidationException, XavaException, SystemException  
-	{							
+		throws FinderException, ValidationException {							
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
 		values = Maps.recursiveClone(values); 		
@@ -277,15 +309,22 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws SystemException
+	 */
 	public Object findEntity(UserInfo userInfo, String modelName, Map keyValues)
-		throws FinderException, SystemException {
+		throws FinderException {
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 			
 		return findEntity(modelName, keyValues);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Map createReturningValues(UserInfo userInfo, String modelName, Map values) 
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -314,8 +353,12 @@ public class MapFacadeBean {
 		}		
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Map createReturningKey(UserInfo userInfo, String modelName, Map values, boolean validateCollections)  
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -344,21 +387,32 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Map createReturningKey(UserInfo userInfo, String modelName, Map values) 
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		return createReturningKey(userInfo, modelName, values, true);
 	}
 
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Map createNotValidatingCollections(UserInfo userInfo, String modelName, Map values)  
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		return createReturningKey(userInfo, modelName, values, false);
 	}
 
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object createAggregate(UserInfo userInfo, String modelName, Map containerKeyValues, String collectionName, int counter, Map values)  
-		throws CreateException,ValidationException, XavaException, SystemException   
-	{		
+		throws CreateException, ValidationException {		
 		Users.setCurrentUserInfo(userInfo);
 		containerKeyValues = Maps.recursiveClone(containerKeyValues);
 		values = Maps.recursiveClone(values);
@@ -398,22 +452,31 @@ public class MapFacadeBean {
 		return MetaComponent.get(containerModelName).getMetaEntity();
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Object createAggregate(UserInfo userInfo, String modelName, Map containerKeyValues, String collectionName, Map values)  
-		throws CreateException,ValidationException, XavaException, SystemException   
-	{
+		throws CreateException, ValidationException {
 		return createAggregate(userInfo, modelName, containerKeyValues, collectionName, -1, values);
 	}
 
 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Object createAggregate(UserInfo userInfo, String modelName, Map containerKeyValues, int counter, Map values)  
-		throws CreateException,ValidationException, XavaException, SystemException 
-	{
+		throws CreateException, ValidationException {
 		return createAggregate(userInfo, modelName, containerKeyValues, null, counter, values);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Object createAggregate(UserInfo userInfo, String modelName, Object container, int counter, Map values)  
-		throws CreateException,ValidationException, XavaException, SystemException
-	{		
+		throws CreateException, ValidationException {		
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values);
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -443,9 +506,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Map createAggregateReturningKey(UserInfo userInfo, String modelName, Map containerKeyValues, String collectionName, int counter, Map values)  
-		throws CreateException,ValidationException, XavaException, SystemException 
-	{		
+		throws CreateException, ValidationException {		
 		Users.setCurrentUserInfo(userInfo);
 		containerKeyValues = Maps.recursiveClone(containerKeyValues); 
 		values = Maps.recursiveClone(values); 	
@@ -476,24 +542,33 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Map createAggregateReturningKey(UserInfo userInfo, String modelName, Map containerKeyValues, int counter, Map values)  
-			throws CreateException,ValidationException, XavaException, SystemException 
-	{
+			throws CreateException, ValidationException {
 		return createAggregateReturningKey(userInfo, modelName, containerKeyValues, null, counter, values);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public Map createAggregateReturningKey(UserInfo userInfo, String modelName, Map containerKeyValues, String collectionName, Map values)  
-			throws CreateException,ValidationException, XavaException, SystemException 
-	{		
+			throws CreateException, ValidationException {		
 		return createAggregateReturningKey(userInfo, modelName, containerKeyValues, collectionName, -1, values);
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	public Map getValues( 
 		UserInfo userInfo, 
 		String modelName,
 		Object modelObject,
-		Map memberNames) throws XavaException, SystemException  
-		 {				
+		Map memberNames) {
 		Users.setCurrentUserInfo(userInfo);
 		memberNames = Maps.recursiveClone(memberNames);
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -514,15 +589,27 @@ public class MapFacadeBean {
 		}
 	}
 	
-	public Messages validate(UserInfo userInfo, String modelName, Map values) throws XavaException, SystemException { 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	public Messages validate(UserInfo userInfo, String modelName, Map values) { 
 		return validate(userInfo, modelName, values, false, null); 
 	}
 	
-	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) throws XavaException, SystemException { 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	public Messages validateIncludingMissingRequired(UserInfo userInfo, String modelName, Map values, String containerReference) { 
 		return validate(userInfo, modelName, values, true, containerReference); 
 	}
 	
-	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired, String containerReference) throws XavaException, SystemException {   
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private Messages validate(UserInfo userInfo, String modelName, Map values, boolean includingMissingRequired, String containerReference) {   
 		Users.setCurrentUserInfo(userInfo);
 		values = Maps.recursiveClone(values); 	
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -549,9 +636,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void removeCollectionElement(UserInfo userInfo, String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues)   
-		throws FinderException,	ValidationException, XavaException, RemoveException, SystemException 
-	{
+		throws FinderException, ValidationException, RemoveException {
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
 		collectionElementKeyValues = Maps.recursiveClone(collectionElementKeyValues);
@@ -583,23 +673,32 @@ public class MapFacadeBean {
 		}						
 	}	
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void removeCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
-		throws FinderException,	ValidationException, XavaException, RemoveException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{
+		throws FinderException, ValidationException, RemoveException, InvocationTargetException, PropertiesManagerException {
 		removeCollectionElement(parentMetaModel, keyValues, collectionName, collectionElementKeyValues, true);
 	}
 	
 	// Does not remove the element itself
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void removeElementFromCollection(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
-		throws FinderException,	ValidationException, XavaException, RemoveException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{
+		throws FinderException, ValidationException, RemoveException, InvocationTargetException, PropertiesManagerException {
 		removeCollectionElement(parentMetaModel, keyValues, collectionName, collectionElementKeyValues, false);
 	}
 	
 	// Removes from the Java collection and sets the FK to null
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void removeElementFromCollectionSettingFKToNull(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
-		throws FinderException, ValidationException, XavaException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{
+		throws FinderException, ValidationException, InvocationTargetException, PropertiesManagerException {
 		MetaCollection metaCollection = removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
 		String refToParent = metaCollection.getMetaReference().getRole();
@@ -610,9 +709,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void removeCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues, boolean deletingElement) 
-		throws FinderException,	ValidationException, XavaException, RemoveException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{
+		throws FinderException, ValidationException, RemoveException, InvocationTargetException, PropertiesManagerException {
 		MetaCollection metaCollection = removeFromJavaCollection(parentMetaModel, keyValues, collectionName, collectionElementKeyValues);
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
 		String refToParent = metaCollection.getMetaReference().getRole();
@@ -627,9 +729,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private MetaCollection removeFromJavaCollection(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
-		throws FinderException, XavaException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{
+		throws FinderException, InvocationTargetException, PropertiesManagerException {
 		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
 		String refToParent = metaCollection.getMetaReference().getRole();
@@ -653,9 +758,12 @@ public class MapFacadeBean {
 		return metaCollection;
 	}
 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void addCollectionElement(UserInfo userInfo, String modelName, Map keyValues, String collectionName, Map collectionElementKeyValues)   
-		throws FinderException,	ValidationException, XavaException, SystemException 
-	{
+		throws FinderException, ValidationException {
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
 		collectionElementKeyValues = Maps.recursiveClone(collectionElementKeyValues);
@@ -683,9 +791,12 @@ public class MapFacadeBean {
 		}						
 	}	
 		
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void addCollectionElement(MetaModel parentMetaModel, Map keyValues, String collectionName, Map collectionElementKeyValues) 
-		throws FinderException,	ValidationException, XavaException, SystemException, InvocationTargetException, PropertiesManagerException 
-	{		
+		throws FinderException, ValidationException, InvocationTargetException, PropertiesManagerException {		
 		MetaCollection metaCollection = parentMetaModel.getMetaCollection(collectionName);		
 		String refToParent = metaCollection.getMetaReference().getRole();
 		MetaModel childMetaModel = metaCollection.getMetaReference().getMetaModelReferenced();
@@ -708,13 +819,16 @@ public class MapFacadeBean {
 			setValues(childMetaModel, collectionElementKeyValues, parentKey, true, true, false); 
 		}
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	public void moveCollectionElementToAnotherCollection(UserInfo userInfo, 
 		String sourceModelName, Map sourceKeyValues, String sourceCollectionName, 
 		String targetModelName, Map targetKeyValues, String targetCollectionName,
-		Map collectionElementKeyValues)   
-		throws FinderException,	ValidationException, XavaException, SystemException 
-		{
+		Map collectionElementKeyValues)
+		throws FinderException, ValidationException {
 			Users.setCurrentUserInfo(userInfo);
 			sourceKeyValues = Maps.recursiveClone(sourceKeyValues);
 			targetKeyValues = Maps.recursiveClone(targetKeyValues);
@@ -753,9 +867,12 @@ public class MapFacadeBean {
 		}	
 
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public void moveCollectionElement(UserInfo userInfo, String modelName, Map keyValues, String collectionName, int from, int to)   
-		throws FinderException, XavaException, SystemException 
-	{
+		throws FinderException {
 		Users.setCurrentUserInfo(userInfo);
 		keyValues = Maps.recursiveClone(keyValues); 
 		MetaModel metaModel = getMetaModel(modelName); 
@@ -772,13 +889,16 @@ public class MapFacadeBean {
 			rollback(metaModel); 
 			throw new SystemException(ex.getMessage());
 		}						
-	}	
-		
+	}
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues(		 	
 		String modelName,
 		Object modelObject,
-		Map memberNames) throws XavaException, SystemException
-		 {		
+		Map memberNames) {
 		try {			
 			MetaModel metaModel = getMetaModel(modelName);
 			Map result = getValues(metaModel, modelObject, memberNames);						
@@ -789,9 +909,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Map createAggregateReturningKey(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values)
-		throws CreateException,ValidationException, XavaException, SystemException 
-	{		
+		throws CreateException, ValidationException {		
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values); 
 		try {								
 			Object container = metaModelContainer.toPOJO(containerKeyValues); 
@@ -811,15 +934,21 @@ public class MapFacadeBean {
 		values.putAll(parentKey);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Object container, int counter, Map values)
-		throws CreateException,ValidationException, XavaException, SystemException
-	{		
+		throws CreateException, ValidationException {		
 		return createAggregate(metaModel, metaModelContainer, container, null, counter, values, true);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Map containerKeyValues, String collectionName, int counter, Map values) 
-		throws CreateException,ValidationException, XavaException, SystemException 
-	{		
+		throws CreateException, ValidationException {		
 		addKeyToValues(metaModelContainer, collectionName, containerKeyValues, values);
 
 		try {	
@@ -835,8 +964,12 @@ public class MapFacadeBean {
 		}
 	}	
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Map createReturningKey(MetaModel metaModel, Map values, boolean validateCollection) 
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		Object entity = create(metaModel, values, null, null, null, 0, validateCollection);
 		if (metaModel.hasDefaultCalculatorOnCreate()) {
 			getPersistenceProvider(metaModel).flush(); // to execute calculators 
@@ -844,20 +977,28 @@ public class MapFacadeBean {
 		return getValues(metaModel, entity, getKeyNames(metaModel));
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Map createReturningValues(MetaModel metaModel, Map values) 
-		throws CreateException, XavaException, ValidationException, SystemException {
+		throws CreateException, ValidationException {
 		Object entity = create(metaModel, values, null, null, null, 0, true); 
 		if (metaModel.hasDefaultCalculatorOnCreate()) {
 			getPersistenceProvider(metaModel).flush(); // to execute calculators 
 		}
 		return getValues(metaModel, entity, values);
 	}
-		
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValuesImpl(	
 		MetaModel metaModel, 	
 		Map keyValues,
 		Map membersNames)
-		throws FinderException, XavaException, SystemException {
+		throws FinderException {
 		try {			
 			Object entity = findEntity(metaModel, keyValues);
 			try {
@@ -872,12 +1013,16 @@ public class MapFacadeBean {
 			throw new XavaException("get_values_error", metaModel.getName()); 
 		}
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValuesByAnyPropertyImpl( 	
 		MetaModel metaModel, 	
 		Map keyValues,
 		Map membersNames)
-		throws FinderException, XavaException, SystemException {		
+		throws FinderException {		
 		try {
 			Map result =
 				getValues(					 
@@ -892,7 +1037,10 @@ public class MapFacadeBean {
 	}
 	
 		
-	private Map getKeyNames(MetaModel metaModel) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Map getKeyNames(MetaModel metaModel) {
 		Iterator itProperties = metaModel.getKeyPropertiesNames().iterator();
 		Map names = new HashMap();
 		while (itProperties.hasNext()) {
@@ -906,9 +1054,12 @@ public class MapFacadeBean {
 		return names;
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object createAggregate(MetaModel metaModel, MetaModel metaModelContainer, Object container, String collectionName, int counter, Map values, boolean validateCollections) 
-		throws CreateException,ValidationException, XavaException, SystemException 
-	{
+		throws CreateException, ValidationException {
 		// counter is ignored, we keep it for backward compatibility in method signatures
 		if (metaModel.isAnnotatedEJB3()) {
 			return create(metaModel, values, metaModelContainer, container, collectionName, -1, validateCollections);
@@ -942,6 +1093,8 @@ public class MapFacadeBean {
 	 * @param metaModelContainer  Only if the object is a aggregate. It's the MetaModel of container model.
 	 * @param containerModel Only if object to create is a aggregate.
 	 * @param number  Only if object to create is a aggregate. It's a secuential number.
+	 * @throws XavaException
+	 * @throws SystemException
 	 * @return The created entity.
 	 */
 	private Object create(	
@@ -950,8 +1103,8 @@ public class MapFacadeBean {
 		MetaModel metaModelContainer,
 		Object container,
 		String collectionName, 
-		int number, boolean validateCollections) 
-		throws CreateException, ValidationException, XavaException, SystemException {
+		int number, boolean validateCollections)
+		throws CreateException, ValidationException {
 		try {			
 			//removeReadOnlyFields(metaModel, values); // not remove the read only fields because it maybe needed initialized on create
 			removeReadOnlyWithFormulaFields(metaModel, values); 			
@@ -1019,7 +1172,10 @@ public class MapFacadeBean {
 		}
 	}
 
-	private void addToCollection(/* MetaModel metaModel, */Object containerModel, String collectionName, Object newAggregate) throws XavaException{ 
+	/**
+	* @throws XavaException
+	 */
+	private void addToCollection(/* MetaModel metaModel, */Object containerModel, String collectionName, Object newAggregate) { 
 		try {
 			PropertiesManager containerPM = new PropertiesManager(containerModel);
 			Collection collection = (Collection) containerPM.executeGet(collectionName);
@@ -1046,7 +1202,11 @@ public class MapFacadeBean {
 		}
 	}
 
-	private void updateReferencedEntities(MetaModel metaModel, Map values) throws XavaException, SystemException, CreateException, ValidationException {		
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private void updateReferencedEntities(MetaModel metaModel, Map values) throws CreateException, ValidationException {		
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			Map referenceValues = (Map) values.get(ref.getName());
@@ -1067,7 +1227,11 @@ public class MapFacadeBean {
 		}
 	}
 	
-	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws XavaException, SystemException, CreateException, ValidationException { 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private void updateSortableCollections(MetaModel metaModel, Map key, Map values) throws CreateException, ValidationException { 
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			Map referenceValues = (Map) values.get(ref.getName());
@@ -1093,7 +1257,11 @@ public class MapFacadeBean {
 		}	
 	}
 	
-	private void updateSortableCollectionsOnRemove(MetaModel metaModel, Map key) throws XavaException, SystemException, CreateException, ValidationException {
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private void updateSortableCollectionsOnRemove(MetaModel metaModel, Map key) throws CreateException, ValidationException {
 		for (Iterator it = metaModel.getMetaReferencesToEntity().iterator(); it.hasNext(); ) {
 			MetaReference ref = (MetaReference) it.next();		
 			if (!Is.emptyString(ref.getReferencedModelCorrespondingCollection())) {
@@ -1129,7 +1297,10 @@ public class MapFacadeBean {
 		}	
 	}
 
-	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private int getHiddenKeyNotPressent(MetaReference ref, Map referenceValues) {
 		int hiddenKeyNotPresent = 0;
 		for (Iterator itKeys = ref.getMetaModelReferenced().getMetaMembersKey().iterator(); itKeys.hasNext(); ) {
 			MetaMember key = (MetaMember) itKeys.next();					
@@ -1142,17 +1313,25 @@ public class MapFacadeBean {
 		return hiddenKeyNotPresent;
 	}
 
-	private Object getReferencedObject(MetaModel metaModel, Object container, String memberName) throws XavaException, SystemException {
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private Object getReferencedObject(MetaModel metaModel, Object container, String memberName) {
 		if (container == null) return null;
 		IPropertiesContainer r = getPersistenceProvider(metaModel).toPropertiesContainer(null, container);	
 		return r.executeGets(memberName).get(memberName);
 	}
 
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues( 	
 		MetaModel metaModel,
 		Map keyValues,
 		Map memberNames)
-		throws FinderException, XavaException, SystemException {  
+		throws FinderException {  
 		try {									 
 			Map result =
 				getValues(	
@@ -1166,7 +1345,10 @@ public class MapFacadeBean {
 		}
 	}
 	
-	private MetaModel getMetaModel(String modelName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModel getMetaModel(String modelName) {
 		int idx = modelName.indexOf('.');			
 		if (idx < 0) {
 			return MetaComponent.get(modelName).getMetaEntity();
@@ -1183,25 +1365,37 @@ public class MapFacadeBean {
 			}
 		}
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues(		
 			MetaModel metaModel, 
 			Object modelObject,
-			Map membersNames) throws XavaException, SystemException {
+			Map membersNames) {
 		return getValues(metaModel, modelObject, membersNames, true);
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues(  		
 			MetaModel metaModel, 
 			Object modelObject,
-			Map membersNames, boolean includeModelName) throws XavaException, SystemException { 
+			Map membersNames, boolean includeModelName) {
 		return getValues(metaModel, modelObject, membersNames, includeModelName, true);
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getValues(		
 		MetaModel metaModel, 
 		Object modelObject,
-		Map membersNames, boolean includeModelName, boolean includeKey) throws XavaException, SystemException {  
+		Map membersNames, boolean includeModelName, boolean includeKey) {
 		try {
 			if (modelObject == null)
 				return null;						
@@ -1248,13 +1442,20 @@ public class MapFacadeBean {
 		}
 	}
 		
-	public Map getKeyValues(UserInfo userInfo, String modelName, Object entity) throws SystemException, XavaException {
+	/**
+	* @throws SystemException
+	* @throws XavaException
+	 */
+	public Map getKeyValues(UserInfo userInfo, String modelName, Object entity) {
 		Users.setCurrentUserInfo(userInfo);
 		MetaModel metaModel = getMetaModel(modelName);
 		return getValues(metaModel, entity, getKeyNames(metaModel), false); 
 	}
 			
-	private void addKey(MetaModel metaModel, Map memberNames) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addKey(MetaModel metaModel, Map memberNames) {
 		Iterator it = metaModel.getKeyPropertiesNames().iterator();		
 		while (it.hasNext()) {
 			String name = (String) it.next();
@@ -1273,7 +1474,10 @@ public class MapFacadeBean {
 		}				
 	}
 	
-	private void addVersion(MetaModel metaModel, Map memberNames) throws XavaException { 		
+	/**
+	* @throws XavaException
+	 */
+	private void addVersion(MetaModel metaModel, Map memberNames) { 		
 		if (metaModel.hasVersionProperty()) {
 			memberNames.put(metaModel.getVersionPropertyName(), null);
 		}
@@ -1282,8 +1486,9 @@ public class MapFacadeBean {
 	/**
 	 * If we send null as <tt>nombresPropiedades</tt> it return a empty Map. <p>
 	 * @throws SystemException 
+	 * @throws XavaException
 	 */
-	private Map getAggregateValues(MetaAggregate metaAggregate, Object aggregate, Map memberNames) throws XavaException, SystemException { 		
+	private Map getAggregateValues(MetaAggregate metaAggregate, Object aggregate, Map memberNames) { 		
 		if (memberNames == null || aggregate == null) return Collections.EMPTY_MAP;
 		PropertiesManager man = new PropertiesManager(aggregate);
 		StringBuffer names = new StringBuffer();
@@ -1333,18 +1538,23 @@ public class MapFacadeBean {
 	/**
 	 * If <tt>memberNames</tt> is null then return a empty map.
 	 * @throws SystemException 
+	 * @throws XavaException
 	 */
-	private Map getAssociatedEntityValues(MetaEntity metaEntity, Object modelObject, Map memberNames) throws XavaException, FinderException, SystemException { 
+	private Map getAssociatedEntityValues(MetaEntity metaEntity, Object modelObject, Map memberNames) throws FinderException { 
 		if (memberNames == null) return Collections.EMPTY_MAP;
 		if (modelObject instanceof Map) return getValues(metaEntity, (Map) modelObject, memberNames); // modelObject can be a Map with the key with non-POJO IPersistenceProvider 
 		return getValues(metaEntity, modelObject, memberNames);
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Map getReferenceValues(	
 		MetaModel metaModel,
 		Object model,
 		String memberName,
-		Map submembersNames) throws XavaException, SystemException { 		
+		Map submembersNames) {
 		try {								
 			MetaReference r = metaModel.getMetaReference(memberName);
 			Object object = getReferencedObject(metaModel, model, memberName); 
@@ -1366,12 +1576,16 @@ public class MapFacadeBean {
 			throw new XavaException("get_reference_error", memberName, metaModel.getName());
 		}
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Collection getCollectionValues(	
 		MetaModel metaModel,
 		Object modelObject,
 		String memberName,
-		Map memberNames) throws XavaException, SystemException {
+		Map memberNames) {
 		try {
 			MetaCollection c = metaModel.getMetaCollection(memberName);
 			Object object = getReferencedObject(metaModel, modelObject, memberName);
@@ -1384,11 +1598,15 @@ public class MapFacadeBean {
 			throw new XavaException("get_collection_elements_error", memberName, metaModel.getName());
 		}
 	}
-	
+
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Collection getCollectionValues(	
 		MetaModel metaModel,
 		boolean aggregate,
-		Object elements, Map memberNames) throws XavaException, SystemException {
+		Object elements, Map memberNames) {
 		Collection result = new ArrayList();
 		Enumeration enumeration = null;
 		if (elements instanceof Enumeration) {
@@ -1412,8 +1630,12 @@ public class MapFacadeBean {
 	}
 
 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object instanceAggregate(MetaAggregate metaAggregate, Map values) 
-		throws ValidationException, XavaException, SystemException {
+		throws ValidationException {
 		try {
 			Object object = metaAggregate.getPropertiesClass().newInstance(); 
 			PropertiesManager man = new PropertiesManager(object);			
@@ -1442,10 +1664,13 @@ public class MapFacadeBean {
 		}
 	}
 
+	/**
+	 * @throws SystemException
+	 */
 	private void throwsValidationException(
 		InvocationTargetException ex,
 		String ejbmessage)
-		throws ValidationException, SystemException {
+		throws ValidationException {
 		Throwable th = ex.getTargetException();
 		if (th instanceof ValidationException) {
 			throw (ValidationException) th;
@@ -1454,11 +1679,15 @@ public class MapFacadeBean {
 		throw new SystemException(ejbmessage);
 	}
 
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private Object mapToReferencedObject(	
 		MetaModel metaModel,
 		String memberName,
 		Map values)
-		throws ValidationException, XavaException, SystemException {		
+		throws ValidationException {		
 		MetaReference r = null;
 		try {		
 			r = metaModel.getMetaReference(memberName);
@@ -1484,7 +1713,10 @@ public class MapFacadeBean {
 		}
 	}
 	
-	private Collection mapsToElements(MetaCollection metaCollection, Collection<Map> collectionValues) throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	private Collection mapsToElements(MetaCollection metaCollection, Collection<Map> collectionValues) {
 		MetaReference r = metaCollection.getMetaReference();
 		Collection result = new ArrayList();
 		for (Map elementValues: collectionValues) {
@@ -1512,8 +1744,12 @@ public class MapFacadeBean {
 		return validatorFactory;	
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private Object findAssociatedEntity(MetaModel metaEntity, Map values) 
-		throws FinderException, XavaException, SystemException {
+		throws FinderException {
 		Map keyValues = metaEntity.extractKeyValues(values);
 		if (Maps.isEmpty(keyValues)) {
 			return findEntityByAnyProperty(metaEntity, metaEntity.extractSearchKeyValues(values));
@@ -1523,8 +1759,11 @@ public class MapFacadeBean {
 		}
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void removeKeyFields(MetaModel metaModel, Map values)
-		throws XavaException {
+		{
 		Iterator keys = metaModel.getKeyPropertiesNames().iterator();
 		while (keys.hasNext()) {
 			values.remove(keys.next());
@@ -1536,23 +1775,32 @@ public class MapFacadeBean {
 		}		
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void removeReadOnlyFields(MetaModel metaModel, Map values)
-		throws XavaException {
+		{
 		Iterator toRemove = metaModel.getOnlyReadPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
 			values.remove(toRemove.next());
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void removeReadOnlyWithFormulaFields(MetaModel metaModel, Map values) 
-		throws XavaException {
+		{
 		Iterator toRemove = metaModel.getOnlyReadWithFormulaPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
 			values.remove(toRemove.next());
 		}
 	}
 	
-	private void setCollectionsWithMinimumToNull(MetaModel metaModel, Map values) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private void setCollectionsWithMinimumToNull(MetaModel metaModel, Map values) { 
 		for (MetaCollection col: metaModel.getMetaCollections()) {
 			if (!col.isElementCollection() && col.getMinimum() > 0) {
 				values.put(col.getName(), null);
@@ -1560,24 +1808,34 @@ public class MapFacadeBean {
 		}
 	}
 		
+	/**
+	* @throws XavaException
+	 */
 	private void removeCalculatedFields(MetaModel metaModel, Map values)
-		throws XavaException {
+		{
 		Iterator toRemove = metaModel.getCalculatedPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
 			values.remove(toRemove.next());
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void removeViewProperties(MetaModel metaModel, Map values)
-		throws XavaException {		
+		{		
 		Iterator toRemove = metaModel.getViewPropertiesNames().iterator();
 		while (toRemove.hasNext()) {
 			values.remove(toRemove.next());
 		}
 	}	
 		
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void remove(MetaModel metaModel, Map keyValues) 
-		throws RemoveException, ValidationException, XavaException, SystemException {
+		throws RemoveException, ValidationException {
 		try {
 			Messages errors = validateOnRemove(metaModel, keyValues);			
 			if (!errors.isEmpty()) {
@@ -1632,15 +1890,19 @@ public class MapFacadeBean {
 		return errors;		
 	}
 		
+	/**
+	* @throws XavaException
+	 */
 	private void setValues(MetaModel metaModel, Map keyValues, Map values) 
-		throws FinderException, ValidationException, XavaException 
-	{
+		throws FinderException, ValidationException {
 		setValues(metaModel, keyValues, values, true, true, false); 
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void setValues(MetaModel metaModel, Map keyValues, Map values, boolean validate, boolean tracking, boolean updateSortableCollections)  
-		throws FinderException, ValidationException, XavaException 
-	{ 		
+		throws FinderException, ValidationException { 		
 		try {			
 			Object entity = findEntity(metaModel, keyValues);
 			updateReferencedEntities(metaModel, values);
@@ -1756,6 +2018,10 @@ public class MapFacadeBean {
 		
 	}
 
+	/**
+	 * @throws XavaException
+	 * @throws SystemException
+	 */
 	private void validate(	
 		Messages errors,
 		MetaModel metaModel,
@@ -1763,7 +2029,7 @@ public class MapFacadeBean {
 		Object values,
 		boolean creating,
 		String containerMember 
-		) throws XavaException, SystemException {			
+		) {
 		try {			
 			if (metaModel.containsMetaProperty(memberName)) {
 				metaModel.getMetaProperty(memberName).validate(errors, values, creating, containerMember); 
@@ -1820,14 +2086,21 @@ public class MapFacadeBean {
 		return false;
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void validate(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating) 
-		throws ObjectNotFoundException, XavaException, SystemException 
-	{ 
+		throws ObjectNotFoundException { 
 		validate(errors, metaModel, values, keyValues, container, creating, null);
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void validate(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating, String containerMember) 
-		throws ObjectNotFoundException, XavaException, SystemException {		
+		throws ObjectNotFoundException {		
 		Iterator it = values.entrySet().iterator();		
 		while (it.hasNext()) {
 			Map.Entry en = (Map.Entry) it.next();
@@ -1840,8 +2113,11 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void validateWithModelValidator(Messages errors, MetaModel metaModel, Map values, Map keyValues, Object container, boolean creating) 
-			throws ObjectNotFoundException, XavaException {
+			throws ObjectNotFoundException {
 		try {
 			Iterator itValidators = metaModel.getMetaValidators().iterator();
 			while (itValidators.hasNext()) {
@@ -1909,8 +2185,12 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	private void validate(MetaModel metaModel, Map values, Map keyValues, Object containerKey, boolean creating)
-		throws ObjectNotFoundException, ValidationException, XavaException, SystemException {
+		throws ObjectNotFoundException, ValidationException {
 		Messages errors = new Messages();		
 		validate(errors, metaModel, values, keyValues, containerKey, creating);		
 		if (errors.contains()) {
@@ -1918,8 +2198,11 @@ public class MapFacadeBean {
 		}
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void validateExistRequired(Messages errors, MetaModel metaModel, Map values, boolean excludeContainerReference, String containerReference)  
-		throws XavaException {		
+		{		
 		Iterator it = metaModel.getRequiredMemberNames().iterator();	
 		if (metaModel.getContainerReference() != null) containerReference = metaModel.getContainerReference(); 
 		while (it.hasNext()) {
@@ -1931,8 +2214,11 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void validateCollections(Messages errors, MetaModel metaModel)  
-		throws XavaException {		
+		{		
 		for (MetaCollection collection: metaModel.getMetaCollections()) {			 
 			if (!collection.isElementCollection() && collection.getMinimum() > 0) { 			 
 				int minimum = collection.getMinimum(); 
@@ -1942,24 +2228,42 @@ public class MapFacadeBean {
 		}		
 	}
 				
-	private Object findEntity(MetaModel metaModel, Map keyValues) throws FinderException, XavaException, SystemException { 		
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private Object findEntity(MetaModel metaModel, Map keyValues) throws FinderException { 		
 		return getPersistenceProvider(metaModel).find(metaModel, keyValues); 
 	}
 	
-	private Object findEntityByAnyProperty(MetaModel metaModel, Map keyValues) throws FinderException, XavaException, SystemException {
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private Object findEntityByAnyProperty(MetaModel metaModel, Map keyValues) throws FinderException {
 		return getPersistenceProvider(metaModel).findByAnyProperty(metaModel, keyValues); 
 	}
 	
-	private void rollback(MetaModel metaModel) throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	private void rollback(MetaModel metaModel) {
 		getPersistenceProvider(metaModel).rollback();
 		HibernateValidatorInhibitor.setInhibited(false); 
 	}
 	
-	private void freeTransaction() throws SystemException { 
+	/**
+	* @throws SystemException
+	 */
+	private void freeTransaction() { 
 		HibernateValidatorInhibitor.setInhibited(false); 
 	}
 			
-	private void executePostremoveCollectionElement(MetaModel metaModel, Map keyValues, MetaCollection metaCollection) throws FinderException, ValidationException, XavaException, SystemException {
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private void executePostremoveCollectionElement(MetaModel metaModel, Map keyValues, MetaCollection metaCollection) throws FinderException, ValidationException {
 		Iterator itCalculators = metaCollection.getMetaCalculatorsPostRemove().iterator();
 		while (itCalculators.hasNext()) {
 			MetaCalculator metaCalculator = (MetaCalculator) itCalculators.next();			
@@ -2048,7 +2352,11 @@ public class MapFacadeBean {
 		}				
 	}
 	
-	private Map convertSubmapsInObject(MetaModel metaModel, Map values) throws ValidationException, XavaException, SystemException { 
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	private Map convertSubmapsInObject(MetaModel metaModel, Map values) throws ValidationException { 
 		Map result = new HashMap();
 		Iterator it = values.entrySet().iterator();
 		while (it.hasNext()) {
@@ -2087,8 +2395,11 @@ public class MapFacadeBean {
 		return result;
 	}
 	
+	/**
+	* @throws SystemException
+	 */
 	private Object findEntity(String modelName, Map keyValues)
-		throws FinderException, SystemException {
+		throws FinderException {
 		MetaModel metaModel = getMetaModel(modelName);
 		try {
 			return findEntity(metaModel, keyValues);			
@@ -2107,8 +2418,11 @@ public class MapFacadeBean {
 		}
 	}
 	
+	/**
+	* @throws SystemException
+	 */
 	private Object findEntityByAnyProperty(String modelName, Map keyValues) 
-		throws FinderException, SystemException {
+		throws FinderException {
 		MetaModel metaModel = getMetaModel(modelName);
 		try {
 			return findEntityByAnyProperty(metaModel, keyValues);			
@@ -2124,11 +2438,18 @@ public class MapFacadeBean {
 		}
 	}		
 	
-	public Object getKey(MetaModel metaModel, Map keyValues) throws XavaException, SystemException {
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
+	public Object getKey(MetaModel metaModel, Map keyValues) {
 		return getPersistenceProvider(metaModel).getKey(metaModel, keyValues); 
 	}
 	
-	public void reassociate(Object entity) throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public void reassociate(Object entity) {
 		getPersistenceProvider(MetaModel.getForPOJO(entity)).reassociate(entity); 
 	}
 

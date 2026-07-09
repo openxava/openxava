@@ -14,7 +14,10 @@ import org.openxava.util.*;
 
 public class MetaAggregateForCollection extends MetaAggregate {
 		
-	public ModelMapping getMapping() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public ModelMapping getMapping() {
 		return getMetaComponent().getAggregateMapping(getName());
 	}
 		
@@ -22,7 +25,10 @@ public class MetaAggregateForCollection extends MetaAggregate {
 		super.setMetaComponent(metaComponent);
 	}
 			
-	public Class getBeanClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Class getBeanClass() {
 		throw new UnsupportedOperationException ("Still not supported");
 		
 	}

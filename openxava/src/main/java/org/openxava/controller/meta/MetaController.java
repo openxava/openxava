@@ -145,28 +145,34 @@ public class MetaController extends MetaElement {
 	}
 	/**
 	 * The MetaActions of this controller and all its parents. <p>
+	 * @throws XavaException
 	 */
-	public Collection<MetaAction> getAllMetaActions() throws XavaException { 
+	public Collection<MetaAction> getAllMetaActions() { 
 		return getAllMetaActions(false, false);
 	}
 	
 	/**
 	 * The not hidden MetaActions of this controller and all its parents. <p>
+	 * @throws XavaException
 	 */
-	public Collection getAllNotHiddenMetaActions() throws XavaException {  
+	public Collection getAllNotHiddenMetaActions() {  
 		return getAllMetaActions(true, false);
 	}
 	
 	/**
 	 * The not hidden MetaActions of this controller and all its parents and subcontrollers recursively. <p>
 	 * @since 5.5.1
+	 * @throws XavaException
 	 */
-	public Collection getAllNotHiddenMetaActionsRecursive() throws XavaException {   
+	public Collection getAllNotHiddenMetaActionsRecursive() {   
 		return getAllMetaActions(true, true);
 	}
 
 	
-	private Collection<MetaAction> getAllMetaActions(boolean excludeHidden, boolean recursive) throws XavaException {   
+	/**
+	* @throws XavaException
+	 */
+	private Collection<MetaAction> getAllMetaActions(boolean excludeHidden, boolean recursive) {   
 		List<MetaAction> result = new ArrayList<>();
 		// Adding parents
 		Iterator<MetaController> itParents = getParents().iterator(); 
@@ -219,8 +225,9 @@ public class MetaController extends MetaElement {
 	
 	/**
 	 * Actions from father and subcontrollers are included.  
+	 * @throws XavaException
 	 */
-	public Collection getMetaActionsOnInit() throws XavaException {
+	public Collection getMetaActionsOnInit() {
 		Collection result = new ArrayList();
 		
 		// Adding parents
@@ -253,8 +260,9 @@ public class MetaController extends MetaElement {
 	
 	/**
 	 * @return of type MetaController
+	 * @throws XavaException
 	 */
-	public Collection<MetaController> getParents() throws XavaException {
+	public Collection<MetaController> getParents() {
 		if (!hasParents()) return Collections.EMPTY_LIST;
 		if (parents == null) {
 			parents = new ArrayList<MetaController>(); 
@@ -269,8 +277,9 @@ public class MetaController extends MetaElement {
 	
 	/**
 	 * Actions from father and subcontrollers are included.  
+	 * @throws XavaException
 	 */
-	public Collection getMetaActionsOnEachRequest() throws XavaException {
+	public Collection getMetaActionsOnEachRequest() {
 		Collection result = new ArrayList();
 
 		Iterator itParents = getParents().iterator();
@@ -296,8 +305,9 @@ public class MetaController extends MetaElement {
 	
 	/**
 	 * Actions from father and subcontrollers are included.  
+	 * @throws XavaException
 	 */
-	public Collection getMetaActionsAfterEachRequest() throws XavaException { 
+	public Collection getMetaActionsAfterEachRequest() { 
 		Collection result = new ArrayList();
 
 		Iterator itParents = getParents().iterator();
@@ -323,8 +333,9 @@ public class MetaController extends MetaElement {
 	
 	/**
 	 * Actions from father and subcontrollers are included.  
+	 * @throws XavaException
 	 */
-	public Collection getMetaActionsBeforeEachRequest() throws XavaException { 
+	public Collection getMetaActionsBeforeEachRequest() { 
 		Collection result = new ArrayList();
 
 		Iterator itParents = getParents().iterator();

@@ -46,7 +46,10 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	}
 	
 	
-	public Collection<String> getFolders() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Collection<String> getFolders() { 
 		if (folders == null) {
 			folders = new HashSet<>();
 			for (Iterator it = getMetaModules().iterator(); it.hasNext(); ) {
@@ -64,7 +67,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @exception XavaException  Any problem 
 	 * @return of <tt>MetaModule</tt>. Not null.
 	 */
-	public Collection<MetaModule> getMetaModules() throws XavaException { 
+	public Collection<MetaModule> getMetaModules() { 
 		generateDefaultModules();
 		return metaModules.values();
 	}
@@ -77,14 +80,20 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		}
 	}
 
-	private void generateDefaultModules() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private void generateDefaultModules() { 
 		if (defaultModulesGenerated) return;
 		generateDefaultModulesFromJPAEntities();
 		generateDefaultModulesFromXMLComponents();
 		defaultModulesGenerated = true;
 	}
 
-	private void generateDefaultModulesFromXMLComponents() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void generateDefaultModulesFromXMLComponents() {
 		boolean generateDefaultModules = XavaPreferences.getInstance().isGenerateDefaultModules();
 		for (Iterator it=MetaComponent.getAll().iterator(); it.hasNext(); ) {
 			MetaComponent component = (MetaComponent) it.next();
@@ -96,7 +105,10 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		}		
 	}
 
-	private void generateDefaultModulesFromJPAEntities() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void generateDefaultModulesFromJPAEntities() {
 		boolean generateDefaultModules = XavaPreferences.getInstance().isGenerateDefaultModules();
 		try {
 			Collection<String> classNames = AnnotatedClassParser.getManagedClassNamesFromFileClassPath();
@@ -131,7 +143,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 * @return of <tt>String</tt>. Not null.
 	 * @throws XavaException 
 	 */	
-	public Collection<String> getModulesNamesByFolder(String folder) throws XavaException {
+	public Collection<String> getModulesNamesByFolder(String folder) {
 		if (Is.emptyString(folder) || folder.trim().equals("/")) folder = ""; 
 		Collection<String> result = new ArrayList<>();
 		for (Iterator it=getModulesNames().iterator(); it.hasNext();) {
@@ -146,8 +158,9 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		
 	/**
      * @exception ElementNotFoundException
+	 * @throws XavaException
 	 */
-	public MetaModule getMetaModule(String name) throws ElementNotFoundException, XavaException {
+	public MetaModule getMetaModule(String name) throws ElementNotFoundException {
         if (controllersCodeVersion < Hotswap.getControllersVersion()) {
         	resetControllersForDefaultModules();
         	controllersCodeVersion = Hotswap.getControllersVersion();
@@ -164,11 +177,17 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 		return result;
 	}
 
-	private boolean existsModel(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean existsModel(String name) {
 		return MetaComponent.exists(name);
 	}
 	
-	private MetaModule createDefaultModule(String modelName) throws XavaException { 				
+	/**
+	* @throws XavaException
+	 */
+	private MetaModule createDefaultModule(String modelName) { 				
 		MetaModule module = new MetaModule();
 		module.setMetaApplication(this);
 		module.setName(modelName);			

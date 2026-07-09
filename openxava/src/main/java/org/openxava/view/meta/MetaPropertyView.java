@@ -53,7 +53,10 @@ public class MetaPropertyView extends MetaMemberView implements java.io.Serializ
 		return !Is.emptyString(getOnChangeActionClassName());
 	}
 	
-	public IOnChangePropertyAction createOnChangeAction() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IOnChangePropertyAction createOnChangeAction() {
 		try {
 			Object o = Class.forName(getOnChangeActionClassName()).newInstance();
 			if (!(o instanceof IOnChangePropertyAction)) {

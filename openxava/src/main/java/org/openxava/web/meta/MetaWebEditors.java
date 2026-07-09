@@ -41,56 +41,80 @@ public class MetaWebEditors {
 	private static Map<String, MetaEditor> editorsByMember;  
 	private static int modelCodeVersion = Hotswap.getModelVersion();
 	
-	public static void addMetaEditorForType(String type, MetaEditor editor) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForType(String type, MetaEditor editor) {
 		if (editorsByType == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForType");
 		}
 		editorsByType.put(type, editor);		
 	}
 	
-	public static void addMetaEditorForAnnotation(String annotation, MetaEditor editor) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForAnnotation(String annotation, MetaEditor editor) { 
 		if (editorsByAnnotation == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForAnnotation");
 		}
 		editorsByAnnotation.put(annotation, editor);		
 	}
 
-	public static void addMetaEditorForReferenceModel(String model, MetaEditor editor) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForReferenceModel(String model, MetaEditor editor) {
 		if (editorsByReferenceModel == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForReferenceModel");
 		}
 		editorsByReferenceModel.put(model, editor);		
 	}
 	
-	public static void addMetaEditorForCollectionModel(String model, MetaEditor editor) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForCollectionModel(String model, MetaEditor editor) { 
 		if (editorsByCollectionModel == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForCollectionModel");
 		}
 		editorsByCollectionModel.put(model, editor);		
 	}
 	
-	public static void addMetaEditorForTabModel(String model, MetaEditor editor) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForTabModel(String model, MetaEditor editor) { 
 		if (editorsByTabModel == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForTabModel");
 		}
 		editorsByTabModel.put(model, editor);		
 	}
 	
-	public static void addMetaEditorForStereotype(String stereotype, MetaEditor editor) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForStereotype(String stereotype, MetaEditor editor) {		
 		if (editorsByStereotype == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForStereotype");
 		}
 		editorsByStereotype.put(stereotype, editor);		
 	}
 	
-	public static void addMetaEditorForModelProperty(String property, String model, MetaEditor editor) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditorForModelProperty(String property, String model, MetaEditor editor) {
 		if (editorsByModelProperty == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditorForModelProperty");
 		}
 		editorsByModelProperty.put(createPropertyModelKey(property, model), editor);		
 	}
 	
-	public static void addMetaEditor(MetaEditor editor) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void addMetaEditor(MetaEditor editor) {
 		if (editorsByModelProperty == null) {
 			throw new XavaException("only_from_parse", "MetaWebEditors.addMetaEditor");
 		}		
@@ -106,23 +130,31 @@ public class MetaWebEditors {
 	
 	/**
 	 * @return Null if no editor registered for the specified type
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForType(String type)	throws XavaException {
+	public static MetaEditor getMetaEditorForType(String type)	{
 		return (MetaEditor) getEditorsByType().get(type);
 	}
 	
 	/**
 	 * @return Null if no editor registered for the model used in references
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForReferenceModel(String model)	throws XavaException {
+	public static MetaEditor getMetaEditorForReferenceModel(String model)	{
 		return (MetaEditor) getEditorsByReferenceModel().get(model);
 	}
 	
-	private static MetaEditor getMetaEditorForCollectionModel(String model) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private static MetaEditor getMetaEditorForCollectionModel(String model) { 
 		return (MetaEditor) getEditorsByCollectionModel().get(model);
 	}
 
-	private static MetaEditor getMetaEditorForTabModel(String model) throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	private static MetaEditor getMetaEditorForTabModel(String model) {  
 		return (MetaEditor) getEditorsByTabModel().get(model);
 	}	
 	
@@ -132,8 +164,9 @@ public class MetaWebEditors {
 	 * Also it considers valid-values and Enums. 
 	 * 
 	 * @return Null if no editor registered for the type of the specified property
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForTypeOfProperty(MetaProperty p)	throws XavaException { 					
+	public static MetaEditor getMetaEditorForTypeOfProperty(MetaProperty p)	{ 					
 		String typeName = p.getType().getName();
 		if (p.hasValidValues() && "int".equals(typeName)) typeName=EditorsParser.VALID_VALUES_TYPE;				
 		MetaEditor r = (MetaEditor) getMetaEditorForType(typeName);
@@ -145,7 +178,10 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	private static MetaEditor getMetaEditorForAnnotation(MetaMember member, String viewName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static MetaEditor getMetaEditorForAnnotation(MetaMember member, String viewName) {
 		if (member.getMetaModel() == null) return null;
 		if (!member.getMetaModel().isPOJOAvailable()) return null;
 		String memberId = member.getMetaModel().getName() + ":" + viewName + ":" + member.getSimpleName();
@@ -190,27 +226,33 @@ public class MetaWebEditors {
 
 	/**
 	 * @return Null if no editor registered for the specified stereotype
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForStereotype(String stereotype)	throws XavaException {
+	public static MetaEditor getMetaEditorForStereotype(String stereotype)	{
 		return (MetaEditor) getEditorsByStereotype().get(stereotype);
 	}
 	
 	
 	/**
 	 * @return Null if no editor registered for the specified property/model
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorForModelProperty(String property, String model) throws XavaException {
+	public static MetaEditor getMetaEditorForModelProperty(String property, String model) {
 		return (MetaEditor) getEditorsByModelProperty().get(createPropertyModelKey(property, model));
 	}
 	
 	/**
 	 * @return Null if no editor registered with the name
+	 * @throws XavaException
 	 */
-	public static MetaEditor getMetaEditorByName(String name) throws XavaException {
+	public static MetaEditor getMetaEditorByName(String name) {
 		return (MetaEditor) getEditorsByName().get(name);
 	}	
 		
-	private synchronized static Map<String, MetaEditor> getEditorsByType() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByType() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByType == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -218,7 +260,10 @@ public class MetaWebEditors {
 		return editorsByType;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByAnnotation() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByAnnotation() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByAnnotation == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -226,7 +271,10 @@ public class MetaWebEditors {
 		return editorsByAnnotation;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByReferenceModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByReferenceModel() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records) 
 		if (editorsByReferenceModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -234,7 +282,10 @@ public class MetaWebEditors {
 		return editorsByReferenceModel;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByCollectionModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)  
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByCollectionModel() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)  
 		if (editorsByCollectionModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -242,7 +293,10 @@ public class MetaWebEditors {
 		return editorsByCollectionModel;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByTabModel() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)   
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByTabModel() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)   
 		if (editorsByTabModel == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -251,7 +305,10 @@ public class MetaWebEditors {
 	}	
 	
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByStereotype() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByStereotype() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByStereotype == null) {
 			init();
 			EditorsParser.setupEditors();								
@@ -259,7 +316,10 @@ public class MetaWebEditors {
 		return editorsByStereotype;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByModelProperty() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)		
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByModelProperty() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)		
 		if (editorsByModelProperty == null) {
 			init();
 			EditorsParser.setupEditors();			
@@ -267,7 +327,10 @@ public class MetaWebEditors {
 		return editorsByModelProperty;
 	}
 	
-	private synchronized static Map<String, MetaEditor> getEditorsByName() throws XavaException { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
+	/**
+	* @throws XavaException
+	 */
+	private synchronized static Map<String, MetaEditor> getEditorsByName() { // synchronized needed for starting as first module a module with list that starts in detail (wihout records)
 		if (editorsByName == null) {
 			init();
 			EditorsParser.setupEditors();
@@ -291,8 +354,9 @@ public class MetaWebEditors {
 	/**	 
 	 * @return Not null
 	 * @throws ElementNotFoundException If no editor for property	 
+	 * @throws XavaException
 	 */
-	private static MetaEditor getMetaEditorFor(MetaProperty p, String viewName) throws ElementNotFoundException, XavaException { 
+	private static MetaEditor getMetaEditorFor(MetaProperty p, String viewName) throws ElementNotFoundException { 
 		if (p.hasMetaModel()) {			
 			MetaEditor r = (MetaEditor) getMetaEditorForModelProperty(p.getName(), p.getMetaModel().getName());
 			if (r != null) {			
@@ -316,7 +380,10 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	private static MetaEditor getMetaEditorFor(MetaReference ref, String viewName) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private static MetaEditor getMetaEditorFor(MetaReference ref, String viewName) throws ElementNotFoundException { 
 		MetaEditor r = (MetaEditor) getMetaEditorForReferenceModel(ref.getReferencedModelName());	
 		if (r == null && !ref.isUsedForCollection()) r = (MetaEditor) getMetaEditorForAnnotation(ref, viewName);
 		if (r == null) {
@@ -328,7 +395,10 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	private static MetaEditor getMetaEditorFor(MetaCollection col, String viewName) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private static MetaEditor getMetaEditorFor(MetaCollection col, String viewName) throws ElementNotFoundException { 
 		MetaEditor r = (MetaEditor) getMetaEditorForCollectionModel(col.getMetaReference().getReferencedModelName());
 		if (r == null) r = (MetaEditor) getMetaEditorForAnnotation(col, viewName);
 		if (r == null) {
@@ -340,7 +410,10 @@ public class MetaWebEditors {
 		return r;
 	}
 	
-	public static MetaEditor getMetaEditorFor(MetaTab tab) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaEditor getMetaEditorFor(MetaTab tab) throws ElementNotFoundException {
 		MetaEditor r = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());		
 		if (r != null) return r;
 		Collection<MetaEditor> editors = getMetaEditorsFor(tab);
@@ -350,7 +423,10 @@ public class MetaWebEditors {
 		return editors.iterator().next();
 	}
 	
-	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static Collection<MetaEditor> getMetaEditorsFor(MetaTab tab) throws ElementNotFoundException {
 		MetaEditor customEditor = (MetaEditor) getMetaEditorForTabModel(tab.getModelName());
 		if (customEditor == null) {
 			Collection<MetaEditor> newEditorsForTabs = new ArrayList<>(editorsForTabs);
@@ -392,7 +468,10 @@ public class MetaWebEditors {
 		return editorToDelete;
 	}
 	
-	public static MetaEditor getMetaEditorFor(MetaMember member, String viewName) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaEditor getMetaEditorFor(MetaMember member, String viewName) throws ElementNotFoundException {
 		if (member instanceof MetaProperty) return getMetaEditorFor((MetaProperty) member, viewName);
 		if (member instanceof MetaReference) return getMetaEditorFor((MetaReference) member, viewName);
 		if (member instanceof MetaCollection) return getMetaEditorFor((MetaCollection) member, viewName); 

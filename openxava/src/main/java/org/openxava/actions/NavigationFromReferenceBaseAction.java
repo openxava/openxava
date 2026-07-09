@@ -62,7 +62,10 @@ abstract public class NavigationFromReferenceBaseAction extends ReferenceBaseAct
 		model = string;
 	}
 
-	public String getController() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getController() {
 		if (controller == null) {
 			String controllerModel = getCustomController();			
 			if (MetaControllers.contains(controllerModel)) {

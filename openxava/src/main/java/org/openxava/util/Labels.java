@@ -132,7 +132,10 @@ public class Labels {
 		}		
 	}		
 		
-	private static String getImpl(String id, Locale locale, boolean qualified) throws MissingResourceException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static String getImpl(String id, Locale locale, boolean qualified) throws MissingResourceException {
 		if (id == null) return "";
 		try {			
 			return getResource(id, locale);
@@ -214,7 +217,10 @@ public class Labels {
 		return exists(id, Locales.getCurrent());
 	}
 	
-	public static boolean existsExact(String id) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static boolean existsExact(String id) { 
 		return existsExact(id, Locale.getDefault());
 	}
 	
@@ -238,7 +244,10 @@ public class Labels {
 						
 	}
 	
-	public static boolean existsExact(String id, Locale locale) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static boolean existsExact(String id, Locale locale) {
 		if (id == null) return false;
 		if (labels.containsKey(id)) return true; 
 		try {
@@ -250,7 +259,10 @@ public class Labels {
 		}
 	}
 		
-	private static String getResource(String id, Locale locale) throws MissingResourceException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static String getResource(String id, Locale locale) throws MissingResourceException {
 		try { 
 			return getExactResource(id, locale);
 		}
@@ -274,7 +286,10 @@ public class Labels {
 		}
 	}	
 	
-	private static String getExactResource(String id, Locale locale) throws MissingResourceException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static String getExactResource(String id, Locale locale) throws MissingResourceException {
 		String name = "UNKNOW";
 		try {
 			Iterator it = MetaApplications.getApplicationsNames().iterator();

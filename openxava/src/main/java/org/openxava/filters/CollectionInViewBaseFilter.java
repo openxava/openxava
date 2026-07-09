@@ -40,8 +40,9 @@ abstract public class CollectionInViewBaseFilter implements IFilter {
 
 	/**
 	 * Values to add as key at the begin of arguments for filtering. <p>
+	 * @throws XavaException
 	 */
-	abstract protected Collection getKeyValues() throws XavaException; 
+	abstract protected Collection getKeyValues() ; 
 
 	public View getView() {
 		return view;

@@ -18,21 +18,30 @@ public class StereotypeTypeDefaultParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void configureStereotypeTypeDefault() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureStereotypeTypeDefault() {
 		StereotypeTypeDefaultParser enParser = new StereotypeTypeDefaultParser("stereotype-type-default.xml", ENGLISH);
 		enParser.parse();		
 		StereotypeTypeDefaultParser esParser = new StereotypeTypeDefaultParser("tipo-estereotipo-defecto.xml", ESPANOL);
 		esParser.parse();
 	}
 	
-	private void createForStereotype(Node n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void createForStereotype(Node n) {		
 		Element el = (Element) n;
 		String name = el.getAttribute(xstereotype[lang]);		
 		String type = el.getAttribute(xtype[lang]);			
 		TypeStereotypeDefault._addForStereotype(name, type);		
 	}
 	
-	private void createForStereotypes() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void createForStereotypes() {		
 		NodeList l = getRoot().getElementsByTagName(xfor[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -40,7 +49,10 @@ public class StereotypeTypeDefaultParser extends ParserBase {
 		}
 	}
 			
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createForStereotypes();	
 	}
 			

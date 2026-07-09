@@ -62,8 +62,11 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 		}		
 	}
 	 
+	/**
+	* @throws XavaException
+	 */
 	public void remove(MetaModel metaModel, Map keyValues)
-			throws RemoveException, XavaException {  
+			throws RemoveException {  
 		try {
 			Object model = find(metaModel, keyValues, false);  
 			XPersistence.getManager().remove(model);

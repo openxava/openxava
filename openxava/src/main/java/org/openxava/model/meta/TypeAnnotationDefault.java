@@ -18,14 +18,20 @@ public class TypeAnnotationDefault {
 	
 	
 	
-	public static void _addForAnnotation(String annotationClassName, String type) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForAnnotation(String annotationClassName, String type) {
 		if (annotations == null) {
 			throw new XavaException("only_from_parse", "TypeAnnotationDefault._addForAnnotation");
 		}				
 		annotations.put(annotationClassName, type);
 	}
 	
-	public static String forAnnotation(Annotation annotation) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String forAnnotation(Annotation annotation) throws ElementNotFoundException {
 		if (annotations == null) {
 			configure();
 		}		 
@@ -37,7 +43,10 @@ public class TypeAnnotationDefault {
 		return result;
 	}
 			
-	private static void configure() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void configure() {
 		annotations = new HashMap<>();		
 		AnnotationTypeDefaultParser.configureAnnotationTypeDefault();
 	}

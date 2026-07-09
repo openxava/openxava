@@ -19,7 +19,10 @@ public class MetaAggregateForReference extends MetaAggregate {
 	private java.lang.String beanClass;	
 	private Map persistentPropertiesReferencesMap;
 		
-	public java.lang.String getBeanClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public java.lang.String getBeanClass() {
 		if (Is.emptyString(beanClass)) {
 			String packageName = getMetaComponent().getPackageName();
 			beanClass =  packageName + "." + getName();
@@ -31,7 +34,10 @@ public class MetaAggregateForReference extends MetaAggregate {
 		beanClass = newClass;
 	}
 		
-	public Class getPropertiesClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Class getPropertiesClass() {
 		try {
 			return Class.forName(getBeanClass());
 		} 
@@ -41,11 +47,17 @@ public class MetaAggregateForReference extends MetaAggregate {
 		}
 	}
 
-	public ModelMapping getMapping() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public ModelMapping getMapping() { 
 		throw new XavaException("aggregate_bean_no_mapping", getName(), getMetaComponent().getName());
 	}
 		
-	public Collection getMetaPropertiesPersistents(MetaReference ref) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection getMetaPropertiesPersistents(MetaReference ref) {
 		Collection result = (Collection) getPersistentPropertiesReferencesMap().get(ref);		
 		if (result != null) {
 			return result;
@@ -76,7 +88,10 @@ public class MetaAggregateForReference extends MetaAggregate {
 	}
 
 	
-	public Collection getPersistentsPropertiesNames(MetaReference ref) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection getPersistentsPropertiesNames(MetaReference ref) {
 		Iterator it = getMetaPropertiesPersistents(ref).iterator();
 		Collection result = new ArrayList();
 		while (it.hasNext()) {

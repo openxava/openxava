@@ -21,7 +21,10 @@ public class ValidatorsParser extends ParserBase {
 		super(urlArchivoXml, language);
 	}
 	
-	public static void configureValidators() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureValidators() {
 		ValidatorsParser defaultParser = new ValidatorsParser("default-validators.xml", ENGLISH);
 		defaultParser.parse();
 		ValidatorsParser enParser = new ValidatorsParser("validators.xml", ENGLISH);
@@ -30,7 +33,10 @@ public class ValidatorsParser extends ParserBase {
 		esParser.parse();		
 	}
 	
-	private MetaValidator createValidator(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaValidator createValidator(Node n) {
 		Element el = (Element) n;
 		MetaValidator result = new MetaValidator();
 		result.setName(el.getAttribute(xname[lang]));
@@ -38,7 +44,10 @@ public class ValidatorsParser extends ParserBase {
 		return result;
 	}
 	
-	private void addValidatorsFor(Node n, boolean requiredValidators) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addValidatorsFor(Node n, boolean requiredValidators) {
 		Element el = (Element) n;
 				
 		String validatorName = null;
@@ -102,7 +111,10 @@ public class ValidatorsParser extends ParserBase {
 		}
 	}
 		
-	private void createValidators() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createValidators() {
 		NodeList l = getRoot().getElementsByTagName(xvalidator[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -111,7 +123,10 @@ public class ValidatorsParser extends ParserBase {
 	}
 		
 	
-	private void createRequiredValidators() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createRequiredValidators() {
 		NodeList l = getRoot().getElementsByTagName(xrequired_validator[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -119,7 +134,10 @@ public class ValidatorsParser extends ParserBase {
 		}
 	}
 	
-	private void createDefaultValidators() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createDefaultValidators() {
 		NodeList l = getRoot().getElementsByTagName(xdefault_validator[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -127,7 +145,10 @@ public class ValidatorsParser extends ParserBase {
 		}
 	}	
 		
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createValidators();
 		createRequiredValidators();
 		createDefaultValidators();

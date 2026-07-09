@@ -20,7 +20,10 @@ public class MetaViewAction extends MetaProperty {
 	
 	
 	
-	public MetaViewAction(String action) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaViewAction(String action) {
 		this.action = action;
 		setTypeName("java.lang.String");
 		setName("__ACTION__" + Strings.change(this.action, ".", "_"));

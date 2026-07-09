@@ -167,7 +167,10 @@ public class MetaAction extends MetaControllerElement implements Cloneable {
 		metaSets.add(metaSet);		
 	}
 	
-	public IAction createAction() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IAction createAction() {
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof IAction)) {

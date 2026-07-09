@@ -159,38 +159,62 @@ public class MetaEditor implements Cloneable {
 		return propertiesIDepend.contains(p.getName());
 	}
 
-	public boolean hasFormatter() throws XavaException {				
+	/**
+	* @throws XavaException
+	 */
+	public boolean hasFormatter() {				
 		return !Is.emptyString(formatterClassName); 
 	}
 		
-	public boolean hasMultipleValuesFormatter() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public boolean hasMultipleValuesFormatter() { 
 		return !Is.emptyString(formatterClassName) && getFormatterObject(formatterClassName, formatterMetaSets) instanceof IMultipleValuesFormatter;
 	}
 	
-	public Object getFormatterObject() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Object getFormatterObject() { 
 		return getFormatterObject(formatterClassName, formatterMetaSets);
 	}
 		
-	public IFormatter getFormatter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IFormatter getFormatter() {
 		return (IFormatter) getFormatterObject(); 
 	}
 	
-	public Object getListFormatterObject() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Object getListFormatterObject() { 
 		if (listFormatter == null) { 
 			listFormatter = createFormatterObject(listFormatterClassName, listFormatterMetaSet);
 		}
 		return listFormatter;
 	}
 
-	public IFormatter getListFormatter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public IFormatter getListFormatter() {
 		return (IFormatter) getListFormatterObject(); 
 	}
 	
-	public IMultipleValuesFormatter getMultipleValuesFormatter() throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	public IMultipleValuesFormatter getMultipleValuesFormatter() {  
 		return (IMultipleValuesFormatter) getFormatterObject(); 
 	}
 	
-	public IMetaPropertyFormatter getMetaPropertyFormatter() throws XavaException {   
+	/**
+	* @throws XavaException
+	 */
+	public IMetaPropertyFormatter getMetaPropertyFormatter() {   
 		return (IMetaPropertyFormatter) getFormatterObject(); 
 	}
 	
@@ -199,7 +223,10 @@ public class MetaEditor implements Cloneable {
 	 * @throws XavaException For example, if className is empty string
 	 */
 	
-	private Object getFormatterObject(String className, Collection<MetaSet> metaSets) throws XavaException{
+	/**
+	* @throws XavaException
+	 */
+	private Object getFormatterObject(String className, Collection<MetaSet> metaSets) {
 		if (formatter == null) {
 			formatter = createFormatterObject(className, metaSets);
 		}

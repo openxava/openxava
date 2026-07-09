@@ -34,21 +34,28 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		detail.setContainer(this); 
 	}
 	
-	String getReferencedModelName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	String getReferencedModelName() {
 		if (referencedModelName == null) {
 			referencedModelName = getContainer().getMetaModel().getMetaReference(getReference()).getReferencedModelName();
 		}
 		return referencedModelName;
 	}
 	
-	public String getReferencedTable() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getReferencedTable() {
 		return getReferencedMapping().getTable();
 	}
 	
 	/**
 	 * Qualified column. <p>
+	 * @throws XavaException
 	 */
-	public String getColumnForReferencedModelProperty(String property) throws ElementNotFoundException, XavaException {
+	public String getColumnForReferencedModelProperty(String property) throws ElementNotFoundException {
 		Object result = details.get(property);
 		if (result == null) {
 			throw new ElementNotFoundException("reference_mapping_property_not_found", property, referencedModelName, reference);
@@ -56,7 +63,10 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		return ((ReferenceMappingDetail) result).getColumn();  
 	}
 	
-	public String getCmpTypeNameForReferencedModelProperty(String property) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getCmpTypeNameForReferencedModelProperty(String property) throws ElementNotFoundException {
 		Object result = details.get(property);
 		if (result == null) {
 			throw new ElementNotFoundException("reference_mapping_property_not_found", property, referencedModelName, reference);
@@ -64,7 +74,10 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		return ((ReferenceMappingDetail) result).getCmpTypeName();  
 	}
 	
-	public IConverter getConverterForReferencedModelProperty(String property) throws ElementNotFoundException, XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public IConverter getConverterForReferencedModelProperty(String property) throws ElementNotFoundException { 
 		Object result = details.get(property);
 		if (result == null) {
 			throw new ElementNotFoundException("reference_mapping_property_not_found", property, referencedModelName, reference);
@@ -88,7 +101,10 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 	}
 	
 	
-	ModelMapping getReferencedMapping() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	ModelMapping getReferencedMapping() {
 		if (referencedMapping == null) {
 			referencedMapping = MetaComponent.get(getReferencedModelName()).getEntityMapping();
 		}
@@ -109,7 +125,10 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		this.reference = reference;
 	}
 	
-	public Collection<String> getColumns() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<String> getColumns() {
 		if (columns == null) {
 			columns = new ArrayList<String>();			
 			Collection<String> keyProperties = getContainer().getMetaModel().getMetaReference(getReference()).getMetaModelReferenced().getAllKeyPropertiesNames();
@@ -120,14 +139,20 @@ public class ReferenceMapping implements java.io.Serializable, Cloneable {
 		return columns;
 	}
 	
-	public String getCMPAttribute(String propertyNameOfReferencedModel) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getCMPAttribute(String propertyNameOfReferencedModel) {
 		if (getContainer().isReferenceOverlappingWithSomeProperty(getReference(), propertyNameOfReferencedModel)) {
 			return getContainer().getCMPAttributeForColumn(getColumnForReferencedModelProperty(propertyNameOfReferencedModel));
 		}
 		return "_" + Strings.change(Strings.firstUpper(getReference()) + "_" + propertyNameOfReferencedModel, ".", "_");
 	}
 
-	public Collection<CmpField> getCmpFields() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<CmpField> getCmpFields() {
 		Collection<CmpField> fields = new ArrayList<CmpField>();  
 		for (Iterator<ReferenceMappingDetail> it=getDetails().iterator(); it.hasNext();) {
 			ReferenceMappingDetail d = it.next();

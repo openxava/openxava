@@ -26,7 +26,10 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	private IConnectionProvider connectionProvider;
 	private boolean xmlComponent;
 		
-	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) throws SystemException {		
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) {		
 		DataChunk tv = null;
 		try {
 			tv = tabProvider.nextChunk();
@@ -69,7 +72,10 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return tv;
 	}
 	
-	public IConnectionProvider getConnectionProvider() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public IConnectionProvider getConnectionProvider() {
 		if (connectionProvider == null) {			 		
 			try {
 				connectionProvider = DataSourceConnectionProvider.createByComponent(getComponentName());
@@ -82,7 +88,10 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return connectionProvider;		
 	}	
 
-	private Object[] doCalculations(String modelName, Object[] row, Collection tabCalculators, Map keyIndexes, List propertiesNames) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object[] doCalculations(String modelName, Object[] row, Collection tabCalculators, Map keyIndexes, List propertiesNames) {
 		Object entity = null;
 		Iterator itCalculators = tabCalculators.iterator();
 		while (itCalculators.hasNext()) {
@@ -154,9 +163,11 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	 * @param keyIndexes Map with names and indexes of key
 	 * @exception  FinderException  If cannot find the row
 	 * @exception  NullPointerException  If <tt>row == null</tt>.
+	 * @throws XavaException
+	 * @throws SystemException
 	 */
 	private Object getEntity(String modelName, Object[] row, Map keyIndexes)
-		throws FinderException, XavaException, SystemException {
+		throws FinderException {
 		if (keyIndexes == null) return null;
 		Iterator it = keyIndexes.entrySet().iterator();
 		Map key = new HashMap();		
@@ -169,7 +180,10 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return MapFacade.findEntity(modelName, key);
 	}
 		
-	private Object[] doConversions(Object[] row, Collection<TabConverter> tabConverters) throws XavaException {				
+	/**
+	* @throws XavaException
+	 */
+	private Object[] doConversions(Object[] row, Collection<TabConverter> tabConverters) {				
 		for (TabConverter tabConverter: tabConverters) {
 			try {				
 				int idx = tabConverter.getIndex();				
@@ -197,8 +211,11 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return row;		
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private Object getValue(String propertyName, Object[] values, List propertiesNames)
-		throws XavaException {
+		{
 		return values[propertiesNames.indexOf(propertyName)];
 	}
 	

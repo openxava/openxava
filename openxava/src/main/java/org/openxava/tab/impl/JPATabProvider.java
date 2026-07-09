@@ -261,7 +261,10 @@ public class JPATabProvider extends TabProviderBase {
 		return getMetaModel().containsMetaCollection(collection);
 	}
 
-	public DataChunk nextChunk() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk() {
 		if (getSelect() == null || isEOF()) { // search not called yet
 			return new DataChunk(Collections.EMPTY_LIST, true, getCurrent()); // Empty
 		}		

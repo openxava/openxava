@@ -81,11 +81,17 @@ public class XTableModelDecoratorBase
 		impl.setValueAt(aValue, rowIndex, columnIndex);
 	}
 
-	public int getTotalSize() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	public int getTotalSize() {
 		return impl.getTotalSize();		
 	}
 
-	public Number getSum(String property) throws SystemException { 
+	/**
+	* @throws SystemException
+	 */
+	public Number getSum(String property) { 
 		return impl.getSum(property);		
 	}
 		

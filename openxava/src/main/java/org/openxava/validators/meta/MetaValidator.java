@@ -28,7 +28,10 @@ public class MetaValidator extends MetaSetsContainer {
 		super();
 	}
 
-	public java.lang.String getClassName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public java.lang.String getClassName() {
 		if (Is.emptyString(className)) {
 			className = MetaValidators.getMetaValidator(getName()).getClassName();
 		}
@@ -50,8 +53,9 @@ public class MetaValidator extends MetaSetsContainer {
 	/**
 	 * Creates a validator each time that this method is called;
 	 * this validator is configured with the values assigned in XML. 
+	 * @throws XavaException
 	 */
-	public IValidator createValidator() throws XavaException {
+	public IValidator createValidator() {
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof IValidator)) {
@@ -77,8 +81,9 @@ public class MetaValidator extends MetaSetsContainer {
 	
 	/**
 	 * The first time the validator is created, the other times returns the created one.
+	 * @throws XavaException
 	 */
-	public IValidator getValidator() throws XavaException {
+	public IValidator getValidator() {
 		if (validator == null) {
 			validator = createValidator();
 		}
@@ -88,8 +93,9 @@ public class MetaValidator extends MetaSetsContainer {
 	/**
 	 * Creates a validator each time that this method is called;
 	 * this validator is configured with the values assigned in XML. 
+	 * @throws XavaException
 	 */
-	public IPropertyValidator createPropertyValidator() throws XavaException {
+	public IPropertyValidator createPropertyValidator() {
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof IPropertyValidator)) {
@@ -115,8 +121,9 @@ public class MetaValidator extends MetaSetsContainer {
 	
 	/**
 	 * The first time the validator is created, the other times returns the created one.
+	 * @throws XavaException
 	 */
-	public IPropertyValidator getPropertyValidator() throws XavaException {
+	public IPropertyValidator getPropertyValidator() {
 		if (propertyValidator == null) {
 			propertyValidator = createPropertyValidator();
 		}
@@ -126,8 +133,9 @@ public class MetaValidator extends MetaSetsContainer {
 	/**
 	 * Creates a validator each time that this method is called;
 	 * this validator is configured with the values assigned in XML. 
+	 * @throws XavaException
 	 */
-	public IRemoveValidator createRemoveValidator() throws XavaException {
+	public IRemoveValidator createRemoveValidator() {
 		try {
 			Object o = Class.forName(getClassName()).newInstance();
 			if (!(o instanceof IRemoveValidator)) {
@@ -150,8 +158,9 @@ public class MetaValidator extends MetaSetsContainer {
 	
 	/**
 	 * The first time the validator is created, the other times returns the created one.
+	 * @throws XavaException
 	 */
-	public IRemoveValidator getRemoveValidator() throws XavaException {
+	public IRemoveValidator getRemoveValidator() {
 		if (removeValidator == null) {
 			removeValidator = createRemoveValidator();
 		}

@@ -35,9 +35,13 @@ public interface IXTableModel extends IObjectTableModel, IRefreshTableModel {
 	 * 
 	 * <code>getRowCount()</code> in another side, 
 	 * return the loaded objects count, not total.<br>
+	 * @throws SystemException
 	 */
-	int getTotalSize() throws SystemException;
-	Number getSum(String property) throws SystemException;
+	int getTotalSize() ;
+	/**
+	* @throws SystemException
+	 */
+	Number getSum(String property) ;
 	
 	
 	/** @since 5.7 */
