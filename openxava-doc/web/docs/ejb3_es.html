@@ -1,32 +1,32 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>EJB3 JPA - OpenXava</title>
+    <title>JPA - OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
   </head>
   <body>
     <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="EJB3 JPA"></a>
+      <h1 id="toc0"><a name="JPA"></a>
         <span id="breadcrumbs"> 
         	<span id="openxava"> 
             <a href="https://www.openxava.org/">
               <span>o</span>pen<span>x</span>ava </a> </span> 
           / <a href="index_es.html">documentación</a> / 
         </span>
-        EJB3 JPA</h1>
+        JPA</h1>
       <div id="toc">
         <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#EJB3%20JPA">EJB3 JPA</a></div>
-        <div style="margin-left: 2em;"><a href="#EJB3%20JPA-Configurar%20nuestra%20aplicacion%20para%20que%20funcione%20con%20EJB3">Configurar
-            nuestra aplicacion para que funcione con EJB3</a></div>
-        <div style="margin-left: 2em;"><a href="#EJB3+JPA-Usando+JPA+en+nuestro+c%C3%B3digo">Usando
+        <div style="margin-left: 1em;"><a href="#JPA">JPA</a></div>
+        <div style="margin-left: 2em;"><a href="#JPA-Configurar%20nuestra%20aplicacion%20para%20que%20funcione%20con%20JPA">Configurar
+            nuestra aplicacion para que funcione con JPA</a></div>
+        <div style="margin-left: 2em;"><a href="#JPA-Usando+JPA+en+nuestro+c%C3%B3digo">Usando
             JPA en nuestro código</a></div>
-        <div style="margin-left: 2em;"><a href="#EJB3+JPA-Usar+JPA+en+un+validador+o+m%C3%A9todo+de+retrollamada">Usar
+        <div style="margin-left: 2em;"><a href="#JPA-Usar+JPA+en+un+validador+o+m%C3%A9todo+de+retrollamada">Usar
             JPA en un validador o método de retrollamada</a></div>
       </div>
-      OpenXava soporta EJB3 desde la versión 2.1.<br>
-      <h2 id="toc1"><a name="EJB3 JPA-Configurar nuestra aplicacion para que funcione con EJB3"></a>Configurar
-        nuestra aplicacion para que funcione con EJB3</h2>
+      OpenXava soporta JPA desde la versión 2.1.<br>
+      <h2 id="toc1"><a name="JPA-Configurar nuestra aplicacion para que funcione con JPA"></a>Configurar
+        nuestra aplicacion para que funcione con JPA</h2>
       Desde la v3.0 JPA es el gestor de pesistencia por defecto, así que no
       tienes que hacer nada. Pero si usas v2.1 o v2.2 y quieres usar JPA
       entonces has de editar el archivo <em>properties/xava.properties</em> de
@@ -41,12 +41,12 @@
 .text span.xtra { display:block; }
 
 -->
-</style><pre class="text"># EJB3 Java Persistence API
+</style><pre class="text"># JPA
 persistenceProviderClass=org.openxava.model.impl.JPAPersistenceProvider
 mapFacadeAsEJB=false</pre>
-      A partir de ahora, tu aplicación usará EJB3 JPA en lugar de Hibernate para
+      A partir de ahora, tu aplicación usará JPA en lugar de Hibernate para
       manejar la persistencia de los objetos.<br>
-      <h2 id="toc2"><a name="EJB3 JPA-Usando JPA en nuestro código"></a>Usando
+      <h2 id="toc2"><a name="JPA-Usando JPA en nuestro código"></a>Usando
         JPA en nuestro código</h2>
       Podemos usar el estándar <a class="wiki_link_ext" href="http://es.wikipedia.org/wiki/Java_Persistence_API"
 
@@ -480,7 +480,7 @@ class="br0">)</span><span class="sy0">;</span></pre>
           href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/jpa/XPersistence.html"
 
           rel="nofollow">org.openxava.jpa.XPersistence</a></em>.<br>
-      <h2 id="toc3"><a name="EJB3 JPA-Usar JPA en un validador o método de retrollamada"></a>Usar
+      <h2 id="toc3"><a name="JPA-Usar JPA en un validador o método de retrollamada"></a>Usar
         JPA en un validador o método de retrollamada</h2>
       Tanto los validares como los métodos de retrollamada se pueden ejecutar en
       el momento de hacer la grabación en la base de datos (flush), por tanto si
