@@ -5,6 +5,7 @@ import java.rmi.*;
 import java.util.*;
 
 import org.openxava.model.*;
+import org.openxava.model.ObjectNotFoundException;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;

@@ -209,7 +209,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new EJBException(XavaResources.getString("tab_result_size_error"));
+			throw new SystemException(XavaResources.getString("tab_result_size_error"), ex);
 		}
 	}	
 	
@@ -219,7 +219,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new EJBException(XavaResources.getString("total_problem")); 
+			throw new SystemException(XavaResources.getString("total_problem"), ex); 
 		}
 	}
 		

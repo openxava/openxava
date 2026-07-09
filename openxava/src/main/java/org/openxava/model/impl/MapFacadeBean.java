@@ -1952,7 +1952,6 @@ public class MapFacadeBean {
 	}
 	
 	private void rollback(MetaModel metaModel) throws RemoteException {
-		if (getSessionContext() != null) getSessionContext().setRollbackOnly();
 		getPersistenceProvider(metaModel).rollback();
 		HibernateValidatorInhibitor.setInhibited(false); 
 	}
