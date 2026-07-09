@@ -1,5 +1,19 @@
 Pending EJB removal (tmr)
 
+- Documentación:
+
+controllers_en.html / controllers_es.html
+Frases como "buscar en la base de datos (o a través de EJB2, EJB3 JPA o Hibernate)" y
+"EJB EntityBeans CMP2".
+
+multischema_en.html / multischema_es.html
+"Hibernate y EJB3 JPA como motores de persistencia" y "EJB2 CMP no soporta multiesquema".
+
+model_en.html / model_es.html
+Ejemplos de persistence.xml usan org.hibernate.ejb.HibernatePersistence (proveedor obsoleto;
+aunque no es javax.ejb, contiene ejb).
+
+
 - Changelog:
     - Dejamos de usar RemoteException
     - SystemException y XavaException ya no están el los throws
