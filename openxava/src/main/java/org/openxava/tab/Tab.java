@@ -555,7 +555,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 
-	private List getRemainingPropertiesNames() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private List getRemainingPropertiesNames() {
 		if (isColumnsToAddUntilSecondLevel()) {
 			List result = getMetaTab().getRemainingPropertiesNamesUntilSecondLevel();
 			if (result.isEmpty()) {
@@ -585,7 +588,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.columnsToAddUntilSecondLevel = columnsToAddUntilSecondLevel;
 	}
 	
-	public Collection<String> getColumnsToAdd() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public Collection<String> getColumnsToAdd() {
 		List<String> result = new ArrayList<String>((Collection<String>) getRemainingPropertiesNames());
 		
 		Collections.sort(result, new Comparator<String>() {
@@ -600,7 +606,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return result;
 	}
 
-	public List<MetaProperty> getMetaPropertiesNotCalculated() throws XavaException { 
+	/**
+	 * @throws XavaException
+	 */
+	public List<MetaProperty> getMetaPropertiesNotCalculated() { 
 		if (metaPropertiesNotCalculated == null) {
 			metaPropertiesNotCalculated = new ArrayList<MetaProperty>();
 			Iterator it = getMetaProperties().iterator();			
@@ -614,11 +623,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return metaPropertiesNotCalculated;
 	}
 		
-	public String getBaseCondition() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public String getBaseCondition() {
 		return baseCondition;
 	}
 			
-	public void setBaseCondition(String condition) throws XavaException { 		
+	/**
+	 * @throws XavaException
+	 */
+	public void setBaseCondition(String condition) { 		
 		if (Is.equalAsString(this.baseCondition, condition)) return; 
 		
 		this.tableModel = null; 
@@ -636,8 +651,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	/**
 	 * This is an alternative to setModelName, and is used when this
 	 * tab represent a collection of references.
+	 * @throws XavaException
 	 */
-	public void setReferencesCollection(String model, String collectionName) throws XavaException {
+	public void setReferencesCollection(String model, String collectionName) {
 		MetaModel metaModel = MetaComponent.get(model).getMetaEntity(); 
 		MetaReference ref = metaModel.getMetaCollection(collectionName).getMetaReference();
 		setModelName(ref.getReferencedModelName());		
@@ -647,7 +663,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		getMetaTab().setPropertiesNames("*");
 	}
 	
-	private void createBaseConditionForReference() throws XavaException {				
+	/**
+	 * @throws XavaException
+	 */
+	private void createBaseConditionForReference() {				
 		Iterator it = referencesCollectionMapping.getDetails().iterator();
 		StringBuffer condition = new StringBuffer();
 		while (it.hasNext()) {
@@ -659,7 +678,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		setBaseConditionForReference(condition.toString());
 	}
 	
-	public void setBaseConditionValuesForReference(Map values) throws XavaException { 
+	/**
+	 * @throws XavaException
+	 */
+	public void setBaseConditionValuesForReference(Map values) { 
 		ReferenceMapping mapping = referencesCollectionMapping;
 		Iterator it = mapping.getDetails().iterator();
 		baseConditionValuesForReference = new Object[mapping.getDetails().size()];
@@ -669,13 +691,19 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}		
 	}
 		
-	private void cloneMetaTab() throws XavaException { 
+	/**
+	 * @throws XavaException
+	 */
+	private void cloneMetaTab() { 
 		if (metaTabCloned) return;		
 		metaTab = getMetaTab().cloneMetaTab();		
 		metaTabCloned = true;
 	}
 		
-	public MetaTab getMetaTab() throws XavaException  { 
+	/**
+	 * @throws XavaException
+	 */
+	public MetaTab getMetaTab() { 
 		if (metaTab == null) {				
 			try {			
 				metaTab = MetaComponent.get(getModelName()).getMetaTab(getTabName());
@@ -772,7 +800,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	public void setMetaRowStyles(Collection<org.openxava.tab.meta.MetaRowStyle> styles) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void setMetaRowStyles(Collection<org.openxava.tab.meta.MetaRowStyle> styles) {
 		// WARNING! This will change the row style for all tab with this MetaTab
 		getMetaTab().setMetaRowStyles(styles);
 	}
@@ -1139,7 +1170,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	private ModuleManager getModuleManager() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private ModuleManager getModuleManager() {
 		if (moduleManager == null) {
 			if (getRequest() == null) return null;
 			ModuleContext context = (ModuleContext) getRequest().getSession().getAttribute("context");
@@ -1148,7 +1182,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return moduleManager;
 	}
 
-	private String decorateConditionProperty(MetaProperty metaProperty, int i) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private String decorateConditionProperty(MetaProperty metaProperty, int i) {
 		String property = "${" + metaProperty.getQualifiedName() + "}";
 		if ("year_comparator".equals(this.conditionComparators[i])) {
 			return metaProperty.getMetaModel().getMapping().yearSQLFunction(property);
@@ -1170,7 +1207,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 	}
 
 
-	private Object convertComparator(MetaProperty p, String comparator) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private Object convertComparator(MetaProperty p, String comparator) {
 		if (STARTS_COMPARATOR.equals(comparator)) return "like";		
 		if (CONTAINS_COMPARATOR.equals(comparator)) return "like";
 		if (ENDS_COMPARATOR.equals(comparator)) return "like"; 
@@ -1205,7 +1245,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return Is.empty(value);
 	}
 
-	private Object [] getKey() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private Object [] getKey() {
 		if (conditionValuesToWhere == null || conditionValuesToWhere.length == 0) {
 			return filterKey(null);
 		}
@@ -1273,7 +1316,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return XavaResources.getLocale(request);
 	}
 
-	private Object[] filterKey(Object[] key) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private Object[] filterKey(Object[] key) {
 		// first, for references
 		if (baseConditionValuesForReference != null && baseConditionValuesForReference.length > 0) {
 			if (key==null) key=new Object[0];
@@ -1566,7 +1612,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		}
 	}
 	
-	private void setConditionValuesImpl(String [] values) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	private void setConditionValuesImpl(String [] values) {
 		if (Arrays.equals(this.conditionValues, values)) return;
 		if (getMetaPropertiesNotCalculated().size() != values.length) return; // to avoid problems on changing module
 		this.conditionValues = values;
@@ -1587,20 +1636,27 @@ public class Tab implements java.io.Serializable, Cloneable {
 	/**
 	 * 
 	 * @since 4.6
+	 * @throws XavaException
 	 */
-	public void setConditionValues(Collection<String> values) throws XavaException {  
+	public void setConditionValues(Collection<String> values) {  
 		this.conditionValues = XCollections.toStringArray(values);
 		condition = null;
 	}	
 
-	private void setConditionValuesToImpl(String [] values) throws XavaException { 
+	/**
+	 * @throws XavaException
+	 */
+	private void setConditionValuesToImpl(String [] values) { 
 		if (Arrays.equals(this.conditionValuesTo, values)) return;
 		if (getMetaPropertiesNotCalculated().size() != values.length) return; // to avoid problems on changing module
 		this.conditionValuesTo = values;				
 		condition = null;
 	}
 	
-	private void setConditionComparatorsImpl(String [] comparators) throws XavaException { 
+	/**
+	 * @throws XavaException
+	 */
+	private void setConditionComparatorsImpl(String [] comparators) { 
 		if (Arrays.equals(this.conditionComparators, comparators)) return;
 		if (getMetaPropertiesNotCalculated().size() != comparators.length) return;
 		this.conditionComparators = comparators;
@@ -1610,8 +1666,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	/**
 	 * 
 	 * @since 4.6
+	 * @throws XavaException
 	 */	
-	public void setConditionComparators(Collection<String> comparators) throws XavaException {  
+	public void setConditionComparators(Collection<String> comparators) {  
 		this.conditionComparators = XCollections.toStringArray(comparators);
 		condition = null;						
 	}	
@@ -2142,7 +2199,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		condition = null; 
 	}
 	
-	public String getTitle() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public String getTitle() {
 		if (title != null) 	return title; 		
 		if (getCollectionView() != null) return getCollectionTitle(); 
 		String modelName = getModelName();
@@ -2154,7 +2214,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return XavaResources.getString(request, "report_title", modelLabel);
 	}
 	
-	public String getConfigurationName() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public String getConfigurationName() {
 		if (configuration != null) return configuration.getName(); 
 		return Labels.get("all");
 	}
@@ -2178,7 +2241,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.title = title;		
 	}
 	
-	private String getCollectionTitle() throws XavaException {		
+	/**
+	 * @throws XavaException
+	 */
+	private String getCollectionTitle() {		
 		Locale locale = XavaResources.getLocale(request);
 		View parentView = getCollectionView().getParent();
 		MetaModel metaModel = parentView.getMetaModel(); 
@@ -2235,7 +2301,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return formateador.format(titleArguments);		
 	}
 
-	public static String getTitleI18n(Locale locale, String modelName, String tabName) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public static String getTitleI18n(Locale locale, String modelName, String tabName) {
 		return MetaTab.getTitleI18n(locale, modelName, tabName);
 	}
 		
@@ -2246,11 +2315,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 		this.baseConditionForReference = baseConditionForReference;
 	}
 
-	public void addProperty(String propertyName) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void addProperty(String propertyName) {
 		addProperties(Collections.singleton(propertyName));
 	}
 	
-	public void addProperty(int index, String propertyName) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void addProperty(int index, String propertyName) {
 		applyPropertyChange(
 			() -> getMetaTab().addProperty(index, propertyName),
 			insertAt(index),
@@ -2264,8 +2339,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * Add properties without using old configuration. 
 	 * 
 	 * @since 7.1
+	 * @throws XavaException
 	 */
-	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) throws XavaException {
+	public void addProperties(List<String> propertiesName, String[] conditionValues, String[] conditionValuesTo, String[] conditionComparators) {
 		// Build meta change and a combined config adjuster
 		Runnable metaChange = () -> {
 			for (int i = 0; i < propertiesName.size(); i++) {
@@ -2307,7 +2383,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return result;
 	}
 	
-	public void addProperties(Collection properties) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void addProperties(Collection properties) {
 		Runnable metaChange = () -> {
 			for (Iterator it=properties.iterator(); it.hasNext();) {
 				getMetaTab().addProperty((String) it.next());
@@ -2334,11 +2413,17 @@ public class Tab implements java.io.Serializable, Cloneable {
 		resetAfterChangeProperties(); 
 	}
 	
-	public void removeProperty(int index) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void removeProperty(int index) {
 		removeProperty(getMetaProperties().get(index).getQualifiedName());		
 	}	
 
-	public void removeProperty(String propertyName) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void removeProperty(String propertyName) {
 		int idx = indexOf(getMetaPropertiesNotCalculated(), propertyName);
 		applyPropertyChange(
 			() -> getMetaTab().removeProperty(propertyName),
@@ -2385,7 +2470,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return indexOf(getMetaPropertiesNotCalculated(), getMetaProperties().get(indexForAllProperties).getQualifiedName());
 	}
 
-	public void restoreDefaultProperties() throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void restoreDefaultProperties() {
 		List<String> oldProperties = MetaMember.toQualifiedNames(getMetaPropertiesNotCalculated());
 		resetProperties();
 		sumPropertiesNames = null; 
@@ -2403,7 +2491,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		removeUserPreferences(); 
 	}
 	
-	public void clearProperties() throws XavaException {	
+	/**
+	 * @throws XavaException
+	 */
+	public void clearProperties() {	
 		cloneMetaTab();
 		getMetaTab().clearProperties();		
 		resetAfterChangeProperties();
@@ -2787,8 +2878,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * {@link #setFilter(IFilter)} method.<br>  
 	 * 
 	 * @return Can be null.
+	 * @throws XavaException
 	 */
-	public IFilter getFilter() throws XavaException { 
+	public IFilter getFilter() { 
 		if (filter != null) return filter;
 		if (getMetaTab().hasFilter()) {
 			return getMetaTab().getMetaFilter().getFilter();
@@ -2810,8 +2902,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * Set the properties to be displayed by this <code>Tab</code> in runtime. <p>
 	 * 
 	 * This override the properties defined using &lt;tab&gt; or @Tab.<br>
+	 * @throws XavaException
 	 */
-	public void setPropertiesNames(String propertiesNames) throws XavaException {
+	public void setPropertiesNames(String propertiesNames) {
 		cloneMetaTab();
 		getMetaTab().setPropertiesNames(propertiesNames);
 		resetAfterChangeProperties();
@@ -2822,8 +2915,9 @@ public class Tab implements java.io.Serializable, Cloneable {
 	 * Set the default order for this <code>Tab</code> in runtime. <p>
 	 * 
 	 * This override the default order defined using &lt;tab&gt; or @Tab.<br>
+	 * @throws XavaException
 	 */	
-	public void setDefaultOrder(String defaultOrder) throws XavaException {  
+	public void setDefaultOrder(String defaultOrder) {  
 		cloneMetaTab();
 		getMetaTab().setDefaultOrder(defaultOrder);		
 		resetAfterChangeProperties();				
@@ -3177,7 +3271,10 @@ public class Tab implements java.io.Serializable, Cloneable {
 		return ignorePageRowCount;
 	}
 
-	public void cutOutRow(Map keyValues) throws XavaException {
+	/**
+	 * @throws XavaException
+	 */
+	public void cutOutRow(Map keyValues) {
 		try {
 			((HiddenXTableModel) getTableModel()).removeRow(keyValues);
 		}
