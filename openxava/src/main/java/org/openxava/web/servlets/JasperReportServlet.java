@@ -31,6 +31,8 @@ public class JasperReportServlet extends HttpServlet {
 			System.setProperty("jasper.reports.compile.class.path",					 
 					application.getRealPath("/WEB-INF/lib/jasperreports.jar") +
 					System.getProperty("path.separator") + 
+					application.getRealPath("/WEB-INF/lib/jasperreports-jdt.jar") +
+					System.getProperty("path.separator") + 
 					application.getRealPath("/WEB-INF/classes/")
 					);											
 			JasperCompileManager.compileReportToStream(getReportStream(request, response, language, columnCountLimit, widths), response.getOutputStream()); 

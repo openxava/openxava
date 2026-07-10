@@ -82,6 +82,8 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		System.setProperty("jasper.reports.compile.class.path",					 
 			application.getRealPath("/WEB-INF/lib/jasperreports.jar") +
 			System.getProperty("path.separator") + 
+			application.getRealPath("/WEB-INF/lib/jasperreports-jdt.jar") +
+			System.getProperty("path.separator") + 
 			application.getRealPath("/WEB-INF/classes/")
 		);
 				

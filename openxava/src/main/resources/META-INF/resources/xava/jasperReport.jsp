@@ -224,9 +224,9 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 	String pdfEncoding="Identity-H";
 	int totalRecordsWidth = columnWidth - 150;
 	%>	
-	<reportFont name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" size="8" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" size="8" isBold="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>
-	<reportFont name="Arial_Italic" isDefault="false" fontName="<%=fontName%>" size="8" isItalic="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" isPdfEmbedded="true"/>	
+	<style name="Arial_Normal" isDefault="true" fontName="<%=fontName%>" fontSize="8" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" pdfEmbedded="true"/>
+	<style name="Arial_Bold" isDefault="false" fontName="<%=fontName%>" fontSize="8" bold="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" pdfEmbedded="true"/>
+	<style name="Arial_Italic" isDefault="false" fontName="<%=fontName%>" fontSize="8" italic="true" pdfFontName="<%=fontName%>" pdfEncoding="<%=pdfEncoding%>" pdfEmbedded="true"/>	
 
 	<parameter name="Title" class="java.lang.String"/>	
 	<parameter name="Organization" class="java.lang.String"/>
@@ -281,7 +281,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="8"/>
+						<font style="Arial_Normal" fontSize="8"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Organization}</textFieldExpression>					
@@ -302,7 +302,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Center" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="15"/>
+						<font style="Arial_Normal" fontSize="15"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{Title}</textFieldExpression>					
@@ -323,7 +323,7 @@ int rowsInHeader = calculateRowsInHeader(metaProperties, widths, locale);
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Right" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="8"/>
+						<font style="Arial_Normal" fontSize="8"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<%=XavaResources.getString(request, "record_count")%>" + ": <%=totalRecords%>"]]></textFieldExpression>
@@ -461,7 +461,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="true"
 						isPrintWhenDetailOverflows="true"/>
 					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<font style="Arial_Normal" fontSize="<%=letterSize%>"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<% String label = "<![CDATA[" + p.getQualifiedLabel(locale) + "]]>"; %>
@@ -526,7 +526,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="<%=letterSize%>"/>
+						<font style="Arial_Normal" fontSize="<%=letterSize%>"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$F{<%=Strings.change(p.getQualifiedName(), ".", "_")%>}</textFieldExpression>
@@ -555,7 +555,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Right" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="10"/>
+						<font style="Arial_Normal" fontSize="10"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<%
@@ -578,7 +578,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="10" />
+						<font style="Arial_Normal" fontSize="10" />
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
@@ -616,7 +616,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font reportFont="Arial_Normal" size="10"/>
+						<font style="Arial_Normal" fontSize="10"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String">
@@ -668,7 +668,7 @@ for (Iterator it = metaProperties.iterator(); it.hasNext(); i++) {
 						isPrintInFirstWholeBand="false"
 						isPrintWhenDetailOverflows="false"/>
 					<textElement textAlignment="<%=getAlign(p)%>" verticalAlignment="Top">
-						<font reportFont="Arial_Bold" size="<%=letterSize%>"/>
+						<font style="Arial_Bold" fontSize="<%=letterSize%>"/>
 						<paragraph lineSpacing="Single"/>
 					</textElement>
 					<textFieldExpression class="java.lang.String">$P{<%=p.getQualifiedName()%>__TOTAL__}</textFieldExpression>
