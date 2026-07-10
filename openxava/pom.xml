@@ -45,6 +45,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!--
+				Jackson 3.1.4 (used by Spring Boot 4.1) requires jackson-annotations 2.21
+				for the JsonSerializeAs class. Spring Boot's BOM manages it to 2.18.6, so we
+				override it here. This must come after the Spring Boot BOM import to take precedence.
+			-->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>2.21</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -126,6 +136,15 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>7.0.7</version>
+		</dependency>
+		<!--
+			Jackson 3.1.4 (used by Spring Boot 4.1) requires jackson-annotations 2.21
+			for the JsonSerializeAs class. JR7 brings 2.18.6 transitively, so we declare
+			it explicitly. Version is managed in dependencyManagement to 2.21.
+		-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
