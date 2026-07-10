@@ -14,6 +14,7 @@ import javax.swing.table.*;
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
+import org.openxava.reports.DynamicListReportBuilder;
 import org.openxava.tab.*;
 import org.openxava.tab.impl.*;
 import org.openxava.util.*;
@@ -192,7 +193,7 @@ public class GenerateReportServlet extends HttpServlet {
 			setDefaultSchema(request);
 			String uri = request.getRequestURI();				
 			if (uri.endsWith(".pdf")) {
-				InputStream is;
+				JasperReport report;
 				JRDataSource ds;
 				Map parameters = new HashMap();
 				synchronized (tab) {
@@ -210,10 +211,10 @@ public class GenerateReportServlet extends HttpServlet {
 						generateNoRowsPage(response);
 						return;
 					}
-					is  = getReport(request, response, tab, tableModel, columnCountLimit);
+					report = getReport(request, tab, tableModel, columnCountLimit);
 					ds = new JRTableModelDataSource(tableModel);
 				}	
-				JasperPrint jprint = JasperFillManager.fillReport(is, parameters, ds);
+				JasperPrint jprint = JasperFillManager.fillReport(report, parameters, ds);
 				response.setContentType("application/pdf");	
 				response.setHeader("Content-Disposition", "inline; filename=\"" + getFileName(tab) + ".pdf\"");
 				JasperExportManager.exportReportToPdfStream(jprint, response.getOutputStream());
@@ -320,19 +321,8 @@ public class GenerateReportServlet extends HttpServlet {
 		}
 	}
 	
-	private InputStream getReport(HttpServletRequest request, HttpServletResponse response, Tab tab, TableModel tableModel, Integer columnCountLimit) throws ServletException, IOException {
-		StringBuffer suri = new StringBuffer();
-		suri.append("/xava/jasperReport");
-		suri.append("?language="); 
-		suri.append(Locales.getCurrent().getLanguage());
-		suri.append("&widths=");
-		suri.append(Arrays.toString(getWidths(tableModel))); 
-		if (columnCountLimit != null) {
-			suri.append("&columnCountLimit="); 
-			suri.append(columnCountLimit);			
-		}
-		response.setCharacterEncoding(XSystem.getEncoding());
-		return Servlets.getURIAsStream(request, response, suri.toString());
+	private JasperReport getReport(HttpServletRequest request, Tab tab, TableModel tableModel, Integer columnCountLimit) throws Exception {
+		return new DynamicListReportBuilder(tab, getWidths(tableModel), columnCountLimit, Locales.getCurrent(), request).build();
 	}
 	
 	private int [] getWidths(TableModel tableModel) { 

@@ -1,15 +1,19 @@
 package org.openxava.web.servlets;
 
 import java.io.*;
+import java.util.*;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.http.*;
 
 import org.apache.commons.logging.*;
+import org.openxava.reports.DynamicListReportBuilder;
+import org.openxava.tab.*;
 import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.*;
 
 /**
  * @author Javier Paniza
@@ -23,19 +27,15 @@ public class JasperReportServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		try {
 			String language = request.getParameter("language");
-			String columnCountLimit = request.getParameter("columnCountLimit");
-			String widths = request.getParameter("widths"); 
+			if (language == null) language = Locales.getCurrent().getDisplayLanguage();
+			Locale locale = new Locale(language, "");
+			String scolumnCountLimit = request.getParameter("columnCountLimit");
+			Integer columnCountLimit = scolumnCountLimit == null ? null : Integer.parseInt(scolumnCountLimit);
+			int[] widths = parseWidths(request.getParameter("widths"), columnCountLimit);
 			
-			ServletContext application = request.getSession().getServletContext();		
-									
-			System.setProperty("jasper.reports.compile.class.path",					 
-					application.getRealPath("/WEB-INF/lib/jasperreports.jar") +
-					System.getProperty("path.separator") + 
-					application.getRealPath("/WEB-INF/lib/jasperreports-jdt.jar") +
-					System.getProperty("path.separator") + 
-					application.getRealPath("/WEB-INF/classes/")
-					);											
-			JasperCompileManager.compileReportToStream(getReportStream(request, response, language, columnCountLimit, widths), response.getOutputStream()); 
+			Tab tab = (Tab) request.getSession().getAttribute("xava_reportTab");
+			JasperDesign design = new DynamicListReportBuilder(tab, widths, columnCountLimit, locale, request).getJasperDesign();
+			JasperCompileManager.compileReportToStream(design, response.getOutputStream()); 
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -43,18 +43,14 @@ public class JasperReportServlet extends HttpServlet {
 		}		
 	}
 	
-	private InputStream getReportStream(HttpServletRequest request, HttpServletResponse response, String language, String columnCountLimit, String widths) throws IOException, ServletException { 
-		StringBuffer suri = new StringBuffer();
-		suri.append("/xava/jasperReport");		
-		suri.append(".jsp?language="); 
-		suri.append(language);
-		suri.append("&widths="); 
-		suri.append(widths);			
-		if (columnCountLimit != null) {
-			suri.append("&columnCountLimit="); 
-			suri.append(columnCountLimit);			
+	private int[] parseWidths(String widths, Integer columnCountLimit) {
+		String[] tokens = widths.split("[\\[\\], ]+");
+		int size = columnCountLimit == null ? tokens.length - 1 : columnCountLimit.intValue();
+		int[] result = new int[size];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = Integer.parseInt(tokens[i + 1]);
 		}
-		return Servlets.getURIAsStream(request, response, suri.toString(), XSystem.getEncoding());
+		return result;
 	}
 		
 }
