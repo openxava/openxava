@@ -857,8 +857,8 @@ public class SearchDeliveryAction extends SearchByViewKeyAction {      // 1
     }
  
 }</code></pre>
-      In this action you have to search the database (or through EJB2, EJB3 JPA
-      or Hibernate) and fill the view. Most times it is better that it extends <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/SearchByViewKeyAction.html" rel="nofollow">SearchByViewKeyAction</a></em> (1) and within <em>execute()</em>
+      In this action you have to search the database and fill the view. Most times it is better
+      that it extends <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/SearchByViewKeyAction.html" rel="nofollow">SearchByViewKeyAction</a></em> (1) and within <em>execute()</em>
       write a <em>super.execute()</em> (2).<br/>
       OpenXava comes with 3 predefined search actions:<br/>
 <ul>
@@ -1270,9 +1270,7 @@ public class FamilyProductsReportAction extends JasperReportBaseAction {        
           data (using <em>MapFacade.validate()</em>) before (3).</li>
 <li><strong>getDataSource()</strong> (4): A <em><a class="wiki_link_ext" href="http://jasperreports.sourceforge.net/api/net/sf/jasperreports/engine/JRDataSource.html" rel="nofollow">JRDataSource</a></em> with data to print. In this
           case it is a collection of JavaBeans obtained calling a method of the
-          model object. If you use EJB CMP2 Entities be careful and do not loop
-          over an EJB2 Entity collection inside this method, as in this case is
-          better only one EJB call to obtain all data.</li>
+          model object.</li>
 <li><strong>getJRXML()</strong> (5): The XML with the JasperReports
           design, this file can be in the classpath. You should put these file
           in <i>src/main/resources/reports</i> in your project <i>(new in
