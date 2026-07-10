@@ -1,11 +1,10 @@
 package org.openxava.model.impl;
 
 import java.io.*;
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-import javax.ejb.ObjectNotFoundException;
+import org.openxava.model.*;
+import org.openxava.model.ObjectNotFoundException;
 
 import org.apache.commons.logging.*;
 import org.hibernate.*;
@@ -131,7 +130,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}
 	}
 	
-	public void moveCollectionElement(MetaModel metaModel, Map keyValues, String collectionName, int from, int to) throws FinderException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void moveCollectionElement(MetaModel metaModel, Map keyValues, String collectionName, int from, int to) throws FinderException {
 		try {
 			Object container = find(metaModel, keyValues);
 			PropertiesManager pm = new PropertiesManager(container); 
@@ -145,12 +147,18 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 	}
 	
 	public IPropertiesContainer toPropertiesContainer(MetaModel metaModel,
-			Object o) throws XavaException {
+			/**
+			* @throws XavaException
+			 */
+			Object o) {
 		return new POJOPropertiesContainerAdapter(o);
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	public Object create(MetaModel metaModel, Map values)
-			throws CreateException, ValidationException, XavaException {		
+			throws CreateException, ValidationException {		
 		try {			
 			find(metaModel, values);			
 			throw new DuplicateKeyException(XavaResources.getString("no_create_exists", metaModel.getName())); 
@@ -191,7 +199,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}		
 	}
 			
-	private void removeCalculatedOnCreateValues(MetaModel metaModel, Map values) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private void removeCalculatedOnCreateValues(MetaModel metaModel, Map values) { 
 		for (Iterator it = metaModel.getMetaPropertiesKey().iterator(); it.hasNext();) {
 			MetaProperty p = (MetaProperty) it.next();
 			if (p.hasCalculatorDefaultValueOnCreate()) {
@@ -200,13 +211,19 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}		
 	}
 
-	public Object getKey(MetaModel metaModel, Map keyValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object getKey(MetaModel metaModel, Map keyValues) {
 		keyValues = Maps.plainToTree(keyValues);
 		keyValues = metaModel.extractKeyValuesFlattenEmbeddedIds(keyValues);
 		return getObject(metaModel.getPOJOKeyClass(), keyValues, "key_for_pojo_error"); 
 	}
 	
-	public Object getContainer(MetaModel metaModel, Map containerKeyValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object getContainer(MetaModel metaModel, Map containerKeyValues) {
 		try {
 			return find(metaModel.getMetaModelContainer(), containerKeyValues);
 		} 
@@ -216,7 +233,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}
 	}
 	
-	private Object getObject(Class modelClass, Map values, String errorId) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object getObject(Class modelClass, Map values, String errorId) {
 		try {
 			Object key = modelClass.newInstance();
 			PropertiesManager pm = new PropertiesManager(key);
@@ -229,7 +249,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}
 	}
 		
-	public Map keyToMap(MetaModel metaModel, Object key) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Map keyToMap(MetaModel metaModel, Object key) {
 		return metaModel.toKeyMap(key);
 	}
 	
@@ -247,15 +270,25 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		}
 	}
 
-	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException, RemoteException, XavaException {
+	/**
+	* @throws SystemException
+	* @throws XavaException
+	 */
+	public Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer, Object containerModel, int number) throws CreateException, ValidationException {
 		return create(metaModel, values);
 	}
 	
-	public Object findByAnyProperty(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException, XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public Object findByAnyProperty(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException {		
 		return findUsingQuery(metaModel, Maps.treeToPlain(keyValues), false);
 	}
 	
-	public Object findByKeyUsingQuery(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Object findByKeyUsingQuery(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException {
 		Map allValues = Maps.treeToPlain(keyValues);
 		Map keys = new HashMap();		
 		for (Iterator it = metaModel.getAllKeyPropertiesNames().iterator(); it.hasNext(); ) {
@@ -265,7 +298,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		return findUsingQuery(metaModel, keys, true);
 	}
 	
-	private Object findUsingQuery(MetaModel metaModel, Map keyValues, boolean includeEmptyValues) throws ObjectNotFoundException, FinderException, XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private Object findUsingQuery(MetaModel metaModel, Map keyValues, boolean includeEmptyValues) throws ObjectNotFoundException, FinderException {		
 		StringBuffer queryString = new StringBuffer();
 		queryString.append("from ");
 		queryString.append(metaModel.getName());
@@ -311,7 +347,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		return result;
 	}
 		
-	private Object convert(MetaModel metaModel, String name, Object value) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private Object convert(MetaModel metaModel, String name, Object value) {		
 		MetaProperty property = metaModel.getMetaProperty(name);
 		PropertyMapping mapping = property.getMapping();
 		if (property.hasValidValues() && !property.isNumber()) { // Java 5 enum			
@@ -343,7 +382,10 @@ abstract public class POJOPersistenceProviderBase implements IPersistenceProvide
 		return result;
 	}
 
-	private boolean hasToIncludePropertyInCondition(MetaModel metaModel, String property) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean hasToIncludePropertyInCondition(MetaModel metaModel, String property) {
 		try {
 			if (property.indexOf('.') >= 0) return true; // We include all properties reference. They should be only key properties
 			MetaProperty metaProperty = metaModel.getMetaProperty(property);

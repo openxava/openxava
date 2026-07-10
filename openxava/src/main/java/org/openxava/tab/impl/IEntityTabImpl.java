@@ -1,8 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import org.openxava.util.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 /**
  * Interface to facilite a remote <b>impl</b>ementation of
@@ -19,10 +19,14 @@ public interface IEntityTabImpl extends IWithXTableModel, ISearch, IDataReader {
    * Ususally thie key is obtained from columns of table (IXTableModel).<br>
    * This method is used from IXTableModel.getObjectAt. It is not normal
    * that a application programmer call this method directly.<br>
+   * @throws SystemException
    */
-  Object findEntity(Object [] clave) throws FinderException, RemoteException;
+  Object findEntity(Object [] clave) throws FinderException ;
 
-  Number getSum(String property) throws RemoteException; 
+  /**
+  * @throws SystemException
+   */
+  Number getSum(String property) ; 
   
   /** @since 5.7 */
   int getChunkSize(); 

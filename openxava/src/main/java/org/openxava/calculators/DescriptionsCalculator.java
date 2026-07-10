@@ -4,7 +4,6 @@ import java.text.*;
 import java.util.*;
 import java.util.Collections;
 
-import javax.ejb.ObjectNotFoundException;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
@@ -56,7 +55,10 @@ public class DescriptionsCalculator implements ICalculator {
 		return getDescriptions(10000, 0);
 	}
 	
-	private MetaModel getMetaModel() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModel getMetaModel() {
 		if (metaModel == null) {
 			if (isAggregate()) {
 				metaModel = MetaComponent.get(getComponentName()).getMetaAggregate(getAggregateName());
@@ -308,7 +310,10 @@ public class DescriptionsCalculator implements ICalculator {
 		metaTab = null;
 	}
 	
-	private MetaTab getMetaTab() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaTab getMetaTab() {
 		if (metaTab == null) {
 			metaTab = new MetaTab();
 			metaTab.setMetaModel(getMetaModel());

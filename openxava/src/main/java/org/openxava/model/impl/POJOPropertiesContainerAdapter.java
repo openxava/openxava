@@ -1,7 +1,6 @@
 package org.openxava.model.impl;
 
 import java.lang.reflect.*;
-import java.rmi.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -19,7 +18,7 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 		propertiesManager = new PropertiesManager(object);
 	}
 
-	public Map executeGets(String properties) throws RemoteException {
+	public Map executeGets(String properties) {
 		try {
 			return propertiesManager.executeGets(properties);	
 		}
@@ -29,7 +28,7 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 		}
 	}
 
-	public void executeSets(Map properties) throws jakarta.validation.ValidationException, RemoteException {
+	public void executeSets(Map properties) throws jakarta.validation.ValidationException {
 		try {
 			propertiesManager.executeSets(properties);	
 		}
@@ -41,11 +40,11 @@ public class POJOPropertiesContainerAdapter implements IPropertiesContainer {
 				throw (jakarta.validation.ValidationException) ex.getTargetException(); 
 			}
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("set_properties_error", ex.getLocalizedMessage()));			
+			throw new SystemException(XavaResources.getString("set_properties_error", ex.getLocalizedMessage()));			
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("set_properties_error", ex.getLocalizedMessage()));
+			throw new SystemException(XavaResources.getString("set_properties_error", ex.getLocalizedMessage()));
 		}		
 	}
 

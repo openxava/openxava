@@ -16,7 +16,10 @@ abstract public class Mapping {
 
 	
 	
-	public static Collection getSchemas() throws XavaException {			
+	/**
+	* @throws XavaException
+	 */
+	public static Collection getSchemas() {			
 		Collection r = new HashSet();
 		for (Iterator it = MetaComponent.getAllLoaded().iterator(); it.hasNext();) {
 			MetaComponent comp = (MetaComponent) it.next();
@@ -31,7 +34,10 @@ abstract public class Mapping {
 		return r;
 	}
 	
-	public static Collection getTables() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public static Collection getTables() {		
 		Collection r = new HashSet();
 		for (Iterator it = MetaComponent.getAllLoaded().iterator(); it.hasNext();) {
 			MetaComponent comp = (MetaComponent) it.next();
@@ -44,7 +50,10 @@ abstract public class Mapping {
 		return r;
 	}
 
-	public static Collection getTablesBySchema(String schema) throws XavaException {			
+	/**
+	* @throws XavaException
+	 */
+	public static Collection getTablesBySchema(String schema) {			
 		Collection r = new HashSet();
 		boolean withoutSchema = Is.emptyString(schema);
 		for (Iterator it = MetaComponent.getAllLoaded().iterator(); it.hasNext();) {

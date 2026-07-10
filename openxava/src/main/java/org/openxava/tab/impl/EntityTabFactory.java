@@ -1,8 +1,7 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.tab.meta.*;
@@ -17,7 +16,10 @@ public class EntityTabFactory {
 	
 	private static Log log = LogFactory.getLog(EntityTabFactory.class);
 			
-	public static EntityTab create(String componentName) throws CreateException, RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public static EntityTab create(String componentName) throws CreateException {
 		EntityTab tab = new EntityTab();
 		tab.setComponentName(componentName);
 		try {
@@ -30,7 +32,10 @@ public class EntityTabFactory {
 		return tab; 
 	}
 	
-	public static EntityTab create(String componentName, String tabName) throws CreateException, RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public static EntityTab create(String componentName, String tabName) throws CreateException {
 		EntityTab tab = new EntityTab();		
 		tab.setComponentName(componentName);
 		tab.setTabName(tabName);
@@ -46,23 +51,29 @@ public class EntityTabFactory {
 	
 	/**
 	 * An EntityTab with on-demmand data reading.
+	 * @throws SystemException
+	 * @throws XavaException
 	 */
-	public static EntityTab create(MetaTab metaTab) throws CreateException, RemoteException, XavaException {
+	public static EntityTab create(MetaTab metaTab) throws CreateException {
 		return create(metaTab, -1);
 	}
 
 	/**
 	 * An EntityTab that load all data at once.
+	 * @throws SystemException
+	 * @throws XavaException
 	 */
-	public static EntityTab createAllData(MetaTab metaTab) throws CreateException, RemoteException, XavaException {
+	public static EntityTab createAllData(MetaTab metaTab) throws CreateException {
 		return create(metaTab, Integer.MAX_VALUE);
 	}	
 	
 	/**
 	 * 
 	 * @since 6.6.1 before it was private
+	 * @throws SystemException
+	 * @throws XavaException
 	 */
-	public static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException, RemoteException, XavaException {
+	public static EntityTab create(MetaTab metaTab, int chunkSize) throws CreateException {
 		EntityTab tab = new EntityTab();		
 		tab.setComponentName(metaTab.getMetaModel().getMetaComponent().getName());
 		tab.setMetaTab(metaTab);

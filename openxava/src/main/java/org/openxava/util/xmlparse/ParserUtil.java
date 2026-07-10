@@ -37,7 +37,10 @@ public class ParserUtil {
 	}
 	
 		
-	public static int getInt(Element el, String label) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static int getInt(Element el, String label) {
 		String s = getString(el, label);
 		if (s == null)
 			return 0;
@@ -50,7 +53,10 @@ public class ParserUtil {
 		}
 	}
 	
-	public static int getAttributeInt(Element el, String label) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static int getAttributeInt(Element el, String label) {
 		String s = el.getAttribute(label);
 		if (Is.emptyString(s)) return 0;
 		try {

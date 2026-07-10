@@ -12,7 +12,10 @@ public class MetaTabsDefaultValues {
 	private static Collection<MetaTab> defaultTabs; 	
 	
 	
-	public static void _putMetaTabForModel(String model, MetaTab tab) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _putMetaTabForModel(String model, MetaTab tab) {
 		if (tabsForModels == null) {
 			throw new XavaException("only_from_parse", "MetaTabs._putMetaTabForModel");
 		}		
@@ -21,7 +24,10 @@ public class MetaTabsDefaultValues {
 		tabsForModels.get(model).add(tab);
 	}
 	
-	public static void _putMetaTabExceptForModel(String model, MetaTab tab) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _putMetaTabExceptForModel(String model, MetaTab tab) {
 		if (tabsExceptForModels == null) {
 			throw new XavaException("only_from_parse", "MetaTabs._putMetaTabExceptForModel");
 		}		
@@ -29,21 +35,30 @@ public class MetaTabsDefaultValues {
 		tabsExceptForModels.get(tab).add(model);		
 	}
 	
-	public static void _addDefaultMetaTab(MetaTab tab) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addDefaultMetaTab(MetaTab tab) {
 		if (defaultTabs == null) {
 			throw new XavaException("only_from_parse", "MetaTabs._addDefaultMetaTab");
 		}		
 		defaultTabs.add(tab);
 	}
 	
-	private static void setup() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void setup() {
 		tabsForModels = new HashMap<String, Collection<MetaTab>>();
 		tabsExceptForModels = new HashMap<MetaTab, Collection<String>>(); 
 		defaultTabs = new ArrayList<MetaTab>();
 		TabsDefaultValuesParser.setupTabs();		
 	}
 	
-	static Collection<MetaTab> getMetaTabsForModel(String model) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	static Collection<MetaTab> getMetaTabsForModel(String model) throws ElementNotFoundException {
 		if (tabsForModels == null) {
 			setup();
 		}

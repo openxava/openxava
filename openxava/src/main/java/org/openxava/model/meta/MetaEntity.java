@@ -18,8 +18,9 @@ public class MetaEntity extends MetaModel {
 
 	/**
 	 * @return The names of key fields. Of <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	public Collection getKeyFields() throws XavaException {
+	public Collection getKeyFields() {
 		if (keyFields == null) {
 			keyFields = new ArrayList();	
 			keyFields.addAll(getAllKeyPropertiesNames());
@@ -27,20 +28,27 @@ public class MetaEntity extends MetaModel {
 		return keyFields;
 	}
 		
-	public boolean isKey(String propertyName) throws XavaException {		 	
+	/**
+	* @throws XavaException
+	 */
+	public boolean isKey(String propertyName) {		 	
 		if ((isAnnotatedEJB3() || isPojoGenerated()) &&  super.isKey(propertyName)) return true;
 		return getKeyFields().contains(propertyName);		
 	}
 	
-	public Class getPropertiesClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Class getPropertiesClass() {
 		if (isAnnotatedEJB3()) return getPOJOClass();
 		return super.getPropertiesClass();
 	}
 	
 	/**
 	 * If has key fields that aren't properties hence does not math with key properties. <p>
+	 * @throws XavaException
 	 */
-	public boolean hasHiddenKeys() throws XavaException {		
+	public boolean hasHiddenKeys() {		
 		return !getKeyPropertiesNames().containsAll(getKeyFields());
 	}
 	
@@ -48,7 +56,10 @@ public class MetaEntity extends MetaModel {
 		return getName();
 	}
 	
-	public ModelMapping getMapping() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public ModelMapping getMapping() {
 		return getMetaComponent().getEntityMapping();
 	}
 			

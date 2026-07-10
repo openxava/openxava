@@ -39,7 +39,10 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 	private String user;
 	private String password;
 		
-	public static IConnectionProvider createByComponent(String componentName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static IConnectionProvider createByComponent(String componentName) {
 		MetaComponent component =MetaComponent.get(componentName); 				
 		String jndi = null;		
 		if (component.getMetaEntity().isXmlComponent()) { 
@@ -149,7 +152,10 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 	
 
 
-	public static IConnectionProvider getByComponent(String componentName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static IConnectionProvider getByComponent(String componentName) {
 		if (providers == null) providers = new HashMap();
 		componentName = Strings.firstToken(componentName, "."); 
 		IConnectionProvider provider = (IConnectionProvider) providers.get(componentName);
@@ -276,7 +282,10 @@ public class DataSourceConnectionProvider implements IConnectionProvider, Serial
 	public void setDefaultDataSource(String dataSourceName) {
 	}
 		
-	private static Properties getDatasourcesJNDIByPackage() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static Properties getDatasourcesJNDIByPackage() {
 		if (datasourcesJNDIByPackage == null) {
 			try {
 				PropertiesReader reader = new PropertiesReader(DataSourceConnectionProvider.class, "datasource.properties"); 				

@@ -23,7 +23,8 @@ public interface IExplicitModifyPersistenceProvider extends IPersistenceProvider
 	 * 
 	 * Only applies if isExplicitModify() is true.
 	 * @since 5.6
+	 * @throws XavaException
 	 */
-	void modify(MetaModel metaModel, Map keyValues, Map values) throws ValidationException, XavaException; 
+	void modify(MetaModel metaModel, Map keyValues, Map values) throws ValidationException ; 
 
 }

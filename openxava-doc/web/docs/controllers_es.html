@@ -973,8 +973,7 @@ public class BuscarAlbaran extends SearchByViewKeyAction {                    //
     }
 
 }</code></pre>
-      Básicamente hemos de buscar en la base de datos (o mediante las APIs de
-      EJB2, EJB3 JPA o Hibernate) y llenar la vista. Muchas veces lo más
+      Básicamente hemos de buscar en la base de datos y llenar la vista. Muchas veces lo más
       práctico es hacer que extienda de <em><a class="wiki_link_ext" href="http://www.openxava.org/OpenXavaDoc/apidocs/org/openxava/actions/SearchByViewKeyAction.html"
 
           rel="nofollow">SearchByViewKeyAction</a></em> (1) y dentro del <em>execute()</em>
@@ -1424,9 +1423,7 @@ public class InformeProductosDeFamiliaAction extends JasperReportBaseAction {  /
 
               rel="nofollow">JRDataSource</a></em> con los dato a imprimir. En
           este caso una colección de JavaBeans obtenidos llamando a un objeto
-          modelo. Si usas EJB EntityBeans CMP2 sé cuidadoso y no hagas un bucle
-          sobre una colección de EntityBeans EJB2 dentro de este método, como en
-          este caso obtén los datos con una sola llamada EJB.</li>
+          modelo.</li>
         <li><strong>getJRXML()</strong> (5): El XML con el diseño JasperReports,
           este archivo puede estar en el classpath. Deberías poner este archivo
           en <i>src/main/resources/informes</i> <i>(nuevo en v7.0)</i>. En

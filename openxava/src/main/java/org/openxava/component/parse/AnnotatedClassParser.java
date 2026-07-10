@@ -226,11 +226,17 @@ public class AnnotatedClassParser implements IComponentParser {
 		} 
 	}
 	
-	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping) {
 		parseAttributeOverrides(element, mapping, null);
 	}
 	
-	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping, String embedded) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void parseAttributeOverrides(AnnotatedElement element, ModelMapping mapping, String embedded) {
 		String prefix = embedded == null?"":embedded + ":"; 
 		if (element.isAnnotationPresent(AttributeOverride.class)) {
 			AttributeOverride override = (AttributeOverride) element.getAnnotation(AttributeOverride.class);
@@ -244,7 +250,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 	}	
 
-	private void parseAttributeOverride(AttributeOverride override, ModelMapping mapping, String prefix) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void parseAttributeOverride(AttributeOverride override, ModelMapping mapping, String prefix) {
 		try {
 			PropertyMapping pMapping = mapping.getPropertyMapping(prefix + override.name());
 			pMapping.setColumn(override.column().name());			
@@ -365,7 +374,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		}						
 	}
 			
-	private void addReference(MetaModel model, ModelMapping mapping, PropertyDescriptor pd, Field field, String embedded, boolean aggregate) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addReference(MetaModel model, ModelMapping mapping, PropertyDescriptor pd, Field field, String embedded, boolean aggregate) {
 		if (model.containsMetaReference(pd.getName())) {
 			MetaReference ref = model.getMetaReference(pd.getName());
 			ref.setReferencedModelName(pd.getPropertyType().getSimpleName());
@@ -452,7 +464,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		}
 	}
 	
-	private String getColumnFor(JoinColumns joinColumns, MetaModel referencedModel, String referencedModelProperty) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getColumnFor(JoinColumns joinColumns, MetaModel referencedModel, String referencedModelProperty) {
 		String referencedColumn = referencedModel.getMapping().getColumn(referencedModelProperty);
 		for (JoinColumn joinColumn: joinColumns.value()) {
 			if (referencedColumn.trim().equalsIgnoreCase(joinColumn.referencedColumnName().trim())) {
@@ -462,7 +477,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		return null;
 	}
 	
-	private String getColumnFor(PrimaryKeyJoinColumns joinColumns, MetaModel referencedModel, String referencedModelProperty) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private String getColumnFor(PrimaryKeyJoinColumns joinColumns, MetaModel referencedModel, String referencedModelProperty) { 
 		String referencedColumn = referencedModel.getMapping().getColumn(referencedModelProperty);
 		for (PrimaryKeyJoinColumn joinColumn: joinColumns.value()) {
 			if (referencedColumn.trim().equalsIgnoreCase(joinColumn.referencedColumnName().trim())) {
@@ -474,11 +492,17 @@ public class AnnotatedClassParser implements IComponentParser {
 
 
 
-	private void parseViews(MetaComponent component, Class pojoClass) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void parseViews(MetaComponent component, Class pojoClass) {
 		parseViews(component, pojoClass, null);
 	}
 	
-	private void parseViews(MetaComponent component, Class pojoClass, String modelName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void parseViews(MetaComponent component, Class pojoClass, String modelName) {
 		if (pojoClass.isAnnotationPresent(View.class)) {
 			View view = (View) pojoClass.getAnnotation(View.class);
 			addView(component, view, modelName);
@@ -495,7 +519,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		else component.getMetaAggregate(modelName).getMetaViewByDefault();
 	}
 	
-	private void addView(MetaComponent component, View view, String modelName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addView(MetaComponent component, View view, String modelName) {
 		MetaView metaView = new MetaView();
 		metaView.setName(view.name());
 		metaView.setExtendsView(view.extendsView()); 
@@ -507,7 +534,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		component.addMetaView(metaView);
 	}
 	
-	private String addMembersToView(String sectionName, String groupName, MetaView metaView, StringTokenizer st) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String addMembersToView(String sectionName, String groupName, MetaView metaView, StringTokenizer st) {
 		StringBuffer members = new StringBuffer();
 		boolean stHasMoreTokens = st.hasMoreTokens();
 		String token = stHasMoreTokens?st.nextToken().trim():null;
@@ -905,7 +935,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		return false;
 	}
 
-	private void processAnnotations(MetaProperty property, AnnotatedElement element) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void processAnnotations(MetaProperty property, AnnotatedElement element) {
 		if (element == null) return;
 		// key
 		if (element.isAnnotationPresent(Id.class)) {
@@ -2091,7 +2124,10 @@ public class AnnotatedClassParser implements IComponentParser {
 	}
 
 
-	private void processAnnotations(MetaReference ref, AnnotatedElement element) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void processAnnotations(MetaReference ref, AnnotatedElement element) {
 		if (element == null) return;
 		
 		// key
@@ -2692,7 +2728,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		return metaDescriptionList;
 	}
 	
-	private void processAnnotations(MetaModel metaModel, AnnotatedElement element) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void processAnnotations(MetaModel metaModel, AnnotatedElement element) {		
 		if (element.isAnnotationPresent(EntityValidator.class)) {			
 			EntityValidator validator = element.getAnnotation(EntityValidator.class);
 			addEntityValidator(metaModel, validator);
@@ -2786,13 +2825,19 @@ public class AnnotatedClassParser implements IComponentParser {
 		return result;
 	}
 	
-	private String getClassNameFor(String name) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private String getClassNameFor(String name) { 
 		String className = getClassNameIfExists(name);
 		if (className == null) throw new XavaException("not_jpa_entity_nor_transient_model", name);
 		return className;
 	}
 	
-	private String getClassNameIfExists(String name) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private String getClassNameIfExists(String name) { 
 		try {
 			// This first in order that works fine with XML components without persistence.xml
 			String className = "org.openxava.session." + name;
@@ -3079,7 +3124,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		return managedClassNames;
 	}
 
-	private void notApply(String memberName, Class annotation, String validMemberTypes) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void notApply(String memberName, Class annotation, String validMemberTypes) {
 		if (XavaPreferences.getInstance().isFailOnAnnotationMisuse()) {			
 			throw new XavaException("annotation_not_applicable", annotation.getName(), memberName, validMemberTypes);
 		}
@@ -3087,7 +3135,10 @@ public class AnnotatedClassParser implements IComponentParser {
 		
 	}
 	
-	private void duplicateAnnotationForView(String memberName, Class annotation, String viewName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void duplicateAnnotationForView(String memberName, Class annotation, String viewName) {
 		if (XavaPreferences.getInstance().isFailOnAnnotationMisuse()) {
 			throw new XavaException("duplicate_annotation_for_view", annotation.getName(), viewName, memberName);
 		}

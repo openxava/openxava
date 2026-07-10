@@ -34,27 +34,40 @@ abstract public class BaseContextFilter implements IRequestFilter {
 		return context;		
 	}	
 	
-	protected Object get(String name) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	protected Object get(String name) {		
 		return getContext().get(request, name);
 	}
 	
-	protected String getString(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected String getString(String name) {
 		return (String) get(name);
 	}
 	
-	protected Integer getInteger(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected Integer getInteger(String name) {
 		return (Integer) get(name);
 	}
 
-	protected Long getLong(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected Long getLong(String name) {
 		return (Long) get(name);
 	}
 	
 	/**
 	 * Environment allows you access to the environment variables for the current module. <p>
 	 * @return
+	 * @throws XavaException
 	 */
-	protected Environment getEnvironment() throws XavaException {		
+	protected Environment getEnvironment() {		
 		return ((ModuleManager) get("manager")).getEnvironment();
 	}
 	

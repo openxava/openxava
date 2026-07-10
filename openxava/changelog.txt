@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed dependencies on J2EE and Java EE APIs.
+- Removed javax.ejb dependency.
+- Replaced EJB-specific exceptions with OpenXava exceptions.
+- RemoteException is no longer used as a general system exception; many methods no longer throw it.
+- Runtime exceptions are no longer declared in throws clauses.
 - Upgraded from javax.inject (JSR 330) to Jakarta Dependency Injection 2.0.1.
 - Root context configuration done in application.properties instead of AppServer.run("").
 - Documentation article on deploying in production as a standalone application without Tomcat.

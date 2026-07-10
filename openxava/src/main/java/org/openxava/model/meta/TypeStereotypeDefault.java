@@ -18,14 +18,20 @@ public class TypeStereotypeDefault {
 	
 	
 	
-	public static void _addForStereotype(String name, String type) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForStereotype(String name, String type) {
 		if (stereotypes == null) {
 			throw new XavaException("only_from_parse", "TypeStereotypeDefault._addForStereotype");
 		}				
 		stereotypes.put(name, type);
 	}
 	
-	public static String forStereotype(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static String forStereotype(String name) throws ElementNotFoundException {
 		if (stereotypes == null) {
 			configure();
 		}		 
@@ -37,7 +43,10 @@ public class TypeStereotypeDefault {
 		return result;
 	}
 			
-	private static void configure() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void configure() {
 		stereotypes = new HashMap<>();		
 		StereotypeTypeDefaultParser.configureStereotypeTypeDefault();
 	}

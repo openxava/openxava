@@ -13,7 +13,10 @@ abstract public class MetaAggregate extends MetaModel {
 	
 	
 	
-	static MetaAggregate getAggregate(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	static MetaAggregate getAggregate(String name) throws ElementNotFoundException {
 		int idx = name.indexOf('.');
 		if (idx < 0) {
 			throw new ElementNotFoundException("aggregate_need_qualified", name);

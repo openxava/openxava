@@ -34,7 +34,10 @@ public class MetaFinder implements Serializable {
 		return arguments;
 	}
 	
-	public Collection getMetaPropertiesArguments() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection getMetaPropertiesArguments() {
 		StringTokenizer st = new StringTokenizer(getArguments(), ",");
 		Collection result = new ArrayList();
 		while (st.hasMoreTokens()) {
@@ -78,12 +81,18 @@ public class MetaFinder implements Serializable {
 		this.name = name;
 	}
 	
-	public boolean isSupportedForEJB2() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isSupportedForEJB2() {
 		return !hasSome3LevelProperty(getCondition()) && 
 			!hasSome3LevelProperty(getOrder());
 	}
 	
-	private boolean hasSome3LevelProperty(String sentence) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean hasSome3LevelProperty(String sentence) {
 		if (sentence == null) return false;
 		int i = sentence.indexOf("${");
 		int f = 0;
@@ -107,7 +116,10 @@ public class MetaFinder implements Serializable {
 		return false;
 	}
 	
-	public String getEJBQLCondition() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getEJBQLCondition() {
 		StringBuffer sb = new StringBuffer("SELECT OBJECT(o) FROM ");
 		sb.append(getMetaModel().getName());
 		sb.append(" o");
@@ -123,11 +135,17 @@ public class MetaFinder implements Serializable {
 		return sb.toString();
 	}
 	
-	public String getHQLCondition() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public String getHQLCondition() {		
 		return getHQLCondition(true);
 	}
 	
-	private String getHQLCondition(boolean order) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private String getHQLCondition(boolean order) {		
 		StringBuffer sb = new StringBuffer("from ");
 		sb.append(getMetaModel().getName());
 		sb.append(" as o");
@@ -188,7 +206,10 @@ public class MetaFinder implements Serializable {
 		return result.toString();
 	}
 
-	public String getHQLCountSentence() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getHQLCountSentence() {
 		StringBuffer sb = new StringBuffer("select count(*) ");
 		sb.append(getHQLCondition(false));
 		return sb.toString();

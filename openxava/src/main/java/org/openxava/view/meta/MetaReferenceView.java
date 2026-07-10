@@ -31,7 +31,10 @@ public class MetaReferenceView extends MetaMemberView implements java.io.Seriali
 	private String newActionName; 
 	private String editActionName; 
 
-	public IOnChangePropertyAction createOnChangeSearchAction() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public IOnChangePropertyAction createOnChangeSearchAction() { 
 		try {			
 			Object o = Class.forName(getOnChangeSearchActionClassName()).newInstance();
 			if (!(o instanceof IOnChangePropertyAction)) {

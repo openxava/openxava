@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import org.openxava.util.*;
 import java.util.*;
 
 /**
@@ -11,12 +11,13 @@ public class EntityTabBean implements IEntityTabDataProvider {
 	
 	private EntityTabDataProvider dataProvider = new EntityTabDataProvider();
 	
-	
-	
-	public void ejbCreate() {		
+	public EntityTabBean() {
 	}
 	
-	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexs) throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexs) {
 		return dataProvider.nextChunk(tabProvider, modelName, propertiesNames, tabCalculators, keyIndexs);
 	}
 

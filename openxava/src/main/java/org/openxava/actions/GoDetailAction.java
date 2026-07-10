@@ -39,7 +39,10 @@ public class GoDetailAction extends BaseAction implements IChangeModeAction, ICh
 		}
 	}
 
-	public String getNextAction() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getNextAction() {
 		if (Is.emptyString(nextAction) && IChangeModeAction.DETAIL.equals(nextSection)) return getEnvironment().getValue("XAVA_SEARCH_ACTION");		
 		return nextAction;
 	}

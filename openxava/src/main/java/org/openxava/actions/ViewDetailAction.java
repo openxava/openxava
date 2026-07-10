@@ -31,8 +31,11 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 								// saber desde dónde estabamos partiendo
 	private boolean deleteAllSelected = false;
 
+	/**
+	* @throws XavaException
+	 */
 	@Override
-	protected Tab getTab() throws XavaException {
+	protected Tab getTab() {
 		return getMainTab() != null ? getMainTab() : super.getTab();
 	}
 
@@ -112,7 +115,10 @@ public class ViewDetailAction extends TabBaseAction implements IChainAction, IMo
 		row = i;
 	}
 
-	public String getNextAction() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getNextAction() {
 		if (Is.emptyString(nextAction)) {
 			return getEnvironment().getValue("XAVA_SEARCH_ACTION");
 		}

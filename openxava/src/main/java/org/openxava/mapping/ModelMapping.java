@@ -35,9 +35,15 @@ abstract public class ModelMapping implements java.io.Serializable {
 	private boolean referencePropertyWithFormula = false;
 
 	
-	abstract public String getModelName() throws XavaException;
+	/**
+	* @throws XavaException
+	 */
+	abstract public String getModelName() ;
 
-	abstract public MetaModel getMetaModel() throws XavaException;
+	/**
+	* @throws XavaException
+	 */
+	abstract public MetaModel getMetaModel() ;
 	
 	/**
 	 * @since 5.6
@@ -72,8 +78,9 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 * Util specially to find out the type of
 	 * properties that are not in model, only
 	 * in mapping.
+	 * @throws XavaException
 	 */
-	public Class getType(String propertyName) throws XavaException {
+	public Class getType(String propertyName) {
 		try {
 			return getMetaModel().getMetaProperty(propertyName).getType();
 		}
@@ -128,8 +135,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return supportsSchemasInDataManipulation()?getTable():getUnqualifiedTable();
 	}
 		
+	/**
+	* @throws XavaException
+	 */
 	public void addPropertyMapping(PropertyMapping propertyMapping)
-		throws XavaException {
+		{
 		propertyMappings.put(
 			propertyMapping.getProperty(),
 			propertyMapping);
@@ -141,8 +151,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 		}
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	public void addReferenceMapping(ReferenceMapping referenceMapping)
-		throws XavaException {
+		{
 		if (referenceMappings == null)
 			referenceMappings = new HashMap();
 		referenceMappings.put(
@@ -153,9 +166,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 
 	/**
 	 * @return Not null
+	 * @throws XavaException
 	 */
 	public ReferenceMapping getReferenceMapping(String name)
-		throws XavaException, ElementNotFoundException {
+		throws ElementNotFoundException {
 		
 		ReferenceMapping r =
 			referenceMappings == null
@@ -169,9 +183,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 
 	/**
 	 * @return Not null
+	 * @throws XavaException
 	 */
 	public PropertyMapping getPropertyMapping(String name)
-		throws XavaException, ElementNotFoundException {
+		throws ElementNotFoundException {
 		int i = name.indexOf('.');
 		if (i >= 0){ 
 			String rName = name.substring(0, i);
@@ -218,7 +233,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return tableColumns;
 	}
 	
-	public String getKeyColumnsAsString() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getKeyColumnsAsString() {
 		StringBuffer r = new StringBuffer();
 		Collection columns = new HashSet();
 		for (Iterator it=getMetaModel().getAllKeyPropertiesNames().iterator(); it.hasNext();) {
@@ -334,8 +352,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 		}		
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	public String getQualifiedColumn(String modelProperty) 
-		throws XavaException {
+		{
 		
 		if (Tab.GROUP_COUNT_PROPERTY.equals(modelProperty)) return "e." + modelProperty; // We follow the JPA nomenclature to simplify the code of TabProviderBase
 		
@@ -376,16 +397,20 @@ abstract public class ModelMapping implements java.io.Serializable {
 	/**
 	 * Support the use of references with dots,
 	 * this is: myreference.myproperty.
+	 * @throws XavaException
 	 */
 	public String getColumn(String modelProperty)
-		throws ElementNotFoundException, XavaException {
+		throws ElementNotFoundException {
 		return getTableColumn(modelProperty, false);
 	}
 	
 	private String getTableColumn( 
 		String modelProperty,
+		/**
+		* @throws XavaException
+		 */
 		boolean qualifyReferenceMappingColumn)
-		throws XavaException {
+		{
 		
 		PropertyMapping propertyMapping =
 			(PropertyMapping) propertyMappings.get(modelProperty);
@@ -465,7 +490,7 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 * @return nulo If property exists but it does not have converter.
 	 */
 	public IConverter getConverter(String modelProperty)
-		throws ElementNotFoundException, XavaException {
+		throws ElementNotFoundException {
 		return getPropertyMapping(modelProperty).getConverter();
 	}
 
@@ -475,7 +500,7 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 * @return nulo If property exists but it does not have converter.
 	 */
 	public IMultipleConverter getMultipleConverter(String modelProperty)
-		throws ElementNotFoundException, XavaException {
+		throws ElementNotFoundException {
 		return getPropertyMapping(modelProperty).getMultipleConverter();
 	}
 
@@ -494,7 +519,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 	public MetaComponent getMetaComponent() {
 		return metaComponent;
 	}
-	public void setMetaComponent(MetaComponent componente) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setMetaComponent(MetaComponent componente) {
 		this.metaComponent = componente;
 		setupDefaultConverters();
 	}
@@ -511,9 +539,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 * <pre>
 	 * select G4GENBD.GENTGER.TGRCOD, G4GENBD.GENTGER.TGRDEN from G4GENBD.GENTGER
 	 * </pre>
+	 * @throws XavaException
 	 */	
 	public String changePropertiesByColumns(String source)
-		throws XavaException {		
+		{		
 		return changePropertiesByColumns(source, true);
 	}	
 	
@@ -531,14 +560,18 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 * select TGRCOD, TGRDEN
 	 * from G4GENBD.GENTGER
 	 * </pre>
+	 * @throws XavaException
 	 */	
 	public String changePropertiesByNotQualifiedColumns(String source)
-		throws XavaException {
+		{
 		return changePropertiesByColumns(source, false);
 	}	
 	
+	/**
+	* @throws XavaException
+	 */
 	private String changePropertiesByColumns(String source, boolean qualified)
-		throws XavaException {
+		{
 		StringBuffer r = new StringBuffer(source);		
 		int i = r.toString().indexOf("${");
 		int f = 0;
@@ -576,8 +609,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 	}
 	
 	
+	/**
+	* @throws XavaException
+	 */
 	public String changePropertiesByCMPAttributes(String source)
-		throws XavaException {
+		{
 		StringBuffer r = new StringBuffer(source);
 		int i = r.toString().indexOf("${");
 		int f = 0;
@@ -610,7 +646,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return propertyMappings.containsKey(memberName);
 	}
 
-	private void setupDefaultConverters() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void setupDefaultConverters() {
 		Iterator it = propertyMappings.values().iterator();
 		while (it.hasNext()) {
 			PropertyMapping propertyMapping = (PropertyMapping) it.next();
@@ -626,8 +665,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 
 	public boolean isReferenceOverlappingWithSomeProperty(
 		String reference,
+		/**
+		* @throws XavaException
+		 */
 		String propertiesOfReference)
-		throws XavaException {
+		{
 		String column =
 			getReferenceMapping(
 				reference).getColumnForReferencedModelProperty(
@@ -635,8 +677,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return containsColumn(getColumns(), column); 
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	public boolean isReferenceOverlappingWithSomeProperty(String reference)
-		throws XavaException {
+		{
 		Iterator it = getReferenceMapping(reference).getDetails().iterator();
 		while (it.hasNext()) {
 			ReferenceMappingDetail d = (ReferenceMappingDetail) it.next();
@@ -650,7 +695,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return false;
 	}
 		
-	public boolean isReferencePropertyOverlappingWithSomeProperty(String qualifiedProperty)	throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isReferencePropertyOverlappingWithSomeProperty(String qualifiedProperty)	{
 		int idx = qualifiedProperty.indexOf('.');
 		if (idx < 0) return false;
 		String ref = qualifiedProperty.substring(0, idx);
@@ -663,8 +711,11 @@ abstract public class ModelMapping implements java.io.Serializable {
 	 */
 	public String getOverlappingPropertyForReference(
 		String reference,
+		/**
+		* @throws XavaException
+		 */
 		String propertyOfReference)
-		throws XavaException {
+		{
 		String column =
 			getReferenceMapping(
 				reference).getColumnForReferencedModelProperty(
@@ -685,9 +736,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 
 	/**
 	 * @return Of <tt>String</tt> and not null.
+	 * @throws XavaException
 	 */
 	public Collection<String> getOverlappingPropertiesOfReference(String reference)
-		throws XavaException {
+		{
 		Collection<String> overlappingPropertiesOfReference = new ArrayList<>();
 		Iterator it = getReferenceMapping(reference).getDetails().iterator();
 		while (it.hasNext()) {
@@ -711,7 +763,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return false;
 	}
 
-	private PropertyMapping getMappingForColumn(String column) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private PropertyMapping getMappingForColumn(String column) {
 		if (propertyMappings == null) {
 			throw new ElementNotFoundException("mapping_not_found_no_property_mappings", column); 
 		}			
@@ -725,7 +780,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		throw new ElementNotFoundException("mapping_for_column_not_found", column);
 	}
 	
-	String getCMPAttributeForColumn(String column) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	String getCMPAttributeForColumn(String column) {
 		PropertyMapping mapping = getMappingForColumn(column);
 		if (!mapping.hasConverter()) return Strings.change(mapping.getProperty(), ".", "_");
 		return "_" + Strings.change(Strings.firstUpper(mapping.getProperty()), ".", "_");
@@ -735,7 +793,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return propertyMappings.values();
 	}
 	
-	public Collection getPropertyMappingsNotInModel() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Collection getPropertyMappingsNotInModel() { 
 		Collection names = new ArrayList(getModelProperties());
 		names.removeAll(getMetaModel().getPropertiesNames());
 		if (names.isEmpty()) return Collections.EMPTY_LIST;
@@ -753,7 +814,10 @@ abstract public class ModelMapping implements java.io.Serializable {
 		return referenceMappings==null?Collections.EMPTY_LIST:referenceMappings.values();
 	}
 		
-	public Collection getCmpFields() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Collection getCmpFields() { 
 		Collection r = new ArrayList();
 		Collection mappedColumns = new HashSet();
 		for (Iterator it=getPropertyMappings().iterator(); it.hasNext();) {

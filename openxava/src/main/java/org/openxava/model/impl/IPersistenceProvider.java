@@ -1,10 +1,8 @@
 package org.openxava.model.impl;
 
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
-
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.util.*;
@@ -30,15 +28,17 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	 * Returns the first object that match with the sent arguments (<code>searchingValues</code>). 
 	 * 
 	 * @return Never null.
+	 * @throws XavaException
 	 */	
-	Object findByAnyProperty(MetaModel metaModel, Map searchingValues) throws ObjectNotFoundException, FinderException, XavaException;
+	Object findByAnyProperty(MetaModel metaModel, Map searchingValues) throws ObjectNotFoundException, FinderException ;
 	
 	/**
 	 * Find an object from its key in map format. <p>
 	 * 
 	 * @return Never null.
+	 * @throws XavaException
 	 */
-	Object find(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException, XavaException;
+	Object find(MetaModel metaModel, Map keyValues) throws ObjectNotFoundException, FinderException ;
 	
 	/**
 	 * Find a object from its key object. <p>
@@ -49,13 +49,15 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	
 	/**
 	 * Return an IPropertiesContainer to manage using introspection the sent object. <p>
+	 * @throws XavaException
 	 */
-	IPropertiesContainer toPropertiesContainer(MetaModel metaModel, Object modelObject) throws XavaException;
+	IPropertiesContainer toPropertiesContainer(MetaModel metaModel, Object modelObject) ;
 	
 	/**
 	 * Create a persistent object (saved in database) from the data passed in map format. <p> 
+	 * @throws XavaException
 	 */
-	Object create(MetaModel metaModel, Map values) throws DuplicateKeyException, CreateException, ValidationException, XavaException;
+	Object create(MetaModel metaModel, Map values) throws DuplicateKeyException, CreateException, ValidationException ;
 	
 	/** 
 	 * Move an element in a collection. <p>
@@ -73,7 +75,7 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	 * @since 5.6.1
 	 */	
 	void moveCollectionElement(MetaModel metaModel, Map keyValues, String collectionName, int from, int to)   
-			throws FinderException, XavaException;
+			throws FinderException ;
 
 	/**
 	 * Create an aggregate (saving it in database) from the data passed in map format. <p>
@@ -86,29 +88,36 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	 * 		use this number to calculate the oid. It's a simple counter.   
 	 */	
 	Object createAggregate(MetaModel metaModel, Map values, MetaModel metaModelContainer,
+			/**
+			* @throws SystemException
+			* @throws XavaException
+			 */
 			Object containerModel, int number)
-			throws CreateException, ValidationException, RemoteException, XavaException;
+			throws CreateException, ValidationException ;
 	
 	/**
 	 * Return an object that can be used as primary key in model layer. <p>
 	 * 
 	 * For example, in EJB2 will be the Key class, in Hibernate can be the
 	 * POJO class, and JPA ...
+	 * @throws XavaException
 	 */
-	Object getKey(MetaModel metaModel, Map keyValues) throws XavaException;
+	Object getKey(MetaModel metaModel, Map keyValues) ;
 	
 	/**
 	 * Returns a map that contains the value of primary key sent as object. <p>
 	 * 
 	 * The map must contain at least the primary key value, but it can contains
 	 * more, the rest is ignored. 
+	 * @throws XavaException
 	 */
-	Map keyToMap(MetaModel metaModel, Object key) throws XavaException;
+	Map keyToMap(MetaModel metaModel, Object key) ;
 	
 	/**
 	 * Remove the object from persistent storage.
+	 * @throws XavaException
 	 */
-	void remove(MetaModel metaModel, Map keyValues) throws RemoveException, XavaException;
+	void remove(MetaModel metaModel, Map keyValues) throws RemoveException ;
 	
 	/**
 	 * Mark the starting of the unit of work associated to this thread. <p> 
@@ -154,8 +163,9 @@ public interface IPersistenceProvider extends java.io.Serializable {
 	 * object that containt to the aggregate.
 	 * 
 	 * It can be a POJO or key class, depends on the implementation.<br> 
+	 * @throws XavaException
 	 */
-	Object getContainer(MetaModel metaModel, Map containerKeyValues) throws XavaException;
+	Object getContainer(MetaModel metaModel, Map containerKeyValues) ;
 	
 	/**
 	 * Refresh the state of the instance from the database, 

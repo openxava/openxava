@@ -37,12 +37,17 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		collectionElementView = null; 
 	}
 		
-	/** @since 4m5 */
-	protected View getParentView() throws XavaException {
+	/** @since 4m5
+	* @throws XavaException
+	 */
+	protected View getParentView() {
 		return getCollectionElementView().getParent();
 	}
 	
-	protected View getCollectionElementView() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected View getCollectionElementView() {
 		if (collectionElementView == null) {
 			if (viewObject == null || dialogOpened) collectionElementView = super.getView(); // In a dialog
 			else {
@@ -53,12 +58,17 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		return collectionElementView;
 	}
 	
-	/**@Since 4.9.1*/ 
-	protected MetaCollection getMetaCollection() throws ElementNotFoundException, XavaException {
+	/**@Since 4.9.1
+	* @throws XavaException
+	 */
+	protected MetaCollection getMetaCollection() throws ElementNotFoundException {
 		return getCollectionElementView().getParent().getMetaModel().getMetaCollection(getCollectionElementView().getMemberName());
 	}
 	
-	protected void validateMinimum(int elementsToRemove) throws ValidationException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void validateMinimum(int elementsToRemove) throws ValidationException {
 		MetaCollection metaCollection = getMetaCollection();
 		int minimum = metaCollection.getMinimum();
 		if(minimum > 0) {
@@ -71,7 +81,10 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		}
 	}
 	
-	protected void validateMaximum(int elementsToAdd) throws ValidationException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void validateMaximum(int elementsToAdd) throws ValidationException {
 		MetaCollection metaCollection = getMetaCollection();
 		int maximum = metaCollection.getMaximum();
 		if(maximum > 0) { 
@@ -83,14 +96,18 @@ abstract public class CollectionElementViewBaseAction extends ViewBaseAction {
 		}
 	}
 	
-	protected boolean isEntityReferencesCollection() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected boolean isEntityReferencesCollection() {
 		return isEntityReferencesCollection(getCollectionElementView()); 
 	}
 	
 	/**
 	 * @since 6.2.1
+	 * @throws XavaException
 	 */
-	protected boolean isEntityReferencesCollection(View view) throws XavaException { 
+	protected boolean isEntityReferencesCollection(View view) { 
 		if (!view.isRepresentsCollection()) return false;
 		MetaCollectionView metaCollectionView = view.getMetaView().getMetaCollectionView(getMetaCollection().getName());
 		if (metaCollectionView != null) return !metaCollectionView.isAsAggregate();

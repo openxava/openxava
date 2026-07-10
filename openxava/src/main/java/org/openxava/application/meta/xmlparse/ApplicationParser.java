@@ -17,14 +17,20 @@ public class ApplicationParser extends ParserBase {
 		super(xmlFileURL, language);		
 	}
 	
-	public static void configureApplications() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureApplications() {
 		ApplicationParser enParser = new ApplicationParser("application.xml", ENGLISH);
 		enParser.parse();		
 		ApplicationParser esParser = new ApplicationParser("aplicacion.xml", ESPANOL);
 		esParser.parse();
 	}
 
-	private void addApplication() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addApplication() {
 		MetaApplication application = new MetaApplication();				
 		application.setName(getRoot().getAttribute(xname[lang]));
 		application.setLabel(getRoot().getAttribute(xlabel[lang]));
@@ -33,7 +39,10 @@ public class ApplicationParser extends ParserBase {
 		MetaApplications._addMetaApplication(application);
 	}
 	
-	private void addDefaultModule(MetaApplication application) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addDefaultModule(MetaApplication application) {
 		NodeList l = getRoot().getElementsByTagName(xdefault_module[lang]);
 		int c = l.getLength();
 		if (c > 0) {						
@@ -51,7 +60,10 @@ public class ApplicationParser extends ParserBase {
 		}		
 	}	
 	
-	private void addModules(MetaApplication application) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addModules(MetaApplication application) {
 		NodeList l = getRoot().getElementsByTagName(xmodule[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -60,11 +72,17 @@ public class ApplicationParser extends ParserBase {
 		}		
 	}
 		
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		addApplication();
 	}
 	
-	private MetaModule createModule(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModule createModule(Node n) {
 		Element el = (Element) n;
 		MetaModule m = new MetaModule();
 		m.setName(el.getAttribute(xname[lang]));
@@ -84,7 +102,10 @@ public class ApplicationParser extends ParserBase {
 		return m;
 	}
 	
-	private String createModel(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createModel(Element el) {
 		NodeList l = el.getElementsByTagName(xmodel[lang]);
 		if (l.getLength() > 0) {
 			Element elModel = (Element) l.item(0);
@@ -93,7 +114,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}
 	
-	private String createView(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createView(Element el) {
 		NodeList l = el.getElementsByTagName(xview[lang]);
 		if (l.getLength() > 0) {
 			Element elModel = (Element) l.item(0);
@@ -102,7 +126,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}
 	
-	private String createTab(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createTab(Element el) {
 		NodeList l = el.getElementsByTagName(xtab[lang]);
 		if (l.getLength() > 0) {
 			Element elModel = (Element) l.item(0);
@@ -111,7 +138,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}
 	
-	private void fillDoc(Element el, MetaModule metaModule) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void fillDoc(Element el, MetaModule metaModule) {
 		NodeList lDoc = el.getElementsByTagName(xdoc[lang]);
 		if (lDoc.getLength() > 0) {
 			Element elModel = (Element) lDoc.item(0);
@@ -123,7 +153,10 @@ public class ApplicationParser extends ParserBase {
 		}
 	}	
 			
-	private String createSwingView(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createSwingView(Element el) {
 		NodeList l = el.getElementsByTagName(xswing_view[lang]);
 		if (l.getLength() > 0) {
 			Element elSwingView = (Element) l.item(0);
@@ -132,7 +165,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}
 	
-	private String createWebView(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createWebView(Element el) {
 		NodeList l = el.getElementsByTagName(xweb_view[lang]);
 		if (l.getLength() > 0) {
 			Element elWebView = (Element) l.item(0);
@@ -141,7 +177,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}	
 		
-	private String createModeController(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String createModeController(Element el) {
 		NodeList l = el.getElementsByTagName(xmode_controller[lang]);
 		if (l.getLength() > 0) {
 			Element elModeController = (Element) l.item(0);
@@ -150,7 +189,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}	
 	
-	private MetaReport createMetaReport(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaReport createMetaReport(Element el) {
 		NodeList l = el.getElementsByTagName(xreport[lang]);
 		if (l.getLength() > 0) {
 			Element elReport = (Element) l.item(0);
@@ -162,7 +204,10 @@ public class ApplicationParser extends ParserBase {
 		return null;
 	}
 			
-	private void fillControllers(Element el, MetaModule container) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void fillControllers(Element el, MetaModule container) {
 		NodeList l = el.getElementsByTagName(xcontroller[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -172,7 +217,10 @@ public class ApplicationParser extends ParserBase {
 		}
 	}
 	
-	private void fillEnvironmentVar(Element el, MetaModule container) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void fillEnvironmentVar(Element el, MetaModule container) {
 		NodeList l = el.getElementsByTagName(xenvironment_var[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {

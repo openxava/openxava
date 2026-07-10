@@ -2,7 +2,6 @@ package org.openxava.model.meta;
 
 
 import java.beans.*;
-import java.rmi.*;
 import java.util.*;
 
 import org.apache.commons.logging.*;
@@ -141,7 +140,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @return of type MetaModel
 	 * @throws XavaException
 	 */
-	public static Collection<MetaModel> getAllPersistent() throws XavaException {  
+	public static Collection<MetaModel> getAllPersistent() {  
 		Collection<MetaModel> r = new HashSet<>();
 		for (Iterator<MetaComponent> it = MetaComponent.getAllLoaded().iterator(); it.hasNext();) {
 			MetaComponent comp = it.next();
@@ -160,8 +159,9 @@ abstract public class MetaModel extends MetaElement {
 	 * All models (Entities and Aggregates) where its POJO code and Hiberante mapping is generated.
 	 * 
 	 * @return of type MetaModel 
+	 * @throws XavaException
 	 */
-	public static Collection<MetaModel> getAllPojoGenerated() throws XavaException { 
+	public static Collection<MetaModel> getAllPojoGenerated() { 
 		Collection<MetaModel> r = new HashSet<>();
 		for (Iterator<MetaComponent> it = MetaComponent.getAll().iterator(); it.hasNext();) {
 			MetaComponent comp = it.next();
@@ -261,8 +261,9 @@ abstract public class MetaModel extends MetaElement {
 	/**
 	 * 
 	 * @param newMetaProperty  not null
+	 * @throws XavaException
 	 */
-	public void addMetaProperty(MetaProperty newMetaProperty) throws XavaException {
+	public void addMetaProperty(MetaProperty newMetaProperty) {
 		getMapMetaProperties().put(newMetaProperty.getName(), newMetaProperty);
 		membersNames.add(newMetaProperty.getName());
 		newMetaProperty.setMetaModel(this);
@@ -283,13 +284,16 @@ abstract public class MetaModel extends MetaElement {
 	 * @param newMetaReference  not null
 	 * @throws XavaException 
 	 */
-	public void addMetaReference(MetaReference newMetaReference) throws XavaException {
+	public void addMetaReference(MetaReference newMetaReference) {
 		getMapMetaReferences().put(newMetaReference.getName(), newMetaReference);
 		membersNames.add(newMetaReference.getName());
 		newMetaReference.setMetaModel(this);
 	}
 	
-	public void addMetaView(MetaView newMetaView) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public void addMetaView(MetaView newMetaView) {		
 		getMapMetaViews().put(newMetaView.getName(), newMetaView);		
 		newMetaView.setModelName(this.getName());
 		newMetaView.setMetaModel(this);		
@@ -331,8 +335,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Class that contains the properties defined in this model. <p>
 	 * 
 	 * @return Not null
+	 * @throws XavaException
 	 */
-	public Class getPropertiesClass() throws XavaException {
+	public Class getPropertiesClass() {
 		try {
 			return Class.forName(getInterfaceName());
 		} 
@@ -341,7 +346,10 @@ abstract public class MetaModel extends MetaElement {
 		}
 	}
 	
-	public MetaMember getMetaMember(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaMember getMetaMember(String name) throws ElementNotFoundException {
 		try {
 			return getMetaProperty(name);
 		} catch (ElementNotFoundException ex) {
@@ -359,8 +367,11 @@ abstract public class MetaModel extends MetaElement {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	PropertyDescriptor getPropertyDescriptor(String propertyName)
-		throws XavaException {
+		{
 		PropertyDescriptor pd =
 			(PropertyDescriptor) getPropertyDescriptors().get(propertyName);
 		if (pd == null) {
@@ -371,8 +382,9 @@ abstract public class MetaModel extends MetaElement {
 					
 	/**
 	 * Of the properties.
+	 * @throws XavaException
 	 */
-	private Map<String, PropertyDescriptor> getPropertyDescriptors() throws XavaException {
+	private Map<String, PropertyDescriptor> getPropertyDescriptors() {
 		if (propertyDescriptors == null) {
 			try {
 				BeanInfo info = Introspector.getBeanInfo(getPropertiesClass());
@@ -392,8 +404,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * Support qualified for properties of references with dot (.). <p>
+	 * @throws XavaException
 	 */
-	public MetaProperty getMetaProperty(String name) throws ElementNotFoundException, XavaException {
+	public MetaProperty getMetaProperty(String name) throws ElementNotFoundException {
 		MetaProperty r = (MetaProperty) getMapMetaProperties().get(name);		
 		if (r == null) {
 			int idx = name.indexOf('.');
@@ -413,7 +426,10 @@ abstract public class MetaModel extends MetaElement {
 		return r;
 	}
 	
-	public MetaProperty getMetaPropertyView(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaProperty getMetaPropertyView(String name) throws ElementNotFoundException {
 		if (!containsMetaPropertyView(name)) {
 			throw new ElementNotFoundException("property_not_found_in_any_view", name, getName());
 		}
@@ -437,8 +453,9 @@ abstract public class MetaModel extends MetaElement {
 	/**
 	 * 
 	 * @param name May be qualified, that is myreference.mynestedreference
+	 * @throws XavaException
 	 */	
-	public MetaReference getMetaReference(String name) throws ElementNotFoundException, XavaException {
+	public MetaReference getMetaReference(String name) throws ElementNotFoundException {
 		if (name == null) {
 			throw new ElementNotFoundException("reference_not_found", "null", getName());
 		}
@@ -457,7 +474,10 @@ abstract public class MetaModel extends MetaElement {
 		return r;
 	}
 		
-	public MetaMethod getMetaMethod(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaMethod getMetaMethod(String name) throws ElementNotFoundException {
 		if (mapMetaMethods == null) {
 			throw new ElementNotFoundException("method_not_found", name, getName());
 		}
@@ -479,8 +499,9 @@ abstract public class MetaModel extends MetaElement {
 	/**
 	 * 
 	 * @param name May be qualified, that is mycollection.mynestedcollection
+	 * @throws XavaException
 	 */
-	public MetaCollection getMetaCollection(String name) throws ElementNotFoundException, XavaException {
+	public MetaCollection getMetaCollection(String name) throws ElementNotFoundException {
 		MetaCollection r = (MetaCollection) getMapMetaCollections().get(name);
 		if (r == null) {			
 			int idx = name.indexOf('.');
@@ -496,7 +517,10 @@ abstract public class MetaModel extends MetaElement {
 		return r;
 	}
 	
-	public MetaView getMetaView(String name) throws ElementNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public MetaView getMetaView(String name) throws ElementNotFoundException {
 		MetaView r = (MetaView) getMapMetaViews().get(name == null?"":name);		
 		if (r == null) {			
 			if (Is.emptyString(name)) return getMetaViewByDefault();
@@ -507,7 +531,10 @@ abstract public class MetaModel extends MetaElement {
 		return r;		
 	}	
 	
-	public Collection<MetaView> getMetaViews() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<MetaView> getMetaViews() {
 		return getMapMetaViews().values();
 	}
 		
@@ -585,7 +612,10 @@ abstract public class MetaModel extends MetaElement {
 		return Collections.unmodifiableCollection(new ArrayList<>(getMapMetaCollections().keySet()));
 	}
 
-	public Collection<String> getEntityReferencesNames() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<String> getEntityReferencesNames() {
 		Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -597,7 +627,10 @@ abstract public class MetaModel extends MetaElement {
 		return result;
 	}
 	
-	public Collection<String> getAggregateReferencesNames() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<String> getAggregateReferencesNames() {
 		Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -612,8 +645,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaCollection</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaCollection> getMetaCollectionsAgregate() throws XavaException {
+	public Collection<MetaCollection> getMetaCollectionsAgregate() {
 		Iterator<MetaCollection> it = getMapMetaCollections().values().iterator();
 		ArrayList<MetaCollection> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -627,8 +661,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<String> getRequiredPropertiesNames() throws XavaException {
+	public Collection<String> getRequiredPropertiesNames() {
 		Iterator<MetaProperty> it = getMetaProperties().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -642,8 +677,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<String> getRequiredMemberNames() throws XavaException { 
+	public Collection<String> getRequiredMemberNames() { 
 		Iterator<String> it = getMembersNames().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -668,8 +704,9 @@ abstract public class MetaModel extends MetaElement {
 	 * SearchKey properties names ordered in declaration order.
 	 * 
 	 * @since 7.4.4
+	 * @throws XavaException
 	 */
-	public Collection<String> getSarchKeyPropertiesNames() throws XavaException { 
+	public Collection<String> getSarchKeyPropertiesNames() { 
 		if (searchKeyPropertiesNames == null) {
 			Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order		
 			ArrayList<String> result = new ArrayList<>();
@@ -692,8 +729,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Key properties names ordered in declaration order.
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
+	 * @throws XavaException
 	 */
-	public Collection<String> getKeyPropertiesNames() throws XavaException { 
+	public Collection<String> getKeyPropertiesNames() { 
 		if (keyPropertiesNames == null) {
 			Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order		
 			ArrayList<String> result = new ArrayList<>();
@@ -715,8 +753,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Key reference names in undetermined order.
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
+	 * @throws XavaException
 	 */
-	public Collection<String> getKeyReferencesNames() throws XavaException {
+	public Collection<String> getKeyReferencesNames() {
 		if (keyReferencesNames == null) {
 			Iterator<MetaReference> it = getMetaReferencesKey().iterator();
 			ArrayList<String> result = new ArrayList<>();
@@ -734,8 +773,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Includes qualified properties in case of key references, ordered alphabetically. <p>
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only 
+	 * @throws XavaException
 	 */
-	public Collection<String> getAllKeyPropertiesNames() throws XavaException {   
+	public Collection<String> getAllKeyPropertiesNames() {   
 		if (allKeyPropertiesNames==null) {
 			allKeyPropertiesNames = Collections.unmodifiableCollection(new TreeSet<String>(getAllKeyPropertiesNamesOrderedAsInModel()));
 		}
@@ -747,8 +787,9 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @since 7.2.1 
 	 * @return Collection of <tt>String</tt>, not null and read only 
+	 * @throws XavaException
 	 */
-	public Collection<String> getAllKeyPropertiesNamesOrderedAsInModel() throws XavaException {    
+	public Collection<String> getAllKeyPropertiesNamesOrderedAsInModel() {    
 		if (allKeyPropertiesNamesOrderedAsInModel==null) {
 			ArrayList<String> result = new ArrayList<>();
 			Iterator<MetaMember> itRef = getMetaMembersKey().iterator();
@@ -777,8 +818,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Calculated properties are included. <br>
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public List<String> getPropertiesNamesWithoutHiddenNorTransient() throws XavaException { 
+	public List<String> getPropertiesNamesWithoutHiddenNorTransient() { 
 		// We get it from memberNames to keep order
 		if (propertiesNamesWithoutHiddenNorTransient == null) {
 			List<String> result = new ArrayList<>();
@@ -797,8 +839,9 @@ abstract public class MetaModel extends MetaElement {
 		
 	/**
 	 * @return Collection of <tt>MetaProperty</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesKey() throws XavaException { 
+	public Collection<MetaProperty> getMetaPropertiesKey() { 
 		Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order		
 		ArrayList<MetaProperty> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -816,8 +859,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Key members.
 	 * 
 	 * @return Collection of <tt>MetaMember</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaMember> getMetaMembersKey() throws XavaException {
+	public Collection<MetaMember> getMetaMembersKey() {
 		Iterator<String> it = getMembersNames().iterator(); 		
 		Collection<MetaMember> result = new ArrayList<>(); 
 		while (it.hasNext()) {
@@ -842,8 +886,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Include qualified properties in case of key references. <p<
 	 * 
 	 * @return Collection of <tt>MetaProperty</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public List<MetaProperty> getAllMetaPropertiesKey() throws XavaException { 
+	public List<MetaProperty> getAllMetaPropertiesKey() { 
 		if (allMetaPropertiesKey == null) {
 			ArrayList<MetaProperty> result = new ArrayList<>(getMetaPropertiesKey());
 			Iterator<MetaReference> itRef = getMetaReferencesKey().iterator();
@@ -866,8 +911,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaProperty</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesCalculated() throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesCalculated() {
 		Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order
 		ArrayList<MetaProperty> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -886,8 +932,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<String> getOnlyReadPropertiesNames() throws XavaException {
+	public Collection<String> getOnlyReadPropertiesNames() {
 		Iterator<MetaProperty> it = getMetaProperties().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -901,8 +948,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<String> getOnlyReadWithFormulaPropertiesNames() throws XavaException {
+	public Collection<String> getOnlyReadWithFormulaPropertiesNames() {
 		Iterator<MetaProperty> it = getMetaProperties().iterator();
 		ArrayList<String> result = new ArrayList<>();
 		while (it.hasNext()) {
@@ -983,8 +1031,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * Ordered as in component definition.
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesPersistents() throws XavaException { 
+	public Collection<MetaProperty> getMetaPropertiesPersistents() { 
 		if (metaPropertiesPersistents == null) {
 			Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order
 			ArrayList<MetaProperty> result = new ArrayList<>();			
@@ -1003,8 +1052,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * Ordered as in component definition.
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesPersistentsFromReference(String referenceName) throws XavaException {
+	public Collection<MetaProperty> getMetaPropertiesPersistentsFromReference(String referenceName) {
 		Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order
 		ArrayList<MetaProperty> result = new ArrayList<>();			
 		while (it.hasNext()) {
@@ -1022,8 +1072,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * Ordered as in component definition.
+	 * @throws XavaException
 	 */
-	public Collection<String> getPersistentPropertiesNames() throws XavaException {
+	public Collection<String> getPersistentPropertiesNames() {
 		if (persistentPropertiesNames == null) {
 			Iterator<String> it = getMembersNames().iterator(); // memberNames to keep order
 			ArrayList<String> result = new ArrayList<>();
@@ -1046,8 +1097,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Excludes calculator that implements <code>IHibernateIdGeneratorCalculator</code>. <p>
 	 * 
 	 * @return Collection of <tt>String</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaProperty> getMetaPropertiesWithDefaultValueOnCreate() throws XavaException { 
+	public Collection<MetaProperty> getMetaPropertiesWithDefaultValueOnCreate() { 
 		if (metaPropertiesWithDefaultValueCalcultaorOnCreate == null) {
 			Iterator<MetaProperty> it = getMetaProperties().iterator();
 			ArrayList<MetaProperty> result = new ArrayList<>();
@@ -1080,8 +1132,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaEntityReferences() throws XavaException {
+	public Collection<MetaReference> getMetaEntityReferences() {
 		Collection<MetaReference> result = new ArrayList<>();
 		Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
 		while (it.hasNext()) {
@@ -1095,8 +1148,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaReferencesWithMapping() throws XavaException {
+	public Collection<MetaReference> getMetaReferencesWithMapping() {
 		Collection<MetaReference> result = new ArrayList<>();
 		Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
 		while (it.hasNext()) {
@@ -1110,8 +1164,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaReferencesToEntity() throws XavaException {
+	public Collection<MetaReference> getMetaReferencesToEntity() {
 		if (metaReferencesToEntity == null) {
 			metaReferencesToEntity = new ArrayList<>();
 			Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
@@ -1128,8 +1183,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaReferencesKey() throws XavaException { 
+	public Collection<MetaReference> getMetaReferencesKey() { 
 		if (metaReferencesKey == null) {
 			metaReferencesKey = new ArrayList<>();
 			Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
@@ -1145,8 +1201,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaReferencesKeyAndSearchKey() throws XavaException { 
+	public Collection<MetaReference> getMetaReferencesKeyAndSearchKey() { 
 		if (metaReferencesKeyAndSearchKey == null) {
 			metaReferencesKeyAndSearchKey = new ArrayList<>();
 			Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
@@ -1163,8 +1220,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Collection of <tt>MetaReference</tt>, not null and read only
+	 * @throws XavaException
 	 */
-	public Collection<MetaReference> getMetaAggregateReferences() throws XavaException {
+	public Collection<MetaReference> getMetaAggregateReferences() {
 		Collection<MetaReference> result = new ArrayList<>();
 		Iterator<MetaReference> it = getMapMetaReferences().values().iterator();
 		while (it.hasNext()) {
@@ -1186,8 +1244,9 @@ abstract public class MetaModel extends MetaElement {
 	
 	/**
 	 * @return Not null. If no view is set, then it will generate a default one
+	 * @throws XavaException
 	 */
-	public MetaView getMetaViewByDefault() throws XavaException {
+	public MetaView getMetaViewByDefault() {
 		if (metaViewByDefault == null) {
 			metaViewByDefault = new MetaView();			
 			metaViewByDefault.setModelName(this.getName());
@@ -1199,8 +1258,10 @@ abstract public class MetaModel extends MetaElement {
 		return metaViewByDefault;
 	}
 	
-	/** @since 7.1.6 */
-	public MetaView getMetaViewOnlyKeys() throws XavaException {  
+	/** @since 7.1.6
+	* @throws XavaException
+	 */
+	public MetaView getMetaViewOnlyKeys() {  
 		if (metaViewOnlyKeys == null) {
 			metaViewOnlyKeys = new MetaView();			
 			metaViewOnlyKeys.setModelName(this.getName());
@@ -1229,7 +1290,10 @@ abstract public class MetaModel extends MetaElement {
 		this.metaComponent = metaComponent;
 	}
 	
-	public boolean isCalculated(String propertyName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isCalculated(String propertyName) {
 		boolean r = getCalculatedPropertiesNames().contains(propertyName);
 		if (r) return r;
 		
@@ -1255,7 +1319,10 @@ abstract public class MetaModel extends MetaElement {
 		this.pojoGenerated = generated;
 	}
 		
-	abstract public ModelMapping getMapping() throws XavaException;
+	/**
+	* @throws XavaException
+	 */
+	abstract public ModelMapping getMapping() ;
 	
 	public boolean containsMetaReferenceWithModel(String name) {
 		Iterator<MetaReference> it = getMetaReferences().iterator();
@@ -1271,21 +1338,30 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @param values  Not null
 	 * @return Not null
+	 * @throws XavaException
 	 */
-	public Map<String, Object> extractKeyValues(Map<String, Object> values) throws XavaException {
+	public Map<String, Object> extractKeyValues(Map<String, Object> values) {
 		return extractKeyValues(keyTester, values, false);
 	}
 	
-	public Map<String, Object> extractSearchKeyValues(Map<String, Object> values) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Map<String, Object> extractSearchKeyValues(Map<String, Object> values) {
 		return extractKeyValues(searchKeyTester, values, false); 
 	}
 	
-	/** @since 6.2.2 */
-	public Map<String, Object> extractKeyValuesFlattenEmbeddedIds(Map<String, Object> values) throws XavaException { 
+	/** @since 6.2.2
+	* @throws XavaException
+	 */
+	public Map<String, Object> extractKeyValuesFlattenEmbeddedIds(Map<String, Object> values) { 
 		return extractKeyValues(keyTester, values, true); 
 	}
 	
-	private Map<String, Object> extractKeyValues(IKeyTester keyTester, Map<String, Object> values, boolean flattenEmbeddedIds) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private Map<String, Object> extractKeyValues(IKeyTester keyTester, Map<String, Object> values, boolean flattenEmbeddedIds) { 
 		Iterator it = values.keySet().iterator();
 		Map<String, Object> result = new HashMap<>();
 		while (it.hasNext()) {
@@ -1320,7 +1396,10 @@ abstract public class MetaModel extends MetaElement {
 		return result;
 	}	
 	
-	private boolean isKey(IKeyTester keyTester, String name) throws XavaException {   		
+	/**
+	* @throws XavaException
+	 */
+	private boolean isKey(IKeyTester keyTester, String name) {   		
 		try { 					
 			return keyTester.isKey(getMetaProperty(name));
 		}
@@ -1336,19 +1415,31 @@ abstract public class MetaModel extends MetaElement {
 	
 
 	
-	public boolean isKeyOrSearchKey(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isKeyOrSearchKey(String name) {
 		return isKey(keyOrSearchKeyTester, name);
 	}
 	
-	public boolean isKey(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isKey(String name) {
 		return isKey(keyTester, name);
 	}
 	
-	public boolean isHiddenKey(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isHiddenKey(String name) {
 		return isKey(hiddenKeyTester, name); 
 	}
 	
-	public boolean isVersion(String name) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isVersion(String name) {
 		try { 					
 			return getMetaProperty(name).isVersion();		
 		}
@@ -1358,7 +1449,10 @@ abstract public class MetaModel extends MetaElement {
 	}
 	
 	
-	private boolean isReference(String name) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private boolean isReference(String name) { 
 		return getMapMetaReferences().containsKey(name);
 	}
 	
@@ -1463,8 +1557,9 @@ abstract public class MetaModel extends MetaElement {
 	 * the sent values in map format. <p>
 	 * 
 	 * @param values  Values to populate the pojo. Can contains nested maps. Cannot be null 
+	 * @throws XavaException
 	 */
-	public Object toPOJO(Map values) throws XavaException {
+	public Object toPOJO(Map values) {
 		try {			 
 			Object pojo = getPOJOClass().newInstance();
 			fillPOJO(pojo, values);
@@ -1481,8 +1576,9 @@ abstract public class MetaModel extends MetaElement {
 	 * the sent values in map format. <p>
 	 * 
 	 * @param values  Values to populate the pojo. Can contain nested maps. Cannot be null 
+	 * @throws XavaException
 	 */
-	public void fillPOJO(Object pojo, Map<String, Object> values) throws XavaException { 
+	public void fillPOJO(Object pojo, Map<String, Object> values) { 
 		try {
 			values = Maps.plainToTree(values); 	
 			values.remove(MapFacade.MODEL_NAME);
@@ -1592,8 +1688,9 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @param modelObject  
 	 * @return if modelObject is null returns an empty map
+	 * @throws XavaException
 	 */
-	public Map<String, Object> toMap(Object modelObject) throws XavaException {
+	public Map<String, Object> toMap(Object modelObject) {
 		return toMap(modelObject, false);
 	}
 	
@@ -1608,12 +1705,16 @@ abstract public class MetaModel extends MetaElement {
 	 * 
 	 * @param modelObject  
 	 * @return if modelObject is null returns an empty map
+	 * @throws XavaException
 	 */
-	public Map<String, Object> toKeyMap(Object modelObject) throws XavaException { 
+	public Map<String, Object> toKeyMap(Object modelObject) { 
 		return toMap(modelObject, true);
 	}
 		
-	private Map<String, Object> toMap(Object modelObject, boolean onlyKey) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private Map<String, Object> toMap(Object modelObject, boolean onlyKey) { 
 		if (modelObject == null) return new HashMap<>(); 
 		
 		try {
@@ -1645,8 +1746,9 @@ abstract public class MetaModel extends MetaElement {
 	 * a map with its values. <p> 
 	 * 
 	 * @return null if the sent map is null, empty or all values are null
+	 * @throws XavaException
 	 */
-	public String toString(Map<String, Object> key) throws XavaException { 
+	public String toString(Map<String, Object> key) { 
 		if (Maps.isEmpty(key)) return null; 
 		return toString(toPOJO(key));
 	}
@@ -1656,8 +1758,9 @@ abstract public class MetaModel extends MetaElement {
 	 * a pojo object. <p> 
 	 * 
 	 * @return null if the sent object is null
+	 * @throws XavaException
 	 */	
-	public String toString(Object pojo) throws XavaException {  
+	public String toString(Object pojo) {  
 		if (pojo == null) return null;
 		StringBuffer toStringValue = new StringBuffer("[.");
 		PropertiesManager pm = new PropertiesManager(pojo);
@@ -1700,8 +1803,9 @@ abstract public class MetaModel extends MetaElement {
 	 * If this is a aggregate the return the container, else the main entity.
 	 * 
 	 * @return Not null
+	 * @throws XavaException
 	 */
-	public MetaModel getMetaModelContainer() throws XavaException { 
+	public MetaModel getMetaModelContainer() { 
 		if (metaModelContainer == null) {
 			if (Is.emptyString(this.containerModelName)) {
 				metaModelContainer = getMetaComponent().getMetaEntity();
@@ -1726,7 +1830,10 @@ abstract public class MetaModel extends MetaElement {
 		return containerModelName;
 	}
 	
-	public Collection<MetaCollection> getMetaCollectionsWithConditionInOthersModels() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<MetaCollection> getMetaCollectionsWithConditionInOthersModels() {
 		Collection<MetaCollection> result = new ArrayList<>();
 		Iterator<MetaComponent> itComponents = MetaComponent.getAllLoaded().iterator();
 		while (itComponents.hasNext()) {
@@ -1782,8 +1889,9 @@ abstract public class MetaModel extends MetaElement {
 
 	/**
 	 * Does not include <i>Transient</i> properties and properties from collections
+	 * @throws XavaException
 	 */
-	public Collection<String> getRecursiveQualifiedPropertiesNames() throws XavaException {
+	public Collection<String> getRecursiveQualifiedPropertiesNames() {
 		if (recursiveQualifiedPropertiesNames == null) {
 			Collection<String> parents = new HashSet<>();
 			parents.add(getName());			
@@ -1798,8 +1906,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Does not include <i>Transient</i> properties and properties from collections
 	 * 
 	 * @since 4.9
+	 * @throws XavaException
 	 */
-	public Collection<String> getRecursiveQualifiedPropertiesNamesUntilSecondLevel() throws XavaException { 
+	public Collection<String> getRecursiveQualifiedPropertiesNamesUntilSecondLevel() { 
 		if (recursiveQualifiedPropertiesNamesUntilSecondLevel == null) {
 			Collection<String> parents = new HashSet<>();
 			parents.add(getName());			
@@ -1811,8 +1920,9 @@ abstract public class MetaModel extends MetaElement {
 	/**
 	 * Does not include <i>Transient</i> properties
 	 * @since 6.5 
+	 * @throws XavaException
 	 */
-	public Collection<String> getRecursiveQualifiedPropertiesNamesIncludingCollections() throws XavaException { 
+	public Collection<String> getRecursiveQualifiedPropertiesNamesIncludingCollections() { 
 		if (recursiveQualifiedPropertiesNamesIncludingCollections == null) {
 			Collection<String> parents = new HashSet<>();
 			parents.add(getName());			
@@ -1827,8 +1937,9 @@ abstract public class MetaModel extends MetaElement {
 	 * Does not include <i>Transient</i> properties 
 	 * 
 	 * @since 6.5
+	 * @throws XavaException
 	 */
-	public Collection<String> getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections() throws XavaException {  
+	public Collection<String> getRecursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections() {  
 		if (recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections == null) {
 			Collection<String> parents = new HashSet<>();
 			parents.add(getName());			
@@ -1837,7 +1948,10 @@ abstract public class MetaModel extends MetaElement {
 		return recursiveQualifiedPropertiesNamesUntilSecondLevelIncludingCollections;
 	}
 
-	private Collection<String> createQualifiedPropertiesNames(Collection<String> parents, String prefix, boolean includeCollections, int level) throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private Collection<String> createQualifiedPropertiesNames(Collection<String> parents, String prefix, boolean includeCollections, int level) { 
 		if (level == 0) return Collections.emptyList(); 
 		List<String> result = new ArrayList<>();		
 		for (Iterator<String> it = getMembersNames().iterator(); it.hasNext();) {
@@ -1917,7 +2031,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @throws ElementNotFoundException If the component does not have associated any MetaModel
 	 * @throws XavaException Any problem
 	 */	
-	public static MetaModel get(String modelName) throws ElementNotFoundException, XavaException { 
+	public static MetaModel get(String modelName) throws ElementNotFoundException { 
 		if (modelName.indexOf('.') < 0) {
 			return MetaComponent.get(modelName).getMetaEntity();
 		}
@@ -1932,7 +2046,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @throws ElementNotFoundException If the pojo does not have associated any MetaModel
 	 * @throws XavaException Any problem
 	 */	
-	public static MetaModel getForPOJO(Object pojo) throws ElementNotFoundException, XavaException {
+	public static MetaModel getForPOJO(Object pojo) throws ElementNotFoundException {
 		if (pojo == null) {
 			throw new ElementNotFoundException("component_for_pojo_not_found", "null");
 		}
@@ -1940,7 +2054,7 @@ abstract public class MetaModel extends MetaElement {
 			try {
 				return ((IModel) pojo).getMetaModel();
 			} 
-			catch (RemoteException ex) {
+			catch (SystemException ex) {
 				throw new XavaException(ex.getMessage()); // Really difficult 
 			} 
 		}
@@ -1953,7 +2067,7 @@ abstract public class MetaModel extends MetaElement {
 	 * @throws ElementNotFoundException If the pojoClass does not have associated any MetaModel
 	 * @throws XavaException Any problem
 	 */
-	public static MetaModel getForPOJOClass(Class pojoClass) throws ElementNotFoundException, XavaException {
+	public static MetaModel getForPOJOClass(Class pojoClass) throws ElementNotFoundException {
 		String componentName = Strings.lastToken(pojoClass.getName(), ".");
 		MetaModel metaModel = get(componentName);
 		if (!metaModel.getPOJOClass().equals(pojoClass)) {
@@ -1977,7 +2091,10 @@ abstract public class MetaModel extends MetaElement {
 	
 	
 	
-	public String getInterfaceName()  throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getInterfaceName()  {
 		return getMetaComponent().getPackageName() + ".I" + getName();
 	}
 	
@@ -1988,16 +2105,25 @@ abstract public class MetaModel extends MetaElement {
 		return getPOJOClassName() != null;
 	}
 	
-	public String getPOJOClassName()  throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getPOJOClassName()  {
 		if (pojoClassName != null) return pojoClassName; 
 		if (getMetaComponent().getPackageName() == null) return null; 
 		return getMetaComponent().getPackageName() + "." + getName();
 	}
-	public void setPOJOClassName(String pojoClassName)  throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setPOJOClassName(String pojoClassName)  {
 		this.pojoClassName = pojoClassName;
 	}
 	
-	public Class getPOJOClass() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public Class getPOJOClass() { 
 		if (pojoClass==null){
 			try {
 				pojoClass =  Class.forName(getPOJOClassName());
@@ -2011,7 +2137,10 @@ abstract public class MetaModel extends MetaElement {
 			
 	}
 	
-	public Class getPOJOKeyClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Class getPOJOKeyClass() {
 		if (pojoKeyClass==null) return getPOJOClass(); // POJO is used as key too
 		return pojoKeyClass;			
 	}
@@ -2027,7 +2156,10 @@ abstract public class MetaModel extends MetaElement {
 		this.annotatedEJB3 = annotatedEJB3;
 	}
 	
-	public String getVersionPropertyName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getVersionPropertyName() {
 		if (!versionPropertyNameObtained) {
 			for (Iterator<MetaProperty> it=getMetaProperties().iterator(); it.hasNext(); ) {
 				MetaProperty pr = it.next();
@@ -2045,7 +2177,10 @@ abstract public class MetaModel extends MetaElement {
 		return versionPropertyName;
 	}		
 	
-	public boolean hasVersionProperty() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public boolean hasVersionProperty() { 
 		return getVersionPropertyName() != null;
 	}
 	

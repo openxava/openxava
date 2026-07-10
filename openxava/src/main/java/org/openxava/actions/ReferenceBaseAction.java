@@ -53,7 +53,10 @@ public class ReferenceBaseAction extends ViewBaseAction {
 		return viewInfo;
 	}
 
-	private ViewInfo createSubview(View view, String memberName) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private ViewInfo createSubview(View view, String memberName) {
 		if (memberName.endsWith(DescriptionsLists.COMPOSITE_KEY_SUFFIX)) memberName = memberName.substring(0, memberName.length() - 7);
 		if (view.isRepresentsElementCollection()) {
 			int idx = memberName.indexOf('.');

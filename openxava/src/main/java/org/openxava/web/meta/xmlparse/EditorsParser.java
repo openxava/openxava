@@ -23,7 +23,10 @@ public class EditorsParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void setupEditors() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	public static void setupEditors() { 
 		EditorsParser defaultParser = new EditorsParser("default-editors.xml", ENGLISH);
 		defaultParser.parse();		
 		EditorsParser enParser = new EditorsParser("editors.xml", ENGLISH);
@@ -32,7 +35,10 @@ public class EditorsParser extends ParserBase {
 		esParser.parse();		
 	}
 	
-	private void addEditors(Element el) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void addEditors(Element el) {
 		String url = el.getAttribute(xurl[lang]);		
 		if (Is.emptyString(url)) return;
 		MetaEditor editor = new MetaEditor();		
@@ -97,7 +103,10 @@ public class EditorsParser extends ParserBase {
 		throw new XavaException("invalid_label_format", labelFormat);
 	}
 
-	private MetaSet createSet(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaSet createSet(Node n) {
 		Element el = (Element) n;
 		MetaSet a = new MetaSet();		
 		a.setPropertyName(el.getAttribute(xproperty[lang]));
@@ -105,7 +114,10 @@ public class EditorsParser extends ParserBase {
 		return a;
 	}
 	
-	private String getListFormatterClassName(Element n, MetaEditor container) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getListFormatterClassName(Element n, MetaEditor container) {
 		NodeList l = n.getElementsByTagName(xlist_formatter[lang]);
 		int c = l.getLength();
 		if (c > 1) {
@@ -126,7 +138,10 @@ public class EditorsParser extends ParserBase {
 	}	
 
 
-	private String getFormatterClass(Element n, MetaEditor container) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getFormatterClass(Element n, MetaEditor container) {
 		NodeList l = n.getElementsByTagName(xformatter[lang]);
 		int c = l.getLength();
 		if (c > 1) {
@@ -146,7 +161,10 @@ public class EditorsParser extends ParserBase {
 		return el.getAttribute(xclass[lang]);						
 	}
 	
-	private boolean getFormatterFromType(Element n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean getFormatterFromType(Element n) {
 		NodeList l = n.getElementsByTagName(xformatter[lang]);
 		int c = l.getLength();
 		if (c > 1) {
@@ -157,7 +175,10 @@ public class EditorsParser extends ParserBase {
 		return getAttributeBoolean(el, xfrom_type[lang]);						
 	}
 	
-	private void setForTabs(Element n, MetaEditor container) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void setForTabs(Element n, MetaEditor container) {
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
 		if (l.getLength() < 1) return;
 		Element el = (Element) l.item(0);
@@ -190,7 +211,10 @@ public class EditorsParser extends ParserBase {
 	}
 
 	
-	private void addEditorsForType(MetaEditor editor, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForType(MetaEditor editor, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_type[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -199,7 +223,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForAnnotation(MetaEditor editor, Element n) throws XavaException { 		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForAnnotation(MetaEditor editor, Element n) { 		
 		NodeList l = n.getElementsByTagName(xfor_annotation[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -208,7 +235,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 
-	private void addEditorsForReferenceModel(MetaEditor editor, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForReferenceModel(MetaEditor editor, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_reference[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -217,7 +247,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForCollectionModel(MetaEditor editor, Element n) throws XavaException { 		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForCollectionModel(MetaEditor editor, Element n) { 		
 		NodeList l = n.getElementsByTagName(xfor_collection[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -226,7 +259,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForTabModel(MetaEditor editor, Element n) throws XavaException {  		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForTabModel(MetaEditor editor, Element n) {  		
 		NodeList l = n.getElementsByTagName(xfor_tab[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -235,7 +271,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}			
 	
-	private void addEditorsForValidValues(MetaEditor editor, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForValidValues(MetaEditor editor, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_valid_values[lang]);
 		if (l.getLength() > 0) {
 			// we save using a special internal type 
@@ -243,42 +282,60 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForReferences(MetaEditor editor, Element n) throws XavaException { 		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForReferences(MetaEditor editor, Element n) { 		
 		NodeList l = n.getElementsByTagName(xfor_references[lang]);
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForReferences(editor);
 		}		
 	}
 	
-	private void addEditorsForCollections(MetaEditor editor, Element n) throws XavaException {  		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForCollections(MetaEditor editor, Element n) {  		
 		NodeList l = n.getElementsByTagName(xfor_collections[lang]);
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForCollections(editor);
 		}		
 	}
 	
-	private void addEditorsForElementCollections(MetaEditor editor, Element n) throws XavaException {  		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForElementCollections(MetaEditor editor, Element n) {  		
 		NodeList l = n.getElementsByTagName(xfor_element_collections[lang]);
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForElementCollections(editor);
 		}		
 	}	
 	
-	private void addEditorsForDescriptionsLists(MetaEditor editor, Element n) throws XavaException {  		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForDescriptionsLists(MetaEditor editor, Element n) {  		
 		NodeList l = n.getElementsByTagName(xfor_descriptions_lists[lang]);
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForDescriptionsLists(editor);
 		}		
 	}
 	
-	private void addEditorsForTabs(MetaEditor editor, Element n) throws XavaException {   		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForTabs(MetaEditor editor, Element n) {   		
 		NodeList l = n.getElementsByTagName(xfor_tabs[lang]);
 		if (l.getLength() > 0) { 
 			MetaWebEditors.addMetaEditorForTabs(editor);
 		}		
 	}			
 	
-	private void addEditorsForStereotype(MetaEditor editor, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForStereotype(MetaEditor editor, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_stereotype[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -287,7 +344,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 	
-	private void addEditorsForModelProperty(MetaEditor editor, Element n) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private void addEditorsForModelProperty(MetaEditor editor, Element n) {		
 		NodeList l = n.getElementsByTagName(xfor_model_property[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -296,7 +356,10 @@ public class EditorsParser extends ParserBase {
 		}		
 	}
 			
-	private void createEditors() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createEditors() {
 		NodeList l = getRoot().getElementsByTagName(xeditor[lang]);
 		int c = l.getLength();		
 		for (int i = 0; i < c; i++) {
@@ -305,7 +368,10 @@ public class EditorsParser extends ParserBase {
 		}						
 	}
 			
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createEditors();				
 	}
 		

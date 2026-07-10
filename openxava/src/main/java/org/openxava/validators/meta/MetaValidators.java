@@ -19,14 +19,20 @@ public class MetaValidators {
 	private static Map<String, MetaValidatorFor> metaValidatorsRequired;
 	private static Map<String, MetaValidatorFor> metaValidatorsDefault;
 	
-	public static void _addMetaValidator(MetaValidator newMetaValidator) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addMetaValidator(MetaValidator newMetaValidator) {
 		if (metaValidators == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidator");
 		}
 		metaValidators.put(newMetaValidator.getName(), newMetaValidator);
 	}
 	
-	public static void _addMetaValidatorRequired(MetaValidatorFor newMetaValidator) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addMetaValidatorRequired(MetaValidatorFor newMetaValidator) {
 		if (metaValidatorsRequired == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorRequired");
 		}
@@ -44,7 +50,10 @@ public class MetaValidators {
 		}
 	}
 	
-	public static void _addMetaValidatorDefault(MetaValidatorFor newMetaValidator) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addMetaValidatorDefault(MetaValidatorFor newMetaValidator) {
 		if (metaValidatorsDefault == null) {
 			throw new XavaException("only_from_parse", "MetaValidators._addMetaValidatorDefault");
 		}
@@ -66,9 +75,10 @@ public class MetaValidators {
 	/**
 	 * 
 	 * @return Null if not found
+	 * @throws XavaException
 	 */
 	private static MetaValidatorFor findFromParent(Map metaValidatorsFor, String forType)
-		throws XavaException {
+		{
 		try {
 			if (isStereotype(forType)) return null;
 			if (isPrimitiveType(forType))
@@ -116,7 +126,7 @@ public class MetaValidators {
 	/**
 	 * @exception XavaException If the validator is not registered or another problem.
 	 */
-	public static MetaValidator getMetaValidator(String name) throws XavaException {
+	public static MetaValidator getMetaValidator(String name) {
 		if (metaValidators == null) {
 			metaValidators = new HashMap();
 			metaValidatorsRequired = new HashMap();
@@ -132,9 +142,10 @@ public class MetaValidators {
 	
 	/**
 	 * @return Null if a validator for the clase is not found.
+	 * @throws XavaException
 	 */
 	public static MetaValidatorFor getMetaValidatorRequiredFor(String typeOrStereotype)
-		throws XavaException {
+		{
 		if (metaValidatorsRequired == null) {
 			metaValidators = new HashMap();
 			metaValidatorsRequired = new HashMap();
@@ -154,9 +165,10 @@ public class MetaValidators {
 	
 	/**
 	 * @return Null if a validator for the clase is not found.
+	 * @throws XavaException
 	 */
 	public static MetaValidatorFor getMetaValidatorDefaultFor(String typeStereotypeOrAnnotation) 
-		throws XavaException {
+		{
 		if (metaValidatorsDefault == null) {
 			metaValidators = new HashMap();
 			metaValidatorsRequired = new HashMap();

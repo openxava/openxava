@@ -18,7 +18,10 @@ public class ControllersParser extends ParserBase {
 		super(xmlFileURL, language);
 	}
 	
-	public static void configureControllers(String context) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void configureControllers(String context) {
 		ControllersParser defaultParser = new ControllersParser("default-controllers.xml", ENGLISH);
 		defaultParser.setContext(context);
 		defaultParser.parse();
@@ -36,7 +39,10 @@ public class ControllersParser extends ParserBase {
 		esParser.parse();
 	}
 	
-	private MetaController createController(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaController createController(Node n) {
 		Element el = (Element) n;
 		MetaController result = new MetaController();
 		result.setName(el.getAttribute(xname[lang]));
@@ -57,7 +63,10 @@ public class ControllersParser extends ParserBase {
 		return "comun".equals(context) || Is.emptyString(context);		
 	}
 
-	private void createControllers() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createControllers() {
 		NodeList l = getRoot().getElementsByTagName(xcontroller[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -68,7 +77,10 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 	
-	private void createMetaObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createMetaObjects() {
 		NodeList l = getRoot().getElementsByTagName(xobject[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -79,7 +91,10 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 	
-	private void createEnvironmentVar() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void createEnvironmentVar() {
 		NodeList l = getRoot().getElementsByTagName(xenvironment_var[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -91,13 +106,19 @@ public class ControllersParser extends ParserBase {
 	}
 	
 	
-	protected void createObjects() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	protected void createObjects() {
 		createEnvironmentVar();
 		createMetaObjects();
 		createControllers();
 	}			
 	
-	private MetaAction createAction(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaAction createAction(Node n) {
 		Element el = (Element) n;
 		MetaAction result = new MetaAction();
 		result.setName(el.getAttribute(xname[lang]));
@@ -128,7 +149,10 @@ public class ControllersParser extends ParserBase {
 		return result;
 	}
 	
-	private int toByDefault(String byDefault) throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private int toByDefault(String byDefault) {		
 		if (xnever[lang].equals(byDefault)) return MetaAction.NEVER;
 		if (xalmost_never[lang].equals(byDefault)) return MetaAction.ALMOST_NEVER;
 		if (xif_possible[lang].equals(byDefault)) return MetaAction.IF_POSSIBLE;
@@ -137,8 +161,11 @@ public class ControllersParser extends ParserBase {
 		return MetaAction.ALMOST_NEVER;
 	}
 
+	/**
+	* @throws XavaException
+	 */
 	private void fillSet(Element el, MetaAction container)
-		throws XavaException {
+		{
 		NodeList l = el.getElementsByTagName(xset[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -146,7 +173,10 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 	
-	private MetaSet createSet(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaSet createSet(Node n) {
 		Element el = (Element) n;
 		MetaSet a = new MetaSet();		
 		a.setPropertyName(el.getAttribute(xproperty[lang]));
@@ -155,7 +185,10 @@ public class ControllersParser extends ParserBase {
 		return a;
 	}
 	
-	private MetaObject createObject(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaObject createObject(Node n) {
 		Element el = (Element) n;
 		MetaObject result = new MetaObject();
 		result.setName(el.getAttribute(xname[lang]));
@@ -165,7 +198,10 @@ public class ControllersParser extends ParserBase {
 		return result;
 	}
 	
-	private MetaSubcontroller createSubcontroller(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaSubcontroller createSubcontroller(Node n) {
 		Element el = (Element) n;
 		MetaSubcontroller result = new MetaSubcontroller();
 		result.setImage(el.getAttribute(ximage[lang]));
@@ -177,7 +213,10 @@ public class ControllersParser extends ParserBase {
 		return result;
 	}
 	
-	private MetaUseObject createUseObject(Node n) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaUseObject createUseObject(Node n) {
 		Element el = (Element) n;
 		MetaUseObject result = new MetaUseObject();
 		result.setName(el.getAttribute(xname[lang]));
@@ -185,8 +224,11 @@ public class ControllersParser extends ParserBase {
 		return result;
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void fillExtends(Element el, MetaController container)
-		throws XavaException {
+		{
 		NodeList l = el.getElementsByTagName(xextends[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -195,7 +237,10 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 
-	private void fillSubcontroller(Element el, MetaController container)throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void fillSubcontroller(Element el, MetaController container){
 		NodeList l = el.getElementsByTagName(xsubcontroller[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++){
@@ -224,8 +269,11 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void fillActions(Element el, MetaController container)
-		throws XavaException {
+		{
 		NodeList l = el.getElementsByTagName(xaction[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -233,8 +281,11 @@ public class ControllersParser extends ParserBase {
 		}
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private void fillUseObject(Element el, MetaAction container)
-		throws XavaException {
+		{
 		NodeList l = el.getElementsByTagName(xuse_object[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {

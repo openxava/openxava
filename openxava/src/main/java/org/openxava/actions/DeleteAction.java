@@ -57,7 +57,10 @@ public class DeleteAction extends ViewDetailAction {
 		getErrors().clearAndClose(); // If removal is done, any additional error message may be confused
 	}
 	
-	private void removeSelected(Map keyValues) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private void removeSelected(Map keyValues) {
 		getTab().deselect(keyValues);
 	}
 

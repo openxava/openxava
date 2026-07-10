@@ -21,15 +21,21 @@ class TabConverter implements java.io.Serializable {
 	private IMultipleConverter multipleConverter;
 	
 
+	/**
+	* @throws XavaException
+	 */
 	public TabConverter(String propertyName, int index, IConverter converter)
-		throws XavaException {
+		{
 		this.index = index;
 		this.propertyName = propertyName;
 		this.converter = converter;
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	public TabConverter(String propertyName, int index, IMultipleConverter converter, Collection cmpFields, String [] columns, String table)
-		throws XavaException {
+		{
 		this.index = index;
 		this.propertyName = propertyName;
 		this.multipleConverter = converter;

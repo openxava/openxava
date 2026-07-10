@@ -16,7 +16,10 @@ public class FilterParser extends XmlElementsNames {
 
 	
 	
-	public static MetaFilter parseFilter(Node n, int lang) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static MetaFilter parseFilter(Node n, int lang) {
 		Element el = (Element) n;
 		MetaFilter e = new MetaFilter();
 		e.setClassName(el.getAttribute(xclass[lang]));
@@ -24,8 +27,11 @@ public class FilterParser extends XmlElementsNames {
 		return e;
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private static void fillSets(Element el, MetaFilter container, int lang)
-		throws XavaException {
+		{
 		NodeList l = el.getElementsByTagName(xset[lang]);
 		int c = l.getLength();
 		for (int i = 0; i < c; i++) {
@@ -34,7 +40,10 @@ public class FilterParser extends XmlElementsNames {
 	}
 	
 	
-	private static MetaSet createSet(Node n, int lang) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static MetaSet createSet(Node n, int lang) {
 		Element el = (Element) n;
 		MetaSet a = new MetaSet();		
 		a.setPropertyName(el.getAttribute(xproperty[lang]));

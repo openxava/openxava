@@ -1,8 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
+import org.openxava.util.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 /**
  * Allows search specifying a concrete condition. <p>
@@ -23,8 +23,8 @@ public interface ISearch {
    * @param condition  Condition to use in search.
    * @param key  Key to send to search 
    * @exception FinderException  Any logic problem on search
-   * @exception RemoteException  Any system problem on search
+   * @exception SystemException  Any system problem on search
    */  
-  void search(String condition, Object key) throws FinderException, RemoteException;
+  void search(String condition, Object key) throws FinderException ;
   
 }

@@ -3,11 +3,11 @@ package org.openxava.model.impl;
 import java.io.*;
 import java.util.*;
 
-import javax.ejb.*;
 import jakarta.persistence.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
+import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.tab.impl.*;
 import org.openxava.util.*;
@@ -62,8 +62,11 @@ public class JPAPersistenceProvider extends POJOPersistenceProviderBase {
 		}		
 	}
 	 
+	/**
+	* @throws XavaException
+	 */
 	public void remove(MetaModel metaModel, Map keyValues)
-			throws RemoveException, XavaException {  
+			throws RemoveException {  
 		try {
 			Object model = find(metaModel, keyValues, false);  
 			XPersistence.getManager().remove(model);

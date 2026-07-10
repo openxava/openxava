@@ -17,8 +17,7 @@ public class TolerantValidator implements IPropertyValidator {
 		Messages errors,
 		Object object,
 		String objectName,
-		String propertyName)
-		throws java.rmi.RemoteException {
+		String propertyName) {
 	}
 	
 }

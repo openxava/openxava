@@ -8,7 +8,7 @@ package org.openxava.model.impl;
  * when a system level error is produced. <p>
  * 
  * This exception exists for your convenience, also you can throw 
- * PersistenceException, JDOException, HibernateException, EJBException or 
+ * PersistenceException, JDOException, HibernateException or
  * whatever RuntimeException your want.<br>
  * 
  * @author Javier Paniza

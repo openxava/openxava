@@ -21,7 +21,10 @@ public class Converters {
 	private static Map typeCmpTypes;
 	
 	
-	public static void _addForStereotype(String name, String converterClass, String cmpType) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForStereotype(String name, String converterClass, String cmpType) {
 		if (stereotypeConverters == null) {
 			throw new XavaException("only_from_parse", "Converters._addForStereotype");
 		}		
@@ -29,7 +32,10 @@ public class Converters {
 		stereotypeCmpTypes.put(name, cmpType);		
 	}
 	
-	public static void _addForType(String typeName, String converterClass, String cmpType) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public static void _addForType(String typeName, String converterClass, String cmpType) {
 		if (typeConverters == null) {
 			throw new XavaException("only_from_parse", "Converters._addForType");
 		}			
@@ -39,8 +45,9 @@ public class Converters {
 	
 	/**
 	 * @return null if argument has no default converter associated. <p>  
+	 * @throws XavaException
 	 */
-	public static String getConverterClassNameFor(MetaProperty p) throws XavaException {
+	public static String getConverterClassNameFor(MetaProperty p) {
 		if (stereotypeConverters == null) configure();
 		String result = (String) stereotypeConverters.get(p.getStereotype());
 		if (result != null) return result;
@@ -49,15 +56,19 @@ public class Converters {
 
 	/**
 	 * @return null if argument has no default converter associated. <p>  
+	 * @throws XavaException
 	 */
-	public static String getCmpTypeFor(MetaProperty p) throws XavaException {
+	public static String getCmpTypeFor(MetaProperty p) {
 		if (stereotypeCmpTypes == null) configure();
 		String result = (String) stereotypeCmpTypes.get(p.getStereotype());
 		if (result != null) return result;
 		return (String) typeCmpTypes.get(p.getType().getName());
 	}	
 			
-	private static void configure() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private static void configure() {
 		stereotypeConverters = new HashMap();
 		stereotypeCmpTypes = new HashMap();
 		typeConverters = new HashMap();

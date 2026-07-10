@@ -1,7 +1,5 @@
 package org.openxava.calculators;
 
-import java.rmi.*;
-
 import org.openxava.util.*;
 
 /**
@@ -18,7 +16,7 @@ public class ModelPropertyCalculator implements IModelCalculator {
 	private String property;
 	private Object valueOfDependsProperty; 
 
-	public void setModel(Object model) throws RemoteException {
+	public void setModel(Object model) {
 		this.model = model;		
 	}
 

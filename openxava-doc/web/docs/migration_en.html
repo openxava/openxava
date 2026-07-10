@@ -748,6 +748,53 @@ import jakarta.inject.*;</code></pre>
     // ...
 }</code></pre>
 
+    <h3>EJB and RemoteException removed</h3>
+
+    <p>OpenXava 8.0 has removed the last <i>javax.ejb</i> dependency. The old EJB exception classes are no longer available in the classpath, so any code that used them must be updated to the OpenXava equivalents.</p>
+
+    <h4>EJB exceptions</h4>
+
+    <p>The following exceptions now live in the <i>org.openxava.model</i> package and keep the same semantics and hierarchy:</p>
+
+    <ul>
+      <li><i>org.openxava.model.CreateException</i></li>
+      <li><i>org.openxava.model.FinderException</i></li>
+      <li><i>org.openxava.model.ObjectNotFoundException</i></li>
+      <li><i>org.openxava.model.RemoveException</i></li>
+      <li><i>org.openxava.model.DuplicateKeyException</i></li>
+    </ul>
+
+    <p>Update the imports in your code and any <i>catch</i> or <i>throws</i> clauses that reference the old <i>javax.ejb</i> names:</p>
+
+    <pre><code class="language-java">// BEFORE
+import javax.ejb.CreateException;
+import javax.ejb.FinderException;
+import javax.ejb.ObjectNotFoundException;
+import javax.ejb.RemoveException;
+import javax.ejb.DuplicateKeyException;
+
+// AFTER
+import org.openxava.model.CreateException;
+import org.openxava.model.FinderException;
+import org.openxava.model.ObjectNotFoundException;
+import org.openxava.model.RemoveException;
+import org.openxava.model.DuplicateKeyException;</code></pre>
+
+    <p>Public APIs such as <i>MapFacade</i>, the persistence providers, and the action base classes now throw the new <i>org.openxava.model</i> exceptions. If you were catching <i>javax.ejb.FinderException</i>, <i>ObjectNotFoundException</i>, etc., catch the OpenXava versions instead.</p>
+
+    <h4>RemoteException replaced by SystemException</h4>
+
+    <p>OpenXava no longer uses <i>java.rmi.RemoteException</i> as a system-level error. It has been replaced by the runtime exception <i>org.openxava.util.SystemException</i>. This only affects you if your code referenced <i>RemoteException</i> explicitly; most applications need no changes.</p>
+
+    <ul>
+      <li>If you implemented an OpenXava interface that declared <i>throws RemoteException</i> — for example <i>IModel.getMetaModel()</i>, <i>IModelCalculator.setModel()</i>, <i>ILiberate.liberate()</i>, or <i>IPropertiesContainer.executeGets/executeSets()</i> — remove the <i>throws java.rmi.RemoteException</i> clause from your implementing method. Since <i>SystemException</i> is a <i>RuntimeException</i>, no <i>throws</i> clause is required.</li>
+      <li>If you extended an OpenXava action base class (e.g. <i>CollectionBaseAction</i>, <i>SaveElementInCollectionAction</i>) and overrode a method that declared <i>throws RemoteException</i>, remove that clause from your override.</li>
+      <li>If you catch <i>RemoteException</i> around OpenXava calls, replace the catch with <i>org.openxava.util.SystemException</i>, or simply remove it (it is a runtime exception, so it is optional to catch). Most calls (e.g. via <i>MapFacade</i>) already threw <i>SystemException</i>, so you probably have nothing to change here.</li>
+      <li>Remove any now-unused <i>import java.rmi.RemoteException;</i> statements.</li>
+    </ul>
+
+    <p>Your own interfaces or classes that declared <i>throws RemoteException</i> by imitating the old OpenXava style are not required to change, but you may clean them up for consistency.</p>
+
     <h3>DWR removed</h3>
 
     <p>Direct Web Remoting (DWR) has been completely removed from OpenXava. DWR was a library

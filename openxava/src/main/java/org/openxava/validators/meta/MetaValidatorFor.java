@@ -27,8 +27,9 @@ public class MetaValidatorFor {
 
 	/**
 	 * The first time the validator is created, the other times returns the created one.
+	 * @throws XavaException
 	 */
-	public IPropertyValidator getPropertyValidator() throws XavaException { 
+	public IPropertyValidator getPropertyValidator() { 
 		if (propertyValidator == null) {
 			propertyValidator = createPropertyValidator();
 		}
@@ -38,8 +39,9 @@ public class MetaValidatorFor {
 	/**
 	 * Creates a validator each time that this method is called;
 	 * this validator is configured with the values assigned in XML. 
+	 * @throws XavaException
 	 */
-	private IPropertyValidator createPropertyValidator() throws XavaException { 
+	private IPropertyValidator createPropertyValidator() { 
 		try {
 			Object o = Class.forName(getValidatorClass()).newInstance();
 			if (!(o instanceof IPropertyValidator)) {
@@ -56,7 +58,10 @@ public class MetaValidatorFor {
 		}
 	}
 		
-	public java.lang.String getValidatorClass() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public java.lang.String getValidatorClass() {
 		if (validatorClass == null) {
 			validatorClass =
 				MetaValidators

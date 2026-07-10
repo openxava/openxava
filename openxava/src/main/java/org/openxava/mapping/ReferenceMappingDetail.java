@@ -55,11 +55,17 @@ public class ReferenceMappingDetail extends MetaSetsContainer {
 		return result.toString();
 	}
 	
-	public String getQualifiedColumnOfReferencedTable() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public String getQualifiedColumnOfReferencedTable() {		
 		return getContainer().getReferencedTable() + "." + getReferencedTableColumn(); 		
 	}
 	
-	public String getReferencedTableColumn() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getReferencedTableColumn() {
 		if (referencedTableColumn == null) {
 			ReferenceMapping referenceMapping = getContainer();			
 			EntityMapping referencedMapping = MetaComponent.get(referenceMapping.getReferencedModelName()).getEntityMapping();
@@ -68,7 +74,10 @@ public class ReferenceMappingDetail extends MetaSetsContainer {
 		return referencedTableColumn;
 	}
 	
-	public String getQualifiedColumn() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getQualifiedColumn() {
 		return getContainer().getContainer().getTableToQualifyColumn() + "." +  getColumn(); 
 	}
 	
@@ -91,7 +100,10 @@ public class ReferenceMappingDetail extends MetaSetsContainer {
 		return !Is.emptyString(converterClassName);
 	}
 	
-	public  IConverter getConverter() throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	public  IConverter getConverter() {  
 		if (!converterCreated) {
 			converter = createConverter();					
 			converterCreated = true;
@@ -99,7 +111,10 @@ public class ReferenceMappingDetail extends MetaSetsContainer {
 		return converter;
 	}
 	
-	private IConverter createConverter() throws XavaException {  
+	/**
+	* @throws XavaException
+	 */
+	private IConverter createConverter() {  
 		try {
 			if (!hasConverter()) return null;
 			IConverter converter = (IConverter) Class.forName(converterClassName).newInstance();

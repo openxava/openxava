@@ -60,8 +60,9 @@ public class PropertyMapping extends MetaSetsContainer {
 
 	/** 
 	 * @return Null if mapping does not have converter
+	 * @throws XavaException
 	 */	
-	public  IConverter getConverter() throws XavaException {
+	public  IConverter getConverter() {
 		if (!converterCreated) {
 			converter = createConverter();
 			converterCreated = true;
@@ -71,8 +72,9 @@ public class PropertyMapping extends MetaSetsContainer {
 	
 	/** 
 	 * @return Null if mapping does not have multiple converter
+	 * @throws XavaException
 	 */	
-	public  IMultipleConverter getMultipleConverter() throws XavaException {
+	public  IMultipleConverter getMultipleConverter() {
 		if (!multpleConverterCreated) {
 			multipleConverter = createMultipleConverter();
 			multpleConverterCreated = true;
@@ -89,12 +91,18 @@ public class PropertyMapping extends MetaSetsContainer {
 		return !Is.emptyString(multipleConverterClassName); 
 	}
 	
-	public Collection<CmpField> getCmpFields() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Collection<CmpField> getCmpFields() {
 		if (cmpFields == null) return Collections.singletonList(toCmpField());
 		return cmpFields;		
 	}
 	
-	CmpField toCmpField() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	CmpField toCmpField() {
 		CmpField f = new CmpField();
 		if (Is.emptyString(getCmpTypeName())) {
 			String typeName = getMetaProperty().getType().isArray()?getMetaProperty().getTypeName():getMetaProperty().getType().getName();
@@ -113,7 +121,10 @@ public class PropertyMapping extends MetaSetsContainer {
 		return f;
 	}
 		
-	private IConverter createConverter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private IConverter createConverter() {
 		try {
 			if (!hasConverter()) return null;
 			IConverter conversor = (IConverter) Class.forName(converterClassName).newInstance();
@@ -132,7 +143,10 @@ public class PropertyMapping extends MetaSetsContainer {
 		}
 	}
 	
-	private IMultipleConverter createMultipleConverter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private IMultipleConverter createMultipleConverter() {
 		try {
 			if (!hasMultipleConverter()) return null;
 			IMultipleConverter conversor = (IMultipleConverter) Class.forName(multipleConverterClassName).newInstance();
@@ -151,7 +165,10 @@ public class PropertyMapping extends MetaSetsContainer {
 		}
 	}
 		
-	public String getCmpTypeName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getCmpTypeName() {
 		if (Is.emptyString(cmpTypeName)) cmpTypeName = getMetaProperty().getTypeName();
 		
 		if ("String".equals(cmpTypeName)) return "java.lang.String";
@@ -169,7 +186,10 @@ public class PropertyMapping extends MetaSetsContainer {
 		return cmpTypeName;
 	}
 	
-	public Class getCmpType() throws ClassNotFoundException, XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public Class getCmpType() throws ClassNotFoundException {
 		return Primitives.classForName(getCmpTypeName());
 	}
 
@@ -195,12 +215,18 @@ public class PropertyMapping extends MetaSetsContainer {
 		this.multipleConverterClassName = string;
 	}
 	
-	MetaProperty getMetaProperty() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	MetaProperty getMetaProperty() { 
 		String property = Strings.change(getProperty(), "_", ".");
 		return modelMapping.getMetaModel().getMetaProperty(property);
 	}
 	
-	public void setDefaultConverter() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public void setDefaultConverter() {
 		if (hasConverter() || hasMultipleConverter()) return;
 		MetaProperty p = null;
 		

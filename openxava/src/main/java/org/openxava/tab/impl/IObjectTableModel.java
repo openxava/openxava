@@ -1,6 +1,6 @@
 package org.openxava.tab.impl;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 import javax.swing.table.*;
 
 

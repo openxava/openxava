@@ -1,9 +1,8 @@
 package org.openxava.tab.impl;
 
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
+import org.openxava.model.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
@@ -51,7 +50,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 	
 	
-	public void search(String condition, Object key) throws FinderException, RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public void search(String condition, Object key) throws FinderException {
 		try {
 			if (condition != null && condition.contains(" group by ")) {
 				setConditionProperties(condition);
@@ -88,7 +90,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_search_error", ex.getLocalizedMessage()));
+			throw new SystemException(XavaResources.getString("tab_search_error", ex.getLocalizedMessage()));
 		}		
 	}
 	
@@ -107,8 +109,9 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	
 	/**
 	 * Return a map with key values.
+	 * @throws SystemException
 	 */
-	public Object findEntity(Object[] key) throws FinderException, RemoteException {
+	public Object findEntity(Object[] key) throws FinderException {
 		try {
 			Map<String, Object> result = new HashMap<>();
 			for (int i = 0; i < key.length; i++) {
@@ -120,13 +123,16 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(
+			throw new SystemException(
 				XavaResources.getString("tab_entity_find_error"));
 		}
 	}
 
 
-	private String[] getHeading() throws XavaException { 
+	/**
+	* @throws XavaException
+	 */
+	private String[] getHeading() { 
 		String[] result = new String[getProperties().size() + getIndexesPK().length];
 		Iterator it = getProperties().iterator();		
 		int i = getIndexesPK().length;
@@ -140,8 +146,9 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	/**
 	 * Associated class with each column table. <br>
 	 * Complete class name is specified in String format.<br>
+	 * @throws XavaException
 	 */
-	private String[] getColumnsClasses() throws XavaException {
+	private String[] getColumnsClasses() {
 		String[] result = new String[getProperties().size() + getIndexesPK().length];
 		Iterator it = getProperties().iterator();
 		int i = getIndexesPK().length;
@@ -152,7 +159,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return result;
 	}
 
-	private String getColumnClass(Class type) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getColumnClass(Class type) {
 		String name = type.getName();
 		if (!type.isPrimitive())
 			return name;
@@ -186,14 +196,17 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 
 
-	public IXTableModel getTable()  throws RemoteException { 
+	/**
+	* @throws SystemException
+	 */
+	public IXTableModel getTable()  { 
 		try {
 			table.setEntityTab(this);
 			return new HiddenXTableModel(table, getIndexesPK()); 
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_tablemodel_error", ex.getLocalizedMessage()));
+			throw new SystemException(XavaResources.getString("tab_tablemodel_error", ex.getLocalizedMessage()));
 		}   
 	}
 
@@ -241,7 +254,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 
 	// Always the firsts fields that are hidden too
-	private int[] getIndexesPK() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private int[] getIndexesPK() {		
 		if (indexesPK == null) {
 			indexesPK = new int[getKeyNames().size()];
 			for (int i = 0; i < indexesPK.length; i++) {
@@ -251,11 +267,17 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return indexesPK;
 	}
 
-	private String getTableNameDB() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getTableNameDB() {
 		return getMapping().getTable();
 	}
 
-	public DataChunk nextChunk() throws RemoteException {		
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk() {		
 		Collection tabCalculators = null;
 		Map keyIndexes = null;
 		List propertiesNames = null;
@@ -268,7 +290,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_next_chunk_error"));
+			throw new SystemException(XavaResources.getString("tab_next_chunk_error"));
 		}
 		DataChunk tv = null; 		
 		try {
@@ -294,12 +316,15 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_valid_values_error"));
+			throw new SystemException(XavaResources.getString("tab_valid_values_error"));
 		}
 		return tv;		
 	}
 
-	private boolean hasValidValuesProperties() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean hasValidValuesProperties() {
 		if (!knowIfHasPropertiesWithValidValues) {
 			_hasPropertiesWithValidValues = calculateIfHasValidValuesProperties();
 			knowIfHasPropertiesWithValidValues = true;
@@ -307,7 +332,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return _hasPropertiesWithValidValues;
 	}
 	
-	private boolean calculateIfHasValidValuesProperties() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private boolean calculateIfHasValidValuesProperties() {
 		Iterator it = getProperties().iterator();
 		while (it.hasNext()) {
 			MetaProperty metaProperty = (MetaProperty) it.next();
@@ -318,7 +346,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return false;		
 	}
 
-	private Object[] doValidValuesConversions(Object[] row) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object[] doValidValuesConversions(Object[] row) {
 		int size = getPropertiesNames().size();
 		for (int i = indexesPK.length; i < size; i++) {			
 			String name = getPropertiesNames().get(i);
@@ -342,8 +373,9 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 
 	/**
 	 * @return Of TabCalculator
+	 * @throws XavaException
 	 */
-	private Collection getTabCalculators() throws XavaException {
+	private Collection getTabCalculators() {
 		if (tabCalculators == null) {
 			tabCalculators = new ArrayList<>();			
 			Iterator it = metaTab.getMetaPropertiesHiddenCalculated().iterator();
@@ -363,32 +395,43 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return tabCalculators;
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private int getPropertyIndex(String propertyName)
-		throws XavaException {
+		{
 		return getPropertiesNames().indexOf(propertyName);
 	}
 	
 
 	/**
 	 * @return Of <tt>MetaProperty</tt>.
+	 * @throws XavaException
 	 */
-	private Collection getProperties() throws XavaException {
+	private Collection getProperties() {
 		return metaTab.getMetaProperties();
 	}
 
 	/**
 	 * @return Of <tt>String</tt>.
+	 * @throws XavaException
 	 */
-	private List<String> getPropertiesNames() throws XavaException {
+	private List<String> getPropertiesNames() {
 		return metaTab.getPropertiesNamesWithKeyAndHidden();
 	}
 	
 	
-	private Collection getKeyNames() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private Collection getKeyNames() {		
 		return getMetaModel().getAllKeyPropertiesNames();
 	}
 	
-	private MetaModel getMetaModel() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private MetaModel getMetaModel() {
 		if (metaModel == null) {
 			metaModel = MetaModel.get(this.modelName);
 		}
@@ -411,7 +454,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		return keyIndexes;
 	}
 
-	private ModelMapping getMapping() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private ModelMapping getMapping() {
 		if (mapping == null) {
 			mapping = getMetaModel().getMapping();
 		}
@@ -435,7 +481,10 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 	}
 	
 	
-	private static IEntityTabDataProvider getDataProvider(String componentName) throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	private static IEntityTabDataProvider getDataProvider(String componentName) {
 		try {
 			String packageName = MetaComponent.get(componentName).getPackageNameWithSlashWithoutModel();			
 			IEntityTabDataProvider dataProvider = (IEntityTabDataProvider) getDataProviders().get(packageName);
@@ -449,7 +498,7 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException("tab_remote_error");
+			throw new SystemException("tab_remote_error");
 		}						
 	}
 		
@@ -470,18 +519,27 @@ public class EntityTab implements IEntityTabImpl, java.io.Serializable {
 		}		
 	}	
 	
-	public int getResultSize() throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public int getResultSize() {
 		if (!XavaPreferences.getInstance().isShowCountInList()) {
 			return table.getRowCount(); 
 		}		
 		return getDataProvider(getComponentName()).getResultSize(tabProvider);
 	}
 	
-	public Number getSum(String property) throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public Number getSum(String property) {
 		return getDataProvider(getComponentName()).getSum(tabProvider, property);  		
 	}
 
-	public void reset() throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public void reset() {
 		tabProvider.reset();
 	}
 

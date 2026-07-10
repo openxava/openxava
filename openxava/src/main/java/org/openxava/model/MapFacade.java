@@ -1,9 +1,6 @@
 package org.openxava.model;
 
-import java.rmi.*;
 import java.util.*;
-
-import javax.ejb.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
@@ -28,8 +25,7 @@ import org.openxava.validators.*;
  * etc) with the typical semantic associated to each. Although the implementation
  * does not use EJB.<br>
  *
- * Since version 3.0 MapFacade uses runtime exception for system errors,
- * before (in v2.x) it used RemoteException.<br>
+ * MapFacade uses the runtime exception {@link SystemException} for system errors.<br>
  * 
  * The first parameter of each method is <code>modelName</code>, this is a
  * name of a OpenXava component (Customer, Invoice, etc) or a qualified aggregate 
@@ -94,17 +90,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
 	public static Object create(String modelName, Map<String, Object> values) 
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().create(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) { 
-			throw new SystemException(ex);
-		}
+		return getImpl().create(Users.getCurrentUserInfo(), modelName, values);
 	}
 		
 		
@@ -119,7 +107,7 @@ public class MapFacade {
 	 * @throws IllegalStateException  If mapFacadeAutoCommit=true or mapFacadeAsEJB=true in xava.properties  
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
-	public static void commit() throws SystemException {					
+	public static void commit() {					
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			throw new IllegalStateException(XavaResources.getString("not_commit_when_facade_autocommit"));
 		}
@@ -144,17 +132,9 @@ public class MapFacade {
 	 */
 	@Deprecated
 	public static Object createAggregate(String modelName, Map<String, Object> containerKey, int counter, Map<String, Object> values) 
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 	}
 	
 	/**
@@ -173,17 +153,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */
 	public static Object createAggregate(String modelName, Map<String, Object> containerKey, String collectionName, Map<String, Object> values)  
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 	}
 
 	
@@ -206,17 +178,9 @@ public class MapFacade {
 	 */
 	@Deprecated
 	public static Object createAggregate(String modelName, Object container, int counter, Map<String, Object> values) 
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, container, values);
-		try {
-			return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createAggregate(Users.getCurrentUserInfo(), modelName, container, counter, values);
 	}
 	
 	/**	
@@ -233,17 +197,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
 	public static Map<String, Object> createReturningValues(String modelName, Map<String, Object> values)
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createReturningValues(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().createReturningValues(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	
@@ -260,17 +216,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
 	public static Map<String, Object> createReturningKey(String modelName, Map<String, Object> values)
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createReturningKey(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		return getImpl().createReturningKey(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	/**
@@ -288,17 +236,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
 	public static Map<String, Object> createNotValidatingCollections(String modelName, Map<String, Object> values)
-		throws
-			CreateException,ValidationException,
-			XavaException, SystemException
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createNotValidatingCollections(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 				
@@ -320,17 +260,9 @@ public class MapFacade {
 	 */
 	@Deprecated
 	public static Map<String, Object> createAggregateReturningKey(String modelName, Map<String, Object> containerKey, int counter, Map<String, Object> values) 
-		throws
-			CreateException,ValidationException, 
-			XavaException, SystemException 
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, counter, values);
 	}
 	
 	/**
@@ -349,17 +281,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
 	public static Map<String, Object> createAggregateReturningKey(String modelName, Map<String, Object> containerKey, String collectionName, Map<String, Object> values) 
-		throws
-			CreateException,ValidationException, 
-			XavaException, SystemException 
-	{
+		throws CreateException, ValidationException {
 		Assert.arg(modelName, containerKey, values);
-		try {
-			return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		return getImpl().createAggregateReturningKey(Users.getCurrentUserInfo(), modelName, containerKey, collectionName, values);
 	}
 	
 	
@@ -393,18 +317,12 @@ public class MapFacade {
 		String modelName,
 		Map<String, Object> keyValues,
 		Map<String, Object> memberNames)
-		throws FinderException, XavaException, SystemException 
-	{							
+		throws FinderException {							
 		Assert.arg(modelName, keyValues, memberNames);		
 		if (keyValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValues(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
 	}
 	
 	/**
@@ -440,18 +358,12 @@ public class MapFacade {
 		String modelName,
 		Map<String, Object> keyValues,
 		Map<String, Object> memberNames)
-		throws FinderException, XavaException, SystemException 
-	{							
+		throws FinderException {							
 		Assert.arg(modelName, keyValues, memberNames);		
 		if (keyValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, memberNames);
 	}
 
 	/**
@@ -504,20 +416,14 @@ public class MapFacade {
 		String modelName,
 		Map<String, Object> searchingValues,
 		Map<String, Object> memberNames)
-		throws FinderException, XavaException, SystemException 
-	{						
+		throws FinderException {						
 		// WARNING! This method does no do tracking, maybe it is an omission or bug to solve in the future
 		//  but when we'll fix it, WE SHOULD MODIFY DescriptionsCalculator
 		Assert.arg(modelName, searchingValues, memberNames);		
 		if (searchingValues.isEmpty()) {
 			throw new ObjectNotFoundException(XavaResources.getString("empty_key_object_not_found", modelName));						
 		}
-		try {
-			return getImpl().getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}			
+		return getImpl().getValuesByAnyProperty(Users.getCurrentUserInfo(), modelName, searchingValues, memberNames);
 	}
 				
 	/**
@@ -543,15 +449,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static Map<String, Object> getValues(String modelName, Object entity, Map<String, Object> memberNames)
-		throws XavaException, SystemException 
-	{		
+		{		
 		Assert.arg(modelName, entity, memberNames);
-		try {
-			return getImpl().getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().getValues(Users.getCurrentUserInfo(), modelName, entity, memberNames);
 	}
 	
 	/** 
@@ -564,15 +464,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem.
 	 */	
 	public static Map<String, Object> getKeyValues(String modelName, Object entity) 
-		throws XavaException, SystemException 
-	{		
+		{		
 		Assert.arg(modelName, entity);
-		try {
-			return getImpl().getKeyValues(Users.getCurrentUserInfo(), modelName, entity); 
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		return getImpl().getKeyValues(Users.getCurrentUserInfo(), modelName, entity); 
 	}
 	
 	
@@ -587,16 +481,10 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */ 
 	public static Object findEntity(String modelName, Map<String, Object> keyValues)
-		throws ObjectNotFoundException, FinderException, SystemException 
-	{	
+		throws ObjectNotFoundException, FinderException {	
 		if (keyValues==null) return null;
 		Assert.arg(modelName, keyValues);
-		try {
-			return getImpl().findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}	
+		return getImpl().findEntity(Users.getCurrentUserInfo(), modelName, keyValues);
 	}	
 
 	/**
@@ -610,14 +498,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */
 	public static void remove(String modelName, Map<String, Object> keyValues)
-		throws RemoveException, SystemException, XavaException, ValidationException {		
+		throws RemoveException, ValidationException {		
 		Assert.arg(modelName, keyValues);
-		try {
-			getImpl().delete(Users.getCurrentUserInfo(), modelName, keyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		getImpl().delete(Users.getCurrentUserInfo(), modelName, keyValues);
 	}
 
 	/**
@@ -633,16 +516,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static void setValues(String modelName, Map<String, Object> keyValues, Map<String, Object> values)
-		throws ObjectNotFoundException, FinderException, ValidationException,
-				XavaException, SystemException 
-	{		
+		throws ObjectNotFoundException, FinderException, ValidationException {		
 		Assert.arg(modelName, keyValues, values);
-		try {
-			getImpl().setValues(Users.getCurrentUserInfo(), modelName, keyValues, values);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		getImpl().setValues(Users.getCurrentUserInfo(), modelName, keyValues, values);
 	}
 	
 	/**
@@ -662,16 +538,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static void setValuesNotTracking(String modelName, Map<String, Object> keyValues, Map<String, Object> values) 
-		throws ObjectNotFoundException, FinderException, ValidationException,
-				XavaException, SystemException 
-	{		
+		throws ObjectNotFoundException, FinderException, ValidationException {		
 		Assert.arg(modelName, keyValues, values);
-		try {
-			getImpl().setValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, values);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		getImpl().setValuesNotTracking(Users.getCurrentUserInfo(), modelName, keyValues, values);
 	}
 	
 	/**	 
@@ -687,15 +556,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static Messages validate(String modelName, Map<String, Object> values)
-		throws XavaException, SystemException 
-	{
+		{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validate(Users.getCurrentUserInfo(), modelName, values);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		return getImpl().validate(Users.getCurrentUserInfo(), modelName, values);
 	}
 	
 	
@@ -712,30 +575,25 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static Messages validateIncludingMissingRequired(String modelName, Map<String, Object> values)
-		throws XavaException, SystemException 
-	{
+		{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}
+		return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, null); 
 	}
 	
+	/**
+	* @throws XavaException
+	* @throws SystemException
+	 */
 	public static Messages validateIncludingMissingRequired(String modelName, Map<String, Object> values, String containerReference) 
-		throws XavaException, SystemException 
-	{
+		{
 		Assert.arg(modelName, values);
-		try {
-			return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}			
+		return getImpl().validateIncludingMissingRequired(Users.getCurrentUserInfo(), modelName, values, containerReference);
 	}									
 	
-	private static MapFacadeBean getImpl() throws SystemException {
+	/**
+	* @throws SystemException
+	 */
+	private static MapFacadeBean getImpl() {
 		if (impl==null) {
 			impl = new MapFacadeBean();
 		}
@@ -744,15 +602,12 @@ public class MapFacade {
 			
 	/**
 	 * Convert from a map with primary key values to primary key object. <p> 
+	 * @throws XavaException
 	 */		
-	public static Object toPrimaryKey(String entityName, Map<String, Object> keyValues) throws XavaException {
+	public static Object toPrimaryKey(String entityName, Map<String, Object> keyValues) {
 		try {
 			MetaEntity m = (MetaEntity) MetaComponent.get(entityName).getMetaEntity();
 			return getImpl().getKey(m, keyValues);
-		}
-		catch (RemoteException ex) { 
-			log.error(ex.getMessage(), ex);
-			throw new XavaException(ex.getMessage());
 		}
 		catch (ClassCastException ex) {
 			log.error(ex.getMessage(), ex);
@@ -781,16 +636,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction.
 	 */	
 	public static void removeCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, Map<String, Object> collectionElementKeyValues) 
-		throws ObjectNotFoundException, FinderException, ValidationException, RemoveException,
-			XavaException, SystemException 
-	{
+		throws ObjectNotFoundException, FinderException, ValidationException, RemoveException {
 		Assert.arg(modelName, keyValues, collectionName, collectionElementKeyValues);
-		try {
-			getImpl().removeCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}
+		getImpl().removeCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
 	}
 	
 	/** 
@@ -811,15 +659,9 @@ public class MapFacade {
 	 * @exception SystemException  System problem. Rollback transaction. 
 	 */	
 	public static void addCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, Map<String, Object> collectionElementKeyValues) 
-		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException 
-	{
+		throws ObjectNotFoundException, FinderException, ValidationException {
 		Assert.arg(modelName, keyValues, collectionName, collectionElementKeyValues);
-		try {
-			getImpl().addCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		getImpl().addCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, collectionElementKeyValues);
 	}	
 	
 	/** 
@@ -842,19 +684,13 @@ public class MapFacade {
 	public static void moveCollectionElementToAnotherCollection( 
 		String sourceContainerModelName, Map<String, Object> sourceContainerKeyValues, String sourceCollectionName, 
 		String targetContainerModelName, Map<String, Object> targetContainerKeyValues, String targetCollectionName,
-		Map<String, Object> collectionElementKeyValues) 
-		throws ObjectNotFoundException, FinderException, ValidationException, XavaException, SystemException
-	{
+		Map<String, Object> collectionElementKeyValues)
+		throws ObjectNotFoundException, FinderException, ValidationException {
 		Assert.arg(sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, targetContainerModelName, targetContainerKeyValues, targetCollectionName, collectionElementKeyValues);
-		try {
-			getImpl().moveCollectionElementToAnotherCollection(Users.getCurrentUserInfo(),
-				sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, 
-				targetContainerModelName, targetContainerKeyValues, targetCollectionName,
-				collectionElementKeyValues);
-		}
-		catch (RemoteException ex) {
-			throw new SystemException(ex);
-		}		
+		getImpl().moveCollectionElementToAnotherCollection(Users.getCurrentUserInfo(),
+			sourceContainerModelName, sourceContainerKeyValues, sourceCollectionName, 
+			targetContainerModelName, targetContainerKeyValues, targetCollectionName,
+			collectionElementKeyValues);
 	}
 	
 	/** 
@@ -874,15 +710,9 @@ public class MapFacade {
 	 * @since 5.6.1
 	 */	
 	public static void moveCollectionElement(String modelName, Map<String, Object> keyValues, String collectionName, int from, int to) 
-		throws ObjectNotFoundException, FinderException, XavaException, SystemException 
-	{
+		throws ObjectNotFoundException, FinderException {
 		Assert.arg(modelName, keyValues, collectionName);
-		try {
-			getImpl().moveCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, from, to);
-		}
-		catch (RemoteException rex) {
-			throw new SystemException(rex);
-		}		
+		getImpl().moveCollectionElement(Users.getCurrentUserInfo(), modelName, keyValues, collectionName, from, to);
 	}	
 	
 }

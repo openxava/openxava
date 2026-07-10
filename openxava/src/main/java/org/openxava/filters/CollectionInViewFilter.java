@@ -14,7 +14,10 @@ import org.openxava.util.*;
 
 public class CollectionInViewFilter extends CollectionInViewBaseFilter {
 	
-	protected Collection getKeyValues() throws XavaException {	
+	/**
+	* @throws XavaException
+	 */
+	protected Collection getKeyValues() {	
 		Collection keyNames = getView().getMetaModel().getAllKeyPropertiesNames();
 		Collection values = new ArrayList();		
 		Map viewValues = getView().getKeyValues();

@@ -1,10 +1,8 @@
 package org.openxava.tab.impl;
 
 import java.io.*;
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.calculators.*;
@@ -28,14 +26,17 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	private IConnectionProvider connectionProvider;
 	private boolean xmlComponent;
 		
-	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) throws RemoteException {		
+	/**
+	* @throws SystemException
+	 */
+	public DataChunk nextChunk(ITabProvider tabProvider, String modelName, List propertiesNames, Collection tabCalculators, Map keyIndexes /*, Collection tabConverters*/) {		
 		DataChunk tv = null;
 		try {
 			tv = tabProvider.nextChunk();
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_next_chunk_error"));
+			throw new SystemException(XavaResources.getString("tab_next_chunk_error"));
 		}
 		
 		List data = tv.getData();
@@ -52,7 +53,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_conversion_error"));
+			throw new SystemException(XavaResources.getString("tab_conversion_error"));
 		}
 				
 		// Calculations
@@ -65,26 +66,32 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (XavaException ex) {
 			log.error(ex.getMessage(), ex);
-			throw new RemoteException(XavaResources.getString("tab_calculate_properties_error"));
+			throw new SystemException(XavaResources.getString("tab_calculate_properties_error"));
 		}
 
 		return tv;
 	}
 	
-	public IConnectionProvider getConnectionProvider() throws RemoteException {
+	/**
+	* @throws SystemException
+	 */
+	public IConnectionProvider getConnectionProvider() {
 		if (connectionProvider == null) {			 		
 			try {
 				connectionProvider = DataSourceConnectionProvider.createByComponent(getComponentName());
 			}
 			catch (Exception ex) {
 				log.error(ex.getMessage(), ex);
-				throw new RemoteException(XavaResources.getString("error_obtaining_connection_provider"));
+				throw new SystemException(XavaResources.getString("error_obtaining_connection_provider"));
 			}
 		}
 		return connectionProvider;		
 	}	
 
-	private Object[] doCalculations(String modelName, Object[] row, Collection tabCalculators, Map keyIndexes, List propertiesNames) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Object[] doCalculations(String modelName, Object[] row, Collection tabCalculators, Map keyIndexes, List propertiesNames) {
 		Object entity = null;
 		Iterator itCalculators = tabCalculators.iterator();
 		while (itCalculators.hasNext()) {
@@ -156,9 +163,11 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 	 * @param keyIndexes Map with names and indexes of key
 	 * @exception  FinderException  If cannot find the row
 	 * @exception  NullPointerException  If <tt>row == null</tt>.
+	 * @throws XavaException
+	 * @throws SystemException
 	 */
 	private Object getEntity(String modelName, Object[] row, Map keyIndexes)
-		throws FinderException, XavaException, RemoteException {
+		throws FinderException {
 		if (keyIndexes == null) return null;
 		Iterator it = keyIndexes.entrySet().iterator();
 		Map key = new HashMap();		
@@ -171,7 +180,10 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return MapFacade.findEntity(modelName, key);
 	}
 		
-	private Object[] doConversions(Object[] row, Collection<TabConverter> tabConverters) throws XavaException {				
+	/**
+	* @throws XavaException
+	 */
+	private Object[] doConversions(Object[] row, Collection<TabConverter> tabConverters) {				
 		for (TabConverter tabConverter: tabConverters) {
 			try {				
 				int idx = tabConverter.getIndex();				
@@ -199,8 +211,11 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		return row;		
 	}
 	
+	/**
+	* @throws XavaException
+	 */
 	private Object getValue(String propertyName, Object[] values, List propertiesNames)
-		throws XavaException {
+		{
 		return values[propertiesNames.indexOf(propertyName)];
 	}
 	
@@ -210,7 +225,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new EJBException(XavaResources.getString("tab_result_size_error"));
+			throw new SystemException(XavaResources.getString("tab_result_size_error"), ex);
 		}
 	}	
 	
@@ -220,7 +235,7 @@ public class EntityTabDataProvider implements IEntityTabDataProvider, Serializab
 		}
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
-			throw new EJBException(XavaResources.getString("total_problem")); 
+			throw new SystemException(XavaResources.getString("total_problem"), ex); 
 		}
 	}
 		

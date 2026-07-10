@@ -70,14 +70,20 @@ public class NextIntegerCalculator implements IJDBCCalculator {
 		}
 	}
 	
-	private String getPackageName() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	private String getPackageName() {		
 		if (packageName == null) {
 			packageName = MetaModel.get(getModel()).getMetaComponent().getPackageNameWithSlashWithoutModel();			
 		}		
 		return packageName;
 	}
 
-	private String getSelect() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getSelect() {
 		if (select == null) {
 			if (Is.emptyString(this.model, this.property)) {
 				throw new XavaException("next_integer_calculator_required_properties");

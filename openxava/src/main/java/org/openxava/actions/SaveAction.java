@@ -3,8 +3,6 @@ package org.openxava.actions;
 import java.util.*;
 import java.util.stream.*;
 
-import javax.ejb.*;
-
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
 import org.openxava.util.*;

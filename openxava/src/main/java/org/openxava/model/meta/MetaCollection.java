@@ -1,6 +1,5 @@
 package org.openxava.model.meta;
 
-import java.rmi.*;
 import java.util.*;
 
 import org.openxava.filters.meta.*;
@@ -68,7 +67,10 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		}
 	}
 
-	public boolean isAggregate() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public boolean isAggregate() {
 		return getMetaReference().isAggregate();
 	}
 
@@ -84,14 +86,15 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 	 * @param errors  Object that accumulate the list of validation errors.
 	 * @param object Collection to validate. Has to be of type Collection. If null empty collection is assumed.
 	 * @param objectName Object that contains the collection to validate.
-	 * @param propertyName Name of the collection property within objectName. 
+	 * @param propertyName Name of the collection property within objectName.
+	 * @throws SystemException
 	 */
 	public void validate(
 		Messages errors,
 		Object object,
 		String objectName,
 		String propertyName)
-		throws RemoteException {			
+		{			
 		object = (object == null)?Collections.EMPTY_SET:object;	
 		if (!(object instanceof Collection)) {
 			throw new IllegalArgumentException(XavaResources.getString("only_validate_collection"));
@@ -146,20 +149,32 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		condition = string;
 	}
 
-	public String getSQLConditionWithoutChangePropertiesByColumns() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getSQLConditionWithoutChangePropertiesByColumns() {
 		if (Is.emptyString(getCondition())) return ""; 
 		return changePropertiesThisByArguments(getCondition(), SQL);
 	}	
 	
-	public String getHQLCondition() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getHQLCondition() {
 		return getPOJOCondition(JPA); // Since v6.1 (that uses Hibernate 5.3) Hibernate uses JPA format only
 	}
 	
-	public String getJPACondition() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getJPACondition() {
 		return getPOJOCondition(JPA);
 	}	
 	
-	private String getPOJOCondition(int qlType) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private String getPOJOCondition(int qlType) {
 		MetaModel metaModel = getMetaReference().getMetaModelReferenced(); 
 		StringBuffer sb = new StringBuffer("from ");
 		sb.append(metaModel.getName());
@@ -176,7 +191,10 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		return sb.toString();
 	}
 		
-	private String changePropertiesThisByArguments(String source, int qlType) throws XavaException {			
+	/**
+	* @throws XavaException
+	 */
+	private String changePropertiesThisByArguments(String source, int qlType) {			
 		StringBuffer r = new StringBuffer(source);		
 		int i = r.toString().indexOf("${this.");
 		int f = 0;			
@@ -212,7 +230,10 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 		return false;
 	}
 		
-	public String getSQLOrder() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public String getSQLOrder() {		
 		if (Is.emptyString(getOrder())) return "";
 		return getMetaReference().getMetaModelReferenced().getMapping().changePropertiesByNotQualifiedColumns(getOrder());
 	}	
@@ -230,8 +251,9 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 
 	/**
 	 * Util to generate EJB code.	 
+	 * @throws XavaException
 	 */
-	public String getFinderArguments() throws XavaException {
+	public String getFinderArguments() {
 		StringBuffer arguments = new StringBuffer();
 		Iterator it = getMetaPropertiesFinderArguments(false).iterator();
 		while (it.hasNext()) {
@@ -256,8 +278,9 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 	 * collection.<br> 
 	 * 
 	 * @return  Of type <code>String</code>. Never null.
+	 * @throws XavaException
 	 */
-	public Collection getConditionArgumentsPropertyNames() throws XavaException {  
+	public Collection getConditionArgumentsPropertyNames() {  
 		Collection result = new ArrayList();
 		for (Iterator it = getMetaPropertiesFinderArguments(true, false).iterator(); it.hasNext(); ) {
 			MetaProperty p = (MetaProperty) it.next();
@@ -268,12 +291,16 @@ public class MetaCollection extends MetaMember implements IPropertyValidator {
 	
 	/**
 	 * Util to generate EJB code. 	 
+	 * @throws XavaException
 	 */	
-	public Collection getMetaPropertiesFinderArguments(boolean withDots) throws XavaException {
+	public Collection getMetaPropertiesFinderArguments(boolean withDots) {
 		return getMetaPropertiesFinderArguments(withDots, true); 
 	}
 
-	private Collection getMetaPropertiesFinderArguments(boolean withDots, boolean withPropertyWithConverterUnderlined) throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	private Collection getMetaPropertiesFinderArguments(boolean withDots, boolean withPropertyWithConverterUnderlined) {
 		Collection metaPropertiesFinderArguments = new ArrayList();
 		String condition = getCondition();
 		int i = condition.indexOf("${this.");

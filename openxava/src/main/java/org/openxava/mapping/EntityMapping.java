@@ -14,11 +14,17 @@ public class EntityMapping extends ModelMapping {
 	
 	
 	
-	public String getModelName() throws XavaException {
+	/**
+	* @throws XavaException
+	 */
+	public String getModelName() {
 		return getMetaModel().getName();
 	}
 
-	public MetaModel getMetaModel() throws XavaException {		
+	/**
+	* @throws XavaException
+	 */
+	public MetaModel getMetaModel() {		
 		return getMetaComponent().getMetaEntity();
 	}
 	
