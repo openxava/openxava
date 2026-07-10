@@ -2,6 +2,9 @@ Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
 - Pruebas manuales de informes personalizados de openxavatest.
+    TMR ME QUEDÉ POR AQUÍ: InvoicePrint.generatePdf FALLA.
+    TMR   PARECE QUE EL FORMATE JRXML ES INCOMPATIBLE.
+    TMR   HAY QUE BUSCAR UNA SOLUCIÓN
 - Pruebas manuales al azar de informes automáticos de openxavatest.
 - PrettyPrintingTest.txt
 - Suite.
