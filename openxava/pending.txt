@@ -3,7 +3,8 @@ Pending JasperReports 7 migration (tmr)
 
 - Migrar informes personalizados de openxavatest.
     - Probar los demás a mano. No migrarlos.
-        - Probado hasta printExcel incluido. TMR ME QUEDÉ POR AQUÍ
+        - Probando printRtf. TMR ME QUEDÉ POR AQUÍ: NO SALE IGUAL QUE EN 7.7.3. PERO PUEDE
+            QUE SEA POR EL JDK.
     - Comprobar que se prueba automáticamente.
     - Migrar los de invoicedemo, openxava-archetype y chattest.
 - PrettyPrintingTest.txt
