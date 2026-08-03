@@ -125,6 +125,7 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		getRequest().getSession().setAttribute("xava.report.jprint", jprint);
 		getRequest().getSession().setAttribute("xava.report.format", getFormat());
 		getRequest().getSession().setAttribute("xava.report.filename", getFileName()); 
+		getRequest().getSession().removeAttribute("xava.report.jprints");
 		
 		getContext().dontGenerateNewWindowIdNextTime(); // To fix: In iPhone after generating PDF from a collection element goes to list mode of the module (reinititates the module)
 	}
