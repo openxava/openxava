@@ -1,8 +1,7 @@
 Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
-- Migrar informes personalizados de openxavatest. TMR ME QUEDÉ HACIENDO ESTO.
-    - Invoice.jrxml migrado. Volver a probarlo.
+- Migrar informes personalizados de openxavatest.
     - Probar los demás a mano. No migrarlos.
     - Comprobar que se prueba automáticamente.
     - Migrar los de invoicedemo, openxava-archetype y chattest.

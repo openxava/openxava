@@ -302,22 +302,25 @@
 <xsl:template match="@*" mode="attribute">
 	<xsl:variable name="name" select="local-name()"/>
 	<xsl:choose>
-		<!-- attributes of the report that keep the 'is' prefix in JasperReports 7 -->
-		<xsl:when test="$name='isTitleNewPage' or $name='isSummaryNewPage'
-				or $name='isSummaryWithPageHeaderAndFooter' or $name='isFloatColumnFooter'
-				or $name='isIgnorePagination'">
-			<xsl:copy/>
-		</xsl:when>
 		<!-- attributes losing the 'is' prefix in JasperReports 7 -->
 		<xsl:when test="$name='isPrintRepeatedValues' or $name='isPrintInFirstWholeBand'
 				or $name='isPrintWhenDetailOverflows' or $name='isRemoveLineWhenBlank'
 				or $name='isBlankWhenNull' or $name='isBold' or $name='isItalic'
 				or $name='isUnderline' or $name='isStrikeThrough' or $name='isPdfEmbedded'
 				or $name='isUsingCache' or $name='isLazy' or $name='isDefault'
-				or $name='isForPrompting' or $name='isRunToBottom'">
+				or $name='isForPrompting' or $name='isRunToBottom'
+				or $name='isTitleNewPage' or $name='isSummaryNewPage'
+				or $name='isSummaryWithPageHeaderAndFooter' or $name='isFloatColumnFooter'
+				or $name='isIgnorePagination'">
 			<xsl:attribute name="{concat(
 				translate(substring($name, 3, 1), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'),
 				substring($name, 4))}"><xsl:value-of select="."/></xsl:attribute>
+		</xsl:when>
+		<!-- isSplitAllowed replaced by splitType in JasperReports 7 -->
+		<xsl:when test="$name='isSplitAllowed'">
+			<xsl:if test=".='false'">
+				<xsl:attribute name="splitType">Prevent</xsl:attribute>
+			</xsl:if>
 		</xsl:when>
 		<!-- renamed attributes -->
 		<xsl:when test="$name='size'">
