@@ -9,6 +9,7 @@ import java.util.Date;
 import jakarta.servlet.*;
 
 import org.openxava.jpa.*;
+import org.openxava.reports.*;
 import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
@@ -96,7 +97,7 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			xmlDesign = getJRXMLAsStream(jrxml);
 		} 
 		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml);  
-		JasperReport report = JasperCompileManager.compileReport(xmlDesign);
+		JasperReport report = JasperCompileManager.compileReport(JRXMLMigrator.migrateIfNeeded(xmlDesign, jrxml)); 
 		Map parameters = getParameters(); // getParameters() before getDatasource()
 		JRDataSource ds = getDataSource();
 		JasperPrint jprint = null;

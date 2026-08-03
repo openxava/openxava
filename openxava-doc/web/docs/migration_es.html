@@ -824,6 +824,39 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
 
     <p>Pedir a un asistente de IA que migre tu lógica de DWR a <i>fetch</i> + servlet es altamente recomendable y suele dar muy buen resultado.</p>
 
+    <h3>JasperReports 7: Migración de JRXML</h3>
+
+    <p>OpenXava 8.0 actualiza JasperReports de la versión 6 a la versión 7. JasperReports 7
+    introdujo un cambio incompatible en el formato JRXML: el viejo parser basado en Apache
+    Commons Digester fue reemplazado por un parser basado en Jackson XML, que usa una
+    gramática XML diferente. Esto significa que los ficheros JRXML creados con JasperReports
+    6 o anterior (incluyendo los generados por iReport o versiones antiguas de Jaspersoft
+    Studio) no son directamente compatibles con JasperReports 7.</p>
+
+    <p>OpenXava 8.0 incluye un mecanismo automático de conversión al vuelo: cuando se detecta
+    un fichero JRXML antiguo en tiempo de ejecución, se convierte transparentemente al
+    formato de JasperReports 7 usando una transformación XSLT. Esto significa que <b>en la
+    mayoría de los casos tus informes existentes seguirán funcionando sin que tengas que
+    hacer nada</b>.</p>
+
+    <p>Si un informe usa construcciones que no se pueden convertir automáticamente, recibirás
+    un mensaje de error claro indicando qué construcción no está soportada. En ese caso,
+    abre el informe con <a href="https://community.jaspersoft.com/jaspersoft-studio/">Jaspersoft Studio 7</a>
+    y guárdalo para convertirlo manualmente.</p>
+
+    <h4>Conversión masiva de ficheros JRXML</h4>
+
+    <p>Si prefieres convertir todos tus ficheros JRXML a la vez en lugar de depender de la
+    conversión al vuelo, puedes usar la utilidad <i>JRXMLMigrator</i> incluida en OpenXava.
+    Ejútala desde la línea de comandos:</p>
+
+    <pre><code class="language-bash">java -cp tuapp/target/classes:tuapp/target/dependency/* \
+    org.openxava.reports.JRXMLMigrator src/main/resources/reports</code></pre>
+
+    <p>Esto escaneará el directorio indicado en busca de ficheros <i>.jrxml</i>, convertirá
+    los que estén en el formato antiguo y dejará intactos los ya convertidos. Los ficheros
+    que no se puedan convertir se reportarán con el motivo.</p>
+
     <h2>Para migrar a OpenXava 7.7.3</h2>
 
     <p>Para migrar a OpenXava 7.7.3 desde cualquier versión anterior de OpenXava:</p>

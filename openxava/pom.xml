@@ -88,6 +88,12 @@
 			<version>3.2.2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.5.0</version>
+			<!-- 4.5.0 is required by JasperReports 7 / commons-beanutils2 (ConcurrentReferenceHashMap). POI pulls 4.4 transitively. -->
+		</dependency>
+		<dependency>
 			<groupId>commons-validator</groupId>
 			<artifactId>commons-validator</artifactId>
 			<version>1.10.1</version>

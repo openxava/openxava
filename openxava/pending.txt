@@ -1,16 +1,11 @@
 Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
-TMR HECHO
-- TMR YA HABÍA ACTUALIZADO LAS DEPENDENCIAS
-- TMR HABÍA MIGRADO jasperReports.jsp A UNA CLASE JAVA, Y FUNCIONA.
-    LOS LISTADOS AUTOMATICOS VAN, CON VARIAS PRUEBAS, PERO
-    FALTA PROBAR EL PrettyPrintingTest
 - Migrar informes personalizados de openxavatest. TMR ME QUEDÉ HACIENDO ESTO.
-    TMR INTENTANDO MIGRAR Invoice.jrxml CON Jaspersoft Studio 7. PERO NO FUNCIONA
-    TMR LO ABRO, LE DOY A JasperReports > Update JasperReports files
-    TMR Y DA UN MENSAJE DE HECHO, PERO NO HACE NADA
-    TMR ESTE INFORME ES EL PRIMER PUNTO DE MENÚ DE Invoice EN MODO DETALLE
+    - Invoice.jrxml migrado. Volver a probarlo.
+    - Probar los demás a mano. No migrarlos.
+    - Comprobar que se prueba automáticamente.
+    - Migrar los de invoicedemo, openxava-archetype y chattest.
 - PrettyPrintingTest.txt
 - Suite.
 - Documentar migración. Podría simplemente víncular a la doc oficial de migración de JasperReports.

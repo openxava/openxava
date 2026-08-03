@@ -8,6 +8,7 @@ import jakarta.servlet.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.jpa.*;
+import org.openxava.reports.*;
 import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
@@ -174,7 +175,7 @@ abstract public class JasperMultipleReportBaseAction extends ViewBaseAction
 			}
 			if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml[i]); 
 				
-			JasperReport report = JasperCompileManager.compileReport(xmlDesign);
+			JasperReport report = JasperCompileManager.compileReport(JRXMLMigrator.migrateIfNeeded(xmlDesign, jrxml[i])); 
 			
 			// Retrieve the parameter set for the report at this index.
 			//
