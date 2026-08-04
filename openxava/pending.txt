@@ -1,7 +1,7 @@
 Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
-- Migrar invoicedemo, chattest y openxava-archetype.
+- Migrar chattest y openxava-archetype.
 - Documentar migración. Podría simplemente víncular a la doc oficial de migración de JasperReports.
 - PrettyPrintingTest.txt
 - Suite.

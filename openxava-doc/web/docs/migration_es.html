@@ -850,8 +850,13 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
     conversión al vuelo, puedes usar la utilidad <i>JRXMLMigrator</i> incluida en OpenXava.
     Ejútala desde la línea de comandos:</p>
 
-    <pre><code class="language-bash">java -cp tuapp/target/classes:tuapp/target/dependency/* \
-    org.openxava.reports.JRXMLMigrator src/main/resources/reports</code></pre>
+    <pre><code class="language-bash">java -cp "target/tuapp/WEB-INF/lib/*" org.openxava.reports.JRXMLMigrator src/main/resources/reports</code></pre>
+
+    <p>Donde <i>tuapp</i> en <i>target/tuapp/</i> es el <i>finalName</i> de tu proyecto
+    (normalmente el <i>artifactId</i> del <i>pom.xml</i>). Ejecútalo desde dentro del
+    directorio de tu proyecto después de <i>mvn package</i>. El WAR desempaquetado en
+    <i>target/tuapp/WEB-INF/lib/</i> contiene todos los jars de dependencias que necesita
+    el migrador, incluyendo el jar de OpenXava donde reside <i>JRXMLMigrator</i>.</p>
 
     <p>Esto escaneará el directorio indicado en busca de ficheros <i>.jrxml</i>, convertirá
     los que estén en el formato antiguo y dejará intactos los ya convertidos. Los ficheros
