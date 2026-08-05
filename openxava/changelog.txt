@@ -1,13 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- JasperReports upgraded to 7.0.7.
 - Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
 - Commons Collections 4 upgraded to 4.5.0.
-- Upgraded JasperReports from 6.21.5 to 7.0.7 with modular dependencies (jasperreports-pdf, jasperreports-excel-poi, jasperreports-jdt).
-- Migrated exporter API from deprecated JRExporter/JRExporterParameter to JR7 typed exporters with SimpleExporterInput/SimpleOutputStreamExporterOutput.
-- Dynamic JRXML generation in jasperReport.jsp updated to JR7 schema: reportFont replaced by style, font attributes renamed (size to fontSize, isBold to bold, isItalic to italic, isPdfEmbedded to pdfEmbedded).
-- Compile class path updated to include jasperreports-jdt.jar for JR7 modularization.
-
+- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Removed dependencies on J2EE and Java EE APIs.
 - Removed javax.ejb dependency.
 - Replaced EJB-specific exceptions with OpenXava exceptions.
