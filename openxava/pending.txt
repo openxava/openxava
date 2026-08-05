@@ -1,6 +1,5 @@
 Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
-- PrettyPrintingTest.txt
 - Suite.
 - Borrar plan.md
