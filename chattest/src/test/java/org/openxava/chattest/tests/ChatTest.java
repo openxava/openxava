@@ -466,8 +466,6 @@ public class ChatTest extends WebDriverTestBase {
         assertListColumnCount(originalColumnCount);
     }
 
-    // TMR ME QUEDÉ POR AQUÍ: FALLA. ES EL ÚNICO QUE FALLA. ESTÁ TODO MIGRADO A Spring Boot
-    // TMR Y ACTUALIZADOS EL JRXML. SOLO FALTA QUE ESTE TEST SALGA VERDE
     public void testFilterList() throws Exception {
         assertFilterListInModule();
         assertFilterListInDetailModeReturnsInChat();
