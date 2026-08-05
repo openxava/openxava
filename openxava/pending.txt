@@ -1,7 +1,6 @@
 Pending JasperReports 7 migration (tmr)
 ---------------------------------------
 
-- Documentar migración. Podría simplemente víncular a la doc oficial de migración de JasperReports.
 - PrettyPrintingTest.txt
 - Suite.
 - Borrar plan.md
