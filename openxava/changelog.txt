@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
 - Commons Collections 4 upgraded to 4.5.0.
 - Upgraded JasperReports from 6.21.5 to 7.0.7 with modular dependencies (jasperreports-pdf, jasperreports-excel-poi, jasperreports-jdt).
 - Migrated exporter API from deprecated JRExporter/JRExporterParameter to JR7 typed exporters with SimpleExporterInput/SimpleOutputStreamExporterOutput.

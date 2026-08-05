@@ -3,3 +3,4 @@ Pending JasperReports 7 migration (tmr)
 
 - Suite.
 - Borrar plan.md
+- changelog.
