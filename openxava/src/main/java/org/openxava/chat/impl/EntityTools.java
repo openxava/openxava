@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
 import org.openxava.util.Messages;
-import org.openxava.util.Is;
 import org.openxava.view.View;
 import org.openxava.web.WebEditors;
 import org.openxava.model.*;
@@ -198,7 +197,6 @@ public class EntityTools extends BaseEntityTools {
 	private List<Map<String, Object>> findEntities(String entity, String condition) {
 		try {
 			Tab tab = getTab(entity);
-			String originalCondition = condition;
 			condition = normalizeCondition(condition, tab);
 			tab.setBaseCondition(condition);
 			List<Map<String, Object>> records = new ArrayList<>();
@@ -223,7 +221,6 @@ public class EntityTools extends BaseEntityTools {
 			}
 			
 			log.debug("[TOOL] findEntities(entity=" + entity + ") returning " + records.size() + " records");
-			applyConditionAsListFilter(entity, originalCondition);
 			return records;
 		} catch (Exception ex) {
 			log.error(ex.getMessage(), ex);
@@ -536,48 +533,6 @@ public class EntityTools extends BaseEntityTools {
 		}
 		m.appendTail(sb);
 		return sb.toString();
-	}
-	
-	private boolean isListModeForEntity(String entity) {
-		if (entity == null) return false;
-		Modules modules = (Modules) session.getAttribute("modules");
-		if (modules == null) return false;
-		String currentModuleName = modules.getCurrentModuleName();
-		if (currentModuleName == null || !currentModuleName.equalsIgnoreCase(entity)) return false;
-		ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
-		return manager != null && manager.isListMode();
-	}
-	
-	private void applyConditionAsListFilter(String entity, String condition) {
-		if (!isListModeForEntity(entity) || Is.emptyString(condition)) return;
-		Map<String, String> values = new LinkedHashMap<>();
-		Map<String, String> comparators = new LinkedHashMap<>();
-		extractFilterValuesFromCondition(condition, values, comparators);
-		if (values.isEmpty()) return;
-		try {
-			filterList(entity, values, comparators);
-		} catch (Exception ex) {
-			log.debug("Could not apply condition as list filter: " + ex.getMessage());
-		}
-	}
-	
-	private void extractFilterValuesFromCondition(String condition, Map<String, String> values, Map<String, String> comparators) {
-		if (condition == null) return;
-		String[] clauses = condition.split("(?i)\\s+and\\s+");
-		Pattern pattern = Pattern.compile("\\$\\{([^}]+)\\}\\s*(=|!=|<>|>=|<=|>|<)\\s*('[^']*'|[^\\s'()]+)");
-		for (String clause : clauses) {
-			Matcher m = pattern.matcher(clause.trim());
-			if (m.find()) {
-				String property = m.group(1);
-				String op = m.group(2);
-				String value = m.group(3);
-				if (value.startsWith("'") && value.endsWith("'")) {
-					value = value.substring(1, value.length() - 1);
-				}
-				values.put(property, value);
-				comparators.put(property, op);
-			}
-		}
 	}
 	
 }
