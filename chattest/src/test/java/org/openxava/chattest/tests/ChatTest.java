@@ -465,7 +465,7 @@ public class ChatTest extends WebDriverTestBase {
         execute("AddColumns.restoreDefault");
         assertListColumnCount(originalColumnCount);
     }
-    
+
     public void testFilterList() throws Exception {
         assertFilterListInModule();
         assertFilterListInDetailModeReturnsInChat();

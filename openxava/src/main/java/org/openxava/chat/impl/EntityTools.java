@@ -1,6 +1,7 @@
 package org.openxava.chat.impl;
 
 import java.util.*;
+import java.util.regex.*;
 
 import org.apache.commons.logging.*;
 
@@ -196,6 +197,7 @@ public class EntityTools extends BaseEntityTools {
 	private List<Map<String, Object>> findEntities(String entity, String condition) {
 		try {
 			Tab tab = getTab(entity);
+			condition = normalizeCondition(condition, tab);
 			tab.setBaseCondition(condition);
 			List<Map<String, Object>> records = new ArrayList<>();
 			
@@ -486,6 +488,51 @@ public class EntityTools extends BaseEntityTools {
 			log.debug("[TOOL] getCurrentDisplayedEntity() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return null;
 		}
+	}
+	
+	/**
+	 * Normalizes a condition string so quoted literals for numeric or boolean
+	 * properties are unquoted. This avoids Hibernate 7 type mismatch errors
+	 * when comparing Integer, Long, BigDecimal, etc. with string literals.
+	 */
+	private String normalizeCondition(String condition, Tab tab) {
+		if (condition == null || !condition.contains("'")) return condition;
+		Pattern propertyPattern = Pattern.compile("\\$\\{([^}]+)\\}");
+		Matcher m = propertyPattern.matcher(condition);
+		while (m.find()) {
+			String property = m.group(1);
+			try {
+				MetaProperty metaProperty = tab.getMetaTab().getMetaModel().getMetaProperty(property);
+				if (metaProperty.isNumber() || isBoolean(metaProperty)) {
+					condition = removeQuotesForProperty(condition, property);
+				}
+			} catch (Exception ex) {
+				// Unknown property, leave condition unchanged
+			}
+		}
+		return condition;
+	}
+	
+	private boolean isBoolean(MetaProperty p) {
+		Class<?> type = p.getType();
+		return type != null && (boolean.class.equals(type) || Boolean.class.equals(type));
+	}
+	
+	private String removeQuotesForProperty(String condition, String property) {
+		String regex = "(\\$\\{" + Pattern.quote(property) + "\\})(\\s*(?:=|!=|<>|>=|<=|>|<)\\s*)'([^']*)'";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(condition);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			String value = m.group(3);
+			if (value.isEmpty()) {
+				m.appendReplacement(sb, Matcher.quoteReplacement(m.group(0)));
+			} else {
+				m.appendReplacement(sb, Matcher.quoteReplacement(m.group(1) + m.group(2) + value));
+			}
+		}
+		m.appendTail(sb);
+		return sb.toString();
 	}
 	
 }
