@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return false; // tmr
+        return true;
     }
 
     @Override
@@ -468,7 +468,7 @@ public class ChatTest extends WebDriverTestBase {
 
     public void testFilterList() throws Exception {
         assertFilterListInModule();
-        assertFilterListInDetailModeReturnsInChat(); // TMR ME QUEDÉ POR AQUÍ. FALLA. DESPUÉS DE ARREGLARLO PROBAR testModifiyData()
+        assertFilterListInDetailModeReturnsInChat();
         assertFilterListFromDifferentModuleReturnsInChat();
         assertFilterByMultipleFields();
         assertFilterByDate();
