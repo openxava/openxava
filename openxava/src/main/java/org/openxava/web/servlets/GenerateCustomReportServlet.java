@@ -13,6 +13,9 @@ import org.openxava.util.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.export.*;
 import net.sf.jasperreports.engine.export.oasis.*;
+import net.sf.jasperreports.export.*;
+import net.sf.jasperreports.pdf.*;
+import net.sf.jasperreports.poi.export.*;
 
 /**
  * To generate custom Jasper Reports from that extends <code>JasperReportBaseAction</code>.
@@ -50,31 +53,38 @@ public class GenerateCustomReportServlet extends HttpServlet {
 				format = JasperReportBaseAction.PDF;
 			}
 			
-			JRExporter exporter;
 			if (format.equals(JasperReportBaseAction.EXCEL)) {
 				response.setContentType("application/vnd.ms-excel");
 				response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + ".xls\""); 
-				exporter = new JRXlsExporter();
+				JRXlsExporter exporter = new JRXlsExporter();
+				exporter.setExporterInput(new SimpleExporterInput(jprint));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+				exporter.exportReport();
 			} 
 			else if (format.equalsIgnoreCase(JasperReportBaseAction.RTF)) { 				
 				response.setContentType("application/rtf");  
 				response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + ".rtf\""); 
-				exporter = new JRRtfExporter() ;//
+				JRRtfExporter exporter = new JRRtfExporter();
+				exporter.setExporterInput(new SimpleExporterInput(jprint));
+				exporter.setExporterOutput(new SimpleWriterExporterOutput(response.getWriter()));
+				exporter.exportReport();
 			} 			
 			else if (format.equalsIgnoreCase(JasperReportBaseAction.ODT)) {  				
 				response.setContentType("application/vnd.oasis.opendocument.text"); 
 				response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + ".odt\""); 
-				exporter = new JROdtExporter();
+				JROdtExporter exporter = new JROdtExporter();
+				exporter.setExporterInput(new SimpleExporterInput(jprint));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+				exporter.exportReport();
 			}
 			else {
 				response.setContentType("application/pdf");
 				response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + ".pdf\""); 
-				exporter = new JRPdfExporter();				
+				JRPdfExporter exporter = new JRPdfExporter();
+				exporter.setExporterInput(new SimpleExporterInput(jprint));
+				exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(response.getOutputStream()));
+				exporter.exportReport();				
 			}
-			
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jprint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response.getOutputStream());
-			exporter.exportReport();
 		} 
 		catch (Exception ex) {
 			log.error(ex.getMessage(), ex);

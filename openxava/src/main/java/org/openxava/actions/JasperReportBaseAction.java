@@ -9,6 +9,7 @@ import java.util.Date;
 import jakarta.servlet.*;
 
 import org.openxava.jpa.*;
+import org.openxava.reports.*;
 import org.openxava.util.*;
 
 import net.sf.jasperreports.engine.*;
@@ -82,6 +83,8 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		System.setProperty("jasper.reports.compile.class.path",					 
 			application.getRealPath("/WEB-INF/lib/jasperreports.jar") +
 			System.getProperty("path.separator") + 
+			application.getRealPath("/WEB-INF/lib/jasperreports-jdt.jar") +
+			System.getProperty("path.separator") + 
 			application.getRealPath("/WEB-INF/classes/")
 		);
 				
@@ -94,7 +97,7 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 			xmlDesign = getJRXMLAsStream(jrxml);
 		} 
 		if (xmlDesign == null) throw new XavaException("jasper_report_design_not_found", jrxml);  
-		JasperReport report = JasperCompileManager.compileReport(xmlDesign);
+		JasperReport report = JasperCompileManager.compileReport(JRXMLMigrator.migrateIfNeeded(xmlDesign, jrxml)); 
 		Map parameters = getParameters(); // getParameters() before getDatasource()
 		JRDataSource ds = getDataSource();
 		JasperPrint jprint = null;
@@ -122,6 +125,7 @@ abstract public class JasperReportBaseAction extends ViewBaseAction implements I
 		getRequest().getSession().setAttribute("xava.report.jprint", jprint);
 		getRequest().getSession().setAttribute("xava.report.format", getFormat());
 		getRequest().getSession().setAttribute("xava.report.filename", getFileName()); 
+		getRequest().getSession().removeAttribute("xava.report.jprints");
 		
 		getContext().dontGenerateNewWindowIdNextTime(); // To fix: In iPhone after generating PDF from a collection element goes to list mode of the module (reinititates the module)
 	}

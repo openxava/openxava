@@ -45,6 +45,16 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<!--
+				Jackson 3.1.4 (used by Spring Boot 4.1) requires jackson-annotations 2.21
+				for the JsonSerializeAs class. Spring Boot's BOM manages it to 2.18.6, so we
+				override it here. This must come after the Spring Boot BOM import to take precedence.
+			-->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>2.21</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -76,6 +86,12 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 			<version>3.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.5.0</version>
+			<!-- 4.5.0 is required by JasperReports 7 / commons-beanutils2 (ConcurrentReferenceHashMap). POI pulls 4.4 transitively. -->
 		</dependency>
 		<dependency>
 			<groupId>commons-validator</groupId>
@@ -125,30 +141,36 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.21.5</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-databind</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-annotations</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.dataformat</groupId>
-					<artifactId>jackson-dataformat-xml</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>7.0.7</version>
+		</dependency>
+		<!--
+			Jackson 3.1.4 (used by Spring Boot 4.1) requires jackson-annotations 2.21
+			for the JsonSerializeAs class. JR7 brings 2.18.6 transitively, so we declare
+			it explicitly. Version is managed in dependencyManagement to 2.21.
+		-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-fonts</artifactId>
-			<version>6.21.5</version>
+			<version>7.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-pdf</artifactId>
+			<version>7.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-excel-poi</artifactId>
+			<version>7.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports-jdt</artifactId>
+			<version>7.0.7</version>
 		</dependency>
 		<!-- Groovy 5 requires Java 11 so we stay on 4 -->
 		<dependency>
@@ -191,9 +213,8 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
 		<!--
-			Explicitly declare ecj to override the old transitive dependency from jasperreports (3.21.0).
-			tomcat-embed-jasper:11.0.22 brings ecj:3.45.0 which supports Java 17/21.
-			Without this, JDTCompiler falls back to Java 13 maximum causing warnings.
+			Explicitly declare ecj to ensure a version that supports Java 17/21.
+			tomcat-embed-jasper brings ecj transitively, and jasperreports-jdt also needs it.
 		-->
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

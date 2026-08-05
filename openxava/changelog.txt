@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- JasperReports upgraded to 7.0.7.
+- Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
+- Commons Collections 4 upgraded to 4.5.0.
+- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Removed dependencies on J2EE and Java EE APIs.
 - Removed javax.ejb dependency.
 - Replaced EJB-specific exceptions with OpenXava exceptions.
