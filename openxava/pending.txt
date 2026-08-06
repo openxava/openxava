@@ -59,7 +59,7 @@ Actualización de librerías
 		</dependency>
 * Actualizar resto de librería.
 * Actualizar dependencias de openxavatest.
-- Actualizar dependencias de chattest.
+* Actualizar dependencias de chattest.
 - Suite.
 - ChatTest.
     
