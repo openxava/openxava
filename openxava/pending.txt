@@ -60,8 +60,8 @@ Actualización de librerías
 * Actualizar resto de librería.
 * Actualizar dependencias de openxavatest.
 * Actualizar dependencias de chattest.
-- Suite.
-- ChatTest.
+* Suite.
+* ChatTest.
     
 - Include Lombok in our pom.xml? Given it's needed changing it in each project pom.xml with Java 25,
  maybe we can leave it outside OpenXava and include it in the archetypes. When we put instructions to
