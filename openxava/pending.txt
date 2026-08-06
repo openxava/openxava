@@ -58,7 +58,7 @@ Actualización de librerías
 			<artifactId>jersey-media-json-binding</artifactId>
 		</dependency>
 * Actualizar resto de librería.
-- Actualizar dependencias de openxavatest.
+* Actualizar dependencias de openxavatest.
 - Actualizar dependencias de chattest.
 - Suite.
 - ChatTest.
