@@ -1,6 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+- Commons Validator upgraded to 1.11.0.
+- JSoup upgraded to 1.23.1.
+- HtmlUnit upgraded to 5.2.0.
+- PDFBox upgraded to 3.0.8.
+- JSON upgraded to 20260719.
+- HotSwapAgent upgraded to 2.0.3 (provided dependency so jar is not included).
+- LangChain4J upgraded to 1.18.1.
+- CommonMark upgraded to 0.29.0.
+
 - JasperReports upgraded to 7.0.7.
 - Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
 - Commons Collections 4 upgraded to 4.5.0.

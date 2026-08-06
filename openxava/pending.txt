@@ -57,7 +57,7 @@ Actualización de librerías
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-binding</artifactId>
 		</dependency>
-- Actualizar resto de librería.
+* Actualizar resto de librería.
 - Actualizar dependencias de openxavatest.
 - Suite.
 - ChatTest.
