@@ -20,12 +20,32 @@
       <artifactId>openxava</artifactId>
       <version>${openxava.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>jakarta.json.bind</groupId>
+      <artifactId>jakarta.json.bind-api</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-binding</artifactId>
+      <version>4.0.2</version>
+    </dependency>
     
-    <!-- last version supported for java 8 -->
-    <dependency> 
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.13.0</version> 
+      <version>4.46.0</version>
       <scope>test</scope>
     </dependency>
     
@@ -33,7 +53,7 @@
 	<dependency>
 	    <groupId>com.google.code.gson</groupId>
 	    <artifactId>gson</artifactId>
-	    <version>2.13.2</version> 
+	    <version>2.14.0</version>
 	    <scope>test</scope>
 	</dependency>
     
@@ -84,7 +104,6 @@
 					WEB-INF/lib/neko-htmlunit-*.jar,
 					WEB-INF/lib/pdfbox-*.jar,
 					WEB-INF/lib/serializer-*.jar,
-
 					WEB-INF/lib/websocket-*.jar,
 					WEB-INF/lib/xalan-*.jar,
 					WEB-INF/lib/xercesImpl-*.jar,
@@ -118,26 +137,40 @@
 			</configuration>
 		</plugin>		
 		
- 		<!-- Ensure annotation processing (Lombok) works, especially on Java 25 -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.12.0</version>
-            <configuration>
-                <source>${maven.compiler.source}</source>
-                <target>${maven.compiler.target}</target>
-                <encoding>${project.build.sourceEncoding}</encoding>
-                <annotationProcessorPaths>
-                    <path>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                        <version>1.18.40</version>
-                    </path>
-                </annotationProcessorPaths>
-            </configuration>
-        </plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.12.0</version>
+			<configuration>
+				<source>${maven.compiler.source}</source>
+				<target>${maven.compiler.target}</target>
+				<encoding>${project.build.sourceEncoding}</encoding>
+			</configuration>
+		</plugin>
         
     </plugins>
   </build>
+
+  <!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+       -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. -->
+  <profiles>
+    <profile>
+      <id>jdk23-annotation-processing</id>
+      <activation>
+        <jdk>[23,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <proc>full</proc>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
    
 </project>

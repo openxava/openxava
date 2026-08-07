@@ -108,13 +108,6 @@
 	                <source>${maven.compiler.source}</source>
 	                <target>${maven.compiler.target}</target>
 	                <encoding>${project.build.sourceEncoding}</encoding>
-	                <annotationProcessorPaths>
-	                    <path>
-	                        <groupId>org.projectlombok</groupId>
-	                        <artifactId>lombok</artifactId>
-	                        <version>1.18.40</version>
-	                    </path>
-	                </annotationProcessorPaths>
 	            </configuration>
 	        </plugin>
 
@@ -212,5 +205,27 @@
 		
 		</plugins>
 	</build>
+
+	<!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+	     -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. -->
+	<profiles>
+		<profile>
+			<id>jdk23-annotation-processing</id>
+			<activation>
+				<jdk>[23,)</jdk>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<proc>full</proc>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
