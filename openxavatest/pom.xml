@@ -42,8 +42,7 @@
       <version>4.0.2</version>
     </dependency>
     
-    <!-- last version supported for java 8 -->
-    <dependency> 
+    <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
       <version>4.46.0</version>

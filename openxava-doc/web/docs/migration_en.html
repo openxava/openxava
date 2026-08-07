@@ -703,13 +703,13 @@ ServletFileUpload upload = new ServletFileUpload(factory);
 DiskFileItemFactory factory = DiskFileItemFactory.builder().get();
 JakartaServletFileUpload upload = new JakartaServletFileUpload(factory);</code></pre>
 
-    <h3>JAX-RS 3.1 and Jakarta JSON Binding 3.0</h3>
+    <h3>JAX-RS 4.0 and Jakarta JSON Binding 3.0</h3>
 
     <p>OpenXava 8.0 has migrated the REST client (JAX-RS, implemented by Jersey) and the JSON 
-    binding API to the Jakarta namespace. JAX-RS has been upgraded to 3.1 (Jersey 3.1) and 
+    binding API to the Jakarta namespace. JAX-RS has been upgraded to 4.0 (Jersey 4.0) and 
     Jakarta JSON Binding to 3.0. If your application uses the JAX-RS client or JSON-B 
-    annotations (for example in a service that consumes a REST web service), the only change 
-    needed is to update the imports from the <i>javax</i> namespace to <i>jakarta</i>:</p>
+    annotations (for example in a service that consumes a REST web service), update the 
+    imports from the <i>javax</i> namespace to <i>jakarta</i>:</p>
 
     <pre><code class="language-java">// BEFORE
 import javax.ws.rs.client.*;
@@ -721,6 +721,55 @@ import jakarta.json.bind.annotation.*;</code></pre>
 
     <p>The API of these classes (such as <i>ClientBuilder</i>, <i>@JsonbProperty</i>, etc.) 
     remains the same, so no further changes are required in your code.</p>
+
+    <p>In addition, OpenXava 8.0 no longer includes Jersey or Jakarta JSON Binding as 
+    transitive dependencies of the <i>openxava</i> artifact, because the framework itself 
+    does not use them. If your application relies on these libraries, add the following 
+    dependencies to your <i>pom.xml</i>:</p>
+
+    <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;jakarta.json.bind&lt;/groupId&gt;
+    &lt;artifactId&gt;jakarta.json.bind-api&lt;/artifactId&gt;
+    &lt;version&gt;3.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.glassfish.jersey.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jersey-client&lt;/artifactId&gt;
+    &lt;version&gt;4.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.glassfish.jersey.inject&lt;/groupId&gt;
+    &lt;artifactId&gt;jersey-hk2&lt;/artifactId&gt;
+    &lt;version&gt;4.0.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.glassfish.jersey.media&lt;/groupId&gt;
+    &lt;artifactId&gt;jersey-media-json-binding&lt;/artifactId&gt;
+    &lt;version&gt;4.0.2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+    <p>If you do not use JAX-RS or JSON-B in your application, you can ignore this section.</p>
+
+    <h3>Groovy no longer included</h3>
+
+    <p>OpenXava 8.0 no longer includes Groovy as a transitive dependency of the 
+    <i>openxava</i> artifact, because the framework itself does not use it. Groovy was 
+    previously provided so that application developers could write entities and other 
+    code in Groovy without adding an extra dependency.</p>
+
+    <p>If your application uses Groovy, add the following dependency to your 
+    <i>pom.xml</i>:</p>
+
+    <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.groovy&lt;/groupId&gt;
+    &lt;artifactId&gt;groovy&lt;/artifactId&gt;
+    &lt;version&gt;4.0.32&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+    <p>If you do not use Groovy in your application, you can ignore this section. For more 
+    details about using Groovy with OpenXava, see the 
+    <a href="groovy_en.html">Groovy documentation</a>.</p>
+
 
     <h3>Jakarta Dependency Injection 2.0.1</h3>
 
