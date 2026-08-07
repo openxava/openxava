@@ -73,7 +73,7 @@ Actualización de librerías
  
 - Documentar
     * Migración, lo de Lombok ya está
-    - Doc sobre Groovy y Jersey + jakarta.json.bind-api
+    * Doc sobre Groovy y Jersey + jakarta.json.bind-api
     - changelog
     
 

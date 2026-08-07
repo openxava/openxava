@@ -14,6 +14,18 @@
       dinámico para la plataforma Java. A partir de OpenXava 4m6 puedes escribir
       el código de tu aplicación usando Groovy en vez de Java. Incluso puedes
       combinar ambos lenguajes en la misma aplicación.<br>
+      <h2 id="toc-dependency"><a name="Groovy-Añadir dependencia"></a>Añadir la
+        dependencia de Groovy <em>(desde v8.0)</em></h2>
+      A partir de OpenXava 8.0, Groovy ya no se incluye como dependencia
+      transitiva del artefacto <i>openxava</i>. Si usas Groovy en tu aplicación,
+      añade la siguiente dependencia a tu <i>pom.xml</i>:<br>
+      <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.groovy&lt;/groupId&gt;
+    &lt;artifactId&gt;groovy&lt;/artifactId&gt;
+    &lt;version&gt;4.0.32&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+      En versiones de OpenXava anteriores a la 8.0 este paso no es necesario,
+      porque Groovy ya venía incluido con OpenXava.<br>
       <h2 id="toc1"><a name="Groovy-Configurar Eclipse"></a>Configurar OpenXava
         Studio</h2>
       La forma más fácil de trabajar con Groovy en OpenXava es usando el plugin
