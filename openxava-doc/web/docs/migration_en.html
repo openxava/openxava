@@ -874,7 +874,8 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
     your <i>pom.xml</i>.</p>
 
     <p>In the <i>build/plugins</i> section of your <i>pom.xml</i>, replace the
-    <i>maven-compiler-plugin</i> configuration:</p>
+    <i>maven-compiler-plugin</i> configuration, and add a profile activated for JDK 23
+    or higher:</p>
 
     <pre><code class="language-xml">&lt;!-- BEFORE --&gt;
 &lt;plugin&gt;
@@ -896,7 +897,6 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
 &lt;/plugin&gt;
 
 &lt;!-- AFTER --&gt;
-&lt;!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25 --&gt;
 &lt;plugin&gt;
     &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
     &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
@@ -905,15 +905,44 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
         &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
         &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
         &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
-        &lt;proc&gt;full&lt;/proc&gt;
     &lt;/configuration&gt;
 &lt;/plugin&gt;</code></pre>
 
+    <p>And after the <i>build</i> section, as a direct child of <i>project</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+     -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. --&gt;
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;jdk23-annotation-processing&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;jdk&gt;[23,)&lt;/jdk&gt;
+        &lt;/activation&gt;
+        &lt;build&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                    &lt;configuration&gt;
+                        &lt;proc&gt;full&lt;/proc&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/build&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;</code></pre>
+
     <p>If your <i>pom.xml</i> does not yet include the <i>maven-compiler-plugin</i>, add
-    the AFTER plugin. This is required when you compile with JDK 25, even if your
-    <i>maven.compiler.source/target</i> is 17 or 21. With this setup, future OpenXava
-    upgrades that change the Lombok version no longer require editing a hidden version
-    number in your application <i>pom.xml</i>.</p>
+    the AFTER plugin plus the profile. This is required when you compile with JDK 25, even
+    if your <i>maven.compiler.source/target</i> is 17 or 21. With this setup, future
+    OpenXava upgrades that change the Lombok version no longer require editing a hidden
+    version number in your application <i>pom.xml</i>.</p>
+
+    <p>The <i>&lt;proc&gt;full&lt;/proc&gt;</i> option goes in the profile, not directly in
+    <i>build</i>, because the <i>-proc:full</i> flag does not exist before JDK 23. If you
+    put it in <i>build</i>, compiling with JDK 17 or 21 fails with <i>error: invalid flag:
+    -proc:full</i>. With the profile, the same <i>pom.xml</i> works with JDK 17, 21 and
+    25.</p>
 
     <h2>To migrate to OpenXava 7.7.3</h2>
 

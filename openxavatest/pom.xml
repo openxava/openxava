@@ -152,7 +152,8 @@
     </plugins>
   </build>
 
-  <!-- -proc:full exists only since JDK 23 (annotation processing no longer implicit) -->
+  <!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+       -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. -->
   <profiles>
     <profile>
       <id>jdk23-annotation-processing</id>

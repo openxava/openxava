@@ -31,7 +31,6 @@ plugin in the <i>build</i> section of your project's <i>pom.xml</i>:</p>
     &lt;finalName&gt;${artifactId}&lt;/finalName&gt;
     &lt;plugins&gt;
 	
-        &lt;!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25 --&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
             &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
@@ -40,22 +39,48 @@ plugin in the <i>build</i> section of your project's <i>pom.xml</i>:</p>
                 &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
                 &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
                 &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
-                &lt;proc&gt;full&lt;/proc&gt;
             &lt;/configuration&gt;
         &lt;/plugin&gt;
 	
         ...
 		
     &lt;/plugins&gt;		
-&lt;/build&gt;</code></pre>	
+&lt;/build&gt;
+
+&lt;!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+     -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. --&gt;
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;jdk23-annotation-processing&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;jdk&gt;[23,)&lt;/jdk&gt;
+        &lt;/activation&gt;
+        &lt;build&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                    &lt;configuration&gt;
+                        &lt;proc&gt;full&lt;/proc&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/build&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;</code></pre>	
 <p>This is required even if the compilation level is not 25. With
 <i>&lt;proc&gt;full&lt;/proc&gt;</i>, annotation processing runs from the classpath, so
 Lombok comes transitively from the <i>openxava</i> dependency and you do not need
-to declare a Lombok version in your <i>pom.xml</i>. In projects created from v7.6
-onwards, a <i>maven-compiler-plugin</i> for Java 25 is included by default in the
-<i>pom.xml</i>, although commented out. In projects created from version 7.6.4.1
-onward, it is already uncommented. If your plugin still uses
-<i>annotationProcessorPaths</i> with a fixed Lombok version, replace it with the
+to declare a Lombok version in your <i>pom.xml</i>.</p>
+<p>Note that <i>&lt;proc&gt;full&lt;/proc&gt;</i> is placed in a profile activated for JDK 23
+or higher, because the <i>-proc:full</i> flag does not exist in earlier JDKs. If you
+put it directly in the <i>build</i> section, compiling with JDK 17 or 21 fails with
+<i>error: invalid flag: -proc:full</i>. With the profile, the same <i>pom.xml</i>
+works with JDK 17, 21 and 25.</p>
+<p>In projects created from v7.6 onwards, a <i>maven-compiler-plugin</i> for Java 25
+is included by default in the <i>pom.xml</i>, although commented out. In projects
+created from version 7.6.4.1 onward, it is already uncommented. If your plugin still
+uses <i>annotationProcessorPaths</i> with a fixed Lombok version, replace it with the
 configuration above.
 </p>
 <br>
