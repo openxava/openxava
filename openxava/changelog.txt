@@ -9,6 +9,7 @@ Change Log for OpenXava project
 - HotSwapAgent upgraded to 2.0.3 (provided dependency so jar is not included).
 - LangChain4J upgraded to 1.18.1.
 - CommonMark upgraded to 0.29.0.
+- Lombok upgraded to 1.18.46.
 
 - JasperReports upgraded to 7.0.7.
 - Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.

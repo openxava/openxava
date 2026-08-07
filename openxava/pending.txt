@@ -63,15 +63,15 @@ Actualización de librerías
 * Suite.
 * ChatTest.
     
-- Include Lombok in our pom.xml? Given it's needed changing it in each project pom.xml with Java 25,
- maybe we can leave it outside OpenXava and include it in the archetypes. When we put instructions to
- upgrade OpenXava we could instruct too to upgrade Lombok if needed.
- TMR ME QUEDÉ POR AQUÍ. ENCONTRÉ UNA OPCIÓN (ESTÁ EN openxavatest) QUE ME
-   PERMITE FUNCIONAR CON JAVA 25 SIN DECLARAR LA VERSIÓN. PROBARLA A FONDO,
-   ¿EJECUTAR SUITE? MOVERLA A ARQUETIPOS.
+- Include Lombok in our pom.xml?
+    * Suite
+    - invoicedemo. Pedir que cree la documentación de migración para el Lombok
+    - openxava-archetype
+    - Cambiar método en Update libs y Publicar OpenXava
+    - Cambiar explicación en hilo actual del tracker.
  
 - Documentar
-    - Migración
+    - Migración, incluir lo de Lombok
     - Doc sobre Groovy y Jersey + jakarta.json.bind-api
     - changelog
     
