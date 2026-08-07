@@ -66,13 +66,13 @@ Actualización de librerías
 - Include Lombok in our pom.xml?
     * Suite
     * invoicedemo. Pedir que cree la documentación de migración para el Lombok
-    - chattest
-    - openxava-archetype
+    * chattest
+    - openxava-archetype TMR ME QUEDÉ POR AQUÍ. HECHO. FALTA PROBARLO Y ANOTARLO EN CHANGELOG
     - Cambiar método en Update libs y Publicar OpenXava
     - Cambiar explicación en hilo actual del tracker.
  
 - Documentar
-    - Migración, incluir lo de Lombok
+    - Migración, lo de Lombok ya está
     - Doc sobre Groovy y Jersey + jakarta.json.bind-api
     - changelog
     
