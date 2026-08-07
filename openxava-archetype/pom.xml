@@ -100,6 +100,7 @@
 		<finalName>${artifactId}</finalName>
 		<plugins>
 		
+	        <!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25 -->
 	        <plugin>
 	            <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-compiler-plugin</artifactId>
@@ -108,13 +109,7 @@
 	                <source>${maven.compiler.source}</source>
 	                <target>${maven.compiler.target}</target>
 	                <encoding>${project.build.sourceEncoding}</encoding>
-	                <annotationProcessorPaths>
-	                    <path>
-	                        <groupId>org.projectlombok</groupId>
-	                        <artifactId>lombok</artifactId>
-	                        <version>1.18.40</version>
-	                    </path>
-	                </annotationProcessorPaths>
+	                <proc>full</proc>
 	            </configuration>
 	        </plugin>
 
