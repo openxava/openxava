@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- New projects created from archetypes no longer require an explicit Lombok version in pom.xml.
 - Java 25 documentation improved to include the explicit Lombok version in the pom.xml.
 - Commons Validator upgraded to 1.11.0.
 - JSoup upgraded to 1.23.1.
