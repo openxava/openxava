@@ -862,6 +862,61 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
     los que estén en el formato antiguo y dejará intactos los ya convertidos. Los ficheros
     que no se puedan convertir se reportarán con el motivo.</p>
 
+    <h3>Lombok con Java 25 sin fijar la versión de Lombok</h3>
+
+    <p>Desde JDK 25, el procesamiento de anotaciones ya no está activado por defecto, así
+    que Lombok no funciona a menos que configures el <i>maven-compiler-plugin</i>. Los
+    proyectos creados a partir de OpenXava 7.6 suelen declarar Lombok bajo
+    <i>annotationProcessorPaths</i> con una versión fija. Eso funciona, pero te obliga a
+    mantener esa versión sincronizada cada vez que OpenXava actualice Lombok.</p>
+
+    <p>En OpenXava 8.0 el enfoque recomendado es activar el procesamiento completo de
+    anotaciones desde el classpath. Así Lombok llega de forma transitiva desde la
+    dependencia <i>openxava</i>, y siempre usas la misma versión que OpenXava sin
+    declararla en tu <i>pom.xml</i>.</p>
+
+    <p>En la sección <i>build/plugins</i> de tu <i>pom.xml</i>, sustituye la configuración
+    del <i>maven-compiler-plugin</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- ANTES --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.12.0&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+        &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+        &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
+        &lt;annotationProcessorPaths&gt;
+            &lt;path&gt;
+                &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+                &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+                &lt;version&gt;1.18.40&lt;/version&gt;
+            &lt;/path&gt;
+        &lt;/annotationProcessorPaths&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+
+&lt;!-- DESPUÉS --&gt;
+&lt;!-- Activa el procesamiento de anotaciones desde el classpath (Lombok vía openxava); necesario desde JDK 25 --&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.12.0&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;source&gt;${maven.compiler.source}&lt;/source&gt;
+        &lt;target&gt;${maven.compiler.target}&lt;/target&gt;
+        &lt;encoding&gt;${project.build.sourceEncoding}&lt;/encoding&gt;
+        &lt;proc&gt;full&lt;/proc&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre>
+
+    <p>Si tu <i>pom.xml</i> aún no incluye el <i>maven-compiler-plugin</i>, añade el
+    plugin del DESPUÉS. Esto es necesario cuando compilas con JDK 25, aunque tu
+    <i>maven.compiler.source/target</i> sea 17 o 21. Con esta configuración, las futuras
+    actualizaciones de OpenXava que cambien la versión de Lombok ya no requieren editar
+    un número de versión oculto en el <i>pom.xml</i> de tu aplicación.</p>
+
     <h2>Para migrar a OpenXava 7.7.3</h2>
 
     <p>Para migrar a OpenXava 7.7.3 desde cualquier versión anterior de OpenXava:</p>
