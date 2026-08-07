@@ -138,7 +138,7 @@
 			</configuration>
 		</plugin>		
 		
-		<!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 23 -->
+		<!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25 -->
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
