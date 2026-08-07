@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
 - New projects created from archetypes no longer require an explicit Lombok version in pom.xml.
 - Java 25 documentation improved to include the explicit Lombok version in the pom.xml.
 - Commons Validator upgraded to 1.11.0.
@@ -12,7 +13,6 @@ Change Log for OpenXava project
 - LangChain4J upgraded to 1.18.1.
 - CommonMark upgraded to 0.29.0.
 - Lombok upgraded to 1.18.46.
-
 - JasperReports upgraded to 7.0.7.
 - Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
 - Commons Collections 4 upgraded to 4.5.0.
