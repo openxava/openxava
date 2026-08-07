@@ -58,6 +58,14 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<!--
+	We prefer to use transitive dependencies instead of explicit dependencies
+	even if they are used directly in code, bcause:
+	1. The pom.xml is simpler and easy to update.
+	2. We are sure that openxava works correctly with same version of library
+		that is certified that work correctly in the third-party library.
+	-->
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
