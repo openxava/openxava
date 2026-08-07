@@ -138,7 +138,6 @@
 			</configuration>
 		</plugin>		
 		
-		<!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25 -->
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-compiler-plugin</artifactId>
@@ -147,11 +146,31 @@
 				<source>${maven.compiler.source}</source>
 				<target>${maven.compiler.target}</target>
 				<encoding>${project.build.sourceEncoding}</encoding>
-				<proc>full</proc>
 			</configuration>
 		</plugin>
         
     </plugins>
   </build>
+
+  <!-- -proc:full exists only since JDK 23 (annotation processing no longer implicit) -->
+  <profiles>
+    <profile>
+      <id>jdk23-annotation-processing</id>
+      <activation>
+        <jdk>[23,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <proc>full</proc>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
    
 </project>
