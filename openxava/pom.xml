@@ -60,10 +60,10 @@
 
 	<!--
 	We prefer to use transitive dependencies instead of explicit dependencies
-	even if they are used directly in code, bcause:
-	1. The pom.xml is simpler and easy to update.
-	2. We are sure that openxava works correctly with same version of library
-		that is certified that work correctly in the third-party library.
+	even if they are used directly in code, because:
+	1. The pom.xml is simpler and easier to update.
+	2. We are sure that OpenXava works with the same version of the library
+		that is certified to work correctly in the third-party library.
 	-->
 
 	<dependencies>
