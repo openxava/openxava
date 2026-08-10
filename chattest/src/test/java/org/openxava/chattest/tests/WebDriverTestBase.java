@@ -52,11 +52,11 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     /**
-     * Resets user preferences by accessing the resetPreferences.jsp page
+     * Resets user preferences by accessing the resetPreferences page
      */
     protected void resetPreferences() throws Exception {
         WebDriver driver = getDriver();
-        driver.get("http://localhost:8080/chattest/xava/resetPreferences.jsp?zxy=HOljkso83");
+        driver.get("http://localhost:8080/chattest/xava/resetPreferences?zxy=HOljkso83");
     }
     
     protected WebDriver createWebDriver(String lang) {
