@@ -481,7 +481,7 @@ public class HotwireServlet extends BaseServlet {
                 setPageReloadedLastTime(false);
                 this.manager = (ModuleManager) context.get(application, module, "manager");
                 restoreLastMessages();
-                getURIAsStream("execute.jsp", values, multipleValues, selected, deselected, additionalParameters);
+                ModuleExecutor.execute(createModuleExecutionRequest(), false);
                 setDialogLevel(result);
                 Map<String, Object> changedParts = new HashMap<>();
                 result.setChangedParts(changedParts);
@@ -649,8 +649,103 @@ public class HotwireServlet extends BaseServlet {
             result.setNextModule(nextModule);
         }
 
-        private InputStream getURIAsStream(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
-            return Servlets.getURIAsStream(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
+        private HttpServletRequest createModuleExecutionRequest() {
+            return new ParametersHttpServletRequest(request, buildModuleExecutionParameters());
+        }
+
+        /**
+         * Same parameters formerly passed to execute.jsp via query string on RequestDispatcher.include.
+         */
+        private Map<String, String[]> buildModuleExecutionParameters() {
+            Map<String, List<String>> params = new LinkedHashMap<>();
+            addParam(params, "application", application);
+            addParam(params, "module", module);
+            if (values != null) {
+                if (multipleValues != null) {
+                    // Copy because addValuesQueryString historically removed entries from values
+                    Map<String, Object> valuesCopy = new HashMap<>(values);
+                    SortedMap<String, Object> sortedMultipleValues = new TreeMap<>(multipleValues);
+                    for (Iterator<?> it = sortedMultipleValues.entrySet().iterator(); it.hasNext(); ) {
+                        Map.Entry<?, ?> en = (Map.Entry<?, ?>) it.next();
+                        String addedKey = addMultipleValuesToParams(params, en.getKey(), en.getValue());
+                        valuesCopy.remove(decorateId(addedKey));
+                    }
+                    valuesCopy.remove(decorateId("xava_multiple"));
+                    addSimpleValuesToParams(params, valuesCopy);
+                } else {
+                    addSimpleValuesToParams(params, values);
+                }
+                if (selected != null) {
+                    for (int i = 0; i < selected.length; i++) {
+                        String[] s = selected[i].split(":");
+                        if (s.length >= 2) addParam(params, s[0], s[1]);
+                    }
+                }
+                if (deselected != null) {
+                    for (int i = 0; i < deselected.length; i++) {
+                        if (!deselected[i].contains("[")) continue;
+                        String r = deselected[i].replace("[false", "").replace("]", ",");
+                        r = r.substring(0, r.length() - 1);
+                        addParam(params, "deselected", r);
+                    }
+                }
+            }
+            addAdditionalParameters(params, additionalParameters);
+            if (firstRequest) addParam(params, "firstRequest", "true");
+            return toArrayMap(params);
+        }
+
+        private void addSimpleValuesToParams(Map<String, List<String>> params, Map<String, Object> values) {
+            for (Iterator<?> it = values.entrySet().iterator(); it.hasNext(); ) {
+                Map.Entry<?, ?> en = (Map.Entry<?, ?>) it.next();
+                if (!en.getKey().toString().equals(decorateId("xava_selected"))) {
+                    // Raw value: ParametersHttpServletRequest does not URL-decode like a query string
+                    Object value = en.getValue();
+                    if (value != null && value.toString().startsWith("[reference:")) {
+                        value = "true";
+                    }
+                    addParam(params, filterKey(en.getKey()), value == null ? null : value.toString());
+                }
+            }
+        }
+
+        private String addMultipleValuesToParams(Map<String, List<String>> params, Object key, Object value) {
+            if (value == null) return null;
+            String filteredKey = filterKey((String) key);
+            if (key.toString().indexOf("::") >= 0) {
+                addParam(params, filteredKey, value.toString());
+            } else {
+                String[] tokens = value.toString().split("\n");
+                for (int i = 1; i < tokens.length - 1; i++) {
+                    addParam(params, filteredKey, tokens[i].substring(tokens[i].indexOf('"') + 1, tokens[i].lastIndexOf('"')));
+                }
+            }
+            return filteredKey;
+        }
+
+        private void addAdditionalParameters(Map<String, List<String>> params, String additionalParameters) {
+            if (Is.emptyString(additionalParameters)) return;
+            String s = additionalParameters.startsWith("&") ? additionalParameters.substring(1) : additionalParameters;
+            if (Is.emptyString(s)) return;
+            for (String pair : s.split("&")) {
+                if (Is.emptyString(pair)) continue;
+                int eq = pair.indexOf('=');
+                if (eq < 0) addParam(params, pair, "");
+                else addParam(params, pair.substring(0, eq), pair.substring(eq + 1));
+            }
+        }
+
+        private void addParam(Map<String, List<String>> params, String name, String value) {
+            if (name == null) return;
+            params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+        }
+
+        private Map<String, String[]> toArrayMap(Map<String, List<String>> params) {
+            Map<String, String[]> result = new LinkedHashMap<>();
+            for (Map.Entry<String, List<String>> entry : params.entrySet()) {
+                result.put(entry.getKey(), entry.getValue().toArray(new String[0]));
+            }
+            return result;
         }
 
         private String getURIAsString(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {

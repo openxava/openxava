@@ -16,6 +16,7 @@
 <%@page import="org.openxava.web.servlets.Servlets"%>
 <%@page import="org.openxava.web.Ids"%>
 <%@page import="org.openxava.web.Requests"%>
+<%@page import="org.openxava.web.ModuleExecutor"%>
 <%@page import="org.openxava.web.EditorsResources"%> 
 <%@page import="org.openxava.web.style.Themes"%>  
 <%@page import="org.apache.commons.logging.LogFactory" %>
@@ -89,11 +90,7 @@
 	Requests.init(request, app, module);
 	manager.log(request, "MODULE:" + module);
 	manager.setModuleURL(request);
-%>
-<jsp:include page="execute.jsp">
-	<jsp:param name="loadingModulePage" value="true"/> 
-</jsp:include>
-<%
+	ModuleExecutor.execute(request, true);
 	if (htmlHead) {	
 %>
  

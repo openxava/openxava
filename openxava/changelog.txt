@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Module request execution moved from execute.jsp to plain Java (ModuleExecutor).
 - JavaMail upgraded to Jakarta Mail 2.1 (Eclipse Angus 2.0.5).
 - Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
 - New projects created from archetypes no longer require an explicit Lombok version in pom.xml.
