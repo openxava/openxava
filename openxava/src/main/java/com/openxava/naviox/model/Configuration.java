@@ -101,8 +101,8 @@ public class Configuration implements java.io.Serializable {
 	private boolean privacyPolicyOnSignUp; 
 	
 	/** @since 8.0 */
-	@org.hibernate.annotations.Type(type="org.hibernate.type.YesNoType")
-	@Column(columnDefinition="varchar(1) default 'N' not null")
+	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
+	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
 	private boolean autoGenerateAPI;
 
 	/** @since 8.0 */
