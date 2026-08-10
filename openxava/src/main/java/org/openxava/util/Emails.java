@@ -3,9 +3,9 @@ package org.openxava.util;
 import java.io.*;
 import java.util.*;
 
-import javax.activation.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import jakarta.activation.*;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
 
 import org.apache.commons.logging.*;
 
@@ -53,7 +53,7 @@ public class Emails {
 		}
 	}
 
-	private static class SMTPAuthenticator extends javax.mail.Authenticator {
+	private static class SMTPAuthenticator extends Authenticator {
 	    private String fUser;
 	    private String fPassword;
 
