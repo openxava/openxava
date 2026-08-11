@@ -14,11 +14,17 @@ Working notes so progress is not lost between IntelliJ restarts.
 |------|--------|
 | `execute.jsp` → `org.openxava.web.ModuleExecutor` (+ `ParametersHttpServletRequest`) | Done, test suite 100% |
 | `resetPreferences.jsp` → `org.openxava.web.servlets.ResetPreferencesServlet` (`/xava/resetPreferences`) | Done |
+| Phase 0: `HtmlWriter`, `ViewRenderContext`, `JspFragment`, `PartRenderer`, `Parts` registry | Done, compiles |
+| Phase 1: `ErrorsRenderer`, `MessagesRenderer`, `FrameActionsRenderer`, `ListConfigurationsRenderer`, `ThemeChooserRenderer`, `ButtonRenderer` (barButton), `SubButtonRenderer` | Done, compiles |
+| Phase 2: `ButtonBarRenderer`, `BottomButtonsRenderer`, `CoreRenderer` | Done, compiles |
+| Wiring: `HotwireServlet.getURIAsString` intercepts Java-rendered parts; `module.jsp` uses `CoreRenderer` + `ThemeChooserRenderer` | Done, compiles |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `module.jsp`.
 - Hotwire needs form values visible as request parameters (for `View.assignValuesToWebView()`); that is what `ParametersHttpServletRequest` + `buildModuleExecutionParameters()` reproduce (formerly the include query string).
 - Careful: `org.openxava.web.Collections` shadows `java.util.Collections` in that package.
+- JSP files for migrated parts are kept as safety net. `barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp` are still included by non-migrated JSPs (`collectionEditor.jsp`, `collectionFromModel.jsp`, `listEditor.jsp`, `list.jsp`). Remove after full migration.
+- `ActionHtml` centralizes action rendering (link, image, button) mirroring taglib output, used by all button renderers.
 
 ## Remaining JSPs in `xava` (non-editors)
 

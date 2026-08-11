@@ -751,7 +751,32 @@ public class HotwireServlet extends BaseServlet {
         private String getURIAsString(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
             if (jspFile == null) return "";
             if (jspFile.startsWith("html:")) return jspFile.substring(5); // No need to filterHTML (replace commas) thanks to JSON
+            if (org.openxava.web.render.Parts.isJavaRendered(jspFile)) {
+                String uri = getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters);
+                Map<String, String[]> params = parseQueryString(uri);
+                HttpServletRequest wrappedRequest = new ParametersHttpServletRequest(request, params);
+                return org.openxava.web.render.Parts.render(wrappedRequest, response, jspFile);
+            }
             return Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
+        }
+
+        private static Map<String, String[]> parseQueryString(String uri) {
+            Map<String, List<String>> params = new LinkedHashMap<>();
+            int q = uri.indexOf('?');
+            if (q < 0) return new LinkedHashMap<>();
+            String query = uri.substring(q + 1);
+            for (String pair : query.split("&")) {
+                if (pair.isEmpty()) continue;
+                int eq = pair.indexOf('=');
+                String name = eq < 0 ? pair : pair.substring(0, eq);
+                String value = eq < 0 ? "" : pair.substring(eq + 1);
+                params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+            }
+            Map<String, String[]> result = new LinkedHashMap<>();
+            for (Map.Entry<String, List<String>> entry : params.entrySet()) {
+                result.put(entry.getKey(), entry.getValue().toArray(new String[0]));
+            }
+            return result;
         }
 
         private void fillResult(Result result, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {

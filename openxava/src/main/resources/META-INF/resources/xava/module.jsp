@@ -203,7 +203,7 @@ if (manager.isResetFormPostNeeded()) {
 		<%			
 			if (!coreViaAJAX) {
 		%>
-		<jsp:include page="core.jsp"/>
+		<%=org.openxava.web.render.CoreRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response))%>
 		<%
 			}
 		%>		
@@ -212,7 +212,7 @@ if (manager.isResetFormPostNeeded()) {
 	
 <% } %>			
 	<% if (Themes.isChooserEnabled(request)) { %>
-	<jsp:include page="themeChooser.jsp"/>
+	<%=org.openxava.web.render.ThemeChooserRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response))%>
 	<% } %>
 	<div id="xava_console" >
 	</div>

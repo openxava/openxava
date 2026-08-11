@@ -1,0 +1,9 @@
+JSP Removal
+-----------
+- Todas las fases del MD.
+- Revisión.
+- Suite.
+- Pruebas manuales de estilo y de layout.
+- Documentación, si es necesario.
+- Rehacer changelog.
+- Borrar MDs.
