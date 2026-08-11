@@ -18,6 +18,8 @@ Working notes so progress is not lost between IntelliJ restarts.
 | Phase 1: `ErrorsRenderer`, `MessagesRenderer`, `FrameActionsRenderer`, `ListConfigurationsRenderer`, `ThemeChooserRenderer`, `ButtonRenderer` (barButton), `SubButtonRenderer` | Done, compiles |
 | Phase 2: `ButtonBarRenderer`, `BottomButtonsRenderer`, `CoreRenderer` | Done, compiles |
 | Wiring: `HotwireServlet.getURIAsString` intercepts Java-rendered parts; `module.jsp` uses `CoreRenderer` + `ThemeChooserRenderer` | Done, compiles |
+| Phase 3: `PropertyActionsRenderer`, `ReferenceActionsRenderer`, `ReferenceFrameHeaderRenderer`, `CollectionFrameHeaderRenderer`, `PropertyEditorRenderer`, `DetailViewRenderer`, `SectionsRenderer` | Done, compiles, app boots, basic detail view works |
+| Phase 3 wiring: `CoreRenderer` uses `Parts.render` for `detail.jsp`; `Parts` registers `detail`, `sections`, `propertyActions`, `collectionFrameHeader` | Done |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `module.jsp`.

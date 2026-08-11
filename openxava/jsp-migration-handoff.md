@@ -4,7 +4,7 @@ Context not already covered in `jsp-migration-analysis.md`. Read both files.
 
 ## Current state (Aug 2026)
 
-Phases 0–2 complete and compiling. Wiring done. **First runtime test revealed a bug** (see below). No runtime success yet.
+Phases 0–3 complete and compiling. Wiring done. **Application boots and basic detail view works.** However, some runtime issues remain (see below).
 
 ## Deleted JSP files
 
@@ -48,37 +48,17 @@ Direct calls to `CoreRenderer.render(new ViewRenderContext(request, response))` 
 
 `CoreRenderer` calls `JspFragment.render(ctx, manager.getViewURL())` to render the view (still `detail.jsp` or `list.jsp`). `JspFragment.render` calls `Servlets.getURIAsString(request, response, uri)` which does `RequestDispatcher.include(request, fakeResponse)`.
 
-## Known bug: `NumberFormatException` in `comparatorsCombo.jsp`
+## Known runtime issues (post-Phase 3)
 
-### Symptom
+### 1. Switching to a tab with a collection fails (detail mode)
 
-`Integer.parseInt(request.getParameter("index"))` throws because `index` is null.
+Reproducible in `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
 
-### Chain of calls
+**Not yet analyzed** — likely related to how `DetailViewRenderer` renders collections or how the Hotwire partial update for sections interacts with collection state.
 
-1. HotwireServlet renders `core.jsp` → `CoreRenderer.render(ctx)`.
-2. `CoreRenderer` calls `JspFragment.render(ctx, manager.getViewURL())`.
-3. In list mode, `getViewURL()` returns `list.jsp`.
-4. `JspFragment.render` calls `Servlets.getURIAsString(ctx.getRequest(), ctx.getResponse(), "/xava/list.jsp")`.
-5. `Servlets.getURIAsString` does `request.getRequestDispatcher("/xava/list.jsp").include(request, fakeResponse)`.
-6. `list.jsp` includes `listEditor.jsp` (via `WebEditors.getUrl`).
-7. `listEditor.jsp` builds `urlComparatorsCombo` with `index` as a query-string param and includes `comparatorsCombo.jsp`.
+### 2. `frameActions.jsp` still included by non-migrated JSPs
 
-### Root cause analysis (not yet fixed)
-
-The `index` parameter is passed by `listEditor.jsp` as a query string in the `<jsp:include page="<%=urlComparatorsCombo%>"/>` call (line 290–297). This should work regardless of the Java renderer migration because `listEditor.jsp` is still a JSP.
-
-The issue is likely that `ctx.getRequest()` (the `ParametersHttpServletRequest` wrapper) interferes with `RequestDispatcher.include`'s parameter merging. Per servlet spec, `RequestDispatcher.include` should merge the included URL's query string params with the request's existing params. But when the request is already a `HttpServletRequestWrapper` that overrides `getParameter`/`getParameterMap`, Tomcat's `ApplicationDispatcher` may use the wrapper's `getParameter` instead of merging the include query string.
-
-**Key insight**: `ParametersHttpServletRequest` overrides `getParameter`, `getParameterMap`, `getParameterNames`, and `getParameterValues` to return a fixed merged map. When `RequestDispatcher.include` is called with this wrapped request, Tomcat's `ApplicationRequest` (which wraps the request during include) may delegate `getParameter` to the underlying request (our wrapper) instead of merging the include query string. This means `<jsp:include page="comparatorsCombo.jsp?index=0&...">` does NOT add `index` to the parameters visible inside `comparatorsCombo.jsp`.
-
-### Possible fixes (not yet attempted)
-
-1. **Pass the original (unwrapped) request to `JspFragment`/`Servlets.getURIAsString`** instead of the `ParametersHttpServletRequest` wrapper. The wrapper is only needed for the Java renderer's own parameter access, not for JSP includes. The original request still has all the HTTP request parameters.
-2. **In `CoreRenderer`, use `ctx.getRequest()` for parameter access but pass the original request to `JspFragment.render`**. This requires either storing the original request in `ViewRenderContext` or unwrapping it.
-3. **Make `ParametersHttpServletRequest` not override `getParameter` etc. when the extra params are empty** — but this doesn't help because the extra params aren't empty.
-
-**Recommended approach**: Option 1 or 2. The cleanest is to have `ViewRenderContext` store both the wrapped and original request, or to unwrap in `JspFragment.render` before calling `Servlets.getURIAsString`.
+`frameActions.jsp` is still present because `reference.jsp` and other non-migrated JSPs include it. It will be removed when those JSPs are migrated.
 
 ## Conventions and decisions
 
@@ -110,8 +90,48 @@ In the `org.openxava.web` package, `Collections` refers to `org.openxava.web.Col
 
 Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `<xava:link>` / `<xava:image>` taglib output. Used by `ButtonBarRenderer`, `BottomButtonsRenderer`, `ButtonRenderer`, `SubButtonRenderer`.
 
+## Phase 3: Detail view member renderers (completed)
+
+### New Java renderer files
+
+- `PropertyActionsRenderer.java` — renders property actions (formerly `propertyActions.jsp`)
+- `ReferenceActionsRenderer.java` — renders reference actions (formerly `referenceActions.jsp`)
+- `ReferenceFrameHeaderRenderer.java` — renders reference frame header (formerly `referenceFrameHeader.jsp`)
+- `CollectionFrameHeaderRenderer.java` — renders collection frame header (formerly `collectionFrameHeader.jsp`)
+- `PropertyEditorRenderer.java` — renders property editor with label, layout, and actions (formerly `editor.jsp` + `htmlTagsEditor.jsp`). Delegates actual editor to `editorWrapper.jsp` via `JspFragment`.
+- `DetailViewRenderer.java` — main detail view renderer iterating meta members (formerly `detail.jsp`). Dispatches to `PropertyEditorRenderer`, delegates `reference.jsp`/`collection.jsp` to `JspFragment`.
+- `SectionsRenderer.java` — renders section tabs and active section content (formerly `sections.jsp`). Recursively calls `DetailViewRenderer` for the active section.
+
+### Parts registry additions
+
+- `detail` → `DetailViewRenderer::render` (alias: `detail.jsp`)
+- `sections` → `SectionsRenderer::render` (alias: `sections.jsp`)
+- `propertyActions` → `PropertyActionsRenderer::render` (alias: `propertyActions.jsp`)
+- `collectionFrameHeader` → `CollectionFrameHeaderRenderer::render` (alias: `collectionFrameHeader.jsp`)
+
+### CoreRenderer wiring
+
+`CoreRenderer` now checks `Parts.isJavaRendered(viewURL)` before rendering the view. If true (e.g. `detail.jsp`), it calls `Parts.render(ctx.getRequest(), ctx.getResponse(), viewURL)` instead of `JspFragment.render`. For non-migrated views (e.g. `list.jsp`), it still uses `JspFragment`.
+
+### JSPs still used via JspFragment (not yet migrated)
+
+- `reference.jsp` — reference rendering (descriptions lists, composite editors, etc.)
+- `collection.jsp` — collection editor dispatch
+- `editorWrapper.jsp` — wraps `<xava:editor>` tag with `propertyStyle` wrapping
+- `propertyActionsExt.jsp`, `referenceFrameHeaderExt.jsp`, `collectionFrameHeaderExt.jsp`, `referenceActionsExt.jsp` — empty extension hooks
+
+### Key design decisions
+
+- `DetailViewRenderer` handles frame layout (open/close divs) and member iteration, delegating leaf rendering to `PropertyEditorRenderer` for properties and `JspFragment` for references/collections.
+- `FrameLayout` class encapsulates `openDiv`/`closeDiv`/`openDivForFrame`/`closeDivForFrame` logic from `detail.jsp`.
+- `LayoutCells` class encapsulates `preLabel`/`postLabel`/`preEditor`/`postEditor` from `htmlTagsEditor.jsp`.
+- `ViewRenderContext.withParameters(Map)` creates a derived context with merged parameters for nested renderer calls.
+- `SectionsRenderer` uses `ActionHtml.link` with body content for section tab links (matching `<xava:link>` body content).
+
 ## What to do next
 
-1. **Fix the `comparatorsCombo.jsp` parameter bug** — this is blocking the first runtime test.
+1. **Fix the collection-tab switching bug** — switching to a section tab containing a collection fails. Reproducible via `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
 2. Run the full test suite manually from IntelliJ to validate the migration.
-3. Proceed to Phase 3 (member renderers for `detail.jsp`).
+3. Migrate `reference.jsp` to a Java renderer (Phase 4 candidate).
+4. Migrate `collection.jsp` and collection editors (Phase 4 candidate).
+5. Migrate `list.jsp` (Phase 4).

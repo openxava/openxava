@@ -72,7 +72,12 @@ public class CoreRenderer {
 			w.append("'");
 		}
 		w.append(">");
-		w.append(JspFragment.render(ctx, manager.getViewURL()));
+		String viewURL = manager.getViewURL();
+		if (Parts.isJavaRendered(viewURL)) {
+			w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), viewURL));
+		} else {
+			w.append(JspFragment.render(ctx, viewURL));
+		}
 		w.append("</div>");
 
 		w.append(JspFragment.render(ctx, "viewExt.jsp"));

@@ -51,7 +51,22 @@ public class ViewRenderContext {
 	}
 
 	public View getView() {
-		return (View) getModuleContext().get(request, "xava_view");
+		return getView(getViewObject());
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public View getView(String viewObject) {
+		if (viewObject == null || viewObject.isEmpty() || "null".equals(viewObject)) viewObject = "xava_view";
+		return (View) getModuleContext().get(request, viewObject);
+	}
+
+	/**
+	 * @since 8.0
+	 */
+	public String getViewObject() {
+		return getParameter("viewObject", "xava_view");
 	}
 
 	public Style getStyle() {
@@ -101,6 +116,17 @@ public class ViewRenderContext {
 		String value = getParameter(name);
 		if (value == null) return defaultValue;
 		return "true".equalsIgnoreCase(value);
+	}
+
+	/**
+	 * Creates a new context with the same request/response but with extra parameters
+	 * merged on top of this context's parameters.
+	 * @since 8.0
+	 */
+	public ViewRenderContext withParameters(Map<String, String> extra) {
+		Map<String, String> merged = new HashMap<>(this.parameters);
+		if (extra != null) merged.putAll(extra);
+		return new ViewRenderContext(request, response, merged);
 	}
 
 	public String decorateId(String name) {

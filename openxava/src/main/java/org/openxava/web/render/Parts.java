@@ -31,6 +31,10 @@ public class Parts {
 		register("buttonBar", ButtonBarRenderer::render);
 		register("bottomButtons", BottomButtonsRenderer::render);
 		register("core", CoreRenderer::render);
+		register("detail", DetailViewRenderer::render);
+		register("sections", SectionsRenderer::render);
+		register("propertyActions", PropertyActionsRenderer::render);
+		register("collectionFrameHeader", CollectionFrameHeaderRenderer::render);
 
 		// JSP file name ? part name, for HotwireServlet compatibility
 		JSP_ALIASES.put("errors.jsp", "errors");
@@ -43,6 +47,10 @@ public class Parts {
 		JSP_ALIASES.put("buttonBar.jsp", "buttonBar");
 		JSP_ALIASES.put("bottomButtons.jsp", "bottomButtons");
 		JSP_ALIASES.put("core.jsp", "core");
+		JSP_ALIASES.put("detail.jsp", "detail");
+		JSP_ALIASES.put("sections.jsp", "sections");
+		JSP_ALIASES.put("propertyActions.jsp", "propertyActions");
+		JSP_ALIASES.put("collectionFrameHeader.jsp", "collectionFrameHeader");
 	}
 
 	private static void register(String name, PartRenderer renderer) {
