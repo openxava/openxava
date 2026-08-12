@@ -255,7 +255,7 @@ public class SellerTest extends CustomizeListTestBase {
 		setValue("name", "JUNIT SELLER 71");
 		execute("CRUD.save");
 
-		String unsubscribeBaseURL="http://localhost:8080" + getContextPath() + "xava/unsubscribe.jsp?"; 
+		String unsubscribeBaseURL="http://localhost:8080" + getContextPath() + "xava/unsubscribe?";
 		String unsubscribeAllURL1=unsubscribeBaseURL + "email=openxavatest1@getnada.com&module=Seller";
 		String unsubscribeAllURL2=unsubscribeBaseURL + "email=openxavatest2@getnada.com&module=Seller";
 		String unsubscribeOneURL67=unsubscribeAllURL1 + "&key=::67";

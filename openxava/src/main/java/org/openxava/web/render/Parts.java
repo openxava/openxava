@@ -38,6 +38,8 @@ public class Parts {
 		register("list", ListRenderer::render);
 		register("collection", CollectionRenderer::render);
 		register("collectionFromModel", CollectionFromModelRenderer::render);
+		register("referenceSearch", ReferenceSearchRenderer::render);
+		register("addToCollection", AddToCollectionRenderer::render);
 
 		// JSP file name ? part name, for HotwireServlet compatibility
 		JSP_ALIASES.put("errors.jsp", "errors");
@@ -56,7 +58,9 @@ public class Parts {
 		JSP_ALIASES.put("collectionFrameHeader.jsp", "collectionFrameHeader");
 		JSP_ALIASES.put("list.jsp", "list");
 		JSP_ALIASES.put("collection.jsp", "collection");
-		JSP_ALIASES.put("collectionFromModel.jsp", "collectionFromModel");
+		JSP_ALIASES.put("collectionFromModel.jsp", "collectionFromModel"); // JSP deleted, alias kept for descriptor matching
+		JSP_ALIASES.put("referenceSearch.jsp", "referenceSearch"); // JSP deleted, alias kept for descriptor matching
+		JSP_ALIASES.put("addToCollection.jsp", "addToCollection"); // JSP deleted, alias kept for descriptor matching
 	}
 
 	private static void register(String name, PartRenderer renderer) {

@@ -4,11 +4,11 @@ Context not already covered in `jsp-migration-analysis.md`. Read both files.
 
 ## Current state (Aug 2026)
 
-Phases 0–4 complete and compiling. Wiring done. **Application boots, detail view and list mode work, collections render correctly. Tested by user.**
+**All phases (0–5) complete, compiling, and tested by user.** Application boots, module pages render, detail view and list mode work, collections render correctly, reference search and add-to-collection dialogs work, email unsubscription works via servlet.
 
 ## Deleted JSP files
 
-These were fully replaced by Java renderers and deleted from `src/main/resources/META-INF/resources/xava/`:
+These were fully replaced by Java renderers/servlets and deleted from `src/main/resources/META-INF/resources/xava/`:
 
 - `core.jsp` → `CoreRenderer`
 - `buttonBar.jsp` → `ButtonBarRenderer`
@@ -16,17 +16,27 @@ These were fully replaced by Java renderers and deleted from `src/main/resources
 - `errors.jsp` → `ErrorsRenderer`
 - `messages.jsp` → `MessagesRenderer`
 - `themeChooser.jsp` → `ThemeChooserRenderer`
+- `unsubscribe.jsp` → `UnsubscribeServlet` (`/xava/unsubscribe`)
+- `referenceSearch.jsp` → `ReferenceSearchRenderer`
+- `addToCollection.jsp` → `AddToCollectionRenderer`
+- `collectionList.jsp` → `CollectionListRenderer` (called directly from `collectionEditor.jsp`)
+- `collectionFromModel.jsp` → `CollectionFromModelRenderer`
 
 ## JSP files kept (safety net)
 
 Still present because non-migrated JSPs include them:
 
-- `barButton.jsp` — included by `collectionEditor.jsp`, `collectionFromModel.jsp`, `listEditor.jsp`, `list.jsp`
-- `subButton.jsp` — included by `collectionEditor.jsp`, `collectionFromModel.jsp`
+- `barButton.jsp` — included by `collectionEditor.jsp`, `listEditor.jsp`, `list.jsp`
+- `subButton.jsp` — included by `collectionEditor.jsp`
 - `listConfigurations.jsp` — included by `list.jsp`
 - `frameActions.jsp` — included by `detail.jsp`, `reference.jsp`, `collectionFrameHeader.jsp`
-
-Remove these only after Phase 3/4 migrates their consumers.
+- `list.jsp` — kept as fallback, but `ListRenderer` is the primary renderer via `Parts`.
+- `collection.jsp` — kept as fallback, but `CollectionRenderer` is the primary renderer via `Parts`. Still included by `detail.jsp` (which is itself a fallback for `DetailViewRenderer`).
+- `detail.jsp` — kept as fallback for `DetailViewRenderer` via `JspFragment`.
+- `sections.jsp` — kept as fallback for `SectionsRenderer` via `JspFragment`.
+- `propertyActions.jsp` — kept as fallback for `PropertyActionsRenderer` via `JspFragment`.
+- `collectionFrameHeader.jsp` — kept as fallback for `CollectionFrameHeaderRenderer` via `JspFragment`.
+- `module.jsp` — thin wrapper calling `ModulePageRenderer.render()`. Kept as JSP because `naviox/index.jsp` and `signIn.jsp` include it via `<jsp:include>`.
 
 ## Wiring architecture
 
@@ -165,19 +175,68 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 
 ### JSP files kept (Phase 4)
 
-- `list.jsp` — kept as fallback, but `ListRenderer` is now the primary renderer via `Parts`.
-- `collection.jsp` — kept as fallback, but `CollectionRenderer` is now the primary renderer via `Parts`.
-- `collectionFromModel.jsp` — kept as fallback, but `CollectionFromModelRenderer` is now the primary renderer via `Parts` and direct call from `collectionEditor.jsp`.
-- `collectionList.jsp` — kept as fallback, but `CollectionListRenderer` is called directly from `collectionEditor.jsp`.
+- `list.jsp` — kept as fallback, but `ListRenderer` is the primary renderer via `Parts`.
+- `collection.jsp` — kept as fallback, but `CollectionRenderer` is the primary renderer via `Parts`.
 - `collectionEditor.jsp` — still JSP, orchestrates collection rendering but delegates to Java renderers for the actual list/from-model content.
 - `collectionTotals.jsp` — still JSP, included from `CollectionFromModelRenderer` via `JspFragment`.
 - `listEditor.jsp` — still JSP, included from `ListRenderer` via `JspFragment`.
 
+### JSP files deleted (Phase 4)
+
+- `collectionFromModel.jsp` — replaced by `CollectionFromModelRenderer` (via `Parts` and direct call from `collectionEditor.jsp`).
+- `collectionList.jsp` — replaced by `CollectionListRenderer` (called directly from `collectionEditor.jsp`).
+
 ## What to do next
 
-1. ~~Run the full test suite manually from IntelliJ~~ — user tested, works.
-2. ~~Confirm collection-tab switching fix~~ — confirmed working.
-3. Migrate `reference.jsp` to a Java renderer (Phase 5 candidate).
-4. Migrate `collectionEditor.jsp` fully to Java (Phase 5 candidate — currently calls Java renderers but is still JSP itself).
-5. Migrate `listEditor.jsp` and `collectionTotals.jsp` (Phase 5 candidate).
-6. Migrate `module.jsp` page entry point (Phase 5 candidate).
+All planned migration phases (0–5) are complete and tested. The remaining JSPs in `xava/` are either:
+
+1. **Fallbacks** (`detail.jsp`, `sections.jsp`, `list.jsp`, `collection.jsp`, `propertyActions.jsp`, `collectionFrameHeader.jsp`) — kept as safety net via `Parts`/`JspFragment`. Can be deleted once confidence is high enough.
+2. **Still included by non-migrated JSPs** (`barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp`, `frameActions.jsp`) — will be removed when `reference.jsp`, `collectionEditor.jsp`, and `listEditor.jsp` are migrated.
+3. **User extension hooks** (`viewExt.jsp`, `*Ext.jsp`) — must stay as JSP per the migration scope.
+
+### Future work (8.1+)
+
+- Migrate `reference.jsp` to a Java renderer (the last major non-editors JSP in `xava/`).
+- Migrate `collectionEditor.jsp` fully to Java (currently delegates to Java renderers but is still JSP itself).
+- Migrate `listEditor.jsp` and `collectionTotals.jsp` to Java.
+- Support Thymeleaf (or similar) for editors and `naviox/*` customization, and rewrite the bundled editors/naviox with it.
+
+## Phase 5: Page entry points and dialog helpers (completed)
+
+### New Java renderer files
+
+- `ModulePageRenderer.java` — renders the full module page (formerly `module.jsp`): HTML head with CSS/JS resources, body with core content, and the initialization JavaScript. Handles both full-page mode (`htmlHead=true`) and embedded mode (`htmlHead=false` for `naviox/index.jsp` includes).
+- `ReferenceSearchRenderer.java` — renders the reference search list (formerly `referenceSearch.jsp`). Delegates to `ListRenderer` with `singleSelection=true` and the `rowAction` parameter.
+- `AddToCollectionRenderer.java` — renders the add-to-collection list (formerly `addToCollection.jsp`). Wraps `ListRenderer` in a table with `onlyOneActionPerRow=true` and the `rowAction` parameter.
+
+### New servlet files
+
+- `UnsubscribeServlet.java` (`@WebServlet("/xava/unsubscribe")`) — handles email unsubscription requests (formerly `unsubscribe.jsp`). `EmailNotifications.java` updated to use `/xava/unsubscribe` instead of `/xava/unsubscribe.jsp`.
+
+### Parts registry additions
+
+- `referenceSearch` → `ReferenceSearchRenderer::render` (alias: `referenceSearch.jsp`)
+- `addToCollection` → `AddToCollectionRenderer::render` (alias: `addToCollection.jsp`)
+
+### module.jsp — thin wrapper
+
+`module.jsp` is now a 5-line JSP that calls `ModulePageRenderer.render(request, response)`. Kept as a JSP because `naviox/index.jsp` and `signIn.jsp` include it via `<jsp:include>`.
+
+### ModuleServlet — updated
+
+`ModuleServlet` now calls `ModulePageRenderer.render()` directly instead of forwarding to `module.jsp`. Note: `ModuleServlet` has no `@WebServlet` annotation and is not registered — the main flow goes through `NaviOXServlet` (`/m/*`) → `naviox/index.jsp` → `module.jsp` (thin wrapper) → `ModulePageRenderer`.
+
+### Action URL updates
+
+- `ReferenceSearchAction.getCustomView()` — still returns `xava/referenceSearch.jsp?rowAction=...` (kept `.jsp` because `getViewURL()` appends `.jsp` if not present; `Parts.partName()` strips it so the Java renderer is dispatched).
+- `GoAddElementsToCollectionAction.getCustomView()` — still returns `xava/addToCollection.jsp?rowAction=...` (same reason).
+
+### JSP files kept (Phase 5)
+
+- `module.jsp` — thin wrapper calling `ModulePageRenderer.render()`. Kept as JSP because `naviox/index.jsp` and `signIn.jsp` include it via `<jsp:include>`.
+
+### JSP files deleted (Phase 5)
+
+- `unsubscribe.jsp` — replaced by `UnsubscribeServlet` at `/xava/unsubscribe`.
+- `referenceSearch.jsp` — replaced by `ReferenceSearchRenderer` via `Parts`.
+- `addToCollection.jsp` — replaced by `AddToCollectionRenderer` via `Parts`.
