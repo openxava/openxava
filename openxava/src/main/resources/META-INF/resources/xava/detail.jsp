@@ -337,7 +337,9 @@ if (!onlySections) {	// IF Not Only Sections
 if (view.hasSections()) { // IF Has Sections
 %>
 <div id="<xava:id name='<%="sections_" + viewObject%>'/>" class="<%=style.getSections()%>">
-	<jsp:include page="sections.jsp"/>
+	<jsp:include page="sections.jsp">
+		<jsp:param name="viewObject" value="<%=viewObject%>"/>
+	</jsp:include>
 </div>	
 <% 
 }

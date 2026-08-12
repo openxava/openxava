@@ -16,10 +16,17 @@ import org.openxava.web.style.*;
 public class SectionsRenderer {
 
 	public static String render(ViewRenderContext ctx) throws Exception {
-		View view = ctx.getView(ctx.getViewObject());
+		String viewObject = ctx.getViewObject();
+		View view = ctx.getView(viewObject);
+		// Required before getSectionView(): section viewObject is derived from parent.viewObject.
+		// On Hotwire section changes only SectionsRenderer runs, so the field may still be null
+		// and section content would fall back to the root view → infinite sections/detail recursion.
+		view.setViewObject(viewObject);
 		Style style = ctx.getStyle();
 		List<MetaView> sections = view.getSections();
 		int activeSection = view.getActiveSection();
+		if (sections == null || sections.isEmpty()) return "";
+		if (activeSection < 0 || activeSection >= sections.size()) activeSection = 0;
 
 		HtmlWriter w = new HtmlWriter();
 
@@ -47,7 +54,7 @@ public class SectionsRenderer {
 				w.append(style.getActiveSectionTabEndDecoration());
 			} else {
 				w.append(style.getSectionTabStartDecoration(i == 0, !itSections.hasNext()));
-				String viewObjectArgv = "xava_view".equals(ctx.getViewObject()) ? "" : ",viewObject=" + ctx.getViewObject();
+				String viewObjectArgv = "xava_view".equals(viewObject) ? "" : ",viewObject=" + viewObject;
 				StringBuilder linkBody = new StringBuilder();
 				linkBody.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span>");
 				linkBody.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("'>").append(collectionCountLabel).append("</span>");
@@ -67,10 +74,15 @@ public class SectionsRenderer {
 		w.append("<tr><td class='").append(style.getActiveSection()).append(" ").append(view.isFlowLayout() ? "ox-flow-layout" : "").append("'>");
 
 		View sectionView = view.getSectionView(activeSection);
-		ctx.getModuleContext().put(ctx.getRequest(), sectionView.getViewObject(), sectionView);
+		String sectionViewObject = sectionView.getViewObject();
+		if (sectionViewObject == null || sectionViewObject.isEmpty()) {
+			sectionViewObject = viewObject + "_section" + activeSection;
+			sectionView.setViewObject(sectionViewObject);
+		}
+		ctx.getModuleContext().put(ctx.getRequest(), sectionViewObject, sectionView);
 
 		ViewRenderContext subCtx = ctx.withParameters(Map.of(
-			"viewObject", sectionView.getViewObject(),
+			"viewObject", sectionViewObject,
 			"representsSection", "true"
 		));
 		w.append(DetailViewRenderer.render(subCtx));

@@ -124,7 +124,7 @@ else {
 		}
 %>
 	<td>
-		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
+		<jsp:include page='<%="/xava/" + WebEditors.getUrl(p, view.getViewName())%>'>
 			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 			<jsp:param name="editable" value="true"/>
 		</jsp:include>		

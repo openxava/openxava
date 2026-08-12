@@ -116,6 +116,7 @@ public class DetailViewRenderer {
 						// Reference without frame
 						String urlReferenceEditor = "reference.jsp"
 							+ "?referenceKey=" + referenceKey
+							+ "&viewObject=" + viewObject
 							+ "&first=" + first
 							+ "&frame=false&composite=false&onlyEditor=false";
 						w.append(JspFragment.render(ctx, urlReferenceEditor));
@@ -166,11 +167,13 @@ public class DetailViewRenderer {
 						if (view.displayReferenceWithNotCompositeEditor(ref)) {
 							urlReferenceEditor = "reference.jsp"
 								+ "?referenceKey=" + referenceKey
+								+ "&viewObject=" + viewObject
 								+ "&onlyEditor=true&frame=true&composite=false"
 								+ "&first=" + first;
 						} else {
 							urlReferenceEditor = "reference.jsp"
 								+ "?referenceKey=" + referenceKey
+								+ "&viewObject=" + viewObject
 								+ "&onlyEditor=true&frame=true&composite=true"
 								+ "&refViewObject=" + viewName
 								+ "&propertyPrefix=" + propertyInReferencePrefix

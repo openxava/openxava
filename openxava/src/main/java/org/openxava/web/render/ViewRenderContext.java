@@ -129,6 +129,22 @@ public class ViewRenderContext {
 		return new ViewRenderContext(request, response, merged);
 	}
 
+	/**
+	 * Context parameters as a request parameter map for {@link ParametersHttpServletRequest}
+	 * / {@link JspFragment} includes. Empty when this context has no overlay parameters.
+	 *
+	 * @since 8.0
+	 */
+	public Map<String, String[]> getParametersAsRequestMap() {
+		if (parameters.isEmpty()) return java.util.Collections.emptyMap();
+		Map<String, String[]> result = new LinkedHashMap<>(parameters.size());
+		for (Map.Entry<String, String> entry : parameters.entrySet()) {
+			String value = entry.getValue();
+			result.put(entry.getKey(), new String[] { value == null ? "" : value });
+		}
+		return result;
+	}
+
 	public String decorateId(String name) {
 		return Ids.decorate(request, name);
 	}

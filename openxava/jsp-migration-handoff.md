@@ -50,11 +50,19 @@ Direct calls to `CoreRenderer.render(new ViewRenderContext(request, response))` 
 
 ## Known runtime issues (post-Phase 3)
 
-### 1. Switching to a tab with a collection fails (detail mode)
+### 1. Switching to a tab with a collection fails (detail mode) — FIXED
 
 Reproducible in `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
 
-**Not yet analyzed** — likely related to how `DetailViewRenderer` renders collections or how the Hotwire partial update for sections interacts with collection state.
+**Cause:** `collectionEditor.jsp` did `<jsp:include page="<%=WebEditors.getUrl(...)%>">`. `WebEditors.getUrl` returns paths with the `editors/` prefix (e.g. `editors/validValuesEditor.jsp`). From `/xava/editors/collectionEditor.jsp`, a relative include resolved to `/xava/editors/editors/validValuesEditor.jsp` → 404.
+
+**Why it surfaced now:** With Java `DetailViewRenderer` + `JspFragment` → `RequestDispatcher.include` of `collection.jsp`, nested relative includes from `collectionEditor.jsp` resolve against the current JSP directory (`/xava/editors/`). Previously the same relative path may have been less exercised or resolved differently depending on the include chain from `detail.jsp`.
+
+**Fix:** Use an absolute path in `collectionEditor.jsp`:
+`page='<%="/xava/" + WebEditors.getUrl(p, view.getViewName())%>'`
+(same pattern as `EditorTag`, which always includes under `/xava/`).
+
+**Status:** Fixed in `collectionEditor.jsp`. Re-run the InvoiceTest method above to confirm.
 
 ### 2. `frameActions.jsp` still included by non-migrated JSPs
 
@@ -130,8 +138,8 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 
 ## What to do next
 
-1. **Fix the collection-tab switching bug** — switching to a section tab containing a collection fails. Reproducible via `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
-2. Run the full test suite manually from IntelliJ to validate the migration.
+1. Confirm collection-tab switching fix via `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
+2. Run the full test suite manually from IntelliJ to validate the migration and fix remaining runtime issues.
 3. Migrate `reference.jsp` to a Java renderer (Phase 4 candidate).
 4. Migrate `collection.jsp` and collection editors (Phase 4 candidate).
 5. Migrate `list.jsp` (Phase 4).

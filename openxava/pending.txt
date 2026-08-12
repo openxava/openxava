@@ -3,9 +3,6 @@ JSP Removal
 - Todas las fases del MD.
     - Fases 0-3 terminadas de codificar y compilan. La app arranca y la vista
       detalle básica funciona.
-    - Bugs pendientes:
-        1. Falla cambiar a pestaña con colección — TMR ME QUEDÉ POR AQUÍ
-           InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()
 - Revisión.
 - Suite.
 - Pruebas manuales de estilo y de layout.
