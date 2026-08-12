@@ -1,8 +1,7 @@
 JSP Removal
 -----------
 - Todas las fases del MD.
-    - Fases 0-3 terminadas de codificar y compilan. La app arranca y la vista
-      detalle básica funciona.
+    - Fase 4 terminada.
 - Revisión.
 - Suite.
 - Pruebas manuales de estilo y de layout.

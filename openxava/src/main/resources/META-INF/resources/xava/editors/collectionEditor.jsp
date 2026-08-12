@@ -149,9 +149,9 @@ else {
 	<%
 		} else if (collectionView.isCollectionFromModel()) {
 	%>
-		<%@include file="../collectionFromModel.jsp" %>
+		<%=org.openxava.web.render.CollectionFromModelRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response))%>
 	<% } else { %>
-		<%@include file="../collectionList.jsp" %>
+		<%=org.openxava.web.render.CollectionListRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response), idCollection, subview, lineAction, viewName, view)%>
 	<% } %>
 <% } catch (Exception ex) { %>
 </td></tr>

@@ -35,6 +35,9 @@ public class Parts {
 		register("sections", SectionsRenderer::render);
 		register("propertyActions", PropertyActionsRenderer::render);
 		register("collectionFrameHeader", CollectionFrameHeaderRenderer::render);
+		register("list", ListRenderer::render);
+		register("collection", CollectionRenderer::render);
+		register("collectionFromModel", CollectionFromModelRenderer::render);
 
 		// JSP file name ? part name, for HotwireServlet compatibility
 		JSP_ALIASES.put("errors.jsp", "errors");
@@ -51,6 +54,9 @@ public class Parts {
 		JSP_ALIASES.put("sections.jsp", "sections");
 		JSP_ALIASES.put("propertyActions.jsp", "propertyActions");
 		JSP_ALIASES.put("collectionFrameHeader.jsp", "collectionFrameHeader");
+		JSP_ALIASES.put("list.jsp", "list");
+		JSP_ALIASES.put("collection.jsp", "collection");
+		JSP_ALIASES.put("collectionFromModel.jsp", "collectionFromModel");
 	}
 
 	private static void register(String name, PartRenderer renderer) {

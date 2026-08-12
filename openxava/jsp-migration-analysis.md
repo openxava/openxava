@@ -20,12 +20,14 @@ Working notes so progress is not lost between IntelliJ restarts.
 | Wiring: `HotwireServlet.getURIAsString` intercepts Java-rendered parts; `module.jsp` uses `CoreRenderer` + `ThemeChooserRenderer` | Done, compiles |
 | Phase 3: `PropertyActionsRenderer`, `ReferenceActionsRenderer`, `ReferenceFrameHeaderRenderer`, `CollectionFrameHeaderRenderer`, `PropertyEditorRenderer`, `DetailViewRenderer`, `SectionsRenderer` | Done, compiles, app boots, basic detail view works |
 | Phase 3 wiring: `CoreRenderer` uses `Parts.render` for `detail.jsp`; `Parts` registers `detail`, `sections`, `propertyActions`, `collectionFrameHeader` | Done |
+| Phase 4: `ListRenderer`, `CollectionListRenderer`, `CollectionFromModelRenderer`, `CollectionRenderer` | Done, compiles, tested by user |
+| Phase 4 wiring: `Parts` registers `list`, `collection`, `collectionFromModel`; `DetailViewRenderer` uses `Parts.render` for `collection.jsp`; `collectionEditor.jsp` calls Java renderers directly | Done |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `module.jsp`.
 - Hotwire needs form values visible as request parameters (for `View.assignValuesToWebView()`); that is what `ParametersHttpServletRequest` + `buildModuleExecutionParameters()` reproduce (formerly the include query string).
 - Careful: `org.openxava.web.Collections` shadows `java.util.Collections` in that package.
-- JSP files for migrated parts are kept as safety net. `barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp` are still included by non-migrated JSPs (`collectionEditor.jsp`, `collectionFromModel.jsp`, `listEditor.jsp`, `list.jsp`). Remove after full migration.
+- JSP files for migrated parts are kept as safety net. `barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp` are still included by non-migrated JSPs (`collectionEditor.jsp`, `listEditor.jsp`). Remove after full migration.
 - `ActionHtml` centralizes action rendering (link, image, button) mirroring taglib output, used by all button renderers.
 
 ## Remaining JSPs in `xava` (non-editors)
@@ -141,9 +143,9 @@ Split `detail.jsp` by member type instead of one giant loop:
 
 Naming principle requested by the user: names should say **what part of the UI they produce**, not "helper"/"util".
 
-### Phase 4 — List mode
+### Phase 4 — List mode and collections (completed)
 
-`list.jsp` (+ `collectionFromModel.jsp`) → `ListRenderer` / `ListHeaderRenderer`, still delegating to `listEditor.jsp` through `JspFragment`.
+`list.jsp` → `ListRenderer`, `collectionList.jsp` → `CollectionListRenderer`, `collectionFromModel.jsp` → `CollectionFromModelRenderer`, `collection.jsp` → `CollectionRenderer`. All registered in `Parts`. `collectionEditor.jsp` calls `CollectionFromModelRenderer` and `CollectionListRenderer` directly instead of `<%@include%>`. `ListRenderer` and `CollectionRenderer` still delegate to `listEditor.jsp` and collection editor JSPs via `JspFragment`. Tested by user — works.
 
 ### Phase 5 — Page entry points
 

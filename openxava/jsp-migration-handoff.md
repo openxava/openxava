@@ -4,7 +4,7 @@ Context not already covered in `jsp-migration-analysis.md`. Read both files.
 
 ## Current state (Aug 2026)
 
-Phases 0–3 complete and compiling. Wiring done. **Application boots and basic detail view works.** However, some runtime issues remain (see below).
+Phases 0–4 complete and compiling. Wiring done. **Application boots, detail view and list mode work, collections render correctly. Tested by user.**
 
 ## Deleted JSP files
 
@@ -119,13 +119,14 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 
 ### CoreRenderer wiring
 
-`CoreRenderer` now checks `Parts.isJavaRendered(viewURL)` before rendering the view. If true (e.g. `detail.jsp`), it calls `Parts.render(ctx.getRequest(), ctx.getResponse(), viewURL)` instead of `JspFragment.render`. For non-migrated views (e.g. `list.jsp`), it still uses `JspFragment`.
+`CoreRenderer` calls `Parts.render(ctx.getRequest(), ctx.getResponse(), viewURL)` when `Parts.isJavaRendered(viewURL)` is true. Both `detail.jsp` (→ `DetailViewRenderer`) and `list.jsp` (→ `ListRenderer`) are now Java-rendered. For non-migrated views, it falls back to `JspFragment.render`.
 
 ### JSPs still used via JspFragment (not yet migrated)
 
 - `reference.jsp` — reference rendering (descriptions lists, composite editors, etc.)
-- `collection.jsp` — collection editor dispatch
 - `editorWrapper.jsp` — wraps `<xava:editor>` tag with `propertyStyle` wrapping
+- `collectionEditor.jsp` — still JSP, but calls Java renderers for collectionFromModel and collectionList
+- `collectionTotals.jsp` — still JSP, included from `CollectionFromModelRenderer` via `JspFragment`
 - `propertyActionsExt.jsp`, `referenceFrameHeaderExt.jsp`, `collectionFrameHeaderExt.jsp`, `referenceActionsExt.jsp` — empty extension hooks
 
 ### Key design decisions
@@ -136,10 +137,47 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 - `ViewRenderContext.withParameters(Map)` creates a derived context with merged parameters for nested renderer calls.
 - `SectionsRenderer` uses `ActionHtml.link` with body content for section tab links (matching `<xava:link>` body content).
 
+## Phase 4: List mode and collection renderers (completed)
+
+### New Java renderer files
+
+- `ListRenderer.java` — renders list mode header (title, configurations, group-by dropdown, row count) and delegates the tab editor to JSP via `JspFragment` (formerly `list.jsp`).
+- `CollectionListRenderer.java` — prepares a collection tab (styles, context) and delegates to `ListRenderer` (formerly `collectionList.jsp`). Takes explicit parameters (idCollection, subview, lineAction, viewName, view) from `collectionEditor.jsp`.
+- `CollectionFromModelRenderer.java` — renders a collection-from-model inline table with headers, row actions, checkboxes, and formatted values (formerly `collectionFromModel.jsp`). Self-contained from `ViewRenderContext`, computing all variables (view, subview, idCollection, propertyPrefix, lineAction, viewName) from context parameters. Delegates totals to `collectionTotals.jsp` via `JspFragment`.
+- `CollectionRenderer.java` — resolves the collection editor via `WebEditors.getMetaEditorFor` and delegates to it via `JspFragment` (formerly `collection.jsp`).
+
+### Parts registry additions
+
+- `list` → `ListRenderer::render` (alias: `list.jsp`)
+- `collection` → `CollectionRenderer::render` (alias: `collection.jsp`)
+- `collectionFromModel` → `CollectionFromModelRenderer::render` (alias: `collectionFromModel.jsp`)
+
+### DetailViewRenderer wiring
+
+`DetailViewRenderer` now checks `Parts.isJavaRendered(collectionUrl)` for `collection.jsp` and uses `Parts.render` when true, falling back to `JspFragment` otherwise.
+
+### collectionEditor.jsp wiring
+
+`collectionEditor.jsp` now calls Java renderers directly instead of static `<%@include%>`:
+- `CollectionFromModelRenderer.render(new ViewRenderContext(request, response))` for `collectionFromModel` collections.
+- `CollectionListRenderer.render(new ViewRenderContext(request, response), idCollection, subview, lineAction, viewName, view)` for list-based collections.
+- `listEditor` includes (custom list editors) remain as JSP includes.
+
+### JSP files kept (Phase 4)
+
+- `list.jsp` — kept as fallback, but `ListRenderer` is now the primary renderer via `Parts`.
+- `collection.jsp` — kept as fallback, but `CollectionRenderer` is now the primary renderer via `Parts`.
+- `collectionFromModel.jsp` — kept as fallback, but `CollectionFromModelRenderer` is now the primary renderer via `Parts` and direct call from `collectionEditor.jsp`.
+- `collectionList.jsp` — kept as fallback, but `CollectionListRenderer` is called directly from `collectionEditor.jsp`.
+- `collectionEditor.jsp` — still JSP, orchestrates collection rendering but delegates to Java renderers for the actual list/from-model content.
+- `collectionTotals.jsp` — still JSP, included from `CollectionFromModelRenderer` via `JspFragment`.
+- `listEditor.jsp` — still JSP, included from `ListRenderer` via `JspFragment`.
+
 ## What to do next
 
-1. Confirm collection-tab switching fix via `InvoiceTest.testNotLoseChangesMessageInListMode_paginationInCollections_notLoseChangesMessageWhenModifyCollectionElement()`.
-2. Run the full test suite manually from IntelliJ to validate the migration and fix remaining runtime issues.
-3. Migrate `reference.jsp` to a Java renderer (Phase 4 candidate).
-4. Migrate `collection.jsp` and collection editors (Phase 4 candidate).
-5. Migrate `list.jsp` (Phase 4).
+1. ~~Run the full test suite manually from IntelliJ~~ — user tested, works.
+2. ~~Confirm collection-tab switching fix~~ — confirmed working.
+3. Migrate `reference.jsp` to a Java renderer (Phase 5 candidate).
+4. Migrate `collectionEditor.jsp` fully to Java (Phase 5 candidate — currently calls Java renderers but is still JSP itself).
+5. Migrate `listEditor.jsp` and `collectionTotals.jsp` (Phase 5 candidate).
+6. Migrate `module.jsp` page entry point (Phase 5 candidate).
