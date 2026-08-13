@@ -3,8 +3,9 @@ JSP Removal
 - Revisión. TMR ME QUEDÉ PARA HACER ESTO. LAS 5 FASES DE LA MIGRACIÓN ESTÁN COMPLETADAS.
     - ¿Quedán JSPs en xava?
     - ¿Donde más hay JSPs? ¿Qué hacer con ellos?
+    - ¿Qué paso con el ".jsp" dentro del código? Creo que en algún punto hay una especie de mapeo.
 - Suite.
-- Pruebas manuales de estilo y de layout.
+- Pruebas manuales de estilo, layout y charts.
 - Fase 4: migrar reference.jsp, collection.jsp, list.jsp.
 - Documentación, si es necesario.
 - Rehacer changelog.
