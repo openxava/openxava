@@ -8,7 +8,7 @@ import org.openxava.tests.*;
 import org.openxava.web.*;
 
 /**
- * For testing that only the needed parts are reload by AJAX. <p>
+ * For testing that only the needed HTML parts are reload after each request. <p>
  * 
  * Because this is very technology dependent we put all this test here
  * and not scattered for the module tests, in order to remove when 
@@ -17,9 +17,9 @@ import org.openxava.web.*;
  * @author Javier Paniza
  */
 
-public class AJAXTest extends ModuleTestBase { 
+public class HotwireTest extends ModuleTestBase {
 	
-	public AJAXTest(String nameTest) {
+	public HotwireTest(String nameTest) {
 		super(nameTest, null);
 	}
 	
