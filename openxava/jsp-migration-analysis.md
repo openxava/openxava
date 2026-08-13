@@ -28,7 +28,7 @@ Working notes so progress is not lost between IntelliJ restarts.
 | **Phases 0–5 complete. Tested by user — works.** | ✅ |
 | Phase 6: Delete dead fallback JSPs (`sections`, `list`, `collection`, `propertyActions`, `collectionFrameHeader`, `editor`, `referenceFrameHeader`, `frameActions`, `listConfigurations`); `detail.jsp` restored as thin wrapper (included by editor JSPs) | Done |
 | Phase 7: Rewire editor JSPs to call `ButtonRenderer`/`SubButtonRenderer` directly; deleted `barButton.jsp`, `subButton.jsp` | Done |
-| Phase 8: Migrate `reference.jsp` → `ReferenceRenderer` | Pending |
+| Phase 8: Migrate `reference.jsp` → `ReferenceRenderer`; deleted `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp` | Done |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `ModulePageRenderer`.
@@ -38,7 +38,7 @@ Notes:
 
 ## Migration status summary
 
-Phases 0–5 complete and tested by user. Phase 6 complete (9 JSPs deleted, `detail.jsp` restored as wrapper). Phase 7 complete (`barButton.jsp`, `subButton.jsp` deleted, editors rewired). 22 JSP files deleted from `xava/` total. Phase 8 pending. See `jsp-migration-handoff.md` for the full list.
+Phases 0–8 complete. 25 JSP files deleted from `xava/` total. See `jsp-migration-handoff.md` for the full list.
 
 ## Remaining JSPs in `xava` (non-editors)
 
@@ -71,10 +71,10 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 |------|-------|------|--------|
 | `detail.jsp` | 5 | Thin wrapper calling `DetailViewRenderer` via `Parts.render`. | Migrated (wrapper, kept for editor JSP includes) |
 | `sections.jsp` | 79 | Section tabs. | Migrated → `SectionsRenderer` (Phase 6: delete) |
-| `reference.jsp` | 208 | Reference rendering. | Phase 8: migrate → `ReferenceRenderer` |
+| ~~`reference.jsp`~~ | ~~208~~ | | **Deleted** → `ReferenceRenderer` |
 | `editor.jsp` | 92 | Property editor wrapper. | Migrated → `PropertyEditorRenderer` (Phase 6: delete) |
 | `editorWrapper.jsp` | 16 | Thin wrapper around `<xava:editor>`. | Stays (bridge to editors JSP) |
-| `htmlTagsEditor.jsp` | 20 | Layout decoration strings. | Absorbed into `LayoutCells` (Phase 8: delete, still used by `reference.jsp`) |
+| ~~`htmlTagsEditor.jsp`~~ | ~~20~~ | | **Deleted** → `LayoutCells` |
 | `list.jsp` | 110 | List mode header. | Migrated → `ListRenderer` (Phase 6: delete) |
 | `collection.jsp` | 27 | Resolves collection editor. | Migrated → `CollectionRenderer` (Phase 6: delete) |
 | ~~`collectionList.jsp`~~ | ~~22~~ | | **Deleted** → `CollectionListRenderer` |
@@ -87,7 +87,7 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 |------|-------|------|--------|
 | `frameActions.jsp` | 35 | Frame collapse/expand icons. | Migrated → `FrameActionsRenderer` (Phase 6: delete, only included by `detail.jsp`) |
 | `propertyActions.jsp` | 69 | Actions next to a property. | Migrated → `PropertyActionsRenderer` (Phase 6: delete) |
-| `referenceActions.jsp` | 45 | Actions for a reference. | Migrated → `ReferenceActionsRenderer` (Phase 8: delete, still used by `reference.jsp`) |
+| ~~`referenceActions.jsp`~~ | ~~45~~ | | **Deleted** → `ReferenceActionsRenderer` |
 | `referenceFrameHeader.jsp` | 35 | Header for reference frames. | Migrated → `ReferenceFrameHeaderRenderer` (Phase 6: delete) |
 | `collectionFrameHeader.jsp` | 83 | Header for collection frames. | Migrated → `CollectionFrameHeaderRenderer` (Phase 6: delete) |
 
@@ -181,10 +181,6 @@ Deleted 9 JSPs that were no longer on the execution path (`Parts.isJavaRendered(
 
 Parts aliases (e.g. `detail.jsp` → `detail`) stay in `Parts` for Hotwire descriptor matching.
 
-Cannot delete yet (depend on `reference.jsp`, Phase 8):
-- `htmlTagsEditor.jsp` — still `<%@ include%>` by `reference.jsp`
-- `referenceActions.jsp` — still `<%@ include%>` by `reference.jsp`
-
 ### Phase 7 — Rewire editor JSPs to call Java renderers (completed)
 
 `collectionEditor.jsp` and `listEditor.jsp` (in `editors/`, out of migration scope) were including `barButton.jsp` and `subButton.jsp` via `<jsp:include>`. Replaced those includes with direct calls to `ButtonRenderer.render(...)` / `SubButtonRenderer.render(...)` using `ViewRenderContext(request, response, Map.of(...))` — same pattern already used by `collectionEditor.jsp` calling `CollectionFromModelRenderer`. Then deleted:
@@ -193,11 +189,11 @@ Cannot delete yet (depend on `reference.jsp`, Phase 8):
 
 Parts aliases (`barButton.jsp` → `barButton`, `subButton.jsp` → `subButton`) stay in `Parts` for Hotwire descriptor matching.
 
-### Phase 8 — Migrate `reference.jsp` to Java (pending)
+### Phase 8 — Migrate `reference.jsp` to Java (completed)
 
-Create `ReferenceRenderer` (or `ReferenceMemberRenderer`) in `org.openxava.web.render`, absorbing the logic of `reference.jsp` (descriptions lists, composite editors, key property resolution, label/layout decoration). Register in `Parts` as `reference` with alias `reference.jsp`. `DetailViewRenderer` already calls `reference.jsp` via `JspFragment` — switch to `Parts.render` when `isJavaRendered` returns true.
+Created `ReferenceRenderer` in `org.openxava.web.render`, absorbing the logic of `reference.jsp` (descriptions lists, composite and non-composite editors, key property resolution, label/layout decoration via `LayoutCells`, reference actions via `ReferenceActionsRenderer`). Registered in `Parts` as `reference` with alias `reference.jsp`. `DetailViewRenderer` now calls `Parts.render` for `reference.jsp` instead of `JspFragment.render`.
 
-After migration, delete:
+Deleted:
 - `reference.jsp`
 - `htmlTagsEditor.jsp` (no more includers — `LayoutCells` already has the logic)
 - `referenceActions.jsp` (no more includers — `ReferenceActionsRenderer` already exists)

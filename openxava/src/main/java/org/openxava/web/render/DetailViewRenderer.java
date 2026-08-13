@@ -119,7 +119,7 @@ public class DetailViewRenderer {
 							+ "&viewObject=" + viewObject
 							+ "&first=" + first
 							+ "&frame=false&composite=false&onlyEditor=false";
-						w.append(JspFragment.render(ctx, urlReferenceEditor));
+						w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), urlReferenceEditor));
 						first = false;
 					} else {
 						// Reference with frame
@@ -179,7 +179,7 @@ public class DetailViewRenderer {
 								+ "&propertyPrefix=" + propertyInReferencePrefix
 								+ "&first=" + firstForSubdetail;
 						}
-						w.append(JspFragment.render(ctx, urlReferenceEditor));
+						w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), urlReferenceEditor));
 
 						if (withFrame) {
 							w.append(style.getFrameContentEndDecoration());

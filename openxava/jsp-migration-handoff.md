@@ -192,7 +192,9 @@ Phases 0–5 are complete and tested. Phases 6–8 are pending (see `jsp-migrati
 
 1. **Phase 6**: ✅ Done — deleted 9 dead fallback JSPs; `detail.jsp` restored as thin wrapper (still included by `editors/referenceEditor.jsp` and `editors/chartsEditor.jsp`).
 2. **Phase 7**: ✅ Done — rewired `collectionEditor.jsp` / `listEditor.jsp` to call `ButtonRenderer` / `SubButtonRenderer` directly; deleted `barButton.jsp` and `subButton.jsp`.
-3. **Phase 8**: Migrate `reference.jsp` → `ReferenceRenderer`, then delete `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp`.
+3. **Phase 8**: ✅ Done — created `ReferenceRenderer`, registered in `Parts`; `DetailViewRenderer` now calls `Parts.render` for references; deleted `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp`.
+
+**All phases 0–8 complete.** 25 JSP files deleted from `xava/`. Remaining JSPs: `module.jsp` (thin wrapper), `detail.jsp` (thin wrapper), `editorWrapper.jsp` (bridge to `<xava:editor>`), `imports.jsp`, `*Ext.jsp` hooks, `editors/*`.
 
 ### Future work (8.1+)
 

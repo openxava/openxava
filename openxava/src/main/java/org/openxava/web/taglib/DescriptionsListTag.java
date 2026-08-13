@@ -11,6 +11,7 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
+import org.openxava.web.render.*;
 
 
 /**
@@ -49,19 +50,13 @@ public class DescriptionsListTag extends TagSupport {
 			if (descriptionValue != null) { 
 				editorURL += "&descriptionValue=" + descriptionValue; 
 			}
-			String editorPrefix = "/xava/";			
 			
 			try {
-				pageContext.include(editorPrefix + editorURL); 
+				pageContext.getOut().print(Parts.render(request, (HttpServletResponse) pageContext.getResponse(), editorURL));
 			}
-			catch (ServletException ex) { 
-				Throwable cause = ex.getRootCause() == null?ex:ex.getRootCause(); 
-				log.error(cause.getMessage(), cause);
-				pageContext.include(editorPrefix + "editors/notAvailableEditor.jsp"); 
-			}
-			catch (Exception ex) {	
+			catch (Exception ex) { 
 				log.error(ex.getMessage(), ex);
-				pageContext.include(editorPrefix + "editors/notAvailableEditor.jsp"); 
+				pageContext.include("/xava/editors/notAvailableEditor.jsp"); 
 			}											
 		}
 		catch (Exception ex) {
