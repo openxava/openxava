@@ -23,7 +23,7 @@ public class ActionHtml {
 		MetaAction metaAction = MetaControllers.getMetaAction(action);
 		String application = ctx.getApplication();
 		String module = ctx.getModule();
-		if (!isActionAvailable(ctx, metaAction, alwaysAvailable)) return "";
+		if (!isActionAvailable(ctx, metaAction, alwaysAvailable, argv)) return "";
 		registerAction(ctx, action);
 
 		HtmlWriter w = new HtmlWriter();
@@ -58,7 +58,7 @@ public class ActionHtml {
 		MetaAction metaAction = MetaControllers.getMetaAction(action);
 		String application = ctx.getApplication();
 		String module = ctx.getModule();
-		if (!isActionAvailable(ctx, metaAction, alwaysAvailable)) return "";
+		if (!isActionAvailable(ctx, metaAction, alwaysAvailable, argv)) return "";
 		registerAction(ctx, action);
 		Style style = ctx.getStyle();
 
@@ -98,7 +98,7 @@ public class ActionHtml {
 		MetaAction metaAction = MetaControllers.getMetaAction(action);
 		String application = ctx.getApplication();
 		String module = ctx.getModule();
-		if (!isActionAvailable(ctx, metaAction, false)) return "";
+		if (!isActionAvailable(ctx, metaAction, false, argv)) return "";
 		registerAction(ctx, action);
 
 		HtmlWriter w = new HtmlWriter();
@@ -144,10 +144,10 @@ public class ActionHtml {
 		return action(ctx, action, argv, false);
 	}
 
-	private static boolean isActionAvailable(ViewRenderContext ctx, MetaAction metaAction, boolean alwaysAvailable) {
+	private static boolean isActionAvailable(ViewRenderContext ctx, MetaAction metaAction, boolean alwaysAvailable, String argv) {
 		if (alwaysAvailable) return true;
 		ModuleManager manager = ctx.getManager();
-		return manager.isActionAvailable(metaAction, ctx.getErrors(), ctx.getMessages(), null, ctx.getRequest());
+		return manager.isActionAvailable(metaAction, ctx.getErrors(), ctx.getMessages(), argv, ctx.getRequest());
 	}
 
 	private static void registerAction(ViewRenderContext ctx, String qualifiedActionName) {

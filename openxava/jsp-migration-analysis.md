@@ -27,19 +27,18 @@ Working notes so progress is not lost between IntelliJ restarts.
 | JSP cleanup: deleted `unsubscribe.jsp`, `referenceSearch.jsp`, `addToCollection.jsp`, `collectionList.jsp`, `collectionFromModel.jsp` | Done |
 | **Phases 0–5 complete. Tested by user — works.** | ✅ |
 | Phase 6: Delete dead fallback JSPs (`sections`, `list`, `collection`, `propertyActions`, `collectionFrameHeader`, `editor`, `referenceFrameHeader`, `frameActions`, `listConfigurations`); `detail.jsp` restored as thin wrapper (included by editor JSPs) | Done |
-| Phase 7: Rewire editor JSPs to call Java renderers instead of `barButton.jsp`/`subButton.jsp` | Pending |
+| Phase 7: Rewire editor JSPs to call `ButtonRenderer`/`SubButtonRenderer` directly; deleted `barButton.jsp`, `subButton.jsp` | Done |
 | Phase 8: Migrate `reference.jsp` → `ReferenceRenderer` | Pending |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `ModulePageRenderer`.
 - Hotwire needs form values visible as request parameters (for `View.assignValuesToWebView()`); that is what `ParametersHttpServletRequest` + `buildModuleExecutionParameters()` reproduce (formerly the include query string).
 - Careful: `org.openxava.web.Collections` shadows `java.util.Collections` in that package.
-- `barButton.jsp`, `subButton.jsp` are still included by non-migrated editor JSPs (`collectionEditor.jsp`, `listEditor.jsp`). Remove in Phase 7.
 - `ActionHtml` centralizes action rendering (link, image, button) mirroring taglib output, used by all button renderers.
 
 ## Migration status summary
 
-Phases 0–5 complete and tested by user. Phase 6 complete (9 more JSPs deleted, `detail.jsp` restored as wrapper). 20 JSP files deleted from `xava/` total. Phases 7–8 pending. See `jsp-migration-handoff.md` for the full list.
+Phases 0–5 complete and tested by user. Phase 6 complete (9 JSPs deleted, `detail.jsp` restored as wrapper). Phase 7 complete (`barButton.jsp`, `subButton.jsp` deleted, editors rewired). 22 JSP files deleted from `xava/` total. Phase 8 pending. See `jsp-migration-handoff.md` for the full list.
 
 ## Remaining JSPs in `xava` (non-editors)
 
@@ -61,8 +60,8 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 | ~~`core.jsp`~~ | ~~85~~ | | **Deleted** → `CoreRenderer` |
 | ~~`buttonBar.jsp`~~ | ~~148~~ | | **Deleted** → `ButtonBarRenderer` |
 | ~~`bottomButtons.jsp`~~ | ~~59~~ | | **Deleted** → `BottomButtonsRenderer` |
-| `barButton.jsp` | 50 | Single button/link rendering used by bars. | Migrated → `ButtonRenderer` (Phase 7: rewire editors, then delete) |
-| `subButton.jsp` | 75 | Submenu button (includes `barButton.jsp`). | Migrated → `SubButtonRenderer` (Phase 7: rewire editors, then delete) |
+| ~~`barButton.jsp`~~ | ~~50~~ | | **Deleted** → `ButtonRenderer` |
+| ~~`subButton.jsp`~~ | ~~75~~ | | **Deleted** → `SubButtonRenderer` |
 | ~~`errors.jsp`~~ | ~~25~~ | | **Deleted** → `ErrorsRenderer` |
 | ~~`messages.jsp`~~ | ~~50~~ | | **Deleted** → `MessagesRenderer` |
 
@@ -186,11 +185,13 @@ Cannot delete yet (depend on `reference.jsp`, Phase 8):
 - `htmlTagsEditor.jsp` — still `<%@ include%>` by `reference.jsp`
 - `referenceActions.jsp` — still `<%@ include%>` by `reference.jsp`
 
-### Phase 7 — Rewire editor JSPs to call Java renderers (pending)
+### Phase 7 — Rewire editor JSPs to call Java renderers (completed)
 
-`collectionEditor.jsp` and `listEditor.jsp` (in `editors/`, out of migration scope) still include `barButton.jsp` and `subButton.jsp` via `<jsp:include>`. Replace those includes with direct calls to `ButtonRenderer.render(...)` / `SubButtonRenderer.render(...)` (same pattern already used by `collectionEditor.jsp` calling `CollectionFromModelRenderer`). Then delete:
+`collectionEditor.jsp` and `listEditor.jsp` (in `editors/`, out of migration scope) were including `barButton.jsp` and `subButton.jsp` via `<jsp:include>`. Replaced those includes with direct calls to `ButtonRenderer.render(...)` / `SubButtonRenderer.render(...)` using `ViewRenderContext(request, response, Map.of(...))` — same pattern already used by `collectionEditor.jsp` calling `CollectionFromModelRenderer`. Then deleted:
 - `barButton.jsp`
 - `subButton.jsp`
+
+Parts aliases (`barButton.jsp` → `barButton`, `subButton.jsp` → `subButton`) stay in `Parts` for Hotwire descriptor matching.
 
 ### Phase 8 — Migrate `reference.jsp` to Java (pending)
 

@@ -191,7 +191,7 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 Phases 0–5 are complete and tested. Phases 6–8 are pending (see `jsp-migration-analysis.md`):
 
 1. **Phase 6**: ✅ Done — deleted 9 dead fallback JSPs; `detail.jsp` restored as thin wrapper (still included by `editors/referenceEditor.jsp` and `editors/chartsEditor.jsp`).
-2. **Phase 7**: Rewire `collectionEditor.jsp` / `listEditor.jsp` to call `ButtonRenderer` / `SubButtonRenderer` directly, then delete `barButton.jsp` and `subButton.jsp`.
+2. **Phase 7**: ✅ Done — rewired `collectionEditor.jsp` / `listEditor.jsp` to call `ButtonRenderer` / `SubButtonRenderer` directly; deleted `barButton.jsp` and `subButton.jsp`.
 3. **Phase 8**: Migrate `reference.jsp` → `ReferenceRenderer`, then delete `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp`.
 
 ### Future work (8.1+)
