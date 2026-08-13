@@ -38,7 +38,25 @@ Notes:
 
 ## Migration status summary
 
-Phases 0–8 complete. 25 JSP files deleted from `xava/` total. See `jsp-migration-handoff.md` for the full list.
+**Phases 0–8 complete. The UI generator migration from JSP to Java is finished.** 25+ JSP files deleted from `xava/` total. See `jsp-migration-handoff.md` for the full list.
+
+### Post-migration cleanup
+
+- All `.jsp` suffixes removed from part descriptors in Java code. Descriptors now use bare names (`"core"`, `"reference"`, `"detail"`, etc.).
+- `JSP_ALIASES` map and `jspAlias()` method removed from `Parts.java`.
+- All "formerly xxx.jsp" comments removed from renderer javadocs.
+- `editorWrapper.jsp` kept with `.jsp` (real JSP file, not a Java-rendered part).
+
+### Pending before release
+
+- Run the full test suite (`openxavatest` + `chattest`).
+- Manual tests: style, layout, charts.
+- Review documentation for references to migrated JSPs or old architecture.
+
+### Future work (8.1+)
+
+- Migrate `collectionEditor.jsp`, `listEditor.jsp`, `collectionTotals.jsp` to Java.
+- Migrate editors, chat, and `naviox/*` to Thymeleaf (or similar alternative), better than to Java. These are user-customizable, so a template engine is more appropriate than hardcoded Java.
 
 ## Remaining JSPs in `xava` (non-editors)
 
@@ -69,7 +87,7 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 
 | File | Lines | Role | Status |
 |------|-------|------|--------|
-| `detail.jsp` | 5 | Thin wrapper calling `DetailViewRenderer` via `Parts.render`. | Migrated (wrapper, kept for editor JSP includes) |
+| `detail.jsp` | ~~5~~ | ~~Thin wrapper~~ | **Deleted** — `referenceEditor.jsp` and `chartsEditor.jsp` now call `Parts.render` directly |
 | `sections.jsp` | 79 | Section tabs. | Migrated → `SectionsRenderer` (Phase 6: delete) |
 | ~~`reference.jsp`~~ | ~~208~~ | | **Deleted** → `ReferenceRenderer` |
 | `editor.jsp` | 92 | Property editor wrapper. | Migrated → `PropertyEditorRenderer` (Phase 6: delete) |
@@ -179,7 +197,7 @@ Deleted 9 JSPs that were no longer on the execution path (`Parts.isJavaRendered(
 - `frameActions.jsp` → `FrameActionsRenderer`
 - `listConfigurations.jsp` → `ListConfigurationsRenderer`
 
-Parts aliases (e.g. `detail.jsp` → `detail`) stay in `Parts` for Hotwire descriptor matching.
+Parts aliases have been removed from `Parts` — all callers now use bare part names.
 
 ### Phase 7 — Rewire editor JSPs to call Java renderers (completed)
 
@@ -187,11 +205,11 @@ Parts aliases (e.g. `detail.jsp` → `detail`) stay in `Parts` for Hotwire descr
 - `barButton.jsp`
 - `subButton.jsp`
 
-Parts aliases (`barButton.jsp` → `barButton`, `subButton.jsp` → `subButton`) stay in `Parts` for Hotwire descriptor matching.
+Parts aliases have been removed from `Parts` — all callers now use bare part names.
 
 ### Phase 8 — Migrate `reference.jsp` to Java (completed)
 
-Created `ReferenceRenderer` in `org.openxava.web.render`, absorbing the logic of `reference.jsp` (descriptions lists, composite and non-composite editors, key property resolution, label/layout decoration via `LayoutCells`, reference actions via `ReferenceActionsRenderer`). Registered in `Parts` as `reference` with alias `reference.jsp`. `DetailViewRenderer` now calls `Parts.render` for `reference.jsp` instead of `JspFragment.render`.
+Created `ReferenceRenderer` in `org.openxava.web.render`, absorbing the logic of `reference.jsp` (descriptions lists, composite and non-composite editors, key property resolution, label/layout decoration via `LayoutCells`, reference actions via `ReferenceActionsRenderer`). Registered in `Parts` as `reference`. `DetailViewRenderer` now calls `Parts.render` for `reference` instead of `JspFragment.render`.
 
 Deleted:
 - `reference.jsp`

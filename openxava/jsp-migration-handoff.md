@@ -4,7 +4,20 @@ Context not already covered in `jsp-migration-analysis.md`. Read both files.
 
 ## Current state (Aug 2026)
 
-**All phases (0–5) complete, compiling, and tested by user.** Application boots, module pages render, detail view and list mode work, collections render correctly, reference search and add-to-collection dialogs work, email unsubscription works via servlet.
+**Migration of the UI generator from JSP to Java is COMPLETE (phases 0–8).** Application boots, module pages render, detail view and list mode work, collections render correctly, reference search and add-to-collection dialogs work, email unsubscription works via servlet.
+
+### Post-migration cleanup done
+
+- All `.jsp` suffixes removed from part descriptors in Java code (`HotwireServlet`, `DetailViewRenderer`, `DescriptionsListTag`, `referenceEditor.jsp`, `chartsEditor.jsp`). Part descriptors now use bare names (e.g. `"core"`, `"reference"`, `"detail"`) instead of `"core.jsp"`, `"reference.jsp"`, etc.
+- `JSP_ALIASES` map and `jspAlias()` method removed from `Parts.java` — no longer needed since all callers use bare part names.
+- All "formerly xxx.jsp" comments removed from renderer javadocs and Java comments.
+- `editorWrapper.jsp` kept with `.jsp` suffix (it's a real JSP file, not a Java-rendered part).
+
+### Pending verification
+
+- **Full test suite**: run `openxavatest` module tests (HtmlUnit) + `chattest`.
+- **Manual tests**: style, layout, and charts.
+- **Documentation review**: check if any docs reference the migrated JSPs or the old architecture.
 
 ## Deleted JSP files
 
@@ -26,13 +39,10 @@ These were fully replaced by Java renderers/servlets and deleted from `src/main/
 
 Still present because non-migrated JSPs include them:
 
-- `barButton.jsp` — included by `collectionEditor.jsp`, `listEditor.jsp`, `list.jsp`
-- `subButton.jsp` — included by `collectionEditor.jsp`
-- `listConfigurations.jsp` — included by `list.jsp`
-- `frameActions.jsp` — included by `detail.jsp`, `reference.jsp`, `collectionFrameHeader.jsp`
+- `listConfigurations.jsp` — included by `list.jsp` (but `list.jsp` is deleted; only remains if non-migrated editors include it)
 - `list.jsp` — kept as fallback, but `ListRenderer` is the primary renderer via `Parts`.
-- `collection.jsp` — kept as fallback, but `CollectionRenderer` is the primary renderer via `Parts`. Still included by `detail.jsp` (which is itself a fallback for `DetailViewRenderer`).
-- `detail.jsp` — kept as fallback for `DetailViewRenderer` via `JspFragment`.
+- `collection.jsp` — kept as fallback, but `CollectionRenderer` is the primary renderer via `Parts`.
+- `detail.jsp` — **deleted**; `referenceEditor.jsp` and `chartsEditor.jsp` now call `Parts.render(request, response, "detail?...")` directly.
 - `sections.jsp` — kept as fallback for `SectionsRenderer` via `JspFragment`.
 - `propertyActions.jsp` — kept as fallback for `PropertyActionsRenderer` via `JspFragment`.
 - `collectionFrameHeader.jsp` — kept as fallback for `CollectionFrameHeaderRenderer` via `JspFragment`.
@@ -93,16 +103,16 @@ In the `org.openxava.web` package, `Collections` refers to `org.openxava.web.Col
 
 ### `ViewRenderContext.forPart` vs constructor
 
-- `forPart(request, response, partDescriptor)` parses query params from the part descriptor (e.g. `core.jsp?buttonBar=false`) and creates a context with those as `parameters`.
+- `forPart(request, response, partDescriptor)` parses query params from the part descriptor (e.g. `core?buttonBar=false`) and creates a context with those as `parameters`.
 - `new ViewRenderContext(request, response)` creates a context with empty parameters — used for direct calls from `module.jsp`.
 - `getParameter(name)` checks `parameters` map first, then falls back to `request.getParameter(name)`.
 
 ### `Parts` registry
 
 - `register(name, renderer)` adds to `REGISTRY` map.
-- `JSP_ALIASES` maps JSP file names to part names (e.g. `core.jsp` → `core`).
 - `isJavaRendered(partDescriptor)` strips query string and path, then checks `REGISTRY`.
 - `render(request, response, partDescriptor)` creates `ViewRenderContext.forPart` and dispatches.
+- `JSP_ALIASES` map has been removed — all callers now use bare part names without `.jsp` suffix.
 
 ### `ActionHtml` class
 
@@ -186,21 +196,21 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 - `collectionFromModel.jsp` — replaced by `CollectionFromModelRenderer` (via `Parts` and direct call from `collectionEditor.jsp`).
 - `collectionList.jsp` — replaced by `CollectionListRenderer` (called directly from `collectionEditor.jsp`).
 
-## What to do next
+## Conclusion
 
-Phases 0–5 are complete and tested. Phases 6–8 are pending (see `jsp-migration-analysis.md`):
+**All phases 0–8 complete. The UI generator migration from JSP to Java is finished.** 25+ JSP files deleted from `xava/`. Remaining JSPs: `module.jsp` (thin wrapper), `editorWrapper.jsp` (bridge to `<xava:editor>`), `imports.jsp`, `*Ext.jsp` hooks, `editors/*`.
 
-1. **Phase 6**: ✅ Done — deleted 9 dead fallback JSPs; `detail.jsp` restored as thin wrapper (still included by `editors/referenceEditor.jsp` and `editors/chartsEditor.jsp`).
-2. **Phase 7**: ✅ Done — rewired `collectionEditor.jsp` / `listEditor.jsp` to call `ButtonRenderer` / `SubButtonRenderer` directly; deleted `barButton.jsp` and `subButton.jsp`.
-3. **Phase 8**: ✅ Done — created `ReferenceRenderer`, registered in `Parts`; `DetailViewRenderer` now calls `Parts.render` for references; deleted `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp`.
+### Pending before release
 
-**All phases 0–8 complete.** 25 JSP files deleted from `xava/`. Remaining JSPs: `module.jsp` (thin wrapper), `detail.jsp` (thin wrapper), `editorWrapper.jsp` (bridge to `<xava:editor>`), `imports.jsp`, `*Ext.jsp` hooks, `editors/*`.
+- Run the full test suite (`openxavatest` + `chattest`).
+- Manual tests: style, layout, charts.
+- Review documentation for references to migrated JSPs or old architecture.
 
 ### Future work (8.1+)
 
 - Migrate `collectionEditor.jsp` fully to Java (currently delegates to Java renderers but is still JSP itself).
 - Migrate `listEditor.jsp` and `collectionTotals.jsp` to Java.
-- Support Thymeleaf (or similar) for editors and `naviox/*` customization, and rewrite the bundled editors/naviox with it.
+- Migrate editors, chat, and `naviox/*` to Thymeleaf (or similar alternative), better than to Java. These are user-customizable, so a template engine is more appropriate than hardcoded Java.
 
 ## Phase 5: Page entry points and dialog helpers (completed)
 

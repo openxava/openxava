@@ -154,7 +154,7 @@ public class ViewRenderContext {
 	}
 
 	/**
-	 * Parses a part descriptor such as {@code core.jsp?buttonBar=false} into a context
+	 * Parses a part descriptor such as {@code core?buttonBar=false} into a context
 	 * with the extra query parameters.
 	 */
 	public static ViewRenderContext forPart(HttpServletRequest request, HttpServletResponse response, String partDescriptor) {
