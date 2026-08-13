@@ -26,7 +26,7 @@ Working notes so progress is not lost between IntelliJ restarts.
 | Phase 5 wiring: `module.jsp` is thin wrapper calling `ModulePageRenderer`; `ModuleServlet` calls `ModulePageRenderer` directly; `Parts` registers `referenceSearch`, `addToCollection`; `EmailNotifications` URL updated to `/xava/unsubscribe` | Done |
 | JSP cleanup: deleted `unsubscribe.jsp`, `referenceSearch.jsp`, `addToCollection.jsp`, `collectionList.jsp`, `collectionFromModel.jsp` | Done |
 | **Phases 0–5 complete. Tested by user — works.** | ✅ |
-| Phase 6: Delete dead fallback JSPs | Pending |
+| Phase 6: Delete dead fallback JSPs (`sections`, `list`, `collection`, `propertyActions`, `collectionFrameHeader`, `editor`, `referenceFrameHeader`, `frameActions`, `listConfigurations`); `detail.jsp` restored as thin wrapper (included by editor JSPs) | Done |
 | Phase 7: Rewire editor JSPs to call Java renderers instead of `barButton.jsp`/`subButton.jsp` | Pending |
 | Phase 8: Migrate `reference.jsp` → `ReferenceRenderer` | Pending |
 
@@ -34,12 +34,12 @@ Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `ModulePageRenderer`.
 - Hotwire needs form values visible as request parameters (for `View.assignValuesToWebView()`); that is what `ParametersHttpServletRequest` + `buildModuleExecutionParameters()` reproduce (formerly the include query string).
 - Careful: `org.openxava.web.Collections` shadows `java.util.Collections` in that package.
-- `barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp` are still included by non-migrated JSPs (`collectionEditor.jsp`, `listEditor.jsp`, `list.jsp`). Remove after full migration.
+- `barButton.jsp`, `subButton.jsp` are still included by non-migrated editor JSPs (`collectionEditor.jsp`, `listEditor.jsp`). Remove in Phase 7.
 - `ActionHtml` centralizes action rendering (link, image, button) mirroring taglib output, used by all button renderers.
 
 ## Migration status summary
 
-Phases 0–5 complete and tested by user. 11 JSP files deleted from `xava/`. Phases 6–8 pending to delete the remaining non-editors, non-Ext JSPs. See `jsp-migration-handoff.md` for the full list.
+Phases 0–5 complete and tested by user. Phase 6 complete (9 more JSPs deleted, `detail.jsp` restored as wrapper). 20 JSP files deleted from `xava/` total. Phases 7–8 pending. See `jsp-migration-handoff.md` for the full list.
 
 ## Remaining JSPs in `xava` (non-editors)
 
@@ -70,7 +70,7 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 
 | File | Lines | Role | Status |
 |------|-------|------|--------|
-| `detail.jsp` | 344 | Detail view iteration. | Migrated → `DetailViewRenderer` (Phase 6: delete) |
+| `detail.jsp` | 5 | Thin wrapper calling `DetailViewRenderer` via `Parts.render`. | Migrated (wrapper, kept for editor JSP includes) |
 | `sections.jsp` | 79 | Section tabs. | Migrated → `SectionsRenderer` (Phase 6: delete) |
 | `reference.jsp` | 208 | Reference rendering. | Phase 8: migrate → `ReferenceRenderer` |
 | `editor.jsp` | 92 | Property editor wrapper. | Migrated → `PropertyEditorRenderer` (Phase 6: delete) |
@@ -165,21 +165,22 @@ Naming principle requested by the user: names should say **what part of the UI t
 
 **Phases 0–5 complete. Tested by user — works.**
 
-### Phase 6 — Delete dead fallback JSPs (pending)
+### Phase 6 — Delete dead fallback JSPs (completed)
 
-These JSPs are no longer on the execution path: `Parts.isJavaRendered()` intercepts them in `HotwireServlet`, and the Java renderers call each other directly. They have no live JSP includer. Delete them and run the test suite.
+Deleted 9 JSPs that were no longer on the execution path (`Parts.isJavaRendered()` intercepts them in `HotwireServlet`, Java renderers call each other directly, no live JSP includer remained). `detail.jsp` was restored as a thin wrapper because `editors/referenceEditor.jsp` and `editors/chartsEditor.jsp` include it via `<jsp:include>` (bypassing `HotwireServlet`/`Parts`):
 
-JSPs to delete:
-- `detail.jsp` → `DetailViewRenderer` (Parts alias `detail.jsp` → `detail` stays in `Parts` for Hotwire descriptor matching)
+- `detail.jsp` → restored as thin wrapper delegating to `DetailViewRenderer` (still included by `editors/referenceEditor.jsp` and `editors/chartsEditor.jsp` via `<jsp:include>`)
 - `sections.jsp` → `SectionsRenderer`
 - `list.jsp` → `ListRenderer`
 - `collection.jsp` → `CollectionRenderer`
 - `propertyActions.jsp` → `PropertyActionsRenderer`
 - `collectionFrameHeader.jsp` → `CollectionFrameHeaderRenderer`
-- `editor.jsp` → absorbed into `PropertyEditorRenderer` (only included by `detail.jsp`)
-- `referenceFrameHeader.jsp` → `ReferenceFrameHeaderRenderer` (only included by `detail.jsp`)
-- `frameActions.jsp` → `FrameActionsRenderer` (only included by `detail.jsp`)
-- `listConfigurations.jsp` → `ListConfigurationsRenderer` (only included by `list.jsp`)
+- `editor.jsp` → absorbed into `PropertyEditorRenderer`
+- `referenceFrameHeader.jsp` → `ReferenceFrameHeaderRenderer`
+- `frameActions.jsp` → `FrameActionsRenderer`
+- `listConfigurations.jsp` → `ListConfigurationsRenderer`
+
+Parts aliases (e.g. `detail.jsp` → `detail`) stay in `Parts` for Hotwire descriptor matching.
 
 Cannot delete yet (depend on `reference.jsp`, Phase 8):
 - `htmlTagsEditor.jsp` — still `<%@ include%>` by `reference.jsp`
