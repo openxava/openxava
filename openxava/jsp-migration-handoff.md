@@ -188,15 +188,14 @@ Centralizes action rendering (link, image, button) mirroring `<xava:action>` / `
 
 ## What to do next
 
-All planned migration phases (0–5) are complete and tested. The remaining JSPs in `xava/` are either:
+Phases 0–5 are complete and tested. Phases 6–8 are pending (see `jsp-migration-analysis.md`):
 
-1. **Fallbacks** (`detail.jsp`, `sections.jsp`, `list.jsp`, `collection.jsp`, `propertyActions.jsp`, `collectionFrameHeader.jsp`) — kept as safety net via `Parts`/`JspFragment`. Can be deleted once confidence is high enough.
-2. **Still included by non-migrated JSPs** (`barButton.jsp`, `subButton.jsp`, `listConfigurations.jsp`, `frameActions.jsp`) — will be removed when `reference.jsp`, `collectionEditor.jsp`, and `listEditor.jsp` are migrated.
-3. **User extension hooks** (`viewExt.jsp`, `*Ext.jsp`) — must stay as JSP per the migration scope.
+1. **Phase 6**: Delete dead fallback JSPs (`detail.jsp`, `sections.jsp`, `list.jsp`, `collection.jsp`, `propertyActions.jsp`, `collectionFrameHeader.jsp`, `editor.jsp`, `referenceFrameHeader.jsp`, `frameActions.jsp`, `listConfigurations.jsp`).
+2. **Phase 7**: Rewire `collectionEditor.jsp` / `listEditor.jsp` to call `ButtonRenderer` / `SubButtonRenderer` directly, then delete `barButton.jsp` and `subButton.jsp`.
+3. **Phase 8**: Migrate `reference.jsp` → `ReferenceRenderer`, then delete `reference.jsp`, `htmlTagsEditor.jsp`, `referenceActions.jsp`.
 
 ### Future work (8.1+)
 
-- Migrate `reference.jsp` to a Java renderer (the last major non-editors JSP in `xava/`).
 - Migrate `collectionEditor.jsp` fully to Java (currently delegates to Java renderers but is still JSP itself).
 - Migrate `listEditor.jsp` and `collectionTotals.jsp` to Java.
 - Support Thymeleaf (or similar) for editors and `naviox/*` customization, and rewrite the bundled editors/naviox with it.

@@ -25,7 +25,10 @@ Working notes so progress is not lost between IntelliJ restarts.
 | Phase 5: `ModulePageRenderer`, `UnsubscribeServlet`, `ReferenceSearchRenderer`, `AddToCollectionRenderer` | Done |
 | Phase 5 wiring: `module.jsp` is thin wrapper calling `ModulePageRenderer`; `ModuleServlet` calls `ModulePageRenderer` directly; `Parts` registers `referenceSearch`, `addToCollection`; `EmailNotifications` URL updated to `/xava/unsubscribe` | Done |
 | JSP cleanup: deleted `unsubscribe.jsp`, `referenceSearch.jsp`, `addToCollection.jsp`, `collectionList.jsp`, `collectionFromModel.jsp` | Done |
-| **All phases complete. Tested by user — works.** | ✅ |
+| **Phases 0–5 complete. Tested by user — works.** | ✅ |
+| Phase 6: Delete dead fallback JSPs | Pending |
+| Phase 7: Rewire editor JSPs to call Java renderers instead of `barButton.jsp`/`subButton.jsp` | Pending |
+| Phase 8: Migrate `reference.jsp` → `ReferenceRenderer` | Pending |
 
 Notes:
 - `ModuleExecutor.execute(request, loadingModulePage)` called from `HotwireServlet.RequestProcessor.request()` and from `ModulePageRenderer`.
@@ -36,7 +39,7 @@ Notes:
 
 ## Migration status summary
 
-All 5 phases complete and tested by user. 11 JSP files deleted from `xava/`. Remaining JSPs are either fallbacks (via `Parts`/`JspFragment`), user extension hooks, or still-included by non-migrated JSPs (`reference.jsp`, `collectionEditor.jsp`, `listEditor.jsp`). See `jsp-migration-handoff.md` for the full list.
+Phases 0–5 complete and tested by user. 11 JSP files deleted from `xava/`. Phases 6–8 pending to delete the remaining non-editors, non-Ext JSPs. See `jsp-migration-handoff.md` for the full list.
 
 ## Remaining JSPs in `xava` (non-editors)
 
@@ -58,8 +61,8 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 | ~~`core.jsp`~~ | ~~85~~ | | **Deleted** → `CoreRenderer` |
 | ~~`buttonBar.jsp`~~ | ~~148~~ | | **Deleted** → `ButtonBarRenderer` |
 | ~~`bottomButtons.jsp`~~ | ~~59~~ | | **Deleted** → `BottomButtonsRenderer` |
-| `barButton.jsp` | 50 | Single button/link rendering used by bars. | Kept (included by `collectionEditor.jsp`, `listEditor.jsp`, `list.jsp`) |
-| `subButton.jsp` | 75 | Submenu button (includes `barButton.jsp`). | Kept (included by `collectionEditor.jsp`) |
+| `barButton.jsp` | 50 | Single button/link rendering used by bars. | Migrated → `ButtonRenderer` (Phase 7: rewire editors, then delete) |
+| `subButton.jsp` | 75 | Submenu button (includes `barButton.jsp`). | Migrated → `SubButtonRenderer` (Phase 7: rewire editors, then delete) |
 | ~~`errors.jsp`~~ | ~~25~~ | | **Deleted** → `ErrorsRenderer` |
 | ~~`messages.jsp`~~ | ~~50~~ | | **Deleted** → `MessagesRenderer` |
 
@@ -67,27 +70,27 @@ Keys used by `HotwireServlet.getChangedParts()`: `core`, `button_bar`, `bottom_b
 
 | File | Lines | Role | Status |
 |------|-------|------|--------|
-| `detail.jsp` | 344 | Detail view iteration. | Migrated → `DetailViewRenderer` (JSP kept as fallback) |
-| `sections.jsp` | 79 | Section tabs. | Migrated → `SectionsRenderer` (JSP kept as fallback) |
-| `reference.jsp` | 208 | Reference rendering. | Kept (not yet migrated) |
-| `editor.jsp` | 92 | Property editor wrapper. | Migrated → `PropertyEditorRenderer` |
-| `editorWrapper.jsp` | 16 | Thin wrapper around `<xava:editor>`. | Kept (used via `JspFragment`) |
-| `htmlTagsEditor.jsp` | 20 | Layout decoration strings. | Absorbed into `LayoutCells` |
-| `list.jsp` | 110 | List mode header. | Migrated → `ListRenderer` (JSP kept as fallback) |
-| `collection.jsp` | 27 | Resolves collection editor. | Migrated → `CollectionRenderer` (JSP kept as fallback) |
+| `detail.jsp` | 344 | Detail view iteration. | Migrated → `DetailViewRenderer` (Phase 6: delete) |
+| `sections.jsp` | 79 | Section tabs. | Migrated → `SectionsRenderer` (Phase 6: delete) |
+| `reference.jsp` | 208 | Reference rendering. | Phase 8: migrate → `ReferenceRenderer` |
+| `editor.jsp` | 92 | Property editor wrapper. | Migrated → `PropertyEditorRenderer` (Phase 6: delete) |
+| `editorWrapper.jsp` | 16 | Thin wrapper around `<xava:editor>`. | Stays (bridge to editors JSP) |
+| `htmlTagsEditor.jsp` | 20 | Layout decoration strings. | Absorbed into `LayoutCells` (Phase 8: delete, still used by `reference.jsp`) |
+| `list.jsp` | 110 | List mode header. | Migrated → `ListRenderer` (Phase 6: delete) |
+| `collection.jsp` | 27 | Resolves collection editor. | Migrated → `CollectionRenderer` (Phase 6: delete) |
 | ~~`collectionList.jsp`~~ | ~~22~~ | | **Deleted** → `CollectionListRenderer` |
 | ~~`collectionFromModel.jsp`~~ | ~~191~~ | | **Deleted** → `CollectionFromModelRenderer` |
-| `listConfigurations.jsp` | 29 | List configurations dropdown. | Migrated → `ListConfigurationsRenderer` (JSP kept, included by `list.jsp`) |
+| `listConfigurations.jsp` | 29 | List configurations dropdown. | Migrated → `ListConfigurationsRenderer` (Phase 6: delete, only included by `list.jsp`) |
 
 ### Group D — Frame headers / action groups
 
 | File | Lines | Role | Status |
 |------|-------|------|--------|
-| `frameActions.jsp` | 35 | Frame collapse/expand icons. | Migrated → `FrameActionsRenderer` (JSP kept, included by `reference.jsp`) |
-| `propertyActions.jsp` | 69 | Actions next to a property. | Migrated → `PropertyActionsRenderer` (JSP kept as fallback) |
-| `referenceActions.jsp` | 45 | Actions for a reference. | Migrated → `ReferenceActionsRenderer` |
-| `referenceFrameHeader.jsp` | 35 | Header for reference frames. | Migrated → `ReferenceFrameHeaderRenderer` |
-| `collectionFrameHeader.jsp` | 83 | Header for collection frames. | Migrated → `CollectionFrameHeaderRenderer` (JSP kept as fallback) |
+| `frameActions.jsp` | 35 | Frame collapse/expand icons. | Migrated → `FrameActionsRenderer` (Phase 6: delete, only included by `detail.jsp`) |
+| `propertyActions.jsp` | 69 | Actions next to a property. | Migrated → `PropertyActionsRenderer` (Phase 6: delete) |
+| `referenceActions.jsp` | 45 | Actions for a reference. | Migrated → `ReferenceActionsRenderer` (Phase 8: delete, still used by `reference.jsp`) |
+| `referenceFrameHeader.jsp` | 35 | Header for reference frames. | Migrated → `ReferenceFrameHeaderRenderer` (Phase 6: delete) |
+| `collectionFrameHeader.jsp` | 83 | Header for collection frames. | Migrated → `CollectionFrameHeaderRenderer` (Phase 6: delete) |
 
 ### Group E — Dialog/search helpers
 
@@ -160,7 +163,49 @@ Naming principle requested by the user: names should say **what part of the UI t
 `module.jsp` → `ModulePageRenderer` (thin JSP wrapper kept for `naviox/index.jsp` includes); `unsubscribe.jsp` → `UnsubscribeServlet` (`/xava/unsubscribe`).
 `referenceSearch.jsp` → `ReferenceSearchRenderer`; `addToCollection.jsp` → `AddToCollectionRenderer`. Both registered in `Parts`. Action URLs kept with `.jsp` suffix (needed by `getViewURL()`); `Parts.partName()` strips it for dispatch.
 
-**All phases complete. Tested by user — works.**
+**Phases 0–5 complete. Tested by user — works.**
+
+### Phase 6 — Delete dead fallback JSPs (pending)
+
+These JSPs are no longer on the execution path: `Parts.isJavaRendered()` intercepts them in `HotwireServlet`, and the Java renderers call each other directly. They have no live JSP includer. Delete them and run the test suite.
+
+JSPs to delete:
+- `detail.jsp` → `DetailViewRenderer` (Parts alias `detail.jsp` → `detail` stays in `Parts` for Hotwire descriptor matching)
+- `sections.jsp` → `SectionsRenderer`
+- `list.jsp` → `ListRenderer`
+- `collection.jsp` → `CollectionRenderer`
+- `propertyActions.jsp` → `PropertyActionsRenderer`
+- `collectionFrameHeader.jsp` → `CollectionFrameHeaderRenderer`
+- `editor.jsp` → absorbed into `PropertyEditorRenderer` (only included by `detail.jsp`)
+- `referenceFrameHeader.jsp` → `ReferenceFrameHeaderRenderer` (only included by `detail.jsp`)
+- `frameActions.jsp` → `FrameActionsRenderer` (only included by `detail.jsp`)
+- `listConfigurations.jsp` → `ListConfigurationsRenderer` (only included by `list.jsp`)
+
+Cannot delete yet (depend on `reference.jsp`, Phase 8):
+- `htmlTagsEditor.jsp` — still `<%@ include%>` by `reference.jsp`
+- `referenceActions.jsp` — still `<%@ include%>` by `reference.jsp`
+
+### Phase 7 — Rewire editor JSPs to call Java renderers (pending)
+
+`collectionEditor.jsp` and `listEditor.jsp` (in `editors/`, out of migration scope) still include `barButton.jsp` and `subButton.jsp` via `<jsp:include>`. Replace those includes with direct calls to `ButtonRenderer.render(...)` / `SubButtonRenderer.render(...)` (same pattern already used by `collectionEditor.jsp` calling `CollectionFromModelRenderer`). Then delete:
+- `barButton.jsp`
+- `subButton.jsp`
+
+### Phase 8 — Migrate `reference.jsp` to Java (pending)
+
+Create `ReferenceRenderer` (or `ReferenceMemberRenderer`) in `org.openxava.web.render`, absorbing the logic of `reference.jsp` (descriptions lists, composite editors, key property resolution, label/layout decoration). Register in `Parts` as `reference` with alias `reference.jsp`. `DetailViewRenderer` already calls `reference.jsp` via `JspFragment` — switch to `Parts.render` when `isJavaRendered` returns true.
+
+After migration, delete:
+- `reference.jsp`
+- `htmlTagsEditor.jsp` (no more includers — `LayoutCells` already has the logic)
+- `referenceActions.jsp` (no more includers — `ReferenceActionsRenderer` already exists)
+
+JSPs that stay in `xava/` after Phase 8:
+- `editorWrapper.jsp` — bridge to `<xava:editor>` tag (editors stay JSP)
+- `module.jsp` — thin wrapper, included by `naviox/index.jsp` via `<jsp:include>`
+- `imports.jsp` — taglib declarations, used by `naviox/*`, `editors/*`, `chat.jsp`
+- `viewExt.jsp`, `*Ext.jsp` — user extension hooks (do not migrate)
+- `editors/*` — user-customizable editors (do not migrate until 8.1 Thymeleaf)
 
 ## Compatibility rules for the whole migration
 
