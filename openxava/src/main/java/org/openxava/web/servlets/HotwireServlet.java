@@ -788,7 +788,7 @@ public class HotwireServlet extends BaseServlet {
             if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
                 if (manager.getDialogLevel() > 0) {
                     changedParts.put(decorateId("dialog" + manager.getDialogLevel()),
-                        getURIAsString("core.jsp?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)
+                        getURIAsString("core?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)
                     );
                     result.setFocusPropertyId(getView().getFocusPropertyId());
                     return;
@@ -814,7 +814,7 @@ public class HotwireServlet extends BaseServlet {
             Messages errors = (Messages) request.getAttribute("errors");
             if (errors.contains() && changedParts.get("errors") == null) {
                 put(changedParts, "errors",
-                    getURIAsString("errors.jsp", values, multipleValues, selected, deselected, additionalParameters)
+                    getURIAsString("errors", values, multipleValues, selected, deselected, additionalParameters)
                 );
             }
             if (!manager.isListMode()) {
@@ -906,21 +906,21 @@ public class HotwireServlet extends BaseServlet {
         private Map<String, Object> getChangedParts(Map<String, Object> values, Collection<String> propertiesUsedInCalculations, Map<String, View> changedCollectionsTotals) {
             Map<String, Object> result = new HashMap<>();
             if (values == null || manager.isReloadAllUINeeded() || manager.isFormUpload()) {
-                put(result, "core", "core.jsp");
+                put(result, "core", "core");
             } else {
                 manager.isActionsChanged();
                 if (manager.isActionsChanged()) {
                     if (manager.getDialogLevel() > 0) {
-                        put(result, "bottom_buttons", "bottomButtons.jsp?buttonBar=false");
+                        put(result, "bottom_buttons", "bottomButtons?buttonBar=false");
                     } else {
-                        put(result, "button_bar", "buttonBar.jsp");
-                        put(result, "bottom_buttons", "bottomButtons.jsp");
+                        put(result, "button_bar", "buttonBar");
+                        put(result, "bottom_buttons", "bottomButtons");
                     }
                 }
                 Messages errors = (Messages) request.getAttribute("errors");
-                put(result, "errors", errors.contains() ? "errors.jsp" : null);
+                put(result, "errors", errors.contains() ? "errors" : null);
                 Messages messages = (Messages) request.getAttribute("messages");
-                put(result, "messages", messages.contains() ? "messages.jsp" : null);
+                put(result, "messages", messages.contains() ? "messages" : null);
 
                 if (manager.isReloadViewNeeded() || getView().isReloadNeeded()) {
                     put(result, "view", manager.getViewURL());
@@ -1048,7 +1048,7 @@ public class HotwireServlet extends BaseServlet {
                     }
                     request.setAttribute(referenceKey, metaReference);
                     put(result, "reference_editor_" + qualifiedName,
-                        "reference.jsp?referenceKey=" + referenceKey +
+                        "reference?referenceKey=" + referenceKey +
                         referenceAsDescriptionsListParam +
                         "&onlyEditor=true&viewObject=" + containerView.getViewObject());
                 } else {
@@ -1064,7 +1064,7 @@ public class HotwireServlet extends BaseServlet {
                         containerView.propertyHasChangedActions(name))
                     {
                         put(result, "property_actions_" + qualifiedName,
-                            "propertyActions.jsp?propertyKey=" + qualifiedName +
+                            "propertyActions?propertyKey=" + qualifiedName +
                             "&propertyName=" + name +
                             "&editable=" + containerView.isEditable(name) +
                             "&viewObject=" + containerView.getViewObject() +
@@ -1085,12 +1085,12 @@ public class HotwireServlet extends BaseServlet {
                 View containerView = (View) en.getValue();
                 if (baseFolder.equals("/xava/")) { // collectionFrameHeader.jsp only exists in /xava/, not in /phone/. The phone UI renders the collection header inline in collection.jsp.
                     put(result, "frame_" + qualifiedName + "header",
-                        "collectionFrameHeader.jsp?collectionName=" + name +
+                        "collectionFrameHeader?collectionName=" + name +
                         "&viewObject=" + containerView.getViewObject() +
                         "&propertyPrefix=" + containerView.getPropertyPrefix());
                 }
                 put(result, "collection_" + qualifiedName + ".",
-                    "collection.jsp?collectionName=" + name +
+                    "collection?collectionName=" + name +
                     "&viewObject=" + containerView.getViewObject() +
                     "&propertyPrefix=" + containerView.getPropertyPrefix());
             }
@@ -1130,7 +1130,7 @@ public class HotwireServlet extends BaseServlet {
             View changedSections = view.getChangedSectionsView();
             if (changedSections != null) {
                 put(result, "sections_" + changedSections.getViewObject(),
-                    "sections.jsp?viewObject=" + changedSections.getViewObject() +
+                    "sections?viewObject=" + changedSections.getViewObject() +
                     "&propertyPrefix=" + changedSections.getPropertyPrefix());
             }
         }

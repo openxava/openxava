@@ -114,7 +114,7 @@ public class DetailViewRenderer {
 
 					if (view.displayReferenceWithNoFrameEditor(ref)) {
 						// Reference without frame
-						String urlReferenceEditor = "reference.jsp"
+						String urlReferenceEditor = "reference"
 							+ "?referenceKey=" + referenceKey
 							+ "&viewObject=" + viewObject
 							+ "&first=" + first
@@ -165,13 +165,13 @@ public class DetailViewRenderer {
 
 						String urlReferenceEditor;
 						if (view.displayReferenceWithNotCompositeEditor(ref)) {
-							urlReferenceEditor = "reference.jsp"
+							urlReferenceEditor = "reference"
 								+ "?referenceKey=" + referenceKey
 								+ "&viewObject=" + viewObject
 								+ "&onlyEditor=true&frame=true&composite=false"
 								+ "&first=" + first;
 						} else {
-							urlReferenceEditor = "reference.jsp"
+							urlReferenceEditor = "reference"
 								+ "?referenceKey=" + referenceKey
 								+ "&viewObject=" + viewObject
 								+ "&onlyEditor=true&frame=true&composite=true"
@@ -225,7 +225,7 @@ public class DetailViewRenderer {
 						: propertyPrefix + collection.getName() + ".";
 
 					w.append("<div id='").append(ctx.decorateId("collection_" + collectionPrefix)).append("'>");
-					String collectionUrl = "collection.jsp"
+					String collectionUrl = "collection"
 						+ "?collectionName=" + collection.getName()
 						+ "&viewObject=" + viewObject;
 					if (Parts.isJavaRendered(collectionUrl)) {

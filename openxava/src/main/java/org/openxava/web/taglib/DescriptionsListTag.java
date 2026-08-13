@@ -46,7 +46,7 @@ public class DescriptionsListTag extends TagSupport {
 			String readOnlyAsLabelSuffix = readOnlyAsLabel?"&readOnlyAsLabel=true":"";
 		
 		
-			String editorURL = "reference.jsp?referenceKey=" + referenceKey + "&onlyEditor=true&frame=false&composite=false&descriptionsList=true" + readOnlyAsLabelSuffix; 
+			String editorURL = "reference?referenceKey=" + referenceKey + "&onlyEditor=true&frame=false&composite=false&descriptionsList=true" + readOnlyAsLabelSuffix;
 			if (descriptionValue != null) { 
 				editorURL += "&descriptionValue=" + descriptionValue; 
 			}

@@ -3,6 +3,6 @@
 
 <div class="<%=style.getCharts()%>">
 
-	<%= Parts.render(request, response, "detail.jsp?viewObject=xava_view") %>
+	<%= Parts.render(request, response, "detail?viewObject=xava_view") %>
 
 </div>

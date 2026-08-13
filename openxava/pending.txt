@@ -1,8 +1,6 @@
 JSP Removal
 -----------
-- Revisión. TMR ME QUEDÉ PARA HACER ESTO. LAS 5 FASES DE LA MIGRACIÓN ESTÁN COMPLETADAS.
-    - ¿Quedán JSPs en xava?
-    - ¿Donde más hay JSPs? ¿Qué hacer con ellos?
+- Revisión.
     - ¿Qué paso con el ".jsp" dentro del código? Creo que en algún punto hay una especie de mapeo.
 - Suite.
 - Pruebas manuales de estilo, layout y charts.
