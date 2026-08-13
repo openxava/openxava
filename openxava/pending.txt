@@ -1,6 +1,17 @@
 JSP Removal
 -----------
-- Suite.
+- Suite. TMR ME QUEDÉ POR AQUÍ: LOS TEST DE ABAJO FALLARON
+    - CollectionTest
+    - CustomerTest
+    - CustomerWithSectionTest
+    - DeliveryFullInvoiceTest
+    - Invoice4Test
+    - InvoiceCalculatedDetailsInSectionTest
+    - InvoiceCalculatedDetailsTest
+    - InvoiceDetailsWithTotalsTest
+    - InvoiceWithParametersInURLTest
+    - SeveralModulesTest
+    - TransportChargeTest
 - Pruebas manuales de estilo, layout y charts.
 - Documentación, si es necesario.
 - Rehacer changelog.
