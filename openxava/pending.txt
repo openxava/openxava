@@ -1,8 +1,9 @@
 JSP Removal
 -----------
 - Suite. TMR ME QUEDÉ POR AQUÍ: LOS TEST DE ABAJO FALLARON
-    - CollectionTest
+    * CollectionTest
     - CustomerTest
+        testFilterToDescriptionsListWithBaseConditionAndFilter
     - CustomerWithSectionTest
     - DeliveryFullInvoiceTest
     - Invoice4Test
