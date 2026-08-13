@@ -654,7 +654,7 @@ public class HotwireServlet extends BaseServlet {
         }
 
         /**
-         * Same parameters formerly passed to execute.jsp via query string on RequestDispatcher.include.
+         * Same parameters passed to ModuleExecutor via query string on RequestDispatcher.include.
          */
         private Map<String, String[]> buildModuleExecutionParameters() {
             Map<String, List<String>> params = new LinkedHashMap<>();

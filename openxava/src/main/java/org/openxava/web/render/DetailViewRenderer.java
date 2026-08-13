@@ -12,8 +12,7 @@ import org.openxava.web.style.*;
 
 /**
  * Renders the detail view by iterating meta members and dispatching to
- * property, reference, collection, group and sections renderers
- * (formerly detail.jsp).
+ * property, reference, collection, group and sections renderers.
  *
  * @author Javier Paniza
  * @since 8.0

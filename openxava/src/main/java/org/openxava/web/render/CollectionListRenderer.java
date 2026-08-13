@@ -8,8 +8,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Prepares a collection tab (styles, context) and renders the list
- * (formerly collectionList.jsp).
+ * Prepares a collection tab (styles, context) and renders the list.
  *
  * @author Javier Paniza
  * @since 8.0

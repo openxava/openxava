@@ -13,7 +13,7 @@ import org.openxava.web.style.*;
 import org.openxava.web.servlets.*;
 
 /**
- * Renders the full module page (formerly module.jsp): HTML head with CSS/JS resources,
+ * Renders the full module page: HTML head with CSS/JS resources,
  * body with core content, and the initialization JavaScript.
  * <p>
  * When {@code htmlHead} is {@code false} only the body content is produced (for embedding

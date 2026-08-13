@@ -5,7 +5,7 @@ import org.openxava.view.*;
 import org.openxava.web.*;
 
 /**
- * Resolves the collection editor and delegates to it (formerly collection.jsp).
+ * Resolves the collection editor and delegates to it.
  * The editor itself (e.g. collectionEditor.jsp) stays as JSP.
  *
  * @author Javier Paniza

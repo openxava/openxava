@@ -1740,7 +1740,7 @@ public class ModuleManager implements java.io.Serializable {
 	}
 
 	/*
-	 * to execute.jsp, init 'actionsChanged' after execute
+	 * to ModuleExecutor, init 'actionsChanged' after execute
 	 * 'assignValuesToWebView' and 'initModule'
 	 */
 	public void preInitModule(HttpServletRequest request) { 

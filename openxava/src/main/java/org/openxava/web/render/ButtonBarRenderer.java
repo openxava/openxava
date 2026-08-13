@@ -11,7 +11,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders the top button bar (formerly buttonBar.jsp): mode buttons, actions,
+ * Renders the top button bar: mode buttons, actions,
  * subcontrollers, list formats, email subscription, and help icon.
  *
  * @author Javier Paniza

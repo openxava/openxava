@@ -5,7 +5,7 @@ import org.openxava.util.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders a single button-bar button (formerly barButton.jsp).
+ * Renders a single button-bar button.
  *
  * @author Javier Paniza
  * @since 8.0

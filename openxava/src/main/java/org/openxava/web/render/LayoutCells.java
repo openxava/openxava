@@ -4,7 +4,7 @@ import org.openxava.view.*;
 import org.openxava.web.style.*;
 
 /**
- * Layout decoration around labels and editors (formerly htmlTagsEditor.jsp).
+ * Layout decoration around labels and editors.
  *
  * @author Javier Paniza
  * @since 8.0

@@ -8,7 +8,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders section tabs and the active section content (formerly sections.jsp).
+ * Renders section tabs and the active section content.
  *
  * @author Javier Paniza
  * @since 8.0

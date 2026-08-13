@@ -11,7 +11,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders a subcontroller button with its dropdown actions (formerly subButton.jsp).
+ * Renders a subcontroller button with its dropdown actions.
  *
  * @author Javier Paniza
  * @since 8.0

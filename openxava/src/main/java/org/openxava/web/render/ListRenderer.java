@@ -12,7 +12,7 @@ import org.openxava.web.style.*;
 
 /**
  * Renders list mode header (title, configurations, group-by, row count)
- * and delegates the tab editor to JSP (formerly list.jsp).
+ * and delegates the tab editor to JSP.
  *
  * @author Javier Paniza
  * @since 8.0

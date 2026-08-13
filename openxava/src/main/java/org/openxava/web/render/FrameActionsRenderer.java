@@ -3,7 +3,7 @@ package org.openxava.web.render;
 import org.openxava.web.style.*;
 
 /**
- * Renders the frame collapse/expand actions (formerly frameActions.jsp).
+ * Renders the frame collapse/expand actions.
  *
  * @author Javier Paniza
  * @since 8.0

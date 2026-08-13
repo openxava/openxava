@@ -4,7 +4,7 @@ import org.openxava.tab.*;
 import org.openxava.web.*;
 
 /**
- * Renders the list configurations dropdown (formerly listConfigurations.jsp).
+ * Renders the list configurations dropdown.
  *
  * @author Javier Paniza
  * @since 8.0

@@ -8,8 +8,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders the collection frame header: size, new element action and totals
- * (formerly collectionFrameHeader.jsp).
+ * Renders the collection frame header: size, new element action and totals.
  *
  * @author Javier Paniza
  * @since 8.0

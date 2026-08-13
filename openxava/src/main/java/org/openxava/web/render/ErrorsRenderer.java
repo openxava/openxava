@@ -5,7 +5,7 @@ import java.util.*;
 import org.openxava.util.*;
 
 /**
- * Renders the errors block (formerly errors.jsp).
+ * Renders the errors block.
  *
  * @author Javier Paniza
  * @since 8.0

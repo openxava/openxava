@@ -7,7 +7,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders the core module shell (formerly core.jsp): form, hidden fields,
+ * Renders the core module shell: form, hidden fields,
  * button bar, errors, messages, view, and bottom buttons.
  *
  * @author Javier Paniza

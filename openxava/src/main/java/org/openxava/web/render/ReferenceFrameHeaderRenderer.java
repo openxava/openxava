@@ -4,7 +4,7 @@ import org.openxava.view.*;
 import org.openxava.web.*;
 
 /**
- * Renders the header content for reference frames (formerly referenceFrameHeader.jsp).
+ * Renders the header content for reference frames.
  *
  * @author Javier Paniza
  * @since 8.0

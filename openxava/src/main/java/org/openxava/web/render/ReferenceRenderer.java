@@ -14,7 +14,7 @@ import org.openxava.web.meta.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders a reference field (formerly reference.jsp).
+ * Renders a reference field.
  * <p>
  * Handles descriptions lists, composite and non-composite references, label/layout
  * decoration, and reference actions. The actual editor is still a JSP, included

@@ -3,7 +3,7 @@ package org.openxava.web.render;
 import java.util.*;
 
 /**
- * Renders the reference search list (formerly referenceSearch.jsp).
+ * Renders the reference search list.
  * <p>
  * Delegates to {@link ListRenderer} with {@code singleSelection=true}
  * and the {@code rowAction} parameter from the request.

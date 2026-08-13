@@ -6,7 +6,7 @@ import org.openxava.util.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders the messages block (formerly messages.jsp): warnings, messages and infos.
+ * Renders the messages block: warnings, messages and infos.
  *
  * @author Javier Paniza
  * @since 8.0

@@ -4,7 +4,7 @@ import org.openxava.util.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders the theme chooser (formerly themeChooser.jsp).
+ * Renders the theme chooser.
  *
  * @author Javier Paniza
  * @since 8.0

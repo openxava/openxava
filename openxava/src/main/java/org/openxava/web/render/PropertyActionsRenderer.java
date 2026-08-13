@@ -7,7 +7,7 @@ import org.openxava.view.*;
 import org.openxava.web.*;
 
 /**
- * Renders the actions next to a property (formerly propertyActions.jsp).
+ * Renders the actions next to a property.
  *
  * @author Javier Paniza
  * @since 8.0

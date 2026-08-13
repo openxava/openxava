@@ -8,9 +8,6 @@ import org.openxava.web.servlets.*;
 
 /**
  * Registry mapping Hotwire part descriptors (e.g. {@code errors}) to Java renderers.
- * <p>
- * Replaces the former pattern of mapping DOM ids to JSP URLs in {@code HotwireServlet}.
- * </p>
  *
  * @author Javier Paniza
  * @since 8.0

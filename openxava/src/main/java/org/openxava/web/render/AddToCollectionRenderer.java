@@ -3,7 +3,7 @@ package org.openxava.web.render;
 import java.util.*;
 
 /**
- * Renders the add-to-collection list (formerly addToCollection.jsp).
+ * Renders the add-to-collection list.
  * <p>
  * Wraps {@link ListRenderer} in a table with {@code onlyOneActionPerRow=true}
  * and the {@code rowAction} parameter from the request.

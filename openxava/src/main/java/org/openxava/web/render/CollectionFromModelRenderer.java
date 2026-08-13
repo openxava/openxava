@@ -12,7 +12,7 @@ import org.openxava.web.style.*;
 
 /**
  * Renders a collection-from-model inline table with headers, row actions,
- * checkboxes and formatted values (formerly collectionFromModel.jsp).
+ * checkboxes and formatted values.
  *
  * @author Javier Paniza
  * @since 8.0

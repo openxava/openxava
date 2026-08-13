@@ -10,7 +10,7 @@ import org.openxava.util.*;
 import org.openxava.web.*;
 
 /**
- * Renders the bottom action buttons (formerly bottomButtons.jsp): default action,
+ * Renders the bottom action buttons: default action,
  * mode-appropriate actions, and hidden default action submit button.
  *
  * @author Javier Paniza

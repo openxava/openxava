@@ -7,7 +7,7 @@ import org.openxava.view.*;
 import org.openxava.web.*;
 
 /**
- * Renders the actions for a reference (formerly referenceActions.jsp).
+ * Renders the actions for a reference.
  *
  * @author Javier Paniza
  * @since 8.0

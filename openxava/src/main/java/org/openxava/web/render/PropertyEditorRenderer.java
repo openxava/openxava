@@ -8,8 +8,7 @@ import org.openxava.web.*;
 import org.openxava.web.style.*;
 
 /**
- * Renders a property editor with label, layout decoration and property actions
- * (formerly editor.jsp + htmlTagsEditor.jsp).
+ * Renders a property editor with label, layout decoration and property actions.
  * <p>
  * The actual editor is still a JSP, included via {@link JspFragment} using
  * {@code editorWrapper.jsp} which contains the {@code <xava:editor>} tag.
