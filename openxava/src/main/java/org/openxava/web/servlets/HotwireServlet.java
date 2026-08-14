@@ -768,9 +768,13 @@ public class HotwireServlet extends BaseServlet {
             for (String pair : query.split("&")) {
                 if (pair.isEmpty()) continue;
                 int eq = pair.indexOf('=');
-                String name = eq < 0 ? pair : pair.substring(0, eq);
-                String value = eq < 0 ? "" : pair.substring(eq + 1);
-                params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+                try {
+                    String name = URLDecoder.decode(eq < 0 ? pair : pair.substring(0, eq), "UTF-8");
+                    String value = URLDecoder.decode(eq < 0 ? "" : pair.substring(eq + 1), "UTF-8");
+                    params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+                } catch (UnsupportedEncodingException e) {
+                    // UTF-8 is always supported
+                }
             }
             Map<String, String[]> result = new LinkedHashMap<>();
             for (Map.Entry<String, List<String>> entry : params.entrySet()) {
@@ -1077,7 +1081,8 @@ public class HotwireServlet extends BaseServlet {
 
         private void fillChangedCollections(Map<String, Object> result) {
             View view = getView();
-            Collection<?> changedCollections = view.getChangedCollections().entrySet();
+            Map<String, View> changedCollectionsMap = view.getChangedCollections();
+            Collection<?> changedCollections = changedCollectionsMap.entrySet();
             for (Iterator<?> it = changedCollections.iterator(); it.hasNext(); ) {
                 Map.Entry<?, ?> en = (Map.Entry<?, ?>) it.next();
                 String qualifiedName = (String) en.getKey();
