@@ -79,7 +79,7 @@ public class CollectionFrameHeaderRenderer {
 					String label = XavaResources.getString(ctx.getRequest(), "sum_of", p.getLabel());
 					w.append("&nbsp;&nbsp;&nbsp;&nbsp;");
 					w.append("<span class='").append(style.getFrameTotalsLabel()).append("'>");
-					w.append(label).append(":</span>");
+					w.append(label).append(":</span> ");
 					w.append("<span class='").append(style.getFrameTotalsValue()).append("'>");
 					w.append(ftotal).append("</span>");
 				}
