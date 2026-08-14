@@ -1,15 +1,16 @@
 package org.openxava.model;
 
+import org.openxava.jpa.*;
 import org.openxava.model.meta.*;
 
 /**
  * To access to some persistence services in an abstract way. <p>
  * 
  * We need this class to write some code in OpenXava that works in the same
- * way if we are using Hibernate or EJB3 JPA (or other persistence technology).<p>
+ * way if we are using Hibernate or JPA (or other persistence technology).<p>
  * 
  * This class can be used in custom application code, although for this case
- * maybe it's better to use directly the EJB3 JPA (or Hibernate) API.<p>
+ * maybe it's better to use directly the JPA (or Hibernate) API.<p>
  * 
  * This class uses the underlayer persistence provider associated to
  * the corresponding entity.<p>
@@ -32,6 +33,26 @@ public class PersistenceFacade {
 	public static void refreshIfManaged(Object object) {
 		if (object == null) return;		
 		MetaModel.getForPOJO(object).getMetaComponent().getPersistenceProvider().refreshIfManaged(object); 		
+	}
+
+	/**
+	 * The default schema for the underlying persistence engine in the current thread. <p>
+	 * 
+	 * @since 8.0
+	 */
+	public static String getDefaultSchema() {
+		// By now we use XPersistence (JPA) ad hoc, but we could implement
+		// a policy pattern on demand.
+		return XPersistence.getDefaultSchema();
+	}
+
+	/**
+	 * Changes the default schema for the underlying persistence engine in the current thread. <p>
+	 * 
+	 * @since 8.0
+	 */
+	public static void setDefaultSchema(String defaultSchema) {
+		XPersistence.setDefaultSchema(defaultSchema);
 	}
 
 }

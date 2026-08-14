@@ -72,6 +72,14 @@ public class MapFacadeBean {
 		}
 	}
 
+	public void rollback(UserInfo userInfo) {
+		Users.setCurrentUserInfo(userInfo);
+		for (MetaComponent component: MetaComponent.getAllLoaded()) {
+			getPersistenceProvider(component.getMetaEntity()).rollback(); 
+		}
+		HibernateValidatorInhibitor.setInhibited(false);
+	}
+
 	private void commitTransaction(MetaModel metaModel) {		
 		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
 			getPersistenceProvider(metaModel).commit(); 

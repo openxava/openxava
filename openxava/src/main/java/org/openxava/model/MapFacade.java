@@ -115,6 +115,20 @@ public class MapFacade {
 	}
 	
 	/**
+	 * Rollback in database the changes done using MapFacade. <p>
+	 * 
+	 * @throws IllegalStateException  If mapFacadeAutoCommit=true or mapFacadeAsEJB=true in xava.properties  
+	 * @exception SystemException  System problem.
+	 * @since 8.0
+	 */
+	public static void rollback() {					
+		if (XavaPreferences.getInstance().isMapFacadeAutoCommit()) {
+			throw new IllegalStateException(XavaResources.getString("not_commit_when_facade_autocommit"));
+		}
+		getImpl().rollback(Users.getCurrentUserInfo()); 
+	}
+	
+	/**
 	 * Creates a new aggregate from a map with its initial values. <p>	 
 	 *
 	 * @deprecated Use createAggregate(String modelName, Map containerKey, String collectionName, Map values) instead
