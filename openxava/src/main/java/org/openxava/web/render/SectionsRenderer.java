@@ -49,17 +49,19 @@ public class SectionsRenderer {
 
 			if (activeSection == i) {
 				w.append(style.getActiveSectionTabStartDecoration(i == 0, !itSections.hasNext()));
-				w.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span>");
-				w.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("'>").append(collectionCountLabel).append("</span>");
+					w.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span> ");
+				w.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("'>").append(collectionCountLabel).append("</span> ");
 				w.append(style.getActiveSectionTabEndDecoration());
+				w.append(" ");
 			} else {
 				w.append(style.getSectionTabStartDecoration(i == 0, !itSections.hasNext()));
 				String viewObjectArgv = "xava_view".equals(viewObject) ? "" : ",viewObject=" + viewObject;
 				StringBuilder linkBody = new StringBuilder();
-				linkBody.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span>");
-				linkBody.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("'>").append(collectionCountLabel).append("</span>");
+				linkBody.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span> ");
+				linkBody.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("'>").append(collectionCountLabel).append("</span> ");
 				w.append(ActionHtml.link(ctx, "Sections.change", "activeSection=" + i + viewObjectArgv, "ox-section-link", false, linkBody.toString()));
 				w.append(style.getSectionTabEndDecoration());
+				w.append(" ");
 			}
 			i++;
 		}

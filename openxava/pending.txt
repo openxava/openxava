@@ -1,8 +1,6 @@
 JSP Removal
 -----------
 - Test fallidos:
-    - Invoice4Test
-    - InvoiceCalculatedDetailsInSectionTest
     - InvoiceCalculatedDetailsTest
     - InvoiceDetailsWithTotalsTest
     - InvoiceWithParametersInURLTest
