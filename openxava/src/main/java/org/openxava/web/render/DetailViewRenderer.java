@@ -226,7 +226,8 @@ public class DetailViewRenderer {
 					w.append("<div id='").append(ctx.decorateId("collection_" + collectionPrefix)).append("'>");
 					String collectionUrl = "collection"
 						+ "?collectionName=" + collection.getName()
-						+ "&viewObject=" + viewObject;
+						+ "&viewObject=" + viewObject
+						+ "&propertyPrefix=" + propertyPrefix;
 					if (Parts.isJavaRendered(collectionUrl)) {
 						w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), collectionUrl));
 					} else {

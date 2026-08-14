@@ -881,7 +881,7 @@ abstract public class ModuleTestBase extends TestCase {
 	 * Only for debug.
 	 */
 	protected void printHtml() throws Exception {
-		log.debug(getHtml());		
+		System.out.print(getHtml());
 	}
 	
 	/**
