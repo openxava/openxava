@@ -89,7 +89,7 @@ public class ModuleExecutor {
 				view.assignValuesToWebView();
 			}
 		}
-		if (!(loadingModulePage && manager.isCoreViaAJAX(request))) {
+		if (!(loadingModulePage && manager.isCoreViaHotwire(request))) {
 			manager.initModule(request, errors, messages);
 			manager.executeOnEachRequestActions(request, errors, messages);
 			if (hasProcessRequest) {
@@ -104,7 +104,7 @@ public class ModuleExecutor {
 			manager.executeAfterEachRequestActions(request, errors, messages);
 		}
 
-		if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaAJAX(request)) {
+		if ("true".equals(request.getParameter("firstRequest")) && manager.isCoreViaHotwire(request)) {
 			manager.executeBeforeLoadPage(request, errors, messages);
 		}
 		if (manager.isDetailMode()) {

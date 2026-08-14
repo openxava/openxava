@@ -1,8 +1,8 @@
 JSP Removal
 -----------
-- Buscar el uso de xava.coreViaAJAX y ver si deberíamos modernizar el nombre
 - Suite.
 - Pruebas manuales de estilo, layout y charts.
 - Documentación, si es necesario.
 - Rehacer changelog.
+    - Attributo de sesión xava.coreViaAJAX renombrado como xava.coreViaHotwire. (no en migración)
 - Borrar MDs.

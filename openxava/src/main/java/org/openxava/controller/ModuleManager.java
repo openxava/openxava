@@ -2001,19 +2001,19 @@ public class ModuleManager implements java.io.Serializable {
 	}
 	
 	/**
-	 * If true the first load of the core of the page on enter in a module is done via AJAX. <br>
+	 * If true the first load of the core of the page on enter in a module is done via Hotwire. <br>
 	 * 
-	 * It takes the value from xava.coreViaAJAX of the servlet session, so if you want it return false, write this code:
+	 * It takes the value from xava.coreViaHotwire of the servlet session, so if you want it return false, write this code:
 	 * <pre>
-	 * session.setAttribute("xava.coreViaAJAX", false);
+	 * session.setAttribute("xava.coreViaHotwire", false);
 	 * </pre>
 	 * 
 	 * Put it to false when you need several modules in the same page.
 	 */
-	public boolean isCoreViaAJAX(HttpServletRequest request) {
-		Boolean coreViaAJAX = (Boolean) request.getSession().getAttribute("xava.coreViaAJAX");
-		if (coreViaAJAX == null) return true;
-		return coreViaAJAX;
+	public boolean isCoreViaHotwire(HttpServletRequest request) {
+		Boolean coreViaHotwire = (Boolean) request.getSession().getAttribute("xava.coreViaHotwire");
+		if (coreViaHotwire == null) return true;
+		return coreViaHotwire;
 	}
 	
 	/** 

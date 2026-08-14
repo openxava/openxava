@@ -390,8 +390,8 @@ public class HotwireTest extends ModuleTestBase {
 	
 	public void testOnlyLoadModifiedParts() throws Exception { 
 		changeModule("Customer"); 
-		// assertLoadedParts(""); // When coreViaAJAX=false, currently not used
-		assertLoadedParts("core"); // When coreViaAJAX=true, the default behavior 
+		// assertLoadedParts(""); // When coreViaHotwire=false, currently not used
+		assertLoadedParts("core"); // When coreViaHotwire=true, the default behavior 
 		execute("List.filter");
 		assertLoadedParts("errors, view, messages"); 
 		execute("List.viewDetail", "row=0");
@@ -657,8 +657,8 @@ public class HotwireTest extends ModuleTestBase {
 	public void testDependentDescriptionsList_resetDescriptionsCache_setEditable() throws Exception {  
 		changeModule("Product2"); 
 		// Dependent descriptions list 
-		// assertLoadedParts(""); // When coreViaAJAX=false, currently not used
-		assertLoadedParts("core"); // When coreViaAJAX=false, the default behavior  
+		// assertLoadedParts(""); // When coreViaHotwire=false, currently not used
+		assertLoadedParts("core"); // When coreViaHotwire=false, the default behavior  
 		execute("CRUD.new");
 		assertLoadedParts("core, ");
 		setValue("family.number", "1");

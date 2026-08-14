@@ -1,5 +1,5 @@
 <%
-session.setAttribute("xava.coreViaAJAX", false); 
+session.setAttribute("xava.coreViaHotwire", false); 
 %>
 
 <jsp:include page="module.jsp">

@@ -149,8 +149,8 @@ public class ModulePageRenderer {
 			w.append("</head> \n<body bgcolor=\"#ffffff\">\n");
 		}
 
-		boolean coreViaAJAX = manager.isCoreViaAJAX(request);
-		if (!coreViaAJAX && restoreLastMessage) {
+		boolean coreViaHotwire = manager.isCoreViaHotwire(request);
+		if (!coreViaHotwire && restoreLastMessage) {
 			LastMessages.restore(request, app, module);
 		}
 
@@ -165,11 +165,11 @@ public class ModulePageRenderer {
 			w.append("\t</form>\n");
 		}
 		else {
-			if (!coreViaAJAX) manager.executeBeforeLoadPage(request, errors, messages);
+			if (!coreViaHotwire) manager.executeBeforeLoadPage(request, errors, messages);
 			w.append("\t<input id=\"xava_last_module_change\" type=\"hidden\" value=\"\"/>\n");
 			w.append("\t<input id=\"xava_window_id\" type=\"hidden\" value=\"").append(windowId).append("\"/>\n");
 			w.append("\t<input id=\"").append(Ids.decorate(request, "loading"))
-				.append("\" type=\"hidden\" value=\"").append(coreViaAJAX).append("\"/>\n");
+				.append("\" type=\"hidden\" value=\"").append(coreViaHotwire).append("\"/>\n");
 			w.append("\t<input id=\"").append(Ids.decorate(request, "loaded_parts"))
 				.append("\" type=\"hidden\" value=\"\"/>\n");
 			w.append("\t<input id=\"").append(Ids.decorate(request, "view_member"))
@@ -181,7 +181,7 @@ public class ModulePageRenderer {
 			w.append("\t</div>\n");
 			w.append(style.getCoreStartDecoration());
 			w.append("\t<div id=\"").append(Ids.decorate(request, "core")).append("\" class=\"ox-module\">\n");
-			if (!coreViaAJAX) {
+			if (!coreViaHotwire) {
 				w.append(CoreRenderer.render(new ViewRenderContext(request, response)));
 			}
 			w.append("\t</div>\n");
@@ -218,7 +218,7 @@ public class ModulePageRenderer {
 		else {
 			w.append("\n<span id='").append(Ids.decorate(request, "postjs")).append("'>\n</span>\n\n");
 
-			w.append(renderInitScript(request, manager, style, app, module, browser, browserIsHtmlUnit, coreViaAJAX));
+			w.append(renderInitScript(request, manager, style, app, module, browser, browserIsHtmlUnit, coreViaHotwire));
 		}
 
 		try {
@@ -234,7 +234,7 @@ public class ModulePageRenderer {
 
 	private static String renderInitScript(HttpServletRequest request, ModuleManager manager,
 			Style style, String app, String module, String browser, boolean browserIsHtmlUnit,
-			boolean coreViaAJAX) {
+			boolean coreViaHotwire) {
 		HtmlWriter w = new HtmlWriter();
 		String nonce = Nonces.get(request);
 		w.append("<script type=\"text/javascript\" nonce='").append(nonce).append("'> \n");
@@ -294,7 +294,7 @@ public class ModulePageRenderer {
 			w.append("\t\topenxava.initTheme = function () { ").append(initThemeScript).append(" }; \n");
 		}
 
-		if (coreViaAJAX) {
+		if (coreViaHotwire) {
 			w.append("\t\topenxava.init(\"").append(manager.getApplicationName()).append("\", \"")
 				.append(manager.getModuleName()).append("\", false);\n");
 			w.append("\t\topenxava.request(\"").append(manager.getApplicationName()).append("\", \"")
