@@ -1,7 +1,6 @@
 JSP Removal
 -----------
 - Test fallidos:
-    - InvoiceWithParametersInURLTest
     - SeveralModulesTest
     - TransportChargeTest
 - Suite.

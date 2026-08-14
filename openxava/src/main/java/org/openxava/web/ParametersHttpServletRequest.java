@@ -65,4 +65,8 @@ public class ParametersHttpServletRequest extends HttpServletRequestWrapper {
 		return super.getParameterValues(name);
 	}
 
+	public Map<String, String[]> getExtraParameters() {
+		return extraParameters;
+	}
+
 }

@@ -36,6 +36,7 @@ public class JspFragment {
 		if (uri == null) return "";
 		if (!uri.startsWith("/")) uri = "/xava/" + uri;
 		uri = appendContextParameters(uri, ctx.getParametersAsRequestMap());
+		uri = appendWrapperExtraParameters(uri, ctx.getRequest());
 		return Servlets.getURIAsString(unwrapParameters(ctx.getRequest()), ctx.getResponse(), uri);
 	}
 
@@ -64,6 +65,23 @@ public class JspFragment {
 			if (name.equals(key)) return true;
 		}
 		return false;
+	}
+
+	private static String appendWrapperExtraParameters(String uri, HttpServletRequest request) {
+		if (!(request instanceof ParametersHttpServletRequest)) return uri;
+		Map<String, String[]> extras = ((ParametersHttpServletRequest) request).getExtraParameters();
+		if (extras == null || extras.isEmpty()) return uri;
+		StringBuilder sb = new StringBuilder(uri);
+		char sep = uri.indexOf('?') >= 0 ? '&' : '?';
+		for (Map.Entry<String, String[]> entry : extras.entrySet()) {
+			String name = entry.getKey();
+			if (name == null || parameterPresent(uri, name)) continue;
+			String[] values = entry.getValue();
+			String value = values == null || values.length == 0 || values[0] == null ? "" : values[0];
+			sb.append(sep).append(name).append('=').append(value);
+			sep = '&';
+		}
+		return sb.toString();
 	}
 
 	/**
