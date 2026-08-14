@@ -1,7 +1,5 @@
 JSP Removal
 -----------
-- Test fallidos:
-    - TransportChargeTest
 - Buscar el uso de xava.coreViaAJAX y ver si deberíamos modernizar el nombre
 - Suite.
 - Pruebas manuales de estilo, layout y charts.
