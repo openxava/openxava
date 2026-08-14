@@ -106,7 +106,21 @@ public class CollectionFromModelRenderer {
 		w.append("</tr>");
 
 		// Data rows
-		Collection aggregates = subview.getCollectionValues();
+		Collection aggregates;
+		try {
+			aggregates = subview.getCollectionValues();
+		}
+		catch (Exception ex) {
+			int colspan = subview.getMetaPropertiesList().size() + (lineAction != null ? 1 : 0) + 1;
+			w.append("<tr><td class='ox-errors' colspan='").append(String.valueOf(colspan)).append("'>");
+			w.append(ex.getLocalizedMessage());
+			w.append("</td></tr>");
+			w.append(JspFragment.render(ctx, "editors/collectionTotals.jsp"));
+			if (sortable) w.append("</tbody>");
+			w.append("</table>");
+			if (resizeColumns) w.append("</div>");
+			return w.toString();
+		}
 		View parent = view.getParent();
 		boolean parentHasSections = parent != null && parent.hasSections();
 		boolean condition = view.isKeyEditable() && parentHasSections && !view.isRepresentsEntityReference();
