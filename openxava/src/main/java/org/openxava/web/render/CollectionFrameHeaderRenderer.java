@@ -57,10 +57,10 @@ public class CollectionFrameHeaderRenderer {
 					String ftotal = WebEditors.format(ctx.getRequest(), p,
 						collectionView.getCollectionTotal(row, column),
 						ctx.getErrors(), view.getViewName(), true);
-					w.append("&nbsp;&nbsp;");
+					w.append("&nbsp;&nbsp;&nbsp;&nbsp;");
 					w.append("<span class='").append(style.getFrameTotalsLabel()).append("'>");
 					w.append(collectionView.getCollectionTotalLabel(row, column));
-					w.append(":</span>");
+					w.append(":</span> ");
 					w.append("<span class='").append(style.getFrameTotalsValue()).append("'>");
 					w.append(ftotal);
 					w.append("</span>");
@@ -77,7 +77,7 @@ public class CollectionFrameHeaderRenderer {
 					String ftotal = WebEditors.format(ctx.getRequest(), p,
 						tab.getTotal(column), ctx.getErrors(), view.getViewName(), true);
 					String label = XavaResources.getString(ctx.getRequest(), "sum_of", p.getLabel());
-					w.append("&nbsp;&nbsp;");
+					w.append("&nbsp;&nbsp;&nbsp;&nbsp;");
 					w.append("<span class='").append(style.getFrameTotalsLabel()).append("'>");
 					w.append(label).append(":</span>");
 					w.append("<span class='").append(style.getFrameTotalsValue()).append("'>");
