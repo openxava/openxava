@@ -39,6 +39,10 @@ public class ModulePageRenderer {
 		request.setAttribute("messages", messages);
 
 		ModuleContext context = (ModuleContext) request.getSession().getAttribute("context");
+		if (context == null) {
+			context = new ModuleContext();
+			request.getSession().setAttribute("context", context);
+		}
 		String windowId = context.getWindowId(request);
 		context.setCurrentWindowId(windowId);
 		request.getSession().setAttribute("xava.user", request.getRemoteUser());
