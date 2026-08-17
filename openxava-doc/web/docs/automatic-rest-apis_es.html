@@ -1,0 +1,811 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generación automática de APIs REST - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> / <a href="index_es.html">documentación</a> /
+      </span>Generación automática de APIs REST
+    </h1>
+    <em>Todas las funcionalidades de este artículo están disponibles solo en <a href="http://openxava.org/xavapro">XavaPro</a></em>
+
+    <div id="toc">
+      <h1 class="nopad">Tabla de contenidos</h1>
+      <div style="margin-left: 1em;"><a href="#activar-la-api">Activar la API</a></div>
+      <div style="margin-left: 1em;"><a href="#documentacion-interactiva-swagger-ui">Documentación interactiva (Swagger UI)</a></div>
+      <div style="margin-left: 1em;"><a href="#autenticacion-y-seguridad">Autenticación y seguridad</a></div>
+      <div style="margin-left: 2em;"><a href="#obtener-un-token-jwt">Obtener un token JWT</a></div>
+      <div style="margin-left: 2em;"><a href="#configuracion-del-secreto-jwt">Configuración del secreto JWT</a></div>
+      <div style="margin-left: 2em;"><a href="#permisos-de-rol-y-modulo">Permisos de rol y módulo</a></div>
+      <div style="margin-left: 1em;"><a href="#endpoints-crud">Endpoints CRUD</a></div>
+      <div style="margin-left: 2em;"><a href="#resumen-de-endpoints">Resumen de endpoints</a></div>
+      <div style="margin-left: 2em;"><a href="#pluralizacion-de-url">Pluralización de URL</a></div>
+      <div style="margin-left: 2em;"><a href="#obtener-una-lista">Obtener una lista</a></div>
+      <div style="margin-left: 2em;"><a href="#obtener-por-id">Obtener por ID</a></div>
+      <div style="margin-left: 2em;"><a href="#crear-una-entidad">Crear una entidad</a></div>
+      <div style="margin-left: 2em;"><a href="#modificar-una-entidad">Modificar una entidad</a></div>
+      <div style="margin-left: 2em;"><a href="#borrar-una-entidad">Borrar una entidad</a></div>
+      <div style="margin-left: 1em;"><a href="#paginacion">Paginación</a></div>
+      <div style="margin-left: 1em;"><a href="#ordenacion">Ordenación</a></div>
+      <div style="margin-left: 1em;"><a href="#filtrado">Filtrado</a></div>
+      <div style="margin-left: 1em;"><a href="#asociaciones-y-colecciones-de-elementos">Asociaciones y colecciones de elementos</a></div>
+      <div style="margin-left: 1em;"><a href="#condiciones-base-del-tab">Condiciones base del tab</a></div>
+      <div style="margin-left: 1em;"><a href="#errores-http">Errores HTTP</a></div>
+      <div style="margin-left: 1em;"><a href="#historico-y-notificaciones">Histórico y notificaciones por correo</a></div>
+      <div style="margin-left: 1em;"><a href="#multiempresa">Multiempresa</a></div>
+      <div style="margin-left: 1em;"><a href="#configuracion-cors">Configuración CORS</a></div>
+      <div style="margin-left: 1em;"><a href="#lista-de-comprobacion-produccion">Lista de comprobación para producción</a></div>
+      <div style="margin-left: 1em;"><a href="#ejemplos-de-cliente">Ejemplos de cliente</a></div>
+    </div>
+
+    <p>Desde la v8.0 XavaPro genera y publica automáticamente
+    una API REST para todas tus entidades JPA.
+    No hace falta escribir controladores, DTOs, mapeadores ni ficheros de
+    configuración: escribe las entidades de dominio con las anotaciones
+    estándar de JPA y OpenXava, y la API REST está disponible de inmediato.</p>
+
+    <p>La API generada incluye:</p>
+
+    <ul>
+      <li>CRUD completo bajo URLs en plural, como <code>/api/customers</code>.</li>
+      <li>Una especificación OpenAPI 3 y un Swagger UI embebido en <code>/api/</code>.</li>
+      <li>Autenticación JWT con los usuarios de XavaPro y las mismas
+      restricciones de rol, módulo, acción y campo que la interfaz web.</li>
+      <li>Paginación, ordenación por varias propiedades y operadores de filtro.</li>
+      <li>Respeto de <code>@Tab(baseCondition=...)</code>, Histórico,
+      notificaciones por correo, multiempresa y CORS configurable.</li>
+    </ul>
+
+    <h2 id="activar-la-api">Activar la API</h2>
+
+    <p>Por defecto la API automática está desactivada por seguridad.
+    Puedes activarla desde la interfaz de administración
+    sin reiniciar el servidor.</p>
+
+    <p>Ve a la carpeta <i>Admin</i> del menú de la aplicación y abre
+    el módulo <i>Configuración</i>. En el formulario,
+    marca la casilla <i>Autogenerar API</i> y pulsa <i>Grabar</i>:</p>
+
+    <p><img src="files/automatic-rest-apis_es010.png" alt="Autogenerar API en Configuración" title="Autogenerar API en Configuración"></p>
+
+    <p>Una vez marcada, todos los endpoints bajo <code>/api/</code> quedan
+    activos de inmediato. Si se desmarca, cualquier petición a
+    <code>/api/*</code> recibe HTTP 404 con el cuerpo JSON
+    <code>{"error":"API is disabled"}</code>.</p>
+
+    <h2 id="documentacion-interactiva-swagger-ui">Documentación interactiva (Swagger UI)</h2>
+
+    <p>XavaPro incluye un explorador Swagger UI embebido y sin conexión
+    que permite inspeccionar y probar interactivamente cada endpoint
+    desde el navegador.</p>
+
+    <p>Para abrir Swagger UI, usa esta URL:</p>
+
+    <pre><code class="language-plaintext">http://localhost:8080/tuaplicacion/api/</code></pre>
+
+    <p><img src="files/automatic-rest-apis030.png" alt="Swagger UI en OpenXava" title="Swagger UI en OpenXava"></p>
+
+    <p>Desde Swagger UI puedes pulsar <i>Authorize</i>, pegar el JWT
+    (sin el prefijo <code>Bearer</code>; Swagger UI lo añade),
+    explorar los esquemas JSON de tus entidades
+    y ejecutar consultas contra la aplicación.</p>
+
+    <p>La especificación OpenAPI 3.0 en JSON está en:</p>
+
+    <pre><code class="language-plaintext">GET /api/openapi.json</code></pre>
+
+    <p><strong>Nota de seguridad:</strong> <code>/api/</code> y
+    <code>/api/openapi.json</code> son públicos: no piden JWT y
+    describen todos los módulos que corresponden a una entidad.
+    Trátalo como parte de la superficie de ataque en producción
+    (restringe el acceso de red, o deja la API desactivada hasta
+    que la necesites).</p>
+
+    <h2 id="autenticacion-y-seguridad">Autenticación y seguridad</h2>
+
+    <h3 id="obtener-un-token-jwt">Obtener un token JWT</h3>
+
+    <p>Todos los endpoints de la API REST (excepto <code>/api/login</code>,
+    <code>/api/</code> y <code>/api/openapi.json</code>) están protegidos
+    y exigen un JSON Web Token (JWT) en la cabecera HTTP
+    <code>Authorization</code>.</p>
+
+    <p>El login autentica contra los <strong>usuarios nativos de XavaPro</strong>
+    (las mismas cuentas y contraseñas que la interfaz web). Los proveedores
+    de inicio de sesión único como Azure AD no se usan en
+    <code>/api/login</code>.</p>
+
+    <p>Para autenticarte, envía un <code>POST</code> a <code>/api/login</code>
+    con las credenciales del usuario XavaPro:</p>
+
+    <pre><code class="language-bash">curl -X POST http://localhost:8080/tuaplicacion/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"user": "admin", "password": "adminpassword"}'</code></pre>
+
+    <p>Si las credenciales son válidas y la cuenta está activa, el servidor
+    responde HTTP 200 con el token:</p>
+
+    <pre><code class="language-json">{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}</code></pre>
+
+    <p>El token es válido durante <strong>24 horas</strong>. Cuando caduca
+    hay que volver a llamar a <code>/api/login</code>. Incluye el token
+    en las peticiones siguientes con el esquema <code>Bearer</code>:</p>
+
+    <pre><code class="language-properties">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+
+    <h3 id="configuracion-del-secreto-jwt">Configuración del secreto JWT</h3>
+
+    <p>Los tokens se firman con HMAC-SHA256.
+    En producción configura la clave secreta con la variable de entorno
+    <code>XAVA_JWT_SECRET</code> en el servidor:</p>
+
+    <pre><code class="language-bash">export XAVA_JWT_SECRET="YourSuperSecretKeyMustBeAtLeast32CharactersLong!"</code></pre>
+
+    <p><em>Nota:</em> Si <code>XAVA_JWT_SECRET</code> no está definida o
+    tiene menos de 32 caracteres, OpenXava genera un secreto aleatorio
+    efímero al arrancar. En ese caso los tokens existentes se invalidan
+    cada vez que se reinicia el servidor.</p>
+
+    <h3 id="permisos-de-rol-y-modulo">Permisos de rol y módulo</h3>
+
+    <p>La API automática aplica el mismo modelo de seguridad que
+    XavaPro en la interfaz web:</p>
+
+    <ul>
+      <li><strong>Acceso a módulos:</strong> Un usuario solo puede acceder
+      al endpoint de una entidad si sus roles tienen permiso para ver
+      ese módulo. Acceder a una entidad prohibida devuelve HTTP 403.</li>
+      <li><strong>Módulos de solo lectura:</strong> Si el módulo es de solo
+      lectura para el usuario o su rol, solo se permiten peticiones
+      <code>GET</code>. <code>POST</code>, <code>PUT</code> y
+      <code>DELETE</code> devuelven HTTP 403.</li>
+      <li><strong>Derechos de acción:</strong> Crear (<code>POST</code>)
+      exige permiso para la acción <code>new</code>; modificar
+      (<code>PUT</code>) exige <code>save</code>; borrar
+      (<code>DELETE</code>) exige <code>delete</code>.</li>
+      <li><strong>Propiedades excluidas:</strong> Las propiedades
+      configuradas como excluidas para el rol del usuario se ocultan
+      en todos los <code>GET</code> y se ignoran en
+      <code>POST</code> y <code>PUT</code>.</li>
+      <li><strong>Propiedades de solo lectura:</strong> Se devuelven en
+      los <code>GET</code> pero se ignoran en las modificaciones
+      <code>PUT</code>.</li>
+    </ul>
+
+    <p>Puedes crear un rol dedicado <i>api</i> (o varios roles de API)
+    en el módulo <i>Roles</i> para los consumidores de la API.
+    Asignar ese rol a las cuentas de API permite afinar exactamente
+    qué módulos, acciones y campos son accesibles.</p>
+
+    <h2 id="endpoints-crud">Endpoints CRUD</h2>
+
+    <h3 id="resumen-de-endpoints">Resumen de endpoints</h3>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Método HTTP</th>
+          <th>Endpoint</th>
+          <th>Descripción</th>
+          <th>Estado de éxito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>POST</code></td>
+          <td><code>/api/login</code></td>
+          <td>Autenticar usuario y obtener token JWT</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/openapi.json</code></td>
+          <td>Especificación OpenAPI 3.0 (pública)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/</code></td>
+          <td>Explorador interactivo Swagger UI (público)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/{entidad}</code></td>
+          <td>Listar registros (con paginación, ordenación y filtrado)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/{entidad}/{id}</code></td>
+          <td>Obtener un registro por clave primaria</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>POST</code></td>
+          <td><code>/api/{entidad}</code></td>
+          <td>Crear un registro nuevo</td>
+          <td>201 Created</td>
+        </tr>
+        <tr>
+          <td><code>PUT</code></td>
+          <td><code>/api/{entidad}/{id}</code></td>
+          <td>Actualizar los campos enviados en el cuerpo (actualización parcial)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>DELETE</code></td>
+          <td><code>/api/{entidad}/{id}</code></td>
+          <td>Borrar un registro</td>
+          <td>204 No Content</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="pluralizacion-de-url">Pluralización de URL</h3>
+
+    <p>El segmento de la ruta es el nombre de la entidad en minúsculas,
+    pluralizado con heurísticas simples del inglés:
+    <code>Customer</code> pasa a <code>/api/customers</code>,
+    <code>Country</code> a <code>/api/countries</code>,
+    <code>Invoice</code> a <code>/api/invoices</code>.
+    Los nombres que ya terminan en <code>s</code> (excepto
+    <code>ss</code>) se dejan igual tras pasarlos a minúsculas.
+    Si una URL generada te sorprende, consulta Swagger UI o
+    <code>/api/openapi.json</code> para ver la ruta exacta.</p>
+
+    <h3 id="obtener-una-lista">Obtener una lista</h3>
+
+    <p>Envía un <code>GET</code> a la URL plural de la entidad:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/customers" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Respuesta:</p>
+
+    <pre><code class="language-json">[
+  {
+    "number": 1,
+    "name": "ACME Corporation",
+    "creditLimit": 15000.00,
+    "address": {
+      "street": "Main Street 123",
+      "city": "Valencia",
+      "zipCode": 46001
+    }
+  },
+  {
+    "number": 2,
+    "name": "Global Tech Ltd",
+    "creditLimit": 25000.00,
+    "address": {
+      "street": "Market Square 4",
+      "city": "Madrid",
+      "zipCode": 28001
+    }
+  }
+]</code></pre>
+
+    <h3 id="obtener-por-id">Obtener por ID</h3>
+
+    <p>Envía un <code>GET</code> con la clave primaria en la ruta:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/customers/1" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>En entidades con clave primaria compuesta, separa los valores
+    con comas en el orden de declaración de las propiedades.
+    Para una entidad cuyas claves son <code>year</code> y
+    <code>number</code>:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/warehouseorders/2026,45" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Usa la clave real de la entidad. Una <code>Invoice</code>
+    identificada por un UUID <code>oid</code> se obtiene como
+    <code>/api/invoices/{oid}</code>, no como
+    <code>year,number</code>.</p>
+
+    <h3 id="crear-una-entidad">Crear una entidad</h3>
+
+    <p>Envía un <code>POST</code> con los datos de la entidad como
+    JSON en el cuerpo:</p>
+
+    <pre><code class="language-bash">curl -X POST "http://localhost:8080/tuaplicacion/api/customers" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "number": 105,
+    "name": "Innovate Software Inc",
+    "creditLimit": 50000.00,
+    "address": {
+      "street": "Tech Park Ave 12",
+      "city": "Barcelona",
+      "zipCode": 8001
+    }
+  }'</code></pre>
+
+    <p>El servidor responde HTTP 201 Created y la representación JSON
+    completa de la entidad creada.</p>
+
+    <p>Para asignar una referencia <code>@ManyToOne</code>, envía solo
+    sus campos de clave primaria. Para una factura cuyo cliente se
+    identifica por <code>number</code>:</p>
+
+    <pre><code class="language-bash">curl -X POST "http://localhost:8080/tuaplicacion/api/invoices" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "year": 2026,
+    "number": 1,
+    "customer": { "number": 1 }
+  }'</code></pre>
+
+    <h3 id="modificar-una-entidad">Modificar una entidad</h3>
+
+    <p>Envía un <code>PUT</code> con la clave primaria en la URL
+    y los campos a cambiar en el cuerpo JSON. Solo se actualizan
+    las propiedades presentes en el cuerpo; las omitidas conservan
+    su valor actual (actualización parcial, no un reemplazo completo):</p>
+
+    <pre><code class="language-bash">curl -X PUT "http://localhost:8080/tuaplicacion/api/customers/105" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Innovate Software Group",
+    "creditLimit": 75000.00
+  }'</code></pre>
+
+    <p>El servidor responde HTTP 200 OK con la entidad actualizada.</p>
+
+    <h3 id="borrar-una-entidad">Borrar una entidad</h3>
+
+    <p>Envía un <code>DELETE</code> con el identificador de la entidad:</p>
+
+    <pre><code class="language-bash">curl -X DELETE "http://localhost:8080/tuaplicacion/api/customers/105" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Si el borrado tiene éxito, el servidor responde HTTP 204 No Content.</p>
+
+    <h2 id="paginacion">Paginación</h2>
+
+    <p>Todos los endpoints de listado admiten paginación con dos
+    parámetros de consulta:</p>
+
+    <ul>
+      <li><code>page</code>: Índice de página empezando en 1
+      (por defecto <code>1</code>).</li>
+      <li><code>size</code>: Número de elementos por página
+      (por defecto <code>20</code>, máximo <code>100</code>).</li>
+    </ul>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/customers?page=2&size=10" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Los metadatos de paginación van en cabeceras HTTP:</p>
+
+    <ul>
+      <li><code>X-Total-Count</code>: Número total de registros que
+      coinciden con la consulta.</li>
+      <li><code>Link</code>: Cabecera estándar RFC 5988 con enlaces
+      <code>rel="first"</code>, <code>rel="prev"</code>,
+      <code>rel="next"</code> y <code>rel="last"</code>.
+      Los parámetros de filtro y <code>sort</code> se conservan
+      en estos enlaces.</li>
+    </ul>
+
+    <p>Ejemplo de cabeceras de respuesta:</p>
+
+    <pre><code class="language-properties">X-Total-Count: 45
+Link: &lt;http://localhost:8080/tuaplicacion/api/customers?page=1&size=10&gt;; rel="first", &lt;http://localhost:8080/tuaplicacion/api/customers?page=1&size=10&gt;; rel="prev", &lt;http://localhost:8080/tuaplicacion/api/customers?page=3&size=10&gt;; rel="next", &lt;http://localhost:8080/tuaplicacion/api/customers?page=5&size=10&gt;; rel="last"</code></pre>
+
+    <h2 id="ordenacion">Ordenación</h2>
+
+    <p>Usa el parámetro <code>sort</code> para ordenar por una o más
+    propiedades:</p>
+
+    <ul>
+      <li><strong>Ascendente:</strong> El nombre de la propiedad
+      (p. ej. <code>sort=name</code>).</li>
+      <li><strong>Descendente:</strong> Prefija el nombre con un signo
+      menos (p. ej. <code>sort=-number</code>).</li>
+      <li><strong>Varias propiedades:</strong> Sepáralas con comas
+      (p. ej. <code>sort=address.city,-creditLimit</code>).</li>
+      <li><strong>Propiedades anidadas:</strong> Usa rutas con puntos
+      para ordenar por campos de entidades referenciadas
+      (p. ej. <code>sort=seller.name</code>).</li>
+    </ul>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/customers?sort=address.city,-name" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Un campo de ordenación desconocido devuelve HTTP 400.</p>
+
+    <h2 id="filtrado">Filtrado</h2>
+
+    <p>Los resultados se pueden filtrar con parámetros que combinan
+    el nombre de la propiedad y un sufijo de operador:
+    <code>{campo}_{operador}={valor}</code>.</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Operador</th>
+          <th>Descripción</th>
+          <th>Ejemplo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>_eq</code></td>
+          <td>Igual a</td>
+          <td><code>number_eq=100</code></td>
+        </tr>
+        <tr>
+          <td><code>_ne</code></td>
+          <td>Distinto de</td>
+          <td><code>type_ne=PROSPECT</code></td>
+        </tr>
+        <tr>
+          <td><code>_gt</code></td>
+          <td>Mayor que</td>
+          <td><code>creditLimit_gt=5000</code></td>
+        </tr>
+        <tr>
+          <td><code>_gte</code></td>
+          <td>Mayor o igual que</td>
+          <td><code>creditLimit_gte=5000</code></td>
+        </tr>
+        <tr>
+          <td><code>_lt</code></td>
+          <td>Menor que</td>
+          <td><code>creditLimit_lt=10000</code></td>
+        </tr>
+        <tr>
+          <td><code>_lte</code></td>
+          <td>Menor o igual que</td>
+          <td><code>creditLimit_lte=10000</code></td>
+        </tr>
+        <tr>
+          <td><code>_like</code></td>
+          <td>Patrón sobre cadenas (<code>*</code> comodín, <code>?</code> un carácter)</td>
+          <td><code>name_like=ACME*</code></td>
+        </tr>
+        <tr>
+          <td><code>_in</code></td>
+          <td>En una lista de valores separados por comas</td>
+          <td><code>number_in=1,5,22</code></td>
+        </tr>
+        <tr>
+          <td><code>_null</code></td>
+          <td>Nulo (<code>true</code> para <code>IS NULL</code>, <code>false</code> para <code>IS NOT NULL</code>)</td>
+          <td><code>remarks_null=true</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Los filtros se pueden combinar (se evalúan con <code>AND</code>)
+    y pueden atravesar relaciones con rutas con puntos:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/customers?address.city_like=Val*&creditLimit_gte=10000&sort=-creditLimit" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Un parámetro sin sufijo de operador, un campo desconocido,
+    un valor numérico o de fecha inválido, o <code>_like</code>
+    sobre un campo que no es cadena, devuelve HTTP 400.</p>
+
+    <h2 id="asociaciones-y-colecciones-de-elementos">Asociaciones y colecciones de elementos</h2>
+
+    <p>La API automática solo serializa algunas asociaciones a JSON:</p>
+
+    <ul>
+      <li><strong>Objetos embebidos (<code>@Embedded</code>):</strong>
+      Se serializan como objetos JSON anidados con todas sus
+      propiedades. También pueden aparecer miembros calculados
+      como <code>asString</code>.</li>
+      <li><strong>Referencias (<code>@ManyToOne</code>):</strong>
+      Se serializan como objetos anidados que contienen
+      <em>solo los campos de clave primaria</em> de la entidad
+      referenciada (por ejemplo
+      <code>"customer": { "number": 1 }</code>),
+      no el registro relacionado completo. Para asignar una
+      referencia en <code>POST</code> o <code>PUT</code>,
+      envía ese mismo objeto solo-clave.</li>
+      <li><strong>Colecciones de elementos (<code>@ElementCollection</code>):</strong>
+      Se serializan como arrays JSON anidados y se pueden crear
+      o actualizar dentro del payload del padre.</li>
+      <li><strong><code>@OneToMany</code> y <code>@ManyToMany</code>:</strong>
+      No se incluyen en el JSON y no se pueden escribir a través
+      de la entidad padre. Gestiona esas filas por sus propios
+      endpoints de entidad.</li>
+      <li><strong>Datos binarios:</strong> Las propiedades
+      <code>byte[]</code> (fotos, adjuntos) se codifican como
+      cadenas Base64.</li>
+      <li><strong>Coordenadas:</strong> Las propiedades anotadas con
+      <code>@Coordinates</code> se intercambian como cadenas
+      del tipo <code>"40.0, -3.0"</code>.</li>
+    </ul>
+
+    <p>Ejemplo creando un país junto con su
+    <code>@ElementCollection</code> de idiomas:</p>
+
+    <pre><code class="language-bash">curl -X POST "http://localhost:8080/tuaplicacion/api/countries" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "code": "XY",
+    "name": "Test Country",
+    "population": 12345,
+    "languages": [
+      { "code": "l1", "name": "Language 1", "speakers": 100 },
+      { "code": "l2", "name": "Language 2", "speakers": 200 }
+    ]
+  }'</code></pre>
+
+    <h2 id="condiciones-base-del-tab">Condiciones base del tab</h2>
+
+    <p>Los endpoints de lista y de ítem usan el <code>@Tab</code>
+    por defecto del módulo. Si ese tab define un
+    <code>baseCondition</code>, la API lo aplica en todas partes,
+    no solo en el listado.</p>
+
+    <p>Por ejemplo, con:</p>
+
+    <pre><code class="language-java">@Tab(baseCondition = "deleted = false")
+public class Invoice { ... }</code></pre>
+
+    <p>las facturas borradas lógicamente no aparecen en
+    <code>GET /api/invoices</code>.
+    <code>GET</code>, <code>PUT</code> y <code>DELETE</code> por id
+    de esas filas también devuelven HTTP 404, como si el registro
+    no existiera. Así la API se alinea con lo que el usuario ve
+    en la lista web.</p>
+
+    <h2 id="errores-http">Errores HTTP</h2>
+
+    <p>Las respuestas de error usan
+    <code>Content-Type: application/json</code> y un cuerpo
+    de la forma <code>{"error":"..."}</code>.</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Estado</th>
+          <th>Cuándo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>400 Bad Request</code></td>
+          <td>Falta la entidad o el id en la ruta, parámetro de
+          consulta desconocido, campo de filtro u ordenación
+          desconocido, valor inválido, o <code>_like</code>
+          sobre un campo que no es cadena.</td>
+        </tr>
+        <tr>
+          <td><code>401 Unauthorized</code></td>
+          <td>Token ausente, inválido o caducado, usuario inactivo
+          o credenciales de login incorrectas.</td>
+        </tr>
+        <tr>
+          <td><code>403 Forbidden</code></td>
+          <td>El usuario no tiene acceso al módulo, el módulo es
+          de solo lectura para un método de escritura, o la acción
+          requerida (<code>new</code>, <code>save</code>,
+          <code>delete</code>) no está permitida.</td>
+        </tr>
+        <tr>
+          <td><code>404 Not Found</code></td>
+          <td>API desactivada, entidad u organización desconocida,
+          id desconocido, o fila oculta por el
+          <code>baseCondition</code> del tab.</td>
+        </tr>
+        <tr>
+          <td><code>500 Internal Server Error</code></td>
+          <td>Fallos de validación y errores inesperados del servidor.
+          El campo <code>error</code> contiene el mensaje de la
+          excepción.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="historico-y-notificaciones">Histórico y notificaciones por correo</h2>
+
+    <p>Las operaciones hechas por la API REST disparan los mismos
+    comportamientos de negocio de OpenXava:</p>
+
+    <ul>
+      <li><strong>Histórico (auditoría):</strong> Cuando el módulo
+      <i>Histórico</i> de XavaPro está activo, cualquier alta,
+      modificación o baja hecha por la API REST se registra con
+      el usuario autenticado, la marca de tiempo y los valores
+      cambiados.</li>
+      <li><strong>Notificaciones por correo:</strong> Si hay
+      notificaciones configuradas para los cambios de datos de
+      un módulo, se envían automáticamente cuando se modifican
+      registros a través de la API.</li>
+    </ul>
+
+    <h2 id="multiempresa">Multiempresa</h2>
+
+    <p>La arquitectura multiempresa de XavaPro está soportada por
+    completo. Cada organización tiene su propio espacio de nombres
+    de API:</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Recurso</th>
+          <th>Patrón de URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Login de organización</td>
+          <td><code>POST /api/orgs/{organizacion}/login</code></td>
+        </tr>
+        <tr>
+          <td>Swagger UI de organización</td>
+          <td><code>GET /api/orgs/{organizacion}/</code></td>
+        </tr>
+        <tr>
+          <td>Especificación OpenAPI de organización</td>
+          <td><code>GET /api/orgs/{organizacion}/openapi.json</code></td>
+        </tr>
+        <tr>
+          <td>CRUD de entidades de organización</td>
+          <td><code>/api/orgs/{organizacion}/{entidad}</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Autentícate contra la organización y llama después a ese
+    mismo espacio de nombres. El JWT no lleva la organización:
+    el tenant se elige por la URL. Usa un token obtenido de
+    <code>/api/orgs/{organizacion}/login</code> contra esa
+    organización.</p>
+
+    <p>Ejemplo de consulta de clientes de la organización
+    <em>acme_corp</em>:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/tuaplicacion/api/orgs/acme_corp/customers" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <h2 id="configuracion-cors">Configuración CORS</h2>
+
+    <p>Para que aplicaciones web alojadas en otros dominios
+    (un frontend React, Angular o Vue aparte) puedan llamar a
+    tu API, configura Cross-Origin Resource Sharing (CORS).</p>
+
+    <p>En el módulo <i>Admin &gt; Configuración</i>, rellena
+    la propiedad <i>Orígenes permitidos para API</i>:</p>
+
+    <p><img src="files/automatic-rest-apis_es020.png" alt="Orígenes permitidos para API en Configuración" title="Orígenes permitidos para API en Configuración"></p>
+
+    <p>Puedes indicar:</p>
+
+    <ul>
+      <li>Dejarlo vacío para no enviar cabeceras CORS. La API
+      funciona entonces desde páginas del mismo origen y desde
+      clientes que no son un navegador (curl, clientes HTTP
+      de servidor).</li>
+      <li>Un comodín (<code>*</code>) para permitir peticiones
+      desde cualquier origen. Con el comodín no se permiten
+      credenciales.</li>
+      <li>Una lista de orígenes separados por comas (p. ej.
+      <code>http://localhost:3000, https://app.example.com</code>).
+      En ese caso se devuelve el origen coincidente y se envía
+      <code>Access-Control-Allow-Credentials: true</code>.</li>
+    </ul>
+
+    <p>El servidor atiende automáticamente las peticiones
+    preflight <code>OPTIONS</code> y añade las cabeceras CORS
+    necesarias (<code>Access-Control-Allow-Origin</code>,
+    <code>Access-Control-Allow-Methods</code>,
+    <code>Access-Control-Allow-Headers</code> y
+    <code>Access-Control-Expose-Headers</code> para
+    <code>X-Total-Count</code> y <code>Link</code>).</p>
+
+    <h2 id="lista-de-comprobacion-produccion">Lista de comprobación para producción</h2>
+
+    <ul>
+      <li>Deja <i>Autogenerar API</i> desmarcado hasta que
+      realmente necesites la API.</li>
+      <li>Define <code>XAVA_JWT_SECRET</code> con un secreto
+      estable de al menos 32 caracteres para que los tokens
+      sobrevivan a los reinicios del servidor.</li>
+      <li>Crea un rol dedicado <i>api</i> solo con los módulos,
+      acciones y campos que cada consumidor necesita.</li>
+      <li>Recuerda que Swagger UI y <code>/api/openapi.json</code>
+      son públicos y exponen el modelo.</li>
+      <li>Configura <i>Orígenes permitidos para API</i> solo
+      para los frontends que deban llamar a la API desde un
+      navegador. No uses <code>*</code> si esos clientes envían
+      cookies u otras credenciales.</li>
+      <li>En un despliegue multiempresa, usa siempre
+      <code>/api/orgs/{organizacion}/...</code> y obtén el token
+      del login de esa organización.</li>
+    </ul>
+
+    <h2 id="ejemplos-de-cliente">Ejemplos de cliente</h2>
+
+    <p>Este ejemplo en JavaScript con <code>fetch</code> autentica,
+    obtiene una lista paginada de clientes con filtro y crea un
+    registro nuevo:</p>
+
+    <pre><code class="language-javascript">const API_BASE = 'http://localhost:8080/tuaplicacion/api';
+
+async function main() {
+  // 1. Autenticar y obtener JWT
+  const loginRes = await fetch(`${API_BASE}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: 'admin', password: 'adminpassword' })
+  });
+  const { token } = await loginRes.json();
+
+  // 2. Consultar clientes con filtro y paginación
+  const listRes = await fetch(
+    `${API_BASE}/customers?address.city_like=Val*&creditLimit_gte=5000&sort=-creditLimit&page=1&size=10`,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
+  
+  const totalCount = listRes.headers.get('X-Total-Count');
+  const customers = await listRes.json();
+  console.log(`Encontrados ${totalCount} clientes:`, customers);
+
+  // 3. Crear un cliente nuevo
+  const createRes = await fetch(`${API_BASE}/customers`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      number: 201,
+      name: 'New Horizon SL',
+      creditLimit: 30000,
+      address: {
+        street: 'Avenida del Puerto 45',
+        city: 'Valencia',
+        zipCode: 46021
+      }
+    })
+  });
+
+  const created = await createRes.json();
+  console.log('Cliente creado:', created);
+}
+
+main().catch(console.error);</code></pre>
+
+    <h2 id="ver-tambien">Véase también</h2>
+
+    <ul>
+      <li><a class="wiki_link" href="security_es.html">Seguridad y gestión de usuarios</a></li>
+      <li><a class="wiki_link" href="history_es.html">Histórico (módulo de auditoría de cambios)</a></li>
+      <li><a class="wiki_link" href="email-notifications_es.html">Notificación de cambios por correo electrónico</a></li>
+      <li><a class="wiki_link" href="multitenancy_es.html">Multiempresa/multimunicipio</a></li>
+      <li><a class="wiki_link" href="tab_es.html">Datos tabulares</a> (<code>@Tab</code> y <code>baseCondition</code>)</li>
+    </ul>
+
+  </body>
+</html>
