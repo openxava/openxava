@@ -1,6 +1,6 @@
 The automated tests in this project do not include pretty layout of UI. 
-Therefore, when you touch the layout code (a.k.a. JSPs) you have to test it visually
-at least the next cases:
+Therefore, when you touch the layout code (org.openxava.web.render) you have
+to test it visually at least the next cases:
 - InvoiceCustomerNoFrame: The properties before frames must be well aligned and on left.
 - ProductWithGroups: Data 1 and Data 2 groups in the same row. 
 	Data 2 frame must be aligned with Remarks and Photos frames on right.
@@ -10,7 +10,7 @@ at least the next cases:
 - Movie3WithSection: The @Files property is shown and fill all the section width.
 - Invoice: In Amounts section all the fields are aligned to left with labels and fields near.
 - CarrierWithCollectionsTogether: Collections frames aligned with Header frame on right. 
-- Movie3: Button must be in the same row with @File and should be align vertically in the middle of the div.
+- Movie3: Button must be in the same row with @File and should be aligned vertically in the middle of the div.
 
 With flowLayout=true in xava.properties:
 - Customer: The icon of 'Web site' property must be on right, inside the field.

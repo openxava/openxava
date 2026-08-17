@@ -416,7 +416,7 @@ public class EmailNotifications {
 	}
 	
 	private static void notifyByEntity(EntityManager manager, String type, Map key, String subject, String content, Set notifiedEmails, String permalink, String changes) {
-		String unsuscribeURL = toBaseURL(getCurrentModuleURL()) + "/xava/unsubscribe.jsp?email=";
+		String unsuscribeURL = toBaseURL(getCurrentModuleURL()) + "/xava/unsubscribe?email=";
 		String skey = keyToString(key);
 		String currentUserEmail = getCurrentUserEmail();
 		for (EmailSubscription s: EmailSubscription.findByModule(manager, getCurrentModule() + keyToString(key))) {

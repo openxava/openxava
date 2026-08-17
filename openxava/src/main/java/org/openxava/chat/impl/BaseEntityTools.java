@@ -60,7 +60,7 @@ public abstract class BaseEntityTools {
 		if (tab == null) {
 			checkEntityAvailable(entity);
 			tab = new Tab();
-			// This code is also in execute.jsp, should we refactor?
+			// This code is also in ModuleExecutor, should we refactor?
 			ModuleManager manager = (ModuleManager) context.get(application, entity, "manager", "org.openxava.controller.ModuleManager");
 			manager.setSession(session);
 			log.debug("BaseEntityTools.getTab() application=" + application + ", entity=" + entity);

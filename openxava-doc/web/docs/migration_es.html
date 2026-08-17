@@ -871,6 +871,31 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
 
     <p>Pedir a un asistente de IA que migre tu lógica de DWR a <i>fetch</i> + servlet es altamente recomendable y suele dar muy buen resultado.</p>
 
+    <h3>Generador de interfaz de usuario migrado de JSP a Java</h3>
+
+    <p>El generador de la interfaz de usuario de OpenXava (la carpeta <i>xava</i>, 
+    que incluye <i>core.jsp</i>, <i>detail.jsp</i>, <i>list.jsp</i>, <i>buttonBar.jsp</i>, 
+    <i>bottomButtons.jsp</i>, <i>sections.jsp</i>, etc.) ha sido completamente 
+    reescrito en Java plano (en el paquete <i>org.openxava.web.render</i>) y todos 
+    esos archivos JSP han sido eliminados de OpenXava.</p>
+
+    <p>Si tu proyecto (especialmente si viene de OpenXava 6 o anterior, donde los JSPs 
+    estaban copiados en el proyecto) contiene copias personalizadas de estos archivos 
+    JSP del núcleo en la carpeta <i>src/main/webapp/xava</i> (o <i>web/xava</i>), 
+    estas personalizaciones <b>dejarán de tener efecto</b> porque OpenXava ya no 
+    invoca dichos JSPs. Puedes eliminar esos archivos JSP obsoletos de tu proyecto.</p>
+
+    <p>Ten en cuenta que esto solo afecta a los JSPs del núcleo de <i>xava</i>. 
+    Los siguientes elementos siguen funcionando mediante JSP como hasta ahora:</p>
+
+    <ul>
+      <li>Editores personalizados en <i>src/main/webapp/xava/editors</i>.</li>
+      <li>Páginas de navegación e inicio de sesión en <i>src/main/webapp/naviox</i> 
+      (<i>welcome.jsp</i>, <i>firstSteps.jsp</i>, <i>signIn.jsp</i>, <i>indexExt.jsp</i>, etc.).</li>
+      <li>Vistas personalizadas de módulos (mediante <i>getCustomView()</i> en acciones 
+      o <i>web-view-url</i> en <i>application.xml</i>).</li>
+    </ul>
+
     <h3>JasperReports 7: Migración de JRXML</h3>
 
     <p>OpenXava 8.0 actualiza JasperReports de la versión 6 a la versión 7. JasperReports 7

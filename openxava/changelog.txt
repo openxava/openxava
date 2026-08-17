@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- Module request execution moved from execute.jsp to plain Java (ModuleExecutor).
-- resetPreferences.jsp replaced by ResetPreferencesServlet.
+- New user interface generator written in pure Java. Dropped legacy JSP renderer.
+- Session attribute xava.coreViaAJAX renamed to xava.coreViaHotwire.
 - JavaMail upgraded to Jakarta Mail 2.1 (Eclipse Angus 2.0.5).
 - Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
 - New projects created from archetypes no longer require an explicit Lombok version in pom.xml.
