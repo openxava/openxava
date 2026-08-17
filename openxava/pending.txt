@@ -1,7 +1,0 @@
-JSP Removal
------------
-- Documentación, si es necesario.
-- Rehacer changelog.
-    - Attributo de sesión xava.coreViaAJAX renombrado como xava.coreViaHotwire. (no en migración)
-    - Architecture incubation doc removed
-- Borrar MDs.
