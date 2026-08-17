@@ -1,7 +1,6 @@
 JSP Removal
 -----------
 - Suite.
-    - DeliveryTest.testSearchingByAnyPropertyUsingRefresh() // TMR ME QUEDÉ POR AQUÍ, PARA ARREGLARLO
     - HunterTest
 - Pruebas manuales de estilo, layout y charts.
 - Documentación, si es necesario.
