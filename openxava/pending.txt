@@ -1,6 +1,5 @@
 JSP Removal
 -----------
-- Suite.
 - Pruebas manuales de estilo, layout y charts.
 - Documentación, si es necesario.
 - Rehacer changelog.
