@@ -1,5 +1,7 @@
 package org.openxava.web.render;
 
+import java.net.*;
+import java.nio.charset.*;
 import java.util.*;
 
 import jakarta.servlet.*;
@@ -48,9 +50,15 @@ public class JspFragment {
 			String name = entry.getKey();
 			if (name == null || parameterPresent(uri, name)) continue;
 			String[] values = entry.getValue();
-			String value = values == null || values.length == 0 || values[0] == null ? "" : values[0];
-			sb.append(sep).append(name).append('=').append(value);
-			sep = '&';
+			if (values == null || values.length == 0) {
+				sb.append(sep).append(encode(name)).append('=');
+				sep = '&';
+			} else {
+				for (String value : values) {
+					sb.append(sep).append(encode(name)).append('=').append(encode(value == null ? "" : value));
+					sep = '&';
+				}
+			}
 		}
 		return sb.toString();
 	}
@@ -62,7 +70,7 @@ public class JspFragment {
 		for (String pair : query.split("&")) {
 			int eq = pair.indexOf('=');
 			String key = eq < 0 ? pair : pair.substring(0, eq);
-			if (name.equals(key)) return true;
+			if (name.equals(key) || name.equals(decode(key))) return true;
 		}
 		return false;
 	}
@@ -77,11 +85,29 @@ public class JspFragment {
 			String name = entry.getKey();
 			if (name == null || parameterPresent(uri, name)) continue;
 			String[] values = entry.getValue();
-			String value = values == null || values.length == 0 || values[0] == null ? "" : values[0];
-			sb.append(sep).append(name).append('=').append(value);
-			sep = '&';
+			if (values == null || values.length == 0) {
+				sb.append(sep).append(encode(name)).append('=');
+				sep = '&';
+			} else {
+				for (String value : values) {
+					sb.append(sep).append(encode(name)).append('=').append(encode(value == null ? "" : value));
+					sep = '&';
+				}
+			}
 		}
 		return sb.toString();
+	}
+
+	private static String encode(String value) {
+		return URLEncoder.encode(value, StandardCharsets.UTF_8);
+	}
+
+	private static String decode(String value) {
+		try {
+			return URLDecoder.decode(value, StandardCharsets.UTF_8);
+		} catch (Exception e) {
+			return value;
+		}
 	}
 
 	/**
