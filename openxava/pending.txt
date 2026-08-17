@@ -1,7 +1,6 @@
 JSP Removal
 -----------
 - Suite.
-    - HunterTest
 - Pruebas manuales de estilo, layout y charts.
 - Documentación, si es necesario.
 - Rehacer changelog.
