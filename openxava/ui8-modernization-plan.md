@@ -64,7 +64,7 @@ Definir en `base.css` como tokens en `:root`:
 - [ ] Eliminar reglas muertas en `base.css` (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`, `layer-background-color`).
 - [ ] Valorar eliminación de `default.css` (estilos de portal de 2004) si ya no se usa.
 
-## Fase 3 (opcional, decidir tras los bloques)
+## Mejoras opcionales posteriores (decidir tras los bloques)
 
 - Densidad compacta/confortable como preferencia de usuario.
 - Menú de usuario con avatar/iniciales arriba a la derecha, absorbiendo "Sign out".
