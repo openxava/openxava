@@ -1,0 +1,676 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Automatic REST API generation - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+  </head>
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0">
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/">
+            <span>o</span>pen<span>x</span>ava
+          </a>
+        </span> / <a href="index_en.html">documentation</a> /
+      </span>Automatic REST API generation
+    </h1>
+    <em>All the features in this article are available only in <a href="http://openxava.org/xavapro">XavaPro</a></em>
+
+    <div id="toc">
+      <h1 class="nopad">Table of contents</h1>
+      <div style="margin-left: 1em;"><a href="#enabling-the-api">Enabling the API</a></div>
+      <div style="margin-left: 1em;"><a href="#interactive-documentation-swagger-ui">Interactive documentation (Swagger UI)</a></div>
+      <div style="margin-left: 1em;"><a href="#authentication-and-security">Authentication and security</a></div>
+      <div style="margin-left: 2em;"><a href="#obtaining-a-jwt-token">Obtaining a JWT token</a></div>
+      <div style="margin-left: 2em;"><a href="#jwt-secret-configuration">JWT secret configuration</a></div>
+      <div style="margin-left: 2em;"><a href="#role-and-module-permissions">Role and module permissions</a></div>
+      <div style="margin-left: 1em;"><a href="#crud-endpoints">CRUD endpoints</a></div>
+      <div style="margin-left: 2em;"><a href="#endpoint-summary">Endpoint summary</a></div>
+      <div style="margin-left: 2em;"><a href="#url-pluralization">URL pluralization</a></div>
+      <div style="margin-left: 2em;"><a href="#retrieving-a-list">Retrieving a list</a></div>
+      <div style="margin-left: 2em;"><a href="#retrieving-by-id">Retrieving by ID</a></div>
+      <div style="margin-left: 2em;"><a href="#creating-an-entity">Creating an entity</a></div>
+      <div style="margin-left: 2em;"><a href="#updating-an-entity">Updating an entity</a></div>
+      <div style="margin-left: 2em;"><a href="#deleting-an-entity">Deleting an entity</a></div>
+      <div style="margin-left: 1em;"><a href="#pagination">Pagination</a></div>
+      <div style="margin-left: 1em;"><a href="#sorting">Sorting</a></div>
+      <div style="margin-left: 1em;"><a href="#filtering">Filtering</a></div>
+      <div style="margin-left: 1em;"><a href="#associations-and-element-collections">Associations and element collections</a></div>
+      <div style="margin-left: 1em;"><a href="#tab-base-conditions">Tab base conditions</a></div>
+      <div style="margin-left: 1em;"><a href="#http-errors">HTTP errors</a></div>
+      <div style="margin-left: 1em;"><a href="#audit-trail-and-email-notifications">Audit trail and email notifications</a></div>
+      <div style="margin-left: 1em;"><a href="#multitenancy">Multitenancy</a></div>
+      <div style="margin-left: 1em;"><a href="#cors-configuration">CORS configuration</a></div>
+      <div style="margin-left: 1em;"><a href="#production-checklist">Production checklist</a></div>
+      <div style="margin-left: 1em;"><a href="#client-examples">Client examples</a></div>
+    </div>
+
+    <p>Since v8.0 XavaPro automatically generates
+    and publishes a REST API for all your JPA entities.
+    You do not need to write controllers, DTOs, mappers, or configuration files:
+    just write your domain entities with standard JPA and OpenXava annotations,
+    and the REST API is immediately available.</p>
+
+    <p>The generated API includes:</p>
+
+    <ul>
+      <li>Full CRUD under plural URLs such as <code>/api/customers</code>.</li>
+      <li>An OpenAPI 3 specification and an embedded Swagger UI at <code>/api/</code>.</li>
+      <li>JWT authentication using XavaPro users, plus the same role, module,
+      action, and field restrictions as the web UI.</li>
+      <li>Pagination, multi-property sorting, and filter operators.</li>
+      <li>Respect for <code>@Tab(baseCondition=...)</code>, History, email
+      notifications, and multitenancy.</li>
+      <li>Configurable CORS for browser-based frontends.</li>
+    </ul>
+
+    <h2 id="enabling-the-api">Enabling the API</h2>
+
+    <p>By default, the automatic API is turned off for security.
+    You can easily activate it from the administration user interface
+    without restarting the server.</p>
+
+    <p>Go to the <i>Admin</i> folder in your application menu and open
+    the <i>Configuration</i> module. In the configuration form,
+    check the <i>Auto generate API</i> checkbox and click <i>Save</i>:</p>
+
+    <p><img src="files/automatic-rest-apis_en010.png" alt="Auto generate API in Configuration" title="Auto generate API in Configuration"></p>
+
+    <p>Once checked, all endpoints under the <code>/api/</code> path become active
+    immediately. If unchecked, any incoming request to <code>/api/*</code> receives
+    an HTTP 404 response with a JSON body <code>{"error":"API is disabled"}</code>.</p>
+
+    <h2 id="interactive-documentation-swagger-ui">Interactive documentation (Swagger UI)</h2>
+
+    <p>XavaPro includes an embedded, offline Swagger UI explorer that allows
+    you to inspect and interactively test every available endpoint directly
+    from your browser.</p>
+
+    <p>To access Swagger UI, open the following URL in your browser:</p>
+
+    <pre><code class="language-plaintext">http://localhost:8080/yourapp/api/</code></pre>
+
+    <p><img src="files/automatic-rest-apis030.png" alt="Swagger UI in OpenXava" title="Swagger UI in OpenXava"></p>
+
+    <p>From the Swagger UI interface, you can click the <i>Authorize</i>
+    button, paste the JWT (without the <code>Bearer</code> prefix; Swagger UI
+    adds it), explore the JSON schemas of your entities,
+    and execute queries directly against your application.</p>
+
+    <p>The raw OpenAPI 3.0 specification in JSON format is available at:</p>
+
+    <pre><code class="language-plaintext">GET /api/openapi.json</code></pre>
+
+    <p><strong>Security note:</strong> <code>/api/</code> and
+    <code>/api/openapi.json</code> are public: they do not require a JWT and
+    they describe every module that maps to an entity. Treat that as part of
+    your attack surface in production (restrict network access, or keep the
+    API disabled until you need it).</p>
+
+    <h2 id="authentication-and-security">Authentication and security</h2>
+
+    <h3 id="obtaining-a-jwt-token">Obtaining a JWT token</h3>
+
+    <p>All REST API endpoints (except <code>/api/login</code>, <code>/api/</code>,
+    and <code>/api/openapi.json</code>) are protected and require a JSON Web
+    Token (JWT) passed in the <code>Authorization</code> HTTP header.</p>
+
+    <p>To authenticate, send a <code>POST</code> request to <code>/api/login</code>
+    with the XavaPro user credentials:</p>
+
+    <pre><code class="language-bash">curl -X POST http://localhost:8080/yourapp/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"user": "admin", "password": "adminpassword"}'</code></pre>
+
+    <p>If the credentials are valid and the user account is active, the server
+    returns an HTTP 200 response with the token:</p>
+
+    <pre><code class="language-json">{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}</code></pre>
+
+    <p>The token is valid for <strong>24 hours</strong>. After it expires,
+    <code>/api/login</code> must be called again. Include the token in all
+    subsequent requests using the <code>Bearer</code> scheme:</p>
+
+    <pre><code class="language-properties">Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code></pre>
+
+    <h3 id="jwt-secret-configuration">JWT secret configuration</h3>
+
+    <p>Tokens are cryptographically signed using the HMAC-SHA256 algorithm.
+    For production environments, configure the secret key by setting
+    the <code>XAVA_JWT_SECRET</code> environment variable on your server:</p>
+
+    <pre><code class="language-bash">export XAVA_JWT_SECRET="YourSuperSecretKeyMustBeAtLeast32CharactersLong!"</code></pre>
+
+    <p><em>Note:</em> If the <code>XAVA_JWT_SECRET</code> variable is not set or
+    has fewer than 32 characters, OpenXava generates an ephemeral random secret
+    key on application startup. In that case, existing tokens will be invalidated
+    whenever the server restarts.</p>
+
+    <h3 id="role-and-module-permissions">Role and module permissions</h3>
+
+    <p>The automatic API strictly enforces the same security model defined
+    in XavaPro for the web interface:</p>
+
+    <ul>
+      <li><strong>Module access:</strong> A user can only access an entity endpoint
+      if their assigned roles have permission to view that module.
+      Accessing a forbidden entity returns HTTP 403.</li>
+      <li><strong>Read-only modules:</strong> If a module is marked as read-only
+      for the user or their role, only <code>GET</code> requests are permitted.
+      <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> return HTTP 403.</li>
+      <li><strong>Action rights:</strong> Creating records (<code>POST</code>)
+      requires permission for the <code>new</code> action; updating records (<code>PUT</code>)
+      requires permission for the <code>save</code> action; deleting records (<code>DELETE</code>)
+      requires permission for the <code>delete</code> action.</li>
+      <li><strong>Excluded properties:</strong> Properties configured as excluded
+      for the user's role are hidden from all <code>GET</code> responses and ignored
+      on <code>POST</code> and <code>PUT</code>.</li>
+      <li><strong>Read-only properties:</strong> Properties configured as read-only
+      for the user's role are returned in <code>GET</code> responses but ignored
+      during <code>PUT</code> modifications.</li>
+    </ul>
+
+    <p>You can create a dedicated <i>api</i> role (or multiple API roles)
+    in the <i>Roles</i> module specifically for API consumers.
+    Assigning this role to the API user accounts lets you fine-tune exactly
+    which modules, actions, and fields are accessible through the REST API.</p>
+
+    <h2 id="crud-endpoints">CRUD endpoints</h2>
+
+    <h3 id="endpoint-summary">Endpoint summary</h3>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>HTTP Method</th>
+          <th>Endpoint</th>
+          <th>Description</th>
+          <th>Success Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>POST</code></td>
+          <td><code>/api/login</code></td>
+          <td>Authenticate user and obtain JWT token</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/openapi.json</code></td>
+          <td>OpenAPI 3.0 specification (public)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/</code></td>
+          <td>Interactive Swagger UI explorer (public)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/{entity}</code></td>
+          <td>List records (with pagination, sorting, and filtering)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>GET</code></td>
+          <td><code>/api/{entity}/{id}</code></td>
+          <td>Get a single record by primary key</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>POST</code></td>
+          <td><code>/api/{entity}</code></td>
+          <td>Create a new record</td>
+          <td>201 Created</td>
+        </tr>
+        <tr>
+          <td><code>PUT</code></td>
+          <td><code>/api/{entity}/{id}</code></td>
+          <td>Update the fields sent in the body (partial update)</td>
+          <td>200 OK</td>
+        </tr>
+        <tr>
+          <td><code>DELETE</code></td>
+          <td><code>/api/{entity}/{id}</code></td>
+          <td>Delete a record</td>
+          <td>204 No Content</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="url-pluralization">URL pluralization</h3>
+
+    <p>The path segment is the entity name in lower case, pluralized with
+    simple English heuristics: <code>Customer</code> becomes
+    <code>/api/customers</code>, <code>Country</code> becomes
+    <code>/api/countries</code>, <code>Invoice</code> becomes
+    <code>/api/invoices</code>. Names that already end in
+    <code>s</code> (except <code>ss</code>) are left as-is after lowercasing.
+    If a generated URL surprises you, check Swagger UI or
+    <code>/api/openapi.json</code> for the exact path.</p>
+
+    <h3 id="retrieving-a-list">Retrieving a list</h3>
+
+    <p>Sends a <code>GET</code> request to the plural entity URL:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/customers" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Response:</p>
+
+    <pre><code class="language-json">[
+  {
+    "number": 1,
+    "name": "ACME Corporation",
+    "creditLimit": 15000.00,
+    "address": {
+      "street": "Main Street 123",
+      "city": "Valencia",
+      "zipCode": 46001
+    }
+  },
+  {
+    "number": 2,
+    "name": "Global Tech Ltd",
+    "creditLimit": 25000.00,
+    "address": {
+      "street": "Market Square 4",
+      "city": "Madrid",
+      "zipCode": 28001
+    }
+  }
+]</code></pre>
+
+    <h3 id="retrieving-by-id">Retrieving by ID</h3>
+
+    <p>Sends a <code>GET</code> request with the primary key in the path:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/customers/1" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>For entities with a composite primary key, separate the key values
+    with commas in the order of property declaration. For an entity whose
+    key properties are <code>year</code> and <code>number</code>:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/warehouseorders/2026,45" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Use the real key of the entity. An <code>Invoice</code> that is
+    identified by a UUID <code>oid</code> is retrieved as
+    <code>/api/invoices/{oid}</code>, not as <code>year,number</code>.</p>
+
+    <h3 id="creating-an-entity">Creating an entity</h3>
+
+    <p>Sends a <code>POST</code> request with the entity data as a JSON payload
+    in the request body:</p>
+
+    <pre><code class="language-bash">curl -X POST "http://localhost:8080/yourapp/api/customers" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "number": 105,
+    "name": "Innovate Software Inc",
+    "creditLimit": 50000.00,
+    "address": {
+      "street": "Tech Park Ave 12",
+      "city": "Barcelona",
+      "zipCode": 8001
+    }
+  }'</code></pre>
+
+    <p>The server returns HTTP 201 Created and the complete JSON representation
+    of the created entity.</p>
+
+    <p>To assign a <code>@ManyToOne</code> reference, send only its
+    primary-key fields. For an invoice whose customer is identified by
+    <code>number</code>:</p>
+
+    <pre><code class="language-bash">curl -X POST "http://localhost:8080/yourapp/api/invoices" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "year": 2026,
+    "number": 1,
+    "customer": { "number": 1 }
+  }'</code></pre>
+
+    <h3 id="updating-an-entity">Updating an entity</h3>
+
+    <p>Sends a <code>PUT</code> request specifying the primary key in the URL
+    and the fields to change in the JSON body. Only the properties present
+    in the body are updated; omitted fields keep their current values
+    (a partial update, not a full replace):</p>
+
+    <pre><code class="language-bash">curl -X PUT "http://localhost:8080/yourapp/api/customers/105" \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Innovate Software Group",
+    "creditLimit": 75000.00
+  }'</code></pre>
+
+    <p>The server returns HTTP 200 OK along with the updated entity.</p>
+
+    <h3 id="deleting-an-entity">Deleting an entity</h3>
+
+    <p>Sends a <code>DELETE</code> request with the entity ID:</p>
+
+    <pre><code class="language-bash">curl -X DELETE "http://localhost:8080/yourapp/api/customers/105" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Upon successful deletion, the server responds with HTTP 204 No Content.</p>
+
+    <h2 id="pagination">Pagination</h2>
+
+    <p>All list endpoints support pagination through two query parameters:</p>
+
+    <ul>
+      <li><code>page</code>: The 1-based page index (defaults to <code>1</code>).</li>
+      <li><code>size</code>: The number of items per page (defaults to <code>20</code>,
+      maximum <code>100</code>).</li>
+    </ul>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/customers?page=2&size=10" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>Pagination metadata is communicated through HTTP response headers:</p>
+
+    <ul>
+      <li><code>X-Total-Count</code>: The total number of records matching the query.</li>
+      <li><code>Link</code>: Standard RFC 5988 header providing navigational links
+      to <code>rel="first"</code>, <code>rel="prev"</code>, <code>rel="next"</code>,
+      and <code>rel="last"</code>. Filter and <code>sort</code> parameters are
+      preserved in these links.</li>
+    </ul>
+
+    <p>Example response headers:</p>
+
+    <pre><code class="language-properties">X-Total-Count: 45
+Link: &lt;http://localhost:8080/yourapp/api/customers?page=1&size=10&gt;; rel="first", &lt;http://localhost:8080/yourapp/api/customers?page=1&size=10&gt;; rel="prev", &lt;http://localhost:8080/yourapp/api/customers?page=3&size=10&gt;; rel="next", &lt;http://localhost:8080/yourapp/api/customers?page=5&size=10&gt;; rel="last"</code></pre>
+
+    <h2 id="sorting">Sorting</h2>
+
+    <p>Use the <code>sort</code> query parameter to order query results by one
+    or more properties:</p>
+
+    <ul>
+      <li><strong>Ascending:</strong> Provide the property name
+      (e.g., <code>sort=name</code>).</li>
+      <li><strong>Descending:</strong> Prefix the property name with a minus sign
+      (e.g., <code>sort=-number</code>).</li>
+      <li><strong>Multiple properties:</strong> Separate properties with commas
+      (e.g., <code>sort=address.city,-creditLimit</code>).</li>
+      <li><strong>Nested properties:</strong> Use dotted path syntax to sort by
+      referenced entity fields (e.g., <code>sort=seller.name</code>).</li>
+    </ul>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/customers?sort=address.city,-name" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <p>An unknown sort field returns HTTP 400.</p>
+
+    <h2 id="filtering">Filtering</h2>
+
+    <p>Query results can be filtered by specifying query parameters that combine
+    the property name with an explicit operator suffix:
+    <code>{field}_{operator}={value}</code>.</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Operator</th>
+          <th>Description</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>_eq</code></td>
+          <td>Equal to</td>
+          <td><code>number_eq=100</code></td>
+        </tr>
+        <tr>
+          <td><code>_ne</code></td>
+          <td>Not equal to</td>
+          <td><code>type_ne=PROSPECT</code></td>
+        </tr>
+        <tr>
+          <td><code>_gt</code></td>
+          <td>Greater than</td>
+          <td><code>creditLimit_gt=5000</code></td>
+        </tr>
+        <tr>
+          <td><code>_gte</code></td>
+          <td>Greater than or equal to</td>
+          <td><code>creditLimit_gte=5000</code></td>
+        </tr>
+        <tr>
+          <td><code>_lt</code></td>
+          <td>Less than</td>
+          <td><code>creditLimit_lt=10000</code></td>
+        </tr>
+        <tr>
+          <td><code>_lte</code></td>
+          <td>Less than or equal to</td>
+          <td><code>creditLimit_lte=10000</code></td>
+        </tr>
+        <tr>
+          <td><code>_like</code></td>
+          <td>Pattern matching on strings (<code>*</code> for wildcard, <code>?</code> for single character)</td>
+          <td><code>name_like=ACME*</code></td>
+        </tr>
+        <tr>
+          <td><code>_in</code></td>
+          <td>In a comma-separated list of values</td>
+          <td><code>number_in=1,5,22</code></td>
+        </tr>
+        <tr>
+          <td><code>_null</code></td>
+          <td>Check if null (<code>true</code> for <code>IS NULL</code>, <code>false</code> for <code>IS NOT NULL</code>)</td>
+          <td><code>remarks_null=true</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Filters can be combined (they are evaluated with logical <code>AND</code>)
+    and can traverse relationships using dotted paths:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/customers?address.city_like=Val*&creditLimit_gte=10000&sort=-creditLimit" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <h2 id="associations-and-element-collections">Associations and element collections</h2>
+
+    <p>The automatic API serializes references and embedded collections naturally into JSON:</p>
+
+    <ul>
+      <li><strong>Embedded objects and references:</strong> Objects annotated with
+      <code>@Embedded</code> or <code>@ManyToOne</code> are serialized as nested JSON
+      objects containing their properties and primary key.</li>
+      <li><strong>Element collections:</strong> Collections annotated with
+      <code>@ElementCollection</code> are automatically serialized as nested JSON
+      arrays of objects and can be created or updated directly within the parent payload.</li>
+      <li><strong>Binary data:</strong> Binary properties (such as photos or
+      attachments) are encoded as Base64 strings.</li>
+    </ul>
+
+    <h2 id="audit-trail-and-email-notifications">Audit trail and email notifications</h2>
+
+    <p>Operations performed through the REST API seamlessly trigger existing
+    OpenXava business behaviors:</p>
+
+    <ul>
+      <li><strong>History (audit trail):</strong> When the XavaPro <i>History</i> module
+      is active, any insertion, modification, or deletion made via the REST API
+      is logged with the authenticated username, timestamp, and changed values.</li>
+      <li><strong>Email notifications:</strong> If email notifications are configured
+      for data changes on a module, notifications are automatically dispatched
+      when records are modified through the API.</li>
+    </ul>
+
+    <h2 id="multitenancy">Multitenancy</h2>
+
+    <p>XavaPro's multi-organization architecture is fully supported by the
+    automatic REST API. Each organization has its own isolated API namespace:</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <thead>
+        <tr style="background-color: #f2f2f2;">
+          <th>Resource</th>
+          <th>URL Pattern</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Organization Login</td>
+          <td><code>POST /api/orgs/{organization}/login</code></td>
+        </tr>
+        <tr>
+          <td>Organization Swagger UI</td>
+          <td><code>GET /api/orgs/{organization}/</code></td>
+        </tr>
+        <tr>
+          <td>Organization OpenAPI Spec</td>
+          <td><code>GET /api/orgs/{organization}/openapi.json</code></td>
+        </tr>
+        <tr>
+          <td>Organization Entity CRUD</td>
+          <td><code>/api/orgs/{organization}/{entity}</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Authenticate against the organization and then call that same
+    namespace. The JWT does not carry the organization: the tenant is
+    selected by the URL. Use a token obtained from
+    <code>/api/orgs/{organization}/login</code> against that organization.</p>
+
+    <p>Example request to query customers belonging to organization <em>acme_corp</em>:</p>
+
+    <pre><code class="language-bash">curl -X GET "http://localhost:8080/yourapp/api/orgs/acme_corp/customers" \
+  -H "Authorization: Bearer $TOKEN"</code></pre>
+
+    <h2 id="cors-configuration">CORS configuration</h2>
+
+    <p>To enable web applications hosted on other domains (such as a separate
+    React, Angular, or Vue frontend) to call your API, you can configure
+    Cross-Origin Resource Sharing (CORS).</p>
+
+    <p>In the <i>Admin &gt; Configuration</i> module, set the
+    <i>Api allowed origins</i> property:</p>
+
+    <p><img src="files/automatic-rest-apis_en020.png" alt="API allowed origins in Configuration" title="API allowed origins in Configuration"></p>
+
+    <p>You can specify:</p>
+
+    <ul>
+      <li>Leave it empty to send no CORS headers. The API then works from
+      same-origin pages and from non-browser clients (curl, server-side
+      HTTP clients).</li>
+      <li>A wildcard (<code>*</code>) to permit requests from any origin.
+      Credentials are not allowed when the wildcard is used.</li>
+      <li>A comma-separated list of allowed origins (e.g.,
+      <code>http://localhost:3000, https://app.example.com</code>).
+      In this case the matching origin is echoed back and
+      <code>Access-Control-Allow-Credentials: true</code> is sent.</li>
+    </ul>
+
+    <p>The server automatically handles <code>OPTIONS</code> preflight requests
+    and adds the necessary CORS response headers (<code>Access-Control-Allow-Origin</code>,
+    <code>Access-Control-Allow-Methods</code>, <code>Access-Control-Allow-Headers</code>,
+    and <code>Access-Control-Expose-Headers</code> for <code>X-Total-Count</code>
+    and <code>Link</code>).</p>
+
+    <h2 id="production-checklist">Production checklist</h2>
+
+    <ul>
+      <li>Leave <i>Auto generate API</i> unchecked until you actually need the API.</li>
+      <li>Set <code>XAVA_JWT_SECRET</code> to a stable secret of at least 32
+      characters so tokens survive server restarts.</li>
+      <li>Create a dedicated <i>api</i> role with only the modules, actions,
+      and fields each consumer needs.</li>
+      <li>Remember that Swagger UI and <code>/api/openapi.json</code> are
+      public and expose the model.</li>
+      <li>Configure <i>Api allowed origins</i> only for the frontends that
+      must call the API from a browser. Do not use <code>*</code> if those
+      clients send cookies or other credentials.</li>
+      <li>In a multi-organization deployment, always use
+      <code>/api/orgs/{organization}/...</code> and obtain the token from
+      that organization's login.</li>
+    </ul>
+
+    <h2 id="client-examples">Client examples</h2>
+
+    <p>Here is a complete JavaScript example using <code>fetch</code> to authenticate,
+    fetch a paginated list of customers with filtering, and create a new record:</p>
+
+    <pre><code class="language-javascript">const API_BASE = 'http://localhost:8080/yourapp/api';
+
+async function main() {
+  // 1. Authenticate and obtain JWT
+  const loginRes = await fetch(`${API_BASE}/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user: 'admin', password: 'adminpassword' })
+  });
+  const { token } = await loginRes.json();
+
+  // 2. Query customers with filtering and pagination
+  const listRes = await fetch(
+    `${API_BASE}/customers?address.city_like=Val*&creditLimit_gte=5000&sort=-creditLimit&page=1&size=10`,
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    }
+  );
+  
+  const totalCount = listRes.headers.get('X-Total-Count');
+  const customers = await listRes.json();
+  console.log(`Found ${totalCount} customers:`, customers);
+
+  // 3. Create a new customer
+  const createRes = await fetch(`${API_BASE}/customers`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      number: 201,
+      name: 'New Horizon SL',
+      creditLimit: 30000,
+      address: {
+        street: 'Avenida del Puerto 45',
+        city: 'Valencia',
+        zipCode: 46021
+      }
+    })
+  });
+
+  const created = await createRes.json();
+  console.log('Customer created successfully:', created);
+}
+
+main().catch(console.error);</code></pre>
+
+    <h2 id="see-also">See also</h2>
+
+    <ul>
+      <li><a class="wiki_link" href="security_en.html">Security and user management</a></li>
+      <li><a class="wiki_link" href="history_en.html">History (audit trail module)</a></li>
+      <li><a class="wiki_link" href="email-notifications_en.html">Email data changes notifications</a></li>
+      <li><a class="wiki_link" href="multitenancy_en.html">Multitenancy</a></li>
+      <li><a class="wiki_link" href="tab_en.html">Tabular data</a> (<code>@Tab</code> and <code>baseCondition</code>)</li>
+    </ul>
+
+  </body>
+</html>
