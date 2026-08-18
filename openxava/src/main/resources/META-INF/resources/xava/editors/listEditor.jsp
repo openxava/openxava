@@ -429,12 +429,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 				String rowActionString = (String) itRowActions.next();			
 %>
 	<li>
-		<jsp:include page="../barButton.jsp">
-			<jsp:param name="action" value="<%=rowActionString%>"/>
-			<jsp:param name="addSpaceWithoutImage" value="<%=hasIconOrImage%>"/>
-			<jsp:param name="argv" value='<%="row=" + f + actionArgv%>'/>
-			<jsp:param name="alwaysAvailable" value='true'/>
-		</jsp:include>
+		<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", rowActionString, "addSpaceWithoutImage", String.valueOf(hasIconOrImage), "argv", "row=" + f + actionArgv, "alwaysAvailable", "true")))%>
 	</li>
 <%
 			}

@@ -56,47 +56,30 @@ if (view.displayDetailInCollection(collectionName)) {
 	if (collectionEditable) {
 %>
 <% if (subview.isRepresentsEntityReference()) { %>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=subview.getAddCollectionElementAction()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
+<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", subview.getAddCollectionElementAction(), "argv", "viewObject=" + viewName)))%>
 <% } %>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=subview.getNewCollectionElementAction()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
+<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", subview.getNewCollectionElementAction(), "argv", "viewObject=" + viewName)))%>
 <% if (subview.isRepresentsEntityCollection()) { %>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=subview.getRemoveSelectedCollectionElementsAction()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
+<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", subview.getRemoveSelectedCollectionElementsAction(), "argv", "viewObject=" + viewName)))%>
 <% } %>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=subview.getDeleteSelectedCollectionElementsAction()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
+<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", subview.getDeleteSelectedCollectionElementsAction(), "argv", "viewObject=" + viewName)))%>
 <%
 	}
 %>
 <%
 	Iterator itListActions = subview.getActionsNamesList().iterator();
 while (itListActions.hasNext()) {
+	String listAction = itListActions.next().toString();
 %>
-<jsp:include page="../barButton.jsp">
-	<jsp:param name="action" value="<%=itListActions.next().toString()%>"/>
-	<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-</jsp:include>
+<%=org.openxava.web.render.ButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("action", listAction, "argv", "viewObject=" + viewName)))%>
 <%
 	} // while list actions
 	
 	Collection<String> listSubcontrollers = subview.getSubcontrollersNamesList();
 	for(String listSubcontroller : listSubcontrollers){
-		%>
-		<jsp:include page="../subButton.jsp">
-			<jsp:param name="controller" value="<%=listSubcontroller%>"/>
-			<jsp:param name="argv" value='<%="viewObject="+viewName%>'/>
-		</jsp:include>
-		<%
+%>
+<%=org.openxava.web.render.SubButtonRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response, Map.of("controller", listSubcontroller, "argv", "viewObject=" + viewName)))%>
+<%
 	}
 %>
 
@@ -124,7 +107,7 @@ else {
 		}
 %>
 	<td>
-		<jsp:include page="<%=WebEditors.getUrl(p, view.getViewName())%>">
+		<jsp:include page='<%="/xava/" + WebEditors.getUrl(p, view.getViewName())%>'>
 			<jsp:param name="propertyKey" value="<%=propertyKey%>"/>
 			<jsp:param name="editable" value="true"/>
 		</jsp:include>		
@@ -149,9 +132,9 @@ else {
 	<%
 		} else if (collectionView.isCollectionFromModel()) {
 	%>
-		<%@include file="../collectionFromModel.jsp" %>
+		<%=org.openxava.web.render.CollectionFromModelRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response))%>
 	<% } else { %>
-		<%@include file="../collectionList.jsp" %>
+		<%=org.openxava.web.render.CollectionListRenderer.render(new org.openxava.web.render.ViewRenderContext(request, response), idCollection, subview, lineAction, viewName, view)%>
 	<% } %>
 <% } catch (Exception ex) { %>
 </td></tr>

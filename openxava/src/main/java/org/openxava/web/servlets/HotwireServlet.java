@@ -654,7 +654,7 @@ public class HotwireServlet extends BaseServlet {
         }
 
         /**
-         * Same parameters formerly passed to execute.jsp via query string on RequestDispatcher.include.
+         * Same parameters passed to ModuleExecutor via query string on RequestDispatcher.include.
          */
         private Map<String, String[]> buildModuleExecutionParameters() {
             Map<String, List<String>> params = new LinkedHashMap<>();
@@ -751,7 +751,36 @@ public class HotwireServlet extends BaseServlet {
         private String getURIAsString(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
             if (jspFile == null) return "";
             if (jspFile.startsWith("html:")) return jspFile.substring(5); // No need to filterHTML (replace commas) thanks to JSON
+            if (org.openxava.web.render.Parts.isJavaRendered(jspFile)) {
+                String uri = getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters);
+                Map<String, String[]> params = parseQueryString(uri);
+                HttpServletRequest wrappedRequest = new ParametersHttpServletRequest(request, params);
+                return org.openxava.web.render.Parts.render(wrappedRequest, response, jspFile);
+            }
             return Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
+        }
+
+        private static Map<String, String[]> parseQueryString(String uri) {
+            Map<String, List<String>> params = new LinkedHashMap<>();
+            int q = uri.indexOf('?');
+            if (q < 0) return new LinkedHashMap<>();
+            String query = uri.substring(q + 1);
+            for (String pair : query.split("&")) {
+                if (pair.isEmpty()) continue;
+                int eq = pair.indexOf('=');
+                try {
+                    String name = URLDecoder.decode(eq < 0 ? pair : pair.substring(0, eq), "UTF-8");
+                    String value = URLDecoder.decode(eq < 0 ? "" : pair.substring(eq + 1), "UTF-8");
+                    params.computeIfAbsent(name, k -> new ArrayList<>()).add(value);
+                } catch (UnsupportedEncodingException e) {
+                    // UTF-8 is always supported
+                }
+            }
+            Map<String, String[]> result = new LinkedHashMap<>();
+            for (Map.Entry<String, List<String>> entry : params.entrySet()) {
+                result.put(entry.getKey(), entry.getValue().toArray(new String[0]));
+            }
+            return result;
         }
 
         private void fillResult(Result result, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
@@ -763,7 +792,7 @@ public class HotwireServlet extends BaseServlet {
             if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
                 if (manager.getDialogLevel() > 0) {
                     changedParts.put(decorateId("dialog" + manager.getDialogLevel()),
-                        getURIAsString("core.jsp?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)
+                        getURIAsString("core?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)
                     );
                     result.setFocusPropertyId(getView().getFocusPropertyId());
                     return;
@@ -789,7 +818,7 @@ public class HotwireServlet extends BaseServlet {
             Messages errors = (Messages) request.getAttribute("errors");
             if (errors.contains() && changedParts.get("errors") == null) {
                 put(changedParts, "errors",
-                    getURIAsString("errors.jsp", values, multipleValues, selected, deselected, additionalParameters)
+                    getURIAsString("errors", values, multipleValues, selected, deselected, additionalParameters)
                 );
             }
             if (!manager.isListMode()) {
@@ -881,21 +910,21 @@ public class HotwireServlet extends BaseServlet {
         private Map<String, Object> getChangedParts(Map<String, Object> values, Collection<String> propertiesUsedInCalculations, Map<String, View> changedCollectionsTotals) {
             Map<String, Object> result = new HashMap<>();
             if (values == null || manager.isReloadAllUINeeded() || manager.isFormUpload()) {
-                put(result, "core", "core.jsp");
+                put(result, "core", "core");
             } else {
                 manager.isActionsChanged();
                 if (manager.isActionsChanged()) {
                     if (manager.getDialogLevel() > 0) {
-                        put(result, "bottom_buttons", "bottomButtons.jsp?buttonBar=false");
+                        put(result, "bottom_buttons", "bottomButtons?buttonBar=false");
                     } else {
-                        put(result, "button_bar", "buttonBar.jsp");
-                        put(result, "bottom_buttons", "bottomButtons.jsp");
+                        put(result, "button_bar", "buttonBar");
+                        put(result, "bottom_buttons", "bottomButtons");
                     }
                 }
                 Messages errors = (Messages) request.getAttribute("errors");
-                put(result, "errors", errors.contains() ? "errors.jsp" : null);
+                put(result, "errors", errors.contains() ? "errors" : null);
                 Messages messages = (Messages) request.getAttribute("messages");
-                put(result, "messages", messages.contains() ? "messages.jsp" : null);
+                put(result, "messages", messages.contains() ? "messages" : null);
 
                 if (manager.isReloadViewNeeded() || getView().isReloadNeeded()) {
                     put(result, "view", manager.getViewURL());
@@ -1023,7 +1052,7 @@ public class HotwireServlet extends BaseServlet {
                     }
                     request.setAttribute(referenceKey, metaReference);
                     put(result, "reference_editor_" + qualifiedName,
-                        "reference.jsp?referenceKey=" + referenceKey +
+                        "reference?referenceKey=" + referenceKey +
                         referenceAsDescriptionsListParam +
                         "&onlyEditor=true&viewObject=" + containerView.getViewObject());
                 } else {
@@ -1039,7 +1068,7 @@ public class HotwireServlet extends BaseServlet {
                         containerView.propertyHasChangedActions(name))
                     {
                         put(result, "property_actions_" + qualifiedName,
-                            "propertyActions.jsp?propertyKey=" + qualifiedName +
+                            "propertyActions?propertyKey=" + qualifiedName +
                             "&propertyName=" + name +
                             "&editable=" + containerView.isEditable(name) +
                             "&viewObject=" + containerView.getViewObject() +
@@ -1052,7 +1081,8 @@ public class HotwireServlet extends BaseServlet {
 
         private void fillChangedCollections(Map<String, Object> result) {
             View view = getView();
-            Collection<?> changedCollections = view.getChangedCollections().entrySet();
+            Map<String, View> changedCollectionsMap = view.getChangedCollections();
+            Collection<?> changedCollections = changedCollectionsMap.entrySet();
             for (Iterator<?> it = changedCollections.iterator(); it.hasNext(); ) {
                 Map.Entry<?, ?> en = (Map.Entry<?, ?>) it.next();
                 String qualifiedName = (String) en.getKey();
@@ -1060,12 +1090,12 @@ public class HotwireServlet extends BaseServlet {
                 View containerView = (View) en.getValue();
                 if (baseFolder.equals("/xava/")) { // collectionFrameHeader.jsp only exists in /xava/, not in /phone/. The phone UI renders the collection header inline in collection.jsp.
                     put(result, "frame_" + qualifiedName + "header",
-                        "collectionFrameHeader.jsp?collectionName=" + name +
+                        "collectionFrameHeader?collectionName=" + name +
                         "&viewObject=" + containerView.getViewObject() +
                         "&propertyPrefix=" + containerView.getPropertyPrefix());
                 }
                 put(result, "collection_" + qualifiedName + ".",
-                    "collection.jsp?collectionName=" + name +
+                    "collection?collectionName=" + name +
                     "&viewObject=" + containerView.getViewObject() +
                     "&propertyPrefix=" + containerView.getPropertyPrefix());
             }
@@ -1105,7 +1135,7 @@ public class HotwireServlet extends BaseServlet {
             View changedSections = view.getChangedSectionsView();
             if (changedSections != null) {
                 put(result, "sections_" + changedSections.getViewObject(),
-                    "sections.jsp?viewObject=" + changedSections.getViewObject() +
+                    "sections?viewObject=" + changedSections.getViewObject() +
                     "&propertyPrefix=" + changedSections.getPropertyPrefix());
             }
         }
