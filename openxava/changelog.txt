@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- HSQLDB database is automatically shut down by DBServer when the application stops.
+- Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
+- DBServer automatically compresses .lobs files into .lobs.zip files when the HSQLDB database stops.
+- New getDefaultSchema() and setDefaultSchema() methods in PersistenceFacade.
+- New rollBack() method in MapFacade.
 - New user interface generator written in pure Java. Dropped legacy JSP renderer.
 - Session attribute xava.coreViaAJAX renamed to xava.coreViaHotwire.
 - JavaMail upgraded to Jakarta Mail 2.1 (Eclipse Angus 2.0.5).
