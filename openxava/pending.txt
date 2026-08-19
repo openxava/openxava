@@ -1,20 +1,7 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Pantallazos (en ui8-screenshots):
-    - Lista de un módulo (con filas, filtros y botonera):
-        list-mode.png
-    - Detalle con secciones y frames (un módulo con varias secciones y una referencia):
-        detail-mode.png
-    - Una @ElementCollection con algunas filas:
-        detail-with-elementcollection.png
-    - Un diálogo abierto (p.ej. añadir a colección o un diálogo de acción):
-        dialog.png
-    - El calendario (vista mensual con eventos) y el popup calendar de un campo fecha.
-        TMR ME QUEDÉ POR AQUÍ, PARA HACER ESTE PANTALLAZOS
-    - Menú izquierdo + panel de chat abierto a la vez.
-    - Sign in.
-
+-
 - Suite.
 - Prueba manuales.
 - Borrar MDs.

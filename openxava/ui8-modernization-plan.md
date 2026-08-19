@@ -70,8 +70,21 @@ Definir en `base.css` como tokens en `:root`:
 - Menú de usuario con avatar/iniciales arriba a la derecha, absorbiendo "Sign out".
 - Empty states con icono y texto guía en listas y colecciones vacías.
 
+## Pantallazos de referencia
+
+Disponibles en `ui8-screenshots/`:
+
+- **list-mode.png** — Lista de un módulo (con filas, filtros y botonera).
+- **detail-mode.png** — Detalle con secciones y frames (un módulo con varias secciones y una referencia).
+- **detail-with-elementcollection.png** — Una `@ElementCollection` con algunas filas.
+- **dialog.png** — Un diálogo abierto (p.ej. añadir a colección o un diálogo de acción).
+- **calendar-list-format.png** — El calendario (vista mensual con eventos).
+- **date-calendar-popup.png** — El popup calendar de un campo fecha.
+- **modules-menu-and-chat-panels.png** — Menú izquierdo + panel de chat abierto a la vez.
+- **signin.png** — Sign in.
+
 ## Verificación
 
 - Pasar los tests de UI (HtmlUnit) tras cada bloque.
 - Revisión visual manual en módulos reales: lista, detalle, colecciones, diálogos, calendario, modo phone.
-- Al implementar componentes concretos, usar pantallazos de la app en ejecución como referencia.
+- Al implementar componentes concretos, usar los pantallazos de `ui8-screenshots/` como referencia.
