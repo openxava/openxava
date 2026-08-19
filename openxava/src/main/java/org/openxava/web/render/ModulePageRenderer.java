@@ -30,7 +30,7 @@ public class ModulePageRenderer {
 	public static String render(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Servlets.setCharacterEncoding(request, response);
 
-		Style style = Style.getInstance();
+		Style style = Style.getInstance(request);
 		request.setAttribute("style", style);
 
 		Messages errors = new Messages();

@@ -228,7 +228,7 @@ public class DetailViewRenderer {
 						+ "?collectionName=" + collection.getName()
 						+ "&viewObject=" + viewObject
 						+ "&propertyPrefix=" + propertyPrefix;
-					if (Parts.isJavaRendered(collectionUrl)) {
+					if (Parts.isJavaRendered(collectionUrl, ctx.getRequest())) {
 						w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), collectionUrl));
 					} else {
 						w.append(JspFragment.render(ctx, collectionUrl));

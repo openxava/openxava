@@ -475,7 +475,10 @@ public class HotwireServlet extends BaseServlet {
                 ModuleContext context = getContext(request);
                 if (context != null) context.setCurrentWindowId(request);
                 checkSecurity(request, application, module);
-                request.setAttribute("style", org.openxava.web.style.Style.getInstance());
+                if (!"/xava/".equals(this.baseFolder)) {
+                    request.setAttribute("xava.phone", true);
+                }
+                request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
                 Requests.partialInit(request, application, module);
 
                 setPageReloadedLastTime(false);
@@ -751,7 +754,7 @@ public class HotwireServlet extends BaseServlet {
         private String getURIAsString(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
             if (jspFile == null) return "";
             if (jspFile.startsWith("html:")) return jspFile.substring(5); // No need to filterHTML (replace commas) thanks to JSON
-            if (org.openxava.web.render.Parts.isJavaRendered(jspFile)) {
+            if (org.openxava.web.render.Parts.isJavaRendered(jspFile, request)) {
                 String uri = getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters);
                 Map<String, String[]> params = parseQueryString(uri);
                 HttpServletRequest wrappedRequest = new ParametersHttpServletRequest(request, params);

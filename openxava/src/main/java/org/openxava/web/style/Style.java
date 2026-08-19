@@ -2,8 +2,12 @@ package org.openxava.web.style;
 
 import java.util.*;
 
+import jakarta.servlet.http.*;
+
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
+
+import com.openxava.naviox.util.*;
 
 /**
  * This class and its subclasses is used from JSP code to give
@@ -54,6 +58,38 @@ public class Style {
 			}			
 		}		
 		return instance;
+	}
+
+	/**
+	 * Returns the style instance appropriate for the request.
+	 * If the request has the {@code xava.phone} attribute set, returns the phone style
+	 * configured via {@code phoneStyleClass} in naviox.properties.
+	 * Otherwise, returns the default desktop style.
+	 * @since 8.0
+	 */
+	public static Style getInstance(HttpServletRequest request) {
+		if (request != null && Boolean.TRUE.equals(request.getAttribute("xava.phone"))) {
+			return getPhoneInstance();
+		}
+		return getInstance();
+	}
+
+	private static Style phoneInstance;
+
+	private static Style getPhoneInstance() {
+		if (phoneInstance == null) {
+			try {
+				String className = NaviOXPreferences.getInstance().getPhoneStyleClass();
+				phoneInstance = (Style) Class.forName(className).newInstance();
+				phoneInstance.cssFile = "phone.css";
+			}
+			catch (Exception ex) {
+				log.warn("Cannot load phone style: " + ex.getClass().getName() + ": " + ex.getMessage());
+				phoneInstance = new Style();
+				phoneInstance.cssFile = "default.css";
+			}
+		}
+		return phoneInstance;
 	}
 	
 	/**
