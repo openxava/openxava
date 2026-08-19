@@ -84,9 +84,18 @@ public class Parts {
 	 * Renders a part descriptor to HTML using the registered Java renderer.
 	 */
 	public static String render(HttpServletRequest request, HttpServletResponse response, String partDescriptor) throws Exception {
+		return render(request, response, partDescriptor, true);
+	}
+
+	/**
+	 * Renders a part descriptor to HTML using the registered Java renderer.
+	 * @param usePhoneRegistry if false, always uses the desktop registry even when xava.phone is set
+	 * @since 8.0
+	 */
+	public static String render(HttpServletRequest request, HttpServletResponse response, String partDescriptor, boolean usePhoneRegistry) throws Exception {
 		String name = ViewRenderContext.partName(partDescriptor);
 		PartRenderer renderer = null;
-		if (isPhoneRequest(request) && PHONE_REGISTRY.containsKey(name)) {
+		if (usePhoneRegistry && isPhoneRequest(request) && PHONE_REGISTRY.containsKey(name)) {
 			renderer = PHONE_REGISTRY.get(name);
 		} else {
 			renderer = REGISTRY.get(name);
