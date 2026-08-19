@@ -1,7 +1,14 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
--
+- Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
+- Revisar como han quedado y ver sin son susceptibles de modernización:
+    - Barra de botones.
+    - Botones de abajo.
+    - Secciones.
+    - Marcos.
 - Suite.
 - Prueba manuales.
+- Documentación:
+    - Rehacer custom-style_en/es.html
 - Borrar MDs.

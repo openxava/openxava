@@ -22,7 +22,6 @@ public class XavaStyle extends Style {
 	public static String getBodyClass(HttpServletRequest request) {
 		String browser = request.getHeader("user-agent");
 		if (browser == null) return "";
-		if (browser.contains("Edge") || browser.contains("Trident") || browser.contains("MSIE")) return "class='ie'"; 
 		if (browser.contains("iPad")) return "class='ipad'";
 		if (Browsers.isMobile(request)) return "class='mobile'"; 
 		if (browser.contains("Firefox")) return "class='firefox'"; 

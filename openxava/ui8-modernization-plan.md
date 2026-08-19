@@ -30,15 +30,17 @@ Definir en `base.css` como tokens en `:root`:
 
 ## Bloque 1 — Fundamentos visuales (`ui-foundations`)
 
-- [ ] Tokens del sistema de diseño aplicados en `base.css`.
-- [ ] New typography (fuente nueva + escala modular + `tabular-nums`).
-- [ ] More layout spacing (migrar espaciados a `--space-*`).
-- [ ] New Light theme (paleta clara nueva; rehacer `light.css`).
-- [ ] Dark theme pulido + `prefers-color-scheme`.
-- [ ] New loading indicator.
-- [ ] Reorganización de temas (terra fuera, variantes como overrides o eliminadas).
-- [ ] Transiciones estándar en hover de botones, filas y menú.
-- [ ] Estados `:focus-visible` consistentes (anillo de foco propio).
+- [x] Tokens del sistema de diseño aplicados en `base.css` (`--space-*`, `--radius-*`, `--elevation-*`, `--font-size-*`, `--transition-*`, `--focus-ring-color`, `--accent-color`).
+- [x] New typography (Inter variable font + escala modular + `tabular-nums`).
+- [x] More layout spacing (espaciados de frames/secciones/listas migrados a `--space-*`).
+- [x] New Light theme (`light.css` rehecho con acento índigo `#4f46e5`).
+- [x] Dark theme pulido + `prefers-color-scheme` (nuevo `auto.css` por defecto + `dark-overrides.css` compartido).
+- [x] New loading indicator (pill flotante con `--elevation-2` y animación de entrada).
+- [x] Reorganización de temas (terra/blue/black-and-white eliminados; chooser Auto/Light/Dark; documentado en guía de migración).
+- [x] Transiciones estándar en hover de botones, filas y menú.
+- [x] Estados `:focus-visible` consistentes (anillo de foco propio).
+
+Pendiente de revisión visual manual antes de fusionar: lista, detalle, colecciones, diálogos, calendario, modo phone, en los 3 temas.
 
 ## Bloque 2 — Formularios y menú (`ui-forms`)
 

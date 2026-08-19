@@ -202,7 +202,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlPage page = getHtmlPage();
 		assertCSSWellUploaded(page, false);
 		assertCSSWellUploaded(page, true);
-		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
+		HtmlElement cssHref = page.getAnchorByHref("?theme=dark.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
 		assertResorcesWellReaded(page); 
@@ -334,7 +334,7 @@ public class ApplicantTest extends ModuleTestBase {
 		URL url;
 		BufferedReader in;
 		if (custom) {
-			urlCSS = urlCSS.replace("terra", "custom");
+			urlCSS = urlCSS.replace("auto", "custom");
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
 			assertEquals(".corporation-employee-list-select {", in.readLine()); 
@@ -342,7 +342,7 @@ public class ApplicantTest extends ModuleTestBase {
 		} else {
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
-			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine()); 
+			assertTrue(in.readLine().matches("@import '(base|light)\\.css\\?ox=" + ModuleManager.getVersion() + "';")); // base.css for dark.css, light.css for auto.css
 			in.close();
 		}
 	}
