@@ -3,8 +3,8 @@ Change Log for OpenXava project
 
 - New design token system in base.css: spacing (--space-*), corner radius (--radius-*), elevations (--elevation-*), typography scale (--font-size-*) and standard transitions (--transition-*).
 - New Inter typeface (variable font) replaces Roboto; base font size is now 14px and numeric list cells use tabular-nums.
-- New light theme with --accent-color as single brand customization variable (indigo by default).
-- Dark theme polished with the same token system.
+- New light theme with slate palette, --accent-color as single brand customization variable (indigo by default), frame borders and module header border for visual separation.
+- Dark theme polished with zinc palette (true dark backgrounds), brighter text for readability, and consistent border colors.
 - New auto.css theme (default) that switches between light and dark following the OS prefers-color-scheme.
 - Removed terra.css, blue.css and black-and-white.css themes; theme chooser now offers Auto / Light / Dark. See migration guide to recreate custom themes with variables in custom.css.
 - New loading indicator: floating pill with elevation and entrance animation.

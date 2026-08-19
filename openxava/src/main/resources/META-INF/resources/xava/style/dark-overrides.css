@@ -5,14 +5,14 @@
 	--accent-contrast-color: white;
 	--accent-soft: rgba(129, 140, 248, 0.15);
 
-	--my-dark: #2b2d30;
-	--my-darker: #1e1f22;
-	--my-lightdark: #43454a;
-	--my-transparent-lightdark: rgba(74, 76, 81, 0.75);
+	--my-dark: #18181b;
+	--my-darker: #09090b;
+	--my-lightdark: #27272a;
+	--my-transparent-lightdark: rgba(39, 39, 42, 0.75);
 	--my-blue: #6366f1;
-	--my-darkblue: #3730a3;
+	--my-darkblue: #312e81;
 	--my-lightblue: var(--accent-color);
-	--my-silver: #bbbbbb;
+	--my-silver: #e4e4e7;
 
 	/* Elevations for dark backgrounds */
 	--elevation-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -42,6 +42,7 @@
 
 	/* Frames */
 	--frame-background: var(--my-transparent-lightdark);
+	--frame-border: #27272a;
 
 	/* Actions */
 	--action-color: var(--my-silver);
@@ -60,7 +61,7 @@
 	--required-editor-border: var(--my-silver);
 	--input-focus-border: var(--accent-color);
 	--input-color: var(--my-silver);
-	--input-border: gray;
+	--input-border: #3f3f46;
 	--input-background: transparent;
 	--disabled-input-background: var(--my-lightdark);
 	--calendar-selected-day: var(--my-blue);

@@ -9,10 +9,10 @@
 
 	/* Legacy aliases, overridable for back-compat */
 	--my-highlight: var(--accent-color);
-	--my-lightgray: #f1f3f5;
-	--my-transparent-lightgray: rgba(33, 37, 41, 0.05);
-	--my-gray: #5f6368;
-	--my-black: #212529;
+	--my-lightgray: #f1f5f9;
+	--my-transparent-lightgray: rgba(15, 23, 42, 0.04);
+	--my-gray: #64748b;
+	--my-black: #0f172a;
 
 	/* Modules left menu */
 	--modules-list-color: var(--my-gray);
@@ -25,15 +25,16 @@
 
 	/* Button bar */
 	--button-bar-background: var(--my-lightgray);
-	--list-formats-color: #868e96;
+	--list-formats-color: #94a3b8;
 	--list-formats-hover-color: var(--my-gray);
 
 	/* Backgrounds & labels */
-	--background: #f8f9fa;
+	--background: #f8fafc;
 	--color: var(--my-black);
 
 	/* Frames */
-	--frame-background: var(--my-transparent-lightgray);
+	--frame-background: #f1f5f9;
+	--frame-border: #e2e8f0;
 
 	/* Actions */
 	--action-color: var(--my-gray);
@@ -43,7 +44,7 @@
 	--default-action-button-hover-background: var(--accent-color-hover);
 
 	/* Editors */
-	--required-editor-border: #868e96;
+	--required-editor-border: #94a3b8;
 	--calendar-selected-day: var(--accent-color);
 
 }

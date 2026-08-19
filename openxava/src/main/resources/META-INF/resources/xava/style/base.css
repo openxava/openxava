@@ -236,13 +236,13 @@
 	--filepond--image-preview-overlay-success-color: #6fc664;	
 	--attached-file-color: #5755D2;	
 
-	--input-border: lightgray;
+	--input-border: #cbd5e1;
 	--input-focus-border: var(--default-action-button-background);
 	--input-color: black;
 	--input-background: white; 
 	--error-editor-border: #DC4A38;
-	--disabled-input-background: #ebebe4;
-	--xava-placeholder-background: #F5F5F5;
+	--disabled-input-background: #f1f5f9;
+	--xava-placeholder-background: #f1f5f9;
 	
 	--icon-i-color: var(--action-color);
 	--icons-list-i-color: var(--icon-i-color);
@@ -275,7 +275,7 @@
 			rgba(0, 0, 0, 0.3),
 			rgba(0, 0, 0, 0.3)
 		) var(--autocomplete-scrollbar-background);
-	--autocomplete-border: lightgray;
+	--autocomplete-border: #cbd5e1;
 	--autocomplete-background: var(--input-background); 		
 	
 	--reverse-label-color: white;
@@ -904,7 +904,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
  #module_header {
-	padding: 13px 0px 10px 10px;
+	padding: var(--space-3) 0px var(--space-2) var(--space-4);
 	font-size: var(--font-size-lg);
 	height: 22px;
 	color: var(--module-header-color);
@@ -999,7 +999,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar {
-	padding: var(--space-2) var(--space-3) var(--space-3) var(--space-3); 
+	padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4); 
 	background: var(--button-bar-background);
 	box-shadow: var(--elevation-1); 
 }
@@ -1715,7 +1715,7 @@ input[type="button"] {
 }
 
 .ox-detail {
-	margin: var(--space-2) var(--space-3) 0 var(--space-3);
+	margin: var(--space-3) var(--space-4) 0 var(--space-4);
 	padding-top: 2px;   
 }
 
@@ -1774,10 +1774,10 @@ input[type="button"] {
 }
 
 .ox-frame, #sign_in_box, .ox-card {  
-	margin-top: 2px; 
-	margin-bottom: 5px;
-	margin-right: 7px; 
-	padding: var(--space-3) var(--space-3) var(--space-1) var(--space-3);
+	margin-top: var(--space-1); 
+	margin-bottom: var(--space-2);
+	margin-right: var(--space-2); 
+	padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
 	border-radius: var(--radius-lg);
 }
 
@@ -1791,6 +1791,7 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 
 .ox-frame {
 	background: var(--frame-background); 
+	border: 1px solid var(--frame-border, transparent);
 	box-shadow: none;	 
 }
 
@@ -1826,8 +1827,8 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-section { 
-	margin: var(--space-2) calc(-1 * var(--space-3)) var(--space-3) calc(-1 * var(--space-3));   
-	padding: var(--space-1) var(--space-3) 0 0; 
+	margin: var(--space-2) calc(-1 * var(--space-4)) var(--space-4) calc(-1 * var(--space-4));   
+	padding: var(--space-2) var(--space-4) 0 0; 
 	background: var(--section-background);
 }
 
