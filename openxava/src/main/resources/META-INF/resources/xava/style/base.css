@@ -546,6 +546,11 @@ A.sign-out  {
 	background: var(--mobile-modules-list-background);
 }
 
+#modules_list_core {
+	scrollbar-width: thin;
+	scrollbar-color: var(--modules-list-scrollbar-color) var(--modules-list-scrollbar-background);
+}
+
 #modules_list_core::-webkit-scrollbar {
 	width: 8px;
 	background: var(--modules-list-scrollbar-background);
