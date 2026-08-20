@@ -48,8 +48,14 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2a — Paneles laterales (`ui-panels`)
 
-- [ ] Modernize left menu.
-- [ ] Modernize chat panel and chat style (it shares the show/hide mechanism and visual style with the left menu).
+- [x] Modernize left menu.
+- [x] Modernize chat panel and chat style (it shares the show/hide mechanism and visual style with the left menu).
+- [x] Module search input: visible border at rest, taller padding (~44px), subtle 2px focus ring at 20% opacity.
+- [x] Thin rounded scrollbar for module menu (Chromium + Firefox).
+- [x] Focus ring opacity reduced from 45% to 20% globally.
+- [x] Changelog updated with 8 entries for Bloque 2a.
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ### Bloque 2b — Campos (`ui-fields`)
 

@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Modules menu widened from 180px to 260px with hairline border, pill-shaped rows and accent-colored selection.
+- Magnifier icon added inside the module search input; input has visible border at rest and subtle 2px focus ring at 20% opacity.
+- Module menu show/hide toggles redesigned as circular button (hide) and vertical tab (show) with accent hover and elevation.
+- Chat panel widened from 330px to 360px with hairline left border; user bubbles use accent color with rounded corners.
+- Chat panel width synchronized between CSS and JS via chat.PANEL_WIDTH constant.
+- Thin rounded scrollbar for module menu in Chromium; scrollbar-width: thin for Firefox.
+- Focus ring opacity reduced from 45% to 20% for a more subtle, modern focus indication.
+- Obsolete CSS variables removed: --modules-list-background-darker, --modules-list-shadow, --modules-list-selected-border-right, --search-modules-input-border, --chat-panel-shadow.
 - New design token system in base.css: spacing (--space-*), corner radius (--radius-*), elevations (--elevation-*), typography scale (--font-size-*) and standard transitions (--transition-*).
 - New Inter typeface (variable font) replaces Roboto; base font size is now 14px and numeric list cells use tabular-nums.
 - New light theme with slate palette, --accent-color as single brand customization variable (indigo by default), frame borders and module header border for visual separation.
