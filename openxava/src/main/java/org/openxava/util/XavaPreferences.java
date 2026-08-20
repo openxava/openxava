@@ -181,7 +181,7 @@ public class XavaPreferences {
 	}
 
 	public String getStyleCSS() {
-		return getProperties().getProperty("styleCSS", "terra.css").trim(); 
+		return getProperties().getProperty("styleCSS", "auto.css").trim();
 	}
 	
 	/** @since 6.3 */

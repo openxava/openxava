@@ -898,6 +898,80 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
       <i>web-view-url</i> in <i>application.xml</i>).</li>
     </ul>
 
+    <h3>New visual themes: auto, light and dark</h3>
+
+    <p>OpenXava 8.0 introduces a redesigned user interface with a design token system
+    (spacing, corner radius, elevations, typography scale and transitions defined as CSS
+    variables in <i>base.css</i>). As part of this redesign the available themes have
+    changed:</p>
+
+    <ul>
+      <li><b>terra.css, blue.css and black-and-white.css have been removed.</b></li>
+      <li>The default theme is now <b>auto.css</b>, which shows the light or dark variant
+      automatically according to the operating system preference
+      (<i>prefers-color-scheme</i>).</li>
+      <li>The theme chooser now offers <b>Auto / Light / Dark</b>. If you use the
+      <i>themes</i> property in <i>xava.properties</i>, update it:
+      <pre><code class="language-properties">themes=auto.css, light.css, dark.css</code></pre></li>
+      <li>If your <i>xava.properties</i> sets <i>styleCSS=terra.css</i> (or any other
+      removed theme), remove that line or point it to one of the new themes.</li>
+    </ul>
+
+    <h4>Brand customization with --accent-color</h4>
+
+    <p>The accent color of the application (primary buttons, focus rings, hover states)
+    can now be customized redefining a single variable in the <i>custom.css</i> of your
+    project (<i>src/main/webapp/xava/style/custom.css</i>):</p>
+
+    <pre><code class="language-css">:root {
+    --accent-color: #0d9488;         /* Your brand color */
+    --accent-color-hover: #0f766e;   /* A darker variant for hover */
+    --accent-soft: #f0fdfa;          /* A very light tint for hover backgrounds */
+}</code></pre>
+
+    <h4>Recreating the old terra theme</h4>
+
+    <p>If you want to keep the look of the removed <i>terra</i> theme, you can recreate it
+    in <i>custom.css</i> redefining the theme variables:</p>
+
+    <pre><code class="language-css">:root {
+    --terra: #CDB380;
+    --light-terra: #E8DDCB;
+    --dark-terra: #806632;
+    --acqua: #036564;
+    --acqua-profonda: #033649;
+
+    --accent-color: var(--acqua-profonda);
+    --accent-color-hover: var(--acqua);
+
+    /* Modules left menu */
+    --modules-list-color: var(--light-terra);
+    --modules-list-background: var(--acqua-profonda);
+    --modules-list-selected-color: white;
+
+    /* Module header */
+    --module-header-color: white;
+    --module-header-background: var(--acqua-profonda);
+
+    /* Button bar */
+    --button-bar-background: var(--terra);
+
+    /* Backgrounds &amp; labels */
+    --background: var(--light-terra);
+    --color: var(--dark-terra);
+
+    /* Actions */
+    --action-color: var(--acqua);
+    --action-hover-color: var(--acqua-profonda);
+    --action-hover-background: white;
+}</code></pre>
+
+    <p>Applications with their own custom CSS themes that extend <i>base.css</i> keep
+    working; the legacy <i>--my-*</i> variables are still honored by <i>light.css</i>.
+    However, note that <i>base.css</i> now uses the <b>Inter</b> typeface (instead of
+    Roboto), a 14px base font size (instead of 13px) and standardized corner radius and
+    shadows, so your custom theme may need small visual adjustments.</p>
+
     <h3>JasperReports 7: JRXML migration</h3>
 
     <p>OpenXava 8.0 upgrades JasperReports from version 6 to version 7. JasperReports 7

@@ -1,41 +1,50 @@
 @import 'base.css';
 
 :root {
-	--my-highlight: rgb(51, 103, 214);
-	--my-lightgray: rgb(243, 243, 243);
-	--my-transparent-lightgray: rgb(128, 128, 128, 0.1);	
-	--my-gray: rgb(95, 99, 104);
-	--my-black: rgb(32, 33, 36);
-	
-	/* Modules left menu */	
-	--modules-list-color: var(--my-gray); 
+	/* Brand */
+	--accent-color: #4f46e5;
+	--accent-color-hover: #4338ca;
+	--accent-contrast-color: white;
+	--accent-soft: #eef2ff;
+
+	/* Legacy aliases, overridable for back-compat */
+	--my-highlight: var(--accent-color);
+	--my-lightgray: #f1f5f9;
+	--my-transparent-lightgray: rgba(15, 23, 42, 0.04);
+	--my-gray: #64748b;
+	--my-black: #0f172a;
+
+	/* Modules left menu */
+	--modules-list-color: var(--my-gray);
 	--modules-list-background: var(--my-lightgray);
 	--modules-list-selected-color: var(--my-black);
-		
-	/* Module header */				
+
+	/* Module header */
 	--module-header-color: var(--my-black);
-	--module-header-background: white;		
-		
+	--module-header-background: white;
+
 	/* Button bar */
 	--button-bar-background: var(--my-lightgray);
-	--list-formats-color: gray;	
+	--list-formats-color: #94a3b8;
 	--list-formats-hover-color: var(--my-gray);
-	
+
 	/* Backgrounds & labels */
-	--background: rgb(247, 247, 247);
+	--background: #f8fafc;
 	--color: var(--my-black);
-	
+
 	/* Frames */
-	--frame-background: var(--my-transparent-lightgray);
+	--frame-background: #f1f5f9;
+	--frame-border: #e2e8f0;
 
 	/* Actions */
 	--action-color: var(--my-gray);
-	--action-hover-color: var(--my-black);  
-	--action-hover-background: lightgray;	
-	--default-action-button-background: var(--my-highlight);
-	
+	--action-hover-color: var(--accent-color);
+	--action-hover-background: var(--accent-soft);
+	--default-action-button-background: var(--accent-color);
+	--default-action-button-hover-background: var(--accent-color-hover);
+
 	/* Editors */
-	--required-editor-border: gray;
-	--calendar-selected-day: gray; 
-	
+	--required-editor-border: #94a3b8;
+	--calendar-selected-day: var(--accent-color);
+
 }

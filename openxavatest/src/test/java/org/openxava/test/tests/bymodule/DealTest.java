@@ -19,16 +19,16 @@ public class DealTest extends ModuleTestBase {
 		assertValueInList(0, 1, "THE BIG DEAL");
 		assertValueInList(0, 2, "JUAN");
 		
-		assertTrue(getHtml().contains("/xava/style/terra.css"));
-		assertFalse(getHtml().contains("/xava/style/blue.css"));
-		HtmlElement blueLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a","href", "?theme=blue.css");
-		HtmlPage newPage = blueLink.click();
-		assertFalse(newPage.asXml().contains("/xava/style/terra.css")); 
-		assertTrue(newPage.asXml().contains("/xava/style/blue.css"));
-		
+		assertTrue(getHtml().contains("/xava/style/auto.css"));
+		assertFalse(getHtml().contains("/xava/style/dark.css"));
+		HtmlElement darkLink = getHtmlPage().getBody().getOneHtmlElementByAttribute("a","href", "?theme=dark.css");
+		HtmlPage newPage = darkLink.click();
+		assertFalse(newPage.asXml().contains("/xava/style/auto.css"));
+		assertTrue(newPage.asXml().contains("/xava/style/dark.css"));
+
 		resetModule();
-		assertFalse(getHtml().contains("/xava/style/terra.css"));
-		assertTrue(getHtml().contains("/xava/style/blue.css"));		
+		assertFalse(getHtml().contains("/xava/style/auto.css"));
+		assertTrue(getHtml().contains("/xava/style/dark.css"));
 	}
 	
 	public void testIdInsideASection() throws Exception {

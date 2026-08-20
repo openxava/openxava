@@ -896,6 +896,82 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
       o <i>web-view-url</i> en <i>application.xml</i>).</li>
     </ul>
 
+    <h3>Nuevos temas visuales: auto, light y dark</h3>
+
+    <p>OpenXava 8.0 introduce una interfaz de usuario rediseñada con un sistema de tokens
+    de diseño (espaciado, radios de esquina, elevaciones, escala tipográfica y
+    transiciones definidas como variables CSS en <i>base.css</i>). Como parte de este
+    rediseño los temas disponibles han cambiado:</p>
+
+    <ul>
+      <li><b>terra.css, blue.css y black-and-white.css han sido eliminados.</b></li>
+      <li>El tema por defecto ahora es <b>auto.css</b>, que muestra la variante clara u
+      oscura automáticamente según la preferencia del sistema operativo
+      (<i>prefers-color-scheme</i>).</li>
+      <li>El selector de temas ahora ofrece <b>Auto / Light / Dark</b>. Si usas la
+      propiedad <i>themes</i> en <i>xava.properties</i>, actualízala:
+      <pre><code class="language-properties">themes=auto.css, light.css, dark.css</code></pre></li>
+      <li>Si tu <i>xava.properties</i> define <i>styleCSS=terra.css</i> (u otro tema
+      eliminado), quita esa línea o apúntala a uno de los nuevos temas.</li>
+    </ul>
+
+    <h4>Personalización de marca con --accent-color</h4>
+
+    <p>El color de acento de la aplicación (botones principales, anillos de foco, estados
+    hover) ahora se puede personalizar redefiniendo una única variable en el
+    <i>custom.css</i> de tu proyecto
+    (<i>src/main/webapp/xava/style/custom.css</i>):</p>
+
+    <pre><code class="language-css">:root {
+    --accent-color: #0d9488;         /* El color de tu marca */
+    --accent-color-hover: #0f766e;   /* Una variante más oscura para hover */
+    --accent-soft: #f0fdfa;          /* Un tinte muy claro para fondos hover */
+}</code></pre>
+
+    <h4>Recrear el antiguo tema terra</h4>
+
+    <p>Si quieres mantener el aspecto del eliminado tema <i>terra</i>, puedes recrearlo
+    en <i>custom.css</i> redefiniendo las variables del tema:</p>
+
+    <pre><code class="language-css">:root {
+    --terra: #CDB380;
+    --light-terra: #E8DDCB;
+    --dark-terra: #806632;
+    --acqua: #036564;
+    --acqua-profonda: #033649;
+
+    --accent-color: var(--acqua-profonda);
+    --accent-color-hover: var(--acqua);
+
+    /* Menú de módulos izquierdo */
+    --modules-list-color: var(--light-terra);
+    --modules-list-background: var(--acqua-profonda);
+    --modules-list-selected-color: white;
+
+    /* Cabecera de módulo */
+    --module-header-color: white;
+    --module-header-background: var(--acqua-profonda);
+
+    /* Barra de botones */
+    --button-bar-background: var(--terra);
+
+    /* Fondos y etiquetas */
+    --background: var(--light-terra);
+    --color: var(--dark-terra);
+
+    /* Acciones */
+    --action-color: var(--acqua);
+    --action-hover-color: var(--acqua-profonda);
+    --action-hover-background: white;
+}</code></pre>
+
+    <p>Las aplicaciones con temas CSS propios que extienden <i>base.css</i> siguen
+    funcionando; las variables heredadas <i>--my-*</i> aún son reconocidas por
+    <i>light.css</i>. Sin embargo, ten en cuenta que <i>base.css</i> ahora usa la
+    tipografía <b>Inter</b> (en lugar de Roboto), un tamaño base de 14px (en lugar de
+    13px) y radios de esquina y sombras estandarizados, por lo que tu tema personalizado
+    puede necesitar pequeños ajustes visuales.</p>
+
     <h3>JasperReports 7: Migración de JRXML</h3>
 
     <p>OpenXava 8.0 actualiza JasperReports de la versión 6 a la versión 7. JasperReports 7

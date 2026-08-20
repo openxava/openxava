@@ -1,6 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
+- New design token system in base.css: spacing (--space-*), corner radius (--radius-*), elevations (--elevation-*), typography scale (--font-size-*) and standard transitions (--transition-*).
+- New Inter typeface (variable font) replaces Roboto; base font size is now 14px and numeric list cells use tabular-nums.
+- New light theme with slate palette, --accent-color as single brand customization variable (indigo by default), frame borders and module header border for visual separation.
+- Dark theme polished with zinc palette (true dark backgrounds), brighter text for readability, and consistent border colors.
+- New auto.css theme (default) that switches between light and dark following the OS prefers-color-scheme.
+- Removed terra.css, blue.css and black-and-white.css themes; theme chooser now offers Auto / Light / Dark. See migration guide to recreate custom themes with variables in custom.css.
+- New loading indicator: floating pill with elevation and entrance animation.
+- Standard 150-200ms transitions on buttons, list rows, menu rows, sections and cards hover.
+- Consistent :focus-visible focus ring across links, buttons, radio buttons and checkboxes.
+- Removed dead CSS rules for IE/legacy Edge (.ie, scrollbar-face-color, -webkit-gradient, vendor-prefixed shadows).
 - HSQLDB database is automatically shut down by DBServer when the application stops.
 - Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 - DBServer automatically compresses .lobs files into .lobs.zip files when the HSQLDB database stops.
