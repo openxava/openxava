@@ -56,7 +56,8 @@ String display = isFirstSteps?"class='ox-display-block-important'":"";
 		
 		<% if (modules.showsSearchModules(request)) { %>
 		<div id="search_modules">
-		<input id="search_modules_text" type="text" size="38" placeholder='<xava:message key="search_modules"/>'/>
+		<i class="mdi mdi-magnify"></i>
+		<input id="search_modules_text" type="text" placeholder='<xava:message key="search_modules"/>'/>
 		</div>
 		<% } %>
 		

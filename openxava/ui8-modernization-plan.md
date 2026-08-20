@@ -48,8 +48,10 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2a — Paneles laterales (`ui-panels`)
 
-- [ ] Modernize left menu.
-- [ ] Modernize chat panel and chat style (it shares the show/hide mechanism and visual style with the left menu).
+- [x] Modernize left menu.
+- [x] Modernize chat panel and chat style (it shares the show/hide mechanism and visual style with the left menu).
+
+Pendiente de revisión visual manual antes de fusionar: menú (filtro, cargar más, carpetas, modo phone) y chat (burbujas, input, ocultar/mostrar) en los 3 temas.
 
 ### Bloque 2b — Campos (`ui-fields`)
 

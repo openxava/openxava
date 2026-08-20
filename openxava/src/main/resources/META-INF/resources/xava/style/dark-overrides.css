@@ -22,9 +22,8 @@
 	/* Modules left menu */
 	--modules-list-color: var(--my-silver);
 	--modules-list-background: var(--my-dark);
-	--modules-list-selected-color: var(--my-silver);
-	--modules-list-selected-background: var(--my-darkblue);
-	--modules-list-selected-border-right: var(--my-darkblue);
+	--modules-list-selected-color: var(--accent-color);
+	--modules-list-selected-background: var(--accent-soft);
 
 	/* Module header */
 	--module-header-color: var(--my-silver);
@@ -68,7 +67,6 @@
 
 	--button-bar-shadow: transparent;
 	--shadow: transparent;
-	--chat-panel-shadow: black;
 
 	--html-text-button-hover: var(--my-lightdark);
 

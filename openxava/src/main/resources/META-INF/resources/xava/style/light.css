@@ -17,7 +17,7 @@
 	/* Modules left menu */
 	--modules-list-color: var(--my-gray);
 	--modules-list-background: var(--my-lightgray);
-	--modules-list-selected-color: var(--my-black);
+	--modules-list-selected-color: var(--accent-color);
 
 	/* Module header */
 	--module-header-color: var(--my-black);
