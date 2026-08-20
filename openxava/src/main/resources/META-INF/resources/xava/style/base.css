@@ -46,7 +46,7 @@
 	--transition-normal: 200ms ease;
 
 	/* Focus ring */
-	--focus-ring-color: color-mix(in srgb, var(--accent-color) 45%, transparent);
+	--focus-ring-color: color-mix(in srgb, var(--accent-color) 20%, transparent);
 
 	/* Base surfaces, themes redefine them */
 	--background: #f8fafc;
@@ -647,15 +647,15 @@ i.folder-icon {
 #search_modules INPUT { 
 	width: 100%;
 	box-sizing: border-box;
-	padding: var(--space-2) var(--space-3) var(--space-2) 34px;
-	border: 1px solid transparent;
+	padding: var(--space-3) var(--space-3) var(--space-3) 34px;
+	border: 1px solid var(--frame-border);
 	border-radius: var(--radius-full);
 	background: var(--search-modules-input-background);
 }
 
 #search_modules INPUT:focus {
-	border-color: var(--search-modules-input-focus-border) !important;
-	box-shadow: 0 0 0 3px var(--focus-ring-color);
+	border-color: var(--search-modules-input-focus-border);
+	box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
 
 .mobile #search_modules INPUT:focus {

@@ -24,6 +24,7 @@
 	--modules-list-background: var(--my-dark);
 	--modules-list-selected-color: var(--accent-color);
 	--modules-list-selected-background: var(--accent-soft);
+	--search-modules-input-background: color-mix(in srgb, var(--color) 5%, transparent);
 
 	/* Module header */
 	--module-header-color: var(--my-silver);
