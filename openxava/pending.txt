@@ -1,8 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Pantallazos actuales y opinión.
-- Pedir cambios en invoicedemo, chattest y openxava-archetype
 - Bloque 2.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
