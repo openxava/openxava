@@ -102,6 +102,7 @@ public class Parts {
 		}
 		if (renderer == null) return null;
 		ViewRenderContext ctx = ViewRenderContext.forPart(request, response, partDescriptor);
+		System.out.println("[PARTS] render partDescriptor=" + partDescriptor + ", name=" + name + ", usePhoneRegistry=" + usePhoneRegistry + ", isPhone=" + isPhoneRequest(request) + ", renderer=" + renderer);
 		return renderer.render(ctx);
 	}
 

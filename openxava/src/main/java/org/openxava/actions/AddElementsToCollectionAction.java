@@ -31,12 +31,15 @@ public class AddElementsToCollectionAction extends SaveElementInCollectionAction
 	private String currentCollectionLabel;
 	
 	public void execute() throws Exception {
+		System.out.println("[ADDCOLL] execute called, row=" + row);
 		saveIfNotExists(getCollectionElementView().getParent());		
 		if (row >= 0) {
+			System.out.println("[ADDCOLL] row >= 0, calling associateEntityInRow(" + row + ")");
 			validateMaximum(1); 
 			associateEntityInRow(row);
 		}
 		else {
+			System.out.println("[ADDCOLL] row < 0, checking selected keys");
 			Map [] selectedOnes = getTab().getSelectedKeys();
 			validateMaximum(selectedOnes.length); 
 			if (selectedOnes != null && selectedOnes.length > 0) {						
@@ -46,9 +49,11 @@ public class AddElementsToCollectionAction extends SaveElementInCollectionAction
 			}		
 			else {
 				addError("choose_element_before_add");
+				System.out.println("[ADDCOLL] no elements selected, adding error");
 				return;
 			}
 		}
+		System.out.println("[ADDCOLL] after association: added=" + added + ", failed=" + failed);
 		addMessage("elements_added_to_collection", Integer.valueOf(added), currentCollectionLabel);		
 		if (failed > 0) addError("elements_not_added_to_collection", Integer.valueOf(failed), currentCollectionLabel);
 		getView().setKeyEditable(false); // To mark as saved
@@ -58,6 +63,10 @@ public class AddElementsToCollectionAction extends SaveElementInCollectionAction
 		if (added > 0) {
 			getView().recalculateProperties(); 
 			closeDialog();
+			System.out.println("[ADDCOLL] added > 0, closeDialog() called");
+		}
+		else {
+			System.out.println("[ADDCOLL] added == 0, NOT closing dialog");
 		}
 	}
 
@@ -68,12 +77,15 @@ public class AddElementsToCollectionAction extends SaveElementInCollectionAction
 	
 	private void associateKey(Map key){
 		try {									
+			System.out.println("[ADDCOLL] associateKey: key=" + key);
 			associateEntity(key); 					
 			added++;
+			System.out.println("[ADDCOLL] associateKey: success, added=" + added);
 		}
 		catch (Exception ex) {
 			addValidationMessage(ex); 
 			failed++;
+			System.out.println("[ADDCOLL] associateKey: FAILED, failed=" + failed + ", ex=" + ex.getMessage());
 			log.error(
 				XavaResources.getString("add_collection_element_error", 
 						getCollectionElementView().getModelName(), 
