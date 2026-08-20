@@ -4,8 +4,8 @@ Objetivo: apariencia moderna y reconocible como "versión 8", con HTML + JavaScr
 
 ## Estrategia de trabajo
 
-- Trabajo en **3 bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
-- Orden estricto: **Bloque 1 → 2 → 3**. Cada bloque asume los tokens del anterior.
+- Trabajo en **bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
+- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques para reducir la carga de revisión y facilitar el merge.
 - Antes del Bloque 1, definir el **sistema de diseño** (tokens) como primer entregable.
 - Limpieza de CSS muerto (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`) se hace dentro de cada bloque, en las zonas que se toquen.
 
@@ -42,15 +42,28 @@ Definir en `base.css` como tokens en `:root`:
 
 Pendiente de revisión visual manual antes de fusionar: lista, detalle, colecciones, diálogos, calendario, modo phone, en los 3 temas.
 
-## Bloque 2 — Formularios y menú (`ui-forms`)
+## Bloque 2 — Formularios y menú
+
+Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, revisa y fusiona a master antes de empezar el siguiente. Orden estricto: **2a → 2b → 2c → 2d**.
+
+### Bloque 2a — Paneles laterales (`ui-panels`)
 
 - [ ] Modernize left menu.
 - [ ] Modernize chat panel and chat style (it shares the show/hide mechanism and visual style with the left menu).
+
+### Bloque 2b — Campos (`ui-fields`)
+
 - [ ] Modernize textfield look&feel.
 - [ ] Mark with * required field.
 - [ ] Switch editor for booleans.
+
+### Bloque 2c — Popups (`ui-popups`)
+
 - [ ] Adapt popup calendar to Material Design 3.
 - [ ] Mensajes de éxito como snackbar/toast con auto-cierre (errores siguen persistentes).
+
+### Bloque 2d — Diálogos (`ui-dialogs`)
+
 - [ ] Diálogos: eliminar `jquery-ui.css` + `smoothness/` y estilizar con CSS propio (radios, `--elevation-3`, backdrop con blur, animación de entrada). Quita ~47KB.
 
 ## Bloque 3 — Componentes de datos (`ui-data`)
