@@ -236,11 +236,22 @@
 	--attached-file-color: #5755D2;	
 
 	--input-border: #cbd5e1;
+	--input-hover-border: #94a3b8;
 	--input-focus-border: var(--default-action-button-background);
 	--input-color: black;
 	--input-background: white; 
+	--placeholder-color: #94a3b8;
 	--error-editor-border: #DC4A38;
 	--disabled-input-background: #f1f5f9;
+	--disabled-input-color: #64748b;
+	--label-color: #334155;
+	--required-indicator-color: #dc2626;
+	--select-chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.25 6 7.75 9.5 4.25' fill='none' stroke='%2364748b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	--switch-off-background: #cbd5e1;
+	--switch-off-hover-background: #94a3b8;
+	--switch-on-background: var(--accent-color);
+	--switch-on-hover-background: var(--accent-color-hover);
+	--switch-knob-background: white;
 	--xava-placeholder-background: #f1f5f9;
 	
 	--icon-i-color: var(--action-color);
@@ -249,7 +260,7 @@
 	--icons-list-i-hover-color: black;
 	--icons-list-background: var(--background);
 	--icons-list-i-hover-background: var(--action-hover-background);	
-	--crop-free-icon-color: var(--required-editor-border);
+	--crop-free-icon-color: #94a3b8;
 	--plus-icon-color: var(--crop-free-icon-color);
 	--scrollbar-background: linear-gradient(
 			to top,
@@ -782,35 +793,95 @@ input[type="text"], input[type="password"], input[type="file"], input[type="date
 input[type="datetime-local"], .ui-widget input[type="datetime-local"], 
 .ui-widget input[type="text"], .ui-widget input[type="password"], .ui-widget input[type="file"], .ui-widget input[type="date"],  
 .ui-widget select, .ui-widget textarea {   
-	border-color: var(--input-border);  
-	border-style: solid;	
-	border-width: 2px; 
+	border: 1px solid var(--input-border);  
 	font-size: var(--font-size-md);  
-	border-radius: var(--radius-sm);
-	color: var(--input-color);
-	background: var(--input-background); 
-	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-textarea, .ui-widget textarea {   
 	border-radius: var(--radius-md);
 	color: var(--input-color);
+	background: var(--input-background); 
+	transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+:is(input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"], select, textarea):hover:not(:disabled):not(:focus) {
+	border-color: var(--input-hover-border);
+}
+
+::placeholder {
+	color: var(--placeholder-color);
+	opacity: 1;
 }
 
 input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"], textarea { 
-	padding: var(--space-1);
+	padding: var(--space-2) var(--space-3);
 }
 
 input[type="text"], input[type="password"], input[type="file"], input[type="date"], input[type="datetime-local"] {  
 	height: 20px;
 }
 
-input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]:disabled, input[type="date"]:disabled, input[type="datetime-local"]:disabled, textarea:disabled {  
+input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]:disabled, input[type="date"]:disabled, input[type="datetime-local"]:disabled, select:disabled, textarea:disabled {  
 	background: var(--disabled-input-background);
+	color: var(--disabled-input-color);
+	cursor: default;
 }
 
-.xava_editor input[type="checkbox"] {
-	vertical-align: middle; 
+.xava_numeric {
+	font-variant-numeric: tabular-nums;
+}
+
+.xava_editor input.ox-switch {
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+	width: 40px;
+	height: 24px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: var(--radius-full);
+	background: var(--switch-off-background);
+	vertical-align: middle;
+	position: relative;
+	cursor: pointer;
+	transition: background-color var(--transition-fast);
+}
+
+.xava_editor input.ox-switch::after {
+	content: "";
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--switch-knob-background);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	transition: transform var(--transition-normal);
+}
+
+.xava_editor input.ox-switch:hover:not(:disabled):not(:checked) {
+	background: var(--switch-off-hover-background);
+}
+
+.xava_editor input.ox-switch:checked {
+	background: var(--switch-on-background);
+}
+
+.xava_editor input.ox-switch:checked:hover:not(:disabled) {
+	background: var(--switch-on-hover-background);
+}
+
+.xava_editor input.ox-switch:checked::after {
+	transform: translateX(16px);
+}
+
+.xava_editor input.ox-switch:disabled {
+	opacity: 0.55;
+	cursor: default;
+}
+
+.ox-element-collection .xava_editor input.ox-switch {
+	display: block;
+	margin: 2px auto;
 }
 
 .ox-list input[type="checkbox"] {
@@ -855,6 +926,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 input[type="radio"] {
 	margin: 4px 0px 4px 10px;
 	vertical-align: middle;
+	accent-color: var(--accent-color);
 }
 
 input[type="radio"]:focus-visible {
@@ -897,14 +969,28 @@ input[type="checkbox"]:focus-visible {
 }
 
 select:not([multiple]) { 
-	height: 30px;
-	padding: 5px;
+	-webkit-appearance: none;
+	appearance: none;
+	box-sizing: border-box;
+	height: 38px;
+	padding: 0 var(--space-7) 0 var(--space-3);
+	background-image: var(--select-chevron-icon);
+	background-repeat: no-repeat;
+	background-position: right var(--space-2) center;
+	cursor: pointer;
 }
 
 .ox-label { 
-	padding-right: 7px;
-	font-weight: bold;
+	padding-right: var(--space-2);
+	font-weight: 500;
+	color: var(--label-color);
 	vertical-align: baseline;
+}
+
+.ox-required-label::after {
+	content: " *";
+	color: var(--required-indicator-color);
+	font-weight: 600;
 }
 
 .ox-label.ox-label-tall-row {
@@ -918,6 +1004,7 @@ select:not([multiple]) {
 input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus, input[type="date"]:focus, input[type="datetime-local"]:focus, select:focus, textarea:focus {   
 	outline: 0;
 	border-color: var(--input-focus-border) !important; 
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
 }
 
 .module-wrapper {
@@ -1662,6 +1749,7 @@ input[type="button"] {
 	-moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box;
 	height: 30px;
+	padding: var(--space-1) var(--space-2);
 }
 
 .ox-list-cell-editor .ox-descriptions-list {
@@ -1676,7 +1764,7 @@ input[type="button"] {
 	top: -5px;
 }
 
-.ox-element-collection input[type="checkbox"] {
+.ox-element-collection input[type="checkbox"]:not(.ox-switch) {
 	height: inherit;
 	margin-left: auto;
     margin-right: auto;
@@ -1829,7 +1917,8 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	width: 220px;	
 }
 #sign_in_box select {
-	height: auto;	
+	box-sizing: border-box;
+	width: 246px;
 }
 
 .ox-frame-title {
@@ -2323,7 +2412,8 @@ div.ox-subcontroller table{
 .small-label { 
 	padding-left: 6px;
 	margin-bottom: 2px;
-	font-weight: bold; 
+	font-weight: 500;
+	color: var(--label-color);
 }
 
 .bold-label {

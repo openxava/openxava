@@ -1,6 +1,12 @@
 Change Log for OpenXava project
 ===============================
 
+- Text fields, selects and textareas redesigned: 1px border, 8px corner radius, taller and more comfortable (38px), hover border, accent focus ring and softer disabled state.
+- Required properties and references are now marked with a red asterisk next to the label, instead of a darker field border.
+- Boolean properties in detail view use a modern switch (toggle) editor instead of a checkbox.
+- Property labels use medium font weight and a softer color for a cleaner, less noisy look.
+- Numeric fields use tabular-nums so digits align when comparing values.
+- New CSS variables for field customization: --input-hover-border, --placeholder-color, --disabled-input-color, --label-color, --required-indicator-color, --select-chevron-icon, --switch-off-background, --switch-off-hover-background, --switch-on-background, --switch-on-hover-background, --switch-knob-background.
 - Modules menu widened from 180px to 260px with hairline border, pill-shaped rows and accent-colored selection.
 - Magnifier icon added inside the module search input; input has visible border at rest and subtle 2px focus ring at 20% opacity.
 - Module menu show/hide toggles redesigned as circular button (hide) and vertical tab (show) with accent hover and elevation.

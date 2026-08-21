@@ -44,7 +44,7 @@
 	--default-action-button-hover-background: var(--accent-color-hover);
 
 	/* Editors */
-	--required-editor-border: #94a3b8;
+	--required-editor-border: var(--input-border);
 	--calendar-selected-day: var(--accent-color);
 
 }

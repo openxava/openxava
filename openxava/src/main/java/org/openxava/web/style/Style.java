@@ -1021,6 +1021,13 @@ public class Style {
 	}
 	
 	/**
+	 * @since 8.0
+	 */
+	public String getRequiredLabel() { 
+		return "ox-required-label";
+	}
+	
+	/**
 	 * Determines if the html content has a class attribute with the getFrame() code and replace its content
 	 * with getFrame() getFrameSibling combination.
 	 * @param html Html text to be manipulated.

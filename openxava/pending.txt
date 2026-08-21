@@ -12,6 +12,7 @@ Pending UI8 modernization (tmr)
 - Suite.
 - Prueba manuales.
 - Documentación:
+    - Mirar todos los hilos y revisar migración.
     - Rehacer custom-style_en/es.html
 - Refinar y resumir entradas en changelog
 - Borrar MDs.

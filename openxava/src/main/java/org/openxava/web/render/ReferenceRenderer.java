@@ -54,6 +54,7 @@ public class ReferenceRenderer {
 		String labelStyle = view.getLabelStyleForReference(ref);
 		if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultLabelStyle();
 		String label = view.getLabelFor(ref);
+		String requiredLabelClass = editable && ref.isRequired() ? " " + style.getRequiredLabel() : "";
 
 		HtmlWriter w = new HtmlWriter();
 
@@ -72,7 +73,7 @@ public class ReferenceRenderer {
 			w.append(preLabel);
 			if (labelFormat == MetaPropertyView.NORMAL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
-					.append("' class='").append(labelStyle).append("'>");
+					.append("' class='").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
 				w.append("</span>");
 			}
@@ -80,7 +81,7 @@ public class ReferenceRenderer {
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
-					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append("'>");
+					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
 				w.append("</span><br/>");
 			}
