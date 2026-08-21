@@ -158,4 +158,21 @@ Tras revisar un pantallazo de Facturas con las nuevas etiquetas, se aplicaron 4 
 3. **Etiquetas con más contraste en tema oscuro**: `--label-color` de `#d4d4d8` a `#e4e4e7` (zinc-300 → zinc-200) en dark-overrides.css.
 4. **Marcos alineados con los campos**: causa raíz — para etiquetas SMALL/NO_LABEL se emitía un `<div class='ox-layout-...-cell ox-label'>` **vacío** antes del campo; al ser `table-cell` (primera celda de fila) generaba una tabla anónima con border-spacing + whitespace (~8px) que desplazaba los campos a la derecha del borde del marco. Fix en `PropertyEditorRenderer.java` y `ReferenceRenderer.java`: la celda de etiqueta (`preLabel`/`postLabel`) solo se emite cuando hay etiqueta NORMAL dentro. Ahora campos y bordes de marco parten del mismo borde de contenido.
 
-**Pendiente de verificación manual por el usuario**: alineación marco/campos, aspecto en tema oscuro, y filas mixtas NORMAL + SMALL (el campo SMALL ya no ocupa la columna de etiqueta).
+**Verificado manualmente por el usuario (2026-08-21)**: espaciados, alineación marco/campos, color y tamaño de etiquetas — todo correcto en ambos temas.
+
+## Problema pendiente: fila mixta NORMAL + SMALL (Vía pública en Invoice)
+
+### Descripción
+En Invoice, la fila que mezcla etiqueta NORMAL ("Vía pública") con campos SMALL ("Código postal", etc.) muestra un **espacio muy grande entre la etiqueta "Vía pública" y su campo**. Apareció tras el ajuste 4 de arriba (eliminar la celda de etiqueta vacía para SMALL/NO_LABEL).
+
+### Causa probable
+En vistas `alignedByColumns` las celdas son `table-cell` dentro de una tabla (o tabla anónima): la primera columna es la de etiquetas y la segunda la de editores. Antes, el campo SMALL llevaba una celda de etiqueta vacía que ocupaba la columna 1, así que su editor caía en la columna 2, alineado con el editor del campo NORMAL. Ahora el editor wrapper del SMALL entra en la **columna 1** (etiquetas), y como su contenido es ancho, estira esa columna, empujando el editor de "Vía pública" lejos de su etiqueta.
+
+### Posibles vías de arreglo (evaluar el lunes)
+- **Dar al editor SMALL `grid-column`/span de 2 columnas**: en la tabla de layout, el campo SMALL debería ocupar etiqueta+editor (colspan=2), no solo la columna de etiqueta. En HTML plano sería `colspan`; con divs `table-cell` quizá haya que forzar que el wrapper SMALL no sea `table-cell` sino `inline-block` en filas mixtas, o envolverlo para que cruce ambas columnas.
+- **Alternativa conservadora**: volver a emitir la celda de etiqueta vacía para SMALL solo cuando la vista es `alignedByColumns` (donde la columna de etiqueta tiene función estructural), manteniendo la eliminación para el caso común no alineado.
+- Inspeccionar el DOM generado de esa fila en Invoice antes de decidir.
+
+### Archivos tocados por el ajuste 4 (origen del problema)
+- `src/main/java/org/openxava/web/render/PropertyEditorRenderer.java` (líneas 59-67)
+- `src/main/java/org/openxava/web/render/ReferenceRenderer.java` (líneas 75-91)

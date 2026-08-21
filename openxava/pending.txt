@@ -3,7 +3,8 @@ Pending UI8 modernization (tmr)
 
 - Bloque 2b.
     - Etiqueta a la izquierda.
-        - Preguntar a Kimi su opinión.
+        - Corregir espacio entre Via publica y su campo, en Invoice. TMR ME QUEDÉ POR AQUÍ.
+            TMR LO DEMÁS YA ESTÁ BIEN. INCLUIDO ESPACIADOS, ALINACIÓN, COLOR, TAMAÑO, ETC.
         - Probar grabar booleanos.
         - Espaciado, ahora hay más.
         - En arquetipos y otra apps
