@@ -3,6 +3,9 @@ Pending UI8 modernization (tmr)
 
 - Bloque 2b.
     - Etiqueta a la izquierda.
+        - Alienar etiqueta booleanos. TMR ME QUEDÉ HACIENDO ESTO
+            Pagada en Invoice, sin romper la alineaciones de abajo
+        - Probar grabar booleanos.
         - Preguntar a Kimi su opinión.
         - Espaciado, ahora hay más.
         - En arquetipos y otra apps
