@@ -899,7 +899,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 
 .ox-web-url a {
 	position: relative; 
-	right: 25px;
+	right: 28px;
 }
 
 .flatpickr-day.selected {
