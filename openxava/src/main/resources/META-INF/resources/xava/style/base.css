@@ -2426,6 +2426,19 @@ div.ox-subcontroller table{
 	line-height: 1.3;
 }
 
+.ox-editor-wrapper .xava_editor {
+	display: inline-flex;
+	align-items: center;
+	min-height: 38px;
+}
+
+.ox-editor-wrapper .xava_editor::before {
+	content: "";
+	width: 0;
+	height: calc(20px + (var(--space-2) / 2) + 1px);
+	align-self: baseline;
+}
+
 .bold-label {
 	font-weight:bold;
 }

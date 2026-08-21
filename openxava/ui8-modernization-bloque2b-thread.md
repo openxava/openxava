@@ -102,6 +102,35 @@ El wrapper del booleano tiene esta estructura:
 - **Usar `vertical-align: top` en `.ox-small-label-wrapper` sin `inline-flex`**: Si `.xava_editor` vuelve a ser `inline` normal, el `vertical-align: top` del wrapper podría alinear todo desde arriba correctamente, y el `min-height` alone podría ser suficiente.
 - **Inspeccionar en el navegador**: Comparar las baselines exactas del wrapper del booleano vs el de un input de texto para entender el desfío en píxeles.
 
+## Resolución
+
+El problema de alineación se resolvió aplicando la misma baseline de 38px a **todos** los `.xava_editor` dentro de `.ox-editor-wrapper`, no solo a los de `.ox-small-label-wrapper`, y ajustando el `::before` para que la línea base quede en el centro del texto del input (25px) en lugar del borde inferior del contenido (29px).
+
+### CSS final (base.css)
+
+```css
+.ox-editor-wrapper .xava_editor {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+}
+
+.ox-editor-wrapper .xava_editor::before {
+    content: "";
+    width: 0;
+    height: calc(20px + (var(--space-2) / 2) + 1px); /* 25px */
+    align-self: baseline;
+}
+```
+
+### Resultado
+- La etiqueta del booleano "Pagada" queda perfectamente alineada.
+- Acciones como "Cambiar nombre de etiqueta" y "Prefix street" se centran verticalmente con su campo.
+- Campos NO_LABEL como "Población" se alinean con campos SMALL como "Estado".
+- Campos NORMAL como "Vía pública" y "Código postal" se alinean con SMALL en la misma fila.
+- No se usa `.ox-switch` en la regla; es una solución genérica para editores pequeños (boolean, radio, etc.).
+- Verificado manualmente por el usuario: todo en su sitio.
+
 ## Archivos modificados en esta sesión
 
 | Archivo | Cambios |
