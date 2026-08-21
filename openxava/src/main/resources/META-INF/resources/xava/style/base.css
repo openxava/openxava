@@ -949,16 +949,21 @@ input[type="checkbox"]:focus-visible {
 }
 
 .ox-list-subheader input[type="text"] { 
-    height: 38px;
+    height: 32px;
     width: 100%; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box;
 }
 
-.ox-list-subheader select {
+.ox-list-subheader select:not([multiple]) {
 	width: 100%;
-	height: 38px;
+	height: 32px;
+}
+
+select.xava_list_configurations:not([multiple]),
+select.xava_group_by:not([multiple]) {
+	height: 32px;
 }
 
 .ox-list-subheader-resize {
