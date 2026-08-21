@@ -51,6 +51,9 @@ public class PropertyEditorRenderer {
 		String preLabel = LayoutCells.preLabel(view, style, first);
 		String postLabel = LayoutCells.postLabel();
 		String preEditor = LayoutCells.preEditor(view, style, first);
+		if (labelFormat == MetaPropertyView.SMALL_LABEL) {
+			preEditor = preEditor.replace("ox-editor-wrapper'", "ox-editor-wrapper ox-small-label-wrapper'");
+		}
 		String postEditor = LayoutCells.postEditor();
 
 		if (!hasFrame) {
@@ -67,7 +70,7 @@ public class PropertyEditorRenderer {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + p.getName()))
 					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.append(label);
-				w.append("</span><br/>");
+				w.append("</span>");
 			}
 		}
 

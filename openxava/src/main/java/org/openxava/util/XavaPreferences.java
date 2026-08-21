@@ -342,7 +342,7 @@ public class XavaPreferences {
 		if (defaultLabelFormat >= 0)
 			return defaultLabelFormat;
 		String labelFormat = getProperties().getProperty("defaultLabelFormat",
-				"NORMAL");
+				"SMALL");
 		if (labelFormat.equalsIgnoreCase("NORMAL"))
 			defaultLabelFormat = MetaPropertyView.NORMAL_LABEL;
 		else if (labelFormat.equalsIgnoreCase("SMALL"))
