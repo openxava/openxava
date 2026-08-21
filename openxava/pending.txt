@@ -9,6 +9,7 @@ Pending UI8 modernization (tmr)
         - Falta revisar doc.
             - ¿Poner en migración?
             - changelog
+    - InvoiceTest
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
