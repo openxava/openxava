@@ -73,14 +73,14 @@ public class ReferenceRenderer {
 		String postEditor = LayoutCells.postEditor();
 
 		if (!onlyEditor) {
-			w.append(preLabel);
 			if (labelFormat == MetaPropertyView.NORMAL_LABEL) {
+				w.append(preLabel);
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
 					.append("' class='").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
 				w.append("</span>");
+				w.append(postLabel);
 			}
-			w.append(postLabel);
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))

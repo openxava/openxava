@@ -148,3 +148,14 @@ El problema de alineación se resolvió aplicando la misma baseline de 38px a **
 - El usuario hizo un push con los cambios confirmados (puntos 1-4) antes de seguir con el problema del booleano.
 - Los puntos 5 y 6 (min-height + vertical-align:top) están en el código pero NO resuelven completamente el problema del booleano.
 - Hay que decidir si mantener los puntos 5 y 6 o revertirlos si no se encuentra solución.
+
+## Ajustes de refinamiento (2026-08-21)
+
+Tras revisar un pantallazo de Facturas con las nuevas etiquetas, se aplicaron 4 ajustes:
+
+1. **Espaciado vertical entre campos reducido**: `.small-label` `margin-top` de `--space-3` (12px) a `--space-2` (8px) en base.css. Total entre campos ≈13px (8px + 5px de padding inferior del wrapper). El gap etiqueta→campo se mantiene en 4px (`--space-1`).
+2. **Etiquetas más oscuras en tema claro**: `--label-color` de `#334155` a `#1e293b` (slate-700 → slate-800) en base.css.
+3. **Etiquetas con más contraste en tema oscuro**: `--label-color` de `#d4d4d8` a `#e4e4e7` (zinc-300 → zinc-200) en dark-overrides.css.
+4. **Marcos alineados con los campos**: causa raíz — para etiquetas SMALL/NO_LABEL se emitía un `<div class='ox-layout-...-cell ox-label'>` **vacío** antes del campo; al ser `table-cell` (primera celda de fila) generaba una tabla anónima con border-spacing + whitespace (~8px) que desplazaba los campos a la derecha del borde del marco. Fix en `PropertyEditorRenderer.java` y `ReferenceRenderer.java`: la celda de etiqueta (`preLabel`/`postLabel`) solo se emite cuando hay etiqueta NORMAL dentro. Ahora campos y bordes de marco parten del mismo borde de contenido.
+
+**Pendiente de verificación manual por el usuario**: alineación marco/campos, aspecto en tema oscuro, y filas mixtas NORMAL + SMALL (el campo SMALL ya no ocupa la columna de etiqueta).

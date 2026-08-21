@@ -244,7 +244,7 @@
 	--error-editor-border: #DC4A38;
 	--disabled-input-background: #f1f5f9;
 	--disabled-input-color: #64748b;
-	--label-color: #334155;
+	--label-color: #1e293b;
 	--required-indicator-color: #dc2626;
 	--select-chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.25 6 7.75 9.5 4.25' fill='none' stroke='%2364748b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 	--switch-off-background: #cbd5e1;
@@ -2418,7 +2418,7 @@ div.ox-subcontroller table{
 .small-label {
 	display: block;
 	padding-left: 0;
-	margin-top: var(--space-3);
+	margin-top: var(--space-2);
 	margin-bottom: var(--space-1);
 	font-size: var(--font-size-sm);
 	font-weight: 500;
