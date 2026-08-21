@@ -949,7 +949,7 @@ input[type="checkbox"]:focus-visible {
 }
 
 .ox-list-subheader input[type="text"] { 
-    height: 28px;
+    height: 38px;
     width: 100%; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
@@ -958,6 +958,7 @@ input[type="checkbox"]:focus-visible {
 
 .ox-list-subheader select {
 	width: 100%;
+	height: 38px;
 }
 
 .ox-list-subheader-resize {

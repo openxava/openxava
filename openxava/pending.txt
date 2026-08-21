@@ -9,6 +9,7 @@ Pending UI8 modernization (tmr)
     - Botones de abajo.
     - Secciones.
     - Marcos.
+    - Acciones en vista.
 - Suite.
 - Prueba manuales.
 - Documentación:
