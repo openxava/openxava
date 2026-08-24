@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Default value for defaultLabelFormat in xava.properties changed from NORMAL to SMALL, so property labels are now displayed in small format by default.
 - Text fields, selects and textareas redesigned: 1px border, 8px corner radius, taller and more comfortable (38px), hover border, accent focus ring and softer disabled state.
 - Required properties and references are now marked with a red asterisk next to the label, instead of a darker field border.
 - Boolean properties in detail view use a modern switch (toggle) editor instead of a checkbox.

@@ -6,13 +6,7 @@ with Terra and Light theme at least the next cases:
 		(It fails currently: https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=ff8080818de6fbe7018dea720e5e0007)
 	- Dates for "Date as label" column are shown completely.
 	- Narrow the browser, the content of type and description columns are not overlapped between rows.  
-- Invoice: Go to first detail. 
-	- Checkbox of paid must be well aligned.
-	- Action links in name of customer and street of address must be well aligned.
-	- The editors for street (with regular label) and postal code (with small label) must be well aligned.
-	- The editors for city (no label) and state (small label) must be well aligned.
-	- The label of photo must be well aligned (top or middle but not ugly).
-- ProjectMember with Dark:	
+- ProjectMember with Dark:
 	- Go to first detail.
 	- Click to edit the project, so a dialog is shown.
 	- Dialog data is readable, white over black, instead of black over black.
@@ -27,5 +21,20 @@ with Terra and Light theme at least the next cases:
 	- Links for page numbers and 'Hide records' links are visible.
 - Product2:
 	- Open a descriptions list combo, the background is white.	
-		
+- Invoice:
+    - Go to first detail.
+	- Paid label aligned with other labels and paid editor centered with other fields.
+	- Action links in name of customer and street of address must be well aligned.
+	- The editors for street (with regular label) and postal code (with small label) must be well aligned.
+	- The editors for city (no label) and state (small label) must be well aligned.
+	- Year field aligned on left with Discounts frame.
+- Invoice: With defaultLabelFormat=NORMAL
+    - Go to first detail.
+    - Paid editor must be well aligned.
+    - Action links in name of customer and street of address must be well aligned.
+    - The editors for street (with regular label) and postal code (with small label) must be well aligned.
+    - The editors for city (no label) and state (small label) must be well aligned.
+    - The label of photo must be well aligned (top or middle but not ugly).
+    - The 4 fields inside Customer before Address should be aligned.
+
 
