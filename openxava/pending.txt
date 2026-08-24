@@ -3,8 +3,8 @@ Pending UI8 modernization (tmr)
 
 - Bloque 2b.
     - Etiqueta a la izquierda.
-        - En arquetipos y otra apps
         - Falta revisar doc.
+            - Customization
             - ¿Poner en migración?
             - changelog
         - Modificar prueba manuales.
