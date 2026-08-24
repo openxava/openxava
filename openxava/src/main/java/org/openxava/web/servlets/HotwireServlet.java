@@ -478,7 +478,6 @@ public class HotwireServlet extends BaseServlet {
                 if (!"/xava/".equals(this.baseFolder)) {
                     request.setAttribute("xava.phone", true);
                 }
-                System.out.println("[HOTWIRE] baseFolder=" + this.baseFolder + ", xava.phone=" + request.getAttribute("xava.phone") + ", application=" + application + ", module=" + module);
                 request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
                 Requests.partialInit(request, application, module);
 
@@ -761,7 +760,9 @@ public class HotwireServlet extends BaseServlet {
                 HttpServletRequest wrappedRequest = new ParametersHttpServletRequest(request, params);
                 return org.openxava.web.render.Parts.render(wrappedRequest, response, jspFile);
             }
-            return Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
+            // Shared JSPs (like editorWrapper.jsp) live in /xava/, not in /phone/
+            String base = jspFile.startsWith("/") ? "" : "/xava/";
+            return Servlets.getURIAsString(request, response, getURI(base, jspFile, values, multipleValues, selected, deselected, additionalParameters));
         }
 
         private static Map<String, String[]> parseQueryString(String uri) {
@@ -794,13 +795,11 @@ public class HotwireServlet extends BaseServlet {
             view.resetCollectionsCache();
 
             if (manager.isShowDialog() || manager.isHideDialog() || firstRequest) {
-                System.out.println("[HOTWIRE] showDialog=" + manager.isShowDialog() + ", hideDialog=" + manager.isHideDialog() + ", firstRequest=" + firstRequest + ", dialogLevel=" + manager.getDialogLevel());
                 if (manager.getDialogLevel() > 0) {
                     changedParts.put(decorateId("dialog" + manager.getDialogLevel()),
                         getURIAsString("core?buttonBar=false", values, multipleValues, selected, deselected, additionalParameters)
                     );
                     result.setFocusPropertyId(getView().getFocusPropertyId());
-                    System.out.println("[HOTWIRE] DIALOG PATH: putting dialog" + manager.getDialogLevel() + ", returning early");
                     return;
                 }
             }
@@ -808,10 +807,8 @@ public class HotwireServlet extends BaseServlet {
             Collection<String> propertiesUsedInCalculations = new HashSet<>();
             Map<String, View> changedCollectionsTotals = view.getChangedCollectionsTotals();
             Map<String, Object> changeParts = getChangedParts(values, propertiesUsedInCalculations, changedCollectionsTotals);
-            System.out.println("[HOTWIRE] changeParts keys=" + changeParts.keySet() + ", reloadAllUINeeded=" + manager.isReloadAllUINeeded() + ", hideDialog=" + manager.isHideDialog() + ", dialogLevel=" + manager.getDialogLevel());
             for (Map.Entry<String, Object> changedPart : changeParts.entrySet()) {
                 String htmlContent = getURIAsString((String) changedPart.getValue(), values, multipleValues, selected, deselected, additionalParameters);
-                System.out.println("[HOTWIRE] changedPart key=" + changedPart.getKey() + ", value=" + changedPart.getValue() + ", htmlLength=" + (htmlContent == null ? 0 : htmlContent.length()));
                 changedParts.put(changedPart.getKey(), htmlContent);
             }
 
@@ -1167,7 +1164,11 @@ public class HotwireServlet extends BaseServlet {
         }
 
         private String getURI(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws UnsupportedEncodingException {
-            StringBuilder result = new StringBuilder(getURIPrefix());
+            return getURI(getURIPrefix(), jspFile, values, multipleValues, selected, deselected, additionalParameters);
+        }
+
+        private String getURI(String base, String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder(base);
             result.append(jspFile);
             if (jspFile.endsWith(".jsp")) result.append('?');
             else result.append('&');
