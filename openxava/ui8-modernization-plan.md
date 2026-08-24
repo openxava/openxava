@@ -68,7 +68,17 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2c — Popups (`ui-popups`)
 
-- [ ] Adapt popup calendar to Material Design 3.
+- [ ] Adapt popup calendar (flatpickr) to the new design system. Overrides con tokens en `base.css`, sin tocar el CSS vendor ni cambiar la interacción:
+  - Día seleccionado con `--accent-color` (verificar también en dark, hoy apunta a `--my-blue`).
+  - Día de hoy con indicador de acento (anillo o punto).
+  - Hover de días con fondo suave y transición estándar 150–200ms.
+  - Popup con `--radius-md`/`--radius-lg` y `--elevation-2`/`--elevation-3`.
+  - Inter heredada, `tabular-nums` en números de día, tamaños `--font-size-*`.
+  - Flechas de navegación tipo chevron coherentes con los selects del Bloque 2b.
+  - Cabecera mes/año estilizada como los selects de 2b (o texto clickable).
+  - Fila de hora con inputs/spinners coherentes con los textfields nuevos.
+  - `:focus-visible` con `--focus-ring-color` en navegación por teclado.
+  - Verificación en dark theme y modo phone.
 - [ ] Mensajes de éxito como snackbar/toast con auto-cierre (errores siguen persistentes).
 
 ### Bloque 2d — Diálogos (`ui-dialogs`)

@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Date calendar popup (flatpickr) adapted to the new design system: rounded corners, elevation, accent color for selected day and today indicator, hover transitions, custom chevron in month dropdown and full dark theme support.
+- New CSS variables for date popup customization: --date-popup-background, --date-popup-hover-background, --date-popup-hover-color, --date-popup-muted-color.
 - Default value for defaultLabelFormat in xava.properties changed from NORMAL to SMALL, so property labels are now displayed in small format by default.
 - Text fields, selects and textareas redesigned: 1px border, 8px corner radius, taller and more comfortable (38px), hover border, accent focus ring and softer disabled state.
 - Required properties and references are now marked with a red asterisk next to the label, instead of a darker field border.

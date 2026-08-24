@@ -75,6 +75,7 @@
 	--switch-knob-background: #d4d4d8;
 	--crop-free-icon-color: #a1a1aa;
 	--calendar-selected-day: var(--my-blue);
+	--date-popup-background: var(--my-lightdark);
 
 	--button-bar-shadow: transparent;
 	--shadow: transparent;
