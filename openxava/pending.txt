@@ -1,9 +1,8 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 2b.
-    - Probar grabar booleanos.
-    - InvoiceTest
+- Bloque 2c.
+- Bloque 2d.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
