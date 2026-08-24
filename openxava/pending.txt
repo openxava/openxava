@@ -4,7 +4,7 @@ Pending UI8 modernization (tmr)
 - Bloque 2b.
     - Etiqueta a la izquierda.
         - Falta revisar doc.
-            - Customization
+            * Customization
             - ¿Poner en migración?
             - changelog
         - Modificar prueba manuales.
