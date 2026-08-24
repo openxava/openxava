@@ -58,12 +58,22 @@
 	--reference-search-icon-color: var(--my-dark);
 
 	/* Editors */
-	--required-editor-border: var(--my-silver);
+	--required-editor-border: var(--input-border);
+	--required-indicator-color: #f87171;
 	--input-focus-border: var(--accent-color);
 	--input-color: var(--my-silver);
 	--input-border: #3f3f46;
+	--input-hover-border: #52525b;
 	--input-background: transparent;
+	--placeholder-color: #71717a;
 	--disabled-input-background: var(--my-lightdark);
+	--disabled-input-color: #71717a;
+	--label-color: #e4e4e7;
+	--select-chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.25 6 7.75 9.5 4.25' fill='none' stroke='%23a1a1aa' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	--switch-off-background: #3f3f46;
+	--switch-off-hover-background: #52525b;
+	--switch-knob-background: #d4d4d8;
+	--crop-free-icon-color: #a1a1aa;
 	--calendar-selected-day: var(--my-blue);
 
 	--button-bar-shadow: transparent;

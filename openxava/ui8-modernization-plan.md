@@ -59,9 +59,12 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2b — Campos (`ui-fields`)
 
-- [ ] Modernize textfield look&feel.
-- [ ] Mark with * required field.
-- [ ] Switch editor for booleans.
+- [x] Modernize textfield look&feel (1px border, radius-md, 38px de alto, hover, anillo de foco con acento, disabled suave, selects con chevron propio, tabular-nums en numéricos).
+- [x] Mark with * required field (asterisco rojo vía `ox-required-label` en `PropertyEditorRenderer` y `ReferenceRenderer`; el borde distintivo se neutraliza a `--input-border`).
+- [x] Switch editor for booleans (CSS puro sobre el checkbox dentro de `.xava_editor`, con tokens `--switch-*`).
+- [x] Labels on top by default (`defaultLabelFormat` cambiado de `NORMAL` a `SMALL` en `XavaPreferences`; CSS de `.small-label` modernizado; `<br/>` eliminado en `PropertyEditorRenderer` y `ReferenceRenderer`; alineación de etiquetas SMALL con campos pequeños y mixtos resuelta; marcos alineados con campos).
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ### Bloque 2c — Popups (`ui-popups`)
 

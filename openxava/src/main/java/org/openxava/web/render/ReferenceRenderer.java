@@ -54,6 +54,7 @@ public class ReferenceRenderer {
 		String labelStyle = view.getLabelStyleForReference(ref);
 		if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultLabelStyle();
 		String label = view.getLabelFor(ref);
+		String requiredLabelClass = editable && ref.isRequired() ? " " + style.getRequiredLabel() : "";
 
 		HtmlWriter w = new HtmlWriter();
 
@@ -66,23 +67,31 @@ public class ReferenceRenderer {
 		String preLabel = LayoutCells.preLabel(view, style, first);
 		String postLabel = LayoutCells.postLabel();
 		String preEditor = LayoutCells.preEditor(view, style, first);
+		if (labelFormat == MetaPropertyView.SMALL_LABEL) {
+			preEditor = preEditor.replace("ox-editor-wrapper'", "ox-editor-wrapper ox-small-label-wrapper'");
+		}
 		String postEditor = LayoutCells.postEditor();
 
 		if (!onlyEditor) {
-			w.append(preLabel);
 			if (labelFormat == MetaPropertyView.NORMAL_LABEL) {
+				w.append(preLabel);
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
-					.append("' class='").append(labelStyle).append("'>");
+					.append("' class='").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
 				w.append("</span>");
+				w.append(postLabel);
+			} else if (first || view.isAlignedByColumns()) {
+				// Empty label cell so SMALL/NO_LABEL references do not widen the
+				// shared first column and misalign NORMAL fields.
+				w.append(preLabel);
+				w.append(postLabel);
 			}
-			w.append(postLabel);
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
-					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append("'>");
+					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
-				w.append("</span><br/>");
+				w.append("</span>");
 			}
 		}
 

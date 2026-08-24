@@ -1,7 +1,8 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 2b.
+- Bloque 2c.
+- Bloque 2d.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
@@ -9,9 +10,14 @@ Pending UI8 modernization (tmr)
     - Botones de abajo.
     - Secciones.
     - Marcos.
+    - Acciones en vista.
+    - Editor de carga de archivos. Al menos el color.
+    - Editor de texto rico.
+    - Small label.
 - Suite.
 - Prueba manuales.
 - Documentación:
+    - Mirar todos los hilos y revisar migración.
     - Rehacer custom-style_en/es.html
 - Refinar y resumir entradas en changelog
 - Borrar MDs.
