@@ -3,6 +3,10 @@
 	white-space: nowrap; 
 }
 
+.ox-layout-aligned-cell.ox-label:empty {
+	padding: 0;
+}
+
 .ox-layout-aligned-cell {
 	display: table-cell;
 }

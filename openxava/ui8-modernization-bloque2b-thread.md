@@ -160,19 +160,35 @@ Tras revisar un pantallazo de Facturas con las nuevas etiquetas, se aplicaron 4 
 
 **Verificado manualmente por el usuario (2026-08-21)**: espaciados, alineación marco/campos, color y tamaño de etiquetas — todo correcto en ambos temas.
 
-## Problema pendiente: fila mixta NORMAL + SMALL (Vía pública en Invoice)
+## Problema: fila mixta NORMAL + SMALL (Vía pública en Invoice) — RESUELTO
 
 ### Descripción
-En Invoice, la fila que mezcla etiqueta NORMAL ("Vía pública") con campos SMALL ("Código postal", etc.) muestra un **espacio muy grande entre la etiqueta "Vía pública" y su campo**. Apareció tras el ajuste 4 de arriba (eliminar la celda de etiqueta vacía para SMALL/NO_LABEL).
+En Invoice, la fila que mezcla etiqueta NORMAL ("Vía pública") con campos SMALL ("Código postal", etc.) mostraba un **espacio muy grande entre la etiqueta "Vía pública" y su campo** tras eliminar la celda de etiqueta vacía para SMALL/NO_LABEL.
 
-### Causa probable
-En vistas `alignedByColumns` las celdas son `table-cell` dentro de una tabla (o tabla anónima): la primera columna es la de etiquetas y la segunda la de editores. Antes, el campo SMALL llevaba una celda de etiqueta vacía que ocupaba la columna 1, así que su editor caía en la columna 2, alineado con el editor del campo NORMAL. Ahora el editor wrapper del SMALL entra en la **columna 1** (etiquetas), y como su contenido es ancho, estira esa columna, empujando el editor de "Vía pública" lejos de su etiqueta.
+### Causa
+En la tabla compartida, si un campo SMALL/NO_LABEL iba en primer lugar sin celda de etiqueta, su wrapper se convertía en la primera celda y ensanchaba la columna de etiquetas, alejando el campo NORMAL de su etiqueta.
 
-### Posibles vías de arreglo (evaluar el lunes)
-- **Dar al editor SMALL `grid-column`/span de 2 columnas**: en la tabla de layout, el campo SMALL debería ocupar etiqueta+editor (colspan=2), no solo la columna de etiqueta. En HTML plano sería `colspan`; con divs `table-cell` quizá haya que forzar que el wrapper SMALL no sea `table-cell` sino `inline-block` en filas mixtas, o envolverlo para que cruce ambas columnas.
-- **Alternativa conservadora**: volver a emitir la celda de etiqueta vacía para SMALL solo cuando la vista es `alignedByColumns` (donde la columna de etiqueta tiene función estructural), manteniendo la eliminación para el caso común no alineado.
-- Inspeccionar el DOM generado de esa fila en Invoice antes de decidir.
+### Correcciones intermedias (revertidas)
+- Se probó separar cada fila en su propia tabla (`FrameLayout.newLine` cerrando y abriendo `ox-layout-detail`) en vistas no alineadas. Esto eliminó el espacio en Invoice con `defaultLabelFormat=SMALL`, pero **rompió la alineación de campos NORMAL** (`Codigito`, `Tipo`, `Nombre`, `Foto`) porque ya no compartían la columna de etiquetas.
 
-### Archivos tocados por el ajuste 4 (origen del problema)
-- `src/main/java/org/openxava/web/render/PropertyEditorRenderer.java` (líneas 59-67)
-- `src/main/java/org/openxava/web/render/ReferenceRenderer.java` (líneas 75-91)
+### Solución final
+- Se mantiene **una sola tabla** para todo el detalle, de modo que la columna de etiquetas se comparte y los campos NORMAL se alinean.
+- `PropertyEditorRenderer.java` y `ReferenceRenderer.java` vuelven a emitir `preLabel`/`postLabel` vacíos para campos/referencias `SMALL`/`NO_LABEL` cuando son el **primer miembro de la fila** o la vista es `alignedByColumns`.
+- `layout.css` añade `.ox-layout-aligned-cell.ox-label:empty { padding: 0; }` para que esas celdas vacías no añadan el `padding-right: 8px` de `.ox-label` y desplacen el contenido de los marcos.
+- Se revierte `FrameLayout.newLine` (eliminado) y `DetailViewRenderer` vuelve a `<div class='ox-layout-new-line'></div>`.
+
+### Resultado
+- `defaultLabelFormat=SMALL`: Invoice se ve correcto, sin espacio excesivo en "Vía pública".
+- `defaultLabelFormat=NORMAL`: los campos de la primera fila vuelven a alinearse.
+- Los marcos con campos SMALL/NO_LABEL no se desplazan.
+- Verificado manualmente por el usuario (2026-08-24) para ambos formatos.
+
+## Archivos modificados finalmente
+
+| Archivo | Cambios |
+|---------|---------|
+| `src/main/java/org/openxava/web/render/PropertyEditorRenderer.java` | Emite celda de etiqueta vacía para `SMALL`/`NO_LABEL` cuando es el primero de la fila o `alignedByColumns` |
+| `src/main/java/org/openxava/web/render/ReferenceRenderer.java` | Idem para referencias |
+| `src/main/resources/META-INF/resources/xava/style/layout.css` | Añade `.ox-layout-aligned-cell.ox-label:empty { padding: 0; }` |
+| `src/main/java/org/openxava/web/render/FrameLayout.java` | Revertido: eliminado `newLine` |
+| `src/main/java/org/openxava/web/render/DetailViewRenderer.java` | Vuelve a `<div class='ox-layout-new-line'></div>` |

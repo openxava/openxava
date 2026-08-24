@@ -64,6 +64,11 @@ public class PropertyEditorRenderer {
 				w.append(label);
 				w.append("</span>");
 				w.append(postLabel);
+			} else if (first || view.isAlignedByColumns()) {
+				// Empty label cell so SMALL/NO_LABEL fields do not widen the
+				// shared first column and misalign NORMAL fields.
+				w.append(preLabel);
+				w.append(postLabel);
 			}
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {

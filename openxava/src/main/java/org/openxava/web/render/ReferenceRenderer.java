@@ -80,6 +80,11 @@ public class ReferenceRenderer {
 				w.text(label);
 				w.append("</span>");
 				w.append(postLabel);
+			} else if (first || view.isAlignedByColumns()) {
+				// Empty label cell so SMALL/NO_LABEL references do not widen the
+				// shared first column and misalign NORMAL fields.
+				w.append(preLabel);
+				w.append(postLabel);
 			}
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
