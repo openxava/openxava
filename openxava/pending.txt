@@ -2,6 +2,9 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 2c.
+    - Prueba automática.
+    - openxava.messagesAutoCloseDelay. ¿Cambiar nombre? ¿documentar?
+    - Estética.
 - Bloque 2d.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.

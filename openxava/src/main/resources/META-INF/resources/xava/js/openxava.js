@@ -351,6 +351,33 @@ openxava.initMessages = function(application, module) {
 	$('.ox-message-box i').off('click').click(function() {
 		$(this).parent().parent().fadeOut(); 
 	});
+	$('div[id$="__messages"]:visible').each(function() {
+		if ($(this).find('table').length > 0) openxava.scheduleMessagesAutoClose(this);
+	});
+}
+
+openxava.messagesAutoCloseDelay = 5000;
+
+/**
+ * Schedules the automatic fade out of a messages container (success messages,
+ * warnings and infos). Errors remain persistent. The countdown pauses while
+ * the user hovers over the messages.
+ * @param {object} messagesDiv - The DOM element of the messages container
+ */
+openxava.scheduleMessagesAutoClose = function(messagesDiv) { 
+	var $messages = $(messagesDiv);
+	var previousTimeout = $messages.data('autoCloseTimeout');
+	if (previousTimeout) clearTimeout(previousTimeout);
+	$messages.off('mouseenter.oxautoclose').on('mouseenter.oxautoclose', function() {
+		var timeout = $(this).data('autoCloseTimeout');
+		if (timeout) clearTimeout(timeout);
+	});
+	$messages.off('mouseleave.oxautoclose').on('mouseleave.oxautoclose', function() {
+		openxava.scheduleMessagesAutoClose(this);
+	});
+	$messages.data('autoCloseTimeout', setTimeout(function() {
+		$messages.fadeOut();
+	}, openxava.messagesAutoCloseDelay));
 }
 
 
@@ -513,6 +540,7 @@ openxava.showNotification = function(message, type) {
     
     openxava.effectShow(app, module, type);
     openxava.initMessages();
+    if (type === "messages") openxava.scheduleMessagesAutoClose($("#" + id));
 };
 
 openxava.showMessage = function(message) { 	
@@ -526,7 +554,10 @@ openxava.showError = function(message) {
 openxava.showMessages = function(result) { 
 	var messagesIsEmpty = openxava.getElementById(result.application, result.module, "messages_table") == null;
 	var errorsIsEmpty = openxava.getElementById(result.application, result.module, "errors_table") == null;
-	if (!messagesIsEmpty) openxava.effectShow(result.application, result.module, "messages");
+	if (!messagesIsEmpty) {
+		openxava.effectShow(result.application, result.module, "messages");
+		openxava.scheduleMessagesAutoClose($("#" + openxava.decorateId(result.application, result.module, "messages")));
+	}
 	if (!errorsIsEmpty) openxava.effectShow(result.application, result.module, "errors");
 }
 

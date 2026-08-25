@@ -1,7 +1,7 @@
 # UI8 Modernization - Bloque 2c: Popups
 
 ## Objetivo
-Adaptar el popup calendar de fecha (flatpickr) al nuevo sistema de diseño de OpenXava 8.0, usando los tokens definidos en `base.css` (`--radius-*`, `--elevation-*`, `--accent-color`, `--font-size-*`, `--transition-*`), sin tocar el CSS vendor ni cambiar la interacción. El segundo ítem del bloque (snackbar/toast para mensajes de éxito) aún no se ha empezado.
+Adaptar el popup calendar de fecha (flatpickr) al nuevo sistema de diseño de OpenXava 8.0, usando los tokens definidos en `base.css` (`--radius-*`, `--elevation-*`, `--accent-color`, `--font-size-*`, `--transition-*`), sin tocar el CSS vendor ni cambiar la interacción. El segundo ítem del bloque (snackbar/toast para mensajes de éxito) está implementado, pendiente de verificación visual y tests.
 
 ## Decisión de diseño: no Material Design 3
 
@@ -79,13 +79,35 @@ Sin esto, el popup sería blanco también en tema oscuro. `--calendar-selected-d
 - **`DateCalendarTest`** (incluyendo `testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime`) **pasa en verde** tras ajustar un click tapado por el popup.
 - **Primer punto del Bloque 2c marcado como `[x]`** en `ui8-modernization-plan.md`.
 
-## Segundo ítem del Bloque 2c (no empezado)
+## Segundo ítem del Bloque 2c (implementado, pendiente de verificación)
 
 - **Mensajes de éxito como snackbar/toast con auto-cierre** (errores siguen persistentes). Plan línea 82.
-- No se ha investigado nada aún. Cuando se empiece, buscar dónde se renderizan los mensajes de éxito (`--messages-background: #6fc664` en `base.css` línea 305) y cómo se muestran actualmente.
+
+### Cambios realizados
+
+**`src/main/resources/META-INF/resources/xava/js/openxava.js`**:
+- Nueva función `openxava.scheduleMessagesAutoClose(messagesDiv)` (líneas 361-381): programa el `fadeOut` del contenedor de mensajes tras `openxava.messagesAutoCloseDelay` (nueva propiedad, 5000ms por defecto). Pausa la cuenta atrás al hacer hover (mouseenter cancela, mouseleave reprograma). Si había un timeout previo en el mismo contenedor, lo cancela (vía `$messages.data('autoCloseTimeout')`).
+- `initMessages` (líneas 350-357): además del handler de cierre manual, escanea `div[id$="__messages"]:visible` con tabla dentro y programa auto-cierre. Cubre la carga de página completa (mensajes renderizados por servidor con `MessagesRenderer`).
+- `showNotification` (línea 543): si `type === "messages"`, programa auto-cierre. Cubre `showMessage()` usado por `listEditor` (mensaje con enlace undo) y otros clientes JS. Los errores (`type === "errors"`) no se auto-cierran.
+- `showMessages` (líneas 555-562): tras `effectShow` de mensajes, programa auto-cierre. Cubre las respuestas AJAX. Nota: `initMessages` no lo cubre aquí porque `effectShow` oculta el contenedor (`hide()` + `fadeIn()` asíncrono) y el filtro `:visible` fallaría.
+
+**`src/main/resources/META-INF/resources/xava/style/base.css`** (líneas 2290-2297):
+- Animación de entrada `ox-message-in` (fade + slide-down 8px, `--transition-normal`) en `.ox-messages-wrapper .ox-message-box`, coherente con `xava-loading-in` del Bloque 1. Solo mensajes, errores intactos.
+
+**`changelog.txt`** (línea 4): entrada nueva.
+
+### Decisiones
+- Se auto-cierran mensajes de éxito, warnings e infos (conviven en el mismo contenedor `.ox-messages-wrapper` renderizado por `MessagesRenderer`); solo los errores (`ox-errors-wrapper`) siguen persistentes.
+- No se cambia la posición (top, junto al centro) ni la estética pill existente (ya modernizada con `--radius-lg` y `--elevation-2`).
+- El mensaje de undo de `listEditor` también se auto-cierra a los 5s; el hover lo pausa.
+
+### Verificación pendiente
+- Tests de UI (HtmlUnit) relacionados con mensajes.
+- Revisión visual: guardar entidad (mensaje verde), provocar error (rojo persistente), undo en lista editable, modo phone, 3 temas.
+- Al verificar, marcar el ítem `[x]` en `ui8-modernization-plan.md` línea 82.
 
 ## Notas
 - La versión de OpenXava es 8.0.
 - El usuario prefiere testing manual desde el IDE.
 - El usuario hizo un push con los cambios de esta sesión antes de cambiar de máquina.
-- Los cambios son solo CSS; no hay cambios en Java ni JS.
+- El primer ítem fue solo CSS; el segundo ítem (toast) toca CSS y JS (`openxava.js`), sin cambios en Java.

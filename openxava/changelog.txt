@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Success messages, warnings and infos now behave as toast notifications: they auto-close after 5 seconds (configurable via openxava.messagesAutoCloseDelay), pause while hovered and slide in from the top. Error messages remain persistent.
 - Date calendar popup (flatpickr) adapted to the new design system: rounded corners, elevation, accent color for selected day and today indicator, hover transitions, custom chevron in month dropdown and full dark theme support.
 - New CSS variables for date popup customization: --date-popup-background, --date-popup-hover-background, --date-popup-hover-color, --date-popup-muted-color.
 - Default value for defaultLabelFormat in xava.properties changed from NORMAL to SMALL, so property labels are now displayed in small format by default.
