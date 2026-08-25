@@ -833,6 +833,7 @@ public class HotwireServlet extends BaseServlet {
             }
 
             if (result.isHideDialog()) result.setFocusPropertyId(null);
+            if (Is.equalAsStringIgnoreCase(request.getParameter("noFocus"), "true")) result.setFocusPropertyId(null);
         }
 
         private void setPostJS(Result result) {
