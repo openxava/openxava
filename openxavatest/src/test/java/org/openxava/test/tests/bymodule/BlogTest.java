@@ -1,6 +1,5 @@
 package org.openxava.test.tests.bymodule;
 
-import org.htmlunit.html.*;
 import org.openxava.tests.*;
 
 
@@ -25,47 +24,6 @@ public class BlogTest extends ModuleTestBase {
 		assertInfo("This is an info");
 		assertWarningsCount(1);
 		assertWarning("This is a warning");
-		assertMessagesAutoClose();
-		assertMessagesAutoClosePausedOnHover();
-	}
-	
-	private void assertMessagesAutoClose() throws Exception {
-		getHtmlPage().executeJavaScript("openxava.messagesAutoCloseDelay = 300;");
-		execute("Blog.produceMessages");
-		assertMessage("This is a message");
-		assertError("This is an error");
-		assertTrue(isMessagesVisible());
-		assertTrue(isErrorsVisible());
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(5000);
-		Thread.sleep(1000);
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(5000);
-		assertFalse(isMessagesVisible());
-		assertTrue(isErrorsVisible());
-	}
-	
-	private void assertMessagesAutoClosePausedOnHover() throws Exception {
-		execute("Blog.produceMessages");
-		assertMessage("This is a message");
-		String messagesId = decorateId("messages");
-		getHtmlPage().executeJavaScript("$('#" + messagesId + "').trigger('mouseenter');");
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(2000);
-		Thread.sleep(1000);
-		assertTrue(isMessagesVisible());
-		getHtmlPage().executeJavaScript("$('#" + messagesId + "').trigger('mouseleave');");
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(5000);
-		Thread.sleep(1000);
-		getWebClient().waitForBackgroundJavaScriptStartingBefore(5000);
-		assertFalse(isMessagesVisible());
-	}
-	
-	private boolean isMessagesVisible() {
-		String style = getHtmlPage().getHtmlElementById(decorateId("messages")).getAttribute("style");
-		return style == null || !style.contains("display: none");
-	}
-	
-	private boolean isErrorsVisible() {
-		String style = getHtmlPage().getHtmlElementById(decorateId("errors")).getAttribute("style");
-		return style == null || !style.contains("display: none");
 	}
 	
 	public void testSetControllersAndRemoveActionsInTheSameAction() throws Exception {

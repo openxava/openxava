@@ -1,7 +1,7 @@
 # UI8 Modernization - Bloque 2c: Popups
 
 ## Objetivo
-Adaptar el popup calendar de fecha (flatpickr) al nuevo sistema de diseño de OpenXava 8.0, usando los tokens definidos en `base.css` (`--radius-*`, `--elevation-*`, `--accent-color`, `--font-size-*`, `--transition-*`), sin tocar el CSS vendor ni cambiar la interacción. El segundo ítem del bloque (snackbar/toast para mensajes de éxito) está implementado, pendiente de verificación visual y tests.
+Adaptar el popup calendar de fecha (flatpickr) al nuevo sistema de diseño de OpenXava 8.0, usando los tokens definidos en `base.css` (`--radius-*`, `--elevation-*`, `--accent-color`, `--font-size-*`, `--transition-*`), sin tocar el CSS vendor ni cambiar la interacción. El segundo ítem del bloque (snackbar/toast para mensajes de éxito) está implementado y verificado.
 
 ## Decisión de diseño: no Material Design 3
 
@@ -79,7 +79,7 @@ Sin esto, el popup sería blanco también en tema oscuro. `--calendar-selected-d
 - **`DateCalendarTest`** (incluyendo `testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime`) **pasa en verde** tras ajustar un click tapado por el popup.
 - **Primer punto del Bloque 2c marcado como `[x]`** en `ui8-modernization-plan.md`.
 
-## Segundo ítem del Bloque 2c (implementado, pendiente de verificación)
+## Segundo ítem del Bloque 2c (implementado y verificado)
 
 - **Mensajes de éxito como snackbar/toast con auto-cierre** (errores siguen persistentes). Plan línea 82.
 
@@ -101,10 +101,14 @@ Sin esto, el popup sería blanco también en tema oscuro. `--calendar-selected-d
 - No se cambia la posición (top, junto al centro) ni la estética pill existente (ya modernizada con `--radius-lg` y `--elevation-2`).
 - El mensaje de undo de `listEditor` también se auto-cierra a los 5s; el hover lo pausa.
 
-### Verificación pendiente
-- Tests de UI (HtmlUnit) relacionados con mensajes.
-- Revisión visual: guardar entidad (mensaje verde), provocar error (rojo persistente), undo en lista editable, modo phone, 3 temas.
-- Al verificar, marcar el ítem `[x]` en `ui8-modernization-plan.md` línea 82.
+### Verificación
+- **Tests de UI**: añadido `MessagesTest#testMessagesAutoClose` en `openxavatest/src/test/java/org/openxava/test/tests/byfeature/MessagesTest.java`. Verifica:
+  - Mensajes de éxito se auto-cierran tras `openxava.messagesAutoCloseDelay` mientras errores permanecen visibles.
+  - Hover pausa el auto-cierre (`mouseenter`/`mouseleave`).
+  - Se usó Selenium porque `ModuleTestBase.execute()` en HtmlUnit ejecuta `waitForBackgroundJavaScriptStartingBefore(12000)`, que consume el `setTimeout` de auto-cierre y hace imposible observar el estado intermedio. Selenium no tiene ese bloqueo y permite esperar el tiempo necesario con `Thread.sleep`.
+  - Notas técnicas: `fadeIn()`/`fadeOut()` de jQuery tardan 400ms, por lo que el test usa `openxava.messagesAutoCloseDelay = 1500` y esperas de 600ms (fadeIn) / 2000ms (auto-close + fadeOut) para estabilizar las animaciones.
+- **Revisión visual**: guardar entidad (mensaje verde), provocar error (rojo persistente), undo en lista editable, modo phone, 3 temas. OK.
+- **Ítem marcado `[x]`** en `ui8-modernization-plan.md` línea 82.
 
 ## Notas
 - La versión de OpenXava es 8.0.

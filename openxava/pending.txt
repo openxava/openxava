@@ -2,8 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 2c.
-    - Prueba automática.
-    - openxava.messagesAutoCloseDelay. ¿Cambiar nombre? ¿documentar?
     - Estética.
 - Bloque 2d.
 - Bloque 3.
