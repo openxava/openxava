@@ -14,7 +14,7 @@ No se adapta a MD3 literal. Se adapta al **sistema de diseño propio de OpenXava
 ### Item del plan reformulado
 `ui8-modernization-plan.md` líneas 71-81 — cambió de "Adapt popup calendar to Material Design 3" a "Adapt popup calendar (flatpickr) to the new design system. Overrides con tokens en `base.css`, sin tocar el CSS vendor ni cambiar la interacción".
 
-## Cambios realizados (pendientes de revisión visual)
+## Cambios realizados
 
 ### 1. Tokens nuevos en `base.css`
 **Archivo**: `src/main/resources/META-INF/resources/xava/style/base.css` (líneas 300-303)
@@ -139,7 +139,8 @@ El usuario revisó el pantallazo `ui8-screenshots/messages-light-bloque2b.png` y
 - Los mensajes desde diálogos aparecen también top-right del viewport (el contenedor es fixed dentro del diálogo; `.ui-dialog` ya tenía `overflow: visible`).
 
 ### Verificación
-- Pendiente: revisión visual del usuario (guardar entidad, error, warning, info, undo en lista editable, 3 temas, modo phone) y pasada de `MessagesTest` desde el IDE.
+- Revisión visual del usuario (guardar entidad, error, warning, info, undo en lista editable, 3 temas, modo phone) y `MessagesTest`: **OK**.
+- Tests con `assertMessage()` de `ModuleTestBase` y `WebDriverTestBase`: **OK**.
 
 ## Notas
 - La versión de OpenXava es 8.0.

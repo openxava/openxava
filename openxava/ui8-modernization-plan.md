@@ -79,7 +79,9 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
   - Fila de hora con inputs/spinners coherentes con los textfields nuevos.
   - `:focus-visible` con `--focus-ring-color` en navegación por teclado.
   - Verificación en dark theme y modo phone.
-- [ ] Mensajes de éxito como snackbar/toast con auto-cierre (errores siguen persistentes).
+- [x] Mensajes de éxito, advertencia e información como snackbar/toast modernos con auto-cierre; errores siguen persistentes.
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ### Bloque 2d — Diálogos (`ui-dialogs`)
 
