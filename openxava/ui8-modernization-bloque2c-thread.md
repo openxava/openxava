@@ -73,11 +73,11 @@ Sin esto, el popup sería blanco también en tema oscuro. `--calendar-selected-d
 - `src/main/resources/META-INF/resources/xava/editors/js/dateCalendarEditor.js` — lógica JS, no se toca.
 - `src/main/resources/META-INF/resources/xava/style/light.css` — no necesita overrides; los tokens por defecto en `base.css` ya funcionan para tema claro.
 
-## Pendiente de verificación manual
+## Verificación
 
-- **Revisión visual del popup** en un campo fecha y uno fecha-hora, en los 3 temas (Auto/Light/Dark) y modo phone.
-- **Pasar `DateCalendarTest.txt`** — test manual referenciado en `dateCalendarEditor.js` (cabecera `// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt`). Aunque el cambio es solo CSS, por convención conviene pasarlo.
-- **Marcar el item como `[x]`** en `ui8-modernization-plan.md` tras la verificación.
+- **Revisión visual del popup** en campos fecha y fecha-hora, en los 3 temas (Auto/Light/Dark) y modo phone: **OK**.
+- **`DateCalendarTest`** (incluyendo `testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime`) **pasa en verde** tras ajustar un click tapado por el popup.
+- **Primer punto del Bloque 2c marcado como `[x]`** en `ui8-modernization-plan.md`.
 
 ## Segundo ítem del Bloque 2c (no empezado)
 

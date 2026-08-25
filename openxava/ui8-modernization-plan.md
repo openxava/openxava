@@ -68,7 +68,7 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2c — Popups (`ui-popups`)
 
-- [ ] Adapt popup calendar (flatpickr) to the new design system. Overrides con tokens en `base.css`, sin tocar el CSS vendor ni cambiar la interacción:
+- [x] Adapt popup calendar (flatpickr) to the new design system. Overrides con tokens en `base.css`, sin tocar el CSS vendor ni cambiar la interacción:
   - Día seleccionado con `--accent-color` (verificar también en dark, hoy apunta a `--my-blue`).
   - Día de hoy con indicador de acento (anillo o punto).
   - Hover de días con fondo suave y transición estándar 150–200ms.

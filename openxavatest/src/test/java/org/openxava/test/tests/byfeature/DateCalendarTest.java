@@ -311,13 +311,11 @@ public class DateCalendarTest extends WebDriverTestBase {
     public void testDateTime_onChange_twoDigitYear_dateTimeSeparated_srDateTime() throws Exception { 
         goModule("ShipmentWithOnChange");
         WebElement dateTime;
-        WebElement timeLabel;
         execute("List.viewDetail", "row=2");
         dateTime = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__time"));
         openCalendarDateTime(0);
         selectDate(0, "today");
-        timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
-        timeLabel.click();
+        closeCalendarDateTime(0);
         assertNoMessages();
         execute("Mode.list");
         
@@ -332,8 +330,7 @@ public class DateCalendarTest extends WebDriverTestBase {
         assertNoMessages();
         upArrow.click();
         Thread.sleep(100);
-        timeLabel = getDriver().findElement(By.id("ox_openxavatest_ShipmentWithOnChange__label_time"));
-        timeLabel.click();
+        closeCalendarDateTime(0);
         Thread.sleep(300); 
         assertMessage("OnChangeVoidAction executed");
         execute("Mode.list");
@@ -636,10 +633,9 @@ public class DateCalendarTest extends WebDriverTestBase {
 		assertValue("dateTime", "2015/5/26 PM2:34");
 		List<WebElement> calendarPopUp = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
 		calendarPopUp.get(1).click();
-		WebElement label = getDriver().findElement(By.id("ox_openxavatest_Appointment2__label_time"));
-		label.click();
+		closeCalendarDateTime(1);
 		calendarPopUp.get(1).click();
-		label.click();
+		closeCalendarDateTime(1);
 		assertValue("time", "2015/5/26 PM1:34");
 		assertValue("dateTime", "2015/5/26 PM2:34");
 		execute("Mode.list");
@@ -652,6 +648,16 @@ public class DateCalendarTest extends WebDriverTestBase {
 		execute("CRUD.save");
 		assertNoErrors();
 		execute("Mode.list");
+	}
+	
+	private void closeCalendarDateTime(int i) throws InterruptedException {
+		//i for more than one calendar in same view, 0 for unique calendar
+		List<WebElement> iconElements = getDriver().findElements(By.cssSelector("i.mdi.mdi-calendar-clock"));
+		if (!iconElements.isEmpty()) {
+		    WebElement calendarIcon = iconElements.get(i);
+		    calendarIcon.click();
+		}
+		Thread.sleep(500);
 	}
 	
 	private void openCalendar(int i) throws InterruptedException {
