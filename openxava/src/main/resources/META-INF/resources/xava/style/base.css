@@ -183,7 +183,7 @@
 	--list-header-arrows-color: white;
 	--list-even-column-background: #f4f4f4;
 	--list-row-bottom-color: #EBEBEB;			
-	--customize-controls-color: var(--messages-background);
+	--customize-controls-color: var(--messages-accent);
 	--customize-controls-column-icon-color: white;
 	--customize-controls-hover-color: white;		
 	--list-row-hover-background: linear-gradient(
@@ -297,15 +297,29 @@
 	--calendar-popup-background: var(--fc-natural-bg-color);
 	--calendar-popup-title-color: var(--color);
 	
-	--message-box-color: white;
-	--message-box-a-color: white;
-	--message-box-close-hover-color: white;	
-	--message-box-shadow: black;
-	--message-box-close-color: lightgray;
-	--messages-background: #6fc664;
-	--errors-background: #DC4A38;
-	--warnings-background: #ffb347;
-	--infos-background: #a1a4a5;
+	--date-popup-background: white;
+	--date-popup-hover-background: var(--accent-soft);
+	--date-popup-hover-color: var(--accent-color);
+	--date-popup-muted-color: color-mix(in srgb, var(--color) 45%, transparent);
+	
+	/* Messages/notifications: soft semantic scheme */
+	--messages-accent: #16a34a;
+	--errors-accent: #dc2626;
+	--warnings-accent: #d97706;
+	--infos-accent: #64748b;
+	
+	--messages-background: color-mix(in srgb, var(--messages-accent) 12%, var(--background));
+	--messages-border: color-mix(in srgb, var(--messages-accent) 35%, var(--background));
+	--messages-color: color-mix(in srgb, var(--messages-accent) 55%, var(--color));
+	--errors-background: color-mix(in srgb, var(--errors-accent) 12%, var(--background));
+	--errors-border: color-mix(in srgb, var(--errors-accent) 35%, var(--background));
+	--errors-color: color-mix(in srgb, var(--errors-accent) 55%, var(--color));
+	--warnings-background: color-mix(in srgb, var(--warnings-accent) 14%, var(--background));
+	--warnings-border: color-mix(in srgb, var(--warnings-accent) 40%, var(--background));
+	--warnings-color: color-mix(in srgb, var(--warnings-accent) 70%, var(--color));
+	--infos-background: color-mix(in srgb, var(--infos-accent) 12%, var(--background));
+	--infos-border: color-mix(in srgb, var(--infos-accent) 30%, var(--background));
+	--infos-color: color-mix(in srgb, var(--infos-accent) 45%, var(--color));
 	
 	--mobile-tap-highlight-color: color-mix(in srgb, var(--accent-color) 30%, transparent);
 	--mobile-modules-list-background: var(--background);
@@ -902,13 +916,180 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	right: 28px;
 }
 
-.flatpickr-day.selected {
-	background: var(--calendar-selected-day) !important;
-	border-color: transparent !important;
+/* ===== Date calendar popup (flatpickr) ===== */
+
+.flatpickr-calendar {
+	background: var(--date-popup-background) !important;
+	border: 1px solid var(--input-border) !important;
+	border-radius: var(--radius-lg) !important;
+	box-shadow: var(--elevation-2) !important;
+	color: var(--color);
+	font-family: var(--font-family);
+	font-size: var(--font-size-md) !important;
 }
 
 .flatpickr-calendar.open{
 	z-index: 2147483699 !important;
+}
+
+.flatpickr-calendar.arrowTop:before {
+	border-bottom-color: var(--input-border) !important;
+}
+
+.flatpickr-calendar.arrowTop:after {
+	border-bottom-color: var(--date-popup-background) !important;
+}
+
+.flatpickr-calendar.arrowBottom:before {
+	border-top-color: var(--input-border) !important;
+}
+
+.flatpickr-calendar.arrowBottom:after {
+	border-top-color: var(--date-popup-background) !important;
+}
+
+.flatpickr-months .flatpickr-month {
+	color: var(--color) !important;
+	fill: var(--color) !important;
+}
+
+.flatpickr-months .flatpickr-prev-month,
+.flatpickr-months .flatpickr-next-month {
+	color: var(--color) !important;
+	fill: var(--color) !important;
+	border-radius: var(--radius-md);
+	transition: background-color var(--transition-fast), color var(--transition-fast), fill var(--transition-fast);
+}
+
+.flatpickr-months .flatpickr-prev-month:hover,
+.flatpickr-months .flatpickr-next-month:hover {
+	background: var(--date-popup-hover-background) !important;
+	color: var(--date-popup-hover-color) !important;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+	fill: var(--date-popup-hover-color) !important;
+}
+
+.flatpickr-current-month {
+	font-size: var(--font-size-lg) !important;
+	font-weight: 600 !important;
+	color: var(--color) !important;
+}
+
+.flatpickr-current-month span.cur-month {
+	font-weight: 600 !important;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.flatpickr-current-month span.cur-month:hover {
+	background: var(--date-popup-hover-background) !important;
+	color: var(--date-popup-hover-color);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	appearance: none !important;
+	background-image: var(--select-chevron-icon) !important;
+	background-repeat: no-repeat !important;
+	background-position: right center !important;
+	padding-right: 16px !important;
+	font-weight: 600 !important;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+	background-color: var(--date-popup-hover-background) !important;
+	color: var(--date-popup-hover-color);
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowUp:after,
+.flatpickr-time .numInputWrapper span.arrowUp:after {
+	border-bottom-color: var(--color) !important;
+}
+
+.flatpickr-current-month .numInputWrapper span.arrowDown:after,
+.flatpickr-time .numInputWrapper span.arrowDown:after {
+	border-top-color: var(--color) !important;
+}
+
+span.flatpickr-weekday {
+	color: var(--date-popup-muted-color) !important;
+	font-size: var(--font-size-xs);
+	font-weight: 600 !important;
+}
+
+.flatpickr-day {
+	color: var(--color) !important;
+	font-variant-numeric: tabular-nums;
+	transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus,
+.flatpickr-day.prevMonthDay:hover,
+.flatpickr-day.nextMonthDay:hover,
+.flatpickr-day.prevMonthDay:focus,
+.flatpickr-day.nextMonthDay:focus {
+	background: var(--date-popup-hover-background) !important;
+	border-color: transparent !important;
+	color: var(--date-popup-hover-color);
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+	color: var(--date-popup-muted-color) !important;
+}
+
+.flatpickr-day.today {
+	border-color: var(--accent-color) !important;
+	color: var(--accent-color);
+	font-weight: 600;
+}
+
+.flatpickr-day.today:hover,
+.flatpickr-day.today:focus {
+	background: var(--date-popup-hover-background) !important;
+	border-color: var(--accent-color) !important;
+	color: var(--accent-color) !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.selected:focus,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay {
+	background: var(--calendar-selected-day) !important;
+	border-color: transparent !important;
+	color: var(--accent-contrast-color) !important;
+	font-weight: 600;
+}
+
+.flatpickr-calendar.hasTime .flatpickr-time {
+	border-top-color: var(--input-border) !important;
+}
+
+.flatpickr-time input {
+	color: var(--color) !important;
+	font-variant-numeric: tabular-nums;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast);
+}
+
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+	color: var(--color) !important;
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time .flatpickr-am-pm:focus {
+	background: var(--date-popup-hover-background) !important;
 }
 
 .ox-frame .xava_editor textarea {
@@ -2105,60 +2286,101 @@ td.ox-list-subheader > div {
 	overflow: visible !important; /* For messages visible from dialogs in Chrome */	
 }
 
-.ox-messages-wrapper, .ox-errors-wrapper {
+.ox-notifications {
 	position: fixed;
-	top: 5px; 
+	top: var(--space-3);
+	right: var(--space-4);
 	z-index: 9999999;
+	max-width: min(440px, calc(100vw - var(--space-8)));
+	pointer-events: none;
 }
 
-.ox-messages-wrapper {
-	right: 50%;
+.ox-notifications > div {
+	display: block;
 }
 
-.ox-errors-wrapper {
-	left: 50%;
+.ox-notifications table {
+	width: 100%;
+}
+
+.ox-notifications .ox-message-box {
+	pointer-events: auto;
+	width: fit-content;
+	max-width: 100%;
+	margin-left: auto;
+}
+
+.ox-messages-wrapper .ox-message-box {
+	animation: ox-message-in var(--transition-normal);
+}
+
+@keyframes ox-message-in {
+	from { opacity: 0; transform: translateY(-8px); }
+	to   { opacity: 1; transform: translateY(0); }
 }
 
 .ox-message-box {
-	font-weight: bold;
-	color: var(--message-box-color); 
-	padding: 10px; 
-	border: 0px;
-	margin-bottom: 12px;
-	border-radius: var(--radius-lg);	
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-weight: 500;
+	font-size: var(--font-size-md);
+	padding: var(--space-3) var(--space-4); 
+	border: 1px solid transparent;
+	margin-bottom: var(--space-2);
+	border-radius: var(--radius-md);	
 	box-shadow: var(--elevation-2);  
 }
 
+.ox-message-box i {
+	color: inherit;
+}
+
+.ox-message-box .ox-message-icon {
+	font-size: 18px;
+	vertical-align: -3px;
+}
+
 .ox-message-box a {
-	color: var(--message-box-a-color);
+	color: inherit;
 	text-decoration: underline;
 }
 
 .ox-message-box .mdi-close {
-	color: var(--message-box-close-color); 
-	float: right;
-	margin-left: 10px;
+	order: 1;
+	margin-left: auto;
+	padding-left: var(--space-2);
+	opacity: 0.6;
 	cursor: pointer; 
+	transition: opacity var(--transition-fast);
 }
 
 .ox-message-box .mdi-close:hover {
-	color: var(--message-box-close-hover-color);
+	opacity: 1;
 }
 
 .ox-errors .ox-message-box {	
 	background: var(--errors-background);
+	border-color: var(--errors-border);
+	color: var(--errors-color);
 }
 
 .ox-messages .ox-message-box {	
 	background: var(--messages-background);
+	border-color: var(--messages-border);
+	color: var(--messages-color);
 }
 
 .ox-infos .ox-message-box {	
 	background: var(--infos-background);
+	border-color: var(--infos-border);
+	color: var(--infos-color);
 }
 
 .ox-warnings .ox-message-box {	
 	background: var(--warnings-background);
+	border-color: var(--warnings-border);
+	color: var(--warnings-color);
 }
 
 .ox-action-link, .ui-widget-content .ox-action-link  { 

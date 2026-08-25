@@ -75,6 +75,13 @@
 	--switch-knob-background: #d4d4d8;
 	--crop-free-icon-color: #a1a1aa;
 	--calendar-selected-day: var(--my-blue);
+	--date-popup-background: var(--my-lightdark);
+
+	/* Messages/notifications: lighter accents for dark backgrounds */
+	--messages-accent: #4ade80;
+	--errors-accent: #f87171;
+	--warnings-accent: #fbbf24;
+	--infos-accent: #94a3b8;
 
 	--button-bar-shadow: transparent;
 	--shadow: transparent;

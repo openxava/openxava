@@ -56,12 +56,14 @@ public class CoreRenderer {
 			w.append("</div>");
 		}
 
+		w.append("<div class='ox-notifications'>");
 		w.append("<div id='").append(ctx.decorateId("errors")).append("' class=\"ox-display-inline\">");
 		w.append(ErrorsRenderer.render(ctx));
 		w.append("</div>");
 
 		w.append("<div id='").append(ctx.decorateId("messages")).append("' class=\"ox-display-inline\">");
 		w.append(MessagesRenderer.render(ctx));
+		w.append("</div>");
 		w.append("</div>");
 
 		w.append("<div id='").append(ctx.decorateId("view")).append("' ");
