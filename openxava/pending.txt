@@ -3,6 +3,8 @@ Pending UI8 modernization (tmr)
 
 - Bloque 2c.
     - Estética.
+    - Probar MessagesTest.
+    - Probar algún test de ModuleTestBase y de WebDriverTestBase con assertMessage()
 - Bloque 2d.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.

@@ -348,7 +348,7 @@ openxava.initActions = function() {
 }
 
 openxava.initMessages = function(application, module) { 
-	$('.ox-message-box i').off('click').click(function() {
+	$('.ox-message-box i.mdi-close').off('click').click(function() {
 		$(this).parent().parent().fadeOut(); 
 	});
 	$('div[id$="__messages"]:visible').each(function() {
@@ -530,10 +530,11 @@ openxava.showNotification = function(message, type) {
 	// CSS classes depend on the type
 	var wrapperClass = "ox-" + type + "-wrapper";
 	var contentClass = "ox-" + type;
+	var iconClass = (type === "messages") ? "mdi-check-circle-outline" : "mdi-alert-circle-outline";
 	
     var html = '<div class="' + wrapperClass + '"><table id="' 
     	+ tableId 
-    	+ '"><tr><td class="' + contentClass + '"><div class="ox-message-box"><i class="mdi mdi-close"></i>' 
+    	+ '"><tr><td class="' + contentClass + '"><div class="ox-message-box"><i class="mdi mdi-close"></i><i class="mdi ' + iconClass + ' ox-message-icon"></i>' 
     	+ message + '</div></td></tr></table></div>';
 
     $("#" + id).html(html);

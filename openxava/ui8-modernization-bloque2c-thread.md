@@ -110,6 +110,37 @@ Sin esto, el popup sería blanco también en tema oscuro. `--calendar-selected-d
 - **Revisión visual**: guardar entidad (mensaje verde), provocar error (rojo persistente), undo en lista editable, modo phone, 3 temas. OK.
 - **Ítem marcado `[x]`** en `ui8-modernization-plan.md` línea 82.
 
+## Rediseño visual de los mensajes (sesión posterior)
+
+El usuario revisó el pantallazo `ui8-screenshots/messages-light-bloque2b.png` y pidió modernizar el aspecto de los mensajes (tipo de letra, color, forma y posición), que seguía siendo el original: barras de color sólido con texto blanco en negrita, divididas en dos pilas convergiendo al centro superior que tapaban la barra de herramientas.
+
+### Cambios realizados
+
+**`src/main/resources/META-INF/resources/xava/style/base.css`**:
+- Tokens: eliminados `--message-box-color`, `--message-box-a-color`, `--message-box-close-hover-color`, `--message-box-shadow`, `--message-box-close-color` y los fondos sólidos `#6fc664`/`#DC4A38`/`#ffb347`/`#a1a4a5`. Nuevos acentos semánticos `--messages-accent` (#16a34a), `--errors-accent` (#dc2626), `--warnings-accent` (#d97706), `--infos-accent` (#64748b), de los que se derivan con `color-mix` fondo (tinte 12-14% sobre `--background`), borde (30-40%) y color de texto (mezcla con `--color`), por lo que se adaptan solos a light/dark. `--customize-controls-color` ahora apunta a `--messages-accent`.
+- Posición: nueva clase `.ox-notifications` (fixed, top-right, `z-index 9999999`, `max-width: min(440px, 100vw - 32px)`, `pointer-events: none` con `pointer-events: auto` en las cajas para no bloquear clicks en la cabecera). Errores y mensajes forman una única pila. Eliminado el posicionamiento `right: 50%` / `left: 50%` de `.ox-messages-wrapper` / `.ox-errors-wrapper`.
+- Caja: flex con gap, peso 500 (antes bold), `--radius-md`, borde 1px semántico, fondo soft, `--elevation-2`. Icono de cierre con opacidad 0.6→1 en hover (antes `float: right` y gris claro). Enlaces heredan el color semántico.
+
+**`src/main/java/org/openxava/web/render/CoreRenderer.java`**: los divs `__errors` y `__messages` se envuelven en `<div class='ox-notifications'>` (líneas 59-67).
+
+**`MessagesRenderer.java` / `ErrorsRenderer.java`**: icono de severidad (`ox-message-icon`) tras el icono de cierre (que sigue primero en el DOM): `mdi-alert-outline` (warning), `mdi-check-circle-outline` (éxito), `mdi-information-outline` (info), `mdi-alert-circle-outline` (error).
+
+**`openxava.js`**:
+- `showNotification`: añade el icono de severidad al HTML generado (check-circle para messages, alert-circle para errors).
+- `initMessages`: el handler de cierre pasa de `$('.ox-message-box i')` a `$('.ox-message-box i.mdi-close')` para que el icono de severidad no cierre el mensaje.
+
+**`dark-overrides.css`**: acentos más claros para fondo oscuro (`--messages-accent: #4ade80`, `--errors-accent: #f87171`, `--warnings-accent: #fbbf24`, `--infos-accent: #94a3b8`).
+
+**`changelog.txt`**: 2 entradas nuevas al inicio (líneas 4-5).
+
+### Decisiones
+- Se mantiene el icono de cierre como primer `<i>` en el DOM para no romper tests que hacen click en el primer icono del mensaje.
+- En `#sign_in_box` los iconos siguen ocultos (regla preexistente `#sign_in_box .ox-message-box i { display: none }`).
+- Los mensajes desde diálogos aparecen también top-right del viewport (el contenedor es fixed dentro del diálogo; `.ui-dialog` ya tenía `overflow: visible`).
+
+### Verificación
+- Pendiente: revisión visual del usuario (guardar entidad, error, warning, info, undo en lista editable, 3 temas, modo phone) y pasada de `MessagesTest` desde el IDE.
+
 ## Notas
 - La versión de OpenXava es 8.0.
 - El usuario prefiere testing manual desde el IDE.

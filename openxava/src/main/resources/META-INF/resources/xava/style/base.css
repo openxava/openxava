@@ -183,7 +183,7 @@
 	--list-header-arrows-color: white;
 	--list-even-column-background: #f4f4f4;
 	--list-row-bottom-color: #EBEBEB;			
-	--customize-controls-color: var(--messages-background);
+	--customize-controls-color: var(--messages-accent);
 	--customize-controls-column-icon-color: white;
 	--customize-controls-hover-color: white;		
 	--list-row-hover-background: linear-gradient(
@@ -302,15 +302,24 @@
 	--date-popup-hover-color: var(--accent-color);
 	--date-popup-muted-color: color-mix(in srgb, var(--color) 45%, transparent);
 	
-	--message-box-color: white;
-	--message-box-a-color: white;
-	--message-box-close-hover-color: white;	
-	--message-box-shadow: black;
-	--message-box-close-color: lightgray;
-	--messages-background: #6fc664;
-	--errors-background: #DC4A38;
-	--warnings-background: #ffb347;
-	--infos-background: #a1a4a5;
+	/* Messages/notifications: soft semantic scheme */
+	--messages-accent: #16a34a;
+	--errors-accent: #dc2626;
+	--warnings-accent: #d97706;
+	--infos-accent: #64748b;
+	
+	--messages-background: color-mix(in srgb, var(--messages-accent) 12%, var(--background));
+	--messages-border: color-mix(in srgb, var(--messages-accent) 35%, var(--background));
+	--messages-color: color-mix(in srgb, var(--messages-accent) 55%, var(--color));
+	--errors-background: color-mix(in srgb, var(--errors-accent) 12%, var(--background));
+	--errors-border: color-mix(in srgb, var(--errors-accent) 35%, var(--background));
+	--errors-color: color-mix(in srgb, var(--errors-accent) 55%, var(--color));
+	--warnings-background: color-mix(in srgb, var(--warnings-accent) 14%, var(--background));
+	--warnings-border: color-mix(in srgb, var(--warnings-accent) 40%, var(--background));
+	--warnings-color: color-mix(in srgb, var(--warnings-accent) 70%, var(--color));
+	--infos-background: color-mix(in srgb, var(--infos-accent) 12%, var(--background));
+	--infos-border: color-mix(in srgb, var(--infos-accent) 30%, var(--background));
+	--infos-color: color-mix(in srgb, var(--infos-accent) 45%, var(--color));
 	
 	--mobile-tap-highlight-color: color-mix(in srgb, var(--accent-color) 30%, transparent);
 	--mobile-modules-list-background: var(--background);
@@ -2277,14 +2286,28 @@ td.ox-list-subheader > div {
 	overflow: visible !important; /* For messages visible from dialogs in Chrome */	
 }
 
-.ox-messages-wrapper, .ox-errors-wrapper {
+.ox-notifications {
 	position: fixed;
-	top: 5px; 
+	top: var(--space-3);
+	right: var(--space-4);
 	z-index: 9999999;
+	max-width: min(440px, calc(100vw - var(--space-8)));
+	pointer-events: none;
 }
 
-.ox-messages-wrapper {
-	right: 50%;
+.ox-notifications > div {
+	display: block;
+}
+
+.ox-notifications table {
+	width: 100%;
+}
+
+.ox-notifications .ox-message-box {
+	pointer-events: auto;
+	width: fit-content;
+	max-width: 100%;
+	margin-left: auto;
 }
 
 .ox-messages-wrapper .ox-message-box {
@@ -2296,50 +2319,68 @@ td.ox-list-subheader > div {
 	to   { opacity: 1; transform: translateY(0); }
 }
 
-.ox-errors-wrapper {
-	left: 50%;
-}
-
 .ox-message-box {
-	font-weight: bold;
-	color: var(--message-box-color); 
-	padding: 10px; 
-	border: 0px;
-	margin-bottom: 12px;
-	border-radius: var(--radius-lg);	
+	display: flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	font-weight: 500;
+	font-size: var(--font-size-md);
+	padding: var(--space-3) var(--space-4); 
+	border: 1px solid transparent;
+	margin-bottom: var(--space-2);
+	border-radius: var(--radius-md);	
 	box-shadow: var(--elevation-2);  
 }
 
+.ox-message-box i {
+	color: inherit;
+}
+
+.ox-message-box .ox-message-icon {
+	font-size: 18px;
+	vertical-align: -3px;
+}
+
 .ox-message-box a {
-	color: var(--message-box-a-color);
+	color: inherit;
 	text-decoration: underline;
 }
 
 .ox-message-box .mdi-close {
-	color: var(--message-box-close-color); 
-	float: right;
-	margin-left: 10px;
+	order: 1;
+	margin-left: auto;
+	padding-left: var(--space-2);
+	opacity: 0.6;
 	cursor: pointer; 
+	transition: opacity var(--transition-fast);
 }
 
 .ox-message-box .mdi-close:hover {
-	color: var(--message-box-close-hover-color);
+	opacity: 1;
 }
 
 .ox-errors .ox-message-box {	
 	background: var(--errors-background);
+	border-color: var(--errors-border);
+	color: var(--errors-color);
 }
 
 .ox-messages .ox-message-box {	
 	background: var(--messages-background);
+	border-color: var(--messages-border);
+	color: var(--messages-color);
 }
 
 .ox-infos .ox-message-box {	
 	background: var(--infos-background);
+	border-color: var(--infos-border);
+	color: var(--infos-color);
 }
 
 .ox-warnings .ox-message-box {	
 	background: var(--warnings-background);
+	border-color: var(--warnings-border);
+	color: var(--warnings-color);
 }
 
 .ox-action-link, .ui-widget-content .ox-action-link  { 

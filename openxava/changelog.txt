@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Messages, warnings, infos and errors redesigned as modern toast notifications: single stack at top-right corner, soft tinted backgrounds with thin semantic border, severity icon, medium font weight and theme-aware colors, replacing the solid color bars at top-center.
+- New CSS variables for messages customization: --messages-accent, --errors-accent, --warnings-accent, --infos-accent and --messages-border, --errors-border, --warnings-border, --infos-border, --messages-color, --errors-color, --warnings-color, --infos-color.
 - Success messages, warnings and infos now behave as toast notifications: they auto-close after 5 seconds (configurable via openxava.messagesAutoCloseDelay), pause while hovered and slide in from the top. Error messages remain persistent.
 - Date calendar popup (flatpickr) adapted to the new design system: rounded corners, elevation, accent color for selected day and today indicator, hover transitions, custom chevron in month dropdown and full dark theme support.
 - New CSS variables for date popup customization: --date-popup-background, --date-popup-hover-background, --date-popup-hover-color, --date-popup-muted-color.
