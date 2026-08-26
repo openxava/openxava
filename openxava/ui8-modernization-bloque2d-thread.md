@@ -254,9 +254,6 @@ Notas:
 
 5. **`jquery-ui.structure.css` se mantiene**: Contiene reglas funcionales (posicionamiento de overlay, handles de resize, layout de titlebar/menu/tooltip). `jquery-ui.js` sigue usándose para dialog, autocomplete, tooltip, resizable y sortable.
 
-## Pendiente
+## Concluido
 
-- ApplicantTest: verificar que el test de recursos pasa correctamente.
-- Un test que use diálogos.
-- Ejecución de la suite de tests desde el IDE.
-- Revisión visual manual en los 3 temas (Auto/Light/Dark) y modo phone.
+Tests automáticos pasados y revisión visual completada en los 3 temas (Auto/Light/Dark) y modo phone. Bloque 2d fusionado.
