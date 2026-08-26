@@ -162,8 +162,6 @@
 	--dialog-titlebar-background: var(--dialog-background);
 	--dialog-titlebar-color: var(--color);
 	--dialog-titlebar-button-hover-background: color-mix(in srgb, var(--color) 8%, transparent);
-	--dialog-close-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3.5 3.5l7 7M10.5 3.5l-7 7' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
-	--dialog-resize-grip-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M10.5 4.5l-6 6M10.5 8.5l-2 2' fill='none' stroke='%2394a3b8' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E");
 	
 	--html-text-button-hover: var(--frame-background);
 	
@@ -2305,7 +2303,7 @@ td.ox-list-subheader > div {
 
 .ui-dialog .ui-dialog-titlebar-close {
 	top: 50%;
-	right: var(--space-4);
+	right: var(--space-2);
 	width: 28px;
 	height: 28px;
 	margin: 0;
@@ -2314,6 +2312,10 @@ td.ox-list-subheader > div {
 	border-radius: var(--radius-full);
 	background: var(--dialog-titlebar-button-background) !important;
 	transition: background-color var(--transition-fast);
+	text-indent: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .ui-dialog .ui-dialog-titlebar-close:hover {
@@ -2325,23 +2327,25 @@ td.ox-list-subheader > div {
 	outline-offset: 2px;
 }
 
-.ui-dialog .ui-dialog-titlebar-close .ui-icon {
-	width: 14px;
-	height: 14px;
-	margin: -7px 0 0 -7px;
-	background-color: currentColor;
-	-webkit-mask-image: var(--dialog-close-icon);
-	mask-image: var(--dialog-close-icon);
-	-webkit-mask-position: center;
-	mask-position: center;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
+.ui-dialog .ui-dialog-titlebar-close .mdi {
+	font-size: 18px;
+	line-height: 1;
+	color: var(--dialog-titlebar-color);
 }
 
 .ui-dialog .ui-resizable-se {
 	right: var(--space-2);
 	bottom: var(--space-2);
-	background: var(--dialog-resize-grip-icon) no-repeat center;
+}
+
+.ui-dialog .ui-resizable-se::after {
+	content: "\F045D";
+	font-family: "Material Design Icons";
+	font-size: 14px;
+	color: var(--frame-border);
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
 }
 
 .ox-notifications {

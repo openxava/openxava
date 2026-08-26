@@ -2,8 +2,9 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 2d.
-    - Comprobar diálogos.
-    - dialog-close-icon y --dialog-resize-grip-icon de mdi.
+    - Diálogos grandes, con scroll.
+    - Diálogos anidados.
+    - Preguntar a otros LLMs sobre el aspecto de los diálogos.
     - Comprobar autocompletes.
     - ApplicantTest
     - Un test que use diálogos.
