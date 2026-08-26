@@ -5,7 +5,7 @@ Objetivo: apariencia moderna y reconocible como "versión 8", con HTML + JavaScr
 ## Estrategia de trabajo
 
 - Trabajo en **bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
-- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques para reducir la carga de revisión y facilitar el merge.
+- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3a → 3b → 3c**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques y el Bloque 3 en 3 sub-bloques para reducir la carga de revisión y facilitar el merge.
 - Antes del Bloque 1, definir el **sistema de diseño** (tokens) como primer entregable.
 - Limpieza de CSS muerto (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`) se hace dentro de cada bloque, en las zonas que se toquen.
 
@@ -98,8 +98,18 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ## Bloque 3 — Componentes de datos (`ui-data`)
 
+Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, revisa y fusiona a master antes de empezar el siguiente. Orden estricto: **3a → 3b → 3c**.
+
+### Bloque 3a — ElementCollection (`ui-elementcollection`)
+
 - [ ] Spreadsheet visual style para `@ElementCollection`.
+
+### Bloque 3b — Calendario (`ui-calendar`)
+
 - [ ] Improve style of events in calendar.
+
+### Bloque 3c — Listas (`ui-lists`)
+
 - [ ] Listas: quitar zebra por columnas (`nth-child(even)` con fondo gris), dejar hairlines horizontales + hover (estilo Material 3).
 - [ ] Cabecera de lista sticky; altura de fila 35px → 40–44px.
 - [ ] Skeleton loading (filas que pulsan) al recargar listas, en lugar de solo spinner.
