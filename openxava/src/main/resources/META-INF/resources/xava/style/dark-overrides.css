@@ -92,6 +92,9 @@
 	--ui-menu-item-state-focus-background: var(--my-lightdark);
 	--scrollbar-color: var(--my-lightdark);
 
+	/* Dialogs */
+	--dialog-backdrop-background: rgba(0, 0, 0, 0.55);
+
 	--tooltip-background: var(--my-darker);
 
 	/* List */

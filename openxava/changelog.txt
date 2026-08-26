@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Dialogs restyled with own CSS, dropping the jQuery UI smoothness theme: 12px corner radius, hairline border, elevation-3 shadow, blurred translucent backdrop, entrance animation, circular close button with focus ring and a subtle resize grip.
+- jquery-ui.css and smoothness/jquery-ui.css (plus its 11 theme images, ~45KB) removed; only the functional jquery-ui.structure.css is kept.
+- Autocomplete dropdown modernized: thin border, rounded corners, 4px padding, pill-shaped hover/active items with accent-soft background, independent from the jQuery UI theme.
+- New CSS variables for dialog customization: --dialog-border, --dialog-backdrop-background, --dialog-close-icon, --dialog-resize-grip-icon; removed --dialog-shadow.
 - Messages, warnings, infos and errors redesigned as modern toast notifications: single stack at top-right corner, soft tinted backgrounds with thin semantic border, severity icon, medium font weight and theme-aware colors, replacing the solid color bars at top-center.
 - New CSS variables for messages customization: --messages-accent, --errors-accent, --warnings-accent, --infos-accent and --messages-border, --errors-border, --warnings-border, --infos-border, --messages-color, --errors-color, --warnings-color, --infos-color.
 - Success messages, warnings and infos now behave as toast notifications: they auto-close after 5 seconds (configurable via openxava.messagesAutoCloseDelay), pause while hovered and slide in from the top. Error messages remain persistent.

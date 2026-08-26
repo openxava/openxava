@@ -85,7 +85,14 @@ Dividido en 4 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 2d — Diálogos (`ui-dialogs`)
 
-- [ ] Diálogos: eliminar `jquery-ui.css` + `smoothness/` y estilizar con CSS propio (radios, `--elevation-3`, backdrop con blur, animación de entrada). Quita ~47KB.
+- [ ] Diálogos: eliminar `jquery-ui.css` + `smoothness/` y estilizar con CSS propio:
+  - Solo se carga `jquery-ui.structure.css` (reglas funcionales). Eliminados `jquery-ui.css` y `smoothness/` (~45KB + 11 imágenes de tema).
+  - Diálogo: `--radius-lg`, borde hairline `--dialog-border`, `--elevation-3`, backdrop translúcido con blur (`--dialog-backdrop-background`) y animaciones de entrada (diálogo fade+scale, overlay fade; desactivadas con `prefers-reduced-motion`).
+  - Botón cerrar circular propio (icono SVG `--dialog-close-icon` vía `mask` con `currentColor`, hover suave, focus ring) y grip de resize propio (`--dialog-resize-grip-icon`).
+  - Titlebar: `--font-size-lg`, peso 600, padding generoso, `cursor: move`.
+  - Autocomplete independiente del tema: borde propio, `--radius-md`, padding 4px, items pill con `--accent-soft` en hover/activo.
+  - `ApplicantTest.assertResorcesWellReaded` usa `favicon.ico` en lugar de una imagen de smoothness.
+  - Documentado en guía de migración (EN/ES) y changelog.
 
 ## Bloque 3 — Componentes de datos (`ui-data`)
 
