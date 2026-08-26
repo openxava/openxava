@@ -2,7 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 2d.
-    - ApplicantTest
     - Un test que use diálogos.
 - Bloque 3.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.

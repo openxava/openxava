@@ -322,8 +322,6 @@ public class ApplicantTest extends ModuleTestBase {
 								 .getNextElementSibling()
 								 .getNextElementSibling()
 								 .getNextElementSibling()
-								 .getNextElementSibling()
-								 .getNextElementSibling()
 								 .getNextElementSibling();
 
 		String urlCSS = page.getUrl().getProtocol() + "://" 
