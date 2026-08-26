@@ -322,8 +322,6 @@ public class ApplicantTest extends ModuleTestBase {
 								 .getNextElementSibling()
 								 .getNextElementSibling()
 								 .getNextElementSibling()
-								 .getNextElementSibling()
-								 .getNextElementSibling()
 								 .getNextElementSibling();
 
 		String urlCSS = page.getUrl().getProtocol() + "://" 
@@ -350,7 +348,7 @@ public class ApplicantTest extends ModuleTestBase {
 	private void assertResorcesWellReaded(HtmlPage page) throws IOException {
 		String iconUrl = page.getUrl().getProtocol() + "://" 
 			+ page.getUrl().getHost() + ":"
-			+ page.getUrl().getPort() + getContextPath() + "xava/style/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png";
+			+ page.getUrl().getPort() + getContextPath() + "xava/images/favicon.ico";
 		double imageSizeInKB = 0;
         URL url = new URL(iconUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

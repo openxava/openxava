@@ -894,6 +894,7 @@ openxava.getDialog = function(application, module) {
 			close: openxava.onCloseDialog,
 			closeOnEscape: openxava.closeDialogOnEscape 
 		});
+		dialog.parent().find(".ui-dialog-titlebar-close").empty().append('<i class="mdi mdi-close"></i>');
 		openxava.dialogs[dialogId] = dialog;		
 	}
 	return dialog;

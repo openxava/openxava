@@ -157,10 +157,11 @@
 	--active-section-tab-bottom-color: var(--color);
 	
 	--dialog-background: var(--background);
+	--dialog-border: var(--frame-border);
+	--dialog-backdrop-background: rgba(15, 23, 42, 0.35);
 	--dialog-titlebar-background: var(--dialog-background);
 	--dialog-titlebar-color: var(--color);
-	--dialog-titlebar-button-hover-background: white;
-	--dialog-shadow: var(--shadow);
+	--dialog-titlebar-button-hover-background: color-mix(in srgb, var(--color) 8%, transparent);
 	
 	--html-text-button-hover: var(--frame-background);
 	
@@ -215,11 +216,7 @@
 	--chart-type-icon-hover-color: var(--list-formats-hover-color);
 
 	--autocomplete-scrollbar-background: var(--background);
-	--ui-menu-item-state-focus-background: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0.1),
-			rgba(0, 0, 0, 0.1)
-		) var(--background);
+	--ui-menu-item-state-focus-background: var(--accent-soft);
 	--ui-menu-item-state-focus-border: transparent;
 		
 	--page-navigation-selected-color: var(--color);
@@ -285,7 +282,7 @@
 			rgba(0, 0, 0, 0.3),
 			rgba(0, 0, 0, 0.3)
 		) var(--autocomplete-scrollbar-background);
-	--autocomplete-border: #cbd5e1;
+	--autocomplete-border: var(--input-border);
 	--autocomplete-background: var(--input-background); 		
 	
 	--reverse-label-color: white;
@@ -2248,42 +2245,107 @@ td.ox-list-subheader > div {
 }
 
 .ui-dialog, #xava_processing_layer {
-	border-radius: var(--radius-xl) !important; 
-	border: none !important;
+	border-radius: var(--radius-lg) !important;
+	border: 1px solid var(--dialog-border) !important;
 	box-shadow: var(--elevation-3);
 }
 
 .ui-dialog {
 	font-size: 1em !important;
 	background: var(--dialog-background) !important;
-}
-.ui-dialog-content {	
-	color: var(--dialog-content-color) !important;
-	border-radius: var(--radius-xl);
+	overflow: visible !important; /* For messages visible from dialogs in Chrome */
+	animation: ox-dialog-in var(--transition-normal);
 }
 
-.ui-dialog-titlebar, .ui-dialog-titlebar button {  
+@keyframes ox-dialog-in {
+	from { opacity: 0; transform: translateY(-10px) scale(0.98); }
+	to { opacity: 1; transform: none; }
+}
+
+.ui-widget-overlay {
+	background: var(--dialog-backdrop-background);
+	opacity: 1;
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	animation: ox-dialog-fade-in var(--transition-fast);
+}
+
+@keyframes ox-dialog-fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ui-dialog, .ui-widget-overlay {
+		animation: none;
+	}
+}
+
+.ui-dialog .ui-dialog-content {
+	color: var(--dialog-content-color) !important;
+	border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+	padding: var(--space-2) var(--space-5) var(--space-4) var(--space-5);
+}
+
+.ui-dialog-titlebar, .ui-dialog-titlebar button {
 	border-style: none !important;
-	margin-right: 5px;
 }
 
 .ui-dialog-titlebar {
-	font-size: 1.2em;
+	font-size: var(--font-size-lg);
+	font-weight: 600;
+	padding: var(--space-4) var(--space-5) var(--space-2) var(--space-5);
 	color: var(--dialog-titlebar-color) !important;
 	background: var(--dialog-titlebar-background) !important;
-	border-radius: var(--radius-xl);  
+	border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+	cursor: move;
 }
 
-.ui-dialog-titlebar button {
+.ui-dialog .ui-dialog-titlebar-close {
+	top: 50%;
+	right: var(--space-2);
+	width: 28px;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+	transform: translateY(-50%);
+	border-radius: var(--radius-full);
 	background: var(--dialog-titlebar-button-background) !important;
+	transition: background-color var(--transition-fast);
+	text-indent: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-.ui-dialog-titlebar button:hover {
+.ui-dialog .ui-dialog-titlebar-close:hover {
 	background: var(--dialog-titlebar-button-hover-background) !important;
 }
 
-.ui-dialog {
-	overflow: visible !important; /* For messages visible from dialogs in Chrome */	
+.ui-dialog .ui-dialog-titlebar-close:focus-visible {
+	outline: 2px solid var(--focus-ring-color);
+	outline-offset: 2px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close .mdi {
+	font-size: 18px;
+	line-height: 1;
+	color: var(--dialog-titlebar-color);
+}
+
+.ui-dialog .ui-resizable-se {
+	right: var(--space-2);
+	bottom: var(--space-2);
+}
+
+.ui-dialog .ui-resizable-se::after {
+	content: "\F045D";
+	font-family: "Material Design Icons";
+	font-size: 14px;
+	color: var(--frame-border);
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
 }
 
 .ox-notifications {
@@ -2424,12 +2486,13 @@ td.ox-list-subheader > div {
 }
 
 .ox-subcontroller, .ui-autocomplete { 
-	padding: 10px 5px 10px 5px;
+	padding: var(--space-1);
 	margin: 14px 0px 0px -4px;
 	display: none;  
 	z-index: 999999;
 	box-shadow: var(--elevation-2);
-	border-radius: var(--radius-lg);	
+	border-radius: var(--radius-md);
+	border: 1px solid var(--autocomplete-border);	
 }
 
 .ox-subcontroller {
@@ -2792,7 +2855,7 @@ div.ox-subcontroller table{
 }
 
 .ui-dialog.no-close {
-	border-radius: var(--radius-sm) !important;
+	border-radius: var(--radius-lg) !important;
 }
 
 .no-close .ui-dialog-titlebar-close { 
@@ -2830,7 +2893,7 @@ i.ox-sort-indicator2 {
     padding-bottom: 1px !important; /* In order FF and IE not show scroll on select last item */
     overflow-y: auto;
     overflow-x: hidden;
-    border-color: var(--autocomplete-border) !important; 
+    border: 1px solid var(--autocomplete-border) !important; 
     z-index: 9999999999 !important;  
  }
  
@@ -2849,7 +2912,12 @@ i.ox-sort-indicator2 {
 	border-radius: var(--radius-full);
 }
  
-.ui-menu-item:hover, .ui-widget-content .ui-state-focus {
+.ui-menu-item .ui-menu-item-wrapper {
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);
+}
+
+.ui-menu-item:hover .ui-menu-item-wrapper, .ui-widget-content .ui-state-active {
  	border-color: var(--ui-menu-item-state-focus-border) !important; 
  	background: var(--ui-menu-item-state-focus-background) !important;
 }
