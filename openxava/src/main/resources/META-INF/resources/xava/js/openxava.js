@@ -44,6 +44,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 	params.append("deselectedRows", JSON.stringify(openxava.deselected || null));
 	params.append("firstRequest", firstRequest ? "true" : "false");
 	params.append("baseFolder", openxava.baseFolder || "");
+	params.append("noFocus", openxava.noFocus ? "true" : "false");
 
 	openxava.post("/xava/hotwire", params, function(text) {
 		if (text && text.indexOf("ERROR:") === 0) {

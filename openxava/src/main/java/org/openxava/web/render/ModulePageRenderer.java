@@ -30,7 +30,7 @@ public class ModulePageRenderer {
 	public static String render(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Servlets.setCharacterEncoding(request, response);
 
-		Style style = Style.getInstance();
+		Style style = Style.getInstance(request);
 		request.setAttribute("style", style);
 
 		Messages errors = new Messages();
@@ -303,8 +303,10 @@ public class ModulePageRenderer {
 		else {
 			w.append("\t\topenxava.init(\"").append(manager.getApplicationName()).append("\", \"")
 				.append(manager.getModuleName()).append("\", true);\n");
-			w.append("\t\topenxava.setFocus(\"").append(manager.getApplicationName()).append("\", \"")
-				.append(manager.getModuleName()).append("\"); \n");
+			if (!Is.equalAsStringIgnoreCase(request.getParameter("noFocus"), "true")) {
+				w.append("\t\topenxava.setFocus(\"").append(manager.getApplicationName()).append("\", \"")
+					.append(manager.getModuleName()).append("\"); \n");
+			}
 		}
 		w.append("\t\topenxava.").append(initiated).append(" = true;\n");
 		w.append("\t}\n");

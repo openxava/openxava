@@ -45,7 +45,7 @@ public class CoreRenderer {
 
 		if (buttonBar) {
 			w.append("<div id='").append(ctx.decorateId("button_bar")).append("' class=\"").append(style.getButtonBarContainer()).append("\">");
-			w.append(ButtonBarRenderer.render(ctx));
+			w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "buttonBar"));
 			w.append("</div>");
 		}
 
@@ -57,11 +57,11 @@ public class CoreRenderer {
 		}
 
 		w.append("<div id='").append(ctx.decorateId("errors")).append("' class=\"ox-display-inline\">");
-		w.append(ErrorsRenderer.render(ctx));
+		w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "errors"));
 		w.append("</div>");
 
 		w.append("<div id='").append(ctx.decorateId("messages")).append("' class=\"ox-display-inline\">");
-		w.append(MessagesRenderer.render(ctx));
+		w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "messages"));
 		w.append("</div>");
 
 		w.append("<div id='").append(ctx.decorateId("view")).append("' ");
@@ -73,7 +73,7 @@ public class CoreRenderer {
 		}
 		w.append(">");
 		String viewURL = manager.getViewURL();
-		if (Parts.isJavaRendered(viewURL)) {
+		if (Parts.isJavaRendered(viewURL, ctx.getRequest())) {
 			w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), viewURL));
 		} else {
 			w.append(JspFragment.render(ctx, viewURL));
@@ -89,7 +89,7 @@ public class CoreRenderer {
 		}
 
 		w.append("<div id='").append(ctx.decorateId("bottom_buttons")).append("' class=\"").append(style.getBottomButtons()).append("\">");
-		w.append(BottomButtonsRenderer.render(ctx));
+		w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "bottomButtons"));
 		w.append("</div>");
 
 		w.append("</div>");
