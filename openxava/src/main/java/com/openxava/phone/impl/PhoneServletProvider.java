@@ -29,7 +29,7 @@ public class PhoneServletProvider implements IServletProvider {
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().print("<html><head></head><body><font size=7>"); 
-		response.getWriter().print(XavaResources.getString(request.getLocale(), "mobile_ui_xavapro", "<a href='http://www.openxava.org/xavapro'>XavaPro</a>"));  
+		response.getWriter().print(XavaResources.getString(request.getLocale(), "mobile_ui_xavapro", "<a href='https://www.openxava.org/xavapro'>XavaPro</a>"));
 		response.getWriter().print("</font></body>");		
 		response.setContentType("text/html"); 
 	}
