@@ -12,6 +12,7 @@ Pending UI8 modernization (tmr)
     - Editor de carga de archivos. Al menos el color.
     - Editor de texto rico.
     - Small label.
+- Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
 - Documentación:
