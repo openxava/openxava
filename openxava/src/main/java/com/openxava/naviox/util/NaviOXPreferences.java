@@ -154,6 +154,11 @@ public class NaviOXPreferences {
 		return getProperties().getProperty("phoneServletProviderClass", PhoneServletProvider.class.getName()).trim();
 	}
 	
+	/** @since 8.0 */
+	public String getPhoneStyleClass() { 
+		return getProperties().getProperty("phoneStyleClass", "com.openxava.phone.web.PhoneStyle").trim();
+	}
+	
 	/** @since 7.0 */
 	public String getModulesListJSP() { 
 		return getProperties().getProperty("modulesListJSP", "modulesList.jsp").trim();

@@ -475,7 +475,10 @@ public class HotwireServlet extends BaseServlet {
                 ModuleContext context = getContext(request);
                 if (context != null) context.setCurrentWindowId(request);
                 checkSecurity(request, application, module);
-                request.setAttribute("style", org.openxava.web.style.Style.getInstance());
+                if (!"/xava/".equals(this.baseFolder)) {
+                    request.setAttribute("xava.renderOverride", true);
+                }
+                request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
                 Requests.partialInit(request, application, module);
 
                 setPageReloadedLastTime(false);
@@ -751,13 +754,15 @@ public class HotwireServlet extends BaseServlet {
         private String getURIAsString(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws Exception {
             if (jspFile == null) return "";
             if (jspFile.startsWith("html:")) return jspFile.substring(5); // No need to filterHTML (replace commas) thanks to JSON
-            if (org.openxava.web.render.Parts.isJavaRendered(jspFile)) {
+            if (org.openxava.web.render.Parts.isJavaRendered(jspFile, request)) {
                 String uri = getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters);
                 Map<String, String[]> params = parseQueryString(uri);
                 HttpServletRequest wrappedRequest = new ParametersHttpServletRequest(request, params);
                 return org.openxava.web.render.Parts.render(wrappedRequest, response, jspFile);
             }
-            return Servlets.getURIAsString(request, response, getURI(jspFile, values, multipleValues, selected, deselected, additionalParameters));
+            // Shared JSPs (like editorWrapper.jsp) live in /xava/, not in /phone/
+            String base = jspFile.startsWith("/") ? "" : "/xava/";
+            return Servlets.getURIAsString(request, response, getURI(base, jspFile, values, multipleValues, selected, deselected, additionalParameters));
         }
 
         private static Map<String, String[]> parseQueryString(String uri) {
@@ -828,6 +833,7 @@ public class HotwireServlet extends BaseServlet {
             }
 
             if (result.isHideDialog()) result.setFocusPropertyId(null);
+            if (Is.equalAsStringIgnoreCase(request.getParameter("noFocus"), "true")) result.setFocusPropertyId(null);
         }
 
         private void setPostJS(Result result) {
@@ -1159,7 +1165,11 @@ public class HotwireServlet extends BaseServlet {
         }
 
         private String getURI(String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws UnsupportedEncodingException {
-            StringBuilder result = new StringBuilder(getURIPrefix());
+            return getURI(getURIPrefix(), jspFile, values, multipleValues, selected, deselected, additionalParameters);
+        }
+
+        private String getURI(String base, String jspFile, Map<String, Object> values, Map<String, Object> multipleValues, String[] selected, String[] deselected, String additionalParameters) throws UnsupportedEncodingException {
+            StringBuilder result = new StringBuilder(base);
             result.append(jspFile);
             if (jspFile.endsWith(".jsp")) result.append('?');
             else result.append('&');

@@ -87,7 +87,12 @@ public class SectionsRenderer {
 			"viewObject", sectionViewObject,
 			"representsSection", "true"
 		));
-		w.append(DetailViewRenderer.render(subCtx));
+		String sectionPartUrl = "detail?viewObject=" + sectionViewObject + "&representsSection=true";
+		if (Parts.isJavaRendered(sectionPartUrl, ctx.getRequest())) {
+			w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), sectionPartUrl));
+		} else {
+			w.append(JspFragment.render(subCtx, "detail.jsp?viewObject=" + sectionViewObject + "&representsSection=true"));
+		}
 
 		w.append("</td></tr>");
 		w.append("</table>");
