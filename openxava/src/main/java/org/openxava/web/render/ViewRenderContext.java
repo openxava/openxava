@@ -71,7 +71,7 @@ public class ViewRenderContext {
 
 	public Style getStyle() {
 		Style style = (Style) request.getAttribute("style");
-		return style != null ? style : Style.getInstance();
+		return style != null ? style : Style.getInstance(request);
 	}
 
 	public Messages getErrors() {

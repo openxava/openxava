@@ -2,8 +2,12 @@ package org.openxava.web.style;
 
 import java.util.*;
 
+import jakarta.servlet.http.*;
+
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
+
+import com.openxava.naviox.util.*;
 
 /**
  * This class and its subclasses is used from JSP code to give
@@ -54,6 +58,38 @@ public class Style {
 			}			
 		}		
 		return instance;
+	}
+
+	/**
+	 * Returns the style instance appropriate for the request.
+	 * If the request has the {@code xava.renderOverride} attribute set, returns the
+	 * override style configured via {@code phoneStyleClass} in naviox.properties.
+	 * Otherwise, returns the default desktop style.
+	 * @since 8.0
+	 */
+	public static Style getInstance(HttpServletRequest request) {
+		if (request != null && Boolean.TRUE.equals(request.getAttribute("xava.renderOverride"))) {
+			return getOverrideInstance();
+		}
+		return getInstance();
+	}
+
+	private static Style overrideInstance;
+
+	private static Style getOverrideInstance() {
+		if (overrideInstance == null) {
+			try {
+				String className = NaviOXPreferences.getInstance().getPhoneStyleClass();
+				overrideInstance = (Style) Class.forName(className).newInstance();
+				overrideInstance.cssFile = "phone.css";
+			}
+			catch (Exception ex) {
+				log.warn("Cannot load override style: " + ex.getClass().getName() + ": " + ex.getMessage());
+				overrideInstance = new Style();
+				overrideInstance.cssFile = "default.css";
+			}
+		}
+		return overrideInstance;
 	}
 	
 	/**
