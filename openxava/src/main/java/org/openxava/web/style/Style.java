@@ -62,34 +62,34 @@ public class Style {
 
 	/**
 	 * Returns the style instance appropriate for the request.
-	 * If the request has the {@code xava.phone} attribute set, returns the phone style
-	 * configured via {@code phoneStyleClass} in naviox.properties.
+	 * If the request has the {@code xava.renderOverride} attribute set, returns the
+	 * override style configured via {@code phoneStyleClass} in naviox.properties.
 	 * Otherwise, returns the default desktop style.
 	 * @since 8.0
 	 */
 	public static Style getInstance(HttpServletRequest request) {
-		if (request != null && Boolean.TRUE.equals(request.getAttribute("xava.phone"))) {
-			return getPhoneInstance();
+		if (request != null && Boolean.TRUE.equals(request.getAttribute("xava.renderOverride"))) {
+			return getOverrideInstance();
 		}
 		return getInstance();
 	}
 
-	private static Style phoneInstance;
+	private static Style overrideInstance;
 
-	private static Style getPhoneInstance() {
-		if (phoneInstance == null) {
+	private static Style getOverrideInstance() {
+		if (overrideInstance == null) {
 			try {
 				String className = NaviOXPreferences.getInstance().getPhoneStyleClass();
-				phoneInstance = (Style) Class.forName(className).newInstance();
-				phoneInstance.cssFile = "phone.css";
+				overrideInstance = (Style) Class.forName(className).newInstance();
+				overrideInstance.cssFile = "phone.css";
 			}
 			catch (Exception ex) {
-				log.warn("Cannot load phone style: " + ex.getClass().getName() + ": " + ex.getMessage());
-				phoneInstance = new Style();
-				phoneInstance.cssFile = "default.css";
+				log.warn("Cannot load override style: " + ex.getClass().getName() + ": " + ex.getMessage());
+				overrideInstance = new Style();
+				overrideInstance.cssFile = "default.css";
 			}
 		}
-		return phoneInstance;
+		return overrideInstance;
 	}
 	
 	/**

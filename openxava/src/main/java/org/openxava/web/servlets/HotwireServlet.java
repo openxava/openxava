@@ -476,7 +476,7 @@ public class HotwireServlet extends BaseServlet {
                 if (context != null) context.setCurrentWindowId(request);
                 checkSecurity(request, application, module);
                 if (!"/xava/".equals(this.baseFolder)) {
-                    request.setAttribute("xava.phone", true);
+                    request.setAttribute("xava.renderOverride", true);
                 }
                 request.setAttribute("style", org.openxava.web.style.Style.getInstance(request));
                 Requests.partialInit(request, application, module);
