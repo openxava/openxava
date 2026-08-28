@@ -160,6 +160,25 @@ La regla `:focus-within` ya cubría cualquier `td.ox-editable-cell`, por lo que 
 
 ---
 
+## Ajuste 4: Alineación de totales editables
+
+**Problema**: En el total editable (p. ej. *Taxes rate* en `Quote`), el valor aparecía ligeramente desplazado a la izquierda respecto a los totales de solo lectura y a las celdas de datos de la misma columna.
+
+**Causa**: Los valores read-only usan un `<nobr>valor&nbsp;</nobr>` que deja un pequeño margen a la derecha (~0.25em). El input editable de `ox-total-cell` heredaba `padding-right: var(--space-2)` (8 px) de `.ox-element-collection .editor`, dejando el texto demasiado a la izquierda.
+
+**Solución**: En `base.css` se añade una regla específica para reducir el `padding-right` del `.editor` en celdas de total editables y compensar el borde transparente de 1 px:
+
+```css
+.ox-total-cell.ox-editable-cell.ox-text-align-right .editor {
+    /* Match the right gap created by the &nbsp; in read-only totals */
+    padding-right: calc(0.25em - 1px);
+}
+```
+
+**Estado**: verificado manualmente; el total editable se alinea con el resto de totales y celdas de su columna.
+
+---
+
 ## Archivos modificados
 
 | Archivo | Cambio |
@@ -180,5 +199,5 @@ La regla `:focus-within` ya cubría cualquier `td.ox-editable-cell`, por lo que 
 | `HotwireServlet.java` | `readOnlyAsLabel=true` en AJAX de element collections |
 | `editorWrapper.jsp` | Lee y pasa `readOnlyAsLabel` |
 | `collectionTotals.jsp` | Marca `ox-editable-cell` en celdas de totales editables |
-| `base.css` | Estilo spreadsheet, fixes de alineación, tokens CSS, hover/focus de totales editables |
+| `base.css` | Estilo spreadsheet, fixes de alineación (incl. total editable `Taxes rate`), tokens CSS, hover/focus de totales editables |
 | `changelog.txt` | Entradas de changelog |

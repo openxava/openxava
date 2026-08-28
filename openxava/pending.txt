@@ -4,6 +4,8 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Revisión visual:
         - Quote claro/oscuro.
+            TMR ME QUEDÉ POR AQUÍ. PROBADO EL CLARO, ESTÁ BIEN. SOLO FALTARÍA REVISAR EL SOMBREADO ON HOVER.
+            TMR ME FALTA PROBAR EL OSCURO. FIJARSE EN LAS LÍNEA DE SEPARACIÓN Y EN EL SOMBREADO ON HOVER.
         - Dialogo import.
     - Tests:
         - QuoteTest

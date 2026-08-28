@@ -2270,6 +2270,11 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	font-weight: bold;
 }
 
+.ox-total-cell.ox-editable-cell.ox-text-align-right .editor {
+	/* Match the right gap created by the &nbsp; in read-only totals */
+	padding-right: calc(0.25em - 1px);
+}
+
 .ox-total-capable-cell { 
 	text-align: right;
 }
