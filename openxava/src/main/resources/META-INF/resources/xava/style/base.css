@@ -1969,6 +1969,10 @@ input[type="button"] {
 	border: none;
 }
 
+.ox-element-collection .ox-money b {
+	display: none;
+}
+
 .ox-element-collection .ox-list-header,
 .ox-element-collection .ox-list-header th {
 	background: transparent;
