@@ -42,7 +42,10 @@
 
 	/* Frames */
 	--frame-background: var(--my-transparent-lightdark);
-	--frame-border: #27272a;
+	--frame-border: #35353c;
+
+	/* Element collections */
+	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 22%, transparent);
 
 	/* Actions */
 	--action-color: var(--my-silver);

@@ -180,7 +180,7 @@
 	--list-header-background: var(--header-background);
 	--list-column2-background: white;
 	--element-collection-row-hover-background: color-mix(in srgb, var(--color) 4%, transparent);
-	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 7%, transparent);
+	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 12%, transparent);
 	--list-background: white;
 	--list-header-arrows-color: white;
 	--list-even-column-background: #f4f4f4;
