@@ -1965,6 +1965,10 @@ input[type="button"] {
 	border-bottom-color: var(--frame-border) !important; /* --list-row-bottom-color can be transparent (dark theme) */
 }
 
+.ox-element-collection .ox-list {
+	border: none;
+}
+
 .ox-element-collection .ox-list-header,
 .ox-element-collection .ox-list-header th {
 	background: transparent;
