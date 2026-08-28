@@ -4,9 +4,9 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Revisión visual:
         - Quote claro/oscuro.
-            - Handles de resize (⋮⋮) siempre visibles
             - Alineación mixta en cabeceras
         - Dialogo import.
+        - Duda sobre iPad y los hover.
     - Tests:
         - QuoteTest
         - ReallocationDetailsReadOnlyTest
@@ -17,6 +17,7 @@ Pending UI8 modernization (tmr)
     - Apuntar en plan que las lista (3c):
         - Deben ser compatibles con lo hecho aquí a nivel estético (cabeceras, etc).
         - Propiedades editables resueltas de la misma manera.
+        - Apuntar al hilo.
     - Crear un .md para el hilo. Actualizar el plan.
 - Bloque 3b.
 - Bloque 3c.

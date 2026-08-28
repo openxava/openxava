@@ -1969,6 +1969,16 @@ input[type="button"] {
 	border: none;
 }
 
+.ox-element-collection .ui-resizable-e {
+	opacity: 0;
+	transition: opacity var(--transition-fast);
+}
+
+.ox-element-collection th.ox-list-header:hover .ui-resizable-e,
+.ox-element-collection th.ox-list-header:focus-within .ui-resizable-e {
+	opacity: 1;
+}
+
 .ox-element-collection .ox-money b {
 	display: none;
 }
