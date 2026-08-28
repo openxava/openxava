@@ -2053,6 +2053,11 @@ input[type="button"] {
 
 .ox-element-collection .ox-total-row:last-child td {
 	font-weight: 600;
+	padding-bottom: var(--space-2);
+}
+
+.ox-element-collection th:last-child, .ox-element-collection td:last-child {
+	padding-right: var(--space-2) !important;
 }
 
 .ox-element-collection .ox-total-label-cell {
