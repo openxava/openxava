@@ -1961,6 +1961,10 @@ input[type="button"] {
 	border-bottom: 1px solid var(--frame-border); 
 }
 
+.ox-element-collection .ox-list-pair, .ox-element-collection .ox-list-odd {
+	border-bottom-color: var(--frame-border) !important; /* --list-row-bottom-color can be transparent (dark theme) */
+}
+
 .ox-element-collection .ox-list-header,
 .ox-element-collection .ox-list-header th {
 	background: transparent;
