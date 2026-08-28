@@ -179,7 +179,8 @@
 		
 	--list-header-background: var(--header-background);
 	--list-column2-background: white;
-	--element-collection-row-hover-background: white;
+	--element-collection-row-hover-background: color-mix(in srgb, var(--color) 4%, transparent);
+	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 7%, transparent);
 	--list-background: white;
 	--list-header-arrows-color: white;
 	--list-even-column-background: #f4f4f4;
@@ -1954,8 +1955,97 @@ input[type="button"] {
     margin-right: auto;
 }
 
-.ox-element-collection .ox-list-pair, .ox-element-collection .ox-list-odd {
-	border-bottom-style: hidden; 
+.ox-element-collection .ox-list-data-cell,
+.ox-element-collection .ox-list-action-cell,
+.ox-element-collection .ox-element-collection-search-action-cell {
+	border-bottom: 1px solid var(--frame-border); 
+}
+
+.ox-element-collection .ox-list-header,
+.ox-element-collection .ox-list-header th {
+	background: transparent;
+}
+
+.ox-element-collection th.ox-list-header {
+	border-bottom: 1px solid var(--frame-border);
+	font-size: var(--font-size-sm);
+	font-weight: 500;
+	color: var(--label-color);
+	padding-top: var(--space-2);
+	padding-bottom: var(--space-2);
+}
+
+.ox-element-collection .ox-list input[type="text"],
+.ox-element-collection .ox-list input[type="password"],
+.ox-element-collection .ox-list input[type="date"],
+.ox-element-collection .ox-list input[type="datetime-local"],
+.ox-element-collection .ox-list select:not([multiple]),
+.ox-element-collection .ox-list textarea {
+	border-color: transparent;
+	background-color: transparent;
+	border-radius: var(--radius-sm);
+}
+
+.ox-element-collection .ox-list :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], select, textarea):hover:not(:disabled):not(:focus) {
+	border-color: transparent;
+}
+
+.ox-element-collection .ox-list :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], select, textarea):focus {
+	border-color: transparent !important;
+	box-shadow: none;
+}
+
+.ox-element-collection .ox-list input:disabled,
+.ox-element-collection .ox-list select:disabled,
+.ox-element-collection .ox-list textarea:disabled {
+	background-color: transparent;
+	color: var(--color);
+	-webkit-text-fill-color: var(--color);
+}
+
+.ox-element-collection .ox-list .ox-list-pair td.ox-editable-cell:hover,
+.ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover {
+	background-color: var(--element-collection-cell-hover-background);
+}
+
+.ox-element-collection .ox-list td.ox-editable-cell:focus-within {
+	box-shadow: inset 0 0 0 2px var(--accent-color);
+	border-radius: var(--radius-sm);
+}
+
+.ox-element-collection .ox-element-collection-remove-action,
+.ox-element-collection .xava_handle,
+.ox-element-collection .ox-element-collection-search-action-cell a {
+	opacity: 0;
+	transition: opacity var(--transition-fast);
+}
+
+.ox-element-collection tr:hover .ox-element-collection-remove-action,
+.ox-element-collection tr:focus-within .ox-element-collection-remove-action,
+.ox-element-collection tr:hover .xava_handle,
+.ox-element-collection tr:focus-within .xava_handle,
+.ox-element-collection tr:hover .ox-element-collection-search-action-cell a,
+.ox-element-collection tr:focus-within .ox-element-collection-search-action-cell a {
+	opacity: 1;
+}
+
+.ox-element-collection .ox-total-row td {
+	border-bottom: none;
+}
+
+.ox-element-collection .ox-total-row:not(.ox-total-row ~ .ox-total-row) td {
+	border-top: 1px solid var(--frame-border);
+	padding-top: var(--space-2);
+}
+
+.ox-element-collection .ox-total-row:last-child td {
+	font-weight: 600;
+}
+
+.ox-element-collection .ox-total-label-cell {
+	text-align: right;
+	color: var(--label-color);
+	font-weight: 500;
 }
 
 .ox-element-collection .ox-list-data-cell .ox-image-link {

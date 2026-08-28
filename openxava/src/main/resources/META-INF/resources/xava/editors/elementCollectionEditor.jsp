@@ -178,10 +178,12 @@ for (int f=0; f < rowCount; f++) {
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
 		String referenceName = null;
 		String searchAction = null;
+		boolean cellEditable = subview.isCollectionMembersEditables();
 		if (p.getName().contains(".")) {
 			String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
 			if (subview.displayAsDescriptionsList(subview.getMetaReference(refName))) {
 				referenceName = collectionName + "." + f + "." + refName;
+				if (cellEditable) cellEditable = subview.isEditable(refName);
 			}
 			else { 			
 				View refView = subview.getSubview(refName);
@@ -190,13 +192,14 @@ for (int f=0; f < rowCount; f++) {
 		}
 		String propertyName = collectionName + "." + f + "." + p.getName();
 		boolean throwPropertyChanged = subview.throwsPropertyChanged(p.getName());
+		if (cellEditable && referenceName == null) cellEditable = subview.isEditable(p.getName());
 		Object fvalue = null;
 		if (!subview.isCollectionMembersEditables()) {
 			Object value = view.getValue(propertyName); 
 			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
 		}
 %>
-	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell" <%=isHiddenKey ? "hidden" : ""%>>
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell <%=cellEditable?"ox-editable-cell":"ox-readonly-cell"%>" <%=isHiddenKey ? "hidden" : ""%>>
 		<% if (labelOnEachCell) { %>
 			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
@@ -210,10 +213,10 @@ for (int f=0; f < rowCount; f++) {
 				<xava:descriptionsList reference="<%=referenceName%>" readOnlyAsLabel="true"/>	
 			<% } %>
 		<% } else if (referenceName != null) { %>
-		<xava:descriptionsList reference="<%=referenceName%>"/>
+		<xava:descriptionsList reference="<%=referenceName%>" readOnlyAsLabel="true"/>
 		<% } else { %>
 		<span id="<xava:id name='<%="editor_" + view.getPropertyPrefix() + propertyName%>'/>" class="xava_editor <%=p.isTransient() ? "xava_transient" : ""%>">
-		<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>"/>
+		<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>" readOnlyAsLabel="true"/>
 		</span>
 		<% } %>	
 	 	</nobr>  
@@ -221,7 +224,9 @@ for (int f=0; f < rowCount; f++) {
 	</td>		
 	<% if (searchAction != null && subview.isLastSearchKey(p.getName())) {	%>
 	<td class="<%=cssCellClass%> <%=align%> ox-element-collection-search-action-cell" <%=isHiddenKey ? "hidden" : ""%>>
+		<% if (cellEditable) { %>
 		<xava:action action='<%=searchAction%>' argv='<%="keyProperty="+propertyName%>'/> 								
+		<% } %>
 	</td>
 	<% } %>
 <%

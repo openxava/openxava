@@ -108,7 +108,15 @@ Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 3a — ElementCollection (`ui-elementcollection`)
 
-- [ ] Spreadsheet visual style para `@ElementCollection`.
+- [x] Spreadsheet visual style para `@ElementCollection`:
+  - Celdas borderless/transparentes, hairlines entre filas (`--frame-border`), cabecera compacta muted (`--font-size-sm`, 500, `--label-color`), hover solo en celdas editables (`ox-editable-cell` + `--element-collection-cell-hover-background`), anillo de celda activa con acento (`:focus-within`, inset 2px) y acciones de fila (papelera, handle de orden, lupa de búsqueda) reveladas en hover/focus de la fila.
+  - Propiedades de solo lectura dentro de colecciones editables se renderizan como texto formateado en lugar de inputs deshabilitados: nuevo atributo `readOnlyAsLabel` en `xava:editor` (propagado como parámetro al editor) + soporte del parámetro `readOnlyAsLabel` en los editores estándar (text, date, time, datetime, boolean yes/no, valid values). Las celdas se marcan con `ox-editable-cell`/`ox-readonly-cell`.
+  - `@Calculation` también actualiza valores renderizados como texto (`openxava.calculate` con fallback a `.text()`; las labels llevan `span` con el id de la propiedad).
+  - La lupa de búsqueda de referencias solo se muestra si la celda es editable.
+  - Footer de totales: hairline superior en la primera fila de totales, etiquetas muted alineadas a la derecha y total final enfatizado (600).
+  - `--element-collection-row-hover-background` pasa de blanco (invisible) a tinte translúcido 4% del color de texto.
+
+Pendiente: tests HtmlUnit (los ejecuta el usuario en su IDE: QuoteTest, ReallocationDetailsReadOnlyTest, ReallocationDetailsEditOnlyTest, ProductsEvaluationTest como mínimo) y revisión visual manual (Quote, diálogo Import, modo phone, dark).
 
 ### Bloque 3b — Calendario (`ui-calendar`)
 

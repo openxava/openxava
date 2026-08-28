@@ -1,7 +1,18 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 3.
+- Bloque 3a.
+    - nuevo atributo readOnlyAsLabel en xava:editor. Documentar.
+    - Revisión visual:
+        - Quote claro/oscuro.
+        - Dialogo import.
+    - Tests:
+        - QuoteTest
+        - ReallocationDetailsReadOnlyTest
+        - ReallocationDetailsEditOnlyTest
+        - ProductsEvaluationTest
+- Bloque 3b.
+- Bloque 3c.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
     - Barra de botones.
