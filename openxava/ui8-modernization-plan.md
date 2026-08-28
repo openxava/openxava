@@ -2,6 +2,12 @@
 
 Objetivo: apariencia moderna y reconocible como "versión 8", con HTML + JavaScript + CSS plano, sin framework JS ni framework CSS. Se conserva y potencia la arquitectura actual de variables CSS en `base.css` (`xava/style/`).
 
+Por "apariencia moderna" entendemos una estética comparable a las aplicaciones punteras de 2026 —p. ej. Attio, Linear, Notion, Vercel—: interfaces limpias, espaciados generosos, bordes y sombras sutiles, tipografía legible, estados de foco y hover coherentes, y componentes con ritmo visual propio.
+
+Aunque en ocasiones se mencione Material Design como referencia, **no es obligatorio seguirlo al pie de la letra**. En cada bloque es más importante que el resultado sea coherente con lo construido hasta entonces (tokens, radios, colores, acentos, anillos de foco y animaciones) que forzar un sistema concreto.
+
+Las aplicaciones generadas por OpenXava son **aplicaciones empresariales de uso interno** (facturación, contabilidad, inventarios, nóminas, etc.) para usuarios que trabajan varias horas al día con ellas. El diseño debe priorizar la productividad, la legibilidad prolongada y una buena UX general. No siempre será posible copiar literalmente los patrones de las soluciones SaaS más vanguardistas, sino adaptarlos a un contexto de datos densos, flujos repetitivos y operaciones de alto volumen.
+
 ## Estrategia de trabajo
 
 - Trabajo en **bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
