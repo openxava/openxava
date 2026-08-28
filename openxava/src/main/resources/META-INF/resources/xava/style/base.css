@@ -2008,7 +2008,8 @@ input[type="button"] {
 }
 
 .ox-element-collection .ox-list .ox-list-pair td.ox-editable-cell:hover,
-.ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover {
+.ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover,
+.ox-element-collection .ox-list .ox-total-row td.ox-editable-cell:hover {
 	background-color: var(--element-collection-cell-hover-background);
 }
 

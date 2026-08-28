@@ -124,6 +124,42 @@ La función `openxava.calculate` ahora actualiza también elementos `<span>` (no
 
 ---
 
+## Defecto 3: Totales editables sin hover ni anillo de foco
+
+**Problema**: En las celdas de totales editables (p. ej. *Taxes rate* en `Quote`), al pasar el ratón no aparecía el fondo de hover y al pulsar/editar no se mostraba el borde azul de foco que sí se ve en las celdas de datos.
+
+**Causa raíz**: Las celdas de totales se renderizan con `ox-total-cell`, no con `ox-editable-cell`. El estilo spreadsheet aplica hover y `:focus-within` únicamente a `td.ox-editable-cell` y, además, la regla de hover estaba limitada a filas `.ox-list-pair`/`.ox-list-odd`, no a `.ox-total-row`.
+
+### Cambios
+
+#### 1. `collectionTotals.jsp` — marcar totales editables
+
+En el bucle que genera las celdas de totales, se consulta `subview.isCollectionTotalEditable(i, c)` y se añade `ox-editable-cell` a la clase del `<td>` cuando el total es editable:
+
+```jsp
+boolean totalEditable = subview.isCollectionTotalEditable(i, c);
+%>
+<td class="ox-total-cell <%=align%> <%=totalEditable ? "ox-editable-cell" : "">">
+```
+
+#### 2. `base.css` — extender hover a filas de totales
+
+Se añade `.ox-total-row td.ox-editable-cell:hover` a la regla de fondo de hover:
+
+```css
+.ox-element-collection .ox-list .ox-list-pair td.ox-editable-cell:hover,
+.ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover,
+.ox-element-collection .ox-list .ox-total-row td.ox-editable-cell:hover {
+    background-color: var(--element-collection-cell-hover-background);
+}
+```
+
+La regla `:focus-within` ya cubría cualquier `td.ox-editable-cell`, por lo que con la nueva clase el anillo azul también aparece en los totales editables.
+
+**Estado**: verificado manualmente; el input de totales ahora muestra hover y el borde de foco igual que el resto de celdas editables.
+
+---
+
 ## Archivos modificados
 
 | Archivo | Cambio |
@@ -143,5 +179,6 @@ La función `openxava.calculate` ahora actualiza también elementos `<span>` (no
 | `openxava.js` | `calculate` actualiza spans |
 | `HotwireServlet.java` | `readOnlyAsLabel=true` en AJAX de element collections |
 | `editorWrapper.jsp` | Lee y pasa `readOnlyAsLabel` |
-| `base.css` | Estilo spreadsheet, fixes de alineación, tokens CSS |
+| `collectionTotals.jsp` | Marca `ox-editable-cell` en celdas de totales editables |
+| `base.css` | Estilo spreadsheet, fixes de alineación, tokens CSS, hover/focus de totales editables |
 | `changelog.txt` | Entradas de changelog |
