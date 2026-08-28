@@ -4,7 +4,7 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Revisión visual:
         - Quote claro/oscuro.
-            - Alineación mixta en cabeceras
+            - Alineación mixta en cabeceras: // TMR ME QUEDÉ PARA EMPEZAR ESTO
                 Kimi me dijo: Alineación mixta en cabeceras: Precio unitario alineada a
                     la derecha junto a cabeceras a la izquierda está bien semánticamente,
                     pero visualmente rompe el ritmo; asegúrate de que el padding derecho
