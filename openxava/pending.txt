@@ -4,7 +4,6 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Revisión visual:
         - Quote claro/oscuro.
-            - Los Σ repetidos en tres columnas
             - Handles de resize (⋮⋮) siempre visibles
             - Alineación mixta en cabeceras
         - Dialogo import.

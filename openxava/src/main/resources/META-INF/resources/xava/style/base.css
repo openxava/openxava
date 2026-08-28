@@ -2032,7 +2032,8 @@ input[type="button"] {
 
 .ox-element-collection .ox-element-collection-remove-action,
 .ox-element-collection .xava_handle,
-.ox-element-collection .ox-element-collection-search-action-cell a {
+.ox-element-collection .ox-element-collection-search-action-cell a,
+.ox-element-collection .ox-total-capable-cell a {
 	opacity: 0;
 	transition: opacity var(--transition-fast);
 }
@@ -2042,7 +2043,9 @@ input[type="button"] {
 .ox-element-collection tr:hover .xava_handle,
 .ox-element-collection tr:focus-within .xava_handle,
 .ox-element-collection tr:hover .ox-element-collection-search-action-cell a,
-.ox-element-collection tr:focus-within .ox-element-collection-search-action-cell a {
+.ox-element-collection tr:focus-within .ox-element-collection-search-action-cell a,
+.ox-element-collection tr:hover .ox-total-capable-cell a,
+.ox-element-collection tr:focus-within .ox-total-capable-cell a {
 	opacity: 1;
 }
 
