@@ -201,3 +201,23 @@ La regla `:focus-within` ya cubría cualquier `td.ox-editable-cell`, por lo que 
 | `collectionTotals.jsp` | Marca `ox-editable-cell` en celdas de totales editables |
 | `base.css` | Estilo spreadsheet, fixes de alineación (incl. total editable `Taxes rate`), tokens CSS, hover/focus de totales editables |
 | `changelog.txt` | Entradas de changelog |
+
+---
+
+## Resumen de ajustes visuales finales (conversación de revisión)
+
+Durante la revisión visual del grid de `@ElementCollection` se aplicaron los siguientes retoques en `base.css` para pulir la apariencia spreadsheet:
+
+- **Líneas de fila a ancho completo**: El borde de `2px` de `.ox-element-collection .ox-list` ocultaba la última fracción de las líneas horizontales. Se eliminó con `border: none`.
+- **Espaciado del total en esquina inferior derecha**: Se añadió `padding-right: var(--space-2)` a la última columna (th, td y totales) y `padding-bottom: var(--space-2)` a la última fila de totales para equilibrar el resumen sin desalinear los valores.
+- **Símbolo de moneda flotante**: El `<b>` con el símbolo `$` del `MoneyEditor` se oculta dentro de `.ox-element-collection` para evitar ruido visual.
+- **Iconos de sumatorio (Σ)**: Los enlaces de `.ox-total-capable-cell a` pasan a `opacity: 0` por defecto y se revelan con `tr:hover` o `tr:focus-within`, manteniendo la funcionalidad.
+- **Handles de resize (⋮⋮)**: Los handles `.ui-resizable-e` de las cabeceras se ocultan por defecto y aparecen al hacer hover/focus en el `th.ox-list-header`.
+
+### Notas y próximos pasos pendientes de la conversación
+
+- La alineación mixta en cabeceras (numéricas a la derecha vs. textuales a la izquierda) es correcta semánticamente, pero conviene revisar que el padding derecho coincida exactamente.
+- Pendiente de verificar en iPad/táctil cómo se comportan los efectos de hover.
+- Actualizar las capturas PNG con el estado final.
+
+**Archivo principal tocado**: `base.css`.
