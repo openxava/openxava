@@ -113,7 +113,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		</div>
 	</th>
 	<% if (ref != null && subview.isSearchForReference(ref) && subview.isLastSearchKey(p.getName())) { %>
-	<th></th>
+	<th class="ox-list-header"></th>
 	<% } %>
 <%
 	}
