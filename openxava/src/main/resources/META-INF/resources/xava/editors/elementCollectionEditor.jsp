@@ -76,6 +76,11 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		String refName = org.openxava.util.Strings.noLastTokenWithoutLastDelim(p.getName(), ".");
 		ref = subview.getMetaReference(refName);
 	}
+	String align = p.isNumber() && !p.hasValidValues()?"ox-text-align-right":"";
+	boolean descriptionsListColumn = ref != null && subview.displayAsDescriptionsList(ref);
+	boolean columnEditable = subview.isCollectionMembersEditables();
+	if (columnEditable && descriptionsListColumn) columnEditable = subview.isEditable(ref.getName());
+	if (columnEditable && !descriptionsListColumn) columnEditable = subview.isEditable(p.getName());
 	String headerId = "";
 	String dataDefaultValue = "";	
 	if (p.hasNotDependentDefaultValueCalculator() || ref != null && ref.hasNotDependentDefaultValueCalculator()) { 	
@@ -105,7 +110,7 @@ for (int columnIndex=0; it.hasNext(); columnIndex++) {
 		}
 	}
 %>
-	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0" <%=isHiddenKey? "hidden" : ""%>>
+	<th <%=headerId%> <%=dataDefaultValue%> class="ox-list-header ox-padding-right-0 <%=align%> <%=columnEditable?"ox-editable-column":""%>" <%=isHiddenKey? "hidden" : ""%>>
 		<div id="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%>" class="<%=((resizeColumns)?("xava_resizable"):(""))%>" <%=width%>>
 		<%if (resizeColumns) {%><nobr><%}%>
 		<%=label%>&nbsp;

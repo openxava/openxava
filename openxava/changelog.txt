@@ -2,6 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - Element collections redesigned as data-dense spreadsheet grids: borderless transparent cells, hairline row separators, compact muted column headers, hover feedback only on editable cells, accent active-cell ring and row actions (delete, drag handle, reference search) revealed on row hover or keyboard focus.
+- Numeric column headers in element collections are now right-aligned to match their cell values; padding is adjusted for editable vs. read-only columns so the header text edge aligns exactly with the data below.
 - Read-only properties in editable element collections (calculated, @ReadOnly, etc.) are now displayed as plain formatted text instead of disabled input fields; values are still submitted and updated live by @Calculation expressions and totals.
 - New readOnlyAsLabel attribute for the xava:editor tag and support for the readOnlyAsLabel request parameter in the standard editors (text, date, time, datetime, boolean yes/no and valid values), in addition to the global readOnlyAsLabel option in xava.properties.
 - New CSS variables for element collection customization: --element-collection-cell-hover-background; --element-collection-row-hover-background now defaults to a subtle translucent tint (was white).

@@ -1997,6 +1997,14 @@ input[type="button"] {
 	padding-bottom: var(--space-2);
 }
 
+.ox-element-collection th.ox-list-header.ox-text-align-right {
+	text-align: right;
+}
+
+.ox-element-collection th.ox-list-header.ox-text-align-right.ox-editable-column {
+	padding-right: calc(var(--space-1) + var(--space-2) + 1px - 0.25em) !important;
+}
+
 .ox-element-collection .ox-list input[type="text"],
 .ox-element-collection .ox-list input[type="password"],
 .ox-element-collection .ox-list input[type="date"],
