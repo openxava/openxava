@@ -2,14 +2,12 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 3a.
-    - Revisión visual:
-        - Duda sobre iPad y los hover.
-        - Actualizar PNGs
     - Tests:
         - QuoteTest
         - ReallocationDetailsReadOnlyTest
         - ReallocationDetailsEditOnlyTest
         - ProductsEvaluationTest
+    - Duda sobre iPad y los hover.
     - Comprobar documentación tocada.
     - nuevo atributo readOnlyAsLabel en xava:editor. Documentar.
     - Apuntar en plan que las lista (3c):
