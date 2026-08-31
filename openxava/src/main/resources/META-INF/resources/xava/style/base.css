@@ -1969,13 +1969,46 @@ input[type="button"] {
 	border: none;
 }
 
-.ox-element-collection .ui-resizable-e {
-	opacity: 0;
-	transition: opacity var(--transition-fast);
+.ox-element-collection th.ox-list-header .xava_resizable.ui-resizable {
+	position: static !important; /* use the th as containing block for the handle */
 }
 
-.ox-element-collection th.ox-list-header:hover .ui-resizable-e,
-.ox-element-collection th.ox-list-header:focus-within .ui-resizable-e {
+.ox-element-collection .xava_resizable .ui-resizable-e {
+	background-image: none !important;
+	background: transparent !important;
+	width: 6px !important;
+	right: -3px !important; /* 6px centered on the th's right border: 3px inside + 3px outside */
+	top: 0 !important;
+	bottom: 0 !important;
+	height: auto !important;
+	cursor: col-resize !important;
+	pointer-events: auto !important;
+	z-index: 100 !important;
+	font-size: inherit !important; /* so 0.25em in the right calc matches the th's font */
+}
+
+.ox-element-collection .xava_resizable .ui-resizable-e::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 3px; /* 2px line exactly on the th's right border */
+	width: 2px;
+	background: var(--placeholder-color);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+/* Show the line when the th is hovered or the handle itself is active */
+.ox-element-collection th.ox-list-header:hover .ui-resizable-e::after,
+.ox-element-collection th.ox-list-header:focus-within .ui-resizable-e::after {
+	opacity: 1;
+}
+
+.ox-element-collection th.ox-list-header .ui-resizable-e:hover::after,
+.ox-element-collection th.ox-list-header .ui-resizable-e:focus::after {
+	background-color: var(--accent-color);
 	opacity: 1;
 }
 
@@ -1989,6 +2022,7 @@ input[type="button"] {
 }
 
 .ox-element-collection th.ox-list-header {
+	position: relative;
 	border-bottom: 1px solid var(--frame-border);
 	font-size: var(--font-size-sm);
 	font-weight: 500;
