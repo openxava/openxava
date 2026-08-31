@@ -6,6 +6,7 @@ Change Log for OpenXava project
 - Read-only properties in editable element collections (calculated, @ReadOnly, etc.) are now displayed as plain formatted text instead of disabled input fields; values are still submitted and updated live by @Calculation expressions and totals.
 - New readOnlyAsLabel attribute for the xava:editor tag and support for the readOnlyAsLabel request parameter in the standard editors (text, date, time, datetime, boolean yes/no and valid values), in addition to the global readOnlyAsLabel option in xava.properties.
 - New CSS variables for element collection customization: --element-collection-cell-hover-background; --element-collection-row-hover-background now defaults to a subtle translucent tint (was white).
+- Column resize handles in @ElementCollection headers replaced with a CSS 2px vertical line centered on the right edge, highlighted on hover/focus; the cursor aligns exactly with the line and the "elusive" behavior on right-aligned numeric columns is fixed.
 - Dialogs restyled with own CSS, dropping the jQuery UI smoothness theme: 12px corner radius, hairline border, elevation-3 shadow, blurred translucent backdrop, entrance animation, circular close button with focus ring and a subtle resize grip.
 - jquery-ui.css and smoothness/jquery-ui.css (plus its 11 theme images, ~45KB) removed; only the functional jquery-ui.structure.css is kept.
 - Autocomplete dropdown modernized: thin border, rounded corners, 4px padding, pill-shaped hover/active items with accent-soft background, independent from the jQuery UI theme.

@@ -4,7 +4,6 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Revisión visual:
         - Quote claro/oscuro.
-            - Asidero
         - Dialogo import.
         - Duda sobre iPad y los hover.
         - Actualizar PNGs
