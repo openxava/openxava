@@ -179,10 +179,36 @@ La regla `:focus-within` ya cubría cualquier `td.ox-editable-cell`, por lo que 
 
 ---
 
+## Ajuste 5: Hover en celdas no editables del diálogo de importar
+
+**Problema**: En el diálogo de importar datos, las columnas de solo lectura (`headerInFile`, `sampleContent1` y `sampleContent2`) mostraban el mismo sombreado de hover que la celda editable `nameInApp`.
+
+**Causa raíz**: `ImportColumn` usaba `@Stereotype("LABEL")` para esas propiedades. El estereotipo cambiaba el editor, pero no hacía que la propiedad fuera realmente no editable a nivel de `View`; por tanto `subview.isEditable()` devolvía `true` y las celdas se marcaban como `ox-editable-cell`, recibiendo el fondo de hover del estilo spreadsheet.
+
+**Solución**: Reemplazar `@Stereotype("LABEL")` por `@ReadOnly` en las propiedades de solo lectura de `ImportColumn`:
+
+```java
+@ReadOnly
+private String headerInFile;
+
+@ReadOnly
+private String sampleContent1;
+
+@ReadOnly
+private String sampleContent2;
+```
+
+De este modo, `subview.isEditable()` devuelve `false` para esas celdas, se renderizan como `ox-readonly-cell` y `readOnlyAsLabel` muestra su valor como texto plano sin recibir el hover de celdas editables.
+
+**Archivo principal tocado**: `ImportColumn.java`. No fue necesario modificar `elementCollectionEditor.jsp` ni `base.css`.
+
+---
+
 ## Archivos modificados
 
 | Archivo | Cambio |
 |---|---|
+| `ImportColumn.java` | Propiedades del diálogo de importar como `@ReadOnly` (fix hover en celdas no editables) |
 | `EditorTag.java` | Atributo `readOnlyAsLabel` + propagación |
 | `openxava.tld` | Registro del atributo |
 | `elementCollectionEditor.jsp` | Render read-only como texto, clases de celda, fix hairline |
