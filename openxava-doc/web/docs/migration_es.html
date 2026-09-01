@@ -360,7 +360,7 @@ import org.hibernate.annotations.Type;</code></pre>
     <i>org.hibernate.jdbc.NonBatchingBatcherFactory</i> ya no es válida en Hibernate 7. 
     Elimina esta propiedad de tu <i>persistence.xml</i>.</p>
 
-    <h4>Dialecto MySQL</h4>
+    <h4>MySQL</h4>
 
     <p>En Hibernate 7 la clase <i>org.hibernate.dialect.MySQL5Dialect</i> ha sido eliminada. 
     Si tu <i>persistence.xml</i> la usa, sustitúyela por <i>org.hibernate.dialect.MySQLDialect</i>. 
@@ -372,6 +372,19 @@ import org.hibernate.annotations.Type;</code></pre>
 
 &lt;!-- DESPUÉS (8.0) --&gt;
 &lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/&gt;</code></pre>
+
+    <p>Hibernate 7 requiere <b>MySQL 8.0 o superior</b>. Genera <i>datetime(6)</i> para campos <i>Timestamp</i> 
+    y utiliza sentencias DELETE con un alias que versiones anteriores de MySQL no soportan correctamente.</p>
+
+    <p>La URL JDBC también debe incluir el nombre de la base de datos de forma explícita. Una URL sin base de datos, 
+    como <i>jdbc:mysql://localhost:3306</i>, provocará errores <i>No database selected</i>. Debes usar una URL del 
+    tipo <i>jdbc:mysql://localhost:3306/miaplicaciondb</i>:</p>
+
+    <pre><code class="language-properties"># ANTES
+spring.datasource.url=jdbc:mysql://localhost:3306
+
+# DESPUÉS
+spring.datasource.url=jdbc:mysql://localhost:3306/miaplicaciondb</code></pre>
 
     <h4>@Column(scale/precision) y @Digits en tipos float/double</h4>
 
