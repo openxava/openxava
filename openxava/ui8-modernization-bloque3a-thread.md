@@ -247,3 +247,98 @@ Durante la revisión visual del grid de `@ElementCollection` se aplicaron los si
 - Actualizar las capturas PNG con el estado final.
 
 **Archivo principal tocado**: `base.css`.
+
+---
+
+## Ajuste 6: Booleano read-only como icono check
+
+**Problema**: Los booleanos read-only en element collections se mostraban como un checkbox deshabilitado (switch), lo que resultaba estéticamente tosco dentro del grid spreadsheet.
+
+**Decisión**: En formularios verticales el booleano read-only sigue siendo un switch deshabilitado (coherente con campos editables). Pero en element collections (cuando `readOnlyAsLabel` está activo), se renderiza `true` como un icono `mdi-check` con color de acento y `false` como espacio en blanco (`&nbsp;`).
+
+### Cambios
+
+#### 1. `booleanEditor.jsp`
+
+Se añadió lógica para detectar `readOnlyAsLabel` (además del global `XavaPreferences.isReadOnlyAsLabel()`). Cuando `label` es `true` y el campo no es editable, se renderiza un `<span>` con clase `ox-boolean-check` (para `true`) o `ox-boolean-false` (para `false`) en lugar del `<input type="checkbox">`:
+
+```jsp
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
+```
+
+```jsp
+<% if (editable || !label) { %>
+<INPUT ... class="... ox-switch" ... />
+<% } else { %>
+<span id="<%=propertyKey%>" class="ox-label-editor <%=Boolean.TRUE.equals(value)?"ox-boolean-check":"ox-boolean-false"%>"><% if (Boolean.TRUE.equals(value)) { %><i class="mdi mdi-check"></i><% } else { %>&nbsp;<% } %></span>
+<% } %>
+```
+
+#### 2. `base.css`
+
+```css
+.ox-boolean-check .mdi-check {
+    color: var(--accent-color);
+    font-size: 1.1em;
+    vertical-align: -2px;
+}
+
+.ox-boolean-false {
+    color: var(--label-color);
+    opacity: 0.4;
+}
+```
+
+**Estado**: verificado visualmente; el check en color de acento y el false vacío quedan coherentes con el estilo spreadsheet.
+
+---
+
+## Ajuste 7: Padding izquierdo de la primera columna
+
+**Problema**: En element collections donde la primera columna no es numérica (p. ej. `ReallocationDetailsReadOnly` con `place` como primera columna), la etiqueta y el valor aparecían demasiado cerca del borde izquierdo.
+
+**Solución**: Se añadió `padding-left` a la primera columna (cabecera y datos) equiparable al `padding-right` de la última columna:
+
+```css
+.ox-element-collection th:first-child, .ox-element-collection td:first-child {
+    padding-left: var(--space-3) !important;
+}
+
+.ox-element-collection th:last-child, .ox-element-collection td:last-child {
+    padding-right: var(--space-2) !important;
+}
+```
+
+Se probó primero con `--space-2` (8px) y finalmente se asentó en `--space-3` (12px) para la izquierda, dando más respiración visual.
+
+**Archivo tocado**: `base.css`.
+
+---
+
+## Bug fix 8: Formatter de `@Editor` no se aplicaba en element collections read-only
+
+**Problema**: `ReallocationDetailsReadOnlyTest` fallaba esperando `"VALENCIA OFFICE"` pero obteniendo `"Valencia Office"` tras el cambio a `<xava:editor readOnlyAsLabel="true">`.
+
+**Causa raíz**: El código anterior de `elementCollectionEditor.jsp` calculaba `fvalue` manualmente con `view.getViewName()` (el nombre de la vista padre), mientras que `EditorTag` usa `inElementCollection ? "" : view.getViewName()` (cadena vacía para element collections). Ese `viewName` diferente hacía que `WebEditors.getMetaEditorFor()` no resolviera el editor `PlaceName` (registrado con `@Editor("PlaceName")` en `ReallocationDetail.place`), sino que cayera al `TextField` genérico, que no tiene formatter — devolviendo el valor en bruto de la BD (`"VALENCIA OFFICE"`).
+
+Con el cambio a `<xava:editor>`, el `EditorTag` resuelve correctamente el editor `PlaceName` y aplica el `NameFormatter` (con `firstLetterInUpperCase=true`), produciendo `"Valencia Office"` — exactamente igual que en modo lista.
+
+**Conclusión**: El comportamiento anterior era un bug. Las element collections read-only ahora formatean igual que las listas, que es lo correcto.
+
+**Solución**: Se actualizó el test `ReallocationDetailsReadOnlyTest.java` para esperar los valores formateados correctamente:
+- `"VALENCIA OFFICE"` → `"Valencia Office"`
+- `"CASA EN MICHIGAN"` → `"Casa En Michigan"`
+
+No fue necesario añadir el atributo `fromList` al `<xava:editor>` ni modificar `EditorTag.java`, ya que el formatter regular (no el list-formatter) es el que debe aplicarse en este caso, y `EditorTag` ya lo hace correctamente con `fromList=false` por defecto.
+
+**Archivos tocados**: `ReallocationDetailsReadOnlyTest.java` (test actualizado), `changelog.txt` (entrada de bug fix).
+
+---
+
+## Archivos modificados (actualización)
+
+| Archivo | Cambio |
+|---|---|
+| `booleanEditor.jsp` | `readOnlyAsLabel` + renderizado como icono check / vacío |
+| `base.css` | Estilos `ox-boolean-check` / `ox-boolean-false`, padding primera columna |
+| `ReallocationDetailsReadOnlyTest.java` | Valores esperados actualizados a formato `NameFormatter` |
