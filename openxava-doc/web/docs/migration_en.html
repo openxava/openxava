@@ -361,6 +361,33 @@ import org.hibernate.annotations.Type;</code></pre>
     <i>org.hibernate.jdbc.NonBatchingBatcherFactory</i> is no longer valid in Hibernate 7. 
     Remove this property from your <i>persistence.xml</i>.</p>
 
+    <h4>MySQL</h4>
+
+    <p>In Hibernate 7 the <i>org.hibernate.dialect.MySQL5Dialect</i> class has been removed. 
+    If your <i>persistence.xml</i> uses it, replace it with <i>org.hibernate.dialect.MySQLDialect</i>. 
+    Using the old class will make Hibernate fall back to a different dialect and fail during schema 
+    generation (for example with <i>Unknown table 'sequences' in information_schema</i>):</p>
+
+    <pre><code class="language-xml">&lt;!-- BEFORE (7.x) --&gt;
+&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/&gt;
+
+&lt;!-- AFTER (8.0) --&gt;
+&lt;property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/&gt;</code></pre>
+
+    <p>Hibernate 7 requires <b>MySQL 8.0 or higher</b>. It generates <i>datetime(6)</i> for 
+    <i>Timestamp</i> fields and uses DELETE statements with an alias that older MySQL versions do not 
+    support properly.</p>
+
+    <p>The JDBC URL must also include the database name explicitly. A URL without a database, such as 
+    <i>jdbc:mysql://localhost:3306</i>, will produce <i>No database selected</i> errors. You must use a 
+    URL like <i>jdbc:mysql://localhost:3306/myapplicationdb</i>:</p>
+
+    <pre><code class="language-properties"># BEFORE
+spring.datasource.url=jdbc:mysql://localhost:3306
+
+# AFTER
+spring.datasource.url=jdbc:mysql://localhost:3306/myapplicationdb</code></pre>
+
     <h4>@Column(scale/precision) and @Digits on float/double types</h4>
 
     <p>Hibernate 7 no longer allows using <i>@Column(scale=..., precision=...)</i> or 
