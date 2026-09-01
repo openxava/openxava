@@ -2071,6 +2071,17 @@ input[type="button"] {
 	white-space: nowrap;
 }
 
+.ox-boolean-check .mdi-check {
+	color: var(--accent-color);
+	font-size: 1.1em;
+	vertical-align: -2px;
+}
+
+.ox-boolean-false {
+	color: var(--label-color);
+	opacity: 0.4;
+}
+
 .ox-element-collection .ox-list .ox-list-pair td.ox-editable-cell:hover,
 .ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover,
 .ox-element-collection .ox-list .ox-total-row td.ox-editable-cell:hover {
