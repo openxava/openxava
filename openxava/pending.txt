@@ -1,12 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 3a.
-    - Apuntar en plan que las lista (3c):
-        - Deben ser compatibles con lo hecho aquí a nivel estético (cabeceras, etc).
-        - Propiedades editables resueltas de la misma manera.
-        - Apuntar al hilo. Ver que mejoras de las elementcollections se pueden aplicar a otras listas.
-    - Actualizar el .md para el hilo. Actualizar el plan.
 - Bloque 3b.
 - Bloque 3c.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.

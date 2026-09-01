@@ -116,7 +116,7 @@ Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
   - Footer de totales: hairline superior en la primera fila de totales, etiquetas muted alineadas a la derecha y total final enfatizado (600).
   - `--element-collection-row-hover-background` pasa de blanco (invisible) a tinte translúcido 4% del color de texto.
 
-Pendiente: tests HtmlUnit (los ejecuta el usuario en su IDE: QuoteTest, ReallocationDetailsReadOnlyTest, ReallocationDetailsEditOnlyTest, ProductsEvaluationTest como mínimo) y revisión visual manual (Quote, diálogo Import, modo phone, dark).
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque3a-thread.md`.
 
 ### Bloque 3b — Calendario (`ui-calendar`)
 
@@ -124,9 +124,23 @@ Pendiente: tests HtmlUnit (los ejecuta el usuario en su IDE: QuoteTest, Realloca
 
 ### Bloque 3c — Listas (`ui-lists`)
 
-- [ ] Listas: quitar zebra por columnas (`nth-child(even)` con fondo gris), dejar hairlines horizontales + hover (estilo Material 3).
-- [ ] Cabecera de lista sticky; altura de fila 35px → 40–44px.
-- [ ] Skeleton loading (filas que pulsan) al recargar listas, en lugar de solo spinner.
+**Consultar `ui8-modernization-bloque3a-thread.md` antes de empezar.** Las element collections son grids editables y las listas no, pero hay muchos elementos de diseño que deben ser coherentes o compartidos entre ambos. Revisar las decisiones de diseño del Bloque 3a y reutilizar lo que aplique.
+
+Elementos a valorar para compartir o hacer coherentes con element collections:
+
+- [ ] **Cabeceras**: estilo compacto y muted (uppercase, letter-spacing, `--font-size-xs`, `--label-color`), alineación de cabeceras numéricas a la derecha, padding de primera/última columna.
+- [ ] **Hairlines horizontales**: separadores de fila con borde sutil en lugar de zebra por columnas (`nth-child(even)` con fondo gris). Usar el mismo enfoque y tokens que en element collections (`--frame-border` / color-mix).
+- [ ] **Hover de fila**: fondo sutil translúcido (como `--element-collection-row-hover-background`). En listas el hover es de fila completa (no de celda) porque no hay edición.
+- [ ] **Espaciados**: padding de celdas y altura de fila coherentes. Cabecera de lista sticky; altura de fila 35px → 40–44px.
+- [ ] **Totales**: si la lista tiene totales, aplicar el mismo estilo de footer (hairline superior, etiquetas muted alineadas a la derecha, total final enfatizado 600).
+- [ ] **Handles de resize de columnas**: línea vertical CSS de 2px en el borde del `th`, como se hizo en element collections.
+- [ ] **Skeleton loading** (filas que pulsan) al recargar listas, en lugar de solo spinner.
+
+Diferencias intencionadas a marcar visualmente:
+
+- [ ] **Listas no son editables**: el hover debe ser de fila completa (feedback de selección), no de celda individual. No hay `ox-editable-cell` ni anillo de foco en celdas.
+- [ ] **Columnas editables en listas**: las listas pueden tener alguna columna editable. En ese caso, valorar si esa columna debe tratar el hover y el foco como en element collections (`ox-editable-cell` con `--element-collection-cell-hover-background` y anillo de foco `:focus-within`), de modo que la celda editable se distinga del resto de la fila no editable. Documentar la decisión tomada.
+- [ ] **Acciones de fila**: en listas las acciones son de selección/edición/eliminación de la fila completa, no por celda. Revelar en hover/focus como en element collections, pero adaptadas al contexto de lista.
 
 ## Limpieza y rendimiento
 
