@@ -4,7 +4,7 @@ Pending UI8 modernization (tmr)
 - Bloque 3a.
     - Tests:
         * QuoteTest
-        - Test TMR ME QUEDÉ POR AQUÍ. EL TEST PASA PERE LA UI SE VE MAL. HABÍA EMPEZADO UN CHAT EN UBUNTU
+        - ReallocationDetailsReadOnlyTest
         - ReallocationDetailsEditOnlyTest
         - ProductsEvaluationTest
     - Comprobar documentación tocada.

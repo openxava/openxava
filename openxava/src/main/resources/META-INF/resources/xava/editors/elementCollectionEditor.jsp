@@ -37,7 +37,7 @@ String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":p
 manager.registerAction("ElementCollection.refreshTotals");
 
 boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
-String collectionClass = subview.isEditable()?"ox-element-collection":"";
+String collectionClass = "ox-element-collection";
 boolean sortable = subview.isCollectionSortable();
 String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction();
 boolean suppressRemoveAction = removeSelectedAction != null && "".equals(removeSelectedAction);
@@ -198,11 +198,6 @@ for (int f=0; f < rowCount; f++) {
 		String propertyName = collectionName + "." + f + "." + p.getName();
 		boolean throwPropertyChanged = subview.throwsPropertyChanged(p.getName());
 		if (cellEditable && referenceName == null) cellEditable = subview.isEditable(p.getName());
-		Object fvalue = null;
-		if (!subview.isCollectionMembersEditables()) {
-			Object value = view.getValue(propertyName); 
-			fvalue = org.openxava.web.WebEditors.formatToStringOrArray(request, p, value, errors, view.getViewName(), false);
-		}
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell <%=cellEditable?"ox-editable-cell":"ox-readonly-cell"%>" <%=isHiddenKey ? "hidden" : ""%>>
 		<% if (labelOnEachCell) { %>
@@ -213,7 +208,7 @@ for (int f=0; f < rowCount; f++) {
 		<nobr> 
 		<% if (!subview.isCollectionMembersEditables()) {%>
 			<% if (referenceName == null) { %>
-				<%=fvalue%>&nbsp;
+				<xava:editor property="<%=propertyName%>" throwPropertyChanged="<%=throwPropertyChanged%>" readOnlyAsLabel="true"/>
 			<% } else { %>
 				<xava:descriptionsList reference="<%=referenceName%>" readOnlyAsLabel="true"/>	
 			<% } %>
