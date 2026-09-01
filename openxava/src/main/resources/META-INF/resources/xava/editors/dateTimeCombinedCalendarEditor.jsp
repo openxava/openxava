@@ -11,7 +11,7 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 if (editable || !label) {
 	String dateClass = editable?"xava_date":""; 
 %>
@@ -30,7 +30,7 @@ if (editable || !label) {
 <%
 } else {
 %>
-<%=fvalue%>&nbsp;	
+<span id="<%=propertyKey%>" class="ox-label-editor"><%=fvalue%>&nbsp;</span>	
 <%
 }
 %>

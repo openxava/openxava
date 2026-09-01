@@ -14,7 +14,7 @@ String fvalue = fDate + " " + fTime;
 String align = p.isNumber()?"right":"left";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 String browser = request.getHeader("user-agent");
 String size = browser.contains("Chrome")?"10":"12";
 if (editable || !label) {
@@ -43,7 +43,7 @@ if (editable || !label) {
 <%
 } else {
 %>
-<%=fvalue%>&nbsp;	
+<span id="<%=propertyKey%>" class="ox-label-editor"><%=fvalue%>&nbsp;</span>	
 <%
 }
 %>

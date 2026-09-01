@@ -33,6 +33,7 @@ public class EditorTag extends TagSupport {
 	private boolean propertyPrefixSet;
 	private Object value;
 	private boolean valueSet;
+	private boolean readOnlyAsLabel;
 	
 	public EditorTag() {
 		viewObjectSet = false;
@@ -82,7 +83,11 @@ public class EditorTag extends TagSupport {
 							"editors/" + metaEditor.getUrl() :
 							"editors/dynamicValidValuesEditor.jsp";
 			}
-			StringBuffer editorURL = new StringBuffer(editorBaseURL);			
+			StringBuffer editorURL = new StringBuffer(editorBaseURL);
+			if (readOnlyAsLabel && !editable) {
+				editorURL.append(editorURL.toString().indexOf('?') < 0?'?':'&');
+				editorURL.append("readOnlyAsLabel=true");
+			}
 			char nexus = editorURL.toString().indexOf('?') < 0?'?':'&';
 			String maxSize = "";
 			int displaySize = view.getDisplaySizeForProperty(property);
@@ -255,6 +260,21 @@ public class EditorTag extends TagSupport {
 	public void setValue(Object value) {
 		this.value = value;
 		this.valueSet = true;
+	}
+
+	/**
+	 * If true and the property is not editable the value is displayed as
+	 * formatted text (a label) instead of a disabled editor, when the
+	 * underlying editor supports it.
+	 *
+	 * @since 8.0
+	 */
+	public boolean isReadOnlyAsLabel() {
+		return readOnlyAsLabel;
+	}
+
+	public void setReadOnlyAsLabel(boolean readOnlyAsLabel) {
+		this.readOnlyAsLabel = readOnlyAsLabel;
 	}
 	
 }

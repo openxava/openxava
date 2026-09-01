@@ -1227,9 +1227,15 @@ openxava.throwPropertyChanged = function(application, module, property) {
 openxava.calculate = function(application, module, propertyId, scale) {
 	var value = openxava.calculations[propertyId](application, module);
 	value = value.toFixed(scale).replace(".", openxava.decimalSeparator);
-	$('#' + propertyId).val(value);
-	$('#' + propertyId).blur(); 	
-	$('#' + propertyId).change(); 
+	var element = $('#' + propertyId);
+	if (element.is('input, textarea, select')) {
+		element.val(value);
+		element.blur(); 	
+		element.change(); 
+	}
+	else {
+		element.text(value); 
+	}
 }
 
 openxava.getNumber = function(application, module, property) {

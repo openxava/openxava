@@ -1429,6 +1429,7 @@ private int subfamilyNumber;</code></pre>
  editable="true|false" &lt;!-- 2 Nuevo en v2.0.1 --&gt;
  throwPropertyChanged="true|false" &lt;!-- 3 Nuevo en v2.0.1 --&gt;
  value="valorExplicito" &lt;!-- 4 Nuevo en v7.6 --&gt;
+ readOnlyAsLabel="true|false" &lt;!-- 5 Nuevo en v8.0 --&gt;
 /&gt;</code></pre>
       <ol>
         <li><strong>property</strong> (obligado): Propiedad del modelo asociado
@@ -1442,6 +1443,13 @@ private int subfamilyNumber;</code></pre>
         <li><strong>value</strong> (opcional): <em>Nuevo en v7.6</em>. Permite establecer el valor que se mostrará en el editor directamente,
           en lugar de que el editor lo obtenga automáticamente de la vista usando <em>view.getValue(property)</em>.
           Esto proporciona mayor flexibilidad para mostrar valores que pueden no estar directamente en el modelo de vista.</li>
+        <li><strong>readOnlyAsLabel</strong> (opcional): <em>Nuevo en v8.0</em>.
+          Si es <em>true</em> y la propiedad no es editable, el valor se
+          muestra como texto formateado (un <em>&lt;span&gt;</em>) en lugar de
+          un control de editor deshabilitado, cuando el editor subyacente lo
+          soporta. Esto lo usan las colecciones de elementos para renderizar las
+          celdas de solo lectura como texto plano en la cuadrícula estilo
+          hoja de cálculo. El valor por defecto es <em>false</em>.</li>
       </ol>
       Esta marca genera el JavaScript para permitir a nuestra vista trabajar de
       la misma forma que una vista automática. Las propiedades calificadas

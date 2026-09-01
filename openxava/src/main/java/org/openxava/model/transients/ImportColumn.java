@@ -15,13 +15,13 @@ public class ImportColumn implements java.io.Serializable {
 	
 	private String nameInApp;
 	
-	@Stereotype("LABEL")
+	@ReadOnly
 	private String headerInFile;
 	
-	@Stereotype("LABEL")
+	@ReadOnly
 	private String sampleContent1;
 	
-	@Stereotype("LABEL")
+	@ReadOnly
 	private String sampleContent2;
 
 	public String getNameInApp() {

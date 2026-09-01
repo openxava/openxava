@@ -1067,7 +1067,8 @@ public class HotwireServlet extends BaseServlet {
                         "&editable=" + containerView.isEditable(name) +
                         "&throwPropertyChanged=" + containerView.throwsPropertyChanged(name) +
                         "&viewObject=" + containerView.getViewObject() +
-                        "&propertyPrefix=" + containerView.getPropertyPrefix());
+                        "&propertyPrefix=" + containerView.getPropertyPrefix() +
+                        (isInsideElementCollection ? "&readOnlyAsLabel=true" : ""));
                     if ((containerView.hasEditableChanged() ||
                         (containerView.hasKeyEditableChanged() && metaModel.isKeyOrSearchKey(name))) &&
                         containerView.propertyHasActions(name) ||
