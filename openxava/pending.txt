@@ -2,11 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 3a.
-    - Tests:
-        * QuoteTest
-        - ReallocationDetailsReadOnlyTest
-        - ReallocationDetailsEditOnlyTest
-        - ProductsEvaluationTest
     - Comprobar documentación tocada.
     - nuevo atributo readOnlyAsLabel en xava:editor. Documentar.
     - Apuntar en plan que las lista (3c):
