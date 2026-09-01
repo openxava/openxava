@@ -149,6 +149,9 @@ private void unplanReminder() {
 private void planReminderIfNeeded() {
     if (plannedFor != null) planReminder();
 }</code></pre>
+        <p><b>Since OpenXava 8.0</b>, when using Quartz, add <code>c3p0-*.jar</code> and <code>mchange-commons-*.jar</code> to the Tomcat TLD skip patterns in <em>src/main/resources/application.properties</em> to avoid a <code>NoSuchFileException</code> warning at startup:</p>
+        <pre><code class="language-properties">server.tomcat.additional-tld-skip-patterns=htmlunit-*.jar,jetty-*.jar,c3p0-*.jar,mchange-commons-*.jar</code></pre>
+
         <h2>Transcription</h2>
         <p>Hi, I'm Alexandra. If you dare to stay with me for a few minutes, I'll show you how to schedule any Java logic to run exactly when you need it. We'll do it through a practical example using the Quartz library to schedule jobs. The example is an OpenXava application, however this tutorial is generic enough to use these instructions in any Java application.</p>
         <p>We'll do it in the application you're seeing, a simple project management application. But the steps we're going to take to schedule jobs can be followed with any of your OpenXava applications, whatever they are. Even in Java applications that are not OpenXava. Let's see what we want to achieve.</p>
