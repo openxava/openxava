@@ -2147,7 +2147,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-list-action-cell i, .ox-list-action-cell img {
-	opacity: 0.5;
+	opacity: 0;
 	transition: opacity var(--transition-fast);
 }
 

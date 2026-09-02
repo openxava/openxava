@@ -107,7 +107,7 @@ La lista de módulo se renderiza principalmente en `listEditor.jsp` con clases C
 
 Tras la revisión visual comparando con Attio/Linear/Notion, se identifican 5 puntos de refinamiento:
 
-1. **Iconos de acción de fila visibles siempre en listas de módulo** — El CSS de `opacity: 0 → 1 on tr:hover` se aplicó a element collections pero **no a `.ox-list .ox-list-action-cell`**. En Attio/Linear los iconos solo aparecen on hover. Hay que extender la regla.
+1. ~~**Iconos de acción de fila visibles siempre en listas de módulo**~~ ✅ **Hecho** — Cambiado `opacity: 0.5` → `0` en `.ox-list-action-cell i, .ox-list-action-cell img` de `base.css`. Ahora los iconos solo aparecen on `tr:hover` o `:focus-within`, igual que en element collections.
 
 2. **Fila de filtro (subheader) demasiado alta/boxy** — Los inputs de filtro son 32px con bordes completos. En Linear/Attio los filtros son chips compactos o inputs borderless que parecen texto hasta hover. Reducir altura a 28px y quitar borde hasta hover/focus.
 
