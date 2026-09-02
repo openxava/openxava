@@ -2,6 +2,7 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 3c.
+    - Caso de las cabeceras.
     - Revisar colecciones calculadas.
     - Revisar propiedades editable.
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
