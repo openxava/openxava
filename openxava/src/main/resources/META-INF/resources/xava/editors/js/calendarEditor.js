@@ -146,7 +146,6 @@ openxava.addEditorInitFunction(function() {
                 events: calendarEditor.listEvents,
                 dayMaxEventRows: true,
                 progressiveEventRendering: true,
-                eventColor: 'var(--color)',
                 defaultTimedEventDuration: '00:30',
                 allDaySlot: false,
                 eventTimeFormat: {

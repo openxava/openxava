@@ -290,9 +290,25 @@
 	--reverse-label-background: black;
 	
 	--calendar-selected-day: var(--modules-list-background);
-	--calendar-event-background : var(--color);
-	--calendar-event-time-background: transparent;
-	--calendar-popup-background: var(--fc-natural-bg-color);
+	
+	/* Calendar (list format) */
+	--calendar-cell-border-color: var(--frame-border);
+	--calendar-header-color: color-mix(in srgb, var(--color) 55%, transparent);
+	--calendar-muted-color: color-mix(in srgb, var(--color) 45%, transparent);
+	--calendar-day-hover-background: color-mix(in srgb, var(--accent-color) 5%, transparent);
+	--calendar-today-background: color-mix(in srgb, var(--accent-color) 7%, transparent);
+	--calendar-button-color: var(--action-color);
+	--calendar-button-hover-color: var(--action-hover-color);
+	--calendar-button-hover-background: var(--action-hover-background);
+	--calendar-view-switcher-background: color-mix(in srgb, var(--color) 6%, transparent);
+	--calendar-view-switcher-active-background: var(--background);
+	--calendar-view-switcher-active-color: var(--color);
+	--calendar-event-accent: var(--accent-color);
+	--calendar-event-background: var(--accent-soft);
+	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 16%, transparent);
+	--calendar-event-color: var(--color);
+	--calendar-event-time-color: color-mix(in srgb, var(--calendar-event-color) 70%, transparent);
+	--calendar-popup-background: var(--background);
 	--calendar-popup-title-color: var(--color);
 	
 	--date-popup-background: white;
@@ -328,13 +344,6 @@
 	--mobile-icon-module-loading-color: black;
 	--mobile-search-modules-filter-list-background: var(--button-bar-background);
 	--mobile-search-modules-filter-list-shadow: var(--button-bar-background);
-	
-	--calendar-day-hover-background: var(--action-hover-background);
-	--calendar-today-background: var(--list-row-hover-background);
-	--calendar-button-color: var(--action-color);
-	--calendar-button-hover-color: var(--action-hover-color);
-	--calendar-button-hover-background: var(--action-hover-background);
-	--calendar-cell-border-color: var(--action-hover-background);
 	
 	--large-display-color: var(--link-color); 
 	--large-display-negative-color: red; 

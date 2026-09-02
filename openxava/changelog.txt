@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Calendar list format restyled to the new design system: hairline grid borders, uppercase muted day headers, accent chip marking today, navigation buttons and view switcher as segmented pills, events displayed as soft accent chips (month view) or accent-left bars (week/day views), restyled "+ more" popover and event tooltip, and a new-event "+" affordance revealed on day hover instead of permanently visible.
+- New CSS variables for calendar customization: --calendar-header-color, --calendar-muted-color, --calendar-view-switcher-background, --calendar-view-switcher-active-background, --calendar-view-switcher-active-color, --calendar-event-accent, --calendar-event-hover-background, --calendar-event-color, --calendar-event-time-color; removed --calendar-event-time-background.
 - Fix: @ElementCollection with @ReadOnly doesn't apply the formatter defined in @Editor.
 - Element collections redesigned as data-dense spreadsheet grids: borderless transparent cells, hairline row separators, compact muted column headers, hover feedback only on editable cells, accent active-cell ring and row actions (delete, drag handle, reference search) revealed on row hover or keyboard focus.
 - Numeric column headers in element collections are now right-aligned to match their cell values; padding is adjusted for editable vs. read-only columns so the header text edge aligns exactly with the data below.
