@@ -128,7 +128,7 @@ Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
   - Popover "+n más" con radius-lg + elevation-3; tooltip de evento con tokens de tooltip y elevation-2.
   - Eliminada `--calendar-event-time-background`; documentado en migration_en/es.
 
-Pendiente de tests y revisión visual (el usuario la ejecuta desde el IDE). Detalles en `ui8-modernization-bloque3b-thread.md`.
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque3b-thread.md`.
 
 ### Bloque 3c — Listas (`ui-lists`)
 

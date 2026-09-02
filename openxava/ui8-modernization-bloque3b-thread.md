@@ -87,4 +87,4 @@ No requieren cambios: `CalendarTest` usa clases DOM de FullCalendar (`fc-toolbar
 | `migration_en.html` / `migration_es.html` | Sección "Calendar list format restyled" |
 | `ui8-modernization-plan.md` | Bloque 3b detallado |
 
-**Estado**: pendiente de suite de tests y revisión visual (el usuario la ejecuta desde el IDE).
+**Estado**: Concluido. Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone.
