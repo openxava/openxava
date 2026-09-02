@@ -177,27 +177,16 @@
     --card-hover-shadow: lightgray;
     --card-header-hover-color: var(--action-hover-color);
 		
-	--list-header-background: var(--header-background);
-	--list-column2-background: white;
+	--list-header-background: transparent;
 	--element-collection-row-hover-background: color-mix(in srgb, var(--color) 4%, transparent);
 	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 12%, transparent);
 	--list-background: white;
 	--list-header-arrows-color: white;
-	--list-even-column-background: #f4f4f4;
-	--list-row-bottom-color: #EBEBEB;			
 	--customize-controls-color: var(--messages-accent);
 	--customize-controls-column-icon-color: white;
 	--customize-controls-hover-color: white;		
-	--list-row-hover-background: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0.05),
-			rgba(0, 0, 0, 0.05)
-		) var(--list-even-column-background);
-	--selected-row-background: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0.1),
-			rgba(0, 0, 0, 0.1)
-		) var(--list-even-column-background);
+	--list-row-hover-background: color-mix(in srgb, var(--color) 4%, transparent);
+	--selected-row-background: color-mix(in srgb, var(--accent-color) 10%, transparent);
 	--list-row-a-color: black;
 	--total-cell-color: black;
 	--icon-check-color: black;
@@ -909,6 +898,12 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	margin-top: 5px;
 }
 
+.ox-list input[type="checkbox"], .ox-list input[type="radio"] {
+	accent-color: var(--accent-color);
+	width: 15px;
+	height: 15px;
+}
+
 .ox-date-calendar input, .ox-web-url input {  
 	padding-right: 25px;
 }
@@ -1128,8 +1123,8 @@ input[type="checkbox"]:focus-visible {
 }
 
 
-.ox-frame .ox-list { 
-	border: 2px solid var(--list-background);
+.ox-list { 
+	border: 1px solid var(--frame-border);
 }
 
 .firefox .ox-frame .ox-list { 
@@ -1854,22 +1849,34 @@ input[type="button"] {
 	background: var(--list-header-background); 
 }
 
+th.ox-list-header {
+	position: relative;
+	border-bottom: 1px solid var(--frame-border);
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--label-color);
+	padding-top: var(--space-2);
+	padding-bottom: var(--space-2);
+}
+
+td.ox-list-subheader {
+	border-bottom: 1px solid var(--frame-border);
+}
+
+.ox-list th:first-child, .ox-list td:first-child {
+	padding-left: var(--space-3) !important;
+}
+
+.ox-list th:last-child, .ox-list td:last-child {
+	padding-right: var(--space-2) !important;
+}
+
 
 .ox-list-header th, .ox-list-subheader td, .ox-list-pair td, .ox-list-odd td, .ox-total-row td  { 
 	padding-left: var(--space-1);
 	padding-right: var(--space-1) !important;	
-}
-
-.ox-list-pair td:nth-child(even), .ox-list-odd td:nth-child(even) {
-	background: var(--list-even-column-background);
-}
-
-.ox-list-pair td:nth-child(2), .ox-list-odd td:nth-child(2) {
-	background: var(--list-column2-background);
-}
-
-.ox-element-collection .ox-list-pair td, .ox-element-collection .ox-list-odd td {
-	background: transparent;
 }
 
 .ox-list-header th {
@@ -1890,8 +1897,8 @@ input[type="button"] {
 }
 
 .ox-list-pair, .ox-list-odd {
-	border-bottom-color: var(--list-row-bottom-color) !important; 
-	height: 35px; 
+	border-bottom-color: var(--frame-border) !important; 
+	height: 42px; 
 }
 
 .ox-list-pair a, .ox-list-odd a, .ox-list-pair, .ox-list-odd {
@@ -1970,19 +1977,15 @@ input[type="button"] {
 	border-bottom: 1px solid var(--frame-border); 
 }
 
-.ox-element-collection .ox-list-pair, .ox-element-collection .ox-list-odd {
-	border-bottom-color: var(--frame-border) !important; /* --list-row-bottom-color can be transparent (dark theme) */
-}
-
 .ox-element-collection .ox-list {
 	border: none;
 }
 
-.ox-element-collection th.ox-list-header .xava_resizable.ui-resizable {
+th.ox-list-header .xava_resizable.ui-resizable {
 	position: static !important; /* use the th as containing block for the handle */
 }
 
-.ox-element-collection .xava_resizable .ui-resizable-e {
+.xava_resizable .ui-resizable-e {
 	background-image: none !important;
 	background: transparent !important;
 	width: 6px !important;
@@ -1996,7 +1999,7 @@ input[type="button"] {
 	font-size: inherit !important; /* so 0.25em in the right calc matches the th's font */
 }
 
-.ox-element-collection .xava_resizable .ui-resizable-e::after {
+.xava_resizable .ui-resizable-e::after {
 	content: "";
 	position: absolute;
 	top: 0;
@@ -2010,13 +2013,13 @@ input[type="button"] {
 }
 
 /* Show the line when the th is hovered or the handle itself is active */
-.ox-element-collection th.ox-list-header:hover .ui-resizable-e::after,
-.ox-element-collection th.ox-list-header:focus-within .ui-resizable-e::after {
+th.ox-list-header:hover .ui-resizable-e::after,
+th.ox-list-header:focus-within .ui-resizable-e::after {
 	opacity: 1;
 }
 
-.ox-element-collection th.ox-list-header .ui-resizable-e:hover::after,
-.ox-element-collection th.ox-list-header .ui-resizable-e:focus::after {
+th.ox-list-header .ui-resizable-e:hover::after,
+th.ox-list-header .ui-resizable-e:focus::after {
 	background-color: var(--accent-color);
 	opacity: 1;
 }
@@ -2038,6 +2041,8 @@ input[type="button"] {
 	color: var(--label-color);
 	padding-top: var(--space-2);
 	padding-bottom: var(--space-2);
+	text-transform: none;
+	letter-spacing: normal;
 }
 
 .ox-element-collection th.ox-list-header.ox-text-align-right {
@@ -2091,21 +2096,41 @@ input[type="button"] {
 	opacity: 0.4;
 }
 
-.ox-element-collection .ox-list .ox-list-pair td.ox-editable-cell:hover,
-.ox-element-collection .ox-list .ox-list-odd td.ox-editable-cell:hover,
-.ox-element-collection .ox-list .ox-total-row td.ox-editable-cell:hover {
+.ox-list .ox-list-pair td.ox-editable-cell:hover,
+.ox-list .ox-list-odd td.ox-editable-cell:hover,
+.ox-list .ox-total-row td.ox-editable-cell:hover {
 	background-color: var(--element-collection-cell-hover-background);
 }
 
-.ox-element-collection .ox-list td.ox-editable-cell:focus-within {
+.ox-list td.ox-editable-cell:focus-within {
 	box-shadow: inset 0 0 0 2px var(--accent-color);
 	border-radius: var(--radius-sm);
+}
+
+.ox-list td.ox-editable-cell input[type="text"],
+.ox-list td.ox-editable-cell input[type="password"],
+.ox-list td.ox-editable-cell input[type="date"],
+.ox-list td.ox-editable-cell input[type="datetime-local"],
+.ox-list td.ox-editable-cell select:not([multiple]),
+.ox-list td.ox-editable-cell textarea {
+	border-color: transparent;
+	background-color: transparent;
+	border-radius: var(--radius-sm);
+}
+
+.ox-list td.ox-editable-cell :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], select, textarea):hover:not(:disabled):not(:focus) {
+	border-color: transparent;
+}
+
+.ox-list td.ox-editable-cell :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], select, textarea):focus {
+	border-color: transparent !important;
+	box-shadow: none;
 }
 
 .ox-element-collection .ox-element-collection-remove-action,
 .ox-element-collection .xava_handle,
 .ox-element-collection .ox-element-collection-search-action-cell a,
-.ox-element-collection .ox-total-capable-cell a {
+.ox-total-capable-cell a {
 	opacity: 0;
 	transition: opacity var(--transition-fast);
 }
@@ -2116,21 +2141,32 @@ input[type="button"] {
 .ox-element-collection tr:focus-within .xava_handle,
 .ox-element-collection tr:hover .ox-element-collection-search-action-cell a,
 .ox-element-collection tr:focus-within .ox-element-collection-search-action-cell a,
-.ox-element-collection tr:hover .ox-total-capable-cell a,
-.ox-element-collection tr:focus-within .ox-total-capable-cell a {
+.ox-list tr:hover .ox-total-capable-cell a,
+.ox-list tr:focus-within .ox-total-capable-cell a {
 	opacity: 1;
 }
 
-.ox-element-collection .ox-total-row td {
+.ox-list-action-cell i, .ox-list-action-cell img {
+	opacity: 0.5;
+	transition: opacity var(--transition-fast);
+}
+
+.ox-list tr:hover .ox-list-action-cell i, .ox-list tr:hover .ox-list-action-cell img,
+.ox-list tr:focus-within .ox-list-action-cell i, .ox-list tr:focus-within .ox-list-action-cell img,
+.ox-list .ox-list-action-cell a:focus-visible i, .ox-list .ox-list-action-cell a:focus-visible img {
+	opacity: 1;
+}
+
+.ox-list .ox-total-row td {
 	border-bottom: none;
 }
 
-.ox-element-collection .ox-total-row:not(.ox-total-row ~ .ox-total-row) td {
+.ox-list .ox-total-row:not(.ox-total-row ~ .ox-total-row) td {
 	border-top: 1px solid var(--frame-border);
 	padding-top: var(--space-2);
 }
 
-.ox-element-collection .ox-total-row:last-child td {
+.ox-list .ox-total-row:last-child td {
 	font-weight: 600;
 	padding-bottom: var(--space-2);
 }
@@ -2143,7 +2179,7 @@ input[type="button"] {
 	padding-right: var(--space-2) !important;
 }
 
-.ox-element-collection .ox-total-label-cell {
+.ox-list .ox-total-label-cell {
 	text-align: right;
 	color: var(--label-color);
 	font-weight: 500;
@@ -2163,14 +2199,6 @@ input[type="button"] {
 	background: var(--selected-row-background) !important; 
 }
 
-.xava_resizable .ui-resizable-e {
-	background-image: url(../images/handle_vertical.png) ;
-	background-repeat: no-repeat;
-	background-position: center center;
-	bottom: 0;
-	top: 0;
-	width: 14px;
-}
 
 .ox-page-navigation, .ox-page-navigation-selected{
 	border-radius: var(--radius-full); 
@@ -2425,6 +2453,8 @@ td.ox-list-subheader > div {
 
 .ox-list-info {  
 	margin-bottom: 5px;
+	font-size: var(--font-size-sm);
+	color: var(--label-color);
 }
 
 .ox-list-info-detail { 
@@ -3748,7 +3778,7 @@ a[data-action="Collection.previous"] {
 
 .ox-popup-menu {
     position: absolute;
-    background: var(--list-row-hover-background);
+    background: var(--list-background);
     box-shadow: var(--elevation-2);
     border-radius: var(--radius-lg);
     list-style: none;
@@ -3759,7 +3789,7 @@ a[data-action="Collection.previous"] {
 }
 
 .ox-popup-menu:hover {
-    background: var(--list-row-hover-background);
+    background: var(--list-background);
 }
 
 .ox-popup-menu li {
@@ -3842,6 +3872,22 @@ a[data-action="Collection.previous"] {
 .ox-simple-list th {
 	text-align: left;
 	color: var(--simple-list-header-color);  
+}
+
+@keyframes ox-list-loading-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.45; }
+}
+
+.ox-list.ox-loading .ox-list-pair, .ox-list.ox-loading .ox-list-odd {
+	animation: ox-list-loading-pulse 1.2s ease-in-out 250ms infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ox-list.ox-loading .ox-list-pair, .ox-list.ox-loading .ox-list-odd {
+		animation: none;
+		opacity: 0.55;
+	}
 }
 
 #nodata .ox-errors b {    

@@ -28,7 +28,8 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 	document.body.style.cursor='wait';
 	if (!$('#xava_loading').is(':visible')) openxava.fadeIn('#xava_loading', 1000); 
 	if (!$('#xava_loading2').is(':visible')) openxava.fadeIn('#xava_loading2', 1000); 
-		
+	openxava.markListsAsLoading();
+	
 	if (inNewWindow) {
 		openxava.newWindow = window.open('', '_blank'); 
 	}
@@ -214,6 +215,7 @@ openxava.refreshPage = function(result) {
 	openxava.propertiesUsedInCalculationsChange(result);
 	$('#xava_loading').hide();
 	$('#xava_loading2').hide();
+	$('.ox-list.ox-loading').removeClass('ox-loading');
 	if (result.hasPostJS) {
 		openxava.postJS();
 	}
@@ -1645,6 +1647,10 @@ openxava.getScript = function( url ) {
 	document.head.appendChild(script); // Not body, it could be not available yet
 	openxava.loadedScripts.push(url);
 };
+
+openxava.markListsAsLoading = function() {
+	$('.ox-list-mode .ox-list').addClass('ox-loading');
+}
 
 openxava.filterList = function(filterValues) {
 	var app = openxava.lastApplication;

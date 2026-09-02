@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Module lists (tabs) restyled to the new design system: zebra striping removed in favor of hairline row separators, 42px row height, uppercase muted column headers, flat hover and selection backgrounds using color-mix, CSS-based column resize handles (replacing the image-based grip), spreadsheet-like editable cells with transparent borders and accent focus ring, row action icons muted until row hover or keyboard focus, generalized total row styling with top border and right-aligned labels, skeleton loading pulse animation on AJAX refresh, checkboxes and radio buttons with accent-color, solid background for popup menus, and list info section with muted small text.
+- Numeric column headers in module lists are now right-aligned to match their cell values by default (Style.isAlignHeaderAsData() returns true).
+- handle_vertical.png removed; column resize handles are now pure CSS (6px wide ::after line on the right edge of the th, highlighted on hover/focus).
+- New CSS variables for list customization: --list-row-hover-background, --selected-row-background, --list-header-background; removed --list-column2-background, --list-even-column-background, --list-row-bottom-color, --list-row-a-color, --list-header-arrows-color.
 - Calendar list format restyled to the new design system: hairline grid borders, uppercase muted day headers, accent chip marking today, navigation buttons and view switcher as segmented pills, events displayed as soft accent chips (month view) or accent-left bars (week/day views), restyled "+ more" popover and event tooltip, and a new-event "+" affordance revealed on day hover instead of permanently visible.
 - New CSS variables for calendar customization: --calendar-header-color, --calendar-muted-color, --calendar-view-switcher-background, --calendar-view-switcher-active-background, --calendar-view-switcher-active-color, --calendar-event-accent, --calendar-event-hover-background, --calendar-event-color, --calendar-event-time-color; removed --calendar-event-time-background.
 - Fix: @ElementCollection with @ReadOnly doesn't apply the formatter defined in @Editor.

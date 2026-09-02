@@ -774,10 +774,10 @@ public class Style {
 	/**
 	 * If <code>true</code< the header in list is aligned as data displayed in its column. <p>
 	 * 
-	 * By default is <code>false</code>.
+	 * By default is <code>true</code>.
 	 */
 	public boolean isAlignHeaderAsData() {
-		return false;
+		return true;
 	}
 	
 	public boolean isFixedPositionSupported() {
