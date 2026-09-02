@@ -120,7 +120,15 @@ Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 ### Bloque 3b — Calendario (`ui-calendar`)
 
-- [ ] Improve style of events in calendar.
+- [x] Improve style of events in calendar, y el calendario completo:
+  - Todo por tokens: variables `--fc-*` de FullCalendar v6 acotadas a `#xava_calendar` + tokens `--calendar-*` propios; eliminado el `eventColor` inline del JS.
+  - Toolbar: título grande (600, `--font-size-xl`), botones como pills segmentadas (`--calendar-view-switcher-*`), focus ring.
+  - Cabeceras de día uppercase muted; hoy = tinte sutil + chip circular de acento en el número; hover de día sutil; "+" de nuevo evento solo visible al hover.
+  - Eventos: chips suaves de acento en mes (`--calendar-event-background`), barra izquierda de acento en semana/día; hora en negrita muted, título 500.
+  - Popover "+n más" con radius-lg + elevation-3; tooltip de evento con tokens de tooltip y elevation-2.
+  - Eliminada `--calendar-event-time-background`; documentado en migration_en/es.
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque3b-thread.md`.
 
 ### Bloque 3c — Listas (`ui-lists`)
 

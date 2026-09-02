@@ -111,13 +111,13 @@
 	--icon-in-list: inherit;
 
 	/* Calendar */
-	--calendar-cell-border-color: white;
-	--calendar-day-hover-background: hsla(0, 0%, 50%, 0.5);
-	--calendar-today-background: hsla(0, 0%, 70%, 0.7);
-	--calendar-event-background : var(--my-dark);
-	--calendar-event-time-background:  var(--my-dark);
+	--calendar-day-hover-background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+	--calendar-today-background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+	--calendar-view-switcher-background: color-mix(in srgb, var(--color) 8%, transparent);
+	--calendar-view-switcher-active-background: var(--accent-soft);
+	--calendar-view-switcher-active-color: var(--accent-color);
+	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 26%, transparent);
 	--calendar-popup-background: var(--my-lightdark);
-	--calendar-popup-title-color: var(--color);
 }
 
 .ox-action-link:hover {
