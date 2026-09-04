@@ -1,6 +1,7 @@
 @import 'base.css';
 
 :root {
+	color-scheme: light;
 	/* Brand */
 	--accent-color: #4f46e5;
 	--accent-color-hover: #4338ca;

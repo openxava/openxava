@@ -473,9 +473,10 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 					fvalue = WebEditors.format(request, p, model.getValueAt(f, c), errors, view.getViewName(), true);
 				}
 			}
+	boolean cellEditable = tab.isPropertyEditable(p.getQualifiedName());
 %>
-	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell">
-		<% if (tab.isPropertyEditable(p.getQualifiedName())) { %>
+	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell <%=cellEditable?"ox-editable-cell":"ox-readonly-cell"%>">
+		<% if (cellEditable) { %>
 			<% 
 			String memberName = p.getQualifiedName();
 			if (memberName.contains(".")) {

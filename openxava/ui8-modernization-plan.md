@@ -136,19 +136,21 @@ Dividido en 3 sub-bloques con rama propia cada uno. Cada sub-bloque se prueba, r
 
 Elementos a valorar para compartir o hacer coherentes con element collections:
 
-- [ ] **Cabeceras**: estilo compacto y muted (uppercase, letter-spacing, `--font-size-xs`, `--label-color`), alineación de cabeceras numéricas a la derecha, padding de primera/última columna.
-- [ ] **Hairlines horizontales**: separadores de fila con borde sutil en lugar de zebra por columnas (`nth-child(even)` con fondo gris). Usar el mismo enfoque y tokens que en element collections (`--frame-border` / color-mix).
-- [ ] **Hover de fila**: fondo sutil translúcido (como `--element-collection-row-hover-background`). En listas el hover es de fila completa (no de celda) porque no hay edición.
-- [ ] **Espaciados**: padding de celdas y altura de fila coherentes. Cabecera de lista sticky; altura de fila 35px → 40–44px.
-- [ ] **Totales**: si la lista tiene totales, aplicar el mismo estilo de footer (hairline superior, etiquetas muted alineadas a la derecha, total final enfatizado 600).
-- [ ] **Handles de resize de columnas**: línea vertical CSS de 2px en el borde del `th`, como se hizo en element collections.
-- [ ] **Skeleton loading** (filas que pulsan) al recargar listas, en lugar de solo spinner.
+- [x] **Cabeceras**: estilo compacto y muted (uppercase, letter-spacing, `--font-size-xs`, `--label-color`), alineación de cabeceras numéricas a la derecha, padding de primera/última columna.
+- [x] **Hairlines horizontales**: separadores de fila con borde sutil en lugar de zebra por columnas (`nth-child(even)` con fondo gris). Usar el mismo enfoque y tokens que en element collections (`--frame-border` / color-mix).
+- [x] **Hover de fila**: fondo sutil translúcido (como `--element-collection-row-hover-background`). En listas el hover es de fila completa (no de celda) porque no hay edición.
+- [x] **Espaciados**: padding de celdas y altura de fila coherentes. Cabecera de lista sticky; altura de fila 35px → 42px.
+- [x] **Totales**: si la lista tiene totales, aplicar el mismo estilo de footer (hairline superior, etiquetas muted alineadas a la derecha, total final enfatizado 600).
+- [x] **Handles de resize de columnas**: línea vertical CSS de 2px en el borde del `th`, como se hizo en element collections.
+- [x] **Skeleton loading** (filas que pulsan) al recargar listas, en lugar de solo spinner.
 
 Diferencias intencionadas a marcar visualmente:
 
-- [ ] **Listas no son editables**: el hover debe ser de fila completa (feedback de selección), no de celda individual. No hay `ox-editable-cell` ni anillo de foco en celdas.
-- [ ] **Columnas editables en listas**: las listas pueden tener alguna columna editable. En ese caso, valorar si esa columna debe tratar el hover y el foco como en element collections (`ox-editable-cell` con `--element-collection-cell-hover-background` y anillo de foco `:focus-within`), de modo que la celda editable se distinga del resto de la fila no editable. Documentar la decisión tomada.
-- [ ] **Acciones de fila**: en listas las acciones son de selección/edición/eliminación de la fila completa, no por celda. Revelar en hover/focus como en element collections, pero adaptadas al contexto de lista.
+- [x] **Listas no son editables**: el hover debe ser de fila completa (feedback de selección), no de celda individual. No hay `ox-editable-cell` ni anillo de foco en celdas.
+- [x] **Columnas editables en listas**: las listas pueden tener alguna columna editable. En ese caso, esa columna trata el hover y el foco como en element collections (`ox-editable-cell` con `--element-collection-cell-hover-background` y anillo de foco `:focus-within`). El indicador visual de editabilidad es un lápiz on-hover de fila (MDI `mdi-pencil` en `::after` de la celda, `opacity: 0.5` en hover de fila, `opacity: 0` en hover de celda para no pisar el chrome del editor). El `$` de moneda y el icono del combo se ocultan en celdas editables y solo aparecen on hover de celda. Esto unifica visualmente `@OneToMany` y `@ElementCollection`: el usuario solo ve listas de datos, y el lápiz le dice cuáles puede editar en línea.
+- [x] **Acciones de fila**: en listas las acciones son de selección/edición/eliminación de la fila completa, no por celda. Revelar en hover/focus como en element collections, pero adaptadas al contexto de lista.
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque3c-thread.md`.
 
 ## Limpieza y rendimiento
 

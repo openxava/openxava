@@ -1,4 +1,5 @@
 :root {
+	color-scheme: dark;
 	/* Brand */
 	--accent-color: #818cf8;
 	--accent-color-hover: #a5b4fc;
@@ -102,9 +103,6 @@
 
 	/* List */
 	--list-background: var(--my-dark);
-	--list-column2-background: transparent;
-	--list-even-column-background: transparent;
-	--list-row-bottom-color: transparent;
 	--list-row-a-color: inherit;
 	--total-cell-color: inherit;
 	--icon-check-color: inherit;
