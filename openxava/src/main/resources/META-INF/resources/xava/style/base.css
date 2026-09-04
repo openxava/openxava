@@ -424,6 +424,7 @@ input[type="checkbox"] {
 	z-index: 9999999;
 	overflow: hidden;
 	background: color-mix(in srgb, var(--xava-loading-background-color) 25%, transparent);
+	transition: opacity 150ms ease-out;
 }
 
 #xava_loading .ox-loading-progress {

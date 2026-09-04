@@ -1648,7 +1648,10 @@ openxava.hideLoading = function() {
 	if (!$('#xava_loading').is(':visible')) return;
 	var remaining = Math.max(0, 400 - (Date.now() - openxava.loadingShownAt));
 	setTimeout(function() {
-		$('#xava_loading').stop(true, true).fadeOut(150);
+		$('#xava_loading').css("opacity", 0);
+		setTimeout(function() {
+			$('#xava_loading').hide().css("opacity", 1);
+		}, 150);
 	}, remaining);
 };
 
