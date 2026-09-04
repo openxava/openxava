@@ -11,7 +11,7 @@ Las aplicaciones generadas por OpenXava son **aplicaciones empresariales de uso 
 ## Estrategia de trabajo
 
 - Trabajo en **bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
-- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3a → 3b → 3c**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques y el Bloque 3 en 3 sub-bloques para reducir la carga de revisión y facilitar el merge.
+- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3a → 3b → 3c → 4 → 5 → 6 → 7**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques y el Bloque 3 en 3 sub-bloques para reducir la carga de revisión y facilitar el merge.
 - Antes del Bloque 1, definir el **sistema de diseño** (tokens) como primer entregable.
 - Limpieza de CSS muerto (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`) se hace dentro de cada bloque, en las zonas que se toquen.
 
@@ -151,6 +151,34 @@ Diferencias intencionadas a marcar visualmente:
 - [x] **Acciones de fila**: en listas las acciones son de selección/edición/eliminación de la fila completa, no por celda. Revelar en hover/focus como en element collections, pero adaptadas al contexto de lista.
 
 **Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque3c-thread.md`.
+
+## Bloque 4 — Loading moderno (`ui-loading`)
+
+- [ ] Revisar el indicador de carga actual (pill flotante con `--elevation-2` y animación de entrada, heredado del Bloque 1). El indicador actual es similar al GMail original.
+- [ ] Valorar e implementar un loading más moderno, quizás una barra de progreso (top bar tipo YouTube/Linear) o un skeleton loading coherente con el ya aplicado en listas (Bloque 3c).
+- [ ] Verificar coherencia con el skeleton loading de listas y el indicador de diálogos.
+- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+
+## Bloque 5 — Botones y navegación (`ui-buttons`)
+
+- [ ] **Barra de botones**: revisar y modernizar la barra de botones superior (acciones de módulo). Espaciados, altura, hover, focus ring, alineación coherente con los tokens del sistema de diseño.
+- [ ] **Botones de abajo**: revisar y modernizar los botones inferiores (acciones de detalle/formulario). Mismos criterios que la barra superior.
+- [ ] **Pestañas de módulos**: modernizar las pestañas de navegación entre módulos. Estilo coherente con los tabs y pills ya definidos.
+- [ ] **Botones para cambio de formato de lista**: modernizar los botones de cambio entre formatos de lista (List/Tarjetas/Gráficos/Calendario). Estilo segmentado o toggle coherente con el view-switcher del calendario (Bloque 3b).
+- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+
+## Bloque 6 — Secciones, marcos y acciones en vista (`ui-sections`)
+
+- [ ] **Secciones**: revisar y modernizar el estilo de las secciones (cabeceras de sección, separadores, espaciados). Coherente con tokens de tipografía y espaciado ya definidos.
+- [ ] **Marcos**: revisar y modernizar los marcos (frames) que agrupan campos y referencias. Bordes, radios, elevaciones y espaciados coherentes con el sistema de diseño.
+- [ ] **Acciones en vista**: revisar y modernizar las acciones mostradas dentro de la vista de detalle (botones inline, enlaces de acción). Estilo coherente con los botones del Bloque 5.
+- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+
+## Bloque 7 — Editores especiales (`ui-editors`)
+
+- [ ] **Editor de carga de archivos**: revisar y modernizar el editor de carga de archivos. Al menos el color, alineándolo con `--accent-color` y los tokens del sistema de diseño. Valorar drag & drop, progress bar y estados de hover/focus.
+- [ ] **Editor de texto rico**: revisar y modernizar el editor de texto rico (toolbar, área de edición, estados). Coherente con los tokens de tipografía, bordes, radios y colores ya definidos.
+- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ## Limpieza y rendimiento
 
