@@ -173,8 +173,13 @@ public class SchemaTool {
 					else {
 						script = refineScript(script, supportsSemicolonAtEnd); 
 						log.info(XavaResources.getString("executing") + ": " + script);
+						try {
 							Query query = XPersistence.getManager().createNativeQuery(script);
 							query.executeUpdate();
+						}
+						catch (Exception ex) {
+							XPersistence.rollback();
+						}
 					}
 				}
 	    	}
@@ -208,7 +213,17 @@ public class SchemaTool {
 	}	
 	
 	private String addSchema(String script, boolean supportsSchemasInIndexDefinitions, String schema) { 
-		if (!supportsSchemasInIndexDefinitions || Is.emptyString(schema)) return script;
+		if (Is.emptyString(schema)) return script;
+		
+		// Hibernate 7.x does not include schema/catalog in create/alter table DDL, so we add it manually
+		if (script.startsWith("create table ")) {
+			script = script.replace("create table ", "create table " + schema + ".");
+		}
+		if (script.startsWith("alter table ")) {
+			script = script.replace("alter table ", "alter table " + schema + ".");
+		}
+		
+		if (!supportsSchemasInIndexDefinitions) return script;
 		// Needed at least for AS/400 where supportsSchemasInIndexDefinitions is true 
 		// but the dialect does to prefix the FK on alter table, something that AS/400 requires
 		script = script.replace("add constraint FK", "add constraint " + schema + ".FK");
