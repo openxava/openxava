@@ -1390,7 +1390,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-text-align-right { 
-	text-align: right;
+	text-align: right !important;
 }
 
 .ox-text-align-center { 
