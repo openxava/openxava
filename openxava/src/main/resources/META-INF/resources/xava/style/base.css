@@ -1124,7 +1124,7 @@ input[type="checkbox"]:focus-visible {
 
 
 .ox-list { 
-	border: 1px solid var(--frame-border);
+	border: none;
 }
 
 .firefox .ox-frame .ox-list { 
