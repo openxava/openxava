@@ -2034,15 +2034,8 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-element-collection th.ox-list-header {
-	position: relative;
-	border-bottom: 1px solid var(--frame-border);
-	font-size: var(--font-size-sm);
-	font-weight: 500;
-	color: var(--label-color);
 	padding-top: var(--space-2);
 	padding-bottom: var(--space-2);
-	text-transform: none;
-	letter-spacing: normal;
 }
 
 .ox-element-collection th.ox-list-header.ox-text-align-right {
