@@ -2156,10 +2156,14 @@ th.ox-list-header .ui-resizable-e:focus::after {
 	display: none;
 }
 
-.ox-list td.ox-editable-cell select:not([multiple]),
+.ox-list td.ox-editable-cell select:not([multiple]) {
+	background-image: none;
+}
+
 .ox-list td.ox-editable-cell .xava_descriptions_editor_open,
 .ox-list td.ox-editable-cell .xava_descriptions_editor_close {
 	opacity: 0;
+	transition: opacity var(--transition-fast);
 }
 
 .ox-list td.ox-editable-cell:hover select:not([multiple]),
