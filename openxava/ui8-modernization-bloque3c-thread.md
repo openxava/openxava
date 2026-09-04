@@ -47,7 +47,7 @@ La lista de módulo se renderiza principalmente en `listEditor.jsp` con clases C
 
 ### Acciones de fila
 - En element collections: `opacity: 0` → `1` on `tr:hover` o `:focus-within` (transición `opacity var(--transition-fast)`).
-- **Pendiente**: aplicar la misma lógica a las listas de módulo (`.ox-list .ox-list-action-cell`).
+- En listas de módulo: igual — `opacity: 0` → `1` on `tr:hover` o `:focus-within`.
 
 ### Totales
 - `.ox-total-row`: `border-bottom: none`.
@@ -139,19 +139,22 @@ En la lista de módulo, la mayoría de columnas no son editables y solo 1–2 lo
 ### Decisiones
 
 1. ~~**Quitar el `$` de las propiedades editables numéricas**~~ ✅ **Hecho** — Regla `.ox-list td.ox-editable-cell .ox-money b { display: none; }` en `base.css`. Misma técnica que en element collections (`.ox-element-collection .ox-money b { display: none; }`). Solo oculta el `$` en celdas editables de la lista; el resto de la app no se ve afectada.
-2. ~~**Icono del combo solo on hover**~~ ✅ **Hecho** — Regla `.ox-list td.ox-editable-cell select:not([multiple]) { background-image: none; }` con restauración en `tr:hover` / `tr:focus-within`. El padding derecho (`--space-7`) se mantiene constante para evitar layout shift al aparecer/desaparecer el chevron.
-3. **Lápiz on-hover de fila** — implementado. Un icono lápiz aparece superpuesto en la esquina superior derecha de cada celda editable cuando el ratón pasa por la fila. No es permanente (no ensucia la tabla), el trigger es probable (el usuario pasa el ratón por la fila para seleccionar), y es CSS puro.
-4. **Lápiz en cabecera de columna** — propuesto pero pendiente de decisión. Sería el único indicador pasivo permanente (sin mover el ratón). Se evaluará después de probar el lápiz on-hover sin `$` y sin icono de combo.
+2. ~~**Icono del combo solo on hover de celda**~~ ✅ **Hecho** — Dos mecanismos separados:
+   - **`<select>` nativo**: `background-image: none` por defecto; se restaura `var(--select-chevron-icon)` en `td.ox-editable-cell:hover` / `:focus-within`. El padding derecho (`--space-7`) se mantiene constante para evitar layout shift.
+   - **Descriptions list handler** (`mdi-menu-down` / `mdi-menu-up`): `opacity: 0` con `transition: opacity var(--transition-fast)`; se restaura a `opacity: 1` en `td.ox-editable-cell:hover` / `:focus-within`.
+   - El trigger es hover de **celda**, no de fila, para no revelar todos los combos de la fila a la vez.
+3. ~~**Lápiz on-hover de fila**~~ ✅ **Hecho** — Un icono lápiz (`mdi-pencil`) aparece superpuesto en la esquina superior derecha de cada celda editable cuando el ratón pasa por la fila. No es permanente (no ensucia la tabla), el trigger es probable (el usuario pasa el ratón por la fila para seleccionar), y es CSS puro.
+4. **Lápiz en cabecera de columna** — propuesto pero **descartado** tras revisión visual. El lápiz on-hover de fila es suficiente como indicador de editabilidad; un indicador pasivo permanente en cabecera añadiría ruido innecesario.
 
 ### Implementación: lápiz on-hover de fila (base.css)
 
 **Token:** se consideró inicialmente un data URI SVG (`--editable-cell-pencil-icon`), pero se descartó en favor de MDI por consistencia con el proyecto.
 
-**Reglas CSS (base.css líneas ~2109-2132):**
+**Reglas CSS (base.css líneas ~2109-2133):**
 - `.ox-list td.ox-editable-cell` → `position: relative` (contenedor para el icono absoluto).
 - `.ox-list td.ox-editable-cell::after` → `content: '\F03EB'` (MDI `mdi-pencil`), `font-family: 'Material Design Icons'`, `font-size: 12px`, `position: absolute; top: 2px; right: 2px`, `opacity: 0`, `pointer-events: none`, `transition: opacity var(--transition-fast)`.
-- `tr:hover` / `tr:focus-within` → `opacity: 0.5` (lápiz visible en todas las celdas editables de la fila).
-- `tr:hover td.ox-editable-cell:hover` / `:focus-within` → `opacity: 1` (lápiz destacado en la celda concreta).
+- `tr:hover` / `tr:focus-within` → `opacity: 0.5` (lápiz visible en todas las celdas editables de la fila — descubrimiento).
+- `tr:hover td.ox-editable-cell:hover` / `td.ox-editable-cell:focus-within` → `opacity: 0` (lápiz **desaparece** en la celda activa — deja sitio al chrome del editor: chevron, calendario, lupa, etc.).
 
 **Notas técnicas:**
 - Posición absoluta para no alterar la altura de fila ni ocupar espacio inline (primera versión inline ensanchaba las celdas).
@@ -160,10 +163,16 @@ En la lista de módulo, la mayoría de columnas no son editables y solo 1–2 lo
 - Funciona tanto en lista de módulo como en `ElementCollection` (ambas usan `ox-editable-cell`).
 - Mismo patrón que el grip de resize del diálogo (`content: '\F045D'` + MDI en línea ~2640 de base.css).
 
-### Estado
+### Estado — ✅ Concluido
 
 - **Hecho:** lápiz on-hover de fila implementado en `base.css`.
 - **Hecho:** `$` oculto en celdas editables de la lista (`.ox-list td.ox-editable-cell .ox-money b { display: none; }`).
-- **Hecho:** icono del combo oculto por defecto, visible solo on hover/focus de fila (sin layout shift).
-- **Pendiente:** decidir sobre lápiz en cabecera. Revisión visual sin `$` y sin icono de combo.
+- **Hecho:** icono del combo (select nativo y descriptions list) oculto por defecto, visible solo on hover/focus de celda (sin layout shift).
+- **Hecho:** lápiz desaparece en hover/focus de celda (`opacity: 0`) para no pisar el chrome del editor.
+- **Hecho:** bug de selects nativos invisibles en diálogo de importación arreglado (separación de `background-image: none` para selects vs `opacity: 0` para descriptions handlers).
+- **Descartado:** lápiz en cabecera de columna — el lápiz on-hover de fila es suficiente.
 - **No implementado:** `cursor: text` en `.ox-editable-cell` (punto 1 de la propuesta, ya se consideró que estaba hecho pero no se añadió explícitamente — verificar).
+
+### Beneficio adicional
+
+Las `@OneToMany` (no editables) y las `@ElementCollection` (editables) ahora son visualmente idénticas en reposo. El lápiz on-hover es la única señal que distingue qué celdas son editables, resolviendo la preocupación de que el usuario no supiera si puede editar en línea o si al pulsar saldrá un diálogo. Para el usuario no hay diferentes tipos de colección: solo listas de datos, donde en algunas puede editar la celda directamente.

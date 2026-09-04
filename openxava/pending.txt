@@ -1,8 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 3c.
-    - Combo normal
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
     - Barra de botones.
