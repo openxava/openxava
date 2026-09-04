@@ -138,8 +138,8 @@ En la lista de módulo, la mayoría de columnas no son editables y solo 1–2 lo
 
 ### Decisiones
 
-1. **Quitar el `$` de las propiedades editables numéricas** — pendiente de implementar. El chrome del editor contamina la detección.
-2. **Quitar el icono del combo en celdas editables** — pendiente de implementar y de decidir (anotado en `pending.txt`).
+1. ~~**Quitar el `$` de las propiedades editables numéricas**~~ ✅ **Hecho** — Regla `.ox-list td.ox-editable-cell .ox-money b { display: none; }` en `base.css`. Misma técnica que en element collections (`.ox-element-collection .ox-money b { display: none; }`). Solo oculta el `$` en celdas editables de la lista; el resto de la app no se ve afectada.
+2. ~~**Icono del combo solo on hover**~~ ✅ **Hecho** — Regla `.ox-list td.ox-editable-cell select:not([multiple]) { background-image: none; }` con restauración en `tr:hover` / `tr:focus-within`. El padding derecho (`--space-7`) se mantiene constante para evitar layout shift al aparecer/desaparecer el chevron.
 3. **Lápiz on-hover de fila** — implementado. Un icono lápiz aparece superpuesto en la esquina superior derecha de cada celda editable cuando el ratón pasa por la fila. No es permanente (no ensucia la tabla), el trigger es probable (el usuario pasa el ratón por la fila para seleccionar), y es CSS puro.
 4. **Lápiz en cabecera de columna** — propuesto pero pendiente de decisión. Sería el único indicador pasivo permanente (sin mover el ratón). Se evaluará después de probar el lápiz on-hover sin `$` y sin icono de combo.
 
@@ -163,5 +163,7 @@ En la lista de módulo, la mayoría de columnas no son editables y solo 1–2 lo
 ### Estado
 
 - **Hecho:** lápiz on-hover de fila implementado en `base.css`.
-- **Pendiente:** quitar `$` y posiblemente icono de combo. Decidir sobre lápiz en cabecera. Revisión visual sin `$` y sin icono de combo.
+- **Hecho:** `$` oculto en celdas editables de la lista (`.ox-list td.ox-editable-cell .ox-money b { display: none; }`).
+- **Hecho:** icono del combo oculto por defecto, visible solo on hover/focus de fila (sin layout shift).
+- **Pendiente:** decidir sobre lápiz en cabecera. Revisión visual sin `$` y sin icono de combo.
 - **No implementado:** `cursor: text` en `.ox-editable-cell` (punto 1 de la propuesta, ya se consideró que estaba hecho pero no se añadió explícitamente — verificar).

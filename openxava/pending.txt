@@ -2,10 +2,7 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 3c.
-    - Revisar propiedades editable.
-        - TMR ME QUEDÉ PROBANDO LAPICITO ON HOVER
-    - ¿Quitar el dolar de las propiedades editables? ¿También el icono del combo?
-    - No hay diferencia visual entre una @OneToMany y una @ElementCollection. Debatir.
+    - Combo normal
 - Loading moderno, quizás una barra de progreso. El indicador actual es como el GMail original.
 - Revisar como han quedado y ver sin son susceptibles de modernización:
     - Barra de botones.

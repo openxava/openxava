@@ -2129,7 +2129,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 
 .ox-list tr:hover td.ox-editable-cell:hover::after,
 .ox-list td.ox-editable-cell:focus-within::after {
-	opacity: 1;
+	opacity: 0;
 }
 
 .ox-list td.ox-editable-cell input[type="text"],
@@ -2150,6 +2150,28 @@ th.ox-list-header .ui-resizable-e:focus::after {
 .ox-list td.ox-editable-cell :is(input[type="text"], input[type="password"], input[type="date"], input[type="datetime-local"], select, textarea):focus {
 	border-color: transparent !important;
 	box-shadow: none;
+}
+
+.ox-list td.ox-editable-cell .ox-money b {
+	display: none;
+}
+
+.ox-list td.ox-editable-cell select:not([multiple]),
+.ox-list td.ox-editable-cell .xava_descriptions_editor_open,
+.ox-list td.ox-editable-cell .xava_descriptions_editor_close {
+	opacity: 0;
+}
+
+.ox-list td.ox-editable-cell:hover select:not([multiple]),
+.ox-list td.ox-editable-cell:focus-within select:not([multiple]) {
+	background-image: var(--select-chevron-icon);
+}
+
+.ox-list td.ox-editable-cell:hover .xava_descriptions_editor_open,
+.ox-list td.ox-editable-cell:hover .xava_descriptions_editor_close,
+.ox-list td.ox-editable-cell:focus-within .xava_descriptions_editor_open,
+.ox-list td.ox-editable-cell:focus-within .xava_descriptions_editor_close {
+	opacity: 1;
 }
 
 .ox-element-collection .ox-element-collection-remove-action,
