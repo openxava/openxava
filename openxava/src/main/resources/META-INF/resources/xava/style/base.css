@@ -895,13 +895,13 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 }
 
 .ox-list input[type="checkbox"] {
-	margin-top: 5px;
+	vertical-align: middle;
 }
 
 .ox-list input[type="checkbox"], .ox-list input[type="radio"] {
 	accent-color: var(--accent-color);
-	width: 15px;
-	height: 15px;
+	width: 14px;
+	height: 14px;
 }
 
 .ox-date-calendar input, .ox-web-url input {  

@@ -111,7 +111,7 @@ Tras la revisión visual comparando con Attio/Linear/Notion, se identifican 5 pu
 
 2. ~~**Fila de filtro (subheader) demasiado alta/boxy**~~ ✅ **Hecho** — Inputs de filtro reducidos a 28px con borde sutil `var(--frame-border)` y fondo transparente. Contenido centrado verticalmente con `vertical-align: middle` y `padding-top: var(--space-1)`. `padding-bottom: var(--space-1)` equilibrado.
 
-3. **Checkbox de fila algo tosco** — 15px con `margin-top: 5px` se ve desplazado. En Notion/Linear el checkbox está perfectamente centrado verticalmente y es más sutil (14px, sin margen extra).
+3. ~~**Checkbox de fila algo tosco**~~ ✅ **Hecho** — Checkbox reducido a 14px, eliminado `margin-top: 5px`, centrado con `vertical-align: middle`. Añadido `color-scheme: dark/light` en `dark-overrides.css`/`light.css` para que los controles nativos se rendericen con colores coherentes en cada tema.
 
 4. ~~**Borde exterior de la lista (card)**~~ ✅ **Hecho** — Eliminado `border: 1px solid var(--frame-border)` de `.ox-list`, ahora `border: none`. Coherente con element collections (que ya tenían `border: none`). Los hairlines internos llegan a ancho completo sin ser recortados.
 
