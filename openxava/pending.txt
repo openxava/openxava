@@ -1,7 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 4
 - Bloque 5
 - Bloque 6
 - Bloque 7

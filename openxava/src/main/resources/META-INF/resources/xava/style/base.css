@@ -213,7 +213,6 @@
 	--page-navigation-selected-background: var(--button-bar-background);
 	
 	--xava-processing-layer-background: var(--action-color);
-	--xava-loading-color: var(--accent-contrast-color);
 	--xava-loading-background-color: var(--accent-color);
 	--xava-processing-layer-color: white;
 	
@@ -416,35 +415,42 @@ input[type="checkbox"] {
 }
 
 #xava_loading {
-	padding: var(--space-2) var(--space-4);	
-	border: none;
-	background: var(--xava-loading-background-color);  
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	z-index: 9999999;
+	overflow: hidden;
+	background: color-mix(in srgb, var(--xava-loading-background-color) 25%, transparent);
+	transition: opacity 150ms ease-out;
+}
+
+#xava_loading .ox-loading-progress {
+	position: absolute;
+	top: 0;
+	left: -40%;
+	width: 40%;
+	height: 100%;
 	border-radius: var(--radius-full);
-	font-weight: 600; 
-	font-size: var(--font-size-sm);
-	box-shadow: var(--elevation-2);
-	display:none;  
-	z-index: 9999999; 
-	position: fixed; 
-	top: var(--space-2); 
-	left: 50%;
-	transform: translateX(-50%);	
-	white-space: nowrap; 
-	animation: xava-loading-in var(--transition-normal);
+	background: linear-gradient(90deg, transparent, var(--xava-loading-background-color) 30%, var(--xava-loading-background-color) 70%, transparent);
+	animation: xava-loading-slide 1.1s ease-in-out infinite;
 }
 
-@keyframes xava-loading-in {
-    from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+@keyframes xava-loading-slide {
+	from { left: -40%; }
+	to { left: 100%; }
 }
 
-#xava_loading, #xava_loading i {
-	color: var(--xava-loading-color);
+@media (prefers-reduced-motion: reduce) {
+	#xava_loading .ox-loading-progress {
+		animation: none;
+		left: 0;
+		width: 100%;
+		opacity: 0.5;
+	}
 }
-
-#xava_loading i, #xava_loading2 i {
-	vertical-align: middle;
-}  
 
 .spin:before {
 	animation: spin 1s infinite linear;

@@ -154,10 +154,12 @@ Diferencias intencionadas a marcar visualmente:
 
 ## Bloque 4 — Loading moderno (`ui-loading`)
 
-- [ ] Revisar el indicador de carga actual (pill flotante con `--elevation-2` y animación de entrada, heredado del Bloque 1). El indicador actual es similar al GMail original.
-- [ ] Valorar e implementar un loading más moderno, quizás una barra de progreso (top bar tipo YouTube/Linear) o un skeleton loading coherente con el ya aplicado en listas (Bloque 3c).
-- [ ] Verificar coherencia con el skeleton loading de listas y el indicador de diálogos.
-- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+- [x] Revisar el indicador de carga actual (pill flotante con `--elevation-2` y animación de entrada, heredado del Bloque 1). El indicador actual es similar al GMail original.
+- [x] Valorar e implementar un loading más moderno: barra fina de 3px pegada al borde superior con shimmer indeterminado (tipo Linear/YouTube), con retardo de 200ms antes de mostrarse y mínimo de 400ms visible para evitar parpadeos. Skeleton loading descartado: con Hotwire no se sabe de antemano qué parte de la pantalla cambiará.
+- [x] Eliminado el código muerto de `#xava_loading2` (`isFixedPositionSupported()` devuelve siempre `true`).
+- [x] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque4-thread.md`.
 
 ## Bloque 5 — Botones y navegación (`ui-buttons`)
 

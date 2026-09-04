@@ -26,8 +26,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 	document.throwPropertyChange = false;
 	openxava.getElementById(application, module, "loading").value=true;
 	document.body.style.cursor='wait';
-	if (!$('#xava_loading').is(':visible')) openxava.fadeIn('#xava_loading', 1000); 
-	if (!$('#xava_loading2').is(':visible')) openxava.fadeIn('#xava_loading2', 1000); 
+	openxava.scheduleLoading();
 	openxava.markListsAsLoading();
 	
 	if (inNewWindow) {
@@ -49,6 +48,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 
 	openxava.post("/xava/hotwire", params, function(text) {
 		if (text && text.indexOf("ERROR:") === 0) {
+			openxava.hideLoading();
 			openxava.showError(openxava.postErrorMessage);
 			return;
 		}
@@ -57,6 +57,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 			openxava.refreshPage(result);
 		} catch (e) {
 			console.error("Error parsing JSON in openxava.request", e);
+			openxava.hideLoading();
 			openxava.showError(openxava.postErrorMessage);
 		}
 	});
@@ -213,8 +214,7 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
-	$('#xava_loading').hide();
-	$('#xava_loading2').hide();
+	openxava.hideLoading();
 	$('.ox-list.ox-loading').removeClass('ox-loading');
 	if (result.hasPostJS) {
 		openxava.postJS();
@@ -946,6 +946,7 @@ openxava.decorateId = function(application, module, simpleName) {
 }
 
 openxava.systemError = function(result) { 
+	openxava.hideLoading();
 	document.body.style.cursor='auto';	
 	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big>ERROR: " + result.error + "</big></big>";
 }
@@ -1628,6 +1629,31 @@ openxava.markRowAsCut = function(collectionId, rowId) {
 	else $('#' + collectionId).find("._XAVA_SELECTED_ROW_").addClass('ox-cut-row');
 }
 
+
+openxava.loadingDelay = 200;
+openxava.loadingTimeout = null;
+openxava.loadingShownAt = 0;
+
+openxava.scheduleLoading = function() {
+	clearTimeout(openxava.loadingTimeout);
+	openxava.loadingTimeout = setTimeout(function() {
+		$('#xava_loading').stop(true, true).css("opacity", 1).show();
+		openxava.loadingShownAt = Date.now();
+	}, openxava.loadingDelay);
+};
+
+openxava.hideLoading = function() {
+	clearTimeout(openxava.loadingTimeout);
+	openxava.loadingTimeout = null;
+	if (!$('#xava_loading').is(':visible')) return;
+	var remaining = Math.max(0, 400 - (Date.now() - openxava.loadingShownAt));
+	setTimeout(function() {
+		$('#xava_loading').css("opacity", 0);
+		setTimeout(function() {
+			$('#xava_loading').hide().css("opacity", 1);
+		}, 150);
+	}, remaining);
+};
 
 openxava.fadeIn = function(selector, duration) { 
 	// jQuery fadeIn() not work under certain race conditions
