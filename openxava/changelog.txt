@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Global AJAX loading indicator redesigned from the GMail-style "Loading..." pill with spinner to a thin 3px top progress bar with shimmer animation (Linear/YouTube style): appears after a 200ms delay to avoid flicker on fast operations, stays visible for a minimum of 400ms, fades out smoothly via CSS opacity transition, respects prefers-reduced-motion, and uses the accent color token for automatic light/dark theme support.
+- Removed dead code: #xava_loading2 fallback element and its markup in ModulePageRenderer (Style.isFixedPositionSupported() always returns true).
+- Removed unused CSS variable --xava-loading-color (the new bar has no text content).
 - Module lists (tabs) restyled to the new design system: zebra striping removed in favor of hairline row separators, 42px row height, uppercase muted column headers, flat hover and selection backgrounds using color-mix, CSS-based column resize handles (replacing the image-based grip), spreadsheet-like editable cells with transparent borders and accent focus ring, row action icons muted until row hover or keyboard focus, generalized total row styling with top border and right-aligned labels, skeleton loading pulse animation on AJAX refresh, checkboxes and radio buttons with accent-color, solid background for popup menus, and list info section with muted small text.
 - Numeric column headers in module lists are now right-aligned to match their cell values by default (Style.isAlignHeaderAsData() returns true).
 - handle_vertical.png removed; column resize handles are now pure CSS (6px wide ::after line on the right edge of the th, highlighted on hover/focus).
