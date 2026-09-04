@@ -109,10 +109,10 @@ Tras la revisión visual comparando con Attio/Linear/Notion, se identifican 5 pu
 
 1. ~~**Iconos de acción de fila visibles siempre en listas de módulo**~~ ✅ **Hecho** — Cambiado `opacity: 0.5` → `0` en `.ox-list-action-cell i, .ox-list-action-cell img` de `base.css`. Ahora los iconos solo aparecen on `tr:hover` o `:focus-within`, igual que en element collections.
 
-2. **Fila de filtro (subheader) demasiado alta/boxy** — Los inputs de filtro son 32px con bordes completos. En Linear/Attio los filtros son chips compactos o inputs borderless que parecen texto hasta hover. Reducir altura a 28px y quitar borde hasta hover/focus.
+2. ~~**Fila de filtro (subheader) demasiado alta/boxy**~~ ✅ **Hecho** — Inputs de filtro reducidos a 28px con borde sutil `var(--frame-border)` y fondo transparente. Contenido centrado verticalmente con `vertical-align: middle` y `padding-top: var(--space-1)`. `padding-bottom: var(--space-1)` equilibrado.
 
 3. **Checkbox de fila algo tosco** — 15px con `margin-top: 5px` se ve desplazado. En Notion/Linear el checkbox está perfectamente centrado verticalmente y es más sutil (14px, sin margen extra).
 
-4. **Borde exterior de la lista (card)** — El `border: 1px solid var(--frame-border)` es correcto pero algo pesado. En Linear las tablas no tienen borde exterior, solo hairlines internos. Attio usa un borde muy sutil. Podría afinarse.
+4. ~~**Borde exterior de la lista (card)**~~ ✅ **Hecho** — Eliminado `border: 1px solid var(--frame-border)` de `.ox-list`, ahora `border: none`. Coherente con element collections (que ya tenían `border: none`). Los hairlines internos llegan a ancho completo sin ser recortados.
 
 5. **Paginación / list-info algo plana** — Funciona pero visualmente es plano. En Linear/Attio la paginación es más compacta, con botones pill y el contador de filas en gris muy claro a la derecha.

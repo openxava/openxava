@@ -1132,16 +1132,20 @@ input[type="checkbox"]:focus-visible {
 }
 
 .ox-list-subheader input[type="text"] { 
-    height: 32px;
+    height: 28px;
     width: 100%; 
     box-sizing: border-box; 
     -moz-box-sizing: border-box; 
     -webkit-box-sizing: border-box;
+    border-color: var(--frame-border);
+    background-color: transparent;
 }
 
 .ox-list-subheader select:not([multiple]) {
 	width: 100%;
-	height: 32px;
+	height: 28px;
+	border-color: var(--frame-border);
+	background-color: transparent;
 }
 
 select.xava_list_configurations:not([multiple]),
@@ -1889,11 +1893,13 @@ td.ox-list-subheader {
 
 .ox-list-subheader td { 
 	text-align: center;
+	vertical-align: middle;
+	padding-top: var(--space-1);
 }
 
 
 .ox-list-subheader {
-	padding-bottom: 5px; 
+	padding-bottom: var(--space-1); 
 }
 
 .ox-list-pair, .ox-list-odd {
