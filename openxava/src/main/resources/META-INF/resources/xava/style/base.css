@@ -2106,6 +2106,32 @@ th.ox-list-header .ui-resizable-e:focus::after {
 	border-radius: var(--radius-sm);
 }
 
+.ox-list td.ox-editable-cell {
+	position: relative;
+}
+
+.ox-list td.ox-editable-cell::after {
+	content: '\F03EB';
+	font-family: 'Material Design Icons';
+	font-size: 12px;
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	opacity: 0;
+	transition: opacity var(--transition-fast);
+	pointer-events: none;
+}
+
+.ox-list tr:hover td.ox-editable-cell::after,
+.ox-list tr:focus-within td.ox-editable-cell::after {
+	opacity: 0.5;
+}
+
+.ox-list tr:hover td.ox-editable-cell:hover::after,
+.ox-list td.ox-editable-cell:focus-within::after {
+	opacity: 1;
+}
+
 .ox-list td.ox-editable-cell input[type="text"],
 .ox-list td.ox-editable-cell input[type="password"],
 .ox-list td.ox-editable-cell input[type="date"],

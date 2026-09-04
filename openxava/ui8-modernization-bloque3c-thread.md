@@ -116,3 +116,52 @@ Tras la revisión visual comparando con Attio/Linear/Notion, se identifican 5 pu
 4. ~~**Borde exterior de la lista (card)**~~ ✅ **Hecho** — Eliminado `border: 1px solid var(--frame-border)` de `.ox-list`, ahora `border: none`. Coherente con element collections (que ya tenían `border: none`). Los hairlines internos llegan a ancho completo sin ser recortados.
 
 5. ~~**Paginación / list-info algo plana**~~ ✅ **Hecho** — Pills compactas con `padding: 2px 8px`, `font-weight: 500`, seleccionada con `accent-soft`. Flechas con ancho fijo 24px, `opacity: 0.3` cuando deshabilitadas (evita layout shift). Select de filas por página borderless con borde en hover/focus. Padding-left alineado con el marco. Todo verticalmente alineado con `vertical-align: middle`.
+
+---
+
+## Indicador visual de celdas editables en lista (2ª iteración)
+
+### Problema
+
+En la lista de módulo, la mayoría de columnas no son editables y solo 1–2 lo son. El usuario no tiene forma de saber cuáles son editables sin interactuar. Se comprobó empíricamente: al analizar un pantallazo, el indicador del `$` (calculadora) llevó a confundir *Descripción extendida* (combo con `▼`) como editable cuando no lo era. La señal visual actual (combo transparente, icono de calculadora) **no es fiable** como indicador de editabilidad.
+
+### Análisis de apps modernas y LOB
+
+**Apps modernas (Notion, Airtable, Attio, Linear):** ninguna usa indicador permanente. Confían en feedback dinámico: cursor `text`, hover de celda, foco con borde. El descubrimiento negativo (celdas no editables no responden al hover) es la señal.
+
+**Apps LOB:**
+- **SAP Fiori**: modo Edición explícito (botón Edit) que conmuta toda la tabla.
+- **Salesforce Lightning**: lápiz on-hover de celda + doble click.
+- **Excel / software contable (Sage, ContaPlus, Epicor, AG Grid)**: celda editable = blanca, celda bloqueada = gris tenue. Los usuarios empresariales lo leen instintivamente.
+- **Dynamics / Power Apps**: sin indicador, doble click (considerado su punto débil).
+- **Odoo**: click lleva la fila entera a modo edición.
+
+### Decisiones
+
+1. **Quitar el `$` de las propiedades editables numéricas** — pendiente de implementar. El chrome del editor contamina la detección.
+2. **Quitar el icono del combo en celdas editables** — pendiente de implementar y de decidir (anotado en `pending.txt`).
+3. **Lápiz on-hover de fila** — implementado. Un icono lápiz aparece superpuesto en la esquina superior derecha de cada celda editable cuando el ratón pasa por la fila. No es permanente (no ensucia la tabla), el trigger es probable (el usuario pasa el ratón por la fila para seleccionar), y es CSS puro.
+4. **Lápiz en cabecera de columna** — propuesto pero pendiente de decisión. Sería el único indicador pasivo permanente (sin mover el ratón). Se evaluará después de probar el lápiz on-hover sin `$` y sin icono de combo.
+
+### Implementación: lápiz on-hover de fila (base.css)
+
+**Token:** se consideró inicialmente un data URI SVG (`--editable-cell-pencil-icon`), pero se descartó en favor de MDI por consistencia con el proyecto.
+
+**Reglas CSS (base.css líneas ~2109-2132):**
+- `.ox-list td.ox-editable-cell` → `position: relative` (contenedor para el icono absoluto).
+- `.ox-list td.ox-editable-cell::after` → `content: '\F03EB'` (MDI `mdi-pencil`), `font-family: 'Material Design Icons'`, `font-size: 12px`, `position: absolute; top: 2px; right: 2px`, `opacity: 0`, `pointer-events: none`, `transition: opacity var(--transition-fast)`.
+- `tr:hover` / `tr:focus-within` → `opacity: 0.5` (lápiz visible en todas las celdas editables de la fila).
+- `tr:hover td.ox-editable-cell:hover` / `:focus-within` → `opacity: 1` (lápiz destacado en la celda concreta).
+
+**Notas técnicas:**
+- Posición absoluta para no alterar la altura de fila ni ocupar espacio inline (primera versión inline ensanchaba las celdas).
+- `pointer-events: none` para que el icono no interfiera con el click en la celda.
+- `font-size: 12px` para ser discreto.
+- Funciona tanto en lista de módulo como en `ElementCollection` (ambas usan `ox-editable-cell`).
+- Mismo patrón que el grip de resize del diálogo (`content: '\F045D'` + MDI en línea ~2640 de base.css).
+
+### Estado
+
+- **Hecho:** lápiz on-hover de fila implementado en `base.css`.
+- **Pendiente:** quitar `$` y posiblemente icono de combo. Decidir sobre lápiz en cabecera. Revisión visual sin `$` y sin icono de combo.
+- **No implementado:** `cursor: text` en `.ox-editable-cell` (punto 1 de la propuesta, ya se consideró que estaba hecho pero no se añadió explícitamente — verificar).
