@@ -163,10 +163,10 @@ Diferencias intencionadas a marcar visualmente:
 
 ## Bloque 5 — Botones y navegación (`ui-buttons`)
 
-- [ ] **Barra de botones**: revisar y modernizar la barra de botones superior (acciones de módulo). Espaciados, altura, hover, focus ring, alineación coherente con los tokens del sistema de diseño.
+- [x] **Barra de botones**: barra superior modernizada — flexbox sin floats, hairline inferior en lugar de sombra, botones ghost pill (`--radius-md`, peso 500), hover/focus ring estándar, "Nuevo" como acción primaria con acento, hover rojo en "Borrar", iconos derecha (ayuda/suscripción) como botones cuadrados uniformes y dropdown de subcontrolador con estilo de menú moderno. **Pendiente revisión visual.**
 - [ ] **Botones de abajo**: revisar y modernizar los botones inferiores (acciones de detalle/formulario). Mismos criterios que la barra superior.
 - [ ] **Pestañas de módulos**: modernizar las pestañas de navegación entre módulos. Estilo coherente con los tabs y pills ya definidos.
-- [ ] **Botones para cambio de formato de lista**: modernizar los botones de cambio entre formatos de lista (List/Tarjetas/Gráficos/Calendario). Estilo segmentado o toggle coherente con el view-switcher del calendario (Bloque 3b).
+- [x] **Botones para cambio de formato de lista**: formatos de lista como segmented control con tokens `--segmented-*` compartidos con el view-switcher del calendario (Bloque 3b). **Pendiente revisión visual.**
 - [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ## Bloque 6 — Secciones, marcos y acciones en vista (`ui-sections`)

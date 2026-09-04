@@ -81,19 +81,22 @@
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
 	--module-header-selected-color: var(--selected-list-format-color);
-	--module-header-selected-background: var(--button-bar-background);
+	--module-header-selected-background: color-mix(in srgb, var(--color) 6%, transparent);
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
+	--button-bar-background: var(--module-header-background);
 	--button-bar-button-color: var(--action-color);
 	--button-bar-button-hover-background: var(--action-hover-background);
 	--button-bar-button-hover-color: var(--action-hover-color);
-	--button-bar-button-hover-border: white;
-	--highlight-bar-action-hover-color: white; 
-	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
-	--highlight-bar-action-color: var(--background);
-	--button-bar-shadow: lightgray;
-	--subcontroller-select-background: var(--background);
+	--button-bar-button-hover-border: transparent;
+	--highlight-bar-action-hover-color: var(--accent-contrast-color); 
+	--highlight-bar-action-hover-background: var(--accent-color-hover);
+	--highlight-bar-action-color: var(--accent-contrast-color);
+	--subcontroller-select-background: var(--action-hover-background);
+	--segmented-background: color-mix(in srgb, var(--color) 6%, transparent);
+	--segmented-active-background: var(--background);
+	--segmented-active-color: var(--color);
 	--subscribed-color: var(--color);
 	--unsubscribed-color: var(--list-formats-color);
 	--subscribed-hover-color: var(--list-formats-hover-color);	
@@ -101,8 +104,8 @@
 	--selected-list-format-border: var(--color);
 	--selected-chart-type-icon-color: var(--color);
 	--selected-chart-type-icon-border-bottom: var(--color);
-	--highlight-bar-action-background: var(--action-color);
-	--subcontroller-background: var(--button-bar-background);
+	--highlight-bar-action-background: var(--accent-color);
+	--subcontroller-background: var(--background);
 	--subcontroller-shadow: var(--shadow);
 	--icon-delete-hover-color: red;
 		
@@ -288,9 +291,9 @@
 	--calendar-button-color: var(--action-color);
 	--calendar-button-hover-color: var(--action-hover-color);
 	--calendar-button-hover-background: var(--action-hover-background);
-	--calendar-view-switcher-background: color-mix(in srgb, var(--color) 6%, transparent);
-	--calendar-view-switcher-active-background: var(--background);
-	--calendar-view-switcher-active-color: var(--color);
+	--calendar-view-switcher-background: var(--segmented-background);
+	--calendar-view-switcher-active-background: var(--segmented-active-background);
+	--calendar-view-switcher-active-color: var(--segmented-active-color);
 	--calendar-event-accent: var(--accent-color);
 	--calendar-event-background: var(--accent-soft);
 	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 16%, transparent);
@@ -1308,9 +1311,24 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar {
-	padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4); 
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--space-4);
+	padding: var(--space-2) var(--space-4); 
 	background: var(--button-bar-background);
-	box-shadow: var(--elevation-1); 
+	border-bottom: 1px solid var(--frame-border);
+}
+
+.ox-button-bar > div {
+	display: flex;
+	align-items: center;
+}
+
+.ox-button-bar > div > span {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
 }
 
 .ox-button-bar-container {
@@ -1335,37 +1353,26 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 .ox-button-bar .ox-button-bar-button a,  
 .ox-collection-list-actions .ox-button-bar-button a {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
 	border: 1px solid transparent; 
-	font-weight: bold;
+	font-weight: 500;
 	text-decoration: none;
-	white-space: nowrap;  
+	white-space: nowrap;
+	border-radius: var(--radius-md);
+	transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);  
 }
 
 .ox-button-bar .ox-button-bar-button a {  
-	padding: 6px 4px 6px 6px; 
+	padding: 6px var(--space-3); 
 }
 
 .ox-button-bar .ox-button-bar-button a img, 
 .ox-collection-list-actions .ox-button-bar-button a img {
-	vertical-align: text-top;  
+	vertical-align: middle;  
 	max-height: 16px;
 } 
-
-.ox-button-bar .ox-button-bar-button a img {
-	padding-left: 7px;
-} 
-
-.ox-button-bar > div:first-child > span:first-child {
-	 float: left;
-}
-
-.ox-button-bar > div:last-child > span:first-child {
-	 float: right;
-}
-
-.ox-button-bar > div:last-child > span:first-child > span:first-child {
-	 float: left;
-}
 
 @media only screen and (max-width: 870px) {
 	.ox-button-bar .ox-action-label {
@@ -1375,7 +1382,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 		display: inline;
 	}
 	.ox-button-bar .ox-button-bar-button a {  
-        padding-left: 4px;
+        padding: 6px;
 	}
 }
 
@@ -1469,14 +1476,6 @@ i, .ox-icon i.mdi-close-circle,
 }
 
 
-.ox-button-bar .ox-button-bar-button a, 
-.ox-collection-list-actions .ox-button-bar-button a 
-{
-	border: 1px transparent;
-	margin: 1px; 
-	border-radius: var(--radius-full);
-	transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
-}
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
 .ox-collection-list-actions > span:nth-of-type(1) a, 
@@ -1529,11 +1528,25 @@ i.module-loading  {
 
 .ox-button-bar .ox-button-bar-button a:hover, 
 .ox-collection-list-actions .ox-button-bar-button a:hover, 
-.ox-subcontroller-select a, .ox-list-formats i:hover,
 .ox-collection-list-actions a:hover i {   
 	color: var(--button-bar-button-hover-color);
 	background: var(--button-bar-button-hover-background);
 	border-color: var(--button-bar-button-hover-border);
+}
+
+.ox-button-bar .ox-button-bar-button a:focus-visible, 
+.ox-collection-list-actions .ox-button-bar-button a:focus-visible,
+.ox-list-formats a:focus-visible,
+.ox-button-bar .ox-help a:focus-visible,
+.ox-button-bar .ox-subscribed a:focus-visible,
+.ox-button-bar .ox-unsubscribed a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+.ox-button-bar .ox-button-bar-button a[id*="delete"]:hover,
+.ox-button-bar .ox-button-bar-button a[id*="delete"]:hover i {
+	color: var(--delete-button-hover-color);
 }
 
 i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
@@ -1547,14 +1560,6 @@ i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 	color: var(--action-hover-color); 
 }
 
-.ox-button-bar-button a span {
-	padding: 4px;
-}
-
-
-.ox-button-bar .ox-button-bar-button a {
-	vertical-align: middle;  
-} 
 
 i {
 	vertical-align: -2px;  
@@ -1709,18 +1714,34 @@ tr.ox-list-odd, tr.ox-list-pair {
 	margin-right: -1px;
 }
 
-.ox-button-bar .ox-button-bar-button i, .ox-collection-list-actions i {
-	margin-left: 5px; 
-}
 
 .ox-list-formats {
-	margin-right: 5px; 
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 2px;
+	border-radius: var(--radius-md);
+	background: var(--segmented-background);
+}
+
+.ox-list-formats a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 28px;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .ox-list-formats i {
 	color: var(--list-formats-color);
-	font-size: 200%;
-	padding: 5px 5px 0px 5px;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.ox-list-formats a:hover {
+	background: var(--element-collection-row-hover-background);
 }
 
 .ox-list-formats a:hover i  {
@@ -1732,9 +1753,14 @@ tr.ox-list-odd, tr.ox-list-pair {
 	text-decoration: none;
 }
 
+.ox-list-formats a.ox-selected-list-format,
+.ox-list-formats a.ox-selected-list-format:hover {
+	background: var(--segmented-active-background);
+	box-shadow: var(--elevation-1);
+}
+
 .ox-selected-list-format i, .ox-selected-list-format:hover i {
-	color: var(--selected-list-format-color);
-	border-bottom: 3px solid var(--selected-list-format-border);
+	color: var(--segmented-active-color);
 }
 
 a.ox-selected-list-format, a.ox-selected-list-format:hover { 
@@ -2802,13 +2828,9 @@ td.ox-list-subheader > div {
 	color: var(--action-hover-color);
 }
 
-.ox-button-bar-button span {
-	margin-left: -2px;
-}
-
 .ox-subcontroller-button .mdi-menu-down {
-	margin: 0px !important; 
-	margin-right: -5px !important;
+	margin: 0px !important;
+	vertical-align: -3px;
 }
 
 .ox-subcontroller-button img {
@@ -2827,6 +2849,7 @@ td.ox-list-subheader > div {
 
 .ox-subcontroller {
 	position: fixed;
+	margin: var(--space-1) 0 0 0;
 	background: var(--subcontroller-background); 
 }
 
@@ -2836,9 +2859,10 @@ td.ox-list-subheader > div {
 }
 
 .ox-subcontroller .ox-button-bar-button a, .ox-subcontroller .ox-button-bar-button a:hover {
-	display: block;
+	display: flex;
 	border: none;
-	padding: 5px 10px 5px 5px;	    
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);	    
 }
 
 div.ox-subcontroller table{
@@ -3073,9 +3097,6 @@ div.ox-subcontroller table{
 	text-decoration: none;
 }
 
-.ox-help { 
-	margin-left: 5px;
-}
 
 .ox-chart-data {
 	margin: -20px 0px 10px 9px;
@@ -3585,6 +3606,28 @@ div[id$="_Index__view"] .ox-list-title {
 	top: auto;
 }
 
+.ox-button-bar .ox-help a, .ox-button-bar .ox-subscribed a,
+.ox-button-bar .ox-unsubscribed a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: var(--radius-md);
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-button-bar .ox-help a:hover, .ox-button-bar .ox-subscribed a:hover,
+.ox-button-bar .ox-unsubscribed a:hover {
+	background: var(--button-bar-button-hover-background);
+	color: var(--button-bar-button-hover-color);
+}
+
+.ox-subscribed i, .ox-unsubscribed i, .ox-button-bar .ox-help i {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
 .ox-subscribed i {
 	color: var(--subscribed-color); 
 }
@@ -3593,12 +3636,8 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--unsubscribed-color);  
 }
 
-.ox-subscribed a:hover i, .ox-unsubscribed a:hover i, .ox-help a:hover i{
-	background: transparent;
-}
-
-.ox-subscribed a:hover i, .ox-unsubscribed a:hover i{
-	color: var(--subscribed-hover-color);
+.ox-subscribed a:hover i, .ox-unsubscribed a:hover i, .ox-button-bar .ox-help a:hover i {
+	color: var(--button-bar-button-hover-color);
 }
 
 .ox-image-link i.mdi-magnify { 

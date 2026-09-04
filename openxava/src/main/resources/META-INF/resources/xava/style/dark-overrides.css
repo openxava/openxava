@@ -34,7 +34,6 @@
 	--module-header-link-hover-color: white;
 
 	/* Button bar */
-	--button-bar-background: var(--my-lightdark);
 	--list-formats-hover-color: white;
 
 	/* Backgrounds & labels */
@@ -87,7 +86,6 @@
 	--warnings-accent: #fbbf24;
 	--infos-accent: #94a3b8;
 
-	--button-bar-shadow: transparent;
 	--shadow: transparent;
 
 	--html-text-button-hover: var(--my-lightdark);
