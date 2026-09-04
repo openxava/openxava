@@ -115,4 +115,4 @@ Tras la revisión visual comparando con Attio/Linear/Notion, se identifican 5 pu
 
 4. ~~**Borde exterior de la lista (card)**~~ ✅ **Hecho** — Eliminado `border: 1px solid var(--frame-border)` de `.ox-list`, ahora `border: none`. Coherente con element collections (que ya tenían `border: none`). Los hairlines internos llegan a ancho completo sin ser recortados.
 
-5. **Paginación / list-info algo plana** — Funciona pero visualmente es plano. En Linear/Attio la paginación es más compacta, con botones pill y el contador de filas en gris muy claro a la derecha.
+5. ~~**Paginación / list-info algo plana**~~ ✅ **Hecho** — Pills compactas con `padding: 2px 8px`, `font-weight: 500`, seleccionada con `accent-soft`. Flechas con ancho fijo 24px, `opacity: 0.3` cuando deshabilitadas (evita layout shift). Select de filas por página borderless con borde en hover/focus. Padding-left alineado con el marco. Todo verticalmente alineado con `vertical-align: middle`.

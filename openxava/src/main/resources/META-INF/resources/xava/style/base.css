@@ -2199,34 +2199,80 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 
-.ox-page-navigation, .ox-page-navigation-selected{
+.ox-page-navigation, .ox-page-navigation-selected {
 	border-radius: var(--radius-full); 
-	padding: 7px 10px 7px 10px;
-	font-weight: bold;
+	padding: 2px 8px;
+	margin: 0 2px;
+	font-weight: 500;
+	color: var(--label-color);
+	transition: background var(--transition-fast);
+}
+
+.ox-page-navigation:hover {
+	background: var(--list-row-hover-background);
 }
 
 .ox-page-navigation-selected {
-	color: var(--page-navigation-selected-color); 
-	background: var(--page-navigation-selected-background);
+	color: var(--accent-color); 
+	background: var(--accent-soft);
+	font-weight: 600;
 }
 
-.ox-page-navigation-arrow {
-	padding: 7px 0px 7px 2px;
+.ox-page-navigation-arrow,
+.ox-page-navigation-arrow-disable {
+	padding: 2px 4px;
 	border-radius: var(--radius-full);
+	color: var(--label-color);
+	cursor: pointer;
+	transition: background var(--transition-fast);
+	display: inline-block;
+	text-align: center;
+	width: 24px;
+	box-sizing: border-box;
+}
+
+.ox-page-navigation-arrow:hover {
+	background: var(--list-row-hover-background);
+}
+
+.ox-page-navigation-arrow a {
+	text-decoration: none;
+	color: inherit;
 }
 
 .ox-first .ox-page-navigation-arrow {
-	padding: 7px 2px 7px 0px;	
+	padding: 2px 4px 2px 2px;	
+}
+
+.ox-page-navigation-arrow i, .ox-page-navigation-arrow-disable i {
+	font-size: 130%; 
+	vertical-align: middle;
 }
 
 
-.ox-page-navigation-arrow i, .ox-page-navigation-arrow-disable i {
-	font-size: 200%; 
-	vertical-align: -5px;
+.ox-page-navigation-arrow-disable {
+	cursor: default;
 }
 
 .ox-page-navigation-arrow-disable i { 
-	visibility: hidden; 
+	opacity: 0.3;
+}
+
+.ox-list-info select:not([multiple]) {
+	border-color: transparent;
+	background-color: transparent;
+	cursor: pointer;
+	vertical-align: middle;
+	transition: border-color var(--transition-fast);
+}
+
+.ox-list-info select:not([multiple]):hover,
+.ox-list-info select:not([multiple]):focus {
+	border-color: var(--frame-border);
+}
+
+.ox-list-info .rows-per-page {
+	vertical-align: middle;
 }
 
 .ox-detail {
@@ -2451,13 +2497,14 @@ td.ox-list-subheader > div {
 }
 
 .ox-list-info {  
-	margin-bottom: 5px;
+	margin-bottom: var(--space-1);
 	font-size: var(--font-size-sm);
 	color: var(--label-color);
 }
 
 .ox-list-info-detail { 
-	padding-right: 20px;
+	padding-right: var(--space-2);
+	padding-left: var(--space-3);
 }
 
 .ox-list-info-detail td:last-child {

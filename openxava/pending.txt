@@ -2,7 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 3c.
-    - Puntos pendientes de pulir en el MD
     - Revisar colecciones.
     - Revisar colecciones calculadas.
     - Revisar propiedades editable.
