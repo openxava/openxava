@@ -2,7 +2,9 @@
 if (dateCalendarEditor == null) var dateCalendarEditor = {};
 
 openxava.addEditorInitFunction(function() {
-    openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
+    if (openxava.language !== 'en') {
+      openxava.getScript(openxava.contextPath + "/xava/editors/flatpickr/" + openxava.language + ".js");
+    }
     if (openxava.browser.htmlUnit) return;
     dateCalendarEditor.readInput = false;
     dateCalendarEditor.enterDate;
