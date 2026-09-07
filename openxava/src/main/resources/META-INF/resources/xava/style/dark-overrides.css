@@ -29,7 +29,6 @@
 
 	/* Module header */
 	--module-header-color: var(--my-silver);
-	--module-header-background: var(--my-dark);
 	--module-header-selected-color: white;
 	--module-header-link-hover-color: white;
 

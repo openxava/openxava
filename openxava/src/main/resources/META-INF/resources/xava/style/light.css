@@ -22,7 +22,7 @@
 
 	/* Module header */
 	--module-header-color: var(--my-black);
-	--module-header-background: white;
+	--module-header-selected-background: white;
 
 	/* Button bar */
 	--list-formats-color: #94a3b8;
