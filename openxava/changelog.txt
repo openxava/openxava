@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Detail view frames (groups, references, collections) restyled to the new design system: flexbox title row instead of floats, semibold title weight matching list headers, compact 20px collapse/expand toggle with muted color, neutral hover pill, accent hover color and focus ring (replacing the oversized icon with negative-margin hacks), icons in frame titles (new collection element, reference actions) sized and aligned consistently, and nested frames rendered border-only with a transparent background to avoid the boxes-inside-boxes effect.
+- New CSS variables for frame customization: --frame-nested-background, --frame-toggle-color, --frame-toggle-hover-color, --frame-toggle-hover-background.
 - Detail view section tabs redesigned to the new design system: transparent tab strip with a hairline bottom border instead of a solid tinted background, accent-colored underline indicator on the active section, muted inactive tabs with a soft hover pill, medium font weight, collection counts rendered as small muted text, 3px focus ring for keyboard navigation, flexbox layout instead of floats, and horizontal scrolling when tabs overflow the available width.
 - New CSS variables for section tabs customization: --section-border, --section-count-color; --section-background now defaults to transparent, --section-hover-color to the text color, --section-hover-background to a neutral tint and --active-section-tab-bottom-color to the accent color.
 

@@ -52,6 +52,10 @@
 	--background: #f8fafc;
 	--color: #0f172a;
 	--frame-border: #e2e8f0;
+	--frame-nested-background: transparent;
+	--frame-toggle-color: var(--action-color);
+	--frame-toggle-hover-color: var(--action-hover-color);
+	--frame-toggle-hover-background: color-mix(in srgb, var(--color) 8%, transparent);
 
 	--application-name-color: var(--color);
 	--module-row-hover-color: var(--color);
@@ -1687,14 +1691,13 @@ tr.ox-list-odd, tr.ox-list-pair {
 }
 
 .ox-frame-title .ox-image-link i {
-	margin-top: -8px;
-	margin-bottom: -8px;
+	font-size: 20px;
+	padding: 2px;
 }
 
 .ox-frame-actions i {
-	font-size: 200%;
+	font-size: 20px;
 	padding: 0;
-	margin: -5px;
 }
 
 .ox-customize-controls i {
@@ -2430,13 +2433,14 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-frame {
-	background: var(--frame-background); 
+	float: left;
+	background: var(--frame-background);
 	border: 1px solid var(--frame-border, transparent);
-	box-shadow: none;	 
+	padding-bottom: var(--space-3);
 }
 
-.ox-frame {
-	float: left;
+.ox-frame .ox-frame {
+	background: var(--frame-nested-background);
 }
 
 #sign_in_box select, #sign_in_box input[type="text"], #sign_in_box input[type="password"] { 
@@ -2449,18 +2453,43 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-frame-title {
-	font-weight: bold;
-	padding-bottom: 7px;
-	min-width: 150px;  
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	font-weight: 600;
+	padding-bottom: var(--space-2);
+	min-width: 150px;
 }
 
-.ox-frame-title a {
-	padding: 2px 0px 2px 0px;
+.ox-frame-title-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
 }
 
 .ox-frame-actions {
-	float: left;
-	margin-right: 3px;
+	order: -1;
+}
+
+.ox-frame-actions a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2px;
+	border-radius: var(--radius-sm);
+	color: var(--frame-toggle-color);
+	text-decoration: none;
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-frame-actions a:hover {
+	color: var(--frame-toggle-hover-color);
+	background: var(--frame-toggle-hover-background);
+}
+
+.ox-frame-actions a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
 
 .ox-sections { 
