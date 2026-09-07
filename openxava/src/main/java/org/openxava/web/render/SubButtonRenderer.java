@@ -64,6 +64,7 @@ public class SubButtonRenderer {
 			Map<String, String> params = new HashMap<>();
 			params.put("action", action.getQualifiedName());
 			params.put("addSpaceWithoutImage", "true");
+			params.put("wrapIcon", "true");
 			params.put("argv", argv);
 			ViewRenderContext buttonCtx = new ViewRenderContext(ctx.getRequest(), ctx.getResponse(), params);
 			w.append(ButtonRenderer.render(buttonCtx));

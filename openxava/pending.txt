@@ -3,9 +3,8 @@ Pending UI8 modernization (tmr)
 
 - Bloque 5
     - Barra de botones, incluidos formato lista, hecha por Kimi.
-        TMR ME QUEDÉ PARA REVISARLO VISUALMENTE:
             * Dark/Light
-            - Subcontraldores
+            * Subcontraldores
             - Responsive
 - Bloque 6
 - Bloque 7
