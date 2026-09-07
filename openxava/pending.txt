@@ -2,12 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 6
-    - Verificar secciones.
-    - Verificar secciones en diálogos.
-    - InvoiceCalculatedDetailsInSectionTest,
-    - CarrierWithSectionsTest
-    - CustomerWithSectionTest
-    - InvoiceNestedSectionsTest
 - Bloque 7
 - Mezclar código desde el master.
 - Suite.

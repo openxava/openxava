@@ -42,6 +42,6 @@ Modernizar secciones (pestañas), marcos y acciones en vista al estilo 2026 (Att
 
 ## Estado
 
-**Secciones:** implementación concluida. Pendiente revisión visual manual en los 3 temas (Auto/Light/Dark), diálogos con secciones y modo phone, más tests (p. ej. `InvoiceCalculatedDetailsInSectionTest`, `CarrierWithSectionsTest`, `CustomerWithSectionTest`).
+**Secciones:** concluidas. Tests pasados y revisión visual realizada en los 3 temas (Auto/Light/Dark), diálogos con secciones y modo phone.
 
 **Pendiente en el bloque:** marcos y acciones en vista.
