@@ -1247,15 +1247,20 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	align-items: flex-end;
 	white-space: nowrap;
 	min-width: 0;
+	overflow: hidden;
+	position: relative;
+	-webkit-mask-image: linear-gradient(to right, black calc(100% - 80px), transparent calc(100% - 8px));
+	mask-image: linear-gradient(to right, black calc(100% - 80px), transparent calc(100% - 8px));
 }
 
 #module_header_right {
 	display: flex;
 	align-items: center;
-	align-self: center;
+	align-self: stretch;
 	gap: var(--space-2);
 	flex-shrink: 0;
 	padding-left: var(--space-3);
+	background: var(--module-header-background);
 }
 
 #module_header_right a {
