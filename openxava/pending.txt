@@ -2,6 +2,7 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 6
+    - TMR ME QUEDÉ PARA EMPEZAR: Acciones en vista
     - Verificar también los iconos de referencias, dentro y fuera del marco.
 - Bloque 7
 - Mezclar código desde el master.
