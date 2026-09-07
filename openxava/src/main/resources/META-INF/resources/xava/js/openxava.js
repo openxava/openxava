@@ -1589,10 +1589,10 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 	var position = document.getElementById(aId).getBoundingClientRect(); // Because jquery position() does not work well
 	// If change below code verify that subcontrollers in mobile are shown inside screen when on bottom
 	var positionPopup = document.getElementById(id).getBoundingClientRect();
-	var buttonHeight = $('#'+buttonId).outerHeight(true);
-	var popupBottom = position.top + buttonHeight + positionPopup.height;
+	var buttonBottom = position.bottom;
+	var popupBottom = buttonBottom + positionPopup.height;
 	var top = popupBottom > window.innerHeight?
-		position.top - $('#'+id).outerHeight(true):position.top + buttonHeight;	
+		position.top - $('#'+id).outerHeight(true):buttonBottom;	
 	$('#'+id).css({
 		'top': top, 
 		'left': position.left
