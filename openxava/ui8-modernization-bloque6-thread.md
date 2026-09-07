@@ -66,6 +66,6 @@ Modernizar secciones (pestañas), marcos y acciones en vista al estilo 2026 (Att
 
 **Secciones:** concluidas. Tests pasados y revisión visual realizada en los 3 temas (Auto/Light/Dark), diálogos con secciones y modo phone.
 
-**Marcos:** implementados. Pendiente de pasar los tests y revisión visual manual (grupos, referencias, colecciones, marcos anidados, marcos colapsados, diálogos y modo phone).
+**Marcos:** concluidos. Revisión visual aprobada por el usuario.
 
 **Pendiente en el bloque:** acciones en vista.
