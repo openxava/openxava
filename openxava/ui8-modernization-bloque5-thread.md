@@ -30,6 +30,14 @@ Modernizar la barra de botones superior y el selector de formato de lista (estil
 - Dropdown: separación de 4px del botón (antes 14px), items como menú moderno (flex, `--radius-sm`, accent-soft en hover), fondo `--background`. Mantiene `--radius-md`/`--elevation-2`/-border del autocomplete (Bloque 2d).
 - Botón abierto (`ox-subcontroller-select`): fondo `--action-hover-background`.
 
+### Botones inferiores (`.ox-bottom-buttons`, detalle y diálogos)
+- Mismo componente para detalle y diálogos: comparten diseño y solo difieren en espaciado (las reglas `.ui-dialog` existentes).
+- Botones: radio `--radius-md` (era pill `--radius-full`), peso 500 (era bold), padding `9px 16px` (~38px de alto, igualando los campos del Bloque 2b), anillo de foco de 3px como la barra.
+- Acción primaria (por defecto, ENTER): relleno plano `--accent-color` + texto `--accent-contrast-color`, hover plano `--accent-color-hover` (eliminado el gradiente de oscurecimiento y la sombra en hover). Tokens `--default-action-button-*` centralizados en `base.css` con el acento, válidos también para dark (antes dark usaba `--my-blue`).
+- Acciones secundarias: ghost `--action-color` con hover `--accent-soft` + acento (mismo patrón que la barra superior); la acción de borrado sigue con hover rojo.
+- Layout flex con `flex-wrap` y `gap: var(--space-2)` en lugar de márgenes; margen superior e izquierdo/derecho `var(--space-3) var(--space-4) 0` para alinear con los marcos/campos de `.ox-detail`. Para diálogos, welcome y sign-in el margen se neutraliza (`margin: 0`) para respetar sus propios contenedores.
+- Eliminados los tokens muertos `--default-action-button-shadow` y `--default-action-button-hover-shadow`.
+
 ---
 
 ## Tokens CSS
@@ -42,8 +50,9 @@ Modernizar la barra de botones superior y el selector de formato de lista (estil
 - `--highlight-bar-action-background/color/hover-*`: acento (era action-color gris/negro)
 - `--subcontroller-background`: `--background`; `--subcontroller-select-background`: `--action-hover-background`
 - `--module-header-selected-background`: `color-mix(... 6%)` (desacoplado de la barra; las pestañas se modernizan en su propio item de este bloque)
+- `--default-action-button-background/-color/-hover-*`: `var(--accent-color)` + `var(--accent-contrast-color)` + `var(--accent-color-hover)` plano, centralizados en base.css (antes: fondo por tema — acento en light / `--my-blue` en dark —, color `--background`, hover con gradiente de oscurecimiento)
 
-**Eliminados:** `--button-bar-shadow`
+**Eliminados:** `--button-bar-shadow`, `--default-action-button-shadow`, `--default-action-button-hover-shadow`
 
 ---
 
@@ -51,11 +60,17 @@ Modernizar la barra de botones superior y el selector de formato de lista (estil
 
 | Archivo | Cambio |
 |---|---|
-| `base.css` | Tokens + rework completo de `.ox-button-bar`, botones, list-formats, subcontrolador, ayuda/suscripción |
-| `light.css` | Eliminado `--button-bar-background` (centralizado en base.css) |
-| `dark-overrides.css` | Eliminados `--button-bar-background` y `--button-bar-shadow` |
-| `changelog.txt` | 4 entradas nuevas |
+| `base.css` | Tokens + rework completo de `.ox-button-bar`, botones, list-formats, subcontrolador, ayuda/suscripción + rework de `.ox-bottom-buttons` |
+| `light.css` | Eliminados `--button-bar-background` y `--default-action-button-*` (centralizados en base.css) |
+| `dark-overrides.css` | Eliminados `--button-bar-background`, `--button-bar-shadow` y `--default-action-button-*` |
+| `changelog.txt` | 6 entradas nuevas |
 
 ## Estado
 
-Implementación concluida. **Pendiente:** revisión visual en los 3 temas (Auto/Light/Dark) y modo phone + resto del bloque (botones inferiores, pestañas de módulos) antes de pasar los tests y fusionar.
+Implementación concluida y revisión visual realizada:
+
+- **Barra de botones superior**: terminada y probada en los 3 temas.
+- **Selector de formato de lista**: terminado y probado en los 3 temas.
+- **Subcontroladores**: alineación de iconos/imágenes/etiquetas corregida y verificada (Invoice → InvoicePrint).
+
+**Pendiente:** resto del bloque (pestañas de módulos) y revisión visual de los botones inferiores en los 3 temas y modo phone antes de pasar los tests y fusionar.

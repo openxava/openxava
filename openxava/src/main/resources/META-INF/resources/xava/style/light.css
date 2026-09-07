@@ -40,8 +40,6 @@
 	--action-color: var(--my-gray);
 	--action-hover-color: var(--accent-color);
 	--action-hover-background: var(--accent-soft);
-	--default-action-button-background: var(--accent-color);
-	--default-action-button-hover-background: var(--accent-color-hover);
 
 	/* Editors */
 	--required-editor-border: var(--input-border);

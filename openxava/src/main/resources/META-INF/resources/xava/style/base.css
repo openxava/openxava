@@ -109,15 +109,10 @@
 	--subcontroller-shadow: var(--shadow);
 	--icon-delete-hover-color: red;
 		
-	--default-action-button-color: var(--background);
-	--default-action-button-shadow: var(--default-action-button-background);
-	--default-action-button-hover-color: white;
-	--default-action-button-hover-background: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0.3),
-			rgba(0, 0, 0, 0.3)
-		) var(--default-action-button-background);
-	--default-action-button-hover-shadow: var(--default-action-button-background);
+	--default-action-button-background: var(--accent-color);
+	--default-action-button-color: var(--accent-contrast-color);
+	--default-action-button-hover-color: var(--accent-contrast-color);
+	--default-action-button-hover-background: var(--accent-color-hover);
 	--delete-button-color: var(--action-color);
 	--delete-button-hover-color: red;
 	--delete-button-hover-background: var(--action-hover-background);
@@ -1803,12 +1798,12 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 }
 
 input[type="button"]  { 
-	padding: 10px 15px 10px 15px;
+	padding: 9px 16px;
 	margin-right: 4px;
 	margin-bottom: 8px;	
-	font-weight: bold;
+	font-weight: 500;
 	text-decoration: none;
-	border-radius: var(--radius-full);  
+	border-radius: var(--radius-md);  
 	cursor: pointer;
 	font-size: var(--font-size-md);
 	transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -1826,8 +1821,8 @@ input[type="button"]:hover {
 }
 
 input[type="button"]:focus-visible { 
-	outline: 2px solid var(--focus-ring-color);
-	outline-offset: 2px;
+	outline: 3px solid var(--focus-ring-color);
+	outline-offset: 1px;
 }
 
 .ox-bottom-buttons input:nth-of-type(2), 
@@ -1842,7 +1837,6 @@ input[type="button"]:focus-visible {
 .ox-discussion-post-button input:nth-of-type(1):hover {
 	color: var(--default-action-button-hover-color); 
 	background: var(--default-action-button-hover-background);
-	box-shadow: var(--elevation-1); 
 }
 
 input[type="button"] {
@@ -2562,13 +2556,22 @@ td.ox-list-subheader > div {
 }
 
 .ox-bottom-buttons {
-	padding-left: 11px;
-	margin-right: 17px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-2);
+	margin: var(--space-3) var(--space-4) 0;
 	position: relative;
 }
 
-.ui-dialog .ox-bottom-buttons {
-	margin-left: 1px; /* To adjust list and collections width */
+.ui-dialog .ox-bottom-buttons,
+#welcome .ox-bottom-buttons,
+#sign_in_box .ox-bottom-buttons {
+	margin: 0;
+}
+
+.ox-bottom-buttons input[type="button"] {
+	margin: 0;
 }
 
 .ui-dialog .ox-view {
@@ -2977,13 +2980,12 @@ div.ox-subcontroller table{
 }
 
 #welcome .ox-bottom-buttons {
-	text-align: center;
+	justify-content: center;
 }
 
 #welcome .ox-bottom-buttons input {
 	min-width: 240px;
 	font-size: var(--font-size-lg);
-	margin-left: 5px;
 }
 
 .feature-image {
