@@ -152,11 +152,13 @@
 	--shadow: gray;
 	
 	--section-color: var(--action-color);
-	--section-background: var(--frame-background);
-	--section-hover-color: var(--action-hover-color);
-	--section-hover-background: var(--action-hover-background);
+	--section-background: transparent;
+	--section-border: var(--frame-border);
+	--section-hover-color: var(--color);
+	--section-hover-background: color-mix(in srgb, var(--color) 6%, transparent);
 	--active-section-tab-color: var(--color);
-	--active-section-tab-bottom-color: var(--color);
+	--active-section-tab-bottom-color: var(--accent-color);
+	--section-count-color: var(--label-color);
 	
 	--dialog-background: var(--background);
 	--dialog-border: var(--frame-border);
@@ -2469,6 +2471,27 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	margin: var(--space-2) calc(-1 * var(--space-4)) var(--space-4) calc(-1 * var(--space-4));   
 	padding: var(--space-2) var(--space-4) 0 0; 
 	background: var(--section-background);
+	border-bottom: 1px solid var(--section-border);
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+
+.ox-section > table, .ox-section > table > tbody, .ox-section > table > tbody > tr, .ox-section > table > tbody > tr > td {
+	display: flex;
+}
+
+.ox-section > table > tbody > tr > td {
+	gap: 2px;
+	align-items: flex-end;
+}
+
+.ox-section td > span {
+	border-bottom: 2px solid transparent;
+	flex-shrink: 0;
+}
+
+.ox-section td > span.ox-active {
+	border-bottom-color: var(--active-section-tab-bottom-color);
 }
 
 .ui-dialog .ox-section {
@@ -2477,7 +2500,19 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 
 .ox-section a, .ui-dialog .ox-section a {
 	color: var(--section-color);
-	display: inline-block;
+}
+
+.ox-section a.ox-section-link, .ox-active .ox-section-tab {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	padding: 6px 12px; 
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-section a.ox-section-link {
+	border-top-left-radius: var(--radius-md);
+	border-top-right-radius: var(--radius-md);
 }
 
 .ox-section a:hover {
@@ -2486,9 +2521,19 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	background: var(--section-hover-background);
 }
 
-.ox-section a, .ox-active .ox-section-tab {
-	padding: 7px 11px 7px 11px; 
-	transition: color var(--transition-fast), background-color var(--transition-fast);
+.ox-section a.ox-section-link:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+.ox-section-count {
+	color: var(--section-count-color);
+	font-size: var(--font-size-sm);
+	font-weight: 400;
+}
+
+.ox-section-count:empty {
+	display: none;
 }
 
 .ox-flow-layout .ox-section {
@@ -2501,14 +2546,11 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-section-tab {	
-	font-weight: bold;
-	float: left;
-	border-bottom: 3px solid transparent;
+	font-weight: 500;
 }
 
 .ox-active .ox-section-tab {
 	color: var(--active-section-tab-color);	
-	border-bottom-color: var(--active-section-tab-bottom-color);
 }
 
 .ox-total-cell {
