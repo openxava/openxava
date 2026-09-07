@@ -1,6 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Module navigation tabs (recently opened modules) redesigned with a browser-tab metaphor, visually distinct from data section tabs: the header strip is now a subtle tinted chrome surface, the active tab uses the content surface color and seamlessly merges with the button bar below, inactive tabs are muted with a soft hover pill, the close (X) icon is a clean circular button, and the header uses a flexbox layout instead of floats and negative-margin hacks.
+- New CSS variables for module tab customization: --module-header-unselected-color, --module-header-tab-hover-background, --module-header-close-hover-background; --module-header-background now defaults to a subtle chrome tint and --module-header-selected-background to the content surface.
+- Bottom action buttons (detail mode and dialogs) redesigned to the new design system: 8px corner radius instead of full pill, medium font weight, ~38px height matching the input fields, flat accent-colored primary action (the default ENTER action) with a plain darker hover, ghost secondary actions with accent-soft hover, 3px focus ring, and flexbox layout with gap instead of margins, flush-left aligned with the form fields.
+- CSS variables --default-action-button-* centralized in base.css with accent-color defaults (now also used by the dark theme, consistent with the top bar primary action); removed unused --default-action-button-shadow and --default-action-button-hover-shadow.
+- Top button bar redesigned to the new design system: flexbox layout (no floats), hairline bottom border instead of shadow, ghost pill buttons (8px radius, medium font weight, generous padding), consistent hover and focus-ring states, and a red hover for the delete action.
+- List format selector (List/Charts/Calendar, etc.) restyled as a modern segmented control, visually consistent with the calendar view switcher.
+- Help and email subscription icons in the button bar are now uniform square icon buttons with pill hover; the subcontroller dropdown (e.g. "My reports") uses modern menu styling.
+- New CSS variables: --segmented-background, --segmented-active-background, --segmented-active-color; removed --button-bar-shadow.
 - Global AJAX loading indicator redesigned from the GMail-style "Loading..." pill with spinner to a thin 3px top progress bar with shimmer animation (Linear/YouTube style): appears after a 200ms delay to avoid flicker on fast operations, stays visible for a minimum of 400ms, fades out smoothly via CSS opacity transition, respects prefers-reduced-motion, and uses the accent color token for automatic light/dark theme support.
 - Removed dead code: #xava_loading2 fallback element and its markup in ModulePageRenderer (Style.isFixedPositionSupported() always returns true).
 - Removed unused CSS variable --xava-loading-color (the new bar has no text content).

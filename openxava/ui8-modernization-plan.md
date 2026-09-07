@@ -163,11 +163,11 @@ Diferencias intencionadas a marcar visualmente:
 
 ## Bloque 5 — Botones y navegación (`ui-buttons`)
 
-- [ ] **Barra de botones**: revisar y modernizar la barra de botones superior (acciones de módulo). Espaciados, altura, hover, focus ring, alineación coherente con los tokens del sistema de diseño.
-- [ ] **Botones de abajo**: revisar y modernizar los botones inferiores (acciones de detalle/formulario). Mismos criterios que la barra superior.
-- [ ] **Pestañas de módulos**: modernizar las pestañas de navegación entre módulos. Estilo coherente con los tabs y pills ya definidos.
-- [ ] **Botones para cambio de formato de lista**: modernizar los botones de cambio entre formatos de lista (List/Tarjetas/Gráficos/Calendario). Estilo segmentado o toggle coherente con el view-switcher del calendario (Bloque 3b).
-- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+- [x] **Barra de botones**: barra superior modernizada — flexbox sin floats, hairline inferior en lugar de sombra, botones ghost pill (`--radius-md`, peso 500), hover/focus ring estándar, "Nuevo" como acción primaria con acento, hover rojo en "Borrar", iconos derecha (ayuda/suscripción) como botones cuadrados uniformes y dropdown de subcontrolador con estilo de menú moderno.
+- [x] **Botones de abajo**: botones inferiores (detalle y diálogos) modernizados — radio 8px (era pill), peso 500, altura ~38px alineada con los campos, primaria con acento plano y hover plano, secundarias ghost con hover accent-soft, anillo de foco 3px, layout flex con gap alineado a la izquierda con los campos, tokens `--default-action-button-*` centralizados en `base.css` (acento también en dark).
+- [x] **Pestañas de módulos**: metáfora de pestaña de navegador — tira con fondo chrome tintado, pestaña activa con superficie de contenido fusionada con la barra de botones, inactivas muted con pill de hover, X de cierre como botón circular limpio, encabezado en flexbox sin floats ni hacks, y difuminado en el borde derecho para no tapar los iconos.
+- [x] **Botones para cambio de formato de lista**: formatos de lista como segmented control con tokens `--segmented-*` compartidos con el view-switcher del calendario (Bloque 3b).
+- [x] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ## Bloque 6 — Secciones, marcos y acciones en vista (`ui-sections`)
 

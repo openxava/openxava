@@ -78,22 +78,29 @@
 	--module-list-hide-show-background: var(--background);
 	--module-list-hide-show-hover-color: var(--accent-color);
 	
+	--module-header-background: color-mix(in srgb, var(--color) 4%, var(--background));
 	--module-header-link-color: var(--module-header-color);
 	--module-header-icon-color: var(--module-header-color);
+	--module-header-unselected-color: color-mix(in srgb, var(--module-header-color) 72%, transparent);
+	--module-header-tab-hover-background: color-mix(in srgb, var(--color) 6%, transparent);
+	--module-header-close-hover-background: color-mix(in srgb, var(--color) 12%, transparent);
 	--module-header-selected-color: var(--selected-list-format-color);
-	--module-header-selected-background: var(--button-bar-background);
+	--module-header-selected-background: var(--background);
 	--sign-out-color: white;
 	--sign-in-a-hover-color: white;
 
+	--button-bar-background: var(--module-header-selected-background);
 	--button-bar-button-color: var(--action-color);
 	--button-bar-button-hover-background: var(--action-hover-background);
 	--button-bar-button-hover-color: var(--action-hover-color);
-	--button-bar-button-hover-border: white;
-	--highlight-bar-action-hover-color: white; 
-	--highlight-bar-action-hover-background: var(--default-action-button-hover-background);
-	--highlight-bar-action-color: var(--background);
-	--button-bar-shadow: lightgray;
-	--subcontroller-select-background: var(--background);
+	--button-bar-button-hover-border: transparent;
+	--highlight-bar-action-hover-color: var(--accent-contrast-color); 
+	--highlight-bar-action-hover-background: var(--accent-color-hover);
+	--highlight-bar-action-color: var(--accent-contrast-color);
+	--subcontroller-select-background: var(--action-hover-background);
+	--segmented-background: color-mix(in srgb, var(--color) 6%, transparent);
+	--segmented-active-background: var(--background);
+	--segmented-active-color: var(--color);
 	--subscribed-color: var(--color);
 	--unsubscribed-color: var(--list-formats-color);
 	--subscribed-hover-color: var(--list-formats-hover-color);	
@@ -101,20 +108,15 @@
 	--selected-list-format-border: var(--color);
 	--selected-chart-type-icon-color: var(--color);
 	--selected-chart-type-icon-border-bottom: var(--color);
-	--highlight-bar-action-background: var(--action-color);
-	--subcontroller-background: var(--button-bar-background);
+	--highlight-bar-action-background: var(--accent-color);
+	--subcontroller-background: var(--background);
 	--subcontroller-shadow: var(--shadow);
 	--icon-delete-hover-color: red;
 		
-	--default-action-button-color: var(--background);
-	--default-action-button-shadow: var(--default-action-button-background);
-	--default-action-button-hover-color: white;
-	--default-action-button-hover-background: linear-gradient(
-			to top,
-			rgba(0, 0, 0, 0.3),
-			rgba(0, 0, 0, 0.3)
-		) var(--default-action-button-background);
-	--default-action-button-hover-shadow: var(--default-action-button-background);
+	--default-action-button-background: var(--accent-color);
+	--default-action-button-color: var(--accent-contrast-color);
+	--default-action-button-hover-color: var(--accent-contrast-color);
+	--default-action-button-hover-background: var(--accent-color-hover);
 	--delete-button-color: var(--action-color);
 	--delete-button-hover-color: red;
 	--delete-button-hover-background: var(--action-hover-background);
@@ -288,9 +290,9 @@
 	--calendar-button-color: var(--action-color);
 	--calendar-button-hover-color: var(--action-hover-color);
 	--calendar-button-hover-background: var(--action-hover-background);
-	--calendar-view-switcher-background: color-mix(in srgb, var(--color) 6%, transparent);
-	--calendar-view-switcher-active-background: var(--background);
-	--calendar-view-switcher-active-color: var(--color);
+	--calendar-view-switcher-background: var(--segmented-background);
+	--calendar-view-switcher-active-background: var(--segmented-active-background);
+	--calendar-view-switcher-active-color: var(--segmented-active-color);
 	--calendar-event-accent: var(--accent-color);
 	--calendar-event-background: var(--accent-soft);
 	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 16%, transparent);
@@ -1211,18 +1213,20 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	min-width: 0;
 }
 
- #module_header {
-	padding: var(--space-3) 0px var(--space-2) var(--space-4);
-	font-size: var(--font-size-lg);
-	height: 22px;
+#module_header {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	padding: var(--space-2) var(--space-4) 0;
+	font-size: var(--font-size-md);
 	color: var(--module-header-color);
 	background: var(--module-header-background);
 	overflow: hidden;
+	white-space: nowrap;
 }
 
 #module_header a { 
  	color: var(--module-header-link-color);
- 	padding: 10px; 
 }
 
 #module_header a:hover { 
@@ -1238,44 +1242,37 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 	padding: 0;
 }
 
-#module_header .unselected {
-	filter: invert(20%);
-}
-
-#module_header .unselected:hover {
-	filter: none;
-}
-
-#module_header .selected:hover {
-	color: var(--module-header-selected-color);
-}
-
 #module_header_left {
-	width: 10px;
-	float: left;	
-	white-space: nowrap;
 	display: flex;
+	align-items: flex-end;
+	white-space: nowrap;
+	min-width: 0;
+	overflow: hidden;
+	position: relative;
+	-webkit-mask-image: linear-gradient(to right, black calc(100% - 80px), transparent calc(100% - 8px));
+	mask-image: linear-gradient(to right, black calc(100% - 80px), transparent calc(100% - 8px));
 }
 
 #module_header_right {
-	position: relative;
-	float: right;
+	display: flex;
+	align-items: center;
+	align-self: stretch;
+	gap: var(--space-2);
+	flex-shrink: 0;
+	padding-left: var(--space-3);
 	background: var(--module-header-background);
-	margin-top: -13px; 
-	height: 21px;
-	padding: 11px 11px 11px 20px;
-	background-image: linear-gradient(to left, 
-	    var(--module-header-background), 
-	    var(--module-header-background), 
-	    var(--module-header-background), 
-	    var(--module-header-background),
-	    var(--module-header-background),
-	    transparent);
+}
+
+#module_header_right a {
+	display: inline-flex;
+	align-items: center;
+	padding: var(--space-1);
 }
 
 #module_extended_title {
-	font-weight: bold;
-	padding-right: 4px!important;
+	font-weight: 600;
+	align-self: center;
+	padding-right: var(--space-2);
 }
 
 #application_title { 
@@ -1308,9 +1305,24 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 }
 
 .ox-button-bar {
-	padding: var(--space-3) var(--space-4) var(--space-4) var(--space-4); 
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: var(--space-4);
+	padding: var(--space-2) var(--space-4); 
 	background: var(--button-bar-background);
-	box-shadow: var(--elevation-1); 
+	border-bottom: 1px solid var(--frame-border);
+}
+
+.ox-button-bar > div {
+	display: flex;
+	align-items: center;
+}
+
+.ox-button-bar > div > span {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
 }
 
 .ox-button-bar-container {
@@ -1335,37 +1347,26 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 .ox-button-bar .ox-button-bar-button a,  
 .ox-collection-list-actions .ox-button-bar-button a {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
 	border: 1px solid transparent; 
-	font-weight: bold;
+	font-weight: 500;
 	text-decoration: none;
-	white-space: nowrap;  
+	white-space: nowrap;
+	border-radius: var(--radius-md);
+	transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);  
 }
 
 .ox-button-bar .ox-button-bar-button a {  
-	padding: 6px 4px 6px 6px; 
+	padding: 6px var(--space-3); 
 }
 
 .ox-button-bar .ox-button-bar-button a img, 
 .ox-collection-list-actions .ox-button-bar-button a img {
-	vertical-align: text-top;  
+	vertical-align: middle;  
 	max-height: 16px;
 } 
-
-.ox-button-bar .ox-button-bar-button a img {
-	padding-left: 7px;
-} 
-
-.ox-button-bar > div:first-child > span:first-child {
-	 float: left;
-}
-
-.ox-button-bar > div:last-child > span:first-child {
-	 float: right;
-}
-
-.ox-button-bar > div:last-child > span:first-child > span:first-child {
-	 float: left;
-}
 
 @media only screen and (max-width: 870px) {
 	.ox-button-bar .ox-action-label {
@@ -1375,7 +1376,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 		display: inline;
 	}
 	.ox-button-bar .ox-button-bar-button a {  
-        padding-left: 4px;
+        padding: 6px;
 	}
 }
 
@@ -1469,14 +1470,6 @@ i, .ox-icon i.mdi-close-circle,
 }
 
 
-.ox-button-bar .ox-button-bar-button a, 
-.ox-collection-list-actions .ox-button-bar-button a 
-{
-	border: 1px transparent;
-	margin: 1px; 
-	border-radius: var(--radius-full);
-	transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
-}
 
 .ox-list-mode .ox-button-bar a[id*="new"], .ox-list-mode .ox-button-bar a[id*="new"] i,
 .ox-collection-list-actions > span:nth-of-type(1) a, 
@@ -1529,11 +1522,25 @@ i.module-loading  {
 
 .ox-button-bar .ox-button-bar-button a:hover, 
 .ox-collection-list-actions .ox-button-bar-button a:hover, 
-.ox-subcontroller-select a, .ox-list-formats i:hover,
 .ox-collection-list-actions a:hover i {   
 	color: var(--button-bar-button-hover-color);
 	background: var(--button-bar-button-hover-background);
 	border-color: var(--button-bar-button-hover-border);
+}
+
+.ox-button-bar .ox-button-bar-button a:focus-visible, 
+.ox-collection-list-actions .ox-button-bar-button a:focus-visible,
+.ox-list-formats a:focus-visible,
+.ox-button-bar .ox-help a:focus-visible,
+.ox-button-bar .ox-subscribed a:focus-visible,
+.ox-button-bar .ox-unsubscribed a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+.ox-button-bar .ox-button-bar-button a[id*="delete"]:hover,
+.ox-button-bar .ox-button-bar-button a[id*="delete"]:hover i {
+	color: var(--delete-button-hover-color);
 }
 
 i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
@@ -1547,14 +1554,6 @@ i:hover, .ox-icon i.mdi-plus:hover, .ox-icon i.mdi-close-circle:hover,
 	color: var(--action-hover-color); 
 }
 
-.ox-button-bar-button a span {
-	padding: 4px;
-}
-
-
-.ox-button-bar .ox-button-bar-button a {
-	vertical-align: middle;  
-} 
 
 i {
 	vertical-align: -2px;  
@@ -1709,18 +1708,34 @@ tr.ox-list-odd, tr.ox-list-pair {
 	margin-right: -1px;
 }
 
-.ox-button-bar .ox-button-bar-button i, .ox-collection-list-actions i {
-	margin-left: 5px; 
-}
 
 .ox-list-formats {
-	margin-right: 5px; 
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 2px;
+	border-radius: var(--radius-md);
+	background: var(--segmented-background);
+}
+
+.ox-list-formats a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 28px;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
 .ox-list-formats i {
 	color: var(--list-formats-color);
-	font-size: 200%;
-	padding: 5px 5px 0px 5px;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+.ox-list-formats a:hover {
+	background: var(--element-collection-row-hover-background);
 }
 
 .ox-list-formats a:hover i  {
@@ -1732,9 +1747,14 @@ tr.ox-list-odd, tr.ox-list-pair {
 	text-decoration: none;
 }
 
+.ox-list-formats a.ox-selected-list-format,
+.ox-list-formats a.ox-selected-list-format:hover {
+	background: var(--segmented-active-background);
+	box-shadow: var(--elevation-1);
+}
+
 .ox-selected-list-format i, .ox-selected-list-format:hover i {
-	color: var(--selected-list-format-color);
-	border-bottom: 3px solid var(--selected-list-format-border);
+	color: var(--segmented-active-color);
 }
 
 a.ox-selected-list-format, a.ox-selected-list-format:hover { 
@@ -1777,12 +1797,12 @@ a.ox-selected-list-format, a.ox-selected-list-format:hover {
 }
 
 input[type="button"]  { 
-	padding: 10px 15px 10px 15px;
+	padding: 9px 16px;
 	margin-right: 4px;
 	margin-bottom: 8px;	
-	font-weight: bold;
+	font-weight: 500;
 	text-decoration: none;
-	border-radius: var(--radius-full);  
+	border-radius: var(--radius-md);  
 	cursor: pointer;
 	font-size: var(--font-size-md);
 	transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
@@ -1800,8 +1820,8 @@ input[type="button"]:hover {
 }
 
 input[type="button"]:focus-visible { 
-	outline: 2px solid var(--focus-ring-color);
-	outline-offset: 2px;
+	outline: 3px solid var(--focus-ring-color);
+	outline-offset: 1px;
 }
 
 .ox-bottom-buttons input:nth-of-type(2), 
@@ -1816,7 +1836,6 @@ input[type="button"]:focus-visible {
 .ox-discussion-post-button input:nth-of-type(1):hover {
 	color: var(--default-action-button-hover-color); 
 	background: var(--default-action-button-hover-background);
-	box-shadow: var(--elevation-1); 
 }
 
 input[type="button"] {
@@ -2536,13 +2555,22 @@ td.ox-list-subheader > div {
 }
 
 .ox-bottom-buttons {
-	padding-left: 11px;
-	margin-right: 17px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-2);
+	margin: var(--space-3) var(--space-4) 0;
 	position: relative;
 }
 
-.ui-dialog .ox-bottom-buttons {
-	margin-left: 1px; /* To adjust list and collections width */
+.ui-dialog .ox-bottom-buttons,
+#welcome .ox-bottom-buttons,
+#sign_in_box .ox-bottom-buttons {
+	margin: 0;
+}
+
+.ox-bottom-buttons input[type="button"] {
+	margin: 0;
 }
 
 .ui-dialog .ox-view {
@@ -2802,13 +2830,9 @@ td.ox-list-subheader > div {
 	color: var(--action-hover-color);
 }
 
-.ox-button-bar-button span {
-	margin-left: -2px;
-}
-
 .ox-subcontroller-button .mdi-menu-down {
-	margin: 0px !important; 
-	margin-right: -5px !important;
+	margin: 0px !important;
+	vertical-align: -3px;
 }
 
 .ox-subcontroller-button img {
@@ -2827,6 +2851,7 @@ td.ox-list-subheader > div {
 
 .ox-subcontroller {
 	position: fixed;
+	margin: var(--space-1) 0 0 0;
 	background: var(--subcontroller-background); 
 }
 
@@ -2836,9 +2861,33 @@ td.ox-list-subheader > div {
 }
 
 .ox-subcontroller .ox-button-bar-button a, .ox-subcontroller .ox-button-bar-button a:hover {
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
 	border: none;
-	padding: 5px 10px 5px 5px;	    
+	padding: var(--space-2) var(--space-3);
+	border-radius: var(--radius-sm);	    
+}
+
+.ox-subcontroller .ox-button-bar-button a .ox-button-bar-button-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.5em;
+	height: 1.5em;
+	flex-shrink: 0;
+}
+
+.ox-subcontroller .ox-button-bar-button a .ox-button-bar-button-icon i {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+}
+
+.ox-subcontroller .ox-button-bar-button a .ox-button-bar-button-icon img {
+	max-width: 1.5em;
+	max-height: 1.5em;
 }
 
 div.ox-subcontroller table{
@@ -2930,13 +2979,12 @@ div.ox-subcontroller table{
 }
 
 #welcome .ox-bottom-buttons {
-	text-align: center;
+	justify-content: center;
 }
 
 #welcome .ox-bottom-buttons input {
 	min-width: 240px;
 	font-size: var(--font-size-lg);
-	margin-left: 5px;
 }
 
 .feature-image {
@@ -3073,9 +3121,6 @@ div.ox-subcontroller table{
 	text-decoration: none;
 }
 
-.ox-help { 
-	margin-left: 5px;
-}
 
 .ox-chart-data {
 	margin: -20px 0px 10px 9px;
@@ -3585,6 +3630,28 @@ div[id$="_Index__view"] .ox-list-title {
 	top: auto;
 }
 
+.ox-button-bar .ox-help a, .ox-button-bar .ox-subscribed a,
+.ox-button-bar .ox-unsubscribed a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: var(--radius-md);
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-button-bar .ox-help a:hover, .ox-button-bar .ox-subscribed a:hover,
+.ox-button-bar .ox-unsubscribed a:hover {
+	background: var(--button-bar-button-hover-background);
+	color: var(--button-bar-button-hover-color);
+}
+
+.ox-subscribed i, .ox-unsubscribed i, .ox-button-bar .ox-help i {
+	font-size: 18px;
+	vertical-align: middle;
+}
+
 .ox-subscribed i {
 	color: var(--subscribed-color); 
 }
@@ -3593,12 +3660,8 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--unsubscribed-color);  
 }
 
-.ox-subscribed a:hover i, .ox-unsubscribed a:hover i, .ox-help a:hover i{
-	background: transparent;
-}
-
-.ox-subscribed a:hover i, .ox-unsubscribed a:hover i{
-	color: var(--subscribed-hover-color);
+.ox-subscribed a:hover i, .ox-unsubscribed a:hover i, .ox-button-bar .ox-help a:hover i {
+	color: var(--button-bar-button-hover-color);
 }
 
 .ox-image-link i.mdi-magnify { 
@@ -3789,8 +3852,9 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 #module_header_menu_button {
-	padding-right: 4px;
-	padding-top: 0px!important;
+	align-self: center;
+	padding-right: var(--space-2);
+	cursor: pointer;
 }
 
 .xava_coordinates {
@@ -3842,42 +3906,69 @@ a[data-action="Collection.previous"] {
   margin-right: 35px;
 }
 
-.module-header-tab .close-icon.unselected-module {
-  right: 5px;
-}
-
-.module-header-tab .close-icon {
-  cursor: pointer;
-  top: 1px;
-  position: relative;
-}
-
-.close-icon:hover::after {
-  content: '';
-  position: absolute;
-  transform: translate(-95%, -5%);
-  width: 110%; 
-  height: 110%; 
-  border-radius: 50%; 
-  background-color: rgba(128, 128, 128, 0.5); 
-  transition: background-color 0.3s ease; 
-}
-
 .module-header-tab {
-    transition: opacity 0.5s ease; 
-    opacity: 1; 
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+	margin-right: var(--space-1);
+	padding: 7px var(--space-2) 7px var(--space-3);
+	border-top-left-radius: var(--radius-md);
+	border-top-right-radius: var(--radius-md);
+	transition: background-color var(--transition-fast), opacity 0.5s ease;
+}
+
+.module-header-tab:has(> .selected) {
+	background: var(--module-header-selected-background);
+	color: var(--module-header-selected-color);
+	font-weight: 500;
+}
+
+.module-header-tab:not(:has(> .selected)):hover {
+	background: var(--module-header-tab-hover-background);
 }
 
 .module-header-tab.hidden {
-    opacity: 0; 
+	opacity: 0;
 }
 
 .module-header-tab .selected {
-	background: var(--module-header-selected-background);
-	color: var(--module-header-selected-color);
-	border-top-left-radius: var(--radius-lg);
-	border-top-right-radius: var(--radius-lg);
-	padding: 10px 10px 11px 10px; 
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
+}
+
+#module_header .module-header-tab > a {
+	color: var(--module-header-unselected-color);
+	text-decoration: none;
+	transition: color var(--transition-fast);
+}
+
+#module_header .module-header-tab:hover > a {
+	color: var(--module-header-color);
+}
+
+.module-header-tab a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+	border-radius: var(--radius-sm);
+}
+
+.module-header-tab .close-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	font-size: 16px;
+	color: var(--module-header-unselected-color);
+	cursor: pointer;
+	transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.module-header-tab .close-icon:hover {
+	background: var(--module-header-close-hover-background);
+	color: var(--module-header-color);
 }
 
 .ox-popup-menu {
