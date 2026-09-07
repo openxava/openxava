@@ -1,8 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 5
-    -
 - Bloque 6
 - Bloque 7
 - Mezclar código desde el master.
