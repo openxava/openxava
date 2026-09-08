@@ -132,10 +132,10 @@
 	--link-color: var(--action-color);
 	--action-link-color: var(--action-color);
 	--action-link-hover-background: var(--action-hover-background);
-	--reference-search-icon-background: var(--action-color);
-	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
-	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;
+	--reference-search-icon-background: color-mix(in srgb, var(--accent-color) 15%, transparent);
+	--reference-search-icon-hover-background: color-mix(in srgb, var(--accent-color) 25%, transparent);
+	--reference-search-icon-color: var(--accent-color);
+	--reference-search-icon-hover-color: var(--accent-color);
 	--editor-icon-color: var(--list-row-action-color);
 	--editor-icon-hover-color: var(--list-row-action-hover-color);;
 	
@@ -3748,9 +3748,8 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-image-link i.mdi-magnify { 
 	color: var(--reference-search-icon-color);
 	background: var(--reference-search-icon-background);
-	border-radius: var(--radius-full);
-	padding-top: 2px;
-	padding-bottom: 1px;
+	border-radius: var(--radius-sm);
+	padding: 4px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
