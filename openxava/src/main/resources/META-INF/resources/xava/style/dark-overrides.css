@@ -111,6 +111,10 @@
 	--calendar-popup-background: var(--my-lightdark);
 }
 
+.ox-action-link {
+	color: var(--action-link-color);
+}
+
 .ox-action-link:hover {
 	text-decoration: none;
 	color: var(--action-hover-color);
