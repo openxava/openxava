@@ -53,7 +53,6 @@
 	--action-hover-background: var(--accent-soft);
 	--list-row-action-color: var(--my-silver);
 	--list-row-action-hover-color: var(--action-hover-color);
-	--reference-search-icon-color: var(--my-dark);
 
 	/* Editors */
 	--required-editor-border: var(--input-border);
@@ -111,9 +110,13 @@
 	--calendar-popup-background: var(--my-lightdark);
 }
 
-.ox-action-link:hover {
-	text-decoration: underline;
+.ox-action-link {
 	color: var(--action-link-color);
+}
+
+.ox-action-link:hover {
+	text-decoration: none;
+	color: var(--action-hover-color);
 }
 
 .ox-list {

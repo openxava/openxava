@@ -52,6 +52,10 @@
 	--background: #f8fafc;
 	--color: #0f172a;
 	--frame-border: #e2e8f0;
+	--frame-nested-background: transparent;
+	--frame-toggle-color: var(--action-color);
+	--frame-toggle-hover-color: var(--action-hover-color);
+	--frame-toggle-hover-background: color-mix(in srgb, var(--color) 8%, transparent);
 
 	--application-name-color: var(--color);
 	--module-row-hover-color: var(--color);
@@ -128,10 +132,10 @@
 	--link-color: var(--action-color);
 	--action-link-color: var(--action-color);
 	--action-link-hover-background: var(--action-hover-background);
-	--reference-search-icon-background: var(--action-color);
-	--reference-search-icon-hover-background: var(--default-action-button-hover-background);
-	--reference-search-icon-color: white;
-	--reference-search-icon-hover-color: white;
+	--reference-search-icon-background: color-mix(in srgb, var(--accent-color) 15%, transparent);
+	--reference-search-icon-hover-background: color-mix(in srgb, var(--accent-color) 25%, transparent);
+	--reference-search-icon-color: var(--accent-color);
+	--reference-search-icon-hover-color: var(--accent-color);
 	--editor-icon-color: var(--list-row-action-color);
 	--editor-icon-hover-color: var(--list-row-action-hover-color);;
 	
@@ -152,11 +156,13 @@
 	--shadow: gray;
 	
 	--section-color: var(--action-color);
-	--section-background: var(--frame-background);
-	--section-hover-color: var(--action-hover-color);
-	--section-hover-background: var(--action-hover-background);
+	--section-background: transparent;
+	--section-border: var(--frame-border);
+	--section-hover-color: var(--color);
+	--section-hover-background: color-mix(in srgb, var(--color) 6%, transparent);
 	--active-section-tab-color: var(--color);
-	--active-section-tab-bottom-color: var(--color);
+	--active-section-tab-bottom-color: var(--accent-color);
+	--section-count-color: var(--label-color);
 	
 	--dialog-background: var(--background);
 	--dialog-border: var(--frame-border);
@@ -1685,14 +1691,13 @@ tr.ox-list-odd, tr.ox-list-pair {
 }
 
 .ox-frame-title .ox-image-link i {
-	margin-top: -8px;
-	margin-bottom: -8px;
+	font-size: 20px;
+	padding: 2px;
 }
 
 .ox-frame-actions i {
-	font-size: 200%;
+	font-size: 20px;
 	padding: 0;
-	margin: -5px;
 }
 
 .ox-customize-controls i {
@@ -2428,13 +2433,14 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-frame {
-	background: var(--frame-background); 
+	float: left;
+	background: var(--frame-background);
 	border: 1px solid var(--frame-border, transparent);
-	box-shadow: none;	 
+	padding-bottom: var(--space-3);
 }
 
-.ox-frame {
-	float: left;
+.ox-frame .ox-frame {
+	background: var(--frame-nested-background);
 }
 
 #sign_in_box select, #sign_in_box input[type="text"], #sign_in_box input[type="password"] { 
@@ -2447,18 +2453,43 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-frame-title {
-	font-weight: bold;
-	padding-bottom: 7px;
-	min-width: 150px;  
+	display: flex;
+	align-items: center;
+	gap: var(--space-1);
+	font-weight: 600;
+	padding-bottom: var(--space-2);
+	min-width: 150px;
 }
 
-.ox-frame-title a {
-	padding: 2px 0px 2px 0px;
+.ox-frame-title-label {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-1);
 }
 
 .ox-frame-actions {
-	float: left;
-	margin-right: 3px;
+	order: -1;
+}
+
+.ox-frame-actions a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2px;
+	border-radius: var(--radius-sm);
+	color: var(--frame-toggle-color);
+	text-decoration: none;
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-frame-actions a:hover {
+	color: var(--frame-toggle-hover-color);
+	background: var(--frame-toggle-hover-background);
+}
+
+.ox-frame-actions a:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--focus-ring-color);
 }
 
 .ox-sections { 
@@ -2469,6 +2500,27 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	margin: var(--space-2) calc(-1 * var(--space-4)) var(--space-4) calc(-1 * var(--space-4));   
 	padding: var(--space-2) var(--space-4) 0 0; 
 	background: var(--section-background);
+	border-bottom: 1px solid var(--section-border);
+	overflow-x: auto;
+	scrollbar-width: thin;
+}
+
+.ox-section > table, .ox-section > table > tbody, .ox-section > table > tbody > tr, .ox-section > table > tbody > tr > td {
+	display: flex;
+}
+
+.ox-section > table > tbody > tr > td {
+	gap: 2px;
+	align-items: flex-end;
+}
+
+.ox-section td > span {
+	border-bottom: 2px solid transparent;
+	flex-shrink: 0;
+}
+
+.ox-section td > span.ox-active {
+	border-bottom-color: var(--active-section-tab-bottom-color);
 }
 
 .ui-dialog .ox-section {
@@ -2477,7 +2529,19 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 
 .ox-section a, .ui-dialog .ox-section a {
 	color: var(--section-color);
-	display: inline-block;
+}
+
+.ox-section a.ox-section-link, .ox-active .ox-section-tab {
+	display: inline-flex;
+	align-items: baseline;
+	gap: var(--space-2);
+	padding: 6px 12px; 
+	transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.ox-section a.ox-section-link {
+	border-top-left-radius: var(--radius-md);
+	border-top-right-radius: var(--radius-md);
 }
 
 .ox-section a:hover {
@@ -2486,9 +2550,19 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 	background: var(--section-hover-background);
 }
 
-.ox-section a, .ox-active .ox-section-tab {
-	padding: 7px 11px 7px 11px; 
-	transition: color var(--transition-fast), background-color var(--transition-fast);
+.ox-section a.ox-section-link:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+.ox-section-count {
+	color: var(--section-count-color);
+	font-size: var(--font-size-sm);
+	font-weight: 400;
+}
+
+.ox-section-count:empty {
+	display: none;
 }
 
 .ox-flow-layout .ox-section {
@@ -2501,14 +2575,11 @@ input[id$="_SignIn__AzureAD___signInWithAzureAD"] {
 }
 
 .ox-section-tab {	
-	font-weight: bold;
-	float: left;
-	border-bottom: 3px solid transparent;
+	font-weight: 500;
 }
 
 .ox-active .ox-section-tab {
 	color: var(--active-section-tab-color);	
-	border-bottom-color: var(--active-section-tab-bottom-color);
 }
 
 .ox-total-cell {
@@ -2804,10 +2875,13 @@ td.ox-list-subheader > div {
 }
 
 .ox-action-link, .ui-widget-content .ox-action-link  { 
-    margin-left: 7px;
-    color: var(--action-link-color); 
-    font-weight: bold;
-    padding: 6px;
+    margin-left: 6px;
+    color: var(--action-color); 
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 4px 8px;
+    letter-spacing: 0.01em;
 }
 
 .xava_editor .ox-action-link {
@@ -2820,11 +2894,18 @@ td.ox-list-subheader > div {
 }
 
 .ox-action-link, .ox-image-link {
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
+.ox-action-link:focus-visible, .ox-image-link:focus-visible {
+	outline: 2px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+	outline-offset: 1px;
+}
+
+.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover,
+.ui-widget-content .ox-action-link:hover, .ui-widget-content .ox-image-link:hover,
+.xava_view_content .ox-action-link:hover, .xava_view_content .ox-image-link:hover {
 	background: var(--action-link-hover-background);
 	text-decoration: none;
 	color: var(--action-hover-color);
@@ -3667,9 +3748,8 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-image-link i.mdi-magnify { 
 	color: var(--reference-search-icon-color);
 	background: var(--reference-search-icon-background);
-	border-radius: var(--radius-full);
-	padding-top: 2px;
-	padding-bottom: 1px;
+	border-radius: var(--radius-sm);
+	padding: 4px;
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -3677,6 +3757,10 @@ div[id$="_Index__view"] .ox-list-title {
 .ox-image-link:hover i.mdi-magnify { 
 	background: var(--reference-search-icon-hover-background);
 	color: var(--reference-search-icon-hover-color);
+}
+
+.ox-image-link:has(i.mdi-magnify):hover {
+	background: transparent;
 }
 
 .ox-required-editor input, .ox-required-editor select, .ox-required-editor textarea {
