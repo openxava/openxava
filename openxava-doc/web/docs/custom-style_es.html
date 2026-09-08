@@ -9,66 +9,59 @@
     
     <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
   </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Estilo visual personalizado"></a> <span id="breadcrumbs">
-          <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
-              </a> </span> / <a href="index_es.html">documentación</a> / </span>
-        Estilo visual personalizado</h1>
-      <i>Si estás usando OpenXava 7.x o anterior mira las <a href="custom-style-ox7_es.html">instrucciones antiguas</a></i>
-      <div id="toc">
-        <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Estilo%20visual%20personalizado">Estilo visual personalizado</a></div>
-        <div style="margin-left: 2em;"><a href="#elegir-tema">Elegir un tema</a></div>
-        <div style="margin-left: 2em;"><a href="#definir-tu-propio-estilo">Definir tu propio estilo</a></div>
-        <div style="margin-left: 3em;"><a href="#extender-estilo-existente">Extender un estilo existente</a></div>
-        <div style="margin-left: 3em;"><a href="#esquema-colores">Tu propio esquema de colores</a></div>
-        <div style="margin-left: 3em;"><a href="#color-marca">Personalizar el color de marca</a></div>
-        <div style="margin-left: 3em;"><a href="#design-tokens">Design tokens</a></div>
-        <div style="margin-left: 3em;"><a href="#refinar-otros-aspectos">Refinar otros aspectos de la interfaz</a></div>
-        <div style="margin-left: 2em;"><a href="#custom-css">Modificar el estilo de la aplicación con custom.css</a></div>
-        <div style="margin-left: 3em;"><a href="#css-tricks">Algunos trucos CSS</a></div>
-        <div style="margin-left: 2em;"><a href="#anadir-elementos">Añadir elementos a la página</a></div>
-        <div style="margin-left: 2em;"><a href="#selector-temas">Selector de tema</a></div>
-      </div>
-      <p>OpenXava 8.0 incluye tres estilos visuales. El tema por defecto es
-        <b>Auto</b>, que cambia automáticamente entre claro y oscuro según la
-        preferencia del sistema operativo (<i>prefers-color-scheme</i>). También
-        puedes forzar <b>Light</b> o <b>Dark</b> explícitamente:</p>
-      <img src="files/light-detail_es.png" alt="Ejemplo del tema Light">
-      <div class="wiki" style="display: block;"><br>
-      </div>
-      <div class="wiki" style="display: block;">Y <b>Dark</b>:</div>
-      <img src="files/dark-detail_es.png" alt="Ejemplo del tema Dark">
-      <div class="wiki" style="display: block;"><br>
-      </div>
-      <h2><a name="elegir-tema">Elegir un tema</a></h2>
-      <p>Para escoger uno edita el archivo <i>xava.properties</i> de la carpeta
-        <i>properties</i> de tu proyecto y pon valor a la entrada
-        <i>styleCSS</i>:</p>
-      <pre><code class="language-properties"># Visual style
+  <body class="wiki" style="display: block;">
+    <h1 id="toc0"><a name="Estilo visual personalizado"></a> <span id="breadcrumbs">
+        <span id="openxava"> <a href="https://www.openxava.org/"> <span>o</span>pen<span>x</span>ava
+            </a> </span> / <a href="index_es.html">documentación</a> / </span>
+      Estilo visual personalizado</h1>
+    <p><i>Si estás usando OpenXava 7.x o anterior mira las <a href="custom-style-ox7_es.html">instrucciones antiguas</a></i></p>
+    <div id="toc">
+      <h1 class="nopad">Tabla de contenidos</h1>
+      <div style="margin-left: 1em;"><a href="#Estilo%20visual%20personalizado">Estilo visual personalizado</a></div>
+      <div style="margin-left: 2em;"><a href="#elegir-tema">Elegir un tema</a></div>
+      <div style="margin-left: 2em;"><a href="#definir-tu-propio-estilo">Definir tu propio estilo</a></div>
+      <div style="margin-left: 3em;"><a href="#extender-estilo-existente">Extender un estilo existente</a></div>
+      <div style="margin-left: 3em;"><a href="#esquema-colores">Tu propio esquema de colores</a></div>
+      <div style="margin-left: 3em;"><a href="#color-marca">Personalizar el color de marca</a></div>
+      <div style="margin-left: 3em;"><a href="#design-tokens">Design tokens</a></div>
+      <div style="margin-left: 3em;"><a href="#refinar-otros-aspectos">Refinar otros aspectos de la interfaz</a></div>
+      <div style="margin-left: 2em;"><a href="#custom-css">Modificar el estilo de la aplicación con custom.css</a></div>
+      <div style="margin-left: 3em;"><a href="#css-tricks">Algunos trucos CSS</a></div>
+      <div style="margin-left: 2em;"><a href="#anadir-elementos">Añadir elementos a la página</a></div>
+      <div style="margin-left: 2em;"><a href="#selector-temas">Selector de tema</a></div>
+    </div>
+    <p>OpenXava 8.0 incluye tres estilos visuales. El tema por defecto es
+      <b>Auto</b>, que cambia automáticamente entre claro y oscuro según la
+      preferencia del sistema operativo (<i>prefers-color-scheme</i>). También
+      puedes forzar <b>Light</b> o <b>Dark</b> explícitamente:</p>
+    <img src="files/light-detail_es.png" alt="Ejemplo del tema Light">
+    <p>Y <b>Dark</b>:</p>
+    <img src="files/dark-detail_es.png" alt="Ejemplo del tema Dark">
+    <h2><a name="elegir-tema">Elegir un tema</a></h2>
+    <p>Para escoger uno edita el archivo <i>xava.properties</i> de la carpeta
+      <i>properties</i> de tu proyecto y pon valor a la entrada
+      <i>styleCSS</i>:</p>
+    <pre><code class="language-properties"># Visual style
 # styleCSS=auto.css      # Por defecto: sigue la preferencia del SO
 # styleCSS=light.css
 styleCSS=dark.css
 </code></pre>
-      <p>Si no especificas la entrada <i>styleCSS</i>, se usa <i>auto.css</i>
-        por defecto.</p>
-      <div class="wiki" style="display: block;">
-        <h2><a name="definir-tu-propio-estilo">Definir tu propio estilo</a></h2>
-        <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta
-          <i>src/main/webapp/xava/style</i> de tu proyecto y apunta a él en la
-          propiedad <i>styleCSS</i> de <i>xava.properties</i>.</p>
-        <h3><a name="extender-estilo-existente">Extender un estilo existente</a></h3>
-        <p>Si simplemente quieres una pequeña modificación de un estilo
-          existente, puedes extender ese estilo. Mira los
-          <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/style">CSS
-            para los estilos disponibles en GitHub</a>. Por ejemplo, si quieres
-          el estilo Light pero con un color de acento dorado para los botones
-          principales, los anillos de foco y los estados de hover, crea un
-          archivo <i>dorado.css</i> en <i>src/main/webapp/xava/style</i> con
-          este contenido:</p>
-      </div>
-      <pre><code class="language-css">/* dorado.css */
+    <p>Si no especificas la entrada <i>styleCSS</i>, se usa <i>auto.css</i>
+      por defecto.</p>
+    <h2><a name="definir-tu-propio-estilo">Definir tu propio estilo</a></h2>
+    <p>Para crear un nuevo estilo crea tu propio archivo CSS en la carpeta
+      <i>src/main/webapp/xava/style</i> de tu proyecto y apunta a él en la
+      propiedad <i>styleCSS</i> de <i>xava.properties</i>.</p>
+    <h3><a name="extender-estilo-existente">Extender un estilo existente</a></h3>
+    <p>Si simplemente quieres una pequeña modificación de un estilo
+      existente, puedes extender ese estilo. Mira los
+      <a href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/META-INF/resources/xava/style">CSS
+        para los estilos disponibles en GitHub</a>. Por ejemplo, si quieres
+      el estilo Light pero con un color de acento dorado para los botones
+      principales, los anillos de foco y los estados de hover, crea un
+      archivo <i>dorado.css</i> en <i>src/main/webapp/xava/style</i> con
+      este contenido:</p>
+    <pre><code class="language-css">/* dorado.css */
 
 @import 'light.css';
 
@@ -78,25 +71,23 @@ styleCSS=dark.css
     --accent-soft: #fdf8e8;
 }
 </code></pre>
-      <p>Fíjate que usamos <i>@import 'light.css'</i> para extender el
-        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/light.css">estilo
-        Light</a>. Simplemente redefinimos <i>--accent-color</i> y sus
-        variables complementarias. Este único cambio afecta a los botones
-        principales, los anillos de foco, los estados de hover, el componente
-        switch, el acento del calendario y la selección del menú de módulos.
-        Ahora cambio el valor de <i>styleCSS</i> en <i>xava.properties</i>:</p>
-      <pre><code class="language-properties">styleCSS=dorado.css</code></pre>
-      <p>Para obtener este resultado:</p>
-      <img src="files/golden-detail_es.png" alt="Ejemplo del tema dorado">
-      <div class="wiki" style="display: block;">
-        <h3><a name="esquema-colores">Tu propio esquema de colores</a></h3>
-        <p>Por otra parte, para definir tu propio esquema de colores, no sólo
-          un refinamiento, extiende directamente de
-          <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>.
-          Por ejemplo, para definir un estilo Rosa crea un <i>rosa.css</i>
-          como este:</p>
-      </div>
-      <pre><code class="language-css">/* rosa.css */
+    <p>Fíjate que usamos <i>@import 'light.css'</i> para extender el
+      <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/light.css">estilo
+      Light</a>. Simplemente redefinimos <i>--accent-color</i> y sus
+      variables complementarias. Este único cambio afecta a los botones
+      principales, los anillos de foco, los estados de hover, el componente
+      switch, el acento del calendario y la selección del menú de módulos.
+      Ahora cambio el valor de <i>styleCSS</i> en <i>xava.properties</i>:</p>
+    <pre><code class="language-properties">styleCSS=dorado.css</code></pre>
+    <p>Para obtener este resultado:</p>
+    <img src="files/golden-detail_es.png" alt="Ejemplo del tema dorado">
+    <h3><a name="esquema-colores">Tu propio esquema de colores</a></h3>
+    <p>Por otra parte, para definir tu propio esquema de colores, no sólo
+      un refinamiento, extiende directamente de
+      <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>.
+      Por ejemplo, para definir un estilo Rosa crea un <i>rosa.css</i>
+      como este:</p>
+    <pre><code class="language-css">/* rosa.css */
 
 @import 'base.css';
 
@@ -130,175 +121,168 @@ styleCSS=dark.css
     --action-hover-background: white;
 }
 </code></pre>
-      <p>Fíjate como extendemos de <i>base.css</i> y definimos el color de
-        marca y los colores para las partes principales de la interfaz. Con
-        sólo el código de arriba obtienes:</p>
-      <img src="files/pink-detail_es.png" alt="Ejemplo del tema rosa">
-      <p>Sólo tienes que definir unos pocos colores y todos los demás se
-        derivan a partir de ellos, así tienes un esquema de colores
-        consistente con poco esfuerzo. Además, tienes la opción de definir
-        individualmente el color para cada detalle de la interfaz, echa un
-        vistazo al archivo <i>base.css</i> para ver todas las variables CSS
-        disponibles, más de 200.</p>
-      <div class="wiki" style="display: block;">
-        <h3><a name="color-marca">Personalizar el color de marca</a></h3>
-        <p>La forma más sencilla de personalizar el estilo visual de tu
-          aplicación es redefinir <i>--accent-color</i>. Esta única variable
-          controla los botones principales, los anillos de foco, los estados
-          de hover, el switch booleano, el acento del calendario, la selección
-          del menú de módulos y más. Solo necesitas añadir unas líneas al
-          archivo <i>custom.css</i> de tu proyecto (ver más abajo) o crear tu
-          propio tema extendiendo <i>light.css</i> o <i>dark.css</i>:</p>
-      </div>
-      <pre><code class="language-css">:root {
+    <p>Fíjate como extendemos de <i>base.css</i> y definimos el color de
+      marca y los colores para las partes principales de la interfaz. Con
+      sólo el código de arriba obtienes:</p>
+    <img src="files/pink-detail_es.png" alt="Ejemplo del tema rosa">
+    <p>Sólo tienes que definir unos pocos colores y todos los demás se
+      derivan a partir de ellos, así tienes un esquema de colores
+      consistente con poco esfuerzo. Además, tienes la opción de definir
+      individualmente el color para cada detalle de la interfaz, echa un
+      vistazo al archivo <i>base.css</i> para ver todas las variables CSS
+      disponibles, más de 200.</p>
+    <h3><a name="color-marca">Personalizar el color de marca</a></h3>
+    <p>La forma más sencilla de personalizar el estilo visual de tu
+      aplicación es redefinir <i>--accent-color</i>. Esta única variable
+      controla los botones principales, los anillos de foco, los estados
+      de hover, el switch booleano, el acento del calendario, la selección
+      del menú de módulos y más. Solo necesitas añadir unas líneas al
+      archivo <i>custom.css</i> de tu proyecto (ver más abajo) o crear tu
+      propio tema extendiendo <i>light.css</i> o <i>dark.css</i>:</p>
+    <pre><code class="language-css">:root {
     --accent-color: #0d9488;         /* Tu color de marca */
     --accent-color-hover: #0f766e;   /* Una variante más oscura para hover */
     --accent-soft: #f0fdfa;          /* Un tinte muy claro para fondos de hover */
 }
 </code></pre>
-      <p>Tres variables son suficientes: <i>--accent-color</i> para el acento
-        principal, <i>--accent-color-hover</i> para el estado de hover
-        (normalmente un tono más oscuro) y <i>--accent-soft</i> para fondos
-        sutiles de hover (un tinte muy claro del color de acento).</p>
-      <div class="wiki" style="display: block;">
-        <h3><a name="design-tokens">Design tokens</a></h3>
-        <p>OpenXava 8.0 usa un sistema de design tokens definido en
-          <i>base.css</i>. Todos los tokens son propiedades personalizadas CSS
-          (variables) que puedes sobreescribir en tu propio CSS. Los grupos
-          principales de tokens son:</p>
-        <ul>
-          <li><b>Marca</b>: <i>--accent-color</i>,
-            <i>--accent-color-hover</i>, <i>--accent-contrast-color</i>,
-            <i>--accent-soft</i>.</li>
-          <li><b>Espaciado</b>: <i>--space-1</i> (4px) hasta <i>--space-8</i>
-            (32px), siguiendo una escala base de 4px.</li>
-          <li><b>Radio de esquina</b>: <i>--radius-sm</i> (4px),
-            <i>--radius-md</i> (8px), <i>--radius-lg</i> (12px),
-            <i>--radius-xl</i> (24px), <i>--radius-full</i> (9999px).</li>
-          <li><b>Elevaciones</b>: <i>--elevation-1</i>,
-            <i>--elevation-2</i>, <i>--elevation-3</i> (tokens de box-shadow
-            para elevación sutil, media y alta).</li>
-          <li><b>Tipografía</b>: <i>--font-family</i> (Inter por defecto),
-            <i>--font-size-xs</i> (11px) hasta <i>--font-size-display</i>
-            (64px), <i>--line-height</i> (1.45).</li>
-          <li><b>Transiciones</b>: <i>--transition-fast</i> (150ms),
-            <i>--transition-normal</i> (200ms).</li>
-          <li><b>Anillo de foco</b>: <i>--focus-ring-color</i>, derivado del
-            color de acento.</li>
-          <li><b>Superficies</b>: <i>--background</i>, <i>--color</i>,
-            <i>--frame-background</i>, <i>--frame-border</i>,
-            <i>--frame-nested-background</i>.</li>
-          <li><b>Campos</b>: <i>--input-border</i>,
-            <i>--input-hover-border</i>, <i>--input-focus-border</i>,
-            <i>--input-color</i>, <i>--input-background</i>,
-            <i>--placeholder-color</i>, <i>--label-color</i>,
-            <i>--required-indicator-color</i>.</li>
-          <li><b>Switch</b>: <i>--switch-off-background</i>,
-            <i>--switch-on-background</i>, <i>--switch-knob-background</i>.</li>
-          <li><b>Botones</b>:
-            <i>--default-action-button-background</i>,
-            <i>--default-action-button-color</i>,
-            <i>--button-hover-background</i>,
-            <i>--delete-button-hover-color</i>.</li>
-          <li><b>Secciones</b>: <i>--section-color</i>,
-            <i>--section-border</i>, <i>--active-section-tab-color</i>,
-            <i>--active-section-tab-bottom-color</i>,
-            <i>--section-count-color</i>.</li>
-          <li><b>Diálogos</b>: <i>--dialog-background</i>,
-            <i>--dialog-border</i>, <i>--dialog-backdrop-background</i>,
-            <i>--dialog-titlebar-background</i>,
-            <i>--dialog-titlebar-color</i>.</li>
-          <li><b>Lista</b>: <i>--list-background</i>,
-            <i>--list-row-hover-background</i>,
-            <i>--selected-row-background</i>,
-            <i>--list-row-action-color</i>.</li>
-          <li><b>Calendario</b>:
-            <i>--calendar-cell-border-color</i>,
-            <i>--calendar-day-hover-background</i>,
-            <i>--calendar-today-background</i>,
-            <i>--calendar-event-accent</i>,
-            <i>--calendar-event-background</i>.</li>
-          <li><b>Mensajes</b>: <i>--messages-accent</i>,
-            <i>--errors-accent</i>, <i>--warnings-accent</i>,
-            <i>--infos-accent</i> (colores semánticos para las notificaciones
-            toast).</li>
-        </ul>
-        <p>Echa un vistazo al archivo
-          <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
-          para ver todos los tokens disponibles.</p>
-      </div>
-      <div class="wiki" style="display: block;">
-        <h3><a name="refinar-otros-aspectos">Refinar otros aspectos de la
-            interfaz</a></h3>
-        <p>Pero no sólo los colores, puedes refinar cualquier aspecto de la
-          interfaz: márgenes, fuentes, bordes, etc. Por ejemplo, si quieres
-          que los marcos tengan esquinas menos redondeadas y una sombra sutil,
-          puedes añadir estas líneas a tu CSS:</p>
-      </div>
-      <pre><code class="language-css">.ox-frame {
+    <p>Tres variables son suficientes: <i>--accent-color</i> para el acento
+      principal, <i>--accent-color-hover</i> para el estado de hover
+      (normalmente un tono más oscuro) y <i>--accent-soft</i> para fondos
+      sutiles de hover (un tinte muy claro del color de acento).</p>
+    <h3><a name="design-tokens">Design tokens</a></h3>
+    <p>OpenXava 8.0 usa un sistema de design tokens definido en
+      <i>base.css</i>. Todos los tokens son propiedades personalizadas CSS
+      (variables) que puedes sobreescribir en tu propio CSS. Los grupos
+      principales de tokens son:</p>
+    <ul>
+      <li><b>Marca</b>: <i>--accent-color</i>,
+        <i>--accent-color-hover</i>, <i>--accent-contrast-color</i>,
+        <i>--accent-soft</i>.</li>
+      <li><b>Espaciado</b>: <i>--space-1</i> (4px) hasta <i>--space-8</i>
+        (32px), siguiendo una escala base de 4px.</li>
+      <li><b>Radio de esquina</b>: <i>--radius-sm</i> (4px),
+        <i>--radius-md</i> (8px), <i>--radius-lg</i> (12px),
+        <i>--radius-xl</i> (24px), <i>--radius-full</i> (9999px).</li>
+      <li><b>Elevaciones</b>: <i>--elevation-1</i>,
+        <i>--elevation-2</i>, <i>--elevation-3</i> (tokens de box-shadow
+        para elevación sutil, media y alta).</li>
+      <li><b>Tipografía</b>: <i>--font-family</i> (Inter por defecto),
+        <i>--font-size-xs</i> (11px) hasta <i>--font-size-display</i>
+        (64px), <i>--line-height</i> (1.45).</li>
+      <li><b>Transiciones</b>: <i>--transition-fast</i> (150ms),
+        <i>--transition-normal</i> (200ms).</li>
+      <li><b>Anillo de foco</b>: <i>--focus-ring-color</i>, derivado del
+        color de acento.</li>
+      <li><b>Superficies</b>: <i>--background</i>, <i>--color</i>,
+        <i>--frame-background</i>, <i>--frame-border</i>,
+        <i>--frame-nested-background</i>.</li>
+      <li><b>Campos</b>: <i>--input-border</i>,
+        <i>--input-hover-border</i>, <i>--input-focus-border</i>,
+        <i>--input-color</i>, <i>--input-background</i>,
+        <i>--placeholder-color</i>, <i>--label-color</i>,
+        <i>--required-indicator-color</i>.</li>
+      <li><b>Switch</b>: <i>--switch-off-background</i>,
+        <i>--switch-on-background</i>, <i>--switch-knob-background</i>.</li>
+      <li><b>Botones</b>:
+        <i>--default-action-button-background</i>,
+        <i>--default-action-button-color</i>,
+        <i>--button-hover-background</i>,
+        <i>--delete-button-hover-color</i>.</li>
+      <li><b>Secciones</b>: <i>--section-color</i>,
+        <i>--section-border</i>, <i>--active-section-tab-color</i>,
+        <i>--active-section-tab-bottom-color</i>,
+        <i>--section-count-color</i>.</li>
+      <li><b>Diálogos</b>: <i>--dialog-background</i>,
+        <i>--dialog-border</i>, <i>--dialog-backdrop-background</i>,
+        <i>--dialog-titlebar-background</i>,
+        <i>--dialog-titlebar-color</i>.</li>
+      <li><b>Lista</b>: <i>--list-background</i>,
+        <i>--list-row-hover-background</i>,
+        <i>--selected-row-background</i>,
+        <i>--list-row-action-color</i>.</li>
+      <li><b>Calendario</b>:
+        <i>--calendar-cell-border-color</i>,
+        <i>--calendar-day-hover-background</i>,
+        <i>--calendar-today-background</i>,
+        <i>--calendar-event-accent</i>,
+        <i>--calendar-event-background</i>.</li>
+      <li><b>Mensajes</b>: <i>--messages-accent</i>,
+        <i>--errors-accent</i>, <i>--warnings-accent</i>,
+        <i>--infos-accent</i> (colores semánticos para las notificaciones
+        toast).</li>
+    </ul>
+    <p>Echa un vistazo al archivo
+      <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
+      para ver todos los tokens disponibles.</p>
+    <h3><a name="refinar-otros-aspectos">Refinar otros aspectos de la
+        interfaz</a></h3>
+    <p>Pero no sólo los colores, puedes refinar cualquier aspecto de la
+      interfaz: márgenes, fuentes, bordes, etc. Por ejemplo, si quieres
+      que los marcos tengan esquinas menos redondeadas y una sombra sutil,
+      puedes añadir estas líneas a tu CSS:</p>
+    <pre><code class="language-css">.ox-frame {
     border-radius: var(--radius-sm);
     box-shadow: var(--elevation-1);
 }
 </code></pre>
-      <p>De esta manera, los marcos se visualizarán así:</p>
-      <img src="files/frames-with-border_es.png" alt="Ejemplo de marcos con borde">
-      <p>Puedes modificar cualquier cosa de la interfaz gráfica, echa un
-        vistazo a
-        <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
-        para ver todas las opciones disponibles. Por supuesto, si vas a
-        cambiar muchas cosas una opción es definir tu propio CSS desde cero,
-        sin extender de <i>base.css</i>.</p>
-      <div class="wiki" style="display: block;">
-        <h2><a name="custom-css">Modificar el estilo de la aplicación con
-            custom.css</a></h2>
-        <p>Puedes añadir y modificar estilos de la
-          aplicación mediante el fichero <em>custom.css</em> en
-          <i>src/main/webapp/xava/style</i>. Esto afecta sólo a tu aplicación.
-          Es una forma fácil de cambiar el estilo sin tener que crear un nuevo
-          tema.</p>
-        <p>Para sobreescribir un estilo ya existente, basta con añadir el
-          nombre del estilo y definirlo en nuestro fichero. Poniendo:</p>
-        <pre><code class="language-css">body {
+    <p>De esta manera, los marcos se visualizarán así:</p>
+    <img src="files/frames-with-border_es.png" alt="Ejemplo de marcos con borde">
+    <p>Puedes modificar cualquier cosa de la interfaz gráfica, echa un
+      vistazo a
+      <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
+      para ver todas las opciones disponibles. Por supuesto, si vas a
+      cambiar muchas cosas una opción es definir tu propio CSS desde cero,
+      sin extender de <i>base.css</i>.</p>
+    <h2><a name="custom-css">Modificar el estilo de la aplicación con
+        custom.css</a></h2>
+    <p>Puedes añadir y modificar estilos de la
+      aplicación mediante el fichero <em>custom.css</em> en
+      <i>src/main/webapp/xava/style</i>. Esto afecta sólo a tu aplicación.
+      Es una forma fácil de cambiar el estilo sin tener que crear un nuevo
+      tema.</p>
+    <p>Para sobreescribir un estilo ya existente, basta con añadir el
+      nombre del estilo y definirlo en nuestro fichero. Poniendo:</p>
+    <pre><code class="language-css">body {
     font-size: 13px;
 }
 .ox-list-pair, .ox-list-odd {
     height: 36px;
 }
 </code></pre>
-        <p>Cambiamos el tamaño de la letra de toda nuestra aplicación y la
-          altura de las filas en la lista. Mira en <em>base.css</em> para ver
-          todas las clases CSS disponibles.</p>
-        <h3 id="css-tricks"><a name="css-tricks">Algunos trucos CSS</a></h3>
-        <p>Aquí tienes un par de trucos/consejos CSS.</p>
-        <p><strong>Estilizar campos @ReadOnly de forma única</strong></p>
-        <pre><code class="language-css">input[disabled] {
+    <p>Cambiamos el tamaño de la letra de toda nuestra aplicación y la
+      altura de las filas en la lista. Mira en <em>base.css</em> para ver
+      todas las clases CSS disponibles.</p>
+    <h3 id="css-tricks"><a name="css-tricks">Algunos trucos CSS</a></h3>
+    <p>Aquí tienes un par de trucos/consejos CSS.</p>
+    <p><strong>Estilizar campos @ReadOnly de forma única</strong></p>
+    <pre><code class="language-css">input[disabled] {
     background: black;
     color: white;
 }
 </code></pre>
-        <p>Ten en cuenta que en las colecciones de elementos los campos de
-          solo lectura se renderizan como elementos <i><span></i> simples, no
-          como inputs deshabilitados, por lo que este selector solo aplica a
-          los campos de formulario en modo detalle.</p>
-        <p><strong>Añadir row-xxx a @Tab</strong></p>
-        <p>A veces querrás extender el estilo "row-highlight" existente en la
-          definición de @Tab. Aquí tienes una forma de añadir, por ejemplo,
-          "row-red" con un color diferente al pasar el ratón por encima.</p>
-        <pre><code class="language-css">tr.row-red {
+    <p>Ten en cuenta que en las colecciones de elementos los campos de
+      solo lectura se renderizan como elementos <i><span></i> simples, no
+      como inputs deshabilitados, por lo que este selector solo aplica a
+      los campos de formulario en modo detalle.</p>
+    <p><strong>Añadir row-xxx a @Tab</strong></p>
+    <p>A veces querrás extender el estilo "row-highlight" existente en la
+      definición de @Tab. Aquí tienes una forma de añadir, por ejemplo,
+      "row-red" con un color diferente al pasar el ratón por encima.</p>
+    <pre><code class="language-css">tr.row-red {
     background: red;
 }
 tr .row-red:hover {
     background: yellow;
 }
 </code></pre>
-        <p><strong>Quitar la visualización de Aplicación y Módulo entre el
-            menú principal y el cuerpo (libera espacio en pantalla)</strong></p>
-        <pre><code class="language-css">#module_description {
+    <p><strong>Quitar la visualización de Aplicación y Módulo entre el
+        menú principal y el cuerpo (libera espacio en pantalla)</strong></p>
+    <pre><code class="language-css">#module_description {
     display: none;
 }
 </code></pre>
-        <p><strong>Quitar los checkboxes de la vista de lista</strong></p>
-        <pre><code class="language-css">.ox-list-header input[type="checkbox"] {
+    <p><strong>Quitar los checkboxes de la vista de lista</strong></p>
+    <pre><code class="language-css">.ox-list-header input[type="checkbox"] {
     display: none;
 }
 .ox-list-pair input[type="checkbox"] {
@@ -308,46 +292,45 @@ tr .row-red:hover {
     display: none;
 }
 </code></pre>
-        <p><strong>Quitar los checkboxes de un módulo específico</strong></p>
-        <p>Los cambios anteriores son globales en toda tu aplicación. Puedes
-          hacerlos específicos a un módulo incluyendo los nombres de Aplicación
-          y Módulo como parte del string. Por ejemplo, el nombre de mi
-          Aplicación es: KitBase y tengo un módulo llamado Dashboard. Como
-          la lista de Dashboard es una lista de Colecciones, mi entrada en
-          custom.css se ve así:</p>
-        <pre><code class="language-css">.ox_KitBase_Dashboard__collection_scroll input[type="checkbox"] {
+    <p><strong>Quitar los checkboxes de un módulo específico</strong></p>
+    <p>Los cambios anteriores son globales en toda tu aplicación. Puedes
+      hacerlos específicos a un módulo incluyendo los nombres de Aplicación
+      y Módulo como parte del string. Por ejemplo, el nombre de mi
+      Aplicación es: KitBase y tengo un módulo llamado Dashboard. Como
+      la lista de Dashboard es una lista de Colecciones, mi entrada en
+      custom.css se ve así:</p>
+    <pre><code class="language-css">.ox_KitBase_Dashboard__collection_scroll input[type="checkbox"] {
     display: none;
 }
 </code></pre>
-        <p>Si fuera una lista estándar de propiedades, la entrada se vería
-          así:</p>
-        <pre><code class="language-css">.ox_KitBase_Dashboard__list_scroll input[type="checkbox"] {
+    <p>Si fuera una lista estándar de propiedades, la entrada se vería
+      así:</p>
+    <pre><code class="language-css">.ox_KitBase_Dashboard__list_scroll input[type="checkbox"] {
     display: none;
 }
 </code></pre>
-        <p><u><strong>*¡Nota el doble guión bajo entre el nombre del módulo y
-            el resto del string!*</strong></u></p>
-        <p><strong>Cambiar el color de fondo del hover en modo lista</strong></p>
-        <pre><code class="language-css">.ox-list-pair:hover, .ox-list-odd:hover {
+    <p><u><strong>*¡Nota el doble guión bajo entre el nombre del módulo y
+        el resto del string!*</strong></u></p>
+    <p><strong>Cambiar el color de fondo del hover en modo lista</strong></p>
+    <pre><code class="language-css">.ox-list-pair:hover, .ox-list-odd:hover {
     background: var(--list-row-hover-background);
 }
 </code></pre>
-      </div>
-      <h2><a name="anadir-elementos">Añadir elementos a la página</a></h2>
-      <p>Si queremos añadir nuestros propios elementos a la página para que
-        aparezcan siempre visibles en nuestra aplicación podemos hacerlo en
-        <i><em>src/main/webapp/naviox/indexExt.jsp</em></i> de nuestro
-        proyecto, deberías crear la carpeta <i>naviox</i> y el archivo
-        <i>indexExt.jsp</i>. Esto se incluye al final de la página, pero
-        usando CSS podemos colocarlo en cualquier parte de la pantalla.</p>
-      <p>Por ejemplo, si queremos poner un cartelito de BETA en la esquina
-        superior derecha de la pantalla, así:</p>
-      <img src="files/beta-corner_es.png" alt="beta-corner_es.png" title="beta-corner_es.png">
-      <p>Podemos poner en nuestro <em>indexExt.jsp</em>:</p>
-      <pre><code class="language-html"><div id="beta">BETA</div>
+    <h2><a name="anadir-elementos">Añadir elementos a la página</a></h2>
+    <p>Si queremos añadir nuestros propios elementos a la página para que
+      aparezcan siempre visibles en nuestra aplicación podemos hacerlo en
+      <i><em>src/main/webapp/naviox/indexExt.jsp</em></i> de nuestro
+      proyecto, deberías crear la carpeta <i>naviox</i> y el archivo
+      <i>indexExt.jsp</i>. Esto se incluye al final de la página, pero
+      usando CSS podemos colocarlo en cualquier parte de la pantalla.</p>
+    <p>Por ejemplo, si queremos poner un cartelito de BETA en la esquina
+      superior derecha de la pantalla, así:</p>
+    <img src="files/beta-corner_es.png" alt="beta-corner_es.png" title="beta-corner_es.png">
+    <p>Podemos poner en nuestro <em>indexExt.jsp</em>:</p>
+    <pre><code class="language-html"><div id="beta">BETA</div>
 </code></pre>
-      <p>Y después posicionarlo añadiendo lo siguiente a <em>custom.css</em>:</p>
-      <pre><code class="language-css">#beta {
+    <p>Y después posicionarlo añadiendo lo siguiente a <em>custom.css</em>:</p>
+    <pre><code class="language-css">#beta {
     position: absolute;
     right: -65px;
     top: 5px;
@@ -360,19 +343,18 @@ tr .row-red:hover {
     z-index: -10;
 }
 </code></pre>
-      <h2><a name="selector-temas">Selector de tema</a></h2>
-      <p>El usuario tiene la posibilidad de escoger el estilo para el mismo
-        con un selector de temas abajo en la página:</p>
-      <img src="files/theme-chooser_es.png" alt="Ejemplo del selector de tema">
-      <p>Para determinar los temas disponibles has de enumerarlos en la
-        propiedad <i>themes</i> de <i>xava.properties</i>:</p>
-      <pre><code class="language-properties">themes=auto.css, light.css, dark.css
+    <h2><a name="selector-temas">Selector de tema</a></h2>
+    <p>El usuario tiene la posibilidad de escoger el estilo para el mismo
+      con un selector de temas abajo en la página:</p>
+    <img src="files/theme-chooser_es.png" alt="Ejemplo del selector de tema">
+    <p>Para determinar los temas disponibles has de enumerarlos en la
+      propiedad <i>themes</i> de <i>xava.properties</i>:</p>
+    <pre><code class="language-properties">themes=auto.css, light.css, dark.css
 </code></pre>
-      <p>Si quieres quitar el selector de temas completamente define
-        <i>themes</i> como vacía, o simplemente no la definas:</p>
-      <pre><code class="language-properties"># Vacío para desactivar el selector de temas
+    <p>Si quieres quitar el selector de temas completamente define
+      <i>themes</i> como vacía, o simplemente no la definas:</p>
+    <pre><code class="language-properties"># Vacío para desactivar el selector de temas
 themes=
 </code></pre>
-    </div>
   </body>
 </html>
