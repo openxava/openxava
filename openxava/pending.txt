@@ -1,12 +1,12 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
+- Documentación:
+    - Mirar todos los hilos y revisar migración.
+    - Rehacer custom-style_en/es.html
 - Bloque 7
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
-- Documentación:
-    - Mirar todos los hilos y revisar migración.
-    - Rehacer custom-style_en/es.html
 - Refinar y resumir entradas en changelog
 - Borrar MDs.
