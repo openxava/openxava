@@ -62,10 +62,105 @@ Modernizar secciones (pestañas), marcos y acciones en vista al estilo 2026 (Att
 | `SectionsRenderer.java` | Clase `ox-section-count` en los spans del contador de colección |
 | `changelog.txt` | 2 entradas nuevas (secciones) + 2 entradas nuevas (marcos) |
 
+## Acciones en vista (inline y referencias)
+
+### Contexto y problema
+
+Las acciones en vista son los enlaces y botones que aparecen dentro de la vista de detalle, mezclados con los datos: acciones inline de texto (p. ej. "Prefix street") y acciones con icono junto a las referencias (buscar, crear, modificar, borrar). El problema era doble:
+
+1. **Acciones inline de texto**: en el diseño anterior eran azul con subrayado — claramente pulsables. Tras la modernización perdieron el subrayado y en dark mode tenían el mismo color que las etiquetas, haciéndose indistinguibles.
+2. **Iconos de referencia**: la lupa de búsqueda tenía un círculo blanco sólido agresivo (estilo 2000s), mientras crear/modificar/borrar eran iconos planos sin fondo. Inconsistencia visual y baja descubribilidad de los secundarios.
+
+### Investigación de patrones
+
+- **Apps modernas (Attio, Linear, Notion)**: no tienen iconos separados junto a las referencias. El campo mismo es un combobox typeahead. No aplicable a OpenXava porque maneja miles de registros y necesita diálogo de búsqueda avanzada.
+- **Apps LOB (SAP Fiori, Salesforce, Dynamics 365)**: sí tienen un icono de búsqueda enfatizado junto al campo lookup. El patrón LOB confirma que enfatizar la lupa es correcto — fue validado con pruebas de usabilidad reales en OpenXava 6.0.
+
+### Decisiones de diseño
+
+#### Acciones inline de texto (`.ox-action-link`)
+
+- **Light**: color `--action-color` (gris muted), peso 500, sin bold. Se distingue de las etiquetas por el tono y el peso. Hover con pill suave `--action-link-hover-background` (accent-soft), sin subrayado, color `--action-hover-color`.
+- **Dark**: color `--action-link-color` (acento `--my-lightblue`) para diferenciar de las etiquetas, que en dark comparten el mismo gris. Hover igual que light: pill suave, sin subrayado.
+- **Focus**: `:focus-visible` con outline 2px `color-mix(accent 40%, transparent)`, offset 1px.
+- **Coherencia**: el hover se extiende a `.ui-widget-content` (diálogos) y `.xava_view_content` para comportamiento uniforme en todos los contextos.
+
+#### Iconos de referencia (`.ox-image-link` + `.mdi-magnify`)
+
+- **Lupa (buscar) — acción primaria**: soft accent fill (`color-mix(accent 15%, transparent)`) en reposo, icono en `--accent-color`, `--radius-sm` (4px). En hover, el fill sube a 25%. Sigue siendo visualmente distinta de los otros tres (tiene fondo, tiene color de acento), pero ya no es un círculo blanco agresivo — es un "soft badge" moderno.
+- **Crear, modificar, borrar — acciones secundarias**: ghost planos sin fondo, color `--action-color`. Hover con pill suave `--action-link-hover-background` (sin cambios, ya funcionaba bien).
+- **Jerarquía visual**: la lupa es la primaria (con fondo), los otros tres son secundarias (ghost). Todos comparten `--radius-sm` y transiciones — se ven como un conjunto coherente.
+- **Bug del "huevo"**: al hacer hover sobre la lupa, el pill del enlace (`.ox-image-link:hover` con `--action-link-hover-background`) asomaba por los lados del badge de la lupa, creando una sombra fea. Solución: `.ox-image-link:has(i.mdi-magnify):hover { background: transparent }` — elimina el fondo del enlace solo para la lupa, donde el cambio de color del badge ya es feedback suficiente.
+
+### Tokens CSS
+
+**Cambiados en `base.css`:**
+- `--reference-search-icon-background`: `color-mix(in srgb, var(--accent-color) 15%, transparent)` (era `var(--action-color)`)
+- `--reference-search-icon-hover-background`: `color-mix(in srgb, var(--accent-color) 25%, transparent)` (era `var(--default-action-button-hover-background)`)
+- `--reference-search-icon-color`: `var(--accent-color)` (era `white`)
+- `--reference-search-icon-hover-color`: `var(--accent-color)` (era `white`)
+
+**Eliminados en `dark-overrides.css`:**
+- `--reference-search-icon-color: var(--my-dark)` — ya no necesita override porque el valor base (`var(--accent-color)`) funciona en ambos temas.
+
+### Reglas CSS clave
+
+```css
+/* base.css — acciones inline */
+.ox-action-link, .ui-widget-content .ox-action-link {
+    margin-left: 6px; color: var(--action-color); font-weight: 500;
+    font-size: 13px; line-height: 1.4; padding: 4px 8px; letter-spacing: 0.01em;
+}
+.ox-action-link, .ox-image-link {
+    border-radius: var(--radius-md);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+.ox-action-link:focus-visible, .ox-image-link:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+    outline-offset: 1px;
+}
+.ox-action-link:hover, .ox-image-link:hover, /* ... */
+.ui-widget-content .ox-action-link:hover, .ui-widget-content .ox-image-link:hover,
+.xava_view_content .ox-action-link:hover, .xava_view_content .ox-image-link:hover {
+    background: var(--action-link-hover-background);
+    text-decoration: none; color: var(--action-hover-color);
+}
+
+/* base.css — lupa de referencia */
+.ox-image-link i.mdi-magnify {
+    color: var(--reference-search-icon-color);
+    background: var(--reference-search-icon-background);
+    border-radius: var(--radius-sm); padding: 4px;
+    margin-left: 5px; margin-right: 5px;
+}
+.ox-image-link:hover i.mdi-magnify {
+    background: var(--reference-search-icon-hover-background);
+    color: var(--reference-search-icon-hover-color);
+}
+.ox-image-link:has(i.mdi-magnify):hover { background: transparent; }
+
+/* dark-overrides.css — acciones inline en dark */
+.ox-action-link { color: var(--action-link-color); }
+.ox-action-link:hover { text-decoration: none; color: var(--action-hover-color); }
+```
+
+---
+
+## Archivos modificados
+
+| Archivo | Cambio |
+|---|---|
+| `base.css` | Tokens + rework completo de `.ox-section`, `.ox-section-tab`, `.ox-section-link`, nueva `.ox-section-count`; tokens + rework de `.ox-frame`, `.ox-frame-title`, `.ox-frame-title-label`, `.ox-frame-actions` y marcos anidados; modernización de `.ox-action-link` (tipografía apagada, pill hover, focus-visible); modernización de `.mdi-magnify` (soft accent fill, radius-sm); fix del "huevo" con `:has()` |
+| `dark-overrides.css` | `.ox-action-link` con color de acento en dark; eliminado `text-decoration: underline` del hover; eliminado override de `--reference-search-icon-color` |
+| `SectionsRenderer.java` | Clase `ox-section-count` en los spans del contador de colección |
+| `changelog.txt` | 2 entradas (secciones) + 2 entradas (marcos) |
+
 ## Estado
 
 **Secciones:** concluidas. Tests pasados y revisión visual realizada en los 3 temas (Auto/Light/Dark), diálogos con secciones y modo phone.
 
 **Marcos:** concluidos. Revisión visual aprobada por el usuario.
 
-**Pendiente en el bloque:** acciones en vista.
+**Acciones en vista:** concluidas. Revisión visual aprobada por el usuario en los 3 temas (Auto/Light/Dark), dentro y fuera de marcos.
+
+**Bloque 6 completo.**

@@ -169,12 +169,12 @@ Diferencias intencionadas a marcar visualmente:
 - [x] **Botones para cambio de formato de lista**: formatos de lista como segmented control con tokens `--segmented-*` compartidos con el view-switcher del calendario (Bloque 3b).
 - [x] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
-## Bloque 6 — Secciones, marcos y acciones en vista (`ui-sections`)
+## Bloque 6 — Secciones, marcos y acciones en vista (`ui-sections`) ✅
 
 - [x] **Secciones**: revisar y modernizar el estilo de las secciones (cabeceras de sección, separadores, espaciados). Coherente con tokens de tipografía y espaciado ya definidos.
 - [x] **Marcos**: revisar y modernizar los marcos (frames) que agrupan campos y referencias. Bordes, radios, elevaciones y espaciados coherentes con el sistema de diseño.
-- [ ] **Acciones en vista**: revisar y modernizar las acciones mostradas dentro de la vista de detalle (botones inline, enlaces de acción). Estilo coherente con los botones del Bloque 5.
-- [ ] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
+- [x] **Acciones en vista**: revisar y modernizar las acciones mostradas dentro de la vista de detalle (botones inline, enlaces de acción). Estilo coherente con los botones del Bloque 5.
+- [x] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
 ## Bloque 7 — Editores especiales (`ui-editors`)
 
