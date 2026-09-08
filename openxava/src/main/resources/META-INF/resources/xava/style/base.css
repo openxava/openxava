@@ -2875,10 +2875,13 @@ td.ox-list-subheader > div {
 }
 
 .ox-action-link, .ui-widget-content .ox-action-link  { 
-    margin-left: 7px;
-    color: var(--action-link-color); 
-    font-weight: bold;
-    padding: 6px;
+    margin-left: 6px;
+    color: var(--action-color); 
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 4px 8px;
+    letter-spacing: 0.01em;
 }
 
 .xava_editor .ox-action-link {
@@ -2891,11 +2894,18 @@ td.ox-list-subheader > div {
 }
 
 .ox-action-link, .ox-image-link {
-	border-radius: var(--radius-sm);
+	border-radius: var(--radius-md);
 	transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover {
+.ox-action-link:focus-visible, .ox-image-link:focus-visible {
+	outline: 2px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
+	outline-offset: 1px;
+}
+
+.ox-action-link:hover, .ox-image-link:hover, .ox-page-navigation:hover, .ox-page-navigation-arrow:hover,
+.ui-widget-content .ox-action-link:hover, .ui-widget-content .ox-image-link:hover,
+.xava_view_content .ox-action-link:hover, .xava_view_content .ox-image-link:hover {
 	background: var(--action-link-hover-background);
 	text-decoration: none;
 	color: var(--action-hover-color);

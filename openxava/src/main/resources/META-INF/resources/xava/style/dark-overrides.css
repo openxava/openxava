@@ -112,8 +112,8 @@
 }
 
 .ox-action-link:hover {
-	text-decoration: underline;
-	color: var(--action-link-color);
+	text-decoration: none;
+	color: var(--action-hover-color);
 }
 
 .ox-list {
