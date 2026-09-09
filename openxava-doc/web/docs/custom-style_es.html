@@ -266,7 +266,25 @@ styleCSS=dark.css
     <h3 id="css-tricks"><a name="css-tricks">Algunos trucos CSS</a></h3>
     <p>Aquí tienes un par de trucos/consejos CSS.</p>
     <p><strong>Estilizar campos @ReadOnly de forma única</strong></p>
-    <pre><code class="language-css">input[disabled] {
+    <p>En OpenXava 8 los inputs deshabilitados usan los tokens de diseño
+      <i>--disabled-input-background</i> y <i>--disabled-input-color</i>.
+      La forma más sencilla de cambiarlos es redefinir esos tokens en
+      <i>custom.css</i>:</p>
+    <pre><code class="language-css">:root {
+    --disabled-input-background: black;
+    --disabled-input-color: white;
+}
+</code></pre>
+    <p>Si necesitas una regla diferente, usa los mismos selectores que
+      <i>base.css</i>, ya que tienen mayor especificidad que
+      <i>input[disabled]</i>:</p>
+    <pre><code class="language-css">input[type="text"]:disabled,
+input[type="password"]:disabled,
+input[type="file"]:disabled,
+input[type="date"]:disabled,
+input[type="datetime-local"]:disabled,
+select:disabled,
+textarea:disabled {
     background: black;
     color: white;
 }
