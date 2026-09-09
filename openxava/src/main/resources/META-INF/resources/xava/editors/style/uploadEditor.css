@@ -37,14 +37,14 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    border-radius: 4px;
-    color: rgba(0,0,0,0.54);
+    border-radius: var(--radius-sm);
+    color: var(--action-color);
     text-decoration: none;
 }
 
 .ox-upload-editor-box .ox-download-all .ox-download-all-link:hover {
-    background: rgba(0,0,0,0.06);
-    color: rgba(0,0,0,0.87);
+    background: var(--action-hover-background);
+    color: var(--action-hover-color);
 }
 
 .ox-upload-editor-box .ox-download-all .mdi {

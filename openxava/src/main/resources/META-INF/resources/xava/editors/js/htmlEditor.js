@@ -1,16 +1,46 @@
 if (htmlEditor == null) var htmlEditor = {}; 
 
+htmlEditor.isDark = function() {
+	return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+htmlEditor.injectContentStyles = function(editor) {
+	var head = editor.getDoc().head;
+	var rootStyle = getComputedStyle(document.documentElement);
+	var vars = [
+		'--font-family', '--font-size-md', '--line-height', '--color',
+		'--background', '--frame-background', '--frame-border',
+		'--accent-color', '--accent-soft', '--action-link-color'
+	];
+	var css = ':root {';
+	for (var i = 0; i < vars.length; i++) {
+		css += vars[i] + ': ' + rootStyle.getPropertyValue(vars[i]) + ';';
+	}
+	css += '}';
+	css += 'body { font-family: var(--font-family); font-size: var(--font-size-md); line-height: var(--line-height); color: var(--color); background: transparent; }';
+	css += 'a { color: var(--action-link-color); }';
+	var style = editor.getDoc().createElement('style');
+	style.setAttribute('data-ox-content', 'true');
+	style.textContent = css;
+	head.appendChild(style);
+};
+
 openxava.addEditorInitFunction(function() {
-	if (openxava.browser.htmlUnit) return;	
+	if (openxava.browser.htmlUnit) return;
+	var skin = htmlEditor.isDark() ? 'oxide-dark' : 'oxide';
 	tinymce.init({
 	  selector: '.ox-html-text',
 	  plugins: 'link', 
 	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link', 
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
+	  skin: skin,
 	  language: openxava.language,
 	  promotion: false,
 	  branding: false,
-	  init_instance_callback: htmlEditor.setInlineStyles
+	  init_instance_callback: function(editor) {
+	  	htmlEditor.setInlineStyles(editor);
+	  	htmlEditor.injectContentStyles(editor);
+	  }
 	});
 	tinymce.init({
 	  selector: '.ox-simple-html-text',
@@ -18,10 +48,14 @@ openxava.addEditorInitFunction(function() {
 	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link', 
 	  menubar: false,
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
+	  skin: skin,
 	  language: openxava.language,
 	  promotion: false,
 	  branding: false,
-	  init_instance_callback: htmlEditor.setInlineStyles
+	  init_instance_callback: function(editor) {
+	  	htmlEditor.setInlineStyles(editor);
+	  	htmlEditor.injectContentStyles(editor);
+	  }
 	});
 	$('.xava-new-comment').each( function () {
 		var editor = tinymce.get(this.id);

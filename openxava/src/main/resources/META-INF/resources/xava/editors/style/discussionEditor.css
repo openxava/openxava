@@ -1,28 +1,30 @@
 .ox-discussion-comment
 {
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS";
-	font-size: 13px;
-	color: #6F6F6F;
-	line-height: 1.6;
+	font-family: var(--font-family);
+	font-size: var(--font-size-md);
+	color: var(--color);
+	line-height: var(--line-height);
 	word-wrap: break-word;
-	margin-bottom: 5px; 
-	box-shadow:0 0 3px lightgrey;
-	border: 1px solid #dcdcdc;
-	padding: 10px;
-	background-color: #fafafa !important;
-	border-radius: 12px;
-	white-space: normal; 	
+	margin-bottom: var(--space-3);
+	border: 1px solid var(--frame-border);
+	padding: var(--space-4);
+	background: var(--frame-background);
+	border-radius: var(--radius-lg);
+	white-space: normal;
 }
 
 .ox-discussion-comment-header {
-	font-style: italic;	
-	margin-bottom: 10px;
-	font-size: 120%;
-	color: #6F6F6F;
+	margin-bottom: var(--space-2);
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: color-mix(in srgb, var(--color) 60%, transparent);
 }
 
 .ox-discussion-comment-author {
-	font-weight: bold;
+	font-weight: 600;
+	color: var(--color);
 }
 
 .ox-discussion-post-button {
@@ -50,7 +52,7 @@
 	font-family: Georgia, Times, "Times New Roman", serif;
 	padding: 2px 0;
 	border-style: solid;
-	border-color: #ccc;
+	border-color: var(--frame-border);
 	border-width: 0;
 }
 
@@ -63,14 +65,11 @@
 
 .ox-discussion-comment a
 {
-	color: #0782C1;
+	color: var(--action-link-color);
 }
 
 .ox-discussion-comment ol, .ox-discussion-comment ul, .ox-discussion-comment dl
 {
-	/* IE7: reset rtl list margin. (#7334) */
-	*margin-right: 0px;
-	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
 	padding: 0 40px;
 }
 
@@ -83,24 +82,9 @@
 .ox-discussion-comment hr
 {
 	border: 0px;
-	border-top: 1px solid #ccc;
+	border-top: 1px solid var(--frame-border);
 }
 
-.ox-discussion-comment img.right
-{
-	border: 1px solid #ccc;
-	float: right;
-	margin-left: 15px;
-	padding: 5px;
-}
-
-.ox-discussion-comment img.left
-{
-	border: 1px solid #ccc;
-	float: left;
-	margin-right: 15px;
-	padding: 5px;
-}
 
 .ox-discussion-comment pre
 {
@@ -110,24 +94,15 @@
 	tab-size: 4;
 }
 
-.ox-discussion-comment .marker
-{
-	background-color: Yellow;
-}
-
-.ox-discussion-comment span[lang]
-{
-	font-style: italic;
-}
 
 .ox-discussion-comment figure
 {
 	text-align: center;
-	border: solid 1px #ccc;
-	border-radius: 2px;
-	background: rgba(0,0,0,0.05);
-	padding: 10px;
-	margin: 10px 20px;
+	border: solid 1px var(--frame-border);
+	border-radius: var(--radius-md);
+	background: color-mix(in srgb, var(--color) 5%, transparent);
+	padding: var(--space-3);
+	margin: var(--space-3) var(--space-5);
 	display: inline-block;
 }
 
@@ -141,5 +116,5 @@
 	padding: 1px;
 	margin: 1px;
 	border: none;
-	outline: 1px solid #0782C1;
+	outline: 1px solid var(--action-link-color);
 }
