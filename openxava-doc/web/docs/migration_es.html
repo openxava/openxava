@@ -922,7 +922,7 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
       o <i>web-view-url</i> en <i>application.xml</i>).</li>
     </ul>
 
-    <h3>Nuevos temas visuales: auto, light y dark</h3>
+    <h3>Interfaz de usuario rediseñada</h3>
 
     <p>OpenXava 8.0 introduce una interfaz de usuario rediseñada con un sistema de tokens
     de diseño (espaciado, radios de esquina, elevaciones, escala tipográfica y
@@ -997,6 +997,15 @@ import org.openxava.model.DuplicateKeyException;</code></pre>
     tipografía <b>Inter</b> (en lugar de Roboto), un tamaño base de 14px (en lugar de
     13px) y radios de esquina y sombras estandarizados, por lo que tu tema personalizado
     puede necesitar pequeños ajustes visuales.</p>
+
+    <h4>Etiquetas encima de los campos por defecto</h4>
+
+    <p>El formato de etiqueta por defecto ha cambiado de <i>NORMAL</i> (etiqueta a la
+    izquierda del campo) a <i>SMALL</i> (etiqueta encima del campo). Esto afecta a todos
+    los formularios de tu aplicación. Si prefieres el comportamiento anterior, define la
+    propiedad <i>defaultLabelFormat</i> en <i>xava.properties</i>:</p>
+
+    <pre><code class="language-properties">defaultLabelFormat=NORMAL</code></pre>
 
     <h3>JasperReports 7: Migración de JRXML</h3>
 

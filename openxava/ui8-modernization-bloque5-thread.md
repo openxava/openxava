@@ -84,3 +84,9 @@ Implementación concluida y revisión visual realizada:
 - **Subcontroladores**: alineación de iconos/imágenes/etiquetas corregida y verificada (Invoice → InvoicePrint).
 
 **Pendiente:** revisión visual de las pestañas de módulos y de los botones inferiores en los 3 temas y modo phone antes de pasar los tests y fusionar.
+
+## Nota post-fusión
+
+Durante la revisión posterior se detectó un defecto en el difuminado del borde derecho de las pestañas de módulos: el `mask-image` aplicado sobre `#module_header_left` difuminaba la última pestaña incluso cuando quedaba mucho espacio libre, porque el contenedor se ajustaba al contenido y el gradiente caía sobre la pestaña más a la derecha.
+
+**Corrección en `base.css`:** se añadió `flex: 1 1 auto` a `#module_header_left` para que el contenedor ocupe todo el ancho disponible. Así la máscara del fade solo afecta a las pestañas que llegan de verdad al borde derecho. Se actualizó `changelog.txt` y se eliminó el apunte correspondiente de `pending.txt`.
