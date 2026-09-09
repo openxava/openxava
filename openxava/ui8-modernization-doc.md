@@ -60,8 +60,8 @@ Los PNGs antiguos se renombraron con sufijo `-ox7` para no romper la documentaci
 | `golden-detail_es.png` | Igual en español |
 | `pink-detail_en.png` | Vista detalle con pink.css (ejemplo simplificado) |
 | `pink-detail_es.png` | Igual en español |
-| `frames-with-border_en.png` | Marcos con `--radius-sm` y `--elevation-1` |
-| `frames-with-border_es.png` | Igual en español |
+| `frames-elevated-and-rounded_en.png` | Marcos con `--radius-sm` y `--elevation-1` |
+| `frames-elevated-and-rounded_es.png` | Igual en español |
 | `theme-chooser_en.png` | Selector de tema con Auto / Light / Dark |
 | `theme-chooser_es.png` | Igual en español |
 

@@ -105,7 +105,12 @@ styleCSS=dark.css
     /* Menú de módulos de la izquierda */
     --modules-list-color: var(--mi-beis);
     --modules-list-background: var(--mi-rosa);
-    --modules-list-selected-color: white;
+    --modules-list-selected-color: var(--mi-rosa);
+    --modules-list-selected-background: white;
+
+    /* Asideros del menú y chat */
+    --module-list-hide-show-color: var(--mi-rosa-oscuro);
+    --module-list-hide-show-hover-color: var(--mi-rosa);
 
     /* Fondos y etiquetas */
     --background: var(--mi-beis);
@@ -113,13 +118,19 @@ styleCSS=dark.css
 
     /* Marcos */
     --frame-background: rgba(198, 164, 154, 0.2);
-    --frame-border: var(--mi-rosa-oscuro);
+    --frame-border: color-mix(in srgb, var(--mi-rosa-oscuro) 20%, transparent);
 
     /* Acciones */
     --action-color: var(--mi-rosa-oscuro);
     --action-hover-color: var(--mi-rosa);
     --action-hover-background: white;
 }
+
+    /* Pestaña de módulo seleccionada */
+    #module_header .module-header-tab:has(> .selected) {
+        background: var(--mi-rosa);
+        color: white;
+    }
 </code></pre>
     <p>Fíjate como extendemos de <i>base.css</i> y definimos el color de
       marca y los colores para las partes principales de la interfaz. Con
@@ -226,7 +237,7 @@ styleCSS=dark.css
 }
 </code></pre>
     <p>De esta manera, los marcos se visualizarán así:</p>
-    <img src="files/frames-with-border_es.png" alt="Ejemplo de marcos con borde">
+    <img src="files/frames-elevated-and-rounded_es.png" alt="Ejemplo de marcos con sombra sutil y esquinas menos redondeadas">
     <p>Puedes modificar cualquier cosa de la interfaz gráfica, echa un
       vistazo a
       <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>

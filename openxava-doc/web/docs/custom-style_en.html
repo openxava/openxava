@@ -103,7 +103,12 @@ styleCSS=dark.css
     /* Modules left menu */
     --modules-list-color: var(--my-beige);
     --modules-list-background: var(--my-pink);
-    --modules-list-selected-color: white;
+    --modules-list-selected-color: var(--my-pink);
+    --modules-list-selected-background: white;
+
+    /* Module/chat panel collapse handles */
+    --module-list-hide-show-color: var(--my-dark-pink);
+    --module-list-hide-show-hover-color: var(--my-pink);
 
     /* Backgrounds & labels */
     --background: var(--my-beige);
@@ -111,13 +116,19 @@ styleCSS=dark.css
 
     /* Frames */
     --frame-background: rgba(198, 164, 154, 0.2);
-    --frame-border: var(--my-dark-pink);
+    --frame-border: color-mix(in srgb, var(--my-dark-pink) 20%, transparent);
 
     /* Actions */
     --action-color: var(--my-dark-pink);
     --action-hover-color: var(--my-pink);
     --action-hover-background: white;
 }
+
+    /* Selected module tab */
+    #module_header .module-header-tab:has(> .selected) {
+        background: var(--my-pink);
+        color: white;
+    }
 </code></pre>
     <p>Note as we extend from <i>base.css</i> and define the brand color and
       the colors for the main parts of the interface. Just with the above code
@@ -209,7 +220,7 @@ styleCSS=dark.css
 }
 </code></pre>
     <p>So now the frames are displayed in this way:</p>
-    <img src="files/frames-with-border_en.png" alt="Frames with border sample">
+    <img src="files/frames-elevated-and-rounded_en.png" alt="Frames with subtle shadow and less rounded corners">
     <p>You can modify any aspect of the user interface, have a look at
       <a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/META-INF/resources/xava/style/base.css"><i>base.css</i></a>
       to see all the available options. Of course, if you're going to change

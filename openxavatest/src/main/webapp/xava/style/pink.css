@@ -1,3 +1,5 @@
+/* pink.css */
+
 @import 'base.css';
 
 :root {
@@ -5,38 +7,38 @@
 	--my-dark-pink: #D68189;
 	--my-beige: #F4EAD5;
 	--my-brown: #C6A49A;
-	--transparent-pink: rgb(198, 164, 154, 0.2); 
-	
-	 
+
+	/* Brand */
+	--accent-color: var(--my-pink);
+	--accent-color-hover: var(--my-dark-pink);
+	--accent-soft: #fce4ec;
+
 	/* Modules left menu */
 	--modules-list-color: var(--my-beige);
 	--modules-list-background: var(--my-pink);
-	--modules-list-selected-color: white;
-	 
-	/* Module header */ 
-	--module-header-color: white;
-	--module-header-background: var(--my-pink);		
-	
-	/* Button bar */	 
-	--button-bar-button-color: var(--my-beige);
-	--button-bar-background: var(--my-dark-pink);
-	--list-formats-color: var(--my-beige);
-	--list-formats-hover-color: white;
-	
+	--modules-list-selected-color: var(--my-pink);
+	--modules-list-selected-background: white;
+
+	/* Module/chat panel collapse handles */
+	--module-list-hide-show-color: var(--my-dark-pink);
+	--module-list-hide-show-hover-color: var(--my-pink);
+
 	/* Backgrounds & labels */
 	--background: var(--my-beige);
 	--color: var(--my-brown);
-	
-	/* Frames */	
-	--frame-background: var(--transparent-pink);
-	
+
+	/* Frames */
+	--frame-background: rgba(198, 164, 154, 0.2);
+	--frame-border: color-mix(in srgb, var(--my-dark-pink) 20%, transparent);
+
 	/* Actions */
-	--action-color: var(--my-dark-pink);	
+	--action-color: var(--my-dark-pink);
 	--action-hover-color: var(--my-pink);
 	--action-hover-background: white;
-	--default-action-button-background: var(--my-pink);
-	
-	/* Editors */
-	--required-editor-border: var(--my-dark-pink);
-	
+}
+
+/* Selected module tab */
+#module_header .module-header-tab:has(> .selected) {
+	background: var(--my-pink);
+	color: white;
 }
