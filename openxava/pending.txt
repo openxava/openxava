@@ -2,17 +2,14 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Documentación:
-    - Defecto en pestañas, se ve difuminada aunque no hayan muchas
-           TMR ME QUEDÉ PARA HACER ESTO
-           Necesario, para poder hacer los pantallazos de abajo
     - Rehacer custom-style_en/es.html
         - Crear pngs:
-            light-detail_en.png	Vista detalle con tema Light de OpenXava 8.0
-            dark-detail_en.png	Vista detalle con tema Dark de OpenXava 8.0
-            golden-detail_en.png	Vista detalle con golden.css (acento dorado, --accent-color)
-            pink-detail_en.png	Vista detalle con pink.css (ejemplo nuevo simplificado)
+            light-detail_en.png	        Vista detalle con tema Light de OpenXava 8.0
+            dark-detail_en.png	        Vista detalle con tema Dark de OpenXava 8.0
+            golden-detail_en.png	    Vista detalle con golden.css (acento dorado, --accent-color)
+            pink-detail_en.png	        Vista detalle con pink.css (ejemplo nuevo simplificado)
             frames-with-border_en.png	Marcos con --radius-sm y --elevation-1
-            theme-chooser_en.png	Selector de tema con Auto / Light / Dark
+            theme-chooser_en.png	    Selector de tema con Auto / Light / Dark
         - Probar documentación
     - Probar ejemplo de CSS de migración para simular terra.
     - ¿Otra doc?

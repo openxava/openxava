@@ -1250,6 +1250,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="file"]:focus
 
 #module_header_left {
 	display: flex;
+	flex: 1 1 auto;
 	align-items: flex-end;
 	white-space: nowrap;
 	min-width: 0;
