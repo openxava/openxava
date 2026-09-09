@@ -3493,14 +3493,26 @@ span[id*="reference_editor"] + .ox-layout-detail {
 /* ===== TinyMCE modern overrides ===== */
 
 .xava_editor .tox-tinymce {
-	border-style: none;
-	border-radius: var(--radius-lg);
+	border: 1px solid var(--input-border);
+	border-radius: var(--radius-md);
 	margin-bottom: 3px;
-	background: transparent;
+	background: var(--input-background);
+	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.xava_editor .tox-tinymce:hover {
+	border-color: var(--input-hover-border);
+}
+
+.xava_editor .tox-tinymce:focus-within {
+	border-color: var(--input-focus-border) !important;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
 }
 
 .xava_editor .tox .tox-editor-header {
 	background: transparent;
+	border-bottom: 1px solid var(--frame-border);
+	padding: var(--space-1) var(--space-2);
 }
 
 .xava_editor .tox .tox-toolbar__primary,
@@ -3541,11 +3553,11 @@ span[id*="reference_editor"] + .ox-layout-detail {
 }
 
 .xava_editor .tox .tox-edit-area {
-	background: transparent;
+	background: var(--input-background);
 }
 
 .xava_editor .tox .tox-edit-area__iframe {
-	background: transparent;
+	background: var(--input-background);
 }
 
 .xava_editor .tox .tox-statusbar {

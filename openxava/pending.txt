@@ -2,6 +2,10 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 7
+    - Código modernizado, sin revisar.
+    - Revisando HtmlText. En light ya se ve bien.
+    TMR ME QUEDÉ PARA REVISAR HtmlText EN DARK
+    TMR Y UPLOADFILE
 - Verificar login
 - Mezclar código desde el master.
 - Suite.

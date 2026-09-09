@@ -9,7 +9,7 @@ htmlEditor.injectContentStyles = function(editor) {
 	var rootStyle = getComputedStyle(document.documentElement);
 	var vars = [
 		'--font-family', '--font-size-md', '--line-height', '--color',
-		'--background', '--frame-background', '--frame-border',
+		'--background', '--frame-background', '--frame-border', '--input-background',
 		'--accent-color', '--accent-soft', '--action-link-color'
 	];
 	var css = ':root {';
@@ -17,7 +17,7 @@ htmlEditor.injectContentStyles = function(editor) {
 		css += vars[i] + ': ' + rootStyle.getPropertyValue(vars[i]) + ';';
 	}
 	css += '}';
-	css += 'body { font-family: var(--font-family); font-size: var(--font-size-md); line-height: var(--line-height); color: var(--color); background: transparent; }';
+	css += 'body { font-family: var(--font-family); font-size: var(--font-size-md); line-height: var(--line-height); color: var(--color); background: var(--input-background); padding: var(--space-3); margin: 0; }';
 	css += 'a { color: var(--action-link-color); }';
 	var style = editor.getDoc().createElement('style');
 	style.setAttribute('data-ox-content', 'true');
@@ -47,6 +47,7 @@ openxava.addEditorInitFunction(function() {
 	  plugins: 'link',
 	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link', 
 	  menubar: false,
+	  statusbar: false,
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
 	  skin: skin,
 	  language: openxava.language,
