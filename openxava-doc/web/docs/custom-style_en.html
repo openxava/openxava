@@ -314,8 +314,11 @@ tr .row-red:hover {
     <p>Note the double underscore between the module name and
       the rest of the string.</p>
     <p><strong>Change background color of list-mode hover</strong></p>
-    <pre><code class="language-css">.ox-list-pair:hover, .ox-list-odd:hover {
-    background: var(--list-row-hover-background);
+    <p>The hover background of list rows is controlled by the
+      <i>--list-row-hover-background</i> token. Override it in
+      <i>custom.css</i>:</p>
+    <pre><code class="language-css">:root {
+    --list-row-hover-background: #fef3c7;
 }
 </code></pre>
     <h2><a name="add-elements">Add elements to the page</a></h2>

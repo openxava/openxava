@@ -335,8 +335,11 @@ tr .row-red:hover {
     <p>Nota el doble guión bajo entre el nombre del módulo y
       el resto del string.</p>
     <p><strong>Cambiar el color de fondo del hover en modo lista</strong></p>
-    <pre><code class="language-css">.ox-list-pair:hover, .ox-list-odd:hover {
-    background: var(--list-row-hover-background);
+    <p>El fondo del hover de las filas de lista se controla con el token
+      <i>--list-row-hover-background</i>. Sobreescríbelo en
+      <i>custom.css</i>:</p>
+    <pre><code class="language-css">:root {
+    --list-row-hover-background: #fef3c7;
 }
 </code></pre>
     <h2><a name="anadir-elementos">Añadir elementos a la página</a></h2>
