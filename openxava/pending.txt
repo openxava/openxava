@@ -1,16 +1,11 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Documentación:
-    - Rehacer custom-style_en/es.html
-        - alt en imgs
-    - Probar ejemplo de CSS de migración para simular terra.
-        - Hecho hasta "Refining other aspects of the UI"
-    - ¿Otra doc?
 - Bloque 7
+- Verificar login
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog
-    - Podemos pedir un resumen de caracteriscias de cara al usuarios a partir de los MDs.
+    - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Borrar MDs.
