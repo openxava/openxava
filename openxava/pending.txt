@@ -11,7 +11,7 @@ Pending UI8 modernization (tmr)
             * frames-elevated-and-rounded_en.png	    Marcos con --radius-sm y --elevation-1
             - theme-chooser_en.png	        Selector de tema con Auto / Light / Dark
         - Probar documentación
-            TMR ME QUEDÉ PROBANDO "Add elements to the page" SALÍA MAL
+        - alt en imgs
     - Probar ejemplo de CSS de migración para simular terra.
         - Hecho hasta "Refining other aspects of the UI"
     - ¿Otra doc?

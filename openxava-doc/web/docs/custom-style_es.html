@@ -351,7 +351,7 @@ tr .row-red:hover {
       usando CSS podemos colocarlo en cualquier parte de la pantalla.</p>
     <p>Por ejemplo, si queremos poner un cartelito de BETA en la esquina
       superior derecha de la pantalla, así:</p>
-    <img src="files/beta-corner_es.png" alt="beta-corner_es.png" title="beta-corner_es.png">
+    <img src="files/beta-corner.png" alt="beta-corner.png" title="beta-corner.png">
     <p>Podemos poner en nuestro <em>indexExt.jsp</em>:</p>
     <pre><code class="language-html">&lt;div id="beta"&gt;BETA&lt;/div&gt;
 </code></pre>
@@ -359,14 +359,12 @@ tr .row-red:hover {
     <pre><code class="language-css">#beta {
     position: absolute;
     right: -65px;
-    top: 5px;
+    top: -35px;
     color: white;
-    font-size: 120%;
     font-weight: bold;
     transform: rotate(45deg);
     background: red;
     padding: 50px 50px 5px 50px;
-    z-index: -10;
 }
 </code></pre>
     <h2><a name="selector-temas">Selector de tema</a></h2>

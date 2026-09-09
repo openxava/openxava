@@ -330,7 +330,7 @@ tr .row-red:hover {
       place it in any part of the screen.</p>
     <p>For example, if you want to show a BETA sign in right top corner,
       thus:</p>
-    <img src="files/beta-corner_en.png" alt="beta-corner_en.png" title="beta-corner_en.png">
+    <img src="files/beta-corner.png" alt="beta-corner_en.png" title="beta-corner_en.png">
     <p>You can write in your <em>indexExt.jsp</em>:</p>
     <pre><code class="language-html">&lt;div id="beta"&gt;BETA&lt;/div&gt;
 </code></pre>
@@ -338,14 +338,12 @@ tr .row-red:hover {
     <pre><code class="language-css">#beta {
     position: absolute;
     right: -65px;
-    top: 5px;
+    top: -35px;
     color: white;
-    font-size: 120%;
     font-weight: bold;
     transform: rotate(45deg);
     background: red;
     padding: 50px 50px 5px 50px;
-    z-index: -10;
 }
 </code></pre>
     <h2><a name="theme-chooser">Theme chooser</a></h2>
