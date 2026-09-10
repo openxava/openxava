@@ -122,6 +122,25 @@ openxava.addEditorInitFunction(function() {
             }
         }
     });
+
+    // Apply drop zone background via JS (CSS overrides don't reliably apply due to FilePond's dynamic style management)
+    setTimeout(function() {
+        document.querySelectorAll('.ox-upload-editor-box .filepond--root').forEach(function(el) {
+            var accentSoft = getComputedStyle(document.documentElement).getPropertyValue('--accent-soft').trim();
+            var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+            var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
+            el.style.setProperty('background', accentSoft, 'important');
+            el.style.setProperty('border-radius', getComputedStyle(document.documentElement).getPropertyValue('--radius-md').trim(), 'important');
+            el.style.setProperty('overflow', 'hidden', 'important');
+            // Make internal panels transparent so root background shows through
+            el.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
+                panel.style.setProperty('background-color', 'transparent', 'important');
+                panel.style.setProperty('border', 'none', 'important');
+                panel.style.setProperty('box-shadow', 'none', 'important');
+            });
+        });
+    }, 100);
+
     // Delegated handler for "Download all" to comply with CSP (no inline onclick)
     $(document)
         .off('click.oxDownloadAll', '.ox-download-all-link') 

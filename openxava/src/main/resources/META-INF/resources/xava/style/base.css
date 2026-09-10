@@ -3959,27 +3959,29 @@ div[id$="_Index__view"] .ox-list-title {
 
 /* ===== FilePond modern overrides ===== */
 
-.filepond--item {
-	width: 190px;
+/* Drop zone background applied via JS in uploadEditor.js (CSS overrides don't reliably apply) */
+
+.ox-upload-editor-box .filepond--drop-label {
+	color: var(--placeholder-color) !important;
 }
 
-.filepond--root {
-	overflow: hidden;
-	border-radius: var(--radius-lg);
+.ox-upload-editor-box .filepond--drop-label.filepond--drop-label label {
+	white-space: normal !important;
+	color: var(--placeholder-color) !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: 400 !important;
+	cursor: default !important;
 }
 
-.filepond--drop-label label {
-	white-space: normal;
-	color: var(--placeholder-color);
-	font-size: var(--font-size-sm);
+.ox-upload-editor-box .filepond--label-action {
+	color: var(--accent-color) !important;
+	text-decoration: underline !important;
+	-webkit-text-decoration-color: var(--accent-color) !important;
+	text-decoration-color: var(--accent-color) !important;
+	cursor: pointer !important;
 }
 
-.filepond--label-action {
-	color: var(--accent-color);
-	text-decoration-color: var(--accent-color);
-}
-
-.filepond--drop-label label::before {
+.ox-upload-editor-box .filepond--drop-label label::before {
 	content: '';
 	display: inline-block;
 	width: 20px;
@@ -3992,56 +3994,105 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--placeholder-color);
 }
 
-.filepond--panel-root {
+.ox-upload-editor-box .filepond--drip-blob {
+	background: var(--accent-color) !important;
+}
+
+/* File item card panel */
+.ox-upload-editor-box .filepond--item {
+	width: 190px;
+}
+
+.ox-upload-editor-box .filepond--item-panel {
+	background: var(--frame-background) !important;
 	border-radius: var(--radius-md) !important;
-	background: color-mix(in srgb, var(--color) 3%, transparent);
-	border: 1px dashed var(--frame-border);
 }
 
-.filepond--root:has(.filepond--item) .filepond--panel-root {
-	border: 1px solid var(--frame-border);
+.ox-upload-editor-box [data-filepond-item-state] .filepond--item-panel {
+	background: var(--frame-background) !important;
 }
 
-.filepond--drip-blob {
-	background: var(--accent-color);
+.ox-upload-editor-box .filepond--panel {
+	border: none !important;
 }
 
-.filepond--file {
-	background: var(--frame-background);
-	border: 1px solid var(--frame-border);
-	border-radius: var(--radius-md);
-	box-shadow: var(--elevation-1);
-	color: var(--color);
+/* File item content */
+.ox-upload-editor-box .filepond--file {
+	background: transparent !important;
+	color: var(--color) !important;
+	border-radius: var(--radius-md) !important;
 }
 
-.filepond--file-info {
-	color: var(--color);
-	font-size: var(--font-size-sm);
+.ox-upload-editor-box .filepond--file-info {
+	color: var(--color) !important;
+	font-size: var(--font-size-sm) !important;
 }
 
-.filepond--file-info-sub {
-	color: var(--placeholder-color);
+.ox-upload-editor-box .filepond--file-info-sub {
+	color: var(--placeholder-color) !important;
 }
 
-.filepond--file-action-button {
-    background: var(--filepond--file-action-button-background) !important;
-    border-radius: var(--radius-sm);
+.ox-upload-editor-box .filepond--file-status {
+	color: var(--placeholder-color) !important;
 }
 
-.filepond--file-action-button:hover {
-    background: var(--action-hover-background) !important;
+.ox-upload-editor-box .filepond--file-action-button {
+	background: rgba(0, 0, 0, 0.6) !important;
+	border-radius: var(--radius-full) !important;
+	color: white !important;
+	box-shadow: none !important;
+	transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast) !important;
+	-webkit-backdrop-filter: blur(4px) !important;
+	backdrop-filter: blur(4px) !important;
 }
 
-.filepond--image-preview-overlay-success {
+.ox-upload-editor-box .filepond--file-action-button:hover,
+.ox-upload-editor-box .filepond--file-action-button:focus {
+	background: rgba(0, 0, 0, 0.85) !important;
+	color: white !important;
+	box-shadow: 0 0 0 2px var(--focus-ring-color) !important;
+	transform: scale(1.08);
+}
+
+.ox-upload-editor-box .filepond--file-action-button svg {
+	fill: currentColor !important;
+}
+
+/* Image preview */
+.ox-upload-editor-box .filepond--image-preview-wrapper {
+	border-radius: var(--radius-md) !important;
+	overflow: hidden !important;
+	cursor: pointer !important;
+}
+
+.ox-upload-editor-box .filepond--image-preview {
+	background: transparent !important;
+}
+
+.ox-upload-editor-box .filepond--image-preview-overlay-success {
 	color: var(--filepond--image-preview-overlay-success-color) !important;
 }
 
-.filepond--image-preview-overlay-failure {
+.ox-upload-editor-box .filepond--image-preview-overlay-failure {
 	color: var(--filepond--image-preview-overlay-failure) !important;
 }
 
-.filepond--image-preview-wrapper {
-	cursor: pointer;
+/* Image gallery full-bleed cards (avoid double rounded border) */
+.ox-upload-editor-box .ox-image .filepond--item,
+.ox-upload-editor-box .ox-gallery .filepond--item {
+	overflow: hidden !important;
+	border-radius: var(--radius-md) !important;
+}
+
+.ox-upload-editor-box .ox-image .filepond--file,
+.ox-upload-editor-box .ox-gallery .filepond--file {
+	padding: 0 !important;
+	background: transparent !important;
+}
+
+.ox-upload-editor-box .ox-image .filepond--image-preview-wrapper,
+.ox-upload-editor-box .ox-gallery .filepond--image-preview-wrapper {
+	border-radius: 0 !important;
 }
 
 .ox-image {

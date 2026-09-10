@@ -391,3 +391,56 @@ El usuario confirmó visualmente que la toolbar, los botones, el combo y el áre
 **Pendiente**
 
 - FilePond (fase 2) y modernización de `discussionEditor.css` / `uploadEditor.css` aún no abordados.
+
+---
+
+## Resumen de la sesión — corrección de FilePond dark mode (zona de drop)
+
+**Problema observado**
+
+- La zona de drop de FilePond tenía un efecto de "doble borde" con border-radius inconsistentes.
+- La zona de drop era indistinguible del frame en dark mode.
+- Se quería un color de fondo diferente (`--accent-soft`) para la zona de drop, visible incluso con archivos cargados.
+
+**Descubrimiento clave: el CSS no se aplicaba**
+
+1. **Orden de carga**: `filepond.css` (CSS original de FilePond) se carga **después** de `base.css` porque los CSS de editores se incluyen después del CSS principal (ver `ModulePageRenderer.java` líneas 96-100 y `EditorsResources.listCSSFiles`). Esto significa que las reglas de `filepond.css` con `!important` (como `.filepond--panel[data-scalable='true'] { background-color: transparent !important; }`) pisaban los overrides de `base.css`.
+2. **Intento con `uploadEditor.css`**: Se movieron los overrides a `uploadEditor.css` (que se carga después de `filepond.css`), pero tampoco funcionó.
+3. **Prueba con `<style>` inline en JSP**: Se añadió un `<style>` directamente en `uploadEditor.jsp`. Tampoco funcionó — el navegador no recompilaba el JSP o cacheaba el resultado.
+4. **Prueba con JS**: Se añadió `setTimeout` con `el.style.setProperty('background', 'red', 'important')` en `uploadEditor.js`. **Esto sí funcionó** — el rojo apareció.
+
+**Conclusión**: FilePond JS manipula los estilos dinámicamente tras la inicialización, pisando cualquier CSS (incluso con `!important`). La única forma fiable de aplicar el fondo es vía JS después de que FilePond termine su inicialización.
+
+**Solución aplicada**
+
+`editors/js/uploadEditor.js` (líneas 126-142):
+- `setTimeout(100ms)` después de la inicialización de FilePond.
+- Lee `--accent-soft`, `--radius-md` de `getComputedStyle(document.documentElement)`.
+- Aplica `background: --accent-soft`, `border-radius`, `overflow: hidden` al `.filepond--root`.
+- Hace transparentes todos los paneles internos (`.filepond--panel`, `.filepond--panel-root`, `.filepond--panel-top`, `.filepond--panel-bottom`, `.filepond--panel-center`) para que el fondo del root se vea.
+
+`style/base.css`:
+- Eliminadas las reglas CSS de fondo de `.filepond--root` y paneles transparentes (no funcionaban).
+- Se mantiene un comentario indicando que el fondo se aplica vía JS.
+
+`editors/style/uploadEditor.css`:
+- Eliminadas las reglas CSS de fondo que no funcionaban.
+
+`editors/uploadEditor.jsp`:
+- Eliminado el `<style>` de diagnóstico.
+
+**Estado actual**
+
+- El fondo de la zona de drop ahora se aplica vía JS y usa `--accent-soft`.
+- El usuario confirmó que ahora se ven colores diferentes, aunque "bastante feos" — **falta ajustar el color/estilo para que sea visualmente agradable**.
+- Falta verificar el comportamiento en dark mode específicamente.
+- Falta ajustar el estado drag-over.
+- Los paneles de items (`.filepond--item-panel`) no se hacen transparentes (solo los del root), por lo que los items conservan su fondo original.
+
+**Pendiente**
+
+- Ajustar el color de fondo para que sea visualmente agradable (el usuario dijo "bastante feos").
+- Verificar y ajustar dark mode.
+- Implementar estado drag-over con color distinto.
+- Modernizar `discussionEditor.css` y `uploadEditor.css` (fase 2.3 del plan).
+- Considerar si los paneles de items también necesitan ajustes.
