@@ -42,6 +42,7 @@
 	/* Frames */
 	--frame-background: var(--my-transparent-lightdark);
 	--frame-border: #35353c;
+	--upload-file-background: rgba(63, 63, 70, 0.35);
 
 	/* Element collections */
 	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 22%, transparent);

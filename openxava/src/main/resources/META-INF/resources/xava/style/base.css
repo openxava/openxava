@@ -52,6 +52,7 @@
 	--background: #f8fafc;
 	--color: #0f172a;
 	--frame-border: #e2e8f0;
+	--upload-file-background: #e2e8f0;
 	--frame-nested-background: transparent;
 	--frame-toggle-color: var(--action-color);
 	--frame-toggle-hover-color: var(--action-hover-color);

@@ -141,7 +141,7 @@ openxava.addEditorInitFunction(function() {
         }
     });
 
-    // Re-apply panel transparency via JS as backup (CSS in uploadEditor.css handles root background and panel transparency,
+    // Re-apply panel transparency via JS as backup (CSS handles root background via --upload-file-background,
     // but FilePond may set inline styles on panels when files are added/removed)
     setTimeout(function() {
         document.querySelectorAll('.ox-upload-editor-box .filepond--root').forEach(function(el) {
@@ -292,15 +292,6 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 uploadEditor.imgList = ['GIF','JPEG','JPG','PNG','TIF','TIFF','WBMP','ICO','JNG','BMP','SVG','WEBP'];
 
 uploadEditor.applyDropZoneStyle = function(rootEl) {
-    var accentSoft = getComputedStyle(document.documentElement).getPropertyValue('--accent-soft').trim();
-    if (accentSoft) {
-        rootEl.style.setProperty('background', accentSoft, 'important');
-    }
-    var radiusMd = getComputedStyle(document.documentElement).getPropertyValue('--radius-md').trim();
-    if (radiusMd) {
-        rootEl.style.setProperty('border-radius', radiusMd, 'important');
-    }
-    rootEl.style.setProperty('overflow', 'hidden', 'important');
     rootEl.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
         panel.style.setProperty('background-color', 'transparent', 'important');
         panel.style.setProperty('border', 'none', 'important');

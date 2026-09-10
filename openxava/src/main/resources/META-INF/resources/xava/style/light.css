@@ -35,6 +35,7 @@
 	/* Frames */
 	--frame-background: #f1f5f9;
 	--frame-border: #e2e8f0;
+	--upload-file-background: #e2e8f0;
 
 	/* Actions */
 	--action-color: var(--my-gray);

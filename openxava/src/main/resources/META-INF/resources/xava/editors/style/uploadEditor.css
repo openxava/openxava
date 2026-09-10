@@ -52,17 +52,16 @@
     line-height: 1;
 }
 
-/* Drop zone root styling via CSS (not JS) to avoid timing issues with @import CSS loading.
-   On full page load, the @import chain (dark.css → base.css + dark-overrides.css) may not
-   finish before the JS setTimeout fires. CSS variables are live: when --accent-soft becomes
-   available, the browser recalculates automatically. */
+/* Drop zone root styling via CSS only — a designer can override --upload-file-background
+   in their theme CSS without touching JavaScript. CSS variables are live: when the @import
+   chain finishes loading, the browser recalculates automatically. */
 .ox-upload-editor-box .filepond--root {
-    background: var(--accent-soft) !important;
+    background: var(--upload-file-background) !important;
     border-radius: var(--radius-md) !important;
     overflow: hidden !important;
 }
 
-/* Make all FilePond panels transparent so the root's accent-soft background shows through.
+/* Make all FilePond panels transparent so the root's upload-file-background shows through.
    FilePond sets background-color: #f1f0ef on .filepond--panel-root in its CSS (no !important).
    When files are added, FilePond re-creates panel DOM, losing inline transparent set by JS.
    These CSS rules with !important apply to all panel elements including newly created ones. */
