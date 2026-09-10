@@ -120,8 +120,35 @@ openxava.addEditorInitFunction(function() {
             pond.onprocessfilestart = function () {
                 uploadEditor.resizeHeightWhenAddOrProcess(input);
             }
+
+            // Re-apply drop zone styles after file add/remove (FilePond re-creates panel DOM, losing inline styles)
+            var rootEl = input.closest('.filepond--root');
+            if (rootEl) {
+                var reapplyStyles = function() {
+                    setTimeout(function() { uploadEditor.applyDropZoneStyle(rootEl); }, 50);
+                };
+                var origOnAddFile = pond.onaddfile;
+                pond.onaddfile = function() {
+                    if (origOnAddFile) origOnAddFile.apply(this, arguments);
+                    reapplyStyles();
+                };
+                var origOnRemoveFile = pond.onremovefile;
+                pond.onremovefile = function() {
+                    if (origOnRemoveFile) origOnRemoveFile.apply(this, arguments);
+                    reapplyStyles();
+                };
+            }
         }
     });
+
+    // Re-apply panel transparency via JS as backup (CSS handles root background via --upload-file-background,
+    // but FilePond may set inline styles on panels when files are added/removed)
+    setTimeout(function() {
+        document.querySelectorAll('.ox-upload-editor-box .filepond--root').forEach(function(el) {
+            uploadEditor.applyDropZoneStyle(el);
+        });
+    }, 100);
+
     // Delegated handler for "Download all" to comply with CSP (no inline onclick)
     $(document)
         .off('click.oxDownloadAll', '.ox-download-all-link') 
@@ -263,4 +290,12 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 }
 
 uploadEditor.imgList = ['GIF','JPEG','JPG','PNG','TIF','TIFF','WBMP','ICO','JNG','BMP','SVG','WEBP'];
+
+uploadEditor.applyDropZoneStyle = function(rootEl) {
+    rootEl.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
+        panel.style.setProperty('background-color', 'transparent', 'important');
+        panel.style.setProperty('border', 'none', 'important');
+        panel.style.setProperty('box-shadow', 'none', 'important');
+    });
+};
 

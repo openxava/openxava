@@ -37,17 +37,40 @@
     justify-content: center;
     width: 28px;
     height: 28px;
-    border-radius: 4px;
-    color: rgba(0,0,0,0.54);
+    border-radius: var(--radius-sm);
+    color: var(--action-color);
     text-decoration: none;
 }
 
 .ox-upload-editor-box .ox-download-all .ox-download-all-link:hover {
-    background: rgba(0,0,0,0.06);
-    color: rgba(0,0,0,0.87);
+    background: var(--action-hover-background);
+    color: var(--action-hover-color);
 }
 
 .ox-upload-editor-box .ox-download-all .mdi {
     font-size: 20px;
     line-height: 1;
+}
+
+/* Drop zone root styling via CSS only — a designer can override --upload-file-background
+   in their theme CSS without touching JavaScript. CSS variables are live: when the @import
+   chain finishes loading, the browser recalculates automatically. */
+.ox-upload-editor-box .filepond--root {
+    background: var(--upload-file-background) !important;
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+}
+
+/* Make all FilePond panels transparent so the root's upload-file-background shows through.
+   FilePond sets background-color: #f1f0ef on .filepond--panel-root in its CSS (no !important).
+   When files are added, FilePond re-creates panel DOM, losing inline transparent set by JS.
+   These CSS rules with !important apply to all panel elements including newly created ones. */
+.ox-upload-editor-box .filepond--panel-root,
+.ox-upload-editor-box .filepond--panel,
+.ox-upload-editor-box .filepond--panel-top,
+.ox-upload-editor-box .filepond--panel-bottom,
+.ox-upload-editor-box .filepond--panel-center {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }

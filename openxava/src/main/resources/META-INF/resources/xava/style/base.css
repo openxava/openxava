@@ -52,6 +52,7 @@
 	--background: #f8fafc;
 	--color: #0f172a;
 	--frame-border: #e2e8f0;
+	--upload-file-background: #e8ecf2;
 	--frame-nested-background: transparent;
 	--frame-toggle-color: var(--action-color);
 	--frame-toggle-hover-color: var(--action-hover-color);
@@ -3490,27 +3491,192 @@ span[id*="reference_editor"] + .ox-layout-detail {
 	background: transparent;
 }
 
-.xava_editor .tox-tinymce {
-	border-style: none;	
-	border-radius: var(--radius-lg);
+/* ===== TinyMCE modern overrides ===== */
+
+body .tox-tinymce,
+body .tox.tox-tinymce-inline .tox-editor-header {
+	border: 1px solid var(--input-border) !important;
+	border-radius: var(--radius-md) !important;
 	margin-bottom: 3px;
+	background: var(--background) !important;
+	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.xava_editor .tox .tox-tbtn:hover, 
-.xava_editor .tox .tox-mbtn--active,
-.xava_editor .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
-.xava_editor .tox .tox-mbtn:focus:not(:disabled),
-.xava_editor .tox .tox-tbtn:focus
+body .tox-tinymce:hover,
+body .tox-tinymce:hover .tox-editor-header {
+	border-color: var(--input-hover-border) !important;
+}
+
+body .tox-tinymce:focus-within,
+body .tox-tinymce:focus-within .tox-editor-header {
+	border-color: var(--input-focus-border) !important;
+	box-shadow: 0 0 0 3px var(--focus-ring-color);
+}
+
+body .tox .tox-editor-header,
+body .tox:not(.tox-tinymce-inline) .tox-editor-header,
+body .tox:not(.tox-tinymce-inline).tox-tinymce--toolbar-sticky-on .tox-editor-header {
+	background: transparent !important;
+	border-bottom: 1px solid var(--frame-border) !important;
+	border-top: none !important;
+	box-shadow: none !important;
+	padding: var(--space-1) var(--space-2);
+}
+
+body .tox .tox-toolbar__primary,
+body .tox .tox-toolbar-overlord,
+body .tox .tox-toolbar,
+body .tox .tox-toolbar-overlord>.tox-toolbar__primary {
+	background: transparent !important;
+	border: none !important;
+	background-image: none !important;
+}
+
+body .tox .tox-toolbar__group {
+	border: none !important;
+	padding: 0 var(--space-1);
+}
+
+body .tox .tox-tbtn,
+body .tox .tox-mbtn,
+body .tox .tox-tbtn--enabled,
+body .tox .tox-mbtn--active,
+body .tox .tox-tbtn--select,
+body .tox .tox-tbtn--bespoke {
+	background: transparent !important;
+	border-radius: var(--radius-sm);
+	color: var(--color) !important;
+	transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+body .tox .tox-tbtn svg,
+body .tox .tox-tbtn .tox-icon svg,
+body .tox .tox-tbtn svg path,
+body .tox .tox-tbtn .tox-icon svg path,
+body .tox .tox-mbtn svg,
+body .tox .tox-mbtn .tox-icon svg,
+body .tox .tox-mbtn svg path,
+body .tox .tox-mbtn .tox-icon svg path {
+	fill: var(--color) !important;
+}
+
+body .tox .tox-tbtn:hover, 
+body .tox .tox-mbtn--active,
+body .tox .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active),
+body .tox .tox-mbtn:focus:not(:disabled),
+body .tox .tox-tbtn:focus
 {
-    background: var(--html-text-button-hover); 
+    background: var(--html-text-button-hover) !important;
+    border-radius: var(--radius-sm);
+    color: var(--color) !important;
 }
 
-.tox .tox-collection--list .tox-collection__item--active {
-    background: var(--html-text-button-hover) !important; 
+body .tox .tox-tbtn--selected,
+body .tox .tox-tbtn--enabled {
+	background: var(--accent-soft) !important;
+	color: var(--accent-color) !important;
 }
 
-.xava_editor .tox .tox-split-button:hover {
+body .tox .tox-tbtn--selected svg,
+body .tox .tox-tbtn--enabled svg,
+body .tox .tox-tbtn--selected svg path,
+body .tox .tox-tbtn--enabled svg path {
+	fill: var(--accent-color) !important;
+}
+
+body .tox .tox-split-button:hover {
 	box-shadow: 0 0 0 1px var(--html-text-button-hover) inset;
+	border-radius: var(--radius-sm);
+}
+
+body .tox .tox-edit-area,
+body .tox .tox-edit-area::before,
+body .tox .tox-edit-area__iframe {
+	background: var(--background) !important;
+}
+
+body .tox .tox-statusbar {
+	background: transparent !important;
+	border: none;
+	color: var(--placeholder-color);
+	font-size: var(--font-size-xs);
+}
+
+/* Dropdown menus */
+body .tox .tox-menu,
+body .tox .tox-tbtn--enabled .tox-listbox,
+body .tox .tox-input,
+body .tox .tox-toolbar {
+	background: var(--frame-background) !important;
+}
+
+body .tox .tox-menu {
+	border: 1px solid var(--frame-border) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: var(--elevation-2) !important;
+}
+
+body .tox .tox-collection--list .tox-collection__item--active {
+    background: var(--action-hover-background) !important;
+    color: var(--action-hover-color) !important;
+}
+
+body .tox .tox-collection__item {
+	color: var(--color) !important;
+}
+
+body .tox .tox-collection__item--active {
+	background: var(--action-hover-background) !important;
+	color: var(--action-hover-color) !important;
+}
+
+/* Dialog (link editor etc.) */
+body .tox .tox-dialog {
+	border-radius: var(--radius-lg) !important;
+	box-shadow: var(--elevation-3) !important;
+	border: 1px solid var(--frame-border) !important;
+	background: var(--background) !important;
+}
+
+body .tox .tox-dialog__header {
+	background: transparent !important;
+	border-bottom: 1px solid var(--frame-border) !important;
+}
+
+body .tox .tox-dialog__title {
+	color: var(--color) !important;
+}
+
+body .tox .tox-dialog__body {
+	color: var(--color) !important;
+}
+
+body .tox .tox-dialog__body-content .tox-label {
+	color: var(--label-color) !important;
+}
+
+body .tox .tox-dialog__footer {
+	background: transparent !important;
+	border-top: 1px solid var(--frame-border) !important;
+}
+
+body .tox .tox-textfield,
+body .tox .tox-listbox {
+	border: 1px solid var(--input-border) !important;
+	border-radius: var(--radius-sm) !important;
+	background: var(--input-background) !important;
+	color: var(--input-color) !important;
+}
+
+body .tox .tox-textfield:focus,
+body .tox .tox-listbox:focus {
+	border-color: var(--input-focus-border) !important;
+}
+
+/* Color picker swatch */
+.tox .tox-color-input span,
+.tox .tox-color-button {
+	border-radius: var(--radius-sm);
 }
 
 .ox-list-title { 
@@ -3792,17 +3958,142 @@ div[id$="_Index__view"] .ox-list-title {
 	color: var(--list-header-arrows-color); 
 } 
 
-.filepond--item {
+/* ===== FilePond modern overrides ===== */
+
+/* Drop zone background applied via JS in uploadEditor.js (CSS overrides don't reliably apply) */
+
+.ox-upload-editor-box .filepond--drop-label {
+	color: var(--placeholder-color) !important;
+}
+
+.ox-upload-editor-box .filepond--drop-label.filepond--drop-label label {
+	white-space: normal !important;
+	color: var(--placeholder-color) !important;
+	font-size: var(--font-size-sm) !important;
+	font-weight: 400 !important;
+	cursor: default !important;
+}
+
+.ox-upload-editor-box .filepond--label-action {
+	color: var(--accent-color) !important;
+	text-decoration: underline !important;
+	-webkit-text-decoration-color: var(--accent-color) !important;
+	text-decoration-color: var(--accent-color) !important;
+	cursor: pointer !important;
+}
+
+.ox-upload-editor-box .filepond--drop-label label::before {
+	content: '';
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin-right: var(--space-2);
+	vertical-align: middle;
+	background: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='17 8 12 3 7 8'/%3E%3Cline x1='12' y1='3' x2='12' y2='15'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='17 8 12 3 7 8'/%3E%3Cline x1='12' y1='3' x2='12' y2='15'/%3E%3C/svg%3E") center / contain no-repeat;
+	color: var(--placeholder-color);
+}
+
+.ox-upload-editor-box .filepond--drip-blob {
+	background: var(--accent-color) !important;
+}
+
+/* File item card panel */
+.ox-upload-editor-box .filepond--item {
 	width: 190px;
 }
 
-.filepond--root {
-	overflow: hidden; 
-	border-radius: var(--radius-lg);
+.ox-upload-editor-box .filepond--item-panel {
+	background: var(--frame-background) !important;
+	border-radius: var(--radius-md) !important;
 }
 
-.filepond--drop-label label {
-	white-space: normal;
+.ox-upload-editor-box [data-filepond-item-state] .filepond--item-panel {
+	background: var(--frame-background) !important;
+}
+
+.ox-upload-editor-box .filepond--panel {
+	border: none !important;
+}
+
+/* File item content */
+.ox-upload-editor-box .filepond--file {
+	background: transparent !important;
+	color: var(--color) !important;
+	border-radius: var(--radius-md) !important;
+}
+
+.ox-upload-editor-box .filepond--file-info {
+	color: var(--color) !important;
+	font-size: var(--font-size-sm) !important;
+}
+
+.ox-upload-editor-box .filepond--file-info-sub {
+	color: var(--placeholder-color) !important;
+}
+
+.ox-upload-editor-box .filepond--file-status {
+	color: var(--placeholder-color) !important;
+}
+
+.ox-upload-editor-box .filepond--file-action-button {
+	background: rgba(0, 0, 0, 0.6) !important;
+	border-radius: var(--radius-full) !important;
+	color: white !important;
+	box-shadow: none !important;
+	transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast) !important;
+	-webkit-backdrop-filter: blur(4px) !important;
+	backdrop-filter: blur(4px) !important;
+}
+
+.ox-upload-editor-box .filepond--file-action-button:hover,
+.ox-upload-editor-box .filepond--file-action-button:focus {
+	background: rgba(0, 0, 0, 0.85) !important;
+	color: white !important;
+	box-shadow: 0 0 0 2px var(--focus-ring-color) !important;
+	transform: scale(1.08);
+}
+
+.ox-upload-editor-box .filepond--file-action-button svg {
+	fill: currentColor !important;
+}
+
+/* Image preview */
+.ox-upload-editor-box .filepond--image-preview-wrapper {
+	border-radius: var(--radius-md) !important;
+	overflow: hidden !important;
+	cursor: pointer !important;
+}
+
+.ox-upload-editor-box .filepond--image-preview {
+	background: transparent !important;
+}
+
+.ox-upload-editor-box .filepond--image-preview-overlay-success {
+	color: var(--filepond--image-preview-overlay-success-color) !important;
+}
+
+.ox-upload-editor-box .filepond--image-preview-overlay-failure {
+	color: var(--filepond--image-preview-overlay-failure) !important;
+}
+
+/* Image gallery full-bleed cards (avoid double rounded border) */
+.ox-upload-editor-box .ox-image .filepond--item,
+.ox-upload-editor-box .ox-gallery .filepond--item {
+	overflow: hidden !important;
+	border-radius: var(--radius-md) !important;
+}
+
+.ox-upload-editor-box .ox-image .filepond--file,
+.ox-upload-editor-box .ox-gallery .filepond--file {
+	padding: 0 !important;
+	background: transparent !important;
+}
+
+.ox-upload-editor-box .ox-image .filepond--image-preview-wrapper,
+.ox-upload-editor-box .ox-gallery .filepond--image-preview-wrapper {
+	border-radius: 0 !important;
 }
 
 .ox-image {
@@ -3821,26 +4112,6 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-file .filepond--item, .ox-files .filepond--item {
 	width: 300px;
-	cursor: pointer;
-}
-
-.filepond--panel-root {
-	border-radius: var(--radius-sm) !important;
-}
-
-.filepond--file-action-button {
-    background: var(--filepond--file-action-button-background) !important;
-}
-
-.filepond--image-preview-overlay-success {
-	color: var(--filepond--image-preview-overlay-success-color) !important;
-}
-
-.filepond--image-preview-overlay-failure {
-	color: var(--filepond--image-preview-overlay-failure) !important;
-}
-
-.filepond--image-preview-wrapper {
 	cursor: pointer;
 }
 
