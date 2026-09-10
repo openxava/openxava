@@ -1,7 +1,24 @@
 if (htmlEditor == null) var htmlEditor = {}; 
 
 htmlEditor.isDark = function() {
+	var colorScheme = getComputedStyle(document.documentElement).getPropertyValue('color-scheme').trim();
+	if (colorScheme === 'dark') return true;
+	if (colorScheme === 'light') return false;
 	return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+htmlEditor.resolveVar = function(rootStyle, name) {
+	var value = rootStyle.getPropertyValue(name).trim();
+	while (value.indexOf('var(') === 0) {
+		var match = value.match(/^var\(\s*(--[\w-]+)\s*(?:,\s*(.+))?\)$/);
+		if (!match) break;
+		var varName = match[1];
+		var fallback = match[2] ? match[2].trim() : '';
+		var resolved = rootStyle.getPropertyValue(varName).trim();
+		value = resolved || fallback;
+		if (value === 'var(' + varName + ')') break;
+	}
+	return value;
 };
 
 htmlEditor.injectContentStyles = function(editor) {
@@ -14,26 +31,31 @@ htmlEditor.injectContentStyles = function(editor) {
 	];
 	var css = ':root {';
 	for (var i = 0; i < vars.length; i++) {
-		css += vars[i] + ': ' + rootStyle.getPropertyValue(vars[i]) + ';';
+		css += vars[i] + ': ' + htmlEditor.resolveVar(rootStyle, vars[i]) + ';';
 	}
 	css += '}';
-	css += 'body { font-family: var(--font-family); font-size: var(--font-size-md); line-height: var(--line-height); color: var(--color); background: var(--input-background); padding: var(--space-3); margin: 0; }';
-	css += 'a { color: var(--action-link-color); }';
+	css += 'body, .mce-content-body { font-family: var(--font-family) !important; font-size: var(--font-size-md) !important; line-height: var(--line-height) !important; color: var(--color) !important; background: var(--background) !important; padding: var(--space-3) !important; margin: 0 !important; }';
+	css += 'a { color: var(--action-link-color) !important; }';
 	var style = editor.getDoc().createElement('style');
 	style.setAttribute('data-ox-content', 'true');
 	style.textContent = css;
 	head.appendChild(style);
+	
+	var body = editor.getBody();
+	if (body) {
+		body.style.backgroundColor = htmlEditor.resolveVar(rootStyle, '--background');
+		body.style.color = htmlEditor.resolveVar(rootStyle, '--color');
+	}
 };
 
 openxava.addEditorInitFunction(function() {
 	if (openxava.browser.htmlUnit) return;
-	var skin = htmlEditor.isDark() ? 'oxide-dark' : 'oxide';
 	tinymce.init({
 	  selector: '.ox-html-text',
 	  plugins: 'link', 
 	  toolbar: 'styles | bold italic forecolor | alignleft aligncenter alignright alignjustify | outdent indent | link', 
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
-	  skin: skin,
+	  skin: 'oxide',
 	  language: openxava.language,
 	  promotion: false,
 	  branding: false,
@@ -49,7 +71,7 @@ openxava.addEditorInitFunction(function() {
 	  menubar: false,
 	  statusbar: false,
 	  base_url: openxava.contextPath + '/xava/editors/tinymce/',
-	  skin: skin,
+	  skin: 'oxide',
 	  language: openxava.language,
 	  promotion: false,
 	  branding: false,
