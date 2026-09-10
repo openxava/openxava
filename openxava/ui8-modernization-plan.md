@@ -202,7 +202,14 @@ Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welc
   - Botón "Sign in" primario ancho completo dentro de la tarjeta; botón de Azure AD/SSO (si está presente) como secundario ghost/outline.
   - Mensajes de error integrados en la tarjeta (el icono ya se oculta en `#sign_in_box .ox-message-box i`).
 
+- [ ] **Página de primeros pasos (`FirstSteps`)**:
+  - Revisar y modernizar el módulo `FirstSteps` y su página (`firstSteps.jsp`), coherente con `welcome.jsp` y `signIn.jsp`.
+  - Aplicar los tokens del sistema: `--space-*`, `--radius-lg`, `--elevation-2`, escala tipográfica (`--font-size-*`) y colores de tema (`--welcome-background`, `--welcome-color`, etc.) o añadir tokens específicos (`--first-steps-*`) si es necesario.
+  - Sustituir fondos, bordes y tipografías antiguos por el estilo de tarjeta centrada, espaciado generoso y botones del Bloque 5.
+  - Verificar visualización en modo phone y en los 3 temas (Auto/Light/Dark).
+
 - [ ] **Sistema de temas**:
+
   - Añadir/consolidar tokens en `base.css`: `--welcome-background`, `--welcome-color`, `--welcome-card-background`, `--sign-in-background`, `--sign-in-card-background`, `--sign-in-text`, `--sign-in-input-border`, `--sign-in-input-focus-outline-color`, `--sign-in-button-*` y `--azure-signin-button-*`.
   - Implementar overrides en `light.css` y `dark.css`; verificar `prefers-color-scheme` en `auto.css`.
 
