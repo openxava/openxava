@@ -468,3 +468,68 @@ El usuario confirmó visualmente que la toolbar, los botones, el combo y el áre
 `editors/js/uploadEditor.js`:
 - Extraída la lógica de estilizado en `uploadEditor.applyDropZoneStyle(rootEl)` (función reutilizable).
 - Wrapping de `pond.onaddfile` y `pond.onremovefile` para re-aplicar estilos con 50ms de delay tras añadir/eliminar archivos (belt-and-suspenders: asegura que el fondo del root se re-aplique si FilePond también resetea inline styles del root).
+
+---
+
+## Resumen de la sesión — fix definitivo: timing CSS + variable dedicada + diseño neutro
+
+**Problema observado**
+
+El fix anterior (JS `setTimeout` + `onaddfile`/`onremovefile` wrapping) funcionaba en recargas parciales (navegación entre registros) pero **fallaba en cargas completas de página** (selección desde lista, recarga del navegador): la zona de drop aparecía del mismo color que el frame, sin distinguirse.
+
+**Causa raíz identificada**
+
+- En carga completa, el CSS se carga vía `@import` en cadena: `dark.css` → `@import 'base.css'` + `@import 'dark-overrides.css'`. Esta cadena puede no terminar antes de que el `setTimeout(100ms)` del JS se ejecute.
+- Cuando eso pasa, `getComputedStyle(document.documentElement).getPropertyValue('--accent-soft')` devuelve una cadena vacía.
+- `rootEl.style.setProperty('background', '', 'important')` con cadena vacía **elimina** la propiedad inline, dejando el root sin fondo.
+- En recarga parcial (AJAX), el CSS ya está cargado, así que `--accent-soft` está disponible y funciona.
+
+**Solución: mover el fondo del root de JS a CSS**
+
+Las variables CSS son *live*: cuando `--upload-file-background` se define (tras cargar el `@import`), el navegador recalcula automáticamente. Sin problemas de timing.
+
+1. **Nueva variable `--upload-file-background`** definida en:
+   - `base.css:55` — `#e8ecf2` (default/light: gris neutro entre `--frame-background` y `--frame-border`)
+   - `light.css:38` — `#e8ecf2` (explícito light)
+   - `dark-overrides.css:45` — `rgba(63, 63, 70, 0.2)` (dark: gris más claro semi-transparente, distinguible del frame)
+
+2. **`uploadEditor.css`** — regla CSS para `.filepond--root`:
+   ```css
+   .ox-upload-editor-box .filepond--root {
+       background: var(--upload-file-background) !important;
+       border-radius: var(--radius-md) !important;
+       overflow: hidden !important;
+   }
+   ```
+   Y reglas para todos los paneles (`.filepond--panel-root`, `.filepond--panel`, `.filepond--panel-top`, etc.) con `background-color: transparent !important; border: none !important; box-shadow: none !important;`.
+
+3. **`uploadEditor.js`** — `applyDropZoneStyle` **ya no toca el background ni el border-radius**. Solo hace transparentes los paneles (backup por si FilePond re-crea DOM con inline styles). Un diseñador puede cambiar el color de la zona de drop overriding `--upload-file-background` en CSS, sin tocar JS.
+
+**Decisión de diseño: neutro vs acento**
+
+- Inicialmente se usó `--accent-soft` (tinte púrpura al 15% en dark). Funcionaba técnicamente pero era más color del que usan apps punteras (Linear, Attio, Notion) para contenedores.
+- Se cambió a `--frame-background` — pero era invisible porque el editor ya está dentro de un frame con ese mismo color.
+- Se consultó el diseño de Linear, Attio y Notion: todos usan **fondos neutros** para drop zones/galerías, con el acento reservado para estados interactivos (links, drag-over, focus).
+- Se creó `--upload-file-background` con valores neutros distinguibles del frame en ambos modos.
+- Un LLM externo sugirió suavizar más el fondo. Se redujeron los valores ~40%:
+  - Light: `#e2e8f0` → `#e8ecf2`
+  - Dark: `rgba(63, 63, 70, 0.35)` → `rgba(63, 63, 70, 0.2)`
+- El usuario confirmó que el resultado final le gusta.
+
+**Archivos modificados en esta sesión**
+
+| Archivo | Cambio |
+|---|---|
+| `style/base.css:55` | Nueva variable `--upload-file-background: #e8ecf2` |
+| `style/light.css:38` | `--upload-file-background: #e8ecf2` (explícito) |
+| `style/dark-overrides.css:45` | `--upload-file-background: rgba(63, 63, 70, 0.2)` |
+| `editors/style/uploadEditor.css:55-77` | Reglas CSS para `.filepond--root` (background, radius, overflow) y paneles (transparent, border, box-shadow) — todo via CSS, sin JS |
+| `editors/js/uploadEditor.js:294-300` | `applyDropZoneStyle` simplificada: solo transparencia de paneles, sin background ni radius |
+
+**Estado final**
+
+- La zona de drop se ve con su propio color, diferenciado del frame, en todos los escenarios: carga completa, recarga parcial, con archivos, sin archivos, dark y light.
+- El color es ajustable por un diseñador via CSS (`--upload-file-background`), sin tocar JavaScript.
+- El JS solo se encarga de hacer transparentes los paneles internos como backup (FilePond puede re-crear DOM al añadir/eliminar archivos).
+
+**Bloque 7 concluido.**

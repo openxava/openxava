@@ -178,11 +178,11 @@ Diferencias intencionadas a marcar visualmente:
 
 ## Bloque 7 — Editores especiales (`ui-editors`)
 
-- [ ] **Editor de carga de archivos**: revisar y modernizar el editor de carga de archivos. Al menos el color, alineándolo con `--accent-color` y los tokens del sistema de diseño. Valorar drag & drop, progress bar y estados de hover/focus.
+- [x] **Editor de carga de archivos**: modernizado el editor de carga de archivos (FilePond). Nueva variable `--upload-file-background` para el fondo de la zona de drop, distinguible del frame en ambos temas. Paneles internos transparentes via CSS. Fix de timing en carga completa de página (CSS live variables vs JS setTimeout). Estilo del botón download-all con CSS vars. Drip y label con acento.
 - [x] **Editor de texto rico**: revisar y modernizar el editor de texto rico (toolbar, área de edición, estados). Coherente con los tokens de tipografía, bordes, radios y colores ya definidos.
 - [x] Verificación en los 3 temas (Auto/Light/Dark) y modo phone.
 
-Detalles del trabajo en `ui8-modernization-bloque7-thread.md`.
+**Concluido.** Tests pasados, estética revisada en los 3 temas (Auto/Light/Dark) y modo phone. Detalles del trabajo en `ui8-modernization-bloque7-thread.md`.
 
 ## Limpieza y rendimiento
 
