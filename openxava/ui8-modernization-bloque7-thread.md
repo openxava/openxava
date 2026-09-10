@@ -351,3 +351,43 @@ Si es necesario, añadir overrides adicionales en `dark-overrides.css` para caso
 - **Especificidad CSS**: FilePond y TinyMCE usan selectores muy específicos (`.filepond--drop-label.filepond--drop-label label`). Los overrides en `base.css` pueden necesitar `!important` o selectores igual de específicos.
 - **Cambio de tema en runtime**: Si el usuario cambia de light a dark sin recargar la página, TinyMCE necesitará re-inicializarse con la skin opuesta. Verificar si el cambio de tema ya recarga la página (probable) o si hay que manejar el evento.
 - **FilePond CSS original (27 KB)**: No se modifica directamente. Los overrides van en `base.css` al final del archivo, extendiendo la sección existente. Esto mantiene la actualización de FilePond sencilla en el futuro.
+
+---
+
+## Resumen de la sesión — corrección de TinyMCE en dark mode
+
+**Problema observado**
+
+Tras el primer intento de modernizar TinyMCE, en dark mode:
+- La toolbar mostraba fondo blanco/azulado con botones invisibles.
+- El combo “Párrafo” era blanco y no se leía su contenido.
+- El área de escritura seguía siendo fondo blanco con texto negro.
+
+**Causas identificadas**
+
+1. `htmlEditor.isDark()` usaba únicamente `prefers-color-scheme`, no la variable `color-scheme` de OpenXava.
+2. El skin `oxide-dark` aportaba un tinte azul que desentonaba, y el skin `oxide` fija `background-color: #fff` en `.tox-edit-area__iframe`.
+3. Los overrides CSS eran poco específicos y no cubrían iconos SVG ni combos/listbox.
+4. Las variables CSS inyectadas en el iframe del editor podían ser anidadas (`var(--my-dark)`), por lo que el `<body>` del iframe las resolvía como `initial`.
+
+**Solución aplicada**
+
+`editors/js/htmlEditor.js`:
+- `htmlEditor.isDark()` lee `color-scheme` del `<html>` antes de recurrir a `matchMedia`.
+- TinyMCE siempre usa `skin: 'oxide'`; todo el tema se controla por CSS.
+- Nuevo `htmlEditor.resolveVar()` para resolver recursivamente variables anidadas.
+- `htmlEditor.injectContentStyles()` añade reglas `!important` para `body/.mce-content-body` y, como refuerzo, asigna `backgroundColor` y `color` directamente al `body` del iframe.
+
+`style/base.css`:
+- Selectores con `body .tox` en lugar de `.xava_editor .tox` para garantizar que se apliquen independientemente del wrapper del editor.
+- `!important` en fondos, colores y bordes del contenedor, toolbar, botones, área de edición, menús desplegables, diálogos y campos.
+- Overrides para iconos SVG (`fill: var(--color)` y estados `selected` con `fill: var(--accent-color)`).
+- Fondo del combo/listbox y del diálogo de enlace con tokens del tema.
+
+**Verificación**
+
+El usuario confirmó visualmente que la toolbar, los botones, el combo y el área de escritura ya se adaptan correctamente al tema oscuro.
+
+**Pendiente**
+
+- FilePond (fase 2) y modernización de `discussionEditor.css` / `uploadEditor.css` aún no abordados.
