@@ -440,7 +440,31 @@ El usuario confirmó visualmente que la toolbar, los botones, el combo y el áre
 **Pendiente**
 
 - Ajustar el color de fondo para que sea visualmente agradable (el usuario dijo "bastante feos").
-- Verificar y ajustar dark mode.
 - Implementar estado drag-over con color distinto.
 - Modernizar `discussionEditor.css` y `uploadEditor.css` (fase 2.3 del plan).
 - Considerar si los paneles de items también necesitan ajustes.
+
+---
+
+## Resumen de la sesión — fix fondo blanco con archivos adjuntos en Dark
+
+**Problema observado**
+
+- Con archivos adjuntos, el fondo de la zona de FilePond se quedaba blanco en Dark mode, mientras que sin archivos se veía correctamente con `--accent-soft` (azul/morado oscuro).
+- El usuario teorizó que era la fuente del "doble marco": cuando se añade un archivo, FilePond lo pone dentro de otro componente.
+
+**Causa identificada**
+
+- `.filepond--panel-root` tiene `background-color: #f1f0ef` (casi blanco) en `filepond.css:827` — **sin `!important`**.
+- El JS aplicaba `transparent` vía inline styles al inicializar (100ms), pero cuando se añade un archivo, FilePond re-crea el DOM del panel, perdiendo los inline styles.
+- El nuevo `.filepond--panel-root` recién creado caía al default `#f1f0ef` del CSS, cubriendo el fondo `--accent-soft` del root.
+
+**Solución aplicada**
+
+`editors/style/uploadEditor.css`:
+- Nueva regla `.ox-upload-editor-box .filepond--panel-root { background-color: transparent !important; }`.
+- Como `filepond.css` no usa `!important` en `.filepond--panel-root`, este override CSS con `!important` funciona incluso aunque `filepond.css` cargue después. Y al ser CSS (no inline), se aplica automáticamente a todos los elementos `.filepond--panel-root`, incluyendo los re-creados por FilePond al añadir archivos.
+
+`editors/js/uploadEditor.js`:
+- Extraída la lógica de estilizado en `uploadEditor.applyDropZoneStyle(rootEl)` (función reutilizable).
+- Wrapping de `pond.onaddfile` y `pond.onremovefile` para re-aplicar estilos con 50ms de delay tras añadir/eliminar archivos (belt-and-suspenders: asegura que el fondo del root se re-aplique si FilePond también resetea inline styles del root).

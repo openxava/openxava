@@ -120,24 +120,32 @@ openxava.addEditorInitFunction(function() {
             pond.onprocessfilestart = function () {
                 uploadEditor.resizeHeightWhenAddOrProcess(input);
             }
+
+            // Re-apply drop zone styles after file add/remove (FilePond re-creates panel DOM, losing inline styles)
+            var rootEl = input.closest('.filepond--root');
+            if (rootEl) {
+                var reapplyStyles = function() {
+                    setTimeout(function() { uploadEditor.applyDropZoneStyle(rootEl); }, 50);
+                };
+                var origOnAddFile = pond.onaddfile;
+                pond.onaddfile = function() {
+                    if (origOnAddFile) origOnAddFile.apply(this, arguments);
+                    reapplyStyles();
+                };
+                var origOnRemoveFile = pond.onremovefile;
+                pond.onremovefile = function() {
+                    if (origOnRemoveFile) origOnRemoveFile.apply(this, arguments);
+                    reapplyStyles();
+                };
+            }
         }
     });
 
-    // Apply drop zone background via JS (CSS overrides don't reliably apply due to FilePond's dynamic style management)
+    // Re-apply panel transparency via JS as backup (CSS in uploadEditor.css handles root background and panel transparency,
+    // but FilePond may set inline styles on panels when files are added/removed)
     setTimeout(function() {
         document.querySelectorAll('.ox-upload-editor-box .filepond--root').forEach(function(el) {
-            var accentSoft = getComputedStyle(document.documentElement).getPropertyValue('--accent-soft').trim();
-            var accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
-            var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
-            el.style.setProperty('background', accentSoft, 'important');
-            el.style.setProperty('border-radius', getComputedStyle(document.documentElement).getPropertyValue('--radius-md').trim(), 'important');
-            el.style.setProperty('overflow', 'hidden', 'important');
-            // Make internal panels transparent so root background shows through
-            el.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
-                panel.style.setProperty('background-color', 'transparent', 'important');
-                panel.style.setProperty('border', 'none', 'important');
-                panel.style.setProperty('box-shadow', 'none', 'important');
-            });
+            uploadEditor.applyDropZoneStyle(el);
         });
     }, 100);
 
@@ -282,4 +290,21 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 }
 
 uploadEditor.imgList = ['GIF','JPEG','JPG','PNG','TIF','TIFF','WBMP','ICO','JNG','BMP','SVG','WEBP'];
+
+uploadEditor.applyDropZoneStyle = function(rootEl) {
+    var accentSoft = getComputedStyle(document.documentElement).getPropertyValue('--accent-soft').trim();
+    if (accentSoft) {
+        rootEl.style.setProperty('background', accentSoft, 'important');
+    }
+    var radiusMd = getComputedStyle(document.documentElement).getPropertyValue('--radius-md').trim();
+    if (radiusMd) {
+        rootEl.style.setProperty('border-radius', radiusMd, 'important');
+    }
+    rootEl.style.setProperty('overflow', 'hidden', 'important');
+    rootEl.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
+        panel.style.setProperty('background-color', 'transparent', 'important');
+        panel.style.setProperty('border', 'none', 'important');
+        panel.style.setProperty('box-shadow', 'none', 'important');
+    });
+};
 
