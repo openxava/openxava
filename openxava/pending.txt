@@ -1,7 +1,7 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Verificar login
+- Bloque 8
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
