@@ -1,8 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Failed tests:
-    - AnnualContributionTest
 - Suite.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog

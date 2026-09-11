@@ -1239,6 +1239,7 @@ openxava.calculate = function(application, module, propertyId, scale) {
 	}
 	else {
 		element.text(value); 
+		$('input[type="hidden"][name="' + propertyId + '"]').val(value);
 	}
 }
 
