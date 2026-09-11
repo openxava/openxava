@@ -3255,18 +3255,28 @@ div.ox-subcontroller table{
 }
 
 #first_steps i {
-	font-size: 72px;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 96px;
+	height: 96px;
+	font-size: 48px;
 	line-height: 1;
 	color: var(--first-steps-icon-color);
+	background: var(--accent-soft);
+	border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent);
+	border-radius: var(--radius-xl);
 	animation: first-steps-arrow 1.4s ease-in-out infinite;
 }
 
 #first_steps p {
 	margin: 0;
-	max-width: 340px;
+	max-width: 420px;
 	font-size: var(--font-size-xl);
 	font-weight: 500;
 	line-height: var(--line-height);
+	text-wrap: balance;
 	color: var(--color);
 }
 
