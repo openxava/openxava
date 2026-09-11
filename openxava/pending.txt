@@ -2,6 +2,7 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 8
+    - Cabecera en lo de login
 - Revisar doc para Bloque 7 y 8
 - Mezclar código desde el master.
 - Suite.

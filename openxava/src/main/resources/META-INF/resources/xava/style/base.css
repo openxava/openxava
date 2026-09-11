@@ -3104,11 +3104,21 @@ div.ox-subcontroller table{
 
 /* ===== Sign-in card ===== */
 
+.ox-sign-in-brand {
+	margin: clamp(var(--space-8), 12vh, 120px) auto 0;
+	font-size: var(--font-size-xl);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+	text-align: center;
+	color: var(--sign-in-text);
+	animation: ox-welcome-in var(--transition-normal);
+}
+
 #sign_in_box {
 	box-sizing: border-box;
 	width: calc(100% - var(--space-8));
 	max-width: 360px;
-	margin: clamp(var(--space-8), 12vh, 120px) auto 0;
+	margin: var(--space-5) auto 0;
 	padding: var(--space-6);
 	background: var(--sign-in-background);
 	color: var(--sign-in-text);

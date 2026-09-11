@@ -81,9 +81,11 @@ manager.registerAction("SessionLocker.lock");
 		<% } %>
 		
 		<div class="module-wrapper">
+			<% if (!"SignIn".equals(module)) { %>
 			<div id="module_header">
 				 <jsp:include page="moduleHeader.jsp"/>
 			</div>
+			<% } %>
 			<% if ("SignIn".equals(module)) {  %>
 			<jsp:include page='<%=NaviOXPreferences.getInstance().getSignInJSP()%>'/>
 			<% } else { %>
