@@ -2,11 +2,11 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 8
-    - Cabecera en lo de login
 - Revisar doc para Bloque 7 y 8
+- Revisar pendiente del plan.
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
-- Borrar MDs.
+- Borrar MDs y pantallazos.

@@ -217,14 +217,14 @@ Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welc
   - Verificar que la tarjeta se vea bien en modo phone (padding reducido, ancho adaptable, tipografía legible).
   - Estados `:focus-visible` en el botón y campos, y contraste suficiente en ambos temas.
 
-- [ ] **Verificación**:
+- [x] **Verificación**:
   - Tests de UI (HtmlUnit) pasados.
   - Revisión visual en Auto/Light/Dark y modo phone.
   - Documentar cambios en guía de migración y `changelog`.
 
 **Pantallazo de referencia:** `ui8-screenshots/signin.png`.
 
-**Implementado.** Tarjeta centrada en welcome (`.ox-welcome-card`), sign-in y first-steps; patrón SVG de 2004 eliminado; tokens `--welcome-card-background`, `--welcome-muted-color`, `--sign-in-text`, `--sign-in-border`, `--azure-signin-button-*` añadidos; `--welcome-background` es ahora un degradado sutil con acento. Pendiente: suite de tests y revisión visual manual.
+**Concluido.** Tarjeta centrada en welcome (`.ox-welcome-card`), sign-in y first-steps; patrón SVG de 2004 eliminado; tokens `--welcome-card-background`, `--welcome-muted-color`, `--sign-in-text`, `--sign-in-border`, `--azure-signin-button-*` añadidos; `--welcome-background` es ahora un degradado sutil con acento. Cabecera de aplicación oculta en login (`.ox-sign-in-brand` centrada sobre la tarjeta); campos de login a 38px y ancho completo; icono de FirstSteps como badge con `mdi-arrow-left`. Detalles del trabajo en `ui8-modernization-bloque8-thread.md`.
 
 ## Limpieza y rendimiento
 
