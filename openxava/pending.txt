@@ -1,6 +1,15 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
+- Failed tests: TMR ME QUEDÉ POR AQUÍ. LOS SIGUIENTES TEST FALLARON, CON UNA EJECUCIÓN PARCIAL DE LA SUITE
+    - CoordinatesTest
+    - DateCalendarTest
+    - ElementCollectionTest
+    - LayoutTest
+    - ListTest
+    - SubcontrollerTest
+    - TreeTest
+    - AnnualContributionTest
 - Suite.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog
