@@ -3068,8 +3068,10 @@ div.ox-subcontroller table{
 
 #signin_tip {
 	display: inline-block;
+	box-sizing: border-box;
+	max-width: 100%;
 	margin: var(--space-2) 0 0;
-	padding: var(--space-2) var(--space-4);
+	padding: var(--space-2) var(--space-3);
 	font-size: var(--font-size-sm);
 	color: var(--welcome-muted-color);
 	background: color-mix(in srgb, var(--color) 5%, transparent);
@@ -3125,6 +3127,12 @@ div.ox-subcontroller table{
 	padding-top: 0;
 }
 
+#sign_in_box .ox-layout-detail {
+	display: block;
+	width: 100%;
+	white-space: normal;
+}
+
 #sign_in_box .ox-layout-aligned-cell,
 #sign_in_box .ox-layout-not-aligned-cell {
 	display: block;
@@ -3164,6 +3172,7 @@ div.ox-subcontroller table{
 #sign_in_box input[type="password"] { 
 	box-sizing: border-box;
 	width: 100%;
+	height: 38px;
 }
 
 #sign_in_box .ox-notifications {
