@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- Sign-in page redesigned to the new design system: the form is now a centered card (max-width 360px, 12px radius, hairline border, elevation-2 shadow) with full-width fields, a full-width primary "Sign in" button, the Azure AD action as a secondary outline button, and error messages integrated inside the card.
+- Welcome page (naviox/welcome.jsp) redesigned: the content is now a centered card over a subtle accent glow background, replacing the 2004 SVG pattern; display typography for the application name, muted description text and a hint chip for the sign-in tip.
+- First steps page (naviox/firstSteps.jsp) redesigned: the giant arrow is now a 72px accent-colored icon with a subtle sliding animation next to a clean prompt text.
+- New CSS variables for welcome/sign-in customization: --welcome-card-background, --welcome-muted-color, --sign-in-text, --sign-in-border, --azure-signin-button-border, --azure-signin-button-color, --azure-signin-button-hover-background; --welcome-background now defaults to a subtle accent gradient, --sign-in-input-border to --input-border and --sign-in-input-focus-outline-color to --focus-ring-color.
 - File upload editor (FilePond) restyled to the new design system: drop zone background uses a new --upload-file-background CSS variable (neutral, distinguishable from the frame in both light and dark themes), internal panels made transparent via CSS so the root background shows through, border-radius and overflow controlled by CSS, and the "Download all" button styled with CSS variables. The drop zone color is adjustable by designers via CSS alone, without touching JavaScript.
 - New CSS variable for file upload editor customization: --upload-file-background.
 - Fix: FilePond drop zone background was inconsistent on full page loads (selecting from list mode or browser reload) due to a timing issue between the CSS @import chain and the JavaScript setTimeout that applied the background. The background is now applied via CSS (live variables) instead of JavaScript, eliminating the timing dependency.
