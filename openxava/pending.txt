@@ -2,8 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Failed tests:
-    - DateCalendarTest
-    - ElementCollectionTest
     - ListTest
     - SubcontrollerTest
     - TreeTest
