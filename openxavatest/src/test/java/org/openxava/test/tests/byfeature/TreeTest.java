@@ -75,6 +75,13 @@ public class TreeTest extends WebDriverTestBase{
 		return driver.findElement(by);		
 	}
 	
+	// Finds the checkbox icon of a node inside the given collection tree and clicks it via JS,
+	// because the same node id can exist in other trees of the view (collapsed, not interactable)
+	private void clickTreeCheckBox(WebDriver driver, String collectionName, String nodeId) {
+		WebElement checkBox = findElement(driver, By.xpath("//div[@data-table-id='ox_openxavatest_TreeContainer__" + collectionName + "']//a[@id='" + nodeId + "_anchor']/i"));
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkBox);
+	}
+	
 	private void rootWithPath(WebDriver driver) {
 		assertFalse(isElementInside(driver, "2", ("1" + "_anchor")));
 		assertFalse(isElementInside(driver, "3", ("1" + "_anchor")));
@@ -94,8 +101,7 @@ public class TreeTest extends WebDriverTestBase{
 	}
 
 	private void createNewNodeSelecting_state(WebDriver driver) throws Exception {
-		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
-		childItem2CheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child2"));
 		execute("TreeView.new", "viewObject=xava_view_treeItems");
 		Thread.sleep(1000);
 		setValue("description", "A");
@@ -133,14 +139,12 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void verifyCreatedNodesAndCheck(WebDriver driver) throws InterruptedException {
-		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child2") +"_anchor']/i")); 
-		childItem2CheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child2"));
 		Thread.sleep(500); //sometimes need
 		expandNode(driver, treeItemNodesId.get("child2"));
 		WebElement newNodeB = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("b") + "_anchor']"));
 		assertEquals("B", newNodeB.getText());
-		WebElement newNodeACheckBox = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("a") + "_anchor']/i"));
-		newNodeACheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("a"));
 	}
 	
 	private void deleteSelectedNode(WebDriver driver) throws Exception {
@@ -156,8 +160,7 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void cutNode_treeState(WebDriver driver) throws Exception {
-		WebElement bCheckBox = driver.findElement(By.xpath("//a[@id='" + treeItemNodesId.get("b") + "_anchor']/i"));
-		bCheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("b"));
 		execute("CollectionCopyPaste.cut", "viewObject=xava_view_treeItems");
 		execute("Mode.list");
 		execute("CRUD.new");
@@ -166,8 +169,7 @@ public class TreeTest extends WebDriverTestBase{
 		WebElement bElement = findElement(driver, By.id(treeItemNodesId.get("b") + "_anchor")); 
 		assertTrue(bElement.getText().equals("B"));
 		
-		WebElement bItemCheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("b") +"_anchor']/i")); 
-		bItemCheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("b"));
 		Thread.sleep(500); // sometimes need
 		execute("Navigation.first");
 
@@ -224,10 +226,8 @@ public class TreeTest extends WebDriverTestBase{
 		executeDnd(driver, treeItemNodesId.get("child1sub1") + "_anchor", treeItemNodesId.get("child1") + "_anchor");
 		
 		//order multiple node
-		WebElement childItem1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child1") +"_anchor']/i")); 
-		WebElement childItem3Sub1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child3sub1") +"_anchor']/i"));
-		childItem1CheckBox.click();
-		childItem3Sub1CheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child1"));
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child3sub1"));
 		Thread.sleep(500);
 		executeDndBetween(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root"));
 
@@ -237,10 +237,8 @@ public class TreeTest extends WebDriverTestBase{
 		verifyChildsOrder(driver, "#", childs);
 		assertTrue(isElementInside(driver, treeItemNodesId.get("child1"), treeItemNodesId.get("child1sub1") + "_anchor"));
 		
-		childItem1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child1") +"_anchor']/i"));
-		childItem3Sub1CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemNodesId.get("child3sub1") +"_anchor']/i"));
-		childItem1CheckBox.click();
-		childItem3Sub1CheckBox.click();
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child1"));
+		clickTreeCheckBox(driver, "treeItems", treeItemNodesId.get("child3sub1"));
 		
 		executeDnd(driver, treeItemNodesId.get("child3sub1") + "_anchor", treeItemNodesId.get("child3") + "_anchor");
 		executeDnd(driver, treeItemNodesId.get("child1") + "_anchor", treeItemNodesId.get("root") + "_anchor");
@@ -248,8 +246,7 @@ public class TreeTest extends WebDriverTestBase{
 	}
 	
 	private void createNodeWithPathSeparator_dnd(WebDriver driver) throws Exception {
-		WebElement childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemTwoNodesId.get("child2") +"_anchor']/i")); 
-		childItem2CheckBox.click();
+		clickTreeCheckBox(driver, "treeItemTwos", treeItemTwoNodesId.get("child2"));
 		execute("TreeView.new", "viewObject=xava_view_treeItemTwos");
 		setValue("description", "A");
 		execute("TreeView.save");
@@ -259,8 +256,7 @@ public class TreeTest extends WebDriverTestBase{
 		driver.navigate().refresh();
 		wait(driver);
 		
-		childItem2CheckBox = findElement(driver, By.xpath("//a[@id='"+ treeItemTwoNodesId.get("child2") +"_anchor']/i")); 
-		childItem2CheckBox.click();
+		clickTreeCheckBox(driver, "treeItemTwos", treeItemTwoNodesId.get("child2"));
 		expandNode(driver, treeItemTwoNodesId.get("child2"));
 		WebElement childElement = driver.findElement(By.id(treeItemTwoNodesId.get("child2"))).findElement(By.xpath(".//li"));
 		String childElementId = childElement.getAttribute("id");
@@ -272,8 +268,7 @@ public class TreeTest extends WebDriverTestBase{
 		expandNode(driver, treeItemTwoNodesId.get("child3"));
 		assertTrue(isElementInside(driver, treeItemTwoNodesId.get("child3"), childElementId + "_anchor"));
 		
-		WebElement aCheckBox = findElement(driver, By.xpath("//a[@id='"+ childElementId +"_anchor']/i")); 
-		aCheckBox.click();
+		clickTreeCheckBox(driver, "treeItemTwos", childElementId);
 		execute("TreeView.removeSelected", "viewObject=xava_view_treeItemTwos");
 		
 		// Verify that drag and drop is disabled when allowMoveNodes is false
