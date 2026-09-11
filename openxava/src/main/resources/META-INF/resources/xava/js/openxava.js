@@ -368,6 +368,7 @@ openxava.messagesAutoCloseDelay = 5000;
  * @param {object} messagesDiv - The DOM element of the messages container
  */
 openxava.scheduleMessagesAutoClose = function(messagesDiv) { 
+	if (openxava.browser.htmlUnit) return; // Pending timers block HtmlUnit's waitForBackgroundJavaScript
 	var $messages = $(messagesDiv);
 	var previousTimeout = $messages.data('autoCloseTimeout');
 	if (previousTimeout) clearTimeout(previousTimeout);
@@ -1636,6 +1637,10 @@ openxava.loadingShownAt = 0;
 
 openxava.scheduleLoading = function() {
 	clearTimeout(openxava.loadingTimeout);
+	if (openxava.browser.htmlUnit) { // Pending timers block HtmlUnit's waitForBackgroundJavaScript
+		$('#xava_loading').show();
+		return;
+	}
 	openxava.loadingTimeout = setTimeout(function() {
 		$('#xava_loading').stop(true, true).css("opacity", 1).show();
 		openxava.loadingShownAt = Date.now();
@@ -1645,6 +1650,10 @@ openxava.scheduleLoading = function() {
 openxava.hideLoading = function() {
 	clearTimeout(openxava.loadingTimeout);
 	openxava.loadingTimeout = null;
+	if (openxava.browser.htmlUnit) { // Pending timers block HtmlUnit's waitForBackgroundJavaScript
+		$('#xava_loading').hide();
+		return;
+	}
 	if (!$('#xava_loading').is(':visible')) return;
 	var remaining = Math.max(0, 400 - (Date.now() - openxava.loadingShownAt));
 	setTimeout(function() {
