@@ -1,7 +1,6 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Revisar doc para Bloque 7 y 8
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.
