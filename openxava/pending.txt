@@ -1,6 +1,26 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
+TMR LANCÉ LA SUITE QUE TARDO 1H 10MIN
+TMR FALLARÓN LOS TEST DE ABAJO. ME QUEDÉ PARA REVISRLOS
+- Failed tests:
+    - DateCalendarTest
+    - DescriptionsListTest
+    - EditableValidValuesTest
+    - Invoice2Test
+    - Product2DescriptionsListShowsReferenceViewTest
+    - Product2EditableListTest
+    - Product2OnlySoftwareTest
+    - Product2ReferenceAndStereotypeTest
+    - Product2SectionByDescriptionsListTest
+    - Product2Test
+    - Product3Test
+    - Product6SoftwareTest
+    - ProductExpensesTest
+    - ProductsEvaluation2Test
+    - Subfamily2Test
+    - TotalExpensesTest
+    - WarehouseTest
 - Suite.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog
