@@ -2,14 +2,7 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 8
-    Probar SWE 1.7 con este prompt:
-
-Estamos modernizando la UI de OpenXava siguiendo este plan:
-ui8-modernization-plan.md
-Nos queda solo el Bloque 8, que quiero que hagas ahora.
-Haz un diseño moderno, el 2026, a la altura de Attio, Linear o Notion, pero coherente con lo que hemos hecho hasta ahora.
-
-Adelante, confío en tu buen gusto.
+- Revisar doc para Bloque 7 y 8
 - Mezclar código desde el master.
 - Suite.
 - Prueba manuales.

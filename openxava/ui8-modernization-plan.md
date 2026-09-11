@@ -188,32 +188,32 @@ Diferencias intencionadas a marcar visualmente:
 
 Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welcome.jsp`) y el formulario de autenticación (`naviox/signIn.jsp` / módulo `SignIn`). Debe quedar coherente con los tokens, tipografía y botones definidos en los bloques anteriores.
 
-- [ ] **Página de bienvenida (`#welcome`)**:
+- [x] **Página de bienvenida (`#welcome`)**:
   - Layout centrado con tarjeta de bienvenida, usando `--space-*`, `--radius-lg` y `--elevation-2`.
   - Actualizar fondo: eliminar/renovar el patrón SVG de 2004; usar `--welcome-background` (sólido o degradado sutil) y `--welcome-color`.
   - Tipografía con la escala del sistema (`--font-size-display`, `--font-size-2xl`, `--font-size-lg`) y pesos coherentes.
   - Botón "Sign in" como acción primaria, estilo de Bloque 5, ancho razonable y centrado.
   - Espaciado generoso entre título, descripción, mensaje de ayuda y botón.
 
-- [ ] **Formulario de login (`#sign_in_box`)**:
+- [x] **Formulario de login (`#sign_in_box`)**:
   - Tarjeta centrada (`max-width`, padding con tokens, `--radius-lg`, `--elevation-2`) con fondo `--sign-in-background` que se distinga del fondo de página en claro y oscuro.
   - Campos de usuario y contraseña con el look&feel del Bloque 2b: borde sutil, `--radius-md`, alto ~38px, anillo de foco con acento, labels `SMALL` consistentes.
   - Eliminar anchos fijos (`220px`, `230px`, `246px`) y márgenes en píxeles; usar layout flex/grid con `gap` de `--space-*`.
   - Botón "Sign in" primario ancho completo dentro de la tarjeta; botón de Azure AD/SSO (si está presente) como secundario ghost/outline.
   - Mensajes de error integrados en la tarjeta (el icono ya se oculta en `#sign_in_box .ox-message-box i`).
 
-- [ ] **Página de primeros pasos (`FirstSteps`)**:
+- [x] **Página de primeros pasos (`FirstSteps`)**:
   - Revisar y modernizar el módulo `FirstSteps` y su página (`firstSteps.jsp`), coherente con `welcome.jsp` y `signIn.jsp`.
   - Aplicar los tokens del sistema: `--space-*`, `--radius-lg`, `--elevation-2`, escala tipográfica (`--font-size-*`) y colores de tema (`--welcome-background`, `--welcome-color`, etc.) o añadir tokens específicos (`--first-steps-*`) si es necesario.
   - Sustituir fondos, bordes y tipografías antiguos por el estilo de tarjeta centrada, espaciado generoso y botones del Bloque 5.
   - Verificar visualización en modo phone y en los 3 temas (Auto/Light/Dark).
 
-- [ ] **Sistema de temas**:
+- [x] **Sistema de temas**:
 
   - Añadir/consolidar tokens en `base.css`: `--welcome-background`, `--welcome-color`, `--welcome-card-background`, `--sign-in-background`, `--sign-in-card-background`, `--sign-in-text`, `--sign-in-input-border`, `--sign-in-input-focus-outline-color`, `--sign-in-button-*` y `--azure-signin-button-*`.
   - Implementar overrides en `light.css` y `dark.css`; verificar `prefers-color-scheme` en `auto.css`.
 
-- [ ] **Responsive y accesibilidad**:
+- [x] **Responsive y accesibilidad**:
   - Verificar que la tarjeta se vea bien en modo phone (padding reducido, ancho adaptable, tipografía legible).
   - Estados `:focus-visible` en el botón y campos, y contraste suficiente en ambos temas.
 
@@ -223,6 +223,8 @@ Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welc
   - Documentar cambios en guía de migración y `changelog`.
 
 **Pantallazo de referencia:** `ui8-screenshots/signin.png`.
+
+**Implementado.** Tarjeta centrada en welcome (`.ox-welcome-card`), sign-in y first-steps; patrón SVG de 2004 eliminado; tokens `--welcome-card-background`, `--welcome-muted-color`, `--sign-in-text`, `--sign-in-border`, `--azure-signin-button-*` añadidos; `--welcome-background` es ahora un degradado sutil con acento. Pendiente: suite de tests y revisión visual manual.
 
 ## Limpieza y rendimiento
 
