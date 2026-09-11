@@ -12,7 +12,7 @@ import org.openxava.util.*;
  * @author Javier Paniza
  */
 public class CoordinatesTest extends WebDriverTestBase {
-	
+
 	public CoordinatesTest(String testName) {
 		super(testName);
 	}
@@ -52,9 +52,8 @@ public class CoordinatesTest extends WebDriverTestBase {
 	
 	private void clickOnMap(int x, int y) {
 		WebElement map = getDriver().findElement(By.className("xava_coordinates"));
-		Point mapPosition = map.getLocation(); 
         Actions actions = new Actions(getDriver());
-        actions.moveByOffset(mapPosition.getX() + x, mapPosition.getY() + y).click().build().perform();
+        actions.moveToElement(map, x, y).click().build().perform();
 	}
 
 
