@@ -228,8 +228,8 @@ Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welc
 
 ## Limpieza y rendimiento
 
-- [ ] Eliminar reglas muertas en `base.css` (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`, `layer-background-color`).
-- [ ] Valorar eliminación de `default.css` (estilos de portal de 2004) si ya no se usa.
+- [x] Eliminar reglas muertas en `base.css` (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`, `layer-background-color`). Ya no quedaba ninguna.
+- [x] Valorar eliminación de `default.css` (estilos de portal de 2004) si ya no se usa. Eliminados `default.css`, `skins.css` e `images/html/skins/`; el fallback de `Style` ahora es `auto.css`.
 
 ## Mejoras opcionales posteriores (decidir tras los bloques)
 

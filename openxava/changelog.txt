@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Removed legacy 2004 portal stylesheets default.css and skins.css (with its images/html/skins/ assets); the fallback CSS in Style is now auto.css.
 - Sign-in page redesigned to the new design system: the form is now a centered card (max-width 360px, 12px radius, hairline border, elevation-2 shadow) with full-width fields, a full-width primary "Sign in" button, the Azure AD action as a secondary outline button, and error messages integrated inside the card.
 - Welcome page (naviox/welcome.jsp) redesigned: the content is now a centered card over a subtle accent glow background, replacing the 2004 SVG pattern; display typography for the application name, muted description text and a hint chip for the sign-in tip.
 - First steps page (naviox/firstSteps.jsp) redesigned: the giant arrow is now a 72px accent-colored icon with a subtle sliding animation next to a clean prompt text.
