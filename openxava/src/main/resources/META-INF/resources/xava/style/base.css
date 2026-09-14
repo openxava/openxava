@@ -4776,18 +4776,19 @@ a[data-action="Collection.previous"] {
 	font-size: xxx-large;
 	color: var(--large-display-color);
 	padding: 20px;
-	margin-top: -25px;
-	margin-left: -5px;
 	min-width: 200px;
+}
+
+.ox-large-display-content {
 	display: flex;
 	justify-content: center;
 	align-items: baseline;
 }
 
 .ox-large-display-label {
-	margin-top: 13px;
-	margin-left: 5px;
-	font-weight:  bold;
+	font-size: var(--font-size-md);
+	font-weight: 600;
+	margin-bottom: var(--space-2);
 }
 
 .firefox .ox-large-display {
