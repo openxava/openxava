@@ -3873,18 +3873,19 @@ div[id$="_Index__view"] .ox-list-title {
 	width: 100%;  
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+	gap: var(--space-3);
 	padding: 0px 5px 3px 5px;
 	box-sizing: border-box;
 }
 
 .ox-card {
-	margin: 6px;
-	padding: 10px 10px 5px 10px;
+	margin: 0;
+	padding: var(--space-4);
 	color: var(--card-color); 
 	background: var(--card-background);  
 	border: 1px solid var(--frame-border);
 	box-shadow: var(--elevation-1);
-	transition: filter var(--transition-fast), box-shadow var(--transition-fast);
+	transition: box-shadow var(--transition-fast);
 }
 
 .ox-card-header, .ox-cards #xava_loading_more_elements { 
@@ -3901,6 +3902,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-card-content {
 	font-weight: normal;
+	font-size: var(--font-size-sm);
 	clear: both;
 	float: left; 
 	color: var(--card-content-color); 
@@ -3912,7 +3914,7 @@ div[id$="_Index__view"] .ox-list-title {
 
 .ox-card:hover {
 	cursor: pointer;
-	filter: brightness(95%); 
+	box-shadow: var(--elevation-2);
 }
 
 .ox-card:hover .ox-card-header {

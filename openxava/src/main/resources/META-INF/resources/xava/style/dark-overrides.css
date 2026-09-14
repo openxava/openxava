@@ -146,7 +146,3 @@
 .ox-popup-menu:hover {
     background-color: var(--my-dark);
 }
-
-.ox-card:hover {
-	filter: brightness(90%);
-}
