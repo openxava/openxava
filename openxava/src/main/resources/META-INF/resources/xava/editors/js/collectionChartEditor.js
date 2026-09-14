@@ -23,7 +23,7 @@ openxava.addEditorInitFunction(function() {
 		        }
 		    },
 		    size: {
-		        height: Math.max(320, window.innerHeight - 300)
+		        height: Math.max(300, window.innerHeight - 550)
 		    },
 		    grid: {
 		        y: {
