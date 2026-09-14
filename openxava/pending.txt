@@ -1,9 +1,7 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 9:
-    - Crear MD.
-    - Verificar dashboard. Podemos crear otro bloque.
+- Verificar dashboard. Crear otro bloque si es necesario.
 - Defecto del formato de lista en dark
 - Prueba manuales.
 - Suite.

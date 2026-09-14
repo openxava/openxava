@@ -254,7 +254,9 @@ El formato "charts" de lista (el usuario crea gráficos a partir de los datos de
 
 - [x] **Charts en colecciones** (`collectionChartEditor.jsp` / `.xava_collection_chart`): aplicar los mismos tokens de paleta, ejes, tooltip y leyenda; verificar dentro de un frame de colección en detalle.
 
-- [ ] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual en Auto/Light/Dark y modo phone con los tipos bar, line, pie y donut; documentar nuevos tokens en guía de migración y changelog.
+- [x] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual en Auto/Light/Dark y modo phone con los tipos bar, line, pie y donut; documentar nuevos tokens en guía de migración y changelog.
+
+**Concluido.** Overrides de c3 con tokens (tipografía Inter, ejes/grid hairlines, tooltip como tarjeta, leyenda con tokens, arcos con stroke de superficie); paleta `--chart-series-1..8` aplicada vía `openxava.chartSeriesColors()` en ambos editores; selector de tipo como segmented control; layout del editor reescrito con flexbox (`.ox-charts` como contenedor, wrappers aplanados con `display: contents`, select de columna X centrado bajo el gráfico); altura dinámica `size.height` y grid Y activados en las specs; tokens documentados en `custom-style_en/es.html` y changelog. Detalles del trabajo en `ui8-modernization-bloque9-thread.md`.
 
 ## Limpieza y rendimiento
 
