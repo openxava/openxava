@@ -3371,31 +3371,39 @@ div.ox-subcontroller table{
 
 /* ===== Charts (c3/d3) ===== */
 
-.ox-charts > .ox-layout-detail {
+.ox-charts {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: stretch;
-	column-gap: var(--space-6);
+	align-items: flex-start;
+	gap: var(--space-4) var(--space-6);
 	padding: var(--space-4) var(--space-5) var(--space-4) var(--space-4);
-	white-space: normal;
 }
 
-.ox-charts .ox-layout-aligned-cell {
+.ox-charts > .ox-layout-detail,
+.ox-charts > div:not(.ox-frame) {
+	display: contents;
+}
+
+.ox-charts .ox-layout-aligned-cell,
+.ox-charts .ox-layout-not-aligned-cell {
 	display: block;
 }
 
 .ox-charts .ox-layout-new-line {
-	flex-basis: 100%;
-	height: 0;
+	display: none;
 }
 
-.ox-charts .ox-layout-aligned-cell:has(.ox-chart-data) {
+.ox-charts .ox-layout-aligned-cell:has(.ox-chart-data),
+.ox-charts .ox-layout-not-aligned-cell:has(.ox-chart-data) {
 	flex: 1 1 auto;
 	min-width: 0;
 }
 
-.ox-charts .ox-layout-aligned-cell:has(.ox-chart-x-column) {
+.ox-charts .ox-layout-aligned-cell:has(.ox-chart-x-column),
+.ox-charts .ox-layout-not-aligned-cell:has(.ox-chart-x-column) {
 	flex-basis: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .ox-charts .ox-frame-title {
@@ -3414,7 +3422,8 @@ div.ox-subcontroller table{
 .ox-charts .ox-full-frame {
 	overflow: initial;
 	display: initial;
-	width: initial;
+	width: auto;
+	flex: 0 0 auto;
 }
 
 .ox-chart-type {
@@ -3476,6 +3485,11 @@ div.ox-subcontroller table{
 	width: 100%;
 	margin: 0;
 	overflow: hidden;
+}
+
+.ox-charts .ox-element-collection [class*="collection_scroll"] {
+	width: auto !important;
+	max-width: 100%;
 }
 
 .ox-charts .ox-element-collection select {
