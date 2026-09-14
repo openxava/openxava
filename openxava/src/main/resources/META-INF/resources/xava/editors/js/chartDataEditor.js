@@ -44,6 +44,10 @@ chartDataEditor.render = function(application, module, chartType, xavaChartPrefi
 			        }
 			    }
 		};
+		var seriesColors = openxava.chartSeriesColors();
+		if (seriesColors.length) {
+			specification.color = { pattern: seriesColors };
+		}
 		if (chartType == "pie") {
 			var labels = [];
 			for (var index = 0; index < rowCount; index++) {

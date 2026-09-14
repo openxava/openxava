@@ -849,6 +849,16 @@ openxava.addEditorInitFunction = function(initFunction) {
 	openxava.editorsInitFunctions.push(initFunction);	
 }
 
+openxava.chartSeriesColors = function() {
+	var styles = getComputedStyle(document.documentElement);
+	var colors = [];
+	for (var i = 1; i <= 8; i++) {
+		var color = styles.getPropertyValue('--chart-series-' + i).trim();
+		if (color) colors.push(color);
+	}
+	return colors;
+}
+
 openxava.addEditorPreRequestFunction = function(preRequestFunction) {  
 	if (openxava.editorsPreRequestFunctions == null) {
 		openxava.editorsPreRequestFunctions = new Array();	

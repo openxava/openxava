@@ -1,7 +1,13 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
+- Bloque 9:
+    - Revisión manual.
+    - Prueba automáticas charts.
+    - Prueba manuales charts.
+    - Verificar dashboard. Podemos crear otro bloque.
 - Prueba manuales.
+- Suite.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Copia de MDs y pantallazos.

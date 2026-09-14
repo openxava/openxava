@@ -111,8 +111,6 @@
 	--subscribed-hover-color: var(--list-formats-hover-color);	
 	--selected-list-format-color: var(--color);
 	--selected-list-format-border: var(--color);
-	--selected-chart-type-icon-color: var(--color);
-	--selected-chart-type-icon-border-bottom: var(--color);
 	--highlight-bar-action-background: var(--accent-color);
 	--subcontroller-background: var(--background);
 	--subcontroller-shadow: var(--shadow);
@@ -218,8 +216,26 @@
 	--dialog-content-color: var(--color);
 	
 	--chart-type-icon-color: var(--list-formats-color);
-	--chart-type-background: var(--button-bar-background);
 	--chart-type-icon-hover-color: var(--list-formats-hover-color);
+
+	/* Charts (c3/d3) */
+	--chart-text-color: var(--label-color);
+	--chart-muted-color: color-mix(in srgb, var(--color) 55%, transparent);
+	--chart-grid-color: color-mix(in srgb, var(--color) 10%, transparent);
+	--chart-axis-color: color-mix(in srgb, var(--color) 30%, transparent);
+	--chart-tooltip-background: var(--button-bar-background);
+	--chart-tooltip-border: var(--frame-border);
+	--chart-tooltip-color: var(--color);
+	--chart-arc-stroke: var(--background);
+	--chart-arc-text-color: white;
+	--chart-series-1: var(--accent-color);
+	--chart-series-2: #0ea5e9;
+	--chart-series-3: #10b981;
+	--chart-series-4: #f59e0b;
+	--chart-series-5: #f43f5e;
+	--chart-series-6: #8b5cf6;
+	--chart-series-7: #14b8a6;
+	--chart-series-8: #64748b;
 
 	--autocomplete-scrollbar-background: var(--background);
 	--ui-menu-item-state-focus-background: var(--accent-soft);
@@ -3353,111 +3369,323 @@ div.ox-subcontroller table{
 }
 
 
-.ox-chart-data {
-	margin: -20px 0px 10px 9px;
-	padding: 20px 20px 5px 5px;	
+/* ===== Charts (c3/d3) ===== */
+
+.ox-charts > .ox-layout-detail {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	column-gap: var(--space-6);
+	padding: var(--space-4) var(--space-5) var(--space-4) var(--space-4);
+	white-space: normal;
 }
 
-.ox-chart-data .ct-chart {
-	width: calc(100vw - 385px); 
-	height: calc(100vh - 300px);
+.ox-charts .ox-layout-aligned-cell {
+	display: block;
 }
 
-.firefox .ct-chart {
-	margin-left: -25px;
+.ox-charts .ox-layout-new-line {
+	flex-basis: 100%;
+	height: 0;
+}
+
+.ox-charts .ox-layout-aligned-cell:has(.ox-chart-data) {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.ox-charts .ox-layout-aligned-cell:has(.ox-chart-x-column) {
+	flex-basis: 100%;
 }
 
 .ox-charts .ox-frame-title {
 	display: none;
-
 }
 
 .ox-charts .ox-frame {
-	margin-bottom: 5px;
-	margin-right: 0px;
-	padding: var(--space-3) 0 var(--space-1) var(--space-3); 
-	border-radius: 0;
+	margin: 0;
+	padding: 0;
 	border: none;
-	box-shadow: none; 
-	background: transparent;  
+	border-radius: 0;
+	box-shadow: none;
+	background: transparent;
 }
 
 .ox-charts .ox-full-frame {
-	overflow: initial; 
-	display: initial; 
+	overflow: initial;
+	display: initial;
 	width: initial;
 }
 
-.ox-charts > .ox-layout-detail {
-	padding-top: 15px;
-	display: block;
-}
-
-.ox-chart-x-column select {
-	position: relative;
-	left: calc(50vw - 160px); 
-	width: 270px; 
-}
-
 .ox-chart-type {
-	margin-left: -20px;
-	margin-right: -40px;
-	padding: 12px 40px 9px 30px;
-	background: var(--chart-type-background);
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	padding: 2px;
+	margin-bottom: var(--space-3);
+	border-radius: var(--radius-md);
+	background: var(--segmented-background);
 }
 
-.ox-chart-type i { 
+.ox-chart-type a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 28px;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.ox-chart-type i {
 	color: var(--chart-type-icon-color);
-	padding: 5px 5px 0px 5px;
-	font-size: 200%;   
+	font-size: 18px;
 }
 
-.ox-chart-type i:hover { 
+.ox-chart-type a:hover {
+	background: var(--element-collection-row-hover-background);
+}
+
+.ox-chart-type a:hover i {
 	color: var(--chart-type-icon-hover-color);
 }
 
-.ox-selected-chart-type i {
-	color: var(--selected-chart-type-icon-color);
-	border-bottom: 3px solid var(--selected-chart-type-icon-border-bottom);
-	pointer-events: none; 
+.ox-chart-type a.ox-selected-chart-type,
+.ox-chart-type a.ox-selected-chart-type:hover {
+	background: var(--segmented-active-background);
+	box-shadow: var(--elevation-1);
+	pointer-events: none;
 	cursor: default;
+}
+
+.ox-chart-type a.ox-selected-chart-type i {
+	color: var(--accent-color);
 }
 
 .ox-charts .ox-list {
 	box-shadow: none !important;
 	background: transparent;
-	border: none; 
+	border: none;
 }
 
 .ox-charts .ox-list-header {
-	display:none;
-}
-
-.ox-charts .ox-collection { 
-	margin-left: 15px;
+	display: none;
 }
 
 .ox-charts .ox-element-collection {
-	width: 200px;
-	margin-left: -32px;
-	margin-right: -25px;
+	width: 100%;
+	margin: 0;
 	overflow: hidden;
 }
 
-.ox-charts .ox-element-collection i {
-	margin-right: -10px;
-}
-
 .ox-charts .ox-element-collection select {
-	width: 120px;
+	width: 100%;
+	min-width: 140px;
 }
 
-.ox-charts .ox-element-collection .ox-list-pair:hover td, 
+.ox-charts .ox-element-collection .ox-list-pair:hover td,
 .ox-charts .ox-element-collection .ox-list-odd:hover td,
-.ox-charts .ox-element-collection .ox-list-pair:hover, 
+.ox-charts .ox-element-collection .ox-list-pair:hover,
 .ox-charts .ox-element-collection .ox-list-odd:hover,
 .ox-charts .ox-element-collection .ox-image-link:hover {
 	background: transparent;
+}
+
+.ox-chart-data {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+.ox-chart-data .ct-chart {
+	width: 100%;
+	height: calc(100vh - 300px);
+	min-height: 320px;
+}
+
+.ox-chart-x-column {
+	display: block;
+	text-align: center;
+	margin-top: var(--space-3);
+}
+
+.ox-chart-x-column select {
+	width: 270px;
+	max-width: 100%;
+}
+
+/* c3 vendor overrides: typography, axes, grid, legend, arcs and tooltip via tokens */
+
+.ox-chart-data .c3 svg,
+.xava_collection_chart .c3 svg {
+	font-family: var(--font-family);
+	font-size: var(--font-size-sm);
+	font-variant-numeric: tabular-nums;
+}
+
+.ox-chart-data .c3 text,
+.xava_collection_chart .c3 text {
+	fill: var(--chart-text-color);
+}
+
+.ox-chart-data .c3 line,
+.ox-chart-data .c3 path,
+.xava_collection_chart .c3 line,
+.xava_collection_chart .c3 path {
+	stroke: var(--chart-axis-color);
+}
+
+.ox-chart-data .c3-axis text,
+.xava_collection_chart .c3-axis text {
+	fill: var(--chart-muted-color);
+	font-size: var(--font-size-xs);
+}
+
+.ox-chart-data .c3-grid line,
+.xava_collection_chart .c3-grid line {
+	stroke: var(--chart-grid-color);
+}
+
+.ox-chart-data .c3-grid text,
+.xava_collection_chart .c3-grid text {
+	fill: var(--chart-muted-color);
+}
+
+.ox-chart-data .c3-line,
+.xava_collection_chart .c3-line {
+	stroke-width: 2px;
+}
+
+.ox-chart-data .c3-circle._expanded_,
+.xava_collection_chart .c3-circle._expanded_ {
+	stroke: var(--chart-arc-stroke);
+}
+
+.ox-chart-data .c3-selected-circle,
+.xava_collection_chart .c3-selected-circle {
+	fill: var(--chart-arc-stroke);
+}
+
+.ox-chart-data .c3-region,
+.xava_collection_chart .c3-region {
+	fill: var(--accent-color);
+}
+
+.ox-chart-data .c3-text.c3-empty,
+.xava_collection_chart .c3-text.c3-empty {
+	fill: var(--chart-muted-color);
+}
+
+.ox-chart-data .c3-title,
+.xava_collection_chart .c3-title {
+	font-family: var(--font-family);
+	font-size: var(--font-size-md);
+	fill: var(--chart-text-color);
+}
+
+.ox-chart-data .c3-legend-item,
+.xava_collection_chart .c3-legend-item {
+	font-size: var(--font-size-sm);
+}
+
+.ox-chart-data .c3-legend-item text,
+.xava_collection_chart .c3-legend-item text {
+	fill: var(--chart-text-color);
+}
+
+.ox-chart-data .c3-legend-background,
+.xava_collection_chart .c3-legend-background {
+	fill: var(--background);
+	stroke: var(--frame-border);
+}
+
+.ox-chart-data .c3-chart-arc path,
+.xava_collection_chart .c3-chart-arc path {
+	stroke: var(--chart-arc-stroke);
+	stroke-width: 2px;
+}
+
+.ox-chart-data .c3-chart-arc text,
+.xava_collection_chart .c3-chart-arc text {
+	fill: var(--chart-arc-text-color);
+	font-size: var(--font-size-sm);
+	font-weight: 600;
+}
+
+.ox-chart-data .c3-chart-arcs .c3-chart-arcs-background,
+.xava_collection_chart .c3-chart-arcs .c3-chart-arcs-background {
+	fill: var(--chart-grid-color);
+}
+
+.ox-chart-data .c3-chart-arcs .c3-chart-arcs-gauge-unit,
+.xava_collection_chart .c3-chart-arcs .c3-chart-arcs-gauge-unit {
+	fill: var(--chart-text-color);
+	font-size: var(--font-size-lg);
+}
+
+.ox-chart-data .c3-chart-arcs .c3-chart-arcs-gauge-max,
+.ox-chart-data .c3-chart-arcs .c3-chart-arcs-gauge-min,
+.xava_collection_chart .c3-chart-arcs .c3-chart-arcs-gauge-max,
+.xava_collection_chart .c3-chart-arcs .c3-chart-arcs-gauge-min {
+	fill: var(--chart-muted-color);
+}
+
+.ox-chart-data .c3-chart-arc .c3-gauge-value,
+.xava_collection_chart .c3-chart-arc .c3-gauge-value {
+	fill: var(--chart-text-color);
+}
+
+.ox-chart-data .c3-chart-arcs-title,
+.xava_collection_chart .c3-chart-arcs-title {
+	fill: var(--chart-text-color);
+}
+
+.ox-chart-data .c3-tooltip,
+.xava_collection_chart .c3-tooltip {
+	background: var(--chart-tooltip-background);
+	border: 1px solid var(--chart-tooltip-border);
+	border-radius: var(--radius-md);
+	box-shadow: var(--elevation-2);
+	opacity: 1;
+	overflow: hidden;
+	color: var(--chart-tooltip-color);
+	font-size: var(--font-size-sm);
+}
+
+.ox-chart-data .c3-tooltip tr,
+.xava_collection_chart .c3-tooltip tr {
+	border: none;
+}
+
+.ox-chart-data .c3-tooltip th,
+.xava_collection_chart .c3-tooltip th {
+	background: transparent;
+	color: var(--chart-tooltip-color);
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	padding: var(--space-2) var(--space-3);
+	border-bottom: 1px solid var(--chart-tooltip-border);
+}
+
+.ox-chart-data .c3-tooltip td,
+.xava_collection_chart .c3-tooltip td {
+	background: transparent;
+	border-left: none;
+	font-size: var(--font-size-sm);
+	padding: var(--space-1) var(--space-3);
+}
+
+.ox-chart-data .c3-tooltip td > span,
+.xava_collection_chart .c3-tooltip td > span {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-right: 6px;
+}
+
+.ox-chart-data .c3-tooltip td.value,
+.xava_collection_chart .c3-tooltip td.value {
+	font-variant-numeric: tabular-nums;
 }
 
 .ui-dialog.no-close {

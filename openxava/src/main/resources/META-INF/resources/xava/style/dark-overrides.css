@@ -110,6 +110,16 @@
 	--calendar-view-switcher-active-color: var(--accent-color);
 	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 26%, transparent);
 	--calendar-popup-background: var(--my-lightdark);
+
+	/* Charts (c3/d3): brighter series for dark backgrounds */
+	--chart-series-2: #38bdf8;
+	--chart-series-3: #34d399;
+	--chart-series-4: #fbbf24;
+	--chart-series-5: #fb7185;
+	--chart-series-6: #a78bfa;
+	--chart-series-7: #2dd4bf;
+	--chart-series-8: #94a3b8;
+	--chart-arc-stroke: var(--my-dark);
 }
 
 .ox-action-link {

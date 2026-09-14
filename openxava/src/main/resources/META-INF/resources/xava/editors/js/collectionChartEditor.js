@@ -24,6 +24,11 @@ openxava.addEditorInitFunction(function() {
 		    }
 		};
 		
+		var seriesColors = openxava.chartSeriesColors();
+		if (seriesColors.length) {
+			chartConfig.color = { pattern: seriesColors };
+		}
+		
 		if (type === 'pie') {
 			var pieData = [];
 			
