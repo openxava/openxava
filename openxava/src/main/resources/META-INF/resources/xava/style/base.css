@@ -4772,11 +4772,43 @@ a[data-action="Collection.previous"] {
 	color: transparent!important;
 }
 
+.ox-layout-detail:has(.ox-large-display) {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	column-gap: var(--space-2);
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-new-line {
+	flex-basis: 100%;
+	height: 0;
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-aligned-cell {
+	display: none;
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-not-aligned-cell {
+	flex: 1 1 0;
+	min-width: 0;
+	padding: 0;
+}
+
+.ox-layout-detail:has(.ox-large-display) .xava_editor {
+	width: 100%;
+}
+
+.ox-layout-detail .ox-large-display {
+	width: 100%;
+	margin-right: 0;
+	box-sizing: border-box;
+}
+
 .ox-large-display {
 	font-size: xxx-large;
 	color: var(--large-display-color);
-	padding: 20px;
-	min-width: 200px;
+	padding: var(--space-3);
+	min-width: 150px;
 }
 
 .ox-large-display-content {
