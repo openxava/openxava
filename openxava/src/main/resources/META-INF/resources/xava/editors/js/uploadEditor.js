@@ -292,7 +292,7 @@ uploadEditor.fileValidateTypeLabelExpectedTypesMap = {
 uploadEditor.imgList = ['GIF','JPEG','JPG','PNG','TIF','TIFF','WBMP','ICO','JNG','BMP','SVG','WEBP'];
 
 uploadEditor.applyDropZoneStyle = function(rootEl) {
-    rootEl.querySelectorAll('.filepond--panel, .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
+    rootEl.querySelectorAll('.filepond--panel:not(.filepond--item-panel), .filepond--panel-root, .filepond--panel-top, .filepond--panel-bottom, .filepond--panel-center').forEach(function(panel) {
         panel.style.setProperty('background-color', 'transparent', 'important');
         panel.style.setProperty('border', 'none', 'important');
         panel.style.setProperty('box-shadow', 'none', 'important');

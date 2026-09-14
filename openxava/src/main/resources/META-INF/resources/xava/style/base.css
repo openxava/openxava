@@ -4157,15 +4157,16 @@ div[id$="_Index__view"] .ox-list-title {
 }
 
 .ox-upload-editor-box .filepond--item-panel {
-	background: var(--frame-background) !important;
+	background: var(--background) !important;
+	border: 1px solid var(--frame-border) !important;
 	border-radius: var(--radius-md) !important;
 }
 
 .ox-upload-editor-box [data-filepond-item-state] .filepond--item-panel {
-	background: var(--frame-background) !important;
+	background: var(--background) !important;
 }
 
-.ox-upload-editor-box .filepond--panel {
+.ox-upload-editor-box .filepond--panel:not(.filepond--item-panel) {
 	border: none !important;
 }
 
@@ -4181,8 +4182,15 @@ div[id$="_Index__view"] .ox-list-title {
 	font-size: var(--font-size-sm) !important;
 }
 
+.ox-upload-editor-box .filepond--file-info-main {
+	font-size: var(--font-size-sm) !important;
+	color: var(--color) !important;
+}
+
 .ox-upload-editor-box .filepond--file-info-sub {
-	color: var(--placeholder-color) !important;
+	font-size: var(--font-size-xs) !important;
+	color: color-mix(in srgb, var(--color) 65%, transparent) !important;
+	opacity: 1 !important;
 }
 
 .ox-upload-editor-box .filepond--file-status {
