@@ -42,7 +42,15 @@ chartDataEditor.render = function(application, module, chartType, xavaChartPrefi
 			                return value;
 			            }
 			        }
-			    }
+			    },
+				size: {
+					height: Math.max(320, window.innerHeight - 300)
+				},
+				grid: {
+					y: {
+						show: true
+					}
+				}
 		};
 		var seriesColors = openxava.chartSeriesColors();
 		if (seriesColors.length) {
