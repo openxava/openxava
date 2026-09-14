@@ -258,6 +258,32 @@ El formato "charts" de lista (el usuario crea gráficos a partir de los datos de
 
 **Concluido.** Overrides de c3 con tokens (tipografía Inter, ejes/grid hairlines, tooltip como tarjeta, leyenda con tokens, arcos con stroke de superficie); paleta `--chart-series-1..8` aplicada vía `openxava.chartSeriesColors()` en ambos editores; selector de tipo como segmented control; layout del editor reescrito con flexbox (`.ox-charts` como contenedor, wrappers aplanados con `display: contents`, select de columna X centrado bajo el gráfico); altura dinámica `size.height` y grid Y activados en las specs; tokens documentados en `custom-style_en/es.html` y changelog. Detalles del trabajo en `ui8-modernization-bloque9-thread.md`.
 
+## Bloque 10 — Dashboards (`ui-dashboards`)
+
+Un dashboard en OpenXava es una clase transitoria (p.ej. `StaffDashboard` en openxavatest) cuyos miembros usan `@LargeDisplay`, `@Chart` y `@SimpleList`. En la revisión final se ve que el conjunto queda mal: los `@LargeDisplay` son texto gigante suelto con hacks de margen, las `@SimpleList` tienen estilo propio antiguo y el layout de la vista no está pensado como cuadrícula de tarjetas. Reutilizar lo ya hecho: charts del Bloque 9, estilo de listas del Bloque 3c, tarjetas/elevaciones de Bloques 6 y 8.
+
+- [ ] **@LargeDisplay como tarjeta KPI** (`largeDisplayEditor.jsp`, `.ox-large-display`, `.ox-large-display-label`):
+  - Convertir cada large display en una tarjeta KPI: superficie con `--radius-lg`, borde hairline `--frame-border`, `--elevation-1`, padding con `--space-*`. Hoy `.ox-large-display` lleva la clase `ox-frame` pero se renderiza como texto suelto con `padding: 20px` y márgenes negativos (`margin-top: -25px`, `margin-left: -5px`): eliminar esos hacks.
+  - Label como cabecera de tarjeta: estilo muted uppercase coherente con las cabeceras de lista del Bloque 3c (`--font-size-xs`, `--label-color`), en lugar del `font-weight: bold` actual con `margin-top: 13px`.
+  - Valor con la escala tipográfica del sistema (`--font-size-display` o similar) en lugar de `font-size: xxx-large`; `tabular-nums` obligatorio; prefijo/sufijo con tamaño reducido (`--font-size-xl` en lugar de `x-large`) y color muted.
+  - Icono MDI: tamaño coherente (no `xxx-large`), color `--accent-color` o badge con `--accent-soft` (como el badge de FirstSteps del Bloque 8); revisar `--large-display-icon-color`.
+  - Tokens `--large-display-*` revisados: `--large-display-color` hoy es `--link-color` (el valor sale azul como enlace); valorar que el valor use el color de texto normal y reservar el acento para el icono. Mantener `--large-display-negative-color` para valores negativos.
+  - Eliminar el hack `.firefox .ox-large-display { margin-right: 1px; }`.
+
+- [ ] **@SimpleList con estilo de listas** (`simpleListEditor.jsp`, `.ox-simple-list`):
+  - Aplicar el estilo de listas del Bloque 3c: cabeceras compactas muted uppercase, hairlines entre filas, padding de celdas con `--space-*`, `tabular-nums` en numéricos. Hoy tiene `font-size: larger`, `padding: 1px 5px` y `margin: 0px 10px 5px 25px` en píxeles.
+  - `--simple-list-detail-color` hoy es `--link-color` (todos los datos salen azules): valorar color de texto normal, reservando el link-color solo si la celda es realmente un enlace.
+  - Dentro de un dashboard, la simple list debe integrarse como contenido de tarjeta (sin margen propio, la tarjeta la da el contenedor).
+
+- [ ] **Layout del dashboard como cuadrícula de tarjetas**:
+  - La vista del dashboard (grupos de miembros separados por `;` en `@View`) debe renderizarse como una cuadrícula responsive de tarjetas (CSS grid con `auto-fill`/`minmax`), no como filas de frames sueltos. Cada miembro (`@LargeDisplay`, `@Chart`, `@SimpleList`) es una tarjeta; los `@Chart` y `@SimpleList` pueden ocupar más columnas (`grid-column: span n`).
+  - Título de cada tarjeta: el label del miembro con el estilo de cabecera de tarjeta (como `.ox-frame-title` del Bloque 6 o cabeceras de lista de 3c).
+  - Verificar que en modo phone la cuadrícula colapsa a una columna.
+
+- [ ] **@Chart en dashboards**: verificar que los gráficos `@Chart` dentro del dashboard heredan los tokens del Bloque 9 (paleta `--chart-series-*`, tooltip, ejes) y se dimensionan por contenedor dentro de la tarjeta (sin `calc(100vw - …)`).
+
+- [ ] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual con `StaffDashboard` de openxavatest en Auto/Light/Dark y modo phone; documentar nuevos tokens en guía de migración y changelog.
+
 ## Limpieza y rendimiento
 
 - [x] Eliminar reglas muertas en `base.css` (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`, `layer-background-color`). Ya no quedaba ninguna.

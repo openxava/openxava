@@ -1,9 +1,15 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Verificar dashboard. Crear otro bloque si es necesario.
+- Bloque 10.
 - Defecto del formato de lista en dark
 - Prueba manuales.
+    CoordinatesTest.txt: Solo revisión visual
+    DiscussionTest.txt: Probar graba uno
+    LayoutTest.txt
+    ScrollingTest.txt
+    StyleTest.txt
+    TooltipTest.txt
 - Suite.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
