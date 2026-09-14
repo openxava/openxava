@@ -21,8 +21,21 @@ openxava.addEditorInitFunction(function() {
 		        width: {
 		            ratio: 0.5 
 		        }
+		    },
+		    size: {
+		        height: Math.max(320, window.innerHeight - 300)
+		    },
+		    grid: {
+		        y: {
+		            show: true
+		        }
 		    }
 		};
+		
+		var seriesColors = openxava.chartSeriesColors();
+		if (seriesColors.length) {
+			chartConfig.color = { pattern: seriesColors };
+		}
 		
 		if (type === 'pie') {
 			var pieData = [];

@@ -1,7 +1,10 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
+- Verificar dashboard. Crear otro bloque si es necesario.
+- Defecto del formato de lista en dark
 - Prueba manuales.
+- Suite.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Copia de MDs y pantallazos.
