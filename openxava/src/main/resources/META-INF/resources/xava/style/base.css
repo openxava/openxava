@@ -185,7 +185,7 @@
 	--card-content-b-color: var(--action-color);	
 	--card-color: var(--color);
 	--card-content-color: var(--card-color);		
-    --card-background: var(--button-bar-background);
+    --card-background: #ffffff;
 	--card-header-color: var(--card-color);
 	--card-content-hover-color: var(--card-color);					
 	--card-subheader-hover-color: var(--action-hover-color);
@@ -3882,6 +3882,8 @@ div[id$="_Index__view"] .ox-list-title {
 	padding: 10px 10px 5px 10px;
 	color: var(--card-color); 
 	background: var(--card-background);  
+	border: 1px solid var(--frame-border);
+	box-shadow: var(--elevation-1);
 	transition: filter var(--transition-fast), box-shadow var(--transition-fast);
 }
 

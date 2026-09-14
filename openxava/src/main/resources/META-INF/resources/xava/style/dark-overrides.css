@@ -42,6 +42,7 @@
 	/* Frames */
 	--frame-background: var(--my-transparent-lightdark);
 	--frame-border: #35353c;
+	--card-background: var(--my-lightdark);
 	--upload-file-background: rgba(63, 63, 70, 0.2);
 
 	/* Element collections */
