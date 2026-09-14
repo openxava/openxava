@@ -533,3 +533,45 @@ Las variables CSS son *live*: cuando `--upload-file-background` se define (tras 
 - El JS solo se encarga de hacer transparentes los paneles internos como backup (FilePond puede re-crear DOM al añadir/eliminar archivos).
 
 **Bloque 7 concluido.**
+
+---
+
+## Post-Bloque 7: Legibilidad y tarjetas de archivos (pruebas manuales finales)
+
+Durante las pruebas manuales finales de la modernización UI8, el usuario detectó dos problemas visuales en el editor de carga de archivos.
+
+### 1. Nombre y tamaño de archivo ilegibles
+
+**Problema**: El nombre del archivo y su tamaño eran difíciles de leer, especialmente en dark mode.
+
+**Causa raíz**:
+- `.filepond--file-info-main` heredaba `font-size: 0.75em` (~9px) de FilePond.
+- `.filepond--file-info-sub` (tamaño) usaba `opacity: 0.5` sobre `--placeholder-color` (#71717a en dark) — prácticamente invisible.
+
+**Solución** (`base.css`):
+- `.filepond--file-info-main`: `font-size: var(--font-size-sm)` (12px) + `color: var(--color)` explícito.
+- `.filepond--file-info-sub`: `font-size: var(--font-size-xs)` (11px) + `color: color-mix(in srgb, var(--color) 65%, transparent)` + `opacity: 1`.
+
+Patrón de Notion/Linear: nombre en texto primario, metadatos en gris secundario pero legible.
+
+### 2. Tarjeta invisible alrededor de cada archivo
+
+**Problema**: No se veía ninguna tarjeta/chip alrededor de cada archivo; los items flotaban sobre el fondo del dropzone.
+
+**Causa raíz** (doble):
+- El item-panel lleva también la clase `filepond--panel`, y `applyDropZoneStyle` en `uploadEditor.js` aplicaba `background-color: transparent !important` **inline** a todos los `.filepond--panel` — el inline `!important` ganaba a cualquier CSS.
+- La regla `.filepond--panel { border: none !important }` en `base.css` eliminaba el borde de la tarjeta.
+
+**Solución**:
+- `uploadEditor.js`: selector cambiado a `.filepond--panel:not(.filepond--item-panel)` para excluir las tarjetas de la transparencia forzada.
+- `base.css`: `.filepond--panel:not(.filepond--item-panel) { border: none }` por la misma razón.
+- `.filepond--item-panel`: `background: var(--background)` + `border: 1px solid var(--frame-border)` — superficie elevada con borde sutil, como los file chips de Notion/Linear.
+
+**Archivos modificados**
+
+| Archivo | Cambio |
+|---|---|
+| `style/base.css` | `.filepond--file-info-main` y `-sub` con tamaños/colores legibles; `.filepond--item-panel` con `--background` + borde; `.filepond--panel` excluye item-panel |
+| `editors/js/uploadEditor.js` | `applyDropZoneStyle` excluye `.filepond--item-panel` del override transparente |
+
+**Estado**: verificado por el usuario con capturas en dark y light mode — tarjetas visibles y texto legible en ambos temas.
