@@ -2,6 +2,8 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 10.
+    - changelog
+    - Documentar custom-style
 - Defecto del formato de lista en dark
 - Prueba manuales.
     CoordinatesTest.txt: Solo revisión visual
