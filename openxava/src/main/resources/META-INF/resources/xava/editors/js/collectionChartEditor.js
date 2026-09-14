@@ -61,7 +61,11 @@ openxava.addEditorInitFunction(function() {
 			};			
 		}
 		
-		c3.generate(chartConfig);	
+		var chart = c3.generate(chartConfig);
+		var chartElement = $(this);
+		setTimeout(function() {
+			chart.resize({ width: chartElement.width() });
+		}, 0);
 	});
 
 });

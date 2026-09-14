@@ -2402,12 +2402,14 @@ th.ox-list-header .ui-resizable-e:focus::after {
 
 .ox-full-frame {
 	width: calc(100% - 27px);
+	box-sizing: border-box;
 }
 
 .ox-half-frame {
 	overflow: auto; 
 	display: block; 
 	width: calc(50% - 27px);
+	box-sizing: border-box;
 }
 
 .ox-flow-layout .ox-half-frame {
@@ -4775,7 +4777,7 @@ a[data-action="Collection.previous"] {
 .ox-layout-detail:has(.ox-large-display) {
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
+	width: calc(100% - 27px);
 	column-gap: var(--space-2);
 }
 
