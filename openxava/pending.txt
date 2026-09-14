@@ -1,9 +1,8 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Suite.
-    - Comprobobar rendimiento. La última costó 1h 10m, con tests fallidos.
 - Prueba manuales.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
+- Copia de MDs y pantallazos.
 - Borrar MDs y pantallazos.
