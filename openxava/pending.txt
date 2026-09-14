@@ -4,6 +4,8 @@ Pending UI8 modernization (tmr)
 - Bloque 10.
     - TMR ME QUEDÉ PARA PROBAR CON 3 TARJETAS. VER COMO ESTA INVOICEDEMO.
         TMR DESPUÉS HE DE AJUSTAR LAS COLECCIONES
+    - Probar LargeDisplay, Chart y SimpleList fuera de dashboard.
+    - Probar charts, para comprobar que no los he roto.
     - changelog
     - Documentar custom-style
 - Defecto del formato de lista en dark
