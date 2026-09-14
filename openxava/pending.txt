@@ -2,10 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 9:
-    - Revisión manual.
-    - Prueba automáticas charts.
-    - Prueba manuales charts.
-    - Revisar doc.
     - Crear MD.
     - Verificar dashboard. Podemos crear otro bloque.
 - Defecto del formato de lista en dark
