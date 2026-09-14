@@ -2,6 +2,8 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 10.
+    - TMR ME QUEDÉ PARA PROBAR CON 3 TARJETAS. VER COMO ESTA INVOICEDEMO.
+        TMR DESPUÉS HE DE AJUSTAR LAS COLECCIONES
     - changelog
     - Documentar custom-style
 - Defecto del formato de lista en dark

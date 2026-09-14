@@ -10,6 +10,7 @@ Dashboard de prueba: `StaffDashboard` (openxavatest, `org.openxava.test.dashboar
 - El editor `LargeDisplay` (`largeDisplayEditor.jsp`) tiene `default-label-format="no-label"`: la etiqueta la pinta el propio editor, no la celda de etiqueta (que queda vacía).
 - Los marcos de colección usan `.ox-full-frame` (`width: calc(100% - 27px)`) y `.ox-half-frame` (`calc(50% - 27px)`).
 - `.ox-frame` actual: `float: left`, `padding: var(--space-4)`, `margin-right: var(--space-2)`, `border-radius: var(--radius-lg)`.
+- **No hay reset global de `box-sizing`**: los frames usan `content-box`, así que `width` define la caja de contenido y la caja visible = width + padding + border. Esto era la causa raíz del desajuste a la derecha (ver sección 4).
 - `.ox-editor-wrapper` tiene `padding: 1px 12px 5px 0` y `.xava_editor` es `inline-flex` (shrink-to-fit) — importante: un `width: 100%` en el contenido resuelve de forma circular si el padre es shrink-to-fit.
 - `.ox-collection .ox-frame-content` tiene márgenes negativos `-var(--space-3)` a los lados.
 
@@ -38,7 +39,7 @@ Dashboard de prueba: `StaffDashboard` (openxavatest, `org.openxava.test.dashboar
 .ox-layout-detail:has(.ox-large-display) {
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
+	width: calc(100% - 27px);   /* igual que el borde visible de .ox-full-frame */
 	column-gap: var(--space-2);
 }
 .ox-layout-detail:has(.ox-large-display) .ox-layout-new-line {
@@ -63,7 +64,7 @@ Dashboard de prueba: `StaffDashboard` (openxavatest, `org.openxava.test.dashboar
 }
 ```
 
-Resultado: las tarjetas se reparten la fila a partes iguales, con separación uniforme (`column-gap`), alineadas a izquierda y derecha con el chart. Detalle iterativo: la celda de etiqueta vacía seguía siendo un flex item y creaba un `column-gap` extra a la izquierda — resuelto con `display: none`.
+Resultado: las tarjetas se reparten la fila a partes iguales, con separación uniforme (`column-gap`), alineadas a izquierda y derecha con el chart. Detalles iterativos: la celda de etiqueta vacía seguía siendo un flex item y creaba un `column-gap` extra a la izquierda — resuelto con `display: none`. El ancho final es `calc(100% - 27px)` para coincidir con el borde visible del marco del chart (ver sección 4).
 
 ### 3. Altura del chart
 
@@ -72,9 +73,22 @@ Resultado: las tarjetas se reparten la fila a partes iguales, con separación un
 **Fix** en `editors/js/collectionChartEditor.js`:
 - `size.height` → `Math.max(300, window.innerHeight - 550)` (~370px en ventana típica, mínimo 300px).
 
+### 4. Alineación derecha: la causa raíz era `box-sizing`
+
+**Síntoma**: la fila de tarjetas siempre quedaba corta a la derecha respecto al chart — ~2mm con la fila al 100%, ~1cm con la fila a `calc(100% - 27px)`. Daban vueltas en círculo porque el marco del chart era ~34px más ancho de lo esperado.
+
+**Causa raíz**: `.ox-full-frame` tiene `width: calc(100% - 27px)` pero `.ox-frame` usa `box-sizing: content-box` (no hay reset global). El `width` definía la **caja de contenido**, así que la caja visible (borde) = `100% - 27px + padding(32px) + border(2px)` = **100% + 7px**: el marco desbordaba `.ox-detail` por ~7px. Además el svg de c3 medía el contenedor ya estirado (1020px), reforzando el desajuste.
+
+**Fix** en `base.css`:
+- `.ox-full-frame` y `.ox-half-frame` → `box-sizing: border-box`. Ahora el `calc()` define la caja visible completa y coincide con la fila de tarjetas (`calc(100% - 27px)`). También corrige los half-frame (cada uno era 34px más ancho de lo declarado).
+
+**Fix** en `collectionChartEditor.js`:
+- Tras `c3.generate()`, `setTimeout(..., 0)` con `chart.resize({ width: chartElement.width() })` para que el svg se regenere al ancho real del contenedor una vez aplicado el layout.
+
+Resultado: tarjetas, chart y simple lists terminan en el mismo borde derecho. Verificado por el usuario.
+
 ## Pendiente / conocido
 
-- **Chart desborda su marco ~2mm a la derecha**: el svg de c3 se genera con ancho fijo en px (1020) mayor que el contenido de `.ox-full-frame` (`calc(100% - 27px)`), y `.ox-frame` no tiene `overflow: hidden`. La fila de tarjetas está bien; es el chart el que sobresale. Opciones: hacer el chart responsive (c3 al ancho real del contenedor + resize) o ampliar el marco a `100%` y contener el svg. Recomendada la segunda para dashboard.
 - **SimpleList**: pendiente de revisión/estilo.
 - Aspecto moderno general del dashboard (estilo Attio/Notion/Linear) una vez todo esté en su sitio.
 - `pending.txt`: changelog y documentar custom-style.
