@@ -11,7 +11,7 @@ Las aplicaciones generadas por OpenXava son **aplicaciones empresariales de uso 
 ## Estrategia de trabajo
 
 - Trabajo en **bloques** con rama propia cada uno; cada bloque se prueba, revisa en módulos reales (listas, diálogos, colecciones, modo phone) y se fusiona a master antes de empezar el siguiente.
-- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3a → 3b → 3c → 4 → 5 → 6 → 7 → 8**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques y el Bloque 3 en 3 sub-bloques para reducir la carga de revisión y facilitar el merge.
+- Orden estricto: **Bloque 1 → 2a → 2b → 2c → 2d → 3a → 3b → 3c → 4 → 5 → 6 → 7 → 8 → 9**. Cada bloque asume los tokens del anterior. El Bloque 2 se divide en 4 sub-bloques y el Bloque 3 en 3 sub-bloques para reducir la carga de revisión y facilitar el merge.
 - Antes del Bloque 1, definir el **sistema de diseño** (tokens) como primer entregable.
 - Limpieza de CSS muerto (`.ie`, `cursor:hand`, `-webkit-gradient`, `scrollbar-face-color`) se hace dentro de cada bloque, en las zonas que se toquen.
 
@@ -225,6 +225,36 @@ Revisar y modernizar toda la pantalla de acceso: la página de bienvenida (`welc
 **Pantallazo de referencia:** `ui8-screenshots/signin.png`.
 
 **Concluido.** Tarjeta centrada en welcome (`.ox-welcome-card`), sign-in y first-steps; patrón SVG de 2004 eliminado; tokens `--welcome-card-background`, `--welcome-muted-color`, `--sign-in-text`, `--sign-in-border`, `--azure-signin-button-*` añadidos; `--welcome-background` es ahora un degradado sutil con acento. Cabecera de aplicación oculta en login (`.ox-sign-in-brand` centrada sobre la tarjeta); campos de login a 38px y ancho completo; icono de FirstSteps como badge con `mdi-arrow-left`. Detalles del trabajo en `ui8-modernization-bloque8-thread.md`.
+
+## Bloque 9 — Charts (`ui-charts`)
+
+El formato "charts" de lista (el usuario crea gráficos a partir de los datos de la lista) y los gráficos de colecciones (`collectionChartEditor`) usan **c3/d3** con el CSS vendor `editors/style/c3.css` de 2013: colores hardcodeados (`#000`, `#aaa`, `#4682b4`, `#e0e0e0`), `font: 10px sans-serif`, tooltip con `box-shadow: 7px 7px 12px -9px #777` y bordes `#CCC`. Además, el layout del editor de charts en `base.css` está lleno de hacks: márgenes negativos (`-20px`, `-40px`, `-32px`), posicionamiento con `calc(50vw - 160px)`, anchos fijos (`200px`, `120px`, `270px`) y `calc(100vw - 385px)` para el tamaño del gráfico. No se toca la librería (c3/d3 se mantienen): solo overrides de CSS con tokens y limpieza del layout, como se hizo con flatpickr (2c) y FullCalendar (3b).
+
+- [ ] **CSS de c3 por tokens**: overrides en `base.css` acotados a `.ox-chart-data` / `.xava_collection_chart` (sin tocar `c3.css` vendor):
+  - Tipografía: Inter heredada, tamaños `--font-size-*`, `tabular-nums` en ejes y tooltips (eliminar `font: 10px sans-serif` y `13px`/`14px` hardcodeados).
+  - Colores de ejes, grid y textos: `--label-color`, `--frame-border`, hairlines en lugar de `#000`/`#aaa`; grid con dash sutil.
+  - Tooltip (`.c3-tooltip`): `--radius-md`, `--elevation-2`, borde hairline, fondo de tema, padding con `--space-*`; cabecera sin el gris `#aaa`+texto blanco.
+  - Leyenda (`.c3-legend-item`): tamaño `--font-size-sm`, color de tema; fondo de leyenda con tokens en lugar de `#fff`/`#d3d3d3`.
+  - Paleta de series: definir paleta de chart (`--chart-series-1..n`) derivada del acento + colores complementarios, aplicada vía `color`/`pattern` en la spec de c3 o CSS; coherente en light y dark (hoy c3 usa su paleta por defecto, que en dark queda mal).
+  - Arcos de pie/donut: stroke de separación con el color de superficie (no `#fff` fijo, que en dark deja líneas blancas); texto de arco legible en ambos temas.
+  - Verificar en dark theme: todos los `fill`/`stroke`/`background` hardcodeados del vendor que queden visibles deben tener override.
+
+- [ ] **Selector de tipo de chart** (`.ox-chart-type`, `chartTypeEditor.jsp`): iconos MDI (`mdi-chart-bar`, `mdi-chart-line`, `mdi-chart-pie`, etc.) modernizados:
+  - Eliminar `font-size: 200%` y paddings en píxeles; tamaño de icono consistente con el resto de la UI.
+  - Estado seleccionado: hoy es `border-bottom: 3px solid`; valorar pill con `--accent-soft` + acento (como el segmented control de formatos de lista del Bloque 5) o mantener underline pero con tokens y radio.
+  - Hover/focus ring estándar; `transition` estándar.
+  - Eliminar márgenes negativos (`margin-left: -20px`, `margin-right: -40px`) y el fondo `--chart-type-background`; integrar la barra de tipos en el layout sin hacks.
+
+- [ ] **Layout del editor de charts** (`.ox-charts`, `.ox-chart-data`, `.ox-chart-x-column`):
+  - Eliminar posicionamiento con `calc(50vw - 160px)` del select de columna X; usar flex/grid con tokens.
+  - Eliminar anchos fijos y márgenes negativos de `.ox-charts .ox-element-collection` (`200px`, `120px`, `-32px`, `-25px`); la lista de columnas/datasets debe usar el estilo de element collections del Bloque 3a.
+  - `.ox-chart-data`: eliminar `margin: -20px 0px 10px 9px` y `padding` en píxeles; tamaño del gráfico con `calc(100vw - 385px)`/`calc(100vh - 300px)` revisado (o mejor, dimensionado por contenedor flex); eliminar el hack `.firefox .ct-chart { margin-left: -25px; }` si ya no aplica.
+  - `.ox-charts .ox-frame` transparente con paddings en píxeles: migrar a `--space-*` y revisar si el frame debe verse o no (hoy `.ox-frame-title` está oculto).
+  - La clase `ct-chart`/`ct-perfect-fourth` es herencia de Chartist (la librería anterior); renombrar a algo propio (`ox-chart-container`) o al menos documentar que ya no es Chartist.
+
+- [ ] **Charts en colecciones** (`collectionChartEditor.jsp` / `.xava_collection_chart`): aplicar los mismos tokens de paleta, ejes, tooltip y leyenda; verificar dentro de un frame de colección en detalle.
+
+- [ ] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual en Auto/Light/Dark y modo phone con los tipos bar, line, pie y donut; documentar nuevos tokens en guía de migración y changelog.
 
 ## Limpieza y rendimiento
 
