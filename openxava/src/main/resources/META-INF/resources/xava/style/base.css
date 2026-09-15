@@ -367,10 +367,11 @@
 	
 	--large-display-color: var(--link-color); 
 	--large-display-negative-color: red; 
-	--large-display-icon-color: var(--color);
+	--large-display-icon-color: var(--accent-color);
 	
 	--simple-list-detail-color: var(--link-color);
-	--simple-list-header-color: inherit;
+	--simple-list-header-color: color-mix(in srgb, var(--color) 55%, transparent);
+	--simple-list-bar-color: color-mix(in srgb, var(--accent-color) 12%, transparent);
 	
 	--system-inline-error: red;
 }
@@ -2402,12 +2403,14 @@ th.ox-list-header .ui-resizable-e:focus::after {
 
 .ox-full-frame {
 	width: calc(100% - 27px);
+	box-sizing: border-box;
 }
 
 .ox-half-frame {
 	overflow: auto; 
 	display: block; 
-	width: calc(50% - 27px);
+	width: calc(50% - 17.5px); /* 2 halves + margin-right (8px) = 100% - 27px, aligned with .ox-full-frame */
+	box-sizing: border-box;
 }
 
 .ox-flow-layout .ox-half-frame {
@@ -4772,59 +4775,118 @@ a[data-action="Collection.previous"] {
 	color: transparent!important;
 }
 
-.ox-large-display {
-	font-size: xxx-large;
-	color: var(--large-display-color);
-	padding: 20px;
-	margin-top: -25px;
-	margin-left: -5px;
-	min-width: 200px;
+.ox-layout-detail:has(.ox-large-display) {
 	display: flex;
-	justify-content: center;
+	flex-wrap: wrap;
+	width: calc(100% - 27px);
+	column-gap: var(--space-2);
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-new-line {
+	flex-basis: 100%;
+	height: 0;
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-aligned-cell {
+	display: none;
+}
+
+.ox-layout-detail:has(.ox-large-display) .ox-layout-not-aligned-cell {
+	flex: 1 1 0;
+	min-width: 0;
+	padding: 0;
+}
+
+.ox-layout-detail:has(.ox-large-display) .xava_editor {
+	width: 100%;
+}
+
+.ox-layout-detail .ox-large-display {
+	width: 100%;
+	margin-right: 0;
+	box-sizing: border-box;
+}
+
+.ox-large-display {
+	font-size: var(--font-size-3xl);
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+	color: var(--large-display-color);
+	padding: var(--space-3) var(--space-4);
+	min-width: 150px;
+}
+
+.ox-large-display-content {
+	display: flex;
+	justify-content: flex-start;
 	align-items: baseline;
+	gap: 2px;
 }
 
 .ox-large-display-label {
-	margin-top: 13px;
-	margin-left: 5px;
-	font-weight:  bold;
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--color) 55%, transparent);
+	margin-bottom: var(--space-1);
+}
+
+.ox-large-display .ox-large-display-label i.mdi {
+	font-size: var(--font-size-md);
+	line-height: 0.9;
+	vertical-align: top;
+	margin-right: var(--space-1);
+	color: var(--large-display-icon-color);
+}
+
+.ox-large-display .ox-large-display-label i.mdi::before {
+	font-size: var(--font-size-md); /* vendor .mdi:before lo fija a 18px y desborda la caja */
 }
 
 .firefox .ox-large-display {
 	margin-right: 1px;
 }
 
-.ox-large-display-suffix {
-	font-size: x-large;
+.ox-large-display-prefix, .ox-large-display-suffix {
+	font-size: var(--font-size-lg);
+	font-weight: 500;
+	color: color-mix(in srgb, var(--color) 55%, transparent);
 }
 
 .ox-large-display-negative .ox-large-display-value {
 	color: var(--large-display-negative-color); 
 }
 
-.ox-large-display i { 
-	color: var(--large-display-icon-color); 
-	vertical-align: top;
-	font-size: xxx-large;
-	margin-right: 10px;
-}
-
 .ox-simple-list {
-	margin: 0px 10px 5px 25px;
-	font-size: larger;
+	margin: 0;
+	width: 100%;
+	font-size: var(--font-size-md);
+	border-collapse: collapse;
 }
 
 .ox-simple-list td, .ox-simple-list th {
-	padding: 1px 5px 1px 5px;
+	padding: var(--space-1) var(--space-2);
 }
 
 .ox-simple-list td {
-	color: var(--simple-list-detail-color); 
+	color: var(--simple-list-detail-color);
+	font-variant-numeric: tabular-nums;
+}
+
+.ox-simple-list tbody tr + tr td, .ox-simple-list tr + tr td {
+	border-top: 1px solid var(--frame-border);
 }
 
 .ox-simple-list th {
 	text-align: left;
-	color: var(--simple-list-header-color);  
+	font-size: var(--font-size-xs);
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--simple-list-header-color);
+	border-bottom: 1px solid var(--frame-border);
 }
 
 @keyframes ox-list-loading-pulse {

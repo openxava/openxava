@@ -1,9 +1,7 @@
 Pending UI8 modernization (tmr)
 -------------------------------
 
-- Bloque 10.
-    - changelog
-    - Documentar custom-style
+
 - Defecto del formato de lista en dark
 - Prueba manuales.
     CoordinatesTest.txt: Solo revisión visual
@@ -13,6 +11,8 @@ Pending UI8 modernization (tmr)
     StyleTest.txt
     TooltipTest.txt
 - Suite.
+- Añadir para 8.0.1:
+    - Margen derecho después marco es el doble que el margen izquierdo.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Copia de MDs y pantallazos.

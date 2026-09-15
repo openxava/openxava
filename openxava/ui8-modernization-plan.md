@@ -445,15 +445,26 @@ tienen estilo propio antiguo.
 Reutilizar lo ya hecho: charts del Bloque 9, estilo de listas del Bloque 3c, tarjetas/elevaciones
 de Bloques 6 y 8. Pero manteniendo el dashboard coherente.
 
-- [ ] **@LargeDisplay como tarjeta KPI** (`largeDisplayEditor.jsp`, `.ox-large-display`,
+- [x] **@LargeDisplay como tarjeta KPI** (`largeDisplayEditor.jsp`, `.ox-large-display`,
       `.ox-large-display-label`):
   
-- [ ] **@SimpleList con estilo de listas** (`simpleListEditor.jsp`, `.ox-simple-list`):
+- [x] **@SimpleList con estilo de listas** (`simpleListEditor.jsp`, `.ox-simple-list`):
 
-- [ ] **@Chart en dashboards**: 
+- [x] **@Chart en dashboards**: 
 
-- [ ] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual con `StaffDashboard` de
+- [x] **Verificación**: tests de UI (HtmlUnit) pasados; revisión visual con `StaffDashboard` de
       openxavatest en Auto/Light/Dark y modo phone;
+
+**Concluido.** `@LargeDisplay` como tarjetas KPI planas con jerarquía tipográfica (label xs
+uppercase muted con icono de acento, valor `--font-size-3xl` semibold tabular-nums, prefijo/sufijo
+muted), alineadas a la izquierda y repartiendo la fila con flexbox; `@SimpleList` como summary list
+"quiet" (sin chrome, hairlines, cabeceras xs muted, números a la derecha) con barra inline por
+convención en columnas numéricas (`linear-gradient` proporcional al máximo); fixes de layout:
+`box-sizing: border-box` en `.ox-full-frame`/`.ox-half-frame` (la causa raíz del desajuste a la
+derecha), half-frames a `calc(50% - 17.5px)` y altura del chart reducida con resize post-render.
+Nuevo token `--simple-list-bar-color`; `--large-display-icon-color` por defecto al acento y
+`--simple-list-header-color` muted. Tokens documentados en `custom-style_en/es.html` y changelog.
+Detalles del trabajo en `ui8-modernization-bloque10-thread.md`.
 
 ## Limpieza y rendimiento
 

@@ -23,7 +23,7 @@ openxava.addEditorInitFunction(function() {
 		        }
 		    },
 		    size: {
-		        height: Math.max(320, window.innerHeight - 300)
+		        height: Math.max(300, window.innerHeight - 550)
 		    },
 		    grid: {
 		        y: {
@@ -61,7 +61,11 @@ openxava.addEditorInitFunction(function() {
 			};			
 		}
 		
-		c3.generate(chartConfig);	
+		var chart = c3.generate(chartConfig);
+		var chartElement = $(this);
+		setTimeout(function() {
+			chart.resize({ width: chartElement.width() });
+		}, 0);
 	});
 
 });
