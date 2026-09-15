@@ -4,6 +4,11 @@ Pending UI8 modernization (tmr)
 
 - Prueba manuales.
     LayoutTest.txt
+        TMR ME QUEDÉ POR AQUÍ: REPETIR TODO CON flowLayout=true.
+        TMR HACIENDO Product2 HE DE AÑADIR ESTO EN ALGÚN SITIO:
+            .ox-flow-layout > div > .ox-editor-wrapper .ox-descriptions-list :is(input[type="text"]) {
+            	max-width: 240px;
+            }
     ScrollingTest.txt
     StyleTest.txt
     TooltipTest.txt
