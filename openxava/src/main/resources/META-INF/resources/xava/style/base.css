@@ -4825,20 +4825,25 @@ a[data-action="Collection.previous"] {
 }
 
 .ox-large-display-label {
-	display: flex;
-	align-items: center;
-	gap: var(--space-1);
 	font-size: var(--font-size-xs);
 	font-weight: 600;
+	line-height: 1.2;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	color: color-mix(in srgb, var(--color) 55%, transparent);
 	margin-bottom: var(--space-1);
 }
 
-.ox-large-display-label i {
+.ox-large-display .ox-large-display-label i.mdi {
 	font-size: var(--font-size-md);
+	line-height: 0.9;
+	vertical-align: top;
+	margin-right: var(--space-1);
 	color: var(--large-display-icon-color);
+}
+
+.ox-large-display .ox-large-display-label i.mdi::before {
+	font-size: var(--font-size-md); /* vendor .mdi:before lo fija a 18px y desborda la caja */
 }
 
 .firefox .ox-large-display {

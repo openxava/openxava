@@ -108,6 +108,10 @@ Resultado: colecciones alineadas a la derecha con el chart y las tarjetas. Verif
 - Contenido alineado a la izquierda (`justify-content: flex-start`) en vez de centrado.
 - `box-shadow: var(--elevation-1)` para que se lean como cards.
 
+**Alineación vertical icono/label** (resuelto tras varias iteraciones): el glifo MDI se pinta en `i.mdi::before` y el vendor `materialdesignicons.css` fija `.mdi:before { font-size: 18px }`, así que el glifo desbordaba la caja del `i` (14px) por arriba y ni flex ni `vertical-align` lo centraban. Fix final en `base.css`:
+- `.ox-large-display .ox-large-display-label i.mdi::before { font-size: var(--font-size-md) }` — iguala el glifo a la caja.
+- En el `i.mdi`: `line-height: 0.9; vertical-align: top` — la caja de línea queda más baja que el glifo, que desborda uniformemente y queda centrado ópticamente respecto al label en mayúsculas (solución ajustada manualmente por el usuario).
+
 ### 7. SimpleList: estilo "quiet" + barra inline
 
 Decisión de diseño: las `@SimpleList` **no** deben parecer grids editables (esa fue la motivación original de la anotación). Se aplica el patrón "summary list" de Odoo/Linear/GA: sin chrome de tabla, denso, el dato es el protagonista.
