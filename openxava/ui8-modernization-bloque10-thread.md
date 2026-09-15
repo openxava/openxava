@@ -1,5 +1,7 @@
 # UI8 Modernization - Bloque 10: Dashboards
 
+**Estado: CERRADO** — verificado visualmente por el usuario; tokens documentados en `custom-style_en/es.html` y entradas añadidas al changelog.
+
 Hilo de trabajo para modernizar los dashboards (entidades con miembros `@LargeDisplay`, `@SimpleList` y `@Chart`). Objetivo: aspecto moderno estilo Attio/Notion/Linear, coherente con la nueva UI. Primera fase: arreglar lo roto por los bloques anteriores para que todo se vea en su sitio y dentro de la página sin desplazar.
 
 Dashboard de prueba: `StaffDashboard` (openxavatest, `org.openxava.test.dashboards.StaffDashboard`).
@@ -129,8 +131,7 @@ Decisión de diseño: las `@SimpleList` **no** deben parecer grids editables (es
 
 ## Pendiente / conocido
 
-- Revisión visual del nuevo estilo en Auto/Light/Dark y modo phone.
-- `pending.txt`: changelog y documentar custom-style (`--simple-list-bar-color`, nuevos defaults de `--simple-list-header-color` y `--large-display-icon-color`).
+- Nada pendiente: revisión visual hecha por el usuario, changelog y `custom-style_en/es.html` actualizados.
 
 ## Archivos tocados
 
