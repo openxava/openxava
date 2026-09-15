@@ -95,6 +95,8 @@ Resultado: tarjetas, chart y simple lists terminan en el mismo borde derecho. Ve
 
 **Fix** en `base.css`: `.ox-half-frame` → `width: calc(50% - 17.5px)`, de modo que 2 mitades + el margin de 8px = `100% - 27px`, mismo borde derecho que el full frame.
 
+Resultado: colecciones alineadas a la derecha con el chart y las tarjetas. Verificado por el usuario.
+
 ## Pendiente / conocido
 
 - **SimpleList**: pendiente de revisión/estilo.

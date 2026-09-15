@@ -5,7 +5,6 @@ Pending UI8 modernization (tmr)
     - Mejorar estética
     - Probar LargeDisplay, Chart y SimpleList fuera de dashboard.
     - Probar charts, para comprobar que no los he roto.
-    - Probar módulos con marcos uno al lado del otro.
     - StaffDashboardTest
     - changelog
     - Documentar custom-style
