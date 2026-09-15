@@ -2393,7 +2393,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-frame .ox-flow-layout > div {
-	margin-left: calc(-1 * var(--space-3));
+	margin-left: 0px;
 }
 
 .ox-frame .ox-flow-layout > div.ox-frame {
@@ -2419,8 +2419,9 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-detail.ox-flow-layout, .ox-active-section > .ox-flow-layout { 
-	width: calc(100% - 10px); 
+	width: calc(100% - 10px - var(--space-3)); 
 	margin-top: 5px; 
+	margin-left: var(--space-3); 
 }
 
 .ui-dialog .ox-detail.ox-flow-layout, .ui-dialog .ox-active-section > .ox-flow-layout { 
@@ -2428,7 +2429,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-flow-layout .ox-frame { 
-	margin-left: var(--space-3);
+	margin-left: 0px;
 	margin-right: 0px; 
 }
 
