@@ -4814,7 +4814,6 @@ a[data-action="Collection.previous"] {
 	color: var(--large-display-color);
 	padding: var(--space-3) var(--space-4);
 	min-width: 150px;
-	box-shadow: var(--elevation-1);
 }
 
 .ox-large-display-content {

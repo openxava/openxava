@@ -105,8 +105,8 @@ Resultado: colecciones alineadas a la derecha con el chart y las tarjetas. Verif
 - Label: `--font-size-xs`, uppercase, `letter-spacing: 0.05em`, color muted (`color-mix 55%`), icono de `--font-size-md` con `--large-display-icon-color` (ahora `var(--accent-color)` por defecto).
 - Número: de `xxx-large` a `--font-size-3xl` (32px), peso 600, `tabular-nums`.
 - Prefijo/sufijo (`%`, `€`): `--font-size-lg`, peso 500, muted — ya no `x-large` compitiendo con el valor.
-- Contenido alineado a la izquierda (`justify-content: flex-start`) en vez de centrado.
-- `box-shadow: var(--elevation-1)` para que se lean como cards.
+- Contenido alineado a la izquierda (`justify-content: flex-start`) en vez de centrado — patrón KPI estándar en Linear/Attio/Notion/Stripe.
+- Sin `box-shadow`: las tarjetas quedan planas con el mismo borde que los frames de listas y charts (coherencia; esas apps reservan la elevación para elementos flotantes).
 
 **Alineación vertical icono/label** (resuelto tras varias iteraciones): el glifo MDI se pinta en `i.mdi::before` y el vendor `materialdesignicons.css` fija `.mdi:before { font-size: 18px }`, así que el glifo desbordaba la caja del `i` (14px) por arriba y ni flex ni `vertical-align` lo centraban. Fix final en `base.css`:
 - `.ox-large-display .ox-large-display-label i.mdi::before { font-size: var(--font-size-md) }` — iguala el glifo a la caja.
