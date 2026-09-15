@@ -2,10 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 
-- Prueba manuales.
-    ScrollingTest.txt
-    StyleTest.txt
-    TooltipTest.txt
 - Suite.
 - Añadir para 8.0.1:
     - Margen derecho después marco es el doble que el margen izquierdo.
@@ -24,7 +20,8 @@ Pending UI8 modernization (tmr)
         	Browser narrow hidding module menu: collections inside frames and frames filling all space.
         	Open modules menu: collections inside frames and frames filling all space.
         	Wide the browser: collections inside frames and frames filling all space.
-
+- Añadir a 8.1
+    - Modernizar tooltips
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Copia de MDs y pantallazos.
