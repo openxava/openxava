@@ -52,7 +52,9 @@ public class Invoice2NoModifyDetailsTest extends ModuleTestBase {
 		HtmlElement editor = getEditor(property);
 		HtmlElement largeDisplayDiv = editor.getFirstByXPath(".//div[contains(@class, 'ox-large-display ')]");
 		assertNotNull("Div with class ox-large-display not found inside editor for " + property, largeDisplayDiv);
-		assertEquals(expectedValue, largeDisplayDiv.asNormalizedText());
+		HtmlElement contentDiv = largeDisplayDiv.getFirstByXPath(".//div[contains(@class, 'ox-large-display-content')]");
+		assertNotNull("Div with class ox-large-display-content not found for " + property, contentDiv);
+		assertEquals(expectedValue, contentDiv.asNormalizedText());
 	}
 
 	private HtmlElement getEditor(String property) {
