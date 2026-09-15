@@ -97,14 +97,40 @@ Resultado: tarjetas, chart y simple lists terminan en el mismo borde derecho. Ve
 
 Resultado: colecciones alineadas a la derecha con el chart y las tarjetas. Verificado por el usuario.
 
+### 6. Tarjetas KPI con jerarquía moderna
+
+**Cambio** en `largeDisplayEditor.jsp`: el icono se mueve dentro de `.ox-large-display-label` (junto al texto, envuelto en `.ox-large-display-label-text`), ya no compite con el número.
+
+**Cambio** en `base.css` (`.ox-large-display*`):
+- Label: `--font-size-xs`, uppercase, `letter-spacing: 0.05em`, color muted (`color-mix 55%`), icono de `--font-size-md` con `--large-display-icon-color` (ahora `var(--accent-color)` por defecto).
+- Número: de `xxx-large` a `--font-size-3xl` (32px), peso 600, `tabular-nums`.
+- Prefijo/sufijo (`%`, `€`): `--font-size-lg`, peso 500, muted — ya no `x-large` compitiendo con el valor.
+- Contenido alineado a la izquierda (`justify-content: flex-start`) en vez de centrado.
+- `box-shadow: var(--elevation-1)` para que se lean como cards.
+
+### 7. SimpleList: estilo "quiet" + barra inline
+
+Decisión de diseño: las `@SimpleList` **no** deben parecer grids editables (esa fue la motivación original de la anotación). Se aplica el patrón "summary list" de Odoo/Linear/GA: sin chrome de tabla, denso, el dato es el protagonista.
+
+**Cambio** en `base.css` (`.ox-simple-list*`):
+- Eliminados márgenes hardcodeados (`0px 10px 5px 25px`) y `font-size: larger`; ahora `margin: 0`, `width: 100%`, tamaño base.
+- Cabecera: `--font-size-xs`, uppercase, `letter-spacing`, `--simple-list-header-color` (nuevo default muted, antes `inherit`).
+- Filas: hairline `border-top` entre filas (`--frame-border`), padding `--space-1 --space-2`, `tabular-nums` en celdas.
+- Sin hover de fila ni affordances de interacción.
+
+**Cambio** en `simpleListEditor.jsp`:
+- Cabeceras de columnas numéricas alineadas a la derecha (`ox-text-align-right` también en `th`).
+- **Barra inline por convención**: en columnas numéricas (`p.isNumber() && !hasValidValues()`), el `td` lleva un `linear-gradient(to left, --simple-list-bar-color X%, transparent X%)` proporcional al máximo absoluto de la columna. Sin anotación: se aplica a toda columna numérica con max > 0.
+- Nuevo token `--simple-list-bar-color` (`color-mix` del acento al 12%, funciona en light y dark).
+
 ## Pendiente / conocido
 
-- **SimpleList**: pendiente de revisión/estilo.
-- Aspecto moderno general del dashboard (estilo Attio/Notion/Linear) una vez todo esté en su sitio.
-- `pending.txt`: changelog y documentar custom-style.
+- Revisión visual del nuevo estilo en Auto/Light/Dark y modo phone.
+- `pending.txt`: changelog y documentar custom-style (`--simple-list-bar-color`, nuevos defaults de `--simple-list-header-color` y `--large-display-icon-color`).
 
 ## Archivos tocados
 
 - `openxava/src/main/resources/META-INF/resources/xava/editors/largeDisplayEditor.jsp`
+- `openxava/src/main/resources/META-INF/resources/xava/editors/simpleListEditor.jsp`
 - `openxava/src/main/resources/META-INF/resources/xava/style/base.css`
 - `openxava/src/main/resources/META-INF/resources/xava/editors/js/collectionChartEditor.js`
