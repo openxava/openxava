@@ -2408,7 +2408,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 .ox-half-frame {
 	overflow: auto; 
 	display: block; 
-	width: calc(50% - 27px);
+	width: calc(50% - 17.5px); /* 2 halves + margin-right (8px) = 100% - 27px, aligned with .ox-full-frame */
 	box-sizing: border-box;
 }
 

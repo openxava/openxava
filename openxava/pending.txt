@@ -2,10 +2,11 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 - Bloque 10.
-    - TMR ME QUEDÉ PARA PROBAR CON 3 TARJETAS. VER COMO ESTA INVOICEDEMO.
-        TMR DESPUÉS HE DE AJUSTAR LAS COLECCIONES
+    - Mejorar estética
     - Probar LargeDisplay, Chart y SimpleList fuera de dashboard.
     - Probar charts, para comprobar que no los he roto.
+    - Probar módulos con marcos uno al lado del otro.
+    - StaffDashboardTest
     - changelog
     - Documentar custom-style
 - Defecto del formato de lista en dark
@@ -17,6 +18,8 @@ Pending UI8 modernization (tmr)
     StyleTest.txt
     TooltipTest.txt
 - Suite.
+- Añadir para 8.0.1:
+    - Margen derecho después marco es el doble que el margen izquierdo.
 - Refinar y resumir entradas en changelog
     - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
 - Copia de MDs y pantallazos.

@@ -87,6 +87,14 @@ Resultado: las tarjetas se reparten la fila a partes iguales, con separación un
 
 Resultado: tarjetas, chart y simple lists terminan en el mismo borde derecho. Verificado por el usuario.
 
+### 5. Half frames: alineación derecha
+
+**Problema**: las colecciones `.ox-half-frame` (`turnoverByYear`, `moreSeniorWorkers`) quedaban ~19px (medio centímetro) cortas a la derecha respecto al marco del chart y las tarjetas.
+
+**Causa**: cada half-frame medía `calc(50% - 27px)` y además `.ox-frame` aplica `margin-right: var(--space-2)` (8px). El segundo marco terminaba en `100% - 54px + 8px = 100% - 46px`, mientras el `.ox-full-frame` termina en `100% - 27px`.
+
+**Fix** en `base.css`: `.ox-half-frame` → `width: calc(50% - 17.5px)`, de modo que 2 mitades + el margin de 8px = `100% - 27px`, mismo borde derecho que el full frame.
+
 ## Pendiente / conocido
 
 - **SimpleList**: pendiente de revisión/estilo.
