@@ -4119,7 +4119,7 @@ div[id$="_Index__view"] .ox-list-title {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
 	gap: var(--space-3);
-	padding: 0px 5px 3px 5px;
+	padding: var(--space-3) 10px; /* 10px aligns cards with .ox-list-title combos */
 	box-sizing: border-box;
 }
 
