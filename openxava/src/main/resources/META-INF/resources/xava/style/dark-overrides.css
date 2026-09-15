@@ -34,6 +34,7 @@
 
 	/* Button bar */
 	--list-formats-hover-color: white;
+	--segmented-active-background: color-mix(in srgb, var(--color) 14%, transparent);
 
 	/* Backgrounds & labels */
 	--background: var(--my-dark);

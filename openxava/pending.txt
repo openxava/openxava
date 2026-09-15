@@ -2,7 +2,6 @@ Pending UI8 modernization (tmr)
 -------------------------------
 
 
-- Defecto del formato de lista en dark
 - Prueba manuales.
     CoordinatesTest.txt: Solo revisión visual
     DiscussionTest.txt: Probar graba uno
