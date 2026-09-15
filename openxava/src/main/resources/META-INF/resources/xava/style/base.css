@@ -3786,6 +3786,10 @@ i.ox-sort-indicator2 {
 	color: var(--descriptions-list-handle-hover-color);
 }
 
+.ox-flow-layout > div > .ox-editor-wrapper .ox-descriptions-list :is(input[type="text"]) {
+	max-width: 240px;
+}
+
 .ox-element-collection .ox-descriptions-list i {
 	top: -3px; 
 }
