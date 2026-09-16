@@ -26,9 +26,9 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 	document.throwPropertyChange = false;
 	openxava.getElementById(application, module, "loading").value=true;
 	document.body.style.cursor='wait';
-	if (!$('#xava_loading').is(':visible')) openxava.fadeIn('#xava_loading', 1000); 
-	if (!$('#xava_loading2').is(':visible')) openxava.fadeIn('#xava_loading2', 1000); 
-		
+	openxava.scheduleLoading();
+	openxava.markListsAsLoading();
+	
 	if (inNewWindow) {
 		openxava.newWindow = window.open('', '_blank'); 
 	}
@@ -48,6 +48,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 
 	openxava.post("/xava/hotwire", params, function(text) {
 		if (text && text.indexOf("ERROR:") === 0) {
+			openxava.hideLoading();
 			openxava.showError(openxava.postErrorMessage);
 			return;
 		}
@@ -56,6 +57,7 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 			openxava.refreshPage(result);
 		} catch (e) {
 			console.error("Error parsing JSON in openxava.request", e);
+			openxava.hideLoading();
 			openxava.showError(openxava.postErrorMessage);
 		}
 	});
@@ -212,8 +214,8 @@ openxava.refreshPage = function(result) {
 	openxava.showMessages(result); 
 	openxava.resetRequesting(result);
 	openxava.propertiesUsedInCalculationsChange(result);
-	$('#xava_loading').hide();
-	$('#xava_loading2').hide();
+	openxava.hideLoading();
+	$('.ox-list.ox-loading').removeClass('ox-loading');
 	if (result.hasPostJS) {
 		openxava.postJS();
 	}
@@ -349,9 +351,37 @@ openxava.initActions = function() {
 }
 
 openxava.initMessages = function(application, module) { 
-	$('.ox-message-box i').off('click').click(function() {
+	$('.ox-message-box i.mdi-close').off('click').click(function() {
 		$(this).parent().parent().fadeOut(); 
 	});
+	$('div[id$="__messages"]:visible').each(function() {
+		if ($(this).find('table').length > 0) openxava.scheduleMessagesAutoClose(this);
+	});
+}
+
+openxava.messagesAutoCloseDelay = 5000;
+
+/**
+ * Schedules the automatic fade out of a messages container (success messages,
+ * warnings and infos). Errors remain persistent. The countdown pauses while
+ * the user hovers over the messages.
+ * @param {object} messagesDiv - The DOM element of the messages container
+ */
+openxava.scheduleMessagesAutoClose = function(messagesDiv) { 
+	if (openxava.browser.htmlUnit) return; // Pending timers block HtmlUnit's waitForBackgroundJavaScript
+	var $messages = $(messagesDiv);
+	var previousTimeout = $messages.data('autoCloseTimeout');
+	if (previousTimeout) clearTimeout(previousTimeout);
+	$messages.off('mouseenter.oxautoclose').on('mouseenter.oxautoclose', function() {
+		var timeout = $(this).data('autoCloseTimeout');
+		if (timeout) clearTimeout(timeout);
+	});
+	$messages.off('mouseleave.oxautoclose').on('mouseleave.oxautoclose', function() {
+		openxava.scheduleMessagesAutoClose(this);
+	});
+	$messages.data('autoCloseTimeout', setTimeout(function() {
+		$messages.fadeOut();
+	}, openxava.messagesAutoCloseDelay));
 }
 
 
@@ -504,16 +534,18 @@ openxava.showNotification = function(message, type) {
 	// CSS classes depend on the type
 	var wrapperClass = "ox-" + type + "-wrapper";
 	var contentClass = "ox-" + type;
+	var iconClass = (type === "messages") ? "mdi-check-circle-outline" : "mdi-alert-circle-outline";
 	
     var html = '<div class="' + wrapperClass + '"><table id="' 
     	+ tableId 
-    	+ '"><tr><td class="' + contentClass + '"><div class="ox-message-box"><i class="mdi mdi-close"></i>' 
+    	+ '"><tr><td class="' + contentClass + '"><div class="ox-message-box"><i class="mdi mdi-close"></i><i class="mdi ' + iconClass + ' ox-message-icon"></i>' 
     	+ message + '</div></td></tr></table></div>';
 
     $("#" + id).html(html);
     
     openxava.effectShow(app, module, type);
     openxava.initMessages();
+    if (type === "messages") openxava.scheduleMessagesAutoClose($("#" + id));
 };
 
 openxava.showMessage = function(message) { 	
@@ -527,7 +559,10 @@ openxava.showError = function(message) {
 openxava.showMessages = function(result) { 
 	var messagesIsEmpty = openxava.getElementById(result.application, result.module, "messages_table") == null;
 	var errorsIsEmpty = openxava.getElementById(result.application, result.module, "errors_table") == null;
-	if (!messagesIsEmpty) openxava.effectShow(result.application, result.module, "messages");
+	if (!messagesIsEmpty) {
+		openxava.effectShow(result.application, result.module, "messages");
+		openxava.scheduleMessagesAutoClose($("#" + openxava.decorateId(result.application, result.module, "messages")));
+	}
 	if (!errorsIsEmpty) openxava.effectShow(result.application, result.module, "errors");
 }
 
@@ -814,6 +849,16 @@ openxava.addEditorInitFunction = function(initFunction) {
 	openxava.editorsInitFunctions.push(initFunction);	
 }
 
+openxava.chartSeriesColors = function() {
+	var styles = getComputedStyle(document.documentElement);
+	var colors = [];
+	for (var i = 1; i <= 8; i++) {
+		var color = styles.getPropertyValue('--chart-series-' + i).trim();
+		if (color) colors.push(color);
+	}
+	return colors;
+}
+
 openxava.addEditorPreRequestFunction = function(preRequestFunction) {  
 	if (openxava.editorsPreRequestFunctions == null) {
 		openxava.editorsPreRequestFunctions = new Array();	
@@ -863,6 +908,7 @@ openxava.getDialog = function(application, module) {
 			close: openxava.onCloseDialog,
 			closeOnEscape: openxava.closeDialogOnEscape 
 		});
+		dialog.parent().find(".ui-dialog-titlebar-close").empty().append('<i class="mdi mdi-close"></i>');
 		openxava.dialogs[dialogId] = dialog;		
 	}
 	return dialog;
@@ -911,6 +957,7 @@ openxava.decorateId = function(application, module, simpleName) {
 }
 
 openxava.systemError = function(result) { 
+	openxava.hideLoading();
 	document.body.style.cursor='auto';	
 	openxava.getElementById(result.application, result.module, "core").innerHTML="<big id='xava_system_error'><big>ERROR: " + result.error + "</big></big>";
 }
@@ -1194,9 +1241,16 @@ openxava.throwPropertyChanged = function(application, module, property) {
 openxava.calculate = function(application, module, propertyId, scale) {
 	var value = openxava.calculations[propertyId](application, module);
 	value = value.toFixed(scale).replace(".", openxava.decimalSeparator);
-	$('#' + propertyId).val(value);
-	$('#' + propertyId).blur(); 	
-	$('#' + propertyId).change(); 
+	var element = $('#' + propertyId);
+	if (element.is('input, textarea, select')) {
+		element.val(value);
+		element.blur(); 	
+		element.change(); 
+	}
+	else {
+		element.text(value); 
+		$('input[type="hidden"][name="' + propertyId + '"]').val(value);
+	}
 }
 
 openxava.getNumber = function(application, module, property) {
@@ -1547,10 +1601,10 @@ openxava.subcontroller = function(id,containerId,buttonId,imageId,aId,spanId){
 	var position = document.getElementById(aId).getBoundingClientRect(); // Because jquery position() does not work well
 	// If change below code verify that subcontrollers in mobile are shown inside screen when on bottom
 	var positionPopup = document.getElementById(id).getBoundingClientRect();
-	var buttonHeight = $('#'+buttonId).outerHeight(true);
-	var popupBottom = position.top + buttonHeight + positionPopup.height;
+	var buttonBottom = position.bottom;
+	var popupBottom = buttonBottom + positionPopup.height;
 	var top = popupBottom > window.innerHeight?
-		position.top - $('#'+id).outerHeight(true):position.top + buttonHeight;	
+		position.top - $('#'+id).outerHeight(true):buttonBottom;	
 	$('#'+id).css({
 		'top': top, 
 		'left': position.left
@@ -1588,6 +1642,39 @@ openxava.markRowAsCut = function(collectionId, rowId) {
 }
 
 
+openxava.loadingDelay = 200;
+openxava.loadingTimeout = null;
+openxava.loadingShownAt = 0;
+
+openxava.scheduleLoading = function() {
+	clearTimeout(openxava.loadingTimeout);
+	if (openxava.browser.htmlUnit) { // Pending timers block HtmlUnit's waitForBackgroundJavaScript
+		$('#xava_loading').show();
+		return;
+	}
+	openxava.loadingTimeout = setTimeout(function() {
+		$('#xava_loading').stop(true, true).css("opacity", 1).show();
+		openxava.loadingShownAt = Date.now();
+	}, openxava.loadingDelay);
+};
+
+openxava.hideLoading = function() {
+	clearTimeout(openxava.loadingTimeout);
+	openxava.loadingTimeout = null;
+	if (openxava.browser.htmlUnit) { // Pending timers block HtmlUnit's waitForBackgroundJavaScript
+		$('#xava_loading').hide();
+		return;
+	}
+	if (!$('#xava_loading').is(':visible')) return;
+	var remaining = Math.max(0, 400 - (Date.now() - openxava.loadingShownAt));
+	setTimeout(function() {
+		$('#xava_loading').css("opacity", 0);
+		setTimeout(function() {
+			$('#xava_loading').hide().css("opacity", 1);
+		}, 150);
+	}, remaining);
+};
+
 openxava.fadeIn = function(selector, duration) { 
 	// jQuery fadeIn() not work under certain race conditions
 	$(selector).css("opacity", "0"); 
@@ -1606,6 +1693,10 @@ openxava.getScript = function( url ) {
 	document.head.appendChild(script); // Not body, it could be not available yet
 	openxava.loadedScripts.push(url);
 };
+
+openxava.markListsAsLoading = function() {
+	$('.ox-list-mode .ox-list').addClass('ox-loading');
+}
 
 openxava.filterList = function(filterValues) {
 	var app = openxava.lastApplication;

@@ -46,13 +46,18 @@ public class ButtonRenderer {
 		boolean showLabel = (showLabels || !action.hasImage()) && !Is.emptyString(label);
 		boolean showImage = showImages && action.hasImage() || action.hasImage() && Is.emptyString(label);
 		boolean showIcon = action.hasIcon() && (showImages && (showIcons || !action.hasImage()) || Is.emptyString(label) && (showIcons || !action.hasImage()));
+		boolean wrapIcon = ctx.getBooleanParameter("wrapIcon", false);
 
-		if (showIcon) {
-			w.append("<i class=\"mdi mdi-").append(action.getIcon()).append("\"></i>");
-		} else if (showImage) {
-			w.append("<img src=\"").append(ctx.getContextPath()).append("/").append(style.getImagesFolder()).append("/").append(action.getImage()).append("\"/>");
-		} else if (addSpace) {
-			w.append("<i class=\"mdi mdi-square ox-icon-transparent\"></i>");
+		if (showIcon || showImage || addSpace) {
+			if (wrapIcon) w.append("<span class=\"ox-button-bar-button-icon\">");
+			if (showIcon) {
+				w.append("<i class=\"mdi mdi-").append(action.getIcon()).append("\"></i>");
+			} else if (showImage) {
+				w.append("<img src=\"").append(ctx.getContextPath()).append("/").append(style.getImagesFolder()).append("/").append(action.getImage()).append("\"/>");
+			} else if (addSpace) {
+				w.append("<i class=\"mdi mdi-square ox-icon-transparent\"></i>");
+			}
+			if (wrapIcon) w.append("</span>");
 		}
 		if (showLabel) {
 			w.append("<span class=\"").append(style.getActionLabel()).append("\">").text(label).append("</span> ");

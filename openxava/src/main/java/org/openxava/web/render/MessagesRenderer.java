@@ -23,7 +23,7 @@ public class MessagesRenderer {
 		w.append("<table id='").append(ctx.decorateId("warnings_table")).append("'>");
 		for (Iterator<String> it = messages.getWarningsStrings(ctx.getRequest()).iterator(); it.hasNext(); ) {
 			w.append("<tr><td class=").append(style.getWarnings()).append(">");
-			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i>");
+			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i><i class=\"mdi mdi-alert-outline ox-message-icon\"></i>");
 			w.append(it.next());
 			w.append("</div></td></tr>");
 		}
@@ -32,7 +32,7 @@ public class MessagesRenderer {
 		w.append("<table id='").append(ctx.decorateId("messages_table")).append("'>");
 		for (Iterator<String> it = messages.getMessagesStrings(ctx.getRequest()).iterator(); it.hasNext(); ) {
 			w.append("<tr><td class=").append(style.getMessages()).append(">");
-			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i>");
+			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i><i class=\"mdi mdi-check-circle-outline ox-message-icon\"></i>");
 			w.append(it.next());
 			w.append("</div></td></tr>");
 		}
@@ -41,7 +41,7 @@ public class MessagesRenderer {
 		w.append("<table id='").append(ctx.decorateId("infos_table")).append("'>");
 		for (Iterator<String> it = messages.getInfosStrings(ctx.getRequest()).iterator(); it.hasNext(); ) {
 			w.append("<tr><td class=").append(style.getInfos()).append(">");
-			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i>");
+			w.append("<div class='ox-message-box'><i class=\"mdi mdi-close\"></i><i class=\"mdi mdi-information-outline ox-message-icon\"></i>");
 			w.append(it.next());
 			w.append("</div></td></tr>");
 		}

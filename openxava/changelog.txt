@@ -1,6 +1,23 @@
 Change Log for OpenXava project
 ===============================
 
+- New modern look and feel for the whole user interface, comparable to current leading web applications.
+- New light theme with a clean slate palette and indigo accent color.
+- Polished dark theme with a real black zinc palette and improved text legibility.
+- New Auto theme that follows the operating system light or dark preference automatically.
+- Theme chooser simplified to Auto, Light and Dark.
+- Removed terra.css, blue.css and black-and-white.css themes.
+- Required fields are now marked with a red asterisk next to the label.
+- Boolean fields are now shown as switches instead of checkboxes.
+- Field labels are now placed on top of the fields by default.
+- Success, warning and information messages shown as modern toast notifications that close automatically.
+- Element collections now have a clean spreadsheet look with hairline row separators.
+- Row actions in collections and lists are revealed on mouse hover or keyboard focus.
+- New thin top progress bar for loading, shown only when an operation takes more than a moment.
+- @LargeDisplay row now distributes cards evenly across the full width.
+- Removed legacy portal stylesheets default.css and skins.css; the fallback CSS in Style is now auto.css.
+- New readOnlyAsLabel attribute for the xava:editor taglib.
+- jquery-ui.css and smoothness/jquery-ui.css (plus its theme images) removed.
 - HSQLDB database is automatically shut down by DBServer when the application stops.
 - Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 - DBServer automatically compresses .lobs files into .lobs.zip files when the HSQLDB database stops.

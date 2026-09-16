@@ -1,0 +1,2 @@
+@import 'light.css';
+@import 'dark-overrides.css' (prefers-color-scheme: dark);

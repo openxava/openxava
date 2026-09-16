@@ -6,11 +6,13 @@
 String propertyName = request.getParameter("propertyName");
 org.openxava.view.View view = (org.openxava.view.View) context.get(request, request.getParameter("viewObject"));
 String propertyStyle = view.getStyle(propertyName);
+boolean readOnlyAsLabel = "true".equals(request.getParameter("readOnlyAsLabel"));
 %>
 <% if (!Is.empty(propertyStyle)) { %><span class="<%=propertyStyle%>"><% } %>
 <xava:editor 
 	property='<%=propertyName%>' 
 	editable='<%=Boolean.valueOf(request.getParameter("editable")).booleanValue()%>' 
-	throwPropertyChanged='<%=Boolean.valueOf(request.getParameter("throwPropertyChanged")).booleanValue()%>'/>
+	throwPropertyChanged='<%=Boolean.valueOf(request.getParameter("throwPropertyChanged")).booleanValue()%>'
+	readOnlyAsLabel='<%=readOnlyAsLabel%>'/>
 <% if (!Is.empty(propertyStyle)) { %></span><% } %>
 

@@ -14,7 +14,7 @@ public class SubcontrollerTest extends WebDriverTestBase {
 		super(testName);
 	}
 	
-	public void testCharts() throws Exception {
+	public void testInCorrectPlace() throws Exception {
 		goModule("Invoice");
 		assertInCorrectPlaceInButtonBar();
 		
@@ -31,7 +31,10 @@ public class SubcontrollerTest extends WebDriverTestBase {
 		
 		// With some pixels of margin, not to test the exact position but that the popup is not in another part of the screen
 		assertTrue(popup.getLocation().getX() > button.getLocation().getX() - 5 && popup.getLocation().getX() < button.getLocation().getX() + 5);
-		assertTrue(popup.getLocation().getY() > button.getLocation().getY() + 20 && popup.getLocation().getY() < button.getLocation().getY() + 30);
+		WebElement anchor = button.findElement(By.tagName("a")); // JS positions the popup below the <a>, not the span
+		int anchorBottom = anchor.getLocation().getY() + anchor.getSize().getHeight();
+		assertTrue("popup.y=" + popup.getLocation().getY() + " anchorBottom=" + anchorBottom,
+			popup.getLocation().getY() >= anchorBottom - 5 && popup.getLocation().getY() < anchorBottom + 10);
 	}
 	
 	private void assertInCorrectPlaceInButtonBar() throws Exception {

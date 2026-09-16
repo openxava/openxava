@@ -13,7 +13,7 @@ boolean editable="true".equals(request.getParameter("editable"));
 String yesSelected = Boolean.TRUE.equals(value)?"selected":"";
 String noSelected = Boolean.FALSE.equals(value)?"selected":"";
 String disabled=editable?"":"disabled";
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 %>
 
 <%

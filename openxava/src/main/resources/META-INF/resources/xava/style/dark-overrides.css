@@ -1,0 +1,159 @@
+:root {
+	color-scheme: dark;
+	/* Brand */
+	--accent-color: #818cf8;
+	--accent-color-hover: #a5b4fc;
+	--accent-contrast-color: white;
+	--accent-soft: rgba(129, 140, 248, 0.15);
+
+	--my-dark: #18181b;
+	--my-darker: #09090b;
+	--my-lightdark: #27272a;
+	--my-transparent-lightdark: rgba(39, 39, 42, 0.75);
+	--my-blue: #6366f1;
+	--my-darkblue: #312e81;
+	--my-lightblue: var(--accent-color);
+	--my-silver: #e4e4e7;
+
+	/* Elevations for dark backgrounds */
+	--elevation-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+	--elevation-2: 0 4px 6px -2px rgba(0, 0, 0, 0.4), 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+	--elevation-3: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+
+	/* Modules left menu */
+	--modules-list-color: var(--my-silver);
+	--modules-list-background: var(--my-dark);
+	--modules-list-selected-color: var(--accent-color);
+	--modules-list-selected-background: var(--accent-soft);
+	--search-modules-input-background: color-mix(in srgb, var(--color) 5%, transparent);
+
+	/* Module header */
+	--module-header-color: var(--my-silver);
+	--module-header-selected-color: white;
+	--module-header-link-hover-color: white;
+
+	/* Button bar */
+	--list-formats-hover-color: white;
+	--segmented-active-background: color-mix(in srgb, var(--color) 14%, transparent);
+
+	/* Backgrounds & labels */
+	--background: var(--my-dark);
+	--color: var(--my-silver);
+
+	/* Frames */
+	--frame-background: var(--my-transparent-lightdark);
+	--frame-border: #35353c;
+	--card-background: var(--my-lightdark);
+	--upload-file-background: rgba(63, 63, 70, 0.2);
+
+	/* Element collections */
+	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 22%, transparent);
+
+	/* Actions */
+	--action-color: var(--my-silver);
+	--action-link-color: var(--my-lightblue);
+	--action-hover-color: white;
+	--action-hover-background: var(--accent-soft);
+	--list-row-action-color: var(--my-silver);
+	--list-row-action-hover-color: var(--action-hover-color);
+
+	/* Editors */
+	--required-editor-border: var(--input-border);
+	--required-indicator-color: #f87171;
+	--input-focus-border: var(--accent-color);
+	--input-color: var(--my-silver);
+	--input-border: #3f3f46;
+	--input-hover-border: #52525b;
+	--input-background: transparent;
+	--placeholder-color: #71717a;
+	--disabled-input-background: var(--my-lightdark);
+	--disabled-input-color: #71717a;
+	--label-color: #e4e4e7;
+	--select-chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.25 6 7.75 9.5 4.25' fill='none' stroke='%23a1a1aa' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	--switch-off-background: #3f3f46;
+	--switch-off-hover-background: #52525b;
+	--switch-knob-background: #d4d4d8;
+	--crop-free-icon-color: #a1a1aa;
+	--calendar-selected-day: var(--my-blue);
+	--date-popup-background: var(--my-lightdark);
+
+	/* Messages/notifications: lighter accents for dark backgrounds */
+	--messages-accent: #4ade80;
+	--errors-accent: #f87171;
+	--warnings-accent: #fbbf24;
+	--infos-accent: #94a3b8;
+
+	--shadow: transparent;
+
+	--html-text-button-hover: var(--my-lightdark);
+
+	--autocomplete-scrollbar-background: var(--my-lightdark);
+	--ui-menu-item-state-focus-background: var(--my-lightdark);
+	--scrollbar-color: var(--my-lightdark);
+
+	/* Dialogs */
+	--dialog-backdrop-background: rgba(0, 0, 0, 0.55);
+
+	--tooltip-background: var(--my-darker);
+
+	/* List */
+	--list-background: var(--my-dark);
+	--list-row-a-color: inherit;
+	--total-cell-color: inherit;
+	--icon-check-color: inherit;
+	--icon-in-list: inherit;
+
+	/* Calendar */
+	--calendar-day-hover-background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+	--calendar-today-background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+	--calendar-view-switcher-background: color-mix(in srgb, var(--color) 8%, transparent);
+	--calendar-view-switcher-active-background: var(--accent-soft);
+	--calendar-view-switcher-active-color: var(--accent-color);
+	--calendar-event-hover-background: color-mix(in srgb, var(--accent-color) 26%, transparent);
+	--calendar-popup-background: var(--my-lightdark);
+
+	/* Charts (c3/d3): brighter series for dark backgrounds */
+	--chart-series-2: #38bdf8;
+	--chart-series-3: #34d399;
+	--chart-series-4: #fbbf24;
+	--chart-series-5: #fb7185;
+	--chart-series-6: #a78bfa;
+	--chart-series-7: #2dd4bf;
+	--chart-series-8: #94a3b8;
+	--chart-arc-stroke: var(--my-dark);
+}
+
+.ox-action-link {
+	color: var(--action-link-color);
+}
+
+.ox-action-link:hover {
+	text-decoration: none;
+	color: var(--action-hover-color);
+}
+
+.ox-list {
+	background: var(--my-darker);
+}
+
+.ui-widget-content {
+	color: var(--color) !important;
+	background: var(--background) !important;
+}
+
+.ui-widget-content a {
+	color: var(--link-color);
+}
+
+.ui-tooltip {
+	background: var(--tooltip-background) !important;
+	box-shadow: none !important;
+}
+
+.ox-popup-menu {
+    background-color: var(--my-dark);
+}
+
+.ox-popup-menu:hover {
+    background-color: var(--my-dark);
+}

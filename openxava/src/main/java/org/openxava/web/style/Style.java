@@ -54,7 +54,7 @@ public class Style {
 			catch (Exception ex) {
 				log.warn(XavaResources.getString("default_style_warning", ex.getClass().getName()  + ": " + ex.getMessage()));
 				instance = new Style();
-				instance.cssFile = "default.css";
+				instance.cssFile = "auto.css";
 			}			
 		}		
 		return instance;
@@ -86,7 +86,7 @@ public class Style {
 			catch (Exception ex) {
 				log.warn("Cannot load override style: " + ex.getClass().getName() + ": " + ex.getMessage());
 				overrideInstance = new Style();
-				overrideInstance.cssFile = "default.css";
+				overrideInstance.cssFile = "auto.css";
 			}
 		}
 		return overrideInstance;
@@ -774,10 +774,10 @@ public class Style {
 	/**
 	 * If <code>true</code< the header in list is aligned as data displayed in its column. <p>
 	 * 
-	 * By default is <code>false</code>.
+	 * By default is <code>true</code>.
 	 */
 	public boolean isAlignHeaderAsData() {
-		return false;
+		return true;
 	}
 	
 	public boolean isFixedPositionSupported() {
@@ -1054,6 +1054,13 @@ public class Style {
 	 */
 	public String getRequiredEditor() { 
 		return "ox-required-editor";
+	}
+	
+	/**
+	 * @since 8.0
+	 */
+	public String getRequiredLabel() { 
+		return "ox-required-label";
 	}
 	
 	/**

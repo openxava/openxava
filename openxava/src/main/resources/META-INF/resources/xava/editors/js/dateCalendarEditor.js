@@ -1,4 +1,3 @@
-// WARNING: IF YOU CHANGE THIS PASS DateCalendarTest.txt
 if (dateCalendarEditor == null) var dateCalendarEditor = {};
 
 openxava.addEditorInitFunction(function() {

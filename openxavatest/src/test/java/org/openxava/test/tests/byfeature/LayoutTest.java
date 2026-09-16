@@ -36,8 +36,8 @@ public class LayoutTest extends WebDriverTestBase {
 
 		int addressFrameWidth = addressFrame.getSize().getWidth();
 		int cityFrameWidth = cityFrame.getSize().getWidth();
-				
-		assertTrue(addressFrameWidth - cityFrameWidth < 30); // If margin/padding of frames changes maybe you have to adjust the 30, but the city frame	always fill all the space
+
+		assertTrue(addressFrameWidth - cityFrameWidth < 70); // If margin/padding of frames changes maybe you have to adjust the 70, but the city frame always fill all the space
 	}
 
 		

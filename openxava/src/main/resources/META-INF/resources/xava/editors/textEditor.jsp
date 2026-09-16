@@ -18,7 +18,7 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 String align = p.isNumber()?"ox-text-align-right":"";
 boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 String inputType = request.getParameter("inputType");
 if (inputType == null) inputType = "text"; 
 String smaxSize = request.getParameter("maxSize");
@@ -79,7 +79,7 @@ if (editable || !label) {
 <%
 } else {
 %>
-<%=fvalue%>&nbsp;	
+<span id="<%=propertyKey%>" class="ox-label-editor <%=align%>"><%=fvalue%>&nbsp;</span>	
 <%
 }
 %>

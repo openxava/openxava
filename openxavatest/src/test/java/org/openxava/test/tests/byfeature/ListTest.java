@@ -122,9 +122,9 @@ public class ListTest extends WebDriverTestBase {
 		assertValue("number", "2");
 		col2 = getDriver().findElement(By.id("ox_openxavatest_Carrier__fellowCarriersCalculated_col2"));
 		col2Width = col2.getSize().getWidth();
-		assertEquals("Column 2 width should be 130px", 130, col2Width); // This is for one Remarks with "no es muy amigable",
+		assertEquals("Column 2 width should be 136px", 136, col2Width); // This is for one Remarks with "no es muy amigable",
 																		// and that other empty, if this value change maybe
-																		// we should change the 130, but verifying that
+																		// we should change the 136, but verifying that
 																		// the column width match the content
 	}
 
@@ -143,13 +143,13 @@ public class ListTest extends WebDriverTestBase {
 		// Assert that the columns have the expected widths
 
 		// Column 0 has not content, so it should be tiny
-		assertEquals("Column 0 width should be 68px", 68, col0Width);
+		assertEquals("Column 0 width should be 74px", 74, col0Width);
 
 		// Column 2 has a very long content, so it should be 700px as a limit
 		assertEquals("Column 2 width should be 700px", 700, col2Width);
 
 		// Column 3 has content, so the width adapt to the size of the content
-		assertEquals("Column 3 width should be 278px", 278, col3Width);		
+		assertEquals("Column 3 width should be 291px", 291, col3Width);		
 	}
 
 		

@@ -40,6 +40,8 @@ public class PropertyEditorRenderer {
 		if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultLabelStyle();
 		String label = view.getLabelFor(p);
 		if (first && !view.isAlignedByColumns()) label = Strings.change(label, " ", "&nbsp;");
+		boolean required = view.isEditable() && p.isRequired();
+		String requiredLabelClass = required ? " " + style.getRequiredLabel() : "";
 
 		HtmlWriter w = new HtmlWriter();
 
@@ -49,33 +51,41 @@ public class PropertyEditorRenderer {
 		String preLabel = LayoutCells.preLabel(view, style, first);
 		String postLabel = LayoutCells.postLabel();
 		String preEditor = LayoutCells.preEditor(view, style, first);
+		if (labelFormat == MetaPropertyView.SMALL_LABEL) {
+			preEditor = preEditor.replace("ox-editor-wrapper'", "ox-editor-wrapper ox-small-label-wrapper'");
+		}
 		String postEditor = LayoutCells.postEditor();
 
 		if (!hasFrame) {
-			w.append(preLabel);
 			if (labelFormat == MetaPropertyView.NORMAL_LABEL) {
+				w.append(preLabel);
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + p.getName()))
-					.append("' class='").append(labelStyle).append("'>");
+					.append("' class='").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.append(label);
 				w.append("</span>");
+				w.append(postLabel);
+			} else if (first || view.isAlignedByColumns()) {
+				// Empty label cell so SMALL/NO_LABEL fields do not widen the
+				// shared first column and misalign NORMAL fields.
+				w.append(preLabel);
+				w.append(postLabel);
 			}
-			w.append(postLabel);
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + p.getName()))
-					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append("'>");
+					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.append(label);
-				w.append("</span><br/>");
+				w.append("</span>");
 			}
 		}
 
 		// Editor span
 		String placeholder = !Is.empty(p.getPlaceholder()) ? "data-placeholder='" + p.getPlaceholder() + "'" : "";
-		String required = view.isEditable() && p.isRequired() ? style.getRequiredEditor() : "";
+		String requiredClass = required ? style.getRequiredEditor() : "";
 		String transientClass = p.isTransient() ? "xava_transient" : "";
 
 		w.append("<span id='").append(ctx.decorateId("editor_" + view.getPropertyPrefix() + p.getName()))
-			.append("' class='xava_editor ").append(required).append(" ").append(transientClass)
+			.append("' class='xava_editor ").append(requiredClass).append(" ").append(transientClass)
 			.append("' ").append(placeholder).append(">");
 
 		// Delegate the actual editor to editorWrapper.jsp (uses <xava:editor> tag)

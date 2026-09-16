@@ -28,7 +28,7 @@ if (request.getParameter("timeCalendarName") != null) {
   fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
   disabled = editable ? "" : "disabled";
 }
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 String browser = request.getHeader("user-agent");
 int sizeIncrement = browser.contains("Chrome")?0:2; 
 String dateClass = editable?"xava_time":""; 
@@ -49,7 +49,7 @@ if (editable || !label) {
 <%
 } else {
 %>
-<%=fvalue%>&nbsp;	
+<span id="<%=propertyKey%>" class="ox-label-editor"><%=fvalue%>&nbsp;</span>	
 <%
 }
 %>

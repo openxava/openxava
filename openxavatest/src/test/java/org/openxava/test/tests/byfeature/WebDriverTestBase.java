@@ -300,7 +300,7 @@ abstract public class WebDriverTestBase extends TestCase {
     }
     
     protected void assertLabelInCollection(String collection, int column, String expectedLabel) {
-        String label = getHeader(collection, column).getText().trim();
+        String label = getHeader(collection, column).getAttribute("textContent").replace(' ', ' ').trim(); // textContent instead of getText() so CSS text-transform does not affect the assertion
         assertEquals(expectedLabel, label);
     }
     

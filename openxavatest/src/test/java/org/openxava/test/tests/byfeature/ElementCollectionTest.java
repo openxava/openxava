@@ -36,7 +36,7 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		assertTrue((fn-ini) < 5000); // More than 9 seconds when failed 
 	}
 	
-	public void testTotalInputsKeepColumnSizeAfterColumnResize() throws Exception {
+	public void testTotalCellsKeepColumnSizeAfterColumnResize() throws Exception {
 		resetPreferences();
 		goModule("CommercialDocument"); // Using CommercialDocument module directly
 		execute("List.viewDetail", "row=0"); // View the first record
@@ -51,16 +51,13 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript("arguments[0].scrollIntoView(true);", resizeHandle);
 		
-		// Find the input elements to compare widths
-		WebElement detailsAmountInput = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__details___0___amount"));
-		WebElement totalAmountInput = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__totalAmount"));
-		
-		// Get initial widths
-		int detailsAmountInitialWidth = detailsAmountInput.getSize().getWidth();
-		int totalAmountInitialWidth = totalAmountInput.getSize().getWidth();
+		// Find the cell container divs to compare widths: data cell and total cell share the _col4 class
+		String columnClass = "ox_openxavatest_CommercialDocument__details_col4";
+		WebElement dataCellDiv = getDriver().findElement(By.cssSelector("td.ox-list-data-cell div." + columnClass));
+		WebElement totalCellDiv = getDriver().findElement(By.cssSelector("td.ox-total-cell div." + columnClass));
 		
 		// Verify they have the same width initially
-		assertEquals("Both inputs should have the same width initially", detailsAmountInitialWidth, totalAmountInitialWidth);
+		assertEquals("Data and total cells should have the same width initially", dataCellDiv.getSize().getWidth(), totalCellDiv.getSize().getWidth());
 		
 		// Create an action to drag the handle
 		Actions actions = new Actions(getDriver());
@@ -74,12 +71,8 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		// Wait for the action to complete
 		Thread.sleep(500);
 		
-		// Get widths after resizing
-		int detailsAmountFinalWidth = detailsAmountInput.getSize().getWidth();
-		int totalAmountFinalWidth = totalAmountInput.getSize().getWidth();
-		
 		// Verify they still have the same width after resizing
-		assertEquals("Both inputs should still have the same width after resizing", detailsAmountFinalWidth, totalAmountFinalWidth);
+		assertEquals("Data and total cells should still have the same width after resizing", dataCellDiv.getSize().getWidth(), totalCellDiv.getSize().getWidth());
 		
 		// Go back to list mode
 		execute("Mode.list");
@@ -87,16 +80,12 @@ public class ElementCollectionTest extends WebDriverTestBase {
 		// View the first record again
 		execute("List.viewDetail", "row=0");
 		
-		// Find the input elements again to compare widths
-		WebElement detailsAmountInputAfterReload = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__details___0___amount"));
-		WebElement totalAmountInputAfterReload = getDriver().findElement(By.id("ox_openxavatest_CommercialDocument__totalAmount"));
-		
-		// Get widths after reloading
-		int detailsAmountWidthAfterReload = detailsAmountInputAfterReload.getSize().getWidth();
-		int totalAmountWidthAfterReload = totalAmountInputAfterReload.getSize().getWidth();
+		// Find the cell container divs again to compare widths
+		dataCellDiv = getDriver().findElement(By.cssSelector("td.ox-list-data-cell div." + columnClass));
+		totalCellDiv = getDriver().findElement(By.cssSelector("td.ox-total-cell div." + columnClass));
 		
 		// Verify they still have the same width after reloading
-		assertEquals("Both inputs should still have the same width after reloading", detailsAmountWidthAfterReload, totalAmountWidthAfterReload);
+		assertEquals("Data and total cells should still have the same width after reloading", dataCellDiv.getSize().getWidth(), totalCellDiv.getSize().getWidth());
 	}
 
 	public void testModuleLeftPartNotHiddenOnResizingWhenUsingElementCollectionWithSumAndTotals() throws Exception {

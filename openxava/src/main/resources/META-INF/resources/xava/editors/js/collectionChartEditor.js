@@ -21,8 +21,21 @@ openxava.addEditorInitFunction(function() {
 		        width: {
 		            ratio: 0.5 
 		        }
+		    },
+		    size: {
+		        height: Math.max(300, window.innerHeight - 550)
+		    },
+		    grid: {
+		        y: {
+		            show: true
+		        }
 		    }
 		};
+		
+		var seriesColors = openxava.chartSeriesColors();
+		if (seriesColors.length) {
+			chartConfig.color = { pattern: seriesColors };
+		}
 		
 		if (type === 'pie') {
 			var pieData = [];
@@ -48,7 +61,11 @@ openxava.addEditorInitFunction(function() {
 			};			
 		}
 		
-		c3.generate(chartConfig);	
+		var chart = c3.generate(chartConfig);
+		var chartElement = $(this);
+		setTimeout(function() {
+			chart.resize({ width: chartElement.width() });
+		}, 0);
 	});
 
 });

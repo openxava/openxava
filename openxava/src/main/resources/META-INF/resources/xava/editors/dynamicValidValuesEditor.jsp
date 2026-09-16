@@ -15,7 +15,7 @@ if (!org.openxava.util.Is.emptyString(collectionName)) {
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
 boolean editable = "true".equals(request.getParameter("editable")); 
-boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel();
+boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabel() || "true".equalsIgnoreCase(request.getParameter("readOnlyAsLabel"));
 Object value = request.getAttribute(propertyKey + ".value");
 Map<Object, String> validValues = view.getValidValues(p.getName());
 Object description = validValues.get(value);

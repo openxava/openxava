@@ -48,8 +48,9 @@ for (int c = 0; it.hasNext(); c++) {
 	if (subview.hasCollectionTotal(i, c)) {
 		int columnWidth = subview.getCollectionColumnWidth(c);
 		String width = columnWidth<0 || !resizeColumns?"":"data-width=" + columnWidth;
+		boolean totalEditable = subview.isCollectionTotalEditable(i, c);
 	%> 	
-	<td class="ox-total-cell <%=align%>">	
+	<td class="ox-total-cell <%=align%> <%=totalEditable ? "ox-editable-cell" : ""%>">	
 	<div id="<xava:id name='<%="collection_total_" + i + "_" + c + "_" + collectionPrefix%>'/>" class=" <xava:id name='<%=idCollection%>'/>_col<%=c%>" <%=width%>>
 	<jsp:include page="collectionTotal.jsp">
 		<jsp:param name="row" value="<%=i%>"/>

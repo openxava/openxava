@@ -193,17 +193,10 @@ public class ModulePageRenderer {
 		}
 
 		w.append("\t<div id=\"xava_console\" >\n\t</div>\n");
-		w.append("\t<div id=\"xava_loading\">\n");
-		w.append("\t\t<i class=\"mdi mdi-autorenew module-loading spin\"></i>\n");
-		w.append("\t\t&nbsp;").append(XavaResources.getString(request, "loading")).append("...\n");
+		w.append("\t<div id=\"xava_loading\" role=\"progressbar\" aria-label=\"")
+			.append(XavaResources.getString(request, "loading")).append("\">\n");
+		w.append("\t\t<div class=\"ox-loading-progress\"></div>\n");
 		w.append("\t</div>\n");
-
-		if (!style.isFixedPositionSupported()) {
-			w.append("\t<div id=\"xava_loading2\">\n");
-			w.append("\t\t<i class=\"mdi mdi-autorenew module-loading spin\"></i>\n");
-			w.append("\t\t&nbsp;").append(XavaResources.getString(request, "loading")).append("...\n");
-			w.append("\t</div>\n");
-		}
 
 		if (htmlHead) {
 			w.append("</body>\n</html>\n");

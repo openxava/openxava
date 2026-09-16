@@ -63,9 +63,7 @@ manager.registerAction("SessionLocker.lock");
 <head>
 	<title><%=title%></title>
 	<link rel="icon" href="<%=request.getContextPath()%>/xava/images/favicon.ico">
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.css?ox=<%=oxVersion%>"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/jquery-ui.structure.css?ox=<%=oxVersion%>"/>
-	<link rel="stylesheet" type="text/css" media="all" href="<%=request.getContextPath()%>/xava/style/smoothness/jquery-ui.css?ox=<%=oxVersion%>"/>
 	<link href="<%=request.getContextPath()%>/xava/style/layout.css?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
     <link href="<%=request.getContextPath()%>/xava/style/<%=Themes.getCSS(request)%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css"> 
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/xava/style/materialdesignicons.css?ox=<%=oxVersion%>">
@@ -83,9 +81,11 @@ manager.registerAction("SessionLocker.lock");
 		<% } %>
 		
 		<div class="module-wrapper">
+			<% if (!"SignIn".equals(module)) { %>
 			<div id="module_header">
 				 <jsp:include page="moduleHeader.jsp"/>
 			</div>
+			<% } %>
 			<% if ("SignIn".equals(module)) {  %>
 			<jsp:include page='<%=NaviOXPreferences.getInstance().getSignInJSP()%>'/>
 			<% } else { %>

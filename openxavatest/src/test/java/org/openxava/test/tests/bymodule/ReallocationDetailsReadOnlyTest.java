@@ -23,12 +23,12 @@ public class ReallocationDetailsReadOnlyTest extends ModuleTestBase {
 		
 		assertCollectionRowCount("details", 3);
 
-		assertValueInCollection("details", 0, "place", "VALENCIA OFFICE");
+		assertValueInCollection("details", 0, "place", "Valencia Office");
 		assertValueInCollection("details", 0, "product.number", "1");
 		assertValueInCollection("details", 0, "product.description", "MULTAS DE TRAFICO");
 		assertValueInCollection("details", 0, "product.unitPrice", "11.00");
 		
-		assertValueInCollection("details", 2, "place", "CASA EN MICHIGAN");
+		assertValueInCollection("details", 2, "place", "Casa En Michigan");
 		assertValueInCollection("details", 2, "product.number", "3");
 		assertValueInCollection("details", 2, "product.description", "XAVA"); 
 		assertValueInCollection("details", 2, "product.unitPrice", "0.00");
@@ -55,8 +55,8 @@ public class ReallocationDetailsReadOnlyTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("description", "THE BIG REALLOCATION");
 		assertCollectionRowCount("details", 3);
-		assertValueInCollection("details", 0, "place", "VALENCIA OFFICE");
-		assertValueInCollection("details", 2, "place", "CASA EN MICHIGAN");		
+		assertValueInCollection("details", 0, "place", "Valencia Office");
+		assertValueInCollection("details", 2, "place", "Casa En Michigan");		
 	}
 	
 	

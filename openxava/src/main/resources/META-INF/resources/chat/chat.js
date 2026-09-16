@@ -253,6 +253,7 @@ chat.newConversation = function(container, input) {
 };
 
 chat.PANEL_STATE_KEY = 'oxChatPanelOpen';
+chat.PANEL_WIDTH = 360; // Keep in sync with #chat_panel width in chat.css
 
 chat.initPanel = function() {
 	$('#chat_panel_hide').on("click", function() {
@@ -268,7 +269,7 @@ chat.initPanel = function() {
 	});
 	
 	if ($('#chat_panel').is(':visible')) {
-		$('.module-wrapper').css('margin-right', '330px');
+		$('.module-wrapper').css('margin-right', chat.PANEL_WIDTH + 'px');
 	}
 	
 	if (typeof chat !== 'undefined' && chat.init) {
@@ -286,7 +287,7 @@ chat.restorePanelState = function() {
 	if (shouldBeOpen && !isCurrentlyVisible) {
 		$('#chat_panel_show').hide();
 		$('#module_header_chat_button').hide();
-		$('.module-wrapper').css('margin-right', '330px');
+		$('.module-wrapper').css('margin-right', chat.PANEL_WIDTH + 'px');
 		$('#chat_panel').css('display', 'flex');
 		$('#chat_panel_hide').show();
 	} else if (!shouldBeOpen && isCurrentlyVisible) {
@@ -313,7 +314,7 @@ chat.showPanel = function() {
 	sessionStorage.setItem(chat.PANEL_STATE_KEY, 'true');
 	$('#chat_panel_show').hide();
 	$('#module_header_chat_button').hide();
-	$('.module-wrapper').css('margin-right', '330px');
+	$('.module-wrapper').css('margin-right', chat.PANEL_WIDTH + 'px');
 	$('#chat_panel').animate({width:'toggle'}, 200, function() {
 		$('#chat_panel_hide').fadeIn();
 		openxava.resetListsSize(naviox.application, naviox.module);

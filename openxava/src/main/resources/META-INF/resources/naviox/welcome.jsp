@@ -48,16 +48,18 @@ if (title == null) title = metaApplication.getLabel();
 
 <body id="welcome" <%=XavaStyle.getBodyClass(request)%>>
 
-<h1><%=metaApplication.getLabel()%></h1>
-<p><%=metaApplication.getDescription()%></p>
-<p><xava:message key="welcome_point1"/></p> 
-<p id="signin_tip"><xava:message key="signin_tip"/></p> 
+<div class="ox-welcome-card">
+	<h1><%=metaApplication.getLabel()%></h1>
+	<p><%=metaApplication.getDescription()%></p>
+	<p><xava:message key="welcome_point1"/></p> 
+	<p id="signin_tip"><xava:message key="signin_tip"/></p> 
 
-<div class="ox-bottom-buttons">
-	<input type="hidden">
-	<a href="m/SignIn">
-	<input type="button" tabindex="1" value="<xava:label key='SignIn'/>">
-	</a>
+	<div class="ox-bottom-buttons">
+		<input type="hidden">
+		<a href="m/SignIn">
+		<input type="button" tabindex="1" value="<xava:label key='SignIn'/>">
+		</a>
+	</div>
 </div>
 
 </body>

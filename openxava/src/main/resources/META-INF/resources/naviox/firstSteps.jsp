@@ -12,6 +12,6 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@include file="../xava/imports.jsp"%>
 
 <div id="first_steps">
-	<i class="mdi mdi-reply"></i>
+	<i class="mdi mdi-arrow-left"></i>
 	<p><xava:message key="first_steps_prompt"/></p>
 </div>

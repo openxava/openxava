@@ -181,7 +181,7 @@ public class XavaPreferences {
 	}
 
 	public String getStyleCSS() {
-		return getProperties().getProperty("styleCSS", "terra.css").trim(); 
+		return getProperties().getProperty("styleCSS", "auto.css").trim();
 	}
 	
 	/** @since 6.3 */
@@ -342,7 +342,7 @@ public class XavaPreferences {
 		if (defaultLabelFormat >= 0)
 			return defaultLabelFormat;
 		String labelFormat = getProperties().getProperty("defaultLabelFormat",
-				"NORMAL");
+				"SMALL");
 		if (labelFormat.equalsIgnoreCase("NORMAL"))
 			defaultLabelFormat = MetaPropertyView.NORMAL_LABEL;
 		else if (labelFormat.equalsIgnoreCase("SMALL"))

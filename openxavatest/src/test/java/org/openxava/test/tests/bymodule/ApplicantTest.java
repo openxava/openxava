@@ -202,7 +202,7 @@ public class ApplicantTest extends ModuleTestBase {
 		HtmlPage page = getHtmlPage();
 		assertCSSWellUploaded(page, false);
 		assertCSSWellUploaded(page, true);
-		HtmlElement cssHref = page.getAnchorByHref("?theme=pink.css");
+		HtmlElement cssHref = page.getAnchorByHref("?theme=dark.css");
 		page = cssHref.click();
 		assertCSSWellUploaded(page, false);
 		assertResorcesWellReaded(page); 
@@ -322,8 +322,6 @@ public class ApplicantTest extends ModuleTestBase {
 								 .getNextElementSibling()
 								 .getNextElementSibling()
 								 .getNextElementSibling()
-								 .getNextElementSibling()
-								 .getNextElementSibling()
 								 .getNextElementSibling();
 
 		String urlCSS = page.getUrl().getProtocol() + "://" 
@@ -334,7 +332,7 @@ public class ApplicantTest extends ModuleTestBase {
 		URL url;
 		BufferedReader in;
 		if (custom) {
-			urlCSS = urlCSS.replace("terra", "custom");
+			urlCSS = urlCSS.replace("auto", "custom");
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
 			assertEquals(".corporation-employee-list-select {", in.readLine()); 
@@ -342,7 +340,7 @@ public class ApplicantTest extends ModuleTestBase {
 		} else {
 			url = new URL(urlCSS);
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
-			assertEquals("@import 'base.css?ox=" + ModuleManager.getVersion() + "';", in.readLine()); 
+			assertTrue(in.readLine().matches("@import '(base|light)\\.css\\?ox=" + ModuleManager.getVersion() + "';")); // base.css for dark.css, light.css for auto.css
 			in.close();
 		}
 	}
@@ -350,7 +348,7 @@ public class ApplicantTest extends ModuleTestBase {
 	private void assertResorcesWellReaded(HtmlPage page) throws IOException {
 		String iconUrl = page.getUrl().getProtocol() + "://" 
 			+ page.getUrl().getHost() + ":"
-			+ page.getUrl().getPort() + getContextPath() + "xava/style/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png";
+			+ page.getUrl().getPort() + getContextPath() + "xava/images/favicon.ico";
 		double imageSizeInKB = 0;
         URL url = new URL(iconUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
