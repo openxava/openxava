@@ -1,7 +1,0 @@
-Pending UI8 modernization (tmr)
--------------------------------
-
-
-- Refinar y resumir entradas en changelog TMR ME QUEDÉ PARA EMPEZAR ESTO
-    - Podemos pedir un resumen de características de cara al usuario a partir de los MDs.
-- Borrar MDs y pantallazos.

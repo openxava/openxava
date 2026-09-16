@@ -1,91 +1,23 @@
 Change Log for OpenXava project
 ===============================
 
-- Dashboards restyled to the new design system: @LargeDisplay members are now modern KPI cards with clear typographic hierarchy (small uppercase muted label with accent-colored icon on top, large semibold tabular-nums value, smaller muted prefix/suffix), left-aligned and flat with the same border as the other frames; the icon now sits inside the label line.
-- @SimpleList collections restyled as "quiet" summary lists (Odoo/Linear style) instead of looking like interactive grids: no table chrome, compact rows with hairline separators, small uppercase muted column headers, right-aligned numeric columns and tabular-nums.
-- Numeric columns in @SimpleList now show a subtle inline bar (CSS linear-gradient) proportional to the column maximum, applied by convention to every numeric column.
-- New CSS variables for dashboard customization: --simple-list-bar-color; --large-display-icon-color now defaults to the accent color and --simple-list-header-color to a muted text tint.
-- Fix: dashboard layout alignment — the @LargeDisplay row now uses flexbox to distribute cards evenly across the full width (empty label cells no longer create extra gaps), .ox-full-frame/.ox-half-frame use box-sizing: border-box so their declared widths match the visible border (they were ~34px wider, overflowing the detail area), half frames are resized so two halves end at the same right edge as full frames, and the collection chart height is reduced (~370px) with a post-render resize so the svg matches the real container width.
-- Charts (list chart format and @Chart collections) restyled to the new design system without changing behavior: c3/d3 vendor CSS overridden with tokens (Inter typography, tabular-nums, muted axis/grid hairlines, themed legend and pie/donut arc separators), tooltip restyled as a modern card (radius-md, elevation-2, hairline border, theme colors), chart type selector restyled as a segmented control consistent with the list format switcher, and the editor layout rebuilt with flexbox (removed negative margins, viewport calc() positioning and fixed widths; the X column select is now centered below the chart).
-- New CSS variables for chart customization: --chart-text-color, --chart-muted-color, --chart-grid-color, --chart-axis-color, --chart-tooltip-background, --chart-tooltip-border, --chart-tooltip-color, --chart-arc-stroke, --chart-arc-text-color and the --chart-series-1..8 palette (applied to c3 via color.pattern, with brighter variants in the dark theme); removed --chart-type-background, --selected-chart-type-icon-color and --selected-chart-type-icon-border-bottom.
-- Removed legacy 2004 portal stylesheets default.css and skins.css (with its images/html/skins/ assets); the fallback CSS in Style is now auto.css.
-- Sign-in page redesigned to the new design system: the form is now a centered card (max-width 360px, 12px radius, hairline border, elevation-2 shadow) with full-width fields, a full-width primary "Sign in" button, the Azure AD action as a secondary outline button, and error messages integrated inside the card.
-- Welcome page (naviox/welcome.jsp) redesigned: the content is now a centered card over a subtle accent glow background, replacing the 2004 SVG pattern; display typography for the application name, muted description text and a hint chip for the sign-in tip.
-- First steps page (naviox/firstSteps.jsp) redesigned: the giant arrow is now a 72px accent-colored icon with a subtle sliding animation next to a clean prompt text.
-- New CSS variables for welcome/sign-in customization: --welcome-card-background, --welcome-muted-color, --sign-in-text, --sign-in-border, --azure-signin-button-border, --azure-signin-button-color, --azure-signin-button-hover-background; --welcome-background now defaults to a subtle accent gradient, --sign-in-input-border to --input-border and --sign-in-input-focus-outline-color to --focus-ring-color.
-- File upload editor (FilePond) restyled to the new design system: drop zone background uses a new --upload-file-background CSS variable (neutral, distinguishable from the frame in both light and dark themes), internal panels made transparent via CSS so the root background shows through, border-radius and overflow controlled by CSS, and the "Download all" button styled with CSS variables. The drop zone color is adjustable by designers via CSS alone, without touching JavaScript.
-- New CSS variable for file upload editor customization: --upload-file-background.
-- Fix: FilePond drop zone background was inconsistent on full page loads (selecting from list mode or browser reload) due to a timing issue between the CSS @import chain and the JavaScript setTimeout that applied the background. The background is now applied via CSS (live variables) instead of JavaScript, eliminating the timing dependency.
-- Fix: FilePond drop zone turned white in dark mode when files were attached, because FilePond re-creates panel DOM on file add/remove, losing inline styles. Panel transparency is now enforced via CSS rules with !important that apply to all panel elements including dynamically created ones.
-- Rich text editor (TinyMCE) restyled to the new design system: toolbar with transparent background and no visible borders, buttons with subtle hover and accent-soft selected state, edit area inheriting theme colors and Inter typography, dropdown menus and dialogs using design tokens, and full dark mode support via CSS overrides (skin selection is automatic, all theming is CSS-driven).
-- Discussion comments restyled with CSS variables: cards use frame background and border, rounded corners, no hardcoded shadows, uppercase muted headers with semibold author names, and action buttons consistent with the new button styles.
-- Discussion editor CSS (discussionEditor.css) rewritten to use CSS variables throughout, removing all hardcoded colors (#6F6F6F, #fafafa, lightgrey, #dcdcdc) and legacy CKEditor rules.
-- Fix: TinyMCE dark mode showed white toolbar and edit area because isDark() only checked prefers-color-scheme, not the OpenXava color-scheme variable; CSS variables injected into the iframe were not resolved recursively (nested vars like var(--my-dark) resolved to initial).
-
-- Detail view frames (groups, references, collections) restyled to the new design system: flexbox title row instead of floats, semibold title weight matching list headers, compact 20px collapse/expand toggle with muted color, neutral hover pill, accent hover color and focus ring (replacing the oversized icon with negative-margin hacks), icons in frame titles (new collection element, reference actions) sized and aligned consistently, and nested frames rendered border-only with a transparent background to avoid the boxes-inside-boxes effect.
-- New CSS variables for frame customization: --frame-nested-background, --frame-toggle-color, --frame-toggle-hover-color, --frame-toggle-hover-background.
-- Detail view section tabs redesigned to the new design system: transparent tab strip with a hairline bottom border instead of a solid tinted background, accent-colored underline indicator on the active section, muted inactive tabs with a soft hover pill, medium font weight, collection counts rendered as small muted text, 3px focus ring for keyboard navigation, flexbox layout instead of floats, and horizontal scrolling when tabs overflow the available width.
-- New CSS variables for section tabs customization: --section-border, --section-count-color; --section-background now defaults to transparent, --section-hover-color to the text color, --section-hover-background to a neutral tint and --active-section-tab-bottom-color to the accent color.
-
-- Module navigation tabs (recently opened modules) redesigned with a browser-tab metaphor, visually distinct from data section tabs: the header strip is now a subtle tinted chrome surface, the active tab uses the content surface color and seamlessly merges with the button bar below, inactive tabs are muted with a soft hover pill, the close (X) icon is a clean circular button, and the header uses a flexbox layout instead of floats and negative-margin hacks.
-- New CSS variables for module tab customization: --module-header-unselected-color, --module-header-tab-hover-background, --module-header-close-hover-background; --module-header-background now defaults to a subtle chrome tint and --module-header-selected-background to the content surface.
-- Fix: module navigation tab fade no longer fades the rightmost tab when there is plenty of space; the mask now only affects tabs that reach the right edge.
-- Bottom action buttons (detail mode and dialogs) redesigned to the new design system: 8px corner radius instead of full pill, medium font weight, ~38px height matching the input fields, flat accent-colored primary action (the default ENTER action) with a plain darker hover, ghost secondary actions with accent-soft hover, 3px focus ring, and flexbox layout with gap instead of margins, flush-left aligned with the form fields.
-- CSS variables --default-action-button-* centralized in base.css with accent-color defaults (now also used by the dark theme, consistent with the top bar primary action); removed unused --default-action-button-shadow and --default-action-button-hover-shadow.
-- Top button bar redesigned to the new design system: flexbox layout (no floats), hairline bottom border instead of shadow, ghost pill buttons (8px radius, medium font weight, generous padding), consistent hover and focus-ring states, and a red hover for the delete action.
-- List format selector (List/Charts/Calendar, etc.) restyled as a modern segmented control, visually consistent with the calendar view switcher.
-- Help and email subscription icons in the button bar are now uniform square icon buttons with pill hover; the subcontroller dropdown (e.g. "My reports") uses modern menu styling.
-- New CSS variables: --segmented-background, --segmented-active-background, --segmented-active-color; removed --button-bar-shadow.
-- Global AJAX loading indicator redesigned from the GMail-style "Loading..." pill with spinner to a thin 3px top progress bar with shimmer animation (Linear/YouTube style): appears after a 200ms delay to avoid flicker on fast operations, stays visible for a minimum of 400ms, fades out smoothly via CSS opacity transition, respects prefers-reduced-motion, and uses the accent color token for automatic light/dark theme support.
-- Removed dead code: #xava_loading2 fallback element and its markup in ModulePageRenderer (Style.isFixedPositionSupported() always returns true).
-- Removed unused CSS variable --xava-loading-color (the new bar has no text content).
-- Module lists (tabs) restyled to the new design system: zebra striping removed in favor of hairline row separators, 42px row height, uppercase muted column headers, flat hover and selection backgrounds using color-mix, CSS-based column resize handles (replacing the image-based grip), spreadsheet-like editable cells with transparent borders and accent focus ring, row action icons muted until row hover or keyboard focus, generalized total row styling with top border and right-aligned labels, skeleton loading pulse animation on AJAX refresh, checkboxes and radio buttons with accent-color, solid background for popup menus, and list info section with muted small text.
-- Numeric column headers in module lists are now right-aligned to match their cell values by default (Style.isAlignHeaderAsData() returns true).
-- handle_vertical.png removed; column resize handles are now pure CSS (6px wide ::after line on the right edge of the th, highlighted on hover/focus).
-- New CSS variables for list customization: --list-row-hover-background, --selected-row-background, --list-header-background; removed --list-column2-background, --list-even-column-background, --list-row-bottom-color, --list-row-a-color, --list-header-arrows-color.
-- Calendar list format restyled to the new design system: hairline grid borders, uppercase muted day headers, accent chip marking today, navigation buttons and view switcher as segmented pills, events displayed as soft accent chips (month view) or accent-left bars (week/day views), restyled "+ more" popover and event tooltip, and a new-event "+" affordance revealed on day hover instead of permanently visible.
-- New CSS variables for calendar customization: --calendar-header-color, --calendar-muted-color, --calendar-view-switcher-background, --calendar-view-switcher-active-background, --calendar-view-switcher-active-color, --calendar-event-accent, --calendar-event-hover-background, --calendar-event-color, --calendar-event-time-color; removed --calendar-event-time-background.
-- Fix: @ElementCollection with @ReadOnly doesn't apply the formatter defined in @Editor.
-- Element collections redesigned as data-dense spreadsheet grids: borderless transparent cells, hairline row separators, compact muted column headers, hover feedback only on editable cells, accent active-cell ring and row actions (delete, drag handle, reference search) revealed on row hover or keyboard focus.
-- Numeric column headers in element collections are now right-aligned to match their cell values; padding is adjusted for editable vs. read-only columns so the header text edge aligns exactly with the data below.
-- Read-only properties in editable element collections (calculated, @ReadOnly, etc.) are now displayed as plain formatted text instead of disabled input fields; values are still submitted and updated live by @Calculation expressions and totals.
-- New readOnlyAsLabel attribute for the xava:editor tag and support for the readOnlyAsLabel request parameter in the standard editors (text, date, time, datetime, boolean yes/no and valid values), in addition to the global readOnlyAsLabel option in xava.properties.
-- New CSS variables for element collection customization: --element-collection-cell-hover-background; --element-collection-row-hover-background now defaults to a subtle translucent tint (was white).
-- Column resize handles in @ElementCollection headers replaced with a CSS 2px vertical line centered on the right edge, highlighted on hover/focus; the cursor aligns exactly with the line and the "elusive" behavior on right-aligned numeric columns is fixed.
-- Dialogs restyled with own CSS, dropping the jQuery UI smoothness theme: 12px corner radius, hairline border, elevation-3 shadow, blurred translucent backdrop, entrance animation, circular close button with focus ring and a subtle resize grip.
-- jquery-ui.css and smoothness/jquery-ui.css (plus its 11 theme images, ~45KB) removed; only the functional jquery-ui.structure.css is kept.
-- Autocomplete dropdown modernized: thin border, rounded corners, 4px padding, pill-shaped hover/active items with accent-soft background, independent from the jQuery UI theme.
-- New CSS variables for dialog customization: --dialog-border, --dialog-backdrop-background; removed --dialog-shadow. Dialog close button and resize grip now use MDI icons (mdi-close, mdi-resize-bottom-right) instead of the jQuery UI icon sprite.
-- Messages, warnings, infos and errors redesigned as modern toast notifications: single stack at top-right corner, soft tinted backgrounds with thin semantic border, severity icon, medium font weight and theme-aware colors, replacing the solid color bars at top-center.
-- New CSS variables for messages customization: --messages-accent, --errors-accent, --warnings-accent, --infos-accent and --messages-border, --errors-border, --warnings-border, --infos-border, --messages-color, --errors-color, --warnings-color, --infos-color.
-- Success messages, warnings and infos now behave as toast notifications: they auto-close after 5 seconds (configurable via openxava.messagesAutoCloseDelay), pause while hovered and slide in from the top. Error messages remain persistent.
-- Date calendar popup (flatpickr) adapted to the new design system: rounded corners, elevation, accent color for selected day and today indicator, hover transitions, custom chevron in month dropdown and full dark theme support.
-- New CSS variables for date popup customization: --date-popup-background, --date-popup-hover-background, --date-popup-hover-color, --date-popup-muted-color.
-- Default value for defaultLabelFormat in xava.properties changed from NORMAL to SMALL, so property labels are now displayed in small format by default.
-- Text fields, selects and textareas redesigned: 1px border, 8px corner radius, taller and more comfortable (38px), hover border, accent focus ring and softer disabled state.
-- Required properties and references are now marked with a red asterisk next to the label, instead of a darker field border.
-- Boolean properties in detail view use a modern switch (toggle) editor instead of a checkbox.
-- Property labels use medium font weight and a softer color for a cleaner, less noisy look.
-- Numeric fields use tabular-nums so digits align when comparing values.
-- New CSS variables for field customization: --input-hover-border, --placeholder-color, --disabled-input-color, --label-color, --required-indicator-color, --select-chevron-icon, --switch-off-background, --switch-off-hover-background, --switch-on-background, --switch-on-hover-background, --switch-knob-background.
-- Modules menu widened from 180px to 260px with hairline border, pill-shaped rows and accent-colored selection.
-- Magnifier icon added inside the module search input; input has visible border at rest and subtle 2px focus ring at 20% opacity.
-- Module menu show/hide toggles redesigned as circular button (hide) and vertical tab (show) with accent hover and elevation.
-- Chat panel widened from 330px to 360px with hairline left border; user bubbles use accent color with rounded corners.
-- Chat panel width synchronized between CSS and JS via chat.PANEL_WIDTH constant.
-- Thin rounded scrollbar for module menu in Chromium; scrollbar-width: thin for Firefox.
-- Focus ring opacity reduced from 45% to 20% for a more subtle, modern focus indication.
-- Obsolete CSS variables removed: --modules-list-background-darker, --modules-list-shadow, --modules-list-selected-border-right, --search-modules-input-border, --chat-panel-shadow.
-- New design token system in base.css: spacing (--space-*), corner radius (--radius-*), elevations (--elevation-*), typography scale (--font-size-*) and standard transitions (--transition-*).
-- New Inter typeface (variable font) replaces Roboto; base font size is now 14px and numeric list cells use tabular-nums.
-- New light theme with slate palette, --accent-color as single brand customization variable (indigo by default), frame borders and module header border for visual separation.
-- Dark theme polished with zinc palette (true dark backgrounds), brighter text for readability, and consistent border colors.
-- New auto.css theme (default) that switches between light and dark following the OS prefers-color-scheme.
-- Removed terra.css, blue.css and black-and-white.css themes; theme chooser now offers Auto / Light / Dark. See migration guide to recreate custom themes with variables in custom.css.
-- New loading indicator: floating pill with elevation and entrance animation.
-- Standard 150-200ms transitions on buttons, list rows, menu rows, sections and cards hover.
-- Consistent :focus-visible focus ring across links, buttons, radio buttons and checkboxes.
-- Removed dead CSS rules for IE/legacy Edge (.ie, scrollbar-face-color, -webkit-gradient, vendor-prefixed shadows).
+- New modern look and feel for the whole user interface, comparable to current leading web applications.
+- New light theme with a clean slate palette and indigo accent color.
+- Polished dark theme with a real black zinc palette and improved text legibility.
+- New Auto theme that follows the operating system light or dark preference automatically.
+- Theme chooser simplified to Auto, Light and Dark.
+- Removed terra.css, blue.css and black-and-white.css themes.
+- Required fields are now marked with a red asterisk next to the label.
+- Boolean fields are now shown as switches instead of checkboxes.
+- Field labels are now placed on top of the fields by default.
+- Success, warning and information messages shown as modern toast notifications that close automatically.
+- Element collections now have a clean spreadsheet look with hairline row separators.
+- Row actions in collections and lists are revealed on mouse hover or keyboard focus.
+- New thin top progress bar for loading, shown only when an operation takes more than a moment.
+- @LargeDisplay row now distributes cards evenly across the full width.
+- Removed legacy portal stylesheets default.css and skins.css; the fallback CSS in Style is now auto.css.
+- New readOnlyAsLabel attribute for the xava:editor taglib.
+- jquery-ui.css and smoothness/jquery-ui.css (plus its theme images) removed.
 - HSQLDB database is automatically shut down by DBServer when the application stops.
 - Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 - DBServer automatically compresses .lobs files into .lobs.zip files when the HSQLDB database stops.
