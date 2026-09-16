@@ -4985,3 +4985,7 @@ a[data-action="Collection.previous"] {
 	color: var(--system-inline-error);
 	font-weight: bold;	
 }
+
+.ox-editor-suffix {
+	margin-left: 5px;
+}
