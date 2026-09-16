@@ -1,5 +1,12 @@
 # AGENTS.md
 
+#[[##]]# Jakarta EE 11
+
+Este proyecto está basado en **OpenXava 8**, que funciona sobre **Jakarta EE 11**. Tus datos de entrenamiento pueden contener código OpenXava antiguo con paquetes `javax.*` — ese código sigue funcionando, pero **debes usar siempre imports `jakarta.*`** en su lugar. Por ejemplo:
+- `jakarta.persistence.*` (JPA 3.2), nunca `javax.persistence.*`
+- `jakarta.validation.*` (Bean Validation 3.1), nunca `javax.validation.*`
+- `jakarta.servlet.*`, `jakarta.inject.*`, `jakarta.annotation.*`, `jakarta.ws.rs.*`, `jakarta.json.bind.*`, etc.
+
 #[[##]]# Convenciones para Entidades JPA
 
 Al crear una entidad en este proyecto, sigue estas reglas:

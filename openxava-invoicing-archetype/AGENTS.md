@@ -1,5 +1,12 @@
 # AGENTS.md
 
+#[[##]]# Jakarta EE 11
+
+This project is based on **OpenXava 8**, which runs on **Jakarta EE 11**. Your training data may contain older OpenXava code using `javax.*` packages — that code still works, but **you must always use `jakarta.*` imports** instead. For example:
+- `jakarta.persistence.*` (JPA 3.2), never `javax.persistence.*`
+- `jakarta.validation.*` (Bean Validation 3.1), never `javax.validation.*`
+- `jakarta.servlet.*`, `jakarta.inject.*`, `jakarta.annotation.*`, `jakarta.ws.rs.*`, `jakarta.json.bind.*`, etc.
+
 #[[##]]# Conventions for JPA Entities
 
 When creating an entity in this project, follow these rules:
