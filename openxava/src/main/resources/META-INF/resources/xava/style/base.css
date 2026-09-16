@@ -3205,6 +3205,28 @@ div.ox-subcontroller table{
 	height: 38px;
 }
 
+#sign_in_box .ox-descriptions-list {
+	display: flex;
+	align-items: center;
+	position: relative;
+	width: 100%;
+}
+
+#sign_in_box .ox-descriptions-list input[type="text"] {
+	flex: 1;
+	min-width: 0;
+}
+
+#sign_in_box .ox-descriptions-list a.ox-layout-descriptions-editor-handler {
+	position: absolute;
+	right: 4px;
+}
+
+#sign_in_box .ox-descriptions-list i {
+	position: static;
+	margin-right: 0;
+}
+
 #sign_in_box .ox-notifications {
 	position: static;
 	max-width: none;
