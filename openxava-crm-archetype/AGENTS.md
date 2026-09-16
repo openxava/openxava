@@ -144,19 +144,19 @@ public class ShowEmailAction extends ViewBaseAction {
 - ✅ Place action classes under `${package}.${artifactId}.actions`
 - ❌ Do NOT modify the entity class to register an action
 
-#[[##]]# The `.xava` Folder
+#[[##]]# Code Examples for Agents
 
-This project relies on a `.xava` folder that contains agent resources (test examples, controller definitions, etc.). If the `.xava` folder does not exist in the project root:
-- **Run `mvn package`** to generate it
-- **Do NOT add `.xava` to `.gitignore`** — it must remain in the repository
+Example code for agents is available on GitHub in the OpenXava repository:
+- **Test examples**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Available actions**: `default-controllers.xml` at https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[##]]# Conventions for Automated Tests (JUnit)
 
-When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test`.
+When creating an automated test or JUnit test in this project, refer to the test examples on GitHub (see "Code Examples for Agents" above).
 
 #[[###]]# Test Examples Reference
-- **Examples location**: `./.xava/agents/test`
-- **Available actions**: See `default-controllers.xml` inside `./.xava/agents/test`
+- **Examples location**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Available actions**: See `default-controllers.xml` at https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[###]]# Common Patterns to Follow
 - We use **JUnit 4**
@@ -185,7 +185,7 @@ public class CustomerTest extends ModuleTestBase {
 ```
 
 #[[###]]# Summary for Tests
-- ✅ Refer to examples in `./.xava/agents/test`
+- ✅ Refer to the test examples on GitHub (openxavatest)
 - ✅ Use `ModuleTestBase` for module tests
 - ✅ First line of each test: `login("admin", "admin");`
 - ✅ Check `default-controllers.xml` for available actions

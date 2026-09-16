@@ -145,19 +145,19 @@ public class MostrarImporte extends ViewBaseAction {
 - ✅ Coloca las clases de acción en `${package}.${artifactId}.acciones`
 - ❌ NO modifiques la clase de la entidad para registrar una acción
 
-#[[##]]# La Carpeta `.xava`
+#[[##]]# Ejemplos de Código para Agentes
 
-Este proyecto depende de una carpeta `.xava` que contiene recursos para agentes (ejemplos de tests, definiciones de controladores, etc.). Si la carpeta `.xava` no existe en la raíz del proyecto:
-- **Ejecuta `mvn package`** para generarla
-- **NO añadas `.xava` a `.gitignore`** — debe permanecer en el repositorio
+El código de ejemplo para agentes está disponible en GitHub en el repositorio de OpenXava:
+- **Ejemplos de tests**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Acciones disponibles**: `default-controllers.xml` en https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[##]]# Convenciones para Tests Automatizados (JUnit)
 
-Al crear un test automatizado o test JUnit en este proyecto, consulta los ejemplos ubicados en `./.xava/agents/test`.
+Al crear un test automatizado o test JUnit en este proyecto, consulta los ejemplos de tests en GitHub (ver "Ejemplos de Código para Agentes" más arriba).
 
 #[[###]]# Referencia de Ejemplos de Tests
-- **Ubicación de ejemplos**: `./.xava/agents/test`
-- **Acciones disponibles**: Consulta `default-controllers.xml` dentro de `./.xava/agents/test`
+- **Ubicación de ejemplos**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Acciones disponibles**: Consulta `default-controllers.xml` en https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[###]]# Patrones Comunes a Seguir
 - Usamos **JUnit 4**
@@ -186,7 +186,7 @@ public class ClienteTest extends ModuleTestBase {
 ```
 
 #[[###]]# Resumen para Tests
-- ✅ Consulta ejemplos en `./.xava/agents/test`
+- ✅ Consulta los ejemplos de tests en GitHub (openxavatest)
 - ✅ Usa `ModuleTestBase` para tests de módulos
 - ✅ Primera línea de cada test: `login("admin", "admin");`
 - ✅ Consulta `default-controllers.xml` para acciones disponibles
