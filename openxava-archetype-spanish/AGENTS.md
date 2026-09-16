@@ -17,7 +17,7 @@ Al crear una entidad en este proyecto, sigue estas reglas:
 ```java
 package ${package}.${artifactId}.modelo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -44,7 +44,7 @@ Al crear una estructura maestro-detalle, la colección de detalles en la entidad
 ```java
 package ${package}.${artifactId}.modelo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -69,7 +69,7 @@ public class Factura {
 ```java
 package ${package}.${artifactId}.modelo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -117,7 +117,7 @@ package ${package}.${artifactId}.acciones;
 
 import org.openxava.actions.*;
 import org.openxava.validators.*;
-import com.tuempresa.tuaplicacion.modelo.*;
+import ${package}.${artifactId}.modelo.*;
 import java.math.BigDecimal;
 
 public class MostrarImporte extends ViewBaseAction {
@@ -168,7 +168,7 @@ import org.openxava.tests.*;
 public class ClienteTest extends ModuleTestBase {
     
     public ClienteTest(String testName) {
-        super(testName, "agenttest", "Cliente");
+        super(testName, "${artifactId}", "Cliente");
     }
     
     public void testCrearCliente() throws Exception {
@@ -185,7 +185,7 @@ public class ClienteTest extends ModuleTestBase {
 - ✅ Consulta `default-controllers.xml` para acciones disponibles
 - ❌ NO ejecutes tests con `mvn`
 
-## Convenciones para Cuadros de Mando (Dashboards)
+#[[##]]# Convenciones para Cuadros de Mando (Dashboards)
 
 Cuando se te pida crear un cuadro de mando o un dashboard, **debes revisar la siguiente documentación primero**:
 - https://openxava.org/OpenXavaDoc/docs/dashboard_es.html

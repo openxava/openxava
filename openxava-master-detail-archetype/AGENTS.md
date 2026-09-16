@@ -17,7 +17,7 @@ When creating an entity in this project, follow these rules:
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -44,7 +44,7 @@ When asked to create a master-detail structure, the detail collection in the mas
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -69,7 +69,7 @@ public class Invoice {
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -117,7 +117,7 @@ package ${package}.${artifactId}.actions;
 
 import org.openxava.actions.*;
 import org.openxava.validators.*;
-import com.yourcompany.yourapp.model.*;
+import ${package}.${artifactId}.model.*;
 import java.math.BigDecimal;
 
 public class ShowTotalAction extends ViewBaseAction {
@@ -168,7 +168,7 @@ import org.openxava.tests.*;
 public class CustomerTest extends ModuleTestBase {
     
     public CustomerTest(String testName) {
-        super(testName, "agenttest", "Customer");
+        super(testName, "${artifactId}", "Customer");
     }
     
     public void testCreateCustomer() throws Exception {
@@ -185,7 +185,7 @@ public class CustomerTest extends ModuleTestBase {
 - ✅ Check `default-controllers.xml` for available actions
 - ❌ Do NOT run tests with `mvn`
 
-## Conventions for Dashboards
+#[[##]]# Conventions for Dashboards
 
 When asked to create a dashboard, you **must review the following documentation first**:
 - https://openxava.org/OpenXavaDoc/docs/dashboard_en.html

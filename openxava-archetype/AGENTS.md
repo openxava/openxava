@@ -117,7 +117,7 @@ package ${package}.${artifactId}.actions;
 
 import org.openxava.actions.*;
 import org.openxava.validators.*;
-import com.yourcompany.yourapp.model.*;
+import ${package}.${artifactId}.model.*;
 import java.math.BigDecimal;
 
 public class ShowAmountAction extends ViewBaseAction {
@@ -168,7 +168,7 @@ import org.openxava.tests.*;
 public class CustomerTest extends ModuleTestBase {
     
     public CustomerTest(String testName) {
-        super(testName, "agenttest", "Customer");
+        super(testName, "${artifactId}", "Customer");
     }
     
     public void testCreateCustomer() throws Exception {
