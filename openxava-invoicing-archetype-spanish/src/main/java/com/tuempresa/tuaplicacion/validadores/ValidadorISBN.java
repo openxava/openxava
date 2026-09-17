@@ -1,7 +1,7 @@
 package com.tuempresa.tuaplicacion.validadores; 
 
-import javax.validation.*;
-import javax.ws.rs.client.*; // Para usar JAX-RS
+import jakarta.validation.*;
+import jakarta.ws.rs.client.*; // Para usar JAX-RS
 
 import org.apache.commons.logging.*; // Para usar Log
 import org.openxava.util.*;

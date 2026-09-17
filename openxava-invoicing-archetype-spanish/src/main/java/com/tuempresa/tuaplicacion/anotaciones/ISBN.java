@@ -2,7 +2,7 @@ package com.tuempresa.tuaplicacion.anotaciones; // En el paquete 'anotaciones'
  
 import java.lang.annotation.*;
 
-import javax.validation.*;
+import jakarta.validation.*;
  
 @Constraint(validatedBy = com.tuempresa.tuaplicacion.validadores.ValidadorISBN.class)
 @Target({ElementType.FIELD, ElementType.METHOD})

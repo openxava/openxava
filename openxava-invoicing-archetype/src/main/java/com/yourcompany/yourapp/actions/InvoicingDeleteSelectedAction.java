@@ -54,7 +54,7 @@ public class InvoicingDeleteSelectedAction
                         key,
                         values);
                 }
-                catch (javax.validation.ValidationException ex) { // If there is a ValidationException...
+                catch (jakarta.validation.ValidationException ex) { // If there is a ValidationException...
                     addError("no_delete_row", i, key);
                     addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...we show the message
                 }

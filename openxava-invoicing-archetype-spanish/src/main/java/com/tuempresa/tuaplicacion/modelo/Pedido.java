@@ -3,8 +3,8 @@ package com.tuempresa.tuaplicacion.modelo;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.beanutils.*;
 import org.openxava.annotations.*;
@@ -75,7 +75,7 @@ public class Pedido extends DocumentoComercial {
 	@PreRemove
 	private void validarPreBorrar() { // Ahora este método no se ejecuta
 		if (factura != null) { // automáticamente ya que el borrado real no se produce
-			throw new javax.validation.ValidationException(
+			throw new jakarta.validation.ValidationException(
 					XavaResources.getString("no_puede_borrar_pedido_con_factura"));
 		}
 	}

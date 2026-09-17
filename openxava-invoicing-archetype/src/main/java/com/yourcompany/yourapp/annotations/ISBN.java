@@ -2,7 +2,7 @@ package com.yourcompany.yourapp.annotations; // In 'annotations' package
 
 import java.lang.annotation.*;
 
-import javax.validation.*;
+import jakarta.validation.*;
  
 @Constraint(validatedBy = com.yourcompany.yourapp.validators.ISBNValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD})

@@ -2,7 +2,7 @@ package com.tuempresa.tuaplicacion.modelo;
  
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 

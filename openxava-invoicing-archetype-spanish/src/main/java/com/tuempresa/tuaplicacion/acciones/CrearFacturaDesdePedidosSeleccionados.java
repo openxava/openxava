@@ -2,7 +2,6 @@ package com.tuempresa.tuaplicacion.acciones;
 
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.openxava.actions.*;
 import org.openxava.model.*;
