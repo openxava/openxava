@@ -9,8 +9,8 @@ Pending Archetypes update (tmr)
 - Arquetipos:
     * openxava-archetype
     * openxava-archetype-spanish
-    - openxava-crm-archetype
-    - openxava-crm-archetype-spanish
+    * openxava-crm-archetype
+    * openxava-crm-archetype-spanish
     - openxava-invoicing-archetype
     - openxava-invoicing-archetype-spanish
     - openxava-master-detail-archetype
