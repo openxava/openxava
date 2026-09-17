@@ -3169,7 +3169,7 @@ div.ox-subcontroller table{
 
 /* ===== Sign-in card ===== */
 
-.ox-sign-in-brand {
+#sign_in_brand {
 	margin: clamp(var(--space-8), 12vh, 120px) auto 0;
 	font-size: var(--font-size-xl);
 	font-weight: 600;
