@@ -37,76 +37,94 @@ public class Configuration implements java.io.Serializable {
 	private int id;
 	
 	@Max(30)
+	@LabelFormat(LabelFormatType.NORMAL)
 	private int passwordMinLength;
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(name="forceLetterAndNumbersInPasswd", length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean forceLetterAndNumbersInPassword;
 
 	/** @since 7.6 */
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(name="forceUpperAndLowerCaseInPasswd", length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean forceUpperAndLowerCaseInPassword;
 
 	/** @since 7.6 */
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(name="forceSpecialCharactersInPasswd", length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean forceSpecialCharactersInPassword;
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean recentPasswordsNotAllowed; 
 	
 	@Max(999)
+	@LabelFormat(LabelFormatType.NORMAL)
 	private int forceChangePasswordDays;
 	
 	@Max(999)
+	@LabelFormat(LabelFormatType.NORMAL)
 	private int lockSessionMinutes;
 	
 	@Max(999)
+	@LabelFormat(LabelFormatType.NORMAL)
 	private int loginAttemptsBeforeLocking; 
 	
 	@Max(999)
 	@Column(name="inactiveDaysBeforeDisUser") 
+	@LabelFormat(LabelFormatType.NORMAL)
 	private int inactiveDaysBeforeDisablingUser;
 	
 	/** @since 7.4 */
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean allowSeveralSessionsPerUser;   	
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'Y'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean guestCanCreateAccount;  
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(name="guestCanCreateAccountInOrgs", length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'Y'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean guestCanCreateAccountInOrganizations;  
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(name="sharedUsersBetweenOrgs", length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean sharedUsersBetweenOrganizations;
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean useEmailAsUserName; 
 	
 	/** @since 6.6 */
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean caseSensitiveUserName;
 	
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean privacyPolicyOnSignUp; 
 	
 	/** @since 8.0 */
 	@Convert(converter = org.openxava.jpa.converters.YesNoConverter.class)
 	@Column(length=1, nullable=false) @org.hibernate.annotations.ColumnDefault("'N'")
+	@LabelFormat(LabelFormatType.NORMAL)
 	private boolean autoGenerateAPI;
 
 	/** @since 8.0 */
 	@Column(length=500)
+	@LabelFormat(LabelFormatType.NORMAL)
 	private String apiAllowedOrigins;
 	
 

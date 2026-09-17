@@ -469,7 +469,13 @@ abstract public class ModuleTestBase extends TestCase {
 	 * User logout. <p>
 	 */
 	protected void logout() throws Exception {
-		page = ((HtmlAnchor)getHtmlPage().getByXPath("//a[contains(@href, '" + getContextPath() + "naviox/signOut.jsp')]").get(0)).click(); 
+		List<?> signOutLinks = getHtmlPage().getByXPath("//a[contains(@href, '" + getContextPath() + "naviox/signOut.jsp')]");
+		if (signOutLinks.isEmpty()) { // The SignIn page has no module header with the sign out link
+			page = (HtmlPage) client.getPage("http://" + getHost() + ":" + getPort() + getContextPath() + "naviox/signOut.jsp?organization=");
+		}
+		else {
+			page = ((HtmlAnchor) signOutLinks.get(0)).click();
+		}
 	}
 	
 	/**
