@@ -26,7 +26,8 @@ Resumen de los cambios realizados en los 10 arquetipos (openxava-archetype, open
 
 ## Pendiente
 
-1. Actualizar la guía de migración (migration_en/es.html).
+1. Actualizar la guía de migración (migration_en/es.html). HECHO.
 2. Actualizar la doc de "Asistentes de codificación IA".
 3. Buscar más documentación susceptible de ser actualizada.
 4. Eliminar el proyecto `openxava-agents-examples`.
+5. Actualizar changelog.
