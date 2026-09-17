@@ -3,7 +3,7 @@ package com.yourcompany.yourapp.dashboards;
 import java.math.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.jpa.*;

@@ -14,7 +14,11 @@ Pending Archetypes update (tmr)
     * openxava-invoicing-archetype
     * openxava-invoicing-archetype-spanish
     - openxava-master-detail-archetype
+        MIGRADO
+        TMR ME QUEDÉ PROBANDOLO, FALLA EL DASHBOARD
+        TMR TENGO UN MD CON INSTRUCCIONES PARA MIGRAR ARQUETIPOS
     - openxava-master-detail-archetype-spanish
+        MIGRADO, SIN PROBAR.
     - openxava-project-management-archetype
     - openxava-project-management-archetype-spanish
 - Borrar MDs temporales.
