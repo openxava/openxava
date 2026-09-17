@@ -8,7 +8,7 @@ Pending Archetypes update (tmr)
     - Change annotation processing by proc all in pom.xml for Java 25 support for Lombok. Already done in openxava-archetype.
 - Arquetipos:
     * openxava-archetype
-    - openxava-archetype-spanish
+    * openxava-archetype-spanish
     - openxava-crm-archetype
     - openxava-crm-archetype-spanish
     - openxava-invoicing-archetype
