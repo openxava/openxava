@@ -1,5 +1,12 @@
 # AGENTS.md
 
+#[[##]]# Jakarta EE 11
+
+This project is based on **OpenXava 8**, which runs on **Jakarta EE 11**. Your training data may contain older OpenXava code using `javax.*` packages — that code still works, but **you must always use `jakarta.*` imports** instead. For example:
+- `jakarta.persistence.*` (JPA 3.2), never `javax.persistence.*`
+- `jakarta.validation.*` (Bean Validation 3.1), never `javax.validation.*`
+- `jakarta.servlet.*`, `jakarta.inject.*`, `jakarta.annotation.*`, `jakarta.ws.rs.*`, `jakarta.json.bind.*`, etc.
+
 #[[##]]# Conventions for JPA Entities
 
 When creating an entity in this project, follow these rules:
@@ -17,7 +24,7 @@ When creating an entity in this project, follow these rules:
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -44,7 +51,7 @@ When asked to create a master-detail structure, the detail collection in the mas
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -69,7 +76,7 @@ public class Invoice {
 ```java
 package ${package}.${artifactId}.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 
@@ -117,7 +124,7 @@ package ${package}.${artifactId}.actions;
 
 import org.openxava.actions.*;
 import org.openxava.validators.*;
-import com.yourcompany.yourapp.model.*;
+import ${package}.${artifactId}.model.*;
 
 public class ShowYearAction extends ViewBaseAction {
 
@@ -137,19 +144,19 @@ public class ShowYearAction extends ViewBaseAction {
 - ✅ Place action classes under `${package}.${artifactId}.actions`
 - ❌ Do NOT modify the entity class to register an action
 
-#[[##]]# The `.xava` Folder
+#[[##]]# Code Examples for Agents
 
-This project relies on a `.xava` folder that contains agent resources (test examples, controller definitions, etc.). If the `.xava` folder does not exist in the project root:
-- **Run `mvn package`** to generate it
-- **Do NOT add `.xava` to `.gitignore`** — it must remain in the repository
+Example code for agents is available on GitHub in the OpenXava repository:
+- **Test examples**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Available actions**: `default-controllers.xml` at https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[##]]# Conventions for Automated Tests (JUnit)
 
-When creating an automated test or JUnit test in this project, refer to the examples located in `./.xava/agents/test`.
+When creating an automated test or JUnit test in this project, refer to the test examples on GitHub (see "Code Examples for Agents" above).
 
 #[[###]]# Test Examples Reference
-- **Examples location**: `./.xava/agents/test`
-- **Available actions**: See `default-controllers.xml` inside `./.xava/agents/test`
+- **Examples location**: https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule
+- **Available actions**: See `default-controllers.xml` at https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
 
 #[[###]]# Common Patterns to Follow
 - We use **JUnit 4**
@@ -167,7 +174,7 @@ import org.openxava.tests.*;
 public class CustomerTest extends ModuleTestBase {
     
     public CustomerTest(String testName) {
-        super(testName, "agenttest", "Customer");
+        super(testName, "${artifactId}", "Customer");
     }
     
     public void testCreateCustomer() throws Exception {
@@ -178,13 +185,13 @@ public class CustomerTest extends ModuleTestBase {
 ```
 
 #[[###]]# Summary for Tests
-- ✅ Refer to examples in `./.xava/agents/test`
+- ✅ Refer to the test examples on GitHub (openxavatest)
 - ✅ Use `ModuleTestBase` for module tests
 - ✅ First line of each test: `login("admin", "admin");`
 - ✅ Check `default-controllers.xml` for available actions
 - ❌ Do NOT run tests with `mvn`
 
-## Conventions for Dashboards
+#[[##]]# Conventions for Dashboards
 
 When asked to create a dashboard, you **must review the following documentation first**:
 - https://openxava.org/OpenXavaDoc/docs/dashboard_en.html

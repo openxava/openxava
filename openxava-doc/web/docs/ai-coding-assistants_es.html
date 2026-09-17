@@ -33,23 +33,21 @@
 	<h1 class="nopad">Tabla de contenidos</h1>
 	<div style="margin-left: 1em;"><a href="#ai-coding-assistants">Asistentes de codificación IA</a></div>
 	<div style="margin-left: 2em;"><a href="#why-openxava-works-well">Por qué OpenXava funciona bien con asistentes de codificación IA</a></div>
-	<div style="margin-left: 2em;"><a href="#optimizations">Optimizaciones para agentes IA (7.7+)</a></div>
+	<div style="margin-left: 2em;"><a href="#optimizations">Optimizaciones para agentes IA</a></div>
 	<div style="margin-left: 3em;"><a href="#agents-md">AGENTS.md</a></div>
-	<div style="margin-left: 3em;"><a href="#xava-folder">La carpeta .xava</a></div>
+	<div style="margin-left: 3em;"><a href="#code-examples">Ejemplos de código en GitHub</a></div>
 	<div style="margin-left: 3em;"><a href="#how-it-works">Cómo funciona en conjunto</a></div>
-	<div style="margin-left: 2em;"><a href="#new-projects">Proyectos nuevos (7.7 o posterior)</a></div>
+	<div style="margin-left: 2em;"><a href="#new-projects">Proyectos nuevos</a></div>
 	<div style="margin-left: 2em;"><a href="#existing-projects">Añadir soporte IA a proyectos existentes</a></div>
-	<div style="margin-left: 3em;"><a href="#step1-agents-md">Paso 1: Añadir AGENTS.md</a></div>
-	<div style="margin-left: 3em;"><a href="#step2-pom">Paso 2: Modificar pom.xml</a></div>
-	<div style="margin-left: 3em;"><a href="#step3-generate">Paso 3: Generar la carpeta .xava</a></div>
 	<div style="margin-left: 2em;"><a href="#customizing-agents-md">Personalizar AGENTS.md</a></div>
+	<div style="margin-left: 2em;"><a href="#openxava-7.7">OpenXava 7.7</a></div>
 </div>
 
 <h2 id="why-openxava-works-well">Por qué OpenXava funciona bien con asistentes de codificación IA</h2>
 
 <p>OpenXava funciona extraordinariamente bien con asistentes y agentes de codificación 
-IA como <b>GitHub Copilot</b>, <b>Windsurf</b>, <b>Cursor</b>, <b>JetBrains Junie</b>, 
-<b>Claude Code</b>, y otros. Hay varias razones para ello:</p>
+IA como <b>GitHub Copilot</b>, <b>Cursor</b>, <b>Claude Code</b>, <b>Devin</b>, 
+<b>Codex</b>, <b>JetBrains Junie</b>, y otros. Hay varias razones para ello:</p>
 
 <ul>
 	<li><b>Basado en estándares Java:</b> OpenXava se basa en estándares Java bien 
@@ -76,90 +74,79 @@ IA como <b>GitHub Copilot</b>, <b>Windsurf</b>, <b>Cursor</b>, <b>JetBrains Juni
 con IA</a>, donde se construye una aplicación de negocio completa usando un agente IA con 
 mínima intervención manual.</p>
 
-<h2 id="optimizations">Optimizaciones para agentes IA (7.7+)</h2>
+<h2 id="optimizations">Optimizaciones para agentes IA</h2>
 
-<p>A partir de la versión 7.7, OpenXava incluye optimizaciones específicas para hacer 
-que los asistentes de codificación IA sean aún más efectivos. Estas optimizaciones 
-proporcionan a los agentes IA contexto específico del proyecto y ejemplos de código 
-real, para que produzcan código OpenXava correcto desde el primer intento.</p>
+<p>OpenXava incluye optimizaciones específicas para hacer que los asistentes de 
+codificación IA sean aún más efectivos. Estas optimizaciones proporcionan a los 
+agentes IA contexto específico del proyecto y ejemplos de código real, para que 
+produzcan código OpenXava correcto desde el primer intento.</p>
 
 <h3 id="agents-md">AGENTS.md</h3>
 
 <p>Cada nuevo proyecto OpenXava incluye un archivo <i>AGENTS.md</i> en la raíz del 
 proyecto. Es un archivo Markdown especial que los asistentes de codificación IA leen 
 automáticamente para entender las convenciones y reglas de tu proyecto. La mayoría de 
-IDEs modernos con IA (Windsurf, Cursor, GitHub Copilot, etc.) reconocen este archivo 
+IDEs modernos con IA (Cursor, GitHub Copilot, Devin, etc.) reconocen este archivo 
 y lo usan como contexto al generar código.</p>
 
 <p>El archivo <i>AGENTS.md</i> incluido con los proyectos OpenXava contiene:</p>
 <ul>
+	<li><b>Instrucciones de Jakarta EE:</b> Indica a la IA que use siempre imports 
+	<i>jakarta.*</i> (persistence, validation, servlet, inject, etc.) y nunca 
+	<i>javax.*</i>, aunque sus datos de entrenamiento contengan código OpenXava 
+	más antiguo con <i>javax.*</i>.</li>
 	<li><b>Convenciones de entidades JPA:</b> Cómo usar Lombok, reglas de visibilidad 
 	de campos y patrones de anotaciones correctos.</li>
 	<li><b>Patrones maestro-detalle:</b> Instrucciones para usar <i>@ElementCollection</i> 
 	y <i>@Embeddable</i> en lugar de <i>@OneToMany</i> para colecciones de detalle.</li>
-	<li><b>Convenciones de acciones (nuevo en 7.7.2):</b> Reglas sobre cómo definir acciones en <i>controllers.xml</i> y crear clases de acción sin modificar la entidad.</li>
+	<li><b>Convenciones de acciones:</b> Reglas sobre cómo definir acciones en <i>controllers.xml</i> y crear clases de acción sin modificar la entidad.</li>
 	<li><b>Convenciones de pruebas:</b> Cómo escribir pruebas JUnit usando 
 	<i>ModuleTestBase</i>, incluyendo el requisito de llamar a <i>login()</i> como 
 	primera línea.</li>
-	<li><b>Convenciones de cuadros de mando (nuevo en 7.7.2):</b> Instrucciones para revisar la documentación y dónde colocar las clases del cuadro de mando.</li>
-	<li><b>Referencias a la carpeta .xava:</b> Dirigiendo a la IA a consultar ejemplos 
-	de código real como guía.</li>
+	<li><b>Convenciones de cuadros de mando:</b> Instrucciones para revisar la documentación y dónde colocar las clases del cuadro de mando.</li>
+	<li><b>Referencias a ejemplos de código:</b> Dirigiendo a la IA a consultar ejemplos 
+	de código real en GitHub como guía.</li>
 </ul>
 
 <p>Esto significa que cuando le pides a un agente IA que "cree una entidad Cliente" o 
 "escriba una prueba para el módulo Factura", seguirá las convenciones de OpenXava 
 automáticamente.</p>
 
-<h3 id="xava-folder">La carpeta .xava</h3>
+<h3 id="code-examples">Ejemplos de código en GitHub</h3>
 
-<p>Además de <i>AGENTS.md</i>, los proyectos OpenXava usan una carpeta <i>.xava</i> 
-que contiene ejemplos de código real para que los agentes IA los consulten. Esta 
-carpeta se genera automáticamente e incluye:</p>
+<p>Además de <i>AGENTS.md</i>, el archivo apunta al agente IA a ejemplos de código 
+real alojados en el repositorio GitHub de OpenXava:</p>
 
 <ul>
-	<li><b>agents/test/bymodule/:</b> Ejemplos reales de pruebas JUnit del conjunto 
-	de pruebas de OpenXava, mostrando cómo probar diferentes tipos de módulos.</li>
-	<li><b>agents/test/default-controllers.xml:</b> La lista completa de acciones 
-	disponibles en los controladores de OpenXava, para que la IA sepa qué acciones 
-	puede usar en las pruebas.</li>
+	<li><b>Ejemplos de pruebas:</b> Pruebas JUnit reales del conjunto de pruebas de 
+	OpenXava, mostrando cómo probar diferentes tipos de módulos: 
+	<a href="https://github.com/openxava/openxava/tree/master/openxavatest/src/test/java/org/openxava/test/tests/bymodule" target="_blank">openxavatest/.../tests/bymodule</a></li>
+	<li><b>Acciones disponibles:</b> La lista completa de acciones en los controladores 
+	de OpenXava, para que la IA sepa qué acciones puede usar en las pruebas: 
+	<a href="https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml" target="_blank">default-controllers.xml</a></li>
 </ul>
 
-<p>La carpeta <i>.xava</i> se genera a partir del artefacto Maven 
-<i>openxava-agents-examples</i>. No está pensada para ser editada manualmente, se 
-regenera automáticamente cuando cambia la versión de OpenXava.</p>
+<p>Como los ejemplos se referencian por URL, no hay nada que generar ni mantener en 
+tu proyecto, y la IA siempre ve los ejemplos de la última versión.</p>
 
 <h3 id="how-it-works">Cómo funciona en conjunto</h3>
 
 <p>Cuando un asistente de codificación IA abre tu proyecto, lee <i>AGENTS.md</i> para 
 aprender las reglas del proyecto. Cuando necesita generar una prueba o entender cómo 
-funciona OpenXava, consulta los ejemplos en la carpeta <i>.xava</i>. Esta combinación 
-de reglas y ejemplos resulta en una generación de código mucho más precisa.</p>
+funciona OpenXava, sigue los enlaces a los ejemplos de código en GitHub. Esta 
+combinación de reglas y ejemplos resulta en una generación de código mucho más 
+precisa.</p>
 
-<h2 id="new-projects">Proyectos nuevos (7.7 o posterior)</h2>
+<h2 id="new-projects">Proyectos nuevos</h2>
 
-<p>Los proyectos creados con OpenXava 7.7 o posterior ya incluyen todo lo necesario. 
-Tanto el archivo <i>AGENTS.md</i> como la configuración en <i>pom.xml</i> para la 
-carpeta <i>.xava</i> se configuran automáticamente.</p>
-
-<p>El único paso que necesitas dar es ejecutar una compilación Maven para generar la 
-carpeta <i>.xava</i>:</p>
-
-<pre><code class="language-bash">mvn package</code></pre>
-
-<p>Después de esto, la carpeta <i>.xava</i> se creará en la raíz de tu proyecto con 
-todos los archivos de ejemplo. La carpeta <i>.xava</i> no se incluye en 
-<i>.gitignore</i> y no deberías añadirla, porque la mayoría de asistentes de 
-codificación IA solo buscan archivos que están dentro del proyecto y que no estén 
-ignorados por Git. El contenido de la carpeta <i>.xava</i> se regenera 
-automáticamente cuando cambia la versión de OpenXava.</p>
+<p>Los proyectos creados con OpenXava 7.7 o posterior ya incluyen todo lo necesario: 
+el archivo <i>AGENTS.md</i> está en la raíz del proyecto y listo para usar. No se 
+requiere configuración adicional.</p>
 
 <h2 id="existing-projects">Añadir soporte IA a proyectos existentes</h2>
 
-<p>Si tu proyecto fue creado con una versión anterior a la 7.7 y has actualizado 
-a la 7.7 o posterior, puedes añadir soporte para asistentes de codificación IA 
-manualmente siguiendo estos pasos:</p>
-
-<h3 id="step1-agents-md">Paso 1: Añadir AGENTS.md</h3>
+<p>Si tu proyecto aún no tiene un archivo <i>AGENTS.md</i>, puedes añadir soporte 
+para asistentes de codificación IA manualmente:</p>
 
 <p>Descarga el archivo <i>AGENTS.md</i> del repositorio GitHub de OpenXava y 
 colócalo en la raíz de tu proyecto:</p>
@@ -183,56 +170,7 @@ arquetipo con los valores reales de tu proyecto:</p>
 
 <pre><code class="language-java">package com.miempresa.facturacion.model;</code></pre>
 
-<h3 id="step2-pom">Paso 2: Modificar pom.xml</h3>
-
-<p>Añade la siguiente ejecución dentro del <i>maven-dependency-plugin</i> en tu 
-<i>pom.xml</i>. Si ya tienes una configuración de <i>maven-dependency-plugin</i> 
-(la mayoría de proyectos OpenXava la tienen), simplemente añade este nuevo bloque 
-<i>&lt;execution&gt;</i> junto a los existentes:</p>
-
-<pre><code class="language-xml">&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
-    &lt;executions&gt;
-        &lt;!-- ... tus ejecuciones existentes ... --&gt;
-        &lt;execution&gt;
-            &lt;id&gt;unpack-agents-examples&lt;/id&gt;
-            &lt;phase&gt;initialize&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;unpack&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;artifactItems&gt;
-                    &lt;artifactItem&gt;
-                        &lt;groupId&gt;org.openxava&lt;/groupId&gt;
-                        &lt;artifactId&gt;openxava-agents-examples&lt;/artifactId&gt;
-                        &lt;version&gt;${openxava.version}&lt;/version&gt;
-                        &lt;outputDirectory&gt;.xava&lt;/outputDirectory&gt;
-                        &lt;includes&gt;agents/**&lt;/includes&gt;
-                    &lt;/artifactItem&gt;
-                &lt;/artifactItems&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;</code></pre>
-
-<p>Esta configuración desempaqueta el artefacto <i>openxava-agents-examples</i> en 
-la carpeta <i>.xava</i> durante la fase <i>initialize</i> de Maven, que se ejecuta 
-antes de la compilación.</p>
-
-<h3 id="step3-generate">Paso 3: Generar la carpeta .xava</h3>
-
-<p>Ejecuta Maven para generar la carpeta <i>.xava</i>:</p>
-
-<pre><code class="language-bash">mvn package</code></pre>
-
-<p>Ahora deberías ver una carpeta <i>.xava/agents/</i> en la raíz de tu proyecto 
-con los ejemplos de pruebas y las definiciones de controladores.</p>
-
-<p>No añadas <i>.xava</i> a tu archivo <i>.gitignore</i>, porque la mayoría de 
-asistentes de codificación IA solo buscan archivos que están dentro del proyecto y 
-que no estén ignorados por Git. Si <i>.xava</i> está en <i>.gitignore</i>, los 
-agentes no podrán encontrar los ejemplos.</p>
+<p>Eso es todo. No hacen falta cambios en tu <i>pom.xml</i>.</p>
 
 <h2 id="customizing-agents-md">Personalizar AGENTS.md</h2>
 
@@ -250,6 +188,27 @@ editarlo para incluir convenciones específicas de tu proyecto. Por ejemplo:</p>
 asistente de codificación IA tu proyecto y generará código que se ajuste a tus 
 estándares. Piensa en ello como documentación de incorporación, no para un nuevo 
 desarrollador, sino para un agente IA.</p>
+
+<h2 id="openxava-7.7">OpenXava 7.7</h2>
+
+<p>En OpenXava 7.7 los ejemplos de código para agentes IA no se enlazaban desde 
+GitHub, sino que se desempaquetaban en una carpeta local <i>.xava</i> en la raíz 
+del proyecto, generada a partir del artefacto Maven <i>openxava-agents-examples</i>. 
+Este artefacto no existe en OpenXava 8.0, donde los ejemplos se referencian 
+directamente en GitHub.</p>
+
+<p>Si tu proyecto fue creado con OpenXava 7.7, contiene una carpeta 
+<i>.xava/agents/</i> con ejemplos de pruebas y definiciones de controladores, y una 
+ejecución <i>unpack-agents-examples</i> del <i>maven-dependency-plugin</i> en su 
+<i>pom.xml</i> que regenera la carpeta en cada compilación. Al actualizar a 
+OpenXava 8.0 debes eliminar esa ejecución, borrar la carpeta <i>.xava</i> y 
+actualizar tu <i>AGENTS.md</i>. Consulta la 
+<a href="migration_es.html">guía de migración</a> para más detalles.</p>
+
+<p>Si te quedas en OpenXava 7.7, ejecuta <i>mvn package</i> para generar la 
+carpeta <i>.xava</i>, y no la añadas a <i>.gitignore</i>, porque la mayoría de 
+asistentes de codificación IA solo buscan archivos que están dentro del proyecto 
+y que no estén ignorados por Git.</p>
 
 </body>
 </html>

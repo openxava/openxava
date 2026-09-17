@@ -85,6 +85,49 @@
     <p>If you don't remove it, your build will fail because this artifact does not exist 
     in version 8.0.</p>
 
+    <h3>AGENTS.md and the .xava folder</h3>
+
+    <p>Projects created from the OpenXava 7.7 archetypes include an <i>AGENTS.md</i> file 
+    with instructions for AI coding assistants, and a <i>.xava</i> folder with code examples 
+    for them. In OpenXava 8.0 the <i>openxava-agents-examples</i> artifact no longer exists, 
+    so you have to remove the <i>unpack-agents-examples</i> execution of the 
+    <i>maven-dependency-plugin</i> from your <i>pom.xml</i>:</p>
+
+    <pre><code class="language-xml">&lt;!-- Remove this execution --&gt;
+&lt;execution&gt;
+    &lt;id&gt;unpack-agents-examples&lt;/id&gt;
+    &lt;phase&gt;initialize&lt;/phase&gt;
+    &lt;goals&gt;
+        &lt;goal&gt;unpack&lt;/goal&gt;
+    &lt;/goals&gt;
+    &lt;configuration&gt;
+        &lt;artifactItems&gt;
+            &lt;artifactItem&gt;
+                &lt;groupId&gt;org.openxava&lt;/groupId&gt;
+                &lt;artifactId&gt;openxava-agents-examples&lt;/artifactId&gt;
+                &lt;version&gt;${openxava.version}&lt;/version&gt;
+                &lt;outputDirectory&gt;.xava&lt;/outputDirectory&gt;
+                &lt;includes&gt;agents/**&lt;/includes&gt;
+            &lt;/artifactItem&gt;
+        &lt;/artifactItems&gt;
+    &lt;/configuration&gt;
+&lt;/execution&gt;</code></pre>
+
+    <p>If you don't remove it, your build will fail because this artifact does not exist 
+    in version 8.0. Keep the other execution that unpacks the DTDs (<i>xava/dtds/*</i>).</p>
+
+    <p>Then delete the <i>.xava</i> folder from your project and remove the <i>/.xava/</i> 
+    entry from your <i>.gitignore</i>.</p>
+
+    <p>Finally, update your <i>AGENTS.md</i>. The new version instructs the AI assistant to 
+    always use <i>jakarta.*</i> imports (never <i>javax.*</i>) and points to the code examples 
+    directly on GitHub instead of the local <i>.xava</i> folder. The easiest way is to replace 
+    your <i>AGENTS.md</i> with 
+    <a href="https://github.com/openxava/openxava/blob/master/openxava-archetype/AGENTS.md">the 
+    one included in the OpenXava 8.0 archetype</a>. If you prefer to keep your current file, 
+    at least remove the references to <i>./.xava/agents/test</i> and add a note to use 
+    <i>jakarta.*</i> imports.</p>
+
     <h3>From the AppServer launcher to Spring Boot</h3>
 
     <p>In OpenXava 7.7 the application was started with a custom launcher class located in the 
