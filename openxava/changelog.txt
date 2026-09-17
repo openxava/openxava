@@ -1,6 +1,10 @@
 Change Log for OpenXava project
 ===============================
 
+- AGENTS.md in archetypes updated for OpenXava 8: instructs AI agents to use jakarta.* imports.
+- Code examples for AI agents are now linked from GitHub instead of a generated .xava folder.
+- openxava-agents-examples artifact removed; the .xava folder is no longer generated in new projects.
+- AI coding assistants documentation updated for OpenXava 8.
 - New modern look and feel for the whole user interface, comparable to current leading web applications.
 - New light theme with a clean slate palette and indigo accent color.
 - Polished dark theme with a real black zinc palette and improved text legibility.
