@@ -17,10 +17,14 @@ Pending Archetypes update (tmr)
         MIGRADO
         TMR ME QUEDÉ PROBANDOLO, FALLA EL DASHBOARD
         TMR TENGO UN MD CON INSTRUCCIONES PARA MIGRAR ARQUETIPOS
+        El jrxml lo convierte en el aire, pero quizás deberíamos dejarlo convertido
     - openxava-master-detail-archetype-spanish
         MIGRADO, SIN PROBAR.
     - openxava-project-management-archetype
     - openxava-project-management-archetype-spanish
+- Comprobar que el menú de módulos y la página de login se ve bien.
+    - La página de login se ve bien.
+    - En el menú de módulos, el título de la aplicación no está alineado. NUEVA INCIDENCIA.
 - Borrar MDs temporales.
 - Borrar pending.txt
 - Actualizar changelog (si es necesario).

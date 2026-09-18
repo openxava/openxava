@@ -45,7 +45,7 @@ public class Dashboard {
 	public Collection<PerPerson> getTopPeople() { 
 		String jpql = "select new com.yourcompany.yourapp.dashboards.PerPerson(m.person.name, sum(m.total) as amount) " +
 			"from Master m " +
-			"group by m.person.number, amount " +
+			"group by m.person.number, m.person.name " +
 			"order by amount desc";
 		TypedQuery<PerPerson> query = XPersistence.getManager().createQuery(jpql, PerPerson.class).setMaxResults(5);
 		return query.getResultList();

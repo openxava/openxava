@@ -45,7 +45,7 @@ public class CuadroMando {
 	public Collection<PorPersona> getPersonasDestacadas() { 
 		String jpql = "select new com.tuempresa.tuaplicacion.cuadrosmando.PorPersona(m.persona.nombre, sum(m.total) as importe) " +
 			"from Maestro m " +
-			"group by m.persona.numero, importe " +
+			"group by m.persona.numero, m.persona.nombre " +
 			"order by importe desc";
 		TypedQuery<PorPersona> query = XPersistence.getManager().createQuery(jpql, PorPersona.class).setMaxResults(5);
 		return query.getResultList();
