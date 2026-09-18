@@ -2,9 +2,9 @@ package com.yourcompany.yourapp.actions;
  
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.openxava.actions.*;
+import org.openxava.model.*;
  
 public class SearchExcludingDeletedAction
     extends SearchExecutingOnChangeAction  { // The standard OpenXava action to search

@@ -3,8 +3,8 @@ package com.tuempresa.tuaplicacion.modelo;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.openxava.annotations.*;
 import org.openxava.annotations.Files;

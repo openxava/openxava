@@ -2,9 +2,9 @@ package com.tuempresa.tuaplicacion.acciones;
  
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.openxava.actions.*;
+import org.openxava.model.*;
  
 public class BuscarExcluyendoEliminados
     extends SearchExecutingOnChangeAction  { // La acción estándar de OpenXava para buscar

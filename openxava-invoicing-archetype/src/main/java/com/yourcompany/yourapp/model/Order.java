@@ -3,8 +3,8 @@ package com.yourcompany.yourapp.model;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import org.apache.commons.beanutils.*;
 import org.openxava.annotations.*;
@@ -78,7 +78,7 @@ public class Order extends CommercialDocument {
 	@PreRemove
 	private void validateOnRemove() { // Now this method is not executed automatically
 		if (invoice != null) { // since a real deleletion is not done
-			throw new javax.validation.ValidationException(XavaResources.getString("cannot_delete_order_with_invoice"));
+			throw new jakarta.validation.ValidationException(XavaResources.getString("cannot_delete_order_with_invoice"));
 		}
 	}
 

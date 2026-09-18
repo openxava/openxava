@@ -1,9 +1,7 @@
 package com.yourcompany.yourapp.actions; // In 'actions' package
 
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.openxava.actions.*; // To use AddElementsToCollectionAction
 import org.openxava.model.*;
@@ -23,7 +21,7 @@ public class AddOrdersToInvoiceAction
     protected void associateEntity(Map keyValues) // The method called to associate
         throws ValidationException, // each entity to the main one, in this case to
             XavaException, ObjectNotFoundException,// associate each order to the invoice
-            FinderException, RemoteException
+            FinderException
     {
         super.associateEntity(keyValues); // It executes the standard logic
         Order order = (Order) MapFacade.findEntity("Order", keyValues); 

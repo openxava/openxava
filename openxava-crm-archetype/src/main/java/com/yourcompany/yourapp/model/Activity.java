@@ -2,7 +2,7 @@ package com.yourcompany.yourapp.model;
 
 import java.time.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.annotations.*;
 import org.openxava.calculators.*;

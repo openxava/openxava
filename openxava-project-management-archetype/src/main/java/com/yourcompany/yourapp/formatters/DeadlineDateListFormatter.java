@@ -3,7 +3,7 @@ package com.yourcompany.yourapp.formatters;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.openxava.formatters.LocalDateFormatter;
 

@@ -1,7 +1,7 @@
 package com.yourcompany.yourapp.validators; 
 
-import javax.validation.*;
-import javax.ws.rs.client.*; // To use JAX-RS
+import jakarta.validation.*;
+import jakarta.ws.rs.client.*; // To use JAX-RS
 
 import org.apache.commons.logging.*; // To use Log
 import org.openxava.util.*;

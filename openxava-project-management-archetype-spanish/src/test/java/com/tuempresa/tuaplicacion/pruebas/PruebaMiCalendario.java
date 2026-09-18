@@ -3,7 +3,7 @@ package com.tuempresa.tuaplicacion.pruebas;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openqa.selenium.*;
 import org.openxava.jpa.*;

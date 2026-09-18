@@ -1,9 +1,7 @@
 package com.tuempresa.tuaplicacion.acciones; // En el paquete 'acciones'
 
-import java.rmi.*;
 import java.util.*;
 
-import javax.ejb.*;
 
 import org.openxava.actions.*; // Para usar AddElementsToCollectionAction
 import org.openxava.model.*;
@@ -23,7 +21,7 @@ public class AnyadirPedidosAFactura
     protected void associateEntity(Map clave) // El método llamado para asociar
         throws ValidationException, // cada entidad a la principal, en este caso para
             XavaException, ObjectNotFoundException,// asociar cada pedido a la factura
-            FinderException, RemoteException
+            FinderException
     {
         super.associateEntity(clave); // Ejecuta la lógica estándar 
         Pedido pedido = (Pedido) MapFacade.findEntity("Pedido", clave); 

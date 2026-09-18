@@ -52,7 +52,7 @@ public class EliminarSeleccionadoParaFacturacion
                         clave,
                         valores);
                 }
-                catch (javax.validation.ValidationException ex) { // Si se produce una ValidationException..
+                catch (jakarta.validation.ValidationException ex) { // Si se produce una ValidationException..
                     addError("no_delete_row", i, clave);
                     addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...mostramos el mensaje
                 }

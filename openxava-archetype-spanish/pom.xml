@@ -10,7 +10,7 @@
 	<properties>
 		<openxava.version>8.0-SNAPSHOT</openxava.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-		<!-- Las aplicaciones OpenXava funcionan bien con Java 1.8, 11, 17, 21 y 25 -->
+		<!-- Las aplicaciones OpenXava funcionan bien con Java 17, 21 y 25 -->
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
@@ -107,13 +107,6 @@
 	                <source>${maven.compiler.source}</source>
 	                <target>${maven.compiler.target}</target>
 	                <encoding>${project.build.sourceEncoding}</encoding>
-	                <annotationProcessorPaths>
-	                    <path>
-	                        <groupId>org.projectlombok</groupId>
-	                        <artifactId>lombok</artifactId>
-	                        <version>1.18.40</version>
-	                    </path>
-	                </annotationProcessorPaths>
 	            </configuration>
 	        </plugin>
         			
@@ -158,7 +151,6 @@
 						WEB-INF/lib/neko-htmlunit-*.jar,
 						WEB-INF/lib/pdfbox-*.jar,
 						WEB-INF/lib/serializer-*.jar,
-						WEB-INF/lib/tomcat-*.jar,
 						WEB-INF/lib/websocket-*.jar,
 						WEB-INF/lib/xalan-*.jar,
 						WEB-INF/lib/xercesImpl-*.jar,
@@ -177,14 +169,44 @@
 			</plugin>
 			
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.1.0</version> 
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>4.1.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
-					<mainClass>${project.groupId}.${project.artifactId}.run.${project.artifactId}</mainClass>
+					<mainClass>${project.groupId}.${project.artifactId}.Application</mainClass>
 				</configuration>
 			</plugin>
+		
 		</plugins>
 	</build>
+
+	<!-- Enable annotation processing from classpath (Lombok via openxava); required since JDK 25.
+	     -proc:full only since JDK 23, so it lives in this profile to keep JDK 17 builds working. -->
+	<profiles>
+		<profile>
+			<id>jdk23-annotation-processing</id>
+			<activation>
+				<jdk>[23,)</jdk>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<configuration>
+							<proc>full</proc>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
