@@ -13,10 +13,9 @@ public class ReceiptTest extends ModuleTestBase {
 		super(testName, "Receipt");		
 	}
 
-	// TMR ME QUEDÉ POR AQUÍ: EL TEST FALLA REPRODUCIENDO EL BUG, FALTA CORREGIR EL BUG
-	// TMR   REVISAR EL NOMBRE DEL TEST
+	// TMR ME QUEDÉ POR AQUÍ: EL BUG ESTÁ RESUELTO Y TEST FUNCIONA, FALTA LANZAR LA SUITE
 	// TMR   DESPUÉS DE ESTO INVOICEDEMO Y MASTER-DETAIL ARCHETYPES DEBERÍA DE FUNCIONAR.
-	public void testTotalsRecalculatedWhenAddingRowsToElementCollection() throws Exception {
+	public void testCalculationTotalsRecalculatedWhenAddingRowsToElementCollection() throws Exception {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
