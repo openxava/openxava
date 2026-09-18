@@ -1,6 +1,6 @@
 package com.tuempresa.tuaplicacion.modelo;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.jpa.*;
 

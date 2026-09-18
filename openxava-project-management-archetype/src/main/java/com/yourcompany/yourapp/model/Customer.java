@@ -1,6 +1,6 @@
 package com.yourcompany.yourapp.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import lombok.*;
 

@@ -3,7 +3,7 @@ package com.tuempresa.tuaplicacion.acciones;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openxava.actions.*;
 import org.openxava.jpa.*;

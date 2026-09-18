@@ -1,7 +1,7 @@
 package com.tuempresa.tuaplicacion.web;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;

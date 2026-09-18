@@ -15,7 +15,7 @@ Pending Archetypes update (tmr)
     * openxava-invoicing-archetype-spanish
     * openxava-master-detail-archetype
     * openxava-master-detail-archetype-spanish
-    - openxava-project-management-archetype
+    * openxava-project-management-archetype
     - openxava-project-management-archetype-spanish
 - Comprobar que el menú de módulos y la página de login se ve bien.
     - La página de login se ve bien.

@@ -3,7 +3,7 @@ package com.yourcompany.yourapp.tests;
 import java.time.*;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import org.openqa.selenium.*;
 import org.openxava.jpa.*;
