@@ -13,18 +13,28 @@ Pending Archetypes update (tmr)
     * openxava-crm-archetype-spanish
     * openxava-invoicing-archetype
     * openxava-invoicing-archetype-spanish
-    - openxava-master-detail-archetype
-        MIGRADO
-        TMR ME QUEDÉ PROBANDOLO, FALLA EL DASHBOARD
-        TMR TENGO UN MD CON INSTRUCCIONES PARA MIGRAR ARQUETIPOS
-        El jrxml lo convierte en el aire, pero quizás deberíamos dejarlo convertido
-    - openxava-master-detail-archetype-spanish
-        MIGRADO, SIN PROBAR.
+    * openxava-master-detail-archetype
+    * openxava-master-detail-archetype-spanish
     - openxava-project-management-archetype
     - openxava-project-management-archetype-spanish
 - Comprobar que el menú de módulos y la página de login se ve bien.
     - La página de login se ve bien.
     - En el menú de módulos, el título de la aplicación no está alineado. NUEVA INCIDENCIA.
+- Añadir bug:
+    - MasterTest.testCreateReadUpdateDelete de openxava-master-detail-archetype falla:
+        junit.framework.ComparisonFailure: Total for column 6 does not match
+        Expected :152.00
+        Actual   :95.00
+        <Click to see difference>
+
+
+        	at junit.framework.Assert.assertEquals(Assert.java:100)
+        	at junit.framework.TestCase.assertEquals(TestCase.java:253)
+        	at org.openxava.tests.ModuleTestBase.assertTotalInList(ModuleTestBase.java:1953)
+        	at org.openxava.tests.ModuleTestBase.assertTotalInCollection(ModuleTestBase.java:1917)
+        	at org.openxava.tests.ModuleTestBase.assertTotalInCollection(ModuleTestBase.java:1935)
+        	at com.tesla.master8v3.tests.MasterTest.testCreateReadUpdateDelete(MasterTest.java:35)
+
 - Borrar MDs temporales.
 - Borrar pending.txt
 - Actualizar changelog (si es necesario).
