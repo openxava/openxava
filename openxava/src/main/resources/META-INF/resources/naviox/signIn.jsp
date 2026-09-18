@@ -18,7 +18,7 @@ String app = request.getParameter("application");
 String organizationName = modules.getOrganizationName(request);
 if (!Is.emptyString(organizationName)) organizationName += " - ";
 %>
-<div class="ox-sign-in-brand"><%=organizationName + modules.getApplicationLabel(request)%></div>
+<div id="sign_in_brand"><%=organizationName + modules.getApplicationLabel(request)%></div>
 <div id="sign_in_box">
 	<jsp:include page='<%="../xava/module.jsp?application=" + app + "&module=SignIn"%>'/>
 </div>
