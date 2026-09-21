@@ -77,7 +77,7 @@ public class ChatTest extends WebDriverTestBase {
         openChatPanelWithShowButton();
         assertChatPanelVisible();
     }
-    
+
     public void testChatPanelContentVisibleAfterBrowserResize() throws Exception {
         setWindowWidth(1750);
         goModule("Customer");
@@ -241,7 +241,7 @@ public class ChatTest extends WebDriverTestBase {
             append(" style=").append(element.getAttribute("style")).
             append("; ");
     }
-    
+
     public void testTabBaseConditionAppliedToChat_recordsNoInListRecognized_multilingual_chatNotHideModuleOnInit() throws Exception {
         setWindowWidth(1750); // In order chat will be shown on init
         goModule("Invoice");

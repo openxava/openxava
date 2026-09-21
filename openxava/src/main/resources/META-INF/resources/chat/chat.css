@@ -528,7 +528,7 @@
 	color: var(--module-list-hide-show-hover-color);
 }
 
-#module_header_chat_button {
+#module_header_right #module_header_chat_button {
 	display: none;
 	cursor: pointer;
 }
@@ -546,8 +546,8 @@
 		display: block;
 	}
 
-	#module_header_chat_button {
-		display: inline;
+	#module_header_right #module_header_chat_button {
+		display: inline-flex;
 	}
 	
 	.module-wrapper {
