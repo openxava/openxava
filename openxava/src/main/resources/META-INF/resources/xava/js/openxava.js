@@ -283,11 +283,11 @@ openxava.initForms = function() {
 }
 
 openxava.initEditorsEvents = function(application, module) { 
-	$('.xava_onchange .editor').off('change').change(function() {
+	$('.xava_onchange .editor, .xava_onchange input[type="hidden"]').off('change').change(function() {
 		var container = $(this).closest('.xava_onchange');
   		openxava.throwPropertyChanged(application, module, container.data('property'));
 	});
-	$('.xava_onchange_calculate .editor, input.xava_onchange_calculate').off('change').change(function() {
+	$('.xava_onchange_calculate .editor, .xava_onchange_calculate input[type="hidden"], input.xava_onchange_calculate').off('change').change(function() {
 		var container = $(this).closest('.xava_onchange_calculate');
   		let index = 0;
 		while (container.data(`calculated-property-${index}`) !== undefined) {
@@ -1249,7 +1249,9 @@ openxava.calculate = function(application, module, propertyId, scale) {
 	}
 	else {
 		element.text(value); 
-		$('input[type="hidden"][name="' + propertyId + '"]').val(value);
+		var hidden = $('input[type="hidden"][name="' + propertyId + '"]');
+		hidden.val(value);
+		hidden.change(); 
 	}
 }
 
