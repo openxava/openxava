@@ -20,11 +20,7 @@
       / <a href="index_en.html">documentation</a> / </span> 
       Getting started with OpenXava 
     </h1>
-    <p>Follow the next video to create and run your first OpenXava project using IntelliJ IDEA:</p>
-    <p><a href="https://youtu.be/DZGAgcPps-g" target="_blank"><em>
-      <img src="files/getting-started_en010.png"
-        alt="Video thumbnail: Getting started with OpenXava in IntelliJ"></em></a></p>
-    <p>Or if you don't like videos follow the instructions below.</p>
+    <p>Follow the instructions below to create and run your first OpenXava project using IntelliJ IDEA:</p>
 
     <h2 id="toc2">
       <a name="Creating-a-new-project-in-IntelliJ"></a>
@@ -42,8 +38,7 @@
         <i>Maven Central</i> and in the <i>Archetype</i> field type <i>openxava</i> so it
         shows you all the OpenXava archetypes. There choose <i>openxava-archetype</i>.
         </p>
-    <p>As version choose the latest available OpenXava version, which is currently <b>7.7.3</b>.
-    <strong style="color: red;">Never choose version 7.X.X.</strong></p>
+    <p>As version choose the latest available OpenXava version, which is currently <b>8.0</b>.</p>
     <p><img src="files/getting-started_en026.png" alt="Selecting openxava-archetype from Maven Central"></p>
     <p>To finish, go to the bottom of the dialog and open the <i>Advanced Settings</i> section
     and in the <i>GroupId</i> field put <i>com.yourcompany</i> which is the value we will use in this
@@ -52,14 +47,6 @@
     <p>If everything went well, the dialog should look more or less like this:</p>
     <p><img src="files/getting-started_en030.png" alt="Complete New Project dialog ready to create"></p>
     <p>Click the <i>Create</i> button to create the project.</p>
-    <p>Once the new project is created, we need to do a <i>mvn package</i> to get it ready
-    to work. This is something you only need to do the first time. Click on the button with an
-    <i>M</i> on the right side of IntelliJ. This opens the Maven view where you need to click
-    the "Execute Maven Goal" button:</p>
-    <p><img src="files/getting-started_en032.png" alt="Maven view with Execute Maven Goal button"></p>
-    <p>This brings up a dialog where you can choose the task you want to execute. In this case
-    choose <i>mvn package</i>:</p>
-    <p><img src="files/getting-started034.png" alt="Execute Maven Goal dialog with mvn package"></p>
     <p>Now your project is ready to start writing code:</p>
     <p><img src="files/getting-started_en040.png" alt="Project structure ready to write code"></p>
 
@@ -89,7 +76,7 @@ public class Customer {
       <em>number</em> and <i>name</i> properties:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
@@ -111,12 +98,12 @@ public class Customer {
       Let's run it.</p>
 
     <h2 id="running-the-application">Running the application</h2>
-    <p>Open the <em>com.yourcompany.invoicing.run</em> package and right-click on
-        the <i>invoicing</i> class and choose <i>Run 'invoicing.main()'</i>:</p>
-    <p><img src="files/getting-started_en150.png" alt="Run invoicing.main() context menu option"></p>
-    <p>Wait until the console shows a message saying "Application started", 
+    <p>Open the <em>com.yourcompany.invoicing</em> package and right-click on
+        the <i>InvoicingApplication</i> class and choose <i>Run 'InvoicingApplication.main()'</i>:</p>
+    <p><img src="files/getting-started_en150.png" alt="Run InvoicingApplication.main() context menu option"></p>
+    <p>Wait until the console shows a message saying "Started InvoicingApplication", 
       like this:</p>
-    <p><img src="files/getting-started_en155.png" alt="Console showing Application started message"></p>
+    <p><img src="files/getting-started_en155.png" alt="Console showing Started InvoicingApplication message"></p>
     <p>Your application is now running. To see it, open your favorite browser 
       (Chrome, Firefox, Edge or Safari) and go to the following URL:</p>
     <p><code><i>&nbsp;&nbsp;&nbsp; 
@@ -148,7 +135,7 @@ public class Customer {
     <p>Write the next code for <em>Product</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
@@ -166,7 +153,6 @@ public class Product {
     <p>Now, click the <i>Rerun</i> button, which is the green button at the top
         of the IDE. This stops the application and restarts it:</p>
     <p><img src="files/getting-started_en195.png" alt="Rerun button in IntelliJ toolbar"></p>
-    <p><b>Note:</b> In recent versions of OpenXava, it's no longer necessary to restart the application to see the changes, thanks to <a href="hot-code-reloading_en.html">hot code reloading</a>.</p>
     <p>To see your new entity in action open your browser and go to the URL:</p>
     <p><code><i>&nbsp;&nbsp;&nbsp; 
       <a href="http://localhost:8080/invoicing/modules/Product" target="_blank">
@@ -283,18 +269,6 @@ public class Product {
         <li><a class="wiki_link" href="testing_en.html">Appendix D: Automated
             testing</a></li>
       </ul>
-    </ul>
-    <p>You're ready to continue to the next lesson, however you should consider 
-      acquiring some base knowledge, such as:</p>
-    <ul>
-      <li>If you're new to Java you should read an introductory Java book or read the
-        <a class="wiki_link_ext" href="https://dev.java/learn/"
-          rel="nofollow">official Java documentation</a>.</li>
-      <li>If you're interested in the philosophy and architecture of OpenXava 
-        <a class="wiki_link" href="philosophy_en.html">read the appendix A</a> of this course.</li>
-      <li>The appendices B and C about <a class="wiki_link" href="jpa_en.html">Java 
-        Persistence API</a> and <a class="wiki_link" href="annotations_en.html">annotations</a> 
-        will be very useful for you.</li>
     </ul>
     <p>Do you want to use another IDE? Do you want to go against MySQL,
       PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want 
