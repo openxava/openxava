@@ -13,8 +13,6 @@ public class ReceiptTest extends ModuleTestBase {
 		super(testName, "Receipt");		
 	}
 
-	// TMR
-	// TMR FALTA PPROBAR INVOICEDEMO Y MASTER-DETAIL ARCHETYPES
 	public void testCalculationTotalsRecalculatedWhenAddingRowsToElementCollection() throws Exception {
 		execute("CRUD.new");
 		setValue("year", "2026");
