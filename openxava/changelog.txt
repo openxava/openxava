@@ -1,96 +1,111 @@
 Change Log for OpenXava project
 ===============================
 
-- AGENTS.md in archetypes updated for OpenXava 8: instructs AI agents to use jakarta.* imports.
-- Code examples for AI agents are now linked from GitHub instead of a generated .xava folder.
-- openxava-agents-examples artifact removed; the .xava folder is no longer generated in new projects.
-- AI coding assistants documentation updated for OpenXava 8.
+Spring Boot
+- Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
+- Generated WAR is executable directly via java -jar, without an application server.
+- Dependency versions are now aligned with Spring Boot 4.1.
+- Root context configuration done in application.properties instead of AppServer.run("").
+- error404.html and error500.html no longer included; Spring Boot whitelabel error pages used instead.
+- javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
+- web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
+- applicationPort property removed from xava.properties; configure the port using Spring Boot settings.
+- AppServer class removed. Launcher class should now extend OpenXavaApplication.
+- Hibernate version no longer fixed in pom.xml; it now uses the version provided by the Spring Boot BOM.
+- DataSource definition moved from context.xml to application.properties.
+- Several datasources can be declared in application.properties with the openxava.datasources.* prefix.
+
+Jakarta EE 11
+- Jakarta EE 11 support.
+- Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
+- Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
+- Generated WAR is deployable in a standalone Tomcat 11.
+- JavaMail upgraded to Jakarta Mail 2.1 (Eclipse Angus 2.0.5).
+- Upgraded from javax.inject (JSR 330) to Jakarta Dependency Injection 2.0.1.
+- JAX-RS 4.0 support. Dropped support for JAX-RS 2.1.
+- Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
+- WebSocket upgraded to Jakarta WebSocket 2.2.
+- Jakarta Validation 3.1 support. Dropped support for Bean Validation 2.0.
+- Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
+- Java 17 as baseline. Dropped support for Java 8 and 11.
+
+Modern look
 - New modern look and feel for the whole user interface, comparable to current leading web applications.
 - New light theme with a clean slate palette and indigo accent color.
 - Polished dark theme with a real black zinc palette and improved text legibility.
+- Element collections now have a clean spreadsheet look with hairline row separators.
+- Required fields are now marked with a red asterisk next to the label.
+- Boolean fields are now shown as switches instead of checkboxes.
+- Row actions in collections and lists are revealed on mouse hover or keyboard focus.
+- New thin top progress bar for loading, shown only when an operation takes more than a moment.
+- Field labels are now placed on top of the fields by default.
+- @LargeDisplay row now distributes cards evenly across the full width.
 - New Auto theme that follows the operating system light or dark preference automatically.
 - Theme chooser simplified to Auto, Light and Dark.
 - Removed terra.css, blue.css and black-and-white.css themes.
-- Required fields are now marked with a red asterisk next to the label.
-- Boolean fields are now shown as switches instead of checkboxes.
-- Field labels are now placed on top of the fields by default.
-- Success, warning and information messages shown as modern toast notifications that close automatically.
-- Element collections now have a clean spreadsheet look with hairline row separators.
-- Row actions in collections and lists are revealed on mouse hover or keyboard focus.
-- New thin top progress bar for loading, shown only when an operation takes more than a moment.
-- @LargeDisplay row now distributes cards evenly across the full width.
 - Removed legacy portal stylesheets default.css and skins.css; the fallback CSS in Style is now auto.css.
+- Success, warning and information messages shown as modern toast notifications that close automatically.
+
+Modern guts
+- New user interface generator written in pure Java. Dropped legacy JSP renderer.
+- Removed dependencies on J2EE and Java EE APIs.
+- Removed javax.ejb dependency.
+- Replaced EJB-specific exceptions with OpenXava exceptions.
+- RemoteException is no longer used as a general system exception; many methods no longer throw it.
+- Runtime exceptions are no longer declared in throws clauses.
+- DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
+
+Miscelanea
+- All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
+- AGENTS.md in archetypes updated for OpenXava 8: instructs AI agents to use jakarta.* imports.
+- Code examples for AI agents are now linked from GitHub instead of a generated .xava folder.
+- openxava-agents-examples artifact removed; the .xava folder is no longer generated in new projects.
 - New readOnlyAsLabel attribute for the xava:editor taglib.
 - jquery-ui.css and smoothness/jquery-ui.css (plus its theme images) removed.
 - HSQLDB database is automatically shut down by DBServer when the application stops.
-- Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 - DBServer automatically compresses .lobs files into .lobs.zip files when the HSQLDB database stops.
 - New getDefaultSchema() and setDefaultSchema() methods in PersistenceFacade.
 - New rollBack() method in MapFacade.
-- New user interface generator written in pure Java. Dropped legacy JSP renderer.
 - Session attribute xava.coreViaAJAX renamed to xava.coreViaHotwire.
-- JavaMail upgraded to Jakarta Mail 2.1 (Eclipse Angus 2.0.5).
-- Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
 - New projects created from archetypes no longer require an explicit Lombok version in pom.xml.
-- Java 25 documentation improved to include the explicit Lombok version in the pom.xml.
+- Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
+- Added YesNoConverter JPA converter to improve compatibility with databases that use PAD SPACE collation.
+- New UUID32 annotation for 32-character UUID support in Hibernate 7.
+- Replaced raw collection types with generics in View, Tab, MapFacade and other core classes.
+- Cleaned up unchecked warnings in OpenXava codebase.
+- @Columns annotation removed by Hibernate; use @CompositeType with @AttributeOverrides instead.
+- DBManager in new projects is now located in the tools package. The run package no longer exists.
+
+Librerias
+- Hibernate upgraded to 7.4.1.
+- LangChain4J upgraded to 1.18.1.
+- JasperReports upgraded to 7.0.7.
 - Commons Validator upgraded to 1.11.0.
 - JSoup upgraded to 1.23.1.
 - HtmlUnit upgraded to 5.2.0.
 - PDFBox upgraded to 3.0.8.
 - JSON upgraded to 20260719.
 - HotSwapAgent upgraded to 2.0.3 (provided dependency so jar is not included).
-- LangChain4J upgraded to 1.18.1.
 - CommonMark upgraded to 0.29.0.
 - Lombok upgraded to 1.18.46.
-- JasperReports upgraded to 7.0.7.
-- Embedded fonts in the sample report in invoicedemo for consistent rendering across all platforms.
 - Commons Collections 4 upgraded to 4.5.0.
-- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
-- Removed dependencies on J2EE and Java EE APIs.
-- Removed javax.ejb dependency.
-- Replaced EJB-specific exceptions with OpenXava exceptions.
-- RemoteException is no longer used as a general system exception; many methods no longer throw it.
-- Runtime exceptions are no longer declared in throws clauses.
-- Upgraded from javax.inject (JSR 330) to Jakarta Dependency Injection 2.0.1.
-- Root context configuration done in application.properties instead of AppServer.run("").
-- Documentation article on deploying in production as a standalone application without Tomcat.
-- Generated WAR is executable directly via java -jar, without an application server.
-- Tomcat deployment documentation updated for OpenXava 8 and Tomcat 11.
-- Generated WAR is deployable in a standalone Tomcat 11.
-- error404.html and error500.html no longer included; Spring Boot whitelabel error pages used instead.
-- Dependency versions are now aligned with Spring Boot 4.1.
-- Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
-- javaLoggingLevel properties in xava.properties removed; use logging.level in application.properties.
-- web.xml is no longer used; define servlets, filters, listeners, etc. via annotations.
-- JAX-RS 4.0 support. Dropped support for JAX-RS 2.1.
 - Jersey upgraded to 4.0.2.
-- Jakarta JSON Binding 3.0.1 support. Dropped support for JSON Binding 1.0.
-- applicationPort property removed from xava.properties; configure the port using Spring Boot settings.
-- DBManager in new projects is now located in the tools package. The run package no longer exists.
-- AppServer class removed. Launcher class should now extend OpenXavaApplication.
-- DataSource definition moved from context.xml to application.properties.
-- Several datasources can be declared in application.properties with the openxava.datasources.* prefix.
-- Added YesNoConverter JPA converter to improve compatibility with databases that use PAD SPACE collation.
-- All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
-- WebSocket upgraded to Jakarta WebSocket 2.2.
-- Jakarta EE 11 support.
-- Reference Guide updated for Jakarta EE 11.
-- Object/relational mapping article in the Reference Guide updated for Jakarta Persistence 3.2/Hibernate 7.
-- Annotations doc updated to include all new annotations from Jakarta Validation and Hibernate Validator.
-- JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
-- Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
-- Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
-- DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
-- New UUID32 annotation for 32-character UUID support in Hibernate 7.
-- Replaced raw collection types with generics in View, Tab, MapFacade and other core classes.
-- Cleaned up unchecked warnings in OpenXava codebase.
-- Java 17 as baseline. Dropped support for Java 8 and 11.
-- Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
-- Jakarta Validation 3.1 support. Dropped support for Bean Validation 2.0.
 - Hibernate Validator upgraded to 9.1.0.
-- Hibernate upgraded to 7.4.1.
-- Hibernate version no longer fixed in pom.xml; it now uses the version provided by the Spring Boot BOM.
-- @Columns annotation removed by Hibernate; use @CompositeType with @AttributeOverrides instead.
+- Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
+
+Doc
+- Documentation article on deploying in production as a standalone application without Tomcat.
+- Tomcat deployment documentation updated for OpenXava 8 and Tomcat 11.
+- Java 25 documentation improved to include the explicit Lombok version in the pom.xml.
+- Annotations doc updated to include all new annotations from Jakarta Validation and Hibernate Validator.
+- Object/relational mapping article in the Reference Guide updated for Jakarta Persistence 3.2/Hibernate 7.
+- Reference Guide updated for Jakarta EE 11.
+- JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
+- AI coding assistants documentation updated for OpenXava 8.
+
+Fixes
+- Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
+- Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 
 OpenXava 7.7.3 (2026-6-5)
 -------------------------
