@@ -85,14 +85,7 @@
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-What%27s%20the%20best%20way%20of%20validating?">What's the best way of validating?</a></div>
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
       </div>
-      In the last lesson we looked at validation alternatives to perform on save. In this lesson we are going to look at validation on remove. <a
-
-        href="https://www.youtube.com/watch?v=VYFfLFuylQo&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=21"
-
-        target="_blank"><img src="files/validation-on-remove-video_en.png"
-
-          title="Video for lesson 20: Validation on remove"></a><br>
-      If you don't like videos follow the instructions below.
+      In the last lesson we looked at validation alternatives to perform on save. In this lesson we are going to look at validation on remove.
       <h2 id="toc7"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating on removal with @RemoveValidator"></a>Validating on removal with <em>@RemoveValidator</em></h2>
       The validations we have seen until now are processed when the entity is modified, but sometimes it's useful or it's required to process the validation before the removal of the entity, and to use the validation to cancel the entity removal.<br>
       We are going to modify the application to reject the removal of an order if it has an invoice associated. To achieve this annotate your <em>Order</em> entity with <i>@RemoveValidator</i>, as show in following code:<br>
@@ -139,7 +132,7 @@ public class Order extends CommercialDocument {
       <pre><code class="language-java">@PreRemove // Just before removing the entity
 private void validateOnRemove() {
     if (invoice != null) { // The validation logic
-        throw new javax.validation.ValidationException( // Throws a runtime exception
+        throw new jakarta.validation.ValidationException( // Throws a runtime exception
             XavaResources.getString( // To get the text message
                 "cannot_delete_order_with_invoice"));
     }
@@ -153,11 +146,6 @@ private void validateOnRemove() {
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-20"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
     <div class="wiki" style="display: block;"><br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

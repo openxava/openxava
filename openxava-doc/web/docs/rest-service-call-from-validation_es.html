@@ -62,12 +62,6 @@
       En la lección anterior vistes como crear una anotación Bean Validation
       propia. En esta leccion verás como se llama a un servicio web REST para
       validar el ISBN.<br>
-      <a href="https://www.youtube.com/watch?v=rqBr3X9RgRw&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=22"
-
-        target="_blank"><img src="files/rest-service-call-from-validation-video_es.png"
-
-          title="Video para la lección 22: Llamada REST desde una validación"></a><br>
-      Si no te gustan los videos sigue las instrucciones a continuación.
       <h2 id="toc14"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Llamar-a-un-servicio-web-REST-para-validar-el-ISBN"></a>Llamar
         a un servicio web REST para validar el ISBN</h2>
       Aunque la mayoría de los validadores tienen una lógica simple, puedes
@@ -111,39 +105,39 @@
         usaremos JAX-RS. JAX-RS es el estándar Java para llamar a servicios web
         REST. OpenXava incluye soporte para llamar a servicios web usando
         JAX-RS, por lo que no necesitas añadir ninguna librería adicional.<br>
-        Modifiquemos <em>ValidadorISBN</em> para usar este servicio <em>REST</em>.
+        Modifiquemos <em>ISBNValidator</em> para usar este servicio <em>REST</em>.
         Veamos el resultado:<br>
-        <pre><code class="language-java">package com.tuempresa.facturacion.validadores; 
+        <pre><code class="language-java">package com.yourcompany.invoicing.validators; 
 
-import javax.validation.*;
-import javax.ws.rs.client.*; // Para usar JAX-RS
-import com.tuempresa.facturacion.anotaciones.*;
+import jakarta.validation.*;
+import jakarta.ws.rs.client.*; // Para usar JAX-RS
+import com.yourcompany.invoicing.annotations.*;
 import org.apache.commons.logging.*; // Para usar Log
 import org.openxava.util.*;
  
-public class ValidadorISBN
+public class ISBNValidator
     implements ConstraintValidator&lt;ISBN, Object&gt; {
 	
-    private static Log log = LogFactory.getLog(ValidadorISBN.class); // Instancia 'log'
+    private static Log log = LogFactory.getLog(ISBNValidator.class); // Instancia 'log'
  
     private static org.apache.commons.validator.routines.ISBNValidator
-        validador = 
+        validator = 
             new org.apache.commons.validator.routines.ISBNValidator();
  
     public void initialize(ISBN isbn) {
  
     }
  
-    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
-        if (Is.empty(valor)) return true;
-        if (!validador.isValid(valor.toString())) return false;
-        return existeISBN(valor); // Aquí hacemos la llamada REST
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (Is.empty(value)) return true;
+        if (!validator.isValid(value.toString())) return false;
+        return isbnExists(value); // Aquí hacemos la llamada REST
     }
     
-    private boolean existeISBN(Object isbn) {
+    private boolean isbnExists(Object isbn) {
         try {
             // Aquí usamos JAX-RS para llamar al servicio REST
-            String respuesta = ClientBuilder.newClient()
+            String response = ClientBuilder.newClient()
                 .target("http://openlibrary.org/") // El sitio
                 .path("/api/books") // La ruta del servicio
                 .queryParam("jscmd", "data") // Los parámetros
@@ -151,7 +145,7 @@ public class ValidadorISBN
                 .queryParam("bibkeys", "ISBN:" + isbn) // El ISBN es un parámetro
                 .request()
                 .get(String.class); // Una cadena con el JSON
-            return !respuesta.equals("{}"); // ¿Está el JSON vacío? Suficiente para nuestro caso
+            return !response.equals("{}"); // ¿Está el JSON vacío? Suficiente para nuestro caso
         }
         catch (Exception ex) {
             log.warn("Imposible conectar a openlibrary.org " +
@@ -167,8 +161,8 @@ public class ValidadorISBN
       en caso contrario hemos encontrado el libro. Para nuestro caso, obtener el
       JSON como una cadena para poder hacer una comparación simple es el camino
       más corto, sin embargo JAX-RS permite convertir el JSON en un objeto Java
-      de tu propia clase (<i>Libro</i> por ejemplo) rellenando las propiedades
-      correspondientes, sólo has de usar <i>.get(Libro.class)</i> en lugar de <i>.get(String.class)</i>
+      de tu propia clase (<i>Book</i> por ejemplo) rellenando las propiedades
+      correspondientes, sólo has de usar <i>.get(Book.class)</i> en lugar de <i>.get(String.class)</i>
       como última línea de la llamada. </div>
     <div class="wiki" style="display: block;"> Prueba ahora tu aplicación y
       verás como si introduces un ISBN no existente la validación falla.<br>
@@ -178,14 +172,7 @@ public class ValidadorISBN
       añadir atributos a tu anotación.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"> <strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-22"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><br>
-      </strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>¿Problemas
+    <div class="wiki" style="display: block;"><strong>¿Problemas
         con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?

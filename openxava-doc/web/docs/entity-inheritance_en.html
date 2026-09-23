@@ -94,15 +94,6 @@
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       An entity may inherit from another entity. This entity inheritance is a useful tool to simplify your model. We are going to use it to add a new <em>Order</em> entity to your <em>invoicing</em> application.<br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=HDcyGI-A0o0&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=8"
-
-          target="_blank"><img src="files/entity-inheritance-video_en.png"
-
-            title="Video for lesson 7: Entity inheritance"></a><br>
-      </div>
-      <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
-      <div class="wiki" style="display: block;"><br>
-      </div>
       <h2><a name="new-order-entity"></a>New Order entity</h2>
       We want to add a new concept to the <em>invoicing</em> application, i. e., order. While an invoice is something you want to charge your customer, an order is something the customer has ordered from us. These two concepts are strongly related, because you will charge the things your customer has ordered from you, and you actually have served him.<br>
       It would be nice to manage orders in your application, and to associate those orders with its corresponding invoices. Just as shown in the next UML diagram:<br>
@@ -149,7 +140,7 @@ public class Invoice extends CommercialDocument { ... }
       Now, you have to create the <em>Invoice</em> entity extending it from <em>CommercialDocument</em>. See the new <em>Invoice</em> code:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
  
 @Entity @Getter @Setter
@@ -168,12 +159,12 @@ DROP TABLE INVOICE;
 
         title="inheritance_en050.png"><br>
       Now you can execute the <em>Invoice</em> module and see it working in your browser. Also, execute the <em>InvoiceTest</em>. It must be green.</div>
-    <div class="wiki" style="display: block;">If you use your own version of Eclipse or IntelliJ you can run the Database Manager executing the <i>runDBManager</i> Ant target of <i>OpenXava/build.xml</i>.<br>
+    <div class="wiki" style="display: block;">
       <h2><a name="creating-order-using-inheritance"></a>Creating Order using inheritance</h2>
       Thanks to <em>CommercialDocument</em> creating the <em>Order</em> entity is dead easy. See the code:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
  
 @Entity @Getter @Setter
@@ -212,7 +203,7 @@ public class Order extends CommercialDocument {
       You only need to add a reference from <em>Order</em> to <em>Invoice</em>:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
  
 @Entity @Getter @Setter
@@ -226,7 +217,7 @@ public class Order extends CommercialDocument {
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import java.util.*; 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
  
 @Entity @Getter @Setter
@@ -246,12 +237,7 @@ public class Invoice extends CommercialDocument {
         class="wiki_link" href="jpa_en.html">Appendix B</a>.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
-    <div class="wiki" style="display: block;"> <br>
+    <div class="wiki" style="display: block;">
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 
           rel="nofollow">Ask in the forum</a></strong> <strong>Everything fine? <a

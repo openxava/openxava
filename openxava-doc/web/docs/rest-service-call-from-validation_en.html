@@ -64,12 +64,7 @@
       In the last lesson you saw how to create your custom Bean Validation
       annotation. In this lesson you will see how to call a REST web service to
       validate the ISBN.<br>
-      <a href="https://www.youtube.com/watch?v=CbLe-kNNpcc&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=22"
-
-        target="_blank"><img src="files/rest-service-call-from-validation-video_en.png"
-
-          title="Video for lesson 22: REST service call from validation"></a><br>
-      If you don't like videos follow the instructions below. </div>
+    </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation-Call to a REST web service to validate the ISBN"></a>Call
         to a REST web service to validate the ISBN</h2>
@@ -113,8 +108,8 @@
       See the result:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.validators; 
 
-import javax.validation.*;
-import javax.ws.rs.client.*; // To use JAX-RS
+import jakarta.validation.*;
+import jakarta.ws.rs.client.*; // To use JAX-RS
 import com.yourcompany.invoicing.annotations.*;
 import org.apache.commons.logging.*; // To use Log
 import org.openxava.util.*;
@@ -175,9 +170,6 @@ public class ISBNValidator
       attributes in annotations.&nbsp; <strong></strong></div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-22"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
     <div class="wiki" style="display: block;"><br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

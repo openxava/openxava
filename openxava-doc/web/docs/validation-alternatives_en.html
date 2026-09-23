@@ -86,12 +86,6 @@
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a></div>
       </div>
       In the last lesson you looked at how to validate using <i>@EntityValidator</i>. In this lesson you are going to learn how to execute this same validation with much less effort.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=Ffz0ZATeIRI&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-
-        target="_blank"><img src="files/validation-alternatives-video_en.png"
-
-          title="Video for lesson 19: Validation alternatives"></a><br>
-      If you don't like videos follow the instructions below. </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc4"><a name="Lesson 6: Advanced validation-Validation alternatives-Validating with a JPA callback method"></a>Validating with a JPA callback method</h2>
       We're going to try another, maybe even simpler, way to do this validation, we'll transfer the validation logic from the validator class into the <em>Order</em> entity itself, in this case in a <i>@PrePersist</i> and <i>@PreUpdate</i> method.<br>
@@ -111,7 +105,7 @@ public class Order extends CommercialDocument {
 private void validate()  throws Exception {
     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
         // The validation exception from Bean Validation
-        throw new javax.validation.ValidationException(
+        throw new jakarta.validation.ValidationException(
             XavaResources.getString(
                 "order_must_be_delivered",
                 getYear(),
@@ -145,7 +139,7 @@ private void recalculateDeliveryDays() {
 // private void validate()  throws Exception {
 //     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
 //         // The validation exception from Bean Validation
-//         throw new javax.validation.ValidationException(
+//         throw new jakarta.validation.ValidationException(
 //             XavaResources.getString( 
 //                 "order_must_be_delivered",
 //                 getYear(),
@@ -159,7 +153,7 @@ private void recalculateDeliveryDays() {
       <pre><code class="language-java">public void setInvoice(Invoice invoice) {
     if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
         // The validation exception from Bean Validation
-        throw new javax.validation.ValidationException(
+        throw new jakarta.validation.ValidationException(
             XavaResources.getString(
                 "order_must_be_delivered",
                 getYear(),
@@ -179,7 +173,7 @@ private void recalculateDeliveryDays() {
 // public void setInvoice(Invoice invoice) {
 //    if (invoice != null &amp;&amp; !isDelivered()) { // The validation logic
 //        // The validation exception from Bean Validation
-//        throw new javax.validation.ValidationException(
+//        throw new jakarta.validation.ValidationException(
 //            XavaResources.getString(
 //                "order_must_be_delivered",
 //                getYear(),
@@ -214,14 +208,7 @@ private boolean isDeliveredToBeInInvoice() {
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-19"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><br>
-      </strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>Any problem with this lesson? <a
+    <div class="wiki" style="display: block;"><strong>Any problem with this lesson? <a
 
           class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

@@ -75,12 +75,6 @@
       </div>
       In the last lesson you saw how to validate on remove. In this lesson you
       are going to see how to create your custom Bean Validation annotation.<br>
-      <a href="https://www.youtube.com/watch?v=3SocJGjX5ro&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=21"
-
-        target="_blank"><img src="files/custom-bean-validation-annotation-video_en.png"
-
-          title="Video for lesson 21: Custom Bean Validation annotation"></a><br>
-      If you don't like videos follow the instructions below.
       <h2 id="toc10"><a name="Lesson 6: Advanced validation-Creating your own Bean Validation annotation"></a>Creating
         your own <em>Bean Validation</em> annotation</h2>
       The techniques in the previous section are very useful for many
@@ -123,7 +117,7 @@ String isbn;
       <pre><code class="language-java">package com.yourcompany.invoicing.annotations; // In 'annotations' package
 
 import java.lang.annotation.*;
-import javax.validation.*;
+import jakarta.validation.*;
  
 @Constraint(validatedBy = com.yourcompany.invoicing.validators.ISBNValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
@@ -157,7 +151,7 @@ public @interface ISBN { // A regular Java annotation definition
       further configuration. The code for <em>ISBNValidator</em>:<br>
       <pre><code class="language-java">package com.yourcompany.invoicing.validators; // In 'validators' package
 
-import javax.validation.*;
+import jakarta.validation.*;
  
 import com.yourcompany.invoicing.annotations.*;
 import org.openxava.util.*;
@@ -179,7 +173,7 @@ public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; { 
     }
 }
 </code></pre> As you see, the validator class must implement <i>ConstraintValidator</i>
-      from the <em>javax.validation</em> package. This forces your validator to
+      from the <em>jakarta.validation</em> package. This forces your validator to
       implement <i>initialize()</i> and <i>isValid()</i>. The <i>isValid()</i>
       method contains the validation logic. Note that if the value to validate
       is empty we assume that it is valid. Validating when the value is present
@@ -193,7 +187,7 @@ String isbn;
 </code></pre>In this case when you save the class the import for <i>@ISBN</i>
       is not added automatically. This is because there is another <i>@ISBN</i>
       available (from Hibernate Validator library included in OpenXava), so
-      OpenXava Studio does not know which one to choose. Don't worry, just put
+      the IDE does not know which one to choose. Don't worry, just put
       your mouse over the <i>@ISBN</i> annotation and a popup will be shown
       with several possible solutions, choose <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> so the correct import will
@@ -214,10 +208,6 @@ String isbn;
       Congratulations! You have learned how to create your own <em>Bean
         Validation</em> annotation. In the next lesson you are going to learn
       how to call a REST service from a validation.&nbsp; </div>
-    <div class="wiki" style="display: block;"><br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-21"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
     <div class="wiki" style="display: block;"><br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

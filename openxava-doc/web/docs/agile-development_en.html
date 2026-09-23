@@ -88,15 +88,6 @@
         <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
       </div>
       Nowadays agile development is no longer a "new and breaking technique", but an established way to do software development, even the ideal way to go for many people.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=qejG_9BzgGA&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=5"
-
-        target="_blank"><img src="files/agile-development-video_en.png"
-
-          title="Video for lesson 5: Agile development with OpenXava"></a><br>
-    </div>
-    <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
     <div class="wiki" style="display: block;"> If you are not familiar with agile development you can have a look at <a
 
         href="https://agilemanifesto.org">agilemanifesto.org</a>. Basically, agile development encourages the use of feedback from a working product over a careful upfront design. This gives a more prominent role to programmers and users, and minimizes the importance of analysts and software architects.<br>
@@ -110,17 +101,15 @@
     <div class="wiki" style="display: block;">
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
 @Entity @Getter @Setter
 public class Author {
  
-    @Id @GeneratedValue(generator="system-uuid") @Hidden
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(length=32)
+    @Id @GeneratedValue(strategy=GenerationType.UUID) @Hidden
+    @Column(length=36)
     String oid;
  
     @Column(length=50) @Required
@@ -135,7 +124,7 @@ public class Author {
 Author author;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Thus, your <em>Product</em> entity has a reference to <em>Author</em>.<br>
-      Really you have written a little amount of code. In order to see the effect, restart your application clicking on <i>Run</i> button:</div>
+      Really you have written a little amount of code. In order to see the effect, restart your application clicking on <i>Rerun</i> button:</div>
     <div class="wiki" style="display: block;"><img src="files/getting-started_en195.png"
 
         alt="getting-started_en195.png" title="getting-started_en195.png"> </div>
@@ -163,10 +152,6 @@ Collection&lt;Product&gt; products;
       <span style="line-height: 1.5;">In this section you have the complete code and steps required to do changes and see the result in the most interactive way. You have seen how OpenXava is an agile tool, ideal for doing agile development.</span></div>
     <div class="wiki" style="display: block;">Yes! Now you have a working application with little effort. Although this application "as is" can be useful as a CRUD utility or a prototype, you still need to add validations, business logic, user interface behavior and so on in order to convert these entities you have written into a business application ready for your user.<br>
       You will learn all these advanced topics in the forthcoming lessons.<br>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-5"
-
-          rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

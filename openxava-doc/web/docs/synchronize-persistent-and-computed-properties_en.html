@@ -91,15 +91,6 @@
       </div>
     </div>
     <div class="wiki" style="display: block;">In the previous lesson we learned how to define default properties for development in multi-user environments, using <i>JPA callbacks</i>. We will now see how to synchronize both computed and persistent properties.<br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=k0neC8Q8VI4&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-
-          target="_blank"><img src="files/synchronize-persistent-and-computed-properties-video_en.png"
-
-            title="Video for lesson 16: Synchronize persistent and calculated properties"></a><br>
-      </div>
-      <div class="wiki" style="display: block;">If you don't like videos follow the instructions below.</div>
-      <div class="wiki" style="display: block;"><br>
-      </div>
       <h2 id="toc8"><a name="Lesson 5: Basic business logic-JPA callback methods-Synchronizing persistent and calculated properties"></a>Synchronizing persistent and calculated properties</h2>
       As we already have learned, calculated properties do not allow to filter or ordering in list, so we prefer persistent properties with <i>@Calculation</i>. However, <i>@Calculation</i> properties are only valid for simple arithmetic calculations. When you need loops, condition, read from database, connect to external services, or some complex logic, <i>@Calculation</i> is not enough. For these cases you need to write the logic with Java, in the getter. But, how we can do this and at the same time keep the ordering and filtering in list? Simple, you can use two properties, one calculated and one persistent, and synchronize both using JPA callback methods. You're going to learn how to do it in this section.</div>
     <div class="wiki" style="display: block;">Let's add a new property to <i>Order</i> entity called <i>estimatedDeliveryDays</i>:</div>
@@ -147,14 +138,6 @@ private void recalculateDeliveryDays() {
       <h2 id="toc14"><a name="Lesson 5: Basic business logic-Summary"></a>Summary</h2>
       In this lesson you have learned how easy it is to use JPA callback methods to define logic at different specific moments in the life cycle of an entity, allowing us to synchronize persistent and calculated properties when modifying an existing entity, or saving an entity for the first time.</div>
     <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-16"
-
-          rel="nofollow">Download source code of this lesson</a><br>
-      </strong></div>
-    <div class="wiki" style="display: block;"><strong></strong><br>
     </div>
     <div class="wiki" style="display: block;"> <strong>Any problem with this lesson? <a
 

@@ -86,42 +86,36 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       En la lección anterior aprendiste como llamar a un servicio REST para validar el ISBN. En esta lección vas a aprender a como añadir atributos a tu anotación.<br>
-      <a href="https://www.youtube.com/watch?v=A9ac4r1HoC8&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=23"
-
-        target="_blank"><img src="files/attributes-in-annotations-video_es.png"
-
-          title="Video para la lección 23: Atributos en anotaciones"></a><br>
-      Si no te gustan los videos sigue las instrucciones a continuación.
       <h2 id="toc15"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Anadir-atributos-a-tu-anotacion"></a>Añadir atributos a tu anotación</h2>
       Creas una anotación <em>Bean Validation</em> cuando quieres reutilizar la validación varias veces, usualmente en varios proyectos. En este caso, necesitas hacer tu validación adaptable, para que sea reutilizable de verdad. Por ejemplo, en el proyecto actual buscar en <a
 
         href="https://openlibrary.org/">openlibrary.org</a> el ISBN es conveniente, pero en otro proyecto, o incluso en otra entidad de tu actual proyecto, puede que no quieras hacer esa búsqueda. Necesitas hacer tu anotación más flexible.<br>
-      La forma de añadir esta flexibilidad a tu anotación de validación es mediante los atributos. Por ejemplo, podemos añadir un atributo de búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si queremos buscar el ISBN en internet para validar o no. Para hacerlo, simplemente añade el atributo <em>buscar</em> al código de la anotación <i>ISBN</i> que se encuentra en el paquete de la carpeta <i>com.tuempresa.facturacion.anotaciones</i>, tal como muestra el siguiente código:<br>
+      La forma de añadir esta flexibilidad a tu anotación de validación es mediante los atributos. Por ejemplo, podemos añadir un atributo de búsqueda booleano a nuestra anotación <em>ISBN</em> para poder escoger si queremos buscar el ISBN en internet para validar o no. Para hacerlo, simplemente añade el atributo <em>search</em> al código de la anotación <i>ISBN</i> que se encuentra en el paquete de la carpeta <i>com.yourcompany.invoicing.annotations</i>, tal como muestra el siguiente código:<br>
       <pre><code class="language-java">public @interface ISBN {
-    
-    boolean buscar() default true; // Para (des)activar la búsqueda web al validar
+    boolean search() default true; // Para (des)activar la búsqueda web al validar
+ 
     // ... el resto del código
 }
-</code></pre> Este nuevo atributo <em>buscar</em> puede leerse de la clase validador que se encuentra en la carpeta <i>com.tuempresa.facturacion.validadores</i>. Míra como modificarlo:<br>
-      <pre><code class="language-java">public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
+</code></pre> Este nuevo atributo <em>search</em> puede leerse de la clase validador que se encuentra en la carpeta <i>com.yourcompany.invoicing.validators</i>. Mira como modificarlo:<br>
+      <pre><code class="language-java">public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; {
     // ...
-    private boolean buscar; // Almacena la opción buscar
+    private boolean search; // Almacena la opción search
  
     public void initialize(ISBN isbn) { // Lee los atributos de la anotación
-        this.buscar = isbn.buscar();
+        this.search = isbn.search();
     }
  
-    public boolean isValid(Object valor, ConstraintValidatorContext contexto) {
-        if (Is.empty(valor)) return true;
-        if (!validador.isValid(valor.toString())) return false;
-        return buscar ? existeISBN(valor) : true; // Usa 'buscar'
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (Is.empty(value)) return true;
+        if (!validator.isValid(value.toString())) return false;
+        return search ? isbnExists(value) : true; // Usa 'search'
     }
     // ...
 }
-</code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la anotación para inicializar el validador. En este caso simplemente almacenamos el valor de <em>isbn.buscar()</em> para preguntar por él en <i>isValid()</i>.<br>
+</code></pre> Aquí ves la utilidad del método <i>initialize()</i>, que lee la anotación para inicializar el validador. En este caso simplemente almacenamos el valor de <em>isbn.search()</em> para preguntar por él en <i>isValid()</i>.<br>
       Ahora puedes escoger si quieres llamar a nuestro servicio REST o no para hacer la validación ISBN. Mira como:<br>
-      <pre><code class="language-java">public class Producto {<br>//...<br><br>@ISBN(buscar=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
-private String isbn; <br><br>//...<br>}<br></code></pre>
+      <pre><code class="language-java">public class Product {<br>//...<br><br>@ISBN(search=false) // En este caso no se hace una búsqueda en la web para validar el ISBN
+private String isbn;<br><br>//...<br>} <br></code></pre>
       Ahora prueba la aplicación y verás que la validación no se ejecuta.</div>
     <div class="wiki" style="display: block;"><br>
       <h2><a name="Resumen"></a>Resumen</h2>
@@ -138,11 +132,6 @@ private String isbn; <br><br>//...<br>}<br></code></pre>
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-23"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
     <div class="wiki" style="display: block;"><br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 

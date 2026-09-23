@@ -83,63 +83,56 @@
         <div style="margin-left: 2em;"><a href="#Alternativas-de-validacion-Cual-es-la-mejor-forma-de-validar">¿Cuál es la mejor forma de validar?</a></div>
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a> </div>
       </div>
-      En la lección anterior vimos alternativas de validación al grabar. En esta lección vamos a ver como validar al borrar. <a
-
-        href="https://www.youtube.com/watch?v=gKRsc54AmFI&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=21"
-
-        target="_blank"><img src="files/validation-on-remove-video_es.png"
-
-          title="Video para la lección 20: Validación al borrar"></a><br>
-      Si no te gustan los videos sigue las instrucciones a continuación.
+      En la lección anterior vimos alternativas de validación al grabar. En esta lección vamos a ver como validar al borrar.
       <h2 id="toc7"><a name="Alternativas-de-validacion-Validar-al-borrar-con-RemoveValidator"></a>Validar al borrar con <em>@RemoveValidator</em></h2>
       Las validaciones que hemos visto hasta ahora se hacen cuando la entidad se modifica, pero a veces es útil hacer la validación justo al borrar la entidad y usar la validación para vetar el borrado de la misma.<br>
-      Vamos a modificar la aplicación para impedir que un usuario borre un pedido si éste tiene una factura asociada. Para hacer esto anota tu entidad <em>Pedido</em> con <i>@RemoveValidator</i>, como se muestra a continuación:<br>
-      <pre><code class="language-java">@RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // La clase con la validación
-public class Pedido extends DocumentoComercial {
-</code></pre><em></em>Ahora, antes de borrar un pedido la lógica de <em>ValidadorBorrarPedido</em> se ejecuta y si la validación falla el pedido no se borra. Veamos el código de este validador:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
- 
-import com.tuempresa.facturacion.modelo.*;
+      Vamos a modificar la aplicación para impedir que un usuario borre un pedido si éste tiene una factura asociada. Para hacer esto anota tu entidad <em>Order</em> con <i>@RemoveValidator</i>, como se muestra a continuación:<br>
+      <pre><code class="language-java">@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // La clase con la validación
+public class Order extends CommercialDocument {
+</code></pre><em></em>Ahora, antes de borrar un pedido la lógica de <em>OrderRemoveValidator</em> se ejecuta y si la validación falla el pedido no se borra. Veamos el código de este validador:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.validators; // En el paquete 'validators'
+
+import com.yourcompany.invoicing.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
  
-public class ValidadorBorrarPedido
+public class OrderRemoveValidator
     implements IRemoveValidator { // Ha de implementar 'IRemoveValidator'
  
-    private Pedido pedido;
+    private Order order;
  
     public void setEntity(Object entity) // La entidad a borrar se inyectará...
         throws Exception // ...con este método antes de la validación
     {
-        this.pedido = (Pedido) entity;
+        this.order = (Order) entity;
     }
  
     public void validate(Messages errors) // La lógica de validación
         throws Exception
     {
-        if (pedido.getFactura() != null) {
+        if (order.getInvoice() != null) {
             // Añadiendo mensajes a 'errors' la validación fallará y el
             // borrado se abortará
-            errors.add("no_puede_borrar_pedido_con_factura");
+            errors.add("cannot_delete_order_with_invoice");
         }
     }
 }
-</code></pre> La lógica de validación está en el método <i>validate()</i>. Antes de llamarlo la entidad a validar es inyectada usando <i>setEntity()</i>. Si se añaden mensajes al objeto <i>errors</i> la validación fallará y la entidad no se borrará. Has de añadir el mensaje de error en el archivo <em>facturacion/src/main/resources/i18n/facturacion-messages_es.properties</em>:<br>
-      <pre><code class="language-properties">no_puede_borrar_pedido_con_factura=Pedido asociado a factura no puede ser eliminado
+</code></pre> La lógica de validación está en el método <i>validate()</i>. Antes de llamarlo la entidad a validar es inyectada usando <i>setEntity()</i>. Si se añaden mensajes al objeto <i>errors</i> la validación fallará y la entidad no se borrará. Has de añadir el mensaje de error en el archivo <em>invoicing/src/main/resources/i18n/invoicing-messages_es.properties</em>:<br>
+      <pre><code class="language-properties">cannot_delete_order_with_invoice=Pedido asociado a factura no puede ser eliminado
 </code></pre> Ahora si intentas borrar un pedido con una factura asociada obtendrás un mensaje de error y el borrado no se producirá.<br>
       Puedes ver que usar un <i>@RemoveValidator</i> no es difícil, pero es un poco verboso. Has de escribir una clase nueva solo para añadir un simple if. Examinemos una alternativa más breve.<br>
       <h2 id="toc8"><a name="Alternativas-de-validacion-Validar-al-borrar-con-un-metodo-de-retrollamada"></a>Validar al borrar con un método de retrollamada</h2>
-      Vamos a probar otra forma más simple de hacer esta validación al borrar, moviendo la lógica de validación desde la clase validador a la misma entidad <em>Pedido</em>, en este caso en un método <i>@PreRemove</i>.<br>
-      El primer paso es eliminar la clase <em>ValidadorBorrarPedido</em> de tu proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad <em>Pedido</em>:<br>
-      <pre><code class="language-java">// @RemoveValidator(com.tuempresa.facturacion.validadores.ValidadorBorrarPedido.class) // Quitamos '@RemoveValidator'
-public class Pedido extends DocumentoComercial {
-</code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora dentro de la misma clase <em>Pedido</em>. Añade el método <em>validarPreBorrar()</em> a la clase <em>Pedido</em>, como se muestra a continuación:<br>
-      <pre><code class="language-java">@PreRemove
-private void validarPreBorrar() {
-    if (factura != null) { // La lógica de validación
-        throw new javax.validation.ValidationException( // Lanza una excepción runtime
+      Vamos a probar otra forma más simple de hacer esta validación al borrar, moviendo la lógica de validación desde la clase validador a la misma entidad <em>Order</em>, en este caso en un método <i>@PreRemove</i>.<br>
+      El primer paso es eliminar la clase <em>OrderRemoveValidator</em> de tu proyecto. Además quita la anotación <i>@RemoveValidator</i> de tu entidad <em>Order</em>:<br>
+      <pre><code class="language-java">//@RemoveValidator(com.yourcompany.invoicing.validators.OrderRemoveValidator.class) // Quitamos '@RemoveValidator'
+public class Order extends CommercialDocument {
+</code></pre> Hemos quitado la validación. Añadámosla otra vez, pero ahora dentro de la misma clase <em>Order</em>. Añade el método <em>validateOnRemove()</em> a la clase <em>Order</em>, como se muestra a continuación:<br>
+      <pre><code class="language-java">@PreRemove // Justo antes de borrar la entidad
+private void validateOnRemove() {
+    if (invoice != null) { // La lógica de validación
+        throw new jakarta.validation.ValidationException( // Lanza una excepción runtime
             XavaResources.getString( // Para obtener un mensaje de texto
-                "no_puede_borrar_pedido_con_factura"));
+                "cannot_delete_order_with_invoice"));
     }
 }
 </code></pre> Antes de borrar un pedido esta validación se efectuará, si falla se lanzará una <i>ValidationException</i>. Puedes lanzar cualquier excepción runtime para abortar el borrado. Tan solo con un método dentro de la entidad tienes la validación hecha.<br>
@@ -150,10 +143,6 @@ private void validarPreBorrar() {
       En esta lección has aprendido varias formas de hacer validación al borrar en una aplicación OpenXava. En la siguiente lección vas a ver como crear una anotación Bean Validation propia. ¡Esto puede llegar a ser muy útil! <br>
       <strong></strong></div>
     <div class="wiki" style="display: block; background-color: white;"><br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-20"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
-      <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?&nbsp;</strong><a

@@ -96,79 +96,75 @@ style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Val
         <div style="margin-left: 2em;"><a href="#resumen">Resumen</a> </div>
       </div>
       De momento solo hemos hecho validaciones básicas usando la anotación <i>@Required</i> de OpenXava. En esta lección vas a aprender a validar usando la anotación <i>@EntityValidator</i>.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=cfHJCgDtWdg&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-
-        target="_blank"><img src="files/validating-with-entityvalidator-video_es.png"
-
-          title="Video para la lección 18: Validando con @EntityValidator"></a><br>
-      Si no te gustan los videos sigue las instrucciones a continuación. </div>
     <div class="wiki" style="display: block;">
       <h2 id="nuestra-validacion">Nuestra validación</h2>
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a una factura si los pedidos no han sido entregados todavía. Es decir, solo los pedidos entregados pueden asociarse a una factura. Aprovecharemos la oportunidad para explorar diferentes formas de hacer esta validación.<br>
-      <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir la propiedad entregado a Pedido</h2>
-      Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Pedido</em>. La propiedad <em>entregado</em>:<br>
+      <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir la propiedad delivered a Order</h2>
+      Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Order</em>. La propiedad <em>delivered</em>:<br>
       <pre><code class="language-java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-boolean entregado;
-</code></pre> Además es necesario añadir la propiedad <em>entregado</em> a la vista. Modifica la vista <em>Pedido</em> como muestra el siguiente código:<br>
+boolean delivered;
+</code></pre> Además es necesario añadir la propiedad <em>delivered</em> a la vista. Modifica la vista <em>Order</em> como muestra el siguiente código:<br>
       <pre><code class="language-java">@View(extendsView="super.DEFAULT", 
     members=
-        "diasEntregaEstimados, entregado, " + // Añade entregado
-        "factura { factura }"
+        "estimatedDeliveryDays, delivered," + // Añade delivered
+        "invoice { invoice }" 
 )
 ...
-public class Pedido extends DocumentoComercial {
-</code></pre> Ahora tienes una nueva propiedad <em>entregado</em> que el usuario puede marcar para indicar que el pedido ha sido entregado. Ejecuta el nuevo código y marca algunos de los pedidos existentes como entregados.<br>
+public class Order extends CommercialDocument {
+</code></pre> Ahora tienes una nueva propiedad <em>delivered</em> que el usuario puede marcar para indicar que el pedido ha sido entregado. Ejecuta el nuevo código y marca algunos de los pedidos existentes como entregados.<br>
       <h2 id="toc3"><a name="Alternativas-de-validacion-Validar-con-EntityValidator"></a>Validar con <em>@EntityValidator</em></h2>
-      En tu aplicación actual el usuario puede añadir cualquier pedido que le plazca a una factura usando el módulo <em>Factura</em> y puede asignar una factura a cualquier pedido desde el módulo <em>Pedido</em>. Vamos a restringir esto. Solo los pedidos entregados podrán añadirse a una factura.<br>
-      La primera alternativa que usaremos para implementar esta validación es mediante <i>@EntityValidator</i>. Esta anotación te permite asignar a tu entidad una clase con la lógica de validación deseada. Anotemos tu entidad <em>Pedido</em> tal como muestra el siguiente código:<br>
+      En tu aplicación actual el usuario puede añadir cualquier pedido que le plazca a una factura usando el módulo <em>Invoice</em> y puede asignar una factura a cualquier pedido desde el módulo <em>Order</em>. Vamos a restringir esto. Solo los pedidos entregados podrán añadirse a una factura.<br>
+      La primera alternativa que usaremos para implementar esta validación es mediante <i>@EntityValidator</i>. Esta anotación te permite asignar a tu entidad una clase con la lógica de validación deseada. Anotemos tu entidad <em>Order</em> tal como muestra el siguiente código:<br>
       <pre><code class="language-java">@EntityValidator(
-    value=com.tuempresa.facturacion.validadores.ValidadorEntregadoParaEstarEnFactura.class, // Clase con la lógica de validación
+    value=com.yourcompany.invoicing.validators.DeliveredToBeInInvoiceValidator.class, // Clase con la lógica de validación
     properties= {
-        @PropertyValue(name="anyo"), // El contenido de estas propiedades
-        @PropertyValue(name="numero"), // se mueve desde la entidad 'Pedido'
-        @PropertyValue(name="factura"), // al validador antes de
-        @PropertyValue(name="entregado") // ejecutar la validación
-})
-public class Pedido extends DocumentoComercial {
-</code></pre><em></em>Cada vez que un objeto <em>Pedido</em> se crea o modifica un objeto del tipo <em>ValidadorEntregadoParaEstarEnFactura</em> es creado, entonces las propiedades <em>anyo</em>, <em>numero</em>, <em>factura</em> y <em>entregado</em> se rellenan con las propiedades del mismo nombre del objeto <em>Pedido</em>. Después de eso, el método <i>validate()</i> del validador se ejecuta. Escribamos el código del validador, primero crea el paquete <i>com.tuempresa.facturacion.validadores </i>y después pon en él esta clase:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
- 
-import com.tuempresa.facturacion.modelo.*;
+        @PropertyValue(name="year"), // El contenido de estas propiedades
+        @PropertyValue(name="number"), // se mueve desde la entidad 'Order'
+        @PropertyValue(name="invoice"), // al validador antes de
+        @PropertyValue(name="delivered") // ejecutar la validación
+    }
+)
+public class Order extends CommercialDocument {
+</code></pre><em></em>Cada vez que un objeto <em>Order</em> se crea o modifica un objeto del tipo <em>DeliveredToBeInInvoiceValidator</em> es creado, entonces las propiedades <em>year</em>, <em>number</em>, <em>invoice</em> y <em>delivered</em> se rellenan con las propiedades del mismo nombre del objeto <em>Order</em>. Después de eso, el método <i>validate()</i> del validador se ejecuta. Escribamos el código del validador, primero crea el paquete <i>com.yourcompany.invoicing.validators</i> y después pon en él esta clase:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.validators; // En el paquete 'validators'
+
+import com.yourcompany.invoicing.model.*;
 import org.openxava.util.*;
 import org.openxava.validators.*;
 import lombok.*;
  
 @Getter @Setter 
-public class ValidadorEntregadoParaEstarEnFactura
+public class DeliveredToBeInInvoiceValidator
     implements IValidator { // ha de implementar 'IValidator'
  
-    private int anyo; // Propiedades a ser inyectadas desde Pedido
-    private int numero;
-    private boolean entregado;
-    private Factura factura;
+    int year; // Propiedades a ser inyectadas desde Order
+    int number;
+    boolean delivered;
+    Invoice invoice;
  
-    public void validate(Messages errors)
-        throws Exception { // La lógica de validación
-        if (factura == null) return;
-        if (!entregado) {
+    public void validate(Messages errors) // La lógica de validación
+        throws Exception
+    {
+        if (invoice == null) return;
+        if (!delivered) {
             errors.add( // Al añadir mensajes a 'errors' la validación fallará
-                "pedido_debe_estar_entregado", // Un id del archivo i18n
-                anyo, numero); // Argumentos para el mensaje
-        }
+                "order_must_be_delivered", // Un id del archivo i18n
+                year, number); // Argumentos para el mensaje
+         }
     }
 
 }
-</code></pre> La lógica de validación es extremadamente fácil, si una factura está presente y este pedido no está marcado como entregado, añadimos un mensaje de error, por tanto la validación fallará. Has de añadir el mensaje de error en el archivo <em>facturacion/src/main/resources/i18n/facturacion-messages_es.properties</em>. Tal como muestra a continuación:<br>
-      <pre><code class="language-properties"># Mensajes  para la aplicación Facturacion
-pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
-</code></pre> Ahora puedes intentar añadir pedidos a una factura con la aplicación, verás como los pedidos no entregados son rechazados. Ve al módulo <i>Facturas</i>, selecciona la pestaña PEDIDOS de una factura y desde ahí pulsa en el botón <i>Añadir</i>:
-      <div class="wiki" style="display: block;"> <img src="files/validation_es010.png"
+</code></pre> La lógica de validación es extremadamente fácil, si una factura está presente y este pedido no está marcado como entregado, añadimos un mensaje de error, por tanto la validación fallará. Has de añadir el mensaje de error en el archivo <em>invoicing/src/main/resources/i18n/invoicing-messages_es.properties</em>. Tal como muestra a continuación:<br>
+      <pre><code class="language-properties"># Mensajes para la aplicación Invoicing
+order_must_be_delivered=Pedido {0}/{1} debe estar entregado para ser añadido a una Factura
+</code></pre> Ahora puedes intentar añadir pedidos a una factura con la aplicación, verás como los pedidos no entregados son rechazados. Ve al módulo <i>Invoices</i>, selecciona la pestaña ORDERS de una factura y desde ahí pulsa en el botón <i>Add</i>:
+      <div class="wiki" style="display: block;"> <img src="files/validation_en010.png"
 
-          alt="validation_es010.png" title="validation_es010.png"></div>
-      <div class="wiki" style="display: block;">Se mostrará un diálogo con una lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado todavía y pulsa en AÑADIR:</div>
-      <img src="files/validation_es013.png" alt="validation_es013.png" title="validation_es013.png">
+          alt="validation_en010.png" title="validation_en010.png"></div>
+      <div class="wiki" style="display: block;">Se mostrará un diálogo con una lista de pedidos para escoger. Selecciona dos, uno de ellos no entregado todavía y pulsa en ADD:</div>
+      <img src="files/validation_en013.png" alt="validation_en013.png" title="validation_en013.png">
       <div class="wiki" style="display: block;">Entonces el pedido entregado se añadirá mientras que el otro es rechazado, generando los siguientes mensajes:</div>
-      <img src="files/validation_es017.png" alt="validation_es017.png" title="validation_es017.png">
+      <img src="files/validation_en017.png" alt="validation_en017.png" title="validation_en017.png">
       <div class="wiki" style="display: block;">
         <h2 id="resumen">Resumen</h2>
         Ya tienes tu validación hecha con <i>@EntityValidator</i>. No es difícil, pero es un poco verboso, porque necesitas escribir una clase nueva solo para añadir 2 líneas de lógica. Esto es un gran avance. En la siguiente lección veremos otras formas más sencillas de efectuar esta misma validación.<span
@@ -177,10 +173,6 @@ pedido_debe_estar_entregado=Pedido {0}/{1} debe estar entregado para ser añadid
 
           style="color: rgb(80, 80, 80); font-family: arial, helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
       </div>
-      <div class="wiki" style="display: block;"><strong><br>
-          <a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-18"
-
-            rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
     </div>
     <div class="wiki" style="display: block;"> <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"

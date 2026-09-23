@@ -331,7 +331,7 @@ public class InvoicingDeleteAction extends ViewBaseAction {
 </code></pre> And now create a new mapped superclass named <i>Deletable</i> in <i>com.yourcompany.invoicing.model</i> package:
       <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
@@ -356,7 +356,7 @@ abstract public class CommercialDocument extends Deletable {
     @PreRemove
     private void validateOnRemove() { // Now this method is not executed automatically
         if (invoice != null) { // since a real deleletion is not done
-            throw new javax.validation.ValidationException(
+            throw new jakarta.validation.ValidationException(
                 XavaResources.getString(
                     "cannot_delete_order_with_invoice"));
         }
@@ -468,8 +468,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
-import javax.ejb.*;
 import org.openxava.actions.*;
+import org.openxava.model.*;
  
 public class SearchExcludingDeletedAction
     extends SearchByViewKeyAction { // The standard OpenXava action to search
@@ -610,7 +610,7 @@ public class InvoicingDeleteSelectedAction
                     key,
                     values);
             }
-            catch (javax.validation.ValidationException ex) { // If there is a ValidationException...
+            catch (jakarta.validation.ValidationException ex) { // If there is a ValidationException...
                 addError("no_delete_row", i, key);
                 addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...we show the message
             }
@@ -725,10 +725,6 @@ public class Order extends CommercialDocument { ... }
       <h2 id="toc23"><a name="Lesson 7: Refining the standard behavior-Summary"></a>Summary</h2>
       The standard OpenXava behavior is only a starting point. Using the delete actions as excuse we have explored a couple of ways to refine the details of the application behavior. With the techniques in this lesson you can not only refine the delete logic, but fully alter the way your OpenXava application works. Thus, you have the possibility of tailoring the behavior of your application to fit your user expectations.<br>
       The default OpenXava behavior is pretty limited, only CRUD and reporting. If you want a valuable application for your user you need to add specific functionality to help your user solve his problems. We will do more of that in the next lesson.<br>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_en/tree/lesson-24"
-
-          rel="nofollow">Download source code of this lesson</a></strong><br>
       <br>
       <strong>Any problem with this lesson? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 

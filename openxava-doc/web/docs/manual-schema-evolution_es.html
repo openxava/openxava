@@ -89,54 +89,46 @@
       </div>
       Vimos cómo podemos definir totales desde un archivo externo, lográndo de esa manera mantener independiente los parámetros de configuración de nuestra lógica de negocio, sin necesidad de modificar código para configurarlos. En esta lección, veremos cómo modificar las tablas de nuestra base de datos utilizando sentencias SQL, con el fin de aprender cómo modificar el esquema sin perder información o datos contenidos en el mismo.<br>
     </div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=pLiQl3Yf28Q&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=14"
-
-        target="_blank"><img src="files/manual-schema-evolution-video_es.png"
-
-          title="Video para la lección 14: Evolución del esquema manual"></a> </div>
-    <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
     <div class="wiki" style="display: block;">
       <h2><a name="Propiedades-calculadas-Evolucion-de-esquema-manual"></a>Evolución de esquema manual</h2>
-      Cuando usamos cosas como <i>@Calculation</i> o <i>@DefaultValueCalculator</i> la evolución de esquema automática que provee OpenXava se nos queda corta, porque añade una nueva columna cuando tu añades una nueva propiedad, pero no rellena la columna con los valores correctos. En este caso hemos añadido varias propiedades persistentes con <i>@Calculation</i> cuyos valores no se recalculan hasta que el usuario interactua con el registro. Además, tenemos un valor por defecto para <i>porcentajeIVA</i> que sólo tiene efecto cuando el usuario crea un nuevo registro pero no en los registros ya existentes. Hemos de rellenar las nuevas columnas con valores razonables.
+      Cuando usamos cosas como <i>@Calculation</i> o <i>@DefaultValueCalculator</i> la evolución de esquema automática que provee OpenXava se nos queda corta, porque añade una nueva columna cuando tu añades una nueva propiedad, pero no rellena la columna con los valores correctos. En este caso hemos añadido varias propiedades persistentes con <i>@Calculation</i> cuyos valores no se recalculan hasta que el usuario interactua con el registro. Además, tenemos un valor por defecto para <i>vatPercentage</i> que sólo tiene efecto cuando el usuario crea un nuevo registro pero no en los registros ya existentes. Hemos de rellenar las nuevas columnas con valores razonables.
       <div class="wiki" style="display: block;">Dado que estamos en una etapa temprana del desarrollo una buena opción sería borrar todos los registros, pero es seguro que esto no es una buena idea para producción, por tanto vamos a ajustar nuestra base de datos al nuevo código sin perder información para ilustrar la evolución manual de esquema.</div>
-      <div class="wiki" style="display: block;">Lo más fácil es usar la propia aplicación para hacer las actualizaciones. Vamos a hacerlo para actualizar los precios de los productos. Para que las nuevas propiedades calculadas funcionen bien todos los productos deberían tener un precio, por tanto ve al módulo <i>Producto</i> con tu navegador y asegurate de que todos los productos tienen precio:</div>
-      <img src="files/business-logic_es040.png" alt="business-logic_es040.png"
+      <div class="wiki" style="display: block;">Lo más fácil es usar la propia aplicación para hacer las actualizaciones. Vamos a hacerlo para actualizar los precios de los productos. Para que las nuevas propiedades calculadas funcionen bien todos los productos deberían tener un precio, por tanto ve al módulo <i>Product</i> con tu navegador y asegurate de que todos los productos tienen precio:</div>
+      <img src="files/business-logic_en040.png" alt="business-logic_en040.png"
 
-        title="business-logic_es040.png">
+        title="business-logic_en040.png">
       <div class="wiki" style="display: block;">Si algún producto no tiene precio edítalo e introduce un precio.</div>
-      <div class="wiki" style="display: block;">Los siguientes cambios no son tan sencillos, por lo que vamos a ejecutar sentencias SQL contra nuestra base de datos. Para ejecutar estas sentencias SQL, primero asegurate de que tu aplicación se está ejecutando, después usa la opción de menú <i>OpenXava &gt; Database Manager</i> de OpenXava Studio::<br>
-        <img src="files/inheritance040.png" alt="inheritance040.png" title="inheritance040.png"><br>
-        Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos el valor para la columna <i>precioPorUnidad</i> en todos los detalles: </div>
+      <div class="wiki" style="display: block;">Los siguientes cambios no son tan sencillos, por lo que vamos a ejecutar sentencias SQL contra nuestra base de datos. Para ejecutar estas sentencias SQL, primero asegúrate de que tu aplicación se está ejecutando, después ejecuta la clase <i>DBManager</i> dentro del paquete <i>com.yourcompany.invoicing.tools</i> de tu proyecto:<br>
+        <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
+        Ahora estás listo para escribir y ejecutar SQLs. Primero, establecemos el valor para la columna <i>pricePerUnit</i> en todos los detalles: </div>
       <div class="wiki" style="display: block;">
-        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL_DETALLES 
-SET PRECIOPORUNIDAD = (
-    SELECT PRECIO FROM PRODUCTO 
-    WHERE NUMERO = PRODUCTO_NUMERO
+        <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT_DETAILS 
+SET PRICEPERUNIT = (
+    SELECT PRICE FROM PRODUCT 
+    WHERE NUMBER = PRODUCT_NUMBER
 )
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Ahora actualizamos <i>porcentajeIVA</i> para todas las facturas:</div>
+      <div class="wiki" style="display: block;">Ahora actualizamos <i>vatPercentage</i> para todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
-SET PORCENTAJEIVA = 21
+        <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
+SET VATPERCENTAGE = 21
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Lo siguiente es actualizar <i>iva</i>:</div>
+      <div class="wiki" style="display: block;">Lo siguiente es actualizar <i>vat</i>:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
-SET IVA = (
-    SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 0.21 
-    FROM DOCUMENTOCOMERCIAL_DETALLES D 
-    WHERE D.DOCUMENTOCOMERCIAL_OID = DOCUMENTOCOMERCIAL.OID
+        <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
+SET VAT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 0.21 
+    FROM COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
-      <div class="wiki" style="display: block;">Finalmente, actualizamos <i>importeTotal</i> en todas las facturas:</div>
+      <div class="wiki" style="display: block;">Finalmente, actualizamos <i>totalAmount</i> en todas las facturas:</div>
       <div class="wiki" style="display: block;">
-        <pre><code class="language-sql">UPDATE DOCUMENTOCOMERCIAL
-SET IMPORTETOTAL = (
-    SELECT SUM(PRECIOPORUNIDAD * CANTIDAD) * 1.21 
-    FROM DOCUMENTOCOMERCIAL_DETALLES D 
-    WHERE D.DOCUMENTOCOMERCIAL_OID = DOCUMENTOCOMERCIAL.OID
+        <pre><code class="language-sql">UPDATE COMMERCIALDOCUMENT
+SET TOTALAMOUNT = (
+    SELECT SUM(PRICEPERUNIT * QUANTITY) * 1.21 
+    FROM COMMERCIALDOCUMENT_DETAILS D 
+    WHERE D.COMMERCIALDOCUMENT_OID = COMMERCIALDOCUMENT.OID
 )
 </code></pre> </div>
       <div class="wiki" style="display: block;">Ten cuidado, las sentencias de arriba funciona bien con HSQLDB, la base de datos incluida con OpenXava. Si usas otra base de datos probablemente tengas que adaptar la sintaxis. Después de ejecutar estas sentencias puedes probar tu aplicación. Debería funcionar como en la figura que aparece en la sección "Propiedades de total de una colección" que puedes encontrar en la lección <a
