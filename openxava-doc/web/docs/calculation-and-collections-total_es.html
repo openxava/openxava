@@ -89,104 +89,91 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Hemos visto como calcular los importes utilizando la anotación <i>@DefaultValueCalculator</i> en las colecciones. Veremos ahora como implementar totales usando la anotación <i> @Calculation</i>. </div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=7cR154dofqM&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=14"
-
-        target="_blank"><img src="files/calculation-and-collections-totals-video_es.png"
-
-          title="Video para la lección 12: Calculation y totales de coleccion con OpenXava"></a> </div>
-    <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
     <div class="wiki" style="display: block;">
       <h2><a name="Propiedades-calculadas-Propiedades-persistentes-con-Calculation"></a>Propiedades persistentes con <i>@Calculation</i></h2>
-      A veces las propiedades calculadas no son la mejor opción. Imagínate que tienes una propiedad calculada en <em>Factura</em>, digamos <em>descuento</em>:<br>
+      A veces las propiedades calculadas no son la mejor opción. Imagínate que tienes una propiedad calculada en <em>Invoice</em>, digamos <em>discount</em> (descuento):<br>
       <div class="wiki" style="display: block;">
         <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
-public BigDecimal getDescuento() {
-    return getImporte().multiply(new BigDecimal("0.10"));
+public BigDecimal getDiscount() {
+    return getAmount().multiply(new BigDecimal("0.10"));
 }
 </code></pre> Si necesitas procesar todas las facturas cuyo descuento sea mayor de 1000, has de escribir un código como el siguiente:<br>
         <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
-Query query = getManager().createQuery("from Factura"); // Sin condición en la consulta
+Query query = getManager().createQuery("from Invoice"); // Sin condición en la consulta
 for (Object o: query.getResultList()) { // Itera por todos los objetos
-    Factura f = (Factura) o;
-    if (f.getDescuento() // Pregunta a cada objeto
+    Invoice i = (Invoice) o;
+    if (i.getDiscount() // Pregunta a cada objeto
         .compareTo(new BigDecimal("1000")) &gt; 0) {
-            f.hacerAlgo();
+            i.doSomething();
     }
 }
-</code></pre> No puedes usar una condición en la consulta para discriminar por <i>descuento</i>, porque <i>descuento</i> no está en la base de datos, está sólo en el objeto Java, por lo que has de instanciar todos y cada uno de los objetos para poder preguntar por el <i>descuento</i>. En algunos casos esta forma es una buena opción, pero si tienes una cantidad inmensa de facturas y sólo unas pocas tiene el <i>descuento</i> mayor de 1000, entonce tu proceso va a ser muy ineficiente. ¿Qué alternativas tenemos?<br>
-        Nuestra alternativa es usar la anotación <em>@Calculation</em>. <em>@Calculation</em> es una anotación OpenXava que permite asociar un cálculo simple a una propiedad persistente. Puedes definir <em>descuento</em> con <em>@Calculation</em> como se muestra en el siguiente código:<br>
+</code></pre> No puedes usar una condición en la consulta para discriminar por <i>discount</i>, porque <i>discount</i> no está en la base de datos, está sólo en el objeto Java, por lo que has de instanciar todos y cada uno de los objetos para poder preguntar por el <i>discount</i>. En algunos casos esta forma es una buena opción, pero si tienes una cantidad inmensa de facturas y sólo unas pocas tiene el <i>discount</i> mayor de 1000, entonce tu proceso va a ser muy ineficiente. ¿Qué alternativas tenemos?<br>
+        Nuestra alternativa es usar la anotación <em>@Calculation</em>. <em>@Calculation</em> es una anotación OpenXava que permite asociar un cálculo simple a una propiedad persistente. Puedes definir <em>discount</em> con <em>@Calculation</em> como se muestra en el siguiente código:<br>
         <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
 @ReadOnly
-@Calculation("importe * 0.10")
-BigDecimal descuento;
-</code></pre> Esto es una propiedad persistente convencional, es decir con una columna correspondiente en la base de datos, pero tiene un cálculo definido con <i>@Calculation</i>. En este caso el cálculo es <i>importe * 0.10</i>, de tal manera que cuando el usuario cambia <i>importe</i> en la interfaz de usuario <i>descuento</i> se recalcula instantaneamente. El valor recalculado se graba en la base de datos cuando el usuario pulsa en <i>Grabar</i>, como con cualquier otra propiedad persistente. También hemos anotado <i>descuento</i> con <i>@ReadOnly</i>, por lo que parece y se comporta como una propiedad calculada, aunque puedes omitir <i>@ReadOnly</i> y así el usuario podría modificar el valor calculado.</div>
+@Calculation("amount * 0.10")
+BigDecimal discount;
+</code></pre> Esto es una propiedad persistente convencional, es decir con una columna correspondiente en la base de datos, pero tiene un cálculo definido con <i>@Calculation</i>. En este caso el cálculo es <i>amount * 0.10</i>, de tal manera que cuando el usuario cambia <i>amount</i> en la interfaz de usuario <i>discount</i> se recalcula instantaneamente. El valor recalculado se graba en la base de datos cuando el usuario pulsa en <i>Save</i>, como con cualquier otra propiedad persistente. También hemos anotado <i>discount</i> con <i>@ReadOnly</i>, por lo que parece y se comporta como una propiedad calculada, aunque puedes omitir <i>@ReadOnly</i> y así el usuario podría modificar el valor calculado.</div>
       <div class="wiki" style="display: block;"> Lo más útil de las propiedades <em>@Calculation</em> es que se pueden usar en las condiciones, por lo que puedes reescribir el proceso de arriba como se muestra en el siguiente código:<br>
         <pre><code class="language-java">// NO LO AÑADAS A TU CÓDIGO, ES SÓLO PARA ILUSTRAR
-Query query = getManager().createQuery("from Factura f where f.descuento &gt; :descuento"); // Condición permitida
-query.setParameter("descuento", new BigDecimal(1000));
+Query query = getManager().createQuery("from Invoice i where i.discount &gt; :discount"); // Condición permitida
+query.setParameter("discount", new BigDecimal(1000));
 for (Object o: query.getResultList()) { // Itera sólo por los objectos seleccionados
-    Factura f = (Factura) o;
-    f.hacerAlgo();
+    Invoice i = (Invoice) o;
+    i.doSomething();
 }
 </code></pre>De esta manera ponemos el peso de seleccionar los registros en el servidor de la base de datos y no en el servidor Java. Además, los descuentos no se recalculan cada vez, sino que ya está calculados y grabados.<br>
         Este hecho tiene también efecto en el modo lista, porque el usuario no puede filtrar ni ordenar por las propiedades calculadas, pero sí que lo puede hacer usando propiedades persistentes con <em>@Calculation</em>:<br>
-        <img src="files/business-logic_es025.png" alt="business-logic_es025.png"
+        <img src="files/business-logic_en025.png" alt="business-logic_en025.png"
 
-          title="business-logic_es025.png"><br>
+          title="business-logic_en025.png"><br>
         <em>@Calculation</em> es una buena opción cuando necesitas filtrar y ordenar, y un cálculo simple es suficiente. Una desventaja de las propiedades con <i>@Calculation</i> es que sus valores se recalculan sólo cuando el usuario interactúa con el registro y cambia algún valor de las propiedades usadas en el cálculo, por lo tanto cuando añades una nueva propiedad <i>@Calculation</i> a una entidad con datos existente has de actualizar los valores de la nueva columna en la tabla usando SQL. Por otra parte si necesitas un cálculo complejo, con bucles o consultando otras entidades, todavía sigues necesitando una propiedad calculada con tu lógica Java en el getter. En este último caso si además necesitas ordenar y filtrar en modo lista por la propiedad calculada una opción es tener ambas, la calculada y la persistente, y sincronizar sus valores usando los métodos de retrollamada de JPA (hablaremos sobre los métodos de retrollamada en próximas lecciones).</div>
       <h2 id="toc4"><a name="Propiedades-calculadas-Propiedades-de-total-de-una-coleccion"></a>Propiedades de total de una colección</h2>
-      También queremos añadir importes a <em>Pedido</em> y <em>Factura</em>. Tener IVA, importe base e importe total es indispensable. Para hacerlo sólo necesitas añadir unas pocas propiedades a la clase <i>DocumentoComercial</i>. La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
-      <img src="files/business-logic_es030.png" alt="business-logic_es030.png"
+      También queremos añadir importes a <em>Order</em> e <em>Invoice</em>. Tener IVA (<i>vat</i>), importe base e importe total es indispensable. Para hacerlo sólo necesitas añadir unas pocas propiedades a la clase <i>CommercialDocument</i>. La siguiente figura muestra la interfaz de usuario para estas propiedades:<br>
+      <img src="files/business-logic_en030.png" alt="business-logic_en030.png"
 
-        title="business-logic_es030.png"><br>
-      Añade el siguiente código a la entidad <i>DocumentoComercial</i>:<br>
+        title="business-logic_en030.png"><br>
+      Añade el siguiente código a la entidad <i>CommercialDocument</i>:<br>
       <pre><code class="language-java">@Digits(integer=2, fraction=0) // Para indicar su tamaño
-BigDecimal porcentajeIVA;
+BigDecimal vatPercentage;
    
 @ReadOnly
 @Money
-@Calculation("sum(detalles.importe) * porcentajeIVA / 100")
-BigDecimal iva;
+@Calculation("sum(details.amount) * vatPercentage / 100")
+BigDecimal vat;
 
 @ReadOnly
 @Money
-@Calculation("sum(detalles.importe) + iva")    
-BigDecimal importeTotal;    
-</code></pre> Fíjate como hemos escogido propiedades persistentes con <i>@Calculation + @ReadOnly</i> en lugar de propiedades calculadas para <i>iva</i> e <i>importeTotal</i>, porque los cálculos son simples, y filtrar y ordenar por ellos es muy útil. También, puedes ver como en <i>@Calculation</i> puedes usar <i>sum(detalles.importe)</i> para referirte a la suma de columna <i>importe</i> de la colección <i>detalles</i>, de esta manera podemos prescindir de una propiedad <i>importeBase</i>. Por otra parte, <em>porcentajeIVA</em> es un propiedad persistente convencional. En este caso usamos <em>@Digits</em> (una anotación de Bean Validation, el estándar de validación de Java) como una alternativa a <em>@Column</em> para especificar su tamaño. <br>
-      Ahora que ya has escrito las propiedades para los importes de <em>DocumentoComercial</em>, tienes que modificar la lista de propiedades de la colección <em>detalles</em> para mostrar las <a
+@Calculation("sum(details.amount) + vat")    
+BigDecimal totalAmount;    
+</code></pre> Fíjate como hemos escogido propiedades persistentes con <i>@Calculation + @ReadOnly</i> en lugar de propiedades calculadas para <i>vat</i> y <i>totalAmount</i>, porque los cálculos son simples, y filtrar y ordenar por ellos es muy útil. También, puedes ver como en <i>@Calculation</i> puedes usar <i>sum(details.amount)</i> para referirte a la suma de columna <i>amount</i> de la colección <i>details</i>, de esta manera podemos prescindir de una propiedad <i>baseAmount</i>. Por otra parte, <em>vatPercentage</em> es un propiedad persistente convencional. En este caso usamos <em>@Digits</em> (una anotación de Bean Validation, el estándar de validación de Java) como una alternativa a <em>@Column</em> para especificar su tamaño. <br>
+      Ahora que ya has escrito las propiedades para los importes de <em>CommercialDocument</em>, tienes que modificar la lista de propiedades de la colección <em>details</em> para mostrar las <a
 
-        class="wiki_link" href="view_es.html#Vista-Personalizacion+de+coleccion-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades de total</a> de <em>DocumentoComercial</em>. Veámoslo:<br>
-      <pre><code class="language-java">abstract public class DocumentoComercial extends Identificable {
+        class="wiki_link" href="view_es.html#Vista-Personalizacion+de+coleccion-Propiedades+de+total+%28nuevo+en+v4.3%29">propiedades de total</a> de <em>CommercialDocument</em> (<em>Invoice</em> y <em>Order</em>). Veámoslo:<br>
+      <pre><code class="language-java">abstract public class CommercialDocument extends Identifiable {
  
     @ElementCollection
     @ListProperties(
-        "producto.numero, producto.descripcion, cantidad, precioPorUnidad, " +
-        "importe+[" + 
-        	"documentoComercial.porcentajeIVA," +
-        	"documentoComercial.iva," +
-        	"documentoComercial.importeTotal" +
+        "product.number, product.description, quantity, pricePerUnit, " +
+        "amount+[" + 
+        	"commercialDocument.vatPercentage," +
+        	"commercialDocument.vat," +
+        	"commercialDocument.totalAmount" +
         "]" 
-    )	
-    private Collection&lt;Detalle&gt; detalles;
+    )
+    private Collection&lt;Detail&gt; details;
  
     ...
 }
-</code></pre>Las propiedades de total son propiedades normales de la entidad (<i>DocumentoComercial</i> en este caso) que en la interfaz de usuario se localizan debajo de una columna de una colección. Para eso, en <i>@ListProperties</i> se usan corchetes después de la propiedad para enumerarlas, algo así como <i>importe[documentoComercial.importeTotal]</i>. Además, si simplemente quieres la suma de la columna no necesitas una propiedad para ello, con un + después de la propiedad en <i>@ListProperties</i> es suficiente, como <i>importe+</i>. En nuestro caso combinamos ambas cosas, + y propiedades de total entre [ ].</div>
-    <div class="wiki" style="display: block;">Ahora puedes probar tu aplicación. Debería funcionar casi como en la figura del inicio de esta sección. “Casi” porque <em>porcentajeIVA</em> todavía no tiene un valor por defecto. Lo añadiremos en la siguiente sección.<br>
+</code></pre>Las propiedades de total son propiedades normales de la entidad (<i>CommercialDocument</i> en este caso) que en la interfaz de usuario se localizan debajo de una columna de una colección. Para eso, en <i>@ListProperties</i> se usan corchetes después de la propiedad para enumerarlas, algo así como <i>amount[commercialDocument.totalAmount]</i>. Además, si simplemente quieres la suma de la columna no necesitas una propiedad para ello, con un + después de la propiedad en <i>@ListProperties</i> es suficiente, como <i>amount+</i>. En nuestro caso combinamos ambas cosas, + y propiedades de total entre [ ].</div>
+    <div class="wiki" style="display: block;">Ahora puedes probar tu aplicación. Debería funcionar casi como en la figura del inicio de esta sección. “Casi” porque <em>vatPercentage</em> todavía no tiene un valor por defecto. Lo añadiremos en la siguiente sección.<br>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido cómo definir propiedades persistentes con cálculos específicos utilizando la anotación <i>@Calculation</i><i> y </i>vimos la utilidad de la anotación <i>@Digits </i>para definir tipo y longitud de campos. También definimos propiedades de total utilizando propiedades persistentes con las anotaciones <i><i>@ReadOnly +</i>@Calculation</i>, y vimos como utilizar <i>sum</i> para prescindir de una propiedad específica.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-12"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"> <br>
+    <div class="wiki" style="display: block;">
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a

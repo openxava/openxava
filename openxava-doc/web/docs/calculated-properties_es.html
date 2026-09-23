@@ -91,56 +91,43 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Hemos establecido lógica de negocio a partir de crear getters y setters, hemos visto el uso de la librería Lombok y su aplicabilidad, veremos ahora como aplicar otro tipo de propiedades a nuestra aplicación.<br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=8wnuri_W9Eg&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=11"
-
-          target="_blank"><img src="files/calculated-properties-video_es.png"
-
-            title="Video para la lección 10: Propiedades calculadas con OpenXava"></a> </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
-      <div class="wiki" style="display: block;"><br>
-      </div>
       <h2 id="toc1"><a name="Propiedades-calculadas"></a>Propiedades calculadas</h2>
       Quizás la lógica de negocio más simple que puedes añadir a tu aplicación es una propiedad calculada. Las propiedades que has usado hasta ahora son persistentes, es decir, cada propiedad se almacena en una columna de una tabla de la base de datos. Una propiedad calculada es una propiedad que no almacena su valor en la base de datos, sino que se calcula cada vez que se accede a la propiedad. Observa la diferencia entre una propiedad persistente y una calculada:<br>
       <pre><code class="language-java">// Propiedad persistente
 @Getter @Setter // Tiene getter y setter
-int cantidad; // Tiene un campo, por tanto es persistente
+int quantity; // Tiene un campo, por tanto es persistente
  
 // Propiedad calculada
-public int getImporte() { // No tiene campo, ni setter, solo un getter
-    return cantidad * precio; // con un cálculo
+public int getAmount() { // No tiene campo, ni setter, solo un getter
+    return quantity * price; // con un cálculo
 }
 </code></pre> Las propiedades calculadas son reconocidas automáticamente por OpenXava. Puedes usarlas en vistas, listas tabulares o cualquier otra parte de tu código.<br>
-      Vamos a usar propiedades calculadas para añadir el elemento “económico” a nuestra aplicación <em>facturacion</em>. Porque, tenemos líneas de detalle, productos, cantidades. Pero, ¿qué pasa con el dinero?<br>
+      Vamos a usar propiedades calculadas para añadir el elemento “económico” a nuestra aplicación <em>invoicing</em>. Porque, tenemos líneas de detalle, productos, cantidades. Pero, ¿qué pasa con el dinero?<br>
       <h2 id="toc2"><a name="Propiedades-calculadas-Propiedad-calculada-simple"></a>Propiedad calculada simple</h2>
-      El primer paso será añadir una propiedad de importe a <em>Detalle</em>. Lo que queremos es que cuando el usuario elija un producto y teclee la cantidad el importe de la línea sea recalculado y mostrado al usuario:<br>
-      <img src="files/business-logic_es010.png" alt="business-logic_es010.png"
+      El primer paso será añadir una propiedad <em>amount</em> (importe) a <em>Detail</em>. Lo que queremos es que cuando el usuario elija un producto y teclee la cantidad el importe de la línea sea recalculado y mostrado al usuario:<br>
+      <img src="files/business-logic_en010.png" alt="business-logic_en010.png"
 
-        title="business-logic_es010.png"><br>
-      Añadir esta funcionalidad a tu actual código es prácticamente añadir una propiedad calculada a <em>Detalle</em>. Simplemente añade el código siguiente a la clase <em>Detalle</em>:<br>
+        title="business-logic_en010.png"><br>
+      Añadir esta funcionalidad a tu actual código es prácticamente añadir una propiedad calculada a <em>Detail</em>. Simplemente añade el código siguiente a la clase <em>Detail</em>:<br>
       <pre><code class="language-java">@Money
-@Depends("producto.numero, cantidad") // Cuando usuario cambie producto o cantidad
-public BigDecimal getImporte() { // esta propiedad se recalculará y se redibujará
-    if (producto == null || producto.getPrecio() == null) return BigDecimal.ZERO;
-    return new BigDecimal(cantidad).multiply(producto.getPrecio());
+@Depends("product.number, quantity") // Cuando usuario cambie producto o cantidad
+public BigDecimal getAmount() { // esta propiedad se recalculará y se redibujará
+    if (product == null || product.getPrice() == null) return BigDecimal.ZERO;
+    return new BigDecimal(quantity).multiply(product.getPrice()); 
 }
-</code></pre>Es tan solo poner el cálculo en <em>getImporte()</em> y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>importe</em> depende de <em>producto.numero</em> y <em>cantidad</em>, así cada vez que el usuario cambia alguno de estos valores la propiedad se recalculará. Fíjate como en este caso usamos <i>producto</i> y no <i>getProducto()</i>, y <i>cantidad</i> en vez de <i>getCantidad()</i>, porque desde dentro de la clase sí que se puede acceder directamente a sus campos.<br>
-      Ahora has de añadir esta nueva propiedad a la lista de propiedades mostradas en la colección <em>detalles</em> de <em>DocumentoComercial</em>:<br>
+</code></pre>Es tan solo poner el cálculo en <em>getAmount()</em> y usar <em>@Depends</em> para indicar a OpenXava que la propiedad <em>amount</em> depende de <em>product.number</em> y <em>quantity</em>, así cada vez que el usuario cambia alguno de estos valores la propiedad se recalculará. Fíjate como en este caso usamos <i>product</i> y no <i>getProduct()</i>, y <i>quantity</i> en vez de <i>getQuantity()</i>, porque desde dentro de la clase sí que se puede acceder directamente a sus campos.<br>
+      Ahora has de añadir esta nueva propiedad a la lista de propiedades mostradas en la colección <em>details</em> de <em>CommercialDocument</em>:<br>
       <pre><code class="language-java">@ElementCollection
-@ListProperties("producto.numero, producto.descripcion, cantidad, importe") // importe añadida
-Collection&lt;Detalle&gt; detalles;
-</code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista de propiedades. Ahora puedes probar los módulos <em>Factura</em> y <em>Pedido</em> para ver la propiedad <em>importe</em> en acción.</div>
+@ListProperties("product.number, product.description, quantity, amount") // amount añadida
+Collection&lt;Detail&gt; details;
+</code></pre> Nada más. Tan solo necesitas añadir el getter y modificar la lista de propiedades. Ahora puedes probar los módulos <em>Invoice</em> y <em>Order</em> para ver la propiedad <em>amount</em> en acción.</div>
     <br>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido la aplicación de propiedades calculadas y sus diferencias de las propiedades persistentes, a la hora de establecer lógica de negocio. En futuras lecciones veremos cómo trabajar con colecciones y totales.</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-10"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"> <br>
+    <div class="wiki" style="display: block;">
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a

@@ -91,54 +91,48 @@
       </div>
       La interfaz de usuario para tu aplicación de facturación escribiendo simplemente clases de Java simples y llanas es bastante decente, de todas formas, con solo unas pocas anotaciones en tus clases puedes personalizar tu interfaz de usuario para hacer frente a cualquier caso que te encuentres en una aplicación de gestión.
       <div class="wiki" style="display: block;">En esta lección vamos a hacer que nuestra aplicación se vea mejor con una pequeña cantidad de código.</div>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=ksz6cvsuyiw"
-
-          target="_blank"><img src="files/refining-user-interface-video_es.png"
-
-            title="Video para la lección 4: Refinar la interfaz de usuario"></a> </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
       <h2 id="toc10"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Interfaz+de+usuario+por+defecto"></a>Interfaz de usuario por defecto</h2>
-      Así es la interfaz de usuario por defecto para <em>Factura</em>:<br>
-      <img src="files/modeling_es110.png" alt="modeling_es110.png" title="modeling_es110.png"><br>
-      Como ves, OpenXava muestra todos los miembros, uno debajo de otro, en el orden en que los has declarado en el código fuente. También ves como en el caso de la referencia <em>cliente</em> se usa la vista por defecto de <em>Cliente</em>.<br>
-      Vamos a hacer algunas pequeñas mejoras. Primero, definiremos la disposición de los miembros explícitamente, de esta forma podemos poner <em>anyo</em>, <em>numero</em> y <em>fecha</em> en la misma línea. Segundo, vamos a usar una vista más simple para <em>Cliente</em>. El usuario no necesita ver todos los datos del cliente cuando está introduciendo la factura.<br>
+      Así es la interfaz de usuario por defecto para <em>Invoice</em>:<br>
+      <img src="files/modeling_en110.png" alt="modeling_en110.png" title="modeling_en110.png"><br>
+      Como ves, OpenXava muestra todos los miembros, uno debajo de otro, en el orden en que los has declarado en el código fuente. También ves como en el caso de la referencia <em>customer</em> se usa la vista por defecto de <em>Customer</em>.<br>
+      Vamos a hacer algunas pequeñas mejoras. Primero, definiremos la disposición de los miembros explícitamente, de esta forma podemos poner <em>year</em>, <em>number</em> y <em>date</em> en la misma línea. Segundo, vamos a usar una vista más simple para <em>Customer</em>. El usuario no necesita ver todos los datos del cliente cuando está introduciendo la factura.<br>
       <h2 id="toc11"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+View+para+definir+la+disposicion"></a>Usar @View para definir la disposición</h2>
-      Para definir la disposición de los miembros de <em>Factura</em> en la interfaz de usuario has de usar la anotación <em>@View</em>. Es fácil, sólo has de enumerar los miembros a mostrar. Mira el código:</div>
+      Para definir la disposición de los miembros de <em>Invoice</em> en la interfaz de usuario has de usar la anotación <em>@View</em>. Es fácil, sólo has de enumerar los miembros a mostrar. Mira el código:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="language-java">@View(members= // Esta vista no tiene nombre, por tanto será la vista usada por defecto
- "anyo, numero, fecha;" + // Separados por coma significa en la misma línea
- "cliente;" + // Punto y coma significa nueva línea
- "detalles;" +
- "observaciones"
+    "year, number, date;" + // Separados por coma significa en la misma línea
+    "customer;" + // Punto y coma significa nueva línea
+    "details;" +
+    "remarks"
 )
-public class Factura {
+public class Invoice {
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Mostramos todos los miembros de <em>Factura</em>, pero usamos comas para separar <em>anyo</em>, <em>numero</em> y <em>fecha</em>, así son mostrados en la misma línea, produciendo una interfaz de usuario más compacta, como esta:<br>
-      <img src="files/modeling_es120.png" alt="modeling_es120.png" title="modeling_es120.png"><br>
+    <div class="wiki" style="display: block;">Mostramos todos los miembros de <em>Invoice</em>, pero usamos comas para separar <em>year</em>, <em>number</em> y <em>date</em>, así son mostrados en la misma línea, produciendo una interfaz de usuario más compacta, como esta:<br>
+      <img src="files/modeling_en120.png" alt="modeling_en120.png" title="modeling_en120.png"><br>
       <h2 id="toc12"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-Usar+ReferenceView+para+refinar+la+interfaz+de+referencias"></a>Usar @ReferenceView para refinar la interfaz de referencias</h2>
-      Todavía necesitas refinar la forma en que la referencia <em>cliente</em> se visualiza, porque visualiza todos los miembros de <em>Cliente</em>, y para introducir los datos de una <em>Factura</em> una vista más simple del cliente puede ser mejor. Para hacer esto, has de definir una vista <em>Simple</em> en <em>Cliente</em>, y entonces indicar en <em>Factura</em> que quieres usar esa vista <em>Simple</em> de <em>Cliente</em> para visualizarlo.<br>
-      Primero definamos la vista <em>Simple</em> en <em>Cliente</em>:</div>
+      Todavía necesitas refinar la forma en que la referencia <em>customer</em> se visualiza, porque visualiza todos los miembros de <em>Customer</em>, y para introducir los datos de una <em>Invoice</em> una vista más simple del cliente puede ser mejor. Para hacer esto, has de definir una vista <em>Simple</em> en <em>Customer</em>, y entonces indicar en <em>Invoice</em> que quieres usar esa vista <em>Simple</em> de <em>Customer</em> para visualizarlo.<br>
+      Primero definamos la vista <em>Simple</em> en <em>Customer</em>:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="language-java">@View(name="Simple", // Esta vista solo se usará cuando se especifique “Simple”
-    members="numero, nombre" // Muestra únicamente numero y nombre en la misma línea
+    members="number, name" // Muestra únicamente number y name en la misma línea
 )
-public class Cliente {
+public class Customer {
 </code></pre> </div>
-    <div class="wiki" style="display: block;">Cuando una vista tiene un nombre, como en este caso, esa vista solo se usa cuando ese nombre se especifica. Es decir, aunque <em>Cliente</em> solo tiene esta anotación <em>@View</em>, cuando tratas de visualizar un <em>Cliente</em> no usará esta vista <em>Simple</em>, sino la generada por defecto. Si defines una <em>@View</em> sin nombre, esa vista será la vista por defecto, aunque este no es el caso.<br>
-      Ahora has de indicar que la referencia a <em>Cliente</em> desde <em>Factura</em> use esta vista <em>Simple</em>. Esto se hace mediante <em>@ReferenceView</em>. Edita la referencia <i>cliente</i> en la clase <i>Factura</i> de esta forma:</div>
+    <div class="wiki" style="display: block;">Cuando una vista tiene un nombre, como en este caso, esa vista solo se usa cuando ese nombre se especifica. Es decir, aunque <em>Customer</em> solo tiene esta anotación <em>@View</em>, cuando tratas de visualizar un <em>Customer</em> no usará esta vista <em>Simple</em>, sino la generada por defecto. Si defines una <em>@View</em> sin nombre, esa vista será la vista por defecto, aunque este no es el caso.<br>
+      Ahora has de indicar que la referencia a <em>Customer</em> desde <em>Invoice</em> use esta vista <em>Simple</em>. Esto se hace mediante <em>@ReferenceView</em>. Edita la referencia <i>customer</i> en la clase <i>Invoice</i> de esta forma:</div>
     <div class="wiki" style="display: block;">
       <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false)
 @ReferenceView("Simple") // La vista llamada 'Simple' se usará para visualizar esta referencia
-Cliente cliente;
+Customer customer;
 </code></pre> </div>
     <div class="wiki" style="display: block;">Realmente sencillo, solo has de indicar el nombre de la vista de la entidad referenciada que quieres usar.<br>
-      Después de esto la referencia <em>cliente</em> se mostrará de una forma más compacta:<br>
-      <img src="files/modeling_es130.png" alt="modeling_es130.png" title="modeling_es130.png"><br>
-      Hemos refinado un poco la interfaz de <em>Factura</em>.<br>
+      Después de esto la referencia <em>customer</em> se mostrará de una forma más compacta:<br>
+      <img src="files/modeling_en130.png" alt="modeling_en130.png" title="modeling_en130.png"><br>
+      Hemos refinado un poco la interfaz de <em>Invoice</em>.<br>
       <h2 id="toc13"><a name="Modelar+con+Java-Refinar+la+interfaz+de+usuario-La+interfaz+de+usuario+refinada"></a>La interfaz de usuario refinada</h2>
-      Este es el resultado de nuestros refinamientos en la interfaz de usuario de <em>Factura</em>:<br>
-      <img src="files/modeling_es140.png" alt="modeling_es140.png" title="modeling_es140.png"><br>
-      Has visto lo fácil que es usar <em>@View</em> y <em>@ReferenceView</em> para obtener una interfaz de usuario más compacta para <em>Factura</em>.<br>
+      Este es el resultado de nuestros refinamientos en la interfaz de usuario de <em>Invoice</em>:<br>
+      <img src="files/modeling_en140.png" alt="modeling_en140.png" title="modeling_en140.png"><br>
+      Has visto lo fácil que es usar <em>@View</em> y <em>@ReferenceView</em> para obtener una interfaz de usuario más compacta para <em>Invoice</em>.<br>
       Ahora tienes una interfaz de usuario suficientemente buena para empezar a trabajar, y realmente hemos hecho poco trabajo para conseguirlo.<br>
     </div>
     <div class="wiki" style="display: block;">
@@ -149,12 +143,7 @@ Cliente cliente;
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-4"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"><br>
+    <div class="wiki" style="display: block;">
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a

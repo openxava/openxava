@@ -102,14 +102,14 @@
         <div style="margin-left: 3em;"><a href="#Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar">Obsesión por reutilizar</a></div>
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
-      Espero que estés muy contento con el código de tu aplicación <em>facturacion</em>. Es realmente simple, básicamente tienes entidades, clases simples que modelan tu problema. Toda la lógica de negocio está en esas entidades, y OpenXava genera una aplicación con un comportamiento decente a partir de ellas.<br>
+      Espero que estés muy contento con el código de tu aplicación <em>invoicing</em>. Es realmente simple, básicamente tienes entidades, clases simples que modelan tu problema. Toda la lógica de negocio está en esas entidades, y OpenXava genera una aplicación con un comportamiento decente a partir de ellas.<br>
       No solo de lógica de negocio vive el hombre. Un buen comportamiento también es importante. Seguramente, te habrás encontrado con que o bien tú o bien tu usuario queréis un comportamiento diferente al estándar de OpenXava, al menos para ciertas partes de tu aplicación. Refinar el comportamiento predefinido a veces es necesario si quieres que tu usuario esté cómodo.<br>
       El comportamiento de la aplicación viene dado por los controladores. Un controlador es una colección de acciones. Una acción contiene el código a ejecutar cuando el usuario pulsa en un vínculo o botón. Puedes definir tus propios controladores y acciones, y asociarlos a tus módulos o entidades, de esta forma refinas la forma en que OpenXava se comporta.<br>
-      En esta lección refinaremos los controladores y acciones estándar para poder personalizar el comportamiento de tu aplicación <em>facturacion</em>.<br>
+      En esta lección refinaremos los controladores y acciones estándar para poder personalizar el comportamiento de tu aplicación <em>invoicing</em>.<br>
       <h2 id="toc1"><a name="Acciones-personalizadas"></a>Acciones personalizadas</h2>
       Por defecto, un módulo OpenXava te permite manejar tu entidad de una forma bastante buena: es posible añadir, modificar, borrar, buscar, generar informes PDF, exportar a Excel (CSV) e importar datos a las entidades. Estas acciones por defecto están contenidas en el controlador <em>Typical</em>. Puedes refinar o extender el comportamiento de tu módulo definiendo tu propio controlador. Esta sección te enseñará como definir tu propio controlador y escribir tus acciones personalizadas.<br>
       <h3 id="toc2"><a name="Acciones-personalizadas-Controlador-Typical"></a>Controlador Typical</h3>
-      Por defecto el módulo <em>Factura</em> usa las acciones del controlador <em>Typical</em>. El controlador <em>Typical</em> está definido en <em>default-controllers.xml</em> y puedes verlo en la carpeta <a
+      Por defecto el módulo <em>Invoice</em> usa las acciones del controlador <em>Typical</em>. El controlador <em>Typical</em> está definido en <em>default-controllers.xml</em> y puedes verlo en la carpeta <a
 
         class="wiki_link" href="https://github.com/openxava/openxava/tree/master/openxava/src/main/resources/xava">xava de github</a><em></em>. Una definición de controlador es un fragmento de XML con una lista de acciones. OpenXava aplica por defecto el controlador <em>Typical</em> a todos los módulos. Puedes ver su definición:<br>
       <pre><code class="language-xml">&lt;controller name="Typical"&gt; &lt;!-- 'Typical' hereda sus acciones de los controladores --&gt;
@@ -169,113 +169,115 @@
 </code></pre> Aquí se ve como definir las acciones. Básicamente consiste en vincular un nombre con una clase con la lógica a ejecutar. Además, define un icono y un atajo de teclado. También vemos como se puede configurar la acción usando <em>&lt;set /&gt;</em>.<br>
       Las acciones se muestran por defecto en modo lista y detalle, aunque puedes, por medio del atributo <em>mode</em>, especificar que sea mostrada solo en modo lista (list) o detalle (detail).<br>
       <h3 id="toc3"><a name="Acciones-personalizadas-Refinar-el-controlador-para-un-modulo"></a>Refinar el controlador para un módulo</h3>
-      Empezaremos refinando la acción para borrar del módulo <em>Factura</em>. Nuestro objetivo es que cuando el usuario pulse en el botón de borrar, la factura no sea borrada de la base de datos, sino que simplemente se marque como borrada. De esta forma, podemos recuperar las facturas borradas si fuese necesario.<br>
-      <img src="files/refining_behavior_es010.png" alt="refining_behavior_es010.png"
+      Empezaremos refinando la acción para borrar del módulo <em>Invoice</em>. Nuestro objetivo es que cuando el usuario pulse en el botón de borrar, la factura no sea borrada de la base de datos, sino que simplemente se marque como borrada. De esta forma, podemos recuperar las facturas borradas si fuese necesario.<br>
+      <img src="files/refining_behavior_en010.png" alt="refining_behavior_en010.png"
 
-        title="refining_behavior_es010.png"><br>
-      La figura anterior muestra las acciones de <em>Typical</em>; queremos todas estas acciones en nuestro módulo <em>Factura</em>, con la excepción de que vamos a escribir nuestra propia lógica para la acción de borrar.<br>
-      Define tu propio controlador para <em>Factura</em> añadiéndolo al archivo <em>controladores.xml</em> de la carpeta <em>src/main/resources/xava</em> de tu proyecto, dejándolo como sigue:<br>
+        title="refining_behavior_en010.png"><br>
+      La figura anterior muestra las acciones de <em>Typical</em>; queremos todas estas acciones en nuestro módulo <em>Invoice</em>, con la excepción de que vamos a escribir nuestra propia lógica para la acción de borrar.<br>
+      Define tu propio controlador para <em>Invoice</em> añadiéndolo al archivo <em>controllers.xml</em> de la carpeta <em>src/main/resources/xava</em> de tu proyecto, dejándolo como sigue:<br>
       <pre><code class="language-xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
-&lt;!DOCTYPE controladores SYSTEM "dtds/controladores.dtd"&gt;
+&lt;!DOCTYPE controllers SYSTEM "dtds/controllers.dtd"&gt;
  
-&lt;controladores&gt;
+&lt;controllers&gt;
  
-    &lt;controlador nombre="Factura"&gt; &lt;!-- El mismo nombre de la entidad--&gt;
+    &lt;controller name="Invoice"&gt; &lt;!-- El mismo nombre de la entidad--&gt;
  
-        &lt;hereda-de controlador="Typical"/&gt; &lt;!-- Hereda todas las acciones de 'Typical' --&gt;
+        &lt;extends controller="Typical"/&gt; &lt;!-- Hereda todas las acciones de 'Typical' --&gt;
  
         &lt;!-- Typical ya tiene una acción 'delete', al usar el mismo nombre la sobrescribimos --&gt;
-        &lt;accion nombre="delete"
-            modo="detail" confirmar="true"
-            clase="com.tuempresa.facturacion.acciones.EliminarFactura"
-            icono="delete"
-            disponible-en-nuevo="false"
-            atajo-de-teclado="Alt X"/&gt;
+        &lt;action name="delete"
+            mode="detail" confirm="true"
+            class="com.yourcompany.invoicing.actions.DeleteInvoiceAction"
+            icon="delete"
+            available-on-new="false"
+            keystroke="Alt X"/&gt;
  
-    &lt;/controlador&gt;
+    &lt;/controller&gt;
  
-&lt;/controladores&gt;
-</code></pre> Para definir un controlador para tu entidad, has de crear un controlador con el mismo nombre que la entidad. Es decir, si existe un controlador llamado “Factura”, cuando ejecutes el módulo <em>Factura</em> éste será el controlador a usar en vez de <em>Typical</em>.<br>
-      Extendemos el controlador <em>Factura</em> de <em>Typical</em>, así todas las acciones de <em>Typical</em> están disponible en tu módulo <em>Factura</em>. Cualquier acción que definas en tu controlador <em>Factura</em> estará disponible como un botón para que el usuario pueda pulsarlo. Aunque en este caso hemos llamado a nuestra acción “delete”, precisamente el nombre de una acción del controlador <em>Typical</em>, de esta forma estamos anulando la acción de <em>Typical</em>. Es decir, solo una acción <em>delete</em> se mostrará al usuario y será la nuestra.<br>
+&lt;/controllers&gt;
+</code></pre> Para definir un controlador para tu entidad, has de crear un controlador con el mismo nombre que la entidad. Es decir, si existe un controlador llamado “Invoice”, cuando ejecutes el módulo <em>Invoice</em> éste será el controlador a usar en vez de <em>Typical</em>.<br>
+      Extendemos el controlador <em>Invoice</em> de <em>Typical</em>, así todas las acciones de <em>Typical</em> están disponible en tu módulo <em>Invoice</em>. Cualquier acción que definas en tu controlador <em>Invoice</em> estará disponible como un botón para que el usuario pueda pulsarlo. Aunque en este caso hemos llamado a nuestra acción “delete”, precisamente el nombre de una acción del controlador <em>Typical</em>, de esta forma estamos anulando la acción de <em>Typical</em>. Es decir, solo una acción <em>delete</em> se mostrará al usuario y será la nuestra.<br>
       <h3 id="toc4"><a name="Acciones-personalizadas-Escribir-tu-propia-accion"></a>Escribir tu propia acción</h3>
-      Primero crea un nuevo paquete llamado <i>com.tuempresa.facturacion.acciones</i>. Después añádele una clase <i>EliminarFactura</i>, con este código:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.acciones;  // En el paquete 'acciones'
- 
+      Primero crea un nuevo paquete llamado <i>com.yourcompany.invoicing.actions</i>. Después añádele una clase <i>DeleteInvoiceAction</i>, con este código:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions;  // En el paquete 'actions'
+
 import org.openxava.actions.*;
  
-public class EliminarFactura
+public class DeleteInvoiceAction
     extends ViewBaseAction { // ViewBaseAction tiene getView(), addMessage(), etc
  
     public void execute() throws Exception { // La lógica de la acción
         addMessage( // Añade un mensaje para mostrar al usuario
-            "¡No te preocupes! Sólo he borrado la pantalla");
+            "Don't worry! I only have cleared the screen");
         getView().clear(); // getView() devuelve el objeto xava_view
             // clear() borra los datos en la interfaz de usuario
     }
 }
 </code></pre> Una acción es una clase simple. Tiene un método <i>execute()</i> con la lógica a hacer cuando el usuario pulse en el botón o vínculo correspondiente. Una acción ha de implementar la interfaz <i>org.openxava.actions.IAction</i>, aunque normalmente es más práctico extender de <i>BaseAction</i>, <i> ViewBaseAction</i> o cualquier otra acción base del paquete <i>org.openxava.actions</i>.</div>
     <div class="wiki" style="display: block;"> <i> ViewBaseAction</i> tiene una propiedad <i>view</i> que puedes usar desde dentro de <i>execute()</i> mediante <i>getView()</i>. Este objeto del tipo <i>org.openxava.view.View</i> permite manejar la interfaz de usuario, en este caso borramos los datos visualizados usando <i>getView().clear()</i>.<br>
-      También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i> se mostrarán al usuario al final de la ejecución de la acción. Puedes, bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>src/main/resources/i18n/facturacion-messages_es.properties</em>.<br>
-      La siguiente imagen muestra el comportamiento del módulo <em>Factura</em> después de añadir la acción de borrar personalizada:<br>
-      <img src="files/refining_behavior_es020.png" alt="refining_behavior_es020.png"
+      También usamos <i>addMessage()</i>. Todos los mensajes añadidos con <i>addMessage()</i> se mostrarán al usuario al final de la ejecución de la acción. Puedes, bien añadir el mensaje a mostrar, o bien un id de una entrada en <em>src/main/resources/i18n/invoicing-messages_es.properties</em>.<br>
+      La siguiente imagen muestra el comportamiento del módulo <em>Invoice</em> después de añadir la acción de borrar personalizada:<br>
+      <img src="files/refining_behavior_en020.png" alt="refining_behavior_en020.png"
 
-        title="refining_behavior_es020.png"><br>
-      Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento real. Para marcar como borrada la factura actual sin borrarla realmente, necesitamos añadir una nueva propiedad a <em>Factura</em>. Llamémosla <em>eliminado</em>:<br>
+        title="refining_behavior_en020.png"><br>
+      Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento real. Para marcar como borrada la factura actual sin borrarla realmente, necesitamos añadir una nueva propiedad a <em>Invoice</em>. Llamémosla <em>deleted</em>:<br>
       <pre><code class="language-java">@Hidden // No se mostrará por defecto en las vistas y los tabs
-@Column(columnDefinition="BOOLEAN DEFAULT FALSE") // Para llenar con falses en lugar de con nulos
-boolean eliminado;
-</code></pre> Como ves, es una propiedad booleana simple y llana. El único detalle es el uso de la anotación <i>@Hidden</i>. Indica que cuando una vista o lista tabular por defecto sea generada la propiedad <em>eliminado</em> no se mostrará; aunque si la pones explícitamente en <i>@View(members=)</i> o <i>@Tab(properties=)</i> sí que se mostrará. Usa esta anotación para marcar aquellas propiedades de uso interno del programador pero que no tienen sentido para el usuario final.<br>
-      Usamos <em>@Column(columnDefinition=)</em> para llenar la columna con <em>falses</em> en lugar de con nulos. Aquí puedes poner la definición SQL de la columna para enviar a la base de datos. Es más sencillo que actualizar la base de datos pero el código es más dependiente de la base de datos.<br>
+@Column(nullable=false) // Para llenar con falses en lugar de con nulos
+@org.hibernate.annotations.ColumnDefault("false")
+boolean deleted;
+</code></pre> Como ves, es una propiedad booleana simple y llana. El único detalle es el uso de la anotación <i>@Hidden</i>. Indica que cuando una vista o lista tabular por defecto sea generada la propiedad <em>deleted</em> no se mostrará; aunque si la pones explícitamente en <i>@View(members=)</i> o <i>@Tab(properties=)</i> sí que se mostrará. Usa esta anotación para marcar aquellas propiedades de uso interno del programador pero que no tienen sentido para el usuario final.<br>
+      Usamos <em>@ColumnDefault("false")</em> para llenar la columna con <em>falses</em> en lugar de con nulos. Es más sencillo que actualizar la base de datos pero el código es más dependiente de la base de datos.<br>
       Ya estamos preparados para escribir el código real de la acción:<br>
       <pre><code class="language-java">public void execute() throws Exception {
-    Factura factura = XPersistence.getManager().find(
-        Factura.class,
+    Invoice invoice = XPersistence.getManager().find(
+        Invoice.class,
         getView().getValue("oid")); // Leemos el id de la vista
-    factura.setEliminado(true); // Modificamos el estado de la entidad
-    addMessage("object_deleted", "Factura"); // El mensaje de confirmación de borrado
+    invoice.setDeleted(true); // Modificamos el estado de la entidad
+    addMessage("object_deleted", "Invoice"); // El mensaje de confirmación de borrado
     getView().clear(); // Borramos la vista
 }
-</code></pre> El efecto visual es el mismo, se ve un mensaje y la vista se borra, pero en este caso hacemos algo de lógica. Buscamos la entidad <em>Factura</em> asociada con la vista actual y entonces cambiamos el valor de su propiedad <em>eliminado</em>. No necesitas hacer nada más, porque OpenXava confirma automáticamente la transacción JPA. Es decir, puedes leer cualquier objeto y modificar su estado en una acción, y cuando la acción finalice los cambios se almacenarán en la base de datos.<br>
-      Pero hemos dejado algunos cabos sueltos. El botón de "borrar" sigue en la vista después de haber borrado la entidad, es decir, cuando no hay un objeto seleccionado, además si el usuario lo pulsa la instrucción para buscar fallará y un mensaje un tanto técnico e ininteligible se le mostrará a nuestro desamparado usuario. Podemos refinar este caso no mostrando el botón, tal como cuando pulsamos el botón <i>Nuevo</i>. Observa la ligera modificación al método <i>execute()</i>:<br>
+</code></pre> El efecto visual es el mismo, se ve un mensaje y la vista se borra, pero en este caso hacemos algo de lógica. Buscamos la entidad <em>Invoice</em> asociada con la vista actual y entonces cambiamos el valor de su propiedad <em>deleted</em>. No necesitas hacer nada más, porque OpenXava confirma automáticamente la transacción JPA. Es decir, puedes leer cualquier objeto y modificar su estado en una acción, y cuando la acción finalice los cambios se almacenarán en la base de datos.<br>
+      Pero hemos dejado algunos cabos sueltos. El botón de "borrar" sigue en la vista después de haber borrado la entidad, es decir, cuando no hay un objeto seleccionado, además si el usuario lo pulsa la instrucción para buscar fallará y un mensaje un tanto técnico e ininteligible se le mostrará a nuestro desamparado usuario. Podemos refinar este caso no mostrando el botón, tal como cuando pulsamos el botón <i>New</i>. Observa la ligera modificación al método <i>execute()</i>:<br>
       <pre><code class="language-java">public void execute() throws Exception {
     // ...
     getView().clear();
     getView().setKeyEditable(true); // Crearemos una nueva entidad
 }
-</code></pre> Con <i>getView().setKeyEditable(true)</i> indicamos que creamos una nueva entidad y como nuestra acción <em>delete</em> tiene el atributo <em>disponible-en-nuevo="false"</em>, entonces, el botón de borrar no se mostrará.<br>
+</code></pre> Con <i>getView().setKeyEditable(true)</i> indicamos que creamos una nueva entidad y como nuestra acción <em>delete</em> tiene el atributo <em>available-on-new="false"</em>, entonces, el botón de borrar no se mostrará.<br>
       Ahora que ya sabes como escribir tus propias acciones personalizadas, es tiempo de aprender como escribir código genérico.<br>
       <h2 id="toc5"><a name="Acciones-genericas"></a>Acciones genéricas</h2>
-      El código actual de <em>EliminarFactura</em> refleja la forma típica de escribir acciones. Es código concreto que accede directamente a entidades concretas para manipularlas.<br>
+      El código actual de <em>DeleteInvoiceAction</em> refleja la forma típica de escribir acciones. Es código concreto que accede directamente a entidades concretas para manipularlas.<br>
       Pero a veces puedes encontrarte alguna lógica en tu acción susceptible de ser usada y reusada por toda tu aplicación, incluso en todas tus aplicaciones. En este caso, puedes utilizar algunas técnicas para crear código más reutilizable y así convertir tus acciones personalizadas en acciones genéricas.<br>
       Aprendamos estas técnicas para escribir código más genérico en nuestras acciones.<br>
       <h3 id="toc6"><a name="Acciones-genericas-Codigo-generico-con-MapFacade"></a>Código genérico con MapFacade</h3>
-      Imagínate que quieres usar tu <em>EliminarFactura</em> también para pedidos. Es más, imagínate que quieres usarla para cualquier entidad de la aplicación con una propiedad <em>eliminado</em>. Es decir, quieres una acción para marcar como borrada, en lugar de borrarla de la base de datos, no solo facturas sino cualquier entidad. En este caso, el código actual de tu acción no es suficiente. Necesitas un código más genérico.<br>
+      Imagínate que quieres usar tu <em>DeleteInvoiceAction</em> también para pedidos. Es más, imagínate que quieres usarla para cualquier entidad de la aplicación con una propiedad <em>deleted</em>. Es decir, quieres una acción para marcar como borrada, en lugar de borrarla de la base de datos, no solo facturas sino cualquier entidad. En este caso, el código actual de tu acción no es suficiente. Necesitas un código más genérico.<br>
       Puedes conseguir una acción más genérica usando la clase de OpenXava llamada <i>MapFacade</i>. <i>MapFacade</i> (del paquete <i>org.openxava.model</i>) te permite manejar el estado de tus entidades usando mapas, esto es conveniente ya que <i>View</i> trabaja con mapas. Además, los mapas son más dinámicos que los objetos y por tanto más apropiados para crear código genérico.<br>
-      Reescribamos nuestra acción para borrar. Primero, renombremos <em>EliminarFactura</em> (una acción para borrar objetos de tipo <em>Factura</em>) como <em>EliminarParaFacturacion</em> (la acción para borrar objetos en la aplicación <em>facturacion</em>). Esto implica que tienes que cambiar la entrada para la acción en <em>controladores.xml</em>, para cambiar el nombre de la clase. Tal como se muestra a continuación:<br>
-      <pre><code class="language-xml">&lt;accion nombre="delete"
-    modo="detail" confirmar="true"
-    clase="com.tuempresa.facturacion.acciones.EliminarParaFacturacion"
-    icono="delete"
-    disponible-en-nuevo="false"
-    atajo-de-teclado="Alt X"/&gt;
-</code></pre> Ahora, renombra tu <em>EliminarFactura</em> como <em>EliminarParaFacturacion</em> y reescribe su código:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.acciones;
+      Reescribamos nuestra acción para borrar. Primero, renombremos <em>DeleteInvoiceAction</em> (una acción para borrar objetos de tipo <em>Invoice</em>) como <em>InvoicingDeleteAction</em> (la acción para borrar objetos en la aplicación <em>invoicing</em>). Esto implica que tienes que cambiar la entrada para la acción en <em>controllers.xml</em>, para cambiar el nombre de la clase. Tal como se muestra a continuación:<br>
+      <pre><code class="language-xml">&lt;action name="delete"
+    mode="detail" confirm="true"
+    class="com.yourcompany.invoicing.actions.InvoicingDeleteAction"
+    icon="delete"
+    available-on-new="false"
+    keystroke="Alt X"/&gt;
+</code></pre> Ahora, renombra tu <em>DeleteInvoiceAction</em> como <em>InvoicingDeleteAction</em> y reescribe su código:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
+ 
 import org.openxava.actions.*;
 import org.openxava.model.*;
  
-public class EliminarParaFacturacion extends ViewBaseAction {
+public class InvoicingDeleteAction extends ViewBaseAction {
 
     public void execute() throws Exception {
-        Map&lt;String, Object&gt; valores =
+        Map&lt;String, Object&gt; values =
             new HashMap&lt;&gt;(); // Los valores a modificar en la entidad
-        valores.put("eliminado", true); // Asignamos true a la propiedad 'eliminado'
+        values.put("deleted", true); // Asignamos true a la propiedad 'deleted'
         MapFacade.setValues( // Modifica los valores de la entidad indicada
             getModelName(), // Un método de ViewBaseAction
             getView().getKeyValues(), // La clave de la entidad a modificar
-            valores); // Los valores a cambiar
+            values); // Los valores a cambiar
         resetDescriptionsCache(); // Reinicia los caches para los combos
         addMessage("object_deleted", getModelName());
         getView().clear();
@@ -283,153 +285,158 @@ public class EliminarParaFacturacion extends ViewBaseAction {
         getView().setEditable(false); // Dejamos la vista como no editable
     }
 }
-</code></pre> Esta acción hace lo mismo que la anterior, pero no tiene ninguna referencia a la entidad <em>Factura</em>. Por tanto, es genérica, puedes usarla con <em>Pedido</em>, <em>Autor</em> o cualquier otra entidad siempre y cuando tenga una propiedad <em>eliminado</em>. El truco está en <i>MapFacade</i> la cual permite modificar una entidad a partir de mapas. Puedes obtener esos mapas directamente de la vista (usando <i>getView().getKeyValues()</i> por ejemplo) o puedes crearlos de una manera genérica, como en el caso del mapa <em>valores</em>.<br>
-      Adicionalmente puedes ver dos pequeñas mejoras sobre la versión antigua. Primero, llamamos a <i>resetDescriptionsCache()</i>, un método de <i>BaseAction</i>. Este método borra el caché usado para los combos. Cuando modificas una entidad, si quieres que los combos reflejen los cambios en la sesión actual has de llamar a este método. Segundo, llamamos a <i>getView().setEditable(false)</i>. Esto inhabilita los controles de la vista, para impedir que el usuario rellene datos en la vista. Para crear una nueva entidad el usuario tiene que pulsar el botón <i>Nuevo</i>.<br>
-      Ahora tu acción está lista para ser usada por cualquier otra entidad. Podríamos copiar y pegar el controlador <em>Factura</em> como <em>Pedido</em> en <em>controladores.xml</em>. De esta forma, nuestra lógica genérica para borrar se usaría para <em>Pedido</em>. ¡Espera un momento! ¿He dicho “copiar y pegar”? No queremos arder en el fuego eterno del infierno, ¿verdad? Así que usaremos una forma más automática de insuflar nuestra nueva acción a todos lo módulos. Aprendámoslo en la siguiente sección.<br>
+</code></pre> Esta acción hace lo mismo que la anterior, pero no tiene ninguna referencia a la entidad <em>Invoice</em>. Por tanto, es genérica, puedes usarla con <em>Order</em>, <em>Author</em> o cualquier otra entidad siempre y cuando tenga una propiedad <em>deleted</em>. El truco está en <i>MapFacade</i> la cual permite modificar una entidad a partir de mapas. Puedes obtener esos mapas directamente de la vista (usando <i>getView().getKeyValues()</i> por ejemplo) o puedes crearlos de una manera genérica, como en el caso del mapa <em>values</em>.<br>
+      Adicionalmente puedes ver dos pequeñas mejoras sobre la versión antigua. Primero, llamamos a <i>resetDescriptionsCache()</i>, un método de <i>BaseAction</i>. Este método borra el caché usado para los combos. Cuando modificas una entidad, si quieres que los combos reflejen los cambios en la sesión actual has de llamar a este método. Segundo, llamamos a <i>getView().setEditable(false)</i>. Esto inhabilita los controles de la vista, para impedir que el usuario rellene datos en la vista. Para crear una nueva entidad el usuario tiene que pulsar el botón <i>New</i>.<br>
+      Ahora tu acción está lista para ser usada por cualquier otra entidad. Podríamos copiar y pegar el controlador <em>Invoice</em> como <em>Order</em> en <em>controllers.xml</em>. De esta forma, nuestra lógica genérica para borrar se usaría para <em>Order</em>. ¡Espera un momento! ¿He dicho “copiar y pegar”? No queremos arder en el fuego eterno del infierno, ¿verdad? Así que usaremos una forma más automática de insuflar nuestra nueva acción a todos lo módulos. Aprendámoslo en la siguiente sección.<br>
       <h3 id="toc7"><a name="Acciones-genericas-Cambiar-el-controlador-por-defecto-para-todos-los-modulos"></a>Cambiar el controlador por defecto para todos los módulos</h3>
-      Si usas <em>EliminarParaFacturacion</em> solo para <em>Factura</em> entonces definirla en el controlador <em>Factura</em> de <em>controladores.xml</em> es una buena táctica. Pero, recuerda que hemos mejorado esta acción precisamente para hacerla reutilizable, por tanto reutilicémosla. Vamos a asignar un controlador a todos los módulos de un solo golpe.<br>
-      El primer paso es cambiar el nombre del controlador de <em>Factura</em> a <em>Facturacion</em>:<br>
-      <pre><code class="language-xml">&lt;controlador nombre="Facturacion"&gt;
+      Si usas <em>InvoicingDeleteAction</em> solo para <em>Invoice</em> entonces definirla en el controlador <em>Invoice</em> de <em>controllers.xml</em> es una buena táctica. Pero, recuerda que hemos mejorado esta acción precisamente para hacerla reutilizable, por tanto reutilicémosla. Vamos a asignar un controlador a todos los módulos de un solo golpe.<br>
+      El primer paso es cambiar el nombre del controlador de <em>Invoice</em> a <em>Invoicing</em>:<br>
+      <pre><code class="language-xml">&lt;controller name="Invoicing"&gt;
  
-    &lt;hereda-de controlador="Typical"/&gt;
+    &lt;extends controller="Typical"/&gt;
  
-    &lt;accion nombre="delete" modo="detail" confirmar="true"
-        clase="com.tuempresa.facturacion.acciones.EliminarParaFacturacion"
-        icono="delete"
-        disponible-en-nuevo="false"
-        atajo-de-teclado="Alt X"/&gt;
+    &lt;action name="delete"
+        mode="detail" confirm="true"
+        class="com.yourcompany.invoicing.actions.InvoicingDeleteAction"
+        icon="delete"
+        available-on-new="false"
+        keystroke="Alt X"/&gt;
  
-&lt;/controlador&gt;
-</code></pre> Como ya sabes, cuando usas el nombre de una entidad, como <em>Factura</em>, como nombre de controlador, ese controlador será usado por defecto en el módulo de esa entidad. Por lo tanto, si cambiamos el nombre del controlador, este controlador no se usará para la entidad. De hecho el controlador <em>Facturacion</em> no es usado por ningún módulo, porque no hay ninguna entidad llamada "Facturacion".<br>
-      Queremos que el controlador <em>Facturacion</em> sea el controlador usado por defecto por todos los módulos de la aplicación. Para hacer esto hemos de modificar el archivo <em>aplicacion.xml</em> que esta en la carpeta <i>src/main/resources/xava</i> de tu aplicación. Dejándolo así:<br>
+&lt;/controller&gt;
+</code></pre> Como ya sabes, cuando usas el nombre de una entidad, como <em>Invoice</em>, como nombre de controlador, ese controlador será usado por defecto en el módulo de esa entidad. Por lo tanto, si cambiamos el nombre del controlador, este controlador no se usará para la entidad. De hecho el controlador <em>Invoicing</em> no es usado por ningún módulo, porque no hay ninguna entidad llamada "Invoicing".<br>
+      Queremos que el controlador <em>Invoicing</em> sea el controlador usado por defecto por todos los módulos de la aplicación. Para hacer esto hemos de modificar el archivo <em>application.xml</em> que esta en la carpeta <i>src/main/resources/xava</i> de tu aplicación. Dejándolo así:<br>
       <pre><code class="language-xml">&lt;?xml version = "1.0" encoding = "ISO-8859-1"?&gt;
  
-&lt;!DOCTYPE aplicacion SYSTEM "dtds/aplicacion.dtd"&gt;
+&lt;!DOCTYPE application SYSTEM "dtds/application.dtd"&gt;
  
-&lt;aplicacion nombre="facturacion"&gt;
+&lt;application name="invoicing"&gt;
  
     &lt;!--
     Se asume un módulo por defecto para cada entidad con el
-    controlador de &lt;modulo-defecto/&gt;
+    controlador de &lt;default-module/&gt;
     --&gt;
-    &lt;modulo-defecto&gt;
-        &lt;controlador nombre="Facturacion" /&gt;
-    &lt;/modulo-defecto&gt;
+    &lt;default-module&gt;
+        &lt;controller name="Invoicing"/&gt;
+    &lt;/default-module&gt;
  
-&lt;/aplicacion&gt;
-</code></pre> De esta forma tan simple todos los módulos de tu aplicación ahora usarán <em>Facturacion</em> en lugar de <em>Typical</em> como controlador por defecto. Trata de ejecutar tu módulo <em>Factura</em> y verás como la acción se ejecuta al borrar un elemento.<br>
-      Puedes probar el módulo <em>Pedido</em> también, pero no funcionará porque no tiene la propiedad <em>eliminado</em>. Podríamos añadir la propiedad <em>eliminado</em> a <em>Pedido</em> y funcionaría con nuestro nuevo controlador, pero en vez de “copiar y pegar” la propiedad <em>eliminado</em> en todas nuestras entidades, vamos a usar una técnica mejor. Veámoslo en la siguiente sección.<br>
+&lt;/application&gt;
+</code></pre> De esta forma tan simple todos los módulos de tu aplicación ahora usarán <em>Invoicing</em> en lugar de <em>Typical</em> como controlador por defecto. Trata de ejecutar tu módulo <em>Invoice</em> y verás como la acción se ejecuta al borrar un elemento.<br>
+      Puedes probar el módulo <em>Order</em> también, pero no funcionará porque no tiene la propiedad <em>deleted</em>. Podríamos añadir la propiedad <em>deleted</em> a <em>Order</em> y funcionaría con nuestro nuevo controlador, pero en vez de “copiar y pegar” la propiedad <em>deleted</em> en todas nuestras entidades, vamos a usar una técnica mejor. Veámoslo en la siguiente sección.<br>
       <h3 id="toc8"><a name="Acciones-genericas-Volvamos-un-momento-al-modelo"></a>Volvamos un momento al modelo</h3>
-      Tu tarea ahora sería añadir la propiedad <em>eliminado</em> a todas las entidades para que la <em>EliminarParaFacturacion</em> funcione. Esta es una buena ocasión para usar herencia y así poner el código común en el mismo sitio, en lugar de usar el infame “copiar y pegar”.<br>
-      Primero quita la propiedad <em>eliminado</em> de <em>Factura</em>:<br>
-      <pre><code class="language-java">public class Factura extends DocumentoComercial {
+      Tu tarea ahora sería añadir la propiedad <em>deleted</em> a todas las entidades para que la <em>InvoicingDeleteAction</em> funcione. Esta es una buena ocasión para usar herencia y así poner el código común en el mismo sitio, en lugar de usar el infame “copiar y pegar”.<br>
+      Primero quita la propiedad <em>deleted</em> de <em>Invoice</em>:<br>
+      <pre><code class="language-java">public class Invoice extends CommercialDocument {
  
     //@Hidden // No se mostrará por defecto en las vistas y los tabs
-    //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-    //boolean eliminado;
+    //@Column(nullable=false)
+    //@org.hibernate.annotations.ColumnDefault("false")
+    //boolean deleted;
  
     // El resto del código...
 }
-</code></pre> Y ahora crea una nueva superclase mapeada llamada <em>Eliminable</em> en el paquete <em>com.tuempresa.facturacion.modelo</em>:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.modelo;
+</code></pre> Y ahora crea una nueva superclase mapeada llamada <em>Deletable</em> en el paquete <em>com.yourcompany.invoicing.model</em>:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
-import javax.persistence.*;
+import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
 @MappedSuperclass @Getter @Setter
-public class Eliminable extends Identificable {
+public class Deletable extends Identifiable {
  
     @Hidden
-    @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
-    boolean eliminado;
+    @Column(nullable=false)
+    @org.hibernate.annotations.ColumnDefault("false")
+    boolean deleted;
  
 }
-</code></pre> <em>Eliminable</em> es una superclase mapeada. Recuerda, una superclase mapeada no es una entidad, es una clase con propiedades, métodos y anotaciones de mapeo para ser usada como superclase para entidades. <em>Eliminable</em> extiende de <em>Identificable</em>, por tanto cualquier entidad que extienda <em>Eliminable</em> tendrá las propiedades <em>oid</em> y <em>eliminado</em>.<br>
-      Ahora puedes convertir cualquiera de tus entidades actuales en <em>Eliminable</em>, solo has de cambiar <em>Identificable</em> por <em>Eliminable</em> como superclase. Hagámoslo con <i>DocumentoComercial</i>:<br>
-      <pre><code class="language-java">// abstract public class DocumentoComercial extends Identificable { 
-abstract public class DocumentoComercial extends Eliminable {
+</code></pre> <em>Deletable</em> es una superclase mapeada. Recuerda, una superclase mapeada no es una entidad, es una clase con propiedades, métodos y anotaciones de mapeo para ser usada como superclase para entidades. <em>Deletable</em> extiende de <em>Identifiable</em>, por tanto cualquier entidad que extienda <em>Deletable</em> tendrá las propiedades <em>oid</em> y <em>deleted</em>.<br>
+      Ahora puedes convertir cualquiera de tus entidades actuales en <em>Deletable</em>, solo has de cambiar <em>Identifiable</em> por <em>Deletable</em> como superclase. Hagámoslo con <i>CommercialDocument</i>:<br>
+      <pre><code class="language-java">// abstract public class CommercialDocument extends Identifiable { 
+abstract public class CommercialDocument extends Deletable {
  
     // El resto del código...
  
 }
-</code></pre> Dado que <em>Factura</em> y <em>Pedido</em> son <em>DocumentoComercial</em>, ahora puedes usar tu controlador <em>Facturacion</em> con la <em>EliminarParaFaturacion</em> contra ellos.<br>
-      Nos queda un sutil detalle. La entidad <em>Pedido</em> tiene un método <i>@PreRemove</i> para hacer una validación al borrar. Esta validación puede impedir el borrado. Podemos mantener esta validación para nuestro borrado personalizado simplemente sobrescribiendo el método <i>setEliminado()</i> de <em>Pedido</em>:<br>
-      <pre><code class="language-java">public class Pedido extends DocumentoComercial {
+</code></pre> Dado que <em>Invoice</em> y <em>Order</em> son <em>CommercialDocument</em>, ahora puedes usar tu controlador <em>Invoicing</em> con la <em>InvoicingDeleteAction</em> contra ellos.<br>
+      Nos queda un sutil detalle. La entidad <em>Order</em> tiene un método <i>@PreRemove</i> para hacer una validación al borrar. Esta validación puede impedir el borrado. Podemos mantener esta validación para nuestro borrado personalizado simplemente sobrescribiendo el método <i>setDeleted()</i> de <em>Order</em>:<br>
+      <pre><code class="language-java">public class Order extends CommercialDocument {
     // ...
+ 
     @PreRemove
-    private void validarPreBorrar() { // Ahora este método no se ejecuta
-        if (factura != null) { // automáticamente ya que el borrado real no se produce
-            throw new javax.validation.ValidationException(
-                XavaResources.getString("no_puede_borrar_pedido_con_factura"));
+    private void validateOnRemove() { // Ahora este método no se ejecuta
+        if (invoice != null) { // automáticamente ya que el borrado real no se produce
+            throw new jakarta.validation.ValidationException(
+                XavaResources.getString(
+                    "cannot_delete_order_with_invoice"));
         }
     }
  
-    public void setEliminado(boolean eliminado) {
-        if (eliminado) validarPreBorrar(); // Llamamos a la validación explícitamente
-        super.setEliminado(eliminado);
+    public void setDeleted(boolean deleted) {
+        if (deleted) validateOnRemove(); // Llamamos a la validación explícitamente
+        super.setDeleted(deleted);
     }
 }
 </code></pre> Con este cambio la validación funciona igual que en el caso de un borrado de verdad, así preservamos el comportamiento original intacto.<br>
       <h3 id="toc9"><a name="Acciones-genericas-Metadatos-para-un-codigo-mas-generico"></a>Metadatos para un código más genérico</h3>
-      Con tu actual código de <em>Factura</em> y <em>Pedido</em> el funcionamiento es bueno. Aunque si tratas de borrar una entidad de cualquier otro módulo, recibirás un feo mensaje de error. La figura siguiente muestra lo que ocurre cuando intentas borrar un <em>Cliente</em>.<br>
-      <img src="files/refining_behavior_es030.png" alt="refining_behavior_es030.png"
+      Con tu actual código de <em>Invoice</em> y <em>Order</em> el funcionamiento es bueno. Aunque si tratas de borrar una entidad de cualquier otro módulo, recibirás un feo mensaje de error. La figura siguiente muestra lo que ocurre cuando intentas borrar un <em>Customer</em>.<br>
+      <img src="files/refining_behavior_en030.png" alt="refining_behavior_en030.png"
 
-        title="refining_behavior_es030.png"><br>
-      Sí, si tu entidad no tiene una propiedad <em>eliminado</em>, la acción de borrar falla miserablemente. Es verdad que gracias a la clase <em>Eliminable</em> puedes añadir la propiedad <em>eliminado</em> a todas tus entidades fácilmente, pero puede ser que quieras tener entidades que puedan marcarse como borradas (<em>Eliminable</em>) y entidades que sean borradas de verdad de la base de datos. Queremos que la acción funcione bien en todos los casos.<br>
-      OpenXava almacena metadatos para todas tus entidades y puedes acceder a estos metadatos desde tu código. Esto te permite, por ejemplo, averiguar si la entidad tiene una propiedad <em>eliminado</em>.<br>
-      El siguiente código muestra una modificación en la acción para preguntar si la entidad tiene una propiedad <em>eliminado</em>, si no el proceso de borrado no se realiza:<br>
+        title="refining_behavior_en030.png"><br>
+      Sí, si tu entidad no tiene una propiedad <em>deleted</em>, la acción de borrar falla miserablemente. Es verdad que gracias a la clase <em>Deletable</em> puedes añadir la propiedad <em>deleted</em> a todas tus entidades fácilmente, pero puede ser que quieras tener entidades que puedan marcarse como borradas (<em>Deletable</em>) y entidades que sean borradas de verdad de la base de datos. Queremos que la acción funcione bien en todos los casos.<br>
+      OpenXava almacena metadatos para todas tus entidades y puedes acceder a estos metadatos desde tu código. Esto te permite, por ejemplo, averiguar si la entidad tiene una propiedad <em>deleted</em>.<br>
+      El siguiente código muestra una modificación en la acción para preguntar si la entidad tiene una propiedad <em>deleted</em>, si no el proceso de borrado no se realiza:<br>
       <pre><code class="language-java">public void execute() throws Exception {
     if (!getView().getMetaModel() // Metadatos de la entidad actual
-        .containsMetaProperty("eliminado")) // ¿Tiene una propiedad 'eliminado'?
+        .containsMetaProperty("deleted")) // ¿Tiene una propiedad 'deleted'?
     {
-        addMessage( // De momento, mostramos un mensaje si la propiedad 'eliminado' no está
-            "No eliminado, ésta no tiene propiedad eliminado");
+        addMessage( // De momento, mostramos un mensaje si la propiedad 'deleted' no está
+            "Not deleted, it has no deleted property");
         return;
     }
     // El resto del código...
 }
 </code></pre> La clave aquí es <i>getView().getMetaModel()</i> que devuelve un objeto <i>MetaModel</i> del paquete <i>org.openxava.model.meta</i>. Este objeto contiene metadatos sobre la entidad actualmente visualizada en la vista. Puedes preguntar por propiedades, referencias, colecciones, métodos y otra metainformación sobre la entidad. Consulta la <a
 
-        href="../apidocs/org/openxava/model/meta/MetaModel.html">API de <i>MetaModel</i></a> para aprender más. En este caso preguntamos si la propiedad <em>eliminado</em> existe.<br>
+        href="../apidocs/org/openxava/model/meta/MetaModel.html">API de <i>MetaModel</i></a> para aprender más. En este caso preguntamos si la propiedad <em>deleted</em> existe.<br>
       De momento solo mostramos un mensaje. Mejorémoslo para borrar de verdad la entidad.<br>
       <h3 id="toc10"><a name="Acciones-genericas-Llamar-a-otra-accion-desde-una-accion"></a>Llamar a otra acción desde una acción</h3>
-      Queremos que cuando la entidad no tenga una propiedad <em>eliminado</em> sea borrada de la base de datos de la manera habitual. Nuestra primera opción es escribir nosotros mismos la lógica de borrado, realmente no es una tarea complicada. Sin embargo, es mucho mejor usar la lógica estándar de borrado de OpenXava, así no necesitamos escribir ninguna lógica de borrado y usamos un código más refinado y probado.<br>
-      Para hacer esto OpenXava permite llamar a una acción desde dentro de una acción, simplemente llama a <i>executeAction()</i> indicando el nombre calificado de la acción, es decir, el nombre del controlador y el nombre de la acción.&nbsp; En nuestro caso para llamar a la acción estándar de OpenXava para borrar usaríamos <i>executeAction("CRUD.delete")</i>. El siguiente código muestra <em>EliminarParaFacturacion</em> modificada para llamar a la acción estándar de OpenXava para borrar.<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.acciones;
+      Queremos que cuando la entidad no tenga una propiedad <em>deleted</em> sea borrada de la base de datos de la manera habitual. Nuestra primera opción es escribir nosotros mismos la lógica de borrado, realmente no es una tarea complicada. Sin embargo, es mucho mejor usar la lógica estándar de borrado de OpenXava, así no necesitamos escribir ninguna lógica de borrado y usamos un código más refinado y probado.<br>
+      Para hacer esto OpenXava permite llamar a una acción desde dentro de una acción, simplemente llama a <i>executeAction()</i> indicando el nombre calificado de la acción, es decir, el nombre del controlador y el nombre de la acción.&nbsp; En nuestro caso para llamar a la acción estándar de OpenXava para borrar usaríamos <i>executeAction("CRUD.delete")</i>. El siguiente código muestra <em>InvoicingDeleteAction</em> modificada para llamar a la acción estándar de OpenXava para borrar.<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
 import org.openxava.actions.*;
 import org.openxava.model.*;
  
-public class EliminarParaFacturacion extends ViewBaseAction {
- 
+public class InvoicingDeleteAction extends ViewBaseAction {
+
     public void execute() throws Exception {
-        if (!getView().getMetaModel().containsMetaProperty("eliminado")) {
-            executeAction("CRUD.delete"); // LLamamos a la acción estándar
+        if (!getView().getMetaModel().containsMetaProperty("deleted")) {
+            executeAction("CRUD.delete"); // Llamamos a la acción estándar
             return;                       //   de OpenXava para borrar
         }
-
-        // Cuando "eliminado" existe usamos nuestra propia lógica de borrado
-        Map&lt;String, Object&gt; valores = new HashMap&lt;&gt;();
-        valores.put("eliminado", true);
-        MapFacade.setValues(getModelName(), getView().getKeyValues(), valores);
-        resetDescriptionsCache();
+   
+        // Cuando "deleted" existe usamos nuestra propia lógica de borrado
+        Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); 
+        values.put("deleted", true);
+        MapFacade.setValues(getModelName(), getView().getKeyValues(), values); 
+        resetDescriptionsCache(); 
         addMessage("object_deleted", getModelName());
         getView().clear();
         getView().setKeyEditable(true);
-        getView().setEditable(false);
+        getView().setEditable(false); 
     }
 }
 </code></pre> Simplemente llamamos a <i>executeAction(“CRUD.delete”)</i> si queremos que la acción por defecto para borrar de OpenXava se ejecute. Así, escribimos nuestra propia lógica de borrado (en este caso marcar una propiedad con <i>true</i>) para algunos casos y “dejamos pasar” la lógica estándar para los demás.<br>
-      Ahora puedes usar tu <em>EliminarParaFacturacion</em> contra cualquier entidad. Si la entidad tiene una propiedad <em>eliminado</em> se marcará como borrada, en caso contrario se borrará físicamente de la base de datos.<br>
+      Ahora puedes usar tu <em>InvoicingDeleteAction</em> contra cualquier entidad. Si la entidad tiene una propiedad <em>deleted</em> se marcará como borrada, en caso contrario se borrará físicamente de la base de datos.<br>
       Este ejemplo te muestra como usar <i>executeAction() </i>para refinar la lógica estándar de OpenXava. Otra forma de hacerlo es mediante la herencia. Veamos cómo en la siguiente sección.<br>
       <h3 id="toc11"><a name="Acciones-genericas-Refinar-la-accion-de-busqueda-por-defecto"></a>Refinar la acción de búsqueda por defecto</h3>
-      <em>EliminarParaFacturacion</em> ahora funciona bastante bien, aunque no tiene demasiada utilidad. Es inútil marcar como borrados los objetos, si el resto de la aplicación no es consciente de ello. Es decir, hemos de modificar otras partes de la aplicación para que traten los objetos “marcados como borrados” como si no existieran.<br>
+      <em>InvoicingDeleteAction</em> ahora funciona bastante bien, aunque no tiene demasiada utilidad. Es inútil marcar como borrados los objetos, si el resto de la aplicación no es consciente de ello. Es decir, hemos de modificar otras partes de la aplicación para que traten los objetos “marcados como borrados” como si no existieran.<br>
       El lugar más obvio para empezar es la acción de búsqueda. Si borras una factura y después tratas de buscarla, no deberías encontrarla. La siguiente figura muestra como funciona la búsqueda en OpenXava.<br>
-      <img src="files/refining_behavior_es040.png" alt="refining_behavior_es040.png"
+      <img src="files/refining_behavior_en040.png" alt="refining_behavior_en040.png"
 
-        title="refining_behavior_es040.png"><br>
+        title="refining_behavior_en040.png"><br>
       La primera cosa que puedes observar en la figura anterior es que buscar en modo detalle es más flexible de lo que parece. El usuario puede introducir cualquier valor en cualquier campo, o combinación de campos, y pulsar en el botón de refrescar. Entonces el primer objeto cuyos valores coinciden es cargado en la vista.<br>
       Puedes pensar: Bueno, puedo refinar la acción <em>CRUD.refresh</em> de la misma forma que he refinado <em>CRUD.delete</em>. Por supuesto, puedes hacerlo así. Y funcionaría; cuando el usuario pulsara en la acción del modo detalle tu código se ejecutaría. Aunque, aquí hay un detalle un tanto sutil. La lógica de buscar no se llama sólo desde el modo detalle, sino también desde otros puntos del módulo OpenXava. Por ejemplo, cuando el usuario escoge un detalle, la acción <em>List.viewDetail</em> coge la clave de la fila, la pone en la vista de detalle y después ejecuta la acción de buscar.<br>
       Para hacerlo bien, hemos de poner la lógica para buscar en un módulo, en la misma acción, y todas las acciones que necesiten buscar encadenarán con esta acción. Tal como muestra la anterior figura.<br>
@@ -446,138 +453,138 @@ public class EliminarParaFacturacion extends ViewBaseAction {
     }
 }
 </code></pre> Como ves, la acción estándar para buscar en modo detalle no hace nada, simplemente redirige a otra acción. Esta otra acción se define en una variable de entorno llamada <em>XAVA_SEARCH_ACTION</em>, que lee usando <i>getEnvironment()</i>. Por la tanto, si quieres refinar la lógica de búsqueda de OpenXava la mejor manera es definiendo tu acción como valor para <em>XAVA_SEARCH_ACTION</em>. Hagámoslo pues de esta manera.<br>
-      Para dar valor a la variable de entorno edita el archivo <em>controladores.xml</em> en la carpeta <i>src/main/resources/xava</i> de tu proyecto y añade al principio la línea <em>&lt;var-entorno /&gt;</em> como ves a continuación:<br>
+      Para dar valor a la variable de entorno edita el archivo <em>controllers.xml</em> en la carpeta <i>src/main/resources/xava</i> de tu proyecto y añade al principio la línea <em>&lt;env-var /&gt;</em> como ves a continuación:<br>
       <pre><code class="language-xml">...
-&lt;controladores&gt;
+&lt;controllers&gt;
     &lt;!-- Para definir un valor global para una variable de entorno --&gt;
-    &lt;var-entorno
-        nombre="XAVA_SEARCH_ACTION"
-        valor="Facturacion.buscarExcluyendoEliminados" /&gt;
+    &lt;env-var
+        name="XAVA_SEARCH_ACTION"
+        value="Invoicing.searchExcludingDeleted" /&gt;
  
-    &lt;controlador nombre="Facturacion"&gt;
+    &lt;controller name="Invoicing"&gt;
 ...
-</code></pre> De esta forma el valor para la variable de entorno <em>XAVA_SEARCH_ACTION</em> en cualquier módulo será “Facturacion.buscarExcluyendoEliminados”, por lo tanto la lógica de búsqueda para todos los módulos estará en esta acción.<br>
-      El siguiente paso lógico es definir esta acción en el controlador "Facturacion" del mismo <em>controladores.xml</em>:<br>
-      <pre><code class="language-xml">&lt;controlador nombre="Facturacion"&gt;
+</code></pre> De esta forma el valor para la variable de entorno <em>XAVA_SEARCH_ACTION</em> en cualquier módulo será “Invoicing.searchExcludingDeleted”, por lo tanto la lógica de búsqueda para todos los módulos estará en esta acción.<br>
+      El siguiente paso lógico es definir esta acción en el controlador "Invoicing" del mismo <em>controllers.xml</em>:<br>
+      <pre><code class="language-xml">&lt;controller name="Invoicing"&gt;
     ...
-    &lt;accion nombre="buscarExcluyendoEliminados"
-        oculta="true"
-        clase="com.tuempresa.facturacion.acciones.BuscarExcluyendoEliminados" /&gt;
-        &lt;!-- oculta="true" : Así la acción no se mostrará en la barra de botones --&gt;
-&lt;/controlador&gt;
-</code></pre> Y ahora es el momento para escribir la clase de implementación. En este caso solo queremos refinar la lógica de búsqueda, es decir, la búsqueda se ha de hacer de la forma convencional, con la excepción de las entidades con una propiedad <em>eliminado</em> cuyo valor sea <i>true</i>. Para hacer este refinamiento vamos a usar herencia. El siguiente código muestra la acción:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.acciones;
+    &lt;action name="searchExcludingDeleted"
+        hidden="true"
+        class="com.yourcompany.invoicing.actions.SearchExcludingDeletedAction"/&gt;
+        &lt;!-- hidden="true" : Así la acción no se mostrará en la barra de botones --&gt;
+&lt;/controller&gt;
+</code></pre> Y ahora es el momento para escribir la clase de implementación. En este caso solo queremos refinar la lógica de búsqueda, es decir, la búsqueda se ha de hacer de la forma convencional, con la excepción de las entidades con una propiedad <em>deleted</em> cuyo valor sea <i>true</i>. Para hacer este refinamiento vamos a usar herencia. El siguiente código muestra la acción:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
 import java.util.*;
-import javax.ejb.*;
 import org.openxava.actions.*;
+import org.openxava.model.*;
  
-public class BuscarExcluyendoEliminados
+public class SearchExcludingDeletedAction
     extends SearchByViewKeyAction { // La acción estándar de OpenXava para buscar
  
-    private boolean esEliminable() { // Pregunta si la entidad tiene una propiedad 'eliminado'
+    private boolean isDeletable() { // Pregunta si la entidad tiene una propiedad 'deleted'
         return getView().getMetaModel()
-            .containsMetaProperty("eliminado");
+            .containsMetaProperty("deleted");
     }
  
     protected Map getValuesFromView() // Coge los valores visualizados desde la vista
         throws Exception // Estos valores se usan como clave al buscar
     {
-        if (!esEliminable()) { // Si no es 'eliminable' usamos la lógica estándar
+        if (!isDeletable()) { // Si no es 'deletable' usamos la lógica estándar
             return super.getValuesFromView();
         }
-        Map&lt;String, Object&gt; valores = super.getValuesFromView();
-        valores.put("eliminado", false) ; // Llenamos la propiedad 'eliminado' con false
-        return valores;
+        Map&lt;String, Object&gt; values = super.getValuesFromView();
+        values.put("deleted", false); // Llenamos la propiedad 'deleted' con false
+        return values;
     }
  
     protected Map getMemberNames() // Los miembros a leer de la entidad
         throws Exception
     {
-        if (!esEliminable()) { // Si no es 'eliminable' ejecutamos la lógica estándar
+        if (!isDeletable()) { // Si no es 'deletable' ejecutamos la lógica estándar
             return super.getMemberNames();
         }
-        Map&lt;String, Object&gt; miembros = super.getMemberNames();
-        miembros.put("eliminado", null); // Queremos obtener la propiedad 'eliminado'
-        return miembros; // aunque no esté en la vista
+        Map&lt;String, Object&gt; members = super.getMemberNames();
+        members.put("deleted", null); // Queremos obtener la propiedad 'deleted'
+        return members; // aunque no esté en la vista
     }
  
-    protected void setValuesToView(Map valores) // Asigna los valores desde
+    protected void setValuesToView(Map values) // Asigna los valores desde
         throws Exception // la entidad a la vista
     {
-        if (esEliminable() &amp;&amp; // Si tiene una propiedad 'eliminado' y
-            (Boolean) valores.get("eliminado")) { // vale true
+        if (isDeletable() &amp;&amp; // Si tiene una propiedad 'deleted' y
+            (Boolean) values.get("deleted")) { // vale true
             throw new ObjectNotFoundException(); // lanzamos la misma excepción que
                 // OpenXava lanza cuando el objeto no se encuentra
         }
         else {
-            super.setValuesToView(valores); // En caso contrario usamos la lógica estándar
+            super.setValuesToView(values); // En caso contrario usamos la lógica estándar
         }
     }
 }
-</code></pre> La lógica estándar para buscar está en la clase <i>SearchByViewKeyAction</i>. Básicamente, la lógica de esta clase consiste en coger los valores de la vista, si la propiedad <em>id</em> está presente buscará por id, en caso contrario coge todos los valores en la vista para usar en la condición de búsqueda, devolviendo el primer objeto que coincida con la condición. Queremos usar este mismo algoritmo cambiando solo algunos detalles sobre la propiedad <em>eliminado</em>. Por tanto, en vez de sobrescribir el método <i>execute()</i>, que contiene la lógica de búsqueda, sobrescribimos tres métodos protegidos, que son llamados desde <i>execute()</i> y contienen algunos puntos susceptibles de ser refinados.<br>
+</code></pre> La lógica estándar para buscar está en la clase <i>SearchByViewKeyAction</i>. Básicamente, la lógica de esta clase consiste en coger los valores de la vista, si la propiedad <em>id</em> está presente buscará por id, en caso contrario coge todos los valores en la vista para usar en la condición de búsqueda, devolviendo el primer objeto que coincida con la condición. Queremos usar este mismo algoritmo cambiando solo algunos detalles sobre la propiedad <em>deleted</em>. Por tanto, en vez de sobrescribir el método <i>execute()</i>, que contiene la lógica de búsqueda, sobrescribimos tres métodos protegidos, que son llamados desde <i>execute()</i> y contienen algunos puntos susceptibles de ser refinados.<br>
       Después de estos cambios prueba tu aplicación, y verás como cuando tratas de buscar una factura o un pedido, si están borrados no se muestran. Incluso si escoges una factura o pedido borrado desde el modo lista se producirá un error y no verás los datos en modo detalle.<br>
-      Has visto como al definir una variable de entorno <em>XAVA_SEARCH_ACTION</em> en <em>controladores.xml</em> estableces la lógica de búsqueda de una manera global, es decir, para todos los módulos a la vez. Si lo que quieres es definir una acción de búsqueda para un módulo en particular, simplemente define la variable de entorno en la definición del módulo en <em>aplicacion.xml</em>, tal como mostramos a continuación:<br>
-      <pre><code class="language-xml">&lt;modulo nombre="Producto"&gt;
+      Has visto como al definir una variable de entorno <em>XAVA_SEARCH_ACTION</em> en <em>controllers.xml</em> estableces la lógica de búsqueda de una manera global, es decir, para todos los módulos a la vez. Si lo que quieres es definir una acción de búsqueda para un módulo en particular, simplemente define la variable de entorno en la definición del módulo en <em>application.xml</em>, tal como mostramos a continuación:<br>
+      <pre><code class="language-xml">&lt;module name="Product"&gt;
     &lt;!--Para dar un valor local a la variable de entorno para este módulo --&gt;
-    &lt;var-entorno
-        nombre="XAVA_SEARCH_ACTION"
-        valor="Producto.buscarPorNumero"/&gt;
-    &lt;modelo nombre="Producto"/&gt;
-    &lt;controlador nombre="Producto"/&gt;
-    &lt;controlador nombre="Facturacion"/&gt;
-&lt;/modulo&gt;
-</code></pre> De esta forma para el módulo <em>Producto</em> la variable de entorno <em>XAVA_SEARCH_ACTION</em> valdrá <em>“Producto.buscarPorNumero”</em>. Es decir, las variables de entorno son locales a los módulos. Aunque definas un valor por defecto en <em>controladores.xml</em>, siempre tienes la opción de sobrescribirlo para un módulo concreto. La variables de entorno son una forma práctica de configurar tu aplicación declarativamente.<br>
-      No queremos una forma especial de búsqueda para <em>Producto</em>, por tanto no añadas esta definición de módulo a tu <em>aplicacion.xml</em>. Este código solo era para ilustrar el uso de <em>&lt;var-entorno /&gt;</em> en los módulos.<br>
+    &lt;env-var
+        name="XAVA_SEARCH_ACTION"
+        value="Product.searchByNumber"/&gt;
+    &lt;model name="Product"/&gt;
+    &lt;controller name="Product"/&gt;
+    &lt;controller name="Invoicing"/&gt;
+&lt;/module&gt;
+</code></pre> De esta forma para el módulo <em>Product</em> la variable de entorno <em>XAVA_SEARCH_ACTION</em> valdrá <em>“Product.searchByNumber”</em>. Es decir, las variables de entorno son locales a los módulos. Aunque definas un valor por defecto en <em>controllers.xml</em>, siempre tienes la opción de sobrescribirlo para un módulo concreto. La variables de entorno son una forma práctica de configurar tu aplicación declarativamente.<br>
+      No queremos una forma especial de búsqueda para <em>Product</em>, por tanto no añadas esta definición de módulo a tu <em>application.xml</em>. Este código solo era para ilustrar el uso de <em>&lt;env-var /&gt;</em> en los módulos.<br>
       <h2 id="toc12"><a name="Modo-lista"></a>Modo lista</h2>
-      Ya casi tenemos el trabajo hecho. Cuando el usuario borra una entidad con una propiedad <em>eliminado</em> la entidad se marca como borrada en vez de ser borrada físicamente de la base de datos. Y si el usuario trata de buscar una entidad “marcada como borrada” no puede verla en modo detalle. Aunque, el usuario todavía puede ver las entidades “marcadas como borradas” en modo lista, y lo que es peor si borra las entidades desde modo lista, éstas son efectivamente borradas de la base de datos. Atemos estos cabos sueltos.<br>
+      Ya casi tenemos el trabajo hecho. Cuando el usuario borra una entidad con una propiedad <em>deleted</em> la entidad se marca como borrada en vez de ser borrada físicamente de la base de datos. Y si el usuario trata de buscar una entidad “marcada como borrada” no puede verla en modo detalle. Aunque, el usuario todavía puede ver las entidades “marcadas como borradas” en modo lista, y lo que es peor si borra las entidades desde modo lista, éstas son efectivamente borradas de la base de datos. Atemos estos cabos sueltos.<br>
       <h3 id="toc13"><a name="Modo-lista-Filtrar-datos-tabulares"></a>Filtrar datos tabulares</h3>
-      Solo las entidades con su propiedad <em>eliminado</em> igual a <em>false</em> tienen que ser mostradas en modo lista. Esto es muy fácil de conseguir usando la anotación <i>@Tab</i>. Esta anotación te permite definir la forma en que los datos tabulares (los datos mostrados en modo lista) son visualizados y te permite además definir una condición. Por tanto, añadir esta anotación a las entidades que tengan una propiedad <em>eliminado</em> es suficiente para conseguir nuestro objetivo, tal como se muestra a continuación:<br>
-      <pre><code class="language-java">@Tab(baseCondition = "${eliminado} = false")
-public class Factura extends DocumentoComercial { ... }
+      Solo las entidades con su propiedad <em>deleted</em> igual a <em>false</em> tienen que ser mostradas en modo lista. Esto es muy fácil de conseguir usando la anotación <i>@Tab</i>. Esta anotación te permite definir la forma en que los datos tabulares (los datos mostrados en modo lista) son visualizados y te permite además definir una condición. Por tanto, añadir esta anotación a las entidades que tengan una propiedad <em>deleted</em> es suficiente para conseguir nuestro objetivo, tal como se muestra a continuación:<br>
+      <pre><code class="language-java">@Tab(baseCondition = "${deleted} = false")
+public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "${eliminado} = false")
-public class Pedido extends DocumentoComercial { ... }
+@Tab(baseCondition = "${deleted} = false")
+public class Order extends CommercialDocument { ... }
 </code></pre> Y de esta forma tan sencilla el modo lista no mostrará las entidades “marcadas como borradas”.<br>
       <h3 id="toc14"><a name="Modo-lista-Acciones-de-lista"></a>Acciones de lista</h3>
       El único detalle que nos queda es el borrar las entidades desde modo lista, éstas han de marcarse como borradas si procede. Vamos a refinar las acciones estándares <em>CRUD.deleteSelected</em> y <i>CRUD.deleteRow</i> de la misma manera que hemos hecho con <em>CRUD.delete</em>.<br>
-      Primero, sobrescribimos la acciones <em>deleteSelected</em> y <em>deleteRow</em> para nuestra aplicación. Añade la siguiente definición de acción a tu controlador <em>Facturacion</em> definido en <em>controladores.xml</em>:<br>
-      <pre><code class="language-xml">&lt;controlador nombre="Facturacion"&gt;
-    &lt;hereda-de controlador="Typical"/&gt;
+      Primero, sobrescribimos la acciones <em>deleteSelected</em> y <em>deleteRow</em> para nuestra aplicación. Añade la siguiente definición de acción a tu controlador <em>Invoicing</em> definido en <em>controllers.xml</em>:<br>
+      <pre><code class="language-xml">&lt;controller name="Invoicing"&gt;
+    &lt;extends controller="Typical"/&gt;
  
     &lt;!-- ... --&gt;
  
-    &lt;accion nombre="deleteSelected" modo="list" confirmar="true"
-        procesar-elementos-seleccionados="true"
-        icono="delete"			 
-        clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
-        atajo-de-teclado="Alt X"/&gt;				
+    &lt;action name="deleteSelected" mode="list" confirm="true"
+        process-selected-items="true"
+        icon="delete"			 
+        class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
+        keystroke="Alt X"/&gt;				
 	
-    &lt;accion nombre="deleteRow" modo="NONE" confirmar="true"
-        clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"
-        icono="delete"
-        en-cada-fila="true"/&gt;
+    &lt;action name="deleteRow" mode="NONE" confirm="true"
+        class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"
+        icon="delete"
+        in-each-row="true"/&gt;
  
-&lt;/controlador&gt;
-</code></pre> La acciones estándar para borrar entidades desde modo lista son <em>deleteSelected</em> (para borrar las filas seleccionadas) y <em>deleteRow</em> (la acción que aparece en cada fila). Estas acciones están definidas en el controlador <em>CRUD</em>. <em>Typical</em> extiende de <em>CRUD</em> y <em>Facturacion</em> extiende <em>Typical</em>; así que el controlador <em>Facturacion</em> incluye por defecto estas acciones. Dado que hemos definido unas acciones con los mismos nombres, nuestras acciones sobrescriben las estándares. Es decir, de ahora en adelante la lógica para borrar las filas seleccionadas en modo lista está en la clase <em>EliminarSeleccionadoParaFacturacion</em>. Fíjate como la lógica para ambas acciones están en una única clase Java. El código es el siguiente:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.acciones;
+&lt;/controller&gt;
+</code></pre> La acciones estándar para borrar entidades desde modo lista son <em>deleteSelected</em> (para borrar las filas seleccionadas) y <em>deleteRow</em> (la acción que aparece en cada fila). Estas acciones están definidas en el controlador <em>CRUD</em>. <em>Typical</em> extiende de <em>CRUD</em> y <em>Invoicing</em> extiende <em>Typical</em>; así que el controlador <em>Invoicing</em> incluye por defecto estas acciones. Dado que hemos definido unas acciones con los mismos nombres, nuestras acciones sobrescriben las estándares. Es decir, de ahora en adelante la lógica para borrar las filas seleccionadas en modo lista está en la clase <em>InvoicingDeleteSelectedAction</em>. Fíjate como la lógica para ambas acciones están en una única clase Java. El código es el siguiente:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.actions;
  
 import org.openxava.actions.*;
 import org.openxava.model.meta.*;
  
-public class EliminarSeleccionadoParaFacturacion
+public class InvoicingDeleteSelectedAction
     extends TabBaseAction // Para trabajar con datos tabulares (lista) por medio de getTab()
     implements IChainActionWithArgv { // Encadena con otra acción, indicada con getNextAction()
  
     private String nextAction = null; // Para almacenar la siguiente acción a ejecutar
  
     public void execute() throws Exception {
-        if (!getMetaModel().containsMetaProperty("eliminado")) {
+        if (!getMetaModel().containsMetaProperty("deleted")) {
             nextAction="CRUD.deleteSelected"; // 'CRUD.deleteSelected' se ejecutará
                 // cuando esta acción finalice
             return;
         }
-        marcarEntidadesSeleccionadasComoEliminadas(); // La lógica para marcar las
+        markSelectedEntitiesAsDeleted(); // La lógica para marcar las
             // filas seleccionadas como objetos borrados
     }
  
@@ -592,143 +599,143 @@ public class EliminarSeleccionadoParaFacturacion
     }
  
     public String getNextActionArgv() throws Exception {
-        return "row=" + getRow(); // Argumento a enviar a la la acción encadenada
+        return "row=" + getRow(); // Argumento a enviar a la acción encadenada
     }
  
-    private void marcarEntidadesSeleccionadasComoEliminadas() throws Exception {
+    private void markSelectedEntitiesAsDeleted() throws Exception {
         // ...
     }
 }
-</code></pre> Puedes ver como esta acción es bastante parecida a <em>EliminarParaFacturacion</em>. Si las entidades no tienen la propiedad <em>eliminado</em> encadena con la acción estándar, en caso contrario ejecuta su propia lógica para borrar las entidades. Aunque en este caso usamos <i>IChainActionWithArgv</i> en lugar del más sencillo <i>executeAction()</i> porque necesitamos enviar un argumento a la acción encadenada. Generalmente las acciones para modo lista extienden de <i>TabBaseAction</i>, así puedes usar <i>getTab()</i> para obtener el objeto <em>Tab</em> asociados a la lista. Un <em>Tab</em> (de <i>org.openxava.tab</i>) te permite manipular los datos tabulares. Por ejemplo en el método <i>getMetaModel()</i> preguntamos al <em>Tab</em> el nombre del modelo para obtener el <i>MetaModel</i> correspondiente.<br>
-      Si la entidad tiene una propiedad <em>eliminado</em> entonces se ejecuta nuestra propia lógica de borrado. Esta lógica está en el método <i>marcarEntidadesSeleccionadasComoEliminadas()</i> que puedes ver a continuación:<br>
-      <pre><code class="language-java">private void marcarEntidadesSeleccionadasComoEliminadas() throws Exception {
-    Map&lt;String, Object&gt; valores = new HashMap&lt;&gt;(); // Valores a asignar a cada entidad para marcarla
-    valores.put("eliminado", true); // Pone 'eliminado' a true
-    Map&lt;String, Object&gt;[] clavesSeleccionadas = getSelectedKeys(); // Obtenemos las filas seleccionadas
-    if (clavesSeleccionadas != null) {
-        for (int i = 0; i &lt; clavesSeleccionadas.length; i++) { // Iteramos sobre las filas seleccionadas
-            Map&lt;String, Object&gt; clave = clavesSeleccionadas[i]; // Obteniendo la clave de cada entidad
+</code></pre> Puedes ver como esta acción es bastante parecida a <em>InvoicingDeleteAction</em>. Si las entidades no tienen la propiedad <em>deleted</em> encadena con la acción estándar, en caso contrario ejecuta su propia lógica para borrar las entidades. Aunque en este caso usamos <i>IChainActionWithArgv</i> en lugar del más sencillo <i>executeAction()</i> porque necesitamos enviar un argumento a la acción encadenada. Generalmente las acciones para modo lista extienden de <i>TabBaseAction</i>, así puedes usar <i>getTab()</i> para obtener el objeto <em>Tab</em> asociados a la lista. Un <em>Tab</em> (de <i>org.openxava.tab</i>) te permite manipular los datos tabulares. Por ejemplo en el método <i>getMetaModel()</i> preguntamos al <em>Tab</em> el nombre del modelo para obtener el <i>MetaModel</i> correspondiente.<br>
+      Si la entidad tiene una propiedad <em>deleted</em> entonces se ejecuta nuestra propia lógica de borrado. Esta lógica está en el método <i>markSelectedEntitiesAsDeleted()</i> que puedes ver a continuación:<br>
+      <pre><code class="language-java">private void markSelectedEntitiesAsDeleted() throws Exception {
+    Map&lt;String, Object&gt; values = new HashMap&lt;&gt;(); // Valores a asignar a cada entidad para marcarla
+    values.put("deleted", true); // Pone 'deleted' a true
+    Map&lt;String, Object&gt;[] selectedOnes = getSelectedKeys(); // Obtenemos las filas seleccionadas
+    if (selectedOnes != null) {
+        for (int i = 0; i &lt; selectedOnes.length; i++) { // Iteramos sobre las filas seleccionadas
+            Map&lt;String, Object&gt; key = selectedOnes[i]; // Obteniendo la clave de cada entidad
             try {
                 MapFacade.setValues( // Modificamos cada entidad
                     getTab().getModelName(),
-                    clave,
-                    valores);
+                    key,
+                    values);
             }
-            catch (javax.validation.ValidationException ex) { // Si se produce una ValidationException..
-                addError("no_delete_row", i, clave);
+            catch (jakarta.validation.ValidationException ex) { // Si se produce una ValidationException..
+                addError("no_delete_row", i, key);
                 addError("remove_error", getTab().getModelName(), ex.getMessage()); // ...mostramos el mensaje
             }
             catch (Exception ex) { // Si se lanza cualquier otra excepción, se añade
-                addError("no_delete_row", i, clave); // un mensaje genérico
+                addError("no_delete_row", i, key); // un mensaje genérico
             }
         }
     }
     getTab().deselectAll(); // Después de borrar deseleccionamos la filas
     resetDescriptionsCache(); // Y reiniciamos el caché de los combos para este usuario
 }
-</code></pre> Como ves la lógica es un simple bucle sobre las claves de las filas seleccionadas, y en cada iteración ponemos a <em>true</em> la propiedad <em>eliminado</em> usando el método <i>MapFacade.setValues()</i>. Atrapamos las excepciones dentro de la iteración del bucle, así si hay algún problema borrando la entidad, esto no afecta al borrado de las demás entidades. Hemos hecho un pequeño refinamiento para el caso de <i>ValidationException</i>, añadiendo el mensaje de validación (<i>ex.getMessage()</i>) a los errores a mostrar al usuario.<br>
+</code></pre> Como ves la lógica es un simple bucle sobre las claves de las filas seleccionadas, y en cada iteración ponemos a <em>true</em> la propiedad <em>deleted</em> usando el método <i>MapFacade.setValues()</i>. Atrapamos las excepciones dentro de la iteración del bucle, así si hay algún problema borrando la entidad, esto no afecta al borrado de las demás entidades. Hemos hecho un pequeño refinamiento para el caso de <i>ValidationException</i>, añadiendo el mensaje de validación (<i>ex.getMessage()</i>) a los errores a mostrar al usuario.<br>
       Al final deseleccionamos todas las filas mediante <i>getTab().deselectAll()</i>, porque estamos borrando filas, por tanto si no eliminamos la selección, esta se habría recorrido después de la ejecución de la acción.<br>
       Hemos llamado a <i>resetDescriptionsCache()</i> para actualizar las entidades borradas en todos los combos de la actual sesión de usuario. Los combos, es decir las referencias marcadas con <i>@DescriptionsList</i>, usan el <i>@Tab</i> de la entidad referenciada para filtrar los datos. Es decir, si tuvieras un combo de facturas o pedidos con la condición <em>“deleted = false”</em> en el <i>@Tab</i>, en este caso el contenido del combo cambiaría.<br>
       Ahora ya tienes refinada del todo la forma en que tu aplicación borra las entidades. Aunque aún nos quedan cosas interesantes por hacer.<br>
       <h2 id="toc15"><a name="Reutilizar-el-codigo-de-las-acciones"></a>Reutilizar el código de las acciones</h2>
-      Ahora tu aplicación marca como borradas las facturas y pedidos en vez de borrarlos. La ventaja de este enfoque es que el usuario puede restaurar en cualquier momento una factura o pedido borrado por error. Para que esta característica sea útil de verdad has de proporcionar al usuario una herramienta para restaurar las entidades borradas. Vamos a crear un módulo papelera para <em>Factura</em> y otro para <em>Pedido</em> para traer los documentos borrados de vuelta a la vida.<br>
+      Ahora tu aplicación marca como borradas las facturas y pedidos en vez de borrarlos. La ventaja de este enfoque es que el usuario puede restaurar en cualquier momento una factura o pedido borrado por error. Para que esta característica sea útil de verdad has de proporcionar al usuario una herramienta para restaurar las entidades borradas. Vamos a crear un módulo papelera para <em>Invoice</em> y otro para <em>Order</em> para traer los documentos borrados de vuelta a la vida.<br>
       <h3 id="toc16"><a name="Reutilizar-el-codigo-de-las-acciones-Propiedades-para-crear-acciones-reutilizables"></a>Propiedades para crear acciones reutilizables</h3>
-      La papelera que queremos es como la que puedes ver en la siguiente figura. Es una lista de facturas o pedidos donde el usuario pueda seleccionar varias y pulsar en el botón <em>Restaurar</em>, o simplemente pulsar en el vínculo <em>Restaurar</em> en la fila del documento que quiera restaurar:<br>
-      <img src="files/refining_behavior_es050.png" alt="refining_behavior_es050.png"
+      La papelera que queremos es como la que puedes ver en la siguiente figura. Es una lista de facturas o pedidos donde el usuario pueda seleccionar varias y pulsar en el botón <em>Restore</em>, o simplemente pulsar en el vínculo <em>Restore</em> en la fila del documento que quiera restaurar:<br>
+      <img src="files/refining_behavior_en050.png" alt="refining_behavior_en050.png"
 
-        title="refining_behavior_es050.png"><br>
-      La lógica de esta acción de restaurar es simplemente poner la propiedad <em>eliminado</em> de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente la misma lógica que usamos para borrar, pero poniendo <em>false</em> en vez de <em>true</em>. Dado que nuestra conciencia no nos permite copiar y pegar, vamos a reutilizar nuestro código actual. La forma de reutilizar es añadiendo una propiedad <em>restaurar</em> a la acción <em>EliminarSeleccionadoParaFacturacion</em>, para poder restaurar las entidades borradas.<br>
-      El siguiente código muestra lo necesario para añadir una propiedad <em>restaurar</em> a la acción:<br>
-      <pre><code class="language-java">public class EliminarSeleccionadoParaFacturacion ... {
+        title="refining_behavior_en050.png"><br>
+      La lógica de esta acción de restaurar es simplemente poner la propiedad <em>deleted</em> de las entidades seleccionadas a <em>false</em>. Es decir, es exactamente la misma lógica que usamos para borrar, pero poniendo <em>false</em> en vez de <em>true</em>. Dado que nuestra conciencia no nos permite copiar y pegar, vamos a reutilizar nuestro código actual. La forma de reutilizar es añadiendo una propiedad <em>restore</em> a la acción <em>InvoicingDeleteSelectedAction</em>, para poder restaurar las entidades borradas.<br>
+      El siguiente código muestra lo necesario para añadir una propiedad <em>restore</em> a la acción:<br>
+      <pre><code class="language-java">public class InvoicingDeleteSelectedAction ... {
     //...
     @Getter @Setter
-    boolean restaurar; // Una nueva propiedad
+    boolean restore; // Una nueva propiedad
   
-    private void marcarEntidadesSeleccionadasComoEliminadas() throws Exception {
-        Map&lt;String, Object&gt; valores = new HashMap&lt;String, Object&gt;();
-        // valores.put("eliminado", true); // Pone 'eliminado' a true // En lugar de un true fijo, usamos
-        valores.put("eliminado", !isRestaurar()); // el valor de la propiedad 'restaurar';
+    private void markSelectedEntitiesAsDeleted()
+        throws Exception
+    {
+        Map&lt;String, Object&gt; values = new HashMap&lt;String, Object&gt;();
+        // values.put("deleted", true); // En lugar de un true fijo, usamos
+        values.put("deleted", !isRestore()); // el valor de la propiedad 'restore'
         // ...
+    }
+    // ...
 }
-</code></pre> Como puedes ver solo hemos añadido una propiedad <em>restaurar</em> y el uso de su complemento como nuevo valor para la propiedad <em>eliminado</em> en la entidad. Es decir, si <em>restaurar</em> es <em>false</em>, el caso por defecto, un <em>true</em> se grabará en <em>eliminado</em>, así tu acción de borrar borrará. Pero si <em>restaurar</em> es <em>true</em> la acción guardará <em>false</em> en la propiedad <em>eliminado</em> de la entidad, y por tanto la factura, pedido o cualquier otra entidad estará de nuevo disponible en la aplicación.<br>
-      Para usar esta acción como una acción para restaurar has de definirla en <em>controladores.xml</em>, tal como muestra el siguiente código:<br>
-      <pre><code class="language-java">&lt;controlador nombre="Papelera"&gt;
-    &lt;accion nombre="restaurar" modo="list"
-        clase="com.tuempresa.facturacion.acciones.EliminarSeleccionadoParaFacturacion"&gt;
-        &lt;poner propiedad="restaurar" valor="true"/&gt; &lt;!-- Pone la propiedad restaurar a true --&gt;
+</code></pre> Como puedes ver solo hemos añadido una propiedad <em>restore</em> y el uso de su complemento como nuevo valor para la propiedad <em>deleted</em> en la entidad. Es decir, si <em>restore</em> es <em>false</em>, el caso por defecto, un <em>true</em> se grabará en <em>deleted</em>, así tu acción de borrar borrará. Pero si <em>restore</em> es <em>true</em> la acción guardará <em>false</em> en la propiedad <em>deleted</em> de la entidad, y por tanto la factura, pedido o cualquier otra entidad estará de nuevo disponible en la aplicación.<br>
+      Para usar esta acción como una acción para restaurar has de definirla en <em>controllers.xml</em>, tal como muestra el siguiente código:<br>
+      <pre><code class="language-xml">&lt;controller name="Trash"&gt;
+    &lt;action name="restore" mode="list"
+        class="com.yourcompany.invoicing.actions.InvoicingDeleteSelectedAction"&gt;
+        &lt;set property="restore" value="true"/&gt; &lt;!-- Pone la propiedad restore a true --&gt;
             &lt;!-- antes de llamar al método execute() de la acción --&gt;
-    &lt;/accion&gt;
-&lt;/controlador&gt;
-</code></pre> A partir de ahora puedes referenciar a la acción <em>Papelera.restaurar</em> cuando necesites una acción para restaurar. Estás reutilizando el mismo código para borrar y restaurar, gracias al elemento <em>&lt;poner /&gt;</em> de <em>&lt;accion /&gt;</em> que te permite configurar las propiedades de la acción.<br>
+    &lt;/action&gt;
+&lt;/controller&gt;
+</code></pre> A partir de ahora puedes referenciar a la acción <em>Trash.restore</em> cuando necesites una acción para restaurar. Estás reutilizando el mismo código para borrar y restaurar, gracias al elemento <em>&lt;set /&gt;</em> de <em>&lt;action /&gt;</em> que te permite configurar las propiedades de la acción.<br>
       Usemos esta nueva acción de restaurar en los nuevos módulos papelera.<br>
       <h3 id="toc17"><a name="Reutilizar-el-codigo-de-las-acciones-Modulos-personalizados"></a>Módulos personalizados</h3>
-      Como ya sabes, OpenXava genera un módulo por defecto para cada entidad de tu aplicación. Aunque, siempre tienes la opción de definir los módulos a mano, bien para refinar el comportamiento del módulo para cierta entidad, o bien para definir una funcionalidad completamente nueva sobre esa entidad. En este caso vamos a crear dos nuevos módulos, <em>PapeleraFactura</em> y <em>PapeleraPedido</em>, para restaurar los documentos borrados. Usaremos el controlador <em>Papelera</em> en ellos. El siguiente código muestra la definición de módulos en el archivo <em>aplicacion.xml</em>:<br>
-      <pre><code class="language-xml">&lt;aplicacion nombre="facturacion"&gt;
+      Como ya sabes, OpenXava genera un módulo por defecto para cada entidad de tu aplicación. Aunque, siempre tienes la opción de definir los módulos a mano, bien para refinar el comportamiento del módulo para cierta entidad, o bien para definir una funcionalidad completamente nueva sobre esa entidad. En este caso vamos a crear dos nuevos módulos, <em>InvoiceTrash</em> y <em>OrderTrash</em>, para restaurar los documentos borrados. Usaremos el controlador <em>Trash</em> en ellos. El siguiente código muestra la definición de módulos en el archivo <em>application.xml</em>:<br>
+      <pre><code class="language-xml">&lt;application name="invoicing"&gt;
+      
+    &lt;default-module&gt;
+        &lt;controller name="Invoicing"/&gt;
+    &lt;/default-module&gt;
  
-    &lt;modulo-defecto&gt;
-        &lt;controlador nombre="Facturacion"/&gt;
-    &lt;/modulo-defecto&gt;
+    &lt;module name="InvoiceTrash"&gt;
+        &lt;env-var name="XAVA_LIST_ACTION"
+            value="Trash.restore"/&gt; &lt;!-- La acción a mostrar en cada fila --&gt;
+        &lt;model name="Invoice"/&gt;
+        &lt;tab name="Deleted"/&gt; &lt;!-- Para mostrar solo las entidades borradas --&gt;
+        &lt;controller name="Trash"/&gt; &lt;!-- Con solo una acción: restore --&gt;
+    &lt;/module&gt;
  
-    &lt;modulo nombre="PapeleraFactura"&gt;
-        &lt;var-entorno nombre="XAVA_LIST_ACTION"
-            valor="Papelera.restaurar"/&gt; &lt;!-- La acción a mostrar en cada fila --&gt;
-        &lt;modelo nombre="Factura"/&gt;
-        &lt;tab nombre="Eliminado"/&gt; &lt;!-- Para mostrar solo las entidades borradas --&gt;
-        &lt;controlador nombre="Papelera"/&gt; &lt;!-- Con solo una acción: restaurar --&gt;
-    &lt;/modulo&gt;
- 
-    &lt;modulo nombre="PapeleraPedido"&gt;
-        &lt;var-entorno nombre="XAVA_LIST_ACTION" valor="Papelera.restaurar"/&gt;
-        &lt;modelo nombre="Pedido"/&gt;
-        &lt;tab nombre="Eliminado"/&gt;
-        &lt;controlador nombre="Papelera"/&gt;
-    &lt;/modulo&gt;
- 
-&lt;/aplicacion&gt;
-</code></pre> Estos módulos van contra <em>Factura</em> y <em>Pedido</em>, pero definen una acción especial como acción de fila usando la variable de entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>PapeleraFactura</em>:<br>
-      <img src="files/refining_behavior_es060.png" alt="refining_behavior_es060.png"
+    &lt;module name="OrderTrash"&gt;
+        &lt;env-var name="XAVA_LIST_ACTION" value="Trash.restore"/&gt;
+        &lt;model name="Order"/&gt;
+        &lt;tab name="Deleted"/&gt;
+        &lt;controller name="Trash"/&gt;
+    &lt;/module&gt;
+    
+&lt;/application&gt;
+</code></pre> Estos módulos van contra <em>Invoice</em> y <em>Order</em>, pero definen una acción especial como acción de fila usando la variable de entorno <em>XAVA_LIST_ACTION</em>. La siguiente figura muestra <em>InvoiceTrash</em>:<br>
+      <img src="files/refining_behavior_en060.png" alt="refining_behavior_en060.png"
 
-        title="refining_behavior_es060.png"><br>
+        title="refining_behavior_en060.png"><br>
       <h3 id="toc18"><a name="Reutilizar-el-codigo-de-las-acciones-Varias-definiciones-de-datos-tabulares-por-entidad"></a>Varias definiciones de datos tabulares por entidad</h3>
       Otro detalle importante es que solo las entidades borradas se muestran en la lista. Esto es posible porque definimos un <i>@Tab</i> específico indicando su nombre para el módulo. El siguiente código detalla como escoger el <i>@Tab</i> para un módulo:<br>
-      <pre><code class="language-xml">&lt;modulo nombre="..."&gt;
+      <pre><code class="language-xml">&lt;module name="..."&gt;
     ...
-    &lt;tab nombre="Eliminado"/&gt; &lt;!-- "Eliminado" es un @Tab definido en la entidad --&gt;
+    &lt;tab name="Deleted"/&gt; &lt;!-- "Deleted" es un @Tab definido en la entidad --&gt;
     ...
-&lt;/modulo&gt;
-</code></pre> Por supuesto, has de tener un <i>@Tab</i> llamado “Eliminado” en tus entidades <em>Pedido</em> y <em>Factura</em>. Tal como se muestra a continuación:<br>
-      <pre><code class="language-java">@Tab(baseCondition = "${eliminado} = false") // Tab sin nombre, es el de por defecto
-@Tab(name="Eliminado", baseCondition = "${eliminado} = true") // Tab con nombre
-public class Factura extends DocumentoComercial { ... }
+&lt;/module&gt;
+</code></pre> Por supuesto, has de tener un <i>@Tab</i> llamado “Deleted” en tus entidades <em>Order</em> y <em>Invoice</em>. Tal como se muestra a continuación:<br>
+      <pre><code class="language-java">@Tab(baseCondition = "${deleted} = false") // Tab sin nombre, es el de por defecto
+@Tab(name="Deleted", baseCondition = "${deleted} = true") // Tab con nombre
+public class Invoice extends CommercialDocument { ... }
  
-@Tab(baseCondition = "${eliminado} = false")
-@Tab(name="Eliminado", baseCondition = "${eliminado} = true")
-public class Pedido extends DocumentoComercial { ... }
-</code></pre>Usamos el <i>@Tab</i> sin nombre como lista por defecto para <em>Factura</em> y <em>Pedido</em>, pero tenemos un <i>@Tab</i> llamado <em>"Eliminado"</em> que puedes usar para generar una lista con solo las filas borradas. En este caso lo usamos para los módulos papelera. Ahora puedes probar tus nuevos módulos, si no los ves en el menú prueba cerrar sesión y volver a identificarte.<br>
+@Tab(baseCondition = "${deleted} = false")
+@Tab(name="Deleted", baseCondition = "${deleted} = true")
+public class Order extends CommercialDocument { ... }
+</code></pre>Usamos el <i>@Tab</i> sin nombre como lista por defecto para <em>Invoice</em> y <em>Order</em>, pero tenemos un <i>@Tab</i> llamado <em>"Deleted"</em> que puedes usar para generar una lista con solo las filas borradas. En este caso lo usamos para los módulos papelera. Ahora puedes probar tus nuevos módulos, si no los ves en el menú prueba cerrar sesión y volver a identificarte.<br>
       <h3 id="toc19"><a name="Reutilizar-el-codigo-de-las-acciones-Obsesion-por-reutilizar"></a>Obsesión por reutilizar</h3>
-      ¡Bien hecho! El código de <em>EliminarSeleccionadoParaFacturacion</em> puede borrar y restaurar entidades, y hemos añadido la capacidad de restaurar con solo un poco más de código, sin copiar y pegar.<br>
-      Y ahora un enjambre de perniciosos pensamientos bullen en tu cabeza. Seguramente estés pensando “Esta acción no es únicamente para borrar, sino también para borrar y restaurar”, y entonces, “Espera un momento, lo que es en realidad es una acción para actualizar la propiedad <em>eliminado</em> de la entidad actual”, y tu siguiente pensamiento será “Con tan solo un poco más podemos actualizar cualquier propiedad de la entidad”.<br>
-      Sí, estás en lo cierto. Con facilidad podemos crear una acción más genérica, una <em>ActualizarPropiedad</em> por ejemplo, y usarla para declarar tus acciones <em>deleteSelected</em> y <em>restaurar</em>, tal como se muestra a continuación:<br>
-      <pre><code class="language-xml">&lt;accion nombre="deleteSelected" modo="list" confirmar="true"
-    class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"
-    atajo-de-teclado="Alt X"&gt;
-    &lt;poner propiedad="propiedad" valor="eliminado" /&gt;
-    &lt;poner propiedad="valor" valor="true" /&gt;
-&lt;/accion&gt;
+      ¡Bien hecho! El código de <em>InvoicingDeleteSelectedAction</em> puede borrar y restaurar entidades, y hemos añadido la capacidad de restaurar con solo un poco más de código, sin copiar y pegar.<br>
+      Y ahora un enjambre de perniciosos pensamientos bullen en tu cabeza. Seguramente estés pensando “Esta acción no es únicamente para borrar, sino también para borrar y restaurar”, y entonces, “Espera un momento, lo que es en realidad es una acción para actualizar la propiedad <em>deleted</em> de la entidad actual”, y tu siguiente pensamiento será “Con tan solo un poco más podemos actualizar cualquier propiedad de la entidad”.<br>
+      Sí, estás en lo cierto. Con facilidad podemos crear una acción más genérica, una <em>UpdatePropertyAction</em> por ejemplo, y usarla para declarar tus acciones <em>deleteSelected</em> y <em>restore</em>, tal como se muestra a continuación:<br>
+      <pre><code class="language-xml">&lt;action name="deleteSelected" mode="list" confirm="true"
+    class="com.yourcompany.invoicing.actions.UpdatePropertyAction"
+    keystroke="Alt X"&gt;
+    &lt;set property="property" value="deleted"/&gt;
+    &lt;set property="value" value="true"/&gt;
+&lt;/action&gt;
  
-&lt;accion nombre="restaurar" modo="list"
-    class="com.tuempresa.facturacion.acciones.ActualizarPropiedad"&gt;
-    &lt;poner propiedad="propiedad" valor="eliminado" /&gt;
-    &lt;poner propiedad="valor" valor="false" /&gt;
-&lt;/accion&gt;
-</code></pre> Aunque parezca una buena idea, no vamos a crear esta flexible <em>ActualizarPropiedad</em>. Porque cuanto más flexible sea tu código, más sofisticado será. Y no queremos código sofisticado. Queremos código sencillo, y aunque el código sencillo es algo imposible de conseguir, hemos de esforzarnos por que nuestro código sea lo más sencillo posible. El consejo es: crea código reutilizable solo cuando éste simplifique tu aplicación en el presente.<br>
+&lt;action name="restore" mode="list"
+    class="com.yourcompany.invoicing.actions.UpdatePropertyAction"&gt;
+    &lt;set property="property" value="deleted"/&gt;
+    &lt;set property="value" value="false"/&gt;
+&lt;/action&gt;
+</code></pre> Aunque parezca una buena idea, no vamos a crear esta flexible <em>UpdatePropertyAction</em>. Porque cuanto más flexible sea tu código, más sofisticado será. Y no queremos código sofisticado. Queremos código sencillo, y aunque el código sencillo es algo imposible de conseguir, hemos de esforzarnos por que nuestro código sea lo más sencillo posible. El consejo es: crea código reutilizable solo cuando éste simplifique tu aplicación en el presente.<br>
       <h2 id="toc23"><a name="Resumen"></a>Resumen</h2>
       El comportamiento estándar de OpenXava solo es el punto de partida. Usando la acción de borrar como excusa, hemos explorado algunas formas de refinar los detalles del comportamiento de la aplicación. Con las técnicas de esta lección no solo puedes refinar la lógica de borrado, sino también definir completamente la forma en que una aplicación OpenXava funciona. Así, tienes la posibilidad de adaptar el comportamiento de tu aplicación para cubrir las expectativas de tus usuarios.<br>
       El comportamiento por defecto de OpenXava es limitado: solo mantenimientos y listados. Si quieres una aplicación que de verdad aporte valor a tu usuario necesitas añadir funcionalidad específica que le ayude a resolver sus problemas. Haremos esto en la próxima lección.<br>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-24"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 

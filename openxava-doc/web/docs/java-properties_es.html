@@ -68,14 +68,6 @@
       OpenXava.<br>
       Comencemos por aprender algunos conceptos básicos de Java, como las
       propiedades.</div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=vPil3QbOcU0&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=10"
-
-        target="_blank"><img src="files/java-properties-video_es.png" title="Video para la lección 5: Desarrollo ágil con OpenXava"></a>
-    </div>
-    <div class="wiki" style="display: block;">Si no te gustan los videos sigue
-      las instrucciones a continuación. </div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
     <div class="wiki" style="display: block;">
       <h2><a name="Propiedades-en-Java"></a>Conceptos</h2>
       Para entender bien algunos de los conceptos de las lecciones venideras,
@@ -83,14 +75,14 @@
       definir una propiedad en Java es:
       <pre><code class="language-java">// Propiedad
       
-private int cantidad; // Tiene un campo
+private int quantity; // Tiene un campo
 
-public int getCantidad() { // Un getter para devolver el valor del campo
-    return cantidad;
+public int getQuantity() { // Un getter para devolver el valor del campo
+    return quantity;
 }
 
-public void setCantidad(int cantidad) { // Cambia el valor del campo
-    this.cantidad = cantidad;
+public void setQuantity(int quantity) { // Cambia el valor del campo
+    this.quantity = quantity;
 }
 </code></pre>Esto se basa en la idea de que nunca deberiamos acceder al estado
       de un objeto (sus campos) directamente, sino siempre llamando a métodos.
@@ -98,40 +90,40 @@ public void setCantidad(int cantidad) { // Cambia el valor del campo
       sin afecta al codigo que la usa. Además, todas las herramientas, marcos de
       trabajo y librerias del ecosistema Java confían en esta norma (parte de
       las especificaciones JavaBeans). Por lo tanto, deberiamos usar esta
-      convención siempre. Una propiedad en Java es un método getter (<i>getCantidad()</i>
-      por ejemplo) y un método setter (<i>setCantidad(int cantidad)</i>) si la
-      propiedad es modificable. De hecho, el campo (<i>private int cantidad</i>
+      convención siempre. Una propiedad en Java es un método getter (<i>getQuantity()</i>
+      por ejemplo) y un método setter (<i>setQuantity(int quantity)</i>) si la
+      propiedad es modificable. De hecho, el campo (<i>private int quantity</i>
       en este caso) no es necesario.<br>
       El problema de este enfoque es que es muy verboso y acabamos con nuestro
       código lleno de getters y setters que no aportan nada y hacen mucho ruido.
       Para resolver este problema usamos una librería llamada Lombok. Con Lombok
-      puedes definir la propiedad <i>cantidad</i> de arriba de esta manera:
+      puedes definir la propiedad <i>quantity</i> (cantidad) de arriba de esta manera:
       <pre><code class="language-java">@Getter @Setter // Genera un método getter y uno setter
-int cantidad; 
+int quantity; 
 </code></pre><i>@Getter</i> y <i>@Setter</i> generan el getter y setter en el
       código compilado, por lo que cuando accedas a la propiedad has de usarlos,
       así:
-      <pre><code class="language-java">int c = elObjeto.getCantidad(); // Nunca int c = elObjeto.cantidad 
-elObjeto.setCantidad(c + 10); // Nunca elObjeto.cantidad = c + 10
+      <pre><code class="language-java">int q = theObject.getQuantity(); // Nunca int q = theObject.quantity 
+theObject.setQuantity(q + 10); // Nunca theObject.quantity = q + 10;
 </code></pre>Puedes declarar <i>@Getter</i> y <i>@Setter</i> a nivel de clase
       y así todos los campos tendrán getter y setter automáticamente. Y por
       supuesto, puedes escribir tu propio setter y getter si quieres usar tu
       propia lógica:
       <pre><code class="language-java">// @Data // NUNCA USES @Data
 @Getter @Setter
-public class Incidencia {
+public class Issue {
 
-    int numero;
-    String descripcion;
+    int number;
+    String description;
 	
-    public String getDescripcion() { // Tu propio getter sobrescribe el generado por Lombok
-        if (descripcion == null) return "Todavía sin descripción";
-        return descripcion;
+    public String getDescription() { // Tu propio getter sobrescribe el generado por Lombok
+        if (description == null) return "No description yet";
+        return description;
     }
 
 }
-</code></pre>En este caso Lombok genera para ti <i>getNumero(), setNumero()</i>
-      y <i>setDescripcion()</i> mientras que <i>getDescripcion()</i> es el que
+</code></pre>En este caso Lombok genera para ti <i>getNumber(), setNumber()</i>
+      y <i>setDescription()</i> mientras que <i>getDescription()</i> es el que
       hemos escrito nosotros. Fíjate como nunca deberías usar la anotación <i>@Data</i>
       de Lombok, dado que produce bucles recursivos infinitos si tienes
       referencias recíprocas, algo bastante común en las aplicaciones de

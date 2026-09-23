@@ -82,78 +82,64 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Hemos agregado lógica del negocio a nuestra aplicación utlizando propiedades persistentes y propiedas calculadas, ahora utilizaremos la anotación <i>@DefaultValueCalculator</i> para las colecciones. <br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=KFAV6c9WNU0&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=12"
-
-          target="_blank"><img src="files/defaultvaluecalculator-in-collections-video_es.png"
-
-            title="Video para la lección 11: DefaultValueCalculator en colecciones con OpenXava"></a> </div>
-      <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
-      <div class="wiki" style="display: block;"><br>
-      </div>
       <h2 id="Propiedades-calculadas-Usar-DefaultValueCalculator">Usar <em>@DefaultValueCalculator</em></h2>
       La forma en que calculamos el importe de la línea de detalle no es la mejor. Tiene, al menos, dos inconvenientes. El primero es que el usuario puede querer tener la posibilidad de cambiar el precio unitario. Y segundo, si el precio de un producto cambia los importes de todas las facturas cambian también, y esto no es bueno.<br>
-      Para evitar estos inconvenientes lo mejor es almacenar el precio de cada producto en cada línea de detalle. Añadamos pues una propiedad persistente <em>precioPorUnidad</em> a la clase <em>Detalle</em> y calculemos su valor desde <em>precio</em> de <em>Producto</em> usando un <em>@DefaultValueCalculator</em>. De tal forma que consigamos el efecto que puedes ver en la siguiente figura:<br>
-      <img src="files/business-logic_es020.png" alt="business-logic_es020.png"
+      Para evitar estos inconvenientes lo mejor es almacenar el precio de cada producto en cada línea de detalle. Añadamos pues una propiedad persistente <em>pricePerUnit</em> (precio por unidad) a la clase <em>Detail</em> y calculemos su valor desde <em>price</em> de <em>Product</em> usando un <em>@DefaultValueCalculator</em>. De tal forma que consigamos el efecto que puedes ver en la siguiente figura:<br>
+      <img src="files/business-logic_en020.png" alt="business-logic_en020.png"
 
-        title="business-logic_es020.png"><br>
-      La lógica para calcular el valor inicial la tendremos en <em>CalculadorPrecioPorUnidad</em> que simplemente lee el precio del producto. Observa el código de este calculador:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.calculadores; // En el paquete calculadores
- 
+        title="business-logic_en020.png"><br>
+      La lógica para calcular el valor inicial la tendremos en <em>PricePerUnitCalculator</em> que simplemente lee el precio del producto. Observa el código de este calculador:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.calculators; // En el paquete 'calculators'
+
 import org.openxava.calculators.*;
-import com.tuempresa.facturacion.modelo.*;
+import com.yourcompany.invoicing.model.*;
 import lombok.*;
  
-import static org.openxava.jpa.XPersistence.*; //Para usar getManager()
+import static org.openxava.jpa.XPersistence.*; // Para usar getManager()
  
-public class CalculadorPrecioPorUnidad implements ICalculator {
+public class PricePerUnitCalculator implements ICalculator {
  
     @Getter @Setter
-    int numeroProducto;
+    int productNumber; // Contiene el número de producto cuando se llama a calculate()
  
-    @Override
     public Object calculate() throws Exception {
-        Producto producto = getManager() // getManager() de XPersistence
-            .find(Producto.class, numeroProducto); // Busca el producto
-        return producto.getPrecio();    // Retorna su precio
+        Product product = getManager() // getManager() de XPersistence
+            .find(Product.class, productNumber); // Busca el producto
+        return product.getPrice(); // Retorna su precio
     }
  
 }
 </code></pre>
-      <div class="wiki" style="display: block;">El siguiente paso es añadir la propiedad <em>precioPorUnidad</em>. Añade el siguiente código a la clase <em>Detalle</em>:<br>
+      <div class="wiki" style="display: block;">El siguiente paso es añadir la propiedad <em>pricePerUnit</em>. Añade el siguiente código a la clase <em>Detail</em>:<br>
       </div>
       <pre><code class="language-java">@DefaultValueCalculator(
-    value=CalculadorPrecioPorUnidad.class, // Esta clase calcula el valor inicial
+    value=PricePerUnitCalculator.class, // Esta clase calcula el valor inicial
     properties=@PropertyValue(
-        name="numeroProducto", // La propiedad numeroProducto del calculador...
-        from="producto.numero") // ... se llena con el valor de producto.numero de la entidad
+        name="productNumber", // La propiedad productNumber del calculador...
+        from="product.number") // ...se llena con el valor de product.number del detalle
 )
 @Money
-BigDecimal precioPorUnidad; // Una propiedad persistente convencional
+BigDecimal pricePerUnit; // Una propiedad persistente convencional
 </code></pre>De esta forma cuando el usuario escoge un producto el campo de precio unitario se rellena con el precio del producto, pero dado que es una propiedad persistente, el usuario puede cambiar este valor. Y si en el futuro el precio del producto cambiara este precio unitario de la línea de detalle no cambiaría.<br>
-      Esto implica que has de adaptar la propiedad calculada <em>importe</em>:<br>
+      Esto implica que has de adaptar la propiedad calculada <em>amount</em>:<br>
       <pre><code class="language-java">@Money
-@Depends("precioPorUnidad, cantidad") // precioPorUnidad en vez de producto.numero
-public BigDecimal getImporte() {
-    if (precioPorUnidad == null) return BigDecimal.ZERO; // precioPorUnidad en vez de producto y producto.getPrecio()
-    return new BigDecimal(cantidad).multiply(precioPorUnidad); // precioPorUnidad en vez de producto.getPrecio()
+@Depends("pricePerUnit, quantity") // pricePerUnit en vez de product.number
+public BigDecimal getAmount() {
+    if (pricePerUnit == null) return BigDecimal.ZERO; // pricePerUnit en vez de product y product.getPrice()
+    return new BigDecimal(quantity).multiply(pricePerUnit); // pricePerUnit en vez de product.getPrice()
 }
-</code></pre> Ahora <em>getImporte()</em> usa <em>precioPorUnidad</em> como fuente en lugar de <em>producto.precio</em>.<br>
-      Finalmente, debemos editar la entidad <em>DocumentoComercial</em> y modificar la lista de propiedades de la colección para mostrar la nueva propiedad:<br>
+</code></pre> Ahora <em>getAmount()</em> usa <em>pricePerUnit</em> como fuente en lugar de <em>product.price</em>.<br>
+      Finalmente, debemos editar la entidad <em>CommercialDocument</em> y modificar la lista de propiedades de la colección para mostrar la nueva propiedad:<br>
       <pre><code class="language-java">@ElementCollection
-@ListProperties("producto.numero, producto.descripcion, cantidad, precioPorUnidad, importe") // precioPorUnidad añadida
-Collection&lt;Detalle&gt; detalles;
-</code></pre> Prueba los módulos <em>Pedido</em> y <em>Factura</em> y podrás observar el nuevo comportamiento al añadir líneas de detalle.</div>
+@ListProperties("product.number, product.description, quantity, pricePerUnit, amount") // pricePerUnit añadida
+Collection&lt;Detail&gt; details;
+</code></pre> Prueba los módulos <em>Order</em> e <em>Invoice</em> y podrás observar el nuevo comportamiento al añadir líneas de detalle.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección hemos aprendido cómo podemos utilizar la anotación <i>@DefaultValueCalculator</i> para definir el valor de diferentes propiedades. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-11"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"> <br>
+    <div class="wiki" style="display: block;">
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a

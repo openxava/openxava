@@ -71,12 +71,6 @@
       </div>
       En la lección anterior viste como validar al borrar. En esta lección vas a
       ver como crear una anotación Bean Validation propia.<br>
-      <a href="https://www.youtube.com/watch?v=SUVAdkgsQzM&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=21"
-
-        target="_blank"><img src="files/custom-bean-validation-annotation-video_es.png"
-
-          title="Video para la lección 21: Anotación Bean Validation propia"></a><br>
-      Si no te gustan los videos sigue las instrucciones a continuación.
       <h2 id="toc10"><a name="Crear-tu-propia-anotacion-de-Bean-Validation"></a>Crear
         tu propia anotación de <em>Bean Validation</em></h2>
       Las técnicas mencionadas hasta ahora son muy útiles para la mayoría de las
@@ -99,52 +93,52 @@ String isbn;
       es un gran problema, si quieres una anotación <em>@ISBN</em>, hazla tú
       mismo. De hecho, vamos a crear la anotación de validación <em>@ISBN</em>
       en esta sección.<br>
-      Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Producto</em>.
-      Edita tu clase <em>Producto</em> y añádele el siguiente código:<br>
+      Antes de nada, añadamos una nueva propiedad <em>isbn</em> a <em>Product</em>.
+      Edita tu clase <em>Product</em> y añádele el siguiente código:<br>
       <pre><code class="language-java">@Column(length=13)
 String isbn;
-</code></pre> Ejecuta el módulo <em>Producto</em> con tu navegador. Sí, la
+</code></pre> Ejecuta el módulo <em>Product</em> con tu navegador. Sí, la
       propiedad <em>isbn</em> ya está ahí. Ahora, puedes añadir la validación.<br>
       <h2 id="toc12"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Definir-tu-propia-anotacion-ISBN"></a>Definir
         tu propia anotación <em>ISBN</em></h2>
       Creemos la anotación <em>@ISBN</em>. Primero, crea un paquete en tu
-      proyecto llamado <em>com.tuempresa.facturacion.anotaciones</em>. Pulsa en
+      proyecto llamado <em>com.yourcompany.invoicing.annotations</em>. Pulsa en
       él con el botón derecho del ratón y escoge <i>New &gt; Annotation</i>,
       como sigue:<br>
-      <img src="files/validation_es020.png" alt="validation_es020.png" title="validation_es020.png"><br>
+      <img src="files/validation_en020.png" alt="validation_en020.png" title="validation_en020.png"><br>
       Se mostrará un diálogo, teclea ISBN y pulsa en <i>Finish</i>:</div>
-    <img src="files/validation_es030.png" alt="validation_es030.png" title="validation_es030.png">
+    <img src="files/validation_en030.png" alt="validation_en030.png" title="validation_en030.png">
     <div class="wiki" style="display: block;">Edita el código de tu recién
       creada anotación <em>ISBN</em> y déjala así:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.anotaciones; // En el paquete 'anotaciones'
- 
+      <pre><code class="language-java">package com.yourcompany.invoicing.annotations; // En el paquete 'annotations'
+
 import java.lang.annotation.*;
-import javax.validation.*;
+import jakarta.validation.*;
  
-@Constraint(validatedBy = com.tuempresa.facturacion.validadores.ValidadorISBN.class)
+@Constraint(validatedBy = com.yourcompany.invoicing.validators.ISBNValidator.class)
 @Target({ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ISBN {
+public @interface ISBN { // Una definición de anotación Java normal
  
     Class&lt;?&gt;[] groups() default{};
     Class&lt;? extends Payload&gt;[] payload() default{};
-    String message() default "isbn_invalido"; // Id del mensaje en el archivo i18n
+    String message() default "isbn_invalid"; // Id del mensaje en el archivo i18n
 }
 </code></pre> Como puedes ver, es una definición de anotación normal y
       corriente. El atributo <i>message</i> es el mensaje a mostrar al usuario
       si la validación falla, puedes escribir el mensaje tal cual o poner un
       identificador i18n. El desarrollador puede especificar su propio mensaje
       cuando use la anotación, aunque nosotros proveemos unos por defecto,
-      "isbn_invalido", por lo que hemos de añadir la siguiente entrada en
-      facturacion-messages<em>_es.properties</em>:</div>
+      "isbn_invalid", por lo que hemos de añadir la siguiente entrada en
+      invoicing-messages<em>_es.properties</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="language-properties">isbn_invalido=ISBN inválido o inexistente
+      <pre><code class="language-properties">isbn_invalid=ISBN inválido o inexistente
 </code></pre> </div>
     <div class="wiki" style="display: block;"><i>@Constraint</i> indica la clase
-      con la lógica de validación. Escribamos la clase <em>ValidadorISBN</em>.<br>
+      con la lógica de validación. Escribamos la clase <em>ISBNValidator</em>.<br>
       <h2 id="toc13"><a name="Crear-tu-propia-anotacion-de-Bean-Validation-Usa-Apache-Commons-Validator-para-implementar-la-logica"></a>Usa
         <em>Apache Commons Validator</em> para implementar la lógica</h2>
-      Vamos a escribir la clase <em>ValidadorISBN</em> con la lógica de
+      Vamos a escribir la clase <em>ISBNValidator</em> con la lógica de
       validación para un <em>ISBN</em>. En lugar de escribir nosotros mismos la
       lógica para validar un <em>ISBN</em> usaremos el proyecto <a href="http://commons.apache.org/proper/commons-validator/">Commons
         Validator</a> de Apache. Commons Validator contiene algoritmos de
@@ -152,32 +146,32 @@ public @interface ISBN {
       el estilo. El <em>commons-validator.jar</em> se incluye por defecto en
       los proyectos OpenXava, por tanto lo puedes usar sin ninguna configuración
       adicional.<br>
-      El código para <em>ValidadorISBN</em> lo puedes ver a continuación:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.validadores; // En el paquete 'validadores'
+      El código para <em>ISBNValidator</em> lo puedes ver a continuación:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.validators; // En el paquete 'validators'
+
+import jakarta.validation.*;
  
-import javax.validation.*;
- 
-import com.tuempresa.facturacion.anotaciones.*;
+import com.yourcompany.invoicing.annotations.*;
 import org.openxava.util.*;
  
-public class ValidadorISBN implements ConstraintValidator&lt;ISBN, Object&gt; {
+public class ISBNValidator implements ConstraintValidator&lt;ISBN, Object&gt; { // Ha de implementar ConstraintValidator
  
     private static org.apache.commons.validator.routines.ISBNValidator
-        validador = // De 'Commons Validator'
+        validator = // De 'Commons Validator'
             new org.apache.commons.validator.routines.ISBNValidator();
  
     public void initialize(ISBN isbn) {
  
     }
-    
+ 
     // Contiene la lógica de validación
-    public boolean isValid(Object valor, ConstraintValidatorContext contexto) { 
-        if (Is.empty(valor)) return true;
-        return validador.isValid(valor.toString()); // Usa 'Commons Validator'
+    public boolean isValid(Object value, ConstraintValidatorContext context) { 
+        if (Is.empty(value)) return true;
+        return validator.isValid(value.toString()); // Usa 'Commons Validator'
     }
 }
 </code></pre> Como ves, la clase validador tiene que implementar <i>ConstraintValidator</i>
-      del paquete <em>javax.validation</em>. Esto fuerza a tu validador a
+      del paquete <em>jakarta.validation</em>. Esto fuerza a tu validador a
       implementar <i>initialize()</i> e <i>isValid()</i>. El método <i>isValid()</i>
       contiene la lógica de validación. Fíjate que si el elemento a validar está
       vacío asumimos que es válido, porque validar si un valor está presente es
@@ -191,14 +185,14 @@ String isbn;
 </code></pre>En este caso cuando grabes la clase el import para <i>@ISBN</i> no
       se añade automáticamente. Esto es porque hay otra <i>@ISBN</i> disponible
       (de la librería Hibernate Validator incluida con OpenXava), por tanto
-      OpenXava Studio no sabe cual escoger. No te preocupes, pon el ratón sobre
+      el IDE no sabe cual escoger. No te preocupes, pon el ratón sobre
       la anotación <i>@ISBN</i> y una ventana emergente se mostrará con varias
       soluciones posibles, escoge <i>Import 'ISBN'
         (com.yourcompany.invoicing.annotations)</i> para que el import correcto
-      se añada a la clase <i>Producto</i>:</div>
-    <div class="wiki" style="display: block;"> <img src="files/validation_es035.png"
+      se añada a la clase <i>Product</i>:</div>
+    <div class="wiki" style="display: block;"> <img src="files/validation_en035.png"
 
-        alt="validation_es035.png" title="validation_es035.png"> </div>
+        alt="validation_en035.png" title="validation_en035.png"> </div>
     <div class="wiki" style="display: block;"> Ahora, puedes probar tu módulo, y
       verificar que el <em>ISBN</em> que introduces se valida correctamente.
       Enhorabuena, has escrito tu primer <em>Bean Validation</em>. No ha sido
@@ -212,12 +206,7 @@ String isbn;
       REST desde una validación.&nbsp;</div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-21"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><br>
-      </strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>¿Problemas
+    <div class="wiki" style="display: block;"><strong>¿Problemas
         con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 
           rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien?

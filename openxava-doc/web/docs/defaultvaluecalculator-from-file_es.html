@@ -87,88 +87,72 @@
       </div>
       Hemos establecido propiedades persistentes con <i>@Calculation</i> y definido propiedades de total para nuestra aplicación. Veremos ahora como establecer valores por defecto desde un archivo externo.<br>
     </div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=f3CHuFt2wZo&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=14"
-
-        target="_blank"><img src="files/defaultvaluecalculator-from-file-video_es.png"
-
-          title="Video para la lección 11: DefaultValueCalculator en colecciones con OpenXava"></a> </div>
-    <div class="wiki" style="display: block;">Si no te gustan los videos sigue las instrucciones a continuación. </div>
     <div class="wiki" style="display: block;"><br>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="Propiedades-calculadas-Valor-por-defecto-desde-un-archivo-de-propiedades">Valor por defecto desde un archivo de propiedades</h2>
-      Es conveniente para el usuario tener el campo <em>porcentajeIVA</em> lleno por defecto con un valor adecuado. Podrías usar un calculador (<em>@DefaultValueCalculator</em>) que devuelva un valor fijo, pero en ese caso cambiar el valor por defecto implica cambiar el código fuente. O podrías leer el valor por defecto de una base de datos (usando JPA desde tu calculador), pero en ese caso cambiar el valor por defecto implica actualizar la base de datos.<br>
-      Otra opción es tener estos valores de configuración en un archivo de propiedades, un archivo plano con pares clave=valor. En este caso cambiar el valor por defecto de <em>porcentajeIVA</em> es tan simple como editar un archivo plano con un editor de texto.<br>
-      Implementemos la opción del archivo de propiedades. Crea un archivo llamado <em>facturacion.properties</em> en la carpeta <em>facturacion/src/main/resources </em>con el siguiente contenido:<br>
-      <pre><code class="language-properties">porcentajeIVADefecto=21
-</code></pre> Aunque puedes usar la clase <em>java.util.Properties</em> de Java para leer este archivo preferimos usar una clase propia para leer estas propiedades. Vamos a llamar a esta clase <em>PreferenciasFacturacion</em> y la pondremos en un nuevo paquete llamado <em>com.tuempresa.facturacion.util</em>. Veamos el código:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.util; // En el paquete 'util'
- 
+      Es conveniente para el usuario tener el campo <em>vatPercentage</em> lleno por defecto con un valor adecuado. Podrías usar un calculador (<em>@DefaultValueCalculator</em>) que devuelva un valor fijo, pero en ese caso cambiar el valor por defecto implica cambiar el código fuente. O podrías leer el valor por defecto de una base de datos (usando JPA desde tu calculador), pero en ese caso cambiar el valor por defecto implica actualizar la base de datos.<br>
+      Otra opción es tener estos valores de configuración en un archivo de propiedades, un archivo plano con pares clave=valor. En este caso cambiar el valor por defecto de <em>vatPercentage</em> es tan simple como editar un archivo plano con un editor de texto.<br>
+      Implementemos la opción del archivo de propiedades. Crea un archivo llamado <em>invoicing.properties</em> en la carpeta <em>invoicing/src/main/resources </em>con el siguiente contenido:<br>
+      <pre><code class="language-properties">defaultVatPercentage=21
+</code></pre> Aunque puedes usar la clase <em>java.util.Properties</em> de Java para leer este archivo preferimos usar una clase propia para leer estas propiedades. Vamos a llamar a esta clase <em>InvoicingPreferences</em> y la pondremos en un nuevo paquete llamado <em>com.yourcompany.invoicing.util</em>. Veamos el código:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.util; // En el paquete 'util'
+
 import java.io.*;
 import java.math.*;
 import java.util.*;
+ 
 import org.apache.commons.logging.*;
 import org.openxava.util.*;
  
-public class PreferenciasFacturacion {
+public class InvoicingPreferences {
  
-    private final static String ARCHIVO_PROPIEDADES="facturacion.properties";
-    private static Log log = LogFactory.getLog(PreferenciasFacturacion.class);
+    private final static String FILE_PROPERTIES="invoicing.properties";
+    private static Log log = LogFactory.getLog(InvoicingPreferences.class);
+    private static Properties properties; // Almacenamos las propiedades aquí
  
-    private static Properties propiedades; // Almacenamos las propiedades aquí
- 
-    private static Properties getPropiedades() {
-        if (propiedades == null) { // Usamos inicialización vaga
+    private static Properties getProperties() {
+        if (properties == null) { // Usamos inicialización vaga
             PropertiesReader reader = // PropertiesReader es una clase de OpenXava
-                new PropertiesReader(
-                    PreferenciasFacturacion.class, ARCHIVO_PROPIEDADES);
+                new PropertiesReader( InvoicingPreferences.class, FILE_PROPERTIES);
             try {
-                propiedades = reader.get();
+                properties = reader.get();
             }
             catch (IOException ex) {
-                log.error(
-                    XavaResources.getString( // Para leer un mensaje i18n
-                        "properties_file_error",
-                        ARCHIVO_PROPIEDADES),
-                    ex);
-                  propiedades = new Properties();
-             }
+                log.error( XavaResources.getString( // Para leer un mensaje i18n
+                    "properties_file_error", FILE_PROPERTIES), ex);
+                properties = new Properties();
+            }
         }
-        return propiedades;
+        return properties;
     }
  
-    public static BigDecimal getPorcentajeIVADefecto() { // El único método público
-        return new BigDecimal(getPropiedades().getProperty("porcentajeIVADefecto"));
+    public static BigDecimal getDefaultVatPercentage() { // El único método público
+        return new BigDecimal(getProperties().getProperty("defaultVatPercentage"));
     }
 }
-</code></pre> Como puedes ver <em>PreferenciasFacturacion</em> es una clase con un método estático, <em>getPorcentajeIVADefecto()</em>. La ventaja de usar esta clase en lugar de leer directamente del archivo de propiedades es que si cambias la forma en que se obtienen las preferencias, por ejemplo leyendo de una base de datos o de un directorio LDAP, solo has de cambiar esta clase en toda tu aplicación.<br>
-      Puedes usar esta clase desde el calculador por defecto para la propiedad <em>porcentajeIVA</em>. Aquí tienes el código del calculador:<br>
-      <pre><code class="language-java">package com.tuempresa.facturacion.calculadores; // En el paquete 'calculadores'
- 
+</code></pre> Como puedes ver <em>InvoicingPreferences</em> es una clase con un método estático, <em>getDefaultVatPercentage()</em>. La ventaja de usar esta clase en lugar de leer directamente del archivo de propiedades es que si cambias la forma en que se obtienen las preferencias, por ejemplo leyendo de una base de datos o de un directorio LDAP, solo has de cambiar esta clase en toda tu aplicación.<br>
+      Puedes usar esta clase desde el calculador por defecto para la propiedad <em>vatPercentage</em>. Aquí tienes el código del calculador:<br>
+      <pre><code class="language-java">package com.yourcompany.invoicing.calculators; // En el paquete 'calculators'
+
 import org.openxava.calculators.*; // Para usar 'ICalculator'
-import com.tuempresa.facturacion.util.*; // Para usar 'PreferenciasFacturacion'
+import com.yourcompany.invoicing.util.*; // Para usar 'InvoicingPreferences'
  
-public class CalculadorPorcentajeIVA implements ICalculator {
+public class VatPercentageCalculator implements ICalculator {
  
     public Object calculate() throws Exception {
-        return PreferenciasFacturacion.getPorcentajeIVADefecto();
+        return InvoicingPreferences.getDefaultVatPercentage();
     }
 }
-</code></pre> Como ves, simplemente devuelve <em>porcentajeIVADefecto</em> de <em>PreferenciasFacturacion</em>. Ahora, ya puedes usar este calculador en la definición de la propiedad <em>porcentajeIVA</em> en <em>DocumentoComercial</em>. Mira el código:<br>
-      <pre><code class="language-java">@DefaultValueCalculator(CalculadorPorcentajeIVA.class)
-BigDecimal porcentajeIVA;
-</code></pre> Con este código cuando el usuario pulsa para crear una nueva factura, el campo <em>porcentajeIVA</em> se rellenará con 21, o cualquier otro valor que hayas puesto en <em>facturacion.properties</em>.</div>
+</code></pre> Como ves, simplemente devuelve <em>defaultVatPercentage</em> de <em>InvoicingPreferences</em>. Ahora, ya puedes usar este calculador en la definición de la propiedad <em>vatPercentage</em> en <em>CommercialDocument</em>. Mira el código:<br>
+      <pre><code class="language-java">@DefaultValueCalculator(VatPercentageCalculator.class)
+BigDecimal vatPercentage;
+</code></pre> Con este código cuando el usuario pulsa para crear una nueva factura, el campo <em>vatPercentage</em> se rellenará con 21, o cualquier otro valor que hayas puesto en <em>invoicing.properties</em>.</div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido cómo usar un archivo externo desde el cuál establecer valores por defecto, para configurar las propiedades que utilizaremos en la lógica de negocio de nuestra aplicación, permitiéndonos abstraernos de tener que modificar el código cuando queramos modificar dichas propiedades.</div>
     <div class="wiki" style="display: block;"><br>
       <strong></strong></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_es/tree/leccion-13"
-
-          rel="nofollow">Descargar código fuente de esta lección</a><br>
-      </strong></div>
     <div class="wiki" style="display: block;"><strong></strong> <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 

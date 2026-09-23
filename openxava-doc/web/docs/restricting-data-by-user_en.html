@@ -168,7 +168,8 @@ public void assignCurrentUser() {
 	
 	<h3>1. Define a property for the role in your entity</h3>
 	
-	<pre><code class="language-java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+	<pre><code class="language-java">@Column(length=30, nullable=false)
+@org.hibernate.annotations.ColumnDefault("'user'")
 private String role;</code></pre>
 	
 	<p>

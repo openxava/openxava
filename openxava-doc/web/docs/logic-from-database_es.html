@@ -88,28 +88,18 @@
         <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
       </div>
       Hemos aprendido cómo podemos sincronizar propiedades persistentes y calculadas, utilizando la anotación <i>@Calculation y @DefaultValueCalculator,</i> así como podemos definir lógica para ambientes multiusuario. Veremos ahora otro método para definir lógica de negocio, esta vez desde la base de datos.<br>
-      <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=HOAyiGgs7DA&amp;list=PL60bTC1NPyZ7H3cWU2BW9gnyThLpnkgH8&amp;index=17"
-
-          target="_blank"><img src="files/logic-from-database-video_es.png"
-
-            title="Video para la lección 17: Lógica desde la base de datos"></a> </div>
-      Si no te gustan los videos sigue las instrucciones a continuación.
       <h2 id="Logica-desde-la-base-de-datos-Formula">Uso de <em>@Formula</em></h2>
-      Otra alternativa a <i>@Calculation,</i> o a tener propiedades calculadas y persistentes sincronizadas, es la anotación <em>@Formula</em>. <em>@Formula</em> es una extensión de Hibernate al estándar JPA, que permite mapear una propiedad a un fragmento de SQL. Por ejemplo, puedes definir <i>beneficioEstimado</i> con <em>@Formula</em> en <i>DocumentoComercial</i> como se muestra en el siguiente código:<br>
-      <pre><code class="language-java">@org.hibernate.annotations.Formula("IMPORTETOTAL * 0.10") // El cálculo usando SQL
+      Otra alternativa a <i>@Calculation,</i> o a tener propiedades calculadas y persistentes sincronizadas, es la anotación <em>@Formula</em>. <em>@Formula</em> es una extensión de Hibernate al estándar JPA, que permite mapear una propiedad a un fragmento de SQL. Por ejemplo, puedes definir <i>estimatedProfit</i> con <em>@Formula</em> en <i>CommercialDocument</i> como se muestra en el siguiente código:<br>
+      <pre><code class="language-java">@org.hibernate.annotations.Formula("TOTALAMOUNT * 0.10") // El cálculo usando SQL
 @Setter(AccessLevel.NONE) // El setter no se genera, sólo necesitamos el getter
 @Money
-BigDecimal beneficioEstimado; // Un campo, como con una propiedad persistente
-</code></pre> Esto significa que cuando un <em>DocumentoComercial</em> se lea de la base de datos, el campo <em>beneficioEstimado</em> se rellenerá con el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en modo lista, pero siempre son de solo lectura y no se recalculan en tiempo real en modo detalle. Dado que son de sólo lectura no necesitan el método setter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i> para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i> dependen de la base de datos, porque podrías usar sintaxis sólo soportada por cierto fabricante de base de datos.<br>
+BigDecimal estimatedProfit; // Un campo, como con una propiedad persistente
+</code></pre> Esto significa que cuando un <em>CommercialDocument</em> se lea de la base de datos, el campo <em>estimatedProfit</em> se rellenerá con el cálculo de <em>@Formula</em> que es ejecutado por la base de datos. El usuario puede filtrar y ordenar por las propiedades <i>@Formula</i> en modo lista, pero siempre son de solo lectura y no se recalculan en tiempo real en modo detalle. Dado que son de sólo lectura no necesitan el método setter, por lo que la hemos anotamos con <i>@Setter(AccessLevel.NONE)</i> para que Lombok no genere el setter. Además, las propiedades <i>@Formula</i> dependen de la base de datos, porque podrías usar sintaxis sólo soportada por cierto fabricante de base de datos.<br>
     </div>
     <div class="wiki" style="display: block;">
       <h2 id="toc14"><a name="Resumen"></a>Resumen</h2>
       En esta lección has aprendido algunas formas comunes de añadir lógica de negocio a tus entidades. No hay duda sobre la utilidad de las propiedades calculadas, <i>@Calculation</i>, los métodos de retrollamada o <em>@Formula</em>. Sin embargo, todavía tenemos muchas otras formas de añadir lógica a tu aplicación OpenXava, que vamos a aprender a usar.<br>
       En futuros lecciones verás como añadir validación, modificar el funcionamiento estándar del módulo y añadir tu propia lógica de negocio, entre otras formas de añadir lógica personalizada a tu aplicación.<br>
-      <br>
-      <strong><a class="wiki_link_ext" href="https://github.com/openxava/openxava-course_es/tree/leccion-17"
-
-          rel="nofollow">Descargar código fuente de esta lección</a></strong><br>
       <br>
       <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
 

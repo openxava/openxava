@@ -84,18 +84,13 @@
         <div style="margin-left: 2em;"><a href="#Lesson%206:%20Advanced%20validation-Validation%20alternatives-Validating%20with%20@EntityValidator">Validating with @EntityValidator</a></div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Lesson%206:%20Advanced%20validation-Summary">Summary</a> </div>
       So far we have only done some basic validations using the <i>@Required</i> annotation. In this lesson you are going to learn to validate using the annotation <i>@EntityValidator.</i></div>
-    <div class="wiki" style="display: block;"><a href="https://www.youtube.com/watch?v=rWZNTf7Sw9E&amp;list=PL60bTC1NPyZ7PzIND-CrYI_T35BogUv6A&amp;index=17"
-
-        target="_blank"><img src="files/validating-with-entityvalidator-video_en.png"
-
-          title="Video for lesson 18: Validating with @EntityValidator"></a><br>
-      If you don't like videos follow the instructions below. </div>
     <div class="wiki" style="display: block;">
       <h2 id="our-validation">Our validation</h2>
       We are going to enhance your code with this logic: if the orders are not delivered yet, then the user cannot assign them to an invoice. That is, only delivered orders can be associated with an invoice.<br>
       <h2 id="toc2"><a name="Lesson 6: Advanced validation-Validation alternatives-Adding delivered// property to //Order"></a>Adding <em>delivered</em> property to <em>Order</em></h2>
       First you have to add a new property to the <em>Order</em> entity. The <em>delivered</em> property:<br>
-      <pre><code class="language-java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+      <pre><code class="language-java">@Column(nullable=false)
+@org.hibernate.annotations.ColumnDefault("false")
 boolean delivered;
 </code></pre> Moreover it's necessary to add the <em>delivered</em> property to the view. Modify the <em>Order</em> view as shown in the following code:<br>
       <pre><code class="language-java">@View(extendsView="super.DEFAULT", 
@@ -165,18 +160,7 @@ order_must_be_delivered=Order {0}/{1} must be delivered in order to be added to 
     </div>
     <div class="wiki" style="display: block;"><br>
     </div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-18"
-
-          rel="nofollow">Download source code of this lesson</a></strong></div>
-    <div class="wiki" style="display: block;"><strong><a class="wiki_link_ext"
-
-          href="https://github.com/openxava/openxava-course_en/tree/lesson-7"
-
-          rel="nofollow"><br>
-        </a></strong></div>
-    <div class="wiki" style="display: block;"><strong></strong> <strong>Any problem with this lesson? <a
+    <div class="wiki" style="display: block;"><strong>Any problem with this lesson? <a
 
           class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/419690/"
 
