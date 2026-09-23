@@ -219,10 +219,11 @@ public class DeleteInvoiceAction
         title="refining_behavior_en020.png"><br>
       This is of course mock behavior, so let us now add the real functionality. In order to mark the current invoice as deleted without actually deleting it, we need to add a new property to <em>Invoice</em>. Let's call it <em>deleted</em>. You can see it:<br>
       <pre><code class="language-java">@Hidden // It will not be shown by default in views and tabs
-@Column(columnDefinition="BOOLEAN DEFAULT FALSE") // To populate with falses instead of nulls
+@Column(nullable=false) // To populate with falses instead of nulls
+@org.hibernate.annotations.ColumnDefault("false")
 boolean deleted;
 </code></pre> As you see, it's a plain boolean property. The only new detail is the use of the <i>@Hidden</i> annotation. It means that when a default view or a tabular list is generated the deleted property will not be shown; although if you explicitly put it in <i>@View(members=)</i> or <i>@Tab(properties=)</i> it will be shown. Use this annotation for properties intended for internal use of the developer but makes no sense to the end user.<br>
-      We use <em>@Column(columnDefinition=)</em> to populate the column with falses instead of nulls. Here you put the SQL column definition to send to the database. It's faster that do an update over the database but the code is more database dependent.<br>
+      We use <em>@ColumnDefault("false")</em> to populate the column with falses instead of nulls. It's faster that do an update over the database but the code is more database dependent.<br>
       We are now ready to write the real code for your action:<br>
       <pre><code class="language-java">public void execute() throws Exception {
     Invoice invoice = XPersistence.getManager().find(
@@ -323,7 +324,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <pre><code class="language-java">public class Invoice extends CommercialDocument {
  
     //@Hidden // It will not be shown by default in views and tabs
-    //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    //@Column(nullable=false)
+    //@org.hibernate.annotations.ColumnDefault("false")
     //boolean deleted;
  
     // ...
@@ -339,7 +341,8 @@ import lombok.*;
 public class Deletable extends Identifiable {
  
     @Hidden
-    @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    @Column(nullable=false)
+    @org.hibernate.annotations.ColumnDefault("false")
     boolean deleted;
  
 }

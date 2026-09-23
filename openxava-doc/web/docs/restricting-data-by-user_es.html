@@ -168,7 +168,8 @@ public void asignarUsuarioActual() {
 	
 	<h3>1. Define una propiedad para el rol en tu entidad</h3>
 	
-	<pre><code class="language-java">@Column(length=30, columnDefinition = "VARCHAR(30) DEFAULT 'user'")
+	<pre><code class="language-java">@Column(length=30, nullable=false)
+@org.hibernate.annotations.ColumnDefault("'user'")
 private String rol;</code></pre>
 	
 	<p>

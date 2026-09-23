@@ -223,10 +223,11 @@ public class DeleteInvoiceAction
         title="refining_behavior_en020.png"><br>
       Por supuesto, este es un comportamiento tonto. Añadamos el comportamiento real. Para marcar como borrada la factura actual sin borrarla realmente, necesitamos añadir una nueva propiedad a <em>Invoice</em>. Llamémosla <em>deleted</em>:<br>
       <pre><code class="language-java">@Hidden // No se mostrará por defecto en las vistas y los tabs
-@Column(columnDefinition="BOOLEAN DEFAULT FALSE") // Para llenar con falses en lugar de con nulos
+@Column(nullable=false) // Para llenar con falses en lugar de con nulos
+@org.hibernate.annotations.ColumnDefault("false")
 boolean deleted;
 </code></pre> Como ves, es una propiedad booleana simple y llana. El único detalle es el uso de la anotación <i>@Hidden</i>. Indica que cuando una vista o lista tabular por defecto sea generada la propiedad <em>deleted</em> no se mostrará; aunque si la pones explícitamente en <i>@View(members=)</i> o <i>@Tab(properties=)</i> sí que se mostrará. Usa esta anotación para marcar aquellas propiedades de uso interno del programador pero que no tienen sentido para el usuario final.<br>
-      Usamos <em>@Column(columnDefinition=)</em> para llenar la columna con <em>falses</em> en lugar de con nulos. Aquí puedes poner la definición SQL de la columna para enviar a la base de datos. Es más sencillo que actualizar la base de datos pero el código es más dependiente de la base de datos.<br>
+      Usamos <em>@ColumnDefault("false")</em> para llenar la columna con <em>falses</em> en lugar de con nulos. Es más sencillo que actualizar la base de datos pero el código es más dependiente de la base de datos.<br>
       Ya estamos preparados para escribir el código real de la acción:<br>
       <pre><code class="language-java">public void execute() throws Exception {
     Invoice invoice = XPersistence.getManager().find(
@@ -327,7 +328,8 @@ public class InvoicingDeleteAction extends ViewBaseAction {
       <pre><code class="language-java">public class Invoice extends CommercialDocument {
  
     //@Hidden // No se mostrará por defecto en las vistas y los tabs
-    //@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    //@Column(nullable=false)
+    //@org.hibernate.annotations.ColumnDefault("false")
     //boolean deleted;
  
     // El resto del código...
@@ -343,7 +345,8 @@ import lombok.*;
 public class Deletable extends Identifiable {
  
     @Hidden
-    @Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+    @Column(nullable=false)
+    @org.hibernate.annotations.ColumnDefault("false")
     boolean deleted;
  
 }

@@ -101,7 +101,8 @@ style="color: white;"><span style="font-family: arial,helvetica,sans-serif;">Val
       Vamos a refinar tu código para que el usuario no pueda asignar pedidos a una factura si los pedidos no han sido entregados todavía. Es decir, solo los pedidos entregados pueden asociarse a una factura. Aprovecharemos la oportunidad para explorar diferentes formas de hacer esta validación.<br>
       <h2 id="toc2"><a name="Alternativas-de-validacion-Anadir-la-propiedad-entregado-a-Pedido"></a>Añadir la propiedad delivered a Order</h2>
       Para hacer esto, lo primero es añadir una nueva propiedad a la entidad <em>Order</em>. La propiedad <em>delivered</em>:<br>
-      <pre><code class="language-java">@Column(columnDefinition="BOOLEAN DEFAULT FALSE")
+      <pre><code class="language-java">@Column(nullable=false)
+@org.hibernate.annotations.ColumnDefault("false")
 boolean delivered;
 </code></pre> Además es necesario añadir la propiedad <em>delivered</em> a la vista. Modifica la vista <em>Order</em> como muestra el siguiente código:<br>
       <pre><code class="language-java">@View(extendsView="super.DEFAULT", 
