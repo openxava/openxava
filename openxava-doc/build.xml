@@ -4,7 +4,7 @@
 
 	<property name="xava.version" value="7.7.3"/>
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
-	<property name="local.deploy.dir" value="E:\java\apache-tomcat-9.0.55\webapps"/>
+	<property name="local.deploy.dir" value="E:\java\apache-tomcat-11.0.23\webapps"/>
 	<!--
 	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/> 
 	<property name="dist.dir" value="/home/javi/site"/>
