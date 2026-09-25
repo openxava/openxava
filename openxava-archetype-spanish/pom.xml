@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<openxava.version>8.0-SNAPSHOT</openxava.version>
+		<openxava.version>8.0</openxava.version>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<!-- Las aplicaciones OpenXava funcionan bien con Java 17, 21 y 25 -->
 		<maven.compiler.source>17</maven.compiler.source>
