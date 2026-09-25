@@ -1,8 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
-Spring Boot
+OpenXava 8.0 (2026-9-25)
+------------------------
 - Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
+- Jakarta EE 11 support.
+- New modern look and feel for the whole user interface, comparable to current leading web applications.
+- New user interface generator written in pure Java. Dropped legacy JSP renderer.
+- Java 17 as baseline. Dropped support for Java 8 and 11.
 - Generated WAR is executable directly via java -jar, without an application server.
 - Dependency versions are now aligned with Spring Boot 4.1.
 - Root context configuration done in application.properties instead of AppServer.run("").
@@ -14,9 +19,6 @@ Spring Boot
 - Hibernate version no longer fixed in pom.xml; it now uses the version provided by the Spring Boot BOM.
 - DataSource definition moved from context.xml to application.properties.
 - Several datasources can be declared in application.properties with the openxava.datasources.* prefix.
-
-Jakarta EE 11
-- Jakarta EE 11 support.
 - Jakarta Persistence 3.2 support. Dropped support for JPA 2.2.
 - Jakarta Servlet 6.1 support. Dropped support for Servlet 4.0.
 - Generated WAR is deployable in a standalone Tomcat 11.
@@ -27,10 +29,6 @@ Jakarta EE 11
 - WebSocket upgraded to Jakarta WebSocket 2.2.
 - Jakarta Validation 3.1 support. Dropped support for Bean Validation 2.0.
 - Tomcat 11 support. Dropped support for Tomcat 10, 9 and 8.
-- Java 17 as baseline. Dropped support for Java 8 and 11.
-
-Modern look
-- New modern look and feel for the whole user interface, comparable to current leading web applications.
 - New light theme with a clean slate palette and indigo accent color.
 - Polished dark theme with a real black zinc palette and improved text legibility.
 - Element collections now have a clean spreadsheet look with hairline row separators.
@@ -45,17 +43,12 @@ Modern look
 - Removed terra.css, blue.css and black-and-white.css themes.
 - Removed legacy portal stylesheets default.css and skins.css; the fallback CSS in Style is now auto.css.
 - Success, warning and information messages shown as modern toast notifications that close automatically.
-
-Modern guts
-- New user interface generator written in pure Java. Dropped legacy JSP renderer.
 - Removed dependencies on J2EE and Java EE APIs.
 - Removed javax.ejb dependency.
 - Replaced EJB-specific exceptions with OpenXava exceptions.
 - RemoteException is no longer used as a general system exception; many methods no longer throw it.
 - Runtime exceptions are no longer declared in throws clauses.
 - DWR library removed. Code rewritten to use JavaScript fetch() and Java servlets for HTML Over The Wire.
-
-Miscelanea
 - All chat functionality moved to core. openxava-7.7-chat-jdk17 removed.
 - AGENTS.md in archetypes updated for OpenXava 8: instructs AI agents to use jakarta.* imports.
 - Code examples for AI agents are now linked from GitHub instead of a generated .xava folder.
@@ -75,8 +68,6 @@ Miscelanea
 - Cleaned up unchecked warnings in OpenXava codebase.
 - @Columns annotation removed by Hibernate; use @CompositeType with @AttributeOverrides instead.
 - DBManager in new projects is now located in the tools package. The run package no longer exists.
-
-Librerias
 - Hibernate upgraded to 7.4.1.
 - LangChain4J upgraded to 1.18.1.
 - JasperReports upgraded to 7.0.7.
@@ -92,8 +83,6 @@ Librerias
 - Jersey upgraded to 4.0.2.
 - Hibernate Validator upgraded to 9.1.0.
 - Groovy, Jersey, Jakarta JSON Binding, Hibernate Ant, and Tomcat DBCP dependencies removed.
-
-Doc
 - Documentation article on deploying in production as a standalone application without Tomcat.
 - Tomcat deployment documentation updated for OpenXava 8 and Tomcat 11.
 - Java 25 documentation improved to include the explicit Lombok version in the pom.xml.
@@ -102,8 +91,6 @@ Doc
 - Reference Guide updated for Jakarta EE 11.
 - JPA documentation updated to JPA 3.2, including improvements to text and code formatting.
 - AI coding assistants documentation updated for OpenXava 8.
-
-Fixes
 - Fixed 3 security vulnerabilities in dependencies; now there are 0 vulnerabilities.
 - Fix: Changes made to HSQLDB data are lost in some cases after stopping the application.
 
