@@ -14,13 +14,9 @@ Then change to the folder where the project was created:
  
 	cd yourapp
 
-And build the project:
-  
-  	mvn package
-
 ## Run your application
 
-	mvn exec:java
+	mvn spring-boot:run
 	
 Open your browser and go to http://localhost:8080/yourapp
 
@@ -28,11 +24,7 @@ Open your browser and go to http://localhost:8080/yourapp
 Stop your application with Ctrl+C in the prompt. Then use your favorite editor to edit YourFirstEntity.java in yourapp/src/main/java/com/yourcompany/yourapp/model.
 Have a look at the code and modify it. Add a new property, for example. 
 
-When the code is ready, compile it:
-
-	mvn compile
-	
-Then start the application again.	
+When the code is ready, start the application again.	
 
 ## New project from other archetypes
 Apart from the basic archetype, there are other OpenXava archetypes, so you don't have to start your application from scratch.
@@ -60,11 +52,19 @@ For an invoicing application use openxava-invoicing-archetype:
 ## Older versions
 To create a project from an older version of OpenXava, use the following command:
 
-	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=7.6.3 -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
+	mvn archetype:generate -DarchetypeGroupId=org.openxava -DarchetypeArtifactId=openxava-archetype -DarchetypeVersion=7.7.3 -DgroupId=com.yourcompany -DartifactId=yourapp -DinteractiveMode=false
 
-Note that you can replace 7.6.3 with any other version you want to use.
+Note that you can replace 7.7.3 with any other version you want to use.
 
-To execute applications of version 7.6.3 or older, use Java directly. For Windows:
+To execute applications of version 7.7.x, use:
+
+    mvn package exec:java
+
+To execute applications of version 7.6.3 or older, first build the application:
+
+    mvn package
+
+Then use Java directly. For Windows:
 
 	java -cp "target/yourapp/WEB-INF/classes;target/yourapp/WEB-INF/lib/*" com.yourcompany.yourapp.run.yourapp
 
