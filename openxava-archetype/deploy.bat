@@ -31,5 +31,8 @@ if %errorlevel% neq 0 (
 )
 
 REM Step 6: Deploy from generated archetype directory
-cd target\generated-sources\archetype
+pushd target\generated-sources\archetype
 call mvn clean deploy
+set DEPLOY_ERRORLEVEL=%errorlevel%
+popd
+exit /b %DEPLOY_ERRORLEVEL%
