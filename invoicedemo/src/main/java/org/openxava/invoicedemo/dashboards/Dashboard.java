@@ -45,7 +45,7 @@ public class Dashboard {
 	public Collection<InvoicedPerCustomer> getTopCustomers() { 
 		String jpql = "select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount) " +
 			"from Invoice i " +
-			"group by i.customer.number, amount " +
+			"group by i.customer.number, i.customer.name " +
 			"order by amount desc";
 		TypedQuery<InvoicedPerCustomer> query = XPersistence.getManager().createQuery(jpql, InvoicedPerCustomer.class).setMaxResults(5);
 		return query.getResultList();
