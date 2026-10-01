@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Dashboard module in invoicedemo is broken.
+- Added more Hibernate 7 cases to migration to v8.0 documentation.
+
 OpenXava 8.0 (2026-9-25)
 ------------------------
 - Spring Boot 4.1 as the default application launcher; standard Jakarta EE 11 WAR is also supported.
