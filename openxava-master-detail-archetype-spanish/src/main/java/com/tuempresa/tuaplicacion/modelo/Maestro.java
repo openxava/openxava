@@ -21,12 +21,12 @@ import lombok.*;
 
 @Entity @Getter @Setter
 @View(members=
-	"anyo, numero, fecha;" +
+	"anyo, numero, fecha, completado;" +
 	"persona;" +
 	"detalles { detalles };" +
 	"observaciones { observaciones }"
 )
-@Tab(properties="anyo, numero, fecha, persona.nombre, total, observaciones")
+@Tab(properties="anyo, numero, fecha, persona.nombre, total, completado, observaciones")
 public class Maestro extends Identifiable {
 	
 	@DefaultValueCalculator(CurrentYearCalculator.class)
@@ -42,6 +42,8 @@ public class Maestro extends Identifiable {
 	@Column(length=2) @Required
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
 	int porcentajeIVA;
+	
+	boolean completado;
 	
 	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)

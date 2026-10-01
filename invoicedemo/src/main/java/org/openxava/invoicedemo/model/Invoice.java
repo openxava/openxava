@@ -14,12 +14,12 @@ import lombok.*;
 
 @Entity @Getter @Setter
 @View(members=
-	"year, number, date;" +
+	"year, number, date, paid;" +
 	"customer;" +
 	"details { details };" +
 	"remarks { remarks }"
 )
-@Tab(properties="year, number, date, customer.name, total, remarks") 
+@Tab(properties="year, number, date, customer.name, total, paid, remarks") 
 public class Invoice extends Identifiable {
 		
 	@DefaultValueCalculator(CurrentYearCalculator.class)
@@ -35,6 +35,8 @@ public class Invoice extends Identifiable {
 	@Column(length=2) @Required
 	@DefaultValueCalculator(value=IntegerCalculator.class, properties=@PropertyValue(name="value", value="21"))
 	int vatPercentage;
+	
+	boolean paid;
 	
 	@ReferenceView("Simple") 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)

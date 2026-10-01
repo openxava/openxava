@@ -13,6 +13,8 @@ public class InvoiceTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
+		assertValue("paid", "false");
+		setValue("paid", "true");
 		setValue("customer.number", "1"); // Wim Mertens
 		
 		// Add first detail
@@ -45,16 +47,19 @@ public class InvoiceTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
+		setValue("paid", "true");
 		execute("CRUD.refresh");
 		assertNoErrors();
 		assertValue("year", "2026");
 		assertValue("number", "99999");
+		assertValue("paid", "true");
 		assertValue("customer.number", "1");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, "quantity", "5");
 		assertValueInCollection("details", 1, "quantity", "3");
 		
-		// Update - modify quantity of first detail
+		// Update - modify paid and quantity of first detail
+		setValue("paid", "false");
 		setValueInCollection("details", 0, "quantity", "10");
 		assertValueInCollection("details", 0, "amount", "190.00");
 		
@@ -76,6 +81,7 @@ public class InvoiceTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2026");
 		assertValue("number", "99999");
+		assertValue("paid", "false");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, "quantity", "10");
 		assertValueInCollection("details", 1, "quantity", "3");
