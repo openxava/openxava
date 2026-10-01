@@ -486,6 +486,24 @@ SELECT e FROM Traveler e
 LEFT JOIN e.lastJourney e_lastJourney
 ORDER BY e.name -- ¡Correcto!</code></pre>
 
+    <h4>Alias de agregados en GROUP BY</h4>
+
+    <p>Hibernate 7 no permite usar el alias de una función de agregado (como <i>sum()</i>) 
+    en la cláusula <i>GROUP BY</i>. Además, todas las propiedades no agregadas del 
+    <i>SELECT</i> han de incluirse en el <i>GROUP BY</i>:</p>
+
+    <pre><code class="language-java">// INCORRECTO (Falla en Hibernate 7)
+select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount)
+from Invoice i
+group by i.customer.number, amount -- ¡Error! 'amount' es un agregado
+order by amount desc
+
+// CORRECTO
+select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount)
+from Invoice i
+group by i.customer.number, i.customer.name -- ¡Correcto!
+order by amount desc</code></pre>
+
     <h4>Claves compuestas (@IdClass) con relaciones</h4>
 
     <p>Con Hibernate 6/7, las clases <i>@IdClass</i> que contienen campos que son 

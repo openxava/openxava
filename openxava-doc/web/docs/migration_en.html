@@ -488,6 +488,24 @@ SELECT e FROM Traveler e
 LEFT JOIN e.lastJourney e_lastJourney
 ORDER BY e.name -- Correct!</code></pre>
 
+    <h4>Aggregate aliases in GROUP BY</h4>
+
+    <p>Hibernate 7 does not allow using the alias of an aggregate function (like <i>sum()</i>) 
+    in the <i>GROUP BY</i> clause. Moreover, all the non-aggregated properties of the 
+    <i>SELECT</i> must be included in the <i>GROUP BY</i>:</p>
+
+    <pre><code class="language-java">// INCORRECT (Fails in Hibernate 7)
+select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount)
+from Invoice i
+group by i.customer.number, amount -- Error! 'amount' is an aggregate
+order by amount desc
+
+// CORRECT
+select new org.openxava.invoicedemo.dashboards.InvoicedPerCustomer(i.customer.name, sum(i.total) as amount)
+from Invoice i
+group by i.customer.number, i.customer.name -- Correct!
+order by amount desc</code></pre>
+
     <h4>Composite keys (@IdClass) with relationships</h4>
 
     <p>With Hibernate 6/7, <i>@IdClass</i> classes containing fields that are 
