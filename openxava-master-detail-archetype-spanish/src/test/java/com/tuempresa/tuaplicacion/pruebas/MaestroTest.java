@@ -14,6 +14,8 @@ public class MaestroTest extends ModuleTestBase {
         execute("CRUD.new");
         setValue("anyo", "2026");
         setValue("numero", "99999");
+        assertValue("completado", "false");
+        setValue("completado", "true");
         setValue("persona.numero", "1"); // Wim Mertens
 
         // Añadir primer detalle
@@ -46,16 +48,19 @@ public class MaestroTest extends ModuleTestBase {
         execute("CRUD.new");
         setValue("anyo", "2026");
         setValue("numero", "99999");
+        setValue("completado", "true");
         execute("CRUD.refresh");
         assertNoErrors();
         assertValue("anyo", "2026");
         assertValue("numero", "99999");
+        assertValue("completado", "true");
         assertValue("persona.numero", "1");
         assertCollectionRowCount("detalles", 2);
         assertValueInCollection("detalles", 0, "cantidad", "5");
         assertValueInCollection("detalles", 1, "cantidad", "3");
 
-        // Actualizar - modificar cantidad del primer detalle
+        // Actualizar - modificar completado y cantidad del primer detalle
+        setValue("completado", "false");
         setValueInCollection("detalles", 0, "cantidad", "10");
         assertValueInCollection("detalles", 0, "importe", "190,00");
 
@@ -77,6 +82,7 @@ public class MaestroTest extends ModuleTestBase {
         execute("List.viewDetail", "row=0");
         assertValue("anyo", "2026");
         assertValue("numero", "99999");
+        assertValue("completado", "false");
         assertCollectionRowCount("detalles", 2);
         assertValueInCollection("detalles", 0, "cantidad", "10");
         assertValueInCollection("detalles", 1, "cantidad", "3");
