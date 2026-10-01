@@ -14,6 +14,8 @@ public class MasterTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
+		assertValue("completed", "false");
+		setValue("completed", "true");
 		setValue("person.number", "1"); // Wim Mertens
 		
 		// Add first detail
@@ -46,16 +48,19 @@ public class MasterTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
+		setValue("completed", "true");
 		execute("CRUD.refresh");
 		assertNoErrors();
 		assertValue("year", "2026");
 		assertValue("number", "99999");
+		assertValue("completed", "true");
 		assertValue("person.number", "1");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, "quantity", "5");
 		assertValueInCollection("details", 1, "quantity", "3");
 		
-		// Update - modify quantity of first detail
+		// Update - modify completed and quantity of first detail
+		setValue("completed", "false");
 		setValueInCollection("details", 0, "quantity", "10");
 		assertValueInCollection("details", 0, "amount", "190.00");
 		
@@ -77,6 +82,7 @@ public class MasterTest extends ModuleTestBase {
 		execute("List.viewDetail", "row=0");
 		assertValue("year", "2026");
 		assertValue("number", "99999");
+		assertValue("completed", "false");
 		assertCollectionRowCount("details", 2);
 		assertValueInCollection("details", 0, "quantity", "10");
 		assertValueInCollection("details", 1, "quantity", "3");
