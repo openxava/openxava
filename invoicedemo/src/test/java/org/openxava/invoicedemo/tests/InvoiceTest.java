@@ -47,6 +47,7 @@ public class InvoiceTest extends ModuleTestBase {
 		execute("CRUD.new");
 		setValue("year", "2026");
 		setValue("number", "99999");
+		setValue("paid", "true");
 		execute("CRUD.refresh");
 		assertNoErrors();
 		assertValue("year", "2026");
