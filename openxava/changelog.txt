@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sometimes ConcurrentModificationException or missing editor JS/CSS files on first concurrent request.
 - Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
 - Modified invoicedemo and master-detail archetypes to include a boolean property.
 - Fix: Dashboard module in invoicedemo is broken.
