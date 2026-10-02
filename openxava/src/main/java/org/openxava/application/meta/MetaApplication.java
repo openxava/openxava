@@ -2,6 +2,7 @@ package org.openxava.application.meta;
 
 
 import java.util.*;
+import java.util.concurrent.*;
 
 import org.apache.commons.logging.*;
 import org.openxava.component.*;
@@ -18,11 +19,11 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 
 	private static Log log = LogFactory.getLog(MetaApplication.class);
 
-	private Map<String, MetaModule> metaModules = new HashMap<>(); 
+	private Map<String, MetaModule> metaModules = new ConcurrentHashMap<>(); 
 	private Collection<String> modulesNames = new ArrayList<>(); // to preserve the order
-	private Collection<String> folders;
+	private volatile Collection<String> folders;
 	private Collection<String> controllersForDefaultModule;
-	private boolean defaultModulesGenerated = false;
+	private volatile boolean defaultModulesGenerated = false;
 	private int controllersCodeVersion = Hotswap.getControllersVersion(); 
 	
 	
@@ -51,11 +52,12 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 */
 	public Collection<String> getFolders() { 
 		if (folders == null) {
-			folders = new HashSet<>();
+			Collection<String> result = new HashSet<>();
 			for (Iterator it = getMetaModules().iterator(); it.hasNext(); ) {
 				MetaModule metaModule = (MetaModule) it.next(); 
-				folders.add(metaModule.getFolder());
+				result.add(metaModule.getFolder());
 			}
+			folders = result;
 		}
 		return folders;
 	}
@@ -85,9 +87,12 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
 	 */
 	private void generateDefaultModules() { 
 		if (defaultModulesGenerated) return;
-		generateDefaultModulesFromJPAEntities();
-		generateDefaultModulesFromXMLComponents();
-		defaultModulesGenerated = true;
+		synchronized (this) {
+			if (defaultModulesGenerated) return;
+			generateDefaultModulesFromJPAEntities();
+			generateDefaultModulesFromXMLComponents();
+			defaultModulesGenerated = true;
+		}
 	}
 
 	/**
@@ -165,7 +170,7 @@ public class MetaApplication extends MetaElement implements java.io.Serializable
         	resetControllersForDefaultModules();
         	controllersCodeVersion = Hotswap.getControllersVersion();
         }		
-		MetaModule result = (MetaModule) metaModules.get(name);
+		MetaModule result = name == null?null:metaModules.get(name);
 		if (result == null) {
 			if (existsModel(name)) {				
 				result = createDefaultModule(name);		

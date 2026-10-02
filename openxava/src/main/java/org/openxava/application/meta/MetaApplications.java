@@ -13,10 +13,11 @@ import org.openxava.util.*;
  */
 public class MetaApplications {
 	
-	private static Collection<String> applicationNames;
+	private static volatile Collection<String> applicationNames;
 
-	private static Map<String, MetaApplication> metaAplicacions; 
-	private static MetaApplication mainMetaApplication; 
+	private static volatile Map<String, MetaApplication> metaAplicacions; 
+	private static Map<String, MetaApplication> loadingMetaApplications;
+	private static volatile MetaApplication mainMetaApplication; 
 	private static int applicationCodeVersion = Hotswap.getApplicationVersion(); 	
 	
 	/**
@@ -24,10 +25,10 @@ public class MetaApplications {
 	 * @throws XavaException
 	 */
 	public static void _addMetaApplication(MetaApplication application) {
-		if (metaAplicacions == null) {
+		if (loadingMetaApplications == null) {
 			throw new XavaException("only_from_parse", "MetaApplications._addMetaApplication");
 		}
-		metaAplicacions.put(application.getName(), application);
+		loadingMetaApplications.put(application.getName(), application);
 	}
 	
 	/**
@@ -35,20 +36,16 @@ public class MetaApplications {
 	 * @throws XavaException
 	 */
 	public static Collection<MetaApplication> getMetaApplications() {
-        configureMetaApplications();
-		return metaAplicacions.values();
+		return configureMetaApplications().values();
 	}
 
-	private static void configureMetaApplications() {
-		if (metaAplicacions != null) {
-        	if (applicationCodeVersion < Hotswap.getApplicationVersion()) {
-	        	metaAplicacions = null;
-	        	applicationCodeVersion = Hotswap.getApplicationVersion();
-        	}
-        }				
-		if (metaAplicacions == null) {
+	private static synchronized Map<String, MetaApplication> configureMetaApplications() {
+		int currentVersion = Hotswap.getApplicationVersion();
+		if (metaAplicacions == null || applicationCodeVersion < currentVersion) {
 			configure();
+			applicationCodeVersion = currentVersion;
 		}
+		return metaAplicacions;
 	}
 	
 	/**
@@ -65,8 +62,7 @@ public class MetaApplications {
 	 * @since 6.3
 	 */	
 	public static void setMainApplicationName(String applicationName) { 
-		if (metaAplicacions == null) configure();
-		mainMetaApplication = metaAplicacions.get(applicationName);
+		mainMetaApplication = configureMetaApplications().get(applicationName);
 	}
 
 	
@@ -74,16 +70,22 @@ public class MetaApplications {
 	* @throws XavaException
 	 */
 	private static void configure() {
-		metaAplicacions = new HashMap();
-		ApplicationParser.configureApplications();
+		Map<String, MetaApplication> loaded = new HashMap<>();
+		loadingMetaApplications = loaded;
+		try {
+			ApplicationParser.configureApplications();
+		}
+		finally {
+			loadingMetaApplications = null;
+		}
+		metaAplicacions = loaded;
 	}
 	
 	/**
 	* @throws XavaException
 	 */
 	public static MetaApplication getMetaApplication(String name) throws ElementNotFoundException {
-		configureMetaApplications();
-		MetaApplication result = (MetaApplication) metaAplicacions.get(name);
+		MetaApplication result = configureMetaApplications().get(name);
 		if (result == null) {
 			throw new ElementNotFoundException("application_not_found", name);
 		}
@@ -95,12 +97,13 @@ public class MetaApplications {
 	 */
 	public static Collection<String> getApplicationsNames() {
 		if (applicationNames == null) {
-			applicationNames = new ArrayList<>();
+			Collection<String> names = new ArrayList<>();
 			Iterator it = getMetaApplications().iterator();
 			while (it.hasNext()) {
 				MetaApplication ap = (MetaApplication) it.next();
-				applicationNames.add(ap.getName());
+				names.add(ap.getName());
 			}
+			applicationNames = names;
 		}
 		return applicationNames;
 	}	
