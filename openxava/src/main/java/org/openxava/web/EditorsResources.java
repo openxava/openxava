@@ -21,8 +21,8 @@ import org.openxava.util.*;
 public class EditorsResources {
 	
 	private static Log log = LogFactory.getLog(EditorsResources.class);
-	private static List<String> cssFiles;
-	private static List<String> jsFiles; 
+	private static volatile List<String> cssFiles;
+	private static volatile List<String> jsFiles; 
 	
 	public static Collection<String> listCSSFiles(String realPath) { 
 		return listCSSFiles(realPath, null);
@@ -33,12 +33,13 @@ public class EditorsResources {
 	 */
 	public static Collection<String> listCSSFiles(String realPath, ServletContext servletContext) { 
 		if (cssFiles == null) {
-			cssFiles = new ArrayList<>();
-			fillFilesFromFileSystem(cssFiles, realPath, "style", "css");
-			fillFilesFromServletContext(cssFiles, servletContext, "style", "css");
-			if (!fillFilesFromSpring(cssFiles, "style", "css")) {
-				fillFilesFromJar(cssFiles, "style", "css"); 
+			List<String> files = new ArrayList<>();
+			fillFilesFromFileSystem(files, realPath, "style", "css");
+			fillFilesFromServletContext(files, servletContext, "style", "css");
+			if (!fillFilesFromSpring(files, "style", "css")) {
+				fillFilesFromJar(files, "style", "css"); 
 			}
+			cssFiles = java.util.Collections.unmodifiableList(files);
 		}
 		return cssFiles;
 	}
@@ -52,12 +53,13 @@ public class EditorsResources {
 	 */
 	public static Collection<String> listJSFiles(String realPath, ServletContext servletContext) { 
 		if (jsFiles == null) {
-			jsFiles = new ArrayList<>();
-			fillFilesFromFileSystem(jsFiles, realPath, "js", "js");
-			fillFilesFromServletContext(jsFiles, servletContext, "js", "js");
-			if (!fillFilesFromSpring(jsFiles, "js", "js")) {
-				fillFilesFromJar(jsFiles, "js", "js"); 
+			List<String> files = new ArrayList<>();
+			fillFilesFromFileSystem(files, realPath, "js", "js");
+			fillFilesFromServletContext(files, servletContext, "js", "js");
+			if (!fillFilesFromSpring(files, "js", "js")) {
+				fillFilesFromJar(files, "js", "js"); 
 			}
+			jsFiles = java.util.Collections.unmodifiableList(files);
 		}
 		return jsFiles;
 	}
