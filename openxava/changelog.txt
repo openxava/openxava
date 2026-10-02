@@ -1,8 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-- In lists and collections the pencil icons and row actions are only shown on the row under the mouse.
-- Fix: In collections the pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
+- Fix: Row icons are shown in both rows when moving the mouse over another row while editing a cell.
+- Fix: The pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
 - Fix: Sometimes "Module X is not defined" on startup with many modules, though the module is defined.
 - Fix: Sometimes ConcurrentModificationException or missing editor JS/CSS files on first concurrent request.
 - Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
