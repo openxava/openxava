@@ -2223,13 +2223,12 @@ th.ox-list-header .ui-resizable-e:focus::after {
 	pointer-events: none;
 }
 
-.ox-list tr:hover td.ox-editable-cell::after,
-.ox-list tr:focus-within td.ox-editable-cell::after {
+.ox-list tr:hover td.ox-editable-cell::after {
 	opacity: 0.5;
 }
 
 .ox-list tr:hover td.ox-editable-cell:hover::after,
-.ox-list td.ox-editable-cell:focus-within::after {
+.ox-list tr td.ox-editable-cell:focus-within::after {
 	opacity: 0;
 }
 
@@ -2288,9 +2287,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-element-collection tr:hover .ox-element-collection-remove-action,
-.ox-element-collection tr:focus-within .ox-element-collection-remove-action,
 .ox-element-collection tr:hover .xava_handle,
-.ox-element-collection tr:focus-within .xava_handle,
 .ox-element-collection tr:hover .ox-element-collection-search-action-cell a,
 .ox-element-collection tr:focus-within .ox-element-collection-search-action-cell a,
 .ox-list tr:hover .ox-total-capable-cell a,
@@ -2304,7 +2301,6 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-list tr:hover .ox-list-action-cell i, .ox-list tr:hover .ox-list-action-cell img,
-.ox-list tr:focus-within .ox-list-action-cell i, .ox-list tr:focus-within .ox-list-action-cell img,
 .ox-list .ox-list-action-cell a:focus-visible i, .ox-list .ox-list-action-cell a:focus-visible img {
 	opacity: 1;
 }
