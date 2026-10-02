@@ -1,12 +1,14 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Sometimes "Module X is not defined" on startup with many modules, though the module is defined.
 - Fix: Sometimes ConcurrentModificationException or missing editor JS/CSS files on first concurrent request.
 - Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
 - Modified invoicedemo and master-detail archetypes to include a boolean property.
 - Fix: Dashboard module in invoicedemo is broken.
 - Automated test for dashboard added to master-detail archetypes.
 - Added more Hibernate 7 cases to migration to v8.0 documentation.
+
 
 OpenXava 8.0 (2026-9-25)
 ------------------------
