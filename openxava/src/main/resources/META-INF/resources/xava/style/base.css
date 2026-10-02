@@ -2229,7 +2229,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-list tr:hover td.ox-editable-cell:hover::after,
-.ox-list td.ox-editable-cell:focus-within::after {
+.ox-list tr td.ox-editable-cell:focus-within::after {
 	opacity: 0;
 }
 

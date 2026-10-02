@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: In collections the pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
 - Fix: Sometimes "Module X is not defined" on startup with many modules, though the module is defined.
 - Fix: Sometimes ConcurrentModificationException or missing editor JS/CSS files on first concurrent request.
 - Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
