@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Double thick frame appears around the AI chat input when it gets focus.
 - Fix: Row icons are shown in both rows when moving the mouse over another row while editing a cell.
 - Fix: The pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
 - Fix: Sometimes "Module X is not defined" on startup with many modules, though the module is defined.

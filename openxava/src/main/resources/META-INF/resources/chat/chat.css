@@ -273,9 +273,17 @@
 	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.ox-chat-input-wrapper:hover {
+	border-color: var(--input-hover-border);
+}
+
 .ox-chat-input-wrapper:focus-within {
-	border-color: var(--accent-color);
-	box-shadow: 0 0 0 3px var(--focus-ring-color);
+	border-color: var(--input-hover-border);
+	box-shadow: var(--elevation-1);
+}
+
+.ox-chat-input:focus {
+	box-shadow: none;
 }
 
 .ox-chat-input {
@@ -470,6 +478,15 @@
 	border-radius: var(--radius-xl);
 	padding: 8px 10px;
 	border: 1px solid var(--input-border);
+}
+
+#chat_panel .ox-chat-input-wrapper:hover {
+	border-color: var(--input-hover-border);
+}
+
+#chat_panel .ox-chat-input-wrapper:focus-within {
+	border-color: var(--input-hover-border);
+	box-shadow: var(--elevation-1);
 }
 
 #chat_panel .ox-chat-input {
