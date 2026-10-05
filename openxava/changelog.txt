@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Action popup menus in collections use the highlighted action colors instead of the standard ones.
+- Fix: Icons in collection action buttons show a square border on hover in dark mode.
 - Fix: Double thick frame appears around the AI chat input when it gets focus.
 - Fix: Row icons are shown in both rows when moving the mouse over another row while editing a cell.
 - Fix: The pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
