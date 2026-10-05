@@ -1557,7 +1557,7 @@ i, .ox-icon i.mdi-close-circle,
 }
 
 .ox-list-mode .ox-button-bar a[id*="new"]:hover, .ox-list-mode .ox-button-bar a[id*="new"]:hover i,
-.ox-collection-list-actions span:nth-of-type(1) a:hover, .ox-collection-list-actions span:nth-of-type(1) a:hover i
+.ox-collection-list-actions > span:nth-of-type(1) a:hover, .ox-collection-list-actions > span:nth-of-type(1) a:hover i
 {
 	background: var(--highlight-bar-action-hover-background); 
 	color: var(--highlight-bar-action-hover-color);
@@ -1598,11 +1598,14 @@ i.module-loading  {
 }
 
 .ox-button-bar .ox-button-bar-button a:hover, 
-.ox-collection-list-actions .ox-button-bar-button a:hover, 
-.ox-collection-list-actions a:hover i {   
+.ox-collection-list-actions .ox-button-bar-button a:hover {   
 	color: var(--button-bar-button-hover-color);
 	background: var(--button-bar-button-hover-background);
 	border-color: var(--button-bar-button-hover-border);
+}
+
+.ox-collection-list-actions a:hover i {
+	color: var(--button-bar-button-hover-color);
 }
 
 .ox-button-bar .ox-button-bar-button a:focus-visible, 
