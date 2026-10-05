@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: "Change name/remove" action link attached to the list configurations combo without spacing.
 - Fix: Right margin after frames is twice as wide as the left one.
 - Fix: In dark mode, tree editor lines are barely visible and hovered nodes are unreadable.
 - Fix: Action popup menus in collections use the highlighted action colors instead of the standard ones.
