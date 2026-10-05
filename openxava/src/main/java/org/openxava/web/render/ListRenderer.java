@@ -45,7 +45,9 @@ public class ListRenderer {
 					w.append(ActionHtml.link(ctx, "List.saveConfiguration", null, null, false));
 					w.append("</span>");
 				} else {
+					w.append("<span id=\"xava_change_list_configuration\">");
 					w.append(ActionHtml.link(ctx, "List.changeConfiguration", null, null, false));
+					w.append("</span>");
 				}
 			}
 

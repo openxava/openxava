@@ -1665,6 +1665,10 @@ i.mdi {
     font-weight: bold;
 }
 
+#xava_change_list_configuration {
+    margin-left: 10px;
+}
+
 .ox-tree-collection {
 	 visibility: hidden; 
 }
