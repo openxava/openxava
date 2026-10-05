@@ -2474,6 +2474,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 
 .ui-dialog .ox-detail.ox-flow-layout, .ui-dialog .ox-active-section > .ox-flow-layout { 
 	width: 90vw;
+	margin-right: 0;
 }
 
 .ox-flow-layout .ox-frame { 
@@ -2572,7 +2573,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ui-dialog .ox-section {
-	margin: 0px -6px 10px 0px;  
+	margin: 0px var(--space-2) 10px 0px;  
 }
 
 .ox-section a, .ui-dialog .ox-section a {
@@ -2616,6 +2617,11 @@ th.ox-list-header .ui-resizable-e:focus::after {
 .ox-flow-layout .ox-section {
 	margin-left: calc(-1 * var(--space-3));
 	margin-right: calc(-1 * var(--space-3)); 
+}
+
+.ui-dialog .ox-flow-layout .ox-section {
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .ox-flow-layout .ox-layout-hide-frame-in-section {
@@ -2694,10 +2700,8 @@ td.ox-list-subheader > div {
 
 .ui-dialog .ox-view {
 	overflow-x: hidden; /* To avoid scrollbar in list inside dialog  */
-	padding-right: 7px; 
 	overflow-y: auto;
 	max-height: calc(100vh - 180px);
-	margin-right: 2px; 
 	margin-bottom: 0.5em;
 }
 
@@ -2718,7 +2722,7 @@ td.ox-list-subheader > div {
 }
  
 .ui-dialog .ox-detail {
-	margin: 0px 0px 0px 0px; 
+	margin: 0 calc(-1 * var(--space-2)) 0 0; 
 }
 
 .ui-dialog, #xava_processing_layer {
