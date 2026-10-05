@@ -157,3 +157,26 @@
 .ox-popup-menu:hover {
     background-color: var(--my-dark);
 }
+
+.jstree-default .jstree-ocl {
+	filter: invert(0.5);
+}
+
+.jstree-default > .jstree-container-ul:not(.jstree-no-dots) .jstree-node:not(.jstree-last) {
+	background-image: repeating-linear-gradient(to bottom, transparent 0 1px, #7f7f7f 1px 2px);
+	background-position: 11px 0;
+	background-size: 1px 100%;
+	background-repeat: no-repeat;
+}
+
+.jstree.jstree-default .jstree-hovered,
+.jstree.jstree-default .jstree-wholerow-hovered,
+.jstree.jstree-default.jstree-checkbox-no-clicked .jstree-clicked.jstree-hovered {
+	background: var(--accent-soft);
+	box-shadow: none;
+}
+
+.jstree.jstree-default .jstree-clicked {
+	background: color-mix(in srgb, var(--accent-color) 25%, transparent);
+	box-shadow: none;
+}

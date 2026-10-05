@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: In dark mode, tree editor lines are barely visible and hovered nodes are unreadable.
 - Fix: Action popup menus in collections use the highlighted action colors instead of the standard ones.
 - Fix: Icons in collection action buttons show a square border on hover in dark mode.
 - Fix: Double thick frame appears around the AI chat input when it gets focus.
@@ -13,7 +14,6 @@ Change Log for OpenXava project
 - Fix: Dashboard module in invoicedemo is broken.
 - Automated test for dashboard added to master-detail archetypes.
 - Added more Hibernate 7 cases to migration to v8.0 documentation.
-
 
 OpenXava 8.0 (2026-9-25)
 ------------------------
