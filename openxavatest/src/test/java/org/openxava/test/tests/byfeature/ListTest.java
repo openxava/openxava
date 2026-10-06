@@ -19,9 +19,7 @@ import org.openxava.web.*;
 public class ListTest extends WebDriverTestBase {
 	
 	private final static String ACTION_PREFIX = "action";
-		
 
-		
 	@Test
 	public void testListAndCollection() throws Exception {
 		resetPreferences();
@@ -35,7 +33,7 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Carrier");
 		assertEnableDisableCustomizeList(); 
-		assertCustomizeCollection(); // TMR ME QUEDÉ POR AQUÍ. FALLA. NO POR EL CAMBIO DE RENAME/REMOVE LIST CONFIGURATION
+		assertCustomizeCollection();
 		assertDefaultColumnWidthsForCalculatedCollection();
 		assertResizedColumnAddingElementToCollectionRemembersWidth();
 
