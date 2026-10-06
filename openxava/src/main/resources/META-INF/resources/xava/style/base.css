@@ -1647,9 +1647,9 @@ i.mdi {
 	vertical-align: -4px;  
 }
 
-.ox-detail .mdi-calendar, .ox-detail .mdi-calendar-clock, 
-.ox-list .mdi-calendar, .ox-list .mdi-calendar-clock,
-.ox-element-collection .mdi-calendar, .ox-element-collection .mdi-calendar-clock, 
+.ox-detail .mdi-calendar, .ox-detail .mdi-calendar-clock, .ox-detail .mdi-clock-outline, 
+.ox-list .mdi-calendar, .ox-list .mdi-calendar-clock, .ox-list .mdi-clock-outline,
+.ox-element-collection .mdi-calendar, .ox-element-collection .mdi-calendar-clock, .ox-element-collection .mdi-clock-outline, 
 .ox-element-collection .mdi-open-in-new {  
 	vertical-align: middle;
 	padding: 4px 4px 4px 0px;

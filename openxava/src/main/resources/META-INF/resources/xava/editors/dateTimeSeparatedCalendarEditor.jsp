@@ -27,12 +27,7 @@ if (editable || !label) {
 	maxlength="10"
 	data-input
 	size="<%=size%>" 
-	value="<%=fDate%>" <%=disabled%>>
-	<%if (editable) {%>
-	<a data-toggle>
-	<i class="mdi mdi-calendar"></i>
-	</a>
-	<%} %>
+	value="<%=fDate%>" <%=disabled%>><%if (editable) {%><a data-toggle><i class="mdi mdi-calendar"></i></a><%} %>
 </span>
 <jsp:include page="timeCalendarEditor.jsp">
 		<jsp:param name="timeCalendarName" value="<%=propertyKey%>" />
