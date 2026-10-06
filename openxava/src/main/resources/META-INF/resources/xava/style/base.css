@@ -2709,6 +2709,10 @@ td.ox-list-subheader > div {
 	margin-bottom: 0.5em;
 }
 
+.ui-dialog .xava_editor input[type="text"] {
+	max-width: calc(90vw - 100px);
+}
+
 .ox-list-info {  
 	margin-bottom: var(--space-1);
 	font-size: var(--font-size-sm);

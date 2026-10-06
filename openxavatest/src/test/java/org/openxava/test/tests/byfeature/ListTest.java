@@ -19,9 +19,7 @@ import org.openxava.web.*;
 public class ListTest extends WebDriverTestBase {
 	
 	private final static String ACTION_PREFIX = "action";
-		
 
-		
 	@Test
 	public void testListAndCollection() throws Exception {
 		resetPreferences();
