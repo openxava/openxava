@@ -43,8 +43,7 @@ if (editable || !label) {
 	maxlength="8"
 	data-input
 	size="8" 
-	value="<%=fvalue%>" <%=disabled%>>
-	<%if (editable) {%><a data-toggle><i class="mdi mdi-clock-outline"></i></a><%} %>
+	value="<%=fvalue%>" <%=disabled%>><%if (editable) {%><a data-toggle><i class="mdi mdi-clock-outline"></i></a><%} %>
 </span> 
 <%
 } else {
