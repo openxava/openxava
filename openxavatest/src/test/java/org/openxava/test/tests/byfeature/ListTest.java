@@ -35,7 +35,7 @@ public class ListTest extends WebDriverTestBase {
 
 		goModule("Carrier");
 		assertEnableDisableCustomizeList(); 
-		assertCustomizeCollection();
+		assertCustomizeCollection(); // TMR ME QUEDÉ POR AQUÍ. FALLA. NO POR EL CAMBIO DE RENAME/REMOVE LIST CONFIGURATION
 		assertDefaultColumnWidthsForCalculatedCollection();
 		assertResizedColumnAddingElementToCollectionRemembersWidth();
 
