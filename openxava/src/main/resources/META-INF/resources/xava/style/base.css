@@ -3486,6 +3486,11 @@ div.ox-subcontroller table{
 	align-self: baseline;
 }
 
+.ox-editor-wrapper.ox-tall-editor > .xava_editor,
+.ox-editor-wrapper.ox-tall-editor > .xava_editor + span {
+	vertical-align: middle;
+}
+
 .bold-label {
 	font-weight:bold;
 }
