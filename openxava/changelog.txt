@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Property actions not vertically centered next to tall editors, like files or images.
 - Fix: Dialogs with long text fields can be wider than the browser window, hiding the action buttons.
 - Fix: "Change name/remove" action link attached to the list configurations combo without spacing.
 - Fix: Right margin after frames is twice as wide as the left one.
