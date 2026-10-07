@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: AI chat fails with models that don't support function tools in Chat Completions, like gpt-5.6-luna.
 - Fix: Calendar icons of LocalTime and Timestamp properties are stuck to the right border of the editor.
 - Fix: Property actions not vertically centered next to tall editors, like files or images.
 - Fix: Dialogs with long text fields can be wider than the browser window, hiding the action buttons.

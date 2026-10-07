@@ -516,12 +516,12 @@ public class XavaPreferences {
 	
 	/** @since 7.7 */
 	public String getChatModelName() {
-		return getProperties().getProperty("chatModelName", "gpt-5-mini").trim();
+		return getProperties().getProperty("chatModelName", "gpt-5.6-luna").trim();
 	}
 	
 	/** @since 7.7 */
 	public boolean isChatPriorityServiceTier() {
-		return "true".equalsIgnoreCase(getProperties().getProperty("chatPriorityServiceTier", "true").trim());
+		return "true".equalsIgnoreCase(getProperties().getProperty("chatPriorityServiceTier", "false").trim());
 	}
 	
 	/** @since 7.7 */
