@@ -301,7 +301,7 @@ public class ChatTest extends WebDriverTestBase {
         // Weight is the second property of an embeddable (Features), because the first one always worked
         sendChatMessage("Tell me the weight of the BMW 330i");
         String response = waitForChatResponse();
-        assertTrue("Response should contain '1500'", response.contains("1500"));
+        assertTrue("Response should contain '1500'", response.replace(",", "").contains("1500"));
     }
 
     public void testAccessElementCollectionData() throws Exception {
