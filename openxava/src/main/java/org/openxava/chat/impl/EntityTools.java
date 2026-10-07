@@ -240,10 +240,11 @@ public class EntityTools extends BaseEntityTools {
 	@Tool("Get the details of an entity given its key. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. Use this to get complete information about a specific record.")
 	public Map<String, Object> getEntityDetails(
 			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
-			@P("The entity key obtained from hiddenKey field") Map<String, Object> key) {
+			@P("The entity key as a JSON object, exactly the hiddenKey field value, e.g. {\"number\": 10}") String keyJson) {
 		long startTime = System.currentTimeMillis();
-		log.debug("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
+		log.debug("[TOOL] getEntityDetails(entity=" + entity + ", key=" + keyJson + ") called");
 		try {
+			Map<String, Object> key = toMap(keyJson);
 			View view = getView(entity);
 			Map<String, Object> result = MapFacade.getValues(view.getModelName(), key, view.getMembersNames());
 			log.debug("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
