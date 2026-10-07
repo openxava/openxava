@@ -277,18 +277,20 @@ public class EntityTools extends BaseEntityTools {
 	 * Filters the list of the current module by setting condition values for the filterable properties.
 	 * 
 	 * @param entity The entity name the user is asking about
-	 * @param values Map of property names to filter values
-	 * @param comparators Map of property names to comparators (optional)
+	 * @param valuesJson JSON object with property names and their filter values
+	 * @param comparatorsJson JSON object with property names and their comparators (optional)
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the visible list in the UI. Use this ONLY when the user wants to VISUALIZE/DISPLAY data in the list (e.g., 'show me customers from Madrid', 'display invoices from 2024', 'filter products by category'). This tool updates the UI but does NOT return data. If the user ASKS FOR SPECIFIC DATA to answer in the chat (e.g., 'give me the address', 'what is the price', 'tell me the total'), use findEntitiesByCondition instead to get the data. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail. IMPORTANT: For date values, ALWAYS use ISO format yyyy-MM-dd (e.g., 2024-08-13). Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
+	@Tool("Filter the visible list in the UI. Use this ONLY when the user wants to VISUALIZE/DISPLAY data in the list (e.g., 'show me customers from Madrid', 'display invoices from 2024', 'filter products by category'). This tool updates the UI but does NOT return data. If the user ASKS FOR SPECIFIC DATA to answer in the chat (e.g., 'give me the address', 'what is the price', 'tell me the total'), use findEntitiesByCondition instead to get the data. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail. IMPORTANT: For date values, ALWAYS use ISO format yyyy-MM-dd (e.g., 2024-08-13). Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty JSON objects {}.")
 	public String filterList(
 			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
-			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
-			@P("Map of property names to comparators, e.g. {amount: 'gt'} for greater than. Optional, defaults to 'eq' for numbers, 'contains' for strings.") Map<String, String> comparators) {
+			@P("JSON object with property names and their filter values, e.g. {\"year\": \"2023\", \"amount\": \"60000\"}. Use {} to clear the filter.") String valuesJson,
+			@P("JSON object with property names and their comparators, e.g. {\"amount\": \"gt\"} for greater than. Optional, use {} for defaults: 'eq' for numbers, 'contains' for strings.") String comparatorsJson) {
 		long startTime = System.currentTimeMillis();
-		log.debug("[TOOL] filterList(entity=" + entity + ", values=" + values + ", comparators=" + comparators + ") called");
+		log.debug("[TOOL] filterList(entity=" + entity + ", values=" + valuesJson + ", comparators=" + comparatorsJson + ") called");
 		try {
+			Map<String, String> values = toStringMap(valuesJson);
+			Map<String, String> comparators = toStringMap(comparatorsJson);
 			setupWindowId();
 			
 			Modules modules = (Modules) session.getAttribute("modules");
@@ -394,6 +396,14 @@ public class EntityTools extends BaseEntityTools {
 			log.debug("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
 		}
+	}
+	
+	private Map<String, String> toStringMap(String json) {
+		Map<String, String> result = new LinkedHashMap<>();
+		for (Map.Entry<String, Object> entry : toMap(json).entrySet()) {
+			if (entry.getValue() != null) result.put(entry.getKey(), entry.getValue().toString());
+		}
+		return result;
 	}
 	
 	private String mapComparator(String comparator) {
