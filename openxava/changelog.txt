@@ -1,6 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
+- AI chat uses gpt-5.6-luna as default model instead of gpt-5-mini.
+- Default value of chatPriorityServiceTier in xava.properties is now false.
+- Improved AI chat response time.
 - Fix: AI chat shows data in the chat instead of filtering the list with some models, like gpt-5.6-luna.
 - Fix: AI chat filters the list using the comparator of the previous filter if none is specified.
 - Fix: AI chat does not filter by descriptions list columns with some models, like gpt-5.6-luna.
