@@ -1,6 +1,5 @@
 Pending notes for humans
 ------------------------
-- ¿En migration? Comprobar como está en los arquetipos.
 - Actualizar changelog.
 - Quitar TMRs
 - Suite chattest.
