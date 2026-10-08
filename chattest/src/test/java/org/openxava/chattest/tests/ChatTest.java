@@ -466,6 +466,19 @@ public class ChatTest extends WebDriverTestBase {
         assertListColumnCount(originalColumnCount);
     }
 
+    public void testInvalidConditionIsReportedAsErrorNotAsEmptyResult() throws Exception {
+        goModule("Customer");
+        
+        sendChatMessage("Call findEntitiesByCondition with entity Invoice and exactly this condition, " +
+            "without changing it: ${date} = 2024. Do not retry and do not call any other tool. " +
+            "If the tool fails or returns an error, reply only with the word FAILED. " +
+            "If it returns no records, reply only with the word EMPTY.");
+        String response = waitForChatResponse();
+        
+        assertTrue("Response should contain 'FAILED' but was: " + response, response.contains("FAILED"));
+        assertFalse("Response should NOT contain 'EMPTY' but was: " + response, response.contains("EMPTY"));
+    }
+    
     public void testFilterList() throws Exception {
         assertFilterListInModule();
         assertFilterListInDetailModeReturnsInChat();

@@ -8,6 +8,7 @@ import org.apache.commons.logging.*;
 import jakarta.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
+import org.openxava.jpa.XPersistence;
 import org.openxava.util.Messages;
 import org.openxava.view.View;
 import org.openxava.web.WebEditors;
@@ -203,6 +204,10 @@ public class EntityTools extends BaseEntityTools {
 			
 			// TODO Optimize to load the first 600 records at once
 			IXTableModel tableModel = tab.getTableModel();
+			if (tableModel.getTotalSize() < 0) {
+				XPersistence.rollback();
+				throw new IllegalArgumentException("ERROR: Invalid condition: " + condition + ". The query failed, so it is unknown whether there are matching records. Check that the property names exist and that the values match the property types.");
+			}
 			int columnCount = tableModel.getColumnCount();
 			
 			for (int row = 0; row < tableModel.getRowCount() && row < MAX_RECORDS; row++) {
