@@ -115,8 +115,18 @@ public class ChatTest extends WebDriverTestBase {
         WebElement chatInput = driver.findElement(By.id("chatInput"));
         chatInput.sendKeys(message);
         
-        WebElement sendBtn = driver.findElement(By.id("chatSendBtn"));
-        sendBtn.click();
+        clickWhenInteractable(By.id("chatSendBtn"));
+    }
+    
+    private void clickWhenInteractable(By by) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        wait.ignoring(ElementNotInteractableException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(by));
+        wait.until(d -> {
+            d.findElement(by).click();
+            return true;
+        });
     }
     
     protected String waitForChatResponse() throws Exception {
@@ -157,9 +167,7 @@ public class ChatTest extends WebDriverTestBase {
     
     protected void clickNewConversation() throws Exception {
         openChatPanel();
-        WebDriver driver = getDriver();
-        WebElement newConversationBtn = driver.findElement(By.id("chatNewConversationBtn"));
-        newConversationBtn.click();
+        clickWhenInteractable(By.id("chatNewConversationBtn"));
         Thread.sleep(300);
     }
     
