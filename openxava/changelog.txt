@@ -1,6 +1,18 @@
 Change Log for OpenXava project
 ===============================
 
+- AI chat uses gpt-5.6-luna as default model instead of gpt-5-mini.
+- AI chat documentation warns that OpenAI will shut off gpt-5-mini on December 10, 2026.
+- Default value of chatPriorityServiceTier in xava.properties is now false.
+- Improved AI chat response time.
+- Fix: AI chat shows data in the chat instead of filtering the list with some models, like gpt-5.6-luna.
+- Fix: AI chat filters the list using the comparator of the previous filter if none is specified.
+- Fix: AI chat does not filter by descriptions list columns with some models, like gpt-5.6-luna.
+- Fix: AI chat says there are no records when the query fails, instead of reporting the error.
+- Fix: AI chat sometimes finds no records when asking for data by date with some models, like gpt-5.6-luna.
+- Fix: AI chat cannot filter the list with some models, like gpt-5.6-luna.
+- Fix: AI chat fails with models that don't support function tools in Chat Completions, like gpt-5.6-luna.
+- Fix: AI chat cannot modify data or show record details with some models, like gpt-5.6-luna.
 - Fix: Calendar icons of LocalTime and Timestamp properties are stuck to the right border of the editor.
 - Fix: Property actions not vertically centered next to tall editors, like files or images.
 - Fix: Dialogs with long text fields can be wider than the browser window, hiding the action buttons.

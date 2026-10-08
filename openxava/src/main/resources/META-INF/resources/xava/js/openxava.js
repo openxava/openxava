@@ -1700,14 +1700,20 @@ openxava.filterList = function(filterValues) {
 	var app = openxava.lastApplication;
 	var module = openxava.lastModule;
 	
+	var idsPrefix = openxava.decorateId(app, module, "");
+	$('.xava_comparator select[id^="' + idsPrefix + 'conditionComparator___"]').each(function() {
+		if (!(this.id.substring(idsPrefix.length) in filterValues)) this.selectedIndex = 0;
+	});
+	
 	for (var key in filterValues) {
 		var id = openxava.decorateId(app, module, key);
 		var element = document.getElementById(id);
 		if (element) {
 			if (element.tagName === 'SELECT') {
 				var found = false;
+				var text = String(filterValues[key]).trim().toLowerCase();
 				for (var i = 0; i < element.options.length; i++) {
-					if (element.options[i].text === filterValues[key]) {
+					if (element.options[i].text.trim().toLowerCase() === text) {
 						element.value = element.options[i].value;
 						found = true;
 						break;

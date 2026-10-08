@@ -8,6 +8,7 @@ import org.apache.commons.logging.*;
 import jakarta.servlet.http.HttpSession;
 
 import org.openxava.controller.*;
+import org.openxava.jpa.XPersistence;
 import org.openxava.util.Messages;
 import org.openxava.view.View;
 import org.openxava.web.WebEditors;
@@ -203,6 +204,10 @@ public class EntityTools extends BaseEntityTools {
 			
 			// TODO Optimize to load the first 600 records at once
 			IXTableModel tableModel = tab.getTableModel();
+			if (tableModel.getTotalSize() < 0) {
+				XPersistence.rollback();
+				throw new IllegalArgumentException("ERROR: Invalid condition: " + condition + ". The query failed, so it is unknown whether there are matching records. Check that the property names exist and that the values match the property types.");
+			}
 			int columnCount = tableModel.getColumnCount();
 			
 			for (int row = 0; row < tableModel.getRowCount() && row < MAX_RECORDS; row++) {
@@ -240,10 +245,11 @@ public class EntityTools extends BaseEntityTools {
 	@Tool("Get the details of an entity given its key. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. Use this to get complete information about a specific record.")
 	public Map<String, Object> getEntityDetails(
 			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
-			@P("The entity key obtained from hiddenKey field") Map<String, Object> key) {
+			@P("The entity key as a JSON object, exactly the hiddenKey field value, e.g. {\"number\": 10}") String keyJson) {
 		long startTime = System.currentTimeMillis();
-		log.debug("[TOOL] getEntityDetails(entity=" + entity + ", key=" + key + ") called");
+		log.debug("[TOOL] getEntityDetails(entity=" + entity + ", key=" + keyJson + ") called");
 		try {
+			Map<String, Object> key = toMap(keyJson);
 			View view = getView(entity);
 			Map<String, Object> result = MapFacade.getValues(view.getModelName(), key, view.getMembersNames());
 			log.debug("[TOOL] getEntityDetails(entity=" + entity + ") returning: " + result);
@@ -272,22 +278,40 @@ public class EntityTools extends BaseEntityTools {
 		context.cleanCurrentWindowId();
 	}
 	
+	public String getCurrentModuleContext() {
+		try {
+			setupWindowId();
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) return null;
+			String currentModuleName = modules.getCurrentModuleName();
+			if (currentModuleName == null) return null;
+			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
+			String mode = manager.isDetailMode() ? "detail" : "list";
+			return "[Context: the user is currently viewing the " + currentModuleName + " module in " + mode + " mode]";
+		} catch (Exception ex) {
+			log.warn(ex.getMessage(), ex);
+			return null;
+		}
+	}
+	
 	/**
 	 * Filters the list of the current module by setting condition values for the filterable properties.
 	 * 
 	 * @param entity The entity name the user is asking about
-	 * @param values Map of property names to filter values
-	 * @param comparators Map of property names to comparators (optional)
+	 * @param valuesJson JSON object with property names and their filter values
+	 * @param comparatorsJson JSON object with property names and their comparators (optional)
 	 * @return A confirmation message or error description
 	 */
-	@Tool("Filter the visible list in the UI. Use this ONLY when the user wants to VISUALIZE/DISPLAY data in the list (e.g., 'show me customers from Madrid', 'display invoices from 2024', 'filter products by category'). This tool updates the UI but does NOT return data. If the user ASKS FOR SPECIFIC DATA to answer in the chat (e.g., 'give me the address', 'what is the price', 'tell me the total'), use findEntitiesByCondition instead to get the data. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail. IMPORTANT: For date values, ALWAYS use ISO format yyyy-MM-dd (e.g., 2024-08-13). Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty maps.")
+	@Tool("Filter the visible list in the UI. Use this ONLY when the user wants to VISUALIZE/DISPLAY data in the list (e.g., 'show me customers from Madrid', 'display invoices from 2024', 'filter products by category'). This tool updates the UI but does NOT return data. If the user ASKS FOR SPECIFIC DATA to answer in the chat (e.g., 'give me the address', 'what is the price', 'tell me the total'), use findEntitiesByCondition instead to get the data. Before calling, use getEntityProperties to get the exact property names. If the entity does not match the current module or user is in detail mode, this tool will fail. IMPORTANT: For date values, ALWAYS use ISO format yyyy-MM-dd (e.g., 2024-08-13). Available comparators: For numbers/dates: eq (=, default), ne (<>), gt (>), lt (<), ge (>=), le (<=). For strings: contains (default), starts, ends, not_contains, empty, not_empty. For dates also: year, month, year_month. To clear the filter, call with empty JSON objects {}.")
 	public String filterList(
 			@P("The entity the user is asking about, e.g. Invoice, Customer, Product") String entity,
-			@P("Map of property names to filter values, e.g. {year: '2023', amount: '60000'}") Map<String, String> values,
-			@P("Map of property names to comparators, e.g. {amount: 'gt'} for greater than. Optional, defaults to 'eq' for numbers, 'contains' for strings.") Map<String, String> comparators) {
+			@P("JSON object with property names and their filter values, e.g. {\"year\": \"2023\", \"amount\": \"60000\"}. Use {} to clear the filter.") String valuesJson,
+			@P("JSON object with property names and their comparators, e.g. {\"amount\": \"gt\"} for greater than. Optional, use {} for defaults: 'eq' for numbers, 'contains' for strings.") String comparatorsJson) {
 		long startTime = System.currentTimeMillis();
-		log.debug("[TOOL] filterList(entity=" + entity + ", values=" + values + ", comparators=" + comparators + ") called");
+		log.debug("[TOOL] filterList(entity=" + entity + ", values=" + valuesJson + ", comparators=" + comparatorsJson + ") called");
 		try {
+			Map<String, String> values = toStringMap(valuesJson);
+			Map<String, String> comparators = toStringMap(comparatorsJson);
 			setupWindowId();
 			
 			Modules modules = (Modules) session.getAttribute("modules");
@@ -393,6 +417,14 @@ public class EntityTools extends BaseEntityTools {
 			log.debug("[TOOL] filterList() took " + (System.currentTimeMillis() - startTime) + " ms");
 			return errorMessage;
 		}
+	}
+	
+	private Map<String, String> toStringMap(String json) {
+		Map<String, String> result = new LinkedHashMap<>();
+		for (Map.Entry<String, Object> entry : toMap(json).entrySet()) {
+			if (entry.getValue() != null) result.put(entry.getKey(), entry.getValue().toString());
+		}
+		return result;
 	}
 	
 	private String mapComparator(String comparator) {
@@ -506,11 +538,22 @@ public class EntityTools extends BaseEntityTools {
 				if (metaProperty.isNumber() || isBoolean(metaProperty)) {
 					condition = removeQuotesForProperty(condition, property);
 				}
+				else if (isDate(metaProperty)) {
+					condition = toDateLiteralsForProperty(condition, property, metaProperty.isDateTimeType());
+				}
 			} catch (Exception ex) {
 				// Unknown property, leave condition unchanged
 			}
 		}
 		return condition;
+	}
+	
+	private boolean isDate(MetaProperty p) {
+		Class<?> type = p.getType();
+		return type != null && (java.util.Date.class.isAssignableFrom(type) || 
+			java.time.LocalDate.class.equals(type) || 
+			java.time.LocalDateTime.class.equals(type) || 
+			java.util.Calendar.class.isAssignableFrom(type));
 	}
 	
 	private boolean isBoolean(MetaProperty p) {
@@ -530,6 +573,29 @@ public class EntityTools extends BaseEntityTools {
 			} else {
 				m.appendReplacement(sb, Matcher.quoteReplacement(m.group(1) + m.group(2) + value));
 			}
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
+	
+	private String toDateLiteralsForProperty(String condition, String property, boolean dateTime) {
+		String regex = "(\\$\\{" + Pattern.quote(property) + "\\})(\\s*(?:=|!=|<>|>=|<=|>|<)\\s*)'(\\d{4}-\\d{2}-\\d{2})(?:[T ](\\d{2}:\\d{2}(?::\\d{2})?))?'";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(condition);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			String date = m.group(3);
+			String time = m.group(4);
+			String literal;
+			if (dateTime) {
+				if (time == null) time = "00:00:00";
+				else if (time.length() == 5) time = time + ":00";
+				literal = "{ts '" + date + " " + time + "'}";
+			}
+			else {
+				literal = "{d '" + date + "'}";
+			}
+			m.appendReplacement(sb, Matcher.quoteReplacement(m.group(1) + m.group(2) + literal));
 		}
 		m.appendTail(sb);
 		return sb.toString();

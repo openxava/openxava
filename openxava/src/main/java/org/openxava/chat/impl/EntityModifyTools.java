@@ -50,11 +50,13 @@ public class EntityModifyTools extends BaseEntityTools {
 	@Tool("Update one or more fields of an entity. Use this to modify data like changing a customer name, invoice date, or any other field. The key is obtained from the hiddenKey field returned by findFirst600Entities or findEntitiesByCondition. The values parameter is a map where keys are property names and values are the new values to set.")
 	public String updateEntity(
 			@P("The entity name, e.g. Customer, Invoice, Product") String entity, 
-			@P("The entity key obtained from hiddenKey field") Map<String, Object> key,
-			@P("Map of property names to new values, e.g. {name: 'New Name', email: 'new@email.com'}") Map<String, Object> values) {
+			@P("The entity key as a JSON object, exactly the hiddenKey field value, e.g. {\"number\": 10}") String keyJson,
+			@P("JSON object with property names and their new values, e.g. {\"name\": \"New Name\", \"email\": \"new@email.com\"}") String valuesJson) {
 		long startTime = System.currentTimeMillis();
-		log.debug("[TOOL] updateEntity(entity=" + entity + ", key=" + key + ", values=" + values + ") called");
+		log.debug("[TOOL] updateEntity(entity=" + entity + ", key=" + keyJson + ", values=" + valuesJson + ") called");
 		try {
+			Map<String, Object> key = toMap(keyJson);
+			Map<String, Object> values = toMap(valuesJson);
 			if (key == null || key.isEmpty()) {
 				return "ERROR: Key cannot be null or empty. Use hiddenKey from findFirst600Entities or findEntitiesByCondition.";
 			}

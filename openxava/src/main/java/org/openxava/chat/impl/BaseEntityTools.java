@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.logging.*;
+import org.json.JSONObject;
 import org.openxava.application.meta.*;
 import org.openxava.component.MetaComponent;
 import org.openxava.controller.*;
@@ -143,6 +144,11 @@ public abstract class BaseEntityTools {
 			log.warn(XavaResources.getString("could_not_get_available_entities", ex.getMessage()));
 			return Collections.emptySet();
 		}
+	}
+	
+	protected Map<String, Object> toMap(String json) {
+		if (json == null || json.isBlank()) return Collections.emptyMap();
+		return new JSONObject(json).toMap();
 	}
 	
 	/**

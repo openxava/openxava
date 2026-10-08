@@ -115,8 +115,18 @@ public class ChatTest extends WebDriverTestBase {
         WebElement chatInput = driver.findElement(By.id("chatInput"));
         chatInput.sendKeys(message);
         
-        WebElement sendBtn = driver.findElement(By.id("chatSendBtn"));
-        sendBtn.click();
+        clickWhenInteractable(By.id("chatSendBtn"));
+    }
+    
+    private void clickWhenInteractable(By by) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        wait.ignoring(ElementNotInteractableException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+        wait.until(ExpectedConditions.elementToBeClickable(by));
+        wait.until(d -> {
+            d.findElement(by).click();
+            return true;
+        });
     }
     
     protected String waitForChatResponse() throws Exception {
@@ -157,9 +167,7 @@ public class ChatTest extends WebDriverTestBase {
     
     protected void clickNewConversation() throws Exception {
         openChatPanel();
-        WebDriver driver = getDriver();
-        WebElement newConversationBtn = driver.findElement(By.id("chatNewConversationBtn"));
-        newConversationBtn.click();
+        clickWhenInteractable(By.id("chatNewConversationBtn"));
         Thread.sleep(300);
     }
     
@@ -301,7 +309,7 @@ public class ChatTest extends WebDriverTestBase {
         // Weight is the second property of an embeddable (Features), because the first one always worked
         sendChatMessage("Tell me the weight of the BMW 330i");
         String response = waitForChatResponse();
-        assertTrue("Response should contain '1500'", response.contains("1500"));
+        assertTrue("Response should contain '1500'", response.replace(",", "").contains("1500"));
     }
 
     public void testAccessElementCollectionData() throws Exception {
@@ -466,6 +474,19 @@ public class ChatTest extends WebDriverTestBase {
         assertListColumnCount(originalColumnCount);
     }
 
+    public void testInvalidConditionIsReportedAsErrorNotAsEmptyResult() throws Exception {
+        goModule("Customer");
+        
+        sendChatMessage("Call findEntitiesByCondition with entity Invoice and exactly this condition, " +
+            "without changing it: ${date} = 2024. Do not retry and do not call any other tool. " +
+            "If the tool fails or returns an error, reply only with the word FAILED. " +
+            "If it returns no records, reply only with the word EMPTY.");
+        String response = waitForChatResponse();
+        
+        assertTrue("Response should contain 'FAILED' but was: " + response, response.contains("FAILED"));
+        assertFalse("Response should NOT contain 'EMPTY' but was: " + response, response.contains("EMPTY"));
+    }
+    
     public void testFilterList() throws Exception {
         assertFilterListInModule();
         assertFilterListInDetailModeReturnsInChat();
@@ -510,10 +531,12 @@ public class ChatTest extends WebDriverTestBase {
         // Ask to filter - should return data in chat since we're in detail mode
         sendChatMessage("Show me invoices from 2024");
         String response = waitForChatResponse();
-        
+
         // Should contain data in the chat response, not filter the list
         assertTrue("Response should contain '2024'", response.contains("2024"));
-        assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));
+        String digits = response.replaceAll("[.,\\s\\u00A0\\u202F]", "");
+        assertTrue("Response should contain 'Carlos Ann' or '61710'", response.contains("Carlos Ann") || digits.contains("61710"));
+        assertTrue("Response should contain 'Luigi Nono' or '62920'", response.contains("Luigi Nono") || digits.contains("62920"));
         
         // Go back to list mode
         execute("Mode.list");
