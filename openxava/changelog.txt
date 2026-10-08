@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: AI chat does not filter by descriptions list columns with some models, like gpt-5.6-luna.
 - Fix: AI chat says there are no records when the query fails, instead of reporting the error.
 - Fix: AI chat sometimes finds no records when asking for data by date with some models, like gpt-5.6-luna.
 - Fix: AI chat cannot filter the list with some models, like gpt-5.6-luna.

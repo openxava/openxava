@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return true;
+        return false; // tmr: true
     }
 
     @Override

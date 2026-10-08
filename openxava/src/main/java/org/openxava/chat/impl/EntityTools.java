@@ -522,17 +522,22 @@ public class EntityTools extends BaseEntityTools {
 				if (metaProperty.isNumber() || isBoolean(metaProperty)) {
 					condition = removeQuotesForProperty(condition, property);
 				}
-				else if (metaProperty.isDateTimeType()) {
-					condition = toDateLiteralsForProperty(condition, property, true);
-				}
-				else if (metaProperty.isDateType()) {
-					condition = toDateLiteralsForProperty(condition, property, false);
+				else if (isDate(metaProperty)) {
+					condition = toDateLiteralsForProperty(condition, property, metaProperty.isDateTimeType());
 				}
 			} catch (Exception ex) {
 				// Unknown property, leave condition unchanged
 			}
 		}
 		return condition;
+	}
+	
+	private boolean isDate(MetaProperty p) {
+		Class<?> type = p.getType();
+		return type != null && (java.util.Date.class.isAssignableFrom(type) || 
+			java.time.LocalDate.class.equals(type) || 
+			java.time.LocalDateTime.class.equals(type) || 
+			java.util.Calendar.class.isAssignableFrom(type));
 	}
 	
 	private boolean isBoolean(MetaProperty p) {

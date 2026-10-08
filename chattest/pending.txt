@@ -8,4 +8,6 @@ Pending notes for humans
 - Documentar nuevo modelo y nueva prioridad en customizing.
 - ¿En migration? Comprobar como está en los arquetipos.
 - Actualizar changelog.
-- Quitar TMRs y borrar pending.txt
+- Quitar TMRs
+- Suite openxavatest, hemos tocado openxava.js.
+- Borrar pending.txt.
