@@ -2,6 +2,7 @@ Change Log for OpenXava project
 ===============================
 
 - AI chat uses gpt-5.6-luna as default model instead of gpt-5-mini.
+- AI chat documentation warns that OpenAI will shut off gpt-5-mini on December 10, 2026.
 - Default value of chatPriorityServiceTier in xava.properties is now false.
 - Improved AI chat response time.
 - Fix: AI chat shows data in the chat instead of filtering the list with some models, like gpt-5.6-luna.

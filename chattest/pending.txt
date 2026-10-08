@@ -1,7 +1,5 @@
 Pending notes for humans
 ------------------------
-- Actualizar changelog.
-- Quitar TMRs
 - Suite chattest.
 - Suite openxavatest, hemos tocado openxava.js.
 - Borrar pending.txt.

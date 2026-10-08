@@ -73,12 +73,10 @@ public class ChatServiceImpl implements IChatService {
 				
 				// Create OpenAI chat model
 				String modelName = XavaPreferences.getInstance().getChatModelName();
-				System.out.println("Model name: " + modelName); // tmr
 				var modelBuilder = OpenAiResponsesChatModel.builder()
 					.apiKey(apiKey)
 					.modelName(modelName);
 				if (XavaPreferences.getInstance().isChatPriorityServiceTier()) {
-					System.out.println("PRIORITY"); // tmr
 					modelBuilder.serviceTier("priority");
 				}
 				var model = modelBuilder.build();

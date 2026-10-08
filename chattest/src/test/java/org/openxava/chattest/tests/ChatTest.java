@@ -532,7 +532,6 @@ public class ChatTest extends WebDriverTestBase {
         sendChatMessage("Show me invoices from 2024");
         String response = waitForChatResponse();
 
-        System.out.println("response: " + response); // tmr
         // Should contain data in the chat response, not filter the list
         assertTrue("Response should contain '2024'", response.contains("2024"));
         String digits = response.replaceAll("[.,\\s\\u00A0\\u202F]", "");
