@@ -1700,6 +1700,11 @@ openxava.filterList = function(filterValues) {
 	var app = openxava.lastApplication;
 	var module = openxava.lastModule;
 	
+	var idsPrefix = openxava.decorateId(app, module, "");
+	$('.xava_comparator select[id^="' + idsPrefix + 'conditionComparator___"]').each(function() {
+		if (!(this.id.substring(idsPrefix.length) in filterValues)) this.selectedIndex = 0;
+	});
+	
 	for (var key in filterValues) {
 		var id = openxava.decorateId(app, module, key);
 		var element = document.getElementById(id);
