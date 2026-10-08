@@ -278,6 +278,22 @@ public class EntityTools extends BaseEntityTools {
 		context.cleanCurrentWindowId();
 	}
 	
+	public String getCurrentModuleContext() {
+		try {
+			setupWindowId();
+			Modules modules = (Modules) session.getAttribute("modules");
+			if (modules == null) return null;
+			String currentModuleName = modules.getCurrentModuleName();
+			if (currentModuleName == null) return null;
+			ModuleManager manager = (ModuleManager) context.get(application, currentModuleName, "manager");
+			String mode = manager.isDetailMode() ? "detail" : "list";
+			return "[Context: the user is currently viewing the " + currentModuleName + " module in " + mode + " mode]";
+		} catch (Exception ex) {
+			log.warn(ex.getMessage(), ex);
+			return null;
+		}
+	}
+	
 	/**
 	 * Filters the list of the current module by setting condition values for the filterable properties.
 	 * 

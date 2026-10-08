@@ -42,7 +42,7 @@ public class ChatServiceImpl implements IChatService {
 			2. Before loading data, THINK about what you really need. Don't load all entities - only the ones required to answer the question.
 			3. For aggregation questions (max, min, sum, count, most, least), use findEntitiesByCondition with appropriate conditions instead of loading all data.
 			4. Keep your responses concise and focused on answering the user's question.
-			5. CRITICAL: When user asks to show/display/filter data, ALWAYS call getCurrentModule() first to check which module they are viewing. If they are viewing the SAME entity they ask about, use filterList. The user may have changed modules since the last message.
+			5. CRITICAL: Each user message starts with a [Context: ...] line indicating the module and mode (list or detail) the user is viewing right now. When the user asks to show/display/filter data of the SAME entity of that module and the mode is list, ALWAYS use filterList, NOT findEntitiesByCondition. Otherwise (detail mode or a different entity) use findEntitiesByCondition and show the data in the chat, NEVER ask the user to change the mode or module. The user may have changed modules since the last message, so always use the context of the latest message.
 			""")
 		String chat(String userMessage);
 	}
@@ -126,7 +126,8 @@ public class ChatServiceImpl implements IChatService {
 			}
 			
 			// Call the assistant
-			String response = assistant.chat(message);
+			String moduleContext = entityTools == null ? null : entityTools.getCurrentModuleContext();
+			String response = assistant.chat(moduleContext == null ? message : moduleContext + "\n" + message);
 			
 			// Convert markdown to HTML
 			Node document = markdownParser.parse(response);

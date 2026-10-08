@@ -1,7 +1,5 @@
 Pending notes for humans
 ------------------------
-- testFilterList
-     FALLA CADA VEZ EN UN SITIO, QUIZÁS SEA UN PROBLEMA DE TIMING AL ESPERAR EL FILTRADO
 - Suite con GPT 5.6 Luna. Cronometrar.
 - Suite con GPT 5.6 Luna + Alta Prioridad. Cronometrar. ¿Merece la pena?
 - Suite con GPT 5 Mini. Cronometrar.
