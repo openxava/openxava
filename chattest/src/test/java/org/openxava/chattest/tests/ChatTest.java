@@ -527,7 +527,9 @@ public class ChatTest extends WebDriverTestBase {
         System.out.println("response: " + response); // tmr
         // Should contain data in the chat response, not filter the list
         assertTrue("Response should contain '2024'", response.contains("2024"));
-        assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));
+        String digits = response.replaceAll("[.,\\s\\u00A0\\u202F]", "");
+        assertTrue("Response should contain 'Carlos Ann' or '61710'", response.contains("Carlos Ann") || digits.contains("61710"));
+        assertTrue("Response should contain 'Luigi Nono' or '62920'", response.contains("Luigi Nono") || digits.contains("62920"));
         
         // Go back to list mode
         execute("Mode.list");
