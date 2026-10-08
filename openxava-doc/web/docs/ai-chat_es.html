@@ -171,15 +171,24 @@ OpenXava 7.7 sigue funcionando con Java 8.</p>
 
 <h3 id="chatModelName">chatModelName</h3>
 
-<p>Especifica el modelo de IA a usar. El valor por defecto es <i>gpt-5-mini</i>.</p>
+<p>Especifica el modelo de IA a usar. El valor por defecto es <i>gpt-5.6-luna</i> desde 
+v8.0.1, hasta v8.0 era <i>gpt-5-mini</i>.</p>
 
 <pre><code class="language-properties"># Modelo de IA a usar para el chat
-chatModelName=gpt-5-mini</code></pre>
+chatModelName=gpt-5.6-luna</code></pre>
 
-<p>Recomendamos usar <b>gpt-5-mini</b> como modelo mínimo para un buen comportamiento. 
+<p>Recomendamos usar <b>gpt-5.6-luna</b> como modelo mínimo para un buen comportamiento. 
 Modelos más pequeños o menos capaces pueden no entender consultas complejas o producir 
-resultados incorrectos. También puedes usar modelos más potentes como <i>gpt-5</i> para 
-obtener mejores resultados, aunque pueden ser más lentos y costosos.</p>
+resultados incorrectos. También puedes usar modelos más potentes como <i>gpt-5.6-terra</i> 
+o <i>gpt-5.6-sol</i> para obtener mejores resultados, aunque pueden ser más lentos y 
+costosos.</p>
+
+<p><b>Importante:</b> OpenAI desactivará <i>gpt-5-mini</i> el 10 de diciembre de 2026. A partir 
+de esa fecha, el chat IA dejará de funcionar en las versiones de OpenXava anteriores a la 
+8.0.1 (porque <i>gpt-5-mini</i> es su modelo por defecto) y en cualquier aplicación que tenga 
+<i>chatModelName=gpt-5-mini</i> en su <i>xava.properties</i>. Para evitarlo, actualiza a 
+OpenXava 8.0.1 o posterior y quita <i>chatModelName=gpt-5-mini</i> de tu 
+<i>xava.properties</i>, si lo tienes.</p>
 
 <h3 id="chatAvailable">chatAvailable</h3>
 
@@ -206,13 +215,15 @@ consultas potenciadas por IA sin el riesgo de modificaciones accidentales de dat
 <h3 id="chatPriorityServiceTier">chatPriorityServiceTier</h3>
 
 <p>Habilita o deshabilita el nivel de servicio prioritario para las llamadas a la API de 
-OpenAI. El valor por defecto es <i>true</i>.</p>
+OpenAI. El valor por defecto es <i>false</i> desde v8.0.1, hasta v8.0 era <i>true</i>.</p>
 
-<pre><code class="language-properties"># Pon a false para usar el nivel de servicio estándar
-chatPriorityServiceTier=false</code></pre>
+<pre><code class="language-properties"># Pon a true para usar el nivel de servicio prioritario
+chatPriorityServiceTier=true</code></pre>
 
-<p>Cuando está habilitado, el chat usa el nivel de servicio prioritario de OpenAI que puede 
-proporcionar tiempos de respuesta más rápidos.</p>
+<p>Cuando está habilitado, el chat usa el nivel de servicio prioritario de OpenAI (que OpenAI 
+ahora llama Fast mode) que puede proporcionar tiempos de respuesta más rápidos, pero cuesta 
+aproximadamente el doble. Con el modelo por defecto, <i>gpt-5.6-luna</i>, la mejora de 
+velocidad es pequeña, así que normalmente no compensa.</p>
 
 <h2 id="clave-api">Clave API</h2>
 

@@ -1,11 +1,8 @@
 Pending notes for humans
 ------------------------
-- Suite con GPT 5.6 Luna. Cronometrar.
-- Suite con GPT 5.6 Luna + Alta Prioridad. Cronometrar. ¿Merece la pena?
-- Suite con GPT 5 Mini. Cronometrar.
-- Documentar nuevo modelo y nueva prioridad en customizing.
 - ¿En migration? Comprobar como está en los arquetipos.
 - Actualizar changelog.
 - Quitar TMRs
+- Suite chattest.
 - Suite openxavatest, hemos tocado openxava.js.
 - Borrar pending.txt.
