@@ -466,13 +466,6 @@ public class ChatTest extends WebDriverTestBase {
         assertListColumnCount(originalColumnCount);
     }
 
-    // TMR ME QUEDÉ POR AQUÍ. FALLA.
-    // TMR  FALLA CADA VEZ EN UN SITIO, QUIZÁS SEA UN PROBLEMA DE TIMING AL ESPERAR EL FILTRADO
-    // TMR  HAY QUE RELANZAR LA SUITE CON GPT 5.6 LUNA
-    // TMR  LANZARLA TAMBIÉN CON PRIORIDAD ALTA. VER SI MERECE LA PENA
-    // TMR  CUANDO FUNCIONE VOLVER A PROBARLO CON GPT 5 MINI
-    // TMR  DOCUMENTAR EL NUEVO MODELO Y NUEVA PRIORIDAD
-    // TMR  QUITAR TMR
     public void testFilterList() throws Exception {
         assertFilterListInModule();
         assertFilterListInDetailModeReturnsInChat();
@@ -517,7 +510,8 @@ public class ChatTest extends WebDriverTestBase {
         // Ask to filter - should return data in chat since we're in detail mode
         sendChatMessage("Show me invoices from 2024");
         String response = waitForChatResponse();
-        
+
+        System.out.println("response: " + response); // tmr
         // Should contain data in the chat response, not filter the list
         assertTrue("Response should contain '2024'", response.contains("2024"));
         assertTrue("Response should contain 'Carlos Ann'", response.contains("Carlos Ann"));

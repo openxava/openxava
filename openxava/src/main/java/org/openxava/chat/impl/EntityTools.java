@@ -517,6 +517,12 @@ public class EntityTools extends BaseEntityTools {
 				if (metaProperty.isNumber() || isBoolean(metaProperty)) {
 					condition = removeQuotesForProperty(condition, property);
 				}
+				else if (metaProperty.isDateTimeType()) {
+					condition = toDateLiteralsForProperty(condition, property, true);
+				}
+				else if (metaProperty.isDateType()) {
+					condition = toDateLiteralsForProperty(condition, property, false);
+				}
 			} catch (Exception ex) {
 				// Unknown property, leave condition unchanged
 			}
@@ -541,6 +547,29 @@ public class EntityTools extends BaseEntityTools {
 			} else {
 				m.appendReplacement(sb, Matcher.quoteReplacement(m.group(1) + m.group(2) + value));
 			}
+		}
+		m.appendTail(sb);
+		return sb.toString();
+	}
+	
+	private String toDateLiteralsForProperty(String condition, String property, boolean dateTime) {
+		String regex = "(\\$\\{" + Pattern.quote(property) + "\\})(\\s*(?:=|!=|<>|>=|<=|>|<)\\s*)'(\\d{4}-\\d{2}-\\d{2})(?:[T ](\\d{2}:\\d{2}(?::\\d{2})?))?'";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(condition);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			String date = m.group(3);
+			String time = m.group(4);
+			String literal;
+			if (dateTime) {
+				if (time == null) time = "00:00:00";
+				else if (time.length() == 5) time = time + ":00";
+				literal = "{ts '" + date + " " + time + "'}";
+			}
+			else {
+				literal = "{d '" + date + "'}";
+			}
+			m.appendReplacement(sb, Matcher.quoteReplacement(m.group(1) + m.group(2) + literal));
 		}
 		m.appendTail(sb);
 		return sb.toString();

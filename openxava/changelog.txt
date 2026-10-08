@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: AI chat sometimes finds no records when asking for data by date with some models, like gpt-5.6-luna.
 - Fix: AI chat cannot filter the list with some models, like gpt-5.6-luna.
 - Fix: AI chat fails with models that don't support function tools in Chat Completions, like gpt-5.6-luna.
 - Fix: AI chat cannot modify data or show record details with some models, like gpt-5.6-luna.
