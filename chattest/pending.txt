@@ -1,5 +1,0 @@
-Pending notes for humans
-------------------------
-- Suite chattest.
-- Suite openxavatest, hemos tocado openxava.js.
-- Borrar pending.txt.
