@@ -94,8 +94,21 @@ public class Customer {
  
 }
 </code></pre>
-    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. 
-      Hagámoslo.</p>
+    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación.</p>
+
+    <h2 id="crear-tu-primera-entidad-con-ia">O crea tu primera entidad con un asistente IA</h2>
+    <p>Si usas un asistente de programación con IA, como GitHub Copilot, Cursor, Claude Code, 
+      Devin, Codex o JetBrains Junie, no necesitas escribir tú mismo el código de arriba. 
+      Simplemente abre tu proyecto con tu asistente y pídele que haga el trabajo, por ejemplo 
+      con este prompt:</p>
+    <pre><code class="language-plaintext">Borra la entidad de ejemplo del paquete model y crea una entidad Customer con un int number como clave de longitud 6 y un name obligatorio de longitud 50.</code></pre>
+    <p>El asistente generará un código muy parecido al de arriba. Tu proyecto OpenXava 
+      ya incluye un archivo <i>AGENTS.md</i> que enseña a los asistentes IA las 
+      convenciones de OpenXava (<a href="ai-coding-assistants_es.html">más información</a>).</p>
+    <p>A lo largo del curso, después de cada fragmento de código encontrarás un recuadro 
+      <i>Prompt para IA</i>. Pulsa en él para ver un prompt que genera un código parecido. 
+      Así puedes seguir el curso escribiendo el código tú mismo o pidiéndole a tu asistente IA 
+      que lo escriba.</p>
 
     <h2 id="ejecutar-la-aplicacion">Ejecutar la aplicación</h2>
     <p>Abre el paquete <em>com.yourcompany.invoicing</em> y con el botón derecho sobre
@@ -150,6 +163,10 @@ public class Product {
  
 }
 </code></pre>
+    <details class="ai-prompt">
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Product en el paquete model con un int number como clave de longitud 9 y una description obligatoria de longitud 50.</code></pre>
+    </details>
     <p>Ahora, pulsa el botón <i>Rerun</i>, que es el botón verde que hay en la parte arriba
         del IDE. Esto parará la aplicación y la volverá a iniciar:</p>
     <p><img src="files/getting-started_en195.png" alt="Botón Rerun en la barra de herramientas de IntelliJ"></p>
