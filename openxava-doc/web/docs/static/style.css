@@ -68,7 +68,20 @@ details.ai-prompt pre {
 
 details.ai-prompt code.hljs {
 	background-color: #fbf8ff;
-	white-space: pre-wrap;
+}
+
+.ai-prompt pre, pre.ai-prompt {
+	font-size: inherit;
+	white-space: pre-line;
+}
+
+.ai-prompt code.hljs {
+	font-family: arial, helvetica, sans-serif;
+	font-size: inherit;
+	line-height: 1.5;
+	white-space: pre-line;
+	overflow-wrap: anywhere;
+	padding-right: 3.5em;
 }
 
 
