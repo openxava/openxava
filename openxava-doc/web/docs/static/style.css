@@ -81,7 +81,7 @@ details.ai-prompt code.hljs {
 	line-height: 1.5;
 	white-space: pre-line;
 	overflow-wrap: anywhere;
-	padding-right: 3.5em;
+	border-right: 2.5em solid transparent;
 }
 
 
