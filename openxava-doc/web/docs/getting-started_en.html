@@ -50,12 +50,15 @@
     <p>Now your project is ready to start writing code:</p>
     <p><img src="files/getting-started_en040.png" alt="Project structure ready to write code"></p>
 
-    <h2 id="creating-your-first-entity">Creating your first entity</h2>
+    <h2 id="deleting-the-sample-entity">Deleting the sample entity</h2>
     <p>Developing is very easy: you just have to add entities to make your
         application grow. Entities are added in the <i>model</i> package. Open the
         <i>src/main/java</i> folder, there open the <em>com.yourcompany.invoicing.model</em> package.
-        You will see that it contains a sample entity. Delete it:</p>
+        You will see that it contains a sample entity. Delete it (or ask your AI assistant to delete it):</p>
     <p><img src="files/getting-started_en050.png" alt="Sample entity in model package to delete"></p>
+
+    <h2 id="creating-your-first-entity">Creating your first entity</h2>
+    <p>If you use an AI assistant, see the next section.</p>
     <p>Now we can add our own entities. We'll start with a simplified version of
         <em>Customer</em> with only <em>number</em> and <i>name</i>.</p>
     <p>In the <i>src/main/java</i> folder select the
@@ -94,8 +97,20 @@ public class Customer {
  
 }
 </code></pre>
-    <p>With this you have enough code (just one class) to run your application. 
-      Let's run it.</p>
+    <p>With this you have enough code (just one class) to run your application.</p>
+
+    <h2 id="creating-your-first-entity-with-ai">Or create your first entity with an AI assistant</h2>
+    <p>If you use an AI coding assistant, such as GitHub Copilot, Cursor, Claude Code, 
+      Devin, Codex or JetBrains Junie, you don't need to write the above code yourself. 
+      Just open your project with your assistant and ask it to do the work, for example 
+      with this prompt:</p>
+    <pre class="ai-prompt"><code class="language-plaintext">Create a Customer entity with number as a numeric key and name</code></pre>
+    <p>The assistant will generate code very similar to the one above. Your OpenXava 
+      project already includes an <i>AGENTS.md</i> file that teaches AI assistants 
+      the OpenXava conventions (<a href="ai-coding-assistants_en.html">more info</a>).</p>
+    <p>Throughout the course, after each piece of code you will find an <i>AI prompt</i> 
+      box with a prompt that generates similar code. This way you can 
+      follow the course writing the code yourself or asking your AI assistant to write it.</p>
 
     <h2 id="running-the-application">Running the application</h2>
     <p>Open the <em>com.yourcompany.invoicing</em> package and right-click on
@@ -150,6 +165,10 @@ public class Product {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create a Product entity with number and description</code></pre>
+    </details>
     <p>Now, click the <i>Rerun</i> button, which is the green button at the top
         of the IDE. This stops the application and restarts it:</p>
     <p><img src="files/getting-started_en195.png" alt="Rerun button in IntelliJ toolbar"></p>

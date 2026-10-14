@@ -44,6 +44,46 @@ code.hljs, code.hljs .hljs-tag {
 	background-color: #f6f8fa;
 }
 
+details.ai-prompt {
+	margin: -8px 0 12px 0;
+	border: 1px solid #d0d7de;
+	border-left: 4px solid #8250df;
+	border-radius: 0 0 6px 6px;
+	background-color: #fbf8ff;
+}
+
+details.ai-prompt summary {
+	cursor: pointer;
+	padding: 4px 10px;
+	font-size: 0.85em;
+	font-weight: bold;
+	color: #8250df;
+}
+
+details.ai-prompt pre {
+	margin: 0;
+	border: 0;
+	border-top: 1px solid #e6dcf7;
+}
+
+details.ai-prompt code.hljs {
+	background-color: #fbf8ff;
+}
+
+.ai-prompt pre, pre.ai-prompt {
+	font-size: inherit;
+	white-space: pre-line;
+}
+
+.ai-prompt code.hljs {
+	font-family: arial, helvetica, sans-serif;
+	font-size: inherit;
+	line-height: 1.5;
+	white-space: pre-line;
+	overflow-wrap: anywhere;
+	border-right: 2.5em solid transparent;
+}
+
 
 .wiki { line-height: 1.5; font-family: arial, helvetica, sans-serif; font-size: 13px; }
 .wiki h2 { font-weight: bold; padding: 5px 0 0 0; margin: 0; font-size: 1.3em; }

@@ -50,12 +50,15 @@
     <p>Ahora tu proyecto ya está listo para empezar a escribir código:</p>
     <p><img src="files/getting-started_en040.png" alt="Estructura del proyecto lista para escribir código"></p>
 
-    <h2 id="crear-tu-primera-entidad">Crear tu primera entidad</h2>
+    <h2 id="borrar-la-entidad-de-muestra">Borrar la entidad de muestra</h2>
     <p>Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu
         aplicación. Las entidades se añaden en el paquete <i>model</i>. Abre la carpeta
         <i>src/main/java</i>, allí abre el paquete <em>com.yourcompany.invoicing.model</em>.
-        Verás que contiene una entidad de muestra. Bórrala:</p>
+        Verás que contiene una entidad de muestra. Bórrala (o pídele a tu asistente IA que la borre):</p>
     <p><img src="files/getting-started_en050.png" alt="Entidad de muestra en el paquete modelo para borrar"></p>
+
+    <h2 id="crear-tu-primera-entidad">Crear tu primera entidad</h2>
+    <p>Si usas un asistente IA, mira la siguiente sección.</p>
     <p>Ahora ya podemos añadir nuestras propias entidades. Empezaremos con una versión simplificada de
         <em>Customer</em> con solo <em>number</em> y <i>name</i>.</p>
     <p>En la carpeta <i>src/main/java</i> selecciona el paquete
@@ -94,8 +97,21 @@ public class Customer {
  
 }
 </code></pre>
-    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación. 
-      Hagámoslo.</p>
+    <p>Con esto tienes el código suficiente (justo una clase) para ejecutar tu aplicación.</p>
+
+    <h2 id="crear-tu-primera-entidad-con-ia">O crea tu primera entidad con un asistente IA</h2>
+    <p>Si usas un asistente de programación con IA, como GitHub Copilot, Cursor, Claude Code, 
+      Devin, Codex o JetBrains Junie, no necesitas escribir tú mismo el código de arriba. 
+      Simplemente abre tu proyecto con tu asistente y pídele que haga el trabajo, por ejemplo 
+      con este prompt:</p>
+    <pre class="ai-prompt"><code class="language-plaintext">Crea una entidad Customer con number como clave numérica y name</code></pre>
+    <p>El asistente generará un código muy parecido al de arriba. Tu proyecto OpenXava 
+      ya incluye un archivo <i>AGENTS.md</i> que enseña a los asistentes IA las 
+      convenciones de OpenXava (<a href="ai-coding-assistants_es.html">más información</a>).</p>
+    <p>A lo largo del curso, después de cada fragmento de código encontrarás un recuadro 
+      <i>Prompt para IA</i> con un prompt que genera un código parecido. 
+      Así puedes seguir el curso escribiendo el código tú mismo o pidiéndole a tu asistente IA 
+      que lo escriba.</p>
 
     <h2 id="ejecutar-la-aplicacion">Ejecutar la aplicación</h2>
     <p>Abre el paquete <em>com.yourcompany.invoicing</em> y con el botón derecho sobre
@@ -150,6 +166,10 @@ public class Product {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Product con number y description</code></pre>
+    </details>
     <p>Ahora, pulsa el botón <i>Rerun</i>, que es el botón verde que hay en la parte arriba
         del IDE. Esto parará la aplicación y la volverá a iniciar:</p>
     <p><img src="files/getting-started_en195.png" alt="Botón Rerun en la barra de herramientas de IntelliJ"></p>
