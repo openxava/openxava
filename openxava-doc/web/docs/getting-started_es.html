@@ -50,13 +50,15 @@
     <p>Ahora tu proyecto ya está listo para empezar a escribir código:</p>
     <p><img src="files/getting-started_en040.png" alt="Estructura del proyecto lista para escribir código"></p>
 
-    <h2 id="crear-tu-primera-entidad">Crear tu primera entidad</h2>
-    <p>Si usas un asistente IA, mira la siguiente sección.</p>
+    <h2 id="borrar-la-entidad-de-muestra">Borrar la entidad de muestra</h2>
     <p>Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu
         aplicación. Las entidades se añaden en el paquete <i>model</i>. Abre la carpeta
         <i>src/main/java</i>, allí abre el paquete <em>com.yourcompany.invoicing.model</em>.
-        Verás que contiene una entidad de muestra. Bórrala:</p>
+        Verás que contiene una entidad de muestra. Bórrala (o pídele a tu asistente IA que la borre):</p>
     <p><img src="files/getting-started_en050.png" alt="Entidad de muestra en el paquete modelo para borrar"></p>
+
+    <h2 id="crear-tu-primera-entidad">Crear tu primera entidad</h2>
+    <p>Si usas un asistente IA, mira la siguiente sección.</p>
     <p>Ahora ya podemos añadir nuestras propias entidades. Empezaremos con una versión simplificada de
         <em>Customer</em> con solo <em>number</em> y <i>name</i>.</p>
     <p>En la carpeta <i>src/main/java</i> selecciona el paquete
@@ -102,7 +104,7 @@ public class Customer {
       Devin, Codex o JetBrains Junie, no necesitas escribir tú mismo el código de arriba. 
       Simplemente abre tu proyecto con tu asistente y pídele que haga el trabajo, por ejemplo 
       con este prompt:</p>
-    <pre class="ai-prompt"><code class="language-plaintext">Borra la entidad de ejemplo del paquete model y crea una entidad Customer con un int number como clave de longitud 6 y un name obligatorio de longitud 50.</code></pre>
+    <pre class="ai-prompt"><code class="language-plaintext">Crea una entidad Customer con number como clave numérica y name</code></pre>
     <p>El asistente generará un código muy parecido al de arriba. Tu proyecto OpenXava 
       ya incluye un archivo <i>AGENTS.md</i> que enseña a los asistentes IA las 
       convenciones de OpenXava (<a href="ai-coding-assistants_es.html">más información</a>).</p>
