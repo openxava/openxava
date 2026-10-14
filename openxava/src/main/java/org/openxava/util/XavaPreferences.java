@@ -516,7 +516,7 @@ public class XavaPreferences {
 	
 	/** @since 7.7 */
 	public String getChatModelName() {
-		return getProperties().getProperty("chatModelName", "gpt-5.6-luna").trim();
+		return getProperties().getProperty("chatModelName", "gpt-6-luna").trim();
 	}
 	
 	/** @since 7.7 */

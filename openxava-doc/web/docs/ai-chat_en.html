@@ -171,16 +171,16 @@ OpenXava 7.7 continues to work with Java 8.</p>
 
 <h3 id="chatModelName">chatModelName</h3>
 
-<p>Specifies the AI model to use. The default is <i>gpt-5.6-luna</i> since v8.0.1, 
+<p>Specifies the AI model to use. The default is <i>gpt-6-luna</i> since v8.0.1, 
 until v8.0 it was <i>gpt-5-mini</i>.</p>
 
 <pre><code class="language-properties"># AI model to use for chat
-chatModelName=gpt-5.6-luna</code></pre>
+chatModelName=gpt-6-luna</code></pre>
 
-<p>We recommend using <b>gpt-5.6-luna</b> as the minimum model for good behavior. Smaller or 
+<p>We recommend using <b>gpt-6-luna</b> as the minimum model for good behavior. Smaller or 
 less capable models may not understand complex queries or may produce incorrect results. 
-You can also use more powerful models like <i>gpt-5.6-terra</i> or <i>gpt-5.6-sol</i> 
-for even better results, though they may be slower and more expensive.</p>
+You can also use a more powerful model like <i>gpt-6-sol</i> 
+for even better results, though it may be slower and more expensive.</p>
 
 <p><b>Important:</b> OpenAI will shut off <i>gpt-5-mini</i> on December 10, 2026. From that 
 date, the AI chat will stop working in OpenXava versions prior to 8.0.1 (because 
@@ -221,7 +221,7 @@ chatPriorityServiceTier=true</code></pre>
 
 <p>When enabled, the chat uses OpenAI's priority service tier (now called Fast mode by OpenAI) 
 which may provide faster response times, but it costs about twice as much. With the default 
-model, <i>gpt-5.6-luna</i>, the speed improvement is small, so it is usually not worth it.</p>
+model, <i>gpt-6-luna</i>, the speed improvement is small, so it is usually not worth it.</p>
 
 <h2 id="api-key">API Key</h2>
 
