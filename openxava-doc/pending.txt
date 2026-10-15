@@ -1,0 +1,3 @@
+Pending for lesson 2 improvements (tmr)
+---------------------------------------
+- Formatear bien el HTML.
