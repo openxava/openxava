@@ -123,17 +123,11 @@ public class Category {
       <img src="files/modeling_en035.png" alt="modeling_en035.png" title="modeling_en035.png"><br>
       Lo siguiente sería asociar <em>Product</em> con <em>Category</em>: Añade la siguiente declaración para la referencia <em>category</em> en tu entidad <em>Product</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="language-java">public class Product {
- 
-    ...
- 
-    @ManyToOne( // La referencia se almacena como una relación en la base de datos
-        fetch=FetchType.LAZY, // La referencia se carga bajo demanda
-        optional=true) // La referencia puede estar sin valor
-    @DescriptionsList // Así la referencia se visualiza usando un combo
-    Category category; // Una referencia Java convencional
- 
-}
+      <pre><code class="language-java">@ManyToOne( // La referencia se almacena como una relación en la base de datos
+    fetch=FetchType.LAZY, // La referencia se carga bajo demanda
+    optional=true) // La referencia puede estar sin valor
+@DescriptionsList // Así la referencia se visualiza usando un combo
+Category category; // Una referencia Java convencional
 </code></pre> </div>
     <div class="wiki" style="display: block;">Es una simple relación muchos-a-uno de JPA, como se puede ver en el <a
 

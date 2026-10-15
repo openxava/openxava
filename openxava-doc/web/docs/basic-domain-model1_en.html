@@ -129,17 +129,11 @@ public class Category {
 
           style="line-height: 1.5;">Category</span></em><span style="line-height: 1.5;">: Add the next <em>category</em> reference declaration in your <em>Product</em> entity:</span></div>
     <div class="wiki" style="display: block;">
-      <pre><code class="language-java">public class Product {
- 
-    ...
- 
-    @ManyToOne( // The reference is persisted as a database relationship
-        fetch=FetchType.LAZY, // The reference is loaded on demand
-        optional=true) // The reference can have no value
-    @DescriptionsList // Thus the reference is displayed using a combo
-    Category category; // A regular Java reference
- 
-}
+      <pre><code class="language-java">@ManyToOne( // The reference is persisted as a database relationship
+    fetch=FetchType.LAZY, // The reference is loaded on demand
+    optional=true) // The reference can have no value
+@DescriptionsList // Thus the reference is displayed using a combo
+Category category; // A regular Java reference
 </code></pre> </div>
     <div class="wiki" style="display: block;">This is a plain JPA many-to-one relationship, the one that you can learn more about in <a
 
