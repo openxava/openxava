@@ -1,4 +1,3 @@
 Pending for lesson 2 improvements (tmr)
 ---------------------------------------
 - Formatear bien el HTML.
-- Poner lo de los prompts en otra incidencia
