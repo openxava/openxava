@@ -27,7 +27,7 @@
       <a href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> |
       <a href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> |
       <a href="agile-development_es.html">5. Desarrollo ágil</a> |
-      <a href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> |
+      <a href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapeadas</a> |
       <a href="entity-inheritance_es.html">7. Herencia de entidades</a> |
       <a href="view-inheritance_es.html">8. Herencia de vistas</a> |
       <a href="java-properties_es.html">9. Propiedades Java</a> |
@@ -73,7 +73,7 @@
     </div>
     <p>En esta lección, empezarás a crear las entidades de tu proyecto para tener tu aplicación
       de facturación funcionando.</p>
-    <p>Asumimos que sabes crear una nueva entidad con OpenXava Studio y como ejecutar la
+    <p>Asumimos que sabes crear una nueva entidad con IntelliJ y cómo ejecutar la
       aplicación, porque ya has leído la <a href="getting-started_es.html">lección 1</a>.</p>
 
     <h2 id="modelo-del-dominio">Modelo del dominio</h2>
@@ -138,7 +138,7 @@ Category category; // Una referencia Java convencional
       tuviese fotos y un campo para observaciones. Vamos a usar anotaciones para conseguirlo.
       Las anotaciones son como etiquetas para el código, es una forma de añadir metadatos a
       nuestro código, como en variables, métodos, clases, paquetes, entre otros.</p>
-    <p>La mejor forma de entender que es una anotación es verlo en acción. Añadamos las
+    <p>La mejor forma de entender qué es una anotación es verlo en acción. Añadamos las
       propiedades <em>price</em>, <em>photos</em> y <em>remarks</em> a tu entidad
       <em>Product</em>:</p>
     <pre><code class="language-java">@Money // La propiedad price se usa para almacenar dinero
@@ -151,7 +151,7 @@ String photos;
 @TextArea // Esto es para un texto grande, se usará un área de texto o equivalente
 String remarks;
 </code></pre>
-    <p>Has visto como usar anotaciones, solo debes escribir la anotación y OpenXava hará un
+    <p>Has visto cómo usar anotaciones, solo debes escribir la anotación y OpenXava hará un
       tratamiento especial. Si ejecutas el módulo para <em>Product</em> ahora verás lo
       siguiente:</p>
     <p><img src="files/modeling_en040.png"
