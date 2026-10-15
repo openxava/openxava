@@ -196,14 +196,8 @@ public class Address {
     <div class="wiki" style="display: block;">You can see how the regular class has been annotated as <em>@Embeddable</em>. Its properties are annotated in the same way as entities, though embeddable classes do not support all functionality of entities.<br>
       Now, you can use <em>Address</em> in any entity. Just add a reference to your <em>Customer</em> entity:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="language-java">public class Customer {
- 
-    ...
- 
-    @Embedded // This is the way to reference an embeddable class
-    Address address; // A regular Java reference
- 
-}
+      <pre><code class="language-java">@Embedded // This is the way to reference an embeddable class
+Address address; // A regular Java reference
 </code></pre> </div>
     <div class="wiki" style="display: block;">The <em>Address</em> data is stored in the same table as the <em>Customer</em> data. And from a user interface perspective you have a frame around address. If you do not like the frame you only have to annotate the reference with <em>@NoFrame</em> thus:</div>
     <div class="wiki" style="display: block;">

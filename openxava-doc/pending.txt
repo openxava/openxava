@@ -1,7 +1,5 @@
 Pending for lesson 2 improvements (tmr)
 ---------------------------------------
-* Puse el código de la lección uno en lesson-1 y lo mezcle en main.
-- TMR ME QUEDÉ PARA HACER LA RAMA lesson-2 A PARTIR DE main Y EMPEZAR A TRABAJAR EN LA LECCIÓN 2.
-- Hacer público el repositorio.
+- Vínculo al final de la lección 2
 - Marcar los otros repositorios como obsoletos.
-- ¿Poner lo de los prompts en otra incidencia?
+- Poner lo de los prompts en otra incidencia

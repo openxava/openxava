@@ -195,14 +195,8 @@ public class Address {
     <div class="wiki" style="display: block;">Como ves, es una clase normal y corriente anotada como <em>@Embeddable</em>. Sus propiedades se anotan de la misma manera que en las entidades, aunque las clases incrustables no soportan toda la funcionalidad de las entidades.<br>
       Ahora, puedes usar <em>Address</em> en cualquier entidad. Simplemente añade una referencia a ella en tu entidad <em>Customer</em>:</div>
     <div class="wiki" style="display: block;">
-      <pre><code class="language-java">public class Customer {
- 
-    ...
- 
-    @Embedded // Así para referenciar a una clase incrustable
-    Address address; // Una referencia Java convencional
- 
-}
+      <pre><code class="language-java">@Embedded // Así para referenciar a una clase incrustable
+Address address; // Una referencia Java convencional
 </code></pre> </div>
     <div class="wiki" style="display: block;">Los datos de <em>Address</em> se almacenan en la misma tabla que los de <em>Customer</em>. Y desde una perspectiva de la interfaz de usuario hay un marco alrededor de <i>Address</i>, aunque si no te gusta el marco sólo has de anotar la referencia con <em>@NoFrame</em>, como se muestra aquí:</div>
     <div class="wiki" style="display: block;">
