@@ -217,9 +217,13 @@ public class Address {
       incrustables no soportan toda la funcionalidad de las entidades.</p>
     <p>Ahora, puedes usar <em>Address</em> en cualquier entidad. Simplemente añade una referencia
       a ella en tu entidad <em>Customer</em>:</p>
-    <pre><code class="language-java">@Embedded // Así para referenciar a una clase incrustable
+    <pre><code class="language-java">@Embedded // Para referenciar a una clase incrustable (opcional)
 Address address; // Una referencia Java convencional
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Usa Address en Customer</code></pre>
+    </details>
     <p>Los datos de <em>Address</em> se almacenan en la misma tabla que los de
       <em>Customer</em>. Y desde una perspectiva de la interfaz de usuario hay un marco alrededor
       de <i>Address</i>, aunque si no te gusta el marco sólo has de anotar la referencia con
@@ -227,6 +231,10 @@ Address address; // Una referencia Java convencional
     <pre><code class="language-java">@Embedded @NoFrame // Con @NoFrame no se muestra marco para address
 Address address;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Haz que address se dibuje sin marco</code></pre>
+    </details>
     <p>Aquí se muestra la interfaz de usuario para una referencia incrustada con y sin
       <em>@NoFrame</em>:</p>
     <p><img src="files/modeling_en060.png" alt="Dirección incrustada con y sin @NoFrame"></p>

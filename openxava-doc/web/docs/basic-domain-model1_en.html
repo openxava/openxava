@@ -211,15 +211,23 @@ public class Address {
       support all functionality of entities.</p>
     <p>Now, you can use <em>Address</em> in any entity. Just add a reference to your
       <em>Customer</em> entity:</p>
-    <pre><code class="language-java">@Embedded // This is the way to reference an embeddable class
+    <pre><code class="language-java">@Embedded // To reference an embeddable class (optional)
 Address address; // A regular Java reference
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Use Address in Customer</code></pre>
+    </details>
     <p>The <em>Address</em> data is stored in the same table as the <em>Customer</em> data. And
       from a user interface perspective you have a frame around address. If you do not like the
       frame you only have to annotate the reference with <em>@NoFrame</em> thus:</p>
     <pre><code class="language-java">@Embedded @NoFrame // With @NoFrame no frame is shown for address
 Address address;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Make address be displayed without a frame</code></pre>
+    </details>
     <p>Here's the user interface for an embedded reference with and without
       <em>@NoFrame</em>:</p>
     <p><img src="files/modeling_en060.png" alt="Embedded address with and without @NoFrame"></p>
