@@ -106,6 +106,10 @@ public class Category {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create a Category entity with a hidden String oid that uses UUID and description</code></pre>
+    </details>
     <p>It only has an identifier and a description property. In this case we use the
       Universally Unique Identifier (shown as 1) algorithm to generate the id. The advantage of
       this id generator is that you can migrate your application to another database (DB2,
@@ -122,6 +126,10 @@ public class Category {
 @DescriptionsList // Thus the reference is displayed using a combo
 Category category; // A regular Java reference
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Associate Product with Category displaying the category with a combo</code></pre>
+    </details>
     <p>This is a plain JPA many-to-one relationship, the one that you can learn more about in
       <a href="jpa_en.html">appendix B</a>. In this case, thanks to the
       <em>@DescriptionsList</em> annotation it is displayed as a combo:</p>
@@ -146,6 +154,10 @@ String photos;
 @TextArea// This is for a big text, a text area or equivalent will be used
 String remarks;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add price, photos and remarks properties to the Product entity, using the appropriate OpenXava annotations</code></pre>
+    </details>
     <p>You have seen how to use annotations. Now you only have to write the annotation and
       OpenXava will apply special treatment. Execute the module for the <em>Product</em> now,
       and you will see:</p>
@@ -190,6 +202,10 @@ public class Address {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create an embeddable class to group the address data</code></pre>
+    </details>
     <p>You can see how the regular class has been annotated as <em>@Embeddable</em>. Its
       properties are annotated in the same way as entities, though embeddable classes do not
       support all functionality of entities.</p>
