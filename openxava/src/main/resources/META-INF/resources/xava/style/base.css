@@ -922,7 +922,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	font-variant-numeric: tabular-nums;
 }
 
-.xava_editor input.ox-switch {
+input.ox-switch {
 	-webkit-appearance: none;
 	appearance: none;
 	box-sizing: border-box;
@@ -939,7 +939,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	transition: background-color var(--transition-fast);
 }
 
-.xava_editor input.ox-switch::after {
+input.ox-switch::after {
 	content: "";
 	position: absolute;
 	top: 3px;
@@ -952,23 +952,23 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	transition: transform var(--transition-normal);
 }
 
-.xava_editor input.ox-switch:hover:not(:disabled):not(:checked) {
+input.ox-switch:hover:not(:disabled):not(:checked) {
 	background: var(--switch-off-hover-background);
 }
 
-.xava_editor input.ox-switch:checked {
+input.ox-switch:checked {
 	background: var(--switch-on-background);
 }
 
-.xava_editor input.ox-switch:checked:hover:not(:disabled) {
+input.ox-switch:checked:hover:not(:disabled) {
 	background: var(--switch-on-hover-background);
 }
 
-.xava_editor input.ox-switch:checked::after {
+input.ox-switch:checked::after {
 	transform: translateX(16px);
 }
 
-.xava_editor input.ox-switch:disabled {
+input.ox-switch:disabled {
 	opacity: 0.55;
 	cursor: default;
 }
@@ -982,7 +982,7 @@ input[type="text"]:disabled, input[type="password"]:disabled, input[type="file"]
 	vertical-align: middle;
 }
 
-.ox-list input[type="checkbox"], .ox-list input[type="radio"] {
+.ox-list input[type="checkbox"]:not(.ox-switch), .ox-list input[type="radio"] {
 	accent-color: var(--accent-color);
 	width: 14px;
 	height: 14px;
