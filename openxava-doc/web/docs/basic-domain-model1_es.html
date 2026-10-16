@@ -110,6 +110,10 @@ public class Category {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Category con un oid oculto de tipo String que use UUID y description</code></pre>
+    </details>
     <p>Sin duda, la entidad más simple posible. Solo tiene un identificador y una propiedad
       <i>description</i>. En este caso usamos el algoritmo Identificador Universal Único (1)
       para generar el identificador. La ventaja de este generador de identificadores es que
@@ -127,6 +131,10 @@ public class Category {
 @DescriptionsList // Así la referencia se visualiza usando un combo
 Category category; // Una referencia Java convencional
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Asocia Product con Category mostrando la categoría con un combo</code></pre>
+    </details>
     <p>Es una simple relación muchos-a-uno de JPA, como se puede ver en el
       <a href="jpa_es.html">apéndice B</a>. En este caso, gracias a la anotación
       <em>@DescriptionsList</em> se visualiza usando un combo:</p>
@@ -151,6 +159,10 @@ String photos;
 @TextArea // Esto es para un texto grande, se usará un área de texto o equivalente
 String remarks;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade las propiedades price, photos y remarks a la entidad Product, usando las anotaciones OpenXava apropiadas</code></pre>
+    </details>
     <p>Has visto cómo usar anotaciones, solo debes escribir la anotación y OpenXava hará un
       tratamiento especial. Si ejecutas el módulo para <em>Product</em> ahora verás lo
       siguiente:</p>
@@ -196,14 +208,22 @@ public class Address {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una clase incrustable para agrupar los datos de dirección</code></pre>
+    </details>
     <p>Como ves, es una clase normal y corriente anotada como <em>@Embeddable</em>. Sus
       propiedades se anotan de la misma manera que en las entidades, aunque las clases
       incrustables no soportan toda la funcionalidad de las entidades.</p>
     <p>Ahora, puedes usar <em>Address</em> en cualquier entidad. Simplemente añade una referencia
       a ella en tu entidad <em>Customer</em>:</p>
-    <pre><code class="language-java">@Embedded // Así para referenciar a una clase incrustable
+    <pre><code class="language-java">@Embedded // Para referenciar a una clase incrustable (opcional)
 Address address; // Una referencia Java convencional
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Usa Address en Customer</code></pre>
+    </details>
     <p>Los datos de <em>Address</em> se almacenan en la misma tabla que los de
       <em>Customer</em>. Y desde una perspectiva de la interfaz de usuario hay un marco alrededor
       de <i>Address</i>, aunque si no te gusta el marco sólo has de anotar la referencia con
@@ -211,6 +231,10 @@ Address address; // Una referencia Java convencional
     <pre><code class="language-java">@Embedded @NoFrame // Con @NoFrame no se muestra marco para address
 Address address;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Haz que address se dibuje sin marco</code></pre>
+    </details>
     <p>Aquí se muestra la interfaz de usuario para una referencia incrustada con y sin
       <em>@NoFrame</em>:</p>
     <p><img src="files/modeling_en060.png" alt="Dirección incrustada con y sin @NoFrame"></p>
