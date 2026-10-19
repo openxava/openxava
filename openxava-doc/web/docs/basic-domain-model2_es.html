@@ -178,6 +178,10 @@ public class NextNumberForYearCalculator implements ICalculator { // Un calculad
 )
 int number;
 </code></pre>
+    <p><em>NextNumberForYearCalculator</em> está en un paquete distinto al de <em>Invoice</em>,
+      así que has de añadir el siguiente import al principio de <em>Invoice</em> (o simplemente
+      pulsar <i>Alt+Enter</i> sobre el nombre de la clase en IntelliJ):</p>
+    <pre><code class="language-java">import com.yourcompany.invoicing.calculators.*;</code></pre>
     <p>En este caso ves algo nuevo, <em>@PropertyValue</em>. Usándolo, estás diciendo que el
       valor de la propiedad <em>year</em> en la <em>Invoice</em> actual se moverá a la propiedad
       <em>year</em> del calculador antes de hacer el cálculo. Ahora cuando el usuario pulse en
