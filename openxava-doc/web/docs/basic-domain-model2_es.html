@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 3: Modelo básico del dominio 2: Calcular valores por defecto
-      (@DefaultValueCalculator), referencias convencionales (@ManyToOne), colecciones de objectos
+      (@DefaultValueCalculator), referencias convencionales (@ManyToOne), colecciones de objetos
       dependientes (@ElementCollection) - Modelar con Java - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
@@ -69,8 +69,8 @@
         Calcular valores por defecto</a></div>
       <div style="margin-left: 2em;"><a href="#referencias-convencionales">
         Referencias convencionales (ManyToOne)</a></div>
-      <div style="margin-left: 2em;"><a href="#coleccion-de-objectos-dependientes">
-        Colección de objectos dependientes</a></div>
+      <div style="margin-left: 2em;"><a href="#coleccion-de-objetos-dependientes">
+        Colección de objetos dependientes</a></div>
       <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
     </div>
     <p>En esta lección acabarás de crear todas las entidades necesarias para tu proyecto. Ya
@@ -81,7 +81,7 @@
     <p>Vamos a escribir nuestra entidad <i>Invoice</i> con año, número y fecha. Estaría bien
       tener valores por defecto para estas propiedades, para que el usuario no tuviera que
       teclearlos. Esto es fácil de conseguir usando la anotación <em>@DefaultValueCalculator</em>.
-      En esta primera versión de <i>Invoice</i> puedes ver como definimos valores por defecto
+      En esta primera versión de <i>Invoice</i> puedes ver cómo definimos valores por defecto
       para <i>year</i> y <i>date</i>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
@@ -116,7 +116,7 @@ public class Invoice {
  
 }
 </code></pre>
-    <p>Así cuando el usuario pulse en el botón <i>Nuevo</i> el campo para año será el año actual,
+    <p>Así cuando el usuario pulse en el botón <i>New</i> el campo para año será el año actual,
       y el campo para la fecha la fecha actual. Estos dos calculadores
       (<em>CurrentYearCalculator</em> y <em>CurrentLocalDateCalculator</em>) están incluidos en
       OpenXava. Explora el paquete
@@ -124,7 +124,7 @@ public class Invoice {
       para ver otros calculadores predefinidos que pueden serte útiles.</p>
     <p>Fíjate que para la fecha usamos el tipo <i>LocalDate</i> (del paquete <i>java.time</i>).
       Java tiene un tipo <i>Date</i> (en el paquete <i>java.util</i>). Sin embargo <i>Date</i> no
-      es una fecha, sino un momento en el tiempo, incluyendo horas, segundo y milisegundos,
+      es una fecha, sino un momento en el tiempo, incluyendo horas, segundos y milisegundos,
       mientras que <i>LocalDate</i> tiene simplemente día, mes y año, es decir una fecha. Para el
       caso de la factura, y para la mayoría en aplicaciones de gestión, usaremos
       <i>LocalDate</i> en lugar de <i>Date</i>.</p>
@@ -136,7 +136,7 @@ public class Invoice {
       <em>com.yourcompany.invoicing</em> y con el botón derecho escoge <i>New &gt; Package</i>.
       Entonces teclea <em>com.yourcompany.invoicing.calculators</em> como nombre del paquete y
       pulsa ENTER.</p>
-    <p>Las paquetes son la forma que tiene Java de organizar el código. Deberías cambiar
+    <p>Los paquetes son la forma que tiene Java de organizar el código. Deberías cambiar
       <i>com.yourcompany</i> por el dominio de tu organización, es decir si trabajas para
       Telefónica el paquete para los calculadores debería ser
       <i>es.telefonica.invoicing.calculators</i>.</p>
@@ -169,7 +169,7 @@ public class NextNumberForYearCalculator implements ICalculator { // Un calculad
     <p>Tu calculador tiene que implementar <em>ICalculator</em> (y por lo tanto tener un método
       <em>calculate()</em>). Declaramos una propiedad <em>year</em> para poner en ella el año del
       cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el
-      <a href="jpa_es.html">apéndice B</a> sobre JPA. Ahora sólo queda anotar la propiedad
+      <a href="jpa_es.html">apéndice B</a> sobre JPA. Ahora solo queda anotar la propiedad
       <em>number</em> en la entidad <em>Invoice</em>:</p>
     <pre><code class="language-java">@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
@@ -189,13 +189,13 @@ int number;
       fecha"></p>
     <p>Los valores por defecto son solo los valores iniciales, el usuario los puede cambiar si así
       lo desea.</p>
-    <p>Fíjate como <i>year</i> y <i>number</i> no son clave, en su lugar usamos una propiedad
+    <p>Fíjate cómo <i>year</i> y <i>number</i> no son clave, en su lugar usamos una propiedad
       <i>oid</i> como clave (anotada con <i>@Id</i>). Generalmente usar claves simples es mejor,
       sin embargo
-      <a href="jpa_es.html#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta">usar claves compuesta también es posible</a>.</p>
+      <a href="jpa_es.html#Apendice+B:+Java+Persistence+API-Anotaciones+JPA-Clave+compuesta">usar claves compuestas también es posible</a>.</p>
 
     <h2 id="referencias-convencionales">Referencias convencionales (ManyToOne)</h2>
-    <p>Ahora que tenemos todas las propiedades atómicas listas para usar, es tiempo de añadir
+    <p>Ahora que tenemos todas las propiedades atómicas listas para usar, es hora de añadir
       relaciones con otras entidades. Empezaremos añadiendo una referencia desde
       <em>Invoice</em> a <em>Customer</em>, porque una factura sin cliente no parece demasiado
       útil. Antes de añadir el cliente <b>usa el módulo <em>Invoice</em> para borrar todas las
@@ -210,7 +210,7 @@ Customer customer;
     <p>No hay más trabajo que hacer aquí. Añadamos una colección de líneas de detalle a
       <em>Invoice</em>.</p>
 
-    <h2 id="coleccion-de-objectos-dependientes">Colección de objectos dependientes</h2>
+    <h2 id="coleccion-de-objetos-dependientes">Colección de objetos dependientes</h2>
     <p>Usualmente una factura necesita tener varias líneas con productos, cantidades, etc. Estos
       detalles son parte de la factura, no son compartidos por otras facturas y cuando una
       factura se borra sus líneas de detalle son borradas con ella. Por tanto, la forma más
@@ -256,25 +256,25 @@ public class Detail {
 @ListProperties("product.number, product.description, quantity")
 Collection&lt;Detail&gt; details;
 </code></pre>
-    <p>Como puedes ver, solo has de poner como valor para <em>@ListProperties</em> la lista de la
+    <p>Como puedes ver, solo has de poner como valor para <em>@ListProperties</em> la lista de las
       propiedades que quieres separadas por comas. Puedes usar propiedades calificadas, es decir,
       usar la notación del punto para acceder a las propiedades de referencias, tal como
       <em>product.number</em> y <em>product.description</em> en este caso. El resultado visual
       es:</p>
     <p><img src="files/modeling_en100.png" alt="Colección de detalles usando @ListProperties"></p>
-    <p>Ahora deseamos cambiar la etiqueta de la propiedad <i>product.number</i> por otro que sea
-      más corto: <i>N° de Producto</i>. Para lograr esto, debemos ir al archivo
+    <p>Ahora deseamos cambiar la etiqueta de la propiedad <i>product.number</i> por otra que sea
+      más corta: <i>Nº de Producto</i>. Para lograr esto, debemos ir al archivo
       <i>invoicing-labels_es.properties</i> que se encuentra en la carpeta
-      <i>invoicing/src/main/resources/i18n</i> y añadir la siguiente linea para sobrescribir la
+      <i>invoicing/src/main/resources/i18n</i> y añadir la siguiente línea para sobrescribir la
       etiqueta por defecto que nos trae OpenXava:</p>
-    <pre><code class="language-java">product.number = N° de Producto</code></pre>
-    <p><img src="files/modeling_en105.png" alt="Colección de detalles con la etiqueta N° de
+    <pre><code class="language-java">product.number = Nº de Producto</code></pre>
+    <p><img src="files/modeling_en105.png" alt="Colección de detalles con la etiqueta Nº de
       Producto"></p>
-    <p>Esta nueva etiqueta de <i>product.number</i> se cambiará en todos los módulos que se use,
-      en caso que quisieramos aplicarlo solamente en colección details de la entidad Invoice,
+    <p>Esta nueva etiqueta de <i>product.number</i> se cambiará en todos los módulos en que se use,
+      en caso de que quisiéramos aplicarlo solamente en colección details de la entidad Invoice,
       deberíamos usar la siguiente etiqueta:</p>
     <pre><code class="language-java">//Para esta aplicación usaremos la etiqueta anterior y no la siguiente
-Invoice.details.product.number = N° de Producto</code></pre>
+Invoice.details.product.number = Nº de Producto</code></pre>
     <p>De esta manera, podemos personalizar las etiquetas que trae OpenXava o crear nuestras
       propias etiquetas.</p>
 
@@ -284,7 +284,7 @@ Invoice.details.product.number = N° de Producto</code></pre>
       crear facturas. En el caso de los productos, categorías y clientes la interfaz de usuario
       está bastante bien, aunque para <i>Invoice</i> todavía se puede mejorar un poco. Ya has
       usado algunas anotaciones OpenXava para refinar la presentación, como
-      <i>@DescriptionsList, @NoFrame</i> y <i>@ListProperties</i>, tambien vimos como modificar
+      <i>@DescriptionsList, @NoFrame</i> y <i>@ListProperties</i>, también vimos cómo modificar
       etiquetas que trae OpenXava por defecto. En la siguiente lección usaremos más anotaciones
       de este tipo para dar a la interfaz de usuario de <i>Invoice</i> un mejor aspecto sin
       demasiado esfuerzo.</p>
