@@ -21,7 +21,7 @@ public class DiscussionComment extends Identifiable {
 	@Column(length=32)
 	private String discussionId;
 	
-	@Column(length=30) 
+	@Column(length=60) @DisplaySize(30) 
 	private String userName;
 	
 	
