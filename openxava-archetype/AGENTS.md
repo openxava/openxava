@@ -19,6 +19,10 @@ When creating an entity in this project, follow these rules:
 - Fields **must NOT be `private`**
 - Use **package-level access** (no visibility modifier)
 
+#[[###]]# Imports
+- **Always use `import` statements** instead of fully qualified class names in the code
+- For example, write `import java.math.*;` and then `BigDecimal price;`, never `java.math.BigDecimal price;`
+
 #[[###]]# Correct Entity Example
 
 ```java
@@ -42,6 +46,54 @@ public class MyEntity {
 }
 ```
 
+#[[###]]# Annotations Instead of Stereotypes
+
+`@Stereotype` is legacy. In new code **always use the equivalent annotation** (available since OpenXava 6.6). Reference: https://openxava.org/OpenXavaDoc/docs/model_es.html#Modelo-Propiedades-Estereotipo
+
+| Legacy stereotype | Use instead |
+|---|---|
+| `MONEY` | `@Money` |
+| `MEMO`, `TEXT_AREA` | `@TextArea` |
+| `IMAGES_GALLERY` | `@Files` + `@Column(length=32)` |
+| `PHOTO`, `IMAGE` | `@File` + `@Column(length=32)` |
+| `FILE` | `@File` + `@Column(length=32)` |
+| `FILES` | `@Files` + `@Column(length=32)` |
+| `HTML_TEXT` | `@HtmlText` |
+| `SIMPLE_HTML_TEXT` | `@HtmlText(simple=true)` |
+| `LABEL` | `@Label` |
+| `TIME` | `@StringTime` (or better, a `LocalTime` property) |
+| `DATETIME` | `@DateTime` (or better, a `LocalDateTime` property) |
+| `ZEROS_FILLED` | `@ZerosFilled` |
+| `EMAIL` | `@Email` (from `jakarta.validation.constraints`) |
+| `EMAIL_LIST` | `@EmailList` |
+| `TELEPHONE` | `@Telephone` |
+| `WEBURL` | `@URL` (from `org.hibernate.validator.constraints`) |
+| `IP` | `@IP` |
+| `ISBN` | `@ISBN` (from `org.hibernate.validator.constraints`) |
+| `CREDIT_CARD` | `@CreditCardNumber` (from `org.hibernate.validator.constraints`) |
+| `PASSWORD` | `@Password` |
+| `MAC` | `@MAC` |
+| `ICON` | `@Icon` |
+| `DISCUSSION` | `@Discussion` + `@Column(length=32)` |
+| `COORDINATES` | `@Coordinates` |
+| `HANDWRITTEN_SIGNATURE` | `@HandwrittenSignature` |
+
+Only use `@Stereotype` when there is no equivalent annotation (e.g. `BOLD_LABEL`, `IMAGE_LABEL`).
+
+#[[###]]# References (@ManyToOne / @OneToOne)
+
+When adding a reference (association to a single entity), **always use lazy fetching** by specifying `fetch=FetchType.LAZY` in `@ManyToOne` and `@OneToOne`.
+
+```java
+@ManyToOne(fetch=FetchType.LAZY)
+Category category;
+```
+
+```java
+@OneToOne(fetch=FetchType.LAZY)
+Address address;
+```
+
 #[[###]]# Master-Detail (Collections)
 
 When asked to create a master-detail structure, the detail collection in the master entity **must use `@ElementCollection`** instead of `@OneToMany`. The detail class must be annotated with `@Embeddable` instead of `@Entity`.
@@ -54,6 +106,7 @@ package ${package}.${artifactId}.model;
 import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
+import java.util.*;
 
 @Entity
 @Getter @Setter
@@ -79,6 +132,7 @@ package ${package}.${artifactId}.model;
 import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
+import java.math.*;
 
 @Embeddable
 @Getter @Setter
@@ -90,7 +144,7 @@ public class InvoiceDetail {
     int quantity;
 
     @Money
-    java.math.BigDecimal price;
+    BigDecimal price;
 }
 ```
 
@@ -98,9 +152,13 @@ public class InvoiceDetail {
 - ✅ `@Getter @Setter` from Lombok
 - ✅ Fields without modifier (package access)
 - ✅ Use `@ElementCollection` + `@Embeddable` for master-detail collections
+- ✅ Use `fetch=FetchType.LAZY` in `@ManyToOne` and `@OneToOne`
+- ✅ Use `import` statements instead of fully qualified class names
 - ❌ Do not use `private` on fields
 - ❌ Do not write getters/setters manually
 - ❌ Do not use `@OneToMany` / `@Entity` for detail collections
+- ❌ Do not use `@ManyToOne` / `@OneToOne` without `fetch=FetchType.LAZY`
+- ❌ Do not use `@Stereotype` when an equivalent annotation exists (`@Money`, `@TextArea`, `@Files`, `@File`, etc.)
 
 #[[##]]# Conventions for Actions
 
