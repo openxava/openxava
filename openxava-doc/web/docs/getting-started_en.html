@@ -31,17 +31,17 @@
     <p>Once in the dialog, choose the <i>Maven Archetypes</i> option within the
         <i>Generators</i> section:</p>
     <p><img src="files/getting-started022.png" alt="New Project dialog with Maven Archetypes option"></p>
-    <p>Then type the project name, <em>invoicing</em> in the <i>Name</i> field:
+    <p>Then type the project name, <em>invoicing</em>, in the <i>Name</i> field:
         </p>
     <p><img src="files/getting-started_en024.png" alt="Project name field with invoicing"></p>
     <p>Now it's time to choose the archetype. In the <i>Catalog</i> field select
         <i>Maven Central</i> and in the <i>Archetype</i> field type <i>openxava</i> so it
         shows you all the OpenXava archetypes. There choose <i>openxava-archetype</i>.
         </p>
-    <p>As version choose the latest available OpenXava version, which is currently <b>8.0</b>.</p>
+    <p>As the version, choose the latest available OpenXava version, which is currently <b>8.0</b>.</p>
     <p><img src="files/getting-started_en026.png" alt="Selecting openxava-archetype from Maven Central"></p>
-    <p>To finish, go to the bottom of the dialog and open the <i>Advanced Settings</i> section
-    and in the <i>GroupId</i> field put <i>com.yourcompany</i> which is the value we will use in this
+    <p>To finish, go to the bottom of the dialog and open the <i>Advanced Settings</i> section,
+    and in the <i>GroupId</i> field enter <i>com.yourcompany</i>, which is the value we will use in this
     course:</p>
     <p><img src="files/getting-started_en028.png" alt="Advanced Settings with GroupId com.yourcompany"></p>
     <p>If everything went well, the dialog should look more or less like this:</p>
@@ -53,7 +53,7 @@
     <h2 id="deleting-the-sample-entity">Deleting the sample entity</h2>
     <p>Developing is very easy: you just have to add entities to make your
         application grow. Entities are added in the <i>model</i> package. Open the
-        <i>src/main/java</i> folder, there open the <em>com.yourcompany.invoicing.model</em> package.
+        <i>src/main/java</i> folder and then the <em>com.yourcompany.invoicing.model</em> package.
         You will see that it contains a sample entity. Delete it (or ask your AI assistant to delete it):</p>
     <p><img src="files/getting-started_en050.png" alt="Sample entity in model package to delete"></p>
 
@@ -64,17 +64,17 @@
     <p>In the <i>src/main/java</i> folder select the
       <em>com.yourcompany.invoicing.model</em> package and right-click to choose <em>New > Java Class</em>:</p>
     <p><img src="files/getting-started_en125.png" alt="Context menu New > Java Class"></p>
-    <p>Then type <em>Customer</em> as class name and press ENTER:</p>
+    <p>Then type <em>Customer</em> as the class name and press ENTER:</p>
     <p><img src="files/getting-started_en130.png" alt="New Java Class dialog with Customer name"></p>
-    <p>Note that the <em>C</em> of <em>Customer</em> is uppercase, this is very important, 
-      all Java classes start with uppercase.</p>
+    <p>Note that the <em>C</em> of <em>Customer</em> is uppercase. This is very important:
+      all Java classes start with an uppercase letter.</p>
     <p>The initial code that IntelliJ provides for <em>Customer</em> is very simple:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 public class Customer {
 }
 </code></pre>
-    <p>Now, you have to fill this class to convert it to an entity suitable for 
+    <p>Now, you have to fill in this class to turn it into an entity suitable for 
       OpenXava. You only need to add the <em>@Entity</em> annotation and the 
       <em>number</em> and <i>name</i> properties:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -83,7 +83,7 @@ import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
  
-@Entity  // This marks Customer class as an entity
+@Entity  // This marks the Customer class as an entity
 @Getter @Setter // This makes all fields below publicly accessible
 public class Customer {
  
@@ -110,10 +110,10 @@ public class Customer {
       the OpenXava conventions (<a href="ai-coding-assistants_en.html">more info</a>).</p>
     <p>Throughout the course, after each piece of code you will find an <i>AI prompt</i> 
       box with a prompt that generates similar code. This way you can 
-      follow the course writing the code yourself or asking your AI assistant to write it.</p>
+      follow the course by writing the code yourself or by asking your AI assistant to write it.</p>
 
     <h2 id="running-the-application">Running the application</h2>
-    <p>Open the <em>com.yourcompany.invoicing</em> package and right-click on
+    <p>Open the <em>com.yourcompany.invoicing</em> package, right-click on
         the <i>InvoicingApplication</i> class and choose <i>Run 'InvoicingApplication.main()'</i>:</p>
     <p><img src="files/getting-started_en150.png" alt="Run InvoicingApplication.main() context menu option"></p>
     <p>Wait until the console shows a message saying "Started InvoicingApplication", 
@@ -124,16 +124,16 @@ public class Customer {
     <p><code><i>&nbsp;&nbsp;&nbsp; 
       <a href="http://localhost:8080/invoicing" target="_blank">
         http://localhost:8080/invoicing</a></i></code></p>
-    <p>You get your application running for the first time. To start click on the 
+    <p>You are seeing your application running for the first time. To start, click on the 
       <i>Sign in</i> button:</p>
     <p><img src="files/getting-started_en160.png" alt="Application home page with Sign in button"></p>
     <p>Now, enter admin/admin and click on <i>Sign in</i>:</p>
     <p><img src="files/getting-started_en165.png" alt="Sign In page"></p>
-    <p>Then on the left side a list of modules will be shown, 
-      choose <em>Customers</em>:</p>
+    <p>Then a list of modules will be shown on the left side.
+      Choose <em>Customers</em>:</p>
     <p><img src="files/getting-started_en170.png" alt="Module list showing Customers option"></p>
-    <p>Use the <em>Customers</em> module to create new customers, just enter 
-      number and name and press <em>Save</em>.</p>
+    <p>Use the <em>Customers</em> module to create new customers: just enter
+      the number and name and press <em>Save</em>.</p>
     <p><img src="files/getting-started_en190.png" alt="Customers module with data entry form"></p>
     <p>Click on <em>List</em> to see the customers you have created. Congratulations, 
       you have your first OpenXava application running.</p>
@@ -143,11 +143,11 @@ public class Customer {
       class and you can see the result in the browser. Let's create an entity for 
       <i>Product</i>.</p>
     <p>Select the <em>com.yourcompany.invoicing.model</em> package and right-click
-        to choose <i>New > Java Class:</i></p>
+        to choose <i>New > Java Class</i>:</p>
     <p><img src="files/getting-started_en125.png" alt="Context menu New > Java Class"></p>
-    <p>Then type <em>Product</em> as class name and press ENTER:</p>
+    <p>Then type <em>Product</em> as the class name and press ENTER:</p>
     <p><img src="files/getting-started_en193.png" alt="New Java Class dialog with Product name"></p>
-    <p>Write the next code for <em>Product</em>:</p>
+    <p>Write the following code for <em>Product</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import jakarta.persistence.*;
@@ -172,7 +172,7 @@ public class Product {
     <p>Now, click the <i>Rerun</i> button, which is the green button at the top
         of the IDE. This stops the application and restarts it:</p>
     <p><img src="files/getting-started_en195.png" alt="Rerun button in IntelliJ toolbar"></p>
-    <p>To see your new entity in action open your browser and go to the URL:</p>
+    <p>To see your new entity in action, open your browser and go to this URL:</p>
     <p><code><i>&nbsp;&nbsp;&nbsp; 
       <a href="http://localhost:8080/invoicing/modules/Product" target="_blank">
         http://localhost:8080/invoicing/modules/Product</a></i></code></p>
@@ -182,18 +182,18 @@ public class Product {
       class. Now you can concentrate on growing your application.</p>
 
     <h2 id="toc1">Any problem?</h2>
-    <p>Congratulations! You have created your first OpenXava application. If not and you 
-      have had any problem with the above example, ask in the forum:</p>
+    <p>Congratulations! You have created your first OpenXava application. If not, or if you
+      have had any problems with the example above, ask in the forum:</p>
     <p>&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext" 
       href="http://sourceforge.net/p/openxava/discussion/419690/" rel="nofollow">
       Ask in the forum</a></strong></p>
-    <p>We'll help you to overcome any difficulty.</p>
+    <p>We'll help you overcome any difficulty.</p>
 
     <h2 id="toc12">Next steps</h2>
-    <p>This getting started guide is the lesson 1 of a complete OpenXava course. This 
+    <p>This getting started guide is lesson 1 of a complete OpenXava course. This 
       course is meant to teach you how to develop enterprise applications with OpenXava, 
-      as well as other Java related technologies, tools and frameworks. Together we will 
-      develop step by step a complete application from scratch. The application chosen is 
+      as well as other Java-related technologies, tools and frameworks. Together we will
+      develop a complete application step by step from scratch. The application chosen is 
       a small invoicing application with invoices, customers, products and so on. This 
       application is just a brief way to learn some typical cases in business applications. 
       You can apply everything you learn with the invoicing application to any other 
@@ -241,7 +241,7 @@ public class Product {
         <li><a class="wiki_link" href="multi-user-default-value-calculation_en.html">Lesson
             15: Multi user default value calculation</a></li>
         <li><a class="wiki_link" href="synchronize-persistent-and-computed-properties_en.html">Lesson
-            16: Synchronize persistent and computed propierties</a></li>
+            16: Synchronize persistent and computed properties</a></li>
         <li><a class="wiki_link" href="logic-from-database_en.html">Lesson 17:
             Logic from database</a></li>
       </ul>
@@ -289,10 +289,10 @@ public class Product {
             testing</a></li>
       </ul>
     </ul>
-    <p>Do you want to use another IDE? Do you want to go against MySQL,
+    <p>Do you want to use another IDE? Do you want to use MySQL,
       PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 or Firebird? Do you want 
       a detailed reference guide? Look at 
-      <a href="index_en.html">the OpenXava documentation</a>, that includes this and 
+      <a href="index_en.html">the OpenXava documentation</a>, which includes this and 
       much more.</p>
     <p><strong>Are you ready?</strong> 
       <strong><a class="wiki_link" href="basic-domain-model1_en.html">Go to Lesson 2</a></strong></p>

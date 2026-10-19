@@ -41,7 +41,7 @@
       <a href="multi-user-default-value-calculation_en.html">15. Multi user default value
         calculation</a> |
       <a href="synchronize-persistent-and-computed-properties_en.html">16. Synchronize persistent
-        and computed propierties</a> |
+        and computed properties</a> |
       <a href="logic-from-database_en.html">17. Logic from database</a> |
       <a href="validating-with-entityvalidator_en.html">18. Validating with @EntityValidator</a> |
       <a href="validation-alternatives_en.html">19. Validation alternatives</a> |
@@ -73,7 +73,7 @@
       to get your invoicing application working.</p>
     <p>By now I assume that you know how to create a new entity with IntelliJ and how to run the
       application, because you have already read
-      <a href="getting-started_en.html">Lesson1: Getting started</a>, right?</p>
+      <a href="getting-started_en.html">Lesson 1: Getting started</a>, right?</p>
 
     <h2 id="domain-model">Domain model</h2>
     <p>First, we'll create the entities for your <em>invoicing</em> application. The domain
@@ -83,9 +83,9 @@
       already have an initial version of <em>Customer</em> and <em>Product</em>.</p>
 
     <h2 id="reference-as-descriptions-list">Reference (ManyToOne) as descriptions list (combo)</h2>
-    <p>Let's start with the most simple case. We are going to create a <em>Category</em> entity
-      and associate it to the <em>Product</em>, displaying it as a combo.</p>
-    <p>The code for <em>Category</em> entity is:</p>
+    <p>Let's start with the simplest case. We are going to create a <em>Category</em> entity
+      and associate it with <em>Product</em>, displaying it as a combo.</p>
+    <p>The code for the <em>Category</em> entity is:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
  
 import jakarta.persistence.*;
@@ -113,12 +113,12 @@ public class Category {
     <p>It only has an identifier and a description property. In this case we use the
       Universally Unique Identifier (shown as 1) algorithm to generate the id. The advantage of
       this id generator is that you can migrate your application to another database (DB2,
-      MySQL, Oracle, Informix, etc) without touching your code. The other id generators of JPA
-      rely on the database to generate the id thereby making them not so portable as UUID.</p>
+      MySQL, Oracle, Informix, etc.) without touching your code. The other id generators of JPA
+      rely on the database to generate the id, making them less portable than UUID.</p>
     <p>Restart your application, execute the <em>Category</em> module and add some
       categories:</p>
     <p><img src="files/modeling_en035.png" alt="Category module with some categories"></p>
-    <p>Now, we'll associate <em>Product</em> with <em>Category</em>: Add the next
+    <p>Now, we'll associate <em>Product</em> with <em>Category</em>. Add the following
       <em>category</em> reference declaration in your <em>Product</em> entity:</p>
     <pre><code class="language-java">@ManyToOne( // The reference is persisted as a database relationship
     fetch=FetchType.LAZY, // The reference is loaded on demand
@@ -130,18 +130,18 @@ Category category; // A regular Java reference
       <summary>AI prompt</summary>
       <pre><code class="language-plaintext">Associate Product with Category displaying the category with a combo</code></pre>
     </details>
-    <p>This is a plain JPA many-to-one relationship, the one that you can learn more about in
+    <p>This is a plain JPA many-to-one relationship, which you can learn more about in
       <a href="jpa_en.html">appendix B</a>. In this case, thanks to the
       <em>@DescriptionsList</em> annotation it is displayed as a combo:</p>
     <p><img src="files/modeling_en020.png" alt="Product with category displayed as a combo"></p>
     <p>Now it's time to complete your <em>Product</em> entity.</p>
 
     <h2 id="annotations">Annotations</h2>
-    <p><em>Product</em> entity at least needs to have attributes such as price, etc. Also it
-      would be nice to have photos and a field for remarks. We are going to use annotations to
-      do that. Annotations are like tags for code, is a form to add metadata to our code, like
-      on variables, methods, classes, packages, etc.</p>
-    <p>The best way to understand what is an annotation, is to see it in action. Let's add
+    <p>The <em>Product</em> entity needs at least attributes such as price, etc. Also it would
+      be nice to have photos and a field for remarks. We are going to use annotations to do
+      that. Annotations are like tags for code; they are a way to add metadata to our code, such
+      as to variables, methods, classes, packages, etc.</p>
+    <p>The best way to understand annotations is to see them in action. Let's add
       <em>price</em>, <em>photos</em> and <em>remarks</em> properties to your
       <em>Product</em> entity:</p>
     <pre><code class="language-java">@Money // The price property is used to store money
@@ -163,19 +163,19 @@ String remarks;
       and you will see:</p>
     <p><img src="files/modeling_en040.png"
       alt="Annotated Product properties and their effect in the user interface"></p>
-    <p>In this case, we use some of the annotations that are included in OpenXava, you can see
+    <p>In this case, we use some of the annotations that are included in OpenXava. You can see
       that each one produces an effect in the user interface.</p>
     <p>Some of the annotations available are <i>@Password, @Money, @TextArea, @Label,
-      @DateTime, @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC , @StringTime, @HtmlText,
+      @DateTime, @Discussion, @Icon, @Telephone, @IP, @EmailList, @MAC, @StringTime, @HtmlText,
       @Coordinates, @Files</i>, <i>@File</i>, etc. For more information, you can see
       <a href="model_en.html#Model-Properties-Stereotype">here</a>, where annotations are
       explained in more detail.</p>
     <p>Now you have <em>Product</em> ready to use. Let's refine the <em>Customer</em> now.</p>
 
     <h2 id="embeddable">Embeddable</h2>
-    <p>We are going to add <em>Address</em> to our until now pretty naked <em>Customer</em>.
+    <p>We are going to add <em>Address</em> to our so far quite bare <em>Customer</em>.
       The customer address is not shared by other customers, and when the customer is removed
-      his address is removed too. Therefore we'll model the address concept as an embeddable
+      its address is removed too. Therefore we'll model the address concept as an embeddable
       class in this case. You can learn more about this in
       <a href="jpa_en.html#Appendix%20B:%20Java%20Persistence%20API-JPA%20Annotations-Embeddable%20classes">appendix B</a>.</p>
     <p>Add the <em>Address</em> class to your project:</p>
@@ -219,8 +219,8 @@ Address address; // A regular Java reference
       <pre><code class="language-plaintext">Use Address in Customer</code></pre>
     </details>
     <p>The <em>Address</em> data is stored in the same table as the <em>Customer</em> data. And
-      from a user interface perspective you have a frame around address. If you do not like the
-      frame you only have to annotate the reference with <em>@NoFrame</em> thus:</p>
+      from a user interface perspective you have a frame around the address. If you do not like
+      the frame you only have to annotate the reference with <em>@NoFrame</em>, as follows:</p>
     <pre><code class="language-java">@Embedded @NoFrame // With @NoFrame no frame is shown for address
 Address address;
 </code></pre>
@@ -233,10 +233,10 @@ Address address;
     <p><img src="files/modeling_en060.png" alt="Embedded address with and without @NoFrame"></p>
 
     <h2 id="summary">Summary</h2>
-    <p>In this lesson you have learned how to create references that are displayed with combos
-      with <i>@DescriptionsList</i>, how to use annotations and <i>@Embeddable</i>. Now that we
-      have the basic entities running, it's time to face the core entity of your application,
-      the <em>Invoice</em> entity. Let's do it step by step in the next lesson.</p>
+    <p>In this lesson you have learned how to create references that are displayed as combos
+      with <i>@DescriptionsList</i>, how to use annotations and how to use <i>@Embeddable</i>. Now
+      that we have the basic entities running, it's time to face the core entity of your
+      application, the <em>Invoice</em> entity. Let's do it step by step in the next lesson.</p>
     <p><strong><a href="https://github.com/openxava/openxava-course/tree/lesson-02"
       rel="nofollow">Source code of this lesson</a></strong></p>
     <p><strong>Any problem with this lesson?
