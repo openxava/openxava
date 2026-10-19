@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Quartz and Selenium upgraded in Project Management archetypes.
 - AGENTS.md of archetypes: use imports, annotations instead of stereotypes and lazy fetch in references.
 - Lesson 2 of the course includes AI prompts to create the code with an AI coding assistant.
 - Updated screenshots for lesson 2 of the OpenXava course.
