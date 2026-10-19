@@ -48,7 +48,7 @@ public class MyEntity {
 
 #[[###]]# Annotations Instead of Stereotypes
 
-`@Stereotype` is legacy. In new code **always use the equivalent annotation** (available since OpenXava 6.6). Reference: https://openxava.org/OpenXavaDoc/docs/model_es.html#Modelo-Propiedades-Estereotipo
+`@Stereotype` is legacy. In new code **always use the equivalent annotation** (available since OpenXava 6.6). Reference: https://openxava.org/OpenXavaDoc/docs/model_en.html#Model-Properties-Stereotype
 
 | Legacy stereotype | Use instead |
 |---|---|
