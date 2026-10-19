@@ -19,6 +19,10 @@ Al crear una entidad en este proyecto, sigue estas reglas:
 - Los campos **NO deben ser `private`**
 - Usa **acceso a nivel de paquete** (sin modificador de visibilidad)
 
+#[[###]]# Imports
+- **Usa siempre sentencias `import`** en lugar de nombres de clase completamente cualificados en el código
+- Por ejemplo, escribe `import java.math.*;` y luego `BigDecimal precio;`, nunca `java.math.BigDecimal precio;`
+
 #[[###]]# Ejemplo de Entidad Correcta
 
 ```java
@@ -42,6 +46,54 @@ public class MiEntidad {
 }
 ```
 
+#[[###]]# Anotaciones en Lugar de Estereotipos
+
+`@Stereotype` es legado. En código nuevo **usa siempre la anotación equivalente** (disponible desde OpenXava 6.6). Referencia: https://openxava.org/OpenXavaDoc/docs/model_es.html#Modelo-Propiedades-Estereotipo
+
+| Estereotipo legado | Usa en su lugar |
+|---|---|
+| `DINERO`, `MONEY` | `@Money` |
+| `MEMO`, `TEXTO_GRANDE`, `TEXT_AREA` | `@TextArea` |
+| `GALERIA_IMAGENES`, `IMAGES_GALLERY` | `@Files` + `@Column(length=32)` |
+| `FOTO`, `IMAGEN`, `PHOTO`, `IMAGE` | `@File` + `@Column(length=32)` |
+| `ARCHIVO`, `FILE` | `@File` + `@Column(length=32)` |
+| `ARCHIVOS`, `FILES` | `@Files` + `@Column(length=32)` |
+| `TEXTO_HTML`, `HTML_TEXT` | `@HtmlText` |
+| `TEXTO_HTML_SIMPLE`, `SIMPLE_HTML_TEXT` | `@HtmlText(simple=true)` |
+| `ETIQUETA`, `LABEL` | `@Label` |
+| `HORA`, `TIME` | `@StringTime` (o mejor, una propiedad `LocalTime`) |
+| `FECHAHORA`, `DATETIME` | `@DateTime` (o mejor, una propiedad `LocalDateTime`) |
+| `RELLENADO_CON_CEROS`, `ZEROS_FILLED` | `@ZerosFilled` |
+| `EMAIL` | `@Email` (de `jakarta.validation.constraints`) |
+| `LISTA_EMAIL`, `EMAIL_LIST` | `@EmailList` |
+| `TELEFONO`, `TELEPHONE` | `@Telephone` |
+| `WEBURL` | `@URL` (de `org.hibernate.validator.constraints`) |
+| `IP` | `@IP` |
+| `ISBN` | `@ISBN` (de `org.hibernate.validator.constraints`) |
+| `TARJETA_CREDITO`, `CREDIT_CARD` | `@CreditCardNumber` (de `org.hibernate.validator.constraints`) |
+| `CONTRASENA`, `PASSWORD` | `@Password` |
+| `MAC` | `@MAC` |
+| `ICONO`, `ICON` | `@Icon` |
+| `DISCUSION`, `DISCUSSION` | `@Discussion` + `@Column(length=32)` |
+| `COORDENADAS`, `COORDINATES` | `@Coordinates` |
+| `FIRMA_MANUSCRITA`, `HANDWRITTEN_SIGNATURE` | `@HandwrittenSignature` |
+
+Usa `@Stereotype` solo cuando no exista una anotación equivalente (p. ej. `ETIQUETA_NEGRITA`, `ETIQUETA_IMAGEN`).
+
+#[[###]]# Referencias (@ManyToOne / @OneToOne)
+
+Al añadir una referencia (asociación a una única entidad), **usa siempre carga perezosa** especificando `fetch=FetchType.LAZY` en `@ManyToOne` y `@OneToOne`.
+
+```java
+@ManyToOne(fetch=FetchType.LAZY)
+Categoria categoria;
+```
+
+```java
+@OneToOne(fetch=FetchType.LAZY)
+Direccion direccion;
+```
+
 #[[###]]# Maestro-Detalle (Colecciones)
 
 Al crear una estructura maestro-detalle, la colección de detalles en la entidad maestra **debe usar `@ElementCollection`** en lugar de `@OneToMany`. La clase de detalle debe estar anotada con `@Embeddable` en lugar de `@Entity`.
@@ -54,6 +106,7 @@ package ${package}.${artifactId}.modelo;
 import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
+import java.util.*;
 
 @Entity
 @Getter @Setter
@@ -79,6 +132,7 @@ package ${package}.${artifactId}.modelo;
 import jakarta.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
+import java.math.*;
 
 @Embeddable
 @Getter @Setter
@@ -90,7 +144,7 @@ public class DetalleFactura {
     int cantidad;
 
     @Money
-    java.math.BigDecimal precio;
+    BigDecimal precio;
 }
 ```
 
@@ -98,9 +152,13 @@ public class DetalleFactura {
 - ✅ `@Getter @Setter` de Lombok
 - ✅ Campos sin modificador (acceso de paquete)
 - ✅ Usa `@ElementCollection` + `@Embeddable` para colecciones maestro-detalle
+- ✅ Usa `fetch=FetchType.LAZY` en `@ManyToOne` y `@OneToOne`
+- ✅ Usa sentencias `import` en lugar de nombres de clase completamente cualificados
 - ❌ No uses `private` en los campos
 - ❌ No escribas getters/setters manualmente
 - ❌ No uses `@OneToMany` / `@Entity` para colecciones de detalles
+- ❌ No uses `@ManyToOne` / `@OneToOne` sin `fetch=FetchType.LAZY`
+- ❌ No uses `@Stereotype` cuando exista una anotación equivalente (`@Money`, `@TextArea`, `@Files`, `@File`, etc.)
 
 #[[##]]# Convenciones para Acciones
 
