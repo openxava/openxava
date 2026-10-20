@@ -234,6 +234,10 @@ Customer customer;
     <pre><code class="language-java">@ElementCollection
 Collection&lt;Detail&gt; details;
 </code></pre>
+    <p><em>Collection</em> está en el paquete <em>java.util</em>, así que has de añadir el
+      siguiente import al principio de <em>Invoice</em> (o simplemente pulsar <i>Alt+Enter</i>
+      sobre el nombre de la clase en IntelliJ):</p>
+    <pre><code class="language-java">import java.util.*;</code></pre>
     <p>Usando <em>@ElementCollection</em> cuando la factura se borra sus líneas se borran
       también. Los detalles no se guardan en la base de datos hasta que la factura se guarde y se
       guardan todos al mismo tiempo.</p>

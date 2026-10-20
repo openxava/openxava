@@ -230,6 +230,10 @@ Customer customer;
     <pre><code class="language-java">@ElementCollection
 Collection&lt;Detail&gt; details;
 </code></pre>
+    <p><em>Collection</em> is in the <em>java.util</em> package, so you need to add the
+      following import at the top of <em>Invoice</em> (or just press <i>Alt+Enter</i> on the
+      class name in IntelliJ):</p>
+    <pre><code class="language-java">import java.util.*;</code></pre>
     <p>Using <em>@ElementCollection</em>, when the invoice is removed its details are removed
       too. The details are not saved in the database until the invoice is saved and they are saved
       all at once.</p>
