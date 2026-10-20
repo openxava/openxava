@@ -280,19 +280,19 @@ Collection&lt;Detail&gt; details;
       <em>product.number</em> y <em>product.description</em> en este caso. El resultado visual
       es:</p>
     <p><img src="files/modeling_en100.png" alt="Colección de detalles usando @ListProperties"></p>
-    <p>Ahora deseamos cambiar la etiqueta de la propiedad <i>product.number</i> por otra que sea
-      más corta: <i>Nº de Producto</i>. Para lograr esto, debemos ir al archivo
-      <i>invoicing-labels_es.properties</i> que se encuentra en la carpeta
-      <i>invoicing/src/main/resources/i18n</i> y añadir la siguiente línea para sobrescribir la
-      etiqueta por defecto que nos trae OpenXava:</p>
-    <pre><code class="language-java">product.number = Nº de Producto</code></pre>
-    <p><img src="files/modeling_en105.png" alt="Colección de detalles con la etiqueta Nº de
-      Producto"></p>
-    <p>Esta nueva etiqueta de <i>product.number</i> se cambiará en todos los módulos en que se use,
-      en caso de que quisiéramos aplicarlo solamente en colección details de la entidad Invoice,
-      deberíamos usar la siguiente etiqueta:</p>
-    <pre><code class="language-java">//Para esta aplicación usaremos la etiqueta anterior y no la siguiente
-Invoice.details.product.number = Nº de Producto</code></pre>
+    <p>Fíjate en que OpenXava genera automáticamente etiquetas adecuadas para las propiedades
+      calificadas, como <i>Product number</i> para <i>product.number</i>. Sin embargo, en las
+      aplicaciones de facturación esta columna se suele llamar <i>Code</i>, así que vamos a
+      cambiarla. Para lograr esto, debemos ir al archivo <i>invoicing-labels_en.properties</i>
+      que se encuentra en la carpeta <i>invoicing/src/main/resources/i18n</i> y añadir la
+      siguiente línea para sobrescribir la etiqueta por defecto que nos trae OpenXava:</p>
+    <pre><code class="language-properties">product.number = Code</code></pre>
+    <p><img src="files/modeling_en105.png" alt="Colección de detalles con la etiqueta Code"></p>
+    <p>Esta nueva etiqueta de <i>product.number</i> se cambiará en todos los módulos en que se use.
+      En caso de que quisiéramos aplicarla solamente en la colección <i>details</i> de la entidad
+      <i>Invoice</i>, deberíamos usar la siguiente etiqueta:</p>
+    <pre><code class="language-properties"># Para esta aplicación usaremos la etiqueta anterior y no la siguiente
+Invoice.details.product.number = Code</code></pre>
     <p>De esta manera, podemos personalizar las etiquetas que trae OpenXava o crear nuestras
       propias etiquetas.</p>
 

@@ -276,19 +276,19 @@ Collection&lt;Detail&gt; details;
       references, such as <em>product.number</em> and <em>product.description</em> in this case.
       The visual result is:</p>
     <p><img src="files/modeling_en100.png" alt="Collection of details using @ListProperties"></p>
-    <p>Now we realize that we don't like the <i>product.number</i> property's label, so we want
-      to change it to <i>Product Number</i>. To achieve this, we must go to the file
-      <i>invoicing-labels_en.properties</i> that is located in the folder
+    <p>Note that OpenXava automatically generates suitable labels for qualified properties, such
+      as <i>Product number</i> for <i>product.number</i>. However, in invoicing applications this
+      column is usually called <i>Code</i>, so let's change it. To achieve this, we must go to the
+      file <i>invoicing-labels_en.properties</i> that is located in the folder
       <i>invoicing/src/main/resources/i18n</i> and add the following line to overwrite the
       default label that OpenXava provides:</p>
-    <pre><code class="language-java">product.number = Product Number</code></pre>
-    <p><img src="files/modeling_en105.png" alt="Collection of details with the Product Number
-      label"></p>
+    <pre><code class="language-properties">product.number = Code</code></pre>
+    <p><img src="files/modeling_en105.png" alt="Collection of details with the Code label"></p>
     <p>This new label for <i>product.number</i> will change in all modules where it is used. In
       case we want to use it only in the <i>details</i> collection of the <i>Invoice</i> entity,
       we should use the following label:</p>
-    <pre><code class="language-java">//For this application we will use the previous label and not the following one
-Invoice.details.product.number= Product Number</code></pre>
+    <pre><code class="language-properties"># For this application we will use the previous label and not the following one
+Invoice.details.product.number = Code</code></pre>
     <p>In this way, we can customize the labels that OpenXava provides or create our own
       labels.</p>
 
