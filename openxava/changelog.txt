@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Discussion comment user name length limit increased from 30 to 60.
 - Lesson 3 of the course updated to reflect automatic labels for qualified properties.
 - Quartz and Selenium upgraded in Project Management archetypes.
 - AGENTS.md of archetypes: use imports, annotations instead of stereotypes and lazy fetch in references.
