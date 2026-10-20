@@ -288,6 +288,10 @@ Collection&lt;Detail&gt; details;
       siguiente línea para sobrescribir la etiqueta por defecto que nos trae OpenXava:</p>
     <pre><code class="language-properties">product.number = Code</code></pre>
     <p><img src="files/modeling_en105.png" alt="Colección de detalles con la etiqueta Code"></p>
+    <p>Si tienes el navegador en español, este cambio no tendrá efecto y seguirás viendo
+      <i>Número de producto</i>, porque OpenXava usa las etiquetas del idioma del navegador. En
+      ese caso, crea el archivo <i>invoicing-labels_es.properties</i> en la misma carpeta y añade
+      ahí la etiqueta, por ejemplo <i>product.number = Código</i>.</p>
     <p>Esta nueva etiqueta de <i>product.number</i> se cambiará en todos los módulos en que se use.
       En caso de que quisiéramos aplicarla solamente en la colección <i>details</i> de la entidad
       <i>Invoice</i>, deberíamos usar la siguiente etiqueta:</p>
