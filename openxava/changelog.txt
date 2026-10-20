@@ -1,12 +1,13 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 3 of the course updated to reflect automatic labels for qualified properties.
 - Quartz and Selenium upgraded in Project Management archetypes.
 - AGENTS.md of archetypes: use imports, annotations instead of stereotypes and lazy fetch in references.
 - Lesson 2 of the course includes AI prompts to create the code with an AI coding assistant.
-- Updated screenshots for lesson 2 of the OpenXava course.
-- Code snippets in lesson 2 of the course optimized for copy and paste.
-- Source code of lesson 2 of the course available on GitHub.
+- Updated screenshots for lessons 2 and 3 of the OpenXava course.
+- Code snippets in lessons 2 and 3 of the course optimized for copy and paste.
+- Source code of lessons 2 and 3 of the course available on GitHub.
 - Fix: Spanish version of lesson 2 of the course refers to OpenXava Studio instead of IntelliJ.
 - Getting started guide includes AI prompts to create the code with an AI coding assistant.
 - AI chat uses gpt-6-luna as default model instead of gpt-5-mini.

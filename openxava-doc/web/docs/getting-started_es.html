@@ -20,7 +20,8 @@
       / <a href="index_es.html">documentación</a> / </span> 
       Primeros pasos con OpenXava 
     </h1>
-    <p>Sigue las instrucciones a continuación para crear y ejecutar tu primer proyecto OpenXava usando IntelliJ IDEA:</p>
+    <p>Sigue las instrucciones a continuación para crear y ejecutar tu primer proyecto OpenXava
+      usando IntelliJ IDEA:</p>
 
     <h2 id="toc2">
       <a name="Nuestro-objetivo-Una-pequena-aplicacion-de-facturacion"></a>
@@ -30,43 +31,53 @@
     <p><img src="files/getting-started020.png" alt="Menú de IntelliJ File > New > Project"></p>
     <p>Una vez en el diálogo escoge la opción <i>Maven Archetypes</i> dentro de la sección
         <i>Generators</i>:</p>
-    <p><img src="files/getting-started022.png" alt="Diálogo New Project con opción Maven Archetypes"></p>
-    <p>Después teclea el nombre del proyecto, <em>invoicing</em> en el campo <i>Name</i>:
+    <p><img src="files/getting-started022.png"
+      alt="Diálogo New Project con opción Maven Archetypes"></p>
+    <p>Después teclea el nombre del proyecto, <em>invoicing</em>, en el campo <i>Name</i>:
         </p>
     <p><img src="files/getting-started_en024.png" alt="Campo Name con invoicing"></p>
     <p>Ahora es el momento de escoger el arquetipo. Para ello en el campo <i>Catalog</i> selecciona
         <i>Maven Central</i> y en el campo <i>Archetype</i> teclea <i>openxava</i> para que te
         muestre todos los arquetipos de OpenXava. Ahí escoge <i>openxava-archetype</i>.
         </p>
-    <p>Como versión escoge la última versión de OpenXava disponible, que actualmente es la <b>8.0</b>.</p>
-    <p><img src="files/getting-started_en026.png" alt="Seleccionando openxava-archetype de Maven Central"></p>
-    <p>Para finalizar, ve a la parte de abajo del diálogo y abre la sección <i>Advanced Settings</i>
-    y en el campo <i>GroupId</i> pon <i>com.yourcompany</i> que es el valor que vamos a usar en este
-    curso:</p>
-    <p><img src="files/getting-started_en028.png" alt="Advanced Settings con GroupId com.yourcompany"></p>
+    <p>Como versión, escoge la última versión de OpenXava disponible, que actualmente es la
+      <b>8.0</b>.</p>
+    <p><img src="files/getting-started_en026.png"
+      alt="Seleccionando openxava-archetype de Maven Central"></p>
+    <p>Para finalizar, ve a la parte de abajo del diálogo y abre la sección
+    <i>Advanced Settings</i> y en el campo <i>GroupId</i> pon <i>com.yourcompany</i>, que es el
+    valor que vamos a usar en este curso:</p>
+    <p><img src="files/getting-started_en028.png"
+      alt="Advanced Settings con GroupId com.yourcompany"></p>
     <p>Si todo ha ido bien el diálogo debería haber quedado más o menos así:</p>
-    <p><img src="files/getting-started_en030.png" alt="Diálogo New Project completo listo para crear"></p>
+    <p><img src="files/getting-started_en030.png"
+      alt="Diálogo New Project completo listo para crear"></p>
     <p>Pulsa el botón <i>Create</i> para crear el proyecto.</p>
     <p>Ahora tu proyecto ya está listo para empezar a escribir código:</p>
-    <p><img src="files/getting-started_en040.png" alt="Estructura del proyecto lista para escribir código"></p>
+    <p><img src="files/getting-started_en040.png"
+      alt="Estructura del proyecto lista para escribir código"></p>
 
     <h2 id="borrar-la-entidad-de-muestra">Borrar la entidad de muestra</h2>
     <p>Desarrollar es muy fácil: solo has de añadir entidades para ir haciendo crecer tu
         aplicación. Las entidades se añaden en el paquete <i>model</i>. Abre la carpeta
-        <i>src/main/java</i>, allí abre el paquete <em>com.yourcompany.invoicing.model</em>.
-        Verás que contiene una entidad de muestra. Bórrala (o pídele a tu asistente IA que la borre):</p>
-    <p><img src="files/getting-started_en050.png" alt="Entidad de muestra en el paquete modelo para borrar"></p>
+        <i>src/main/java</i> y dentro el paquete <em>com.yourcompany.invoicing.model</em>.
+        Verás que contiene una entidad de muestra. Bórrala (o pídele a tu asistente IA que la
+        borre):</p>
+    <p><img src="files/getting-started_en050.png"
+      alt="Entidad de muestra en el paquete modelo para borrar"></p>
 
     <h2 id="crear-tu-primera-entidad">Crear tu primera entidad</h2>
     <p>Si usas un asistente IA, mira la siguiente sección.</p>
-    <p>Ahora ya podemos añadir nuestras propias entidades. Empezaremos con una versión simplificada de
-        <em>Customer</em> con solo <em>number</em> y <i>name</i>.</p>
+    <p>Ahora ya podemos añadir nuestras propias entidades. Empezaremos con una versión
+        simplificada de <em>Customer</em> con solo <em>number</em> y <i>name</i>.</p>
     <p>En la carpeta <i>src/main/java</i> selecciona el paquete
-      <em>com.yourcompany.invoicing.model</em> y con el botón derecho del ratón escoge <em>New > Java Class</em>:</p>
+      <em>com.yourcompany.invoicing.model</em> y con el botón derecho del ratón escoge
+      <em>New > Java Class</em>:</p>
     <p><img src="files/getting-started_en125.png" alt="Menú contextual New > Java Class"></p>
     <p>Después teclea <em>Customer</em> como nombre de clase y pulsa ENTER:</p>
-    <p><img src="files/getting-started_en130.png" alt="Diálogo New Java Class con nombre Customer"></p>
-    <p>Fíjate que la <em>C</em> de <em>Customer</em> está en mayúscula, esto es muy importante, 
+    <p><img src="files/getting-started_en130.png"
+      alt="Diálogo New Java Class con nombre Customer"></p>
+    <p>Fíjate que la <em>C</em> de <em>Customer</em> está en mayúscula. Esto es muy importante:
       en Java todas las clases empiezan con mayúscula.</p>
     <p>El código inicial que IntelliJ proporciona para <em>Customer</em> es muy simple:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -116,38 +127,44 @@ public class Customer {
     <h2 id="ejecutar-la-aplicacion">Ejecutar la aplicación</h2>
     <p>Abre el paquete <em>com.yourcompany.invoicing</em> y con el botón derecho sobre
         la clase <i>InvoicingApplication</i> escoge <i>Run 'InvoicingApplication.main()'</i>:</p>
-    <p><img src="files/getting-started_en150.png" alt="Opción Run InvoicingApplication.main() en menú contextual"></p>
+    <p><img src="files/getting-started_en150.png"
+      alt="Opción Run InvoicingApplication.main() en menú contextual"></p>
     <p>Espera hasta que la consola muestre un mensaje diciendo "Started InvoicingApplication", 
       como este:</p>
-    <p><img src="files/getting-started_en155.png" alt="Consola mostrando mensaje Started InvoicingApplication"></p>
+    <p><img src="files/getting-started_en155.png"
+      alt="Consola mostrando mensaje Started InvoicingApplication"></p>
     <p>Ya tienes tu aplicación ejecutándose. Para verla, abre tu navegador favorito 
       (Chrome, Firefox, Edge o Safari) y ve a la siguiente URL:</p>
     <p><code><i>&nbsp;&nbsp;&nbsp; 
       <a href="http://localhost:8080/invoicing" target="_blank">
         http://localhost:8080/invoicing</a></i></code></p>
-    <p>Estás viendo tu aplicación por primera vez. Para empezar pulsa en el botón 
+    <p>Estás viendo tu aplicación por primera vez. Para empezar, pulsa en el botón 
       <i>Sign in</i>:</p>
-    <p><img src="files/getting-started_en160.png" alt="Página de inicio de la aplicación con botón Sign in"></p>
+    <p><img src="files/getting-started_en160.png"
+      alt="Página de inicio de la aplicación con botón Sign in"></p>
     <p>Ahora, introduce admin/admin y pulsa en <i>Sign in</i>:</p>
     <p><img src="files/getting-started_en165.png" alt="Página de identificación"></p>
-    <p>Después, en la parte de la izquierda se mostrará una lista de módulos, 
-      escoge <em>Customers</em>:</p>
-    <p><img src="files/getting-started_en170.png" alt="Lista de módulos mostrando opción Customers"></p>
-    <p>Usa el módulo <em>Customers</em> para crear nuevos clientes, simplemente introduce 
+    <p>Después, en la parte izquierda se mostrará una lista de módulos.
+      Escoge <em>Customers</em>:</p>
+    <p><img src="files/getting-started_en170.png"
+      alt="Lista de módulos mostrando opción Customers"></p>
+    <p>Usa el módulo <em>Customers</em> para crear nuevos clientes: simplemente introduce 
       el número y el nombre y pulsa <em>Save</em>.</p>
-    <p><img src="files/getting-started_en190.png" alt="Módulo Customers con formulario de entrada de datos"></p>
+    <p><img src="files/getting-started_en190.png"
+      alt="Módulo Customers con formulario de entrada de datos"></p>
     <p>Pulsa en <em>List</em> para ver los clientes que has creado. Enhorabuena, tienes 
       tu primera aplicación OpenXava funcionando.</p>
 
     <h2 id="modificar-la-aplicacion">Modificar la aplicación</h2>
-    <p>A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente, escribes una 
+    <p>A partir de ahora, desarrollar con OpenXava es muy fácil. Simplemente escribes una 
       clase y ya puedes ver el resultado en el navegador. Creemos una entidad para 
       <i>Product</i>.</p>
     <p>Selecciona el paquete <em>com.yourcompany.invoicing.model</em> y con el botón derecho
-        del ratón escoge <i>New > Java Class:</i></p>
+        del ratón escoge <i>New > Java Class</i>:</p>
     <p><img src="files/getting-started_en125.png" alt="Menú contextual New > Java Class"></p>
     <p>Después teclea <em>Product</em> como nombre de clase y pulsa ENTER:</p>
-    <p><img src="files/getting-started_en193.png" alt="Diálogo New Java Class con nombre Product"></p>
+    <p><img src="files/getting-started_en193.png"
+      alt="Diálogo New Java Class con nombre Product"></p>
     <p>Escribe el siguiente código para <em>Product</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -170,20 +187,22 @@ public class Product {
       <summary>Prompt para IA</summary>
       <pre><code class="language-plaintext">Crea una entidad Product con number y description</code></pre>
     </details>
-    <p>Ahora, pulsa el botón <i>Rerun</i>, que es el botón verde que hay en la parte arriba
+    <p>Ahora, pulsa el botón <i>Rerun</i>, que es el botón verde que hay en la parte de arriba
         del IDE. Esto parará la aplicación y la volverá a iniciar:</p>
-    <p><img src="files/getting-started_en195.png" alt="Botón Rerun en la barra de herramientas de IntelliJ"></p>
-    <p>Para ver tu nueva entidad en acción abre tu navegador y ve a la URL:</p>
+    <p><img src="files/getting-started_en195.png"
+      alt="Botón Rerun en la barra de herramientas de IntelliJ"></p>
+    <p>Para ver tu nueva entidad en acción, abre tu navegador y ve a la URL:</p>
     <p><code><i>&nbsp;&nbsp;&nbsp; 
       <a href="http://localhost:8080/invoicing/modules/Product" target="_blank">
         http://localhost:8080/invoicing/modules/Product</a></i></code></p>
     <p>Después de identificarte con admin/admin obtendrás:</p>
-    <p><img src="files/getting-started_en200.png" alt="Módulo Product ejecutándose en el navegador"></p>
+    <p><img src="files/getting-started_en200.png"
+      alt="Módulo Product ejecutándose en el navegador"></p>
     <p>Sí, ya tienes un nuevo módulo en marcha, y solo has tenido que escribir una simple 
       clase. Ahora puedes concentrarte en hacer crecer tu aplicación.</p>
 
     <h2 id="toc1">¿Has tenido problemas?</h2>
-    <p>¡Enhorabuena! Has creado tu primera aplicación OpenXava. Si no ha sido así y has 
+    <p>¡Enhorabuena! Has creado tu primera aplicación OpenXava. Si no ha sido así, o has 
       tenido algún problema con el ejemplo de arriba, pregunta en el foro:</p>
     <p>&nbsp;&nbsp;&nbsp; <strong><a class="wiki_link_ext" 
       href="http://sourceforge.net/p/openxava/discussion/437013/" rel="nofollow">
@@ -285,12 +304,13 @@ public class Product {
         <li><a class="wiki_link" href="testing_es.html">Apéndice D: Pruebas automáticas</a></li>
       </ul>
     </ul>
-    <p>¿Quieres usar otro IDE? ¿Quieres ir contra MySQL,
+    <p>¿Quieres usar otro IDE? ¿Quieres usar MySQL,
       PostgreSQL, Oracle, Microsoft SQL Server, AS/400, Informix, Db2 o Firebird? ¿Quieres 
       una guía de referencia detallada? Echa un vistazo a 
       <a href="index_es.html">la documentación de OpenXava</a>, que incluye todo esto y 
       mucho más.</p>
     <p><strong>¿Preparado?</strong> 
-      <strong><a class="wiki_link" href="basic-domain-model1_es.html">Ve a la lección 2</a></strong></p>
+      <strong><a class="wiki_link" href="basic-domain-model1_es.html">Ve a la lección
+      2</a></strong></p>
   </body>
 </html>
