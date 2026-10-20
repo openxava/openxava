@@ -188,7 +188,9 @@ int number;
       <i>New</i> el siguiente número de factura disponible para este año estará en el campo. La
       forma de calcular el número de factura no es la mejor para muchos usuarios concurrentes
       añadiendo facturas. No te preocupes, lo mejoraremos más adelante.</p>
-    <p>El efecto visual del calculador para valor por defecto es este:</p>
+    <p>El efecto visual del calculador para valor por defecto es este. Cuando el usuario pulse
+      en <i>New</i> los campos <i>year</i>, <i>number</i> y <i>date</i> se llenarán con los
+      valores por defecto:</p>
     <p><img src="files/modeling_en070.png" alt="Factura con valores por defecto para año, número y
       fecha"></p>
     <p>Los valores por defecto son solo los valores iniciales, el usuario los puede cambiar si así
@@ -209,7 +211,15 @@ int number;
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
 Customer customer;
 </code></pre>
-    <p>No hace falta más. El módulo <em>Invoice</em> es así:</p>
+    <p>No hace falta más. El módulo <em>Invoice</em> ahora incluye un <em>Customer</em>, con
+      una interfaz de usuario que permite:</p>
+    <ol>
+      <li>Seleccionar un cliente existente mediante un diálogo de búsqueda.</li>
+      <li>Crear un nuevo cliente.</li>
+      <li>Modificar el cliente actual de la factura.</li>
+      <li>Quitar el cliente, dejando la factura sin cliente.</li>
+      <li>Obtener el cliente tecleando su número.</li>
+    </ol>
     <p><img src="files/modeling_en080.png" alt="Factura con una referencia a cliente"></p>
     <p>No hay más trabajo que hacer aquí. Añadamos una colección de líneas de detalle a
       <em>Invoice</em>.</p>

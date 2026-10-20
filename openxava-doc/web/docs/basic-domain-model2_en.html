@@ -186,7 +186,9 @@ int number;
       available for the year is shown in the field. The way of calculating the invoice number is
       not the best for many concurrent users adding invoices. Don't worry, we'll improve this
       issue later on.</p>
-    <p>This is the visual effect of the default value calculators:</p>
+    <p>This is the visual effect of the default value calculators. When the user clicks on
+      <i>New</i> the fields <i>year</i>, <i>number</i> and <i>date</i> are filled with the
+      default values:</p>
     <p><img src="files/modeling_en070.png" alt="Invoice with default values for year, number and
       date"></p>
     <p>Default values are only the initial values. The user can change them if they wish.</p>
@@ -205,7 +207,15 @@ int number;
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
 Customer customer;
 </code></pre>
-    <p>Nothing more is required. The <em>Invoice</em> module is now like this one:</p>
+    <p>Nothing more is required. The <em>Invoice</em> module now includes a <em>Customer</em>,
+      with a user interface that allows you to:</p>
+    <ol>
+      <li>Select an existing customer using a search dialog.</li>
+      <li>Create a new customer.</li>
+      <li>Modify the current customer of the invoice.</li>
+      <li>Remove the customer, leaving the invoice without a customer.</li>
+      <li>Get the customer by typing its number.</li>
+    </ol>
     <p><img src="files/modeling_en080.png" alt="Invoice with a reference to Customer"></p>
     <p>There is no more work left here now. Let's add the collection of details to your
       <em>Invoice</em>.</p>
