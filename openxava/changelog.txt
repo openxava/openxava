@@ -1,6 +1,19 @@
 Change Log for OpenXava project
 ===============================
 
+- Spring Boot Maven plugin upgraded to 4.1.1 in archetypes.
+- Driver version in doc and new projects upgraded for all databases.
+- Fixed 1 security vulnerability in dependencies; now there are 0 vulnerabilities.
+- Spring Boot upgraded to 4.1.1.
+- Spring Framework upgraded to 7.0.9.
+- Hibernate upgraded to 7.4.5.
+- Hibernate Validator upgraded to 9.1.3.
+- Tomcat upgraded to 11.0.24.
+- Jackson upgraded to 3.1.5.
+- Log4j upgraded to 2.25.5.
+- JasperReports upgraded to 7.0.8.
+- JSoup upgraded to 1.23.2.
+- Lombok upgraded to 1.18.48.
 - Discussion comment user name length limit increased from 30 to 60.
 - Lesson 3 of the course updated to reflect automatic labels for qualified properties.
 - Quartz and Selenium upgraded in Project Management archetypes.
