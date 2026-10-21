@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fixed 1 security vulnerability in dependencies; now there are 0 vulnerabilities.
 - Spring Boot upgraded to 4.1.1.
 - JasperReports upgraded to 7.0.8.
 - JSoup upgraded to 1.23.2.
