@@ -147,7 +147,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>7.0.7</version>
+			<version>7.0.8</version>
 		</dependency>
 		<!--
 			Jackson 3.1.4 (used by Spring Boot 4.1) requires jackson-annotations 2.21
