@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Spring Boot Maven plugin upgraded to 4.1.1 in archetypes.
+- Driver version in doc and new projects upgraded for all databases.
 - Fixed 1 security vulnerability in dependencies; now there are 0 vulnerabilities.
 - Spring Boot upgraded to 4.1.1.
 - Spring Framework upgraded to 7.0.9.
