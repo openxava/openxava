@@ -33,7 +33,7 @@
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<spring-boot.version>4.1.0</spring-boot.version>
+		<spring-boot.version>4.1.1</spring-boot.version>
 	</properties>
 
 	<dependencyManagement>
@@ -161,27 +161,27 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-fonts</artifactId>
-			<version>7.0.7</version>
+			<version>7.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-pdf</artifactId>
-			<version>7.0.7</version>
+			<version>7.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-excel-poi</artifactId>
-			<version>7.0.7</version>
+			<version>7.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-jdt</artifactId>
-			<version>7.0.7</version>
+			<version>7.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
-			<version>1.23.1</version>
+			<version>1.23.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.htmlunit</groupId>
@@ -206,7 +206,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.46</version>
+			<version>1.18.48</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>

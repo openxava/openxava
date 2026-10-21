@@ -1,6 +1,11 @@
 Change Log for OpenXava project
 ===============================
 
+- Spring Boot upgraded to 4.1.1.
+- JasperReports upgraded to 7.0.8.
+- JSoup upgraded to 1.23.2.
+- Lombok upgraded to 1.18.48.
+
 - Discussion comment user name length limit increased from 30 to 60.
 - Lesson 3 of the course updated to reflect automatic labels for qualified properties.
 - Quartz and Selenium upgraded in Project Management archetypes.
