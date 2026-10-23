@@ -1,9 +1,16 @@
 Change Log for OpenXava project
 ===============================
 
-- Spring Boot Maven plugin upgraded to 4.1.1 in archetypes.
-- Driver version in doc and new projects upgraded for all databases.
-- Fixed 1 security vulnerability in dependencies; now there are 0 vulnerabilities.
+Mejoras
+- AI chat uses gpt-6-luna as default model instead of gpt-5-mini.
+- Improved AI chat response time.
+- AGENTS.md of archetypes: use imports, annotations instead of stereotypes and lazy fetch in references.
+- Default value of chatPriorityServiceTier in xava.properties is now false.
+- Modified invoicedemo and master-detail archetypes to include a boolean property.
+- Automated test for dashboard added to master-detail archetypes.
+- Discussion comment user name length limit increased from 30 to 60.
+
+Librerías
 - Spring Boot upgraded to 4.1.1.
 - Spring Framework upgraded to 7.0.9.
 - Hibernate upgraded to 7.4.5.
@@ -14,28 +21,30 @@ Change Log for OpenXava project
 - JasperReports upgraded to 7.0.8.
 - JSoup upgraded to 1.23.2.
 - Lombok upgraded to 1.18.48.
-- Discussion comment user name length limit increased from 30 to 60.
-- Lesson 3 of the course updated to reflect automatic labels for qualified properties.
+- Spring Boot Maven plugin upgraded to 4.1.1 in archetypes.
 - Quartz and Selenium upgraded in Project Management archetypes.
-- AGENTS.md of archetypes: use imports, annotations instead of stereotypes and lazy fetch in references.
+- Driver version in doc and new projects upgraded for all databases.
+
+Documentación
+- AI chat documentation warns that OpenAI will shut off gpt-5-mini on December 10, 2026.
+- Getting started guide includes AI prompts to create the code with an AI coding assistant.
 - Lesson 2 of the course includes AI prompts to create the code with an AI coding assistant.
 - Updated screenshots for lessons 2 and 3 of the OpenXava course.
-- Code snippets in lessons 2 and 3 of the course optimized for copy and paste.
 - Source code of lessons 2 and 3 of the course available on GitHub.
-- Fix: Spanish version of lesson 2 of the course refers to OpenXava Studio instead of IntelliJ.
-- Getting started guide includes AI prompts to create the code with an AI coding assistant.
-- AI chat uses gpt-6-luna as default model instead of gpt-5-mini.
-- AI chat documentation warns that OpenAI will shut off gpt-5-mini on December 10, 2026.
-- Default value of chatPriorityServiceTier in xava.properties is now false.
-- Improved AI chat response time.
+- Code snippets in lessons 2 and 3 of the course optimized for copy and paste.
+- Lesson 3 of the course updated to reflect automatic labels for qualified properties.
+- Added more Hibernate 7 cases to migration to v8.0 documentation.
+
+Arreglos
+- Fixed 1 security vulnerability in dependencies; now there are 0 vulnerabilities.
+- Fix: AI chat fails with models that don't support function tools in Chat Completions, like gpt-6-luna.
+- Fix: AI chat cannot modify data or show record details with some models, like gpt-6-luna.
 - Fix: AI chat shows data in the chat instead of filtering the list with some models, like gpt-6-luna.
 - Fix: AI chat filters the list using the comparator of the previous filter if none is specified.
 - Fix: AI chat does not filter by descriptions list columns with some models, like gpt-6-luna.
 - Fix: AI chat says there are no records when the query fails, instead of reporting the error.
 - Fix: AI chat sometimes finds no records when asking for data by date with some models, like gpt-6-luna.
 - Fix: AI chat cannot filter the list with some models, like gpt-6-luna.
-- Fix: AI chat fails with models that don't support function tools in Chat Completions, like gpt-6-luna.
-- Fix: AI chat cannot modify data or show record details with some models, like gpt-6-luna.
 - Fix: Calendar icons of LocalTime and Timestamp properties are stuck to the right border of the editor.
 - Fix: Property actions not vertically centered next to tall editors, like files or images.
 - Fix: Dialogs with long text fields can be wider than the browser window, hiding the action buttons.
@@ -47,13 +56,12 @@ Change Log for OpenXava project
 - Fix: Double thick frame appears around the AI chat input when it gets focus.
 - Fix: Row icons are shown in both rows when moving the mouse over another row while editing a cell.
 - Fix: The pencil icon of editable cells is not hidden when the cell is reached using the keyboard.
+- Fix: Spanish version of lesson 2 of the course refers to OpenXava Studio instead of IntelliJ.
+- Fix: Dashboard module in invoicedemo is broken.
+- Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
 - Fix: Sometimes "Module X is not defined" on startup with many modules, though the module is defined.
 - Fix: Sometimes ConcurrentModificationException or missing editor JS/CSS files on first concurrent request.
-- Fix: HTTP 404 error with Flatpickr (calendar editor) when using English.
-- Modified invoicedemo and master-detail archetypes to include a boolean property.
-- Fix: Dashboard module in invoicedemo is broken.
-- Automated test for dashboard added to master-detail archetypes.
-- Added more Hibernate 7 cases to migration to v8.0 documentation.
+
 
 OpenXava 8.0 (2026-9-25)
 ------------------------
