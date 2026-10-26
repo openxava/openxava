@@ -15,4 +15,4 @@ public void myNewMethod() {
 }
 ```
 
-The current version is **8.0.1**.
+The current version is **8.0.2**.
