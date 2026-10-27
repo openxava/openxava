@@ -219,6 +219,10 @@ int number;
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
 Customer customer;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade una referencia a Customer en Invoice</code></pre>
+    </details>
     <p>No hace falta más. El módulo <em>Invoice</em> ahora incluye un <em>Customer</em>, con
       una interfaz de usuario que permite:</p>
     <ol>
