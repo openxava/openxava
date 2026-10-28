@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved archetype AGENTS.md with compilation checks and entity modeling guidelines.
 - Lesson 3 of the course includes AI prompts to create the code with an AI coding assistant.
 
 OpenXava 8.0.1 (2026-10-23)
