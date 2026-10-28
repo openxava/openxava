@@ -116,6 +116,10 @@ public class Invoice {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Invoice con oid, year, number, date y remarks. Haz que las propiedades en las que sea razonable tengan un valor por defecto</code></pre>
+    </details>
     <p>Así cuando el usuario pulse en el botón <i>New</i> el campo para año será el año actual,
       y el campo para la fecha la fecha actual. Estos dos calculadores
       (<em>CurrentYearCalculator</em> y <em>CurrentLocalDateCalculator</em>) están incluidos en
@@ -178,6 +182,10 @@ public class NextNumberForYearCalculator implements ICalculator { // Un calculad
 )
 int number;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea un calculador personalizado para el valor por defecto de number de Invoice. El número tiene que ser uno más que el último, pero ha de reiniciarse todos los años</code></pre>
+    </details>
     <p><em>NextNumberForYearCalculator</em> está en un paquete distinto al de <em>Invoice</em>,
       así que has de añadir el siguiente import al principio de <em>Invoice</em> (o simplemente
       pulsar <i>Alt+Enter</i> sobre el nombre de la clase en IntelliJ):</p>
@@ -211,6 +219,10 @@ int number;
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // El cliente es obligatorio
 Customer customer;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade una referencia a Customer en Invoice</code></pre>
+    </details>
     <p>No hace falta más. El módulo <em>Invoice</em> ahora incluye un <em>Customer</em>, con
       una interfaz de usuario que permite:</p>
     <ol>
@@ -257,6 +269,10 @@ public class Detail {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade líneas de detalle a Invoice. Detail debería tener quantity y product</code></pre>
+    </details>
     <p>Fíjate que está anotada con <em>@Embeddable</em> no con <em>@Entity</em>, no puedes
       definir una <em>@ElementCollection</em> de entidades. Esta clase incrustable puede contener
       propiedades y referencias, pero no colecciones.</p>
@@ -274,6 +290,10 @@ public class Detail {
 @ListProperties("product.number, product.description, quantity")
 Collection&lt;Detail&gt; details;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Modifica details en Invoice para que se muestre el número de producto, la descripción del producto y la cantidad</code></pre>
+    </details>
     <p>Como puedes ver, solo has de poner como valor para <em>@ListProperties</em> la lista de las
       propiedades que quieres separadas por comas. Puedes usar propiedades calificadas, es decir,
       usar la notación del punto para acceder a las propiedades de referencias, tal como
@@ -297,6 +317,10 @@ Collection&lt;Detail&gt; details;
       <i>Invoice</i>, deberíamos usar la siguiente etiqueta:</p>
     <pre><code class="language-properties"># Para esta aplicación usaremos la etiqueta anterior y no la siguiente
 Invoice.details.product.number = Code</code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">En los detalles de Invoice quiero que para la columna de número de producto la etiqueta sea Code</code></pre>
+    </details>
     <p>De esta manera, podemos personalizar las etiquetas que trae OpenXava o crear nuestras
       propias etiquetas.</p>
 

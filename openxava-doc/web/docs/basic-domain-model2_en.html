@@ -114,6 +114,10 @@ public class Invoice {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create an Invoice entity with oid, year, number, date and remarks. Give the properties where it is reasonable a default value</code></pre>
+    </details>
     <p>Thus when the user clicks on the <i>New</i> button the year field will have the current
       year, and the date field the current date. These two calculators
       (<em>CurrentYearCalculator</em> and <em>CurrentLocalDateCalculator</em>) are included in
@@ -175,6 +179,10 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
 )
 int number;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create a custom calculator for the default value of number in Invoice. The number must be one more than the last one, but it has to reset every year</code></pre>
+    </details>
     <p><em>NextNumberForYearCalculator</em> is in a different package from <em>Invoice</em>, so
       you need to add the following import at the top of <em>Invoice</em> (or just press
       <i>Alt+Enter</i> on the class name in IntelliJ):</p>
@@ -207,6 +215,10 @@ int number;
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY, optional=false) // Customer is required
 Customer customer;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add a reference to Customer in Invoice</code></pre>
+    </details>
     <p>Nothing more is required. The <em>Invoice</em> module now includes a <em>Customer</em>,
       with a user interface that allows you to:</p>
     <ol>
@@ -253,6 +265,10 @@ public class Detail {
  
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add detail lines to Invoice. Detail should have quantity and product</code></pre>
+    </details>
     <p>Note that <em>Detail</em> is annotated with <em>@Embeddable</em>, not with
       <em>@Entity</em>; you cannot define an <em>@ElementCollection</em> of entities. This
       <em>@Embeddable</em> class can contain properties and references but not collections.</p>
@@ -270,6 +286,10 @@ public class Detail {
 @ListProperties("product.number, product.description, quantity")
 Collection&lt;Detail&gt; details;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Modify details in Invoice to display the product number, the product description and the quantity</code></pre>
+    </details>
     <p>As you can see, you only have to feed the value for the annotation
       <em>@ListProperties</em> with the list of the properties you wish, separated by commas. You
       can use qualified properties, that is, to use the dot notation for accessing properties of
@@ -289,6 +309,10 @@ Collection&lt;Detail&gt; details;
       we should use the following label:</p>
     <pre><code class="language-properties"># For this application we will use the previous label and not the following one
 Invoice.details.product.number = Code</code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">In the details of Invoice, I want the label for the product number column to be Code</code></pre>
+    </details>
     <p>In this way, we can customize the labels that OpenXava provides or create our own
       labels.</p>
 

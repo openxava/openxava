@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Lesson 3 of the course includes AI prompts to create the code with an AI coding assistant.
+
 OpenXava 8.0.1 (2026-10-23)
 ---------------------------
 - AI chat uses gpt-6-luna as default model instead of gpt-5-mini.
