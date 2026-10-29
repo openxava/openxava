@@ -98,10 +98,12 @@ public class Invoice {
     @Column(length=36)
     String oid;
 
+    @Required
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) // Current year
     int year;
  
+    @Required
     @Column(length=6)
     int number;
  
