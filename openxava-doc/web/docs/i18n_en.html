@@ -21,11 +21,16 @@
             Name</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Field%20Name">Field
             Name</a></div>
+        <div style="margin-left: 3em;"><a href="#enum-value-labels">Enumeration
+            value labels</a></div>
+        <div style="margin-left: 3em;"><a href="#tab-titles">Tab titles</a></div>
         <div style="margin-left: 3em;"><a href="#collection-column-labels">Collection
             column labels</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-@View%20Section%20and%20Group%20Names">@View
             Section and Group Names</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Actions">Actions</a></div>
+        <div style="margin-left: 3em;"><a href="#subcontroller-labels">Subcontroller
+            labels</a></div>
         <div style="margin-left: 3em;"><a href="#organization">Organization</a></div>
         <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Messages">Messages</a></div>
         <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Tooltips">Tooltips</a></div>
@@ -180,6 +185,52 @@ MySchool[description]=Welcome to the School ABC application</pre>
 
 -->
 </style><pre class="text">*.tab.properties.currentManager.managerName=PM Name</pre>
+      <h3 id="enum-value-labels">Enumeration value labels</h3>
+      The labels of an enumeration's values are independent of the label of
+      the property itself. For example, suppose a property named
+      <em>distance</em> uses this Java enum:<br>
+      <pre class="text">public enum Distance { LOCAL, NATIONAL, INTERNATIONAL }</pre>
+      To translate its options, add entries to your application's labels file
+      using <em>propertyName.valueName</em>. The value names can be written
+      in lowercase, even when the Java constants are uppercase:<br>
+      <pre class="text">distance.local=Local delivery
+distance.national=National delivery
+distance.international=International delivery</pre>
+      Here <em>distance</em> is the property name, not the enum class name
+      <em>Distance</em>. These entries apply to properties named
+      <em>distance</em>; they do not change the property's own label.<br>
+      <br>
+      To define labels for the values globally, without qualifying them by
+      property name, use:<br>
+      <pre class="text">local=Local
+national=National
+international=International</pre>
+      The property-qualified label takes precedence over the global value
+      label. For example, <em>distance.local</em> overrides <em>local</em>
+      for the <em>distance</em> property, without changing how <em>LOCAL</em>
+      is labeled in other properties.<br>
+      <h3 id="tab-titles">Tab titles</h3>
+      A tab defines the list of records in list mode. Its title is used for
+      reports and also in list mode when the title is visible. To customize
+      the title of the default (unnamed) tab, use
+      <em>Entity.tab.title</em>:<br>
+      <pre class="text">Customer.tab.title=Customers report</pre>
+      For a named tab, use <em>Entity.tabs.tabName.title</em>:<br>
+      <pre class="text">Invoice.tabs.Current.title=Invoices report</pre>
+      In this example, <em>Current</em> is the name declared in
+      <em>@Tab(name="Current", ...)</em>, not the module name or a view
+      section name. Use <em>tab</em> (singular) for the default tab and
+      <em>tabs</em> (plural) followed by the tab name for a named tab. These
+      entries change the title, not the column headings or the module label.<br>
+      <br>
+      Tab titles can include positional parameters such as <em>{0}</em>:<br>
+      <pre class="text">Invoice.tabs.DefaultYear.title=Invoices report of year {0}</pre>
+      Supply the value from an action using the tab's API, for example:<br>
+      <pre class="text">getTab().setTitleArgument(Integer.valueOf(2002));</pre>
+      The resulting title is "Invoices report of year 2002". The parameter
+      is not filled automatically from the tab name or its filter. For
+      several parameters, use <em>setTitleArguments(...)</em> with
+      placeholders <em>{0}</em>, <em>{1}</em>, and so on.<br>
       <h3 id="collection-column-labels">Collection column labels</h3>
       To customize a column heading in a collection, add an entry to your
       application's <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> file using
@@ -258,6 +309,25 @@ g_pgm_dates=Program Milestone Dates
 
 -->
 </style><pre class="text">ListProjectsForProgram.listProjects=List Projects</pre>
+      <h3 id="subcontroller-labels">Subcontroller labels</h3>
+      A subcontroller groups actions in a menu. To customize the label of
+      that menu, use the controller name alone as the key in your
+      application's labels file:<br>
+      <pre class="text">ColorSub=My processes</pre>
+      For example, this entry labels the menu for a subcontroller declared
+      in <em>controllers.xml</em> as:<br>
+      <pre class="text">&lt;subcontroller controller="ColorSub"/&gt;</pre>
+      <strong>The menu label uses the controller name, whereas an individual
+        action label uses Controller.action.</strong> For example,
+      <em>ColorSub.firstAction</em> labels an action inside the menu; it does
+      not label the menu itself.<br>
+      <br>
+      The same rule applies to subcontrollers in collections. For example,
+      if a collection uses <em>@ListSubcontroller("TeamMemberSub")</em>,
+      customize its menu label with:<br>
+      <pre class="text">TeamMemberSub=Stuff</pre>
+      Use the subcontroller name directly; do not prefix it with the owner
+      entity or the collection name.<br>
       <h3><a name="organization"></a>Organization</h3>
       The organization name is shown in reports and it is specified with the <i>xava.organization</i>
       entry, thus:<br>
