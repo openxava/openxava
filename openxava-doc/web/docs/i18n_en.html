@@ -21,6 +21,8 @@
             Name</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Field%20Name">Field
             Name</a></div>
+        <div style="margin-left: 3em;"><a href="#collection-column-labels">Collection
+            column labels</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-@View%20Section%20and%20Group%20Names">@View
             Section and Group Names</a></div>
         <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Actions">Actions</a></div>
@@ -178,6 +180,49 @@ MySchool[description]=Welcome to the School ABC application</pre>
 
 -->
 </style><pre class="text">*.tab.properties.currentManager.managerName=PM Name</pre>
+      <h3 id="collection-column-labels">Collection column labels</h3>
+      To customize a column heading in a collection, add an entry to your
+      application's <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> file using
+      this format:<br>
+      <pre class="text">OwnerEntity.collectionName.propertyPath=Label</pre>
+      <ul>
+        <li><em>OwnerEntity</em>: the entity that contains the collection.</li>
+        <li><em>collectionName</em>: the name of the collection in that entity.</li>
+        <li><em>propertyPath</em>: the property displayed in the column, relative
+          to the collection element. It can include a reference, such as
+          <em>product.number</em>.</li>
+      </ul>
+      For example, suppose <em>Invoice</em> has a collection named
+      <em>details</em>, declared as an <em>@ElementCollection</em> of
+      <em>InvoiceDetail</em>, an <em>@Embeddable</em> class. Each detail has a
+      <em>product</em> reference, and the collection displays
+      <em>product.number</em> as a column. To label that column "Code" only in
+      the <em>details</em> collection of <em>Invoice</em>, use:<br>
+      <pre class="text">Invoice.details.product.number=Code</pre>
+      <strong>Use the owner entity and the collection name, not the class of
+        the collection element.</strong> In this example,
+      <em>InvoiceDetail.product.number=Code</em> is not the correct key for
+      the collection column, even though <em>InvoiceDetail</em> defines the
+      <em>product</em> reference. Do not insert <em>tab.properties</em> into
+      the collection-specific key either.<br>
+      <br>
+      To label <em>product.number</em> globally, rather than only in
+      <em>Invoice.details</em>, use:<br>
+      <pre class="text">product.number=Code</pre>
+      This global label applies wherever that property path is used, unless
+      a more specific label overrides it.<br>
+      <br>
+      The same collection-specific format applies to collections of entities.
+      For example, to customize the <em>number</em> column of the
+      <em>deliveries</em> collection in <em>Invoice</em>, use:<br>
+      <pre class="text">Invoice.deliveries.number=Delivery number</pre>
+      If a collection-specific label is not defined, OpenXava uses the label
+      from the default tab of the collection element, if one is defined.
+      For example, without <em>Invoice.details.product.number</em>, the label
+      can be defined with:<br>
+      <pre class="text">InvoiceDetail.tab.properties.product.number=Code</pre>
+      Unlike <em>Invoice.details.product.number</em>, this tab label is not
+      restricted to the <em>details</em> collection of <em>Invoice</em>.<br>
       <h3 id="toc5"><a name="Internationalization (i18n)-Labels-@View Section and Group Names"></a>@View
         Section and Group Names</h3>
       Section and Group names in an <em>@View</em> can be overridden as well.
