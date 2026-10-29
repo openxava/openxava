@@ -98,10 +98,12 @@ public class Invoice {
     @Column(length=36)
     String oid;
 
+    @Required
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) // Current year
     int year;
  
+    @Required
     @Column(length=6)
     int number;
  
@@ -172,7 +174,8 @@ public class NextNumberForYearCalculator implements ICalculator { // A calculato
       calculation. To implement the logic we use a JPA query. You can learn how to use JPA in
       <a href="jpa_en.html">appendix B</a>. Now we only have to annotate the
       <em>number</em> property in the <em>Invoice</em> entity:</p>
-    <pre><code class="language-java">@Column(length=6)
+    <pre><code class="language-java">@Required
+@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
     properties=@PropertyValue(name="year") // To inject the value of year from Invoice to
                                            // the calculator before calling calculate()
@@ -260,7 +263,7 @@ public class Detail {
  
     int quantity;
  
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     Product product;
  
 }

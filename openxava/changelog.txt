@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Improved lesson 3 code: required invoice year and number, and mandatory product in detail lines.
 - Expanded i18n documentation with collection labels, programmatic APIs, language selection and fallback.
 - Added Spanish i18n documentation.
 - Improved archetype AGENTS.md with compilation checks and entity modeling guidelines.
