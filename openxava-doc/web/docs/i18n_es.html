@@ -1,0 +1,574 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Internacionalización (i18n) - OpenXava</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css">
+    <link rel="stylesheet" href="highlight/highlight.css">
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+        hljs.highlightAll();
+      });
+    </script>
+  </head>
+  <body class="wiki" id="content_view">
+    <h1 id="toc0">
+      <a name="Internationalization (i18n)"></a>
+      <span id="breadcrumbs">
+        <span id="openxava">
+          <a href="https://www.openxava.org/"><span>o</span>pen<span>x</span>ava</a>
+        </span> / <a href="index_es.html">documentación</a> /
+      </span>
+      Internacionalización (i18n)
+    </h1>
+
+    <div id="toc">
+      <h1>Tabla de contenidos</h1>
+      <div style="margin-left: 1em;"><a href="#Internationalization%20%28i18n%29">Internacionalización
+          (i18n)</a></div>
+      <div style="margin-left: 2em;"><a href="#language-and-fallback">Selección del idioma y
+          traducciones alternativas</a></div>
+      <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Labels">Etiquetas</a></div>
+      <div style="margin-left: 3em;"><a href="#bilingual-example">Ejemplo en dos idiomas</a></div>
+      <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Application%20Name">Nombre
+          de la aplicación</a></div>
+      <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Module%20Name">Nombre
+          del módulo</a></div>
+      <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Field%20Name">Nombre
+          de los campos</a></div>
+      <div style="margin-left: 3em;"><a href="#enum-value-labels">Etiquetas de los valores de
+          enumeraciones</a></div>
+      <div style="margin-left: 3em;"><a href="#tab-titles">Títulos de los tabs</a></div>
+      <div style="margin-left: 3em;"><a href="#collection-column-labels">Etiquetas de columnas de
+          colecciones</a></div>
+      <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-@View%20Section%20and%20Group%20Names">Nombres
+          de secciones y grupos en @View</a></div>
+      <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Actions">Acciones</a></div>
+      <div style="margin-left: 3em;"><a href="#subcontroller-labels">Etiquetas de
+          subcontroladores</a></div>
+      <div style="margin-left: 3em;"><a href="#organization">Organización</a></div>
+      <div style="margin-left: 3em;"><a href="#programmatic-use">Uso programático</a></div>
+      <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Messages">Mensajes</a></div>
+      <div style="margin-left: 3em;"><a href="#messages-from-actions">Mensajes desde acciones</a></div>
+      <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Tooltips">Textos de ayuda</a></div>
+      <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Placeholder%20%28new%20in%20v5.8%29">Texto
+          de ejemplo (nuevo en v5.8)</a></div>
+    </div>
+
+    <p>Los archivos i18n permiten personalizar las etiquetas y los mensajes de tu aplicación,
+    tanto si necesitas varios idiomas como si no. Si tu aplicación solo utiliza un idioma,
+    basta con tener una versión del archivo en ese idioma.</p>
+
+    <p>Para mostrar u ocultar en el registro las advertencias sobre etiquetas o mensajes que
+    faltan, establece <em>i18nWarnings</em> en <em>src/main/resources/xava.properties</em> a
+    <em>true</em> o <em>false</em> respectivamente. Antes de OpenXava 7, este archivo estaba en
+    <em>properties/xava.properties</em>.</p>
+
+    <h2 id="language-and-fallback">Selección del idioma y traducciones alternativas</h2>
+
+    <p>Por defecto, OpenXava utiliza el idioma preferido del usuario para el contenido web,
+    configurado en el navegador. Es independiente del idioma de los menús del navegador: por
+    ejemplo, la interfaz del navegador puede estar en español y el idioma preferido para el
+    contenido ser el catalán, en cuyo caso OpenXava utiliza el catalán. El usuario puede cambiar
+    esta preferencia en la configuración de idiomas de su navegador.</p>
+
+    <p>Si se ha seleccionado explícitamente un idioma para la sesión de OpenXava, esa selección
+    tiene prioridad. Por ejemplo, si un módulo incluye el controlador estándar
+    <em>UrlParameters</em>, pasar <em>locale=es</em> en su URL selecciona el español y guarda
+    esa preferencia en la sesión.</p>
+
+    <p>Desde la v7.6, puedes restringir los idiomas de la interfaz en
+    <em>src/main/resources/xava.properties</em>:</p>
+
+    <pre><code class="language-properties">availableLanguages=en, es</code></pre>
+
+    <p>Con esta configuración, OpenXava utiliza primero el idioma de la sesión si está permitido;
+    en caso contrario, recorre los idiomas preferidos del navegador, por orden, hasta encontrar
+    uno permitido. Si ninguno coincide, utiliza el primer idioma configurado, el inglés en este
+    ejemplo. Usa códigos de idioma sin país ni región. Si la propiedad no está definida o está
+    vacía, no se restringen los idiomas. Esta configuración selecciona el idioma de la interfaz;
+    no crea traducciones.</p>
+
+    <p>En código Java, <em>Locales.getCurrent()</em>, de <em>org.openxava.util.Locales</em>,
+    devuelve el locale que OpenXava está utilizando para el usuario, seleccionado como se ha
+    descrito. <em>Labels.get()</em> y <em>XavaResources.getString()</em> utilizan este locale
+    por defecto; pasa un <em>Locale</em> explícito si necesitas una traducción en otro idioma.</p>
+
+    <h3 id="missing-translations">Traducciones que faltan</h3>
+
+    <p>Elegir un idioma y resolver una traducción son pasos diferentes. OpenXava carga los
+    archivos de etiquetas y mensajes mediante el mecanismo <em>ResourceBundle</em> de Java.
+    Un locale regional puede utilizar el archivo de su idioma y el archivo base sin sufijo,
+    si existe. Por ejemplo, una búsqueda para <em>es_MX</em> puede utilizar entradas de
+    <em>MySchool-labels_es_MX.properties</em>, <em>MySchool-labels_es.properties</em> y
+    <em>MySchool-labels.properties</em>. Si no existe un archivo para el locale solicitado,
+    Java también puede intentar usar el locale por defecto de la JVM al seleccionar un archivo.</p>
+
+    <p><strong>Una entrada que falta en un archivo en español no se busca automáticamente en el
+    archivo en inglés de la aplicación.</strong> Para proporcionar entradas alternativas
+    compartidas, crea archivos base sin sufijo de idioma, como
+    <em>MySchool-labels.properties</em> y <em>MySchool-messages.properties</em>. Siempre que
+    sea posible, mantén las mismas claves en todas las traducciones.</p>
+
+    <p>En cada búsqueda, los recursos de la aplicación tienen prioridad sobre los de OpenXava.
+    Las etiquetas también pueden pasar de una clave calificada a otra más general, como se
+    muestra a lo largo de este artículo. Si no se encuentra ninguna etiqueta, OpenXava normalmente
+    genera una etiqueta legible a partir del identificador.
+    <em>Labels.get(id, locale, defaultText)</em> permite proporcionar un texto alternativo.
+    Para los mensajes, OpenXava también prueba sus mensajes incorporados en inglés antes de
+    devolver, como último recurso, la clave del mensaje. Activa <em>i18nWarnings</em> para
+    detectar las traducciones que faltan en lugar de depender de estos mecanismos alternativos.</p>
+
+    <h2 id="toc1"><a name="Internationalization (i18n)-Labels"></a>Etiquetas</h2>
+
+    <p>Desde OpenXava 7, los proyectos utilizan Maven. Coloca los archivos fuente de etiquetas en
+    <em>src/main/resources/i18n</em>, con el nombre
+    <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em>, por ejemplo
+    <em>MySchool-labels_es.properties</em>. Aquí <em>&lt;app&gt;</em> es el nombre de la
+    aplicación y <em>&lt;lang&gt;</em> es el código del idioma, como <em>en</em> o <em>es</em>.
+    Maven copia estos recursos al classpath de ejecución; en un WAR se empaquetan dentro de
+    <em>WEB-INF/classes/i18n</em>. Edita los archivos fuente, no las copias generadas.</p>
+
+    <p>OpenXava proporciona sus propios archivos <em>Labels_&lt;lang&gt;.properties</em> en el
+    paquete <em>i18n</em> del JAR de la dependencia. En el proyecto fuente de OpenXava, están en
+    <em>src/main/resources/i18n</em>. Las etiquetas de tu aplicación tienen prioridad sobre las
+    de OpenXava para las mismas claves, por lo que no necesitas editar los archivos del
+    framework.</p>
+
+    <p>Antes de OpenXava 7, los archivos de etiquetas de la aplicación estaban en la carpeta
+    <em>i18n</em> del proyecto, y los del framework en <em>../OpenXava/i18n</em>. El script de
+    construcción los copiaba a los recursos de ejecución bajo <em>web/WEB-INF/classes</em>.
+    Estas son las rutas antiguas, anteriores a Maven, no las ubicaciones de los archivos fuente
+    que debes utilizar en OpenXava 7 y posteriores.</p>
+
+    <p>Puedes incluir comentarios utilizando # como primer carácter.</p>
+
+    <p>Se permiten líneas en blanco, que pueden ser útiles para separar visualmente el contenido
+    y facilitar su lectura.</p>
+
+    <h3 id="bilingual-example">Ejemplo en dos idiomas</h3>
+
+    <p>Supongamos que la aplicación se llama <em>MySchool</em> y tiene una entidad
+    <em>Classroom</em> con una propiedad <em>location</em>. Crea estos dos archivos de
+    etiquetas:</p>
+
+    <p><em>src/main/resources/i18n/MySchool-labels_en.properties</em>:</p>
+
+    <pre><code class="language-properties">Classroom=Classroom
+Classroom.location=Building</code></pre>
+
+    <p><em>src/main/resources/i18n/MySchool-labels_es.properties</em>:</p>
+
+    <pre><code class="language-properties">Classroom=Aula
+Classroom.location=Edificio</code></pre>
+
+    <p>Para los mensajes, crea otro par de archivos:</p>
+
+    <p><em>src/main/resources/i18n/MySchool-messages_en.properties</em>:</p>
+
+    <pre><code class="language-properties">classroom_saved=Classroom saved
+classroom_not_found=Classroom {0} was not found</code></pre>
+
+    <p><em>src/main/resources/i18n/MySchool-messages_es.properties</em>:</p>
+
+    <pre><code class="language-properties">classroom_saved=Aula guardada
+classroom_not_found=No se encuentra el aula {0}</code></pre>
+
+    <p><strong>Mantén las claves sin cambios entre idiomas; traduce solo los valores después de
+    <em>=</em>.</strong> No traduzcas los nombres de entidades o propiedades dentro de una clave.
+    OpenXava elige el archivo adecuado para el idioma actual. El ejemplo de
+    <a href="#messages-from-actions">mensajes desde acciones</a> utiliza estas claves de mensajes.</p>
+
+    <h3 id="toc2"><a name="Internationalization (i18n)-Labels-Application Name"></a>Nombre de la
+    aplicación</h3>
+
+    <p>Puedes personalizar el nombre y la descripción de la aplicación así:</p>
+
+    <pre><code class="language-properties">MySchool=Colegio ABC
+MySchool[description]=Bienvenido a la aplicación Colegio ABC</code></pre>
+
+    <p>En general, muchos elementos de OpenXava pueden tener entradas <em>[description]</em>
+    en este archivo. En el ejemplo anterior, la página de bienvenida estándar de OpenXava muestra
+    la descripción de la aplicación. En la mayoría de los demás casos, el texto de
+    <em>[description]</em> se utiliza como texto de ayuda al pasar el ratón por encima del
+    campo.</p>
+
+    <p>Si necesitas un texto de ayuda extenso, puedes incluir caracteres especiales para darle
+    formato. En particular, el salto de línea (\n) y la tabulación (\t) funcionan. Por ejemplo,
+    esta entrada:</p>
+
+    <pre><code class="language-properties">studyId[description]=Identificador único por estudio \n Comprueba si se divide... \n y esto...\n\t prueba una tabulación....</code></pre>
+
+    <p>producirá el resultado esperado.</p>
+
+    <h3 id="toc3"><a name="Internationalization (i18n)-Labels-Module Name"></a>Nombre del módulo</h3>
+
+    <p>Puedes personalizar la etiqueta del nombre de un módulo así:</p>
+
+    <pre><code class="language-properties">Classroom.module=Aula de clase</code></pre>
+
+    <h3 id="toc4"><a name="Internationalization (i18n)-Labels-Field Name"></a>Nombre de los campos</h3>
+
+    <p>Puedes personalizar globalmente los campos utilizados en muchos lugares de la aplicación:</p>
+
+    <pre><code class="language-properties">addressGroup=Dirección postal</code></pre>
+
+    <p>Para personalizar la etiqueta de un campo de un módulo concreto:</p>
+
+    <pre><code class="language-properties">Classroom.location=Identificación de la puerta</code></pre>
+
+    <p>En las asociaciones suele haber un campo calificado, que puedes personalizar así:</p>
+
+    <pre><code class="language-properties">Project.currentManager.managerName=Responsable del proyecto</code></pre>
+
+    <p>Para la vista por defecto, de forma que solo tenga efecto en modo detalle:</p>
+
+    <pre><code class="language-properties">Customer.view.name=Nombre del cliente</code></pre>
+
+    <p>Para una vista concreta, en este ejemplo la vista llamada "Simple":</p>
+
+    <pre><code class="language-properties">Customer.views.Simple.name=Cliente</code></pre>
+
+    <p>En modo lista, OpenXava compone automáticamente las etiquetas de los nombres calificados,
+    como "Nombre de Responsable actual". Si no quieres ese comportamiento, puedes definirlas
+    así:</p>
+
+    <pre><code class="language-properties">Project.tab.properties.currentManager.managerName=Responsable del proyecto</code></pre>
+
+    <p>O para un tab concreto con nombre:</p>
+
+    <pre><code class="language-properties">Project.tabs.my_tab_name.properties.currentManager.managerName=Responsable del proyecto</code></pre>
+
+    <p>O globalmente para todos los módulos:</p>
+
+    <pre><code class="language-properties">*.tab.properties.currentManager.managerName=Responsable del proyecto</code></pre>
+
+    <h3 id="enum-value-labels">Etiquetas de los valores de enumeraciones</h3>
+
+    <p>Las etiquetas de los valores de una enumeración son independientes de la etiqueta de la
+    propia propiedad. Por ejemplo, supongamos que una propiedad llamada <em>distance</em> utiliza
+    este enum de Java:</p>
+
+    <pre><code class="language-java">public enum Distance { LOCAL, NATIONAL, INTERNATIONAL }</code></pre>
+
+    <p>Para traducir sus opciones, añade entradas al archivo de etiquetas de tu aplicación con el
+    formato <em>propertyName.valueName</em>. Puedes escribir los nombres de los valores en
+    minúsculas, aunque las constantes de Java estén en mayúsculas:</p>
+
+    <pre><code class="language-properties">distance.local=Entrega local
+distance.national=Entrega nacional
+distance.international=Entrega internacional</code></pre>
+
+    <p>Aquí <em>distance</em> es el nombre de la propiedad, no el nombre de la clase enum
+    <em>Distance</em>. Estas entradas se aplican a las propiedades llamadas <em>distance</em>;
+    no cambian la etiqueta de la propia propiedad.</p>
+
+    <p>Para definir las etiquetas de los valores globalmente, sin calificarlas con el nombre de
+    la propiedad, utiliza:</p>
+
+    <pre><code class="language-properties">local=Local
+national=Nacional
+international=Internacional</code></pre>
+
+    <p>La etiqueta calificada por propiedad tiene prioridad sobre la etiqueta global del valor.
+    Por ejemplo, <em>distance.local</em> tiene prioridad sobre <em>local</em> para la propiedad
+    <em>distance</em>, sin cambiar la etiqueta de <em>LOCAL</em> en otras propiedades.</p>
+
+    <h3 id="tab-titles">Títulos de los tabs</h3>
+
+    <p>Un tab define la lista de registros del modo lista. Su título se utiliza en los informes y
+    también en modo lista cuando el título es visible. Para personalizar el título del tab por
+    defecto, sin nombre, utiliza <em>Entity.tab.title</em>:</p>
+
+    <pre><code class="language-properties">Customer.tab.title=Informe de clientes</code></pre>
+
+    <p>Para un tab con nombre, utiliza <em>Entity.tabs.tabName.title</em>:</p>
+
+    <pre><code class="language-properties">Invoice.tabs.Current.title=Informe de facturas</code></pre>
+
+    <p>En este ejemplo, <em>Current</em> es el nombre declarado en
+    <em>@Tab(name="Current", ...)</em>, no el nombre del módulo ni de una sección de la vista.
+    Utiliza <em>tab</em> en singular para el tab por defecto, y <em>tabs</em> en plural seguido
+    del nombre para un tab con nombre. Estas entradas cambian el título, no las cabeceras de las
+    columnas ni la etiqueta del módulo.</p>
+
+    <p>Los títulos de los tabs pueden incluir parámetros posicionales, como <em>{0}</em>:</p>
+
+    <pre><code class="language-properties">Invoice.tabs.DefaultYear.title=Informe de facturas del año {0}</code></pre>
+
+    <p>Proporciona el valor desde una acción mediante la API del tab, por ejemplo:</p>
+
+    <pre><code class="language-java">getTab().setTitleArgument(Integer.valueOf(2002));</code></pre>
+
+    <p>El título resultante es "Informe de facturas del año 2002". El parámetro no se rellena
+    automáticamente a partir del nombre del tab ni de su filtro. Para varios parámetros,
+    utiliza <em>setTitleArguments(...)</em> con los marcadores <em>{0}</em>, <em>{1}</em>, etc.</p>
+
+    <h3 id="collection-column-labels">Etiquetas de columnas de colecciones</h3>
+
+    <p>Para personalizar la cabecera de una columna en una colección, añade una entrada al archivo
+    <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> de tu aplicación con este formato:</p>
+
+    <pre><code class="language-properties">OwnerEntity.collectionName.propertyPath=Etiqueta</code></pre>
+
+    <ul>
+      <li><em>OwnerEntity</em>: la entidad que contiene la colección.</li>
+      <li><em>collectionName</em>: el nombre de la colección en esa entidad.</li>
+      <li><em>propertyPath</em>: la propiedad mostrada en la columna, relativa al elemento de la
+      colección. Puede incluir una referencia, como <em>product.number</em>.</li>
+    </ul>
+
+    <p>Por ejemplo, supongamos que <em>Invoice</em> tiene una colección llamada <em>details</em>,
+    declarada como una <em>@ElementCollection</em> de <em>InvoiceDetail</em>, una clase
+    <em>@Embeddable</em>. Cada detalle tiene una referencia <em>product</em>, y la colección
+    muestra <em>product.number</em> como columna. Para que esa columna se llame "Código" solo
+    en la colección <em>details</em> de <em>Invoice</em>, utiliza:</p>
+
+    <pre><code class="language-properties">Invoice.details.product.number=Código</code></pre>
+
+    <p><strong>Utiliza la entidad propietaria y el nombre de la colección, no la clase del
+    elemento de la colección.</strong> En este ejemplo,
+    <em>InvoiceDetail.product.number=Código</em> no es la clave correcta para la columna de la
+    colección, aunque <em>InvoiceDetail</em> defina la referencia <em>product</em>. Tampoco
+    insertes <em>tab.properties</em> en la clave específica de la colección.</p>
+
+    <p>Para etiquetar <em>product.number</em> globalmente, en lugar de solo en
+    <em>Invoice.details</em>, utiliza:</p>
+
+    <pre><code class="language-properties">product.number=Código</code></pre>
+
+    <p>Esta etiqueta global se aplica donde se utilice esa ruta de propiedad, salvo que exista
+    una etiqueta más específica que tenga prioridad.</p>
+
+    <p>El mismo formato específico de colección se aplica a las colecciones de entidades.
+    Por ejemplo, para personalizar la columna <em>number</em> de la colección
+    <em>deliveries</em> en <em>Invoice</em>, utiliza:</p>
+
+    <pre><code class="language-properties">Invoice.deliveries.number=Número de entrega</code></pre>
+
+    <p>Si no se ha definido una etiqueta específica de la colección, OpenXava utiliza la etiqueta
+    del tab por defecto del elemento de la colección, si existe. Por ejemplo, si no está definida
+    <em>Invoice.details.product.number</em>, puedes definir la etiqueta con:</p>
+
+    <pre><code class="language-properties">InvoiceDetail.tab.properties.product.number=Código</code></pre>
+
+    <p>A diferencia de <em>Invoice.details.product.number</em>, esta etiqueta del tab no se limita
+    a la colección <em>details</em> de <em>Invoice</em>.</p>
+
+    <h3 id="toc5"><a name="Internationalization (i18n)-Labels-@View Section and Group Names"></a>Nombres
+    de secciones y grupos en @View</h3>
+
+    <p>También puedes personalizar los nombres de las secciones y grupos de una <em>@View</em>.
+    Por ejemplo, si tienes una sección llamada "s_overview" y un grupo "g_pgm_dates" definidos
+    en una <em>@View</em> de la entidad Program, puedes definir sus etiquetas así:</p>
+
+    <pre><code class="language-properties">Program.s_overview=Resumen
+g_pgm_dates=Fechas de los hitos del programa</code></pre>
+
+    <p>Ten en cuenta que, a fecha de OpenXava 5.4, los nombres de los grupos no parecen admitir
+    la notación con puntos.</p>
+
+    <h3 id="toc6"><a name="Internationalization (i18n)-Labels-Actions"></a>Acciones</h3>
+
+    <p>Puedes personalizar los nombres de los botones de acción utilizando el formato
+    &lt;Controller-name&gt;.&lt;action-name&gt;:</p>
+
+    <pre><code class="language-properties">ListProjectsForProgram.listProjects=Listar proyectos</code></pre>
+
+    <h3 id="subcontroller-labels">Etiquetas de subcontroladores</h3>
+
+    <p>Un subcontrolador agrupa acciones en un menú. Para personalizar la etiqueta de ese menú,
+    utiliza únicamente el nombre del controlador como clave en el archivo de etiquetas de tu
+    aplicación:</p>
+
+    <pre><code class="language-properties">ColorSub=Mis procesos</code></pre>
+
+    <p>Por ejemplo, esta entrada etiqueta el menú de un subcontrolador declarado en
+    <em>controllers.xml</em> así:</p>
+
+    <pre><code class="language-xml">&lt;subcontroller controller="ColorSub"/&gt;</code></pre>
+
+    <p><strong>La etiqueta del menú utiliza el nombre del controlador, mientras que la de una
+    acción individual utiliza Controller.action.</strong> Por ejemplo,
+    <em>ColorSub.firstAction</em> etiqueta una acción dentro del menú, no el propio menú.</p>
+
+    <p>La misma regla se aplica a los subcontroladores de las colecciones. Por ejemplo, si una
+    colección utiliza <em>@ListSubcontroller("TeamMemberSub")</em>, personaliza la etiqueta de
+    su menú con:</p>
+
+    <pre><code class="language-properties">TeamMemberSub=Opciones</code></pre>
+
+    <p>Utiliza directamente el nombre del subcontrolador; no añadas delante el nombre de la
+    entidad propietaria ni el de la colección.</p>
+
+    <h3><a name="organization"></a>Organización</h3>
+
+    <p>El nombre de la organización se muestra en los informes y se especifica mediante la entrada
+    <i>xava.organization</i>:</p>
+
+    <pre><code class="language-properties">xava.organization=Mi empresa</code></pre>
+
+    <h3 id="programmatic-use">Uso programático</h3>
+
+    <p>También puedes utilizar las etiquetas explícitamente desde código Java. Define las claves
+    en los archivos <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> de tu aplicación, con una
+    traducción para cada idioma. En los ejemplos siguientes, claves como
+    <em>entry_full_address</em> son identificadores elegidos por el desarrollador, no nombres
+    que OpenXava deduzca automáticamente a partir de un modelo.</p>
+
+    <h4 id="programmatic-view-title">Establecer el título de una vista o diálogo</h4>
+
+    <p>Para utilizar un título traducido, define una etiqueta:</p>
+
+    <pre><code class="language-properties">entry_full_address=Introduce la dirección completa</code></pre>
+
+    <p>Después, desde una acción, pasa su clave a <em>getView().setTitleId()</em>:</p>
+
+    <pre><code class="language-java">getView().setTitleId("entry_full_address");</code></pre>
+
+    <p>OpenXava resuelve el identificador en el idioma actual. En un diálogo, haz esta llamada
+    después de <em>showDialog()</em>, para que <em>getView()</em> se refiera a la vista del
+    diálogo. En cambio, <em>getView().setTitle("Introduce la dirección completa")</em> establece
+    un título literal sin traducirlo. El identificador del título también puede hacer referencia
+    a una entrada del archivo de mensajes. Consulta el
+    <a href="controllers_es.html#Controladores-Mostrar%2Bun%2Bdialogo%2Bmodal%2B%28nuevo%2Ben%2Bv4m2%29">ejemplo
+    de diálogo modal</a> para ver una acción completa.</p>
+
+    <h4 id="programmatic-view-labels">Cambiar etiquetas de propiedades, grupos y secciones</h4>
+
+    <p>Utiliza <em>getView().setLabelId(memberName, labelId)</em> para cambiar dinámicamente una
+    etiqueta en la vista actual. El primer argumento identifica la propiedad, el grupo o la
+    sección; el segundo es una clave del archivo de etiquetas, no el texto traducido. Por
+    ejemplo, define:</p>
+
+    <pre><code class="language-properties">my_property_name=Número de factura
+my_group_name=Datos de entrega
+my_section_name=Incidencias y observaciones</code></pre>
+
+    <p>Después aplica las etiquetas desde una acción:</p>
+
+    <pre><code class="language-java">getView().setLabelId("number", "my_property_name");
+getView().setLabelId("deliveryData", "my_group_name");
+getView().setLabelId("incidents", "my_section_name");</code></pre>
+
+    <p>Aquí <em>number</em> es una propiedad, y <em>deliveryData</em> e <em>incidents</em> son
+    los nombres del grupo y de la sección declarados en la vista. Los nombres de propiedades
+    también pueden estar calificados, por ejemplo
+    <em>getView().setLabelId("customer.name", "my_customer_name")</em>, con la etiqueta
+    correspondiente definida en el archivo de etiquetas. Estas llamadas cambian las etiquetas
+    mostradas en esa vista; no modifican los archivos de propiedades ni las etiquetas
+    globalmente.</p>
+
+    <h4 id="programmatic-label-lookup">Obtener una etiqueta como cadena</h4>
+
+    <p>Utiliza <em>org.openxava.util.Labels.get()</em> cuando tu código necesite el texto
+    traducido de una etiqueta, ya sea en una acción, un informe, un editor o cualquier otro código
+    de la aplicación. Devuelve una cadena y no necesita una <em>View</em> ni modifica la
+    interfaz de usuario.</p>
+
+    <p>Por ejemplo, define:</p>
+
+    <pre><code class="language-properties">invoice_ready=Factura lista</code></pre>
+
+    <p>Después obtén el texto utilizando el idioma actual o un locale explícito:</p>
+
+    <pre><code class="language-java">import java.util.Locale;
+import org.openxava.util.Labels;
+
+// Utiliza el locale actual de OpenXava
+String text = Labels.get("invoice_ready");
+// Utiliza el locale solicitado explícitamente
+String englishText = Labels.get("invoice_ready", Locale.ENGLISH);</code></pre>
+
+    <p>La primera sobrecarga utiliza <em>Locales.getCurrent()</em>. Fuera del contexto normal
+    de una petición de OpenXava, utiliza la sobrecarga con un <em>Locale</em> explícito si
+    necesitas un idioma concreto. También puedes proporcionar un texto alternativo si no se
+    encuentra ninguna etiqueta:</p>
+
+    <pre><code class="language-java">String text = Labels.get("invoice_ready", Locale.ENGLISH, "Invoice ready");</code></pre>
+
+    <h2 id="toc7"><a name="Internationalization (i18n)-Messages"></a>Mensajes</h2>
+
+    <p>Desde OpenXava 7, coloca los archivos fuente de mensajes en
+    <em>src/main/resources/i18n</em>, con el nombre
+    <em>&lt;app&gt;-messages_&lt;lang&gt;.properties</em>, por ejemplo
+    <em>MySchool-messages_es.properties</em>. Maven los coloca en el classpath de ejecución,
+    dentro de <em>WEB-INF/classes/i18n</em> en un WAR, igual que los archivos de etiquetas.</p>
+
+    <p>OpenXava proporciona <em>Messages_&lt;lang&gt;.properties</em> en el paquete <em>i18n</em>
+    del JAR de su dependencia; su ubicación fuente es <em>src/main/resources/i18n</em> en el
+    proyecto OpenXava. Los mensajes de la aplicación tienen prioridad sobre los del framework
+    con las mismas claves.</p>
+
+    <p>Antes de OpenXava 7, los mensajes estaban en la carpeta <em>i18n</em> de la aplicación
+    y en la carpeta <em>../OpenXava/i18n</em> del framework. El script de construcción copiaba
+    estos recursos a la ubicación de ejecución bajo <em>web/WEB-INF/classes</em>. Estas rutas
+    solo se aplican a la estructura de proyectos anterior a Maven.</p>
+
+    <h3 id="messages-from-actions">Mensajes desde acciones</h3>
+
+    <p>En una acción que extienda <em>BaseAction</em> o alguna de sus subclases, utiliza
+    <em>addMessage()</em> para una notificación normal y <em>addError()</em> para un error.
+    Pasa una clave del archivo de mensajes, no el texto ya traducido. Por ejemplo, utilizando
+    los archivos del <a href="#bilingual-example">ejemplo bilingüe</a>:</p>
+
+    <pre><code class="language-java">addMessage("classroom_saved");
+addError("classroom_not_found", Integer.valueOf(12));</code></pre>
+
+    <p>Son ejemplos independientes: el primero muestra "Classroom saved" en inglés o
+    "Aula guardada" en español. El segundo muestra "Classroom 12 was not found" o
+    "No se encuentra el aula 12". En una acción real, llama al método adecuado según el
+    resultado; añadir un mensaje de error no detiene por sí mismo la ejecución.</p>
+
+    <p>Los argumentos que siguen a la clave del mensaje rellenan los marcadores posicionales:
+    el primero sustituye a <em>{0}</em>, el segundo a <em>{1}</em>, etc. OpenXava da formato
+    al mensaje según el locale actual. Los argumentos de tipo cadena normalmente se tratan
+    como identificadores de etiquetas; por ejemplo, <em>"Classroom"</em> se puede traducir
+    utilizando el archivo de etiquetas. Para pasar una cadena literalmente, encierra su valor
+    entre comillas simples dentro de la cadena Java, como <em>"'A-12'"</em>. Los argumentos
+    que no son cadenas, como el entero del ejemplo, se pasan como valores.</p>
+
+    <p>Cuando necesites el mensaje traducido como cadena en lugar de mostrar una notificación,
+    utiliza <em>org.openxava.util.XavaResources</em>:</p>
+
+    <pre><code class="language-java">import org.openxava.util.XavaResources;
+
+String text = XavaResources.getString("classroom_not_found", Integer.valueOf(12));</code></pre>
+
+    <p>Esto utiliza el locale actual. También hay sobrecargas que aceptan un <em>Locale</em>
+    como primer argumento. A diferencia de los argumentos de <em>addMessage()</em> y
+    <em>addError()</em>, los argumentos de formato de tipo cadena que se pasan a
+    <em>XavaResources.getString()</em> se utilizan directamente, sin traducirlos como etiquetas.</p>
+
+    <h2 id="toc8"><a name="Internationalization (i18n)-Tooltips"></a>Textos de ayuda</h2>
+
+    <p>Para definir un texto de ayuda, añade el sufijo <em>[description]</em> al elemento
+    (acción, propiedad, etc.) correspondiente en el archivo i18n de etiquetas de tu proyecto.
+    Por ejemplo, con la siguiente entrada:</p>
+
+    <pre><code class="language-properties">Warehouse.number[description]=Número identificador del almacén</code></pre>
+
+    <p>Obtienes:</p>
+
+    <p><img src="files/tooltip_es.png" alt="Ejemplo de texto de ayuda"></p>
+
+    <p>Desde la v5.8, si la etiqueta y el texto de ayuda coinciden, no se muestra el texto de
+    ayuda.</p>
+
+    <h2 id="toc9"><a name="Internationalization (i18n)-Placeholder (new in v5.8)"></a>Texto de ejemplo
+    <em>(nuevo en v5.8)</em></h2>
+
+    <p>Para definir un texto de ejemplo (placeholder) para un campo, añade el sufijo
+    <em>[placeholder]</em> en el archivo i18n de etiquetas de tu proyecto. Por ejemplo, con la
+    siguiente entrada:</p>
+
+    <pre><code class="language-properties">Color.number[placeholder]=Tu núm.</code></pre>
+
+    <p>Obtienes:</p>
+
+    <p><img src="files/placeholder-es.GIF" alt="Ejemplo de placeholder"></p>
+  </body>
+</html>

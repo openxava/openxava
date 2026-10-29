@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Expanded i18n documentation with collection labels, programmatic APIs, language selection and fallback.
+- Added Spanish i18n documentation.
 - Improved archetype AGENTS.md with compilation checks and entity modeling guidelines.
 - Lesson 3 of the course includes AI prompts to create the code with an AI coding assistant.
 
