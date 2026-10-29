@@ -32,6 +32,8 @@
         <div style="margin-left: 3em;"><a href="#subcontroller-labels">Subcontroller
             labels</a></div>
         <div style="margin-left: 3em;"><a href="#organization">Organization</a></div>
+        <div style="margin-left: 3em;"><a href="#programmatic-use">Programmatic
+            use</a></div>
         <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Messages">Messages</a></div>
         <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Tooltips">Tooltips</a></div>
         <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Placeholder%20%28new%20in%20v5.8%29">Placeholder
@@ -332,6 +334,64 @@ g_pgm_dates=Program Milestone Dates
       The organization name is shown in reports and it is specified with the <i>xava.organization</i>
       entry, thus:<br>
       <pre class="text">xava.organization=My Company Inc</pre>
+      <h3 id="programmatic-use">Programmatic use</h3>
+      Labels can also be used explicitly from Java code. Define the keys in
+      your application's <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em>
+      files, with a translation for each language. In the examples below,
+      keys such as <em>entry_full_address</em> are identifiers chosen by the
+      developer, not names that OpenXava derives automatically from a model.<br>
+      <h4 id="programmatic-view-title">Setting a view or dialog title</h4>
+      To use a translated title, define a label:<br>
+      <pre class="text">entry_full_address=Enter the full address</pre>
+      Then, from an action, pass its key to <em>getView().setTitleId()</em>:<br>
+      <pre class="text">getView().setTitleId("entry_full_address");</pre>
+      OpenXava resolves the identifier in the current language. For a dialog,
+      call this after <em>showDialog()</em>, so that <em>getView()</em> refers
+      to the dialog's view. In contrast,
+      <em>getView().setTitle("Enter the full address")</em> sets a literal
+      title without translating it. A title identifier can also refer to an
+      entry in the messages file. See the
+      <a href="controllers_en.html#Controllers-Showing%20a%20modal%20dialog%20%28new%20in%20v4m2%29">modal
+        dialog example</a> for a complete action.<br>
+      <h4 id="programmatic-view-labels">Changing property, group and section labels</h4>
+      Use <em>getView().setLabelId(memberName, labelId)</em> to change a
+      label dynamically in the current view. The first argument identifies
+      the property, group or section; the second is a key in the labels file,
+      not the translated text. For example, define:<br>
+      <pre class="text">my_property_name=Invoice number
+my_group_name=Delivery information
+my_section_name=Incidents and remarks</pre>
+      Then apply the labels from an action:<br>
+      <pre class="text">getView().setLabelId("number", "my_property_name");
+getView().setLabelId("deliveryData", "my_group_name");
+getView().setLabelId("incidents", "my_section_name");</pre>
+      Here <em>number</em> is a property, and <em>deliveryData</em> and
+      <em>incidents</em> are the group and section names declared in the view.
+      Property names can also be qualified, for example
+      <em>getView().setLabelId("customer.name", "my_customer_name")</em>,
+      with the corresponding label defined in the labels file. These calls
+      change the displayed labels in that view; they do not modify the
+      properties files or the labels globally.<br>
+      <h4 id="programmatic-label-lookup">Obtaining a label as a string</h4>
+      Use <em>org.openxava.util.Labels.get()</em> whenever your code needs
+      the translated text of a label, whether in an action, a report, an
+      editor or any other application code. It returns a string and does
+      not require a <em>View</em> or change the user interface.<br>
+      For example, define:<br>
+      <pre class="text">invoice_ready=Invoice ready</pre>
+      Then obtain the text using the current language or an explicit locale:<br>
+      <pre class="text">import java.util.Locale;
+import org.openxava.util.Labels;
+
+// Uses OpenXava's current locale
+String text = Labels.get("invoice_ready");
+// Uses the explicitly requested locale
+String englishText = Labels.get("invoice_ready", Locale.ENGLISH);</pre>
+      The first overload uses <em>Locales.getCurrent()</em>. Outside the
+      normal OpenXava request context, use the overload with an explicit
+      <em>Locale</em> when you need a specific language. You can also supply
+      a fallback text if no label can be resolved:<br>
+      <pre class="text">String text = Labels.get("invoice_ready", Locale.ENGLISH, "Invoice ready");</pre>
       <h2 id="toc7"><a name="Internationalization (i18n)-Messages"></a>Messages</h2>
       The message source file(s) are also found in the <em>i18n</em> folder of
       your project, named <em>&lt;app&gt;-messages_en.properties</em> (e.g. <em>MySchool-messages_en.properties</em>),
