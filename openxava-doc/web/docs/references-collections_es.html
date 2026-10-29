@@ -177,6 +177,7 @@ public class SearchInvoiceFromOrderAction
       <pre><code class="language-java">abstract public class CommercialDocument extends Deletable {
 
     @SearchKey // Añade esta anotación aquí
+    @Required
     @Column(length=4)
     @DefaultValueCalculator(CurrentYearCalculator.class) 
     int year;
