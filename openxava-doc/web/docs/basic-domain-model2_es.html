@@ -177,7 +177,8 @@ public class NextNumberForYearCalculator implements ICalculator { // Un calculad
       cálculo. Para implementar la lógica usamos una consulta JPA. Repásate el
       <a href="jpa_es.html">apéndice B</a> sobre JPA. Ahora solo queda anotar la propiedad
       <em>number</em> en la entidad <em>Invoice</em>:</p>
-    <pre><code class="language-java">@Column(length=6)
+    <pre><code class="language-java">@Required
+@Column(length=6)
 @DefaultValueCalculator(value=NextNumberForYearCalculator.class,
     properties=@PropertyValue(name="year") // Para inyectar el valor de year de Invoice
                                            // en el calculador antes de llamar a calculate()
