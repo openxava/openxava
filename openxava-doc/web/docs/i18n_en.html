@@ -29,7 +29,10 @@
       <h1>Table of Contents</h1>
       <div style="margin-left: 1em;"><a href="#Internationalization%20%28i18n%29">Internationalization
           (i18n)</a></div>
+      <div style="margin-left: 2em;"><a href="#language-and-fallback">Language selection and
+          fallback</a></div>
       <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Labels">Labels</a></div>
+      <div style="margin-left: 3em;"><a href="#bilingual-example">Example in two languages</a></div>
       <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Application%20Name">Application
           Name</a></div>
       <div style="margin-left: 3em;"><a href="#Internationalization%20%28i18n%29-Labels-Module%20Name">Module
@@ -50,6 +53,7 @@
       <div style="margin-left: 3em;"><a href="#programmatic-use">Programmatic
           use</a></div>
       <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Messages">Messages</a></div>
+      <div style="margin-left: 3em;"><a href="#messages-from-actions">Messages from actions</a></div>
       <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Tooltips">Tooltips</a></div>
       <div style="margin-left: 2em;"><a href="#Internationalization%20%28i18n%29-Placeholder%20%28new%20in%20v5.8%29">Placeholder
           (new in v5.8)</a></div>
@@ -59,27 +63,121 @@
     (whether you have multilingual requirements or not -- if not, you only have one version of the
     file in the primary language of your application).</p>
 
-    <p>To show or hide warnings in the logs regarding missing labels or messages, set the property
-    "i18nWarnings" in properties/xava.properties to true or false respectively.</p>
+    <p>To show or hide warnings in the logs regarding missing labels or messages, set
+    <em>i18nWarnings</em> in <em>src/main/resources/xava.properties</em> to <em>true</em> or
+    <em>false</em> respectively. Before OpenXava 7, this file was
+    <em>properties/xava.properties</em>.</p>
+
+    <h2 id="language-and-fallback">Language selection and fallback</h2>
+
+    <p>By default, OpenXava uses the user's preferred language for web content, as configured
+    in the browser. This is independent of the language of the browser's menus: for example,
+    the browser interface can be in Spanish while the preferred content language is Catalan,
+    in which case OpenXava uses Catalan. Users can change this preference in their browser's
+    language settings.</p>
+
+    <p>If a language has been explicitly selected for the OpenXava session, that selection
+    takes precedence. For example, when a module includes the standard
+    <em>UrlParameters</em> controller, passing <em>locale=es</em> in its URL selects Spanish
+    and stores that preference in the session.</p>
+
+    <p>Since v7.6, you can restrict the UI languages in
+    <em>src/main/resources/xava.properties</em>:</p>
+
+    <pre><code class="language-properties">availableLanguages=en, es</code></pre>
+
+    <p>With this setting, OpenXava first uses the session language if it is allowed; otherwise
+    it checks the browser's preferred languages in order for an allowed language. If none
+    matches, it uses the first configured language, English in this example. Use language
+    codes without country or region. If the property is absent or empty, languages are not
+    restricted. This setting selects the UI language; it does not create translations.</p>
+
+    <p>In Java code, <em>Locales.getCurrent()</em>, from <em>org.openxava.util.Locales</em>,
+    returns the locale OpenXava is using for the user, selected as described above.
+    <em>Labels.get()</em> and <em>XavaResources.getString()</em> use this locale by default;
+    pass an explicit <em>Locale</em> if you need a translation in a different language.</p>
+
+    <h3 id="missing-translations">Missing translations</h3>
+
+    <p>Choosing a language and resolving a translation are separate steps. OpenXava loads
+    label and message files through Java's <em>ResourceBundle</em> mechanism. A regional
+    locale can use its language bundle and the unsuffixed base bundle, if present. For
+    example, an <em>es_MX</em> lookup can use entries from
+    <em>MySchool-labels_es_MX.properties</em>, <em>MySchool-labels_es.properties</em> and
+    <em>MySchool-labels.properties</em>. If no matching locale bundle exists, Java may also
+    try the JVM's default locale when selecting a bundle.</p>
+
+    <p><strong>A missing entry in a Spanish file does not automatically fall back to the
+    application's English file.</strong> To provide shared fallback entries, create base
+    files without a language suffix, such as <em>MySchool-labels.properties</em> and
+    <em>MySchool-messages.properties</em>. Keep the same keys in each translation whenever
+    possible.</p>
+
+    <p>For each lookup, application resources take precedence over OpenXava's resources.
+    Labels can also fall back from a qualified key to a more general key, as illustrated
+    throughout this article. If no label can be resolved, OpenXava normally generates a
+    readable label from the identifier. <em>Labels.get(id, locale, defaultText)</em> lets you
+    supply a fallback text instead. For messages, OpenXava also tries its built-in English
+    messages before ultimately returning the message key. Enable <em>i18nWarnings</em> to
+    help detect missing translations rather than relying on these fallbacks.</p>
 
     <h2 id="toc1"><a name="Internationalization (i18n)-Labels"></a>Labels</h2>
 
-    <p>The label source file(s) are found in the i18n folder of your project, named
-    <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em> (e.g.
-    <em>MySchool-labels_en.properties</em>), and are copied by the build script into
-    <em>web/WEB-INF/classes</em> folder.</p>
+    <p>Since OpenXava 7, projects use Maven. Put your label source files in
+    <em>src/main/resources/i18n</em>, named
+    <em>&lt;app&gt;-labels_&lt;lang&gt;.properties</em>, for example
+    <em>MySchool-labels_en.properties</em>. Here <em>&lt;app&gt;</em> is the application name and
+    <em>&lt;lang&gt;</em> is the language code, such as <em>en</em> or <em>es</em>. Maven copies
+    these resources to the runtime classpath; in a WAR they are packaged under
+    <em>WEB-INF/classes/i18n</em>. Edit the source files, not the generated copies.</p>
 
-    <p>Your labels are applied in addition to the label source files provided by OpenXava project
-    (which are found in the <em>../OpenXava/i18n</em> folder, are named
-    <em>Labels_&lt;lang&gt;.properties</em>, and are also copied by the build script into your
-    <em>web/WEB-INF/classes</em> folder). If the same entry appears in your file(s) and the OpenXava
-    file(s), the one in your file will be used, which allows you the ability to customize the labels
-    provided by OpenXava.</p>
+    <p>OpenXava supplies its own <em>Labels_&lt;lang&gt;.properties</em> files in the
+    <em>i18n</em> package of its dependency JAR. In the OpenXava source project, they are in
+    <em>src/main/resources/i18n</em>. Your application labels override OpenXava's labels for
+    the same keys, so you do not need to edit the framework files.</p>
+
+    <p>Before OpenXava 7, application label files were in the project's <em>i18n</em> folder,
+    and the framework label files were in <em>../OpenXava/i18n</em>. The build script copied
+    them to the runtime resources under <em>web/WEB-INF/classes</em>. These are the legacy,
+    pre-Maven paths, not the source locations to use in OpenXava 7 and later.</p>
 
     <p>Comments can be included using # as the first character.</p>
 
     <p>Blank lines are allowed, and can be useful to visually separate things for easier
     reading.</p>
+
+    <h3 id="bilingual-example">Example in two languages</h3>
+
+    <p>Suppose the application is named <em>MySchool</em> and has a <em>Classroom</em> entity
+    with a <em>location</em> property. Create these two label files:</p>
+
+    <p><em>src/main/resources/i18n/MySchool-labels_en.properties</em>:</p>
+
+    <pre><code class="language-properties">Classroom=Classroom
+Classroom.location=Building</code></pre>
+
+    <p><em>src/main/resources/i18n/MySchool-labels_es.properties</em>:</p>
+
+    <pre><code class="language-properties">Classroom=Aula
+Classroom.location=Edificio</code></pre>
+
+    <p>For messages, create another pair of files:</p>
+
+    <p><em>src/main/resources/i18n/MySchool-messages_en.properties</em>:</p>
+
+    <pre><code class="language-properties">classroom_saved=Classroom saved
+classroom_not_found=Classroom {0} was not found</code></pre>
+
+    <p><em>src/main/resources/i18n/MySchool-messages_es.properties</em>:</p>
+
+    <pre><code class="language-properties">classroom_saved=Aula guardada
+classroom_not_found=No se encuentra el aula {0}</code></pre>
+
+    <p><strong>Keep the keys unchanged across languages; translate only the values after
+    <em>=</em>.</strong> Do not translate entity or property names inside a key. OpenXava
+    chooses the appropriate file for the current language. The
+    <a href="#messages-from-actions">messages from actions</a> example uses these message
+    keys.</p>
 
     <h3 id="toc2"><a name="Internationalization (i18n)-Labels-Application Name"></a>Application
     Name</h3>
@@ -376,16 +474,54 @@ String englishText = Labels.get("invoice_ready", Locale.ENGLISH);</code></pre>
 
     <h2 id="toc7"><a name="Internationalization (i18n)-Messages"></a>Messages</h2>
 
-    <p>The message source file(s) are also found in the <em>i18n</em> folder of your project, named
-    <em>&lt;app&gt;-messages_en.properties</em> (e.g. <em>MySchool-messages_en.properties</em>), and
-    are copied by the build script to the <em>web/WEB-INF/classes</em> folder.</p>
+    <p>Since OpenXava 7, put message source files in <em>src/main/resources/i18n</em>, named
+    <em>&lt;app&gt;-messages_&lt;lang&gt;.properties</em>, for example
+    <em>MySchool-messages_en.properties</em>. Maven places them on the runtime classpath, under
+    <em>WEB-INF/classes/i18n</em> in a WAR, just like the label files.</p>
 
-    <p>Your messages are applied in addition to the message source files provided by OpenXava
-    project (which are found in the <em>../OpenXava/i18n</em> folder, are named
-    <em>Messages_&lt;lang&gt;.properties</em>, and are also copied by the build script into your
-    <em>web/WEB-INF/classes</em> folder). If the same entry appears in your file(s) and the OpenXava
-    file(s), the one in your file will be used, which allows you the ability to customize the
-    messages provided by OpenXava.</p>
+    <p>OpenXava supplies <em>Messages_&lt;lang&gt;.properties</em> in its dependency JAR's
+    <em>i18n</em> package; their source location is <em>src/main/resources/i18n</em> in the
+    OpenXava project. Application messages take precedence over framework messages with the
+    same keys.</p>
+
+    <p>Before OpenXava 7, messages were in the application's <em>i18n</em> folder and the
+    framework's <em>../OpenXava/i18n</em> folder. The build script copied these resources to
+    the runtime location under <em>web/WEB-INF/classes</em>. These paths apply only to the
+    pre-Maven project structure.</p>
+
+    <h3 id="messages-from-actions">Messages from actions</h3>
+
+    <p>In an action extending <em>BaseAction</em> or one of its subclasses, use
+    <em>addMessage()</em> for a normal notification and <em>addError()</em> for an error.
+    Pass a key from the messages file, not the text already translated. For example, using
+    the files in the <a href="#bilingual-example">bilingual example</a>:</p>
+
+    <pre><code class="language-java">addMessage("classroom_saved");
+addError("classroom_not_found", Integer.valueOf(12));</code></pre>
+
+    <p>These are independent examples: the first displays "Classroom saved" in English or
+    "Aula guardada" in Spanish. The second displays "Classroom 12 was not found" or
+    "No se encuentra el aula 12". In a real action, call the appropriate method for its
+    result; adding an error message does not itself stop execution.</p>
+
+    <p>Arguments after the message key fill positional placeholders: the first replaces
+    <em>{0}</em>, the second replaces <em>{1}</em>, and so on. OpenXava formats the message
+    for the current locale. String arguments are normally treated as label identifiers;
+    for example, <em>"Classroom"</em> can be translated using the labels file. To pass a
+    string literally, enclose its value in single quotes inside the Java string, such as
+    <em>"'A-12'"</em>. Non-string arguments, such as the integer above, are passed as values.</p>
+
+    <p>When you need the translated message as a string rather than displaying a notification,
+    use <em>org.openxava.util.XavaResources</em>:</p>
+
+    <pre><code class="language-java">import org.openxava.util.XavaResources;
+
+String text = XavaResources.getString("classroom_not_found", Integer.valueOf(12));</code></pre>
+
+    <p>This uses the current locale. Overloads also accept a <em>Locale</em> as their first
+    argument. Unlike the arguments to <em>addMessage()</em> and <em>addError()</em>, string
+    formatting arguments passed to <em>XavaResources.getString()</em> are used directly,
+    without being translated as labels.</p>
 
     <h2 id="toc8"><a name="Internationalization (i18n)-Tooltips"></a>Tooltips</h2>
 
