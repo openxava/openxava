@@ -1147,18 +1147,20 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 
 openxava.getFormValues = function(ele) {
 	if (ele != null) {
-		if (ele.elements == null) {
+		var elements = ele.elements;
+		if (elements == null) {
 			alert("getFormValues() requires an object or reference to a form element.");
 			return null;
 		}
 		var reply = {};
 		var name;
 		var value;
-		for (var i = 0; i < ele.elements.length; i++) {
-			if (ele[i].type in {button:0,submit:0,reset:0,image:0,file:0}) continue;
-			if (ele[i].name) {
-				name = ele[i].name;
-				value = openxava.getFormValue(ele[i]);
+		for (var i = 0; i < elements.length; i++) {
+			var element = elements[i];
+			if (element.type in {button:0,submit:0,reset:0,image:0,file:0}) continue;
+			if (element.name) {
+				name = element.name;
+				value = openxava.getFormValue(element);
 			}
 			else continue; 
 			if (reply[name] != null) continue; 

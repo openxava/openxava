@@ -1,8 +1,8 @@
 Pending tests performance (tmr)
 -------------------------------
-La perdida de rendimiento es de un 20%.
-Estas son las pruebas en Linux:
+La perdida de rendimiento es de un xx%.
 
+LINUX
 CarrierTest 7.7.3
 1. 1 min 4 sec
 2.	54 sec
@@ -13,5 +13,23 @@ CarrierTest 8.0.1
 2. 1 min 3 sec
 3. 1 min 5 sec
 
-TMR LO UNICO QUE HICE ES HACER LAS PRUEBAS CON CarrierTest.
-TMR ME QUEDÉ PARA PEDIRLE A LA IA QUE INVESTIGARA.
+WINDOWS 11
+CarrierTest 7.7.3
+1. 1 min 21 sec
+2. 1 min 10 sec
+3. 1 min 10 sec
+
+CarrierTest 8.0.1
+1. 1 min 34 sec
+2. 1 min 31 sec
+3. 1 min 29 sec
+
+CarrierTest 8.0.2-SNAPSHOT Intento 1
+1. 1 min 30 sec
+2. 1 min 29 sec
+3. 1 min 30 sec
+
+CarrierTest 8.0.2-SNAPSHOT Intento 2
+1. 1 min 35 sec (pero no había arrancada la aplicación desde el navegador todavía)
+2. 1 min 13 sec
+3. 1 min 11 sec
