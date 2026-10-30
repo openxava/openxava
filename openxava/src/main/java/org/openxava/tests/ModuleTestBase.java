@@ -16,6 +16,7 @@ import org.htmlunit.javascript.*;
 import org.htmlunit.javascript.host.event.*;
 import org.htmlunit.corejs.javascript.NativeArray;
 import org.htmlunit.corejs.javascript.NativeObject;
+import org.htmlunit.corejs.javascript.Script;
 import org.openxava.application.meta.*;
 import org.openxava.component.*;
 import org.openxava.controller.meta.*;
@@ -61,7 +62,14 @@ abstract public class ModuleTestBase extends TestCase {
 	private static Collection<String> excludedActions;  
 	private static Collection<String> ignoredActions;
 	private static Map<String, BrowserVersion> defaultBrowserVersions = new HashMap<>(); 
-	private static WebClient utilClient; 
+	private static WebClient utilClient;
+	private static final Cache scriptCache = new Cache() {
+		/** @since 8.0.2 */
+		@Override
+		public boolean cacheIfPossible(WebRequest request, WebResponse response, Object toCache) {
+			return toCache instanceof Script && super.cacheIfPossible(request, response, toCache);
+		}
+	};
 	
 	private String locale;
 	private MetaModule metaModule;
@@ -81,6 +89,7 @@ abstract public class ModuleTestBase extends TestCase {
 	private int popupPDFPageCount;
 	
 	static {
+		scriptCache.setMaxSize(256);
 		DataSourceConnectionProvider.setUseHibernateConnection(true);
 		System.setProperty("java.awt.headless", "true"); // To work with a headless Java
 	}
@@ -2944,13 +2953,22 @@ abstract public class ModuleTestBase extends TestCase {
 	 * @since 7.3
 	 */	
 	protected WebClient createWebClient() throws Exception {  
-		WebClient newClient = new WebClient(getBrowserVersion()); 
+		WebClient newClient = new WebClient(getBrowserVersion()) {
+			/** @since 8.0.2 */
+			@Override
+			public void close() {
+				// WebClient.close() must not discard the scripts shared with other tests.
+				if (getCache() == scriptCache) setCache(new Cache());
+				super.close();
+			}
+		};
 		newClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		newClient.getOptions().setPrintContentOnFailingStatusCode(false); 
 		newClient.getOptions().setThrowExceptionOnScriptError(false);
 		newClient.getOptions().setCssEnabled(false);
 		newClient.getOptions().setUseInsecureSSL(true);
 		newClient.getOptions().setFetchPolyfillEnabled(true); // Needed since OpenXava 8.0 becase it uses fetch in JavaScript
+		newClient.setCache(scriptCache);
 		newClient.setJavaScriptErrorListener(new SilentJavaScriptErrorListener());
 	    newClient.setCssErrorHandler(new SilentCssErrorHandler());
 	    newClient.setIncorrectnessListener((message, origin) -> {});

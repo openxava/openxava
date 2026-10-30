@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Automated tests have been running slower since v8.0.
 - Improved lesson 3 code: required invoice year and number, and mandatory product in detail lines.
 - Expanded i18n documentation with collection labels, programmatic APIs, language selection and fallback.
 - Added Spanish i18n documentation.
