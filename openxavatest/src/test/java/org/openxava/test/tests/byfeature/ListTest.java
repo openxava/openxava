@@ -742,28 +742,27 @@ public class ListTest extends WebDriverTestBase {
 	}
 
 	private void assertPDFInPopup() {
-		for (String windowHandle : getDriver().getWindowHandles()) {
-			getDriver().switchTo().window(windowHandle);
-        }
-
-		// Wait dynamically for PDF content to be available
-		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(4));
-		wait.until(driver -> {
-			String pageSource = driver.getPageSource();
-			return pageSource.contains("pdf_embedder.css") || 
-				   !driver.findElements(By.tagName("embed")).isEmpty();
-		});
-		
-		String pageSource = getDriver().getPageSource();
-		
-		// If page source indicates Chrome's built-in PDF viewer, verification passes
-		if (pageSource.contains("pdf_embedder.css")) {
-			return;
+		String originalWindow = getDriver().getWindowHandle();
+		try {
+			WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(4));
+			wait.withMessage("Expected a PDF document in a popup window").until(driver -> {
+				for (String windowHandle : driver.getWindowHandles()) {
+					if (windowHandle.equals(originalWindow)) continue;
+					driver.switchTo().window(windowHandle);
+					// Chrome's PDF viewer can hide its elements inside a closed shadow root.
+					String contentType = (String) ((JavascriptExecutor) driver)
+						.executeScript("return document.contentType");
+					if ("application/pdf".equals(contentType) ||
+						!driver.findElements(By.cssSelector("embed[type='application/pdf']")).isEmpty()) {
+						return true;
+					}
+				}
+				return false;
+			});
 		}
-		
-		// Otherwise, verify using embed element
-		String contentType = getDriver().findElement(By.tagName("embed")).getAttribute("type");
-		assertEquals("application/pdf", contentType);
+		finally {
+			getDriver().switchTo().window(originalWindow);
+		}
 	}
 	
 	private boolean hasClockIcon() {
