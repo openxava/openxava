@@ -772,7 +772,9 @@ i.folder-icon {
 }
 
 #xava_search_columns_text { 
-	width: calc(100% - 13px);
+	width: 100%;
+	box-sizing: border-box;
+	height: calc(20px + 2 * var(--space-2) + 2px);
 	padding-left: 7px;
 }
 
@@ -1678,7 +1680,7 @@ i.mdi {
 }
 
 .ox-list.ox-select-columns-list {
-	margin-bottom: 5px;
+	margin: 0 0 5px;
 }
 
 .ox-select-columns-list tr:first-child {
@@ -2731,6 +2733,10 @@ td.ox-list-subheader > div {
  
 .ui-dialog .ox-detail {
 	margin: 0 calc(-1 * var(--space-2)) 0 0; 
+}
+
+.ui-dialog .ox-detail:has(> #xava_search_columns) {
+	margin-right: 0;
 }
 
 .ui-dialog, #xava_processing_layer {

@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Add columns dialog clips the search field on the right and misaligns the columns list.
 - Fix: Boolean switches in element collections are oversized and their knobs are misaligned.
 - Fix: Sort indicators in list headers are only visible on hover.
 - Fix: Automated tests have been running slower since v8.0.
