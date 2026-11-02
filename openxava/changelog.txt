@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Boolean switches in element collections are oversized and their knobs are misaligned.
 - Fix: Sort indicators in list headers are only visible on hover.
 - Fix: Automated tests have been running slower since v8.0.
 - Improved lesson 3 code: required invoice year and number, and mandatory product in detail lines.

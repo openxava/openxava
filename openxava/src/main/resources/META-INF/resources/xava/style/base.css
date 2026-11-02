@@ -2058,7 +2058,7 @@ td.ox-list-subheader {
 	background: var(--element-collection-row-hover-background);
 }
 
-.ox-element-collection .editor, .ox-list-cell-editor .editor { 
+.ox-element-collection .editor:not(.ox-switch), .ox-list-cell-editor .editor:not(.ox-switch) {
 	width: 100%; 
 	box-sizing: border-box; 
 	-moz-box-sizing: border-box; 
