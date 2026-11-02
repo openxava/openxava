@@ -98,6 +98,7 @@
 
 	/* List */
 	--list-background: var(--my-dark);
+	--sort-indicator-color: var(--label-color);
 	--list-row-a-color: inherit;
 	--total-cell-color: inherit;
 	--icon-check-color: inherit;

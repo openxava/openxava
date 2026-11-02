@@ -29,6 +29,7 @@ public class ListTest extends WebDriverTestBase {
 		assertMoveColumns();
 		assertRemoveColumnAfterFiltering(); 
 		
+		assertSortIndicatorVisibleWithoutHover();
 		assertNoFilterInCollectionByDefault();
 
 		goModule("Carrier");
@@ -172,6 +173,19 @@ public class ListTest extends WebDriverTestBase {
 		assertCollectionFilterNotDisplayed();
 	}
 	
+	private void assertSortIndicatorVisibleWithoutHover() throws Exception {
+		for (int i = 0; i < 2; i++) {
+			execute("List.orderBy", "property=author");
+			new Actions(getDriver()).moveToElement(getElementById("CRUD___new")).perform();
+			Thread.sleep(300); // Wait for the hover color transition to finish.
+			WebElement indicator = getElementById("list_col0").findElement(By.cssSelector("i.ox-sort-indicator"));
+			assertTrue("Sort indicator should remain visible without hovering the column header",
+				indicator.isDisplayed());
+			assertFalse("Sort indicator should not have the same color as the list background",
+				indicator.getCssValue("color").equals(getElementById("list").getCssValue("background-color")));
+		}
+	}
+
 	private void assertMoveColumns() throws Exception { 
 		// To test a specific bug moving columns
 		assertLabelInList(0, "Author");

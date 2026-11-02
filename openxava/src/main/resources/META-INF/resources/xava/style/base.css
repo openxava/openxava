@@ -195,7 +195,7 @@
 	--element-collection-row-hover-background: color-mix(in srgb, var(--color) 4%, transparent);
 	--element-collection-cell-hover-background: color-mix(in srgb, var(--accent-color) 12%, transparent);
 	--list-background: white;
-	--list-header-arrows-color: white;
+	--list-header-arrows-color: var(--sort-indicator-color);
 	--customize-controls-color: var(--messages-accent);
 	--customize-controls-column-icon-color: white;
 	--customize-controls-hover-color: white;		
@@ -209,7 +209,7 @@
 	--list-row-action-hover-color: var(--action-hover-color);
 	--list-total-row-action-color: var(--list-row-action-color);
 	--list-total-row-action-hover-color: var(--list-row-action-hover-color);	
-	--sort-indicator-color: black;
+	--sort-indicator-color: #475569;
 	--xava-dropped-shadow: lightgray;		
 		
 	--dialog-titlebar-button-background: transparent;
