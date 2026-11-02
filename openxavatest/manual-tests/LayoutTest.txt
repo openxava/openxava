@@ -13,6 +13,7 @@ to test it visually at least the next cases:
 - Movie3: Button must be in the same row with @File and should be aligned vertically in the middle of the div.
 
 With flowLayout=true in xava.properties:
+- Customer: 'Change name label' action must align vertically with the Name field.
 - Customer: The icon of 'Web site' property must be on right, inside the field.
 - Customer: Seller group must have all the properties well aligned. 
 	The number and name of customer must be placed in one line or two when resized. 
@@ -31,8 +32,7 @@ With flowLayout=true in xava.properties:
 - WarehouseInGroup: Simple, one field below other, inside the group frame.
 - WarehouseInSection: Simple, one field below other, inside the section.
 - CustomerAddress: Simple, one field below other, inside the embeddable frame. 
-- WorkCost: 
+- WorkCost:
 	Browser narrow hidding module menu: collections inside frames and frames filling all space.
 	Open modules menu: collections inside frames and frames filling all space.
 	Wide the browser: collections inside frames and frames filling all space.
-
