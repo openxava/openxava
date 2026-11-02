@@ -20,7 +20,14 @@ with Dark and Light theme the next cases:
 	- Search for a warehouse with a dialog.
 	- Links for page numbers and 'Hide records' links are visible.
 - Product2:
-	- Open a descriptions list combo, the background is white.	
+	- Open a descriptions list combo, the background is white.
+- ExamResult:
+    - Go to first detail.
+    - Switch in collection should be nice, with correct size and alignment.
+- Quote:
+    - Go to first detail.
+    - Click on any editable cell the editor should fill al column space.
+    - Resize the column, the editor should be resized too.
 - Invoice:
     - Go to first detail.
 	- Paid label aligned with other labels and paid editor centered with other fields.
@@ -36,5 +43,4 @@ with Dark and Light theme the next cases:
     - The editors for city (no label) and state (small label) must be well aligned.
     - The label of photo must be well aligned (top or middle but not ugly).
     - The 4 fields inside Customer before Address should be aligned.
-
 
