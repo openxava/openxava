@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Collections overflow their frames when resizing the browser with an existing record selected.
 - Fix: Inline actions declared in @View are vertically misaligned with adjacent fields when flowLayout=true.
 - Fix: Add columns dialog clips the search field on the right and misaligns the columns list.
 - Fix: Boolean switches in element collections are oversized and their knobs are misaligned.
