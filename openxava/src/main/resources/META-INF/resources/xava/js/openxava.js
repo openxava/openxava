@@ -62,7 +62,6 @@ openxava.request = function(application, module, firstRequest, inNewWindow) {
 		}
 	});
 
-	$(window).unbind('resize');
 	openxava.deselected = [];
 }
 
@@ -673,6 +672,8 @@ openxava.initLists = function(application, module) {
 			openxava.tabSetColumnWidth(application, module, event.target.id, $(event.target).closest("th").index() - 2, Math.round($(event.target).width())); 
 		}
 	});				
+	// Requests without a UI refresh must keep the existing resize handlers.
+	$(window).unbind('resize');
 	openxava.resetListsSize(application, module); 
 	$('.xava_sortable_column').sorttable({ 
 		placeholder: 'xava_placeholder',
@@ -821,12 +822,17 @@ openxava.setListsSize = function(application, module, type, adjustment) {
 	var buttonBar = $('#' + openxava.decorateId(application, module, "bottom_buttons"));
 	var scrollId = '.' + openxava.decorateId(application, module, type + "_scroll");
 	if (openxava.dialogLevel > 0) scrollId = ".ui-dialog " + scrollId; // To avoid that showing a dialog resizes the list
-	$(scrollId).width(50); 	  
-	$(scrollId).width(buttonBar.outerWidth() + adjustment); 
-	$(window).resize(function() {
-		$(scrollId).width(50); 
-		$(scrollId).width(buttonBar.outerWidth() + adjustment); 		
-	});
+	var resize = function() {
+		// Shrink all lists before measuring so their tables do not widen the frames.
+		$(scrollId).width(50);
+		$(scrollId).each(function() {
+			var frameContent = type === "collection" ? $(this).closest(".ox-frame-content") : $();
+			var width = frameContent.length ? frameContent.width() : buttonBar.outerWidth() + adjustment;
+			$(this).width(width);
+		});
+	};
+	resize();
+	$(window).resize(resize);
 }
 
 openxava.addEditorDestroyFunction = function(destroyFunction) { 
