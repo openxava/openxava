@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Default application favicon uses the old OpenXava logo.
 - Fix: Side-by-side frames touch and do not align with full-width frames when flowLayout=true.
 - Fix: Collections overflow their frames when resizing the browser with an existing record selected.
 - Fix: Inline actions declared in @View are vertically misaligned with adjacent fields when flowLayout=true.
