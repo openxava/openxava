@@ -66,7 +66,45 @@ public class Invoice5Test extends ModuleTestBase {
 		execute("Mode.list"); 
 		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26", ""); 
 	}
-	
+
+	// TMR ME QUEDÉ POR AQUÍ: TEST HECHO, SALE ROJO DONDE TOCA. FALTA IMPLEMENTAR LA SOLUCIÓN.
+	public void testImportFromCSVWithDecimalPointInSpanish() throws Exception {
+		setLocale("es");
+		execute("Mode.list");
+		assertListRowCount(0);
+
+		execute("ImportData.importData");
+		uploadFile("file", "test-files/invoices5-decimal-point.csv");
+		execute("ConfigureImport.configureImport");
+		assertNoErrors();
+		assertCollectionRowCount("columns", 5);
+		String[] properties = { "year", "number", "date", "amount", "comment" };
+		for (int i = 0; i < properties.length; i++) {
+			setValueInCollection("columns", i, "nameInApp", properties[i]);
+		}
+		execute("Import.import");
+
+		try {
+			assertNoErrors();
+			execute("List.orderBy", "property=number");
+			String[] amounts = {
+				"152,25", "20,36", "5,96", "250,20", "600,06",
+				"1.234.567,89", "1.234.567,89", "1.234.567,89", "1.230.567,89"
+			};
+			assertListRowCount(amounts.length);
+			for (int i = 0; i < amounts.length; i++) {
+				assertValueInList(i, "number", Integer.toString(i + 1));
+				assertValueInList(i, "amount", amounts[i]);
+			}
+		}
+		finally {
+			checkAll();
+			execute("CRUD.deleteSelected");
+			assertNoErrors();
+			assertListRowCount(0);
+		}
+	}
+
 	public void testMapFacadeIntegerToBigDecimalConversion() throws Exception {
 		setValue("number", "66");
 		setValue("amount", "200");
