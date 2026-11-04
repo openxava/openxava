@@ -2,6 +2,7 @@ package org.openxava.test.tests.bymodule;
 
 import java.io.*;
 import java.net.*;
+import java.nio.file.*;
 import java.util.*;
 
 import jakarta.persistence.*;
@@ -28,6 +29,34 @@ public class ApplicantTest extends ModuleTestBase {
 		super("Applicant");
 	}
 	
+	@Test
+	public void testCustomFavicon_defaultImageWhenNotCustomized() throws Exception {
+		// Custom favicon
+		byte[] expected = Files.readAllBytes(Paths.get("src/main/webapp/xava/images/favicon.ico"));
+		try (InputStream defaultIcon = getClass().getResourceAsStream(
+				"/META-INF/resources/xava/images/favicon.ico")) {
+			assertNotNull(defaultIcon);
+			assertFalse("The custom favicon must differ from the default one",
+				Arrays.equals(expected, defaultIcon.readAllBytes()));
+		}
+		assertImageContent("favicon.ico", expected);
+
+		// Default images when not customized
+		assertFalse(Files.exists(Paths.get("src/main/webapp/xava/images/calendar.gif")));
+		try (InputStream image = getClass().getResourceAsStream(
+				"/META-INF/resources/xava/images/calendar.gif")) {
+			assertNotNull(image);
+			assertImageContent("calendar.gif", image.readAllBytes());
+		}
+	}
+
+	private void assertImageContent(String name, byte[] expected) throws IOException {
+		URL url = new URL(getHtmlPage().getUrl(), getContextPath() + "xava/images/" + name);
+		try (InputStream image = url.openStream()) {
+			Assert.assertArrayEquals(expected, image.readAllBytes());
+		}
+	}
+
 	@Test
 	public void testCancelAddColumnsFromSearhReference_changeListConfigurationFromSearchReference() throws Exception { 
 		execute("CRUD.new");

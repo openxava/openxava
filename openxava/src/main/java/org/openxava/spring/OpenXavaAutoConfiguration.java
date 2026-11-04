@@ -30,6 +30,7 @@ import org.springframework.boot.web.server.servlet.context.ServletComponentScan;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
@@ -63,6 +64,16 @@ import com.zaxxer.hikari.HikariDataSource;
 @EnableConfigurationProperties(OpenXavaDataSourcesProperties.class)
 @ServletComponentScan(basePackages = { "org.openxava", "com.openxava" })
 public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
+
+	/**
+	 * @since 8.0.2
+	 */
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// Spring Boot's default handler searches the classpath before the web application.
+		registry.addResourceHandler("/xava/images/**")
+			.addResourceLocations("/xava/images/", "classpath:/META-INF/resources/xava/images/");
+	}
 
 	/**
 	 * @since 8.0
