@@ -222,7 +222,7 @@ storePasswordAsHex=true
 initialPasswordForAdmin=admin</code></pre>
       <ul>
         <li><strong>encryptPassword</strong>: Cuando se establece en true, las contraseñas se almacenan cifradas en la base de datos. El valor predeterminado es true.</li>
-        <li><strong>storePasswordAsHex</strong>: Cuando se establece en true, las contraseñas cifradas se almacenan en formato hexadecimal. El valor predeterminado es true.</li>
+        <li><strong>storePasswordAsHex</strong>: Cuando se establece en true, las contraseñas cifradas se almacenan en formato hexadecimal. El valor predeterminado es true. Desde v8.0.2, todas las nuevas contraseñas generadas ignoran esta propiedad; solo se utiliza para verificar las contraseñas almacenadas en el formato antiguo.</li>
         <li><strong>initialPasswordForAdmin</strong>: Define la contraseña inicial para el usuario administrador cuando la aplicación se ejecuta por primera vez o cuando se crean nuevas organizaciones. El valor predeterminado es "admin".</li>
       </ul>
       <br>
