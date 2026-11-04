@@ -2446,11 +2446,6 @@ th.ox-list-header .ui-resizable-e:focus::after {
 	margin-left: 0px;
 }
 
-.ox-frame .ox-flow-layout > div.ox-frame {
-	margin-left: 1px;
-	margin-right: -3px;
-}
-
 .ox-full-frame {
 	width: calc(100% - var(--space-2));
 	box-sizing: border-box;
@@ -2464,12 +2459,7 @@ th.ox-list-header .ui-resizable-e:focus::after {
 }
 
 .ox-flow-layout .ox-half-frame {
-	width: calc(50% - 31px);
 	min-width: inherit;
-}
-
-.ox-flow-layout .ox-full-frame {
-	width: 100%;
 }
 
 .ox-detail.ox-flow-layout, .ox-active-section > .ox-flow-layout { 
@@ -2485,7 +2475,6 @@ th.ox-list-header .ui-resizable-e:focus::after {
 
 .ox-flow-layout .ox-frame { 
 	margin-left: 0px;
-	margin-right: 0px; 
 }
 
 .ox-frame, .ox-card {  
