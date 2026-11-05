@@ -1,0 +1,10 @@
+year;number;date;amount;comment
+2026;1;25/09/2026;152.25;desc1
+2026;2;25/09/2026;20.36;desc2
+2026;3;25/09/2026;5.96;desc3
+2026;4;25/09/2026;250.2;desc4
+2026;5;25/09/2026;600.06;desc5
+2026;6;25/09/2026;1234567.89;decimal point without grouping
+2026;7;25/09/2026;1234567,89;decimal comma without grouping
+2026;8;25/09/2026;1.234.567,89;decimal comma with grouping
+2026;9;25/09/2026;1,230,567.89;decimal point with grouping
