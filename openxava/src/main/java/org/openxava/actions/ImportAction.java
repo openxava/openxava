@@ -1,6 +1,8 @@
 package org.openxava.actions;
 
+import java.text.*;
 import java.util.*;
+import java.util.regex.*;
 
 import org.openxava.model.*;
 import org.openxava.model.meta.*;
@@ -15,6 +17,8 @@ import org.openxava.web.*;
  */
 
 public class ImportAction extends ViewBaseAction implements IChangeControllersAction { 
+	
+	private static final Pattern DECIMAL_POINT_NUMBER = Pattern.compile("[+-]?(\\d{1,3}(,\\d{3})+|\\d+)\\.\\d{1,2}");
 	
 	private String[] nextControllers = DEFAULT_CONTROLLERS;
 	
@@ -38,7 +42,7 @@ public class ImportAction extends ViewBaseAction implements IChangeControllersAc
 				if (!Is.empty(column.getNameInApp())) {
 					View moduleView = getPreviousView();
 					MetaProperty p = moduleView.getMetaModel().getMetaProperty(column.getNameInApp());
-					String filteredValue = Strings.unquote(Import.decodeSeparators(rawValue)); 
+					String filteredValue = normalizeDecimalPoint(p, Strings.unquote(Import.decodeSeparators(rawValue))); 
 					Object value = WebEditors.parse(getRequest(), p, filteredValue, getErrors(), moduleView.getViewName()); 
 					values.put(column.getNameInApp(), value);
 				}
@@ -62,6 +66,15 @@ public class ImportAction extends ViewBaseAction implements IChangeControllersAc
 		if (count > 0) addMessage("records_imported", count);
 		else addError("no_records_imported");
 		closeDialog();
+	}
+
+	private String normalizeDecimalPoint(MetaProperty p, String value) {
+		if (!p.isNumber() || p.isInteger()) return value;
+		char decimalSeparator = DecimalFormatSymbols.getInstance(Locales.getCurrent()).getDecimalSeparator();
+		if (decimalSeparator == '.') return value;
+		String trimmedValue = value.trim();
+		if (!DECIMAL_POINT_NUMBER.matcher(trimmedValue).matches()) return value;
+		return trimmedValue.replace(",", "").replace('.', decimalSeparator);
 	}
 
 	private boolean validateRequired(Import imp) {
