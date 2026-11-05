@@ -63,7 +63,7 @@ public class CallBackLogTest extends ModuleTestBase {
 		setValue("callbacks", "ERROR_ON_PRE_CREATE");
 		execute("CRUD.save");
 		assertErrorsCount(1);
-		assertError("ERROR_ON_PRE_CREATE is not a valid value for Callbacks of Call back log: Provoked Error on PreCreate");
+		assertError("ERROR ON PRE CREATE is not a valid value for Callbacks of Call back log: Provoked Error on PreCreate");
 		execute("Mode.list");
 		assertListRowCount(0);
 	}

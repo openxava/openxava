@@ -76,6 +76,9 @@ public class EntityManagerDecorator implements EntityManager {
 					if (e.getCause() instanceof ValidationException) {
 						throw ((ValidationException) e.getCause());
 					}
+					if (e.getCause() instanceof jakarta.validation.ValidationException) {
+						throw ((jakarta.validation.ValidationException) e.getCause());
+					}
 					throw new XavaException(e.getCause().getMessage());
 				}
 				log.error(e.getMessage(), e);
