@@ -56,6 +56,18 @@ public class CallBackLogTest extends ModuleTestBase {
 		assertListRowCount(0);
 	}
 	
+	public void testConstraintViolationExceptionOnPreCreate() throws Exception {
+		execute("CRUD.new");
+		setValue("id", "1");
+		setValue("testName", "CREATE_TEST");
+		setValue("callbacks", "ERROR_ON_PRE_CREATE");
+		execute("CRUD.save");
+		assertErrorsCount(1);
+		assertError("ERROR ON PRE CREATE is not a valid value for Callbacks of Call back log: Provoked Error on PreCreate");
+		execute("Mode.list");
+		assertListRowCount(0);
+	}
+	
 	public void testTransactionFailureOnRemove() throws Exception {
 		execute("CRUD.new");
 		setValue("id", "1");

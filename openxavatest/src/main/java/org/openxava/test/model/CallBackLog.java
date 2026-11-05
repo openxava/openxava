@@ -8,6 +8,13 @@ import jakarta.persistence.PostRemove;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.constraints.Pattern;
+
+import java.util.Set;
 
 import org.openxava.annotations.PostCreate;
 import org.openxava.annotations.PreCreate;
@@ -30,10 +37,17 @@ public class CallBackLog {
 	private String testName;
 	
 	@Column(name = "CALLBACKS", length = 200)
+	@Pattern(regexp = "^(?!.*ERROR_ON_PRE_CREATE).*$", groups = PreCreateValidation.class,
+		message = "Provoked Error on PreCreate")
 	private String callbacks;
+	
+	public interface PreCreateValidation {}
 
 	@PreCreate
 	public void onPreCreate() {
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<CallBackLog>> violations = validator.validate(this, PreCreateValidation.class);
+		if (!violations.isEmpty()) throw new ConstraintViolationException(violations);
 		addCallback("PRE_CREATE");
 	}
 	

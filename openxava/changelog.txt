@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: ConstraintViolationException from @PreCreate shows a generic error instead of the validation message.
 - Fix: Importing CSV loses decimals with decimal point in languages that use a different decimal separator.
 - Fix: Custom application favicon is ignored since v8.0.
 - Fix: Default application favicon uses the old OpenXava logo.
