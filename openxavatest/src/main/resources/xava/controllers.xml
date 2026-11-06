@@ -452,7 +452,7 @@
 			class="org.openxava.test.actions.ChangeNameGroupAndSectionAction"/>
 		<!-- To test that section titles changed by code are refreshed on navigation -->
 		<action name="updateIncidentsSectionTitle" mode="detail" 
-			hidden="true" on-each-request="true"
+			hidden="true" after-each-request="true"
 			class="org.openxava.test.actions.UpdateIncidentsSectionTitleAction"/>
 	</controller>
 	
