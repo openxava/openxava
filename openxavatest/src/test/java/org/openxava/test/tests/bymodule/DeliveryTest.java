@@ -65,6 +65,30 @@ public class DeliveryTest extends CustomizeListTestBase {
 	}
 	
 	@Test
+	// tmr Cambiar el nombre
+	// tmr Verificar si merece la pena fusionarlo
+	public void testChangeSectionTitleByCode_refreshedOnNavigation() throws Exception {
+		long ini = System.currentTimeMillis();
+		assertListNotEmpty();
+		execute("List.viewDetail", "row=0");
+		String firstNumber = getValue("number");
+		assertLabel(1, "Incidents of " + firstNumber);
+		
+		// Most deliveries have number 666, so we navigate until a different one
+		String secondNumber = firstNumber;
+		for (int i = 0; i < 10 && secondNumber.equals(firstNumber); i++) {
+			execute("Navigation.next");
+			secondNumber = getValue("number");
+		}
+		assertNotEquals("Needed a delivery with a different number for this test", 
+			firstNumber, secondNumber);
+		assertLabel(1, "Incidents of " + secondNumber);
+		long takes = System.currentTimeMillis() - ini;
+		System.out.println("testChangeSectionTitleByCode_refreshedOnNavigation takes " 
+			+ takes + " ms");
+	}
+	
+	@Test
 	public void testFilterDescriptionsListAndEnumLetterType_myReportConditionWithDescriptionsListAndValidValues() throws Exception { 
 		assertLabelInList(3, "Type"); 
 		assertLabelInList(7, "Distance");
