@@ -7455,6 +7455,10 @@ public class View implements java.io.Serializable {
 	 */	
 	public void setTitle(String title) { 
 		this.title = title;
+		if (isSection() && !Is.emptyString(getViewObject())) { // So the section tab label is refreshed in AJAX requests
+			if (getRoot().changedLabels == null) getRoot().changedLabels = new HashMap<String, String>();
+			getRoot().changedLabels.put(getViewObject() + "_sectionName", title);
+		}
 	}		 
 	
 	private Collection<String> getFullOrderActionsNamesList() {
