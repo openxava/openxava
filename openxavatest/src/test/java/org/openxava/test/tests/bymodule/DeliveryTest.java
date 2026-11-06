@@ -65,10 +65,7 @@ public class DeliveryTest extends CustomizeListTestBase {
 	}
 	
 	@Test
-	// tmr Cambiar el nombre
-	// tmr Verificar si merece la pena fusionarlo
-	public void testChangeSectionTitleByCode_refreshedOnNavigation() throws Exception {
-		long ini = System.currentTimeMillis();
+	public void testChangeSectionTitleByCode() throws Exception {
 		assertListNotEmpty();
 		execute("List.viewDetail", "row=0");
 		String firstNumber = getValue("number");
@@ -83,9 +80,6 @@ public class DeliveryTest extends CustomizeListTestBase {
 		assertNotEquals("Needed a delivery with a different number for this test", 
 			firstNumber, secondNumber);
 		assertLabel(1, "Incidents of " + secondNumber);
-		long takes = System.currentTimeMillis() - ini;
-		System.out.println("testChangeSectionTitleByCode_refreshedOnNavigation takes " 
-			+ takes + " ms");
 	}
 	
 	@Test

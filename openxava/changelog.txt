@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Section titles changed by code with View.setTitle() are not refreshed in the UI.
 - Fix: ConstraintViolationException from @PreCreate shows a generic error instead of the validation message.
 - Fix: Importing CSV loses decimals with decimal point in languages that use a different decimal separator.
 - Fix: Custom application favicon is ignored since v8.0.

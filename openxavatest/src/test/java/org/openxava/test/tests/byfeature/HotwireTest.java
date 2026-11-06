@@ -1,4 +1,4 @@
-package org.openxava.test.tests.bymodule;
+package org.openxava.test.tests.byfeature;
 
 import java.util.*;
 
@@ -939,6 +939,17 @@ public class HotwireTest extends ModuleTestBase {
 		
 		assertAction("Product5.addPhoto");
 		removeFile("photos", 0);
+	}
+	
+
+	public void testSectionTitleChangedByCodeOnlyRefreshesLabel() throws Exception {
+		changeModule("Delivery");
+		execute("List.viewDetail", "row=0");
+		execute("Navigation.next");
+		assertLoadedPart("label_xava_view_section1_sectionName"); 
+		assertNotLoadedPart("view");
+		assertNotLoadedPart("core");
+		assertNotLoadedPart("sections_xava_view");
 	}
 	
 
