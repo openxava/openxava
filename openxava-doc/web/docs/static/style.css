@@ -1,7 +1,7 @@
 h1 {
     margin: -8px -8px 15px -8px ;
     padding: 5px 10px 5px 10px;
-    background: #2c3135;
+    background: #0a0a0b;
     color: white;
 	font-weight: bold; 
 	font-size: 1.4em;
@@ -25,11 +25,21 @@ h1 #breadcrumbs a:hover {
 
 h1 #openxava a, h1 #openxava a:hover {
 	text-decoration: none;
-	color: #E8DDCB;
+	color: #e6e6e8;
+	font-family: Inter, Roboto, sans-serif;
+	font-weight: 700;
+	font-size: 0.8em;
+	letter-spacing: -0.01em;
 }
 
-h1 #openxava span {
-	color: red;
+h1 #openxava img {
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+	margin: 0 8px 0 0;
+	padding: 0;
+	width: 26px;
+	height: 26px;
 }
 
 h1 #doc {
