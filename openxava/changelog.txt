@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Qualified labels in i18n files for references of references are ignored in detail mode.
 - Fix: Section titles changed by code with View.setTitle() are not refreshed in the UI.
 - Fix: ConstraintViolationException from @PreCreate shows a generic error instead of the validation message.
 - Fix: Importing CSV loses decimals with decimal point in languages that use a different decimal separator.
