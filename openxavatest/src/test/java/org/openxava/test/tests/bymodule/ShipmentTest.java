@@ -73,8 +73,9 @@ public class ShipmentTest extends ModuleTestBase {
 		assertNoErrors();
 	}	
 	
-	public void testCreateReferenceFromCreatingReference() throws Exception { 
+	public void testCreateReferenceFromCreatingReference_qualifiedLabelForReferenceOfReference() throws Exception { 
 		execute("CRUD.new");
+		assertLabel("customerContactPerson.customer.name", "Customer name");
 		execute("Reference.createNew", "model=CustomerContactPerson,keyProperty=xava.Shipment.customerContactPerson.name");
 		execute("Reference.createNew", "model=Customer,keyProperty=xava.CustomerContactPerson.customer.number");
 		
