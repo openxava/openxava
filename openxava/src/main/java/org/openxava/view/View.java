@@ -6314,6 +6314,10 @@ public class View implements java.io.Serializable {
 			}
 		}		
 		if (!Is.emptyString(getMemberName())) {
+			String idFromRoot = getLabelIdFromRoot(p);
+			if (idFromRoot != null && Labels.existsExact(idFromRoot, Locales.getCurrent())) {
+				return Labels.get(idFromRoot, Locales.getCurrent());
+			}
 			int idx = p.getId().lastIndexOf('.');
 			if (idx < 0) idx = 0; 
 			String id = p.getId().substring(0, idx) + "." + getMemberName() + p.getId().substring(idx);
@@ -6333,6 +6337,22 @@ public class View implements java.io.Serializable {
 		}
 		return p.getLabel(getRequest());
 	}	
+
+	private String getLabelIdFromRoot(MetaMember p) { 
+		StringBuilder path = new StringBuilder(p.getName());
+		View view = this;
+		while (view != null) {
+			View parent = view.getParent();
+			if (!view.isSection() && !view.isGroup()) {
+				if (parent == null || Is.emptyString(view.getMemberName())) {
+					return view.getModelName() + "." + path;
+				}
+				path.insert(0, view.getMemberName() + ".");
+			}
+			view = parent;
+		}
+		return null;
+	}
 
 	/**
 	 * 
