@@ -25,12 +25,12 @@ if (javaRoot.exists()) {
     }
 }
 if (appFile != null) {
-    def text = appFile.getText("UTF-8")
+    def text = appFile.getText("ISO-8859-1")
     text = text.replace("__artifactId__", artifactId)
     text = text.replace("class Application extends", "class ${newClass} extends")
     text = text.replace("SpringApplication.run(Application.class", "SpringApplication.run(${newClass}.class")
     def newFile = new File(appFile.parentFile, "${newClass}.java")
-    newFile.setText(text, "UTF-8")
+    newFile.setText(text, "ISO-8859-1")
     appFile.delete()
     println "Renamed launcher class to ${newClass}"
 }
@@ -38,7 +38,7 @@ if (appFile != null) {
 // Update the mainClass reference in pom.xml
 def pom = new File(projectDir, "pom.xml")
 if (pom.exists()) {
-    def ptext = pom.getText("UTF-8")
+    def ptext = pom.getText("ISO-8859-1")
     ptext = ptext.replace('.Application</mainClass>', ".${newClass}</mainClass>")
-    pom.setText(ptext, "UTF-8")
+    pom.setText(ptext, "ISO-8859-1")
 }
