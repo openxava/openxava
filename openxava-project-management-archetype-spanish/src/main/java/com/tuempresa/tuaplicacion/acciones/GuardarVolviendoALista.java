@@ -3,7 +3,7 @@ package com.tuempresa.tuaplicacion.acciones;
 import org.openxava.actions.*;
 
 /**
- * AcciÃ³n que guarda la entidad y vuelve al modo lista si no hay errores.
+ * Acción que guarda la entidad y vuelve al modo lista si no hay errores.
  * Si hay errores, permanece en el modo detalle.
  */
 public class GuardarVolviendoALista extends SaveAction {
