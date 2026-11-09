@@ -42,3 +42,25 @@ if (pom.exists()) {
     ptext = ptext.replace('.Application</mainClass>', ".${newClass}</mainClass>")
     pom.setText(ptext, "ISO-8859-1")
 }
+
+// Pin ISO-8859-1 for all source directories in .idea/encodings.xml.
+// IntelliJ's Maven importer only applies project.build.sourceEncoding to
+// src/main/java and src/main/resources, leaving test sources at the default
+// UTF-8, which garbles ISO-8859-1 accents in test classes.
+def ideaDir = new File(projectDir, ".idea")
+ideaDir.mkdirs()
+def encodings = new File(ideaDir, "encodings.xml")
+encodings.setText('''<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/test/java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/test/resources" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/data" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/test-files" charset="ISO-8859-1" />
+  </component>
+</project>
+''', "ISO-8859-1")
+println "Created .idea/encodings.xml with ISO-8859-1 for all source directories"

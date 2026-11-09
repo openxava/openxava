@@ -10,7 +10,7 @@ import lombok.*;
 @Entity @Getter @Setter
 public class Trabajador extends Nombrable { 
 
-	/* PodrÃ­a ser asÃ­ con XavaPro
+	/* Podría ser así con XavaPro
 	@DescriptionsList
 	@ManyToOne(fetch = FetchType.LAZY)
 	User user;  

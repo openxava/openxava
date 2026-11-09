@@ -37,7 +37,7 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		// Probar crear una incidencia sin estado y tipo por defecto
 		assertNuevoSinValoresPorDefectoParaEstadoYTipo();
 		
-		// Probar hacer clic en un dí­a del calendario
+		// Probar hacer clic en un día del calendario
 		clickEnDia();
 		assertNoErrors();
 		assertValue("planificadoPara", String.format("15/%02d/%d", mes, anyo));
@@ -88,7 +88,7 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 		
 		XPersistence.commit();
 		
-		// Hacer clic en un dí­a y verificar que no se usan valores por defecto
+		// Hacer clic en un día y verificar que no se usan valores por defecto
 		clickEnDia();
 		
 		assertNoErrors();
@@ -106,7 +106,7 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 	}
 
 	private void assertNuevoSinPlan() throws Exception {
-		// Hacer clic en un dí­a cuando no hay plan
+		// Hacer clic en un día cuando no hay plan
 		clickEnDia();
 		assertError("No hay ningún plan para javi en la fecha " + fechaFormateada() + ". Crea uno y asígnalo en el campo Asignado a");
 		assertValue("planificadoPara", String.format("15/%02d/%d", mes, anyo));
@@ -121,14 +121,14 @@ public class PruebaMiCalendario extends WebDriverTestBase {
 	}
 
 	private void clickEnDia() throws Exception {
-		// Encontrar y hacer clic en un elemento de dÃ­a en el calendario
+		// Encontrar y hacer clic en un elemento de día en el calendario
 		WebElement elementoDia = getElementoDia();
 		elementoDia.click();
 		wait(getDriver());
 	}
 	
 	private void assertTextoDia(int dia, String textoEsperado) throws Exception {
-		// Verificar el texto mostrado en un dí­a del calendario
+		// Verificar el texto mostrado en un día del calendario
 		WebElement elementoDia = getElementoDia();
 		String contenidoDiaEsperado = Is.emptyString(textoEsperado)?Integer.toString(dia): dia + "\n" + textoEsperado; 
 		assertEquals(contenidoDiaEsperado, elementoDia.getText());

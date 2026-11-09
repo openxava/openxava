@@ -72,7 +72,7 @@ public class PruebaPlan extends ModuleTestBase {
 		// Obtener el primer plan
 		execute("List.viewDetail", "row=0");
 		
-		// Calcular fechas de dÃ­as laborables
+		// Calcular fechas de días laborables
 		LocalDate hoy = LocalDate.now();
 		LocalDate siguienteDiaLaboral = getSiguienteDiaLaboral(hoy);
 		LocalDate segundoSiguienteDiaLaboral = getSiguienteDiaLaboral(siguienteDiaLaboral);
@@ -80,7 +80,7 @@ public class PruebaPlan extends ModuleTestBase {
 		
 		DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		// AÃ±adir incidencia para hoy
+		// Añadir incidencia para hoy
 		execute("Collection.new", "viewObject=xava_view_incidencias");
 		setValue("titulo", "Incidencia para hoy");
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
@@ -88,23 +88,23 @@ public class PruebaPlan extends ModuleTestBase {
 		execute("Collection.save");
 		assertNoErrors();
 		
-		// AÃ±adir incidencia para el siguiente dÃ­a laboral (maÃ±ana)
+		// Añadir incidencia para el siguiente día laboral (mañana)
 		execute("Collection.new", "viewObject=xava_view_incidencias");
-		setValue("titulo", "Incidencia para maÃ±ana");
+		setValue("titulo", "Incidencia para mañana");
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
 		setValue("planificadoPara", siguienteDiaLaboral.format(formateador));
 		execute("Collection.save");
 		assertNoErrors();
 		
-		// AÃ±adir incidencia para el segundo siguiente dÃ­a laboral (pasado maÃ±ana)
+		// Añadir incidencia para el segundo siguiente día laboral (pasado mañana)
 		execute("Collection.new", "viewObject=xava_view_incidencias");
-		setValue("titulo", "Incidencia para pasado maÃ±ana");
+		setValue("titulo", "Incidencia para pasado mañana");
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
 		setValue("planificadoPara", segundoSiguienteDiaLaboral.format(formateador));
 		execute("Collection.save");
 		assertNoErrors();
 		
-		// AÃ±adir incidencia para otra fecha
+		// Añadir incidencia para otra fecha
 		execute("Collection.new", "viewObject=xava_view_incidencias");
 		setValue("titulo", "Incidencia para otra fecha");
 		setValue("tipo.id", "2c976081901309200190130d0b150005"); // Fallo
@@ -112,13 +112,13 @@ public class PruebaPlan extends ModuleTestBase {
 		execute("Collection.save");
 		assertNoErrors();
 		
-		// Verificar que la colecciÃ³n tiene 4 incidencias
+		// Verificar que la colección tiene 4 incidencias
 		assertCollectionRowCount("incidencias", 4);
 		
 		// Obtener el HTML y verificar que las clases CSS se aplican correctamente a las fechas adecuadas
 		String html = getHtml();
 		
-		// Formatear fechas como aparecen en el HTML (formato dd/MM/yyyy para locale espaÃ±ol)
+		// Formatear fechas como aparecen en el HTML (formato dd/MM/yyyy para locale español)
 		DateTimeFormatter htmlFormateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String hoyFormateada = hoy.format(htmlFormateador);
 		String mananaFormateada = siguienteDiaLaboral.format(htmlFormateador);
@@ -130,13 +130,13 @@ public class PruebaPlan extends ModuleTestBase {
 			html.contains("<span class=\"deadline-today\">" + hoyFormateada + "</span>") || 
 			html.contains("<span class='deadline-today'>" + hoyFormateada + "</span>"));
 		
-		// Verificar que la fecha de maÃ±ana tiene la clase 'deadline-tomorrow'
-		assertTrue("La fecha de maÃ±ana (" + mananaFormateada + ") debe tener la clase 'deadline-tomorrow'", 
+		// Verificar que la fecha de mañana tiene la clase 'deadline-tomorrow'
+		assertTrue("La fecha de mañana (" + mananaFormateada + ") debe tener la clase 'deadline-tomorrow'", 
 			html.contains("<span class=\"deadline-tomorrow\">" + mananaFormateada + "</span>") || 
 			html.contains("<span class='deadline-tomorrow'>" + mananaFormateada + "</span>"));
 		
-		// Verificar que la fecha de pasado maÃ±ana tiene la clase 'deadline-day-after-tomorrow'
-		assertTrue("La fecha de pasado maÃ±ana (" + pasadoMananaFormateada + ") debe tener la clase 'deadline-day-after-tomorrow'", 
+		// Verificar que la fecha de pasado mañana tiene la clase 'deadline-day-after-tomorrow'
+		assertTrue("La fecha de pasado mañana (" + pasadoMananaFormateada + ") debe tener la clase 'deadline-day-after-tomorrow'", 
 			html.contains("<span class=\"deadline-day-after-tomorrow\">" + pasadoMananaFormateada + "</span>") || 
 			html.contains("<span class='deadline-day-after-tomorrow'>" + pasadoMananaFormateada + "</span>"));
 
