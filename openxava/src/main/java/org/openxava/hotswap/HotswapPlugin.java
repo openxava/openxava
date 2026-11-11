@@ -87,6 +87,7 @@ public class HotswapPlugin {
     
 	@Init
 	public static void initResourcesMonitoring() {
+		Hotswap.setPluginClass(HotswapPlugin.class);
 	    if (!resourcesMonitoring) {
 	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
 	    	monitorDirectory("target/classes/xava", ENTRY_CREATE);

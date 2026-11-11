@@ -16,12 +16,36 @@ public class Hotswap {
 	
 	private static Log log = LogFactory.getLog(Hotswap.class);
 	private static Boolean active; 
+	private static Class<?> pluginClass;
+	
+	private static Class<?> getPluginClass() throws ClassNotFoundException {
+		if (pluginClass == null) {
+			try {
+				pluginClass = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName());
+			}
+			catch (ClassNotFoundException ex) {
+				pluginClass = HotswapPlugin.class;
+			}
+		}
+		return pluginClass;
+	}
+	
+	/**
+	 * Called by {@link HotswapPlugin} on its own initialization to register the
+	 * exact class copy whose counters the agent updates. Needed because the agent
+	 * may load the plugin in a different classloader than the application one.
+	 * 
+	 * @since 8.0.2
+	 */
+	public static void setPluginClass(Class<?> clazz) { 
+		pluginClass = clazz;
+		active = null; // Forces re-evaluation in case it was cached as false before the plugin initialization
+	}
 	
 	public static boolean isActive() { 
 		if (active == null) {
 			try {
-				Method isActive = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("isActive");
+				Method isActive = getPluginClass().getDeclaredMethod("isActive");
 				isActive.setAccessible(true); 
 				active = (Boolean) isActive.invoke(null);
 			}
@@ -44,8 +68,7 @@ public class Hotswap {
 	public static int getModelVersion() {
 		if (!isActive()) return 0; // Improves performance when a JDK with no HotswapAgent is used
 		try {
-			Method getModelVersion = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getModelVersion");
+			Method getModelVersion = getPluginClass().getDeclaredMethod("getModelVersion");
 			getModelVersion.setAccessible(true);
 			return (Integer) getModelVersion.invoke(null);
 		} 
@@ -58,8 +81,7 @@ public class Hotswap {
 	public static int getControllersVersion() {
 		if (!isActive()) return 0; // Improves performance when a JDK with no HotswapAgent is used
 		try {
-			Method getControllersVersion = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-					.getDeclaredMethod("getControllersVersion");
+			Method getControllersVersion = getPluginClass().getDeclaredMethod("getControllersVersion");
 			getControllersVersion.setAccessible(true);
 			return (Integer) getControllersVersion.invoke(null);
 		} catch (ClassNotFoundException ex) {
@@ -74,8 +96,7 @@ public class Hotswap {
 	public static int getApplicationVersion() {
 		if (!isActive()) return 0; // Improves performance when a JDK with no HotswapAgent is used
 		try {
-			Method getApplicationVersion = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getApplicationVersion");
+			Method getApplicationVersion = getPluginClass().getDeclaredMethod("getApplicationVersion");
 			getApplicationVersion.setAccessible(true); 
 			return (Integer) getApplicationVersion.invoke(null);
 		} 
@@ -92,8 +113,7 @@ public class Hotswap {
 	public static int getPersistentModelVersion() {
 		if (!isActive()) return 0; // Improves performance when a JDK with no HotswapAgent is used
 		try {
-			Method getPersistentModelVersion = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getPersistentModelVersion");
+			Method getPersistentModelVersion = getPluginClass().getDeclaredMethod("getPersistentModelVersion");
 			getPersistentModelVersion.setAccessible(true);
 			return (Integer) getPersistentModelVersion.invoke(null);
 		} catch (Exception ex) {
@@ -105,8 +125,7 @@ public class Hotswap {
 	public static int getI18nResourcesVersion() {
 		if (!isActive()) return 0; // Improves performance when a JDK with no HotswapAgent is used
 		try {
-			Method getI18nResourcesVersion = Hotswap.class.getClassLoader().getParent().loadClass(HotswapPlugin.class.getName())
-				.getDeclaredMethod("getI18nResourcesVersion");
+			Method getI18nResourcesVersion = getPluginClass().getDeclaredMethod("getI18nResourcesVersion");
 			getI18nResourcesVersion.setAccessible(true);
 			return (Integer) getI18nResourcesVersion.invoke(null);
 		} catch (ClassNotFoundException ex) { // For the first time before starting Tomcat with the incorrect classloader
