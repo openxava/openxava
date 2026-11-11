@@ -1,9 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
-¿Indicar que son desde la v8.0?
-- Fix: Calculated properties added to an entity are not recognized by hot reloading.
-- Fix: Hibernate exception trace (NameNotFoundException on JNDI) when hot reloading an entity change.
+- Fix: Hot reloading does not work running the application with Spring Boot, since v8.0.
+- Fix: Hibernate exception trace when hot reloading an entity change, since v8.0.
 
 - New Getting Started video adapted to v8, accessible from the Getting Started guide.
 - Fix: Documentation pages use an outdated OpenXava logo instead of the current openxava.org one.
