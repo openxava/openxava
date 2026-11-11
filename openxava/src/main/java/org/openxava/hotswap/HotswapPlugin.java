@@ -89,26 +89,70 @@ public class HotswapPlugin {
 	public static void initResourcesMonitoring() {
 		Hotswap.setPluginClass(HotswapPlugin.class);
 	    if (!resourcesMonitoring) {
-	    	monitorDirectory("target/classes/xava", ENTRY_MODIFY);
-	    	monitorDirectory("target/classes/xava", ENTRY_CREATE);
-	    	monitorDirectory("target/classes/i18n", ENTRY_MODIFY); 
-	    	monitorDirectory("target/classes/i18n", ENTRY_CREATE);
-	    	
+	    	for (Path classesDir : getClasspathDirectories()) {
+	    		Path xavaDir = classesDir.resolve("xava");
+	    		Path i18nDir = classesDir.resolve("i18n");
+		    	monitorDirectory(xavaDir.toString(), ENTRY_MODIFY);
+		    	monitorDirectory(xavaDir.toString(), ENTRY_CREATE);
+		    	monitorDirectory(i18nDir.toString(), ENTRY_MODIFY);
+		    	monitorDirectory(i18nDir.toString(), ENTRY_CREATE);
+		    	Path sourceResourcesDir = getSourceResourcesDir(classesDir);
+		    	if (sourceResourcesDir != null) {
+		    		// Some launchers (e.g. Spring Boot) do not copy resources to the
+		    		// classpath output when only resources change, so we also watch the
+		    		// source resources dir and copy changed files to the classpath ourselves
+		    		monitorSourceDirectory(sourceResourcesDir.resolve("xava"), xavaDir);
+		    		monitorSourceDirectory(sourceResourcesDir.resolve("i18n"), i18nDir);
+		    	}
+	    	}
+
 	    	Collection<String> managedClassNames = getManagedClassNames();
-	    	initialManagedClassNames = new HashSet<>(managedClassNames);	    	
+	    	initialManagedClassNames = new HashSet<>(managedClassNames);
 	        Set<String> monitoredDirectories = new HashSet<>();
 	        for (String className : managedClassNames) {
 	        	String packageName = Strings.noLastTokenWithoutLastDelim(className, ".");
-	            String packagePath = "target/classes/" + packageName.replace('.', '/');
-	            if (monitoredDirectories.add(packagePath)) { 
-	                monitorDirectory(packagePath, ENTRY_CREATE, packageName);
+	            for (Path classesDir : getClasspathDirectories()) {
+	            	String packagePath = classesDir.resolve(packageName.replace('.', '/')).toString();
+		            if (monitoredDirectories.add(packagePath)) {
+		                monitorDirectory(packagePath, ENTRY_CREATE, packageName);
+		            }
 	            }
-	        }	    	
-	    	
+	        }
+
 	    	resourcesMonitoring = true;
 	    }
-	    active = true; 
+	    active = true;
     }
+
+	private static Set<Path> getClasspathDirectories() {
+		Set<Path> dirs = new LinkedHashSet<>();
+		for (String entry : System.getProperty("java.class.path", "").split(File.pathSeparator)) {
+			if (Is.emptyString(entry)) continue;
+			Path dir = Paths.get(entry);
+			if (java.nio.file.Files.isDirectory(dir)) dirs.add(dir);
+		}
+		return dirs;
+	}
+
+	private static Path getSourceResourcesDir(Path classesDir) {
+		// Maven: <project>/target/classes -> <project>/src/main/resources
+		if (classesDir.endsWith(Paths.get("target", "classes"))) {
+			return classesDir.resolve("../../src/main/resources").normalize();
+		}
+		// Gradle: <project>/build/resources/main -> <project>/src/main/resources
+		if (classesDir.endsWith(Paths.get("build", "resources", "main"))) {
+			return classesDir.resolve("../../../src/main/resources").normalize();
+		}
+		return null;
+	}
+
+	private static void monitorSourceDirectory(Path sourceDir, Path classesDir) {
+		// Copies modified/created source resources to the classpath output dir, so the
+		// application sees the new content even if the build has not copied it, and
+		// bumps the corresponding version so the metadata is reloaded
+		monitorDirectory(sourceDir.toString(), ENTRY_MODIFY, null, classesDir);
+		monitorDirectory(sourceDir.toString(), ENTRY_CREATE, null, classesDir);
+	}
 
 	private static Collection<String> getManagedClassNames() {
 		try {
@@ -124,8 +168,12 @@ public class HotswapPlugin {
 	private static void monitorDirectory(String directoryPath, WatchEvent.Kind<Path> kind) {
 		monitorDirectory(directoryPath, kind, null);
 	}
-	
+
 	private static void monitorDirectory(String directoryPath, WatchEvent.Kind<Path> kind, String packageName) {
+		monitorDirectory(directoryPath, kind, packageName, null);
+	}
+
+	private static void monitorDirectory(String directoryPath, WatchEvent.Kind<Path> kind, String packageName, Path copyToDir) {
 		Thread watcherThread = new Thread(() -> {
 			Path path = Paths.get(directoryPath);
 			try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
@@ -147,7 +195,10 @@ public class HotswapPlugin {
 					WatchKey key = watchService.take(); 
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == kind) {
-							if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
+							if (copyToDir != null) {
+								onSourceResourceModified(path, event.context().toString(), copyToDir);
+							}
+							else if (packageName == null) onResourceModified(event.context().toString(), directoryPath);
 							else {
 								String fileName = event.context().toString();
 								if (!existingFiles.contains(fileName)) {
@@ -165,7 +216,7 @@ public class HotswapPlugin {
 						// The directory was deleted and recreated (e.g. by IntelliJ rebuilding
 						// resources): events emitted during the recreation may have been lost
 						// because the WatchKey was already invalid. Notify so versions get bumped.
-						if (packageName == null) {
+						if (packageName == null && copyToDir == null) {
 							onDirectoryRecreated(directoryPath);
 						}
 					}
@@ -175,8 +226,21 @@ public class HotswapPlugin {
 			}
 		});
 
-		watcherThread.setDaemon(true); 
-		watcherThread.start(); 
+		watcherThread.setDaemon(true);
+		watcherThread.start();
+	}
+
+	private static void onSourceResourceModified(Path sourceDir, String fileName, Path copyToDir) {
+		Path source = sourceDir.resolve(fileName);
+		if (!java.nio.file.Files.isRegularFile(source)) return;
+		try {
+			java.nio.file.Files.createDirectories(copyToDir);
+			java.nio.file.Files.copy(source, copyToDir.resolve(fileName), StandardCopyOption.REPLACE_EXISTING);
+		}
+		catch (IOException ex) {
+			ex.printStackTrace(); // We cannot use a log library because it fails when we do a mvn clean and then mvn install in a project
+		}
+		onResourceModified(fileName, sourceDir.toString());
 	}
 	
 		    
