@@ -135,15 +135,28 @@ HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hots
 
       <p>Después de instalar el JDK de JetBrains, dentro de la carpeta <i>lib</i> hay
         que crear una carpeta <i>hotswap</i> y copiar dentro un archivo
-        <i>hotswap-agent.jar</i>, sin número de versión. Este jar se puede descargar desde aquí:
-        <a href="https://github.com/HotswapProjects/HotswapAgent/releases">https://github.com/HotswapProjects/HotswapAgent/releases</a><br>
+        <i>hotswap-agent.jar</i>, sin número de versión. Hay que usar la versión 2.0.3 del agente,
+        que se puede descargar desde aquí:
+        <a href="https://github.com/HotswapProjects/HotswapAgent/releases/tag/RELEASE-2.0.3">https://github.com/HotswapProjects/HotswapAgent/releases/tag/RELEASE-2.0.3</a><br>
         Importante: al copiarlo dentro de <i>lib/hotswap</i> hay que renombrarlo para
         que se llame solo <i>hotswap-agent.jar</i>.</p>
 
       <p>Ahora solo hay que arrancar la aplicación con este JDK enviando unas opciones
         de arranque para activar el HotSwap.</p>
 
-      <p>Por ejemplo, en Linux:</p>
+      <p>Para OpenXava 8.0 o superior, en Linux:</p>
+      <pre><code class="language-bash">export JAVA_HOME=/home/javi/.jdks/jbr-25.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+</code></pre>
+
+      <p>En Windows:</p>
+      <pre><code class="language-bash">set JAVA_HOME=C:\Users\youruser\.jdks\jbr-25.0.2
+set PATH=%JAVA_HOME%\bin;%PATH%
+mvn spring-boot:run "-Dspring-boot.run.jvmArguments=-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+</code></pre>
+
+      <p>Para versiones anteriores a la 8.0, usar <i>MAVEN_OPTS</i> y <i>mvn exec:java</i>. En Linux:</p>
       <pre><code class="language-bash">export MAVEN_OPTS="-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
 export JAVA_HOME=/home/javi/.jdks/jbr-25.0.2
 export PATH=$JAVA_HOME/bin:$PATH
