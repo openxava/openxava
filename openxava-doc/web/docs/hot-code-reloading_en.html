@@ -196,6 +196,9 @@ HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hots
          This allows you to develop your library testing it in a final application, with the same agility as 
          with any other application.</p>
       <p>Indicating extra classpaths when starting the application is available since version 7.5.</p>
+      <p>Although this option is not available since version 8.0, it is not needed either: when running from
+         IntelliJ all the projects in the workspace are reloaded, so just having the dependent project in the
+         same workspace as your application is enough to modify it and see the changes without restarting.</p>
     </div>
     
     <div class="wiki" style="display: block;">
