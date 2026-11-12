@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  */
 public class CollectionTest extends WebDriverTestBase {
 
+    // TMR ME QUEDÉ POR AQUÍ. ES EL ÚNICO TEST DE LA SUITE QUE FALLA. TODO LO DEMÁS YA ESTÁ, PARA CERRAR EL ASUNTO
     @Test
     public void testChangeSectionNotLoadCollection() throws Exception { 
         goModule("Invoice");
