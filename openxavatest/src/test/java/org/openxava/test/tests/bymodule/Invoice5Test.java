@@ -67,7 +67,6 @@ public class Invoice5Test extends ModuleTestBase {
 		assertImportFromExcel("invoices5.xlsx", "2017", "1", "25/09/2017", "", "1.258,26", ""); 
 	}
 
-	// TMR ME QUEDÉ POR AQUÍ: TEST HECHO, SALE ROJO DONDE TOCA. FALTA IMPLEMENTAR LA SOLUCIÓN.
 	public void testImportFromCSVWithDecimalPointInSpanish() throws Exception {
 		setLocale("es");
 		execute("Mode.list");
