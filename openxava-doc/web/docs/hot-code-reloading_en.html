@@ -60,7 +60,7 @@
             restarting the application. However, in this case, you need to reload the browser to see the new labels.</li>
       </ul>
       
-      <p>It's not necessary to start in debug mode for changes to be recognized, but you do need to use a JetBrains 
+      <p>You do need to use a JetBrains 
          JDK with the HotSwap agent configured and started with certain options, as explained below.</p>
     </div>
 
@@ -89,7 +89,7 @@
 
       <p>If everything goes well, at the start of the log output you should see a message like this:</p>
       <pre><code class="language-xml">Connected to the target VM, address: '127.0.0.1:54715', transport: 'socket'
-HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {2.0.2} - unlimited runtime class redefinition.
+HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hotswap agent {2.0.3} - unlimited runtime class redefinition.
 </code></pre>
 
       <p>If that's the case, you can now change the code and see the effect immediately. Note that
@@ -118,13 +118,26 @@ HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hots
          <a href="https://github.com/JetBrains/JetBrainsRuntime/releases">https://github.com/JetBrains/JetBrainsRuntime/releases</a></p>
 
       <p>After installing the JetBrains JDK, inside the <i>lib</i> folder create a <i>hotswap</i> folder and copy
-         a file named <i>hotswap-agent.jar</i> (without version number) into it. This jar can be downloaded from here:
-         <a href="https://github.com/HotswapProjects/HotswapAgent/releases">https://github.com/HotswapProjects/HotswapAgent/releases</a><br>
+         a file named <i>hotswap-agent.jar</i> (without version number) into it. Use version 2.0.3 of the agent,
+         which can be downloaded from here:
+         <a href="https://github.com/HotswapProjects/HotswapAgent/releases/tag/RELEASE-2.0.3">https://github.com/HotswapProjects/HotswapAgent/releases/tag/RELEASE-2.0.3</a><br>
          Important: when copying it into <i>lib/hotswap</i>, rename it so it is called exactly <i>hotswap-agent.jar</i>.</p>
 
       <p>Now just start the application with this JDK, passing the startup options to activate HotSwap.</p>
 
-      <p>For example, on Linux:</p>
+      <p>For OpenXava 8.0 or higher, on Linux:</p>
+      <pre><code class="language-bash">export JAVA_HOME=/home/javi/.jdks/jbr-25.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+mvn spring-boot:run -Dspring-boot.run.jvmArguments="-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+</code></pre>
+
+      <p>On Windows:</p>
+      <pre><code class="language-bash">set JAVA_HOME=C:\Users\youruser\.jdks\jbr-25.0.2
+set PATH=%JAVA_HOME%\bin;%PATH%
+mvn spring-boot:run "-Dspring-boot.run.jvmArguments=-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
+</code></pre>
+
+      <p>For versions older than 8.0, use <i>MAVEN_OPTS</i> and <i>mvn exec:java</i> instead. On Linux:</p>
       <pre><code class="language-bash">export MAVEN_OPTS="-XX:+AllowEnhancedClassRedefinition -XX:HotswapAgent=fatjar"
 export JAVA_HOME=/home/javi/.jdks/jbr-25.0.2
 export PATH=$JAVA_HOME/bin:$PATH
@@ -183,6 +196,9 @@ HOTSWAP AGENT: 12:30:48.070 INFO (org.hotswap.agent.HotswapAgent) - Loading Hots
          This allows you to develop your library testing it in a final application, with the same agility as 
          with any other application.</p>
       <p>Indicating extra classpaths when starting the application is available since version 7.5.</p>
+      <p>Although this option is not available since version 8.0, it is not needed either: when running from
+         IntelliJ all the projects in the workspace are reloaded, so just having the dependent project in the
+         same workspace as your application is enough to modify it and see the changes without restarting.</p>
     </div>
     
     <div class="wiki" style="display: block;">

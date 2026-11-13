@@ -1,9 +1,11 @@
 package org.openxava.test.tests.byfeature;
 
+import java.time.*;
 import java.util.*;
 
 import org.junit.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 
 import static org.junit.Assert.*;
 
@@ -21,8 +23,8 @@ public class CollectionTest extends WebDriverTestBase {
     public void testChangeSectionNotLoadCollection() throws Exception { 
         goModule("Invoice");
         execute("CRUD.new");
-        setValue("year", "2002");
-        setValue("number", "1");
+        setValueAndWaitForChange("year", "2002");
+        setValueAndWaitForChange("number", "1");
         execute("Sections.change", "activeSection=1");
         assertCollectionRowCount("details", (0+2));
         execute("CRUD.refresh");
@@ -30,7 +32,7 @@ public class CollectionTest extends WebDriverTestBase {
 
         goModule("CustomerWithSection");
         execute("CRUD.new");
-        setValue("number", "43");
+        setValueAndWaitForChange("number", "43");
         execute("Sections.change", "activeSection=1");
         assertCollectionRowCount("states", 0);
         execute("CRUD.refresh"); 
@@ -44,6 +46,25 @@ public class CollectionTest extends WebDriverTestBase {
         wait(getDriver());
         assertCollectionRowCount("defaultCarrier___fellowCarriers", (3+2));
         assertCollectionRowCount("defaultCarrier___fellowCarriersCalculated", (3+1));
+    }
+
+    private void setValueAndWaitForChange(String property, String value) throws Exception {
+        By locator = By.id("ox_openxavatest_" + getModule() + "__" + property);
+        getDriver().findElement(locator).clear();
+        waitForPropertyChange();
+        WebElement input = getDriver().findElement(locator);
+        input.sendKeys(value);
+        blur(input);
+        waitForPropertyChange();
+    }
+
+    private void waitForPropertyChange() throws Exception {
+        // The change request is delayed, so an idle connection alone is not enough.
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(driver ->
+            Boolean.TRUE.equals(((JavascriptExecutor) driver).executeScript(
+                "return !document.throwPropertyChange && !openxava.isRequesting(arguments[0], arguments[1]);",
+                "openxavatest", getModule())));
+        wait(getDriver());
     }
 
     
