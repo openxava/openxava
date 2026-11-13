@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- Updated screenshots for lesson 4 of the OpenXava course.
+- Source code of lesson 4 of the course available on GitHub.
 - Hot code reloading documentation updated for v8.0, including Spring Boot run instructions.
 - Fix: Hot reloading does not work running the application with Spring Boot, since v8.0.
 - New Getting Started video adapted to v8, accessible from the Getting Started guide.

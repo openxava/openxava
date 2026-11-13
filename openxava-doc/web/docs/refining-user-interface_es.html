@@ -107,16 +107,20 @@
       de usuario has de usar la anotación <em>@View</em>. Es fácil, sólo has de
       enumerar los miembros a mostrar. Mira el código:</p>
     <pre><code class="language-java">@View(members= // Esta vista no tiene nombre, por tanto será la vista usada por defecto
-    "year, number, date;" + // Separados por coma significa en la misma línea
-    "customer;" + // Punto y coma significa nueva línea
-    "details;" +
-    "remarks"
+    """
+    year, number, date;
+    customer;
+    details;
+    remarks
+    """
 )
 public class Invoice {
 </code></pre>
     <p>Mostramos todos los miembros de <em>Invoice</em>, pero usamos comas para
       separar <em>year</em>, <em>number</em> y <em>date</em>, así son mostrados en la
-      misma línea, produciendo una interfaz de usuario más compacta, como esta:</p>
+      misma línea. Un punto y coma significa una nueva línea, por lo que
+      <em>customer</em>, <em>details</em> y <em>remarks</em> van cada uno en su
+      propia línea, produciendo una interfaz de usuario más compacta, como esta:</p>
     <p><img src="files/modeling_en120.png" alt="Invoice con year, number y date en la
       misma línea"></p>
 
@@ -171,6 +175,8 @@ Customer customer;
       usando algunas anotaciones de OpenXava. Si quieres conocer todas las
       posibilidades que ofrece OpenXava para definir la interfaz de usuario
       <a href="view_es.html">lee la guía de referencia</a>.</p>
+    <p><strong><a href="https://github.com/openxava/openxava-course/tree/lesson-04"
+      rel="nofollow">Código fuente de esta lección</a></strong></p>
     <p><strong>¿Problemas con la lección?
       <a href="http://sourceforge.net/p/openxava/discussion/437013/"
         rel="nofollow">Pregunta en el foro</a></strong>

@@ -102,16 +102,20 @@
       have to use the <em>@View</em> annotation. It is easy because you only have to
       enumerate the members to be shown. Look at the code:</p>
     <pre><code class="language-java">@View(members= // This view has no name, so it will be the view used by default
-    "year, number, date;" + // Comma separated means in the same line
-    "customer;" + // Semicolon means a new line
-    "details;" +
-    "remarks"
+    """
+    year, number, date;
+    customer;
+    details;
+    remarks
+    """
 )
 public class Invoice {
 </code></pre>
     <p>In the end, we show all the members of <em>Invoice</em>, but we use commas to
       separate <em>year</em>, <em>number</em> and <em>date</em>. Thus they are in the
-      same line, producing a more compact user interface, like this:</p>
+      same line. A semicolon means a new line, so <em>customer</em>,
+      <em>details</em> and <em>remarks</em> are each in their own line, producing a
+      more compact user interface, like this:</p>
     <p><img src="files/modeling_en120.png" alt="Invoice with year, number and date in
       the same row"></p>
 
@@ -167,6 +171,8 @@ Customer customer;
       some OpenXava annotations. If you want to know all possible ways of refining the
       user interface with OpenXava <a href="view_en.html">look at the reference
       guide</a>.</p>
+    <p><strong><a href="https://github.com/openxava/openxava-course/tree/lesson-04"
+      rel="nofollow">Source code of this lesson</a></strong></p>
     <p><strong>Any problem with this lesson?
       <a href="http://sourceforge.net/p/openxava/discussion/419690/"
         rel="nofollow">Ask in the forum</a></strong>
