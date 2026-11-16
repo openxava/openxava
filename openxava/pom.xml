@@ -33,7 +33,7 @@
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<spring-boot.version>4.1.1</spring-boot.version>
+		<spring-boot.version>4.1.2</spring-boot.version>
 	</properties>
 
 	<dependencyManagement>
@@ -246,6 +246,7 @@
 		<dependency>
 		    <groupId>org.hotswapagent</groupId>
 		    <artifactId>hotswap-agent-core</artifactId>
+			<!-- Not the latest one, but one compatible with the used by the latest HotswapAgent IntelliJ plugin -->
 		    <version>2.0.3</version>
 		    <scope>provided</scope>
 		</dependency>
