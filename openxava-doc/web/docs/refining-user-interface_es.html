@@ -116,6 +116,10 @@
 )
 public class Invoice {
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Modifica Invoice para que visualice year, number y date en la misma fila</code></pre>
+    </details>
     <p>Mostramos todos los miembros de <em>Invoice</em>, pero usamos comas para
       separar <em>year</em>, <em>number</em> y <em>date</em>, así son mostrados en la
       misma línea. Un punto y coma significa una nueva línea, por lo que
@@ -152,6 +156,10 @@ public class Customer {
 @ReferenceView("Simple") // La vista llamada 'Simple' se usará para visualizar esta referencia
 Customer customer;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Quiero que customer en Invoice muestre solo el number y el name, uno al lado del otro</code></pre>
+    </details>
     <p>Realmente sencillo, solo has de indicar el nombre de la vista de la entidad
       referenciada que quieres usar.</p>
     <p>Después de esto la referencia <em>customer</em> se mostrará de una forma más
