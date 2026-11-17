@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return true;
+        return false;
     }
 
     @Override
@@ -95,7 +95,11 @@ public class ChatTest extends WebDriverTestBase {
         getDriver().manage().window().setSize(new Dimension(900, 850));
         Thread.sleep(300);
         
-        assertChatPanelVisible();
+        assertChatPanelVisible(); // TMR ME QUEDÉ POR AQUÍ: FALLA.
+            // TMR SIN EMBARGO, LA APLICACIÓN TAMBIÉN FALLA DESDE EL NAVEGADOR SIEMPRO. HAY UN CHAT SOBRE EL TEMA
+            // TMR DEBIDO A UN ERROR EN EL CÓDIGO DE LA APLICACIÓN
+            // TMR ESTO NO ESTA EN EL NINGÚN COMMIT
+
         assertChatPanelContentVisible();
     }
     
