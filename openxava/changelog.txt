@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Driver version in doc/new projects upgraded for Oracle and MS SQL Server.
 - Fix: Every request fails with browsers configured with more than 10 languages, since Tomcat 11.0.27.
 - Spring Boot upgraded to 4.1.2.
 - Spring Framework upgraded to 7.0.10.
