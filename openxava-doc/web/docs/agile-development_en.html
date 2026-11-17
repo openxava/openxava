@@ -138,6 +138,10 @@ Author author;
 @ListProperties("number, description, price")
 Collection&lt;Product&gt; products;
 </code></pre>
+    <p><em>Collection</em> is in the <em>java.util</em> package, so you need to add the
+      following import at the top of <em>Author</em> (or just press <i>Alt+Enter</i> on the
+      class name in IntelliJ):</p>
+    <pre><code class="language-java">import java.util.*;</code></pre>
     <p>Now, restart your application and refresh the browser with the <em>Author</em>
       module. Choose an author and you will see his products. You should see something
       like this:</p>
