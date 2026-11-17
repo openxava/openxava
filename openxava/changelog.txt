@@ -1,6 +1,15 @@
 Change Log for OpenXava project
 ===============================
 
+- Spring Boot Maven plugin upgraded to 4.1.2 in all archetypes.
+- Driver version in doc/new projects upgraded for Oracle and MS SQL Server.
+- Fix: Every request fails with browsers configured with more than 10 languages, since Tomcat 11.0.27.
+- Spring Boot upgraded to 4.1.2.
+- Spring Framework upgraded to 7.0.10.
+- Hibernate upgraded to 7.4.13.
+- Hibernate Validator upgraded to 9.1.5.
+- Tomcat upgraded to 11.0.27.
+- Jackson upgraded to 3.1.7.
 - Lessons 2 and 3 of the course include prompts to generate the code with an AI coding assistant.
 - Updated screenshots for lesson 4 of the OpenXava course.
 - Source code of lesson 4 of the course available on GitHub.

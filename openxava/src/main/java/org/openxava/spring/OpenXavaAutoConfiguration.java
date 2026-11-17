@@ -23,6 +23,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.tomcat.TomcatContextCustomizer;
 import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -122,6 +123,7 @@ public class OpenXavaAutoConfiguration implements WebMvcConfigurer {
 				((StandardContext) context).setCookieProcessor(processor);
 				context.addWelcomeFile("index.jsp");
 			});
+			factory.addConnectorCustomizers((TomcatConnectorCustomizer) connector -> connector.setMaxLocaleCount(100));
 
 			if (!hasJndiDataSources(dataSourcesProperties)) return;
 

@@ -78,6 +78,8 @@ public class ChatTest extends WebDriverTestBase {
         assertChatPanelVisible();
     }
 
+    // By now this test fails. We're waiting to solve it in a future release:
+    // https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=e378aa08ff954ce5aabf4adf17ae8107
     public void testChatPanelContentVisibleAfterBrowserResize() throws Exception {
         setWindowWidth(1750);
         goModule("Customer");
