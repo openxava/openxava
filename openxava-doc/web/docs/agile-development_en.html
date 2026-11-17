@@ -72,7 +72,7 @@
         collection of entities</a></div>
       <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
     </div>
-    <p>Nowadays agile development is no longer a "new and breaking technique", but an
+    <p>Nowadays agile development is no longer a "new and groundbreaking technique", but an
       established way to do software development, even the ideal way to go for many
       people.</p>
     <p>If you are not familiar with agile development you can have a look at
@@ -80,20 +80,20 @@
       development encourages the use of feedback from a working product over a careful
       upfront design. This gives a more prominent role to programmers and users, and
       minimizes the importance of analysts and software architects.</p>
-    <p>This type of development also needs a different type of tools. Because you need
+    <p>This type of development also needs a different type of tools, because you need
       a working application rapidly. It must be as rapid to develop the initial
-      application as it would be writing the functional description. Moreover, you need
-      to respond to the user feedback quickly. The user needs to see his proposals
-      running in short time.</p>
+      application as it would be to write the functional description. Moreover, you
+      need to respond to the user feedback quickly. The user needs to see his proposals
+      running in a short time.</p>
     <p>OpenXava is ideal for agile development because not only does it allow a very
       rapid initial development, but it also allows you to make changes and see the
       effects instantly. Let's see a little example of this.</p>
 
     <h2 id="adding-a-new-reference">Adding a new reference</h2>
     <p>For example, once the user has looked at your application and starts to play
-      with it, he takes into account that he works with books, music, software and so
-      on. All these products have an author, and it would be useful to store the
-      author, and see products by author.</p>
+      with it, he realizes that he works with books, music, software and so on. All
+      these products have an author, and it would be useful to store the author and see
+      products by author.</p>
     <p>Adding this new feature to your application is simple and rapid. First, create a
       new class for <em>Author</em>, with this:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -114,59 +114,58 @@ public class Author {
 
 }
 </code></pre>
-    <p>Now, add the next code to the existing <em>Product</em> entity:</p>
+    <p>Now, add the following code to the existing <em>Product</em> entity:</p>
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
 Author author;
 </code></pre>
     <p>Thus, your <em>Product</em> entity has a reference to <em>Author</em>.</p>
-    <p>Really you have written a little amount of code. In order to see the effect,
-      restart your application clicking on <i>Rerun</i> button:</p>
+    <p>You have really written a small amount of code. In order to see the effect,
+      restart your application by clicking the <i>Rerun</i> button:</p>
     <p><img src="files/getting-started_en195.png" alt="Rerun button"></p>
     <p>Then go to the browser and reload the page with the <em>Product</em> module, and
-      you will see there, a combo for choosing the author of the product, just as you
-      see here:</p>
+      you will see a combo for choosing the author of the product, just as you see
+      here:</p>
     <p><img src="files/modeling_en150.png" alt="Combo for choosing the author of the
       product"></p>
 
     <h2 id="adding-a-collection-of-entities">Adding a collection of entities</h2>
-    <p>What if the user wants to choose an author and see all his products? Well. This
+    <p>What if the user wants to choose an author and see all his products? Well, this
       is plain vanilla. You only have to make the relationship between
       <em>Product</em> and <em>Author</em> bidirectional. Go to the <em>Author</em>
-      class and add the next code:</p>
+      class and add the following code:</p>
     <pre><code class="language-java">@OneToMany(mappedBy="author")
 @ListProperties("number, description, price")
 Collection&lt;Product&gt; products;
 </code></pre>
-    <p>Now, restart your application and refresh the browser with <em>Author</em>
-      module. Choose an author and you will see his products. You have to see something
+    <p>Now, restart your application and refresh the browser with the <em>Author</em>
+      module. Choose an author and you will see his products. You should see something
       like this:</p>
     <p><img src="files/modeling_en160.png" alt="Author with his collection of
       products"></p>
     <p>Yes, you added a new collection, restarted your application, refreshed your
       browser and there you get the full user interface to manage it. In this case the
-      user can click on <em>Add</em> button to choose a book from a list of all
+      user can click on the <em>Add</em> button to choose a book from a list of all
       existing books or click on <i>New</i> to enter the data to create a new book that
       will be added to the collection. Moreover, the author cannot be removed while he
-      has books associated to him. You can define another behavior with cascade as
-      REMOVE or ALL, thus:</p>
+      has books associated with him. You can define another behavior by setting cascade
+      to REMOVE or ALL, like this:</p>
     <pre><code class="language-java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE) // DON'T ADD IT TO YOUR CODE
 </code></pre>
-    <p>In this way only the <i>New</i> button to create new books are available, the
-      <i>Add</i> button is not present. Moreover, when the author would be removed his
-      books will be removed too. For the author/books case we don't want this behavior,
-      but it can be useful in many cases where the <em>@ElementCollection</em> is not
-      enough.</p>
+    <p>In this way only the <i>New</i> button to create new books is available, the
+      <i>Add</i> button is not present. Moreover, when the author is removed, his books
+      will be removed too. For the author/books case we don't want this behavior, but it
+      can be useful in many cases where <em>@ElementCollection</em> is not enough.</p>
 
     <h2 id="summary">Summary</h2>
-    <p>In this section you have the complete code and steps required to do changes and
+    <p>In this lesson you have the complete code and steps required to make changes and
       see the result in the most interactive way. You have seen how OpenXava is an agile
       tool, ideal for doing agile development.</p>
     <p>Yes! Now you have a working application with little effort. Although this
       application "as is" can be useful as a CRUD utility or a prototype, you still
       need to add validations, business logic, user interface behavior and so on in
       order to convert these entities you have written into a business application
-      ready for your user.</p>
+      ready for your users.</p>
     <p>You will learn all these advanced topics in the forthcoming lessons.</p>
     <p><strong>Any problem with this lesson?
       <a href="http://sourceforge.net/p/openxava/discussion/419690/"

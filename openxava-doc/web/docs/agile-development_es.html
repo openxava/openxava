@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Lección 5: Desarrollo ágil: Añadir una nueva referencia (@ManyToOne) y
-      nueva colección de entidades (@OneToMany) - Curso de OpenXava</title>
+      una nueva colección de entidades (@OneToMany) - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
     <link rel="stylesheet" href="highlight/highlightjs-copy.css">
@@ -73,7 +73,7 @@
         una colección de entidades</a></div>
       <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
     </div>
-    <p>Hoy en día el desarrollo ágil ya no es una “una técnica nueva y rompedora”, sino
+    <p>Hoy en día el desarrollo ágil ya no es “una técnica nueva y rompedora”, sino
       una forma establecida de hacer desarrollo de software, es más, es la forma ideal
       de desarrollar software para muchos.</p>
     <p>Si no estás familiarizado con el desarrollo ágil puedes echar un vistazo a
@@ -82,19 +82,19 @@
       un producto funcional sobre un diseño previo meticuloso. Esto da más protagonismo
       a los programadores y usuarios, y minimiza la importancia de los analistas y los
       arquitectos de software.</p>
-    <p>Este tipo de desarrollo necesita también un nuevo tipo de herramientas. Porque
+    <p>Este tipo de desarrollo necesita también un nuevo tipo de herramientas, porque
       necesitas una aplicación funcional rápidamente. Tiene que ser tan rápido
       desarrollar la aplicación inicial como lo sería escribir la descripción
       funcional. Además, necesitas responder a las peticiones y opiniones del usuario
-      rápidamente. El usuario necesita ver sus propuestas funcionando en corto
+      rápidamente. El usuario necesita ver sus propuestas funcionando en poco
       tiempo.</p>
-    <p>OpenXava es ideal para el desarrollo ágil no sólo porque permite un desarrollo
+    <p>OpenXava es ideal para el desarrollo ágil no solo porque permite un desarrollo
       inicial muy rápido, sino porque también te permite hacer cambios y ver su efecto
       instantáneamente. Veamos un pequeño ejemplo de esto.</p>
 
     <h2 id="anadir-otra-referencia">Añadir otra referencia</h2>
     <p>Por ejemplo, una vez que el usuario ve tu aplicación y empieza a jugar con ella,
-      se da cuenta que él trabaja con libros, música, programas y así por el estilo.
+      se da cuenta de que trabaja con libros, música, programas y así por el estilo.
       Todos estos productos tienen autor, y sería útil almacenar el autor, así como ver
       los productos por autor.</p>
     <p>Añadir esta nueva funcionalidad a tu aplicación es simple y rápido. Lo primero
@@ -128,7 +128,7 @@ Author author;
       necesitas reiniciar tu aplicación pulsando el botón <i>Rerun</i>:</p>
     <p><img src="files/getting-started_en195.png" alt="Botón Rerun"></p>
     <p>Después ve al navegador y recarga la página con el módulo <em>Product</em>, y
-      ahí verás, un combo para escoger el autor del producto, como se muestra
+      ahí verás un combo para escoger el autor del producto, como se muestra
       aquí:</p>
     <p><img src="files/modeling_en150.png" alt="Combo para escoger el autor del
       producto"></p>
@@ -143,8 +143,8 @@ Author author;
 Collection&lt;Product&gt; products;
 </code></pre>
     <p>Ahora reinicia tu aplicación y refresca tu navegador con el módulo
-      <em>Author</em>. Escoge un autor y verás sus productos. Tienes algo parecido a
-      esto:</p>
+      <em>Author</em>. Escoge un autor y verás sus productos. Deberías ver algo
+      parecido a esto:</p>
     <p><img src="files/modeling_en160.png" alt="Autor con su colección de
       productos"></p>
     <p>Sí, añades una nueva colección, rearrancas tu aplicación, refrescas tu navegador
@@ -153,20 +153,20 @@ Collection&lt;Product&gt; products;
       libros existentes o pulsar <i>New</i> para introducir los datos para crear un
       nuevo libro que se añadirá a la colección. Además, el autor no se puede borrar
       mientras tenga libros asociados a él. Puedes definir un comportamiento diferente
-      con <em>cascade</em> como REMOVE o ALL, así:</p>
+      poniendo <em>cascade</em> a REMOVE o ALL, así:</p>
     <pre><code class="language-java">@OneToMany(mappedBy="author", cascade=CascadeType.REMOVE) // NO LO AÑADAS A TU CÓDIGO
 </code></pre>
-    <p>De esta forma sólo el botón <i>New</i> para crear nuevos libros está disponible,
-      el botón <i>Add</i> no está presente. Además, cuando el autor se borre sus libros
+    <p>De esta forma solo el botón <i>New</i> para crear nuevos libros está disponible,
+      el botón <i>Add</i> no está presente. Además, cuando el autor se borre, sus libros
       se borrarán también. Para el caso autor/libros no queremos este comportamiento,
       pero puede ser útil en muchos casos donde una <em>@ElementCollection</em> sea
       insuficiente.</p>
 
     <h2 id="resumen">Resumen</h2>
-    <p>Esta sección ha mostrado el código completo y los pasos para hacer cambios y ver
-      el resultado de una manera muy interactiva. Tus ojos han visto como OpenXava es
+    <p>Esta lección ha mostrado el código completo y los pasos para hacer cambios y ver
+      el resultado de una manera muy interactiva. Tus ojos han visto cómo OpenXava es
       una herramienta ágil, ideal para hacer desarrollo ágil.</p>
-    <p>Efectivamente tienes una aplicación funcional con poco esfuerzo. Aunque esta
+    <p>Efectivamente, tienes una aplicación funcional con poco esfuerzo. Aunque esta
       aplicación “tal cual” puede servir como utilidad de mantenimiento o un prototipo,
       todavía necesitas añadir validaciones, lógica de negocio, comportamiento de la
       interfaz de usuario, seguridad y así por el estilo para convertir estas entidades
