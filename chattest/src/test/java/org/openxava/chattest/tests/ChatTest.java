@@ -16,7 +16,7 @@ public class ChatTest extends WebDriverTestBase {
 
     @Override
     protected boolean isHeadless() {
-        return false;
+        return false; // tmr
     }
 
     @Override
@@ -78,6 +78,8 @@ public class ChatTest extends WebDriverTestBase {
         assertChatPanelVisible();
     }
 
+    // By now this test fails. We're waiting to solve it in a future release:
+    // https://openxava.org/xavaprojects/o/OpenXava/m/Issue?detail=e378aa08ff954ce5aabf4adf17ae8107
     public void testChatPanelContentVisibleAfterBrowserResize() throws Exception {
         setWindowWidth(1750);
         goModule("Customer");
@@ -95,11 +97,7 @@ public class ChatTest extends WebDriverTestBase {
         getDriver().manage().window().setSize(new Dimension(900, 850));
         Thread.sleep(300);
         
-        assertChatPanelVisible(); // TMR ME QUEDÉ POR AQUÍ: FALLA.
-            // TMR SIN EMBARGO, LA APLICACIÓN TAMBIÉN FALLA DESDE EL NAVEGADOR SIEMPRO. HAY UN CHAT SOBRE EL TEMA
-            // TMR DEBIDO A UN ERROR EN EL CÓDIGO DE LA APLICACIÓN
-            // TMR ESTO NO ESTA EN EL NINGÚN COMMIT
-
+        assertChatPanelVisible();
         assertChatPanelContentVisible();
     }
     
