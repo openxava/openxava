@@ -139,8 +139,8 @@ public class Order {
 public class Order extends CommercialDocument { ... }
 public class Invoice extends CommercialDocument { ... }
 </code></pre>
-    <p>Empecemos a refactorizar el código actual. Primero, renombra (usando <em>Refactor &gt;
-      Rename</em>) <em>Invoice</em> como <em>CommercialDocument</em>. Después, edita el código
+    <p>Empecemos a refactorizar el código actual. Primero, renombra
+      <em>Invoice</em> como <em>CommercialDocument</em>. Después, edita el código
       de <em>CommercialDocument</em> para declararla como una clase abstracta, así:</p>
     <pre><code class="language-java">abstract public class CommercialDocument // Añadimos el modificador abstract
 </code></pre>
