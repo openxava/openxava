@@ -103,16 +103,13 @@ public class Invoice {
 @Entity
 public class Order {
 
-    @ManyToOne // Sin carga vaga (1)
+    @ManyToOne
     Invoice invoice;
     ...
 }
 </code></pre>
-    <p>Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una factura.
-      Fíjate en que no usamos inicialización vaga (lazy fetching) para la referencia
-      <em>invoice</em> (1); esto es por un bug de Hibernate cuando la referencia contiene la
-      relación bidireccional (es decir, es la referencia declarada en el atributo
-      <em>mappedBy</em> del <em>@OneToMany</em>).</p>
+    <p>Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una
+      factura.</p>
     <p>¿Cómo es <em>Order</em>? Bien, tiene un cliente, unas líneas de detalle con producto y
       cantidad, un año y un número. Algo así como esto:</p>
     <p><img src="files/inheritance_en020.png" alt="inheritance_en020.png"></p>

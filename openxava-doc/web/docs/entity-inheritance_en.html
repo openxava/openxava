@@ -102,15 +102,12 @@ public class Invoice {
 @Entity
 public class Order {
 
-    @ManyToOne // Without lazy fetching (1)
+    @ManyToOne
     Invoice invoice;
     ...
 }
 </code></pre>
-    <p>That is, an invoice has several orders, and an order can reference an invoice. Note
-      that we do not use lazy fetching for the <em>invoice</em> reference (1); this is because
-      of a Hibernate bug when the reference owns the bidirectional relationship (that is, it's
-      declared in the <em>mappedBy</em> attribute of the <em>@OneToMany</em>).</p>
+    <p>That is, an invoice has several orders, and an order can reference an invoice.</p>
     <p>What shape does <em>Order</em> have? Well, it has a customer, several detail lines with
       product and quantity, a year and a number, something like this:</p>
     <p><img src="files/inheritance_en020.png" alt="inheritance_en020.png"></p>
