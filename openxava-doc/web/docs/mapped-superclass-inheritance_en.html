@@ -130,6 +130,10 @@ public class Category extends Identifiable {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Make all the project entities with oid extend Identifiable</code></pre>
+    </details>
     <p>The refactoring is plain vanilla. <em>Category</em> now extends
       <em>Identifiable</em> and we have removed the <em>oid</em> property. This way, not
       only is your code shorter, but it's more elegant, because you declare that your
