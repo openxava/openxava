@@ -4,140 +4,211 @@
     <title>Lección 7: Herencia de entidades - Herencia - Curso de OpenXava</title>
     <link rel="stylesheet" href="static/style.css" type="text/css">
     <link rel="stylesheet" href="highlight/highlight.css">
-    
-    <link rel="stylesheet" href="highlight/highlightjs-copy.css"><script src="highlight/highlight.js"></script>
-    
-    <script src="highlight/highlightjs-copy.js"></script><script>window.addEventListener('DOMContentLoaded',function(){hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));hljs.highlightAll();});</script>
+    <link rel="stylesheet" href="highlight/highlightjs-copy.css">
+    <script src="highlight/highlight.js"></script>
+    <script src="highlight/highlightjs-copy.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        hljs.addPlugin(new CopyButtonPlugin({ autohide: false }));
+        hljs.highlightAll();
+      });
+    </script>
   </head>
-  <body>
-    <div class="wiki" id="content_view" style="display: block;">
-      <h1 id="toc0"><a name="Leccion-4-Herencia"></a> <span id="breadcrumbs"> <span
+  <body class="wiki">
+    <h1 id="toc0"> <span id="breadcrumbs"> <span id="openxava">
+      <a href="https://www.openxava.org/"><img src="static/openxava-logo.svg" alt="">openxava</a> </span>
+      / <a href="index_es.html">documentación</a> / </span>
+      Lección 7: Herencia de entidades
+    </h1>
+    <p><strong>Curso</strong>:
+      <a href="getting-started_es.html">1. Primeros pasos</a> |
+      <a href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> |
+      <a href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> |
+      <a href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> |
+      <a href="agile-development_es.html">5. Desarrollo ágil</a> |
+      <a href="mapped-superclass-inheritance_es.html">6. Herencia de superclases
+        mapeadas</a> |
+      <strong>7. Herencia de entidades</strong> |
+      <a href="view-inheritance_es.html">8. Herencia de vistas</a> |
+      <a href="java-properties_es.html">9. Propiedades Java</a> |
+      <a href="calculated-properties_es.html">10. Propiedades calculadas</a> |
+      <a href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator
+        en colecciones</a> |
+      <a href="calculation-and-collections-total_es.html">12. @Calculation y totales
+        de colección</a> |
+      <a href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator
+        desde archivo</a> |
+      <a href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> |
+      <a href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por
+        defecto multiusuario</a> |
+      <a href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar
+        propiedades persistentes y calculadas</a> |
+      <a href="logic-from-database_es.html">17. Lógica desde la base de datos</a> |
+      <a href="validating-with-entityvalidator_es.html">18. Validando con
+        @EntityValidator</a> |
+      <a href="validation-alternatives_es.html">19. Alternativas de validación</a> |
+      <a href="validation-on-remove_es.html">20. Validación al borrar</a> |
+      <a href="custom-bean-validation-annotation_es.html">21. Anotación Bean
+        Validation propia</a> |
+      <a href="rest-service-call-from-validation_es.html">22. Llamada REST desde una
+        validación</a> |
+      <a href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a> |
+      <a href="refining-standard-behavior_es.html">24. Refinar el comportamiento
+        predefinido</a> |
+      <a href="business-logic-behavior_es.html">25. Comportamiento y lógica de
+        negocio</a> |
+      <a href="references-collections_es.html">26. Referencias y colecciones</a> |
+      <a href="philosophy_es.html">A. Arquitectura y filosofía</a> |
+      <a href="jpa_es.html">B. Java Persistence API</a> |
+      <a href="annotations_es.html">C. Anotaciones</a> |
+      <a href="testing_es.html">D. Pruebas automáticas</a></p>
+    <hr>
+    <div id="toc">
+      <h1 class="nopad">Tabla de contenidos</h1>
+      <div style="margin-left: 1em;"><a href="#toc0">Lección 7: Herencia de entidades</a></div>
+      <div style="margin-left: 2em;"><a href="#nueva-entidad-order">Nueva entidad Order</a></div>
+      <div style="margin-left: 2em;"><a href="#commercialdocument-como-entidad-abstracta">
+        CommercialDocument como entidad abstracta</a></div>
+      <div style="margin-left: 2em;"><a href="#invoice-refactorizada-para-usar-herencia">
+        Invoice refactorizada para usar herencia</a></div>
+      <div style="margin-left: 2em;"><a href="#crear-order-usando-herencia">Crear Order
+        usando herencia</a></div>
+      <div style="margin-left: 2em;"><a href="#convencion-de-nombres-y-herencia">Convención
+        de nombres y herencia</a></div>
+      <div style="margin-left: 2em;"><a href="#asociar-order-con-invoice">Asociar Order con
+        Invoice</a></div>
+      <div style="margin-left: 2em;"><a href="#resumen">Resumen</a></div>
+    </div>
+    <p>Una entidad puede heredar de otra entidad. Esta herencia de entidades es una
+      herramienta muy útil para simplificar tu modelo. Vamos a usarla para añadir una nueva
+      entidad, <em>Order</em> (pedido), a tu aplicación <em>invoicing</em>.</p>
 
-            id="openxava"> <a href="https://www.openxava.org/"><img src="static/openxava-logo.svg" alt="">openxava</a> </span> / <a
-
-            href="index_es.html">documentación</a> / </span> Lección 7: Herencia de entidades</h1>
-      <strong>Curso</strong>: <a class="wiki_link" href="getting-started_es.html">1. Primeros pasos</a> | <a
-        class="wiki_link" href="basic-domain-model1_es.html">2. Modelo básico del dominio (1)</a> | <a
-        class="wiki_link" href="basic-domain-model2_es.html">3. Modelo básico del dominio (2)</a> | <a
-        class="wiki_link" href="refining-user-interface_es.html">4. Refinar la interfaz de usuario</a> | <a
-        class="wiki_link" href="agile-development_es.html">5. Desarrollo ágil</a> | <a
-        class="wiki_link" href="mapped-superclass-inheritance_es.html">6. Herencia de superclases mapedas</a> | <strong>7. Herencia de entidades</strong> | <a
-        class="wiki_link" href="view-inheritance_es.html">8. Herencia de vistas</a> | <a
-        class="wiki_link" href="java-properties_es.html">9. Propiedades Java</a> | <a
-        class="wiki_link" href="calculated-properties_es.html">10. Propiedades calculadas</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-in-collections_es.html">11. @DefaultValueCalculator en colecciones</a> | <a
-        class="wiki_link" href="calculation-and-collections-total_es.html">12. @Calculation y totales de colección</a> | <a
-        class="wiki_link" href="defaultvaluecalculator-from-file_es.html">13. @DefaultValueCalculator desde archivo</a> | <a
-        class="wiki_link" href="manual-schema-evolution_es.html">14. Evolución del esquema manual</a> | <a
-        class="wiki_link" href="multi-user-default-value-calculation_es.html">15. Cálculo de valor por defecto multiusuario</a> | <a
-        class="wiki_link" href="synchronize-persistent-and-computed-properties_es.html">16. Sincronizar propiedades persistentes y calculadas</a> | <a
-        class="wiki_link" href="logic-from-database_es.html">17. Lógica desde la base de datos</a> | <a
-        class="wiki_link" href="validating-with-entityvalidator_es.html">18. Validando con @EntityValidator</a> | <a
-        class="wiki_link" href="validation-alternatives_es.html">19. Alternativas de validación</a> | <a
-        class="wiki_link" href="validation-on-remove_es.html">20. Validación al borrar</a> | <a
-        class="wiki_link" href="custom-bean-validation-annotation_es.html">21. Anotación Bean Validation propia</a> | <a
-        class="wiki_link" href="rest-service-call-from-validation_es.html">22. Llamada REST desde una validación</a> | <a
-        class="wiki_link" href="attributes-in-annotations_es.html">23. Atributos en anotaciones</a> | <a
-        class="wiki_link" href="refining-standard-behavior_es.html">24. Refinar el comportamiento predefinido</a> | <a
-        class="wiki_link" href="business-logic-behavior_es.html">25. Comportamiento y lógica de negocio</a> | <a
-        class="wiki_link" href="references-collections_es.html">26. Referencias y colecciones</a> | <a
-        class="wiki_link" href="philosophy_es.html">A. Arquitectura y filosofía</a> | <a
-        class="wiki_link" href="jpa_es.html">B. Java Persistence API</a> | <a
-        class="wiki_link" href="annotations_es.html">C. Anotaciones</a> | <a
-        class="wiki_link" href="testing_es.html">D. Pruebas automáticas</a>
-      <hr>
-      <div id="toc">
-        <h1 class="nopad">Tabla de contenidos</h1>
-        <div style="margin-left: 1em;"><a href="#Leccion-4-Herencia">Lección 7: Herencia de entidades</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Nueva-entidad-Pedido">Nueva entidad Order</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-CommercialDocument-como-entidad-abstracta">CommercialDocument como entidad abstracta</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Factura-refactorizada-para-usar-herencia">Invoice refactorizada para usar herencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Crear-Pedido-usando-herencia">Crear Order usando herencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Convencion-de-nombres-y-herencia">Convención de nombres y herencia</a></div>
-        <div style="margin-left: 2em;"><a href="#Herencia-de-entidades-Asociar-Pedido-con-Factura">Asociar Order con Invoice</a></div>
-        <div style="margin-left: 2em;"><a href="#Resumen">Resumen</a></div>
-      </div>
-      Una entidad puede heredar de otra entidad. Esta herencia de entidades es una herramienta muy útil para simplificar tu modelo. Vamos a usarla para añadir una nueva entidad, <em>Order</em> (pedido), a tu aplicación <em>invoicing</em>.<br>
-      <h2 id="toc3"><a name="Herencia-de-entidades-Nueva-entidad-Pedido"></a>Nueva entidad Order</h2>
-      Queremos añadir un nuevo concepto a la aplicación <em>invoicing</em>: pedido. Mientras que una factura es algo que quieres cobrar a tu cliente, un pedido es algo que tu cliente te ha solicitado. Estos dos conceptos están fuertemente unidos, porque cobrarás por las cosas que tu cliente te ha pedido y tú le has servido.<br>
-      Sería interesante poder tratar pedidos en tu aplicación y asociar estos pedidos con sus correspondientes facturas. Tal como muestra el siguiente diagrama UML:<br>
-      <img src="files/inheritance_en010.png" alt="inheritance_en010.png"
-
-        title="inheritance_en010.png"><br>
-      Y con código Java:<br>
-      <pre><code class="language-java">@Entity
+    <h2 id="nueva-entidad-order">Nueva entidad Order</h2>
+    <p>Queremos añadir un nuevo concepto a la aplicación <em>invoicing</em>: pedido. Mientras
+      que una factura es algo que quieres cobrar a tu cliente, un pedido es algo que tu
+      cliente te ha solicitado. Estos dos conceptos están fuertemente unidos, porque cobrarás
+      por las cosas que tu cliente te ha pedido y tú le has servido.</p>
+    <p>Sería interesante poder tratar pedidos en tu aplicación y asociar estos pedidos con sus
+      correspondientes facturas. Tal como muestra el siguiente diagrama UML:</p>
+    <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
+    <p>Y con código Java:</p>
+    <pre><code class="language-java">@Entity
 public class Invoice {
- 
+
     @OneToMany(mappedBy="invoice")
     Collection&lt;Order&gt; orders;
     ...
 }
- 
+
 @Entity
 public class Order {
- 
+
     @ManyToOne // Sin carga vaga (1)
     Invoice invoice;
     ...
 }
-</code></pre> Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una factura. Fíjate como no usamos inicialización vaga (lazy fetching) para la referencia <em>invoice</em> (1), esto es por un bug de Hibernate cuando la referencia contiene la relación bidireccional (es decir, es la referencia declarada en el atributo <em>mappedBy</em> del <em>@OneToMany</em>).<br>
-      ¿Cómo es <em>Order</em>? Bien, tiene un cliente, unas líneas de detalle con producto y cantidad, un año y un número. Algo así como esto:<br>
-      <img src="files/inheritance_en020.png" alt="inheritance_en020.png"
+</code></pre>
+    <p>Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una factura.
+      Fíjate como no usamos inicialización vaga (lazy fetching) para la referencia
+      <em>invoice</em> (1), esto es por un bug de Hibernate cuando la referencia contiene la
+      relación bidireccional (es decir, es la referencia declarada en el atributo
+      <em>mappedBy</em> del <em>@OneToMany</em>).</p>
+    <p>¿Cómo es <em>Order</em>? Bien, tiene un cliente, unas líneas de detalle con producto y
+      cantidad, un año y un número. Algo así como esto:</p>
+    <p><img src="files/inheritance_en020.png" alt="inheritance_en020.png"></p>
+    <p>Curiosamente, este diagrama UML es idéntico al diagrama de <em>Invoice</em>. Es decir,
+      para crear tu entidad <em>Order</em> puedes copiar y pegar la clase <em>Invoice</em>, y
+      asunto zanjado. Pero, ¡espera un momento! ¿“Copiar y pegar” no era un pecado mortal?
+      Hemos de encontrar una forma de reutilizar <em>Invoice</em> para <em>Order</em>.</p>
 
-        title="inheritance_en020.png"><br>
-      Curiosamente, este diagrama UML es idéntico al diagrama de <em>Invoice</em>. Es decir, para crear tu entidad <em>Order</em> puedes copiar y pegar la clase <em>Invoice</em>, y asunto zanjado. Pero, ¡espera un momento! ¿“Copiar y pegar” no era un pecado mortal? Hemos de encontrar una forma de reutilizar <em>Invoice</em> para <em>Order</em>.<br>
-      <h2 id="toc4"><a name="Herencia-de-entidades-CommercialDocument-como-entidad-abstracta"></a>CommercialDocument como entidad abstracta</h2>
-      Una manera práctica de reutilizar el código de <em>Invoice</em> para <em>Order</em> es usando herencia, además es una excusa perfecta para aprender lo fácil que es usar la herencia con JPA y OpenXava.<br>
-      En la mayoría de las culturas orientadas a objetos has de observar el precepto sagrado <em>es un</em>. Esto significa que no podemos hacer que <em>Invoice</em> herede de <em>Order</em>, porque una factura no es un pedido, y por la misma regla no podemos hacer que <em>Order</em> descienda de <em>Invoice</em>. La solución para este caso es crear una clase base para ambos, <em>Order</em> e <em>Invoice</em>. Llamaremos a esta clase <em>CommercialDocument</em> (documento comercial).<br>
-      Aquí tienes el diagrama UML para <em>CommercialDocument</em>:<br>
-      <img src="files/inheritance_en030.png" alt="inheritance_en030.png"
-
-        title="inheritance_en030.png"><br>
-      Y aquí tienes la misma idea expresada con Java:<br>
-      <pre><code class="language-java">public class CommercialDocument { ... }
+    <h2 id="commercialdocument-como-entidad-abstracta">CommercialDocument como entidad
+      abstracta</h2>
+    <p>Una manera práctica de reutilizar el código de <em>Invoice</em> para <em>Order</em> es
+      usando herencia, además es una excusa perfecta para aprender lo fácil que es usar la
+      herencia con JPA y OpenXava.</p>
+    <p>En la mayoría de las culturas orientadas a objetos has de observar el precepto sagrado
+      <em>es un</em>. Esto significa que no podemos hacer que <em>Invoice</em> herede de
+      <em>Order</em>, porque una factura no es un pedido, y por la misma regla no podemos
+      hacer que <em>Order</em> descienda de <em>Invoice</em>. La solución para este caso es
+      crear una clase base para ambos, <em>Order</em> e <em>Invoice</em>. Llamaremos a esta
+      clase <em>CommercialDocument</em> (documento comercial).</p>
+    <p>Aquí tienes el diagrama UML para <em>CommercialDocument</em>:</p>
+    <p><img src="files/inheritance_en030.png" alt="inheritance_en030.png"></p>
+    <p>Y aquí tienes la misma idea expresada con Java:</p>
+    <pre><code class="language-java">public class CommercialDocument { ... }
 public class Order extends CommercialDocument { ... }
 public class Invoice extends CommercialDocument { ... }
-</code></pre> Empecemos a refactorizar el código actual. Primero, renombra (usando <em>Refactor &gt; Rename</em>) <em>Invoice</em> como <em>CommercialDocument</em>. Después, edita el código de <em>CommercialDocument</em> para declararla como una clase abstracta, así:<br>
-      <pre><code class="language-java">abstract public class CommercialDocument // Añadimos el modificador abstract
-</code></pre> Queremos crear instancias de <em>Invoice</em> y <em>Order</em>, pero no queremos crear instancias de <em>CommercialDocument</em> directamente, por eso la declaramos abstracta.<br>
-      <h2 id="toc5"><a name="Herencia-de-entidades-Factura-refactorizada-para-usar-herencia"></a>Invoice refactorizada para usar herencia</h2>
-      Ahora, has de crear la entidad <em>Invoice</em> extendiéndola de <em>CommercialDocument</em>. Puedes ver el nuevo código de <em>Invoice</em>:<br>
-      <pre><code class="language-java">package com.yourcompany.invoicing.model;
- 
+</code></pre>
+    <p>Empecemos a refactorizar el código actual. Primero, renombra (usando <em>Refactor &gt;
+      Rename</em>) <em>Invoice</em> como <em>CommercialDocument</em>. Después, edita el código
+      de <em>CommercialDocument</em> para declararla como una clase abstracta, así:</p>
+    <pre><code class="language-java">abstract public class CommercialDocument // Añadimos el modificador abstract
+</code></pre>
+    <p>Queremos crear instancias de <em>Invoice</em> y <em>Order</em>, pero no queremos crear
+      instancias de <em>CommercialDocument</em> directamente, por eso la declaramos
+      abstracta.</p>
+
+    <h2 id="invoice-refactorizada-para-usar-herencia">Invoice refactorizada para usar
+      herencia</h2>
+    <p>Ahora, has de crear la entidad <em>Invoice</em> extendiéndola de
+      <em>CommercialDocument</em>. Puedes ver el nuevo código de <em>Invoice</em>:</p>
+    <pre><code class="language-java">package com.yourcompany.invoicing.model;
+
 import jakarta.persistence.*;
 import lombok.*;
- 
+
 @Entity @Getter @Setter
 public class Invoice extends CommercialDocument {
- 
-}
-</code></pre> <em>Invoice</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase está, por ahora, vacío.<br>
-      Este nuevo código necesita un esquema de base de datos ligeramente diferente, ahora las facturas y los pedidos se almacenarán en la misma tabla (la tabla CommercialDocument) usando una columna discriminador. Por tanto has de borrar las viejas tablas ejecutando las siguientes sentencias SQL:<br>
-      <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
-DROP TABLE INVOICE;
-</code></pre> Para ejecutar estas sentencias SQL, primero asegúrate de que tu aplicación se esté ejecutando,
-        después ejecuta la clase <i>DBManager</i> dentro del paquete <i>com.yourcompany.invoicing.tools</i> en tu proyecto:<br>
-      <img src="files/inheritance_en040.png" alt="inheritance_en040.png" title="inheritance_en040.png"><br>
-      Después:<br>
-      <img src="files/inheritance_en050.png" alt="inheritance_en050.png"
 
-        title="inheritance_en050.png"><br>
-      Ya puedes ejecutar el módulo <em>Invoice</em> y verlo funcionando en tu navegador. Lanza también <em>InvoiceTest</em>. Tiene que salirte verde.</div>
-    <div class="wiki" style="display: block;">
-      <h2 id="toc6"><a name="Herencia-de-entidades-Crear-Pedido-usando-herencia"></a>Crear Order usando herencia</h2>
-      Gracias a <em>CommercialDocument</em> el código para <em>Order</em> es más sencillo que el mecanismo de un sonajero:<br>
-      <pre><code class="language-java">package com.yourcompany.invoicing.model;
- 
+}
+</code></pre>
+    <p><em>Invoice</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase
+      está, por ahora, vacío.</p>
+    <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente, ahora las
+      facturas y los pedidos se almacenarán en la misma tabla (la tabla CommercialDocument)
+      usando una columna discriminador. Por tanto has de borrar las viejas tablas ejecutando
+      las siguientes sentencias SQL:</p>
+    <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
+DROP TABLE INVOICE;
+</code></pre>
+    <p>Para ejecutar estas sentencias SQL, primero asegúrate de que tu aplicación se esté
+      ejecutando, después ejecuta la clase <em>DBManager</em> dentro del paquete
+      <em>com.yourcompany.invoicing.tools</em> en tu proyecto:</p>
+    <p><img src="files/inheritance_en040.png" alt="inheritance_en040.png"></p>
+    <p>Después:</p>
+    <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
+    <p>Ya puedes ejecutar el módulo <em>Invoice</em> y verlo funcionando en tu navegador.
+      Lanza también <em>InvoiceTest</em>. Tiene que salirte verde.</p>
+
+    <h2 id="crear-order-usando-herencia">Crear Order usando herencia</h2>
+    <p>Gracias a <em>CommercialDocument</em> el código para <em>Order</em> es más sencillo
+      que el mecanismo de un sonajero:</p>
+    <pre><code class="language-java">package com.yourcompany.invoicing.model;
+
 import jakarta.persistence.*;
 import lombok.*;
- 
+
 @Entity @Getter @Setter
 public class Order extends CommercialDocument {
- 
+
 }
-</code></pre> Después de escribir la clase <em>Order</em>, aunque de momento esté vacía, ya puedes usar el módulo <em>Order</em> desde tu navegador. Sí, a partir de ahora crear una nueva entidad con una estructura parecida a <em>Invoice</em>, es decir cualquier entidad para un documento comercial, es simple y rápido. Un buen uso de la herencia es una forma elegante de tener un código más simple.<br>
-      El módulo <em>Order</em> funciona perfectamente, pero tiene un pequeño problema. El nuevo número de pedido lo calcula a partir del último número de factura, no de pedido. Esto es así porque el calculador para el siguiente número lee de la entidad <em>Invoice</em>. Un solución obvia es mover la definición de la propiedad <em>number</em> de <em>CommercialDocument</em> a <em>Invoice</em> y <em>Order</em>. Aunque, no lo vamos a hacer así, porque en la siguiente lección refinaremos la forma de calcular el número de documento, de momento simplemente haremos un pequeño ajuste en el código actual para que no falle. Edita la clase <em>NextNumberForYearCalculator</em> y en la consulta cambia “Invoice” por “CommercialDocument”, dejando el método <em>calculate()</em>, así:<br>
-      <pre><code class="language-java">public Object calculate() throws Exception {
+</code></pre>
+    <p>Después de escribir la clase <em>Order</em>, aunque de momento esté vacía, ya puedes
+      usar el módulo <em>Order</em> desde tu navegador. Sí, a partir de ahora crear una nueva
+      entidad con una estructura parecida a <em>Invoice</em>, es decir cualquier entidad para
+      un documento comercial, es simple y rápido. Un buen uso de la herencia es una forma
+      elegante de tener un código más simple.</p>
+    <p>El módulo <em>Order</em> funciona perfectamente, pero tiene un pequeño problema. El
+      nuevo número de pedido lo calcula a partir del último número de factura, no de pedido.
+      Esto es así porque el calculador para el siguiente número lee de la entidad
+      <em>Invoice</em>. Una solución obvia es mover la definición de la propiedad
+      <em>number</em> de <em>CommercialDocument</em> a <em>Invoice</em> y <em>Order</em>.
+      Aunque, no lo vamos a hacer así, porque en la siguiente lección refinaremos la forma de
+      calcular el número de documento, de momento simplemente haremos un pequeño ajuste en el
+      código actual para que no falle. Edita la clase <em>NextNumberForYearCalculator</em> y
+      en la consulta cambia “Invoice” por “CommercialDocument”, dejando el método
+      <em>calculate()</em>, así:</p>
+    <pre><code class="language-java">public Object calculate() throws Exception {
     Query query = XPersistence.getManager().createQuery(
         "select max(i.number) from " +
         "CommercialDocument i " + // CommercialDocument en vez de Invoice
@@ -146,64 +217,89 @@ public class Order extends CommercialDocument {
     Integer lastNumber = (Integer) query.getSingleResult();
     return lastNumber == null?1:lastNumber + 1;
 }
-</code></pre> Ahora buscamos el número máximo de cualquier tipo de documento comercial del año para calcular el nuevo número, por lo tanto la numeración es compartida para todos los tipos de documentos. Esto lo mejoraremos en la siguiente lección para separar la numeración para facturas y pedidos; y para tener un mejor soporte de entornos multiusuario.<br>
-      <h2 id="toc7"><a name="Herencia-de-entidades-Convencion-de-nombres-y-herencia"></a>Convención de nombres y herencia</h2>
-      Fíjate que no has necesitado cambiar el nombre de ninguna propiedad de <em>Invoice</em> para hacer la refactorización. Esto es por el siguiente principio práctico: <em>No uses el nombre de clase en los nombres de miembro</em>, por ejemplo, dentro de una clase <em>Account</em> (cuenta) no uses la palabra “Account” en ningún método o propiedad:<br>
-      <pre><code class="language-java">public class Account { // No usaremos Account en los nombres de los miembros
- 
+</code></pre>
+    <p>Ahora buscamos el número máximo de cualquier tipo de documento comercial del año para
+      calcular el nuevo número, por lo tanto la numeración es compartida para todos los tipos
+      de documentos. Esto lo mejoraremos en la siguiente lección para separar la numeración
+      para facturas y pedidos; y para tener un mejor soporte de entornos multiusuario.</p>
+
+    <h2 id="convencion-de-nombres-y-herencia">Convención de nombres y herencia</h2>
+    <p>Fíjate que no has necesitado cambiar el nombre de ninguna propiedad de
+      <em>Invoice</em> para hacer la refactorización. Esto es por el siguiente principio
+      práctico: <em>No uses el nombre de clase en los nombres de miembro</em>, por ejemplo,
+      dentro de una clase <em>Account</em> (cuenta) no uses la palabra “Account” en ningún
+      método o propiedad:</p>
+    <pre><code class="language-java">public class Account { // No usaremos Account en los nombres de los miembros
+
     private int accountNumber; // Mal, porque usa “account”
     private int number; // Bien, no usa “account”
- 
+
     public void cancelAccount() { } // Mal, porque usa “Account”
     public void cancel() { } // Bien, no usa “account”
     ...
 }
-</code></pre> Usando esta nomenclatura puedes refactorizar la clase <em>Account</em> en una jerarquía sin renombrar sus miembros y además puedes escribir código polimórfico con <em>Account</em>.<br>
-      <h2 id="toc8"><a name="Herencia-de-entidades-Asociar-Pedido-con-Factura"></a>Asociar Order con Invoice</h2>
-      Hasta ahora, <em>Order</em> e <em>Invoice</em> son exactamente iguales. Vamos a hacerles sus primeras extensiones, que va a ser asociar <em>Order</em> con <em>Invoice</em>, como se muestra en el diagrama:<br>
-      <img src="files/inheritance_en010.png" alt="inheritance_en010.png"
+</code></pre>
+    <p>Usando esta nomenclatura puedes refactorizar la clase <em>Account</em> en una jerarquía
+      sin renombrar sus miembros y además puedes escribir código polimórfico con
+      <em>Account</em>.</p>
 
-        title="inheritance_en010.png"><br>
-      Solo necesitas añadir una referencia desde <em>Order</em> a <em>Invoice</em>:<br>
-      <pre><code class="language-java">package com.yourcompany.invoicing.model;
- 
+    <h2 id="asociar-order-con-invoice">Asociar Order con Invoice</h2>
+    <p>Hasta ahora, <em>Order</em> e <em>Invoice</em> son exactamente iguales. Vamos a
+      hacerles sus primeras extensiones, que va a ser asociar <em>Order</em> con
+      <em>Invoice</em>, como se muestra en el diagrama:</p>
+    <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
+    <p>Solo necesitas añadir una referencia desde <em>Order</em> a <em>Invoice</em>:</p>
+    <pre><code class="language-java">package com.yourcompany.invoicing.model;
+
 import jakarta.persistence.*;
 import lombok.*;
- 
+
 @Entity @Getter @Setter
 public class Order extends CommercialDocument {
- 
+
     @ManyToOne
     Invoice invoice; // Referencia a factura añadida
- 
+
 }
-</code></pre> Por otra parte en <em>Invoice</em> añadimos una colección de entidades <em>Order</em>:<br>
-      <pre><code class="language-java">package com.yourcompany.invoicing.model;
- 
-import java.util.*; 
+</code></pre>
+    <p>Por otra parte en <em>Invoice</em> añadimos una colección de entidades
+      <em>Order</em>:</p>
+    <pre><code class="language-java">package com.yourcompany.invoicing.model;
+
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.*;
- 
+
 @Entity @Getter @Setter
 public class Invoice extends CommercialDocument {
- 
+
     @OneToMany(mappedBy="invoice")
     Collection&lt;Order&gt; orders; // Colección de entidades Order añadida
- 
+
 }
-</code></pre> Después de escribir este código tan simple, ya puedes probar estas, recién creadas, relaciones. Reinicia tu aplicación y abre tu navegador y explora los módulos <em>Order</em> e <em>Invoice</em>. Fíjate como al final de la interfaz de usuario de <em>Order</em> tienes una referencia a <em>Invoice</em>. El usuario puede usar esta referencia para asociar una factura al pedido actual. Por otra parte, si exploras el módulo <em>Invoice</em>, verás una colección de pedidos al final. El usuario puede usarla para añadir pedidos a la factura actual.<br>
-      Intenta añadir pedidos a la factura y asociar una factura a un pedido. Funciona, aunque la interfaz de usuario es un poco fea. No te preocupes, mejoraremos esto en la siguiente lección.<br>
-      <h2 id="toc18"><a name="Resumen"></a>Resumen</h2>
-      Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar herencia de Java con entidades JPA para simplificar tu código. Hemos usado la configuración por defecto de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la herencia con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>, <em>@DiscriminatorValue</em>, etc. Para aprender más acerca de la herencia en JPA puedes leer la documentación del <a
+</code></pre>
+    <p>Después de escribir este código tan simple, ya puedes probar estas, recién creadas,
+      relaciones. Reinicia tu aplicación y abre tu navegador y explora los módulos
+      <em>Order</em> e <em>Invoice</em>. Fíjate como al final de la interfaz de usuario de
+      <em>Order</em> tienes una referencia a <em>Invoice</em>. El usuario puede usar esta
+      referencia para asociar una factura al pedido actual. Por otra parte, si exploras el
+      módulo <em>Invoice</em>, verás una colección de pedidos al final. El usuario puede
+      usarla para añadir pedidos a la factura actual.</p>
+    <p>Intenta añadir pedidos a la factura y asociar una factura a un pedido. Funciona, aunque
+      la interfaz de usuario es un poco fea. No te preocupes, mejoraremos esto en la siguiente
+      lección.</p>
 
-        class="wiki_link" href="jpa_es.html">apéndice B</a>.</div>
-    <div class="wiki" style="display: block;"><br>
-    </div>
-    <div class="wiki" style="display: block;">
-      <strong>¿Problemas con la lección? <a class="wiki_link_ext" href="http://sourceforge.net/p/openxava/discussion/437013/"
-
-          rel="nofollow">Pregunta en el foro</a></strong> <strong>¿Ha ido bien? <a
-
-          class="wiki_link" href="view-inheritance_es.html">Ve a la lección 8</a></strong> </div>
+    <h2 id="resumen">Resumen</h2>
+    <p>Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar herencia de Java
+      con entidades JPA para simplificar tu código. Hemos usado la configuración por defecto
+      de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la herencia
+      con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>,
+      <em>@DiscriminatorValue</em>, etc. Para aprender más acerca de la herencia en JPA puedes
+      leer la documentación del <a href="jpa_es.html">apéndice B</a>.</p>
+    <p><strong>¿Problemas con la lección?
+      <a href="http://sourceforge.net/p/openxava/discussion/437013/"
+        rel="nofollow">Pregunta en el foro</a></strong>
+      <strong>¿Ha ido bien? <a href="view-inheritance_es.html">Ve a la
+      lección 8</a></strong></p>
   </body>
 </html>
