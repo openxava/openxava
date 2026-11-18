@@ -87,7 +87,7 @@
     <p>Queremos añadir un nuevo concepto a la aplicación <em>invoicing</em>: pedido. Mientras
       que una factura es algo que quieres cobrar a tu cliente, un pedido es algo que tu
       cliente te ha solicitado. Estos dos conceptos están fuertemente unidos, porque cobrarás
-      por las cosas que tu cliente te ha pedido y tú le has servido.</p>
+      por las cosas que tu cliente te ha pedido y que tú le has servido.</p>
     <p>Sería interesante poder tratar pedidos en tu aplicación y asociar estos pedidos con sus
       correspondientes facturas. Tal como muestra el siguiente diagrama UML:</p>
     <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
@@ -109,8 +109,8 @@ public class Order {
 }
 </code></pre>
     <p>Es decir, una factura tiene varios pedidos y un pedido puede referenciar a una factura.
-      Fíjate como no usamos inicialización vaga (lazy fetching) para la referencia
-      <em>invoice</em> (1), esto es por un bug de Hibernate cuando la referencia contiene la
+      Fíjate en que no usamos inicialización vaga (lazy fetching) para la referencia
+      <em>invoice</em> (1); esto es por un bug de Hibernate cuando la referencia contiene la
       relación bidireccional (es decir, es la referencia declarada en el atributo
       <em>mappedBy</em> del <em>@OneToMany</em>).</p>
     <p>¿Cómo es <em>Order</em>? Bien, tiene un cliente, unas líneas de detalle con producto y
@@ -124,7 +124,7 @@ public class Order {
     <h2 id="commercialdocument-como-entidad-abstracta">CommercialDocument como entidad
       abstracta</h2>
     <p>Una manera práctica de reutilizar el código de <em>Invoice</em> para <em>Order</em> es
-      usando herencia, además es una excusa perfecta para aprender lo fácil que es usar la
+      usar herencia; además, es una excusa perfecta para aprender lo fácil que es usar la
       herencia con JPA y OpenXava.</p>
     <p>En la mayoría de las culturas orientadas a objetos has de observar el precepto sagrado
       <em>es un</em>. Esto significa que no podemos hacer que <em>Invoice</em> herede de
@@ -164,9 +164,9 @@ public class Invoice extends CommercialDocument {
 </code></pre>
     <p><em>Invoice</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase
       está, por ahora, vacío.</p>
-    <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente, ahora las
+    <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente: ahora las
       facturas y los pedidos se almacenarán en la misma tabla (la tabla CommercialDocument)
-      usando una columna discriminador. Por tanto has de borrar las viejas tablas ejecutando
+      usando una columna discriminadora. Por tanto, has de borrar las viejas tablas ejecutando
       las siguientes sentencias SQL:</p>
     <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
 DROP TABLE INVOICE;
@@ -181,7 +181,7 @@ DROP TABLE INVOICE;
       Lanza también <em>InvoiceTest</em>. Tiene que salirte verde.</p>
 
     <h2 id="crear-order-usando-herencia">Crear Order usando herencia</h2>
-    <p>Gracias a <em>CommercialDocument</em> el código para <em>Order</em> es más sencillo
+    <p>Gracias a <em>CommercialDocument</em>, el código para <em>Order</em> es más sencillo
       que el mecanismo de un sonajero:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -203,11 +203,11 @@ public class Order extends CommercialDocument {
       Esto es así porque el calculador para el siguiente número lee de la entidad
       <em>Invoice</em>. Una solución obvia es mover la definición de la propiedad
       <em>number</em> de <em>CommercialDocument</em> a <em>Invoice</em> y <em>Order</em>.
-      Aunque, no lo vamos a hacer así, porque en la siguiente lección refinaremos la forma de
-      calcular el número de documento, de momento simplemente haremos un pequeño ajuste en el
-      código actual para que no falle. Edita la clase <em>NextNumberForYearCalculator</em> y
-      en la consulta cambia “Invoice” por “CommercialDocument”, dejando el método
-      <em>calculate()</em>, así:</p>
+      Sin embargo, no lo vamos a hacer así, porque en la siguiente lección refinaremos la
+      forma de calcular el número de documento; de momento simplemente haremos un pequeño
+      ajuste en el código actual para que no falle. Edita la clase
+      <em>NextNumberForYearCalculator</em> y en la consulta cambia “Invoice” por
+      “CommercialDocument”, dejando el método <em>calculate()</em>, así:</p>
     <pre><code class="language-java">public Object calculate() throws Exception {
     Query query = XPersistence.getManager().createQuery(
         "select max(i.number) from " +
@@ -219,12 +219,13 @@ public class Order extends CommercialDocument {
 }
 </code></pre>
     <p>Ahora buscamos el número máximo de cualquier tipo de documento comercial del año para
-      calcular el nuevo número, por lo tanto la numeración es compartida para todos los tipos
-      de documentos. Esto lo mejoraremos en la siguiente lección para separar la numeración
-      para facturas y pedidos; y para tener un mejor soporte de entornos multiusuario.</p>
+      calcular el nuevo número, por lo tanto la numeración es compartida entre todos los
+      tipos de documentos. Esto lo mejoraremos en la siguiente lección para separar la
+      numeración de facturas y pedidos, y para tener un mejor soporte de entornos
+      multiusuario.</p>
 
     <h2 id="convencion-de-nombres-y-herencia">Convención de nombres y herencia</h2>
-    <p>Fíjate que no has necesitado cambiar el nombre de ninguna propiedad de
+    <p>Fíjate en que no has necesitado cambiar el nombre de ninguna propiedad de
       <em>Invoice</em> para hacer la refactorización. Esto es por el siguiente principio
       práctico: <em>No uses el nombre de clase en los nombres de miembro</em>, por ejemplo,
       dentro de una clase <em>Account</em> (cuenta) no uses la palabra “Account” en ningún
@@ -245,7 +246,7 @@ public class Order extends CommercialDocument {
 
     <h2 id="asociar-order-con-invoice">Asociar Order con Invoice</h2>
     <p>Hasta ahora, <em>Order</em> e <em>Invoice</em> son exactamente iguales. Vamos a
-      hacerles sus primeras extensiones, que va a ser asociar <em>Order</em> con
+      hacerles su primera extensión, que consistirá en asociar <em>Order</em> con
       <em>Invoice</em>, como se muestra en el diagrama:</p>
     <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
     <p>Solo necesitas añadir una referencia desde <em>Order</em> a <em>Invoice</em>:</p>
@@ -262,7 +263,7 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
-    <p>Por otra parte en <em>Invoice</em> añadimos una colección de entidades
+    <p>Por otra parte, en <em>Invoice</em> añadimos una colección de entidades
       <em>Order</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -278,9 +279,9 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
-    <p>Después de escribir este código tan simple, ya puedes probar estas, recién creadas,
-      relaciones. Reinicia tu aplicación y abre tu navegador y explora los módulos
-      <em>Order</em> e <em>Invoice</em>. Fíjate como al final de la interfaz de usuario de
+    <p>Después de escribir este código tan simple, ya puedes probar estas relaciones recién
+      creadas. Reinicia tu aplicación, abre tu navegador y explora los módulos
+      <em>Order</em> e <em>Invoice</em>. Fíjate en que al final de la interfaz de usuario de
       <em>Order</em> tienes una referencia a <em>Invoice</em>. El usuario puede usar esta
       referencia para asociar una factura al pedido actual. Por otra parte, si exploras el
       módulo <em>Invoice</em>, verás una colección de pedidos al final. El usuario puede
@@ -290,10 +291,10 @@ public class Invoice extends CommercialDocument {
       lección.</p>
 
     <h2 id="resumen">Resumen</h2>
-    <p>Esta lección te ha mostrado algunos ejemplos prácticos sobre como usar herencia de Java
-      con entidades JPA para simplificar tu código. Hemos usado la configuración por defecto
-      de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la herencia
-      con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>,
+    <p>Esta lección te ha mostrado algunos ejemplos prácticos sobre cómo usar la herencia de
+      Java con entidades JPA para simplificar tu código. Hemos usado la configuración por
+      defecto de JPA para la herencia, aunque puedes refinar el comportamiento de JPA para la
+      herencia con anotaciones como <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>,
       <em>@DiscriminatorValue</em>, etc. Para aprender más acerca de la herencia en JPA puedes
       leer la documentación del <a href="jpa_es.html">apéndice B</a>.</p>
     <p><strong>¿Problemas con la lección?

@@ -82,13 +82,13 @@
       <em>invoicing</em> application.</p>
 
     <h2 id="new-order-entity">New Order entity</h2>
-    <p>We want to add a new concept to the <em>invoicing</em> application, i. e., order. While
+    <p>We want to add a new concept to the <em>invoicing</em> application, i.e., orders. While
       an invoice is something you want to charge your customer, an order is something the
       customer has ordered from us. These two concepts are strongly related, because you will
-      charge the things your customer has ordered from you, and you actually have served
-      him.</p>
+      charge the things your customer has ordered from you and that you have actually
+      served him.</p>
     <p>It would be nice to manage orders in your application, and to associate those orders
-      with its corresponding invoices. Just as shown in the next UML diagram:</p>
+      with their corresponding invoices, just as shown in the following UML diagram:</p>
     <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
     <p>And with Java code:</p>
     <pre><code class="language-java">@Entity
@@ -108,7 +108,7 @@ public class Order {
 }
 </code></pre>
     <p>That is, an invoice has several orders, and an order can reference an invoice. Note
-      that we do not use lazy fetching for the <em>invoice</em> reference (1), this is because
+      that we do not use lazy fetching for the <em>invoice</em> reference (1); this is because
       of a Hibernate bug when the reference owns the bidirectional relationship (that is, it's
       declared in the <em>mappedBy</em> attribute of the <em>@OneToMany</em>).</p>
     <p>What shape does <em>Order</em> have? Well, it has a customer, several detail lines with
@@ -124,7 +124,7 @@ public class Order {
     <p>A practical way to reuse the code for <em>Invoice</em> and <em>Order</em> is by using
       inheritance, moreover it's an excellent opportunity to learn how easy it is to use
       inheritance with JPA and OpenXava.</p>
-    <p>In most object oriented cultures you have to observe the <em>is a</em> rule. It means
+    <p>In most object-oriented cultures you have to observe the <em>is a</em> rule. It means
       that we cannot do <em>Invoice</em> extends <em>Order</em>, because an <em>Invoice</em>
       is not an <em>Order</em>. The solution for this case is creating a base class for both
       <em>Order</em> and <em>Invoice</em>. We are going to call that class
@@ -137,7 +137,7 @@ public class Order extends CommercialDocument { ... }
 public class Invoice extends CommercialDocument { ... }
 </code></pre>
     <p>Let's start to refactor your current code. First, rename (using <em>Refactor &gt;
-      Rename</em>) <em>Invoice</em> as <em>CommercialDocument</em>. Now, edit the
+      Rename</em>) <em>Invoice</em> to <em>CommercialDocument</em>. Now, edit the
       <em>CommercialDocument</em> code to declare it as an abstract class, thus:</p>
     <pre><code class="language-java">abstract public class CommercialDocument // We add the abstract modifier
 </code></pre>
@@ -160,9 +160,9 @@ public class Invoice extends CommercialDocument {
 </code></pre>
     <p><em>Invoice</em> now has very succinct code, indeed the body of the class is, by now,
       empty.</p>
-    <p>This new code requires a slightly different database schema, now invoices and orders
+    <p>This new code requires a slightly different database schema: now invoices and orders
       will be stored in the same table (the CommercialDocument table) using a discriminator
-      column. Therefore you need to remove the old tables executing the next SQL
+      column. Therefore, you need to remove the old tables by executing the following SQL
       statements:</p>
     <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
 DROP TABLE INVOICE;
@@ -174,10 +174,10 @@ DROP TABLE INVOICE;
     <p>Then:</p>
     <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
     <p>Now you can execute the <em>Invoice</em> module and see it working in your browser.
-      Also, execute the <em>InvoiceTest</em>. It must be green.</p>
+      Also, execute <em>InvoiceTest</em>. It must be green.</p>
 
     <h2 id="creating-order-using-inheritance">Creating Order using inheritance</h2>
-    <p>Thanks to <em>CommercialDocument</em> creating the <em>Order</em> entity is dead easy.
+    <p>Thanks to <em>CommercialDocument</em>, creating the <em>Order</em> entity is dead easy.
       See the code:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -192,17 +192,17 @@ public class Order extends CommercialDocument {
     <p>After writing the above <em>Order</em> class, although it is empty by now, you can use
       the <em>Order</em> module from your browser. Yes, creating a new entity with a structure
       like <em>Invoice</em>, that is any commercial document entity, is very easy and rapid.
-      You see how good use of inheritance is an elegant way to have simpler code.</p>
-    <p><em>Order</em> module works perfectly, but it has a little problem. The new order
+      You can see how a good use of inheritance is an elegant way to have simpler code.</p>
+    <p>The <em>Order</em> module works perfectly, but it has a little problem. The new order
       number is calculated from the last invoice number, not from the last order number. This
-      is because the calculator for the next number is read from the <em>Invoice</em> entity.
+      is because the calculator for the next number reads from the <em>Invoice</em> entity.
       An obvious solution is to move the <em>number</em> property definition from
-      <em>CommercialDocument</em> to <em>Invoice</em> and <em>Order</em>. Although, we are not
-      going to do it in this way, because in the next lesson we'll refine the way to calculate
-      the next number, for now we simply do a little adjustment in the current code so that
-      it does not fail. Edit the <em>NextNumberForYearCalculator</em> class and in the query
-      change “Invoice” for “CommercialDocument”, leaving the <em>calculate()</em> method, in
-      this way:</p>
+      <em>CommercialDocument</em> to <em>Invoice</em> and <em>Order</em>. However, we are not
+      going to do it this way, because in the next lesson we'll refine the way to calculate
+      the next number; for now we'll simply make a small adjustment to the current code so
+      that it does not fail. Edit the <em>NextNumberForYearCalculator</em> class and in the
+      query change “Invoice” to “CommercialDocument”, leaving the <em>calculate()</em>
+      method like this:</p>
     <pre><code class="language-java">public Object calculate() throws Exception {
     Query query = XPersistence.getManager().createQuery(
         "select max(i.number) from " +
@@ -215,15 +215,15 @@ public class Order extends CommercialDocument {
 </code></pre>
     <p>Now we search for the maximum number of any commercial document of the year in order
       to calculate the new number, therefore the numbering is shared across all the commercial
-      documents. We'll improve it in the next lesson for having separate numbering for
-      invoices and orders and to have better support for a multiuser environment.</p>
+      documents. We'll improve it in the next lesson to have separate numbering for invoices
+      and orders, and to have better support for a multiuser environment.</p>
 
     <h2 id="naming-convention-and-inheritance">Naming convention and inheritance</h2>
     <p>Note that you do not need to change the name of any property of <em>Invoice</em> to do
-      the refactoring. This is because we follow the next pragmatic principle: <em>Do not use
+      the refactoring. This is because we follow this pragmatic principle: <em>Do not use
       the class name in member names</em>, e.g., inside an <em>Account</em> class do not use
-      the “Account” word in any method or property:</p>
-    <pre><code class="language-java">public class Account { // We'll not use Account in member names
+      the word “Account” in any method or property:</p>
+    <pre><code class="language-java">public class Account { // We won't use Account in member names
 
     private int accountNumber; // Bad, because it uses “account”
     private int number; // Good, it does not use “account”
@@ -233,14 +233,14 @@ public class Order extends CommercialDocument {
     ...
 }
 </code></pre>
-    <p>Using this nomenclature you can refactor <em>Account</em> in an inheritance hierarchy
+    <p>Using this nomenclature you can refactor <em>Account</em> into an inheritance hierarchy
       without renaming its members, and you can write polymorphic code with
       <em>Account</em>.</p>
 
     <h2 id="associating-order-with-invoice">Associating Order with Invoice</h2>
-    <p>By now, <em>Order</em> and <em>Invoice</em> are exactly the same. We are going to do
-      the first extensions on them, that is to associate <em>Order</em> with
-      <em>Invoice</em>. Just as shown in the diagram:</p>
+    <p>So far, <em>Order</em> and <em>Invoice</em> are exactly the same. We are going to make
+      the first extension to them, that is, associating <em>Order</em> with
+      <em>Invoice</em>, just as shown in the diagram:</p>
     <p><img src="files/inheritance_en010.png" alt="inheritance_en010.png"></p>
     <p>You only need to add a reference from <em>Order</em> to <em>Invoice</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -256,7 +256,7 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
-    <p>Conversely in <em>Invoice</em> we add a collection of <em>Order</em> entities:</p>
+    <p>Conversely, in <em>Invoice</em> we add a collection of <em>Order</em> entities:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
 import java.util.*;
@@ -272,19 +272,19 @@ public class Invoice extends CommercialDocument {
 }
 </code></pre>
     <p>After writing this simple code you are ready to test the newly created relationship.
-      Restart your application and open your browser and explore the <em>Order</em> and the
+      Restart your application, open your browser and explore the <em>Order</em> and the
       <em>Invoice</em> modules. Note that at the end of the <em>Order</em> user interface you
       have a reference to <em>Invoice</em>. The user can use this reference to associate an
       invoice with the current order. On the other hand, if you explore the <em>Invoice</em>
       module, you will see a collection of orders at the end. The user can use it to add
       orders to the current invoice.</p>
-    <p>Try to add orders to invoice, and to associate an invoice to an order. It works,
-      although the user interface is a little ugly. Don't worry we'll improve it in the next
+    <p>Try adding orders to an invoice and associating an invoice with an order. It works,
+      although the user interface is a little ugly. Don't worry, we'll improve it in the next
       lesson.</p>
 
     <h2 id="summary">Summary</h2>
-    <p>This lesson has shown you some practical examples about how to use the inheritance of
-      Java with JPA entities to simplify your code. We used the default JPA configuration for
+    <p>This lesson has shown you some practical examples of how to use Java inheritance with
+      JPA entities to simplify your code. We used the default JPA configuration for
       inheritance, though you can refine JPA behavior for inheritance using some JPA
       annotations like <em>@Inheritance</em>, <em>@DiscriminatorColumn</em>,
       <em>@DiscriminatorValue</em>, etc. To learn more about inheritance in JPA read the
