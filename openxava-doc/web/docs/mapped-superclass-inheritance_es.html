@@ -74,7 +74,7 @@
     <p>La herencia es una forma práctica de reutilizar el código en el mundo de la
       orientación a objetos. Usar herencia con JPA y OpenXava es tan fácil como hacerlo
       con puro Java. Vamos a usar la herencia para quitar el código repetitivo y aburrido,
-      como la definición de los UUID, esto lo haremos usando superclases mapeadas de
+      como la definición de los UUID. Esto lo haremos usando superclases mapeadas de
       JPA.</p>
 
     <h2 id="superclase-mapeada">Superclase mapeada</h2>
@@ -130,14 +130,14 @@ public class Category extends Identifiable {
 </code></pre>
     <p>La refactorización es extremadamente simple. <em>Category</em> ahora desciende de
       <em>Identifiable</em> y hemos quitado la propiedad <em>oid</em>. De esta forma, no
-      sólo tu código es más corto, sino también más elegante, porque estás declarando tu
+      solo tu código es más corto, sino también más elegante, porque estás declarando tu
       clase como identificable (el qué, no el cómo), y has quitado de tu clase de negocio
       un código que era un tanto técnico.</p>
     <p>Aplica esta misma refactorización a las entidades <em>Author</em> e
       <em>Invoice</em>. Además, a partir de ahora extenderás la mayoría de tus entidades
       de la superclase mapeada <em>Identifiable</em>.</p>
     <p>Hemos creado nuestra propia clase <em>Identifiable</em> para ver las ventajas de
-      usar superclases mapeadas, sin embargo OpenXava te provee una clase
+      usar superclases mapeadas; sin embargo, OpenXava te provee una clase
       <em>Identifiable</em> lista para usar que puedes encontrar en el paquete
       <em>org.openxava.model</em>. Por tanto, en tu próximo proyecto no has de escribir la
       clase <em>Identifiable</em> otra vez, simplemente usa la incluida en OpenXava.</p>
@@ -145,7 +145,7 @@ public class Category extends Identifiable {
     <h2 id="resumen">Resumen</h2>
     <p>Has aprendido, pues, que una superclase mapeada es una clase normal y corriente con
       anotaciones de mapeo JPA que puedes usar como clase base para tus entidades.
-      También has aprendido como usar una superclase mapeada para simplificar tu
+      También has aprendido cómo usar una superclase mapeada para simplificar tu
       código.</p>
     <p><strong>¿Problemas con la lección?
       <a href="http://sourceforge.net/p/openxava/discussion/437013/"

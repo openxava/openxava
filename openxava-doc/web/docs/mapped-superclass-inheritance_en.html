@@ -70,10 +70,10 @@
         entities</a></div>
       <div style="margin-left: 2em;"><a href="#summary">Summary</a></div>
     </div>
-    <p>Inheritance is a practical way to reuse code in the object oriented world. Using
+    <p>Inheritance is a practical way to reuse code in the object-oriented world. Using
       inheritance with JPA and OpenXava is as easy as using it in plain Java. We are going
-      to use inheritance to remove repeated and boring code, like the UUID definition,
-      we'll do it using JPA mapped superclasses.</p>
+      to use inheritance to remove repeated and boring code, like the UUID definition. We'll
+      do it using JPA mapped superclasses.</p>
 
     <h2 id="mapped-superclass">Mapped superclass</h2>
     <p>The <em>Author</em>, <em>Category</em> and <em>Invoice</em> classes have some
@@ -83,12 +83,12 @@
 String oid;
 </code></pre>
     <p>This code is just the same for all those classes. You know that copy and paste is
-      a mortal sin, so we have to look for a solution to remove the code repetition, to
-      avoid our way to hell.</p>
-    <p>An elegant solution for this situation is inheritance. JPA allows you to exploit
-      the concept of inheritance. One of them is to inherit from a mapped superclass. A
+      a mortal sin, so we have to look for a solution to remove the code repetition, and
+      avoid going to hell.</p>
+    <p>An elegant solution for this situation is inheritance. JPA supports several
+      forms of inheritance. One of them is to inherit from a mapped superclass. A
       mapped superclass is a Java class with JPA mapping annotations, but it is not an
-      entity itself. Its only goal is to be used as superclass for an entity. Let's use
+      entity itself. Its only goal is to be used as a superclass for an entity. Let's use
       it, and you'll see its utility quickly.</p>
     <p>First, we move this common piece of code to a class marked as
       <em>@MappedSuperclass</em>. We name it <em>Identifiable</em>:</p>
@@ -126,16 +126,16 @@ public class Category extends Identifiable {
 
 }
 </code></pre>
-    <p>The refactoring is plain vanilla. <em>Category</em> now extends from
+    <p>The refactoring is plain vanilla. <em>Category</em> now extends
       <em>Identifiable</em> and we have removed the <em>oid</em> property. This way, not
       only is your code shorter, but it's more elegant, because you declare that your
-      class is identifiable (the what, not the how), and you removed from your business
-      logic class code that is somewhat technical.</p>
+      class is identifiable (the what, not the how), and you have removed somewhat
+      technical code from your business logic class.</p>
     <p>Apply this same refactoring to the <em>Author</em> and <em>Invoice</em> entities.
       Moreover, from now on you'll extend most of your entities from the
       <em>Identifiable</em> mapped superclass.</p>
-    <p>We have created our own <em>Identifiable</em> class to see the advantage of using
-      mapped superclasses, however OpenXava provides for you a ready to use
+    <p>We have created our own <em>Identifiable</em> class to see the advantages of using
+      mapped superclasses; however, OpenXava provides a ready-to-use
       <em>Identifiable</em> class that you can find in the <em>org.openxava.model</em>
       package. So in your next project you don't need to write the <em>Identifiable</em>
       class again, just use the one included in OpenXava.</p>
