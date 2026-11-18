@@ -118,11 +118,19 @@ public class Author {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Author con un oid y name</code></pre>
+    </details>
     <p>Ahora, añade este código a la ya existente entidad <em>Product</em>:</p>
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
 Author author;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade una referencia a Author en Product que se visualice con una lista desplegable</code></pre>
+    </details>
     <p>Así, tu entidad <em>Product</em> tiene una referencia a <em>Author</em>.</p>
     <p>Realmente has escrito una cantidad pequeña de código. Para ver el efecto, solo
       necesitas reiniciar tu aplicación pulsando el botón <i>Rerun</i>:</p>

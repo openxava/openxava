@@ -114,11 +114,19 @@ public class Author {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create an Author entity with an oid and name</code></pre>
+    </details>
     <p>Now, add the following code to the existing <em>Product</em> entity:</p>
     <pre><code class="language-java">@ManyToOne(fetch=FetchType.LAZY)
 @DescriptionsList
 Author author;
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add a reference to Author in Product displayed as a drop-down list</code></pre>
+    </details>
     <p>Thus, your <em>Product</em> entity has a reference to <em>Author</em>.</p>
     <p>You have really written a small amount of code. In order to see the effect,
       restart your application by clicking the <i>Rerun</i> button:</p>
