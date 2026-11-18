@@ -139,7 +139,7 @@ public class Invoice extends CommercialDocument { ... }
     <p>Empecemos a refactorizar el código actual. Primero, renombra
       <em>Invoice</em> como <em>CommercialDocument</em>. Después, edita el código
       de <em>CommercialDocument</em> para declararla como una clase abstracta, así:</p>
-    <pre><code class="language-java">abstract public class CommercialDocument // Añadimos el modificador abstract
+    <pre><code class="language-java">abstract public class CommercialDocument { // Añadimos el modificador abstract
 </code></pre>
     <p>Queremos crear instancias de <em>Invoice</em> y <em>Order</em>, pero no queremos crear
       instancias de <em>CommercialDocument</em> directamente, por eso la declaramos
