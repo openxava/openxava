@@ -265,7 +265,7 @@ import lombok.*;
 @Entity @Getter @Setter
 public class Order extends CommercialDocument {
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     Invoice invoice; // Referencia a factura añadida
 
 }
