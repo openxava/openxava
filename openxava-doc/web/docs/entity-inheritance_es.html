@@ -286,6 +286,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade una referencia desde Order a Invoice</code></pre>
+    </details>
     <p>Por otra parte, en <em>Invoice</em> añadimos una colección de entidades
       <em>Order</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -302,6 +306,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">En Invoice añade una colección orders</code></pre>
+    </details>
     <p>Después de escribir este código tan simple, ya puedes probar estas relaciones recién
       creadas. Reinicia tu aplicación, abre tu navegador y explora los módulos
       <em>Order</em> e <em>Invoice</em>. Fíjate en que al final de la interfaz de usuario de

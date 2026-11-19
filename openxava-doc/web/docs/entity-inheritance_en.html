@@ -278,6 +278,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add a reference from Order to Invoice</code></pre>
+    </details>
     <p>Conversely, in <em>Invoice</em> we add a collection of <em>Order</em> entities:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -293,6 +297,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add an orders collection to Invoice</code></pre>
+    </details>
     <p>After writing this simple code you are ready to test the newly created relationship.
       Restart your application, open your browser and explore the <em>Order</em> and the
       <em>Invoice</em> modules. Note that at the end of the <em>Order</em> user interface you
