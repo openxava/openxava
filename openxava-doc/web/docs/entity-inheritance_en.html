@@ -231,6 +231,10 @@ DROP TABLE INVOICE;
     return lastNumber == null?1:lastNumber + 1;
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Make sure the query in NextNumberForYearCalculator uses CommercialDocument instead of Invoice</code></pre>
+    </details>
     <p>Now we search for the maximum number of any commercial document of the year in order
       to calculate the new number, therefore the numbering is shared across all the commercial
       documents. We'll improve it in the next lesson to have separate numbering for invoices
