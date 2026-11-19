@@ -142,6 +142,10 @@ public class Invoice extends CommercialDocument { ... }
       <em>CommercialDocument</em> code to declare it as an abstract class, thus:</p>
     <pre><code class="language-java">abstract public class CommercialDocument extends Identifiable { // We add the abstract modifier
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Rename Invoice to CommercialDocument and make it abstract</code></pre>
+    </details>
     <p>We want to create instances of <em>Invoice</em> and <em>Order</em>, but we do not want
       to create instances of <em>CommercialDocument</em> directly, so we declare it as
       abstract.</p>
