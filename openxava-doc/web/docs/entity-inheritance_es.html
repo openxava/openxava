@@ -73,6 +73,10 @@
         Invoice refactorizada para usar herencia</a></div>
       <div style="margin-left: 2em;"><a href="#crear-order-usando-herencia">Crear Order
         usando herencia</a></div>
+      <div style="margin-left: 2em;"><a href="#adaptar-la-base-de-datos">Adaptar la base de
+        datos</a></div>
+      <div style="margin-left: 2em;"><a href="#ajustar-el-calculador-del-siguiente-numero">Ajustar
+        el calculador del siguiente número</a></div>
       <div style="margin-left: 2em;"><a href="#convencion-de-nombres-y-herencia">Convención
         de nombres y herencia</a></div>
       <div style="margin-left: 2em;"><a href="#asociar-order-con-invoice">Asociar Order con
@@ -161,20 +165,8 @@ public class Invoice extends CommercialDocument {
 </code></pre>
     <p><em>Invoice</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase
       está, por ahora, vacío.</p>
-    <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente: ahora las
-      facturas y los pedidos se almacenarán en la misma tabla (la tabla CommercialDocument)
-      usando una columna discriminadora. Por tanto, has de borrar las viejas tablas ejecutando
-      las siguientes sentencias SQL:</p>
-    <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
-DROP TABLE INVOICE;
-</code></pre>
-    <p>Para ejecutar estas sentencias SQL, primero asegúrate de que tu aplicación se esté
-      ejecutando, después ejecuta la clase <em>DBManager</em> dentro del paquete
-      <em>com.yourcompany.invoicing.tools</em> en tu proyecto:</p>
-    <p><img src="files/inheritance_en040.png" alt="inheritance_en040.png"></p>
-    <p>Después pega las sentencias DROP TABLE de arriba y pulsa en <em>Execute SQL</em>:</p>
-    <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
-    <p>Ya puedes ejecutar el módulo <em>Invoice</em> y verlo funcionando en tu navegador.</p>
+    <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente.
+      Adaptaremos la base de datos justo después de crear la entidad <em>Order</em>.</p>
 
     <h2 id="crear-order-usando-herencia">Crear Order usando herencia</h2>
     <p>Gracias a <em>CommercialDocument</em>, el código para <em>Order</em> es más sencillo
@@ -189,11 +181,30 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
-    <p>Después de escribir la clase <em>Order</em>, aunque de momento esté vacía, ya puedes
-      usar el módulo <em>Order</em> desde tu navegador. Sí, a partir de ahora crear una nueva
-      entidad con una estructura parecida a <em>Invoice</em>, es decir cualquier entidad para
-      un documento comercial, es simple y rápido. Un buen uso de la herencia es una forma
+
+    <h2 id="adaptar-la-base-de-datos">Adaptar la base de datos</h2>
+    <p>Ahora las facturas y los pedidos se almacenarán en la misma tabla (la tabla
+      CommercialDocument) usando una columna discriminadora. Por tanto, has de borrar las
+      viejas tablas ejecutando las siguientes sentencias SQL:</p>
+    <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
+DROP TABLE INVOICE;
+</code></pre>
+    <p>Para ejecutar estas sentencias SQL, primero asegúrate de que tu aplicación se esté
+      ejecutando, después ejecuta la clase <em>DBManager</em> dentro del paquete
+      <em>com.yourcompany.invoicing.tools</em> en tu proyecto:</p>
+    <p><img src="files/inheritance_en040.png" alt="inheritance_en040.png"></p>
+    <p>Después pega las sentencias DROP TABLE de arriba y pulsa en <em>Execute SQL</em>:</p>
+    <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
+    <p>Ahora, reinicia tu aplicación, así se creará la nueva tabla preparada tanto para
+      facturas como para pedidos. Después, aunque de momento la clase <em>Order</em> esté
+      vacía, ya puedes usar el módulo <em>Order</em> desde tu navegador, y el módulo
+      <em>Invoice</em> funciona como antes. Sí, a partir de ahora crear una nueva entidad con
+      una estructura parecida a <em>Invoice</em>, es decir cualquier entidad para un
+      documento comercial, es simple y rápido. Un buen uso de la herencia es una forma
       elegante de tener un código más simple.</p>
+
+    <h2 id="ajustar-el-calculador-del-siguiente-numero">Ajustar el calculador del siguiente
+      número</h2>
     <p>El módulo <em>Order</em> funciona perfectamente, pero tiene un pequeño problema. El
       nuevo número de pedido lo calcula a partir del último número de factura, no de pedido.
       Esto es así porque el calculador para el siguiente número lee de la entidad

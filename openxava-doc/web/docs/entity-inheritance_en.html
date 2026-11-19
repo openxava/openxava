@@ -71,6 +71,10 @@
         Invoice refactored to use inheritance</a></div>
       <div style="margin-left: 2em;"><a href="#creating-order-using-inheritance">Creating
         Order using inheritance</a></div>
+      <div style="margin-left: 2em;"><a href="#adapting-the-database">Adapting the
+        database</a></div>
+      <div style="margin-left: 2em;"><a href="#adjusting-the-next-number-calculator">Adjusting
+        the next number calculator</a></div>
       <div style="margin-left: 2em;"><a href="#naming-convention-and-inheritance">Naming
         convention and inheritance</a></div>
       <div style="margin-left: 2em;"><a href="#associating-order-with-invoice">Associating
@@ -157,20 +161,8 @@ public class Invoice extends CommercialDocument {
 </code></pre>
     <p><em>Invoice</em> now has very succinct code, indeed the body of the class is, by now,
       empty.</p>
-    <p>This new code requires a slightly different database schema: now invoices and orders
-      will be stored in the same table (the CommercialDocument table) using a discriminator
-      column. Therefore, you need to remove the old tables by executing the following SQL
-      statements:</p>
-    <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
-DROP TABLE INVOICE;
-</code></pre>
-    <p>To execute these SQL statements, first make sure your application is running, then
-      execute the class <em>DBManager</em> inside the package
-      <em>com.yourcompany.invoicing.tools</em> of your project:</p>
-    <p><img src="files/inheritance_en040.png" alt="inheritance_en040.png"></p>
-    <p>Then paste the above DROP TABLE statements and click <em>Execute SQL</em>:</p>
-    <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
-    <p>Now you can execute the <em>Invoice</em> module and see it working in your browser.</p>
+    <p>This new code requires a slightly different database schema. We'll adapt the database
+      right after creating the <em>Order</em> entity.</p>
 
     <h2 id="creating-order-using-inheritance">Creating Order using inheritance</h2>
     <p>Thanks to <em>CommercialDocument</em>, creating the <em>Order</em> entity is dead easy.
@@ -185,10 +177,28 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
-    <p>After writing the above <em>Order</em> class, although it is empty by now, you can use
-      the <em>Order</em> module from your browser. Yes, creating a new entity with a structure
-      like <em>Invoice</em>, that is any commercial document entity, is very easy and rapid.
-      You can see how a good use of inheritance is an elegant way to have simpler code.</p>
+
+    <h2 id="adapting-the-database">Adapting the database</h2>
+    <p>Now invoices and orders will be stored in the same table (the CommercialDocument
+      table) using a discriminator column. Therefore, you need to remove the old tables by
+      executing the following SQL statements:</p>
+    <pre><code class="language-sql">DROP TABLE INVOICE_DETAILS;
+DROP TABLE INVOICE;
+</code></pre>
+    <p>To execute these SQL statements, first make sure your application is running, then
+      execute the class <em>DBManager</em> inside the package
+      <em>com.yourcompany.invoicing.tools</em> of your project:</p>
+    <p><img src="files/inheritance_en040.png" alt="inheritance_en040.png"></p>
+    <p>Then paste the above DROP TABLE statements and click <em>Execute SQL</em>:</p>
+    <p><img src="files/inheritance_en050.png" alt="inheritance_en050.png"></p>
+    <p>Now, restart your application, so the new table is created ready for both invoices
+      and orders. Then, although the <em>Order</em> class is empty by now, you can use the
+      <em>Order</em> module from your browser, and the <em>Invoice</em> module works as
+      before. Yes, creating a new entity with a structure like <em>Invoice</em>, that is any
+      commercial document entity, is very easy and rapid. You can see how a good use of
+      inheritance is an elegant way to have simpler code.</p>
+
+    <h2 id="adjusting-the-next-number-calculator">Adjusting the next number calculator</h2>
     <p>The <em>Order</em> module works perfectly, but it has a little problem. The new order
       number is calculated from the last invoice number, not from the last order number. This
       is because the calculator for the next number reads from the <em>Invoice</em> entity.
