@@ -142,6 +142,10 @@ public class Invoice extends CommercialDocument { ... }
       <em>CommercialDocument</em> code to declare it as an abstract class, thus:</p>
     <pre><code class="language-java">abstract public class CommercialDocument extends Identifiable { // We add the abstract modifier
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Rename Invoice to CommercialDocument and make it abstract</code></pre>
+    </details>
     <p>We want to create instances of <em>Invoice</em> and <em>Order</em>, but we do not want
       to create instances of <em>CommercialDocument</em> directly, so we declare it as
       abstract.</p>
@@ -159,6 +163,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create an Invoice entity that extends CommercialDocument</code></pre>
+    </details>
     <p><em>Invoice</em> now has very succinct code, indeed the body of the class is, by now,
       empty.</p>
     <p>This new code requires a slightly different database schema. We'll adapt the database
@@ -177,6 +185,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Create an Order entity that extends CommercialDocument</code></pre>
+    </details>
 
     <h2 id="adapting-the-database">Adapting the database</h2>
     <p>Now invoices and orders will be stored in the same table (the CommercialDocument
@@ -219,6 +231,10 @@ DROP TABLE INVOICE;
     return lastNumber == null?1:lastNumber + 1;
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Make sure the query in NextNumberForYearCalculator uses CommercialDocument instead of Invoice</code></pre>
+    </details>
     <p>Now we search for the maximum number of any commercial document of the year in order
       to calculate the new number, therefore the numbering is shared across all the commercial
       documents. We'll improve it in the next lesson to have separate numbering for invoices
@@ -262,6 +278,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add a reference from Order to Invoice</code></pre>
+    </details>
     <p>Conversely, in <em>Invoice</em> we add a collection of <em>Order</em> entities:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
 
@@ -277,6 +297,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>AI prompt</summary>
+      <pre><code class="language-plaintext">Add an orders collection to Invoice</code></pre>
+    </details>
     <p>After writing this simple code you are ready to test the newly created relationship.
       Restart your application, open your browser and explore the <em>Order</em> and the
       <em>Invoice</em> modules. Note that at the end of the <em>Order</em> user interface you

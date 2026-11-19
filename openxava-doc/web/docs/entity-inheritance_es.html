@@ -145,6 +145,10 @@ public class Invoice extends CommercialDocument { ... }
       de <em>CommercialDocument</em> para declararla como una clase abstracta, así:</p>
     <pre><code class="language-java">abstract public class CommercialDocument extends Identifiable { // Añadimos el modificador abstract
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Renombra Invoice como CommercialDocument y hazla abstracta</code></pre>
+    </details>
     <p>Queremos crear instancias de <em>Invoice</em> y <em>Order</em>, pero no queremos crear
       instancias de <em>CommercialDocument</em> directamente, por eso la declaramos
       abstracta.</p>
@@ -163,6 +167,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Invoice que extienda CommercialDocument</code></pre>
+    </details>
     <p><em>Invoice</em> tiene ahora un código bastante breve, de hecho el cuerpo de la clase
       está, por ahora, vacío.</p>
     <p>Este nuevo código necesita un esquema de base de datos ligeramente diferente.
@@ -181,6 +189,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Crea una entidad Order que descienda de CommercialDocument</code></pre>
+    </details>
 
     <h2 id="adaptar-la-base-de-datos">Adaptar la base de datos</h2>
     <p>Ahora las facturas y los pedidos se almacenarán en la misma tabla (la tabla
@@ -225,6 +237,10 @@ DROP TABLE INVOICE;
     return lastNumber == null?1:lastNumber + 1;
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Asegúrate de que la consulta en NextNumberForYearCalculator use CommercialDocument en lugar de Invoice</code></pre>
+    </details>
     <p>Ahora buscamos el número máximo de cualquier tipo de documento comercial del año para
       calcular el nuevo número, por lo tanto la numeración es compartida entre todos los
       tipos de documentos. Esto lo mejoraremos en la siguiente lección para separar la
@@ -270,6 +286,10 @@ public class Order extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">Añade una referencia desde Order a Invoice</code></pre>
+    </details>
     <p>Por otra parte, en <em>Invoice</em> añadimos una colección de entidades
       <em>Order</em>:</p>
     <pre><code class="language-java">package com.yourcompany.invoicing.model;
@@ -286,6 +306,10 @@ public class Invoice extends CommercialDocument {
 
 }
 </code></pre>
+    <details class="ai-prompt" open>
+      <summary>Prompt para IA</summary>
+      <pre><code class="language-plaintext">En Invoice añade una colección orders</code></pre>
+    </details>
     <p>Después de escribir este código tan simple, ya puedes probar estas relaciones recién
       creadas. Reinicia tu aplicación, abre tu navegador y explora los módulos
       <em>Order</em> e <em>Invoice</em>. Fíjate en que al final de la interfaz de usuario de
