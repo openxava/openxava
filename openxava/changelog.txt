@@ -1,6 +1,7 @@
 Change Log for OpenXava project
 ===============================
 
+- Fix: Lesson 7 of the course fails on saving an order, since v8.0.
 - Spring Boot Maven plugin upgraded to 4.1.2 in all archetypes.
 - Driver version in doc/new projects upgraded for Oracle and MS SQL Server.
 - Fix: Every request fails with browsers configured with more than 10 languages, since Tomcat 11.0.27.
@@ -11,8 +12,8 @@ Change Log for OpenXava project
 - Tomcat upgraded to 11.0.27.
 - Jackson upgraded to 3.1.7.
 - Lessons 3, 4, 5 and 6 of the course include prompts to generate the code with an AI coding assistant.
-- Updated screenshots for lessons 4 and 5 of the OpenXava course.
-- Source code of lessons 4, 5 and 6 of the course available on GitHub.
+- Updated screenshots for lessons 4, 5 and 7 of the OpenXava course.
+- Source code of lessons 4, 5, 6 and 7 of the course available on GitHub.
 - Hot code reloading documentation updated for v8.0, including Spring Boot run instructions.
 - Fix: Hot reloading does not work running the application with Spring Boot, since v8.0.
 - New Getting Started video adapted to v8, accessible from the Getting Started guide.
