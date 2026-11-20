@@ -1,10 +1,9 @@
 Change Log for OpenXava project
 ===============================
 
-Mejoras:
+OpenXava 8.0.2 (2026-11-20)
+---------------------------
 - Improved archetype AGENTS.md with compilation checks and entity modeling guidelines.
-
-Librerías actualizadas:
 - Spring Boot Maven plugin upgraded to 4.1.2 in all archetypes.
 - Driver version in doc/new projects upgraded for Oracle and MS SQL Server.
 - Spring Boot upgraded to 4.1.2.
@@ -13,8 +12,6 @@ Librerías actualizadas:
 - Hibernate Validator upgraded to 9.1.5.
 - Tomcat upgraded to 11.0.27.
 - Jackson upgraded to 3.1.7.
-
-Documentación:
 - New Getting Started video adapted to v8, accessible from the Getting Started guide.
 - Expanded i18n documentation with collection labels, programmatic APIs, language selection and fallback.
 - Added Spanish i18n documentation.
@@ -23,8 +20,6 @@ Documentación:
 - Source code of lessons 4, 5, 6 and 7 of the course available on GitHub.
 - Improved lesson 3 code: required invoice year and number, and mandatory product in detail lines.
 - Hot code reloading documentation updated for v8.0, including Spring Boot run instructions.
-
-Arreglos:
 - Fix: Hot reloading does not work running the application with Spring Boot, since v8.0.
 - Fix: Every request fails with browsers configured with more than 10 languages, since Tomcat 11.0.27.
 - Fix: ConstraintViolationException from @PreCreate shows a generic error instead of the validation message.
