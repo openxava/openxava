@@ -3,7 +3,7 @@
 <project name="OpenXavaDoc" default="createWar" basedir=".">
 
 	<property name="xava.version" value="8.0.2"/>
-	<property name="dist.dir" value="\\wsl$\Ubuntu\home\javi"/>
+	<property name="dist.dir" value="/home/javi/site"/>
 	<property name="local.deploy.dir" value="E:\java\apache-tomcat-11.0.26\webapps"/>
 	<property name="maven.repo.local" value="/home/javi/.m2/repository"/>
 	<!--
