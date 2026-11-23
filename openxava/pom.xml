@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openxava</groupId>
 	<artifactId>openxava</artifactId>
-	<version>8.0.2</version>
+	<version>8.1-SNAPSHOT</version>
 	<name>OpenXava</name>
 	<description>Automatic frontend engine for Java</description>
 	<url>https://www.openxava.org</url>
@@ -323,7 +323,7 @@
 
 	</dependencies>
 
-	<!-- Uncomment to deploy on Maven Central -->
+	<!-- Uncomment to deploy on Maven Central
 	<build>
 		<plugins>
 			<plugin>
@@ -383,6 +383,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	-->
 	
 </project>
