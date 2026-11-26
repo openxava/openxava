@@ -1737,6 +1737,11 @@ openxava.filterList = function(filterValues) {
 	openxava.executeAction(app, module, '', false, 'List.filter');
 };
 
+openxava.getCookieValue = function(name) {
+	var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+	return match ? decodeURIComponent(match[2]) : null;
+};
+
 openxava.post = function(url, params, callback) {
 	var fullUrl = url.indexOf("://") >= 0 ? url : openxava.contextPath + url;
 	var fetchOptions = {
@@ -1748,6 +1753,8 @@ openxava.post = function(url, params, callback) {
 		},
 		body: params
 	};
+	var xsrfToken = openxava.getCookieValue("XSRF-TOKEN");
+	if (xsrfToken) fetchOptions.headers["X-XSRF-TOKEN"] = xsrfToken;
 	fetch(fullUrl, fetchOptions)
 		.then(function(response) {
 			if (!response.ok) {
