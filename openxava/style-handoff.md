@@ -37,19 +37,27 @@ personalizados se basan en los JSP estándar.
 
 ## Estado al cerrar esta conversación
 
-- `Style.java`, `XavaStyle.java`, los JSP de editores y la documentación no
-  tienen cambios de este trabajo. No queda `EditorClasses` ni referencias.
-- Se conserva un cambio independiente: `Browsers.getBodyCSSClass(request)`
-  calcula las clases de navegador usadas por `naviox/index.jsp` y
-  `naviox/welcome.jsp` sin llamar a `XavaStyle.getBodyClass(request)`. Mantiene
-  la prioridad iPad, móvil, Firefox, y no emite el atributo de clase en los
-  demás casos. Está en el árbol de trabajo, **sin commit** al escribir este
-  resumen. Para continuar en otra máquina, comprobar que se han trasladado
-  tanto este documento como los tres cambios de NaviOX/Browsers.
-- La última compilación `mvn -o -B compile`, desde el módulo `openxava`, pasó
-  después de retirar `EditorClasses`. No se ejecutó la suite ni se verificó
-  el renderizado en navegador. `openxava/pending.txt` contiene el checklist
-  de trabajo que ya existía; no se ha modificado para este traspaso.
+- `Style.java` sigue intacto salvo una nota en el Javadoc: se retirará en v9.0.
+  `XavaStyle.java` sin cambios.
+- **Todos los usos internos de `Style` eliminados**: los renderers Java, los
+  ~37 JSP de `xava/editors`, los tags y los formatters ahora usan los valores
+  fijos que resolvía `XavaStyle` (clases `ox-*`, `xava/images`, ajustes 17/-40,
+  flags `isUseIconsInsteadOfImages` vía `XavaPreferences`, etc.). Si `Style`
+  desapareciera, OpenXava seguiría renderizando igual, ignorando `styleClass`.
+- **Único uso conservado** (contrato para editores JSP de clientes):
+  `request.setAttribute("style", Style.getInstance(...))` en `BaseServlet`,
+  `HotwireServlet` y `ModulePageRenderer`. Los `jsp:useBean id="style"` de
+  aplicaciones cliente siguen funcionando con el estilo configurado.
+- `ModuleManager`: `getDefaultModeController` por el literal `"Mode"`.
+- `TreeViewParser.createMetaTreeView` sin el parámetro `Style`
+  (`treeViewListEditor.jsp` actualizado).
+- `ViewRenderContext.getStyle()` eliminado (sin llamadores).
+- `LayoutCells.preLabel/preEditor` sin el parámetro `Style`.
+- Documentación: ejemplos de `customizing_en/es.html` con `class="editor"`.
+- `openxavatest/.../importantEditor.jsp` sigue usando `Style` (regresión del
+  contrato del atributo; lo ejercita `DebtTest`).
+- `mvn -o -B compile` pasó. Los JSP no se compilan con Maven: revisar
+  renderizado en IDE.
 
 ## Por dónde seguir
 

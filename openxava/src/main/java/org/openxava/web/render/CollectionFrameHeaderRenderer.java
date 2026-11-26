@@ -5,7 +5,6 @@ import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders the collection frame header: size, new element action and totals.
@@ -19,7 +18,6 @@ public class CollectionFrameHeaderRenderer {
 		String collectionName = ctx.getParameter("collectionName");
 		View view = ctx.getView(ctx.getViewObject());
 		View collectionView = view.getSubview(collectionName);
-		Style style = ctx.getStyle();
 		String frameId = Ids.decorate(ctx.getRequest(), "frame_" + view.getPropertyPrefix() + collectionName);
 		String hiddenStyle = view.isFrameClosed(frameId) ? "" : "ox-display-none";
 
@@ -46,7 +44,7 @@ public class CollectionFrameHeaderRenderer {
 		}
 		w.append("</span>");
 
-		w.append("<span class='").append(style.getFrameTotals()).append(" ").append(hiddenStyle).append("'>");
+		w.append("<span class='ox-frame-totals ").append(hiddenStyle).append("'>");
 
 		int totalRows = collectionView.getCollectionTotalsCount();
 		int totalColumns = collectionView.getMetaPropertiesList().size();
@@ -58,10 +56,10 @@ public class CollectionFrameHeaderRenderer {
 						collectionView.getCollectionTotal(row, column),
 						ctx.getErrors(), view.getViewName(), true);
 					w.append("&nbsp;&nbsp;&nbsp;&nbsp;");
-					w.append("<span class='").append(style.getFrameTotalsLabel()).append("'>");
+					w.append("<span class='ox-frame-totals-label'>");
 					w.append(collectionView.getCollectionTotalLabel(row, column));
 					w.append(":</span> ");
-					w.append("<span class='").append(style.getFrameTotalsValue()).append("'>");
+					w.append("<span class='ox-frame-totals-value'>");
 					w.append(ftotal);
 					w.append("</span>");
 				}
@@ -78,9 +76,9 @@ public class CollectionFrameHeaderRenderer {
 						tab.getTotal(column), ctx.getErrors(), view.getViewName(), true);
 					String label = XavaResources.getString(ctx.getRequest(), "sum_of", p.getLabel());
 					w.append("&nbsp;&nbsp;&nbsp;&nbsp;");
-					w.append("<span class='").append(style.getFrameTotalsLabel()).append("'>");
+					w.append("<span class='ox-frame-totals-label'>");
 					w.append(label).append(":</span> ");
-					w.append("<span class='").append(style.getFrameTotalsValue()).append("'>");
+					w.append("<span class='ox-frame-totals-value'>");
 					w.append(ftotal).append("</span>");
 				}
 			}

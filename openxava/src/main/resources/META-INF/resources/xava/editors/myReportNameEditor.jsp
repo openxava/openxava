@@ -1,5 +1,4 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%@ page import="org.openxava.util.KeyAndDescription" %>
 <%@ page import="org.openxava.util.Is" %>
@@ -31,7 +30,7 @@ String[] currentUserDescription = report.getAllNamesCurrentUser();
 String suffix = Labels.get("sharedReportSuffix");
 if (!editable) {
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=title%>">	
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor title="<%=title%>">	
 <%	
 	// current user
 	for (int i=0; i<currentUserDescription.length; i++) {

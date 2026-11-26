@@ -8,7 +8,6 @@ import org.openxava.controller.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Shared context for rendering module UI parts in Java.
@@ -67,11 +66,6 @@ public class ViewRenderContext {
 	 */
 	public String getViewObject() {
 		return getParameter("viewObject", "xava_view");
-	}
-
-	public Style getStyle() {
-		Style style = (Style) request.getAttribute("style");
-		return style != null ? style : Style.getInstance(request);
 	}
 
 	public Messages getErrors() {

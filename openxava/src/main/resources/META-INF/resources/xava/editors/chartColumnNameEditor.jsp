@@ -8,7 +8,6 @@
 <%@ page import="org.openxava.tab.Tab"%> 
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String viewObject = request.getParameter("viewObject");
@@ -44,7 +43,7 @@ java.util.Collection columns = showAllColumns?
 boolean editable = columns.size() > 1;
 if (editable) {
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=title%>">	
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor title="<%=title%>">	
 <%
 		
 	%>

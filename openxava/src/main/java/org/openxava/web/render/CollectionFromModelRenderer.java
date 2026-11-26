@@ -8,7 +8,6 @@ import org.openxava.model.meta.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders a collection-from-model inline table with headers, row actions,
@@ -41,7 +40,6 @@ public class CollectionFromModelRenderer {
 		}
 
 		ModuleManager manager = ctx.getManager();
-		Style style = ctx.getStyle();
 		Messages errors = ctx.getErrors();
 
 		ctx.getMessages();
@@ -51,7 +49,7 @@ public class CollectionFromModelRenderer {
 		manager.registerAction(onSelectCollectionElementAction);
 		MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction)
 			? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
-		boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
+		boolean resizeColumns = XavaPreferences.getInstance().isResizeColumns();
 		boolean sortable = subview.isCollectionSortable();
 
 		HtmlWriter w = new HtmlWriter();
@@ -62,7 +60,7 @@ public class CollectionFromModelRenderer {
 		}
 
 		w.append("<table id=\"").append(Ids.decorate(ctx.getRequest(), idCollection))
-			.append("\" class=\"ox-list\" ").append(style.getListCellSpacing()).append(">");
+			.append("\" class=\"ox-list\">");
 
 		if (sortable) {
 			w.append("<tbody class=\"xava_sortable_row\">");
@@ -132,17 +130,13 @@ public class CollectionFromModelRenderer {
 			String cssClass = f % 2 == 0 ? "ox-list-pair" : "ox-list-odd";
 			String cssCellClass = cssClass;
 			if (f == subview.getCollectionEditingRow()) {
-				String selectedClass = f % 2 == 0 ? style.getListPairSelected() : style.getListOddSelected();
+				String selectedClass = f % 2 == 0 ? "list-pair-selected" : "list-odd-selected";
 				cssClass = cssClass + " " + selectedClass;
-				if (style.isApplySelectedStyleToCellInList()) {
-					cssCellClass = cssCellClass + " " + selectedClass;
-				}
+				cssCellClass = cssCellClass + " " + selectedClass;
 			}
 			String idRow = Ids.decorate(ctx.getRequest(), propertyPrefix) + f;
-			String events = f % 2 == 0 ? style.getListPairEvents() : style.getListOddEvents();
 
-			w.append("<tr id=\"").append(idRow).append("\" class=\"").append(cssClass).append("\" ")
-				.append(events).append(">");
+			w.append("<tr id=\"").append(idRow).append("\" class=\"").append(cssClass).append("\">");
 
 			// Line action cell
 			if (lineAction != null) {
@@ -153,31 +147,29 @@ public class CollectionFromModelRenderer {
 				}
 				w.append(ActionHtml.action(ctx, lineAction, "row=" + f + ",viewObject=" + viewName));
 
-				if (style.isSeveralActionsPerRow()) {
-					String argv = "row=" + f + ",viewObject=" + viewName;
-					Collection<String> rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), argv);
-					boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
-					if (rowActionNames.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) {
-						for (String rowAction : rowActionNames) {
-							w.append(ActionHtml.action(ctx, rowAction, argv, true));
-						}
-					} else {
-						w.append("<a class=\"ox-image-link xava_popup_menu_icon\">");
-						w.append("<i class=\"mdi mdi-dots-vertical\"></i>");
-						w.append("</a>");
-						w.append("<ul class=\"ox-popup-menu ox-image-link ox-display-none\">");
-						for (String rowActionString : rowActionNames) {
-							w.append("<li>");
-							Map<String, String> buttonParams = new HashMap<>();
-							buttonParams.put("action", rowActionString);
-							buttonParams.put("addSpaceWithoutImage", String.valueOf(hasIconOrImage));
-							buttonParams.put("argv", argv);
-							buttonParams.put("alwaysAvailable", "true");
-							w.append(ButtonRenderer.render(ctx.withParameters(buttonParams)));
-							w.append("</li>");
-						}
-						w.append("</ul>");
+				String argv = "row=" + f + ",viewObject=" + viewName;
+				Collection<String> rowActionNames = view.removeUnavailableActionFromRow(subview.getRowActionsNames(), argv);
+				boolean hasIconOrImage = view.isRowActionHaveIcon(rowActionNames);
+				if (rowActionNames.size() < XavaPreferences.getInstance().getRowActionsPopupThreshold() - 1) {
+					for (String rowAction : rowActionNames) {
+						w.append(ActionHtml.action(ctx, rowAction, argv, true));
 					}
+				} else {
+					w.append("<a class=\"ox-image-link xava_popup_menu_icon\">");
+					w.append("<i class=\"mdi mdi-dots-vertical\"></i>");
+					w.append("</a>");
+					w.append("<ul class=\"ox-popup-menu ox-image-link ox-display-none\">");
+					for (String rowActionString : rowActionNames) {
+						w.append("<li>");
+						Map<String, String> buttonParams = new HashMap<>();
+						buttonParams.put("action", rowActionString);
+						buttonParams.put("addSpaceWithoutImage", String.valueOf(hasIconOrImage));
+						buttonParams.put("argv", argv);
+						buttonParams.put("alwaysAvailable", "true");
+						w.append(ButtonRenderer.render(ctx.withParameters(buttonParams)));
+						w.append("</li>");
+					}
+					w.append("</ul>");
 				}
 				w.append("</nobr>");
 				w.append("</td>");

@@ -1,7 +1,6 @@
 <%@ include file="../imports.jsp"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%@ page import="org.openxava.filters.IFilter"%>
 <%@ page import="org.openxava.filters.IRequestFilter"%>
@@ -102,9 +101,9 @@ int count = 0;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 <% if (index < 0) { %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%>>
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor>
 <% } else {  %>
-<select id="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
+<select id="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" name="<xava:id name='<%=prefix + "conditionValue." + index%>'/>" class="xava_combo_condition_value editor"
 	data-collection-argv="<%=collectionArgv%>">
 
 <% } %>

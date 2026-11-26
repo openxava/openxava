@@ -7,7 +7,6 @@ import jakarta.servlet.jsp.tagext.*;
 import org.apache.commons.logging.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
-import org.openxava.web.style.*;
 
 /**
  * @author Javier Paniza
@@ -29,22 +28,16 @@ public class ActionTag extends TagSupport {
 				return SKIP_BODY;
 			}
 			HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-			Style style = (Style) request.getAttribute("style"); 
 			MetaAction metaAction = MetaControllers.getMetaAction(getAction());
-			if (style.isUseLinkForNoButtonBarAction()) {
-				LinkTag linkTag = new LinkTag();
-				linkTag.setCssClass(style.getActionLink()); 
-				actionTag = linkTag;
-			}
-			else if (metaAction.hasImage() || metaAction.hasIcon()) {  
+			if (metaAction.hasImage() || metaAction.hasIcon()) {
 				ImageTag imageTag = new ImageTag();
-				imageTag.setCssClass(style.getActionImage()); 
-				actionTag = imageTag;   
+				imageTag.setCssClass("ox-image-link");
+				actionTag = imageTag;
 			}
 			else if (XavaPreferences.getInstance().isButtonsForNoImageActions()) actionTag = new ButtonTag();
-			else {			
+			else {
 				LinkTag linkTag = new LinkTag();
-				linkTag.setCssClass(style.getActionLink()); 
+				linkTag.setCssClass("ox-action-link");
 				actionTag = linkTag;
 			}
 			actionTag.setPageContext(pageContext);

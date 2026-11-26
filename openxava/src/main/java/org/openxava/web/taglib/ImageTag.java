@@ -7,7 +7,6 @@ import org.apache.commons.logging.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 
 /**
@@ -35,7 +34,6 @@ public class ImageTag extends ActionTagBase {
 				return SKIP_BODY;
 			}
 			registerAction(getAction(), application, module, request);
-			Style style = (Style) request.getAttribute("style");
 			pageContext.getOut().print("<input name='");
 			pageContext.getOut().print(Ids.decorate(application, module, "action." + getAction())); 
 			pageContext.getOut().println("' type='hidden'/>");			
@@ -77,14 +75,14 @@ public class ImageTag extends ActionTagBase {
 			pageContext.getOut().print(metaAction.inNewWindow());
 			
 			pageContext.getOut().print("'>");			
-			if (metaAction.hasIcon() && (style.isUseIconsInsteadOfImages() || !metaAction.hasImage())) {  
+			if (metaAction.hasIcon() && (XavaPreferences.getInstance().isUseIconsInsteadOfImages() || !metaAction.hasImage())) {  
 				pageContext.getOut().print("<i class='mdi mdi-");
 				pageContext.getOut().print(metaAction.getIcon());
 				pageContext.getOut().print("'></i>");  
 			}
 			else {
 				pageContext.getOut().print("<img src='");
-				pageContext.getOut().print(request.getContextPath() + "/" + style.getImagesFolder() + "/"+ metaAction.getImage());
+				pageContext.getOut().print(request.getContextPath() + "/xava/images/" + metaAction.getImage());
 				pageContext.getOut().println("'");
 				pageContext.getOut().print("\talt='");
 				pageContext.getOut().print(metaAction.getKeystroke() + " - " +  metaAction.getDescription(request));

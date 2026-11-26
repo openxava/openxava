@@ -5,7 +5,6 @@
 <%@page import="org.openxava.view.View"%>
 <%@page import="java.util.Collections"%>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 
 <%
@@ -35,12 +34,12 @@ if (value != null && !validValues.isEmpty() && !validValues.containsValue(value)
 if (editable) { 
    	if (validValues.isEmpty()) {
 %>
-	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=<%=style.getEditor()%> type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" title="<%=p.getDescription(request)%>"/>
+	<input id="<%=propertyKey%>" name="<%=propertyKey%>" class=editor type="text" tabindex="1" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>" title="<%=p.getDescription(request)%>"/>
 <%
 	} else {
 %>
     <div class="ox-select-editable">
-    	<select tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
+    	<select tabindex="1" class=editor title="<%=p.getDescription(request)%>">
 <% 
 		if (view.hasBlankValidValue(p.getName())) { 
 %>
@@ -56,7 +55,7 @@ if (editable) {
 %>      
         <option hidden><%=optionHidden%></option>
 		</select>
-		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text" class=<%=style.getEditor()%> maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>		
+		<input id="<%=propertyKey%>" name="<%=propertyKey%>" type="text" class=editor maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=value%>"/>		
 		<input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=description%>"/>
 	</div>
 <%		
@@ -68,7 +67,7 @@ if (editable) {
 <%
 	} else {
 %>
-	<input name = "<%=propertyKey%>_DESCRIPTION_" class=<%=style.getEditor()%> type="text" title="<%=p.getDescription(request)%>" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=description%>" disabled/>
+	<input name = "<%=propertyKey%>_DESCRIPTION_" class=editor type="text" title="<%=p.getDescription(request)%>" maxlength="<%=p.getSize()%>" size="<%=p.getSize()%>" value="<%=description%>" disabled/>
 <%  
 	} 
 %>

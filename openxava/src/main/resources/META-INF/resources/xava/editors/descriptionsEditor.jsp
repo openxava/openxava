@@ -1,5 +1,4 @@
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%@ page import="org.openxava.util.KeyAndDescription" %>
 <%@ page import="org.openxava.util.Is" %>
@@ -243,9 +242,9 @@ if (editable) {
 		int maxDescriptionLength = Math.max((selectedDescription==null?0:selectedDescription.length()) + 5, 30);
 		selectedDescription = selectedDescription.replaceAll("\"", "&quot;").replace("\\\\", "\\\\\\\\"); 
 	%>
-	<span class="<%=style.getDescriptionsList()%> <%=style.getEditor()%>">
+	<span class="ox-descriptions-list editor">
 	<%-- The JavaScript code depends on the order of the next elements --%>
-    <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select <%=style.getEditor()%>" size="<%=maxDescriptionLength%>" title="<%=title%>" 
+    <input name="<%=propertyKey%>__CONTROL__" type="text" tabindex="1" class="xava_select editor" size="<%=maxDescriptionLength%>" title="<%=title%>" 
         value="<%=selectedDescription%>"/>
 	<input id="<%=propertyKey%>" type="hidden" name="<%=propertyKey%>" value="<%=selectedKey%>"/>
     <input type="hidden" name="<%=propertyKey%>__DESCRIPTION__" value="<%=selectedDescription%>"/>
@@ -272,7 +271,7 @@ if (bold) { %> <b> <%}%>
 	}
 	else {	
 %>
-    <input name="<%=propertyKey%>__DESCRIPTION__" class=<%=style.getEditor()%>
+    <input name="<%=propertyKey%>__DESCRIPTION__" class=editor
 		type="text" 
 		title="<%=title%>"
 		maxlength="<%=description.toString().length()%>" 

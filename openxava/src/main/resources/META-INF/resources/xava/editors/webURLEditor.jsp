@@ -1,6 +1,5 @@
 <%@ include file="../imports.jsp"%>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <span class="ox-web-url"> 
 <jsp:include page="textEditor.jsp"/>

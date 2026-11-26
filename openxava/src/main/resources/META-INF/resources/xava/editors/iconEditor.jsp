@@ -6,7 +6,6 @@
 <%@page import="org.openxava.controller.ModuleManager"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
@@ -16,7 +15,7 @@ String fvalue = (String) request.getAttribute(propertyKey + ".fvalue");
 boolean editable="true".equals(request.getParameter("editable"));
 manager.registerAction("Icon.choose");
 %>
-<span class="<%=style.getIcon()%>">
+<span class="ox-icon">
 <i class="mdi mdi-crop-free"></i>
 <% if (editable) { %>
 	<% if (Is.emptyString(fvalue)) { %>

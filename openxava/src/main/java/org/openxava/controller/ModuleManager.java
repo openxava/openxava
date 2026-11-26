@@ -30,7 +30,6 @@ import org.openxava.validators.ValidationException;
 import org.openxava.view.*;
 import org.openxava.web.*;
 import org.openxava.web.meta.*;
-import org.openxava.web.style.*;
 
 /**
  * @author Javier Paniza
@@ -1756,7 +1755,7 @@ public class ModuleManager implements java.io.Serializable {
 				setModeControllerName(XavaPreferences.getInstance().getDefaultModeController());
 			}
 			else {
-				setModeControllerName(Style.getInstance().getDefaultModeController());
+				setModeControllerName("Mode");
 			}
 		}
 

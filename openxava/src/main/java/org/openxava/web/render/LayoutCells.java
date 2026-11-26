@@ -1,7 +1,6 @@
 package org.openxava.web.render;
 
 import org.openxava.view.*;
-import org.openxava.web.style.*;
 
 /**
  * Layout decoration around labels and editors.
@@ -11,16 +10,16 @@ import org.openxava.web.style.*;
  */
 public class LayoutCells {
 
-	public static String preLabel(View view, Style style, boolean first) {
-		return "<div class='" + labelClass(view, first) + " " + style.getLabel() + "'>";
+	public static String preLabel(View view, boolean first) {
+		return "<div class='" + labelClass(view, first) + " ox-label'>";
 	}
 
 	public static String postLabel() {
 		return "</div>";
 	}
 
-	public static String preEditor(View view, Style style, boolean first) {
-		return "<div class='" + editorClass(view) + " " + style.getEditorWrapper() + "'>";
+	public static String preEditor(View view, boolean first) {
+		return "<div class='" + editorClass(view) + " ox-editor-wrapper'>";
 	}
 
 	public static String postEditor() {

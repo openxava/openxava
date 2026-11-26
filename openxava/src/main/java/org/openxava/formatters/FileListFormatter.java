@@ -4,7 +4,6 @@ import jakarta.servlet.http.*;
 
 import org.openxava.util.*;
 import org.openxava.web.editors.*;
-import org.openxava.web.style.*;
 
 /**
  * For FILE/ARCHIVO stereotype and @File annotation in list mode. <p>
@@ -35,9 +34,7 @@ public class FileListFormatter implements IFormatter {
 			.append("&fileId=").append(file.getId())
 		    .append("&dif=") .append(System.currentTimeMillis())
 		    .append("'target='_blank'>")
-		    .append("<span class=\"")
-		    .append(Style.getInstance().getAttachedFile())
-		    .append("\">").append(file.getName()).append("</span>")
+		    .append("<span class=\"ox-attached-file\">").append(file.getName()).append("</span>")
 		    .append("</a>") 
 		    .toString();		
 	}

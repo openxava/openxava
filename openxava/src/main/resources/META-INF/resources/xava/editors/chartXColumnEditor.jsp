@@ -1,5 +1,4 @@
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
-<span class="<%=style.getChartXColumn()%>"> 
+<span class="ox-chart-x-column"> 
 	<jsp:include page="chartColumnNameEditor.jsp"/> 
 </span>

@@ -1,6 +1,5 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -13,7 +12,7 @@ boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabe
 String disabled=editable?"":"disabled";
 %>
 <% if (editable || !label) { %>
-<INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class="<%=style.getEditor()%> ox-switch"
+<INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class="editor ox-switch"
 	tabindex="1" 
 	value="true" 
 	title="<%=p.getDescription(request)%>"	

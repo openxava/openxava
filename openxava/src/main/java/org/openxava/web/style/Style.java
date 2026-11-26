@@ -30,6 +30,7 @@ import com.openxava.naviox.util.*;
  * </ul>
  *
  * @deprecated Since v7.1 should use directly the CSS classes in your HTML code.
+ * It will be removed in v9.0.
  * @author Javier Paniza
  */ 
 

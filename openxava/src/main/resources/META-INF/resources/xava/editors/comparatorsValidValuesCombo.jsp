@@ -4,7 +4,6 @@
 <%@ page import="org.openxava.tab.Tab"%>
 <%@ page import="org.openxava.util.Is"%>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String validValues = request.getParameter("validValues");
@@ -30,7 +29,7 @@ String collectionArgv = Is.emptyString(collection)?"":"collection="+collection;
 	<%-- conditionValueTo: we need all indexes to implement the range filters --%>
 </div>
 
-<select name="<xava:id name='<%=prefix  + "conditionValue."  + index%>'/>" class="xava_combo_condition_value <%=style.getEditor()%>"
+<select name="<xava:id name='<%=prefix  + "conditionValue."  + index%>'/>" class="xava_combo_condition_value editor"
 	data-collection-argv="<%=collectionArgv%>">
 	<option value=""></option>
 <%
