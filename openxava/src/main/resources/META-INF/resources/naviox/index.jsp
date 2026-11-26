@@ -18,7 +18,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@ page import="org.openxava.util.Locales"%>
 <%@ page import="org.openxava.util.XavaPreferences"%>
 <%@ page import="org.openxava.util.Users"%>
-<%@ page import="org.openxava.web.style.XavaStyle"%>
+<%@ page import="org.openxava.web.Browsers"%>
 <%@ page import="org.openxava.web.style.Themes"%> 
 <%@ page import="org.apache.commons.logging.LogFactory" %> 
 <%@ page import="org.apache.commons.logging.Log" %> 
@@ -72,7 +72,8 @@ manager.registerAction("SessionLocker.lock");
 	<% } %>
 </head>
 
-<body <%=XavaStyle.getBodyClass(request)%>>
+<% String bodyClass = Browsers.getBodyCSSClass(request); %>
+<body <%=bodyClass.isEmpty()?"":"class='" + bodyClass + "'"%>>
 	
 	<div id="main"> 
 				

@@ -1,0 +1,9 @@
+Pending de quitar Style (tmr)
+-----------------------------
+- Dejar de usar Style en el núcleo de OpenXava.
+- Comprobar que hay algún editor en openxavatest que todavía usa style.
+    - Comprobar que alguna prueba automática o manual lo verifica. (¿DebtTest?)
+- Pruebas manuales, al menos de estilo y disposición.
+- Documentación. Al menos customizing. ¿Alguna nota en Javadoc de Style?
+- Suite.
+- Apuntar para adaptar XavaPro. Importante por el móvil.
