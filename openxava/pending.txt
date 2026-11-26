@@ -1,6 +1,8 @@
 Pending de quitar Style (tmr)
 -----------------------------
 - Dejar de usar Style en el núcleo de OpenXava.
+    TMR ME QUEDÉ POR AQUI. HECHO Y PRIMERA PRUEBA VISUAL RÁPIDO.
+    TMR   QUEDARÍA PROBAR UN POCO MÁS Y REVISAR EL CÓDIGO POR SI TODAVÍA SE USA Style
 - Comprobar que hay algún editor en openxavatest que todavía usa style.
     - Comprobar que alguna prueba automática o manual lo verifica. (¿DebtTest?)
 - Pruebas manuales, al menos de estilo y disposición.
