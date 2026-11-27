@@ -3,8 +3,6 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="org.openxava.util.Labels" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
-
 <%
 String propertyKey = request.getParameter("propertyKey");
 String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
@@ -17,7 +15,7 @@ if (editable || !label) {
 	Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
 %>
 <select name="<%=propertyKey%>" tabindex="1" multiple="multiple" 	
-	class=<%=style.getEditor()%> 
+	class="editor" 
 	<%=disabled%>>
 	<%
 	for (int i=1; i<regionsCount+1; i++) {

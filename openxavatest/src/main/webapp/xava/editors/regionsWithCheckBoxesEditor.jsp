@@ -3,8 +3,6 @@
 <%@ page import="java.util.Arrays" %>
 <%@ page import="org.openxava.util.Labels" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
-
 <%
 String propertyKey = request.getParameter("propertyKey");
 String [] fvalues = (String []) request.getAttribute(propertyKey + ".fvalue");
@@ -18,7 +16,7 @@ if (editable || !label) {
 	for (int i=1; i<regionsCount+1; i++) {
 		String checked = regions.contains(Integer.toString(i))?"checked":"";		
 	%>	
-		<input name="<%=propertyKey%>" type="checkbox" class="<%=style.getEditor()%>" 
+		<input name="<%=propertyKey%>" type="checkbox" class="editor" 
 				tabindex="1" 
 				value="<%=i%>" 
 				<%=checked%>
