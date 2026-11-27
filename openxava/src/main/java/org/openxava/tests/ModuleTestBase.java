@@ -3348,6 +3348,9 @@ abstract public class ModuleTestBase extends TestCase {
 		fileWindow.close(); 
 	}
 
+	private final static String SET_UPLOAD_HEADERS = 
+		"var headers = uploadEditor.getUploadHeaders();" +
+		"for (var name in headers) xhr.setRequestHeader(name, headers[name]);";
 
 	/**
 	 * Upload a file in a property with an upload editor.
@@ -3377,6 +3380,7 @@ abstract public class ModuleTestBase extends TestCase {
 			"formData.append('file', input.files[0]);" +
 			"var xhr = new XMLHttpRequest();" +
 			"xhr.open('POST', uploadEditor.getUploadURL(input));" +
+			SET_UPLOAD_HEADERS +
 			"xhr.send(formData);"				
 		);
 		waitAJAX();
@@ -3410,6 +3414,7 @@ abstract public class ModuleTestBase extends TestCase {
 			"var input = document.getElementById('" + decorateId(property) + "');" +	
 			"var xhr = new XMLHttpRequest();" +
 			"xhr.open('DELETE', uploadEditor.getUploadURL(input)" + fileIdParam + ");" +
+			SET_UPLOAD_HEADERS +
 			"xhr.send(null);"				
 		);
 		waitAJAX();	
