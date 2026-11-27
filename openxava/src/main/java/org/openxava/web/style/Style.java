@@ -19,6 +19,10 @@ import com.openxava.naviox.util.*;
  * that since v7.0 portals are no longer supported, now it's a
  * overload.<br>
  * 
+ * Since v8.1 the OpenXava core does not use this class for anything. It is
+ * still functional only so the custom editors of existing applications that
+ * use it do not break.<br>
+ * 
  * The nomenclature is:
  * <ul>
  * <li>By default: CSS class name.

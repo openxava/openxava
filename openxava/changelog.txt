@@ -1,6 +1,8 @@
 Change Log for OpenXava project
 ===============================
 
+- OpenXava core no longer uses the Style class, kept only for compatibility with existing custom editors.
+
 OpenXava 8.0.2 (2026-11-20)
 ---------------------------
 - Improved archetype AGENTS.md with compilation checks and entity modeling guidelines.
