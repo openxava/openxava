@@ -200,7 +200,8 @@ uploadEditor.getFileIdParam = function(file) {
 uploadEditor.removeFile = function(input, file) {
 	$.ajax({
 		url: uploadEditor.getUploadURL(input) + uploadEditor.getFileIdParam(file), 
-		method: "DELETE"
+		method: "DELETE",
+		headers: uploadEditor.getUploadHeaders()
 	})
 }
 
