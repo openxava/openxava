@@ -12,6 +12,7 @@ boolean editable="true".equals(request.getParameter("editable"));
 String disabled=editable?"":"disabled";
 %>
 
+<%-- DO NOT REPLACE style.getEditor() WITH "editor": THIS JSP USES Style ON PURPOSE TO TEST THAT THE DEPRECATED CLASS STILL WORKS IN V8.X --%>
 <INPUT id="<%=propertyKey%>" type="checkbox" name="<%=propertyKey%>" class=<%=style.getEditor()%>
 	tabindex="1" 
 	value="IMPORTANT" 
