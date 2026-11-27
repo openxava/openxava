@@ -169,9 +169,19 @@ openxava.addEditorInitFunction(function() {
 uploadEditor.enableUpload = function(pond, input) {
 	pond.setOptions({ 
 	    server: {
-	    	process: uploadEditor.getUploadURL(input) 
+	    	process: {
+	    		url: uploadEditor.getUploadURL(input),
+	    		headers: uploadEditor.getUploadHeaders()
+	    	}
 	    }
 	});
+}
+
+uploadEditor.getUploadHeaders = function() {
+	var headers = {};
+	var xsrfToken = openxava.getCookieValue("XSRF-TOKEN");
+	if (xsrfToken) headers["X-XSRF-TOKEN"] = xsrfToken;
+	return headers;
 }
 
 uploadEditor.getUploadURL = function(input) {
