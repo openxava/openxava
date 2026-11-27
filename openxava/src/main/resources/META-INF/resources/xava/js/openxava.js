@@ -1143,6 +1143,7 @@ openxava.executeAction = function(application, module, confirmMessage, takesLong
 	if (openxava.isSubmitNeeded(form)) { 
 		if (!openxava.submitting) {  
 			openxava.submitting = true;
+			openxava.addCsrfToken(form);
 			form.submit(); 
 		} 
 	} 
@@ -1215,6 +1216,13 @@ openxava.getFormValue = function(ele) {
 
 openxava.isSubmitNeeded = function(form) {		
 	return form.enctype=="multipart/form-data";
+}
+
+openxava.addCsrfToken = function(form) {
+	var token = openxava.getCookieValue("XSRF-TOKEN");
+	if (token != null) { 
+		form.action += (form.action.indexOf("?") < 0? "?": "&") + "_csrf=" + encodeURIComponent(token);
+	}
 }
 
 openxava.onBlur = function(application, module, property) {
