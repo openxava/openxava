@@ -19,6 +19,17 @@ public class Browsers {
 		return isIPhone(request)?"mobile iphone":"mobile";
 	}
 	
+	/**
+	 * Returns the browser-specific class for the navigation page body.
+	 * @since 8.1
+	 */
+	public static String getBodyCSSClass(HttpServletRequest request) {
+		if (isBrowser(request, "iPad")) return "ipad";
+		if (isMobile(request)) return "mobile";
+		if (isFF(request)) return "firefox";
+		return "";
+	}
+
 	private static boolean isIPhone(HttpServletRequest request) {
 		String browser = request.getHeader("user-agent");
 		return browser != null && browser.contains("iPhone");

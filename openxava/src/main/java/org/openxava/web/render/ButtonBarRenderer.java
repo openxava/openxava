@@ -8,7 +8,6 @@ import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders the top button bar: mode buttons, actions,
@@ -21,7 +20,6 @@ public class ButtonBarRenderer {
 
 	public static String render(ViewRenderContext ctx) {
 		ModuleManager manager = ctx.getManager();
-		Style style = ctx.getStyle();
 		HttpServletRequest request = ctx.getRequest();
 
 		if (!manager.isButtonBarVisible()) return "";
@@ -78,7 +76,7 @@ public class ButtonBarRenderer {
 				for (String editor : editors) {
 					String icon = WebEditors.getIcon(editor);
 					if (icon == null) continue;
-					String selected = editor.equals(tab.getEditor()) ? style.getSelectedListFormat() : "";
+					String selected = editor.equals(tab.getEditor()) ? "ox-selected-list-format" : "";
 					if (Is.emptyString(editor)) editor = "__NONAME__";
 					w.append(ActionHtml.link(ctx, "ListFormat.select", "editor=" + editor, selected, false,
 							"<i class=\"mdi mdi-" + icon + "\" title=\"" + Labels.get(editor) + "\"></i>"));
@@ -89,33 +87,25 @@ public class ButtonBarRenderer {
 
 		if (EmailNotifications.isEnabled(manager.getModuleName())) {
 			if (EmailNotifications.isSubscribedCurrentUserToModule(manager.getModuleName())) {
-				w.append("<span class=\"" + style.getSubscribed() + "\">");
+				w.append("<span class=\"ox-subscribed\">");
 				w.append(ActionHtml.image(ctx, "EmailNotifications.unsubscribe", null, null, false));
 				w.append("</span>");
 			} else {
-				w.append("<span class=\"" + style.getUnsubscribed() + "\">");
+				w.append("<span class=\"ox-unsubscribed\">");
 				w.append(ActionHtml.image(ctx, "EmailNotifications.subscribe", null, null, false));
 				w.append("</span>");
 			}
 		}
 
 		String helpURL = null;
-		if (XavaPreferences.getInstance().isHelpAvailable() && style.isHelpAvailable()) {
+		if (XavaPreferences.getInstance().isHelpAvailable()) {
 			helpURL = Helps.urlForModule(request.getServletContext(), manager.getApplicationName(), manager.getModuleName());
 		}
 		if (helpURL != null) {
 			String target = XavaPreferences.getInstance().isHelpInNewWindow() ? "_blank" : "";
-			String helpImage = null;
-			if (style.getHelpImage() != null) {
-				helpImage = !style.getHelpImage().startsWith("/") ? request.getContextPath() + "/" + style.getHelpImage() : style.getHelpImage();
-			}
-			w.append("<span class=\"" + style.getHelp() + "\">");
+			w.append("<span class=\"ox-help\">");
 			w.append("<a href=\"" + helpURL + "\" target=\"" + target + "\">");
-			if (helpImage == null) {
-				w.append("<i class=\"mdi mdi-help-circle\"></i>");
-			} else {
-				w.append("<img src=\"" + helpImage + "\"/>");
-			}
+			w.append("<i class=\"mdi mdi-help-circle\"></i>");
 			w.append("</a></span>");
 		}
 		w.append("&nbsp;");

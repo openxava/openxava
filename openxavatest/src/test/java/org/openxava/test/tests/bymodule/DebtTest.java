@@ -12,8 +12,9 @@ public class DebtTest extends ModuleTestBase {
 		super(testName, "Debt");
 	}
 	
-	public void testCheckBoxEditorWithNotBooleanValue() throws Exception {
+	public void testCheckBoxEditorWithNotBooleanValue_styleClassInEditors() throws Exception {
 		execute("CRUD.new");
+		assertStyleClassInEditors(); // We'll remove this feature in v9.0
 		setValue("description", "IMPORTANT DEBT");
 		setValue("paid", "true");
 		setValue("important", "true"); // "true" instead of "IMPORTANT" because in tests the checkboxs only allow true/false to check and uncheck 	
@@ -67,6 +68,12 @@ public class DebtTest extends ModuleTestBase {
 		//checkAll();
 		//execute("CRUD.deleteSelected");
 		assertListRowCount(1);
+	}
+	
+	private void assertStyleClassInEditors() throws Exception { 
+		// Verifies that org.openxava.web.style.Style still works, for the code of users using it, like importantEditor.jsp
+		String cssClass = getHtmlPage().getHtmlElementById(decorateId("important")).getAttribute("class");
+		assertTrue("The custom editor does not use the Style.getEditor() CSS class", cssClass.contains("editor"));
 	}
 			
 }

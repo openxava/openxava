@@ -8,7 +8,6 @@ import org.openxava.model.meta.*;
 import org.openxava.tab.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders list mode header (title, configurations, group-by, row count)
@@ -23,7 +22,6 @@ public class ListRenderer {
 		String tabObject = ctx.getParameter("tabObject", "xava_tab");
 		Tab tab = (Tab) ctx.getModuleContext().get(ctx.getRequest(), tabObject);
 		ModuleManager manager = ctx.getManager();
-		Style style = ctx.getStyle();
 		String collection = ctx.getParameter("collection");
 		String groupBy = tab.getGroupBy();
 		boolean grouping = !Is.emptyString(groupBy);
@@ -31,11 +29,8 @@ public class ListRenderer {
 		HtmlWriter w = new HtmlWriter();
 
 		if (collection == null || collection.isEmpty()) {
-			w.append("<table width=\"100%\" class=").append(style.getListTitleWrapper()).append(">");
-			w.append("<tr><td class=").append(style.getListTitle()).append(">");
-			if (style.isShowModuleDescription()) {
-				w.append(manager.getModuleDescription());
-			}
+			w.append("<table width=\"100%\">");
+			w.append("<tr><td class=ox-list-title>");
 
 			w.append(ListConfigurationsRenderer.render(ctx));
 
@@ -52,19 +47,7 @@ public class ListRenderer {
 			}
 
 			if (tab.isTitleVisible()) {
-				if (style.isShowModuleDescription()) w.append(" - ");
 				w.append("<span id=\"list-title\">").append(tab.getTitle()).append("</span>");
-			}
-
-			if (style.isShowRowCountOnTop() && !grouping) {
-				int totalSize = tab.getTotalSize();
-				int finalIndex = Math.min(totalSize, tab.getFinalIndex());
-				w.append("<span class=\"").append(style.getHeaderListCount()).append("\">");
-				w.append(XavaResources.getString(ctx.getRequest(), "header_list_count",
-					Integer.valueOf(tab.getInitialIndex() + 1),
-					Integer.valueOf(finalIndex),
-					Integer.valueOf(totalSize)));
-				w.append("</span>");
 			}
 
 			if (manager.getDialogLevel() == 0) {

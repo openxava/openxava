@@ -4,7 +4,6 @@ import org.openxava.controller.*;
 import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders the core module shell: form, hidden fields,
@@ -18,7 +17,6 @@ public class CoreRenderer {
 	public static String render(ViewRenderContext ctx) throws Exception {
 		ModuleManager manager = ctx.getManager();
 		View view = ctx.getView();
-		Style style = ctx.getStyle();
 		boolean buttonBar = !"false".equalsIgnoreCase(ctx.getParameter("buttonBar"));
 		String focusPropertyId = manager.isListMode() ? Lists.FOCUS_PROPERTY_ID : view.getFocusPropertyId();
 
@@ -40,21 +38,16 @@ public class CoreRenderer {
 		w.append("<INPUT type=\"hidden\" name='").append(ctx.decorateId("xava_focus_forward")).append("'/>");
 		w.append("<INPUT type=\"hidden\" id='").append(ctx.decorateId("xava_focus_property_id")).append("' name='").append(ctx.decorateId("xava_focus_property_id")).append("' value=\"").append(focusPropertyId).append("\"/>");
 
-		String listModeClass = manager.isListMode() ? "class='" + style.getListMode() + "'" : "";
+		String listModeClass = manager.isListMode() ? "class='ox-list-mode'" : "";
 		w.append("<div ").append(listModeClass).append(">");
 
 		if (buttonBar) {
-			w.append("<div id='").append(ctx.decorateId("button_bar")).append("' class=\"").append(style.getButtonBarContainer()).append("\">");
+			w.append("<div id='").append(ctx.decorateId("button_bar")).append("' class=\"ox-button-bar-container\">");
 			w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "buttonBar"));
 			w.append("</div>");
 		}
 
-		w.append("<div class=\"").append(style.getView()).append("\">");
-		if (style.isShowModuleDescription() && !manager.isListMode()) {
-			w.append("<div class=\"").append(style.getModuleDescription()).append("\">");
-			w.append(manager.getModuleDescription());
-			w.append("</div>");
-		}
+		w.append("<div class=\"ox-view\">");
 
 		w.append("<div class='ox-notifications'>");
 		w.append("<div id='").append(ctx.decorateId("errors")).append("' class=\"ox-display-inline\">");
@@ -86,11 +79,9 @@ public class CoreRenderer {
 
 		w.append("</div>");
 
-		if (style.isSeparatorBeforeBottomButtons()) {
-			w.append("<div class=\"ox-core-bottom-buttons-separator\"></div>");
-		}
+		w.append("<div class=\"ox-core-bottom-buttons-separator\"></div>");
 
-		w.append("<div id='").append(ctx.decorateId("bottom_buttons")).append("' class=\"").append(style.getBottomButtons()).append("\">");
+		w.append("<div id='").append(ctx.decorateId("bottom_buttons")).append("' class=\"ox-bottom-buttons\">");
 		w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), "bottomButtons"));
 		w.append("</div>");
 

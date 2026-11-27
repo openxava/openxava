@@ -2,7 +2,6 @@
 <%@ page import="org.openxava.actions.OnChangeMyReportColumnBaseAction" %>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 boolean editable="true".equals(request.getParameter("editable"));

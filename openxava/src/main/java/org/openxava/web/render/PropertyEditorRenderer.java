@@ -5,7 +5,6 @@ import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders a property editor with label, layout decoration and property actions.
@@ -31,7 +30,6 @@ public class PropertyEditorRenderer {
 	public static String render(ViewRenderContext ctx, View view, MetaProperty p,
 			String propertyKey, boolean first, boolean hasFrame) throws Exception {
 
-		Style style = ctx.getStyle();
 		boolean editable = view.isEditable(p);
 		boolean lastSearchKey = view.isLastSearchKey(p);
 		boolean throwPropertyChanged = view.throwsPropertyChanged(p);
@@ -41,16 +39,16 @@ public class PropertyEditorRenderer {
 		String label = view.getLabelFor(p);
 		if (first && !view.isAlignedByColumns()) label = Strings.change(label, " ", "&nbsp;");
 		boolean required = view.isEditable() && p.isRequired();
-		String requiredLabelClass = required ? " " + style.getRequiredLabel() : "";
+		String requiredLabelClass = required ? " ox-required-label" : "";
 
 		HtmlWriter w = new HtmlWriter();
 
 		if (view.isFlowLayout()) w.append("<div>");
 
 		// Layout decoration (htmlTagsEditor.jsp)
-		String preLabel = LayoutCells.preLabel(view, style, first);
+		String preLabel = LayoutCells.preLabel(view, first);
 		String postLabel = LayoutCells.postLabel();
-		String preEditor = LayoutCells.preEditor(view, style, first);
+		String preEditor = LayoutCells.preEditor(view, first);
 		if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 			preEditor = preEditor.replace("ox-editor-wrapper'", "ox-editor-wrapper ox-small-label-wrapper'");
 		}
@@ -73,7 +71,7 @@ public class PropertyEditorRenderer {
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + p.getName()))
-					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
+					.append("' class='small-label ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.append(label);
 				w.append("</span>");
 			}
@@ -81,7 +79,7 @@ public class PropertyEditorRenderer {
 
 		// Editor span
 		String placeholder = !Is.empty(p.getPlaceholder()) ? "data-placeholder='" + p.getPlaceholder() + "'" : "";
-		String requiredClass = required ? style.getRequiredEditor() : "";
+		String requiredClass = required ? "ox-required-editor" : "";
 		String transientClass = p.isTransient() ? "xava_transient" : "";
 
 		w.append("<span id='").append(ctx.decorateId("editor_" + view.getPropertyPrefix() + p.getName()))

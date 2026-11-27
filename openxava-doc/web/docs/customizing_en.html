@@ -397,7 +397,6 @@ private String [] regions;</code></pre>
 &lt;%@ page import="java.util.Arrays" %&gt;
 &lt;%@ page import="org.openxava.util.Labels" %&gt;
 
-&lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
 
 &lt;%
 String propertyKey = request.getParameter("propertyKey");
@@ -412,7 +411,7 @@ if (editable || !label) {
  Collection regions = fvalues==null?Collections.EMPTY_LIST:Arrays.asList(fvalues);
 %&gt;
 &lt;select id="&lt;%=propertyKey%&gt;" name="&lt;%=propertyKey%&gt;" multiple="multiple"
- class=&lt;%=style.getEditor()%&gt;
+ class="editor"
  &lt;%=disabled%&gt;
  &lt;%=script%&gt;&gt; &lt;%-- Not used since v7.2 --%&gt;
  &lt;%
@@ -457,7 +456,6 @@ if (!editable) {
 &lt;%@ page import="java.util.Arrays" %&gt;
 &lt;%@ page import="org.openxava.util.Labels" %&gt;
 
-&lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
 
 &lt;%
 String propertyKey = request.getParameter("propertyKey");
@@ -473,7 +471,7 @@ if (editable || !label) {
     for (int i=1; i&lt;regionsCount+1; i++) {
         String checked = regions.contains(Integer.toString(i))?"checked":"";
     %&gt;
-        &lt;input name="&lt;%=propertyKey%&gt;" type="checkbox" class="&lt;%=style.getEditor()%&gt;"
+        &lt;input name="&lt;%=propertyKey%&gt;" type="checkbox" class="editor"
                 tabindex="1"
                 value="&lt;%=i%&gt;"
                 &lt;%=checked%&gt;

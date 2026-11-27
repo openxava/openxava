@@ -2,7 +2,6 @@
 
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -21,7 +20,7 @@ if (editable || !label) {
 	String dateClass = editable?"xava_date":""; 
 %>
 <span class="<%=dateClass%> ox-date-calendar" data-date-format="<%=org.openxava.util.Dates.dateFormatForJSCalendar()%>">
-<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="<%=style.getEditor()%>" title="<%=p.getDescription(request)%>"
+<input type="text" name="<%=propertyKey%>" id="<%=propertyKey%>" class="editor" title="<%=p.getDescription(request)%>"
 	tabindex="1" 
 	align='<%=align%>'
 	maxlength="10"

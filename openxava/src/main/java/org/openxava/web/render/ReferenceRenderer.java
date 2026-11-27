@@ -11,7 +11,6 @@ import org.openxava.view.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
 import org.openxava.web.meta.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders a reference field.
@@ -28,7 +27,6 @@ public class ReferenceRenderer {
 	public static String render(ViewRenderContext ctx) throws Exception {
 		HttpServletRequest request = ctx.getRequest();
 		ModuleContext context = ctx.getModuleContext();
-		Style style = ctx.getStyle();
 
 		boolean onlyEditor = ctx.getBooleanParameter("onlyEditor", false);
 		boolean frame = ctx.getBooleanParameter("frame", false);
@@ -54,7 +52,7 @@ public class ReferenceRenderer {
 		String labelStyle = view.getLabelStyleForReference(ref);
 		if (Is.empty(labelStyle)) labelStyle = XavaPreferences.getInstance().getDefaultLabelStyle();
 		String label = view.getLabelFor(ref);
-		String requiredLabelClass = editable && ref.isRequired() ? " " + style.getRequiredLabel() : "";
+		String requiredLabelClass = editable && ref.isRequired() ? " ox-required-label" : "";
 
 		HtmlWriter w = new HtmlWriter();
 
@@ -64,9 +62,9 @@ public class ReferenceRenderer {
 
 		// Layout decoration (htmlTagsEditor.jsp)
 		boolean first = !"false".equals(ctx.getParameter("first"));
-		String preLabel = LayoutCells.preLabel(view, style, first);
+		String preLabel = LayoutCells.preLabel(view, first);
 		String postLabel = LayoutCells.postLabel();
-		String preEditor = LayoutCells.preEditor(view, style, first);
+		String preEditor = LayoutCells.preEditor(view, first);
 		if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 			preEditor = preEditor.replace("ox-editor-wrapper'", "ox-editor-wrapper ox-small-label-wrapper'");
 		}
@@ -89,7 +87,7 @@ public class ReferenceRenderer {
 			w.append(preEditor);
 			if (labelFormat == MetaPropertyView.SMALL_LABEL) {
 				w.append("<span id='").append(ctx.decorateId("label_" + view.getPropertyPrefix() + ref.getName()))
-					.append("' class='").append(style.getSmallLabel()).append(" ").append(labelStyle).append(requiredLabelClass).append("'>");
+					.append("' class='small-label ").append(labelStyle).append(requiredLabelClass).append("'>");
 				w.text(label);
 				w.append("</span>");
 			}
@@ -140,7 +138,7 @@ public class ReferenceRenderer {
 
 		// Reference editor span
 		if (!composite) {
-			String wrapperClass = view.isEditable() && ref.isRequired() ? style.getRequiredEditor() : "";
+			String wrapperClass = view.isEditable() && ref.isRequired() ? "ox-required-editor" : "";
 			wrapperClass = view.throwsReferenceChanged(ref) ? wrapperClass + " xava_onchange" : wrapperClass;
 			wrapperClass = Is.emptyString(wrapperClass) ? "" : "class='" + wrapperClass + "'";
 			w.append("<span id='").append(ctx.decorateId("reference_editor_" + view.getPropertyPrefix() + ref.getName()))

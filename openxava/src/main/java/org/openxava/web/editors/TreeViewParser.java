@@ -9,7 +9,6 @@ import org.openxava.tab.Tab;
 import org.openxava.util.*;
 import org.openxava.view.View;
 import org.openxava.view.meta.*;
-import org.openxava.web.style.*;
 
 /**
  * Parse the tree view and produces a javascript snippet.
@@ -23,7 +22,6 @@ public class TreeViewParser {
 	
 	private Tab tab;
 	private String viewObject;
-	private Style style;
 	private Messages errors;
 	private TreeView metaTreeView;
 	private class TreeNodeHolder{
@@ -58,16 +56,14 @@ public class TreeViewParser {
 	 * @param tab Tab object containing model, TableModel, etc.
 	 * @param viewObject Visible object
 	 * @param collectionName Name of the collection
-	 * @param style Display style
 	 * @param errors Errors message container
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	public void createMetaTreeView(Tab tab, String viewObject, String collectionName, Style style, Messages errors)
+	public void createMetaTreeView(Tab tab, String viewObject, String collectionName, Messages errors)
 			throws Exception {
 		this.tab = tab;
 		this.viewObject = viewObject;
-		this.style = style;
 		this.collectionName = collectionName;
 		Class treeNodeClass;
 		metaTreeView = getMetaTreeView(tab.getModelName());

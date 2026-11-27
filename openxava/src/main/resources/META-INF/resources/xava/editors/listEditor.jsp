@@ -21,7 +21,6 @@
 
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 org.openxava.util.Messages messages = (org.openxava.util.Messages) request.getAttribute("messages");
@@ -44,7 +43,7 @@ if (collection != null && !collection.equals("")) {
 	scrollId = "collection_scroll"; 
 }
 org.openxava.tab.Tab tab = (org.openxava.tab.Tab) context.get(request, tabObject);
-tab.setIgnorePageRowCount(!style.isChangingPageRowCountAllowed());
+tab.setIgnorePageRowCount(false);
 String action=request.getParameter("rowAction");
 action=action==null?manager.getEnvironment().getValue("XAVA_LIST_ACTION"):action;
 String viewObject = request.getParameter("viewObject");
@@ -67,7 +66,7 @@ String onSelectCollectionElementAction = view.getOnSelectCollectionElementAction
 manager.registerAction(onSelectCollectionElementAction);
 MetaAction onSelectCollectionElementMetaAction = Is.empty(onSelectCollectionElementAction) ? null : MetaControllers.getMetaAction(onSelectCollectionElementAction);
 int currentRow = ((Number) context.get(request, "xava_row")).intValue(); 
-String cssCurrentRow = style.getCurrentRow();
+String cssCurrentRow = "current-row";
 int totalSize = -1; 
 if (request.getAttribute(org.openxava.tab.Tab.TAB_RESETED_PREFIX + tab) == null) {
 	tab.setRequest(request);
@@ -78,7 +77,7 @@ if (request.getAttribute(org.openxava.tab.Tab.TAB_RESETED_PREFIX + tab) == null)
 	tab.reset();
 	request.setAttribute(org.openxava.tab.Tab.TAB_RESETED_PREFIX + tab, Boolean.TRUE); 
 }
-boolean resizeColumns = style.allowsResizeColumns() && tab.isResizeColumns();
+boolean resizeColumns = tab.isResizeColumns();
 boolean sortable = !Is.emptyString(collection) && view.isRepresentsSortableCollection();  
 boolean simple = sortable;
 if (simple) filter = false;
@@ -89,15 +88,15 @@ if (grouping) action = null;
 
 <input type="hidden" name="xava_list<%=tab.getTabName()%>_filter_visible"/>
 
-<%String resizeColumnClass = resizeColumns?style.getResizeColumns():""; %>
+<%String resizeColumnClass = resizeColumns?"resize-cols":""; %>
 <div class="<xava:id name='<%=scrollId%>'/> <%=resizeColumnClass%> ox-overflow-auto">
-<table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column ox-list" <%=style.getListCellSpacing()%>>
+<table id="<xava:id name='<%=id%>'/>" class="xava_sortable_column ox-list" >
 <% if (sortable) { %><tbody class="xava_sortable_row"><% } %> 
 <tr class="ox-list-header">
 <th class="ox-list-header ox-text-align-center">
 <nobr>
 	<% if (tab.isCustomizeAllowed()) { %>
-	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list <%=style.getActionImage()%>" 
+	<a  id="<xava:id name='<%="customize_" + id%>'/>" class="xava_customize_list ox-image-link" 
 		title="<xava:message key='customize_list'/>" data-id="<%=id%>">
 		<i class="mdi mdi-cog"></i>
 	</a>
@@ -147,7 +146,7 @@ boolean singleLineHeader = false; // By now a fixed value
 while (it.hasNext()) {
 	MetaProperty property = (MetaProperty) it.next();
 	String align = "";
-	if (style.isAlignHeaderAsData()) {
+	{
 		align =property.isNumber() && !property.hasValidValues()?"ox-text-align-right":"";
 	}
 	int columnWidth = tab.getColumnWidth(columnIndex);
@@ -174,13 +173,13 @@ while (it.hasNext()) {
 <%
 	} else {
 %>
-<span class="<%=style.getListOrderBy()%>">
+<span class="">
 <%
 String icon = property.isNumber()?"mdi mdi-sort-numeric-variant":"mdi mdi-sort-alphabetical-variant";
-if (tab.isOrderAscending(property.getQualifiedName())) icon = style.getSortIndicator() + " mdi mdi-arrow-up-bold";
-else if (tab.isOrderDescending(property.getQualifiedName())) icon = style.getSortIndicator() + " mdi mdi-arrow-down-bold";
-else if (tab.isOrderAscending2(property.getQualifiedName())) icon = style.getSortIndicator2() + " mdi mdi-arrow-up-bold";
-else if (tab.isOrderDescending2(property.getQualifiedName())) icon = style.getSortIndicator2() + " mdi mdi-arrow-down-bold";
+if (tab.isOrderAscending(property.getQualifiedName())) icon = "ox-sort-indicator" + " mdi mdi-arrow-up-bold";
+else if (tab.isOrderDescending(property.getQualifiedName())) icon = "ox-sort-indicator" + " mdi mdi-arrow-down-bold";
+else if (tab.isOrderAscending2(property.getQualifiedName())) icon = "ox-sort-indicator2" + " mdi mdi-arrow-up-bold";
+else if (tab.isOrderDescending2(property.getQualifiedName())) icon = "ox-sort-indicator2" + " mdi mdi-arrow-down-bold";
 String headerLabel=Strings.noLastToken(label) + " <nobr>" + Strings.lastToken(label) + "<i class='" + icon + "'></i></nobr>"; 
 String orderByTitle = Labels.get("orderBy") + " " + Strings.firstLower(property.getQualifiedLabel(request));
 %>
@@ -212,8 +211,8 @@ String orderByTitle = Labels.get("orderBy") + " " + Strings.firstLower(property.
 <%
 	if (filter) {
 %>
-<tr id="<xava:id name='<%="list_filter_" + id%>'/>" class="xava_filter <%=style.getListSubheader()%> <%=tab.isFilterVisible()?"":"ox-display-none"%>">
-<td class="<%=style.getFilterCell()%> ox-list-subheader"> 
+<tr id="<xava:id name='<%="list_filter_" + id%>'/>" class="xava_filter ox-list-subheader <%=tab.isFilterVisible()?"":"ox-display-none"%>">
+<td class="ox-filter-cell ox-list-subheader"> 
 <xava:action action="List.filter" argv="<%=collectionArgv%>"/>
 </td> 
 <td class="ox-list-subheader" width="5"> 
@@ -319,7 +318,7 @@ while (it.hasNext()) {
 <br/> 
 </span>
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
-<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="<%=style.getEditor()%> <%=dateDisabled%> <%=styleConditionValue%>" type="text"
+<input id="<%=idConditionValue%>" name="<%=idConditionValue%>" class="editor <%=dateDisabled%> <%=styleConditionValue%>" type="text"
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=value%>" placeholder="<%=labelFrom%>"
 	<%=isDate?"data-input":""%>/>
 	<% if (isDate) { 
@@ -331,7 +330,7 @@ while (it.hasNext()) {
 <br/>
 <%-- WARNING: IF YOU CHANGE THE NEXT CODE PASS THE MANUAL TEST ON DateCalendarTest.txt --%> 
 <nobr <%=classConditionValue%> <%=attrConditionValue%>>
-<input id="<%=idConditionValueTo%>" name="<%=idConditionValueTo%>" class="<%=style.getEditor()%> <%=styleConditionValueTo%>" type="text" 
+<input id="<%=idConditionValueTo%>" name="<%=idConditionValueTo%>" class="editor <%=styleConditionValueTo%>" type="text" 
 	maxlength="<%=maxLength%>" size="<%=length%>" value="<%=valueTo%>" placeholder="<%=labelTo%>"
 	<%=isDate?"data-input":""%>/>
 	<% if (isDate) { %>
@@ -384,9 +383,9 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 	String cssStyle = tab.getStyle(f);
 	if (cssStyle != null) {
 		cssClass = cssClass + " " + cssStyle; 
-		if (style.isApplySelectedStyleToCellInList()) cssCellClass = cssCellClass + " " + cssStyle; 
+		cssCellClass = cssCellClass + " " + cssStyle; 
 	}
-	String events=f%2==0?style.getListPairEvents():style.getListOddEvents(); 
+	String events=""; 
 	String cssClassToActionOnClick = cssClass;
 	if (tab.isSelected(f)){
 		cssClass = "_XAVA_SELECTED_ROW_ " + cssClass; 
@@ -405,7 +404,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <xava:action action='<%=action%>' argv='<%="row=" + f + actionArgv%>'/>
 <%
 	}
-	if (style.isSeveralActionsPerRow() && !grouping) {
+	if (!grouping) {
 		String argv = "row=" + f + actionArgv;
 		Collection<String> availableActions = view.removeUnavailableActionFromRow(rowActions, argv);
 		boolean hasIconOrImage = view.isRowActionHaveIcon(availableActions);
@@ -516,7 +515,7 @@ for (int f=tab.getInitialIndex(); f< (condition ? 0 : model.getRowCount()) && f 
 <%
 } 
 %>
-<tr class="<%=style.getTotalRow()%>">
+<tr class="ox-total-row">
 <td/>
 <td/>
 <%
@@ -585,7 +584,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 int additionalTotalsCount = tab.getAdditionalTotalsCount() + 1;
 for (int i=1; i<additionalTotalsCount; i++) {
 %>
-<tr class="<%=style.getTotalRow()%>">
+<tr class="ox-total-row">
 <td/>
 <td/>
 <%
@@ -635,7 +634,7 @@ for (int c=0; c<model.getColumnCount(); c++) {
 }
 else {
 %>
-<tr id="nodata"><td class='<%=totalSize==0?style.getMessages():"ox-errors"%>'>
+<tr id="nodata"><td class='<%=totalSize==0?"ox-messages":"ox-errors"%>'>
 <% if (totalSize == 0) { %>
 <b><xava:message key="no_objects"/></b>
 <% } else { %>
@@ -659,7 +658,7 @@ if (lastRow != null) {
 </div> 
 
 <% if (!tab.isRowsHidden() && !simple) { %>
-<table width="100%" class="<%=style.getListInfo()%>" cellspacing=0 cellpadding=0>
+<table width="100%" class="ox-list-info" cellspacing=0 cellpadding=0>
 <tr class='ox-list-info-detail'>
 <td class='ox-list-info-detail'>
 <%
@@ -667,41 +666,41 @@ int last=tab.getLastPage();
 int current=tab.getPage();
 if (current > 1) {
 %>
-<span class='<%=style.getFirst()%>'><span class='<%=style.getPageNavigationArrow()%>' <%=style.getPreviousPageNavigationEvents(Ids.decorate(request, id))%>><xava:image action='List.goPreviousPage' argv='<%=collectionArgv%>'/></span></span>
+<span class='ox-first'><span class='ox-page-navigation-arrow' ><xava:image action='List.goPreviousPage' argv='<%=collectionArgv%>'/></span></span>
 <%
 }
 else {
 %>
-<span class='<%=style.getFirst()%>'><span class='<%=style.getPageNavigationArrowDisable()%>'>
+<span class='ox-first'><span class='ox-page-navigation-arrow-disable'>
 <i class="mdi mdi-menu-left"></i>
 </span></span>
 <%	
 } 
 %>
-<span class="<%=style.getPageNavigationPages()%>">
+<span class="ox-page-navigation-pages">
 <%
 for (int i=1; i<=last; i++) {
 if (i == current) {
-	if (style.isShowPageNumber()) {  
+	if (true) {  
 %>
-<span class="<%=style.getPageNavigationSelected()%>"><%=i%></span>
+<span class="ox-page-navigation-selected"><%=i%></span>
 	<% } else {%>
-<span class="<%=style.getPageNavigationSelected()%>">
+<span class="ox-page-navigation-selected">
 	<img 
-		src='<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=style.getPageNavigationSelectedImage()%>' 
+		src='<%=request.getContextPath()%>/xava/images/page_navigation_selected.gif' 
 		border=0 align="absmiddle"/>
 </span>	
 	<% } %>
 <% } else { 
-		if (style.isShowPageNumber()) { 
+		if (true) {
 %>
-<xava:link action='List.goPage' argv='<%="page=" + i + collectionArgv%>' cssClass="<%=style.getPageNavigation()%>"><%=i%></xava:link>
+<xava:link action='List.goPage' argv='<%="page=" + i + collectionArgv%>' cssClass="ox-page-navigation"><%=i%></xava:link>
 <% 
 		} else {
 %>
-<span class="<%=style.getPageNavigation()%>">
+<span class="ox-page-navigation">
 	<img 
-		src='<%=request.getContextPath()%>/<%=style.getImagesFolder()%>/<%=style.getPageNavigationImage()%>' 
+		src='<%=request.getContextPath()%>/xava/images/page_navigation.gif' 
 		border=0 align="absmiddle"/>
 </span>
 <%				
@@ -713,8 +712,8 @@ if (i == current) {
 <%
 if (!tab.isLastPage()) {
 %>
-<span class='<%=style.getLast()%>'>
-<span class='<%=style.getPageNavigationArrow()%>' <%=style.getNextPageNavigationEvents(Ids.decorate(request, id)) %>>
+<span class='ox-last'>
+<span class='ox-page-navigation-arrow' >
 <xava:image action='List.goNextPage' argv='<%=collectionArgv%>'/>
 </span>
 </span>
@@ -722,17 +721,17 @@ if (!tab.isLastPage()) {
 } 
 else {
 %>
-<span class='<%=style.getLast()%>'>
-<span class='<%=style.getPageNavigationArrowDisable()%>'>
+<span class='ox-last'>
+<span class='ox-page-navigation-arrow-disable'>
 <i class="mdi mdi-menu-right"></i>
 </span>
 </span>
 <%	
 } 
 %>
-<% if (style.isChangingPageRowCountAllowed()) { %>
+<% { %>
 &nbsp;
-<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class="<%=style.getEditor()%> xava_set_page_row_count"
+<select id="<xava:id name='<%=id + "_rowCount"%>'/>" class="editor xava_set_page_row_count"
 	data-collection='<%=collection==null?"":collection%>'>
 	<% 
 	int [] rowCounts = { 5, 10, 12, 15, 20, 50 }; // The peformance with more than 50 rows is poor for page reloading
@@ -744,16 +743,16 @@ else {
 	}
 	%>
 </select>
-<span class="<%=style.getRowsPerPage()%>">	 
+<span class="rows-per-page">	 
 <xava:message key="rows_per_page"/>
 </span>
-<% } // of if (style.isChangingPageRowCountAllowed()) %>
+<% } // of if true %>
 </td>
 <td class='ox-list-info-detail'>
-<% if (XavaPreferences.getInstance().isShowCountInList() && !style.isShowRowCountOnTop() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
+<% if (XavaPreferences.getInstance().isShowCountInList() && true && !grouping && totalSize < Integer.MAX_VALUE) { %> 
 <xava:message key="list_count" intParam="<%=totalSize%>"/>
 <% } %>
-<% if (collection == null && style.isHideRowsAllowed() && !grouping && totalSize < Integer.MAX_VALUE) { %> 
+<% if (collection == null && !grouping && totalSize < Integer.MAX_VALUE) { %> 
 (<xava:link action="List.hideRows" argv="<%=collectionArgv%>"/>)
 <% } %>
 </td>

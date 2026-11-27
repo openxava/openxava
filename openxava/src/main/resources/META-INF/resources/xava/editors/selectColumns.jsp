@@ -8,7 +8,6 @@
 <%@ page import="org.openxava.web.Ids"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String tabObject = request.getParameter("tabObject");
@@ -19,7 +18,7 @@ searchWord = searchWord == null?"":searchWord.toLowerCase();
 boolean originalColumnsToAddUntilSecondLevel = tab.isColumnsToAddUntilSecondLevel();
 if (!Is.emptyString(searchWord)) tab.setColumnsToAddUntilSecondLevel(false);
 %>
-<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list ox-select-columns-list' width="100%" <%=style.getListCellSpacing()%>>
+<table id="<xava:id name='xavaPropertiesList'/>" class='ox-list ox-select-columns-list' width="100%" >
 <tr class="ox-list-pair"/> 
 <%
 int f=0;
@@ -29,7 +28,7 @@ for (Iterator it=tab.getColumnsToAdd().iterator(); it.hasNext();) {
 	String property = (String) it.next();
 	String cssClass=c%2==0?"ox-list-pair":"ox-list-odd";	
 	String cssCellClass=c%2==0?"ox-list-pair":"ox-list-odd";
-	String events=c%2==0?style.getListPairEvents():style.getListOddEvents();	
+	String events="";	
 	String rowId = Ids.decorate(request, "xavaPropertiesList") + f;
 	f++;
 	String propertyI18n = Labels.getQualified(property, currentLocale);
@@ -67,7 +66,7 @@ if (tab.isColumnsToAddUntilSecondLevel()) {
 <td/>
 <td/>
 <td>
-<xava:link action="AddColumns.showMoreColumns" cssClass="<%=style.getActionLink()%>"/> 
+<xava:link action="AddColumns.showMoreColumns" cssClass="ox-action-link"/> 
 </td>
 </tr>
 <%

@@ -23,7 +23,6 @@
 <%@page import="org.openxava.controller.ModuleManager"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <jsp:useBean id="treeParser" class="org.openxava.web.editors.TreeViewParser" scope="session" />
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 
@@ -52,7 +51,7 @@ String xavaId = Ids.decorate(request, "xava_selected");
 tab.reset();
 context.put(request, tabObject, tab);
 context.put(request, org.openxava.web.editors.TreeViewParser.XAVA_TREE_VIEW_PARSER, treeParser);
-treeParser.createMetaTreeView(tab, viewObject, collectionName, style, errors);
+treeParser.createMetaTreeView(tab, viewObject, collectionName, errors);
 String indexList = treeParser.parse(tab.getModelName());
 String module = request.getParameter("module");
 String tableId = Ids.decorate(request.getParameter("application"), module, collectionName);

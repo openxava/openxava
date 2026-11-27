@@ -22,7 +22,6 @@
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 ModuleManager manager = (ModuleManager) context.get(request, "manager", "org.openxava.controller.ModuleManager");
@@ -36,7 +35,7 @@ String propertyPrefixAccumulated = request.getParameter("propertyPrefix");
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + ".";
 manager.registerAction("ElementCollection.refreshTotals");
 
-boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
+boolean resizeColumns = XavaPreferences.getInstance().isResizeColumns();
 String collectionClass = "ox-element-collection";
 boolean sortable = subview.isCollectionSortable();
 String removeSelectedAction = subview.getRemoveSelectedCollectionElementsAction();
@@ -56,7 +55,7 @@ for (MetaProperty metaProperty : keyPropertiesList) {
 <% if (resizeColumns) { %> 
 <div class="<xava:id name='collection_scroll'/>">
 <% } %>
-<table id="<xava:id name='<%=idCollection%>'/>" class="ox-list" <%=style.getListCellSpacing()%>>
+<table id="<xava:id name='<%=idCollection%>'/>" class="ox-list" >
 <% if (sortable) { %><tbody class="xava_sortable_elements"><% } %> 
 <tr class="ox-list-header">
 	<% if (subview.isCollectionEditable()) { %>
@@ -134,7 +133,7 @@ for (int f=0; f < rowCount; f++) {
 	String cssClass=f%2==0?"ox-list-pair":"ox-list-odd";
 	String cssCellClass=f%2==0?"ox-list-pair":"ox-list-odd";
 	String idRow = Ids.decorate(request, propertyPrefix) + f;	
-	String events=f%2==0?style.getListPairEvents():style.getListOddEvents();
+	String events="";
 	String newRowStyle = subview.isCollectionEditable() && f == rowCount - 1?"ox-display-none":"";
 	String lastRowClass = subview.isCollectionEditable() && f >= rowCount - 2?"xava_onchange_last_row":"";  
 	String actionsStyle = subview.isCollectionEditable() && f >= rowCount - 2?"class='ox-visibility-hidden'":"";
@@ -159,8 +158,8 @@ for (int f=0; f < rowCount; f++) {
 			border='0' align='absmiddle'/>
 	 </a>
 	<%} else { %>
-	 <a title='<xava:message key="remove_row"/>' class='<%=style.getActionImage()%>'>
-	 	<% if (style.isUseIconsInsteadOfImages()) { %>
+	 <a title='<xava:message key="remove_row"/>' class='ox-image-link'>
+	 	<% if (XavaPreferences.getInstance().isUseIconsInsteadOfImages()) { %>
 		<i class="ox-element-collection-remove-action mdi mdi-delete" data-row="<%=f%>" data-has-totals="<%=hasTotals%>"></i>
 		<% } else { %>
 		<img class="ox-element-collection-remove-action" 		 
@@ -201,7 +200,7 @@ for (int f=0; f < rowCount; f++) {
 %>
 	<td class="<%=cssCellClass%> <%=align%> ox-list-data-cell <%=cellEditable?"ox-editable-cell":"ox-readonly-cell"%>" <%=isHiddenKey ? "hidden" : ""%>>
 		<% if (labelOnEachCell) { %>
-			<span class="<%=style.getLabel()%>"><%=p.getQualifiedLabel(request)%></span>
+			<span class="ox-label"><%=p.getQualifiedLabel(request)%></span>
 		<% } %>
 		<div class="<xava:id name='<%=idCollection%>'/>_col<%=columnIndex%> <%=lastRowClass%>" <%=width%>
 			data-row="<%=f%>">

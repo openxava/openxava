@@ -7,7 +7,6 @@
 <%@page import="org.openxava.util.XavaResources"%> 
 
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String comparator = request.getParameter("comparator");
@@ -48,7 +47,7 @@ else {
 	name = propertyKey;
 }
 %>
-<select id="<%=name%>" name="<%=name%>" class=<%=style.getEditor()%>
+<select id="<%=name%>" name="<%=name%>" class=editor
 	data-from="<%=XavaResources.getString("from")%>" 
 	data-in-values="<%=XavaResources.getString("in_values")%>"
 	data-collection-argv="<%=collectionArgv%>">

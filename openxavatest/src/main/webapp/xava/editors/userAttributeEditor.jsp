@@ -9,8 +9,6 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
-
 <%
 String propertyKey = request.getParameter("propertyKey");
 MetaProperty p = (MetaProperty) request.getAttribute(propertyKey);
@@ -35,7 +33,7 @@ String numericClass = "";
 if (editable || !label) {
 %>
 <input id="<%=propertyKey%>"
-    name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%>"
+    name="<%=propertyKey%>" class="editor <%=numericClass%>"
     tabindex="1" 
 	type="text" 
 	title="<%=p.getDescription(request)%>"

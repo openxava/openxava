@@ -8,7 +8,6 @@ import org.openxava.controller.*;
 import org.openxava.controller.meta.*;
 import org.openxava.util.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders a subcontroller button with its dropdown actions.
@@ -20,7 +19,6 @@ public class SubButtonRenderer {
 
 	public static String render(ViewRenderContext ctx) {
 		ModuleManager manager = ctx.getManager();
-		Style style = ctx.getStyle();
 		String controllerName = ctx.getParameter("controller");
 		MetaController metaController = MetaControllers.getMetaController(controllerName);
 
@@ -47,10 +45,10 @@ public class SubButtonRenderer {
 		w.append(" data-id='").append(id).append("' data-container='").append(containerId).append("' data-button='").append(buttonId).append("'");
 		w.append(" data-image='").append(imageId).append("' data-a='").append(aId).append("' data-span='").append(spanId).append("'>");
 		w.append("<nobr> ");
-		if (!Is.emptyString(icon) && (style.isUseIconsInsteadOfImages() || Is.emptyString(image))) {
+		if (!Is.emptyString(icon) && (XavaPreferences.getInstance().isUseIconsInsteadOfImages() || Is.emptyString(image))) {
 			w.append("<i class=\"mdi mdi-").append(icon).append("\"></i>");
 		} else {
-			w.append("<img src=\"").append(ctx.getContextPath()).append("/").append(style.getImagesFolder()).append("/").append(image).append("\"/>");
+			w.append("<img src=\"").append(ctx.getContextPath()).append("/xava/images/").append(image).append("\"/>");
 		}
 		w.append(" ").append(Labels.get(controllerName));
 		w.append(" <i id='").append(imageId).append("' class=\"mdi mdi-menu-down\"></i>&nbsp;");

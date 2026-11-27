@@ -3,9 +3,8 @@
 <%@page import="org.openxava.session.Chart"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
-<div class="<%=style.getChartType()%>">
+<div class="ox-chart-type">
 <%
 String chartObject = request.getParameter("chartObject");
 chartObject = (chartObject == null || chartObject.equals(""))?"xava_chart":chartObject;

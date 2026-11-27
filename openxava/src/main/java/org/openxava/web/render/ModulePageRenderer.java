@@ -30,8 +30,7 @@ public class ModulePageRenderer {
 	public static String render(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Servlets.setCharacterEncoding(request, response);
 
-		Style style = Style.getInstance(request);
-		request.setAttribute("style", style);
+		request.setAttribute("style", Style.getInstance(request));
 
 		Messages errors = new Messages();
 		request.setAttribute("errors", errors);
@@ -82,13 +81,6 @@ public class ModulePageRenderer {
 			w.append("<!DOCTYPE html>\n\n<head>\n");
 			w.append("\t<title>").append(managerHome.getModuleDescription()).append("</title>\n");
 			w.append("\t<link rel=\"icon\" href=\"").append(contextPath).append("/xava/images/favicon.ico\">\n");
-			w.append("\t").append(style.getMetaTags()).append("\n");
-		}
-
-		if (style.getCssFile() != null) {
-			w.append("\t<link href=\"").append(contextPath).append("/xava/style/")
-				.append(style.getCssFile()).append("?ox=").append(version)
-				.append("\" rel=\"stylesheet\" type=\"text/css\">\n");
 		}
 		w.append("\t<link rel=\"stylesheet\" type=\"text/css\" media=\"all\" href=\"")
 			.append(contextPath).append("/xava/style/custom.css?ox=").append(version).append("\"/>\n");
@@ -179,13 +171,11 @@ public class ModulePageRenderer {
 			w.append("\t\t<div>").append(XavaResources.getString(request, "processing")).append("</div>\n");
 			w.append("\t\t<i class=\"mdi mdi-cog spin\"></i>\n");
 			w.append("\t</div>\n");
-			w.append(style.getCoreStartDecoration());
 			w.append("\t<div id=\"").append(Ids.decorate(request, "core")).append("\" class=\"ox-module\">\n");
 			if (!coreViaHotwire) {
 				w.append(CoreRenderer.render(new ViewRenderContext(request, response)));
 			}
 			w.append("\t</div>\n");
-			w.append(style.getCoreEndDecoration());
 		}
 
 		if (Themes.isChooserEnabled(request)) {
@@ -211,7 +201,7 @@ public class ModulePageRenderer {
 		else {
 			w.append("\n<span id='").append(Ids.decorate(request, "postjs")).append("'>\n</span>\n\n");
 
-			w.append(renderInitScript(request, manager, style, app, module, browser, browserIsHtmlUnit, coreViaHotwire));
+			w.append(renderInitScript(request, manager, app, module, browser, browserIsHtmlUnit, coreViaHotwire));
 		}
 
 		try {
@@ -226,7 +216,7 @@ public class ModulePageRenderer {
 	}
 
 	private static String renderInitScript(HttpServletRequest request, ModuleManager manager,
-			Style style, String app, String module, String browser, boolean browserIsHtmlUnit,
+			String app, String module, String browser, boolean browserIsHtmlUnit,
 			boolean coreViaHotwire) {
 		HtmlWriter w = new HtmlWriter();
 		String nonce = Nonces.get(request);
@@ -248,20 +238,20 @@ public class ModulePageRenderer {
 		w.append("\t\topenxava.confirmLoseChangesMessage = '").append(XavaResources.getString(request, "confirm_lose_changes")).append("';\n");
 		w.append("\t\topenxava.confirmRemoveFileMessage = '").append(XavaResources.getString(request, "confirm_remove_file")).append("';\n");
 		w.append("\t\topenxava.postErrorMessage = '").append(XavaResources.getString(request, "action_not_completed")).append("';\n");
-		w.append("\t\topenxava.selectedRowClass = '").append(style.getSelectedRow()).append("';\n");
-		w.append("\t\topenxava.currentRowClass = '").append(style.getCurrentRow()).append("';\n");
-		w.append("\t\topenxava.currentRowCellClass = '").append(style.getCurrentRowCell()).append("';\n");
-		w.append("\t\topenxava.selectedListFormatClass = '").append(style.getSelectedListFormat()).append("'; \n");
-		w.append("\t\topenxava.customizeControlsClass = '").append(style.getCustomizeControls()).append("';\n");
-		w.append("\t\topenxava.errorEditorClass = '").append(style.getErrorEditor()).append("';\n");
-		w.append("\t\topenxava.editorClass = '").append(style.getEditor()).append("'; \n");
-		w.append("\t\topenxava.listAdjustment = ").append(String.valueOf(style.getListAdjustment())).append(";\n");
-		w.append("\t\topenxava.collectionAdjustment = ").append(String.valueOf(style.getCollectionAdjustment())).append(";\n");
+		w.append("\t\topenxava.selectedRowClass = 'selected-row';\n");
+		w.append("\t\topenxava.currentRowClass = 'current-row';\n");
+		w.append("\t\topenxava.currentRowCellClass = '';\n");
+		w.append("\t\topenxava.selectedListFormatClass = 'ox-selected-list-format'; \n");
+		w.append("\t\topenxava.customizeControlsClass = 'ox-customize-controls';\n");
+		w.append("\t\topenxava.errorEditorClass = 'ox-error-editor';\n");
+		w.append("\t\topenxava.editorClass = 'editor'; \n");
+		w.append("\t\topenxava.listAdjustment = 17;\n");
+		w.append("\t\topenxava.collectionAdjustment = -40;\n");
 		w.append("\t\topenxava.closeDialogOnEscape = ")
 			.append(browser != null && browser.indexOf("Firefox") >= 0 ? "false" : "true").append("; \n");
 		w.append("\t\topenxava.calendarAlign = '")
 			.append(browser != null && browser.indexOf("MSIE 6") >= 0 ? "tr" : "Br").append("';\n");
-		w.append("\t\topenxava.subcontrollerSelectedClass = '").append(style.getSubcontrollerSelected()).append("';\n");
+		w.append("\t\topenxava.subcontrollerSelectedClass = 'ox-subcontroller-select';\n");
 		w.append("\t\topenxava.mapsTileProvider = '").append(XavaPreferences.getInstance().getMapsTileProvider()).append("';\n");
 		w.append("\t\topenxava.mapsAttribution = \"")
 			.append(XavaPreferences.getInstance().getMapsAttribution().replace("\"", "'")).append("\";\n");
@@ -272,7 +262,7 @@ public class ModulePageRenderer {
 		java.text.DecimalFormatSymbols symbols = java.text.DecimalFormatSymbols.getInstance(Locales.getCurrent());
 		w.append("\t\topenxava.decimalSeparator = \"").append(symbols.getDecimalSeparator()).append("\";\n");
 		w.append("\t\topenxava.groupingSeparator = \"").append(symbols.getGroupingSeparator()).append("\";\n");
-		w.append("\t\topenxava.setHtml = ").append(style.getSetHtmlFunction()).append(";\n");
+		w.append("\t\topenxava.setHtml = function (id, content) { $('#' + id).html(content); };;\n");
 
 		if (XavaPreferences.getInstance().isEnterMovesToNextField()) {
 			w.append("\t\topenxava.initFocusKey = openxava.setEnterAsFocusKey;\n");
@@ -280,11 +270,6 @@ public class ModulePageRenderer {
 		if (browserIsHtmlUnit) {
 			w.append("\t\topenxava.fadeIn = openxava.show;\n");
 			w.append("\t\topenxava.browser.htmlUnit = true; \n");
-		}
-
-		String initThemeScript = style.getInitThemeScript();
-		if (initThemeScript != null) {
-			w.append("\t\topenxava.initTheme = function () { ").append(initThemeScript).append(" }; \n");
 		}
 
 		if (coreViaHotwire) {

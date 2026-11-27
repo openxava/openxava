@@ -8,7 +8,6 @@ import org.openxava.util.*;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders the detail view by iterating meta members and dispatching to
@@ -31,7 +30,6 @@ public class DetailViewRenderer {
 
 		boolean onlySections = view.hasSections() && view.getMetaMembers().isEmpty();
 
-		Style style = ctx.getStyle();
 		HtmlWriter w = new HtmlWriter();
 
 		if (!onlySections) {
@@ -66,19 +64,19 @@ public class DetailViewRenderer {
 							String label = view.getLabelFor(p);
 
 							w.append(FrameLayout.closeDivForFrame(view));
-							w.append(style.getFrameHeaderStartDecoration(frameWidth));
-							w.append(style.getFrameTitleStartDecoration());
+							w.append(frameHeaderStartDecoration(frameWidth, false));
+							w.append(FRAME_TITLE_START);
 							w.append("<span id='").append(labelKey).append("'>").append(label).append("</span>");
-							w.append(style.getFrameTitleEndDecoration());
-							w.append(style.getFrameActionsStartDecoration());
+							w.append(FRAME_TITLE_END);
+							w.append(FRAME_ACTIONS_START);
 
 							String frameId = Ids.decorate(ctx.getRequest(), "frame_" + view.getPropertyPrefix() + p.getName());
 							w.append(renderFrameActions(ctx, frameId, view.isFrameClosed(frameId)));
 
-							w.append(style.getFrameActionsEndDecoration());
+							w.append(FRAME_ACTIONS_END);
 							w.append(JspFragment.render(ctx, "propertyActionsExt.jsp"));
-							w.append(style.getFrameHeaderEndDecoration());
-							w.append(style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
+							w.append(FRAME_HEADER_END);
+							w.append(frameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
 						} else if (hasFrame) {
 							w.append(FrameLayout.closeDivForFrame(view));
 							w.append("<div class='ox-layout-hide-frame-in-section'>");
@@ -88,7 +86,7 @@ public class DetailViewRenderer {
 						w.append(PropertyEditorRenderer.render(ctx, view, p, propertyKey, first, hasFrame));
 
 						if (withFrame) {
-							w.append(style.getFrameContentEndDecoration());
+							w.append(FRAME_CONTENT_END);
 							w.append(FrameLayout.openDivForFrame(view));
 						} else if (hasFrame) {
 							w.append("</div>");
@@ -138,8 +136,8 @@ public class DetailViewRenderer {
 							String label = view.getLabelFor(ref);
 
 							w.append(FrameLayout.closeDivForFrame(view));
-							w.append(style.getFrameHeaderStartDecoration(frameWidth));
-							w.append(style.getFrameTitleStartDecoration());
+							w.append(frameHeaderStartDecoration(frameWidth, false));
+							w.append(FRAME_TITLE_START);
 							w.append("<span id='").append(labelKey).append("'>").append(label).append("</span>");
 
 							if (!ref.isAggregate()) {
@@ -150,16 +148,16 @@ public class DetailViewRenderer {
 								w.append(ReferenceFrameHeaderRenderer.render(refHeaderCtx));
 							}
 
-							w.append(style.getFrameTitleEndDecoration());
-							w.append(style.getFrameActionsStartDecoration());
+							w.append(FRAME_TITLE_END);
+							w.append(FRAME_ACTIONS_START);
 
 							String frameId = Ids.decorate(ctx.getRequest(), "frame_" + view.getPropertyPrefix() + ref.getName());
 							w.append(renderFrameActions(ctx, frameId, view.isFrameClosed(frameId)));
 
-							w.append(style.getFrameActionsEndDecoration());
+							w.append(FRAME_ACTIONS_END);
 							w.append(JspFragment.render(ctx, "referenceFrameHeaderExt.jsp"));
-							w.append(style.getFrameHeaderEndDecoration());
-							w.append(style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
+							w.append(FRAME_HEADER_END);
+							w.append(frameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
 						}
 
 						String urlReferenceEditor;
@@ -181,7 +179,7 @@ public class DetailViewRenderer {
 						w.append(Parts.render(ctx.getRequest(), ctx.getResponse(), urlReferenceEditor));
 
 						if (withFrame) {
-							w.append(style.getFrameContentEndDecoration());
+							w.append(FRAME_CONTENT_END);
 							w.append(FrameLayout.openDivForFrame(view));
 						}
 					}
@@ -195,8 +193,8 @@ public class DetailViewRenderer {
 					w.append(FrameLayout.closeDivForFrame(view));
 
 					if (withFrame) {
-						w.append(style.getCollectionFrameHeaderStartDecoration(variousCollectionInLine ? 50 : frameWidth));
-						w.append(style.getFrameTitleStartDecoration());
+						w.append(frameHeaderStartDecoration(variousCollectionInLine ? 50 : frameWidth, true));
+						w.append(FRAME_TITLE_START);
 						w.append(collection.getLabel(ctx.getRequest()));
 
 						String frameId = Ids.decorate(ctx.getRequest(), "frame_" + view.getPropertyPrefix() + collection.getName());
@@ -210,13 +208,13 @@ public class DetailViewRenderer {
 						w.append(CollectionFrameHeaderRenderer.render(colHeaderCtx));
 						w.append("</span>");
 
-						w.append(style.getFrameTitleEndDecoration());
-						w.append(style.getFrameActionsStartDecoration());
+						w.append(FRAME_TITLE_END);
+						w.append(FRAME_ACTIONS_START);
 						w.append(renderFrameActions(ctx, frameId, view.isFrameClosed(frameId)));
-						w.append(style.getFrameActionsEndDecoration());
+						w.append(FRAME_ACTIONS_END);
 						w.append(JspFragment.render(ctx, "collectionFrameHeaderExt.jsp"));
-						w.append(style.getFrameHeaderEndDecoration());
-						w.append(style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
+						w.append(FRAME_HEADER_END);
+						w.append(frameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
 					}
 
 					String collectionPrefix = propertyPrefix == null
@@ -236,7 +234,7 @@ public class DetailViewRenderer {
 					w.append("</div>");
 
 					if (withFrame) {
-						w.append(style.getFrameContentEndDecoration());
+						w.append(FRAME_CONTENT_END);
 					}
 
 					w.append(FrameLayout.openDivForFrame(view));
@@ -254,22 +252,22 @@ public class DetailViewRenderer {
 						w.append("<div class='ox-flow-layout-new-line'/>");
 					}
 
-					w.append(style.getFrameHeaderStartDecoration(frameWidth));
-					w.append(style.getFrameTitleStartDecoration());
+					w.append(frameHeaderStartDecoration(frameWidth, false));
+					w.append(FRAME_TITLE_START);
 
 					String labelId = Ids.decorate(ctx.getRequest(), "label_" + view.getPropertyPrefix() + group.getName());
 					String labelGroup = Is.emptyString(subview.getTitle()) ? group.getLabel(ctx.getRequest()) : subview.getTitle();
 					w.append("<span id='").append(labelId).append("'>").append(labelGroup).append("</span>");
 
-					w.append(style.getFrameTitleEndDecoration());
-					w.append(style.getFrameActionsStartDecoration());
+					w.append(FRAME_TITLE_END);
+					w.append(FRAME_ACTIONS_START);
 
 					String frameId = Ids.decorate(ctx.getRequest(), "frame_group_" + view.getPropertyPrefix() + group.getName());
 					w.append(renderFrameActions(ctx, frameId, view.isFrameClosed(frameId)));
 
-					w.append(style.getFrameActionsEndDecoration());
-					w.append(style.getFrameHeaderEndDecoration());
-					w.append(style.getFrameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
+					w.append(FRAME_ACTIONS_END);
+					w.append(FRAME_HEADER_END);
+					w.append(frameContentStartDecoration(frameId + "content", view.isFrameClosed(frameId)));
 
 					if (view.isFlowLayout()) {
 						w.append("<div class='ox-flow-layout'>");
@@ -284,7 +282,7 @@ public class DetailViewRenderer {
 						w.append("</div>");
 					}
 
-					w.append(style.getFrameContentEndDecoration());
+					w.append(FRAME_CONTENT_END);
 					w.append(FrameLayout.openDivForFrame(view));
 				}
 			}
@@ -293,7 +291,7 @@ public class DetailViewRenderer {
 		}
 
 		if (view.hasSections()) {
-			w.append("<div id='").append(ctx.decorateId("sections_" + viewObject)).append("' class='").append(style.getSections()).append("'>");
+			w.append("<div id='").append(ctx.decorateId("sections_" + viewObject)).append("' class='ox-sections'>");
 			w.append(SectionsRenderer.render(ctx));
 			w.append("</div>");
 		}
@@ -307,6 +305,35 @@ public class DetailViewRenderer {
 			"closed", String.valueOf(closed)
 		));
 		return FrameActionsRenderer.render(faCtx);
+	}
+
+	private static final String FRAME_TITLE_START = "<span class='ox-frame-title-label'>\n";
+	private static final String FRAME_TITLE_END = "</span>";
+	private static final String FRAME_ACTIONS_START = "<span class='ox-frame-actions'>";
+	private static final String FRAME_ACTIONS_END = "</span>";
+	private static final String FRAME_HEADER_END = "</div>";
+	private static final String FRAME_CONTENT_END = "\n</div></div></div>";
+
+	private static String frameHeaderStartDecoration(int width, boolean collection) {
+		StringBuffer r = new StringBuffer();
+		r.append("<div  class='ox-frame");
+		if (collection) r.append(" ox-collection");
+		if (width == 100) r.append(" ox-full-frame");
+		else if (width == 50) r.append(" ox-half-frame");
+		r.append("'>");
+		r.append("<div class='ox-frame-title'>");
+		r.append("\n");
+		return r.toString();
+	}
+
+	private static String frameContentStartDecoration(String id, boolean closed) {
+		StringBuffer r = new StringBuffer();
+		r.append("<div id='");
+		r.append(id);
+		r.append("' ");
+		if (closed) r.append("class='ox-display-none'");
+		r.append("><div class='ox-frame-content'>\n");
+		return r.toString();
 	}
 
 }

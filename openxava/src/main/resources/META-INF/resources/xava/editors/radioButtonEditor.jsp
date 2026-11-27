@@ -1,4 +1,3 @@
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/> 
  
 <%@ include file="validValueEditorCommon.jsp"%>
 
@@ -11,7 +10,7 @@ if (label && !editable) {
 } 
 else { 
 %>  
-<div class="<%=style.getRadioButtons()%>">
+<div class="ox-radio-buttons">
 <% 
 java.util.Iterator it = p.validValuesLabels(request); 
 for (int i = baseIndex; it.hasNext(); i++) { 

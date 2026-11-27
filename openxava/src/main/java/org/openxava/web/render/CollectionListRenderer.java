@@ -5,7 +5,6 @@ import java.util.*;
 import org.openxava.tab.*;
 import org.openxava.view.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Prepares a collection tab (styles, context) and renders the list.
@@ -32,10 +31,9 @@ public class CollectionListRenderer {
 		tab.clearStyle();
 		int selectedRow = subview.getCollectionEditingRow();
 		if (selectedRow >= 0) {
-			Style style = ctx.getStyle();
 			String cssClass = selectedRow % 2 == 0
-				? style.getListPairSelected()
-				: style.getListOddSelected();
+				? "list-pair-selected"
+				: "list-odd-selected";
 			tab.setStyle(selectedRow, cssClass);
 		}
 		ctx.getModuleContext().put(ctx.getRequest(), tabObject, tab);

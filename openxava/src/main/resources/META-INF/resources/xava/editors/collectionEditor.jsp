@@ -2,7 +2,6 @@
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Collection" %>
@@ -45,13 +44,13 @@ else {
 }
 String propertyPrefix = propertyPrefixAccumulated == null?collectionName + ".":propertyPrefixAccumulated + collectionName + "."; 
 %>
-<table width="100%" <%=style.getListCellSpacing()%>>
+<table width="100%" >
 <%
 	// New
 if (view.displayDetailInCollection(collectionName)) {
 	context.put(request, viewName, collectionView);
 %>
-<tr class=<%=style.getCollectionListActions()%>><td colspan="<%=subview.getMetaPropertiesList().size()+1%>" class=<%=style.getCollectionListActions()%>>
+<tr class=ox-collection-list-actions><td colspan="<%=subview.getMetaPropertiesList().size()+1%>" class=ox-collection-list-actions>
 <%
 	if (collectionEditable) {
 %>

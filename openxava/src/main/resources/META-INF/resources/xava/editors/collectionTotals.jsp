@@ -7,7 +7,6 @@
 <%@page import="java.util.List"%>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <jsp:useBean id="errors" class="org.openxava.util.Messages" scope="request"/>
 
 
@@ -23,7 +22,7 @@ String collectionArgv=",collection="+collectionName;
 
 boolean elementCollection = subview.isRepresentsElementCollection(); 
 int additionalTotalsCount = subview.getCollectionTotalsCount();
-boolean resizeColumns = style.allowsResizeColumns() && XavaPreferences.getInstance().isResizeColumns();
+boolean resizeColumns = XavaPreferences.getInstance().isResizeColumns();
 
 List<MetaProperty> keyPropertiesList = subview.getKeyPropertiesOfReferencesEntity();
 int mpListSize = 0;
@@ -33,7 +32,7 @@ if (!keyPropertiesList.isEmpty() && elementCollection) {
 
 for (int i=0; i<additionalTotalsCount; i++) {
 %>
-	<tr class="<%=style.getTotalRow()%>">
+	<tr class="ox-total-row">
 	<% if (!(subview.isRepresentsElementCollection() && !subview.isCollectionEditable())) { %>
 		<td/>
 		<% if (!subview.getMetaCollection().isElementCollection()) { %>

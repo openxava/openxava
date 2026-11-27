@@ -1,10 +1,9 @@
 <%@ include file="validValueEditorCommon.jsp"%>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 <%
 if (editable) { 
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor title="<%=p.getDescription(request)%>">
 <% 
 	boolean isInElementCollection = request.getParameter("collectionName") != null;
 	if (isInElementCollection || !required) {
@@ -31,7 +30,7 @@ if (editable) {
 	}
 	else {
 %>
-	<input name = "<%=propertyKey%>_DESCRIPTION_" class=<%=style.getEditor()%>
+	<input name = "<%=propertyKey%>_DESCRIPTION_" class=editor
 	type="text" 
 	title="<%=p.getDescription(request)%>"	
 	maxlength="<%=p.getSize()%>" 	

@@ -17,7 +17,7 @@ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl
 <%@page import="org.openxava.application.meta.MetaApplications"%>
 <%@page import="org.openxava.application.meta.MetaApplication"%>
 <%@page import="org.openxava.util.Locales"%>
-<%@page import="org.openxava.web.style.XavaStyle"%>
+<%@page import="org.openxava.web.Browsers"%>
 <%@page import="org.openxava.util.XavaPreferences"%>
 <%@page import="org.openxava.web.Browsers"%> 
 
@@ -46,7 +46,8 @@ if (title == null) title = metaApplication.getLabel();
 	<link href="<%=request.getContextPath()%>/xava/style/<%=XavaPreferences.getInstance().getStyleCSS()%>?ox=<%=oxVersion%>" rel="stylesheet" type="text/css">
 </head>
 
-<body id="welcome" <%=XavaStyle.getBodyClass(request)%>>
+<% String bodyClass = Browsers.getBodyCSSClass(request); %>
+<body id="welcome" <%=bodyClass.isEmpty()?"":"class='" + bodyClass + "'"%>>
 
 <div class="ox-welcome-card">
 	<h1><%=metaApplication.getLabel()%></h1>

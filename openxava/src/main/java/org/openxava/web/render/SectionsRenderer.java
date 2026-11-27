@@ -5,7 +5,6 @@ import java.util.*;
 import org.openxava.view.*;
 import org.openxava.view.meta.*;
 import org.openxava.web.*;
-import org.openxava.web.style.*;
 
 /**
  * Renders section tabs and the active section content.
@@ -22,7 +21,6 @@ public class SectionsRenderer {
 		// On Hotwire section changes only SectionsRenderer runs, so the field may still be null
 		// and section content would fall back to the root view → infinite sections/detail recursion.
 		view.setViewObject(viewObject);
-		Style style = ctx.getStyle();
 		List<MetaView> sections = view.getSections();
 		int activeSection = view.getActiveSection();
 		if (sections == null || sections.isEmpty()) return "";
@@ -33,10 +31,10 @@ public class SectionsRenderer {
 		w.append("<table width='100%' cellspacing='0' border='0' cellpadding='0'>");
 		w.append("<tr><td>");
 
-		w.append("<div class='").append(style.getSection()).append("'>");
-		w.append("<table ").append(style.getSectionTableAttributes()).append(">");
+		w.append("<div class='ox-section'>");
+		w.append("<table border='0' cellpadding='0' cellspacing='0'>");
 		w.append("<tr>");
-		w.append(style.getSectionBarStartDecoration());
+		w.append("<td>");
 
 		Iterator<MetaView> itSections = sections.iterator();
 		int i = 0;
@@ -48,32 +46,32 @@ public class SectionsRenderer {
 			String labelId = Ids.decorate(ctx.getRequest(), "label_" + sectionView.getViewObject() + "_sectionName");
 
 			if (activeSection == i) {
-				w.append(style.getActiveSectionTabStartDecoration(i == 0, !itSections.hasNext()));
+				w.append(sectionTabStartDecoration(i == 0, !itSections.hasNext(), true));
 					w.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span> ");
 				w.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("' class='ox-section-count'>").append(collectionCountLabel).append("</span> ");
-				w.append(style.getActiveSectionTabEndDecoration());
+				w.append(SECTION_TAB_END);
 				w.append(" ");
 			} else {
-				w.append(style.getSectionTabStartDecoration(i == 0, !itSections.hasNext()));
+				w.append(sectionTabStartDecoration(i == 0, !itSections.hasNext(), false));
 				String viewObjectArgv = "xava_view".equals(viewObject) ? "" : ",viewObject=" + viewObject;
 				StringBuilder linkBody = new StringBuilder();
 				linkBody.append("<span id='").append(labelId).append("'>").append(sectionName).append("</span> ");
 				linkBody.append("<span id='").append(ctx.decorateId(sectionView.getViewObject() + "_collectionSize")).append("' class='ox-section-count'>").append(collectionCountLabel).append("</span> ");
 				w.append(ActionHtml.link(ctx, "Sections.change", "activeSection=" + i + viewObjectArgv, "ox-section-link", false, linkBody.toString()));
-				w.append(style.getSectionTabEndDecoration());
+				w.append(SECTION_TAB_END);
 				w.append(" ");
 			}
 			i++;
 		}
 
-		w.append(style.getSectionBarEndDecoration());
+		w.append("</td>");
 		w.append("</tr>");
 		w.append("</table>");
 		w.append("</div>");
 
 		w.append("</td></tr>");
 
-		w.append("<tr><td class='").append(style.getActiveSection()).append(" ").append(view.isFlowLayout() ? "ox-flow-layout" : "").append("'>");
+		w.append("<tr><td class='ox-active-section ").append(view.isFlowLayout() ? "ox-flow-layout" : "").append("'>");
 
 		View sectionView = view.getSectionView(activeSection);
 		String sectionViewObject = sectionView.getViewObject();
@@ -99,6 +97,19 @@ public class SectionsRenderer {
 		w.append("<br>");
 
 		return w.toString();
+	}
+
+	private static final String SECTION_TAB_END = "</span></span>";
+
+	private static String sectionTabStartDecoration(boolean first, boolean last, boolean active) {
+		StringBuffer r = new StringBuffer();
+		r.append("<span class='");
+		if (active) r.append("ox-active ");
+		if (first) r.append("ox-first ");
+		if (last) r.append("ox-last");
+		r.append("'>");
+		r.append("<span class='ox-section-tab'>");
+		return r.toString();
 	}
 
 }

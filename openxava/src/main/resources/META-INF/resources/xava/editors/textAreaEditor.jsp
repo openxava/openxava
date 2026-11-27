@@ -1,7 +1,6 @@
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 <%@ page import="org.openxava.util.Is" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -15,7 +14,7 @@ int rows = p.getSize() / 80 + 1;
 if (rows > 25) rows = 25; 
 boolean rich = Is.equalAsStringIgnoreCase("true", request.getParameter("rich"));
 String cssClass = request.getParameter("cssClass");
-if (cssClass == null) cssClass = style.getEditor();
+if (cssClass == null) cssClass = "editor";
 %>
 
 <textarea id="<%=propertyKey%>" name="<%=propertyKey%>" class="<%=cssClass%>"

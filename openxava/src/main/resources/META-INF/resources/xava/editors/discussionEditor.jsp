@@ -11,7 +11,6 @@
 <%@page import="org.openxava.model.meta.MetaProperty" %>
 <%@page import="org.openxava.web.Ids"%>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <% 
 String contextPath = (String) request.getAttribute("xava.contextPath");

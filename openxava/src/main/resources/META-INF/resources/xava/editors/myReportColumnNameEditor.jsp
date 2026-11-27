@@ -4,7 +4,6 @@
 <%@ page import="org.openxava.actions.OnChangeMyReportColumnNameAction" %>
 
 <jsp:useBean id="context" class="org.openxava.controller.ModuleContext" scope="session"/>
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <% 
 boolean editable="true".equals(request.getParameter("editable"));
@@ -43,7 +42,7 @@ if (!showAllColumns &&
 }
 %>
 
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor title="<%=p.getDescription(request)%>">
 	<option value=""></option>
 	<% 
 	for (java.util.Iterator it = columns.iterator(); it.hasNext(); ) {

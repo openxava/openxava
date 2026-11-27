@@ -2,7 +2,6 @@
 
 <%@ page import="org.openxava.model.meta.MetaProperty" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -19,7 +18,7 @@ boolean label = org.openxava.util.XavaPreferences.getInstance().isReadOnlyAsLabe
 <%
 if (editable) { 
 %>
-<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=<%=style.getEditor()%> title="<%=p.getDescription(request)%>">
+<select id="<%=propertyKey%>" name="<%=propertyKey%>" tabindex="1" class=editor title="<%=p.getDescription(request)%>">
 	<option value=""></option>
 	<option value="true" <%=yesSelected%>><xava:message key="yes"/></option>
 	<option value="false" <%=noSelected%>><xava:message key="no"/></option>
@@ -33,7 +32,7 @@ if (editable) {
 	}
 	else {
 %>
-	<input class=<%=style.getEditor()%>
+	<input class=editor
 	type="text" 		
 	maxlength="3" 	
 	size="3" 

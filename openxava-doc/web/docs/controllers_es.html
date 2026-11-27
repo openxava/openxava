@@ -1593,14 +1593,13 @@ public class AccionMostrarFichero extends ViewBaseAction {
         Un ejemplo de JSP para una vista personalizada puede ser:<br>
 <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
 
-&lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
 
 &lt;table&gt;
-&lt;th align='left' class=&lt;%=style.getLabel()%&gt;&gt;
+&lt;th align='left' class=ox-label&gt;
 &lt;fmt:message key="introducir_nueva_imagen"/&gt;
 &lt;/th&gt;
 &lt;td&gt;
-&lt;input name = "nuevaImagen" class=&lt;%=style.getEditor()%&gt; type="file" size='60'/&gt;
+&lt;input name = "nuevaImagen" class="editor" type="file" size='60'/&gt;
 &lt;/td&gt;
 &lt;/table&gt;</code></pre>
         Como se puede ver, no se especifica el formulario HTML, porque el módulo

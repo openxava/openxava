@@ -9,7 +9,6 @@
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ page import="org.apache.commons.logging.Log" %>
 
-<jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/>
 
 <%
 String propertyKey = request.getParameter("propertyKey");
@@ -65,7 +64,7 @@ if (!im.isEmpty()) {
 if (editable || !label) { 
 %>
 <input id="<%=propertyKey%>"
-    name="<%=propertyKey%>" class="<%=style.getEditor()%> <%=numericClass%> <%=align%>"
+    name="<%=propertyKey%>" class="editor <%=numericClass%> <%=align%>"
 	type="<%=inputType%>" 
 	tabindex="1"
 	title="<%=p.getDescription(request)%>"
