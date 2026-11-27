@@ -1425,14 +1425,13 @@ public class ShowFileAction extends ViewBaseAction {
       An example of a JSP for a custom view is:<br/>
 <pre><code class="language-php">&lt;%@ include file="../imports.jsp"%&gt;
  
-&lt;jsp:useBean id="style" class="org.openxava.web.style.Style" scope="request"/&gt;
  
 &lt;table&gt;
-    &lt;th align='left' class=&lt;%=style.getLabel()%&gt;&gt;
+    &lt;th align='left' class=ox-label&gt;
         &lt;fmt:message key="enter_new_image"/&gt;
     &lt;/th&gt;
     &lt;td&gt;
-        &lt;input name = "newImage" class=&lt;%=style.getEditor()%&gt; type="file" size='60'/&gt;
+        &lt;input name = "newImage" class="editor" type="file" size='60'/&gt;
     &lt;/td&gt;
 &lt;/table&gt;</code></pre>
       As you see, the HTML form is not specified, because the OpenXava module
